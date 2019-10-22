@@ -5,11 +5,11 @@ import java.util.Set;
 import seedu.address.logic.commands.exercise.AddExerciseCommand;
 import seedu.address.logic.commands.exercise.EditExerciseCommand.EditExerciseDescriptor;
 import seedu.address.logic.parser.CliSyntax;
-import seedu.address.model.exercise.components.Exercise;
-import seedu.address.model.exercise.details.Distance;
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.ExerciseWeight;
-import seedu.address.model.exercise.details.Repetitions;
+import seedu.address.model.workout.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.details.Distance;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.ExerciseWeight;
+import seedu.address.model.workout.exercise.details.Repetitions;
 
 /**
  * A utility class for Person.

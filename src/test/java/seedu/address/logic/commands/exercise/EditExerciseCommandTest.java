@@ -21,8 +21,8 @@ import seedu.address.logic.commands.exercise.EditExerciseCommand.EditExerciseDes
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.exercise.WorkoutPlanner;
-import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.components.Exercise;
 import seedu.address.testutil.exercise.EditExerciseDescriptorBuilder;
 import seedu.address.testutil.exercise.ExerciseBuilder;
 

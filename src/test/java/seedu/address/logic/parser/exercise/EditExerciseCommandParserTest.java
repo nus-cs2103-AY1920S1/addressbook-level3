@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exercise.EditExerciseCommand;
 import seedu.address.logic.commands.exercise.EditExerciseCommand.EditExerciseDescriptor;
-import seedu.address.model.exercise.components.ExerciseName;
-import seedu.address.model.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.components.ExerciseName;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
 import seedu.address.testutil.exercise.EditExerciseDescriptorBuilder;
 
 public class EditExerciseCommandParserTest {

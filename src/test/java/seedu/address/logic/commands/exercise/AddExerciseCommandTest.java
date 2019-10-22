@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelStub;
-import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
-import seedu.address.model.exercise.WorkoutPlanner;
-import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.components.Exercise;
 import seedu.address.testutil.exercise.ExerciseBuilder;
 
 public class AddExerciseCommandTest {

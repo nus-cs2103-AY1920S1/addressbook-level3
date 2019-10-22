@@ -10,7 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.components.Exercise;
 
 /**
  * Deletes a person identified using it's displayed index from Duke Cooks.

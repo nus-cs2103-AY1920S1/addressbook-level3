@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.Repetitions;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.Repetitions;
 
 /**
  * Jackson-friendly version of {@link Repetitions}.

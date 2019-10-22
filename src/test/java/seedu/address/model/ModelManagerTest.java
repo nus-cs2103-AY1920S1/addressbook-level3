@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.diary.DiaryRecords;
 import seedu.address.model.diary.components.DiaryNameContainsKeywordsPredicate;
-import seedu.address.model.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
 import seedu.address.model.profile.UserProfile;
 import seedu.address.model.recipe.RecipeBook;
 import seedu.address.model.recipe.components.RecipeNameContainsKeywordsPredicate;

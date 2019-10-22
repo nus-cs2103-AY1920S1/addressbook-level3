@@ -11,16 +11,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exercise.WorkoutPlannerParserUtil;
-import seedu.address.model.exercise.components.Exercise;
-import seedu.address.model.exercise.components.ExerciseName;
-import seedu.address.model.exercise.components.Intensity;
-import seedu.address.model.exercise.components.MuscleType;
-import seedu.address.model.exercise.components.MusclesTrained;
-import seedu.address.model.exercise.details.Distance;
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.ExerciseWeight;
-import seedu.address.model.exercise.details.Repetitions;
-import seedu.address.model.exercise.details.Sets;
+import seedu.address.model.workout.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.components.ExerciseName;
+import seedu.address.model.workout.exercise.components.Intensity;
+import seedu.address.model.workout.exercise.components.MuscleType;
+import seedu.address.model.workout.exercise.components.MusclesTrained;
+import seedu.address.model.workout.exercise.details.Distance;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.ExerciseWeight;
+import seedu.address.model.workout.exercise.details.Repetitions;
+import seedu.address.model.workout.exercise.details.Sets;
 
 /**
  * Jackson-friendly version of {@link Exercise}.

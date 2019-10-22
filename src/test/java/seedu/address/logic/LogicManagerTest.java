@@ -30,7 +30,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.diary.ReadOnlyDiary;
-import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.workout.exercise.ReadOnlyWorkoutPlanner;
 import seedu.address.model.profile.ReadOnlyUserProfile;
 import seedu.address.model.profile.person.Person;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;

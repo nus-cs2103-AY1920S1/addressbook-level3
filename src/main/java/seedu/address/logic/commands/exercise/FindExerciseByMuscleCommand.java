@@ -6,7 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.components.MusclesTrainedContainsKeywordsPredicate;
+import seedu.address.model.workout.exercise.components.MusclesTrainedContainsKeywordsPredicate;
 
 /**
  * Finds and lists all Exercise in Workout Planner whose muscles trained contains any of the argument keywords.
