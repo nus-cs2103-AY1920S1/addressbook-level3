@@ -123,6 +123,7 @@ image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
+// TODO: this needs to be updated
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
@@ -265,7 +266,7 @@ _{Explain here how the data encryption feature will be implemented}_
 // end::dataencryption[]
 
 // tag::sorttransactions[]
-=== Sort Transactions Feature : `sort`
+=== Sort Transactions Feature: `sort`
 
 This feature allows the user to _sort_ their bank account by the _amount_ or _date_ of their transactions by using the command `sort amount` or `sort date` respectively.
 
@@ -282,6 +283,33 @@ Sequence Diagram for `sort amount`
 -To Be Continued-
 
 // end::sorttransactions[]
+
+// tag::split[]
+=== Split Feature: `split`
+
+This feature allows the user to pay for a certain item or make a transaction on behalf of his friends.
+Refer to the <<UserGuide#Features, UserGuide>> for usage details.
+
+==== Current Implementation
+
+The `split` command is an abstraction of `LendMoney` class. +
+Given a list of *shares* and *people*, each person is assigned an *amount* based on the corresponding positional share and
+the total amount given to `split` command. +
+A `LendMoney` instance is created for each person and executed.
+
+// TODO: add PUML figure here
+
+==== Design Considerations
+
+Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
+However, this introduces coupling as the behavior of `Split` is now inexplicably tied to `LendMoney`.
+
+// end::split[]
+
+=== Settle Up Feature: `pay`
+
+This feature allows the user to send money to another person. +
+The balance in the `Ledger` and the balance of the recipient is updated accordingly.
 
 === Logging
 
@@ -305,7 +333,7 @@ The `LogsCenter` class is used to manage the logging levels and logging destinat
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 [[Implementation-Projection]]
-=== Project Balance feature : `project`
+=== Project Balance feature: `project`
 This feature allows users to _project_ their balance status based on past income and outflows
 as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
 

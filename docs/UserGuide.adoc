@@ -54,17 +54,29 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Splitting expense with multiple people: `split`
 
 Split expenses with you friends +
-Format: `split [FLAG] $/AMOUNT n/NAME1 [n/NAME2]...`
+Format: `split [f/FLAG] $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]`
 
 
-* [FLAG] defines how the bill is split
-** `--even` splits the amount evenly.
-** `--shares` splits the amount by ration (default = 0)
+* `[FLAG]` defines how the bill is split:
+** `dutch` user is included in the split (default)
+** `loan` user is not included in the split
+* `[SHARE]` defines portion of bill to be paid by each person
+*** number of rations must match number of names for `loan` splits
+*** number of rations must be 1 more than number of names for `dutch` splits
 
 Examples:
 
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-* `split $/100 --share n/Albert n/Bernard n/Clement`
+* `split $/100 f/loan n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+
+=== Settling up with a friend: `pay`
+
+Send money to 1 friend +
+Format: `pay $/AMOUNT n/NAME1`
+
+Examples:
+
+* `pay $/2.5 n/Albert`
 
 === Logging expense: `out`
 
