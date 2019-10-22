@@ -102,6 +102,7 @@ public class AddCheatSheetCommand extends Command {
             contentList.add(new Content(flashcard.getQuestion().toString(), flashcard.getAnswer().toString()));
         }
 
+        Content.resetCounter();
         return contentList;
     }
 }
