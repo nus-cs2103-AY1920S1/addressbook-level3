@@ -92,6 +92,16 @@ public class CollectionUtilTest {
         assertEquals(CollectionUtil.collectionToString(emptyList), "");
     }
 
+    @Test
+    public void collectionToStringShowingIndexes() {
+        List<Integer> list = List.of(1, 2, 3);
+        assertEquals(CollectionUtil.collectionToStringShowingIndexes(list),
+                "1. 1\n2. 2\n3. 3");
+
+        List<Integer> emptyList = List.of();
+        assertEquals(CollectionUtil.collectionToStringShowingIndexes(emptyList), "");
+    }
+
     /**
      * Asserts that {@code CollectionUtil#requireAllNonNull(Object...)} throw {@code NullPointerException}
      * if {@code objects} or any element of {@code objects} is null.

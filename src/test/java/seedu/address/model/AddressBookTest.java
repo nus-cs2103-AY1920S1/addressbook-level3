@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -103,6 +104,14 @@ public class AddressBookTest {
         assertNotEquals(copy, addressBook);
         assertTrue(copy.hasPerson(ALICE));
         assertFalse(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hashCode_noError() {
+        assertDoesNotThrow(addressBook::hashCode);
+
+        AddressBook typicalAddressBook = getTypicalAddressBook();
+        assertDoesNotThrow(typicalAddressBook::hashCode);
     }
 
     /**
