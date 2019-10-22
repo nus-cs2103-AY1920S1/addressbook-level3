@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.statistic.StatsPayload;
 import seedu.address.ui.exception.EnumNotPresentException;
+import seedu.address.ui.panels.ArchivedOrderListPanel;
 import seedu.address.ui.panels.CalendarPanel;
 import seedu.address.ui.panels.CustomerListPanel;
 import seedu.address.ui.panels.OrderListPanel;
@@ -54,7 +55,7 @@ public class MainWindow extends UiPart<Stage> {
     private PhoneListPanel phoneListPanel;
     private OrderListPanel orderListPanel;
     private CalendarPanel calendarPanel;
-
+    private ArchivedOrderListPanel archiveOrderListPanel;
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -136,8 +137,9 @@ public class MainWindow extends UiPart<Stage> {
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList(),
                 logic.getCalendarDate());
-
-        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, calendarPanel);
+        archiveOrderListPanel = new ArchivedOrderListPanel(logic.getArchivedFilteredOrderList());
+        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel,
+                calendarPanel, archiveOrderListPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -187,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        statsWindow.hide();
+
         primaryStage.hide();
     }
 
@@ -268,6 +270,9 @@ public class MainWindow extends UiPart<Stage> {
         List<UiChange> listOfUiChange = input.getUiChange();
         for (UiChange type : listOfUiChange) {
             switch (type) {
+            case ARCHIVED_ORDER:
+                this.showArchivedOrderPanel();
+                break;
             case CUSTOMER:
                 this.showCustomerPanel();
                 break;
@@ -323,5 +328,13 @@ public class MainWindow extends UiPart<Stage> {
     private void showSchedulePanel() {
         tabPanel.switchTabSchedule();
     }
+
+    /**
+     * switch selected tab to archived order tab
+     */
+    private void showArchivedOrderPanel() {
+        tabPanel.switchTabArchivedOrder();
+    }
+
 
 }
