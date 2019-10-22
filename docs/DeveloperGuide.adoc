@@ -153,6 +153,21 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== [Proposed] Statistics feature
+==== Proposed Implementation
+
+The statistics feature is facilitated by `Statistics` object. It extends `Ezwatchlist` with a summary of the users' personal
+preferences and footprint including the most watched genre, shows that you might have forgotten to watch, and the
+recommendations generated for you. It is stored internally as an `Statistics` object with `watched` and `watchlist`.
+Additionally, it implements the following operations:
+
+* `Statistics#getFavouriteGenre()` -- Gives the genre that appears the most number of times in the list of watched shows.
+* `Statistics#getForgotten()` -- Gives the 3 shows that were added the earliest but have not been watched.
+* `Statistics#getRecommendation()` -- Gives 3 recommendations according to the watched shows.
+
+Given below is an example usage scenario and how the Statistics feature behaves at each step.
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
