@@ -1,0 +1,66 @@
+@startuml
+autoactivate on
+
+Bob -> AndOrTree : buildTree(rootData, jsonString, function)
+
+AndOrTree -> AndOrTree : buildTree(JsonNode, rootNode, function)
+
+
+alt isObject
+
+    |||
+
+    AndOrTree -> AndOrNode : createNode(null, type)
+
+        alt type == "and"
+
+            create AndNode
+            AndOrNode -> AndNode : AndNode(null)
+            return
+            |||
+
+        else type == "or"
+
+            create OrNode
+            AndOrNode -> OrNode : OrNode(null)
+            return
+            |||
+
+        end
+
+        loop for each child
+            |||
+            AndOrNode -> AndOrTree : buildTree(JsonNode, child, function)
+            return
+            |||
+        end
+
+        |||
+        return
+        |||
+
+
+else isArray
+
+    |||
+    loop for each child in array
+        AndOrTree -> AndOrTree : buildTree()
+    return
+    |||
+    end
+    |||
+
+else else
+
+    AndOrTree -> AndOrNode : createNode(data, type)
+    create DataNode
+    AndOrNode -> DataNode : DataNode(data)
+    return
+    return
+    |||
+
+end
+return
+|||
+return AndOrTree
+@enduml
