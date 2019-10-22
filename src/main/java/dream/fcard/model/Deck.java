@@ -1,5 +1,8 @@
 package dream.fcard.model;
 
+import static dream.fcard.model.cards.Priority.HIGH_PRIORITY;
+import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
+
 import java.util.ArrayList;
 
 import dream.fcard.logic.storage.Schema;
@@ -18,6 +21,8 @@ import javafx.scene.Node;
 public class Deck implements JsonInterface {
     private String deckName;
     private ArrayList<FlashCard> cards;
+    private ArrayList<FlashCard> highPriorityQueue;
+    private ArrayList<FlashCard> lowPriorityQueue;
 
     /**
      * Constructor to create a Deck with no name and cards.
@@ -25,6 +30,9 @@ public class Deck implements JsonInterface {
     public Deck() {
         cards = new ArrayList<>();
         deckName = "untitled";
+
+        highPriorityQueue = new ArrayList<>();
+        lowPriorityQueue = new ArrayList<>();
     }
 
     /**
@@ -35,6 +43,9 @@ public class Deck implements JsonInterface {
     public Deck(String name) {
         cards = new ArrayList<>();
         deckName = name;
+
+        highPriorityQueue = new ArrayList<>();
+        lowPriorityQueue = new ArrayList<>();
     }
 
     /**
@@ -45,6 +56,31 @@ public class Deck implements JsonInterface {
     public Deck(ArrayList<FlashCard> initialCards, String name) {
         cards = initialCards;
         deckName = name;
+
+        highPriorityQueue = new ArrayList<>();
+        lowPriorityQueue = new ArrayList<>();
+
+        addCardsToQueues(initialCards);
+    }
+
+    /**
+     * @param list
+     */
+    private void addCardsToQueues(ArrayList<FlashCard> list) {
+        for (int i = 0; i < list.size(); i++) {
+            FlashCard card = list.get(i);
+
+            boolean isHighPriorityCard = card.getPriority() == HIGH_PRIORITY;
+            boolean isLowPriorityCard = card.getPriority() == LOW_PRIORITY;
+
+            if (isHighPriorityCard) {
+                highPriorityQueue.add(card);
+            }
+
+            if (isLowPriorityCard) {
+                lowPriorityQueue.add(card);
+            }
+        }
     }
 
     /**
@@ -147,7 +183,24 @@ public class Deck implements JsonInterface {
         return this.cards;
     }
 
+    /**
+     * @return
+     */
     public String getName() {
         return deckName;
+    }
+
+    /**
+     * @return
+     */
+    public ArrayList<FlashCard> getHighPriorityQueue() {
+        return highPriorityQueue;
+    }
+
+    /**
+     * @return
+     */
+    public ArrayList<FlashCard> getLowPriorityQueue() {
+        return lowPriorityQueue;
     }
 }

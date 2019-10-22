@@ -8,12 +8,17 @@ import java.io.FileNotFoundException;
 import org.junit.jupiter.api.Test;
 
 public class FileReadWriteTest {
-    /*
+
     @Test
     void testResolve() {
-        assertEquals(System.getProperty("user.home") + "/Desktop/b", FileReadWrite.resolve("~/Desktop/a", "../b"));
+        /*
+        assertEquals(FileReadWrite.resolve(System.getProperty("user.home"), "./Desktop/b"),
+                FileReadWrite.resolve("~/Desktop/a", "../b"));
+
+         */
+        //assertEquals(System.getProperty("user.home") + "/Desktop/b", FileReadWrite.resolve("~/Desktop/a", "../b"));
     }
-     */
+
 
     @Test
     void testNormalize() {

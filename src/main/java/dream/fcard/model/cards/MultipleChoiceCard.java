@@ -1,5 +1,7 @@
 package dream.fcard.model.cards;
 
+import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,8 +20,9 @@ import javafx.scene.Node;
  * FrontBackCard with additional data of multiple choices.
  */
 public class MultipleChoiceCard extends FrontBackCard {
-
     private ArrayList<String> choices;
+    private ArrayList<String> displayChoices;
+    private int displayChoicesAnswerIndex;
     private int answerIndex;
 
     /**
@@ -48,9 +51,44 @@ public class MultipleChoiceCard extends FrontBackCard {
         } catch (NumberFormatException f) {
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
+
+        priority = LOW_PRIORITY;
     }
     //@author
 
+    /**
+     * @param frontString
+     * @param backString
+     * @param choicesArg
+     * @throws DuplicateInChoicesException
+     */
+    //@@author huiminlim
+    public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg, int priorityLevel)
+            throws DuplicateInChoicesException {
+        super(frontString, backString);
+
+        // Checks if choices contain duplicate
+        boolean hasDuplicateInChoice = hasChoiceContainDuplicate(choicesArg);
+
+        if (hasDuplicateInChoice) {
+            throw new DuplicateInChoicesException("Duplicates found in choices provided.");
+        }
+
+        choices = choicesArg;
+
+        try {
+            answerIndex = Integer.parseInt(back);
+        } catch (NumberFormatException f) {
+            throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
+        }
+
+        priority = priorityLevel;
+    }
+    //@author
+
+    /**
+     * @return
+     */
     @Override
     public JsonValue toJson() {
         try {
@@ -69,6 +107,9 @@ public class MultipleChoiceCard extends FrontBackCard {
         return super.toJson();
     }
 
+    /**
+     * @return
+     */
     //@@author huiminlim
     @Override
     public Node renderFront() {
@@ -79,6 +120,11 @@ public class MultipleChoiceCard extends FrontBackCard {
     }
     //@author
 
+    /**
+     * @param in input
+     * @return
+     * @throws IndexNotFoundException
+     */
     //@@author huiminlim
     @Override
     public Boolean evaluate(String in) throws IndexNotFoundException {
@@ -158,7 +204,6 @@ public class MultipleChoiceCard extends FrontBackCard {
      */
     //@author huiminlim
     public void editChoice(int index, String newChoice) throws IndexNotFoundException {
-
         if (isNotValidChoice(index)) {
             throw new IndexNotFoundException("Choice index provided is invalid - " + index);
         }
@@ -182,25 +227,43 @@ public class MultipleChoiceCard extends FrontBackCard {
 
     /**
      * Shuffles the choices of choices and updates the index of correct answer.
+     *
+     * @return
      */
     //@author huiminlim
     private void shuffleChoices() {
         // Obtain String of correct answer before sorting
         String correctAnswer = choices.get(answerIndex);
 
-        Collections.shuffle(choices);
+        displayChoices = generateCopyOfChoices();
+
+        Collections.shuffle(displayChoices);
 
         // Find the index of the correct answer after sorting
-        for (int i = 0; i < choices.size(); i++) {
-            String currentChoice = choices.get(i);
+        for (int i = 0; i < displayChoices.size(); i++) {
+            String currentChoice = displayChoices.get(i);
 
             boolean isCurrentChoiceEqualAnswer = correctAnswer.equals(currentChoice);
 
             if (isCurrentChoiceEqualAnswer) {
-                answerIndex = i;
+                displayChoicesAnswerIndex = i;
                 break;
             }
         }
+    }
+    //@author
+
+    /**
+     * @return
+     */
+    //@@author huiminlim
+    private ArrayList<String> generateCopyOfChoices() {
+        ArrayList<String> newList = new ArrayList<>();
+        for (int i = 0; i < choices.size(); i++) {
+            String newStringObject = choices.get(i);
+            newList.add(newStringObject);
+        }
+        return newList;
     }
     //@author
 
