@@ -33,7 +33,7 @@ public abstract class MultiLoanCommandParser implements CommandParser<MultiLoanC
     protected void parseMultiLoanArgs(String args) throws ParseException {
         loanIndices.clear();
         persons.clear();
-        String[] argsArray = args.split("\\s+");
+        String[] argsArray = args.trim().split("\\s+");
         for (String arg : argsArray) {
             try {
                 loanIndices.add(CommandParserUtil.parseIndex(arg));
