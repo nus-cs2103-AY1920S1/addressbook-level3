@@ -74,9 +74,8 @@ public class EditTagCommand extends Command {
     private static Tag createEditedTag(Tag tagToEdit, String name) {
         assert tagToEdit != null;
         assert name != null;
-        String updatedName;
-        updatedName = name;
-        return new Tag(updatedName);
+        long id = tagToEdit.getId();
+        return new Tag(id, name);
     }
 
     @Override

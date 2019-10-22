@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
@@ -25,15 +26,18 @@ class JsonSerializableAlgoBase {
 
     private final List<JsonAdaptedProblem> problems = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedPlan> plans = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAlgoBase} with the given problems.
      */
     @JsonCreator
     public JsonSerializableAlgoBase(@JsonProperty("problems") List<JsonAdaptedProblem> problems,
-                                    @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                                    @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                                    @JsonProperty("plans") List<JsonAdaptedPlan> plans) {
         this.problems.addAll(problems);
         this.tags.addAll(tags);
+        this.plans.addAll(plans);
     }
 
     /**
@@ -44,6 +48,7 @@ class JsonSerializableAlgoBase {
     public JsonSerializableAlgoBase(ReadOnlyAlgoBase source) {
         problems.addAll(source.getProblemList().stream().map(JsonAdaptedProblem::new).collect(Collectors.toList()));
         tags.addAll(source.getTagList().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
+        plans.addAll(source.getPlanList().stream().map(JsonAdaptedPlan::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +58,13 @@ class JsonSerializableAlgoBase {
      */
     public AlgoBase toModelType() throws IllegalValueException {
         AlgoBase algoBase = new AlgoBase();
+        for (JsonAdaptedTag jsonAdaptedTag : tags) {
+            Tag tag = jsonAdaptedTag.toModelType();
+            if (algoBase.hasTag(tag)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
+            }
+            algoBase.addTag(tag);
+        }
         for (JsonAdaptedProblem jsonAdaptedProblem : problems) {
             Problem problem = jsonAdaptedProblem.toModelType();
             if (algoBase.hasProblem(problem)) {
@@ -60,12 +72,9 @@ class JsonSerializableAlgoBase {
             }
             algoBase.addProblem(problem);
         }
-        for (JsonAdaptedTag jsonAdaptedTag : tags) {
-            Tag tag = jsonAdaptedTag.toModelType();
-            if (algoBase.hasTag(tag)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
-            }
-            algoBase.addTag(tag);
+        for (JsonAdaptedPlan jsonAdaptedPlan : plans) {
+            Plan plan = jsonAdaptedPlan.toModelType(algoBase);
+            algoBase.addPlan(plan);
         }
         return algoBase;
     }

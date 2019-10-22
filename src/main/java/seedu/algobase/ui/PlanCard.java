@@ -1,14 +1,11 @@
 package seedu.algobase.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.plan.Plan;
-import seedu.algobase.model.task.Task;
 
 
 /**
@@ -32,28 +29,15 @@ public class PlanCard extends UiPart<Region> {
     private Label startDate;
     @FXML
     private Label endDate;
-    @FXML
-    private FlowPane tasks;
 
     public PlanCard(Plan plan, int displayedIndex) {
         super(FXML);
         this.plan = plan;
         id.setText(displayedIndex + ". ");
-        planName.setText(plan.getPlanName().fullName);
+        planName.setText(plan.getPlanName().fullName + " (" + plan.getTasks().size() + " tasks)");
         planDescription.setText(plan.getPlanDescription().value);
-        startDate.setText(plan.getStartDate().format(Plan.FORMATTER));
-        endDate.setText(plan.getEndDate().format(Plan.FORMATTER));
-        formatTasks(plan);
-    }
-
-    /**
-     * Constructs labels from tasks in {@code plan}.
-     */
-    private void formatTasks(Plan plan) {
-        plan.getTasks().stream()
-                .sorted(Comparator.comparing(Task::getDateTime))
-                .forEach(task -> tasks.getChildren().add(new Label(task.getProblem().toString() + '\n'
-                + task.getIsSolved().toString() + '\n' + task.getDateTime().toString())));
+        startDate.setText(plan.getStartDate().format(ParserUtil.FORMATTER));
+        endDate.setText(plan.getEndDate().format(ParserUtil.FORMATTER));
     }
 
     @Override

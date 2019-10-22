@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.algobase.commons.util.IdUtil;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -16,6 +17,7 @@ import seedu.algobase.model.tag.Tag;
 public class Problem {
 
     // Identity fields
+    private final long id;
     private final Name name;
     private final Author author;
     private final WebLink webLink;
@@ -33,6 +35,7 @@ public class Problem {
     public Problem(Name name, Author author, WebLink webLink, Description description, Set<Tag> tags,
                    Difficulty difficulty, Remark remark, Source source) {
         requireAllNonNull(name, author, webLink, description, tags, difficulty, remark, source);
+        this.id = IdUtil.generateId();
         this.name = name;
         this.author = author;
         this.webLink = webLink;
@@ -41,6 +44,25 @@ public class Problem {
         this.difficulty = difficulty;
         this.remark = remark;
         this.source = source;
+    }
+
+
+    public Problem(long id, Name name, Author author, WebLink webLink, Description description, Set<Tag> tags,
+                   Difficulty difficulty, Remark remark, Source source) {
+        requireAllNonNull(id, name, author, webLink, description, tags, difficulty, remark, source);
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.webLink = webLink;
+        this.description = description;
+        this.tags.addAll(tags);
+        this.difficulty = difficulty;
+        this.remark = remark;
+        this.source = source;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public Name getName() {

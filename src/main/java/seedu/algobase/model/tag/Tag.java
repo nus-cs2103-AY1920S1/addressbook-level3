@@ -3,6 +3,8 @@ package seedu.algobase.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
+import seedu.algobase.commons.util.IdUtil;
+
 /**
  * Represents a Tag in the algobase.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
@@ -13,6 +15,7 @@ public class Tag {
         "Tags names should contain only alphabets, numbers, hyphen or underscore";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]*$";
 
+    public final long id;
     public final String tagName;
 
     /**
@@ -23,12 +26,21 @@ public class Tag {
     public Tag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        this.id = IdUtil.generateId();
         this.tagName = tagName;
     }
 
-    /**
-     *
-     */
+    public Tag(long id, String tagName) {
+        requireNonNull(tagName);
+        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        this.id = id;
+        this.tagName = tagName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
     public String getName() {
         return this.tagName;
     }

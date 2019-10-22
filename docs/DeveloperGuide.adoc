@@ -77,7 +77,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/algobase/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -126,30 +126,92 @@ The `Model`,
 * stores the AlgoBase data.
 * exposes unmodifiable `ObservableList<Problem>`, `ObservableList<Tag>`, `ObservableList<Plan>`, `ObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+//@@author
 
+//@@author jiayushe
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/algobase/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
-
-//@@author le0tan
+* can store `UserPref` objects in json format.
+* can retrieve `UserPref` objects from json format.
+* can store the AlgoBase app data including `Plan`, `Problem`, `Tag`, `Task` objects in relational manner in json format.
+* can retrieve `Plan`, `Problem`, `Tag`, `Task` objects from json format.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.algobase.commons` package.
+
+It contains utility files for configuration `ConfigUtil`, file handling `FileUtil`, ID generation `IdUtil`,
+JSON storage `JsonUtil`, string manipulation `StringUtil` and others.
+//@@author
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+//@@author jiayushe
+// tag::task[]
+
+=== Task Management Feature
+
+As a algorithmic problem management tool, one of the most important features will be manage tasks that have been done
+and are to be done.
+
+This section will describe in details the current implementation and design considerations of
+the task management feature.
+
+==== Current Implementation
+
+The task management feature mainly involves four main behaviours:
+
+* `AlgoBase#addTask()` - create a new task for a problem and add it to a specified plan.
+* `AlgoBase#deleteTask()` - delete an existing task from a specified plan.
+* `AlgoBase#doneTask()` - mark a task as done in a specified plan.
+* `AlgoBase#undoneTask()` - mark a task as undone in a specified plan.
+
+Given below is an example usage scenario and how the mechanism for adding tasks behaves at each step.
+
+The following activity diagram summarizes what happens when a user executes the `AddTask` command:
+
+image::task/AddTaskCommandActivityDiagram.png[]
+
+_Figure 1. Activity Diagram for the Execution of `AddTask` Command_
+
+Step 1. The user launches the application.
+
+Step 2. AlgoBase displays a list of existing problems and plans in the UI.
+
+Step 3. The user executes `addtask plan/1 prob/1` to add the problem with index 1 in the list to the plan with index 1.
+The `AddTask` command calls `Plan#updateTasks` to create a new plan from the original plan with this additional task.
+After that, `Model#setPlan()` is called to replace the original plan with the updated plan in the `PlanList`.
+
+The following sequence diagram shows how the `addtask` operation works:
+
+image::task/AddTaskSequenceDiagram.png[]
+
+_Figure 2. Sequence Diagram for the Execution of `AddTask` Command_
+
+==== Design Considerations
+
+===== Aspect: Data structure to support the task commands.
+
+* Alternative 1 (current choice): Use a `HashSet` in current AlgoBase to save all tasks in a plan.
+** Pros: Users can manage the tasks conveniently.
+** Cons: Harder to implement for relational storage.
+* Alternative 2: Simply keep tasks as a part of a plan.
+** Pros: No need to save the task separately in the storage, all tasks are under plans.
+** Cons: Does not keep track of relations between tasks and plans.
+
+// end::task[]
+//@@author
 
 //@@author LuWenQ
 === Tag feature
@@ -196,7 +258,7 @@ image::TagActivityDiagram.png[]
 * Alternative 2: Simply keep tags as a part of problems. While execute the tag command will search for all tags in problems for every times it execute.
 ** Pros: No need to save the tag separately in the storage, all tags are under problems.
 ** Cons: Difficult to manage tags in different problems. Waste time for computer to execute.
-//@@author LuWenQ
+//@@author
 
 //@@author le0tan
 // tag::find[]
@@ -218,7 +280,7 @@ _Figure 1. Activity Diagram for the Execution of `find` Command_
 The find problem feature mainly involves three parts:
 
 1. validating and parsing user input
-2.  creating a filtering predicate from user’s search restrictions
+2. creating a filtering predicate from user’s search restrictions
 3. update the displayed problem list with the filtering predicate.
 
 The find problem feature is facilitated by the following classes:
@@ -246,7 +308,7 @@ These are classes that describes whether an instance of `Problem` is considered 
 ** `SourceMatchesKeywordPredicate`
 *** It requires an exact match.
 ** `DifficultyIsInRangePredicate`
-*** It matches problems with LOWER_BOUND <= difficulty <= UPPER_BOUND
+*** It matches problems with LOWER_BOUND \<= difficulty \<= UPPER_BOUND
 ** `TagIncludesKeywordsPredicate`
 *** Each keyword will be considered as a tag, and two tags are considered equal only when their names are exactly the same.
 *** It returns true when the provided tags are a subset of the tags of the provided problem.
@@ -254,7 +316,7 @@ These are classes that describes whether an instance of `Problem` is considered 
 It validates and parses user input to an instance of `FindCommand`.
 
 [NOTE]
-If the user provides difficulty range as one of the search restrictions, `FindCommandParser` expects the format `LOWER_BOUND <= difficulty <= UPPER_BOUND` while `LOWER_BOUND` and `UPPER_BOUND` are valid strings for doubles (i.e. parsable by `Double.parseDouble(...)`).
+If the user provides difficulty range as one of the search restrictions, `FindCommandParser` expects the format `LOWER_BOUND \<= difficulty \<= UPPER_BOUND` while `LOWER_BOUND` and `UPPER_BOUND` are valid strings for doubles (i.e. parsable by `Double.parseDouble(...)`).
 
 * `FindCommand`
 +
@@ -316,7 +378,7 @@ _Figure 3. Sequence Diagram for the Execution of `find` Command_
 ** Cons: If we are to add more predicates, it’s more likely that we forget to check `null` value of the new predicate.
 
 // end::find[]
-//@@author le0tan
+//@@author
 
 //@@author tiuweehan
 // tag::switchTab[]
@@ -397,7 +459,7 @@ Aspect: How to update the tab in the UI
 ** Cons: Increases coupling between the `TabManager` class and the UI and reduces testability.
 
 // end::switchTab[]
-//@@author tiuweehan
+//@@author
 
 == Documentation
 
