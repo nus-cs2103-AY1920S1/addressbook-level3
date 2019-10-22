@@ -1,11 +1,11 @@
 package seedu.address.model.budget;
 
-import org.jfree.data.xy.XYSeries;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jfree.data.xy.XYSeries;
 
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Status;
@@ -41,8 +41,8 @@ public class ClaimPlotter {
         double currentExpenses = startingExpenses;
         List<Claim> approvedClaimsInCurrentMonthList = findApprovedClaimsInCurrentMonth();
         for (Claim claim : approvedClaimsInCurrentMonthList) {
-            for (int day = 2; day <= 31; day++){
-                if (claim.getDate().date.getDayOfMonth() == day){
+            for (int day = 2; day <= 31; day++) {
+                if (claim.getDate().date.getDayOfMonth() == day) {
                     currentExpenses += Double.parseDouble(claim.getAmount().value);
                 }
                 claimSeries.add(day, currentExpenses);

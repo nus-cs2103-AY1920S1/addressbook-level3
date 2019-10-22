@@ -3,6 +3,7 @@ package seedu.address.model.budget;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -19,7 +20,6 @@ import org.jfree.ui.RefineryUtilities;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 
-import javax.swing.JFrame;
 
 /**
  *  Creates a Budget Graph
@@ -43,7 +43,7 @@ public class BudgetGraph extends JFrame {
      *  Fills in details of Budget Graph
      */
 
-    private BudgetGraph (String applicationTitle, String chartTitle, List<Claim> claimList,List<Income> incomeList) {
+    private BudgetGraph (String applicationTitle, String chartTitle, List<Claim> claimList, List<Income> incomeList) {
         super(applicationTitle);
         JFreeChart xyLineChart = ChartFactory.createXYLineChart(
                 chartTitle ,
@@ -54,13 +54,13 @@ public class BudgetGraph extends JFrame {
                 true , true , false);
 
         ChartPanel chartPanel = new ChartPanel(xyLineChart);
-        chartPanel.setPreferredSize(new java.awt.Dimension( 560 , 367));
+        chartPanel.setPreferredSize(new java.awt.Dimension(560 , 367));
         final XYPlot plot = xyLineChart.getXYPlot();
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        renderer.setSeriesPaint(0, Color.RED );
-        renderer.setSeriesPaint(1, Color.GREEN );
-        renderer.setSeriesPaint(2, Color.YELLOW );
+        renderer.setSeriesPaint(0, Color.RED);
+        renderer.setSeriesPaint(1, Color.GREEN);
+        renderer.setSeriesPaint(2, Color.YELLOW);
         renderer.setSeriesStroke(0, new BasicStroke(4.0f));
         renderer.setSeriesStroke(1, new BasicStroke(3.0f));
         renderer.setSeriesStroke(2, new BasicStroke(2.0f));
@@ -71,10 +71,10 @@ public class BudgetGraph extends JFrame {
             Number x1 = dataSet.getX(series, item);
             Number y1 = dataSet.getY(series, item);
             return String.format("<html><p style='color:#0000ff;'>Series: '%s'</p>",
-                    dataSet.getSeriesKey(series)) +
-                    String.format("Time: Day %d<br/>", x1.intValue()) +
-                    String.format("Money: $%.2f", y1.doubleValue()) +
-                    "</html>";
+                    dataSet.getSeriesKey(series))
+                    + String.format("Time: Day %d<br/>", x1.intValue())
+                    + String.format("Money: $%.2f", y1.doubleValue())
+                    + "</html>";
         };
         renderer.setBaseToolTipGenerator(xyToolTipGenerator);
     }
@@ -108,7 +108,7 @@ public class BudgetGraph extends JFrame {
      *  Displays Budget Graph on the screen.
      */
 
-    public void displayBudgetGraph(){
+    public void displayBudgetGraph() {
         BudgetGraph chart = new BudgetGraph("Budget Statistics",
                 "Statistics for current Month", claimList, incomeList);
         chart.pack();
