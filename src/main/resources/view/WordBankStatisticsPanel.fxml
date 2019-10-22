@@ -11,7 +11,7 @@
 
 <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@DarkTheme.css">
+      <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0">
          <children>
             <Label fx:id="title" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header" text="Title" textAlignment="CENTER" />
             <StackPane fx:id="badgesRowPlaceholder" />

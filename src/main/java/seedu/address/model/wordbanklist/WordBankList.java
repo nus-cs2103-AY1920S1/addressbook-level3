@@ -128,7 +128,7 @@ public class WordBankList implements ReadOnlyWordBankList {
                 return wb;
             }
         }
-        return null;
+        return this.getWordBank("sample"); // returning the sample bank if can't find
     }
 
     @Override

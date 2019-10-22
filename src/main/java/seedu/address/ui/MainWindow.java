@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -49,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
     private CommandBox commandBox;
 
     @FXML
+    private Scene scene;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -82,8 +86,6 @@ public class MainWindow extends UiPart<Stage> {
         this.modularDisplay = new ModularDisplay(appManager);
 
         this.uiLogicHelper = appManager.getLogic();
-
-        this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
 
         // Configure the UI
         setWindowDefaultSize(appManager.getGuiSettings());
@@ -143,11 +145,13 @@ public class MainWindow extends UiPart<Stage> {
         //Set up timer display
         timerDisplay = new TimerDisplay();
         timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
-        //Set up callback function in GameManager to update TimerDisplay
+        //Set up callback function in AppManager to update TimerDisplay
         appManager.setTimerDisplayCallBack(this::updateTimerDisplay);
-        //Set up callback function in GameManager to update ResultDisplay
+        //Set up callback function in AppManager to update HintDisplay
         appManager.setHintDisplayCallBack(this::updateHintDisplay);
-        //Set up callback function in GameManager to call MainWindow's executeCommand
+        //Set up callback function in AppManager to update QuestionDisplay
+        appManager.setQuestionDisplayCallBack(this::updateQuestionDisplay);
+        //Set up callback function in AppManager to call MainWindow's executeCommand
         appManager.setMainWindowExecuteCallBack(this::executeCommand);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
@@ -163,7 +167,10 @@ public class MainWindow extends UiPart<Stage> {
 
         //Assigns only after initialisation.
         this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
+        updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
     }
+
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -233,8 +240,9 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             //Updates the Ui.
-            updateUi.updateMode(commandText);
-            updateUi.updateModularDisplay(commandText, modularDisplayPlaceholder);
+            updateUi.updateModularDisplay(commandText, uiLogicHelper.getMode(), modularDisplayPlaceholder);
+
+            updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -285,11 +293,17 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the HintDisplay section of the UI with the {@code resultDisplayMessage} string.
      */
-    private void updateHintDisplay(String resultDisplayMessage) {
+    private void updateHintDisplay(String hintString) {
         // Todo: implement HintDisplay window and show hints there instead
-        String[] tokens = resultDisplay.getCurrentTextOnDisplay().split("\n");
-        String toDisplay = tokens[0] + "\n" + tokens[1] + "\n" + resultDisplayMessage;
-        resultDisplay.setFeedbackToUser(toDisplay);
+        modularDisplay.updateHint(hintString, modularDisplayPlaceholder);
+    }
+
+    /**
+     * Updates the QuestionDisplay section of the UI in the modularDisplay with
+     * {@code questionString}
+     */
+    private void updateQuestionDisplay(String questionString) {
+        modularDisplay.updateQuestion(questionString, modularDisplayPlaceholder);
     }
 
 }

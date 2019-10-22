@@ -49,7 +49,7 @@ public class ParserManager {
         classUtil.add(new ClassPair(BankCommand.class, BankCommandParser.class));
         classUtil.add(new ClassPair(HomeCommand.class, null));
         classUtil.add(new ClassPair(LoadScreenCommand.class, null));
-        classUtil.add(new ClassPair(StartCommand.class, null));
+        classUtil.add(new ClassPair(StartCommand.class, StartCommandParser.class));
         classUtil.add(new ClassPair(SwitchToSettingsCommand.class, null));
     }
 

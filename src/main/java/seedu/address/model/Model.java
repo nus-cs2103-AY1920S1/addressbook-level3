@@ -134,6 +134,8 @@ public interface Model {
 
     Game getGame();
 
+    boolean gameIsOver();
+
     /**
      * Returns the app settings
      */

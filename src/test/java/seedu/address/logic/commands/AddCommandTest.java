@@ -98,6 +98,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean gameIsOver() {
+            return false;
+        }
+
+        @Override
         public AppSettings getAppSettings() {
             return null;
         }

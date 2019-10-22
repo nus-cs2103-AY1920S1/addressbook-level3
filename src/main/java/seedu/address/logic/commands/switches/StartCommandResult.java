@@ -8,13 +8,13 @@ import seedu.address.logic.commands.CommandResult;
  */
 public class StartCommandResult extends CommandResult {
 
-    public static final String MESSAGE_GAME_START_SUCCESS = "Sample game session in progress, ";
+    public static final String MESSAGE_GAME_START_SUCCESS = "Game session in progress for: ";
     public static final String FIRST_QUESTION_MESSAGE = "guess the keyword! ";
 
     private String title;
 
     public StartCommandResult(String title, String firstQuestion) {
-        super(MESSAGE_GAME_START_SUCCESS + FIRST_QUESTION_MESSAGE
+        super(MESSAGE_GAME_START_SUCCESS + title + ", " + FIRST_QUESTION_MESSAGE
                         + "\n"
                         + firstQuestion,
                 true);

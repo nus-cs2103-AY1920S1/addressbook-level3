@@ -11,7 +11,7 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="title121" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header2" stylesheets="@DarkTheme.css" text="Progress" textAlignment="CENTER">
+            <Label fx:id="title121" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header2" text="Progress" textAlignment="CENTER">
                <padding>
                   <Insets right="20.0" />
                </padding>
@@ -19,7 +19,7 @@
                   <Insets bottom="6.0" left="16.0" top="8.0" />
                </HBox.margin>
             </Label>
-            <ComboBox id="progressChartModeSelector" fx:id="progressChartModeSelector" stylesheets="@DarkTheme.css">
+            <ComboBox id="progressChartModeSelector" fx:id="progressChartModeSelector">
                <HBox.margin>
                   <Insets bottom="6.0" top="8.0" />
                </HBox.margin>
