@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo -e "\n================ Running pre-push checks ================"
+
+# Update hooks, clear /build, run checkstyle on code and AsciiDocs then run tests
+./gradlew hooks clean checkstyleMain checkstyleTest asciidoctor test
+
+# Store the last exit code in a variable
+RESULT=$?
+
+if [ $RESULT -eq 0 ]
+then
+    echo -e "\n================ Pre-push checks: PASSED ================\n"
+else
+    echo -e "\n================ Pre-push checks: FAILED ================\n"
+fi
+
+# Return exit code to determine if push passes
+exit $RESULT
