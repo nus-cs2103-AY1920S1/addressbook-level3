@@ -56,7 +56,7 @@ public class NewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Person operator = model.getSession().getLoggedInPerson();
+        Person operator = model.getLoggedInPerson();
         Incident draft = new Incident(operator, location);
         this.draft = draft;
 
