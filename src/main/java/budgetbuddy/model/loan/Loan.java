@@ -12,7 +12,7 @@ import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 
 /**
- * Represents a Loan in a LoanList.
+ * Represents a loan.
  * Guarantees: details are present and not null, field values are validated and immutable.
  */
 public class Loan {
@@ -22,7 +22,8 @@ public class Loan {
     private final Amount amount;
     private final Date date;
     private final Description description;
-    private final Status status;
+
+    private Status status;
 
     /**
      * Every field must be present and not null.
@@ -67,12 +68,16 @@ public class Loan {
         return status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     /**
      * Checks if the Loan has been paid.
      * @return True if paid, false otherwise.
      */
     public boolean isPaid() {
-        return status.toString().equals("PAID");
+        return status == Status.PAID;
     }
 
     /**

@@ -1,18 +1,13 @@
 package budgetbuddy.model.person;
 
-import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.LoanList;
-
-import javafx.collections.ObservableList;
 
 /**
- * Represents a Person in the address book.
+ * Represents a person referenced by a loan.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
@@ -20,96 +15,17 @@ public class Person {
     // Identity fields
     private final Name name;
 
-    // Data fields
-    private final LoanList loans = new LoanList();
-
     /**
      * Creates a person with the loans in the {@code toBeCopied}.
      * @param name The name of the person.
-     * @param toBeCopied The person's loans.
      */
-    public Person(Name name, LoanList toBeCopied) {
-        requireAllNonNull(name, toBeCopied);
+    public Person(Name name) {
+        requireNonNull(name);
         this.name = name;
-        resetLoans(toBeCopied);
     }
 
     public Name getName() {
         return name;
-    }
-
-    /**
-     * Retrieves a loan from this person's list equivalent to the given loan.
-     * @param toGet The equivalent loan (identical attributes to the target loan).
-     * @return The retrieved loan.
-     */
-    public Loan getLoan(Loan toGet) {
-        requireNonNull(toGet);
-        return loans.getLoan(toGet);
-    }
-
-    public ObservableList<Loan> getLoans() {
-        return loans.asUnmodifiableObservableList();
-    }
-
-    /**
-     * Checks if the person's list of loans is empty.
-     * @return True if the list is empty, false otherwise.
-     */
-    public boolean hasLoansRemaining() {
-        return !loans.isEmpty();
-    }
-
-    /**
-     * Resets the existing loans of this person with the loans of {@code replacementList}.
-     * @param replacementList The list of loans to replace the existing loans with.
-     */
-    public void resetLoans(LoanList replacementList) {
-        requireNonNull(replacementList);
-        this.loans.replaceList(replacementList.asUnmodifiableObservableList());
-    }
-
-    /**
-     * Checks if a given loan is under this person.
-     * @param loan The loan to be checked.
-     * @return True if the given loan is in this person's loan list, false otherwise.
-     */
-    public boolean hasLoan(Loan loan) {
-        requireNonNull(loan);
-        return loans.contains(loan);
-    }
-
-    /**
-     * Adds a loan to this person's loan list.
-     * @param loan The loan to be added.
-     */
-    public void addLoan(Loan loan) {
-        requireNonNull(loan);
-        loans.add(loan);
-        for (Loan oldLoan : loans) {
-            Loan updatedLoan = new Loan(
-                    this, oldLoan.getDirection(), oldLoan.getAmount(),
-                    oldLoan.getDate(), oldLoan.getDescription(), oldLoan.getStatus());
-            setLoan(oldLoan, updatedLoan);
-        }
-    }
-
-    /**
-     * Replaces a target loan in this peronn's loan list with {@code editedLoan}.
-     * @param target The loan to be replaced.
-     * @param editedLoan The loan to replace the target loan with.
-     */
-    public void setLoan(Loan target, Loan editedLoan) {
-        requireAllNonNull(target, editedLoan);
-        loans.setLoan(target, editedLoan);
-    }
-
-    /**
-     * Deletes a given loan from this person's list.
-     * @param loan The loan to be deleted.
-     */
-    public void deleteLoan(Loan loan) {
-        loans.delete(loan);
     }
 
     /**
@@ -139,14 +55,13 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getLoans().equals(getLoans());
+        return otherPerson.getName().equals(getName());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, loans);
+        return Objects.hash(name);
     }
 
     @Override

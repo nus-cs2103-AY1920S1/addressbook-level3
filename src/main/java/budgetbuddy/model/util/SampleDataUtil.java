@@ -3,7 +3,6 @@ package budgetbuddy.model.util;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.person.Person;
 
 /**
@@ -12,12 +11,12 @@ import budgetbuddy.model.person.Person;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new LoanList()),
-            new Person(new Name("Bernice Yu"), new LoanList()),
-            new Person(new Name("Charlotte Oliveiro"), new LoanList()),
-            new Person(new Name("David Li"), new LoanList()),
-            new Person(new Name("Irfan Ibrahim"), new LoanList()),
-            new Person(new Name("Roy Balakrishnan"), new LoanList())
+            new Person(new Name("Alex Yeoh")),
+            new Person(new Name("Bernice Yu")),
+            new Person(new Name("Charlotte Oliveiro")),
+            new Person(new Name("David Li")),
+            new Person(new Name("Irfan Ibrahim")),
+            new Person(new Name("Roy Balakrishnan"))
         };
     }
 

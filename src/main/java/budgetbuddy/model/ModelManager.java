@@ -11,6 +11,7 @@ import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Transaction;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -41,7 +42,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.loansManager = new LoansManager(loansManager.getPersonsList());
+        this.loansManager = new LoansManager(loansManager.getLoans());
         this.ruleManager = new RuleManager(ruleManager);
         this.accountsManager = new AccountsManager(accountsManager.getAccountsList());
         this.addressBook = new AddressBook(addressBook);

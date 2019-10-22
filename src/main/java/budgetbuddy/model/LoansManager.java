@@ -2,108 +2,134 @@ package budgetbuddy.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
+import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.UniquePersonList;
-import budgetbuddy.model.person.exceptions.PersonNotFoundException;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Manages the loans of each person in a list of persons.
+ * Maintains a list of loans.
  */
 public class LoansManager {
 
-    private final UniquePersonList persons;
+    private final ObservableList<Loan> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Loan> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
+
+    public LoansManager() {}
 
     /**
-     * Creates a new (empty) list of persons.
+     * Creates and fills a new list of loans.
+     * @param loans A list of loans with which to fill the new list.
      */
-    public LoansManager() {
-        this.persons = new UniquePersonList();
+    public LoansManager(List<Loan> loans) {
+        requireNonNull(loans);
+        this.internalList.setAll(loans);
     }
 
     /**
-     * Creates and fills a new list of persons.
-     * @param persons A list of persons with which to fill the new list.
+     * Retrieves the list of loans.
      */
-    public LoansManager(List<Person> persons) {
-        requireNonNull(persons);
-        this.persons = new UniquePersonList(persons);
+    public ObservableList<Loan> getLoans() {
+        return internalUnmodifiableList;
     }
 
     /**
-     * Retrieves the list of persons.
+     * Returns the list of loans sorted by each loan's person's name.
      */
-    public ObservableList<Person> getPersonsList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Loan> getSortedLoans() {
+        return internalList.sorted(new SortByPerson());
     }
 
     /**
-     * Adds a given loan to its specified person in the list.
-     * Duplicate loans are not allowed in the list.
+     * Returns a filtered list of loans belonging to the given person.
+     * @param person The person to filter the list by.
+     */
+    public List<Loan> getFilteredLoans(Person person) {
+        return getLoans().stream()
+                .filter(loan -> loan.getPerson().isSamePerson(person))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the loan at the specified index in the list.
+     * @param toGet The index of the target loan.
+     * @throws LoanNotFoundException If the loan is not in the list.
+     */
+    public Loan getLoan(Index toGet) throws LoanNotFoundException {
+        checkIndexValidity(toGet);
+        return getLoans().get(toGet.getZeroBased());
+    }
+
+    /**
+     * Returns the current number of loans in the list.
+     * @return The current number of loans in the list as an {@code int}.
+     */
+    public int getLoansCount() {
+        return getLoans().size();
+    }
+
+    /**
+     * Returns true if the list contains the given loan.
+     * @param toCheck The loan to check the list for.
+     */
+    public boolean containsLoan(Loan toCheck) {
+        return getLoans().contains(toCheck);
+    }
+
+    /**
+     * Adds a given loan to the list.
      * @param toAdd The loan to add.
-     * @throws DuplicateLoanException If the loan already exists in the list.
      */
-    public void addLoan(Loan toAdd) throws DuplicateLoanException {
-        Person newPerson = toAdd.getPerson();
-        if (persons.contains(newPerson)) {
-            Person targetPerson = persons.get(newPerson);
-            if (targetPerson.hasLoan(toAdd)) {
-                throw new DuplicateLoanException();
-            }
-            targetPerson.addLoan(toAdd);
-        } else {
-            persons.add(newPerson);
-        }
+    public void addLoan(Loan toAdd) {
+        internalList.add(toAdd);
     }
 
     /**
-     * Edits a person's loan to match a given loan.
-     * @param editedLoan The loan to base the target loan's updated attributes on.
+     * Replaces a target loan with the given loan.
+     * @param toEdit The index of the target loan to replace.
+     * @param editedLoan The edited loan to replace the target loan with.
      */
-    public void editLoan(Person targetPerson, Loan targetLoan, Loan editedLoan)
-            throws PersonNotFoundException, LoanNotFoundException {
-        persons.get(targetPerson).setLoan(targetLoan, editedLoan);
+    public void editLoan(Index toEdit, Loan editedLoan) throws LoanNotFoundException {
+        checkIndexValidity(toEdit);
+        internalList.set(toEdit.getZeroBased(), editedLoan);
     }
 
     /**
-     * Updates the status of a person's loan to that of the given loan.
-     * @param updatedLoan A loan identical to the target loan except for its updated status.
+     * Updates the status of a target loan to the given status.
+     * @param toUpdate The index of the target loan to update.
+     * @param newStatus The new status to update the target loan to.
      */
-    public void updateLoanStatus(Person targetPerson, Loan targetLoan, Loan updatedLoan) {
-        editLoan(targetPerson, targetLoan, updatedLoan);
+    public void updateLoanStatus(Index toUpdate, Status newStatus) {
+        checkIndexValidity(toUpdate);
+        internalList.get(toUpdate.getZeroBased()).setStatus(newStatus);
     }
 
     /**
-     * Deletes a person's loan, targeted using a given loan.
-     * @param toDelete The loan used to identify the target loan for deletion.
+     * Deletes a target loan from the list.
+     * @param toDelete The index of the target loan to delete.
      */
-    public void deleteLoan(Loan toDelete) {
-        if (persons.contains(toDelete.getPerson())) {
-            Person targetPerson = persons.get(toDelete.getPerson());
-            targetPerson.deleteLoan(toDelete);
-            if (!targetPerson.hasLoansRemaining()) {
-                persons.remove(targetPerson);
-            }
-        } else {
-            throw new PersonNotFoundException();
-        }
+    public void deleteLoan(Index toDelete) {
+        checkIndexValidity(toDelete);
+        internalList.remove(toDelete.getZeroBased());
     }
 
     /**
-     * Edits a person to match the given person.
-     * @param editedPerson The person to base the target person's updated attributes on.
+     * Checks if a given index exceeds the number of loans currently in the list.
+     * @param toCheck The index to check.
+     * @throws LoanNotFoundException If the index exceeds the current number of loans.
      */
-    public void editPerson(Person editedPerson) {
-        if (persons.contains(editedPerson)) {
-            Person targetPerson = persons.get(editedPerson);
-            persons.setPerson(targetPerson, editedPerson);
-        } else {
-            throw new PersonNotFoundException();
+    private void checkIndexValidity(Index toCheck) throws LoanNotFoundException {
+        if (toCheck.getOneBased() > getLoansCount()) {
+            throw new LoanNotFoundException();
         }
     }
 
@@ -118,6 +144,13 @@ public class LoansManager {
         }
 
         LoansManager otherLoansManager = (LoansManager) other;
-        return persons.equals(otherLoansManager.persons);
+        return getLoans().equals(otherLoansManager.getLoans());
+    }
+
+    public static class SortByPerson implements Comparator<Loan> {
+        public int compare(Loan first, Loan second) {
+            return first.getPerson().getName().toString().compareTo(
+                    second.getPerson().getName().toString());
+        }
     }
 }
