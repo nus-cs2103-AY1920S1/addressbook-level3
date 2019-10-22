@@ -21,6 +21,10 @@ public class Weight {
         this.weight = Double.parseDouble(weight);
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
     public static boolean isValidWeight(String test) {
         return test.matches(VALIDATION_REGEX);
     }

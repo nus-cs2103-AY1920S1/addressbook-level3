@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.exceptions;
+package seedu.address.model.statistics;
 
 /**
  * Type of average that can be computed.
