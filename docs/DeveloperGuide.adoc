@@ -292,8 +292,24 @@ image::AddTaskSequenceDiagram.png[]
 ===== Aspect: Design of `Task`
 * **Alternative 1 (current implementation):** implement `Task` as abstract class with two subclasses to support task for
 notes and questions respectively.
+** Pros: It allows polymorphism to support different behaviours of task for `Note` and task for `Question`. Fields and
+methods in common are concretely implemented to reduce duplicate code snippets.
+** Cons: We need to implement two different `AddTask` commands to support addition of the two different types of tasks.
+
+
+The class diagram below illustrates how `Task` class is designed:
 
 image::TaskClassDiagram.png[]
+
+* **Alternative 2:** design `Task` as an interface to be implemented by two different classes.
+** Pros: More flexible design. Less exposure of internal properties of Task to client.
+** Cons: We need to implement all methods in the interface and hence more code snippets are needed. Both implementing
+classes have to include the field in common such as `isDone`, which results in duplicate code snippets.
+
+* **Alternative 3:** wrap everything in one concrete `Task` class to support both lecture notes and questions.
+** Pros: Less code to write.
+** Cons: It violates the principle of Separation of Concern. Hard to maintain or extend in the future if more types of
+tasks are needed.
 
 === Logging
 
