@@ -19,6 +19,8 @@ public class Loan {
     private final BorrowerId borrowerId;
     private final LocalDate startDate;
     private final LocalDate dueDate;
+    // returnDate
+    // isReturned method
 
     public Loan(LoanId loanId, SerialNumber bookSerialNumber, BorrowerId borrowerId,
                 LocalDate startDate, LocalDate dueDate) {

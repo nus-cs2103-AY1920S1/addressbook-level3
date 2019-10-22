@@ -43,7 +43,7 @@ public class UniqueBookListTest {
         uniqueBookList.add(BOOK_1);
         Book editedBook1 = new BookBuilder(BOOK_1).withGenres(VALID_GENRE_ACTION)
                 .build();
-        assertTrue(uniqueBookList.contains(editedBook1));
+        assertFalse(uniqueBookList.contains(editedBook1));
     }
 
     @Test

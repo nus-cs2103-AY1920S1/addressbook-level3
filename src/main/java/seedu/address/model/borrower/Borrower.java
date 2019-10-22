@@ -16,13 +16,10 @@ public class Borrower {
     private Email email;
     private final BorrowerId borrowerId;
     private LoanList currentLoanList;
+    private LoanList returnedLoanList;
 
     public Borrower(Name name, Phone phone, Email email) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.borrowerId = BorrowerIdGenerator.generateBorrowerId();
-        this.currentLoanList = new LoanList();
+        this(name, phone, email, BorrowerIdGenerator.generateBorrowerId());
     }
 
     /**
@@ -33,19 +30,17 @@ public class Borrower {
      * @param borrowerId is manually input for testing purpose.
      */
     public Borrower(Name name, Phone phone, Email email, BorrowerId borrowerId) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.borrowerId = borrowerId;
-        this.currentLoanList = new LoanList();
+        this(name, phone, email, borrowerId, new LoanList(), new LoanList());
     }
 
-    public Borrower(Name name, Phone phone, Email email, BorrowerId borrowerId, LoanList currentLoanList) {
+    public Borrower(Name name, Phone phone, Email email, BorrowerId borrowerId,
+                    LoanList currentLoanList, LoanList returnedLoanList) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.borrowerId = borrowerId;
         this.currentLoanList = currentLoanList;
+        this.returnedLoanList = returnedLoanList;
     }
 
     public Name getName() {
@@ -68,8 +63,34 @@ public class Borrower {
         return currentLoanList;
     }
 
+    public LoanList getReturnedLoanList() {
+        return returnedLoanList;
+    }
+
+    /**
+     * Adds a new Loan object representing a book loaned by the Borrower.
+     */
     public void addNewLoan(Loan loan) {
         currentLoanList.add(loan);
+    }
+
+    /**
+     * Returns true if Borrower currently loans a Book represented by the given Loan object.
+     */
+    public boolean hasCurrentLoan(Loan loan) {
+        return currentLoanList.contains(loan);
+    }
+
+    /**
+     * Returns a Book that is borrowed by the Borrower.
+     *
+     * @param loan Loan object that is being returned.
+     */
+    public void returnLoan(Loan loan) {
+        assert hasCurrentLoan(loan) : "Borrower does not have the loan to be returned.";
+
+        currentLoanList.remove(loan);
+        returnedLoanList.add(loan);
     }
 
     /**

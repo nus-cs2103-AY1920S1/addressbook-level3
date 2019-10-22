@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.testutil.TypicalLoans.LOAN_7;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +43,7 @@ public class TypicalBorrowers {
     public static final Borrower HOON = new BorrowerBuilder().withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").build();
     public static final Borrower IDA = new BorrowerBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").build();
+            .withEmail("hans@example.com").withBorrowerId("K0009").withCurrentLoan(LOAN_7).build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Borrower AMY = new BorrowerBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

@@ -7,7 +7,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
 import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 
+import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -17,7 +19,7 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanIdGenerator;
 
 /**
- * Loans a Book with the given Serial Number to a Borrower
+ * Loans a Book with the given Serial Number to a Borrower.
  */
 public class LoanCommand extends Command {
     public static final String COMMAND_WORD = "loan";
@@ -42,10 +44,11 @@ public class LoanCommand extends Command {
     }
 
     /**
+     * Executes the LoanCommand and returns the result message.
      *
      * @param model {@code Model} which the command should operate on.
      * @return Feedback message of the operation result for display.
-     * @throws CommandException TODO
+     * @throws CommandException If an error occurs during command execution.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -73,6 +76,12 @@ public class LoanCommand extends Command {
         model.setBook(bookToBeLoaned, loanedOutBook);
         servingBorrower.addNewLoan(loan); // add Loan object to Borrower
         model.addLoan(loan); // add Loan object to LoanRecords in model
+
+        try {
+            LoanSlipUtil.mountLoanSlip(loan, loanedOutBook, servingBorrower);
+        } catch (LoanSlipException e) {
+            e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook, servingBorrower));
     }

@@ -5,6 +5,8 @@ import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanList;
 
 /**
  * A utility class to help with building Borrower objects.
@@ -19,12 +21,16 @@ public class BorrowerBuilder {
     private Phone phone;
     private Email email;
     private BorrowerId borrowerId;
+    private LoanList currentLoanList;
+    private LoanList returnedLoanList;
 
     public BorrowerBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE_NUMBER);
         email = new Email(DEFAULT_EMAIL);
         borrowerId = new BorrowerId(DEFAULT_BORROWER_ID);
+        currentLoanList = new LoanList();
+        returnedLoanList = new LoanList();
     }
 
     public BorrowerBuilder(Borrower borrowerToCopy) {
@@ -32,6 +38,8 @@ public class BorrowerBuilder {
         phone = borrowerToCopy.getPhone();
         email = borrowerToCopy.getEmail();
         borrowerId = borrowerToCopy.getBorrowerId();
+        currentLoanList = borrowerToCopy.getCurrentLoanList();
+        returnedLoanList = borrowerToCopy.getReturnedLoanList();
     }
 
     /**
@@ -59,16 +67,23 @@ public class BorrowerBuilder {
     }
 
     /**
-     * Sets the {@code Borrower ID} of the {@code Borrower} that we are building.
+     * Sets the {@code BorrowerID} of the {@code Borrower} that we are building.
      */
     public BorrowerBuilder withBorrowerId(String id) {
         this.borrowerId = new BorrowerId(id);
         return this;
 
     }
+    /**
+     * Adds a current Loan to the {@code currentLoanList} of the {@code Borrower} that we are building.
+     */
+    public BorrowerBuilder withCurrentLoan(Loan loan) {
+        this.currentLoanList.add(loan);
+        return this;
+    }
 
     public Borrower build() {
-        return new Borrower(name, phone, email, borrowerId);
+        return new Borrower(name, phone, email, borrowerId, currentLoanList, returnedLoanList);
     }
 
     public Borrower actualBuild() {
