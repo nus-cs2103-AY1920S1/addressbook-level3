@@ -1,9 +1,12 @@
 package seedu.address.model.item;
 
+import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Task;
+
 /**
  * Object class to store all the items that are task within the program
  */
-public class TaskList extends ItemList {
+public class TaskList extends VisualizeList {
     public TaskList() {
         super();
     }
@@ -11,20 +14,20 @@ public class TaskList extends ItemList {
     /**
      * Sort the items in the task list. The items are first sorted by whether they are
      * done or not and then by their priority.
-     * @return an ItemList of all the items sorted
+     * @return an VisualizeList of all the items sorted
      */
-    public ItemList sort() {
+    public VisualizeList sort() {
         TaskList tl = new TaskList();
         for (Item item: list) {
             tl.add(item);
         }
 
         tl.list.sort((item1, item2) -> {
-            Task task1 = item1.getTask();
-            Task task2 = item2.getTask();
-            if (task1.isDone() && !task2.isDone()) {
+            Task task1 = item1.getTask().get();
+            Task task2 = item2.getTask().get();
+            if (task1.isComplete() && !task2.isComplete()) {
                 return 1;
-            } else if (!task1.isDone() && task2.isDone()) {
+            } else if (!task1.isComplete() && task2.isComplete()) {
                 return -1;
             } else {
                 return task1.getPriority().compareTo(task2.getPriority());
@@ -39,8 +42,14 @@ public class TaskList extends ItemList {
      * @param searchString a string to be search for within the description of an item
      * @return a new TaskList containing only the items that have the search string in their description
      */
-    public ItemList find(String searchString) {
+    public VisualizeList find(String[] searchString) {
         TaskList tl = new TaskList();
         return find(searchString, tl);
+    }
+
+    @Override
+    public VisualizeList deepCopy() {
+        TaskList tl = new TaskList();
+        return super.deepCopy(tl);
     }
 }

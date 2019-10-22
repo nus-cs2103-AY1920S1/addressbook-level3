@@ -8,28 +8,26 @@ import java.util.Objects;
  * Represents the result of a command execution.
  */
 public class CommandResult {
+    protected String pane = "";
+    protected final String feedbackToUser;
 
-    private final String feedbackToUser;
+    /**
+     * Help information should be shown to the user.
+     */
+    protected final boolean showHelp;
 
-    /** The application should switch views.*/
-    private final boolean switchViews;
-    private final String view;
-
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
-    /** The application should exit. */
-    private final boolean exit;
+    /**
+     * The application should exit.
+     */
+    protected final boolean exit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean switchViews, String view) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.switchViews = switchViews;
-        this.view = null;
     }
 
     /**
@@ -37,14 +35,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, null);
-    }
-
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, null);
-    }
-    public CommandResult(String feedbackToUser, String view) {
-        this(feedbackToUser, false, false, true, view);
+        this(feedbackToUser, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -55,16 +46,8 @@ public class CommandResult {
         return showHelp;
     }
 
-    public boolean isSwitchViews() {
-        return switchViews;
-    }
-
     public boolean isExit() {
         return exit;
-    }
-
-    public String getView() {
-        return view;
     }
 
     @Override
@@ -88,5 +71,7 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
-
+    public String getPane() {
+        return this.pane;
+    }
 }

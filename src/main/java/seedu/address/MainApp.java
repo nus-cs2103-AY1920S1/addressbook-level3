@@ -7,23 +7,27 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+
+import seedu.address.model.ElisaCommandHistory;
+import seedu.address.model.ElisaCommandHistoryManager;
+import seedu.address.model.ItemModel;
+import seedu.address.model.ItemModelManager;
+import seedu.address.model.ItemStorage;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+
+import seedu.address.storage.ItemListStorage;
+import seedu.address.storage.JsonItemStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -43,8 +47,9 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected Model model;
+    protected ItemModel model;
     protected Config config;
+    protected ElisaCommandHistory commandHistory;
 
     @Override
     public void init() throws Exception {
@@ -56,12 +61,14 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ItemListStorage itemListStorage = new JsonItemStorage(userPrefs.getItemStorageFilePath());
+        storage = new StorageManager(itemListStorage, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        commandHistory = new ElisaCommandHistoryManager();
+
+        model = initModelManager(storage, userPrefs, commandHistory);
 
         logic = new LogicManager(model, storage);
 
@@ -73,24 +80,19 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+    private ItemModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ElisaCommandHistory stateHistory) {
+        ItemStorage initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = storage.toModelType();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new ItemStorage();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new ItemStorage();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ItemModelManager(initialData, userPrefs, stateHistory);
     }
 
     private void initLogging(Config config) {
@@ -174,6 +176,8 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
+        //Bryan Reminder
+        logic.shutdown();
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

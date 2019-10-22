@@ -3,14 +3,16 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ItemModel;
+import seedu.address.model.item.VisualizeList;
+
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "find";
 
@@ -19,24 +21,37 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final String[] searchString;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    private VisualizeList beforeFilter;
+
+    public FindCommand(String[] searchString) {
+        this.searchString = searchString;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(ItemModel model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        beforeFilter = model.getVisualList().deepCopy();
+        model.findItem(searchString);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_ITEM_LISTED_OVERVIEW, model.getVisualList().size()));
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.setVisualizeList(beforeFilter);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && searchString.equals(((FindCommand) other).searchString)); // state check
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

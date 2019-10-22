@@ -1,51 +1,74 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ItemModel;
+import seedu.address.model.item.VisualizeList;
+
 /**
- * Switches the view to the desired view.
+ * Switches the current view to the desired view.
  */
-public class ShowCommand extends Command {
+public class ShowCommand extends UndoableCommand {
+
     public static final String COMMAND_WORD = "show";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the desired view and the list it contains."
-            + "Parameters: KEYWORD"
+    public static final String TASK_VIEW_COMMAND = "T";
+    public static final String EVENT_VIEW_COMMAND = "E";
+    public static final String REMINDER_VIEW_COMMAND = "R";
+    public static final String CALENDAR_VIEW_COMMAND = "C";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Shows the desired view.\n"
+            + "Parameters: KEYWORD (T,E,R,C)\n"
             + "Example: " + COMMAND_WORD + " E";
 
-    public static final String MESSAGE_INVALIDVIEW = "This view is invalid. \nThe only views available are: \n"
-            + "  'T' for Task list\n  'E' for Event list\n  'C' for Event calendar\n  'R' for Reminder list.";
-    public static final String MESSAGE_SUCCESS = "Showing %1$s";
+    public static final String MESSAGE_SUCCESS = "Switched view to %1$s";
 
     private final String targetView;
     private final String targetList;
+    private VisualizeList beforeSwitch;
 
-    public ShowCommand(String targetView) throws CommandException {
+    public ShowCommand(String unprocessedView) {
+        String targetView = unprocessedView.toUpperCase();
         this.targetView = targetView;
-        switch (targetView) {
-            case "T":
-                this.targetList = "task";
-                break;
-            case "E":
-                this.targetList = "event";
-                break;
-            case "C":
-                this.targetList = "event";
-                break;
-            case "R":
-                this.targetList = "reminder";
-                break;
-            default:
-                throw new CommandException(MESSAGE_INVALIDVIEW);
+
+        switch(targetView) {
+        case TASK_VIEW_COMMAND:
+            this.targetList = TASK_VIEW_COMMAND; //"TASK"
+            break;
+        case EVENT_VIEW_COMMAND:
+            this.targetList = EVENT_VIEW_COMMAND; //"EVENT"
+            break;
+        case CALENDAR_VIEW_COMMAND:
+            this.targetList = CALENDAR_VIEW_COMMAND; //"CALENDAR"
+            break;
+        case REMINDER_VIEW_COMMAND:
+            this.targetList = REMINDER_VIEW_COMMAND; //"REMINDER"
+            break;
+        default:
+            this.targetList = null;
         }
     }
 
-    public CommandResult execute(Model model) {
+    @Override
+    public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
-        model.updateViewingList(targetList);
-        // Switch tabs
+        beforeSwitch = model.getVisualList().deepCopy();
+        try {
+            model.setVisualList(targetList); // should be T/E/R
+        } catch (Exception e) {
+            throw new CommandException("Show command format is incorrect. It should be \"show T\"");
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetView));
+    }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetView), targetView);
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.setVisualizeList(beforeSwitch);
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

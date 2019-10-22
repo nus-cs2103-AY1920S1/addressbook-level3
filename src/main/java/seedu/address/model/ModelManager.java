@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.item.Item;
 import seedu.address.model.person.Person;
 
 /**
@@ -67,13 +68,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getItemStorageFilePath();
     }
 
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setItemStorageFilePath(addressBookFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -110,6 +111,18 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    // dummy method
+    @Override
+    public boolean hasItem(Item item) {
+        return true;
+    }
+
+    // dummy method
+    @Override
+    public void add(Item item) {
+        //nothing
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -149,7 +162,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateViewingList(String targetList) {
+    public void updateViewList(String targetList) {
 
     }
 }

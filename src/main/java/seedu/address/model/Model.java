@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.item.Item;
 import seedu.address.model.person.Person;
 
 /**
@@ -57,6 +58,7 @@ public interface Model {
      */
     boolean hasPerson(Person person);
 
+
     /**
      * Deletes the given person.
      * The person must exist in the address book.
@@ -85,9 +87,11 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /**
-     * Updates the viewing list to the correct list given by (@code targetList)
-     * @param targetList
-     */
-    void updateViewingList(String targetList);
+    void updateViewList(String targetList);
+
+
+    boolean hasItem(Item item);
+
+    void add(Item item);
+
 }
