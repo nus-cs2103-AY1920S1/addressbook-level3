@@ -1,8 +1,10 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -11,10 +13,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
+import seedu.address.model.statistics.AverageType;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
 
@@ -117,4 +122,28 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of calendar entries
      */
     ObservableList<CalendarEntry> getFilteredCalendarEntryList();
+    //=========== Statistics List =============================================================
+
+    /**
+     * Returns the last average type calculated.
+     */
+    AverageType getAverageType();
+
+    /**
+     * Returns the last record type whose average is calculated.
+     */
+    RecordType getRecordType();
+
+    /**
+     * Returns a {@code Map} object that maps time period to the respective average values.
+     */
+    ObservableMap<LocalDate, Double> getAverageMap();
+
+    //=========== Aesthetics =============================================================
+
+    /**
+     * Returns the font colour to be set for this app.
+     */
+    Colour getFontColour();
+
 }

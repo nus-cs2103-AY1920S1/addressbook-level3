@@ -4,19 +4,25 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
+import seedu.address.model.statistics.AverageMap;
+import seedu.address.model.statistics.AverageType;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -37,6 +43,10 @@ public class ModelManager implements Model {
     private final FilteredList<Record> filteredRecordList;
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
+    private final AverageMap averageMap;
+
+    private AverageType averageType;
+    private RecordType recordType;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -61,6 +71,9 @@ public class ModelManager implements Model {
         this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
         this.calendar = new Calendar(calendar);
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
+        this.averageMap = new AverageMap();
+        this.averageType = null;
+        this.recordType = null;
     }
 
     public ModelManager() {
@@ -272,6 +285,18 @@ public class ModelManager implements Model {
     }
 
 
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public Colour getFontColour() {
+        return userPrefs.getFontColour();
+    }
+
+    @Override
+    public void setFontColour(Colour fontColour) {
+        userPrefs.setFontColour(fontColour);
+    }
+
     //=========== Food Map =============================================================
 
     //addFood() Function
@@ -363,4 +388,39 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredRecordList.setPredicate(predicate);
     }
+
+    //=========== Statistics List =============================================================
+
+    @Override
+    public AverageType getAverageType() {
+        return averageType;
+    }
+
+    @Override
+    public RecordType getRecordType() {
+        return recordType;
+    }
+
+    @Override
+    public void setAverageType(AverageType averageType) {
+        this.averageType = averageType;
+    }
+
+    @Override
+    public void setRecordType(RecordType recordType) {
+        this.recordType = recordType;
+    }
+
+    @Override
+    public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
+        setAverageType(averageType);
+        setRecordType(recordType);
+        averageMap.calculateAverage(getRecordList(), averageType, recordType, count);
+    }
+
+    @Override
+    public ObservableMap<LocalDate, Double> getAverageMap() {
+        return averageMap.asUnmodifiableObservableMap();
+    }
+
 }

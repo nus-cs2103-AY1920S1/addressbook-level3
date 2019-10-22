@@ -3,7 +3,7 @@ package seedu.address.model.record;
 import seedu.address.model.DateTime;
 
 /**
- * A utility class to help with building Food objects.
+ * A utility class to help with building Bmi objects.
  */
 public class BmiBuilder {
 
@@ -16,7 +16,7 @@ public class BmiBuilder {
     private Weight weight;
 
     /**
-     * Initializes the FoodBuilder with the default data.
+     * Initializes the BmiBuilder with the default data.
      */
     public BmiBuilder() {
         this.dateTime = new DateTime(DEFAULT_DATETIME);
@@ -25,7 +25,7 @@ public class BmiBuilder {
     }
 
     /**
-     * Initializes the FoodBuilder with the data of {@code foodToCopy}.
+     * Initializes the BmiBuilder with the data of {@code bmiToCopy}.
      */
     public BmiBuilder(Bmi bmiToCopy) {
         this.dateTime = bmiToCopy.getDateTime();
@@ -34,7 +34,7 @@ public class BmiBuilder {
     }
 
     /**
-     * Sets the {@code FoodName} of the {@code Food} that we are building.
+     * Sets the {@code DateTime} of the {@code Bmi} that we are building.
      */
     public BmiBuilder withDateTime(String dateTime) {
         this.dateTime = new DateTime(dateTime);
@@ -42,7 +42,7 @@ public class BmiBuilder {
     }
 
     /**
-     * Sets the {@code Calorie} of the {@code Food} that we are building.
+     * Sets the {@code Height} of the {@code Bmi} that we are building.
      */
     public BmiBuilder withHeight(String height) {
         this.height = new Height(height);
@@ -50,7 +50,7 @@ public class BmiBuilder {
     }
 
     /**
-     * Sets the {@code Gi} of the {@code Food} that we are building.
+     * Sets the {@code Weight} of the {@code Bmi} that we are building.
      */
     public BmiBuilder withWeight(String weight) {
         this.weight = new Weight(weight);

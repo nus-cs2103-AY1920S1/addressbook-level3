@@ -51,7 +51,7 @@ public class EditBioCommand extends Command {
 
     public static final String COMMAND_WORD = "editbio";
 
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Edits the user's bio "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Edits the user's biography "
             + "either by overwriting all existing values, OR by specifying positive indexes for individual values for "
             + "fields that can hold multiple values. Fields that can hold multiple values are limited to "
             + "contact numbers, emergency contacts, medical conditions and goals.\n"
