@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import seedu.address.logic.util.ModeEnum;
+import seedu.address.model.appsettings.ThemeEnum;
 
 
 /**
@@ -16,30 +19,13 @@ public class UpdateUi {
         this.currentModeFooter = currentModeFooter;
     }
 
-    //Use string for now, eventually use mode.
-    /**
-     * Updates the mode in {@code MainWindow}.
-     *
-     * @param mode The mode to update to.
-     */
-    public void updateMode(String mode) {
-        String firstArg = mode.split(" ")[0];
-        if (firstArg.equals("home")) {
-            currentModeFooter.changeMode("home");
-        } else if (firstArg.equals("start")) {
-            currentModeFooter.changeMode("game");
-        } else if (firstArg.equals("load")) {
-            currentModeFooter.changeMode("load");
-        }
-    }
-
     /**
      * Updates the {@code ModularDisplay} in {@code MainWindow}.
      *
      * @param command The command that triggers the update.
      * @param modularDisplayPlaceholder {@code modularDisplayPlaceholder} in {@code MainWindow} that gets updated.
      */
-    public void updateModularDisplay(String command, StackPane modularDisplayPlaceholder) {
+    public void updateModularDisplay(String command, ModeEnum modeEnum, StackPane modularDisplayPlaceholder) {
         String firstArg = command.split(" ")[0];
         if (firstArg.equals("load")) {
             modularDisplay.swapToBanks(modularDisplayPlaceholder);
@@ -49,10 +35,24 @@ public class UpdateUi {
             modularDisplay.swapToList(modularDisplayPlaceholder);
         } else if (firstArg.equals("help")) {
             //modularDisplay.swapToBanks(modularDisplayPlaceholder);
-        } else if (firstArg.equals("settings")) {
+        } else if (modeEnum.equals(ModeEnum.SETTINGS)) {
             modularDisplay.swapToSettings(modularDisplayPlaceholder);
         } else {
             modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
+        }
+    }
+
+    public void setTheme(ThemeEnum theme, Scene scene) {
+        if (theme.equals(ThemeEnum.DARK)) {
+            scene.getStylesheets().remove(ThemeEnum.LIGHT.getThemeUrl());
+            scene.getStylesheets().remove(ThemeEnum.LIGHT.getExtensionUrl());
+            scene.getStylesheets().add(theme.getThemeUrl());
+            scene.getStylesheets().add(theme.getExtensionUrl());
+        } else {
+            scene.getStylesheets().remove(ThemeEnum.DARK.getThemeUrl());
+            scene.getStylesheets().remove(ThemeEnum.DARK.getExtensionUrl());
+            scene.getStylesheets().add(theme.getThemeUrl());
+            scene.getStylesheets().add(theme.getExtensionUrl());
         }
     }
 
