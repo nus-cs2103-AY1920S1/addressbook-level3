@@ -47,15 +47,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Entry entry;
-        /*if (type.equalsIgnoreCase("Expense")) {
-            entry = new Expense(name, time, amt, tagList);
-        } else if (type.equalsIgnoreCase("Income")) {
-            entry = new Income(name, time, amt, tagList);
-        } else if (type.equalsIgnoreCase("Wish")) {
-            entry = new Wish(name, time, amt, tagList);
-        } else {
-            entry = new Expense(name, time, amt, tagList);
-        }*/
         switch (type) {
         case "expense":
             entry = new Expense(desc, time, amt, tagList);

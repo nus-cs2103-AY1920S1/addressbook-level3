@@ -3,21 +3,20 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="guiltTrip() - your personal finance tracker" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->
+
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="guiltTrip() - your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/guiltTrip()_32.png" />
   </icons>
@@ -45,40 +44,52 @@
 <!--        </TabPane>-->
 
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <VBox fx:id="entryList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
+            <Insets bottom="10" left="10" right="10" top="10" />
           </padding>
-          <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
         </VBox>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
-            <VBox>
-                <VBox fx:id="wishesPlaceHolder" prefHeight="200" minWidth="140">
-                    <Label fx:id="wishlistTitle" text="Wishlist" styleClass="cell_big_label"/>
-                  <Label text="subtext" styleClass="cell_small_label"/>
+          <!-- to contain the side panels in tilepane -->
+            <TilePane orientation="VERTICAL" prefRows="2">
+                <VBox fx:id="wishesPlaceHolder" minWidth="140" prefHeight="280" styleClass="pane-with-border">
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <Label fx:id="wishlistTitle" styleClass="cell_big_label" text="Wishlist" />
+                    <!--<Label styleClass="cell_small_label" text="subtext" />-->
                 </VBox>
-                <VBox fx:id="budgetsPlaceHolder" prefHeight="200" minWidth="140">
-                    <Label fx:id="budgetTitle" text="Budgets" styleClass="cell_big_label"/>
-                  <Label text="subtext" styleClass="cell_small_label"/>
+                <VBox fx:id="budgetsPlaceHolder" minWidth="140" prefHeight="280" styleClass="pane-with-border">
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <Label fx:id="budgetTitle" styleClass="cell_big_label" text="Budgets" />
+                    <!--<Label styleClass="cell_small_label" text="subtext" />-->
                 </VBox>
-            </VBox>
+                <VBox fx:id="remindersPlaceHolder" minWidth="140" prefHeight="280" styleClass="pane-with-border">
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <Label fx:id="remindersTitle" styleClass="cell_big_label" text="Reminders" />
+                    <!--<Label styleClass="cell_small_label" text="subtext" />-->
+                </VBox>
+            </TilePane>
         </HBox>
     </Scene>
   </scene>
 </fx:root>
-<!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->

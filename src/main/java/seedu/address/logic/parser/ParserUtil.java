@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
+import seedu.address.model.person.PanelName;
 import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
@@ -95,6 +96,15 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static PanelName parsePanelName(String panelName) throws ParseException {
+        requireNonNull(panelName);
+        String trimmedPanelName = panelName.trim();
+        if (!PanelName.isValidPanelName(trimmedPanelName)) {
+            throw new ParseException(PanelName.MESSAGE_CONSTRAINTS);
+        }
+        return new PanelName(trimmedPanelName);
     }
 
 }

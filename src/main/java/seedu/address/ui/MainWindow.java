@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.PanelName;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +36,9 @@ public class MainWindow extends UiPart<Stage> {
     private EntryListPanel entryListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private WishListPanel wishListPanel;
+    private BudgetPanel budgetsPanel;
+    private ReminderPanel reminderPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -56,6 +60,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private VBox budgetsPlaceHolder;
+
+    @FXML
+    private VBox remindersPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -126,8 +133,14 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        /*wishesPlaceHolder = new WishListPanel(new WishList().add(new Wish(
-                new Description("sneakers"), (new Time("13:00")), new Amount(200), new Set<Tag>(new Tag("shoes")))));*/
+        wishListPanel = new WishListPanel(logic.getFilteredEntryList());
+        wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
+
+        budgetsPanel = new BudgetPanel(logic.getFilteredEntryList());
+        budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
+
+        reminderPanel = new ReminderPanel(logic.getFilteredEntryList());
+        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 
     /**
@@ -191,6 +204,28 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowOrHidePanel()) {
+                PanelName panelName = commandResult.getPanelName();
+                String panelNameString = panelName.getName();
+                boolean isManaged;
+                switch (panelNameString) {
+                case "wishlist":
+                    isManaged = wishesPlaceHolder.isManaged();
+                    wishesPlaceHolder.setManaged(!isManaged);
+                    break;
+                case "budget":
+                    isManaged = budgetsPlaceHolder.isManaged();
+                    budgetsPlaceHolder.setManaged(!isManaged);
+                    break;
+                case "reminder":
+                    isManaged = remindersPlaceHolder.isManaged();
+                    remindersPlaceHolder.setManaged(!isManaged);
+                    break;
+                default:
+                    break;
+                }
             }
 
             return commandResult;

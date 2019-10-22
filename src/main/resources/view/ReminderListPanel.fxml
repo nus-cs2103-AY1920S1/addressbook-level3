@@ -10,5 +10,6 @@
         <URL value="@ExtensionsDark.css" />
     </stylesheets>
 
-    <ListView fx:id="budgetListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="reminderListView" VBox.vgrow="ALWAYS" />
 </VBox>
+
