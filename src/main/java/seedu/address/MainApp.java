@@ -15,8 +15,8 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.logic.internal.gmaps.ClosestLocation;
 import seedu.address.model.AddressBook;
+import seedu.address.model.GmapsModelManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.NusModsData;
@@ -121,9 +121,9 @@ public class MainApp extends Application {
 
         NusModsData nusModsData = initNusModsData();
 
-        ClosestLocation closestLocation = new ClosestLocation();
+        GmapsModelManager gmapsModelManager = new GmapsModelManager();
 
-        return new ModelManager(initialData, timeBook, nusModsData, userPrefs, closestLocation);
+        return new ModelManager(initialData, timeBook, nusModsData, userPrefs, gmapsModelManager);
     }
 
     /**

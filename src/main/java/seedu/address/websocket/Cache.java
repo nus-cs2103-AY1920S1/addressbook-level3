@@ -2,14 +2,18 @@ package seedu.address.websocket;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.Reader;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -58,6 +62,97 @@ public class Cache {
             JsonUtil.saveJsonFile(obj, fullPath);
         } catch (IOException e) {
             logger.warning("Failed to save file : " + StringUtil.getDetails(e));
+        }
+    }
+
+    /**
+     * This method is used to save all the API response to a particular JSON file. Only for JSON
+     * Object
+     * @param key
+     * @param value
+     * @param filePath
+     */
+    public static void saveToJson(String key, Object value , String filePath) {
+        requireNonNull(key);
+        requireNonNull(value);
+        requireNonNull(filePath);
+
+        JSONParser parser;
+        parser = new JSONParser();
+
+        try (Reader reader = new FileReader(filePath)) {
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
+            if (jsonObject.containsKey(key)) {
+                jsonObject.remove(key);
+            }
+            jsonObject.put(key, value);
+
+            try (FileWriter file = new FileWriter(filePath)) {
+                file.write(jsonObject.toJSONString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to load a previously called API response
+     * @param key
+     * @param filePath
+     * @return
+     */
+    public static String loadFromJson(String key, String filePath) {
+        requireNonNull(key);
+        requireNonNull(filePath);
+
+        JSONParser parser;
+        parser = new JSONParser();
+        Object result = null;
+        try (Reader reader = new FileReader(filePath)) {
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            result = jsonObject.get(key);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result.toString();
+    }
+
+    /**
+     * Load json from file in resources
+     * @param path file name to load from
+     * @return an Optional containing a JSONObject or empty.
+     */
+    private static Object loadFullPath(String path) {
+        requireNonNull(path);
+        Object response = null;
+        JSONParser parser;
+        parser = new JSONParser();
+        try (Reader reader = new FileReader(path)) {
+            response = parser.parse(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    /**
+     * Save json to file in resources
+     * @param path file name to load from
+     */
+    private static void saveFullPathJsonArray(String path, JSONArray jsonObject) {
+        try (FileWriter file = new FileWriter(path)) {
+            file.write(jsonObject.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -168,5 +263,24 @@ public class Cache {
 
         logger.severe("Failed to get module from API! Unable to add mod to schedules.");
         return Optional.empty();
+    }
+
+    /**
+     * Load a module from cache, if failed, call api, then save results to cache folder.
+     * If api fails too, return empty.
+     * @return an Optional containing a Module object or empty.
+     */
+    public static JSONArray loadVenues() {
+        JSONArray venues = (JSONArray) loadFullPath(CacheFileNames.VENUES_FULL_PATH);
+
+        if (venues != null) {
+            return venues;
+        } else {
+            logger.info("Module not found in cache, getting from API...");
+            venues = api.getVenues("/1").orElse(new JSONArray());
+            saveFullPathJsonArray(CacheFileNames.VENUES_FULL_PATH, venues);
+        }
+
+        return venues;
     }
 }

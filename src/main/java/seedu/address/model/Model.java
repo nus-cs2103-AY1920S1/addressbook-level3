@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -26,7 +27,6 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.ModuleList;
 import seedu.address.model.module.SemesterNo;
-import seedu.address.model.module.Venue;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -326,16 +326,16 @@ public interface Model {
 
     /**
      * Returns the common closest location.
-     * @param venues ArrayList of venues object
+     * @param locationNameList ArrayList of venues object
      * @return
      */
-    String getClosestLocationVenues(ArrayList<Venue> venues);
+    Hashtable<String, Object> getClosestLocationData(ArrayList<String> locationNameList);
     /**
      * Returns the common closest location.
-     * @param venues ArrayList of string object
+     * @param locationNameList ArrayList of string object
      * @return
      */
-    String getClosestLocationString(ArrayList<String> venues);
+    String getClosestLocationDataString(ArrayList<String> locationNameList);
 
     //=========== Others =============================================================
 
