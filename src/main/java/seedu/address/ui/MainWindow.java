@@ -50,9 +50,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic uiLogic;
 
     @FXML
-    private HelpWindow helpWindow;
-
-    @FXML
     private AnchorPane homePlaceholder;
 
     @FXML
@@ -118,14 +115,13 @@ public class MainWindow extends UiPart<Stage> {
         this.personLogic = personLogic;
         this.cashierLogic = cashierLogic;
         this.overviewLogic = overviewLogic;
-        this.uiLogic = new LogicManager(tabPane, helpWindow);
+        this.uiLogic = new LogicManager(tabPane);
 
         // Configure the UI
         //setWindowDefaultSize(logic.getGuiSettings());
 
         //setAccelerators();
 
-        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -221,7 +217,6 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         personLogic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -265,11 +260,6 @@ public class MainWindow extends UiPart<Stage> {
 
             overviewPlaceholder.getChildren().removeAll();
             overviewPlaceholder.getChildren().add(new Overview(overviewLogic).getRoot());
-
-            //later when we implement help and exit
-            /*if (commandResult.isShowHelp()) {
-                handleHelp();
-            }*/
 
             if (commandResult.isExit()) {
                 handleExit();
