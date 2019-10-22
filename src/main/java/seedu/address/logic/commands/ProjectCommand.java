@@ -9,7 +9,6 @@ import seedu.address.model.Model;
 import seedu.address.model.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.DateComparator;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
 
 /**

@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
 
 /**

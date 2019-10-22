@@ -4,6 +4,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
 
+/**
+ * Payment concrete class from bankAccount to a Person
+ */
 public class LendMoney extends Payment {
     public LendMoney(Person person, Amount amount, Date date) {
         super(person, amount, date);

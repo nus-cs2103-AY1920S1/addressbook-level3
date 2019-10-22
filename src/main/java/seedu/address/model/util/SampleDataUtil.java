@@ -1,6 +1,5 @@
 package seedu.address.model.util;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,7 +12,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.*;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.InTransaction;
+import seedu.address.model.transaction.OutTransaction;
 
 /**
  * Contains utility methods for populating {@code BankAccount} with sample data.
@@ -22,7 +24,7 @@ public class SampleDataUtil {
     public static BankAccountOperation[] getSampleTransactions() {
         return new BankAccountOperation[] {
             new InTransaction(new Amount(100), Date.now()),
-            new OutTransaction(new Amount(44.44),Date.now()),
+            new OutTransaction(new Amount(44.44), Date.now()),
             new OutTransaction(new Amount(23.3), Date.now()),
             new InTransaction(new Amount(34.01), Date.now()),
             new OutTransaction(new Amount(9.99), Date.now())

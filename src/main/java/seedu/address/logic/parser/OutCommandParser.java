@@ -17,7 +17,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.OutTransaction;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
 
 /**

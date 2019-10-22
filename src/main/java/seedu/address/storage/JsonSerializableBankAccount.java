@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * An Immutable BankAccount that is serializable to JSON format.

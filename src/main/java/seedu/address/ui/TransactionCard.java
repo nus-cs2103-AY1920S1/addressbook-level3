@@ -8,7 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * An UI component that displays information of a {@code Transaction}.

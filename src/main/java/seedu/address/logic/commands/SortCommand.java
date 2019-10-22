@@ -7,7 +7,6 @@ import java.util.List;
 
 import seedu.address.model.Model;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * Lists all persons in the address book to the user.
@@ -33,7 +32,8 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        List<BankAccountOperation> sortedTransactionHistory = model.getBankAccount().getSortedTransactionHistory(comparator);
+        List<BankAccountOperation> sortedTransactionHistory =
+                model.getBankAccount().getSortedTransactionHistory(comparator);
         model.setTransactions(sortedTransactionHistory);
         model.commitBankAccount();
         return new CommandResult(MESSAGE_SUCCESS);

@@ -18,7 +18,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionContainsTagsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 

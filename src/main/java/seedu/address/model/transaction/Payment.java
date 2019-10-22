@@ -6,7 +6,12 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
 
-public abstract class Payment extends Transaction implements LedgerOperation{
+/**
+ * Abstracted class to encourage code reuse in concrete classes
+ * {@see LendMoney}
+ * {@see ReceiveMoney}
+ */
+public abstract class Payment extends Transaction implements LedgerOperation {
     protected final Person person;
 
     public Payment(Person person, Amount amount, Date date) {
@@ -21,7 +26,11 @@ public abstract class Payment extends Transaction implements LedgerOperation{
     }
 
 
-
+    /**
+     * Adds target into UniquePersonList if not already there
+     * @param peopleInLedger list of People in the Ledger
+     * @return reference to said Person
+     */
     protected Person handleTarget(UniquePersonList peopleInLedger) {
         Person personInvolved = person;
         if (peopleInLedger.contains(person)) {

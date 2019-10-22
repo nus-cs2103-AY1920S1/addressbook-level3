@@ -7,7 +7,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.transaction.*;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 
 /**
  * The API of the Model component.
@@ -118,6 +120,8 @@ public interface Model {
      */
     void handleOperation(BankAccountOperation operation);
 
+    void handleOperation(LedgerOperation operation);
+
     /**
      * Adds the given budget.
      * {@code budget} must not already exist in the bank account.
@@ -137,8 +141,6 @@ public interface Model {
      */
     void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate);
 
-
-    void handleOperation(LedgerOperation operation);
 
     /** Returns an unmodifiable view of the filtered budget list
      */

@@ -4,6 +4,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
 
+/**
+ * Concrete class to encapsulate payments from other People to self
+ */
 public class ReceiveMoney extends Payment {
     public ReceiveMoney(Person person, Amount amount, Date date) {
         super(person, amount, date);

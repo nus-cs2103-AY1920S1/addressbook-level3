@@ -1,12 +1,10 @@
 package seedu.address.model;
 
+import java.util.Comparator;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
-import seedu.address.model.transaction.Transaction;
-
-import java.util.Comparator;
 
 /**
  * Unmodifiable view of a ledger

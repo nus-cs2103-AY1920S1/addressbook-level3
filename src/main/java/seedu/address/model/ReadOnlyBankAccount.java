@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * Unmodifiable view of an bank account

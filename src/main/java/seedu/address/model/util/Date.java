@@ -68,6 +68,10 @@ public class Date implements Comparable<Date> {
         return this.date.compareTo(date.date);
     }
 
+    /**
+     * Get today's date
+     * @return Date object of today's date
+     */
     public static Date now() {
         String today = DATE_FORMATTER.format(LocalDate.now());
         return new Date(today);

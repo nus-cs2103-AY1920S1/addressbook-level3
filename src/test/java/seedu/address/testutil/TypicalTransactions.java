@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.model.BankAccount;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * A utility class containing a list of {@code Transaction} objects to be used in tests.

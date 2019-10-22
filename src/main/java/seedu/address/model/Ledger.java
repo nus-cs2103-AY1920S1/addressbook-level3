@@ -1,17 +1,17 @@
 package seedu.address.model;
 
+import java.util.Comparator;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.Split;
 
-import java.util.Comparator;
-
 /**
  * Separate field in BankAccount to store transactions related to split
  */
-public class Ledger implements ReadOnlyLedger{
+public class Ledger implements ReadOnlyLedger {
     private Amount pot;
     private UniquePersonList people;
 

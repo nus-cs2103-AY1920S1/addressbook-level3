@@ -15,7 +15,10 @@ import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.transaction.*;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.Transaction;
 
 public class AddCommandTest {
 
@@ -111,6 +114,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void handleOperation(LedgerOperation operation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
@@ -181,11 +189,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void handleOperation(LedgerOperation operation) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Budget> getFilteredBudgetList() {
             return null;
         }
@@ -219,6 +222,16 @@ public class AddCommandTest {
         public boolean hasTransaction(BankAccountOperation transaction) {
             requireNonNull(transaction);
             return transactionsAdded.stream().anyMatch(transaction::isSameTransaction);
+        }
+
+        @Override
+        public void handleOperation(LedgerOperation operation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

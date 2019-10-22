@@ -1,10 +1,13 @@
 package seedu.address.model.transaction;
 
+import java.util.Set;
+
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Date;
 
-import java.util.Set;
-
+/**
+ * Interface to differentiate between operations on BankAccount and Ledger
+ */
 public interface BankAccountOperation {
     Amount handleBalance(Amount balance);
 
