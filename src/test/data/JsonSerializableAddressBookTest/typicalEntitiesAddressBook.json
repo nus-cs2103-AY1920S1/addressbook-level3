@@ -51,7 +51,7 @@
     "tagged" : [ ]
   } ],
   "incidents": [  {
-    "incidentId" : " 302018003",
+    "incidentId" : "0320180001",
     "districtNum" : 6,
     "dateTime" : "2018-03-03T10:15:30",
     "operator" : "Alex Yeoh"
