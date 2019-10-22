@@ -8,7 +8,7 @@ import seedu.address.model.aesthetics.Colour;
 /**
  * Unmodifiable view of user prefs.
  */
-public interface ReadOnlyUserPrefs {
+public interface ReadOnlyUserPrefs extends ReadOnlyData {
 
     GuiSettings getGuiSettings();
 
