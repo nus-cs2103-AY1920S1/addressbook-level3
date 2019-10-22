@@ -2,8 +2,9 @@ package seedu.address.logic.parser.editcommandparser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.Collection;
@@ -33,7 +34,7 @@ public class EditScheduleCommandParser {
     public EditScheduleCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CALENDAR, PREFIX_VENUE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME, PREFIX_VENUE, PREFIX_TAG);
 
         Index index;
 
@@ -45,9 +46,13 @@ public class EditScheduleCommandParser {
         }
 
         EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
-        if (argMultimap.getValue(PREFIX_CALENDAR).isPresent()) {
-            editScheduleDescriptor.setCalendar(
-                    ParserUtil.parseCalendar(argMultimap.getValue(PREFIX_CALENDAR).get()));
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            editScheduleDescriptor.setDate(
+                    ParserUtil.parseDateCalendar(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            editScheduleDescriptor.setTime(
+                    ParserUtil.parseTimeCalendar(argMultimap.getValue(PREFIX_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_VENUE).isPresent()) {
             editScheduleDescriptor.setVenue(ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE).get()));

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -14,17 +15,18 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.statistic.StatsPayload;
 import seedu.address.ui.exception.EnumNotPresentException;
 import seedu.address.ui.panels.CalendarPanel;
 import seedu.address.ui.panels.CustomerListPanel;
 import seedu.address.ui.panels.OrderListPanel;
 import seedu.address.ui.panels.PhoneListPanel;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -132,7 +134,8 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
         phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList());
+        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList(),
+                logic.getCalendarDate());
 
         tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, calendarPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
@@ -184,6 +187,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsWindow.hide();
         primaryStage.hide();
     }
 
@@ -192,25 +196,47 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleStats(StatsPayload statsPayload) {
-        //calculate stats with input to logic manager
-        switch (statsPayload.getStatisticType()) {
-        case PROFIT:
-            String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
-            this.statsWindow.show();
-            break;
-        case REVENUE:
-            String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
-            this.statsWindow.show();
-            break;
-        case COST:
-            String totalCostResult = this.logic.calculateTotalCost(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
-            this.statsWindow.show();
-            break;
-        default:
-            throw new EnumNotPresentException("Enum not present in stat command");
+        if (statsPayload.isDefaultQuery()) {
+            switch (statsPayload.getStatisticType()) {
+            case PROFIT:
+                String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
+                this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
+                this.statsWindow.show();
+                break;
+            case REVENUE:
+                String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
+                this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
+                this.statsWindow.show();
+                break;
+            case COST:
+                String totalCostResult = this.logic.calculateTotalCost(statsPayload);
+                this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
+                this.statsWindow.show();
+                break;
+            default:
+                throw new EnumNotPresentException("Enum not present in stat command");
+            }
+        } else {
+            //calculate stats with input to logic manager
+            switch (statsPayload.getStatisticType()) {
+            case PROFIT:
+                XYChart.Series<String, Number> profitResult = this.logic.calculateTotalProfitGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Profit", profitResult);
+                this.statsWindow.show();
+                break;
+            case REVENUE:
+                XYChart.Series<String, Number> revenueResult = this.logic.calculateTotalRevenueGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Revenue", revenueResult);
+                this.statsWindow.show();
+                break;
+            case COST:
+                XYChart.Series<String, Number> costResult = this.logic.calculateTotalCostGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Cost", costResult);
+                this.statsWindow.show();
+                break;
+            default:
+                throw new EnumNotPresentException("Enum not present in stat command");
+            }
         }
     }
 
@@ -292,7 +318,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * switch selected tab to schedule tab
+     * switch selected tab to order tab
      */
     private void showSchedulePanel() {
         tabPanel.switchTabSchedule();

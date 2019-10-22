@@ -1,11 +1,13 @@
 package seedu.address.testutil;
 
 import java.nio.file.Path;
+import java.util.Calendar;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.CalendarDate;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDataBook;
@@ -249,6 +251,16 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredScheduleList(Predicate<Schedule> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setCalendarDate(Calendar calendar) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public CalendarDate getCalendarDate() {
         throw new AssertionError("This method should not be called.");
     }
 }

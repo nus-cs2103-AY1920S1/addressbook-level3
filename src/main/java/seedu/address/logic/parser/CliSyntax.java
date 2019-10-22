@@ -32,8 +32,8 @@ public class CliSyntax {
     // price + tags
 
     //// Schedule
-    public static final Prefix PREFIX_ORDER = new Prefix("o/");
-    public static final Prefix PREFIX_CALENDAR = new Prefix("c/");
+    public static final Prefix PREFIX_DATE = new Prefix("cd/");
+    public static final Prefix PREFIX_TIME = new Prefix("ct/");
     public static final Prefix PREFIX_VENUE = new Prefix("v/");
 
     //// Stats
