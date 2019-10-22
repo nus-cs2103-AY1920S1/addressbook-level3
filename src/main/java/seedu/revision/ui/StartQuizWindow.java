@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -15,8 +14,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.Logic;
-import seedu.revision.logic.commands.CommandResult;
+import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.QuizLogic;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answer;
@@ -35,7 +35,7 @@ public class StartQuizWindow extends Window {
 
     Answer correctAnswerStub = new Answer("CORRECT");
     Set<Answer> correctAnswerSetStub = new HashSet<>(Arrays.asList(correctAnswerStub));
-    Answer[] wrongAnswerStub = {new Answer("WRONG A"), new Answer("WRONG B"), new Answer("WRONG C"),};
+    Answer[] wrongAnswerStub = {new Answer("WRONG A"), new Answer("WRONG B"), new Answer("WRONG C")};
     Set<Answer> wrongAnswerSetStub = new HashSet<>(Arrays.asList(wrongAnswerStub));
     Category categoryStub = new Category("math");
     Set<Category> categoriesStub = new HashSet<>(Arrays.asList(categoryStub));
@@ -62,8 +62,8 @@ public class StartQuizWindow extends Window {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public StartQuizWindow(Stage primaryStage, Logic logic) {
-        super(primaryStage, logic);
+    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
+        super(primaryStage, mainLogic, quizLogic);
     }
 
     /**
@@ -71,7 +71,7 @@ public class StartQuizWindow extends Window {
      */
     void fillInnerParts() {
 
-        answerableIterator = logic.getFilteredAnswerableList().iterator();
+        answerableIterator = this.mainLogic.getFilteredAnswerableList().iterator();
 //        filteredAnswerableList = logic.getFilteredAnswerableList().sorted();
         Answerable firstAnswerable = answerableIterator.next();
 //            Answerable firstAnswerable = filteredAnswerableList.get(currentAnswerableIndex);
@@ -83,7 +83,7 @@ public class StartQuizWindow extends Window {
         questionDisplay.setFeedbackToUser(firstAnswerable.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -136,7 +136,7 @@ public class StartQuizWindow extends Window {
      */
     @FXML
     protected void handleExit() {
-        mainWindow = new MainWindow(getPrimaryStage(), getLogic());
+        mainWindow = new MainWindow(getPrimaryStage(), mainLogic, quizLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
     }
@@ -148,23 +148,18 @@ public class StartQuizWindow extends Window {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.revision.logic.Logic#execute(String)
+     * @see QuizLogic#execute(String, Answerable)
      */
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        if (commandText.equals("next")) {
-            if (answerableIterator.hasNext()) {
-                Answerable nextAnswerable = answerableIterator.next();
-                logger.info(nextAnswerable.toString());
-                questionDisplay.setFeedbackToUser(nextAnswerable.getQuestion().toString());
-                answersGridPane.updateAnswers(nextAnswerable);
-                currentAnswerableIndex++;
-                return new CommandResult("go to next question", false, false);
-            } else {
-                handleEnd();
-            }
-        }
+    @Override
+    protected CommandResult executeCommand ( String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            Answerable currentAnswerable = answerableIterator.next();
+            logger.info(currentAnswerable.toString());
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
+            answersGridPane.updateAnswers(currentAnswerable);
+            currentAnswerableIndex++;
+
+            CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             questionDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -174,6 +169,10 @@ public class StartQuizWindow extends Window {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (!answerableIterator.hasNext()) {
+                handleEnd();
             }
 
             return commandResult;

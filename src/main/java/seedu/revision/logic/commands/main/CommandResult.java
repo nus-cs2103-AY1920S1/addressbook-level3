@@ -1,4 +1,4 @@
-package seedu.revision.logic.commands;
+package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 

@@ -8,6 +8,7 @@ import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;

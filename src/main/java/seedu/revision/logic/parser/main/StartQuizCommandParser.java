@@ -1,7 +1,7 @@
-package seedu.revision.logic.parser;
+package seedu.revision.logic.parser.main;
 
-import seedu.revision.commons.core.index.Index;
-import seedu.revision.logic.commands.StartQuizCommand;
+import seedu.revision.logic.commands.main.StartQuizCommand;
+import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -29,8 +29,8 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
         }
 
         String questionKeywords = trimmedArgs;
-        return null;
+//        return null;
 
-//        return new StartQuizCommand(questionKeywords);
+        return new StartQuizCommand(questionKeywords);
     }
 }

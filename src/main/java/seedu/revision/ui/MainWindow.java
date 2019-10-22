@@ -7,8 +7,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.Logic;
-import seedu.revision.logic.commands.CommandResult;
+import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.QuizLogic;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
@@ -20,29 +21,27 @@ public class MainWindow extends Window {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private StartQuizWindow startQuizWindow;
-
     @FXML
     private StackPane answerableListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
-        super(primaryStage, logic);
+    public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
+        super(primaryStage, mainLogic, quizLogic);
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
+        answerableListPanel = new AnswerableListPanel(mainLogic.getFilteredAnswerableList());
         answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -51,9 +50,9 @@ public class MainWindow extends Window {
 
     @FXML
     public void handleStart() throws CommandException {
-        logger.info(String.valueOf(logic.getFilteredAnswerableList().size()));
-        if (logic.getFilteredAnswerableList().size() > 0 ) {
-            startQuizWindow = new StartQuizWindow(getPrimaryStage(), getLogic());
+        logger.info(String.valueOf(this.mainLogic.getFilteredAnswerableList().size()));
+        if (this.mainLogic.getFilteredAnswerableList().size() > 0 ) {
+            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), getQuizLogic());
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {
@@ -68,7 +67,7 @@ public class MainWindow extends Window {
     protected void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        mainLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -80,12 +79,12 @@ public class MainWindow extends Window {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.revision.logic.Logic#execute(String)
+     * @see MainLogic#execute(String)
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = mainLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

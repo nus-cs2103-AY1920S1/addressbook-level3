@@ -9,14 +9,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.GuiSettings;
-import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.Logic;
-import seedu.revision.logic.commands.CommandResult;
+import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-
-import java.time.LocalTime;
-import java.util.logging.Logger;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -27,7 +24,8 @@ public abstract class Window extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     protected Stage primaryStage;
-    protected Logic logic;
+    protected MainLogic mainLogic;
+    protected QuizLogic quizLogic;
 
     // Independent Ui parts residing in this Ui container
     protected AnswerableListPanel answerableListPanel;
@@ -43,21 +41,26 @@ public abstract class Window extends UiPart<Stage> {
     @FXML
     protected StackPane statusbarPlaceholder;
 
-    public Window(Stage primaryStage, Logic logic) {
+    public Window(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(FXML, primaryStage);
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        this.mainLogic = mainLogic;
+        this.quizLogic = quizLogic;
         setAccelerators();
         helpWindow = new HelpWindow();
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(this.mainLogic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public Logic getLogic() {
-        return logic;
+    public MainLogic getMainLogic() {
+        return mainLogic;
+    }
+
+    public QuizLogic getQuizLogic() {
+        return quizLogic;
     }
 
     private void setAccelerators() {
@@ -135,8 +138,7 @@ public abstract class Window extends UiPart<Stage> {
 
     /**
      * Executes the command and returns the result.
-     *
-     * @see Logic#execute(String)
      */
-    abstract protected CommandResult executeCommand(String commandText) throws CommandException, ParseException;
+    protected abstract CommandResult executeCommand(String commandText) throws CommandException, ParseException;
+
 }

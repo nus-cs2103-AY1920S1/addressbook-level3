@@ -2,7 +2,6 @@ package seedu.revision.model.answerable;
 
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -10,7 +9,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 /**
  * Represents a Answerable in the Test Bank.
