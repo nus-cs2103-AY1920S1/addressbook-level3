@@ -242,6 +242,51 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Tag feature
+
+==== Implementation
+The tag mechanism is facilitated by UniqueTagList. It creates a list of Tag, stored internally as an uniqueTagList. Additionally, it implements the following operations:
+
+* `AlgoBase#addTag()` - create a new tag in AlgoBase's uniqueTagList in the algobase history.
+* `AlgoBase#deleteTag()` - delete a current tag which have already in the uniqueTagList.
+* `AlgoBase#listTag()` - show the tags in the uniqueTagList in the algobase GUI for users
+* `AlgoBase#editTag()` - edit the current tag which have already been in the uniqueTagList
+
+These operations are exposed in the Model interface as `Model#addTag()`, `Model#deleteTag()`, `Model#listTag()` and `Model#editTag()` respectively.
+
+Given below is an example usage scenario and how the tag mechanism behaves at each step.
+
+Step1. The user launches the application for the first time. The UniqueTagList will be initialized with the initial algobase state
+
+Step 2. The user executes `addtag t/easy` to add a tag named [easy] which have not applied in any problems. The addtag command calls Model#addtag(), causing the taglist added a tag after the ‘addtag t/easy’ command executes to be saved in the uniqueTagList.
+
+The following sequence diagram shows how the `deletetag` operation works:
+
+image::AddTagSequenceDiagram.png[]
+
+Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
+
+Step 4.The user executes `edittag 1 t/hard` to edit the current tag [easy] to [hard] in the `uniqueTagList`. The `edittag 1 t/hard`
+Command executes `edittag`, causing the taglist find the first tag in the list and change tag [easy] into [hard] and change all [easy] tag into [hard] in all problems.
+
+Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in the uniqueTagList. The `deletetag t/hard` command executes `deletetag`, causing the taglist delete the [hard] tag in uniqueTagList and [hard] tag in all problems.
+(diagram)
+
+The following activity diagram summarizes what happens when a user executes a new tag modifying command
+
+image::TagActivityDiagram.png[]
+
+==== Design considerations
+
+===== Aspect: Data structure to support the tag commands.
+
+* Alternative 1 (current choice): Use a list in current AlgoBase to save the content of different tags which used in tagging different problems. While problems create new tags for problems, it will also add into tag-list in AlgoBase. While the tag in problems changes, the tag in tag-list will not change and add a new tag into the tag-list in AlgoBase. While modifying tag in tag-list will change the tag for all related problem.
+** Pros: Users can manage the tags conveniently.
+** Cons: May lead to many tags do not combine with problems.
+* Alternative 2: Simply keep tags as a part of problems. While execute the tag command will search for all tags in problems for every times it execute.
+** Pros: No need to save the tag separately in the storage, all tags are under problems.
+** Cons: Difficult to manage tags in different problems. Waste time for computer to execute.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
