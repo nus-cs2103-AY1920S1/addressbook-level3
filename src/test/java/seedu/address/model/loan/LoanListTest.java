@@ -2,6 +2,8 @@ package seedu.address.model.loan;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalLoans.LOAN_1;
 import static seedu.address.testutil.TypicalLoans.LOAN_2;
@@ -49,7 +51,7 @@ class LoanListTest {
         LoanList loanList2 = loanList1.addToNewCopy(LOAN_2);
         loanList1.add(LOAN_2);
         assertEquals(loanList1, loanList2);
-        assertFalse(loanList1 == loanList2);
+        assertNotSame(loanList1, loanList2);
     }
 
     @Test
@@ -59,6 +61,6 @@ class LoanListTest {
         loanList1.add(LOAN_2);
         LoanList loanList2 = loanList1.removeFromNewCopy(LOAN_2);
         assertEquals(loanList2.size(), 1);
-        assertFalse(loanList1 == loanList2);
+        assertNotEquals(loanList1, loanList2);
     }
 }

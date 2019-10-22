@@ -49,8 +49,8 @@ public class BorrowerRecordsTest {
     @Test
     public void contains() {
         BorrowerRecords borrowerRecords = getTypicalBorrowerRecords();
-        assertTrue(borrowerRecords.contains(CARL));
-        assertFalse(borrowerRecords.contains(IDA));
+        assertTrue(borrowerRecords.listContains(CARL));
+        assertFalse(borrowerRecords.listContains(IDA));
     }
 
     @Test

@@ -94,11 +94,10 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     /**
      * Returns true if the list contains an equivalent borrower as the given argument.
      */
-    public boolean contains(Borrower toCheck) {
+    public boolean listContains(Borrower toCheck) {
         requireNonNull(toCheck);
         return listOfBorrowers.stream().anyMatch(toCheck::equals);
     }
-    // why does hasBorrower check by phone number or email only????
 
     /**
      * Replaces the borrower {@code target} in the list with {@code editedBorrower}.
@@ -111,7 +110,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
         if (index == -1) {
             throw new BorrowerNotFoundException();
         }
-        if (!target.equals(editedBorrower) && contains(editedBorrower)) {
+        if (!target.equals(editedBorrower) && listContains(editedBorrower)) {
             throw new DuplicateBorrowerException();
         }
         listOfBorrowers.set(index, editedBorrower);
