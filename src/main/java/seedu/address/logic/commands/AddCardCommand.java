@@ -29,12 +29,12 @@ public class AddCardCommand extends Command {
             + PREFIX_TAG + "use for groceries";
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This card already exists in the app";
+    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the app";
 
     private final Card toAddCard;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCardCommand to add the specified {@code Card}
      */
     public AddCardCommand(Card card) {
         requireNonNull(card);
@@ -45,9 +45,9 @@ public class AddCardCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // if (model.hasPerson(toAdd)) {
-        //    throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        // }
+        if (model.hasCard(toAddCard)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CARD);
+        }
 
         model.addCard(toAddCard);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddCard));
