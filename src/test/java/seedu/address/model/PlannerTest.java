@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,6 +24,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.day.Day;
+import seedu.address.model.field.Name;
 import seedu.address.testutil.ContactBuilder;
 
 public class PlannerTest {
@@ -116,6 +118,19 @@ public class PlannerTest {
         public ObservableList<Day> getDayList() {
             return days;
         }
+
+        @Override
+        public Name getName() {
+            throw new AssertionError("this method should not be called until modifications made to"
+                    + "ReadOnlyPlanner.");
+        };
+
+        @Override
+        public LocalDate getStartDate() {
+            throw new AssertionError("this method should not be called until modifications made to"
+                    + "ReadOnlyPlanner.");
+        };
+
     }
 
 }
