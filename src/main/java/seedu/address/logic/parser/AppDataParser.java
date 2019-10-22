@@ -23,6 +23,7 @@ import seedu.address.logic.commands.statistics.GetQnsCommand;
 import seedu.address.logic.commands.statistics.GetReportCommand;
 import seedu.address.logic.commands.statistics.GetStatisticsCommand;
 import seedu.address.logic.commands.task.AddTaskForNoteCommand;
+import seedu.address.logic.commands.task.AddTaskForQuestionCommand;
 import seedu.address.logic.commands.task.ClearTaskCommand;
 import seedu.address.logic.commands.task.DeleteTaskCommand;
 import seedu.address.logic.commands.task.DoneTaskCommand;
@@ -34,6 +35,7 @@ import seedu.address.logic.parser.statistics.GetQnsCommandParser;
 import seedu.address.logic.parser.statistics.GetReportCommandParser;
 import seedu.address.logic.parser.statistics.GetStatisticsCommandParser;
 import seedu.address.logic.parser.task.AddTaskForNoteCommandParser;
+import seedu.address.logic.parser.task.AddTaskForQuestionCommandParser;
 import seedu.address.logic.parser.task.DeleteTaskCommandParser;
 import seedu.address.logic.parser.task.DoneTaskCommandParser;
 
@@ -111,6 +113,9 @@ public class AppDataParser {
 
         case AddTaskForNoteCommand.COMMAND_WORD:
             return new AddTaskForNoteCommandParser().parse(arguments);
+
+        case AddTaskForQuestionCommand.COMMAND_WORD:
+            return new AddTaskForQuestionCommandParser().parse(arguments);
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
