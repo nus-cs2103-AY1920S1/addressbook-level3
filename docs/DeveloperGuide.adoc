@@ -301,11 +301,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Project leader |Add a project member | Assign tasks to them
 
-|`* * *` |Project leader |Add tasks |
+|`* * *` |Project leader |Add tasks to the project |
 
 |`* * *` |Project leader |Change task status | Get reminder of the progress of each task
 
+|`* *` |User |Change the app theme | Suit my viewing preferences
+
+|`* *` |User |Change the deadline display format | Suit my time preferences
+
 |`* *` |Project leader |Sync team members schedules |Find a time slot where the maximum number of people, if not all, can attend
+
 |`* *` |Project leader with many members and tasks|Find out which group members are working on a particular task |Distribute workload evenly
 
 |`* *` |Project leader with tasks that require inventory|Assign inventory to tasks or materials that are needed |Download an inventory report whenever required
@@ -316,7 +321,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *`|Project leader who is keeping track of purchases|Tag the inventory purchase to the member who bought it|Produce an accurate claims report at the end of the project
 
-|`*`|Project leader with a long-term project with ad-hoc members|Change members working on a task|Reassign tasks to incoming members
+|`*`|Project leader managing a long-term project with ad-hoc members|Change members working on a task|Reassign tasks to incoming members
 
 |=======================================================================
 
@@ -654,6 +659,27 @@ Use case resumes from step 2.
 1. User requests to generate an inventory report
 2. User specifies whether inventory is generated based on the member or task
 3. +Work displays the inventory report
++
+Use case ends.
+
+[discrete]
+=== Use case: Toggle the display theme of +Work
+
+*Main Success Scenario*
+
+1. User requests to toggle the theme between light and dark
+2. +Work displays the requested theme
++
+Use case ends.
+
+[discrete]
+=== Use case: Toggle the clock display format of task deadlines
+
+*Main Success Scenario*
+
+1. User requests to toggle the clock between 24 hour and 12 hour
+2. User enters `home` and switches to the dashboard
+3. +Work displays the requested clock format for task deadlines
 +
 Use case ends.
 
