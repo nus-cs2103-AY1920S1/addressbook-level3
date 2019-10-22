@@ -1,134 +1,188 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
     "nric" : "S0000001J",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
-    "date of birth" : "12.12.1992",
     "gender" : "Female",
     "policies" : [ {
-      "name": "Health Insurance",
-      "description": "Insurance for healthcare",
-      "coverage": "days/10 months/11 years/12",
-      "price": "$50000",
-      "start age": "30",
-      "end age": "75",
-      "criteria": [ "diabetic" ],
-      "tagged": [ "health insurance" ]
+      "name" : "Health Insurance",
+      "description" : "Insurance for healthcare",
+      "coverage" : "days/10 months/11 years/12",
+      "price" : "$50000",
+      "criteria" : [ "diabetic" ],
+      "tagged" : [ "health insurance" ],
+      "startAge" : "30",
+      "endAge" : "75"
     }, {
-      "name": "Fire Insurance",
-      "description": "Insurance for fire",
-      "coverage": "days/30 months/12",
-      "price": "$7500",
-      "start age": "0",
-      "end age": "5",
-      "criteria": [ "public housing" ],
-      "tagged": [ "home insurance" ]
+      "name" : "Fire Insurance",
+      "description" : "Insurance for fire",
+      "coverage" : "days/30 months/12",
+      "price" : "$7500",
+      "criteria" : [ "public housing" ],
+      "tagged" : [ "home insurance" ],
+      "startAge" : "0",
+      "endAge" : "5"
     } ],
-    "tagged" : [ "diabetic" ]
+    "tagged" : [ "diabetic" ],
+    "dateOfBirth" : "12.12.1992"
   }, {
     "name" : "Benson Meier",
     "nric" : "S0000002J",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
-    "date of birth" : "12.12.1922",
     "gender" : "Male",
     "policies" : [ {
-      "name": "Life Insurance",
-      "description": "Insurance for life",
-      "coverage": "years/50",
-      "price": "$1000000",
-      "start age": "21",
-      "end age": "80",
-      "criteria": [ "high blood pressure" ],
-      "tagged": [ "term insurance" ]
-    }],
-    "tagged" : [ "smoker", "disabled" ]
+      "name" : "Life Insurance",
+      "description" : "Insurance for life",
+      "coverage" : "years/50",
+      "price" : "$1000000",
+      "criteria" : [ "high blood pressure" ],
+      "tagged" : [ "term insurance" ],
+      "startAge" : "21",
+      "endAge" : "80"
+    } ],
+    "tagged" : [ "smoker", "disabled" ],
+    "dateOfBirth" : "12.12.1922"
   }, {
     "name" : "Carl Kurz",
     "nric" : "S0000003J",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
-    "date of birth" : "6.6.1996",
     "gender" : "Male",
     "policies" : [ ],
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "dateOfBirth" : "6.6.1996"
   }, {
     "name" : "Daniel Meier",
     "nric" : "S0000004J",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
-    "date of birth" : "14.2.2019",
     "gender" : "Male",
-    "policies" : [],
-    "tagged" : [ ]
+    "policies" : [ ],
+    "tagged" : [ ],
+    "dateOfBirth" : "14.2.2019"
   }, {
     "name" : "Elle Meyer",
     "nric" : "S0000005J",
     "phone" : "94822247",
     "email" : "werner@example.com",
     "address" : "michegan ave",
-    "date of birth" : "17.5.2000",
     "gender" : "Male",
     "policies" : [ ],
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "dateOfBirth" : "17.5.2000"
   }, {
     "name" : "Fiona Kunz",
     "nric" : "S0000006J",
     "phone" : "94824279",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
-    "date of birth" : "15.8.2008",
     "gender" : "Female",
     "policies" : [ ],
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "dateOfBirth" : "15.8.2008"
+  }, {
+    "name" : "George Best",
+    "nric" : "S0000007J",
+    "phone" : "94824425",
+    "email" : "anna@example.com",
+    "address" : "4th street",
+    "gender" : "Male",
+    "policies" : [ ],
+    "tagged" : [ ],
+    "dateOfBirth" : "5.5.2015"
   } ],
   "policies" : [ {
-    "name": "Health Insurance",
-    "description": "Insurance for healthcare",
-    "coverage": "days/10 months/11 years/12",
-    "price": "$50000",
-    "start age": "30",
-    "end age": "75",
-    "criteria": [ "diabetic" ],
-    "tagged": [ "health insurance" ]
+    "name" : "Health Insurance",
+    "description" : "Insurance for healthcare",
+    "coverage" : "days/10 months/11 years/12",
+    "price" : "$50000",
+    "criteria" : [ "diabetic" ],
+    "tagged" : [ "health insurance" ],
+    "startAge" : "30",
+    "endAge" : "75"
   }, {
-    "name": "Life Insurance",
-    "description": "Insurance for life",
-    "coverage": "years/50",
-    "price": "$1000000",
-    "start age": "21",
-    "end age": "80",
-    "criteria": [ "high blood pressure" ],
-    "tagged": [ "term insurance" ]
+    "name" : "Life Insurance",
+    "description" : "Insurance for life",
+    "coverage" : "years/50",
+    "price" : "$1000000",
+    "criteria" : [ "high blood pressure" ],
+    "tagged" : [ "term insurance" ],
+    "startAge" : "21",
+    "endAge" : "80"
   }, {
-    "name": "Fire Insurance",
-    "description": "Insurance for fire",
-    "coverage": "days/30 months/12",
-    "price": "$7500",
-    "start age": "0",
-    "end age": "5",
-    "criteria": [ "public housing" ],
-    "tagged": [ "home insurance" ]
+    "name" : "Fire Insurance",
+    "description" : "Insurance for fire",
+    "coverage" : "days/30 months/12",
+    "price" : "$7500",
+    "criteria" : [ "public housing" ],
+    "tagged" : [ "home insurance" ],
+    "startAge" : "0",
+    "endAge" : "5"
   } ],
   "binItems" : [ {
-    "dateDeleted": "2019-10-22T02:39:18.337+0000",
-    "expiryDate": "2019-11-21T02:39:18.337+0000",
-    "personItem": {
-      "name" : "George Best",
-      "nric" : "S0000007J",
-      "phone" : "94824425",
-      "email" : "anna@example.com",
-      "address" : "4th street",
-      "date of birth" : "5.5.2015",
+    "dateDeleted" : "22 Oct 2019 at 09:57 PM",
+    "expiryDate" : "21 Nov 2019 at 09:57 PM",
+    "personItem" : {
+      "name" : "David Georgia",
+      "nric" : "S0000010T",
+      "phone" : "94820001",
+      "email" : "davegeorge@example.com",
+      "address" : "10th Fly street",
       "gender" : "Male",
       "policies" : [ ],
-      "tagged" : [ ]
+      "tagged" : [ ],
+      "dateOfBirth" : "5.3.1980"
+    },
+    "policyItem" : null
+  }, {
+    "dateDeleted" : "23 Oct 2019 at 09:57 PM",
+    "expiryDate" : "22 Nov 2019 at 09:57 PM",
+    "personItem" : {
+      "name" : "Lincoln Feathers",
+      "nric" : "S0000011T",
+      "phone" : "94820002",
+      "email" : "lincfeats@example.com",
+      "address" : "11th Boxer street",
+      "gender" : "Male",
+      "policies" : [ ],
+      "tagged" : [ ],
+      "dateOfBirth" : "1.3.1990"
+    },
+    "policyItem" : null
+  }, {
+    "dateDeleted" : "24 Oct 2019 at 09:57 PM",
+    "expiryDate" : "23 Nov 2019 at 09:57 PM",
+    "personItem" : {
+      "name" : "Kassandra Pearl",
+      "nric" : "S0000012T",
+      "phone" : "94820002",
+      "email" : "kpearl@example.com",
+      "address" : "13th Jewel street",
+      "gender" : "Female",
+      "policies" : [ ],
+      "tagged" : [ ],
+      "dateOfBirth" : "9.10.2000"
+    },
+    "policyItem" : null
+  }, {
+    "dateDeleted" : "25 Oct 2019 at 09:57 PM",
+    "expiryDate" : "24 Nov 2019 at 09:57 PM",
+    "personItem" : null,
+    "policyItem" : {
+      "name" : "Car Insurance",
+      "description" : "Insurance for car",
+      "coverage" : "months/6 years/5",
+      "price" : "$5000",
+      "criteria" : [ ],
+      "tagged" : [ ],
+      "startAge" : "18",
+      "endAge" : "100"
     }
   } ]
 }

@@ -43,10 +43,12 @@ public class BinItemListPanel extends UiPart<Region> {
             } else {
                 if (binItem.getItem() instanceof Person) {
                     Person p = (Person) binItem.getItem();
-                    setGraphic(new BinPersonCard(p, getIndex() + 1, binItem.getDateDeleted(), binItem.getExpiryDate()).getRoot());
+                    setGraphic(new BinPersonCard(p, getIndex() + 1, binItem.getDateDeleted(), binItem.getExpiryDate())
+                        .getRoot());
                 } else {
                     Policy p = (Policy) binItem.getItem();
-                    setGraphic(new BinPolicyCard(p, getIndex() + 1, binItem.getDateDeleted(), binItem.getExpiryDate()).getRoot());
+                    setGraphic(new BinPolicyCard(p, getIndex() + 1, binItem.getDateDeleted(), binItem.getExpiryDate())
+                        .getRoot());
                 }
             }
         }

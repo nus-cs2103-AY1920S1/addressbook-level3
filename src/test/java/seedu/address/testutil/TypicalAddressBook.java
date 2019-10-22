@@ -1,9 +1,11 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalBinItems.getTypicalBinItems;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.testutil.TypicalPolicy.getTypicalPolicy;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.binitem.BinItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 
@@ -23,6 +25,10 @@ public class TypicalAddressBook {
 
         for (Policy policy : getTypicalPolicy()) {
             ab.addPolicy(policy);
+        }
+
+        for (BinItem binItem : getTypicalBinItems()) {
+            ab.addBinItem(binItem);
         }
 
         return ab;
