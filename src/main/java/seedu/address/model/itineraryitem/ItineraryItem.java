@@ -1,4 +1,4 @@
-package seedu.address.model.accommodation;
+package seedu.address.model.itineraryitem;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -14,11 +14,10 @@ import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents an Accommodation in the trip planner.
+ * Represents an Itinerary Item in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Accommodation {
-
+public abstract class ItineraryItem {
     //Identity fields
     private final Name name;
 
@@ -30,8 +29,7 @@ public class Accommodation {
     /**
      * Every field must be present and not null.
      */
-    public Accommodation(Name name, Address address, Contact contact, Set<Tag> tags) {
-
+    public ItineraryItem(Name name, Address address, Contact contact, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
         this.name = name;
         this.address = address;
@@ -48,7 +46,8 @@ public class Accommodation {
     }
 
     public Optional<Contact> getContact() {
-        return Optional.ofNullable(contact); }
+        return Optional.ofNullable(contact);
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -56,21 +55,6 @@ public class Accommodation {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
-    }
-
-
-    /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameAccommodation(Accommodation otherAccommodation) {
-        if (otherAccommodation == this) {
-            return true;
-        }
-
-        return otherAccommodation != null
-                && otherAccommodation.getName().equals(getName())
-                && (otherAccommodation.getAddress().equals(getAddress()));
     }
 
     /**
@@ -83,15 +67,15 @@ public class Accommodation {
             return true;
         }
 
-        if (!(other instanceof Accommodation)) {
+        if (!(other instanceof ItineraryItem)) {
             return false;
         }
 
-        Accommodation otherAccommodation = (Accommodation) other;
-        return otherAccommodation.getName().equals(getName())
-                && otherAccommodation.getAddress().equals(getAddress())
-                && otherAccommodation.getTags().equals(getTags())
-                && otherAccommodation.getContact().equals(getContact());
+        ItineraryItem otherItem = (ItineraryItem) other;
+        return otherItem.getName().equals(getName())
+                && otherItem.getAddress().equals(getAddress())
+                && otherItem.getTags().equals(getTags())
+                && otherItem.getContact().equals(getContact());
     }
 
     @Override
@@ -104,12 +88,13 @@ public class Accommodation {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Address: ")
+                .append(" Location: ")
                 .append(getAddress())
-                .append(" Phone: ")
+                .append(" Contact: ")
                 .append(getContact().isPresent()
-                        ? getContact().get().getPhone()
+                        ? getContact().get()
                         : "")
+                //note that Contact.toString also has tags
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -8,9 +8,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPlanner;
-import seedu.address.model.accommodation.Accommodation;
-import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.itineraryitem.accommodation.Accommodation;
+import seedu.address.model.itineraryitem.activity.Activity;
 
 /**
  * API of the Logic component

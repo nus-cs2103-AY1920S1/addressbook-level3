@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.activity.Activity;
+import seedu.address.model.itineraryitem.activity.Activity;
 
 /**
  * Panel containing the list of activities.

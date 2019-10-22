@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.itineraryitem.accommodation.Accommodation;
 
 /**
  * Adds an accommodation to the itinerary.

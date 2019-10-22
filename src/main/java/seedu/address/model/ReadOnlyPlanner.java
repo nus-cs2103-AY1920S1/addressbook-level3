@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.accommodation.Accommodation;
-import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.day.Day;
 import seedu.address.model.field.Name;
+import seedu.address.model.itineraryitem.accommodation.Accommodation;
+import seedu.address.model.itineraryitem.activity.Activity;
 
 /**
  * Unmodifiable view of an address book
