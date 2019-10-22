@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +87,19 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+Given below is the Sequence Diagram for interactions within
+the UI component when the user enter an add command.
+The exact command entered is `add t/Animal Farm a/George`.
+
+.Interactions Inside the UI Component for the `add t/Animal Farm a/George` Command
+image::UiAddBookSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens to the `UI`
+when a user executes a new command:
+
+.Flow of Events within `UI`
+image::UiUpdateBookListActivityDiagram.png[]
 
 [[Design-Logic]]
 === Logic component
@@ -419,6 +432,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[[ui]] UI::
+User Interface
 
 [appendix]
 == Product Survey
