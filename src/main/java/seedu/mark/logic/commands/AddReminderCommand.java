@@ -71,7 +71,7 @@ public class AddReminderCommand extends Command {
         }
 
         model.addReminder(bookmarkToOpen, reminderToAdd);
-        model.saveMark(this.toString());
+        model.saveMark(String.format(MESSAGE_SUCCESS, reminderToAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminderToAdd));
     }
 
@@ -82,12 +82,6 @@ public class AddReminderCommand extends Command {
                 && note.equals(((AddReminderCommand) other).note)
                 && time.equals(((AddReminderCommand) other).time)
                 && index.equals(((AddReminderCommand) other).index));
-    }
-
-    @Override
-    public String toString() {
-        //TODO: refine toString()
-        return "Add reminder for bookmark";
     }
 }
 

@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedMark extends Mark {
 
-    private final List<StateRecord> markStateList;
+    private final List<MarkStateRecord> markStateRecords;
     private int currentPointer;
 
     public VersionedMark(ReadOnlyMark initialState) {
         super(initialState);
 
-        markStateList = new ArrayList<>();
-        markStateList.add(new StateRecord("", new Mark(initialState)));
+        markStateRecords = new ArrayList<>();
+        markStateRecords.add(new MarkStateRecord("", new Mark(initialState)));
         currentPointer = 0;
     }
 
@@ -26,12 +26,12 @@ public class VersionedMark extends Mark {
      */
     public void save(String record) {
         removeStatesAfterCurrentPointer();
-        markStateList.add(new StateRecord(record, new Mark(this)));
+        markStateRecords.add(new MarkStateRecord(record, new Mark(this)));
         currentPointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        markStateList.subList(currentPointer + 1, markStateList.size()).clear();
+        markStateRecords.subList(currentPointer + 1, markStateRecords.size()).clear();
     }
 
     /**
@@ -41,9 +41,9 @@ public class VersionedMark extends Mark {
         if (!canUndo()) {
             throw new CannotUndoMarkException();
         }
-        String record = markStateList.get(currentPointer).getRecord();
+        String record = markStateRecords.get(currentPointer).getRecord();
         currentPointer--;
-        resetData(markStateList.get(currentPointer).getState());
+        resetData(markStateRecords.get(currentPointer).getState());
         return record;
     }
 
@@ -55,8 +55,8 @@ public class VersionedMark extends Mark {
             throw new CannotRedoMarkException();
         }
         currentPointer++;
-        resetData(markStateList.get(currentPointer).getState());
-        String record = markStateList.get(currentPointer).getRecord();
+        resetData(markStateRecords.get(currentPointer).getState());
+        String record = markStateRecords.get(currentPointer).getRecord();
         return record;
     }
 
@@ -71,7 +71,7 @@ public class VersionedMark extends Mark {
      * Returns true if {@code redo()} has Mark states to redo.
      */
     public boolean canRedo() {
-        return currentPointer < markStateList.size() - 1;
+        return currentPointer < markStateRecords.size() - 1;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class VersionedMark extends Mark {
 
         // state check
         return super.equals(otherVersionedMark)
-                && markStateList.equals(otherVersionedMark.markStateList)
+                && markStateRecords.equals(otherVersionedMark.markStateRecords)
                 && currentPointer == otherVersionedMark.currentPointer;
     }
 
@@ -113,14 +113,14 @@ public class VersionedMark extends Mark {
     }
 
     /**
-     * Represents a pair of action and state.
+     * Represents a state record for Mark.
      */
-    public class StateRecord {
+    public class MarkStateRecord {
         /** Record about which action leads to the state **/
         private String record;
         private ReadOnlyMark state;
 
-        public StateRecord(String record, ReadOnlyMark state) {
+        public MarkStateRecord(String record, ReadOnlyMark state) {
             this.record = record;
             this.state = state;
         }
@@ -136,9 +136,9 @@ public class VersionedMark extends Mark {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                    || (other instanceof StateRecord // instanceof handles nulls
-                    && record.equals(((StateRecord) other).record)
-                    && state.equals(((StateRecord) other).state)); // state check
+                    || (other instanceof MarkStateRecord // instanceof handles nulls
+                    && record.equals(((MarkStateRecord) other).record)
+                    && state.equals(((MarkStateRecord) other).state)); // state check
         }
     }
 }

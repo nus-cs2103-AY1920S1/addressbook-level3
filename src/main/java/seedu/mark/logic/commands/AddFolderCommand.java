@@ -55,7 +55,7 @@ public class AddFolderCommand extends Command {
         }
 
         model.addFolder(folder, parentFolder);
-        model.saveMark(this.toString());
+        model.saveMark(String.format(MESSAGE_SUCCESS, folder));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, folder));
     }
@@ -77,10 +77,5 @@ public class AddFolderCommand extends Command {
         AddFolderCommand otherAddFolderCommand = (AddFolderCommand) other;
         return folder.equals(otherAddFolderCommand.folder)
                 && parentFolder.equals(otherAddFolderCommand.parentFolder);
-    }
-
-    @Override
-    public String toString() {
-        return "Add folder " + folder;
     }
 }

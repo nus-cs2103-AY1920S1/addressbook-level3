@@ -20,12 +20,7 @@ public class ClearCommand extends Command {
         requireAllNonNull(model, storage);
 
         model.setMark(new Mark());
-        model.saveMark(this.toString());
+        model.saveMark(MESSAGE_SUCCESS);
         return new CommandResult(MESSAGE_SUCCESS);
-    }
-
-    @Override
-    public String toString() {
-        return "Clear Mark";
     }
 }

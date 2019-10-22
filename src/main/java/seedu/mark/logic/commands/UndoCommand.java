@@ -15,7 +15,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_SUCCESS = "Successfully undo the action: %1$s";
+    public static final String MESSAGE_SUCCESS = "Action successfully undone: \"%1$s\"";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
 
     @Override

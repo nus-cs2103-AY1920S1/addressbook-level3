@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
 
         Bookmark bookmarkToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBookmark(bookmarkToDelete);
-        model.saveMark(this.toString());
+        model.saveMark(String.format(MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete));
         return new CommandResult(String.format(MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete));
     }
 
@@ -53,11 +53,5 @@ public class DeleteCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
-    }
-
-    @Override
-    public String toString() {
-        //TODO: refine toString()
-        return "Delete bookmark ";
     }
 }
