@@ -1,0 +1,53 @@
+=== Budget Bar display
+
+The budget bar display provides a graphic overview of meals consumed on the current day,
+comparing against the total calorie budget set by the user.
+
+==== Implementation
+
+The budget bar feature is implemented via the `BudgetBar` class.
+It is a JavaFx UI component, which wraps around `MealLog` and `CalorieBudget`.
+`MealLog` provides an observable list of meals eaten today,
+while `CalorieBudget` provides the currently set user budget.
+
+Using helper code from `ObservableUtil` and `ObservableListUtil`,
+we compute several derived properties:
+
+* Total calories consumed
+* Percentage of budget consumed
+
+From there, we again construct further observable/reactive values representing:
+
+* Bar info text color
+** Transitions from green to red, when more budget is consumed
+* Bar info text
+** If budget has been set, shows `<Total Consumed> / <Budget>`.
+** If budget has not been set, only shows `<Total Consumed>`.
+* Meal segments
+** Each meal is displayed as a proportionally-sized segment in the whole bar.
+* Position of warning/danger markers
+
+The following activity diagram shows the reactive update dependencies.
+
+image::BudgetMealUpdate.png[]
+
+==== Design Consideration
+
+===== Aspect: Base UI component to display meal segments.
+
+* **Alternative 1 (current choice):**
+  Use ControlsFx's `SegmentedBar` class to handle display of bar segments.
+** Pros:
+*** No need to reimplement JavaFx `setLayout` logic
+*** Better performance than `GridPane`
+** Cons:
+*** Dependency on external library
+*** Have to create a separate `BufferSegment` class to represent gap.
+* **Alternative 2:**
+  Use JavaFx's `GridPane` to lay out bar segments, and `ColumnConstraints` to appropriately set column widths.
+** Pros:
+*** No external library (other than JavaFx) needed
+** Cons:
+*** Poor performance to due `Observable` machinery and `GridPane` layout
+* Explanation of choice:
+  Simpler implementation and better performance outweighs the cost of using an external library.
