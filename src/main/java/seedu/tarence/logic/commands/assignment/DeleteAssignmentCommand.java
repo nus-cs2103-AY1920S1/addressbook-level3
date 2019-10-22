@@ -29,13 +29,13 @@ public class DeleteAssignmentCommand extends AssignmentCommand {
 
     public static final String MESSAGE_DELETE_ASSIGNMENT_SUCCESS = "%1$s deleted successfully";
     public static final String COMMAND_WORD = "deleteAssign";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "dela", "delassn", "delasm"};
 
     // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an assignment for a tutorial.\n"
             + "Parameters: "
-            + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
-            + PREFIX_MODULE + "MODULE_CODE "
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
+            + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_NAME + "ASSIGNMENT NAME "
             + PREFIX_MAX_SCORE + "MAX SCORE "
             + PREFIX_START_DATE + "START DATE "

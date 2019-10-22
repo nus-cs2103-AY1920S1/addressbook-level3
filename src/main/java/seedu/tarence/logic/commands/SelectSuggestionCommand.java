@@ -63,9 +63,4 @@ public class SelectSuggestionCommand extends Command {
     public boolean needsInput() {
         return index == null;
     }
-
-    @Override
-    public boolean needsCommand(Command command) {
-        return false;
-    }
 }

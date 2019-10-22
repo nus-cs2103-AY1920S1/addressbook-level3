@@ -42,8 +42,8 @@ public class MarkAttendanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the attendance of a student in a tutorial.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
-            + PREFIX_MODULE + "MODULE_CODE "
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
+            + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_TUTORIAL_WEEKS + "WEEK\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
@@ -261,16 +261,6 @@ public class MarkAttendanceCommand extends Command {
         String suggestedCorrections = s.toString();
         model.storeSuggestedCommands(suggestedCommands, suggestedCorrections);
         return suggestedCorrections;
-    }
-
-    @Override
-    public boolean needsInput() {
-        return false;
-    }
-
-    @Override
-    public boolean needsCommand(Command command) {
-        return false;
     }
 
     /**

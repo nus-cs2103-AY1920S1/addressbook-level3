@@ -25,8 +25,19 @@ import seedu.tarence.logic.commands.HelpCommand;
 import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.commands.MarkAttendanceCommand;
 import seedu.tarence.logic.commands.SelectSuggestionCommand;
+import seedu.tarence.logic.commands.SetSemStartCommand;
 import seedu.tarence.logic.commands.assignment.AddAssignmentCommand;
 import seedu.tarence.logic.commands.assignment.DeleteAssignmentCommand;
+import seedu.tarence.logic.commands.event.AddEventCommand;
+import seedu.tarence.logic.commands.event.DeleteEventCommand;
+import seedu.tarence.logic.commands.event.EditEventCommand;
+import seedu.tarence.logic.commands.event.ListEventsCommand;
+import seedu.tarence.logic.parser.assignment.AddAssignmentCommandParser;
+import seedu.tarence.logic.parser.assignment.DeleteAssignmentCommandParser;
+import seedu.tarence.logic.parser.event.AddEventCommandParser;
+import seedu.tarence.logic.parser.event.DeleteEventCommandParser;
+import seedu.tarence.logic.parser.event.EditEventCommandParser;
+import seedu.tarence.logic.parser.event.ListEventsCommandParser;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.Model;
 
@@ -94,6 +105,16 @@ public class ApplicationParser {
             return new AddAssignmentCommandParser().parse(arguments);
         } else if (DeleteAssignmentCommand.isMatchingCommandWord(commandWord)) {
             return new DeleteAssignmentCommandParser().parse(arguments);
+        } else if (AddEventCommand.isMatchingCommandWord(commandWord)) {
+            return new AddEventCommandParser().parse(arguments);
+        } else if (DeleteEventCommand.isMatchingCommandWord(commandWord)) {
+            return new DeleteEventCommandParser().parse(arguments);
+        } else if (EditEventCommand.isMatchingCommandWord(commandWord)) {
+            return new EditEventCommandParser().parse(arguments);
+        } else if (ListEventsCommand.isMatchingCommandWord(commandWord)) {
+            return new ListEventsCommandParser().parse(arguments);
+        } else if (SetSemStartCommand.isMatchingCommandWord(commandWord)) {
+            return new SetSemStartCommandParser().parse(arguments);
         } else if (ChangeTabCommand.isMatchingCommandWord(commandWord)) {
             return new ChangeTabCommand(arguments);
         } else {

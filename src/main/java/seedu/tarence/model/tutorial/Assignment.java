@@ -16,10 +16,9 @@ public class Assignment implements Comparable<Assignment> {
             "Assignment name should not be blank nor start/end with whitespace.";
     public static final String MESSAGE_CONSTRAINTS_MAX_SCORE =
             "Max score should be a non-negative integer";
-    public static final String DATE_FORMAT = "dd-MM-yyyy HHmm";
     public static final String MESSAGE_CONSTRAINTS_START_END_DATE =
             String.format("Dates should be of the format %s. "
-            + "Start date should be earlier than end date.", DATE_FORMAT);
+            + "Start date should be earlier than end date.", Tutorial.DATE_FORMAT);
 
     /*
      * The first character of the assignment name must not be a whitespace,

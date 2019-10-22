@@ -42,8 +42,8 @@ public class ExportAttendanceCommand extends Command {
     // TODO: Update the message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the attendance of a tutorial in a csv file.\n"
             + "Parameters: "
-            + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
-            + PREFIX_MODULE + "MODULE_CODE "
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
+            + PREFIX_MODULE + "MODULE CODE "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 ";
@@ -132,16 +132,6 @@ public class ExportAttendanceCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_EXPORT_ATTENDANCE_SUCCESS, targetTutorial.getTutName()));
-    }
-
-    @Override
-    public boolean needsInput() {
-        return false;
-    }
-
-    @Override
-    public boolean needsCommand(Command command) {
-        return false;
     }
 
     /**

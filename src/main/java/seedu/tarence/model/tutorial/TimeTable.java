@@ -5,9 +5,11 @@ import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
-
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.tarence.model.module.Module;
 
 /**
  * Represents a TimeTable for a Tutorial. Guarantees: details are present and not null, field
@@ -48,6 +50,25 @@ public class TimeTable {
 
     public Duration getDuration() {
         return duration;
+    }
+
+    /**
+     * Returns the current week. Assumes start of semester is present.
+     */
+    public Week getCurrWeek() {
+        Calendar currCalendar = Calendar.getInstance();
+        Calendar tempCalender = Calendar.getInstance();
+        tempCalender.setTime(Module.getSemStart());
+        tempCalender.add(Calendar.DAY_OF_MONTH, 7);
+
+        for (int week = 2; week <= 14; week++) {
+            if (tempCalender.compareTo(currCalendar) <= 0) {
+                tempCalender.add(Calendar.DAY_OF_MONTH, 7);
+            } else {
+                return new Week(week - 1);
+            }
+        }
+        return new Week(13);
     }
 
     /**

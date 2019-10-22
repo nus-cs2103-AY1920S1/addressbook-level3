@@ -1,4 +1,4 @@
-package seedu.tarence.logic.commands.assignment;
+package seedu.tarence.logic.commands.event;
 
 import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
 
@@ -18,57 +18,54 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.TutName;
 
 /**
- * Modifies an assignment in a specified tutorial.
+ * Modifies events in a specified tutorial.
  * Keyword matching is case insensitive.
  */
-public abstract class AssignmentCommand extends Command {
+public abstract class EventCommand extends Command {
 
     protected final Optional<ModCode> targetModCode;
     protected final Optional<TutName> targetTutName;
     protected final Optional<Index> targetTutIndex;
-    protected final Optional<Index> targetAssignIndex;
-    protected final Optional<String> assignName;
-    protected final Optional<Integer> maxScore;
-    protected final Optional<Date> startDate;
-    protected final Optional<Date> endDate;
+    protected final Optional<Index> targetEventIndex;
+    protected final Optional<String> eventName;
+    protected final Optional<Date> startTime;
+    protected final Optional<Date> endTime;
 
-    public AssignmentCommand(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
-            String assignName, Integer maxScore, Date startDate, Date endDate) {
+    public EventCommand(ModCode modCode, TutName tutName, Index tutIndex, Index eventIndex,
+            String eventName, Date startTime, Date endTime) {
         this.targetModCode = Optional.ofNullable(modCode);
         this.targetTutName = Optional.ofNullable(tutName);
         this.targetTutIndex = Optional.ofNullable(tutIndex);
-        this.targetAssignIndex = Optional.ofNullable(assignIndex);
-        this.assignName = Optional.ofNullable(assignName);
-        this.maxScore = Optional.ofNullable(maxScore);
-        this.startDate = Optional.ofNullable(startDate);
-        this.endDate = Optional.ofNullable(endDate);
+        this.targetEventIndex = Optional.ofNullable(eventIndex);
+        this.eventName = Optional.ofNullable(eventName);
+        this.startTime = Optional.ofNullable(startTime);
+        this.endTime = Optional.ofNullable(endTime);
     }
 
-    public AssignmentCommand() {
+    public EventCommand() {
         this.targetModCode = Optional.empty();
         this.targetTutName = Optional.empty();
         this.targetTutIndex = Optional.empty();
-        this.targetAssignIndex = Optional.empty();
-        this.assignName = Optional.empty();
-        this.maxScore = Optional.empty();
-        this.startDate = Optional.empty();
-        this.endDate = Optional.empty();
+        this.targetEventIndex = Optional.empty();
+        this.eventName = Optional.empty();
+        this.startTime = Optional.empty();
+        this.endTime = Optional.empty();
     }
 
-    public abstract AssignmentCommand build(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
-        String assignName, Integer maxScore, Date startDate, Date endDate);
+    public abstract EventCommand build(ModCode modCode, TutName tutName, Index tutIndex, Index eventIndex,
+        String eventName, Date startTime, Date endTime);
 
     /**
-     * Handles the creating and processing of suggested {@code AssignmentCommand}s, if the user's input does not
+     * Handles the creating and processing of suggested {@code EventCommand}s, if the user's input does not
      * match any combination of modules and tutorials.
      *
      * @param model The model to search in.
-     * @param assignmentCommand The command used to build suggested commands.
+     * @param eventCommand The command used to build suggested commands.
      * @return a string representation of the suggested alternative commands to the user's invalid input.
      * @throws CommandException if no suggested commands can be found.
      */
     protected CommandResult handleSuggestedCommands(Model model,
-            AssignmentCommand assignmentCommand) throws CommandException {
+            EventCommand eventCommand) throws CommandException {
         ModCode modCode = targetModCode.get();
         TutName tutName = targetTutName.get();
         // find tutorials with same name and similar modcodes, and similar names and same modcode
@@ -81,57 +78,54 @@ public abstract class AssignmentCommand extends Command {
         }
 
         String suggestedCorrections = createSuggestedCommands(similarModCodes,
-                similarTutNames, model, assignmentCommand);
+                similarTutNames, model, eventCommand);
         model.storePendingCommand(new SelectSuggestionCommand());
         return new CommandResult(String.format(MESSAGE_SUGGESTED_CORRECTIONS, "Tutorial",
                 modCode.toString() + " " + tutName.toString()) + suggestedCorrections);
     }
 
     /**
-     * Generates and stores {@code AssignmentCommand}s from a list of {@code ModCode}s and {@code TutName}s.
+     * Generates and stores {@code EventCommand}s from a list of {@code ModCode}s and {@code TutName}s.
      *
      * @param similarModCodes List of {@code ModCode}s similar to the user's input.
      * @param similarTutNames List of {@code TutName}s similar to the user's input.
      * @param model The {@code Model} in which to store the generated commands.
-     * @param assignmentCommand The command used to build suggested comands.
+     * @param eventCommand The command used to build suggested comands.
      * @return string representing the generated suggestions and their corresponding indexes for user selection.
      */
     protected String createSuggestedCommands(List<ModCode> similarModCodes, List<TutName> similarTutNames,
-                                           Model model, AssignmentCommand assignmentCommand) {
+                                           Model model, EventCommand eventCommand) {
         ModCode modCode = targetModCode.get();
         TutName tutName = targetTutName.get();
         Index tutIndex = null;
-        Index assignIndex = targetAssignIndex.orElse(null);
-        String assignName = this.assignName.orElse(null);
-        Integer maxScore = this.maxScore.orElse(null);
-        Date startDate = this.startDate.orElse(null);
-        Date endDate = this.endDate.orElse(null);
+        Index eventIndex = targetEventIndex.orElse(null);
+        String eventName = this.eventName.orElse(null);
+        Date startTime = this.startTime.orElse(null);
+        Date endTime = this.endTime.orElse(null);
         List<Command> suggestedCommands = new ArrayList<>();
         StringBuilder s = new StringBuilder();
         int index = 1;
         for (ModCode similarModCode : similarModCodes) {
-            suggestedCommands.add(assignmentCommand.build(
+            suggestedCommands.add(eventCommand.build(
                     similarModCode,
                     tutName,
                     tutIndex,
-                    assignIndex,
-                    assignName,
-                    maxScore,
-                    startDate,
-                    endDate));
+                    eventIndex,
+                    eventName,
+                    startTime,
+                    endTime));
             s.append(index).append(". ").append(similarModCode).append(", ").append(tutName).append("\n");
             index++;
         }
         for (TutName similarTutName: similarTutNames) {
-            AssignmentCommand newCommand = assignmentCommand.build(
+            EventCommand newCommand = eventCommand.build(
                     modCode,
                     similarTutName,
                     tutIndex,
-                    assignIndex,
-                    assignName,
-                    maxScore,
-                    startDate,
-                    endDate);
+                    eventIndex,
+                    eventName,
+                    startTime,
+                    endTime);
             if (suggestedCommands.stream()
                     .anyMatch(existingCommand -> existingCommand.equals(newCommand))) {
                 continue;
@@ -148,14 +142,13 @@ public abstract class AssignmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AssignmentCommand // instanceof handles nulls
-                && targetModCode.equals(((AssignmentCommand) other).targetModCode)
-                && targetTutName.equals(((AssignmentCommand) other).targetTutName)
-                && targetTutIndex.equals(((AssignmentCommand) other).targetTutIndex)
-                && targetAssignIndex.equals(((AssignmentCommand) other).targetAssignIndex)
-                && assignName.equals(((AssignmentCommand) other).assignName)
-                && maxScore.equals(((AssignmentCommand) other).maxScore)
-                && startDate.equals(((AssignmentCommand) other).startDate)
-                && endDate.equals(((AssignmentCommand) other).endDate)); // state check
+                || (other instanceof EventCommand // instanceof handles nulls
+                && targetModCode.equals(((EventCommand) other).targetModCode)
+                && targetTutName.equals(((EventCommand) other).targetTutName)
+                && targetTutIndex.equals(((EventCommand) other).targetTutIndex)
+                && targetEventIndex.equals(((EventCommand) other).targetEventIndex)
+                && eventName.equals(((EventCommand) other).eventName)
+                && startTime.equals(((EventCommand) other).startTime)
+                && endTime.equals(((EventCommand) other).endTime)); // state check
     }
 }
