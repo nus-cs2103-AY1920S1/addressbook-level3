@@ -10,6 +10,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Represents the claim portion of the Budget graph
+ */
+
 public class ClaimPlotter {
     private List<Claim> claimList;
     private double startingExpenses = 0;
@@ -25,6 +29,10 @@ public class ClaimPlotter {
         this.claimList = claimList;
         this.claimSeries = claimSeries;
     }
+
+    /**
+     * Plots points of claim values
+     */
 
     XYSeries plotClaims() {
         findClaimValueAtStartOfMonth();
@@ -42,6 +50,10 @@ public class ClaimPlotter {
         return claimSeries;
     }
 
+    /**
+     * Finds the claim value at the start of the month
+     */
+
     private void findClaimValueAtStartOfMonth() {
         LocalDate firstDayOfMonth = LocalDate.of(currentYearNumber, currentMonthNumber, 2);
         for (Claim claim : claimList) {
@@ -52,6 +64,10 @@ public class ClaimPlotter {
             }
         }
     }
+
+    /**
+     * Returns an updated list of claims that are approved and in the current month
+     */
 
     private List<Claim> findApprovedClaimsInCurrentMonth() {
         List<Claim> updatedClaimList = new ArrayList<>();

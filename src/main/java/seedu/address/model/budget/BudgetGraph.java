@@ -18,17 +18,29 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+
+/**
+ *  Creates a Budget Graph
+ */
 
 public class BudgetGraph extends JFrame {
 
     private List<Claim> claimList;
     private List<Income> incomeList;
 
+    /**
+     *  Basic constructor of a Budget Graph
+     */
+
     public BudgetGraph(List<Claim> claimList,List<Income> incomeList) {
         this.claimList = claimList;
         this.incomeList = incomeList;
     }
+
+    /**
+     *  Fills in details of Budget Graph
+     */
 
     private BudgetGraph(String applicationTitle, String chartTitle, List<Claim> claimList,List<Income> incomeList) {
         super(applicationTitle);
@@ -66,6 +78,10 @@ public class BudgetGraph extends JFrame {
         renderer.setBaseToolTipGenerator(xyToolTipGenerator);
     }
 
+    /**
+     *  Maps data points to the Budget Graph
+     */
+
     private XYDataset createDataSet(List<Claim> claimList,List<Income> incomeList) {
         final XYSeries claim = new XYSeries( "Claim" );
         ClaimPlotter claimPlotter = new ClaimPlotter(claimList, claim);
@@ -87,6 +103,10 @@ public class BudgetGraph extends JFrame {
         return dataSet;
     }
 
+    /**
+     *  Displays Budget Graph on the screen.
+     */
+
     public void displayBudgetGraph(){
         BudgetGraph chart = new BudgetGraph("Budget Statistics",
                 "Statistics for current Month", claimList, incomeList);
@@ -95,5 +115,4 @@ public class BudgetGraph extends JFrame {
         chart.setVisible( true );
         chart.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-
 }
