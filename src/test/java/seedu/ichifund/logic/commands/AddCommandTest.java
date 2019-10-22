@@ -9,6 +9,7 @@ import static seedu.ichifund.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.ReadOnlyUserPrefs;
+import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
@@ -246,6 +248,16 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyProperty<TransactionContext> getTransactionContextProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Data> getDataList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateDataList(List<Data> datas) {
             throw new AssertionError("This method should not be called.");
         }
 
