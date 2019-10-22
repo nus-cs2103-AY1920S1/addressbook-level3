@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Context;
+import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Amount;
@@ -74,12 +74,12 @@ public class ExpenseCommand extends Command {
         Activity activity;
 
         // Contextual behaviour
-        if (model.getContext().getType() != Context.Type.VIEW_ACTIVITY) {
+        if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
             if (!Title.isValidTitle(description)) {
                 throw new CommandException(MESSAGE_MISSING_DESCRIPTION);
             }
             activity = new Activity(new Title(description));
-            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_ENTRIES);
         } else {
             activity = model.getContext().getActivity().get();
             model.updateFilteredPersonList(x -> activity.getParticipantIds().contains(x.getPrimaryKey()));
@@ -110,7 +110,7 @@ public class ExpenseCommand extends Command {
             expenseList[i] = new Expense(person.getPrimaryKey(), amounts.get(i), description);
 
             // Contextual behaviour
-            if (model.getContext().getType() != Context.Type.VIEW_ACTIVITY) {
+            if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
                 if (!activity.hasPerson(person.getPrimaryKey())) {
                     activity.invite(person.getPrimaryKey());
                 }
@@ -124,7 +124,7 @@ public class ExpenseCommand extends Command {
         }
 
         // Contextual behaviour
-        if (model.getContext().getType() != Context.Type.VIEW_ACTIVITY) {
+        if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
             model.addActivity(activity);
         }
 

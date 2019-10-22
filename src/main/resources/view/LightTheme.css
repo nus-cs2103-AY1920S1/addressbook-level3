@@ -50,7 +50,7 @@
     -fx-background-color: transparent;
 }
 
-.content-display, .content-entry-list {
+.content-display, .card-list {
     /* Suppress blue focus ring for result display */
     -fx-focus-color: transparent;
     -fx-background-insets: 1, 1, 1, 1;
@@ -59,23 +59,35 @@
     -fx-border-width: 1;
 }
 
-.card-pane {
+.content-display .card-list #label {
+    -fx-font-family: "Noto Sans CJK SC Regular", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: black;
+    -fx-highlight-fill: lightblue;
+}
+
+.person-card {
     -fx-padding: 8;
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
 
-.content-display .card-large-label {
+.person-card .person-name {
     -fx-font-family: "Noto Sans CJK SC Black", "Segoe UI", sans-serif;
     -fx-font-weight: bolder;
-    -fx-font-size: 14px;
-    -fx-text-fill: black;
+    -fx-font-size: 18px;
 }
 
-.content-display .card-label {
-    -fx-font-family: "Noto Sans CJK SC Regular", "Segoe UI", sans-serif;
-    -fx-font-size: 12px;
-    -fx-text-fill: black;
+.person-card .person-phone {
+    -fx-padding: 2 0 0 0;
+    -fx-font-size: 15px;
+}
+
+.person-card .person-index {
+    -fx-padding: 0;
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 22px;
 }
 
 .tag-list {
