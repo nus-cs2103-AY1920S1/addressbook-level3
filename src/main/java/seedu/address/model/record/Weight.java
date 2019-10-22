@@ -10,8 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Weight {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Weight should only contain numeric characters and at most a single decimal,"
-            + " and it should not be blank";
+        "Weight should only contain a positive real number";
     public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
     private final double weight;
 
