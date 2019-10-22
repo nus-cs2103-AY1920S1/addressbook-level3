@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
 /**
- * Implementation of LikeData interface.
+ * The actual implementation of LikeData storage in StatsEngine.
  */
 public class LikeDataImpl {
 
