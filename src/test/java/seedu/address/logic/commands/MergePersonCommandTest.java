@@ -30,7 +30,7 @@ public class MergePersonCommandTest {
     }
 
     @Test
-    public void execute_mergeConfirmedWithOneDifference_mergeSuccessful() throws Exception {
+    public void execute_mergeWithOneDifference_mergeSuccessful() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_AMY).build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
@@ -41,7 +41,7 @@ public class MergePersonCommandTest {
     }
 
     @Test
-    public void execute_mergeConfirmedWithMoreThanOneDifference_mergeSuccessful() throws Exception {
+    public void execute_mergeWithMoreThanOneDifference_mergeSuccessful() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
