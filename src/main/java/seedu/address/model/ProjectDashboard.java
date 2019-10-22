@@ -48,7 +48,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         tasksByDeadline = new UniqueTaskList();
         members = new UniqueMemberList();
         inventories = new UniqueInventoryList();
-        mappings = new UniqueMappingList();
+        mappings = new UniqueMappingManager();
     }
 
     public ProjectDashboard() {}
