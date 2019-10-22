@@ -5,6 +5,7 @@ import java.awt.BasicStroke;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.ui.ApplicationFrame;
@@ -19,17 +20,17 @@ public class BudgetGraph extends ApplicationFrame {
 
     public BudgetGraph( String applicationTitle, String chartTitle ) {
         super(applicationTitle);
-        JFreeChart xylineChart = ChartFactory.createXYLineChart(
+        JFreeChart xyLineChart = ChartFactory.createXYLineChart(
                 chartTitle ,
-                "Category" ,
-                "Score" ,
-                createDataset() ,
+                "Time (Days)" ,
+                "Money ($)" ,
+                createDataSet() ,
                 PlotOrientation.VERTICAL ,
                 true , true , false);
 
-        ChartPanel chartPanel = new ChartPanel( xylineChart );
+        ChartPanel chartPanel = new ChartPanel( xyLineChart );
         chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-        final XYPlot plot = xylineChart.getXYPlot( );
+        final XYPlot plot = xyLineChart.getXYPlot( );
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
         renderer.setSeriesPaint( 0 , Color.RED );
@@ -40,30 +41,42 @@ public class BudgetGraph extends ApplicationFrame {
         renderer.setSeriesStroke( 2 , new BasicStroke( 2.0f ) );
         plot.setRenderer( renderer );
         setContentPane( chartPanel );
+        renderer = (XYLineAndShapeRenderer) plot.getRenderer();
+        XYToolTipGenerator xyToolTipGenerator = (dataSet, series, item) -> {
+            Number x1 = dataSet.getX(series, item);
+            Number y1 = dataSet.getY(series, item);
+            return String.format("<html><p style='color:#0000ff;'>Series: '%s'</p>",
+                    dataSet.getSeriesKey(series)) +
+                    String.format("Time: Day %d<br/>", x1.intValue()) +
+                    String.format("Money: $%.2f", y1.doubleValue()) +
+                    "</html>";
+        };
+        renderer.setBaseToolTipGenerator(xyToolTipGenerator);
     }
 
-    private XYDataset createDataset( ) {
+    private XYDataset createDataSet( ) {
         final XYSeries claim = new XYSeries( "Claim" );
-        claim.add( 1.0 , 1.0 );
-        claim.add( 2.0 , 4.0 );
-        claim.add( 3.0 , 3.0 );
+        claim.add( 1.0 , 745 );
+        claim.add( 2.0 , 132.9);
+        claim.add( 3.0 , 1111.1 );
 
         final XYSeries income = new XYSeries( "Income" );
-        income.add( 1.0 , 4.0 );
-        income.add( 2.0 , 5.0 );
-        income.add( 3.0 , 6.0 );
+        income.add( 1.0 , 133 );
+        income.add( 2.0 , 222 );
+        income.add( 3.0 , 555.55 );
 
         final XYSeries budget = new XYSeries( "Budget" );
         budget.add( 3.0 , 4.0 );
         budget.add( 4.0 , 5.0 );
         budget.add( 5.0 , 4.0 );
 
-        final XYSeriesCollection dataset = new XYSeriesCollection( );
-        dataset.addSeries( claim );
-        dataset.addSeries( income );
-        dataset.addSeries( budget );
-        return dataset;
+        final XYSeriesCollection dataSet = new XYSeriesCollection( );
+        dataSet.addSeries( claim );
+        dataSet.addSeries( income );
+        dataSet.addSeries( budget );
+        return dataSet;
     }
+
 
     public static void main( String[ ] args ) {
         BudgetGraph chart = new BudgetGraph("Budget Statistics",
@@ -72,4 +85,5 @@ public class BudgetGraph extends ApplicationFrame {
         RefineryUtilities.centerFrameOnScreen( chart );
         chart.setVisible( true );
     }
+
 }
