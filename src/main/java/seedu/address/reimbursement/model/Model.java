@@ -18,6 +18,8 @@ public interface Model {
 
     void updateReimbursementList(ReimbursementList reimbursementList);
 
+    void updateReimbursementList(Person editedPerson, Person personToEdit);
+
     //single reimbursement operation
     Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException;
 

@@ -1,5 +1,7 @@
 package seedu.address.reimbursement.model.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 import seedu.address.transaction.model.Transaction;
@@ -23,6 +25,7 @@ public class Description {
      * @param transList Arraylist of the transactions.
      */
     public Description(ArrayList<Transaction> transList) {
+        requireNonNull(transList);
         description = "";
         for (int i = 0; i < transList.size(); i++) {
             Transaction trans = transList.get(i);

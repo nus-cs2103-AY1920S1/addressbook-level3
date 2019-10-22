@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
@@ -41,6 +42,7 @@ public class ModelManager implements Model {
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
+
 
     //=========== UserPrefs ==================================================================================
 

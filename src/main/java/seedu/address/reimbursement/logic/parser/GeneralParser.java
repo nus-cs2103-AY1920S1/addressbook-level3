@@ -1,7 +1,7 @@
 package seedu.address.reimbursement.logic.parser;
 
 import seedu.address.person.model.Model;
-import seedu.address.reimbursement.commands.Command;
+import seedu.address.reimbursement.logic.commands.Command;
 
 /**
  * Parser for all other commands.

@@ -95,9 +95,10 @@ public class MainApp extends Application {
 
         //For Reimbursement Storage and Manager
         reimbursementStorage =
-                new seedu.address.reimbursement.storage.StorageManager(FILE_PATH_REIMBURSEMENT, transactionModel);
+                new seedu.address.reimbursement.storage.StorageManager(FILE_PATH_REIMBURSEMENT);
         reimbursementModel =
-                new seedu.address.reimbursement.model.ModelManager(reimbursementStorage.readReimbursementList());
+                new seedu.address.reimbursement.model.ModelManager(
+                        reimbursementStorage.getReimbursementFromFile(transactionModel.getTransactionList()));
 
         //For Inventory Storage and Manager
         inventoryStorage =
@@ -107,7 +108,7 @@ public class MainApp extends Application {
 
         //For Cashier Storage and Manager
         cashierStorage = new seedu.address.cashier.storage.StorageManager("data"
-                        + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
+                + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
         cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage);
 
         //For Overview Storage and Manager
