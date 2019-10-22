@@ -25,7 +25,6 @@ import seedu.ichifund.logic.parser.loan.LoanParserManager;
 import seedu.ichifund.logic.parser.repeater.RepeaterParserManager;
 import seedu.ichifund.logic.parser.transaction.TransactionParserManager;
 
-
 /**
  * Parses user input.
  */
