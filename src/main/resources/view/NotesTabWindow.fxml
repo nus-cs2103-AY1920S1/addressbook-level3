@@ -18,7 +18,7 @@
             <Separator orientation="VERTICAL" stylesheets="@DarkTheme.css" />
           <AnchorPane styleClass="split-pane" stylesheets="@DarkTheme.css">
                <children>
-                  <TextArea fx:id="contentTextArea" editable="false" prefHeight="288.0" prefWidth="714.0" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true" />
+                  <TextArea fx:id="contentTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true" />
                </children>
             </AnchorPane>
         </items>
