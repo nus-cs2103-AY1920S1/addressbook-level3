@@ -1,6 +1,7 @@
 package budgetbuddy.logic.commands.accountcommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
@@ -19,8 +20,10 @@ public class AccountAddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an account.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_DESCRIPTION + "DESCRIPTION"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Japan trip ";
+            + PREFIX_NAME + "Japan trip "
+            + PREFIX_DESCRIPTION + "Expense spent in Japan.";
 
     public static final String MESSAGE_SUCCESS = "New account added: %1$s";
 

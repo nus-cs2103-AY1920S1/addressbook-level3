@@ -5,13 +5,13 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.account.exception.DuplicateAccountException;
-import budgetbuddy.model.attributes.Name;
+//import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
-import budgetbuddy.model.transaction.TransactionList;
+//import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -130,9 +130,9 @@ public class UniqueAccountList implements Iterable<Account> {
      * Gets account that matches the UniqueAccountList by name
      * TODO IMPLEMENT, right now only returns a new account
      */
-    public Optional<Account> getAccount(String accountName) {
+    /*public Optional<Account> getAccount(String accountName) {
         return Optional.of(new Account(new Name("default"), new TransactionList()));
-    }
+    }*/
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

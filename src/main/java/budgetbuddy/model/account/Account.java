@@ -4,35 +4,46 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.TransactionList;
 
 /**
- * Represents an account in the account book.
+ * Represents an account in the account manager.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Account {
 
     // Identity fields
     private Name name;
+    private Description description;
     private final TransactionList transactionList;
+
 
     /**
      * Every field must be present and not null.
      */
-    public Account(Name name, TransactionList transactionList) {
+    public Account(Name name, Description description, TransactionList transactionList) {
         requireAllNonNull(name, transactionList);
         this.name = name;
+        this.description = description;
         this.transactionList = transactionList;
     }
 
+
+
+
     public static Account getDefaultAccount() {
         //TODO implement getDefaultAccount which returns the default account
-        return new Account(new Name("DEFAULT"), new TransactionList());
+        return new Account(new Name("DEFAULT"), new Description("null"), new TransactionList());
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Description getDescription() {
+        return description;
     }
 
     public TransactionList getTransaction() {
@@ -78,13 +89,12 @@ public class Account {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, transactionList);
+        return Objects.hash(name, description, transactionList);
     }
 
     @Override
     public String toString() {
-        return getName().toString();
+        return getName().toString() + " (" + getDescription().toString() + ")";
     }
-
 }
 

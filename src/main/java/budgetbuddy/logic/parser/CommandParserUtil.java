@@ -70,8 +70,9 @@ public class CommandParserUtil {
     public static Account parseAccount(String account) throws ParseException {
         requireNonNull(account);
         String trimmedAccount = account.trim();
-        return new Account(new Name(trimmedAccount), new TransactionList());
+        return new Account(new Name(trimmedAccount), new Description("null"), new TransactionList());
     }
+
     /**
      * Parses a {@code String amount} into an {@code Amount}.
      * Leading and trailing whitespaces will be trimmed.
