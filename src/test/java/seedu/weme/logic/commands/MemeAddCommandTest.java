@@ -183,11 +183,6 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void setContext(ModelContext context) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public SimpleObjectProperty<ModelContext> getContext() {
             throw new AssertionError("This method should not be called.");
         }

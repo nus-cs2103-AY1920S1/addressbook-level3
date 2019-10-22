@@ -154,12 +154,6 @@ public interface Model {
     void commitMemeBook();
 
     /**
-     * Sets the context of the model.
-     * @param context Context to set.
-     */
-    void setContext(ModelContext context);
-
-    /**
      * Returns statistics data.
      */
     Stats getStats();

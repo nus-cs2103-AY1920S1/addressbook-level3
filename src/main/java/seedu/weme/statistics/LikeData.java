@@ -31,23 +31,15 @@ public class LikeData {
      * Sets like count of a meme.
      */
     public void setLikesByMemeRef(String memeRef, int change) {
-        if (!likeMap.containsKey(memeRef)) {
-            likeMap.put(memeRef, change);
-        } else {
-            int currLikes = likeMap.get(memeRef);
-            likeMap.replace(memeRef, currLikes + change);
-        }
+        int currLikes = likeMap.getOrDefault(memeRef, 0);
+        likeMap.replace(memeRef, currLikes + change);
     }
 
     /**
      * Returns the like count of a meme by its URL.
      */
     public int getLikesByMemeRef(String memeRef) {
-        if (!likeMap.containsKey(memeRef)) {
-            likeMap.put(memeRef, 0);
-            return 0;
-        }
-        return likeMap.get(memeRef);
+        return likeMap.getOrDefault(memeRef, 0);
     }
 
     /**
