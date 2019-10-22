@@ -11,6 +11,7 @@ import javafx.scene.Node;
 public abstract class FlashCard implements JsonInterface {
     protected String front;
     protected String back;
+    protected Integer priority;
 
     /**
      * Returns render of front of this flash card.

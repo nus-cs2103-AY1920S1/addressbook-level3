@@ -1,6 +1,7 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
@@ -18,6 +19,7 @@ import javafx.scene.Node;
 public class Deck implements JsonInterface {
     private String deckName;
     private ArrayList<FlashCard> cards;
+    private PriorityQueue<Integer> cardsTestQueue;
 
     /**
      * Constructor to create a Deck with no name and cards.
