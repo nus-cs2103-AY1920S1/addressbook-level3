@@ -107,7 +107,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Earnings> getCommandsList() {
+        public ObservableList<CommandObject> getCommandsList() {
             return commands;
         }
     }

@@ -47,6 +47,11 @@ public class AddressBookParser {
         }
     }
 
+    public AddressBookParser() {
+        AddressBookParser.commandList = new TreeMap<>();
+        initialiseBasicCommands();
+    }
+
     public static TreeMap<String, String> getCommandList() {
         return AddressBookParser.commandList;
     }

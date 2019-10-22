@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
@@ -87,6 +88,46 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getSavedCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveCommand(String command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCommandsList(Predicate<CommandObject> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCommands(CommandObject target, CommandObject editedCommands) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCommand(CommandObject command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCommand(CommandObject command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCommand(CommandObject command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<CommandObject> getFilteredCommandsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
@@ -143,11 +184,6 @@ public class AddCommandTest {
 
         @Override
         public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteEarnings(Earnings target) {
             throw new AssertionError("This method should not be called.");
         }
 
