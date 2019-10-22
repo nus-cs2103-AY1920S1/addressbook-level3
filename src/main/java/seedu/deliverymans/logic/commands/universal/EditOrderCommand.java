@@ -43,6 +43,7 @@ public class EditOrderCommand extends Command {
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists.";
+    public static final String MESSAGE_INVALID_ORDER = "The customer/restaurant/deliveryman does not exist!";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -70,6 +71,15 @@ public class EditOrderCommand extends Command {
 
         Order orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
+        Name deliveryman = editedOrder.getDeliveryman();
+
+
+        if (!model.getFilteredRestaurantList().contains(editedOrder.getRestaurant()) ||
+                !model.getFilteredCustomerList().contains(editedOrder.getCustomer()) ||
+                (!deliveryman.equals(null)
+                        && !model.getFilteredDeliverymenList().contains(deliveryman))) {
+            throw new CommandException(MESSAGE_INVALID_ORDER);
+        }
 
         if (!orderToEdit.isSameOrder(editedOrder) && model.hasOrder(editedOrder)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);

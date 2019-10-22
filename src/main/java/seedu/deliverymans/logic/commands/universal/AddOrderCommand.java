@@ -27,11 +27,12 @@ public class AddOrderCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "Sam "
             + PREFIX_RESTAURANT + "KFC "
-            + PREFIX_FOOD + "3pc Chicken Meal"
-            + PREFIX_FOOD + "Family feast";
+            + PREFIX_FOOD + "3pcChickenMeal"
+            + PREFIX_FOOD + "FamilyFeast";
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This order already exists";
+    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists";
+    public static final String MESSAGE_INVALID_ORDER = "The customer/restaurant does not exist!";
 
     private final Order toAdd;
 
@@ -44,10 +45,12 @@ public class AddOrderCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         Name customerName = toAdd.getCustomer();
         Name restaurantName = toAdd.getRestaurant();
-        model.getFilteredRestaurantList().contains(customerName);
-        model.getFilteredRestaurantList().contains(restaurantName);
+        if (!model.getFilteredCustomerList().contains(customerName) ||
+                !model.getFilteredRestaurantList().contains(restaurantName)) {
+            throw new CommandException(MESSAGE_INVALID_ORDER);
+        }
         if (model.hasOrder(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
         model.addOrder(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

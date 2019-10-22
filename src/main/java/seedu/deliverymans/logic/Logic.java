@@ -88,7 +88,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see Model#getOrderBook() Book()
+     * @see Model#getOrderDatabase() Book()
      */
     ReadOnlyOrderBook getOrderBook();
 

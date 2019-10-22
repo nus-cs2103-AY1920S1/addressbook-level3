@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
     private RestaurantListPanel restaurantListPanel;
+    private OrderListPanel orderListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -184,7 +185,8 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
         default:
-            // to be implemented with order list
+            orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
         }
     }
 

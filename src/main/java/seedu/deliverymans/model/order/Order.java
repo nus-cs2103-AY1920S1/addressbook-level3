@@ -23,7 +23,7 @@ public class Order {
     private final Name orderName;
     private final Name customer;
     private final Name restaurant;
-    private Name deliveryman;
+    private Name deliveryman = new Name("unassigned");
     private boolean isCompleted;
 
     // Data fields
@@ -39,7 +39,7 @@ public class Order {
         requireNonNull(customer);
         requireNonNull(restaurant);
 
-        this.orderName = new Name(String.format("Order no: %d", counter));
+        this.orderName = new Name(String.format("Order no %d", counter));
         ++counter;
         this.customer = customer;
         this.restaurant = restaurant;
@@ -139,10 +139,12 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getCustomer().equals(getCustomer())
+        return otherOrder.getOrderName().equals(getOrderName())
+                && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getDeliveryman().equals(getDeliveryman())
                 && otherOrder.getFood().equals(getFood())
-                && otherOrder.getRestaurant().equals(getRestaurant());
+                && otherOrder.getRestaurant().equals(getRestaurant())
+                && (otherOrder.isCompleted() == isCompleted());
     }
 
     @Override
