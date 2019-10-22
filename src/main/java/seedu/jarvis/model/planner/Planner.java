@@ -93,7 +93,7 @@ public class Planner {
             return false;
         }
 
-        other = (Planner) other;
+        //state check
         return taskList.equals(((Planner) other).getTasks());
     }
 
@@ -131,5 +131,18 @@ public class Planner {
      */
     public int size() {
         return taskList.size();
+    }
+
+    /**
+     * Looks through all the tasks in the planner to find the tasks that
+     * match the keywords in the predicate
+     *
+     * @param predicate contains a list of keywords
+     * @return a {@code TaskList} of all the tasks in the planner that match
+     * any of the given keywords
+     */
+    //TODO test
+    public TaskList find(TaskDesContainsKeywordsPredicate predicate) {
+        return taskList.find(predicate);
     }
 }

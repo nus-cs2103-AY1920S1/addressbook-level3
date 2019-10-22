@@ -4,15 +4,14 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
-
-import java.util.ArrayList;
+import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
 
 /**
  * Finds and lists all tasks in the planner whose description contains any of the argument
  * keywords.
  * Keyword matching is case insensitive.
  */
+//TODO tests
 public class FindTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "find-task";
@@ -26,9 +25,9 @@ public class FindTaskCommand extends Command {
 
     public static final boolean HAS_INVERSE = false;
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final TaskDesContainsKeywordsPredicate predicate;
 
-    public FindTaskCommand(NameContainsKeywordsPredicate predicate) {
+    public FindTaskCommand(TaskDesContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -61,6 +60,7 @@ public class FindTaskCommand extends Command {
      * @return {@code Model} of the number of {@code Task} matching the {@code Predicate}.
      * @throws CommandException
      */
+    //TODO execute method
     @Override
     public CommandResult execute(Model model) throws CommandException {
         return null;
@@ -75,5 +75,12 @@ public class FindTaskCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this //short circuit if same object
+                || (other instanceof FindTaskCommand // instanceof handles nulls
+                && predicate.equals(((FindTaskCommand) other).predicate)); //state check
     }
 }

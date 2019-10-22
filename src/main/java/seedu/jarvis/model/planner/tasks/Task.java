@@ -79,6 +79,15 @@ public abstract class Task {
     }
 
     /**
+     * Retrieves the task description of a task
+     * @return the task description of a particular task
+     */
+    //TODO test
+    public String getTaskDes() {
+        return taskDes;
+    }
+
+    /**
      * To show all the attributes (priority, frequency and tags) present in a task
      * It will not return any attributes if the task does not contain any, i.e. it will not show null
      * @return a string of all the attributes present in a task.

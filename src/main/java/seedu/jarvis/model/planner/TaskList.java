@@ -127,4 +127,24 @@ public class TaskList {
         tasks.remove(t);
     }
 
+    /**
+     * Looks through all the tasks in the {@code TaskList} to find the tasks that
+     * match the keywords in the predicate
+     *
+     * @param predicate contains a list of keywords
+     * @return a {@code TaskList} of all the tasks in the planner that match
+     * any of the given keywords
+     */
+    //TODO test and method
+    public TaskList find(TaskDesContainsKeywordsPredicate predicate) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task t : tasks) {
+            if (predicate.test(t)) {
+                filteredTasks.add(t);
+            }
+        }
+
+        return new TaskList(filteredTasks);
+    }
+
 }

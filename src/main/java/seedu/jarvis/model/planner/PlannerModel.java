@@ -76,4 +76,14 @@ public interface PlannerModel {
      * @return the size of the planner
      */
     int size();
+
+    /**
+     * Looks through all the tasks in the planner to find the tasks that
+     * match the keywords in the predicate
+     *
+     * @param predicate contains a list of keywords
+     * @return a {@code TaskList} of all the tasks in the planner that match
+     * any of the given keywords
+     */
+    TaskList find(TaskDesContainsKeywordsPredicate predicate);
 }

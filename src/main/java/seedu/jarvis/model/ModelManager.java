@@ -28,6 +28,7 @@ import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
+import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
@@ -546,6 +547,20 @@ public class ModelManager implements Model {
     public int size() {
         return planner.size();
     }
+
+    /**
+     * Looks through all the tasks in the planner to find the tasks that
+     * match the keywords in the predicate
+     *
+     * @param predicate contains a list of keywords
+     * @return a {@code TaskList} of all the tasks in the planner that match
+     * any of the given keywords
+     */
+    @Override
+    public TaskList find(TaskDesContainsKeywordsPredicate predicate) {
+        return planner.find(predicate);
+    }
+
     //=========== Course Planner ========================================================
 
     @Override
