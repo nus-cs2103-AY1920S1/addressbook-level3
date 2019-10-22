@@ -166,7 +166,7 @@ The `Context` class exposes relevant getter methods `Context#getType`, `Context#
 
 During execution, the List command creates the intended `Context` and updates the `Model` with it, along with the appropriate `FilteredList`. As `MainWindow` tracks both `FilteredList`, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.
 
-The updated `ContextType` of the `Model` is then returned to the `MainWindow` UI controller via the `CommandResult`, where it is used to switch the content displayed. 
+The updated `ContextType` of the `Model` is then returned to the `MainWindow` UI controller via the `CommandResult`, where it is used to switch the content displayed.
 
 Given below is an example usage scenario of a user intending to view the list of activities.
 

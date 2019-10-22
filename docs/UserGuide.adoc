@@ -77,6 +77,10 @@ Format: `main`
 
 Switches the current view to list all contacts or activities. +
 
+****
+* Argument values supplied with parameters are ignored for this command.
+****
+
 Format: `list c/` for contacts *OR* `list a/` for activities
 
 === View a contact or activity : `view`
