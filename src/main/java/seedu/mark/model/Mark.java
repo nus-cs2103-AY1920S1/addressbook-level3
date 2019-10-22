@@ -28,10 +28,13 @@ public class Mark implements ReadOnlyMark {
 
     private final ReminderAssociation reminderAssociation;
 
+    private final ObservableList<Reminder> reminders;
+
     public Mark() {
         bookmarks = new UniqueBookmarkList();
         folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
         reminderAssociation = new ReminderAssociation();
+        reminders = reminderAssociation.getReminderList();
     }
 
     /**
@@ -148,6 +151,7 @@ public class Mark implements ReadOnlyMark {
      */
     public void addReminder(Bookmark bookmark, Reminder reminder) {
         this.reminderAssociation.addReminder(bookmark, reminder);
+        setReminders();
     }
 
     /**
@@ -157,6 +161,7 @@ public class Mark implements ReadOnlyMark {
      */
     public void removeReminder(Reminder reminder) {
         this.reminderAssociation.deleteReminder(reminder);
+        setReminders();
     }
 
     /**
@@ -167,6 +172,15 @@ public class Mark implements ReadOnlyMark {
      */
     public void editReminder(Reminder targetReminder, Reminder replaceReminder) {
         this.reminderAssociation.setReminder(targetReminder, replaceReminder);
+        setReminders();
+    }
+
+    public void setReminders() {
+        reminders.clear();
+        ObservableList<Reminder> newReminders = reminderAssociation.getReminderList();
+        for (int i = 0; i < newReminders.size(); i++) {
+            reminders.add(newReminders.get(i));
+        }
     }
 
     //// util methods
@@ -190,6 +204,11 @@ public class Mark implements ReadOnlyMark {
     @Override
     public ReminderAssociation getReminderAssociation() {
         return reminderAssociation;
+    }
+
+    @Override
+    public ObservableList<Reminder> getReminderList() {
+        return reminders;
     }
 
 

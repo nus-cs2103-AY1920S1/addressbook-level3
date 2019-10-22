@@ -2,16 +2,20 @@ package seedu.mark.model.reminder;
 
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
-import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.*;
 import seedu.mark.model.bookmark.exceptions.BookmarkContainNoReminderException;
 import seedu.mark.model.bookmark.exceptions.ExistReminderException;
 import seedu.mark.model.bookmark.exceptions.ReminderNotFoundException;
+import seedu.mark.model.tag.Tag;
 
 /**
  * Represents the association between bookmarks and reminders.
@@ -90,8 +94,10 @@ public class ReminderAssociation {
      */
     public ObservableList<Reminder> getReminderList() {
         ObservableList<Reminder> reminderList = FXCollections.observableArrayList();
-        reminderList.addAll(association.values());
-        reminderList.sort(comparator);
+        if (!association.isEmpty()) {
+            reminderList.addAll(association.values());
+            reminderList.sort(comparator);
+        }
         return reminderList;
     }
 

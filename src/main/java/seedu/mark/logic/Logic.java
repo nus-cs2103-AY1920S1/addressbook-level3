@@ -15,6 +15,7 @@ import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * API of the Logic component
@@ -87,4 +88,6 @@ public interface Logic {
      * @see seedu.mark.model.Model#updateDocument(OfflineDocument)
      */
     void updateDocument(OfflineDocument doc);
+
+    ObservableList<Reminder> getReminderList();
 }
