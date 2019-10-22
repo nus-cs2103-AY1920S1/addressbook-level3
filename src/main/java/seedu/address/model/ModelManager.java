@@ -14,8 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.dashboard.DashboardRecords;
 import seedu.address.model.dashboard.ReadOnlyDashboard;
 import seedu.address.model.dashboard.components.Dashboard;
-import seedu.address.model.dashboard.DashboardRecords;
-import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.diary.DiaryRecords;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.diary.components.Diary;

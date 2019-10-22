@@ -1,5 +1,9 @@
 package seedu.address.logic.commands.dashboard;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
@@ -8,10 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.dashboard.components.Dashboard;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Deletes a Dashboard identified using it's displayed index from Duke Cooks.
+ */
 public class DeleteTaskCommand extends DeleteCommand {
 
     public static final String VARIANT_WORD = "task";
@@ -33,7 +36,7 @@ public class DeleteTaskCommand extends DeleteCommand {
         requireNonNull(model);
         List<Dashboard> lastShownList = model.getFilteredDashboardList();
 
-        if(targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 

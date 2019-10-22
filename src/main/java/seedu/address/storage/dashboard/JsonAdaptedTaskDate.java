@@ -2,10 +2,13 @@ package seedu.address.storage.dashboard;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import javafx.concurrent.Task;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.dashboard.components.TaskDate;
 
+/**
+ * Jackson-friendly version of {@link TaskDate}.
+ */
 public class JsonAdaptedTaskDate {
 
     private final String taskDate;
@@ -25,13 +28,21 @@ public class JsonAdaptedTaskDate {
         taskDate = source.taskDate;
     }
 
+    /**
+     * Returns a String of taskDate.
+     */
     @JsonValue
     public String getTaskDate() {
         return taskDate;
     }
 
+    /**
+     * Converts this Jackson-friendly adapted TaskDate object into the model's {@code TaskDate} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted TaskDate.
+     */
     public TaskDate toModelType() throws IllegalValueException {
-        if(!TaskDate.isValidTaskDate(taskDate)) {
+        if (!TaskDate.isValidTaskDate(taskDate)) {
             throw new IllegalValueException(TaskDate.MESSAGE_CONSTRAINTS);
         }
         return new TaskDate(taskDate);

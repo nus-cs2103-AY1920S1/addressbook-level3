@@ -1,7 +1,8 @@
 package seedu.address.logic.commands.dashboard;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKNAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DASHBOARD;
 
 import java.util.List;

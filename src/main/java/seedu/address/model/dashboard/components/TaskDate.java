@@ -1,15 +1,17 @@
 package seedu.address.model.dashboard.components;
 
-import java.time.LocalDate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a TaskDate in Duke Cooks.
+ * Guarantees: details are present and not null, field values validated and immutable.
+ */
 public class TaskDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date entered is invalid, should only contain numbers, " +
-                    "expressed in day/month/year";
+            "Date entered is invalid, should only contain numbers, "
+                    + "expressed in day/month/year";
     public final String day;
     public final String month;
     public final String year;
@@ -40,7 +42,7 @@ public class TaskDate {
         boolean validDay = d > 0 && d < 31;
         boolean validMonth = m > 0 && m < 13;
         boolean validYear = y > 2018;
-        if(validDay && validMonth && validYear) {
+        if (validDay && validMonth && validYear) {
             return true;
         } else {
             return false;

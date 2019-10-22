@@ -87,7 +87,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
 
     public void setDashboards(List<Dashboard> dashboards) {
         requireAllNonNull(dashboards);
-        if(!dashboardsAreUnique(dashboards)) {
+        if (!dashboardsAreUnique(dashboards)) {
             throw new DuplicateDashboardException();
         }
 

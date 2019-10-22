@@ -2,7 +2,8 @@ package seedu.address.logic.parser.dashboard;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKNAME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.dashboard.EditTaskCommand;
@@ -39,7 +40,8 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
 
         EditTaskDescriptor editTaskDescriptor = new EditTaskDescriptor();
         if (argMultimap.getValue(PREFIX_TASKNAME).isPresent()) {
-            editTaskDescriptor.setDashboardName(ParserUtil.parseDashboardName(argMultimap.getValue(PREFIX_TASKNAME).get()));
+            editTaskDescriptor.setDashboardName(ParserUtil.parseDashboardName
+                    (argMultimap.getValue(PREFIX_TASKNAME).get()));
         }
         if (argMultimap.getValue(PREFIX_TASKDATE).isPresent()) {
             editTaskDescriptor.setTaskDate(ParserUtil.parseTaskDate(argMultimap.getValue(PREFIX_TASKDATE).get()));

@@ -5,11 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.Arrays;
 
 import seedu.address.logic.commands.dashboard.FindTaskCommand;
-import seedu.address.logic.commands.recipe.FindRecipeCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.dashboard.components.DashboardNameContainsKeywordsPredicate;
-import seedu.address.model.recipe.components.RecipeNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindRecipeCommand object

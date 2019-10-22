@@ -1,15 +1,18 @@
 package seedu.address.logic.commands.dashboard;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKNAME;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.dashboard.components.Dashboard;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKDATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKNAME;
-
+/**
+ * Adds a task into Duke Cooks
+ */
 public class AddTaskCommand extends AddCommand {
 
     public static final String VARIANT_WORD = "task";
@@ -29,14 +32,14 @@ public class AddTaskCommand extends AddCommand {
      */
     public AddTaskCommand(Dashboard dashboard) {
         requireNonNull(dashboard);
-        toAdd =  dashboard;
+        toAdd = dashboard;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(model.hasDashboard(toAdd)) {
+        if (model.hasDashboard(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 

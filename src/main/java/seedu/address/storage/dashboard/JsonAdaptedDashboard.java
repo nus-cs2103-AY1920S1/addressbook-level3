@@ -51,11 +51,11 @@ class JsonAdaptedDashboard {
         }
         final DashboardName modelName = new DashboardName(name);
 
-        if(taskDate == null) {
+        if (taskDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TaskDate.class.getSimpleName()));
         }
-        if(!TaskDate.isValidTaskDate(taskDate)) {
+        if (!TaskDate.isValidTaskDate(taskDate)) {
             throw new IllegalValueException(TaskDate.MESSAGE_CONSTRAINTS);
         }
         final TaskDate modelDate = new TaskDate(taskDate);

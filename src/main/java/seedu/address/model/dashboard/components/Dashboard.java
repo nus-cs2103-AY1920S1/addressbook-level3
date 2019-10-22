@@ -1,7 +1,5 @@
 package seedu.address.model.dashboard.components;
 
-import javafx.concurrent.Task;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
