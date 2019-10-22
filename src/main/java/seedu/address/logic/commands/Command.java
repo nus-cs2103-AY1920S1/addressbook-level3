@@ -26,8 +26,12 @@ public abstract class Command {
 
     public abstract boolean check(Model model) throws CommandException;
 
+    /**
+     * Checks if preconditions satisfy for excecuting command
+     * @param model
+     * @return boolean true if satisfied
+     */
     public boolean precondition(Model model) {
-        System.out.println("preconditionsingings");
         return true;
     }
 

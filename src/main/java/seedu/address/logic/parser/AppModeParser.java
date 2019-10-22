@@ -74,7 +74,7 @@ public class AppModeParser extends ModeParser {
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
         for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
-            if (txt.contains(input)) {
+            if (txt.contains(input) || input.contains(txt)) {
                 temp.add(new AutoFillAction(txt));
             }
         }

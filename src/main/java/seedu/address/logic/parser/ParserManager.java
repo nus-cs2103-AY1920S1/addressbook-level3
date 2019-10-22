@@ -90,7 +90,7 @@ public class ParserManager {
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
         for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
-            if (txt.contains(input)) {
+            if (txt.contains(input) || input.contains(txt)) {
                 temp.add(new AutoFillAction(txt));
             }
         }
@@ -137,6 +137,16 @@ public class ParserManager {
         final String arguments = matcher.group("arguments");
 
         return (SwitchCommand) classUtil.getCommandInstance(commandWord, arguments);
+    }
+
+    public List<ModeEnum> getModes() {
+        List<ModeEnum> temp = new ArrayList<>();
+        // TODO make it dynamic to switch command;
+        temp.add(ModeEnum.APP);
+        temp.add(ModeEnum.LOAD);
+        temp.add(ModeEnum.GAME);
+        temp.add(ModeEnum.SETTINGS);
+        return temp;
     }
 
 }

@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -252,12 +251,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     @Override
     public List<ModeEnum> getModes() {
-        List<ModeEnum> temp = new ArrayList<>();
-        temp.add(ModeEnum.APP);
-        temp.add(ModeEnum.LOAD);
-        temp.add(ModeEnum.GAME);
-        temp.add(ModeEnum.SETTINGS);
-        return temp;
+        return parserManager.getModes();
     }
 
     @Override

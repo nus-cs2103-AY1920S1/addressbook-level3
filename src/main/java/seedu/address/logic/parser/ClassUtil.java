@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,9 @@ public class ClassUtil {
         classPairs.add(classPair);
     }
 
+    /**
+     *  Filters list of classes to only include valid ones in processing
+     */
     private void filterList() {
         filteredList.clear();
         for (ClassPair clsPair : classPairs) {
@@ -44,7 +46,7 @@ public class ClassUtil {
                 if (temp) {
                     filteredList.add(clsPair);
                 }
-            } catch ( NoSuchMethodException | InstantiationException | IllegalAccessException
+            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
                     | InvocationTargetException e) {
                 System.out.println("Erorrorror");
             }
