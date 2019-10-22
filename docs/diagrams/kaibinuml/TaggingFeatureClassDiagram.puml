@@ -1,0 +1,17 @@
+@startuml
+
+StudyBuddyItem <|-down- CheatSheet
+StudyBuddyItem <|-down- Flashcard
+StudyBuddyItem <|-down- Note
+StudyBuddyItem *-down--- "0..10" Tag
+
+class StudyBuddyItem {
+-Set<Tag> tags
++getTags()
+}
+
+class Tag {
+-String name
+}
+
+@enduml
