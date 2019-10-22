@@ -76,6 +76,8 @@ public class ModelManager implements Model {
 
     @Override
     public InternalState getInternalState() {
+        // Update before returning internal state
+        internalState.updateInternalState();
         return internalState;
     }
 
