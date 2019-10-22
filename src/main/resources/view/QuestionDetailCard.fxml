@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,7 +23,7 @@
       </padding>
 
       <FlowPane fx:id="tags" />
-      <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 0 0 0;">
+      <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 0 3 0;">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
@@ -39,7 +40,8 @@
                </font>
             </Label>
       </HBox>
-         <HBox prefHeight="22.0" prefWidth="120.0">
+         <Separator prefWidth="200.0" style="-fx-padding: 4 0 0 0; -fx-background-color: #ff0000;" />
+         <HBox prefHeight="22.0" prefWidth="120.0" style="-fx-padding: 2 0 0 0;">
             <children>
             <Label fx:id="answerText" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="Answer: ">
                   Answer: <font>
@@ -53,7 +55,7 @@
                </Label>
             </children>
          </HBox>
-         <HBox prefHeight="22.0" prefWidth="120.0">
+         <HBox prefHeight="22.0" prefWidth="120.0" style="-fx-padding: 1 0 0 0;">
             <children>
                <Label fx:id="answerText1" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="Category: ">
                   <font>
@@ -65,6 +67,29 @@
                      <Font size="15.0" />
                   </font>
                </Label>
+            </children>
+         </HBox>
+         <HBox prefHeight="22.0" prefWidth="120.0">
+            <children>
+               <Label fx:id="answerText12" style="-fx-font-weight: bold; -fx-label-padding: 1 0 0 0; -fx-font-size: 15;" styleClass="cell_small_label" text="Comment / Explanation: ">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+         <HBox prefHeight="22.0" prefWidth="120.0" style="-fx-padding: 1 0 0 0;">
+            <children>
+               <Label fx:id="answerText11" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="-&gt;">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+              <Label fx:id="comment" style="-fx-font-size: 15; -fx-label-padding: 0 6 0 6;" styleClass="cell_small_label" text="\$comment">
+                  <font>
+                      <Font size="15.0" />
+                  </font>
+              </Label>
             </children>
          </HBox>
     </VBox>

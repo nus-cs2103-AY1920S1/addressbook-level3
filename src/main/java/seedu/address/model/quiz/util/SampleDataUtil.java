@@ -8,6 +8,7 @@ import seedu.address.model.quiz.AddressQuizBook;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
 import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Category;
+import seedu.address.model.quiz.person.Comment;
 import seedu.address.model.quiz.person.Name;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.model.quiz.person.Type;
@@ -19,17 +20,18 @@ import seedu.address.model.quiz.tag.Tag;
 public class SampleDataUtil {
     public static Question[] getSampleQuestions() {
         return new Question[] {
-            new Question(new Name("What is always coming, but never arrives?"), new Answer("Tomorrow"),
+            new Question(new Name("What is always coming, but never arrives?"), null, new Answer("Tomorrow"),
                 new Category("CS2131"), new Type("high"),
                 getTagSet("lecture")),
-            new Question(new Name("In which year did NUS founded?"), new Answer("1905"), new Category("Random"),
-                new Type("low"),
+            new Question(new Name("In which year did NUS founded?"), null, new Answer("1905"),
+                new Category("Random"), new Type("low"),
                 getTagSet("general", "trivia")),
-            new Question(new Name("What is always coming, but never arrives?"), new Answer("Tomorrow"),
+            new Question(new Name("What is always coming, but never arrives?"),
+                new Comment("The explanation is on lecture 10"), new Answer("Tomorrow"),
                 new Category("CS2132"), new Type("medium"),
                 getTagSet("tutorial")),
-            new Question(new Name("In which year did NUS founded?"), new Answer("1905"), new Category("Random"),
-                new Type("high"),
+            new Question(new Name("In which year did NUS founded?"), new Comment("The explanation is on lecture 20"),
+                new Answer("1905"), new Category("Random"), new Type("high"),
                 getTagSet("trivia"))
         };
     }

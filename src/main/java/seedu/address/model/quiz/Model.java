@@ -78,7 +78,7 @@ public interface Model {
     void setQuestion(Question target, Question editedQuestion);
 
     /**
-     * Set the question to be shown to the StackPane
+     * Set the question to be shown to the StackPane.
      * @param question
      */
     void setShowQuestion(Question question);

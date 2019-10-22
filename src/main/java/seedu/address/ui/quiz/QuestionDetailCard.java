@@ -15,7 +15,7 @@ import seedu.address.model.quiz.person.Question;
  */
 public class QuestionDetailCard extends UiPart<Region> {
 
-    private static final String FXML = "QuestionListCard.fxml";
+    private static final String FXML = "QuestionDetailCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -40,6 +40,8 @@ public class QuestionDetailCard extends UiPart<Region> {
     @FXML
     private Label category;
     @FXML
+    private Label comment;
+    @FXML
     private FlowPane tags;
 
     public QuestionDetailCard(Question question, int displayedIndex) {
@@ -47,6 +49,13 @@ public class QuestionDetailCard extends UiPart<Region> {
         this.question = question;
         id.setText(displayedIndex + ". ");
         name.setText(question.getName().fullName);
+
+        if (question.getComment() == null) {
+            comment.setText("No explanation yet");
+        } else {
+            comment.setText(question.getComment().value);
+        }
+
         answer.setText(question.getAnswer().value);
         type.setText(question.getType().value);
         category.setText(question.getCategory().value);

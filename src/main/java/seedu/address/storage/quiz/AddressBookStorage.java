@@ -9,7 +9,7 @@ import seedu.address.model.quiz.ReadOnlyAddressBook;
 
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link seedu.address.model.quiz}.
  */
 public interface AddressBookStorage {
 
