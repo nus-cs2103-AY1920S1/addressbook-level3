@@ -96,7 +96,7 @@ public class RecommendationSystem {
         double weight = 0;
 
         // Bonus for liked tags
-        long numOfLikedTags = userRecommendations.getLikedTags().stream()
+        long numOfLikedTags = userRecommendations.getLikedTags().stream().parallel()
                 .filter(food.getTags().stream()
                         .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
                 .count();
@@ -112,7 +112,7 @@ public class RecommendationSystem {
         weight += LIKED_TAG_WEIGHT * numOfLikedTags;
 
         // Bonus for liked categories
-        long numOfLikedCategories = userRecommendations.getLikedCategories().stream()
+        long numOfLikedCategories = userRecommendations.getLikedCategories().stream().parallel()
                 .filter(new Category(food.getCategory().category.toLowerCase())::equals)
                 .count();
 
@@ -121,7 +121,7 @@ public class RecommendationSystem {
         }
 
         // Bonus for liked locations
-        long numOfLikedLocations = userRecommendations.getLikedLocations().stream()
+        long numOfLikedLocations = userRecommendations.getLikedLocations().stream().parallel()
                 .filter(new Location(food.getLocation().location.toLowerCase())::equals)
                 .count();
 
@@ -130,7 +130,7 @@ public class RecommendationSystem {
         }
 
         // Penalty for disliked tags
-        long numOfDislikedTags = userRecommendations.getDislikedTags().stream()
+        long numOfDislikedTags = userRecommendations.getDislikedTags().stream().parallel()
                 .filter(food.getTags().stream()
                         .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
                 .count();
@@ -146,7 +146,7 @@ public class RecommendationSystem {
         weight += DISLIKED_TAG_WEIGHT * numOfDislikedTags;
 
         // Penalty for disliked categories
-        long numOfDislikedCategories = userRecommendations.getDislikedCategories().stream()
+        long numOfDislikedCategories = userRecommendations.getDislikedCategories().stream().parallel()
                 .filter(new Category(food.getCategory().category.toLowerCase())::equals)
                 .count();
 
@@ -155,7 +155,7 @@ public class RecommendationSystem {
         }
 
         // Penalty for disliked locations
-        long numOfDislikedLocations = userRecommendations.getDislikedLocations().stream()
+        long numOfDislikedLocations = userRecommendations.getDislikedLocations().stream().parallel()
                 .filter(new Location(food.getLocation().location.toLowerCase())::equals)
                 .count();
 
@@ -164,7 +164,7 @@ public class RecommendationSystem {
         }
 
         // Calculate bonus for purchases of same food
-        long numOfIdenticalFoodPurchase = purchaseHistory.stream()
+        long numOfIdenticalFoodPurchase = purchaseHistory.stream().parallel()
                 .map(Purchase::getPurchasedFood).filter(food::equals).count();
 
         if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_HIGH_NUM) {
@@ -176,7 +176,8 @@ public class RecommendationSystem {
         }
 
         // Calculate penalty for recent purchase of similar food
-        long latestTimePurchased = purchaseHistory.stream().filter(purchase -> purchase.getPurchasedFood().equals(food))
+        long latestTimePurchased = purchaseHistory.stream().parallel()
+                .filter(purchase -> purchase.getPurchasedFood().equals(food))
                 .map(Purchase::getTimeOfPurchaseInMillisSinceEpoch).max(Comparator.naturalOrder()).orElse(-1L);
 
         long millisSinceLastPurchase = System.currentTimeMillis() - latestTimePurchased;
@@ -186,7 +187,7 @@ public class RecommendationSystem {
         }
 
         // Calculate bonus for purchases of food with similar tags
-        long numberOfMatchedTags = purchaseHistory.stream()
+        long numberOfMatchedTags = purchaseHistory.stream().parallel()
                 .map(purchase -> purchase.getPurchasedFood().getTags())
                 .map(tagSet -> tagSet.stream()
                         .map(tag -> new Tag(tag.tagName.toLowerCase())).collect(Collectors.toSet()))
@@ -201,7 +202,7 @@ public class RecommendationSystem {
         weight += numberOfMatchedTags * HISTORY_TAG_WEIGHT;
 
         // Calculate bonus for purchases of food with similar location
-        long numberOfMatchedLocations = purchaseHistory.stream()
+        long numberOfMatchedLocations = purchaseHistory.stream().parallel()
                 .map(purchase -> purchase.getPurchasedFood().getLocation())
                 .map(location -> new Location(location.location.toLowerCase()))
                 .filter(location -> new Location(food.getLocation().location.toLowerCase()).equals(location))
@@ -210,7 +211,7 @@ public class RecommendationSystem {
         weight += numberOfMatchedLocations * HISTORY_LOCATION_WEIGHT;
 
         // Calculate bonus for purchases of food with similar category
-        long numberOfMatchedCategories = purchaseHistory.stream()
+        long numberOfMatchedCategories = purchaseHistory.stream().parallel()
                 .map(purchase -> purchase.getPurchasedFood().getCategory())
                 .map(category -> new Category(category.category.toLowerCase()))
                 .filter(category -> new Category(food.getCategory().category.toLowerCase()).equals(category))

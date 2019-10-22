@@ -44,11 +44,11 @@ public class PreferenceCommand extends Command {
         requireAllNonNull(categoryList, tagList, locationList, isList);
 
         // Convert all to lowercase
-        this.categoryList = categoryList.stream()
+        this.categoryList = categoryList.stream().parallel()
                 .map(c -> new Category(c.category.toLowerCase())).collect(Collectors.toSet());
-        this.tagList = tagList.stream()
+        this.tagList = tagList.stream().parallel()
                 .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet());
-        this.locationList = locationList.stream()
+        this.locationList = locationList.stream().parallel()
                 .map(l -> new Location(l.location.toLowerCase())).collect(Collectors.toSet());
 
         this.isList = isList;
@@ -74,9 +74,9 @@ public class PreferenceCommand extends Command {
 
         if (isLike && !isList) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (userRecommendations.getDislikedCategories().stream().anyMatch(categoryList::contains)
-                    || userRecommendations.getDislikedLocations().stream().anyMatch(locationList::contains)
-                    || userRecommendations.getDislikedTags().stream().anyMatch(tagList::contains)) {
+            if (userRecommendations.getDislikedCategories().stream().parallel().anyMatch(categoryList::contains)
+                    || userRecommendations.getDislikedLocations().stream().parallel().anyMatch(locationList::contains)
+                    || userRecommendations.getDislikedTags().stream().parallel().anyMatch(tagList::contains)) {
                 throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
             }
 
@@ -84,9 +84,9 @@ public class PreferenceCommand extends Command {
             result.append("Liked: ");
         } else if (!isLike && !isList) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (userRecommendations.getLikedCategories().stream().anyMatch(categoryList::contains)
-                    || userRecommendations.getLikedLocations().stream().anyMatch(locationList::contains)
-                    || userRecommendations.getLikedTags().stream().anyMatch(tagList::contains)) {
+            if (userRecommendations.getLikedCategories().stream().parallel().anyMatch(categoryList::contains)
+                    || userRecommendations.getLikedLocations().stream().parallel().anyMatch(locationList::contains)
+                    || userRecommendations.getLikedTags().stream().parallel().anyMatch(tagList::contains)) {
                 throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
             }
 
@@ -95,11 +95,11 @@ public class PreferenceCommand extends Command {
         }
 
         if (!isList) {
-            String addedItems = "Categories: " + categoryList.stream()
+            String addedItems = "Categories: " + categoryList.stream().parallel()
                     .map(c -> c.category).collect(Collectors.joining(", "))
-                    + " | Tags: " + tagList.stream()
+                    + " | Tags: " + tagList.stream().parallel()
                     .map(t -> t.tagName).collect(Collectors.joining(", "))
-                    + " | Locations: " + locationList.stream()
+                    + " | Locations: " + locationList.stream().parallel()
                     .map(l -> l.location).collect(Collectors.joining(", ")) + "\n";
 
             result.append(addedItems);
