@@ -47,6 +47,9 @@ public abstract class Window extends UiPart<Stage> {
         super(FXML, primaryStage);
         this.primaryStage = primaryStage;
         this.logic = logic;
+        setAccelerators();
+        helpWindow = new HelpWindow();
+        setWindowDefaultSize(logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
@@ -99,7 +102,7 @@ public abstract class Window extends UiPart<Stage> {
     /**
      * Sets the default size based on {@code guiSettings}.
      */
-    protected void setWindowDefaultSize(GuiSettings guiSettings) {
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {

@@ -2,12 +2,7 @@ package seedu.revision.ui;
 
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.GuiSettings;
@@ -23,8 +18,6 @@ import seedu.revision.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends Window {
 
-    private static final String FXML = "MainWindow.fxml";
-
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private StartQuizWindow startQuizWindow;
@@ -37,14 +30,6 @@ public class MainWindow extends Window {
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(primaryStage, logic);
-
-        // Set dependencies
-        this.primaryStage = primaryStage;
-        this.logic = logic;
-
-        // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
-
     }
 
     /**
