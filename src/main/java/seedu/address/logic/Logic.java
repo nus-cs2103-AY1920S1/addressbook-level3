@@ -42,7 +42,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of earnings */
     ObservableList<Earnings> getFilteredEarningsList();
 
-    /** Returns an unmodifiable view of the filtered list of commands */
+    /** Returns an unmodifiable view of the filtered list of CommandObjects */
     ObservableList<CommandObject> getFilteredCommandsList();
 
     /** Returns an unmodifiable view of the filtered list of reminders */
