@@ -18,16 +18,17 @@ import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing cca in the address book.
  */
 public class EditCcaCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-cca";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Cca identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed cca list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CCA_NAME + "CCA NAME] "
@@ -43,7 +44,7 @@ public class EditCcaCommand extends Command {
 
     public static final String MESSAGE_INVERSE_SUCCESS_EDIT = "Reverted edit.";
 
-    public static final String MESSAGE_INVERSE_PERSON_NOT_FOUND =
+    public static final String MESSAGE_INVERSE_CCA_NOT_FOUND =
             "Unable to edit cca, cca not found in the address book.";
 
     public static final String MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA =
@@ -120,7 +121,6 @@ public class EditCcaCommand extends Command {
         editedCca = createdEditedCca;
 
         model.updateCca(originalCca, createdEditedCca);
-        //        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_EDIT_CCA_SUCCESS, editedCca));
     }
@@ -133,7 +133,7 @@ public class EditCcaCommand extends Command {
      * {@code CommandResult} that the edited cca is no longer in the CcaTracker, or a {@code CommandResult} that
      * there will be a conflict with an existing {@code Cca} in the CcaTracker if the revert is made.
      * @throws CommandException If the cca to be reverted is not found in the CcaTracker, or if reverting the edits
-     * to the cca will result in a conflict with another person in the CcaTracker.
+     * to the cca will result in a conflict with another cca in the CcaTracker.
      */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
@@ -150,8 +150,9 @@ public class EditCcaCommand extends Command {
         CcaName updatedName = editCcaDescriptor.getCcaName().orElse(ccaToEdit.getName());
         CcaType updatedCcaType = editCcaDescriptor.getCcaType().orElse(ccaToEdit.getCcaType());
         EquipmentList updatedEquipmentList = editCcaDescriptor.getEquipmentList().orElse(ccaToEdit.getEquipmentList());
+        CcaProgress updatedCcaProgress = editCcaDescriptor.getCcaProgress().orElse(ccaToEdit.getCcaProgress());
 
-        return new Cca(updatedName, updatedCcaType, updatedEquipmentList);
+        return new Cca(updatedName, updatedCcaType, updatedEquipmentList, updatedCcaProgress);
     }
 
     @Override
@@ -173,13 +174,14 @@ public class EditCcaCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the cca with. Each non-empty field value will replace the
+     * corresponding field value of the cca.
      */
     public static class EditCcaDescriptor {
         private CcaName ccaName;
         private CcaType ccaType;
         private EquipmentList equipmentList;
+        private CcaProgress ccaProgress;
 
         public EditCcaDescriptor() {}
 
@@ -190,6 +192,7 @@ public class EditCcaCommand extends Command {
             setCcaName(toCopy.ccaName);
             setCcaType(toCopy.ccaType);
             setEquipmentList(toCopy.equipmentList);
+            setCcaProgress(toCopy.ccaProgress);
         }
 
         /**
@@ -223,6 +226,13 @@ public class EditCcaCommand extends Command {
             return Optional.ofNullable(equipmentList);
         }
 
+        public void setCcaProgress(CcaProgress ccaProgress) {
+            this.ccaProgress = ccaProgress;
+        }
+
+        public Optional<CcaProgress> getCcaProgress() {
+            return Optional.ofNullable(ccaProgress);
+        }
 
         @Override
         public boolean equals(Object other) {
@@ -241,7 +251,8 @@ public class EditCcaCommand extends Command {
 
             return getCcaName().equals(e.getCcaName())
                     && getCcaType().equals(e.getCcaType())
-                    && getEquipmentList().equals(e.getEquipmentList());
+                    && getEquipmentList().equals(e.getEquipmentList())
+                    && getCcaProgress().equals(e.getCcaProgress());
         }
     }
 }

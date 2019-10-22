@@ -14,6 +14,7 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
@@ -283,6 +284,18 @@ public class ModelStub implements Model {
     @Override
     public ObservableList<Cca> getFilteredCcaList() {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList) {
+        throw new AssertionError("This method should not be called.");
+
+    }
+
+    @Override
+    public void increaseProgress(Index index) {
+        throw new AssertionError("This method should not be called.");
+
     }
 
     @Override
