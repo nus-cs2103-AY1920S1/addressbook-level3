@@ -7,7 +7,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_TYPE;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.gui.TabEnum;
+import seedu.algobase.model.gui.TabType;
 
 /**
  * Switch tabs in the GUI.
@@ -30,9 +30,9 @@ public class SwitchTabCommand extends Command {
     public static final String MESSAGE_INVALID_TAB_INDEX = "There is no tab at index %1$s!";
 
     private Index index = Index.fromZeroBased(0);
-    private TabEnum tabType;
+    private TabType tabType;
 
-    public SwitchTabCommand(TabEnum tabType, Index displayTabIndex) {
+    public SwitchTabCommand(TabType tabType, Index displayTabIndex) {
         requireAllNonNull(tabType, displayTabIndex);
         this.tabType = tabType;
         this.index = displayTabIndex;

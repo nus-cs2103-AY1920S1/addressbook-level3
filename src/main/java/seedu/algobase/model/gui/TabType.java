@@ -3,13 +3,13 @@ package seedu.algobase.model.gui;
 /**
  * Types of tabs in the GUI.
  */
-public enum TabEnum {
+public enum TabType {
     DISPLAY("Display"),
     DETAILS("Details");
 
     private String name;
 
-    TabEnum(String readableName) {
+    TabType(String readableName) {
         this.name = readableName;
     }
 

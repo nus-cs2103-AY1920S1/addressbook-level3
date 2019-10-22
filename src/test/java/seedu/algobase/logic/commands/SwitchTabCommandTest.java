@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
-import seedu.algobase.model.ModelEnum;
+import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.GuiState;
-import seedu.algobase.model.gui.TabEnum;
+import seedu.algobase.model.gui.TabType;
 
 class SwitchTabCommandTest {
     @Test
@@ -20,11 +20,11 @@ class SwitchTabCommandTest {
     @Test
     public void execute_displayTabIndexAcceptedByModel_switchSuccessful() throws Exception {
         ModelStubAcceptingDisplayTabIndex modelStub = new ModelStubAcceptingDisplayTabIndex();
-        Index index = Index.fromOneBased(ModelEnum.PLAN.getDisplayTabPaneIndex());
-        CommandResult commandResult = new SwitchTabCommand(TabEnum.valueOf("DISPLAY"), index).execute(modelStub);
+        Index index = Index.fromOneBased(ModelType.PLAN.getDisplayTabPaneIndex());
+        CommandResult commandResult = new SwitchTabCommand(TabType.valueOf("DISPLAY"), index).execute(modelStub);
 
         assertEquals(
-            String.format(SwitchTabCommand.MESSAGE_SUCCESS, TabEnum.DISPLAY.getName(), index.getOneBased()),
+            String.format(SwitchTabCommand.MESSAGE_SUCCESS, TabType.DISPLAY.getName(), index.getOneBased()),
             commandResult.getFeedbackToUser()
         );
     }
@@ -32,9 +32,9 @@ class SwitchTabCommandTest {
     @Test
     public void execute_displayTabIndexRejectedByModel_throwsCommandException() throws Exception {
         ModelStubAcceptingDisplayTabIndex modelStub = new ModelStubAcceptingDisplayTabIndex();
-        Index index = Index.fromZeroBased(ModelEnum.values().length);
+        Index index = Index.fromZeroBased(ModelType.values().length);
 
-        assertThrows(CommandException.class, () -> new SwitchTabCommand(TabEnum.valueOf("DISPLAY"), index)
+        assertThrows(CommandException.class, () -> new SwitchTabCommand(TabType.valueOf("DISPLAY"), index)
             .execute(modelStub));
     }
 

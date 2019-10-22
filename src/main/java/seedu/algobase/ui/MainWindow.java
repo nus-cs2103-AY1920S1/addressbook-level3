@@ -17,7 +17,7 @@ import seedu.algobase.logic.Logic;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.ModelEnum;
+import seedu.algobase.model.ModelType;
 import seedu.algobase.ui.details.DetailsTabPane;
 import seedu.algobase.ui.display.DisplayTab;
 import seedu.algobase.ui.display.DisplayTabPane;
@@ -136,10 +136,10 @@ public class MainWindow extends UiPart<Stage> {
         problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
         planListPanel = new PlanListPanel(logic.getProcessedPlanList());
         taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
-        DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
-        DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
-        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName(), planListPanel);
-        DisplayTab taskListPanelTab = new DisplayTab(ModelEnum.TASK.getTabName(), taskListPanel);
+        DisplayTab problemListPanelTab = new DisplayTab(ModelType.PROBLEM.getTabName(), problemListPanel);
+        DisplayTab tagListPanelTab = new DisplayTab(ModelType.TAG.getTabName());
+        DisplayTab planListPanelTab = new DisplayTab(ModelType.PLAN.getTabName(), planListPanel);
+        DisplayTab taskListPanelTab = new DisplayTab(ModelType.TASK.getTabName(), taskListPanel);
         return new DisplayTabPane(
             logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab);
     }

@@ -11,7 +11,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.Logic;
-import seedu.algobase.model.gui.AlgoBaseTab;
+import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.TabManager;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.ui.ProblemDetails;
@@ -78,12 +78,12 @@ public class DetailsTabPane extends UiPart<Region> {
      * @param logic The logic to retrieve objects from.
      */
     private void addListenerForTabChanges(TabManager tabManager, Logic logic) {
-        tabManager.getTabs().addListener(new ListChangeListener<AlgoBaseTab>() {
+        tabManager.getTabs().addListener(new ListChangeListener<TabData>() {
             @Override
-            public void onChanged(Change<? extends AlgoBaseTab> change) {
+            public void onChanged(Change<? extends TabData> change) {
                 tabsPlaceholder.getTabs().clear();
-                for (AlgoBaseTab algoBaseTab : change.getList()) {
-                    Problem problem = logic.getProcessedProblemList().get(algoBaseTab.getModelIndex().getZeroBased());
+                for (TabData tabData : change.getList()) {
+                    Problem problem = logic.getProcessedProblemList().get(tabData.getModelIndex().getZeroBased());
                     addTabsToTabPane(new DetailsTab(problem.getName().fullName, new ProblemDetails(problem)));
                 }
                 selectLastTab();

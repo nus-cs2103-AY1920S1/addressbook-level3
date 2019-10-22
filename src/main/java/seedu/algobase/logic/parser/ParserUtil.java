@@ -16,8 +16,8 @@ import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.SwitchTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.ModelEnum;
-import seedu.algobase.model.gui.TabEnum;
+import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.TabType;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
@@ -265,21 +265,21 @@ public class ParserUtil {
         }
     }
 
-    /** Parses a {@code String model enum} into an {@code ModelEnum}.
+    /** Parses a {@code String tabType} into an {@code TabType}.
      *
-     * @throws ParseException if the given {@code string model enum} is invalid.
+     * @throws ParseException if the given {@code string tabType} is invalid.
      */
-    public static TabEnum parseTabType(String tabType) throws ParseException {
+    public static TabType parseTabType(String tabType) throws ParseException {
         try {
-            return TabEnum.valueOf(tabType.toUpperCase());
+            return TabType.valueOf(tabType.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.toString());
         }
     }
 
-    /** Parses a {@code String model enum} into an {@code ModelEnum}.
+    /** Parses a {@code String tabIndex} into an {@code Index}.
      *
-     * @throws ParseException if the given {@code string model enum} is invalid.
+     * @throws ParseException if the given {@code string tabIndex} is invalid.
      */
     public static Index parseTabIndex(String tabIndex) throws ParseException {
         try {
@@ -290,21 +290,21 @@ public class ParserUtil {
     }
 
 
-    /** Parses a {@code String model enum} into an {@code ModelEnum}.
+    /** Parses a {@code String modelType} into an {@code ModelType}.
      *
-     * @throws ParseException if the given {@code string model enum} is invalid.
+     * @throws ParseException if the given {@code string modelType} is invalid.
      */
-    public static ModelEnum parseModelTab(String modelTab) throws ParseException {
+    public static ModelType parseModelType(String modelType) throws ParseException {
         try {
-            return ModelEnum.valueOf(modelTab.toUpperCase());
+            return ModelType.valueOf(modelType.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.toString());
         }
     }
 
-    /** Parses a {@code String model index} into an {@code ModelEnum}.
+    /** Parses a {@code String modelIndex} into an {@code ModelIndex}.
      *
-     * @throws ParseException if the given {@code string model enum} is invalid.
+     * @throws ParseException if the given {@code string modelIndex} is invalid.
      */
     public static Index parseModelIndex(String modelIndex) throws ParseException {
         try {

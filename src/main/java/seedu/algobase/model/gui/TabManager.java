@@ -6,7 +6,7 @@ import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.model.ModelEnum;
+import seedu.algobase.model.ModelType;
 
 /**
  * The main TabManager of the GUI.
@@ -21,7 +21,7 @@ public class TabManager {
     private IntegerProperty detailsTabPaneIndex =
         new SimpleIntegerProperty(STARTING_INDEX);
 
-    private ObservableList<AlgoBaseTab> tabs;
+    private ObservableList<TabData> tabs;
 
     public TabManager() {
         this.tabs = FXCollections.observableArrayList();
@@ -29,7 +29,7 @@ public class TabManager {
 
     // Display Tab
     public boolean isValidDisplayTabPaneIndex(int index) {
-        return index >= 0 && index < ModelEnum.values().length;
+        return index >= 0 && index < ModelType.values().length;
     }
 
     public ObservableIntegerValue getDisplayTabPaneIndex() {
@@ -57,11 +57,11 @@ public class TabManager {
         detailsTabPaneIndex.setValue(indexValue);
     }
 
-    public void addTab(AlgoBaseTab... tabs) {
+    public void addTab(TabData... tabs) {
         this.tabs.addAll(tabs);
     }
 
-    public ObservableList<AlgoBaseTab> getTabs() {
+    public ObservableList<TabData> getTabs() {
         return tabs;
     }
 }
