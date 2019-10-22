@@ -8,8 +8,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
 /**
- * A profile page which has two tabs, a progress tab that shows user's completion of questions,
- * and a bookmarks tab which shows questions which user chose to bookmark.
+ * Controller class for profile page, which captures useful information specific to the user's learning
+ * journey and learning experience.
  */
 public class ProfilePage extends UiPart<Region> {
     private static final String FXML = "ProfilePage.fxml";
