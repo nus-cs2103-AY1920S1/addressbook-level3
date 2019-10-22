@@ -25,7 +25,7 @@ Format: `visit-start INDEX`
 
 Examples:
 
-* `visit-start 1` + 
+* `visit-start 1` +
 Starts a visit for the 1st patient in the patient list.
 
 === Updating the ongoing Visit `visit-now-update`
