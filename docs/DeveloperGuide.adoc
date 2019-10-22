@@ -154,7 +154,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::markaswatched[]
-=== [Feature] Mark/unmark as "watched" feature
+=== [Feature] Mark/unmark as watched feature
 ==== Implementation
 The mark/unmark as watched mechanism is facilitated by `WatchCommand`.
 It extends `Command` and uses the `WatchCommandParser` to process the command entered by the user.
@@ -181,7 +181,7 @@ Step 6. The show in the current show list is updated to the newly created copy w
 
 The following sequence diagram shows how the watch operation works:
 
-image::UndoSequenceDiagram.png[]
+image::WatchSequenceDiagram.png[]
 
 ==== Design Considerations
 
