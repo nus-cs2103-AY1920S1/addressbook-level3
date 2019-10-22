@@ -14,40 +14,40 @@
         <Image url="@/images/help_icon.png" />
     </icons>
     <scene>
-        <Scene>
+        <Scene stylesheets="@DarkTheme.css">
          <VBox spacing="10.0" style="-fx-background-color: #1d1d1d; -fx-border-color: white;">
             <children>
-               <Label fx:id="commandWord" contentDisplay="CENTER" text="Label" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <Label fx:id="commandWord" contentDisplay="CENTER" styleClass="info-header" stylesheets="@DarkTheme.css" text="Label" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
                   <font>
                      <Font name="Franklin Gothic Heavy" size="52.0" />
                   </font>
                </Label>
-                    <Label fx:id="infoMessage" text="Label" textFill="WHITE">
+                    <Label fx:id="infoMessage" styleClass="info-small-label" stylesheets="@DarkTheme.css" text="Label" textFill="WHITE">
                   <font>
                      <Font name="Franklin Gothic Demi Cond" size="20.0" />
                   </font>
                     </Label>
-               <Label text="USAGE :" textFill="WHITE">
+               <Label styleClass="info-big-label" stylesheets="@DarkTheme.css" text="USAGE :" textFill="WHITE">
                   <font>
                      <Font name="Franklin Gothic Heavy" size="25.0" />
                   </font>
                </Label>
-               <Label fx:id="usageExample" text="Label" textFill="WHITE">
+               <Label fx:id="usageExample" styleClass="info-small-label" stylesheets="@DarkTheme.css" text="Label" textFill="WHITE">
                   <font>
                      <Font name="Courier New" size="20.0" />
                   </font>
                </Label>
-               <Label text="EXPECTED OUTPUT :" textFill="WHITE">
+               <Label styleClass="info-big-label" stylesheets="@DarkTheme.css" text="EXPECTED OUTPUT :" textFill="WHITE">
                   <font>
                      <Font name="Franklin Gothic Heavy" size="25.0" />
                   </font>
                </Label>
-               <Label fx:id="output" text="Label" textFill="WHITE">
+               <Label fx:id="output" styleClass="info-small-label" text="Label" textFill="WHITE">
                   <font>
                      <Font name="Courier New" size="20.0" />
                   </font>
                </Label>
-               <Button mnemonicParsing="false" onAction="#closeWindow" text="Close">
+               <Button mnemonicParsing="false" onAction="#closeWindow" styleClass="help-button" stylesheets="@DarkTheme.css" text="Close">
                   <font>
                      <Font name="Franklin Gothic Demi Cond" size="36.0" />
                   </font>
