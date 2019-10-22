@@ -10,7 +10,7 @@
     "credits" : "20",
     "prevMods" : "CS2202, CS1111",
     "matricId" : "A220193040F",
-    "tagged" : [ "CS1020" ]
+    "tagged" : [ "CS1020", "CS1010" ]
   }, {
     "name" : "Alex Yeoh",
     "credits" : "20",
@@ -65,7 +65,7 @@
     "lecturerName" : "Terence Sim",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "120",
+    "quota" : "80",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS1020",
     "moduleName" : "Data Structures and Algorithms Is",
@@ -73,7 +73,7 @@
     "lecturerName" : "Tan Sun Teck",
     "timeSlot" : "21,20,57,58,59"
   }, {
-    "quota" : "420",
+    "quota" : "70",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2309",
     "moduleName" : "CS Research Methodology",
@@ -81,7 +81,7 @@
     "lecturerName" : "Wynne Hsu",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "840",
+    "quota" : "55",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2106",
     "moduleName" : "Introduction to Operating Systems",
@@ -89,7 +89,7 @@
     "lecturerName" : "ANG RAY YAN",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "240",
+    "quota" : "100",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2040",
     "moduleName" : "Data Structures and Algorithms",
@@ -97,7 +97,7 @@
     "lecturerName" : "Chong Ket Fah",
     "timeSlot" : "40,41,10,11,12"
   }, {
-    "quota" : "120",
+    "quota" : "80",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2220",
     "moduleName" : "Introduction to Computational Biology",
@@ -105,7 +105,7 @@
     "lecturerName" : "Limsoon Wong",
     "timeSlot" : "30,31,32,33"
   }, {
-    "quota" : "666",
+    "quota" : "90",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2100",
     "moduleName" : "Computer Organisation",
@@ -113,7 +113,7 @@
     "lecturerName" : "LI ZHAOYING",
     "timeSlot" : "32,33,12,13"
   }, {
-    "quota" : "720",
+    "quota" : "80",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2105",
     "moduleName" : "Introduction to Computer Networks",
@@ -121,7 +121,7 @@
     "lecturerName" : "Zhou Lifeng",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "120",
+    "quota" : "50",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2030",
     "moduleName" : "Programming Methodology II",
@@ -129,7 +129,7 @@
     "lecturerName" : "LEE LIAK GHEE",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "111",
+    "quota" : "60",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2101",
     "moduleName" : "Effective Communication for Computing Professionals",
