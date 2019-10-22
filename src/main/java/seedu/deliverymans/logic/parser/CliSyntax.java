@@ -23,4 +23,6 @@ public class CliSyntax {
     // Prefix for deliveryman commands
 
     // Prefix for restaurant commands
+    public static final Prefix PREFIX_PRICE = new Prefix("a/");
+    public static final Prefix PREFIX_TIME = new Prefix("s/");
 }

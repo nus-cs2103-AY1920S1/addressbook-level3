@@ -7,20 +7,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
-import seedu.deliverymans.logic.commands.restaurant.AddRestaurantCommand;
-import seedu.deliverymans.logic.commands.restaurant.DeleteRestaurantCommand;
-import seedu.deliverymans.logic.commands.restaurant.EditModeCommand;
+import seedu.deliverymans.logic.commands.restaurant.AddFoodCommand;
+import seedu.deliverymans.logic.commands.restaurant.DeleteFoodCommand;
+import seedu.deliverymans.logic.commands.restaurant.EditDetailsCommand;
+import seedu.deliverymans.logic.commands.restaurant.ExitEditCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input in restaurant context
+ * Parses user input in editing context
  */
-public class RestaurantParser {
+public class EditingParser {
     /**
      * Used for initial separation of command word and args.
      */
-    public static final String COMMAND_WORD = "restaurant";
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
@@ -40,14 +40,17 @@ public class RestaurantParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-        case AddRestaurantCommand.COMMAND_WORD:
-            return new AddRestaurantCommandParser().parse(arguments);
+        case EditDetailsCommand.COMMAND_WORD:
+            return new EditDetailsCommandParser().parse(arguments);
 
-        case DeleteRestaurantCommand.COMMAND_WORD:
-            return new DeleteRestaurantCommandParser().parse(arguments);
+        case AddFoodCommand.COMMAND_WORD:
+            return new AddFoodCommandParser().parse(arguments);
 
-        case EditModeCommand.COMMAND_WORD:
-            return new EditModeCommandParser().parse(arguments);
+        case DeleteFoodCommand.COMMAND_WORD:
+            return new DeleteFoodCommandParser().parse(arguments);
+
+        case ExitEditCommand.COMMAND_WORD:
+            return new ExitEditCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

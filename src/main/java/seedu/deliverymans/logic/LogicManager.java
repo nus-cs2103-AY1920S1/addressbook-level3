@@ -31,7 +31,7 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final seedu.deliverymans.model.Model model;
+    private final Model model;
     private final Storage storage;
     private final UniversalParser universalParser;
 
@@ -53,6 +53,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveRestaurantDatabase(model.getRestaurantDatabase());
+            storage.saveDeliverymenDatabase(model.getDeliverymenDatabase());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -81,6 +82,7 @@ public class LogicManager implements Logic {
     public ObservableList<Customer> getFilteredCustomerList() {
         return model.getFilteredCustomerList();
     }
+
     //=========== Deliveryman =============================================================
     @Override
     public ReadOnlyDeliverymenDatabase getDeliverymenDatabase() {
@@ -96,6 +98,7 @@ public class LogicManager implements Logic {
     public Path getDeliverymenDatabaseFilePath() {
         return model.getDeliverymenDatabaseFilePath();
     }
+
     //=========== Restaurant =============================================================
     @Override
     public ReadOnlyRestaurantDatabase getRestaurantDatabase() {
@@ -105,6 +108,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {
         return model.getFilteredRestaurantList();
+    }
+
+    @Override
+    public ObservableList<Restaurant> getEditingRestaurantList() {
+        return model.getEditingRestaurantList();
     }
 
     @Override
@@ -137,4 +145,5 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
 }

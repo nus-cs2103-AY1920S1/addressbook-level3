@@ -6,19 +6,21 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.DeliverymanStatusList;
+import seedu.deliverymans.model.deliveryman.StatusManager;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 
 /**
- * To be added
+ * Wraps all Deliverymen data at the deliverymen-database level
+ * Duplicates are not allowed (by .isSameDeliveryman comparison)
  */
 public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
 
     private final UniqueDeliverymanList deliverymen;
-    private DeliverymanStatusList statusList; // to be implemented
+    private final StatusManager statusManager;
 
     {
         deliverymen = new UniqueDeliverymanList();
+        statusManager = new StatusManager(deliverymen);
     }
 
     public DeliverymenDatabase() {}
@@ -66,13 +68,28 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void addDeliveryman(Deliveryman man) {
         deliverymen.add(man);
+        //statusManager.updateStatusOf(man,"UNAVAILABLE");
+    }
+
+    /**
+     * Lists all the available deliverymen;
+     */
+    public List<Deliveryman> listAvailableMen() {
+        return statusManager.listAvailableMen();
+    }
+
+    /**
+     * Lists all the unavailable deliverymen.
+     */
+    public void listUnavailableMen() {
+        statusManager.listUnavailableMen();
     }
 
     /**
      * Replaces the given deliveryman {@code target} in the list with {@code editedDeliveryman}.
      * {@code target} must exist in the deliveryman database.
      * The customer identity of {@code editedDeliveryman} must not be the same as another existing deliveryman in the
-     * delvierymen database.
+     * deliverymen database.
      */
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireNonNull(editedDeliveryman);
@@ -85,6 +102,13 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void removeDeliveryman(Deliveryman key) {
         deliverymen.remove(key);
+    }
+
+    /**
+     * Replaces the current status of a deliveryman.
+     */
+    public void setStatusOf(Deliveryman target, String newStatus) {
+        statusManager.updateStatusOf(target, newStatus);
     }
 
     //// util methods

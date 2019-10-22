@@ -18,6 +18,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,13 +33,17 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    private Context currentContext;
+
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
     private RestaurantListPanel restaurantListPanel;
     private OrderListPanel orderListPanel;
+    private FoodListPanel foodListPanel;
     private ResultDisplay resultDisplay;
+    private StatisticsDisplay statisticsDisplay;
     private HelpWindow helpWindow;
 
     @FXML
@@ -48,7 +53,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane editingRestaurantPlaceholder;
+
+    @FXML
     private StackPane listPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticsPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -62,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.currentContext = null;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -171,22 +183,42 @@ public class MainWindow extends UiPart<Stage> {
      * Changes context of the system depending on {@code context}
      */
     private void changeContext(Context context) {
+
+        editingRestaurantPlaceholder.setPrefHeight(0);
+        editingRestaurantPlaceholder.setMinHeight(0);
+        if (statisticsPlaceholder.getChildren().size() > 0) {
+            statisticsPlaceholder.getChildren().remove(0);
+        }
+
         switch (context) {
-            case CUSTOMER:
-                customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
-                listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
-                break;
-            case DELIVERYMEN:
-                deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
-                listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-                break;
-            case RESTAURANT:
-                restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
-                listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
-                break;
-            default:
-                orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-                listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+        case CUSTOMER:
+            customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+            listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+            break;
+        case DELIVERYMEN:
+            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
+            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
+            break;
+        case RESTAURANT:
+            restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+            listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+            break;
+        case EDITING:
+            Restaurant editing = logic.getEditingRestaurantList().get(0);
+            editingRestaurantPlaceholder.setPrefHeight(125.0);
+            editingRestaurantPlaceholder.setMinHeight(125.0);
+            restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
+            editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+            foodListPanel = new FoodListPanel(editing.getMenu());
+            listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+
+            statisticsDisplay = new StatisticsDisplay();
+            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+            statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS");
+            break;
+        default:
+            orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
         }
     }
 
@@ -204,9 +236,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            Context nextContext = commandResult.getContext();
 
-            if (commandResult.getContext() != null) {
-                changeContext(commandResult.getContext());
+            if (nextContext != null && nextContext != currentContext) {
+                changeContext(nextContext);
             }
 
             if (commandResult.isShowHelp()) {

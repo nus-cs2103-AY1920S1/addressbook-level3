@@ -37,6 +37,9 @@ public interface Storage extends AddressBookStorage, CustomerDatabaseStorage, De
     Path getCustomerDatabaseFilePath();
 
     @Override
+    Path getDeliverymenDatabaseFilePath();
+
+    @Override
     Path getRestaurantDatabaseFilePath();
 
     @Override

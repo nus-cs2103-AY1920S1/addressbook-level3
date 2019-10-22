@@ -1,6 +1,7 @@
 package seedu.deliverymans.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -259,14 +260,21 @@ public interface Model {
      */
     void setRestaurant(Restaurant target, Restaurant editedRestaurant);
 
+    void setEditingRestaurant(Restaurant editingRestaurant);
+
     /** Returns an unmodifiable view of the filtered restaurant list */
     ObservableList<Restaurant> getFilteredRestaurantList();
+
+    /** Returns an unmodifiable view of the editing restaurant list */
+    ObservableList<Restaurant> getEditingRestaurantList();
 
     /**
      * Updates the filter of the filtered restaurant list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
+
+    void updateEditingRestaurantList(Predicate<Restaurant> predicate);
 
     //=========== Deliveryman Methods =============================================================
 
@@ -289,6 +297,16 @@ public interface Model {
      * The customer must exist in the address book.
      */
     void deleteDeliveryman(Deliveryman target);
+
+    /**
+     * Returns a list of all the currently available deliverymen.
+     */
+    List<Deliveryman> listAvailableDeliverymen();
+
+    /**
+     * Returns a list of all the currently unavailable deliverymen.
+     */
+    void listUnavailableDeliverymen();
 
     /**
      * Replaces the given deliveryman {@code target} with {@code editedDeliveryman}.

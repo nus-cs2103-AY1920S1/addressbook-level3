@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 
 /**
  * Represents a deliveryman
@@ -24,7 +25,7 @@ public class Deliveryman {
     // Data fields
     private final DeliveryHistory deliveryHistory;
     private final Set<Tag> tags = new HashSet<>();
-    private final boolean isAvailable;
+    private StatusTag status;
 
     /**
      * Every field must be present and not null.
@@ -34,8 +35,8 @@ public class Deliveryman {
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
+        status = new StatusTag("UNAVAILABLE"); // editing field will affect status
         deliveryHistory = null;
-        isAvailable = false;
     }
 
     /**
@@ -46,7 +47,9 @@ public class Deliveryman {
         return Collections.unmodifiableSet(tags);
     }
 
-    public void setStatusTo(String status) {} // this class should have all attributes as final?
+    public void setStatusTo(StatusTag status) {
+        this.status = status;
+    } // this class should have all attributes as final?
 
     public Name getName() {
         return name;
@@ -54,6 +57,10 @@ public class Deliveryman {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public StatusTag getStatus() {
+        return status;
     }
 
     /**

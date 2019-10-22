@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -48,6 +50,7 @@ public class ModelManager implements Model {
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
+    private final FilteredList<Restaurant> editingRestaurant;
     private final UndoHistory<Data> undoHistory;
 
     private Context context;
@@ -77,7 +80,12 @@ public class ModelManager implements Model {
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
+<<<<<<< HEAD
         filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
+=======
+        editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
+        filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
+>>>>>>> af2a099ef096b81d9c313dd65007963acd33abe5
         undoHistory = new UndoHistory<>(new Data(this));
 
         context = Context.GLOBAL;
@@ -247,6 +255,16 @@ public class ModelManager implements Model {
 
         restaurantDatabase.setRestaurant(target, editedRestaurant);
     }
+
+    @Override
+    public void setEditingRestaurant(Restaurant editingRestaurant) {
+        requireAllNonNull(editingRestaurant);
+        ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+        list.add(editingRestaurant);
+        restaurantDatabase.setEditingRestaurant(list);
+    }
+
+
     //=========== Deliveryman Methods =============================================================
 
     @Override
@@ -285,6 +303,16 @@ public class ModelManager implements Model {
     public boolean hasDeliveryman(Deliveryman deliveryman) {
         requireNonNull(deliveryman);
         return deliverymenDatabase.hasDeliveryman(deliveryman);
+    }
+
+    @Override
+    public List<Deliveryman> listAvailableDeliverymen() {
+        return deliverymenDatabase.listAvailableMen();
+    }
+
+    @Override
+    public void listUnavailableDeliverymen() {
+        deliverymenDatabase.listUnavailableMen();
     }
 
     @Override
@@ -408,6 +436,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Restaurant> getEditingRestaurantList() {
+        return editingRestaurant;
+    }
+
+    @Override
     public ObservableList<Order> getFilteredOrderList() {
         return filteredOrders;
     }
@@ -440,6 +473,12 @@ public class ModelManager implements Model {
     public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
         requireNonNull(predicate);
         filteredRestaurants.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateEditingRestaurantList(Predicate<Restaurant> predicate) {
+        requireNonNull(predicate);
+        editingRestaurant.setPredicate(predicate);
     }
 
     @Override
