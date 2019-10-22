@@ -80,12 +80,14 @@ public class CommandResult {
                          boolean display,
                          boolean expandPerson,
                          boolean expandPolicy,
-                         boolean listHistory) {
+                         boolean listHistory,
+                         boolean listBin) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.listPolicy = listPolicy;
         this.listPeople = listPeople;
+        this.listBin = listBin;
         this.report = report;
         this.display = display;
         this.listHistory = listHistory;
@@ -95,13 +97,13 @@ public class CommandResult {
 
     public CommandResult(String feedbackToUser, Person personToExpand) {
         this(feedbackToUser, false, false, false, false, false,
-            false, true, false, false);
+            false, true, false, false, false);
         this.personToExpand = personToExpand;
     }
 
     public CommandResult(String feedbackToUser, Policy policyToExpand) {
         this(feedbackToUser, false, false, false, false, false,
-            false, false, true, false);
+            false, false, true, false, false);
         this.policyToExpand = policyToExpand;
     }
 
@@ -111,12 +113,12 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false, false, false,
-            false, false, false, false);
+            false, false, false, false, false);
     }
 
     public CommandResult(String feedbackToUser, DisplayIndicator displayIndicator, DisplayFormat displayFormat) {
         this(feedbackToUser, false, false, false, false, false,
-            true, false, false, false);
+            true, false, false, false, false);
         this.displayIndicator = displayIndicator;
         this.displayFormat = displayFormat;
     }
@@ -135,6 +137,10 @@ public class CommandResult {
 
     public boolean isListPeople() {
         return listPeople;
+    }
+
+    public boolean isListBin() {
+        return listBin;
     }
 
     public boolean isReport() {

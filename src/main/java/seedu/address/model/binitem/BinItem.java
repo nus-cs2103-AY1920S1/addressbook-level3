@@ -3,7 +3,8 @@ package seedu.address.model.binitem;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -12,10 +13,11 @@ import java.util.Objects;
 public class BinItem {
 
     public static final int TIME_TO_LIVE = 30;
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy 'at' hh:mm a");
 
     private final Binnable item;
-    private final Calendar dateDeleted;
-    private final Calendar expiryDate;
+    private final LocalDateTime dateDeleted;
+    private final LocalDateTime expiryDate;
 
     /**
      * Takes in a Binnable object. {@code item} must not be null.
@@ -23,23 +25,22 @@ public class BinItem {
     public BinItem(Binnable item) {
         requireNonNull(item);
         this.item = item;
-        this.dateDeleted = Calendar.getInstance();
+        this.dateDeleted = LocalDateTime.now();
         this.expiryDate = generateExpiryDate();
     }
 
     /**
      * Takes in a Binnable object. {@code item} must not be null.
      */
-    public BinItem(Binnable item, Calendar dateDeleted, Calendar expiryDate) {
+    public BinItem(Binnable item, LocalDateTime dateDeleted, LocalDateTime expiryDate) {
         requireAllNonNull(item, dateDeleted, expiryDate);
         this.item = item;
         this.dateDeleted = dateDeleted;
         this.expiryDate = expiryDate;
     }
 
-    private Calendar generateExpiryDate() {
-        Calendar expiryDate = Calendar.getInstance();
-        expiryDate.add(Calendar.DAY_OF_YEAR , TIME_TO_LIVE);
+    private LocalDateTime generateExpiryDate() {
+        LocalDateTime expiryDate = LocalDateTime.now().plusDays(TIME_TO_LIVE);
         return expiryDate;
     }
 
@@ -47,7 +48,7 @@ public class BinItem {
      * Returns true if BinItem is expired, false otherwise.
      */
     public boolean isExpired() {
-        Calendar currentDate = Calendar.getInstance();
+        LocalDateTime currentDate = LocalDateTime.now();
         return currentDate.compareTo(expiryDate) > 0;
     }
 
@@ -55,12 +56,12 @@ public class BinItem {
         return item;
     }
 
-    public Calendar getDateDeleted() {
-        return dateDeleted;
+    public String getDateDeleted() {
+        return dateDeleted.format(DATE_TIME_FORMATTER);
     }
 
-    public Calendar getExpiryDate() {
-        return expiryDate;
+    public String getExpiryDate() {
+        return expiryDate.format(DATE_TIME_FORMATTER);
     }
 
     /**

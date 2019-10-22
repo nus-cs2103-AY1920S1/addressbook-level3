@@ -31,6 +31,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListBinCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -181,6 +182,9 @@ public class AddressBookParser {
 
             case ListPolicyCommand.COMMAND_WORD:
                 return new ListPolicyCommand();
+
+            case ListBinCommand.COMMAND_WORD:
+                return new ListBinCommand();
 
             case UndoCommand.COMMAND_WORD:
                 return new UndoCommand();

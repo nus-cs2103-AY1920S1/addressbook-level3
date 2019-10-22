@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,15 +21,15 @@ class JsonAdaptedBinItem {
 
     private final JsonAdaptedPerson personItem;
     private final JsonAdaptedPolicy policyItem;
-    private final Calendar dateDeleted;
-    private final Calendar expiryDate;
+    private final String dateDeleted;
+    private final String expiryDate;
 
     /**
      * Constructs a {@code JsonAdaptedBinItem} with the given BinItem details. This is for Person.
      */
     @JsonCreator
-    public JsonAdaptedBinItem(@JsonProperty("dateDeleted") Calendar dateDeleted,
-                              @JsonProperty("expiryDate") Calendar expiryDate,
+    public JsonAdaptedBinItem(@JsonProperty("dateDeleted") String dateDeleted,
+                              @JsonProperty("expiryDate") String expiryDate,
                               @JsonProperty("personItem") JsonAdaptedPerson personItem,
                               @JsonProperty("policyItem") JsonAdaptedPolicy policyItem) {
         this.personItem = personItem;
@@ -73,14 +74,12 @@ class JsonAdaptedBinItem {
         if (dateDeleted == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
         }
-        Calendar modelDateDeleted = Calendar.getInstance();
-        modelDateDeleted.setTime(dateDeleted.getTime());
+        LocalDateTime modelDateDeleted = LocalDateTime.parse(dateDeleted, BinItem.DATE_TIME_FORMATTER);
 
         if (expiryDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
         }
-        Calendar modelExpiryDate = Calendar.getInstance();
-        modelExpiryDate.setTime(expiryDate.getTime());
+        LocalDateTime modelExpiryDate = LocalDateTime.parse(expiryDate, BinItem.DATE_TIME_FORMATTER);
 
         return new BinItem(modelItem, modelDateDeleted, modelExpiryDate);
     }

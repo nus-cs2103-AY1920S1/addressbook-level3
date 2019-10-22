@@ -188,7 +188,7 @@ public class CommandTestUtil {
     public static void assertListPeopleCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                                       Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, false, true,
-            false, false, false, false, false);
+            false, false, false, false, false, false);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -199,7 +199,7 @@ public class CommandTestUtil {
     public static void assertListPolicyCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                                       Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, false,
-            false, false, false, false, false);
+            false, false, false, false, false, false);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -210,7 +210,7 @@ public class CommandTestUtil {
     public static void assertHistoryCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                                    Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false,
-            false, false, false, false, false, false, true);
+            false, false, false, false, false, false, true, false);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

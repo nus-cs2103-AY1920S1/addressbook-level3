@@ -68,6 +68,28 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
+    /**
+     * Custom fxml passed in. Used by BinPersonCard.
+     */
+    public PersonCard(Person person, int displayedIndex, String fxml) {
+        super(fxml);
+        this.person = person;
+        id.setText(displayedIndex + ". ");
+        name.setText(person.getName().fullName);
+        nric.setText(person.getNric().nric);
+        phone.setText(person.getPhone().value);
+        address.setText(person.getAddress().value);
+        dateOfBirth.setText(person.getDateOfBirth().value);
+        gender.setText(person.getGender().gender);
+        email.setText(person.getEmail().value);
+        person.getPolicies().stream()
+            .sorted(Comparator.comparing(policy -> policy.getName().policyName))
+            .forEach(policy -> policies.getChildren().add(new Label(policy.getName().policyName)));
+        person.getTags().stream()
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
