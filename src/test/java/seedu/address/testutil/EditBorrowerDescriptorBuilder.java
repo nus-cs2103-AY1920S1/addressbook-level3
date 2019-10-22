@@ -61,6 +61,9 @@ public class EditBorrowerDescriptorBuilder {
         return descriptor;
     }
 
+    /**
+     * Sets the {@code id} of the {@code EditBorrowerDescriptor} that we are building.
+     */
     public EditBorrowerDescriptorBuilder withBorrowerId(String id) {
         descriptor.setId(new BorrowerId(id));
         return this;

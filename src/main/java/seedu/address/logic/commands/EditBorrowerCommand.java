@@ -11,13 +11,16 @@ import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
-import seedu.address.model.Model;
 
+/**
+ * Edits the details of an existing Borrower in the borrower record.
+ */
 public class EditBorrowerCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -45,7 +48,7 @@ public class EditBorrowerCommand extends Command {
      * @param id of the borrower
      * @param editBorrowerDescriptor details to edit the borrower with
      */
-    public EditBorrowerCommand(BorrowerId id, EditBorrowerDescriptor editBorrowerDescriptor) throws CommandException{
+    public EditBorrowerCommand(BorrowerId id, EditBorrowerDescriptor editBorrowerDescriptor) throws CommandException {
         requireNonNull(id);
         requireNonNull(editBorrowerDescriptor);
 
@@ -79,7 +82,8 @@ public class EditBorrowerCommand extends Command {
      * Creates and returns a {@code Borrower} with the details of {@code borrowerToEdit}
      * edited with {@code editBorrowerDescriptor}.
      */
-    private static Borrower createEditedBorrower(Borrower borrowerToEdit, EditBorrowerDescriptor editBorrowerDescriptor) {
+    private static Borrower createEditedBorrower(Borrower borrowerToEdit,
+                                                 EditBorrowerDescriptor editBorrowerDescriptor) {
         assert borrowerToEdit != null;
 
         Name updatedName = editBorrowerDescriptor.getName().orElse(borrowerToEdit.getName());
