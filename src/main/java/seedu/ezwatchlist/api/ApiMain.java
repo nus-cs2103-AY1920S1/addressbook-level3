@@ -107,7 +107,7 @@ public class ApiMain implements ApiInterface {
      */
     public List<Movie> getMovieByName(String name) throws OnlineConnectionException {
         try {
-            MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
+            MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, 1);
             ArrayList<Movie> movies = new ArrayList<>();
 
             for (MovieDb m : page.getResults()) {
@@ -128,7 +128,9 @@ public class ApiMain implements ApiInterface {
 
                 //retrieve image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
-                toAdd.setPoster(new Poster(instance.retrieveImage(movieName)));
+                String imagePath = instance.retrieveImage(movieName);
+                System.err.println("ImagePath is :" + imagePath + " from APIMAIN");
+                toAdd.setPoster(new Poster(imagePath));
 
                 movies.add(toAdd);
             }
@@ -148,7 +150,7 @@ public class ApiMain implements ApiInterface {
      */
     public List<TvShow> getTvShowByName(String name) throws OnlineConnectionException {
         try {
-            TvResultsPage page = apiCall.getSearch().searchTv(name, null, null);
+            TvResultsPage page = apiCall.getSearch().searchTv(name, null, 1);
             ArrayList<TvShow> tvShows = new ArrayList<>();
 
             for (TvSeries tv : page.getResults()) {
