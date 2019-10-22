@@ -36,7 +36,7 @@ public interface ReadOnlyPlanner {
      * Returns an unmodifiable view of the days list.
      * This list will not contain any duplicate days.
      */
-    ObservableList<Day> getDayList();
+    ObservableList<Day> getItinerary();
 
     /**
      * Returns the name of the planner.

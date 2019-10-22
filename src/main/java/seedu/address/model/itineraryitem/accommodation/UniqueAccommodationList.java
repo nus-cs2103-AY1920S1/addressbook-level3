@@ -22,11 +22,12 @@ import seedu.address.model.itineraryitem.accommodation.exceptions.DuplicateAccom
  * Supports a minimal set of list operations.
  *
  * @see Accommodation#isSameAccommodation
- * (seedu.address.model.ItineraryItem.accommodation.Accommodation)
+ * (Accommodation)
  */
 public class UniqueAccommodationList implements Iterable<Accommodation> {
 
-    private final ObservableList<Accommodation> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Accommodation>
+            internalList = FXCollections.observableArrayList();
     private final ObservableList<Accommodation> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 

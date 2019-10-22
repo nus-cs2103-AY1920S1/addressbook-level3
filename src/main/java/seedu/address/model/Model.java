@@ -221,14 +221,14 @@ public interface Model {
     void setItineraryStartDate(LocalDate startDate);
 
     /**
-     * Returns an unmodifiable view of the filtered days list
+     * Returns an unmodifiable view of the filtered itinerary
      */
-    ObservableList<Day> getFilteredDayList();
+    ObservableList<Day> getFilteredItinerary();
 
     /**
-     * Updates the filter of the filtered days list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered itinerary to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredDayList(Predicate<Day> predicate);
+    void updateFilteredItinerary(Predicate<Day> predicate);
 }

@@ -51,7 +51,7 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Day> lastShownDays = model.getFilteredDayList();
+        List<Day> lastShownDays = model.getFilteredItinerary();
         List<Activity> lastShownActivities = model.getFilteredActivityList();
 
         if (activityIndexToUnschedule.getZeroBased() >= lastShownActivities.size()) {
@@ -65,7 +65,7 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
         editedDays.set(dayIndex.getZeroBased(), editedDay);
 
         model.setDays(editedDays);
-        model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
+        model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, activityIndexToUnschedule.getOneBased(),
                 dayIndex.getOneBased()));
     }

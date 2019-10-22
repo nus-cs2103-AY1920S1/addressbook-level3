@@ -34,7 +34,7 @@ public class ModelManager implements Model {
     private final FilteredList<Accommodation> filteredAccommodations;
     private final FilteredList<Activity> filteredActivities;
     private final FilteredList<Contact> filteredContacts;
-    private final FilteredList<Day> filteredDays;
+    private final FilteredList<Day> filteredItinerary;
 
     /**
      * Initializes a ModelManager with the given planner and userPrefs.
@@ -50,7 +50,7 @@ public class ModelManager implements Model {
         filteredAccommodations = new FilteredList<>(this.planner.getAccommodationList());
         filteredActivities = new FilteredList<>(this.planner.getActivityList());
         filteredContacts = new FilteredList<>(this.planner.getContactList());
-        filteredDays = new FilteredList<>(this.planner.getDayList());
+        filteredItinerary = new FilteredList<>(this.planner.getItinerary());
     }
 
     public ModelManager() {
@@ -200,14 +200,14 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Day> getFilteredDayList() {
-        return filteredDays;
+    public ObservableList<Day> getFilteredItinerary() {
+        return filteredItinerary;
     }
 
     @Override
-    public void updateFilteredDayList(Predicate<Day> predicate) {
+    public void updateFilteredItinerary(Predicate<Day> predicate) {
         requireNonNull(predicate);
-        filteredDays.setPredicate(predicate);
+        filteredItinerary.setPredicate(predicate);
     }
 
     //=========== CONTACT ================================================================================
@@ -314,7 +314,8 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredAccommodations.equals(other.filteredAccommodations)
                 && filteredActivities.equals(other.filteredActivities)
-                && filteredContacts.equals(other.filteredContacts);
+                && filteredContacts.equals(other.filteredContacts)
+                && filteredItinerary.equals(other.filteredItinerary);
     }
 
 }

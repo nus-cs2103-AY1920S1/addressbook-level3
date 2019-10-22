@@ -180,13 +180,13 @@ image::LogicSequenceDiagram.png[]
 public CommandResult execute(Model model) throws CommandException {
     ...
     Contact contactToEdit = lastShownList.get(index.getZeroBased());
-    Contact editedAccommodation = createEditedContact(contactToEdit, editContactDescriptor);
-    if (!contactToEdit.isSameContact(editedAccommodation) && model.hasContact(editedAccommodation)) {
+    Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor);
+    if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
         throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
     }
-    model.setContact(contactToEdit, editedAccommodation);
+    model.setContact(contactToEdit, editedContact);
     model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-    return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedAccommodation));
+    return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
 }
 ----
 . As suspected, `command#execute()` does indeed make changes to `model`.
