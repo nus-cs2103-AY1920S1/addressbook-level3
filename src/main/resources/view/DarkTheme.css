@@ -31,6 +31,22 @@
     -fx-opacity: 1;
 }
 
+.label-unhighlighted {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-opacity: 0.5;
+    -fx-padding: 20 20 20 0;
+    -fx-text-fill: rgba(255, 255, 255, 100);
+}
+
+.label-highlighted {
+     -fx-font-size: 11pt;
+     -fx-font-family: "Segoe UI SemiBold";
+     -fx-opacity: 0.9;
+     -fx-padding: 20 20 20 0;
+     -fx-text-fill: rgba(85, 255, 68, 100);
+ }
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";

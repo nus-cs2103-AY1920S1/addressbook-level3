@@ -15,13 +15,8 @@ import seedu.address.ui.UiPart;
  */
 public class SettingsPanel extends UiPart<Region> {
     private static final String FXML = "SettingsPanel.fxml";
-    private static final String LABEL_STYLE = "-fx-font-size: 11pt;"
-                                            + "-fx-font-family: \"Segoe UI SemiBold\";"
-                                            + "-fx-opacity: 0.5;"
-                                            + "-fx-padding: 20 20 20 0;"
-                                            + "-fx-text-fill: rgba(255, 255, 255, 100);";
-    private static final String HIGHLIGHTED = LABEL_STYLE + "-fx-text-fill: rgba(85, 255, 68, 100);"
-                                            + "-fx-opacity: 0.9";
+    private static final String LABEL_STYLE = "label-unhighlighted";
+    private static final String HIGHLIGHTED = "label-highlighted";
     private AppSettings appSettings;
 
 
@@ -53,7 +48,7 @@ public class SettingsPanel extends UiPart<Region> {
         List<Label> options = new ArrayList<>();
         for (String labelTitle: names) {
             Label option = new Label(labelTitle);
-            option.setStyle(LABEL_STYLE);
+            option.getStyleClass().add(LABEL_STYLE);
             options.add(option);
         }
         field.getChildren().addAll(options);
@@ -69,7 +64,7 @@ public class SettingsPanel extends UiPart<Region> {
         int sizeOfList = field.getChildren().size();
         for (int i = 0; i < sizeOfList; i++) {
             Label child = (Label) field.getChildren().get(i);
-            if (child.getStyle().equals(HIGHLIGHTED)) {
+            if (child.getStyleClass().contains(HIGHLIGHTED)) {
                 unhighlightText(child);
                 break;
             }
@@ -84,11 +79,13 @@ public class SettingsPanel extends UiPart<Region> {
     }
 
     private void highlightText(Label label) {
-        label.setStyle(HIGHLIGHTED);
+        label.getStyleClass().remove(LABEL_STYLE);
+        label.getStyleClass().add(HIGHLIGHTED);
     }
 
     private void unhighlightText(Label label) {
-        label.setStyle(LABEL_STYLE);
+        label.getStyleClass().remove(HIGHLIGHTED);
+        label.getStyleClass().add(LABEL_STYLE);
     }
 
     /**
