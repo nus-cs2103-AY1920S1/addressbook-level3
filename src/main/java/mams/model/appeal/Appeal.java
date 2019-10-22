@@ -1,5 +1,6 @@
 package mams.model.appeal;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import mams.commons.util.CollectionUtil;
@@ -187,17 +188,15 @@ public class Appeal {
         return moduleToDrop;
     }
 
-    public String getModulesToChange() {
-        String modulesAffected = "";
+    public ArrayList<String> getModulesToChange() {
+        ArrayList<String> modulesAffected = new ArrayList<>();
         if (!previousModule.isEmpty() || !newModule.isEmpty()) {
-            modulesAffected += "Module to drop: "
-                    + previousModule
-                    + "\nModule to add: "
-                    + newModule;
+                    modulesAffected.add(previousModule);
+                    modulesAffected.add(newModule);
         } else if (!moduleToAdd.isEmpty()) {
-            modulesAffected += "Module to drop: " + moduleToDrop;
+            modulesAffected.add(moduleToDrop);
         } else if (!moduleToAdd.isEmpty()) {
-            modulesAffected += "Module to add: " + moduleToAdd;
+            modulesAffected.add(moduleToAdd);
         }
         return modulesAffected;
     }
