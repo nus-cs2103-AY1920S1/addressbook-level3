@@ -11,6 +11,8 @@ import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.logic.commands.Command;
+import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
@@ -65,24 +67,21 @@ class DeleteTaskCommandTest {
     }
 
     @Test
-    void executeInverse_success() throws ParseException {
-        Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
-        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("1"));
+    void executeInverse_success() throws CommandException, ParseException {
+        Model model = new ModelManager();
+        Model expected = new ModelManager();
         Task toDelete = new Todo("borrow book");
 
-        String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, toDelete);
+        model.addTask(toDelete);
+        expected.addTask(toDelete);
 
-        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
-        expectedModel.deleteTask(toDelete);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("1"), toDelete);
+        command.execute(model);
 
-        String inverseExpectedMessage = String.format(DeleteTaskCommand.MESSAGE_INVERSE_SUCCESS_ADD, toDelete);
+        command.executeInverse(model);
 
-        expectedModel.addTask(toDelete);
-        assertCommandInverseSuccess(command, model, inverseExpectedMessage, expectedModel);
+        assertEquals(expected, model);
+
     }
 
     @Test

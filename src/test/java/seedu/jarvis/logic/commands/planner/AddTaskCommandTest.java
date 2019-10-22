@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
@@ -43,11 +44,15 @@ class AddTaskCommandTest {
     }
 
     @Test
-    void executeInverse() {
+    void executeInverse() throws CommandException {
         Model planner = new ModelManager();
         Task t = new Todo("borrow and read book");
         AddTaskCommand command = new AddTaskCommand(t);
-        assertDoesNotThrow(() -> command.executeInverse(planner));
+        command.execute(planner);
+        CommandResult actualMessage = command.executeInverse(planner);
+        CommandResult expectedMessage = new CommandResult(String.format(
+                                                AddTaskCommand.MESSAGE_INVERSE_SUCCESS_DELETE, t));
+        assertEquals(expectedMessage, actualMessage);
     }
 
     @Test
