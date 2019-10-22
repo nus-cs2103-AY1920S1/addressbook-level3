@@ -2,9 +2,7 @@ package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
 import seedu.address.model.Model;
 
