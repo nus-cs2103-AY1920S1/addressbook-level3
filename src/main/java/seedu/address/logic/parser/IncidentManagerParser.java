@@ -92,10 +92,18 @@ public class IncidentManagerParser {
             return new SwapCommand();
 
         case SubmitCommand.COMMAND_WORD:
-            return new SubmitCommand();
+            if (arguments.isEmpty()) {
+                return new SubmitCommand();
+            } else {
+                return new SubmitCommandParser().parse(arguments);
+            }
 
         case FillCommand.COMMAND_WORD:
-            return new FillCommandParser().parse(arguments);
+            if (arguments.isEmpty()) {
+                return new FillCommand(); // TODO remove nulls by merging / inheriting commands
+            } else {
+                return new FillCommandParser().parse(arguments);
+            }
 
         case NewCommand.COMMAND_WORD:
             return new NewCommandParser().parse(arguments);

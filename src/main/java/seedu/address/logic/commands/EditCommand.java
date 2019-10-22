@@ -1,18 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
 
-import java.util.Collections;
-
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -23,12 +19,6 @@ import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Password;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Username;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
 
 /**
@@ -43,12 +33,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_LOCATION + "DISTRICT] "
-            + "[" + PREFIX_CALLER + "CALLER NUMBER] "
+            + "[" + PREFIX_CALLER_NUMBER + "CALLER NUMBER] "
             + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATETIME + "01/10/2019 20:22 "
-            + PREFIX_CALLER + "91302402";
+            + PREFIX_CALLER_NUMBER + "91302402";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -85,7 +75,7 @@ public class EditCommand extends Command {
         Incident incidentToEdit = listOfIncidents.get(index.getZeroBased());
         Incident editedIncident = createEditedIncident(incidentToEdit, editIncident);
 
-        if (!incidentToEdit.isSameIncident(editedIncident) && model.hasIncident(editedIncident)) {
+        if (!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)) {
             throw new CommandException(MESSAGE_DUPLICATE_INCIDENT);
         }
 
@@ -101,13 +91,12 @@ public class EditCommand extends Command {
      */
     private static Incident createEditedIncident(Incident incidentToEdit, EditIncident editIncident) {
         assert incidentToEdit != null;
-
         District updateDistrict = editIncident.getDistrict().orElse(incidentToEdit.getDistrict());
         CallerNumber updateCaller = editIncident.getCaller().orElse(incidentToEdit.getCallerNumber());
         IncidentDateTime updateDateTime = editIncident.getDateTime().orElse(incidentToEdit.getDateTime());
         Description updateDesc = editIncident.getDesc().orElse(incidentToEdit.getDesc());
 
-        return new Incident(updateDistrict, updateDateTime, updateCaller, updateDesc);
+        return new Incident(incidentToEdit.getIncidentId(), updateDistrict, updateDateTime, updateCaller, updateDesc);
     }
 
     @Override
@@ -206,121 +195,4 @@ public class EditCommand extends Command {
 
     }
 
-
-
-    /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
-     */
-    public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Username username;
-        private Password password;
-        private Set<Tag> tags;
-
-
-        public EditPersonDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setUsername(toCopy.username);
-            setPassword(toCopy.password);
-            setTags(toCopy.tags);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setUsername(Username username) {
-            this.username = username;
-        }
-
-        public Optional<Username> getUsername() {
-            return Optional.ofNullable(username);
-        }
-
-        public void setPassword(Password password) {
-            this.password = password;
-        }
-
-        public Optional<Password> getPassword() {
-            return Optional.ofNullable(password);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getUsername().equals(e.getUsername())
-                    && getPassword().equals(e.getPassword())
-                    && getEmail().equals(e.getEmail())
-                    && getTags().equals(e.getTags());
-        }
-    }
 }

@@ -4,6 +4,7 @@ import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
+import seedu.address.model.incident.IncidentId;
 import seedu.address.model.vehicle.District;
 
 /**
@@ -14,17 +15,20 @@ public class IncidentBuilder {
     public static final String DEFAULT_CALLER = "85355255";
     public static final String DEFAULT_DATETIME = "2008-09-15T15:53:00";
     public static final String DEFAULT_DESC = "This is an incident description.";
+    public static final String DEFAULT_ID = "0920080000";
 
     private District district;
     private IncidentDateTime dateTime;
     private Description desc;
     private CallerNumber caller;
+    private IncidentId id;
 
     public IncidentBuilder() {
         district = new District(Integer.parseInt(DEFAULT_DISTRICT));
         dateTime = new IncidentDateTime(DEFAULT_DATETIME);
         desc = new Description(DEFAULT_DESC);
         caller = new CallerNumber(DEFAULT_CALLER);
+        id = new IncidentId(DEFAULT_ID);
     }
 
     /**
@@ -72,6 +76,6 @@ public class IncidentBuilder {
 
 
     public Incident build() {
-        return new Incident(district, dateTime, caller, desc);
+        return new Incident(id, district, dateTime, caller, desc);
     }
 }
