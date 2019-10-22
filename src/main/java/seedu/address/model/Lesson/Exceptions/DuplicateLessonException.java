@@ -1,4 +1,4 @@
-package seedu.address.model.Lesson.Exceptions;
+package seedu.address.model.lesson.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Lessons (Lessons are considered duplicates if they have the

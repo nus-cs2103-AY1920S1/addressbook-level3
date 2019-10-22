@@ -5,10 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.Lesson.Lesson;
-import seedu.address.model.Lesson.UniqueLessonList;
-import seedu.address.model.Scheduler.Reminder;
-import seedu.address.model.Scheduler.UniqueReminderList;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
+import seedu.address.model.scheduler.Reminder;
+import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 

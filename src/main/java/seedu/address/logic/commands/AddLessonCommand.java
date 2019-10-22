@@ -5,9 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Lesson.Lesson;
 import seedu.address.model.Model;
-import seedu.address.model.Scheduler.Scheduler;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Scheduler;
 
 /**
  * Adds a lesson to the address book.

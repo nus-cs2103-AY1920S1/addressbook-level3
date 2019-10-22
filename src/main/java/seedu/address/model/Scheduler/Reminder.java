@@ -1,6 +1,6 @@
-package seedu.address.model.Scheduler;
+package seedu.address.model.scheduler;
 
-import seedu.address.model.Lesson.Lesson;
+import seedu.address.model.lesson.Lesson;
 
 /**
  * Runnable task which carries out the reminder.
@@ -24,7 +24,13 @@ public class Reminder implements Runnable {
         System.out.println(lesson);
     }
 
-    public boolean isSameReminder(Reminder otherReminder){
+    /**
+     * Simple method to check if reminder is a duplicate
+     * Either exact same java obj or same content
+     * @param otherReminder
+     * @return
+     */
+    public boolean isSameReminder(Reminder otherReminder) {
         if (this == otherReminder) {
             return true;
         }

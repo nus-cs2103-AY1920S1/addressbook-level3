@@ -8,9 +8,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddLessonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Lesson.ClassName;
-import seedu.address.model.Lesson.Lesson;
-import seedu.address.model.Lesson.Time;
+import seedu.address.model.lesson.ClassName;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.Time;
 
 /**
  * Parses input arguments and creates a new AddLessonCommand object

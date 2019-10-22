@@ -1,4 +1,4 @@
-package seedu.address.model.Scheduler;
+package seedu.address.model.scheduler;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.student.exceptions.DuplicateStudentException;
 import seedu.address.model.student.exceptions.StudentNotFoundException;
 
-public class UniqueReminderList implements Iterable<Reminder>{
+/**
+ * List of unique reminders to be displayed in UI
+ */
+public class UniqueReminderList implements Iterable<Reminder> {
 
     private final ObservableList<Reminder> internalList = FXCollections.observableArrayList();
     private final ObservableList<Reminder> internalUnmodifiableList =

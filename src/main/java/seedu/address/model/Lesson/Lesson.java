@@ -1,4 +1,4 @@
-package seedu.address.model.Lesson;
+package seedu.address.model.lesson;
 
 import java.util.Objects;
 
