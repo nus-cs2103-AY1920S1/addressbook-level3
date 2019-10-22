@@ -36,9 +36,6 @@ public class MainWindow extends UiPart<Stage> {
     private EntryListPanel entryListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private WishListPanel wishListPanel;
-    private BudgetPanel budgetsPanel;
-    private ReminderPanel reminderPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -136,13 +133,13 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        wishListPanel = new WishListPanel(logic.getFilteredEntryList());
+        WishListPanel wishListPanel = new WishListPanel(logic.getFilteredEntryList());
         wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
 
-        budgetsPanel = new BudgetPanel(logic.getFilteredEntryList());
+        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredEntryList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
 
-        reminderPanel = new ReminderPanel(logic.getFilteredEntryList());
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredEntryList());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 

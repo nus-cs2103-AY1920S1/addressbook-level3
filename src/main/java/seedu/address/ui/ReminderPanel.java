@@ -7,16 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
-//import seedu.address.model.person.Reminder;
 
 /**
  * Side panel for budgets.
  */
 public class ReminderPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ReminderPanel.class);
 
     @FXML
     private ListView<Entry> reminderListView;
