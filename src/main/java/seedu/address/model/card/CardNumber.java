@@ -12,7 +12,7 @@ public class CardNumber {
     public static final String MESSAGE_CONSTRAINTS =
             "Card numbers should only contain 16 numeric characters, and it should not be blank";
 
-    public static final String VALIDATION_REGEX = "5[1-5]\\ d{14}";
+    public static final String VALIDATION_REGEX = "\\d{4}-?\\d{4}-?\\d{4}-?\\d{4}";
 
     public final String value;
 
@@ -31,6 +31,7 @@ public class CardNumber {
      * Returns true if a given string is a valid card number.
      */
     public static boolean isValidCardNumber(String test) {
+        System.out.println("t" + test + "t");
         return test.matches(VALIDATION_REGEX);
     }
 

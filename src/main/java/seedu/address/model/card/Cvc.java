@@ -12,7 +12,7 @@ public class Cvc {
     public static final String MESSAGE_CONSTRAINTS =
             "CVC should only contain 3 digit numeric characters, and it should not be blank";
 
-    public static final String VALIDATION_REGEX = "3[0-9]";
+    public static final String VALIDATION_REGEX = "\\d{3}";
 
     public final String value;
 
