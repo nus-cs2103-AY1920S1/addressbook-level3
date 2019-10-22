@@ -218,16 +218,34 @@ Example: `sort OPENING_HOURS`
 Allows the user to set a budget AMOUNT for food expenses for a certain number
 of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or double with 2 decimal places.
 
-Format: `budget AMOUNT DAYS`
-
-Example: `budget 100.00 10`
+****
+*Format*: `budget AMOUNT DAYS` +
+*Example*: `budget 100.00 10`
+****
 
 ==== Buy
 Allows users to log a food expense into the application.
+****
+*Format*: `buy FOOD_INDEX` +
+*Example*: `buy 1`
+****
 
-Format: `buy FOOD_INDEX`
+[IMPORTANT]
+Make sure you have enough money in your wallet for the purchase.
 
-Example: `buy 1`
+[NOTE]
+If the purchase was successful, you should be able to see the update in your purchase history immediately.
+
+==== Topup
+Allows users to topup the money into their wallet.
+****
+*Format*: `topup AMOUNT` +
+*Example*: `topup 10`
+****
+
+[NOTE]
+If the topup was successful, you should be able to see the update in your wallet immediately.
+
 
 ==== Save
 Allows users to log an amount of money to save in his savings account from user's wallet.
@@ -485,6 +503,8 @@ of days.
 | Sort all the food items by a specified field.
 | Save <<Save>>
 | Saves a specified amount of money from the user's wallet into his savings account.
+| Topup <<Topup>>
+| Allows users to topup the money into their wallet.
 | Tutorial <<Tutorial>>
 | Give users a brief guide on how to use the application.
 |===
