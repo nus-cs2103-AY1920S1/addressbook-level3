@@ -199,7 +199,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //@@author LeonardTay748
-    public void addGood() { stats[0]++; }
+    public void addGood() {
+        stats[0]++;
+    }
     public void addHard() {
         stats[1]++;
     }
