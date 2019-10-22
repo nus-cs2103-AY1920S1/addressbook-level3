@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.Region;
 import seedu.address.autocomplete.AutoCompleteListFilter;
 import seedu.address.autocomplete.AutoCompleteListUpdater;
@@ -21,7 +22,6 @@ import seedu.address.commons.core.LogsCenter;
  * Panel containing the list of suggested words cards.
  */
 public class AutoCompletePanel extends UiPart<Region> {
-    private static final Logger logger = LogsCenter.getLogger(AutoCompletePanel.class);
     private static final String FXML = "AutoCompletePanel.fxml";
 
     private int selectedIndex = 0;
@@ -72,8 +72,9 @@ public class AutoCompletePanel extends UiPart<Region> {
         } else if (index < 0) {
             index = 0;
         }
-        autoCompleteWordListView.getSelectionModel().select(index);
         this.selectedIndex = index;
+        autoCompleteWordListView.getSelectionModel().select(selectedIndex);
+        autoCompleteWordListView.scrollTo(selectedIndex);
     }
 
     public int getSelectedIndex() {
