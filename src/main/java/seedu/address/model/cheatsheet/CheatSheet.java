@@ -2,6 +2,7 @@ package seedu.address.model.cheatsheet;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,6 +21,8 @@ public class CheatSheet extends StudyBuddyItem {
 
     // Data fields
     private final Set<Content> contents = new HashSet<>();
+
+    private int contentIndex = 0;
 
     /**
      * Every field must be present and not null.
@@ -60,6 +63,15 @@ public class CheatSheet extends StudyBuddyItem {
         return null;
     }
 
+    public ArrayList<Content> getSortedContents() {
+        ArrayList<Content> contentList = new ArrayList<>(contents);
+
+        ContentSortByIndex comp = new ContentSortByIndex();
+        contentList.sort(comp);
+
+        return contentList;
+    }
+
     public String getContentsInStringForm() {
         StringBuilder sb = new StringBuilder("");
         for (Content c : contents) {
@@ -80,6 +92,15 @@ public class CheatSheet extends StudyBuddyItem {
 
         return otherCheatSheet != null
                 && otherCheatSheet.getTitle().equals(getTitle());
+    }
+
+    private void resetContentIndex() {
+        this.contentIndex = 0;
+    }
+
+    private String formatContent(Content c) {
+        this.contentIndex++;
+        return "[ " + contentIndex + ". " + c + " ]";
     }
 
     /**
@@ -110,6 +131,7 @@ public class CheatSheet extends StudyBuddyItem {
 
     @Override
     public String toString() {
+        this.resetContentIndex();
         final StringBuilder builder = new StringBuilder();
         builder.append(" Title: ")
                 .append(getTitle())
@@ -117,7 +139,7 @@ public class CheatSheet extends StudyBuddyItem {
         getTags().forEach(builder::append);
 
         builder.append(" Contents: ");
-        getContents().forEach(builder::append);
+        getContents().forEach(c -> builder.append(formatContent(c)));
 
         return builder.toString();
     }

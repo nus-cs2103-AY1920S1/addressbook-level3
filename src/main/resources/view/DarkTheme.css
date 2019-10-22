@@ -380,6 +380,29 @@
      -fx border-top-width: 1px;
 	 -fx-background-radius: 0;
 	 -fx-text-fill: white;
+
+#cheatsheetArea .content {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: #383838;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}
+
+#tagArea .content {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: #383838;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #383838;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #ffea00;
+    -fx-text-fill: #000000;
 }
 
 .tab-pane {
@@ -389,3 +412,4 @@
 .tab-pane .tab-header-area {
     visibility: hidden ;
 }
+

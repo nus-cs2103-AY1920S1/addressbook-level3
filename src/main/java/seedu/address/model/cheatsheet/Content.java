@@ -16,7 +16,6 @@ public class Content {
     public final String content;
     public final int index;
 
-
     /**
      * Constructs a {@code Content}.
      *
@@ -70,7 +69,7 @@ public class Content {
      * Format state as text for viewing.
      */
     public String toString() {
-        return "[ " + index + ". " + content + " ]";
+        return content;
     }
 
 }
