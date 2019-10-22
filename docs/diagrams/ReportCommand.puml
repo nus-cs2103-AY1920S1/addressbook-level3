@@ -6,8 +6,6 @@ Participant ":Ui" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":CommandParser" as parser PARSER_COLOR
 Participant "reportCommand:Command" as command COMMAND_COLOR
-Participant "model:Model" as model MODEL_COLOR
-Participant ":Statistics" as statistics STATISTICS_COLOR
 Participant "result:CommandResult" as result RESULT_COLOR
 
 user -[USER_COLOR]> ui : "report"
@@ -32,30 +30,12 @@ deactivate parser
 logic -[LOGIC_COLOR]> command : execute(model)
 activate command COMMAND_COLOR
 
-command -[COMMAND_COLOR]> model : updateStatistics()
-activate model MODEL_COLOR
-
-model -[MODEL_COLOR]> statistics : Statistics.generateStatistics()
-activate statistics STATISTICS_COLOR
-
-statistics -[STATISTICS_COLOR]> statistics : Statistics()
-activate statistics STATISTICS_COLOR
-
-statistics -[STATISTICS_COLOR]-> statistics : s
-deactivate statistics
-
-statistics -[STATISTICS_COLOR]-> model : s
-deactivate statistics
-
 create result
-model -[MODEL_COLOR]> result : CommandResult()
+command -[COMMAND_COLOR]> result : CommandResult()
 activate result RESULT_COLOR
 
-result -[RESULT_COLOR]-> model : result
+result -[RESULT_COLOR]-> command : result
 deactivate result
-
-model -[MODEL_COLOR]-> command : result
-deactivate model
 
 command -[COMMAND_COLOR]-> logic : result
 deactivate command
@@ -63,6 +43,5 @@ deactivate command
 logic -[LOGIC_COLOR]-> ui : result
 deactivate logic
 
-ui -[UI_COLOR]-> user : result
 deactivate ui
 @enduml
