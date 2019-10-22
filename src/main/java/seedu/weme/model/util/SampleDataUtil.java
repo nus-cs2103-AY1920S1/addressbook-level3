@@ -21,8 +21,6 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
-import seedu.weme.statistics.StatsEngine;
-import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains utility methods for populating {@code MemeBook} with sample data.
@@ -119,11 +117,6 @@ public class SampleDataUtil {
             sampleMb.addTemplate(sampleTemplate);
         }
         return sampleMb;
-    }
-
-    public static StatsEngine getSampleStatsData(ReadOnlyUserPrefs userPrefs) {
-        StatsEngine statsEngine = new StatsManager();
-        return statsEngine;
     }
 
     /**

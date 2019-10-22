@@ -7,12 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
-import seedu.weme.model.meme.Meme;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.LikeManager;
 
 /**
- * Jackson-friendly version of {@link Meme}.
+ * Json-friendly version of {@link LikeData}.
  */
 class JsonAdaptedLikeData {
 

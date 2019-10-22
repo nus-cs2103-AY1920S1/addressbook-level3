@@ -91,9 +91,9 @@ public class MainApp extends Application {
             initialData = memeBookOptional.orElseGet(() -> SampleDataUtil.getSampleMemeBook(userPrefs));
             statsEngineOptional = storage.readStatsData();
             if (!statsEngineOptional.isPresent()) {
-                logger.info("Stats file not found. Will be starting with a sample StatsEngine");
+                logger.info("Stats file not found. Will be starting with an empty StatsEngine");
             }
-            initialStatsEngine = statsEngineOptional.orElseGet(() -> SampleDataUtil.getSampleStatsData(userPrefs));
+            initialStatsEngine = statsEngineOptional.orElseGet(() -> new StatsManager());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. "
                     + "Will be starting with an empty MemeBook and StatsEngine");
