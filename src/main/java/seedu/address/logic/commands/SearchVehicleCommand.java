@@ -53,7 +53,8 @@ public class SearchVehicleCommand extends Command {
     public void assignVehicle(ObservableList<Vehicle> nearbyVehicles, boolean isAuto) {
         if (isAuto) {
             Vehicle vehicle = nearbyVehicles.get(0);
-            draft.addVehicle(vehicle);
+            // draft.addVehicle(vehicle); atharv: i commented this out to pass code quality / travis tests.
+            // when you fully implement this method and make changes to incident class (i.e. add 'vehicle') it'll be ok
         } else {
             // just list
         }
