@@ -68,22 +68,22 @@ public class AddressBookParser {
      */
     private void initialiseBasicCommands() {
         AddressBookParser.commandList.put(AddCommand.COMMAND_WORD, AddCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(EditCommand.COMMAND_WORD, AddCommand.COMMAND_WORD);
-        AddressBookParser.commandList.put(ClearCommand.COMMAND_WORD, "clear");
-        AddressBookParser.commandList.put(DeleteCommand.COMMAND_WORD, "delete");
-        AddressBookParser.commandList.put(ListCommand.COMMAND_WORD, "list");
-        AddressBookParser.commandList.put(FindCommand.COMMAND_WORD, "find");
-        AddressBookParser.commandList.put(HelpCommand.COMMAND_WORD, "help");
-        AddressBookParser.commandList.put(ExitCommand.COMMAND_WORD, "exit");
-        AddressBookParser.commandList.put(AddEarningsCommand.COMMAND_WORD, "addEarnings");
-        AddressBookParser.commandList.put(DeleteCustomCommand.COMMAND_WORD, "deleteCustomCommand");
-        AddressBookParser.commandList.put(AddTaskCommand.COMMAND_WORD, "deleteCustomCommand");
-        AddressBookParser.commandList.put(DeleteEarningsCommand.COMMAND_WORD, "deleteCustomCommand");
-        AddressBookParser.commandList.put(UpdateEarningsCommand.COMMAND_WORD, "deleteCustomCommand");
-        AddressBookParser.commandList.put(FindEarningsCommand.COMMAND_WORD, "deleteCustomCommand");
-        AddressBookParser.commandList.put(DeleteTaskCommand.COMMAND_WORD, "deleteCustomCommand");
-        AddressBookParser.commandList.put(ListTasksCommand.COMMAND_WORD, "deleteCustomCommand");
-        AddressBookParser.commandList.put(ChangeTabCommand.COMMAND_WORD, "deleteCustomCommand");
+        AddressBookParser.commandList.put(EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(DeleteCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ListCommand.COMMAND_WORD, ListCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(AddEarningsCommand.COMMAND_WORD, AddEarningsCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(DeleteCustomCommand.COMMAND_WORD, DeleteCustomCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(AddTaskCommand.COMMAND_WORD, AddTaskCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(DeleteEarningsCommand.COMMAND_WORD, DeleteEarningsCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(UpdateEarningsCommand.COMMAND_WORD, UpdateEarningsCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(FindEarningsCommand.COMMAND_WORD, FindEarningsCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(DeleteTaskCommand.COMMAND_WORD, DeleteTaskCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
     }
 
     /**
