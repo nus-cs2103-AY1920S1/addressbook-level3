@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T16-2/main
 
-By: `Team T16-2`      Since: `September 2019`      Licence: `MIT`
+By: `AY1920S1-CS2103-T16-2`      Since: `September 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -300,8 +300,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |new user |view the user guide easily |spend less time figuring out how to use the app
 
-|`* * *` |person who often make mistakes |undo my previous actions |
-
 |`* * *` |organised student |schedule the times when I plan to do an assignment |know my timetable for the day
 
 |`* * *` |lazy user |add a tag for each task |search each task more quickly by using the tag
@@ -314,25 +312,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |graduating student |see what remaining modules I need to take in order to fulfill my graduation requirements |plan my semester
 
-|`* * ` |new user |see how many marks I have obtained for a module so far |review my progress
+|`* *` |person who often make mistakes |undo my previous actions |
 
-|`* * ` |busy student| refer and use the predictive text |input a command with great ease and less time
+|`* *` |new user |see how many marks I have obtained for a module so far |review my progress
 
-|`* * ` |forgetful user |receive reminders on assignments and work near the deadline |remember to complete and submit it on time
+|`* *` |busy student| refer and use the predictive text |input a command with great ease and less time
+
+|`* *` |forgetful user |receive reminders on assignments and work near the deadline |remember to complete and submit it on time
 
 |`* *` |curious student |calculate and predict how much effort I need to put for a particular module based on the score I have gained so far |
 
-|`* * ` |lazy and forgetful student |keep track of lectures that I have missed |
+|`* *` |lazy and forgetful student |keep track of lectures that I have missed |
 
-|`* * ` |student with too many assignments | automatically get my assignment sorted according to its grade percentage |
+|`* *` |student with too many assignments | automatically get my assignment sorted according to its grade percentage |
 
-|`* * ` |kiasu student |make a checklist of materials that I have to learn for my exams |
+|`* *` |kiasu student |make a checklist of materials that I have to learn for my exams |
 
 |`*` |student interested in numbers |view an overall summary of my academic journey so far |reflect on it
 
-|`* ` |clumsy typer |have a program that still understand my commands even with minor spelling errors |not have to enter the command again
+|`*` |clumsy typer |have a program that still understand my commands even with minor spelling errors |not have to enter the command again
 
-|`* ` |calendar app user |sync my timetable to my own personal calendar |refer to my schedule
+|`*` |calendar app user |sync my timetable to my own personal calendar |refer to my schedule
 |=======================================================================
 
 
