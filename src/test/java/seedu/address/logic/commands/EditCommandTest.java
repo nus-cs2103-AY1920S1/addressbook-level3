@@ -16,16 +16,18 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.address.logic.commands.ClearCommand;
+import seedu.address.address.logic.commands.EditCommand;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.AddressBook;
-import seedu.address.model.AddressBookModel;
-import seedu.address.model.AddressBookModelManager;
-import seedu.address.model.person.Person;
+import seedu.address.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.address.model.AddressBook;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.AddressBookModelManager;
+import seedu.address.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.main.model.UserPrefs;
+import seedu.address.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel, UndoCommand and RedoCommand) and unit tests for

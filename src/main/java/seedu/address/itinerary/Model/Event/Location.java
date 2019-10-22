@@ -1,5 +1,8 @@
-package seedu.address.itinerary.model.Event;
+package seedu.address.itinerary.model.event;
 
+/**
+ * Location of the event in the itinerary.
+ */
 public class Location {
     public static final String MESSAGE_CONSTRAINTS =
             "We all know that you love typing on the CLI but the location of an event "
@@ -22,5 +25,12 @@ public class Location {
     @Override
     public String toString() {
         return location;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Location // instanceof handles nulls
+                && location.equals(((Location) other).location)); // state check
     }
 }

@@ -1,4 +1,4 @@
-package seedu.address.itinerary.model.Event;
+package seedu.address.itinerary.model.event;
 
 import static java.util.Objects.requireNonNull;
 
@@ -28,5 +28,12 @@ public class Title {
     @Override
     public String toString() {
         return title;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Title // instanceof handles nulls
+                && title.equals(((Title) other).title)); // state check
     }
 }

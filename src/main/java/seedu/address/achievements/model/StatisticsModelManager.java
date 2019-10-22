@@ -3,7 +3,7 @@ package seedu.address.achievements.model;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.address.model.person.Person;
 
 public class StatisticsModelManager implements StatisticsModel {
 

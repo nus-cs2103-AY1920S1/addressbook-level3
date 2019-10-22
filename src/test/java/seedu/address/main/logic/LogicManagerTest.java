@@ -11,20 +11,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.AddressBookLogic;
-import seedu.address.model.AddressBook;
-import seedu.address.model.AddressBookModel;
-import seedu.address.model.AddressBookModelManager;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.address.model.AddressBook;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.AddressBookModelManager;
+import seedu.address.logic.LogicManager;
+import seedu.address.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.main.model.Model;
-import seedu.address.main.model.ModelManager;
-import seedu.address.main.model.UserPrefs;
-import seedu.address.main.model.UserPrefsModel;
-import seedu.address.main.model.UserPrefsModelManager;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.UserPrefsModel;
+import seedu.address.model.UserPrefsModelManager;
 
 public class LogicManagerTest {
     @TempDir

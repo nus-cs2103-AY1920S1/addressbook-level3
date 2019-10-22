@@ -15,10 +15,11 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.AddressBookModel;
-import seedu.address.model.AddressBookModelManager;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.main.model.UserPrefs;
+import seedu.address.address.logic.commands.FindCommand;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.AddressBookModelManager;
+import seedu.address.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel) for {@code FindCommand}.

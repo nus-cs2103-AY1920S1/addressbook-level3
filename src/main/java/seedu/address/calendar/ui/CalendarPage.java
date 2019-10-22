@@ -12,7 +12,7 @@ import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
 import seedu.address.calendar.parser.CalendarParser;
-import seedu.address.logic.AddressBookLogic;
+import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.Page;
