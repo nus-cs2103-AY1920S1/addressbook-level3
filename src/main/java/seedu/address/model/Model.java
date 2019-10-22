@@ -136,6 +136,8 @@ public interface Model {
 
     boolean gameIsOver();
 
+    DifficultyEnum getCurrentGameDifficulty();
+
     /**
      * Returns the app settings
      */

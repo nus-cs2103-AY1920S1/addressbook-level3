@@ -24,18 +24,28 @@ public class JsonSerializableWordBankStatistics {
     private final Double fastestClear;
     private final List<JsonAdaptedCardStatistics> cardStats = new ArrayList<>();
     private final List<Integer> scoreStats = new ArrayList<>();
+    private final boolean badgeEasy;
+    private final boolean badgeNormal;
+    private final boolean badgeHard;
 
     @JsonCreator
     public JsonSerializableWordBankStatistics(@JsonProperty("name") String wordBankName,
                                               @JsonProperty("gamesPlayed") int gamesPlayed,
                                               @JsonProperty("fastestClear") Double fastestClear,
                                               @JsonProperty("cardStats") List<JsonAdaptedCardStatistics> cardStats,
-                                              @JsonProperty("scoreStats") List<Integer> scoreStats) {
+                                              @JsonProperty("scoreStats") List<Integer> scoreStats,
+                                              @JsonProperty("badgeEasy") boolean badgeEasy,
+                                              @JsonProperty("badgeNormal") boolean badgeNormal,
+                                              @JsonProperty("badgeHard") boolean badgeHard) {
         this.wordBankName = wordBankName;
         this.gamesPlayed = gamesPlayed;
         this.fastestClear = fastestClear;
         this.cardStats.addAll(cardStats);
         this.scoreStats.addAll(scoreStats);
+
+        this.badgeEasy = badgeEasy;
+        this.badgeNormal = badgeNormal;
+        this.badgeHard = badgeHard;
     }
 
     /**
@@ -56,6 +66,9 @@ public class JsonSerializableWordBankStatistics {
         this.cardStats.addAll(cardStatsList);
         this.scoreStats.addAll(scoreDataList);
 
+        this.badgeEasy = wbStats.receivedBadgeEasy();
+        this.badgeNormal = wbStats.receivedBadgeNormal();
+        this.badgeHard = wbStats.receivedBadgeHard();
     }
 
     /**
@@ -74,6 +87,7 @@ public class JsonSerializableWordBankStatistics {
                 gamesPlayed,
                 Optional.ofNullable(fastestClear),
                 cardStatistics,
-                scoreStatistics);
+                scoreStatistics,
+                badgeEasy, badgeNormal, badgeHard);
     }
 }

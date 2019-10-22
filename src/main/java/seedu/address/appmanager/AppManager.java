@@ -81,7 +81,7 @@ public class AppManager {
 
         if (commandResult instanceof StartCommandResult) {
             StartCommandResult startCommandResult = (StartCommandResult) commandResult;
-            initGameStatistics(startCommandResult.getTitle());
+            initGameStatistics(startCommandResult.getTitle()); // initialize game statistics building
         }
 
         // handles game related actions

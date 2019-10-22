@@ -54,7 +54,7 @@
                   <Insets top="3.0" />
                </padding>
             </HBox>
-            <Separator opacity="0.6" prefWidth="200.0" stylesheets="@DarkTheme.css">
+            <Separator opacity="0.6" prefWidth="200.0">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
@@ -79,7 +79,7 @@
                   <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
                </VBox.margin>
             </VBox>
-            <Separator opacity="0.6" prefWidth="200.0" stylesheets="@DarkTheme.css">
+            <Separator opacity="0.6" prefWidth="200.0">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>

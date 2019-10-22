@@ -96,6 +96,11 @@ public class ModelManager implements Model {
         return this.game == null ? true : game.isOver();
     }
 
+    @Override
+    public DifficultyEnum getCurrentGameDifficulty() {
+        return game.getCurrentGameDifficulty();
+    }
+
     //=========== AppSettings ================================================================================
     @Override
     public AppSettings getAppSettings() {
