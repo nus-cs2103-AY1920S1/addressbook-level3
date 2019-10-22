@@ -37,9 +37,9 @@ public class LoanListCommand extends Command {
 
         // TODO Display the list in the main window instead of in the command result text box.
         StringBuilder builder = new StringBuilder();
-        builder.append("Current Loans:");
+        builder.append("Current Loans:\n");
         for (int i = 0; i < loansManager.getLoansCount(); i++) {
-            builder.append(loans.get(i));
+            builder.append(loans.get(i)).append("\n");
         }
 
         return new CommandResult(builder.toString());

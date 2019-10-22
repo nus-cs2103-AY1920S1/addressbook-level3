@@ -18,14 +18,14 @@ import budgetbuddy.model.loan.Loan;
 @JsonRootName(value = "loansmanager")
 public class JsonSerializableLoansManager {
 
-    private final List<JsonAdaptedLoan> jsonAdaptedLoans = new ArrayList<>();
+    private final List<JsonAdaptedLoan> loans = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableLoansManager} with the given loans.
      */
     @JsonCreator
     public JsonSerializableLoansManager(@JsonProperty("loans") List<JsonAdaptedLoan> persons) {
-        this.jsonAdaptedLoans.addAll(persons);
+        this.loans.addAll(persons);
     }
 
     /**
@@ -33,7 +33,7 @@ public class JsonSerializableLoansManager {
      * @param source Future changes to the source will not affect the created {@code JsonSerializableLoansManager}.
      */
     public JsonSerializableLoansManager(LoansManager source) {
-        jsonAdaptedLoans.addAll(source.getLoans().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
+        loans.addAll(source.getLoans().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
     }
 
     /**
@@ -41,10 +41,10 @@ public class JsonSerializableLoansManager {
      * @throws IllegalValueException If any data constraints are violated.
      */
     public LoansManager toModelType() throws IllegalValueException {
-        List<Loan> loans = new ArrayList<Loan>();
-        for (JsonAdaptedLoan jsonAdaptedLoan : jsonAdaptedLoans) {
-            loans.add(jsonAdaptedLoan.toModelType());
+        List<Loan> loanList = new ArrayList<Loan>();
+        for (JsonAdaptedLoan jsonAdaptedLoan : loans) {
+            loanList.add(jsonAdaptedLoan.toModelType());
         }
-        return new LoansManager(loans);
+        return new LoansManager(loanList);
     }
 }
