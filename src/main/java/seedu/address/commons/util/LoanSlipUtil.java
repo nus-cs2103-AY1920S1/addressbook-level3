@@ -163,7 +163,7 @@ public class LoanSlipUtil {
         String[] currentBookDetails = new String[3];
         currentBookDetails[0] = currentBook.getSerialNumber().toString();
         currentBookDetails[1] = currentBook.getTitle().toString();
-        currentBookDetails[2] = DateUtil.formatDate(currentLoan.getDueDate().toString());
+        currentBookDetails[2] = DateUtil.formatDate(currentLoan.getDueDate());
         return currentBookDetails;
     }
 
