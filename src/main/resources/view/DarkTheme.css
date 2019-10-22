@@ -380,6 +380,7 @@
      -fx border-top-width: 1px;
 	 -fx-background-radius: 0;
 	 -fx-text-fill: white;
+}
 
 #cheatsheetArea .content {
     -fx-background-color: derive(#1d1d1d, 20%);
