@@ -134,7 +134,7 @@ public class Schedule {
      * @param eventTime task duration
      * @return true if the duration clashes
      */
-    private boolean isAvailable(EventTime eventTime) {
+    public boolean isAvailable(EventTime eventTime) {
         EventTime previous = schedule.floor(eventTime);
         EventTime next = schedule.ceiling(eventTime);
 

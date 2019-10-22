@@ -7,7 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Deletes an entity using it's unique id from its list.
@@ -50,10 +52,15 @@ public class DeleteIdCommand extends Command {
             }
 
             Task taskToDelete = model.getTask(id);
-            model.deleteTask(taskToDelete);
 
-            //temp
-            //need to free driver from schedule
+            //if task has driver, free his schedule from the duration given in task
+            if (taskToDelete.getStatus() == TaskStatus.ON_GOING) {
+                //disregard check for optional empty because if a task is ON_GOING, there MUST be a driver and duration.
+                Driver driver = taskToDelete.getDriver().get();
+                driver.deleteFromSchedule(taskToDelete.getEventTime().get());
+            }
+
+            model.deleteTask(taskToDelete);
 
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className, taskToDelete));
         } else {

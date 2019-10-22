@@ -13,6 +13,7 @@ import seedu.address.model.tag.Tag;
 public class Driver extends Person {
 
     public static final String MESSAGE_INVALID_ID = "Invalid driver ID.";
+    public static final String MESSAGE_NOT_AVAILABLE = "Driver(ID: %1$s) is not available";
 
     //Identity fields
     private static int idCount = 1;
@@ -43,6 +44,18 @@ public class Driver extends Person {
         return schedule;
     }
 
+    public void deleteFromSchedule(EventTime durationToRemove) throws SchedulingException {
+        schedule.remove(durationToRemove);
+    }
+
+    public void addToSchedule(EventTime durationToAdd) throws SchedulingException {
+        schedule.add(durationToAdd);
+    }
+
+    public boolean isScheduleAvailable(EventTime durationToAdd) {
+        return schedule.isAvailable(durationToAdd);
+    }
+
     public String suggestTime(EventTime eventTime) {
         return this.schedule.getSchedulingSuggestion(eventTime);
     }
@@ -50,7 +63,6 @@ public class Driver extends Person {
     public void assign(EventTime eventTime) throws SchedulingException {
         this.schedule.add(eventTime);
     }
-
 
     /**
      * Returns a string representation of the driver, with identity fields visible to the user.

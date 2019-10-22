@@ -12,9 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Description;
+import seedu.address.model.DriverManager;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerManager;
 import seedu.address.model.person.Driver;
+import seedu.address.model.person.Schedule;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
@@ -85,12 +88,8 @@ public class JsonAdaptedTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
-    public Task toModelType() throws IllegalValueException {
-        //temp
-        // id ok, description ok, customerId NOT OK, date OK,
-        //need to check against customerManager list if customer id valid
-        //then get the customer and input into task as parameter
-        //SAME FOR DRIVER^
+    public Task toModelType(CustomerManager customerManager, DriverManager driverManager) throws IllegalValueException {
+        //Task ID ==================================================================================================
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Task.class.getSimpleName() + " ID"));
@@ -100,6 +99,7 @@ public class JsonAdaptedTask {
         }
         final int modelTaskId = Integer.parseInt(id);
 
+        //Description ==============================================================================================
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
@@ -109,16 +109,17 @@ public class JsonAdaptedTask {
         }
         final Description modelDescription = new Description(description);
 
+        //Customer ID ==============================================================================================
         if (customerId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Customer.class.getSimpleName() + " ID"));
         }
-        if (!Task.isValidId(customerId)) {
-            throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Customer.class.getSimpleName() + " ID"));
+        if (!Task.isValidId(customerId) || !customerManager.hasCustomer(Integer.parseInt(customerId))) {
+            throw new IllegalValueException(Customer.MESSAGE_INVALID_ID);
         }
-        //check if customer exists in the list
-        // final Customer modelCustomer = new Customer();
+        final Customer modelCustomer = customerManager.getCustomer(Integer.parseInt(customerId));
 
+        //Delivery Date ===========================================================================================
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LocalDate.class.getSimpleName()));
@@ -128,35 +129,51 @@ public class JsonAdaptedTask {
         }
         final LocalDate modelDate = Task.getDateFromString(date);
 
+        //Driver ID ==============================================================================================
         //driverId can be null
-        if (driverId != null && !Task.isValidId(driverId)) {
-            throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Driver.class.getSimpleName() + " ID"));
+        //if driver is not null, check if the id a valid, then check if there exist a driver with driverId.
+        if (driverId != null && (!Task.isValidId(driverId) || !driverManager.hasDriver(Integer.parseInt(driverId)))) {
+            throw new IllegalValueException(Driver.MESSAGE_INVALID_ID);
         }
-        //final Driver modelDriver = new Driver();
 
+        //Duration ==============================================================================================
         //Duration's can be null
         if (duration != null && !EventTime.isValidEventTime(duration)) {
             throw new IllegalValueException(EventTime.MESSAGE_CONSTRAINTS);
         }
 
+        //Create Task ===========================================================================================
         Task task = new Task(modelTaskId, modelDescription, modelDate);
+        task.setCustomer(modelCustomer);
+
         if (driverId != null) {
-            //get driver from DriverManager
-            //assign driver to the task
+            Optional<Driver> driverOptional = driverManager.getDriver(Integer.parseInt(driverId));
+            if (driverOptional.isEmpty()) {
+                throw new IllegalValueException(Driver.MESSAGE_INVALID_ID);
+            }
+
+            task.setDriver(driverOptional);
         }
+        //if driver is not null, duration must be not null as well.
         if (duration != null) {
             final EventTime modelEventTime = EventTime.parse(duration);
             task.setEventTime(Optional.of(modelEventTime));
         }
 
         //status cannot be null
-        if (status != null) {
+        if (status == null) {
             throw new IllegalValueException(TaskStatus.MESSAGE_CONSTRAINTS);
         }
+
         if (status.equals(TaskStatus.INCOMPLETE.toString())) {
             task.setStatus(TaskStatus.INCOMPLETE);
         } else if (status.equals(TaskStatus.ON_GOING.toString())) {
             task.setStatus(TaskStatus.ON_GOING);
+
+            //if status is ongoing, then load the eventTime to driver schedule
+            Driver driver = driverManager.getDriver(Integer.parseInt(driverId)).get();
+            Schedule driverSchedule = driver.getSchedule();
+            driverSchedule.add(EventTime.parse(duration));
         } else {
             //task is completed
             task.setStatus(TaskStatus.COMPLETED);

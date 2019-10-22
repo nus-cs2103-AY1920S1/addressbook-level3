@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.DriverManager;
+import seedu.address.model.person.CustomerManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
 
@@ -44,10 +46,11 @@ class JsonSerializableTaskManager {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public TaskManager toModelType() throws IllegalValueException {
+    public TaskManager toModelType(CustomerManager customerManager,
+                                   DriverManager driverManager) throws IllegalValueException {
         TaskManager taskManager = new TaskManager();
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
-            Task task = jsonAdaptedTask.toModelType();
+            Task task = jsonAdaptedTask.toModelType(customerManager, driverManager);
             if (taskManager.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
