@@ -222,9 +222,8 @@ public class ItemModelManager implements ItemModel {
      */
     public void addItem (Item item) {
         visualList.add(item);
-        //TODO: Shouldnt addToSeparateList be successful before we store the item?
-        itemStorage.add(item);
         addToSeparateList(item);
+        itemStorage.add(item);
     }
 
     /**
@@ -233,17 +232,8 @@ public class ItemModelManager implements ItemModel {
 
     public void addItem(ItemIndexWrapper wrapper) {
         visualList.addToIndex(wrapper.getVisual(), wrapper.getItem());
-        itemStorage.add(wrapper.getStorage(), wrapper.getItem());
         addToSeparateList(wrapper);
-    }
-
-    /**
-     * Adds an item to a specific list
-     * @param item the item to be added to the list
-     * @param il the list the item is to be added to
-     */
-    public void addItem (Item item, VisualizeList il) {
-        il.add(item);
+        itemStorage.add(wrapper.getStorage(), wrapper.getItem());
     }
 
     /**
@@ -297,17 +287,7 @@ public class ItemModelManager implements ItemModel {
      */
     public Item removeItem(int index) {
         Item item = visualList.removeItemFromList(index);
-        if (visualList instanceof TaskList) {
-            taskList.removeItemFromList(item);
-        } else if (visualList instanceof EventList) {
-            eventList.removeItemFromList(item);
-        } else if (visualList instanceof ReminderList) {
-            reminderList.removeItemFromList(item);
-        } else {
-            // never reached here as there are only three variants for the visualList
-        }
-
-        return item;
+        return removeItem(item);
     }
 
     /**

@@ -34,6 +34,7 @@ public class ScheduledPriorityCommand extends PriorityCommand {
             @Override
             public void run() {
                 model.toggleOffPriorityMode();
+                timer.cancel();
             }
         }, date);
         return super.execute(model);
