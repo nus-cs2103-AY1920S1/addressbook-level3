@@ -35,7 +35,7 @@ public class Answer {
     public boolean equals(Object other) {
         return other == this
             || (other instanceof Answer
-            && answer.equals(((Answer) other).answer));
+            && answer.toLowerCase().equals(((Answer) other).answer.toLowerCase()));
     }
 
     @Override
