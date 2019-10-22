@@ -16,14 +16,12 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-<<<<<<< HEAD
-import seedu.address.model.task.Task;
-=======
 import seedu.address.model.reminder.Reminder;
->>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
+import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -111,13 +109,12 @@ public class AddressBookTest {
         }
 
         @Override
-<<<<<<< HEAD
         public ObservableList<Task> getTaskList() {
             return null;
-=======
+        }
+        @Override
         public ObservableList<Reminder> getReminderList() {
             return reminder;
->>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
         }
     }
 

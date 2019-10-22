@@ -27,11 +27,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Earnings> filteredEarnings;
-<<<<<<< HEAD
     private final FilteredList<Task> filteredTasks;
-=======
     private final FilteredList<Reminder> filteredReminder;
->>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,11 +43,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEarnings = new FilteredList<>(this.addressBook.getEarningsList());
-<<<<<<< HEAD
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
-=======
         filteredReminder = new FilteredList<>(this.addressBook.getReminderList());
->>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
     }
 
     public ModelManager() {
