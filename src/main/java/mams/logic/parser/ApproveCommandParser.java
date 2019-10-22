@@ -32,8 +32,8 @@ public class ApproveCommandParser implements Parser<Approve> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REASON, PREFIX_MASS_RESOLVE);
 
-        Index index;
-        if (argMultimap.getValue(PREFIX_REASON).isPresent()) {
+        Index index;A
+        if (argMultimap.getValue(PREFIX_RESON).isPresent()) {
             try {
                 index = ParserUtil.parseIndex(argMultimap.getPreamble());
             } catch (IllegalValueException ive) {

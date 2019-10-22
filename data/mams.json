@@ -40,7 +40,7 @@
     "credits" : "20",
     "prevMods" : "CS2030, CS4040",
     "matricId" : "A12039123S",
-    "tagged" : [ "classmates" ]
+    "tagged" : [ "CS1010", "classmates" ]
   }, {
     "name" : "Roy Balakrishnan",
     "credits" : "20",
@@ -148,9 +148,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
-    "remark" : ""
+    "resolved" : true,
+    "result" : "APPROVED",
+    "remark" : "dead"
   }, {
     "appealId" : "C000001",
     "appealType" : "Drop module",
