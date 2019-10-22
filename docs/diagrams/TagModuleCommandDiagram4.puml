@@ -1,0 +1,33 @@
+@startuml
+
+title Module after adding Tag (New tag is not created)
+
+object addTagCommand {
+    newTagCreated = false
+}
+
+object studyPlan
+
+object studyPlanTagList
+
+object targetTag
+
+studyPlan -right- studyPlanTagList
+studyPlanTagList -right- targetTag
+
+targetTag -up- addTagCommand : toAdd
+
+object module
+
+object moduleTagList
+
+object otherTag1
+object otherTag2
+
+module -right- moduleTagList
+moduleTagList -right- otherTag1
+moduleTagList -right- otherTag2
+moduleTagList -up- targetTag
+
+
+@enduml

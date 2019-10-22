@@ -388,7 +388,11 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         activeStudyPlan.updateAllCompletedTags();
     }
 
+
     //=========== Util Methods =================================================================================
+    public HashMap<String, Module> getModulesFromActiveSp() {
+        return activeStudyPlan.getModules();
+    }
 
     @Override
     public String toString() {

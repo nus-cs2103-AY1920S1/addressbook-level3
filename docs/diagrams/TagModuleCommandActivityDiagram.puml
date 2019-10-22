@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes command to add tag to module;
+
+if () then ([active study plan contains identical tag])
+    :Get tag from unique tag list of active study plan;
+    if () then ([tag is default])
+        :Throw command exception;
+        stop
+    else ([else])
+    endif
+else ([else])
+    :Create new UserTag;
+endif
+
+if () then ([module's unique tag list contains identical tag])
+    :Throw command exception;
+    stop
+else ([else])
+    :Add tag to the unique tag list of the target module;
+endif
+stop
+
+@enduml
