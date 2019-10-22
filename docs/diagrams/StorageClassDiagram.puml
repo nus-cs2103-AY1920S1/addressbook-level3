@@ -4,21 +4,91 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+Package userprefs {
+    Class JsonUserPrefsStorage
+    Interface UserPrefsStorage <<Interface>>
+}
+
+Package menu {
+    Class JsonMenuStorage
+    Interface MenuStorage <<Interface>>
+    Class JsonSerializableMenu
+}
+
+Package food {
+    Class JsonSerializableFood
+    Class JsonAdaptedTag
+}
+
+Package purchasehistory {
+    Interface PurchaseHistoryStorage <<Interface>>
+    Class JsonPurchaseHistoryStorage
+    Class JsonSerializablePurchase
+}
+
+Package sort {
+    Interface CustomSortStorage <<Interface>>
+    Class JsonAdaptedCustomSort
+    Class JsonCustomSortStorage
+    Class JsonSerializableCustomSort
+}
+
+Package purchase {
+    Class JsonAdaptedPurchase
+}
+
+Package wallet {
+    Class JsonAdaptedWallet
+}
+
+Package savings {
+    Interface SavingsStorage <<Interface>>
+    Class JsonAdaptedSavings
+    Class JsonSavingsStorage
+    Class JsonSerializableSavingsAccount
+}
+
+Package recommend {
+    Interface RecsStorage <<Interface>>
+    Class JsonAdaptedRecs
+    Class JsonRecsStorage
+    Class JsonSerializableRecs
+}
+
 Interface Storage <<Interface>>
-Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
 
 Class StorageManager
-Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonMenuStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> MenuStorage
+StorageManager o--> PurchaseHistoryStorage
+StorageManager o--> CustomSortStorage
+StorageManager o-right-> SavingsStorage
+StorageManager o-left-> RecsStorage
+
+JsonPurchaseHistoryStorage .left.|> PurchaseHistoryStorage
+JsonPurchaseHistoryStorage .down.> JsonSerializablePurchase
+JsonSerializablePurchase .down.> JsonAdaptedPurchase
+
+JsonSavingsStorage .left.|> SavingsStorage
+JsonSavingsStorage .down.> JsonSerializableSavingsAccount
+JsonSerializableSavingsAccount .right.> JsonAdaptedSavings
+
+JsonRecsStorage .left.|> RecsStorage
+JsonRecsStorage .down.> JsonSerializableRecs
+JsonSerializableRecs .right.> JsonAdaptedRecs
+
+JsonCustomSortStorage .left.|> CustomSortStorage
+
+JsonCustomSortStorage .down.> JsonSerializableCustomSort
+JsonSerializableCustomSort .right.> JsonAdaptedCustomSort
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializableFood
+JsonMenuStorage .left.|> MenuStorage
+JsonMenuStorage .down.> JsonSerializableMenu
+JsonSerializableMenu .down.> JsonSerializableFood
 JsonSerializableFood .right.> JsonAdaptedTag
+JsonSerializableMenu .right.> JsonAdaptedWallet
 @enduml
