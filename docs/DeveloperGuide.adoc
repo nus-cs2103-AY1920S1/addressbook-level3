@@ -123,6 +123,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Billboard and ArchiveWrapper data, i.e current expenses and archived past expenses.
+* stores `UniqueTagList` and `TagCountManager` to track tags.
 * exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
