@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private Editor editorPanel;
     private RunCodeResult runCodeResultPanel;
+    private ProfilePage profilePage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -61,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private AnchorPane runCodeResultPlaceholder;
+
+    @FXML
+    private AnchorPane profilePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -141,6 +145,9 @@ public class MainWindow extends UiPart<Stage> {
         runCodeResultPanel = new RunCodeResult(new TestCase("1 1", "2"),
                 TestCaseResult.getFailedTestCaseResult("1 1", "2", "3"));
         runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
+
+        profilePage = new ProfilePage();
+        profilePlaceholder.getChildren().add(profilePage.getRoot());
     }
 
     /**

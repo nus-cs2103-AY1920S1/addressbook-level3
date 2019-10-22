@@ -63,6 +63,11 @@
                            <AnchorPane fx:id="runCodeResultPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="410.0" />
                         </children>
                      </VBox>
+                     <VBox prefHeight="200.0" prefWidth="100.0">
+                        <children>
+                           <AnchorPane fx:id="profilePlaceholder" prefHeight="200.0" prefWidth="200.0" />
+                        </children>
+                     </VBox>
                   </children>
                   <VBox.margin>
                      <Insets left="5.0" />
