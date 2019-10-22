@@ -7,6 +7,10 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
+import seedu.address.model.scheduler.Reminder;
+import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
@@ -18,6 +22,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
+    private final UniqueLessonList lessons;
+    private final UniqueReminderList reminders;
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -28,6 +35,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         students = new UniqueStudentList();
         assignments = new UniqueAssignmentList();
+        lessons = new UniqueLessonList();
+        reminders = new UniqueReminderList();
     }
 
     public AddressBook() {}
@@ -59,8 +68,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setStudents(newData.getStudentList());
+        setAssignments(newData.getAssignmentList());
     }
 
     //// student-level operations
@@ -137,6 +146,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         assignments.remove(key);
     }
 
+    /**
+     * Adds a lessons to the address book.
+     * The lesson must not already exist in the address book.
+     */
+    public void addLesson(Lesson p) {
+        lessons.add(p);
+    }
+
+    /**
+     * Returns true if a lesson with the same identity as {@code lesson} exists in the address book.
+     */
+    public boolean hasLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        return lessons.contains(lesson);
+    }
+
     //// util methods
 
     @Override
@@ -151,6 +176,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Reminder> getReminderList() {
+        return reminders.asUnmodifiableObservableList();
+    }
+
     public ObservableList<Assignment> getAssignmentList() {
         return assignments.asUnmodifiableObservableList();
     }

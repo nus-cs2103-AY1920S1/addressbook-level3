@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.Grade;
 import seedu.address.model.student.Student;
 
 
@@ -37,13 +38,13 @@ public class EditAssignmentCommand extends Command {
 
     private final Index index;
     private final List<String> students;
-    private final List<Integer> grades;
+    private final List<Grade> grades;
 
     /**
      * @param index of the assignment in the filtered assignment list to edit
      * @param grades List of grades
      */
-    public EditAssignmentCommand(Index index, List<Integer> grades) {
+    public EditAssignmentCommand(Index index, List<Grade> grades) {
         requireNonNull(index);
         requireNonNull(grades);
 
@@ -87,7 +88,7 @@ public class EditAssignmentCommand extends Command {
      * edited with {@code editAssignmentDescriptor}.
      */
     private static Assignment createEditedAssignment(Assignment assignmentToEdit,
-                                                     List<String> students, List<Integer> grades) {
+                                                     List<String> students, List<Grade> grades) {
         assert assignmentToEdit != null;
         assignmentToEdit.setGrades(students, grades);
 

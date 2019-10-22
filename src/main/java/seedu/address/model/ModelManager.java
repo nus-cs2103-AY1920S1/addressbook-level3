@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -23,6 +25,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
+    private FilteredList<Reminder> filteredReminders;
     private final FilteredList<Assignment> filteredAssignments;
 
     /**
@@ -37,8 +40,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
+        filteredReminders = new FilteredList<>(this.addressBook.getReminderList());
         filteredAssignments = new FilteredList<>(this.addressBook.getAssignmentList());
-
     }
 
     public ModelManager() {
@@ -140,6 +143,20 @@ public class ModelManager implements Model {
         addressBook.setAssignment(target, editedAssignment);
     }
 
+    public void addLesson(Lesson lesson) {
+        addressBook.addLesson(lesson);
+    }
+
+    @Override
+    public boolean hasLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        return addressBook.hasLesson(lesson);
+    }
+
+    @Override
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return filteredReminders;
+    }
     //=========== Filtered Student List Accessors =============================================================
 
     /**

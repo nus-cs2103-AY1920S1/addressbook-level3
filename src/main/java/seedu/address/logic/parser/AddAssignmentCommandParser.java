@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentName;
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object
@@ -27,9 +28,9 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
         }
 
-        String name = ParserUtil.parseAssignmentName(argMultimap.getValue(PREFIX_ASSIGNMENT).get());
+        AssignmentName assignmentName = ParserUtil.parseAssignmentName(argMultimap.getValue(PREFIX_ASSIGNMENT).get());
 
-        Assignment assignment = new Assignment(name);
+        Assignment assignment = new Assignment(assignmentName);
         return new AddAssignmentCommand(assignment);
     }
 

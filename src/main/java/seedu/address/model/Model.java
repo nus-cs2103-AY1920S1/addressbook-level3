@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -87,5 +89,24 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStudentList(Predicate<Student> predicate);
+
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    /**
+     * Adds the given lesson.
+     * @param lesson Lesson object.
+     */
+    void addLesson(Lesson lesson);
+
+    /**
+     * Returns true if a Lesson with the same identity exists in the addressbook.
+     * @param lesson Lesson object.
+     */
+    boolean hasLesson(Lesson lesson);
+
+    /**
+     * returns an unmodifiable view of the filtered
+     * @return Ob
+     */
+    ObservableList<Reminder> getFilteredReminderList();
 }

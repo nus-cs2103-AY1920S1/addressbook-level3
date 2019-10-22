@@ -1,6 +1,9 @@
 package seedu.address.model.assignment;
 
-import java.util.HashMap;
+import static java.util.Objects.requireNonNull;
+
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,28 +11,35 @@ import java.util.List;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Assignment {
-    private String assignmentName;
-    private boolean isCompleted;
-    private HashMap<String, Integer> assignmentGrades = new HashMap<>();
 
-    public Assignment(String name) {
-        this.assignmentName = name;
+    private final AssignmentName assignmentName;
+    private boolean isCompleted;
+    private LinkedHashMap<String, Grade> assignmentGrades = new LinkedHashMap<>();
+
+    /**
+     * Constructs a {@code Assignment}.
+     *
+     * @param assignmentName A valid assignment name.
+     */
+    public Assignment(AssignmentName assignmentName) {
+        requireNonNull(assignmentName);
+        this.assignmentName = assignmentName;
         this.isCompleted = false;
     }
 
-    public String getAssignmentName() {
+    public AssignmentName getAssignmentName() {
         return this.assignmentName;
     }
 
-    public HashMap<String, Integer> getGrades() {
-        return this.assignmentGrades;
+    public LinkedList<Grade> getGrades() {
+        return new LinkedList<>(assignmentGrades.values());
     }
 
-    public void setGrades(List<String> studentNames, List<Integer> newGrades) {
+    public void setGrades(List<String> studentList, List<Grade> newGrades) {
         //Remove grades of students that no longer exist in the classroom
         for (String existingName: assignmentGrades.keySet()) {
             boolean shouldInclude = false;
-            for (String updatedName: studentNames) {
+            for (String updatedName: studentList) {
                 if (updatedName.equals(existingName)) {
                     shouldInclude = true;
                 }
@@ -39,13 +49,18 @@ public class Assignment {
             }
         }
         //Add new grades
-        for (int i = 0; i < studentNames.size(); i++) {
-            String studentName = studentNames.get(i);
-            Integer studentGrade = newGrades.get(i);
-            if (assignmentGrades.containsKey(studentName)) {
-                assignmentGrades.replace(studentName, studentGrade);
+        for (int i = 0; i < studentList.size(); i++) {
+            String student = studentList.get(i);
+            Grade studentGrade;
+            if (newGrades.size() <= i) {
+                studentGrade = new Grade("-1");
             } else {
-                assignmentGrades.put(studentName, studentGrade);
+                studentGrade = newGrades.get(i);
+            }
+            if (assignmentGrades.containsKey(student)) {
+                assignmentGrades.replace(student, studentGrade);
+            } else {
+                assignmentGrades.put(student, studentGrade);
             }
         }
         this.isCompleted = true;
@@ -68,7 +83,7 @@ public class Assignment {
     @Override
     public String toString() {
         String output = "";
-        output += this.assignmentName;
+        output += this.getAssignmentName();
         output += "\nCompleted: " + this.isCompleted;
         output += "\n" + this.assignmentGrades;
         return output;
