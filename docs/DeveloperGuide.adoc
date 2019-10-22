@@ -177,9 +177,111 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Dashboard feature
-==== Proposed Implementation
-==== Design Considerations
+// tag::dashboard[]
+=== Add/Delete/Edit/Find/List tasks
+==== Implementation
+The functions are found under the Dashboard. +
+The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
+by the user. The tasks are sorted accordingly by earliest date.
+Here, a task is represented by a Dashboard object.
+
+The add/delete/edit/find/list mechanism is implemented in `DukeCooks v1.3`. It extends
+`DukeCooks` with a function to add/delete/edit/find tasks.
+
+The operations are as followed:
+
+* `DukeCooks v1.3#add()` -- Adds and saves the task into `DukeCooks`.
+* `DukeCooks v1.3#delete()` -- Removes the specified task from `DukeCooks`.
+* `DukeCooks v1.3k#edit()` -- Edits the specified with a new task name and/or date.
+* `DukeCooks v1.3#find()` -- Finds a list of task with a given keyword.
+* `DukeCooks v1.3#list()` -- Finds a list of task with a given keyword.
+
+These operations are exposed in the Model interface as `Model#addDashboard()`,
+`Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` and
+`Model#getDashboardRecords()` respectively.
+
+Given below is an example usage scenario and how the add/delete/edit/find/list
+mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. `DukeCooks v1.3` will
+be initialized with the dashboard state, and the `currentStatePointer` pointing to
+that single dashboard state.
+
+/insert uml here
+
+Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
+task into Duke Cooks. The `add` command calls `Model#addDashboard()`, causing the task to
+be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
+`UniqueDashboardList#add()` which will call `UniqueDashboardList#sortDashboard()`. At this
+stage, the list of task is sorted by date. After which, the `add` command also calls
+`Model#saveDashboard()`, causing another modified dashboard state to be saved into the
+`UniqueDashboardList`.
+
+/insert uml here
+
+Step 3. The user executes `delete task 3` command to delete the 3rd task in the
+dashboard. The delete command calls `Model#deleteDashboard()` causing the specified task
+to be removed from `UniqueDashboardList`. In `UniqueDashboardList`, it calls
+`UniqueDashboardList#remove()` which will call `UniqueDashboardList#sortDashboard()`. At this
+stage, the list of task is sorted by date. Also, it calls `Model#saveDashboard()`,
+causing the modified state of the dashboard after the `delete task 3` command executes
+to be saved in the `UniqueDashboardList`, and the `currentStatePointer` is shifted to the
+newly inserted dashboard state.
+
+/insert uml here
+
+Step 4. The user executes `edit task...` command to edit a field in a task. The edit
+command calls `Model#setDashboard()` causing the edited task to be updated in
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#setDashboard()`
+which will call `UniqueDashboardList#sortDashboard()`. At this stage, the list of task is
+sorted by date. Also, it calls `Model#saveDashboard()`, causing the modified state of the
+dashboard after the `edit task...` command executes to `UniqueDashboardList`, and the
+`currentStatePointer` is shifted to the newly inserted dashboard state.
+
+/insert uml here
+
+Step 5. The user executes `find task...` command to find a list of task given a keyword.
+The find command calls `Model#hasDashboard()`, which searches through the
+`UniqueDashboardList` for tasks containing the particular keyword. The `currentStatePointer`
+remains at the same location after the step.
+
+/insert uml here
+
+Step 6. The user executes `list task` command to view all the tasks found in `UniqueDashboardList`.
+The list command calls `Model#getDashboardRecords()`, which returns the `ReadOnlyDashboard` that
+returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
+homepage. The `currentStatePointer` remains at the same location after the step.
+
+The following sequence diagram shows how the add operation works:
+
+/insert uml here
+
+The following activity diagram summarizes what happens when a user executes a new
+command.
+
+/insert activity diagram here
+
+===== Aspect: How add/delete/edit/find/list executes
+* **Alternative 1 (current choice):** Sort the list whenever add/delete/edit is called.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of time.
+* **Alternative 2:** Keep an instance of the earliest and latest date. If dates fall
+out of range from the two dates, sorting does not happen.
+** Pros: Faster runtime.
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the add/delete/edit/find/list commands
+* **Alternative 1 (current choice):** Use `Collections.sort` to sort by date.
+** Pros: Easy to implement.
+** Cons: Current implementations require a `LocalDate` object to be create for every
+`TaskDate` object.
+* **Alternative 2:** Use `LocalDate` to store dates instead of creating a custom class,
+`TaskDate`.
+** Pros: Since this is found in the Java API, we do not have to worry about invalid dates
+being keyed.
+** Cons: As the current `TaskDate` works fine, refactoring the code to `LocalDate` might
+take some time.
+// end::dashboard[]
 
 === RecipeBook feature
 ==== Proposed Implementation

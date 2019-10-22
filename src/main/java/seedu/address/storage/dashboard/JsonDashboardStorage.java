@@ -15,7 +15,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.dashboard.ReadOnlyDashboard;
 
 /**
- * A class to access RecipeBook data stored as a json file on the hard disk.
+ * A class to access dashboard data stored as a json file on the hard disk.
  */
 public class JsonDashboardStorage implements DashboardStorage {
 
