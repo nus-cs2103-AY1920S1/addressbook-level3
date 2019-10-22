@@ -1,5 +1,6 @@
 package seedu.address.cashier.commands;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.cashier.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -18,10 +19,10 @@ import seedu.address.testutil.TypicalTransactions;
 
 public class CheckoutCommandTest {
 
-    private Double validTotalAmount = 90.43;
-    private Double validChange = 4.21;
-    private Double invalidTotalAmount = -50.32;
-    private Double invalidChange = -3.21;
+    private static final Double VALID_TOTAL_AMOUNT = 90.43;
+    private static final Double VALID_CHANGE = 4.21;
+    private static final Double INVALID_TOTAL_AMOUNT = -50.32;
+    private static final Double INVALID_CHANGE = -3.21;
 
     private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList());
 
@@ -35,13 +36,26 @@ public class CheckoutCommandTest {
     private InventoryModelStubAcceptingItemAdded inventoryModelStubAcceptingItemAdded =
             new InventoryModelStubAcceptingItemAdded(TypicalItem.getTypicalItems());
 
+
+    @Test
+    public void constructor_invalidTotalAmount_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> new CheckoutCommand(INVALID_TOTAL_AMOUNT, VALID_CHANGE));
+    }
+
+    @Test
+    public void constructor_invalidChange_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> new CheckoutCommand(VALID_TOTAL_AMOUNT, INVALID_CHANGE));
+    }
+
     @Test
     public void execute_validTotalAmountAndChange_withoutCashier_throwsNoCashierFoundException() {
-        CheckoutCommand checkoutCommand = new CheckoutCommand(validTotalAmount, validChange);
+        CheckoutCommand checkoutCommand = new CheckoutCommand(VALID_TOTAL_AMOUNT, VALID_CHANGE);
         String expectedMessage = CashierMessages.NO_CASHIER;
         assertCommandFailure(checkoutCommand, model, expectedMessage,
                 personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
     }
+
+
 /*
     @Test
     public void execute_validTotalAmount_validChange_successful() throws Exception {
