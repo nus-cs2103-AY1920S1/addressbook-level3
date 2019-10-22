@@ -176,7 +176,7 @@ Step 3. The user executes `invite p/Louis ...` to invite more people into the cu
 
 The following sequence diagram shows how the invite operation works:
 
-image:: InviteSequenceDiagram.png[]
+image::InviteSequenceDiagram.png[]
 
 NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -186,7 +186,7 @@ Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(
 
 The following sequence diagram shows how the disinvite operation works:
 
-image:: DisinviteSequenceDiagram.png[]
+image::DisinviteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DisinviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
