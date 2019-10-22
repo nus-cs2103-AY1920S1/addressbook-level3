@@ -39,6 +39,7 @@ public class Budget {
     private boolean isPrimary;
     private Percentage proportionUsed;
 
+    //Constructor for user.
     public Budget(Description description, Price amount, Timestamp startDate, Period period) {
         requireAllNonNull(description, startDate, period, amount);
         this.description = description;
@@ -51,6 +52,7 @@ public class Budget {
         this.proportionUsed = new Percentage(0);
     }
 
+    //Constructor for system.
     public Budget(Description description, Price amount, Timestamp startDate, Period period, List<Expense> expenses) {
         requireAllNonNull(description, amount, startDate, period, expenses);
         this.description = description;
@@ -61,6 +63,20 @@ public class Budget {
         this.isPrimary = false;
         this.proportionUsed = new Percentage(0);
         this.expenses = expenses;
+    }
+
+    //Constructor for system.
+    public Budget(Description description, Price amount, Timestamp startDate, Timestamp endDate, Period period,
+                  List<Expense> expenses, boolean isPrimary, Percentage proportionUsed) {
+        requireAllNonNull(description, amount, startDate, endDate, period, expenses, isPrimary, proportionUsed);
+        this.description = description;
+        this.amount = amount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.period = period;
+        this.expenses = expenses;
+        this.isPrimary = isPrimary;
+        this.proportionUsed = proportionUsed;
     }
 
     public Description getDescription() {
@@ -87,8 +103,8 @@ public class Budget {
         return expenses;
     }
 
-    public void addExpense(Expense e) {
-        expenses.add(e);
+    public Percentage getProportionUsed() {
+        return proportionUsed;
     }
 
     /**
@@ -102,6 +118,10 @@ public class Budget {
                 DEFAULT_BUDGET_PERIOD);
     }
 
+    public void addExpense(Expense e) {
+        expenses.add(e);
+    }
+
     public double getExpenseSum() {
         double sum = 0;
         for (int i = 0; i < expenses.size(); i++) {
@@ -110,7 +130,7 @@ public class Budget {
         return sum;
     }
 
-    public Percentage getProportionUsed() {
+    public Percentage calculateProportionUsed() {
         return Percentage.calculate(getExpenseSum(), amount.getAsDouble());
     }
 
@@ -141,7 +161,7 @@ public class Budget {
     public void refresh(Timestamp date) {
         assert endDate.isBefore(date) : "Budget is refreshed only when expired";
         long daysDiff = ChronoUnit.DAYS.between(endDate.getTimestamp(), date.getTimestamp());
-        int periodDays = period.getDays();
+        long periodDays = ChronoUnit.DAYS.between(startDate.getTimestamp(), endDate.getTimestamp());
         long cycles = daysDiff / periodDays;
         long offset = cycles * periodDays;
         startDate = endDate.plusDays(offset);
@@ -192,7 +212,7 @@ public class Budget {
         }
 
         return otherBudget != null
-                && otherBudget.getDescription().equals(getDescription());
+                && otherBudget.description.equals(description);
     }
 
     @Override
@@ -206,13 +226,14 @@ public class Budget {
         }
 
         Budget otherBudget = (Budget) other;
-        return otherBudget.getDescription().equals(getDescription())
-                && otherBudget.getAmount().equals(getAmount())
-                && otherBudget.getStartDate().equals(getStartDate())
-                && otherBudget.getPeriod().equals(getPeriod())
-                && otherBudget.getEndDate().equals(getEndDate())
-                && otherBudget.isPrimary() == isPrimary()
-                && otherBudget.getExpenses().equals(getExpenses());
+        return otherBudget.description.equals(description)
+                && otherBudget.amount.equals(amount)
+                && otherBudget.startDate.equals(startDate)
+                && otherBudget.period.equals(period)
+                && otherBudget.endDate.equals(endDate)
+                && otherBudget.expenses.equals(expenses)
+                && otherBudget.isPrimary == isPrimary
+                && otherBudget.proportionUsed.equals(proportionUsed);
     }
 
     @Override
@@ -234,7 +255,7 @@ public class Budget {
                 .append(startDate)
                 .append(" End date: ")
                 .append(endDate)
-                .append("||");
+                .append(" ||");
         return builder.toString();
     }
 }
