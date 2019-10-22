@@ -34,7 +34,6 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New Spending added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SPENDING = "This Spending already exists in MoneyGoWhere";
 
     private final Spending toAdd;
 
@@ -49,10 +48,6 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (model.hasSpending(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SPENDING);
-        }
 
         model.addSpending(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

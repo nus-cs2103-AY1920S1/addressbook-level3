@@ -8,22 +8,13 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.moneygowhere.model.spending.exceptions.DuplicateSpendingException;
 import seedu.moneygowhere.model.spending.exceptions.SpendingNotFoundException;
 
 /**
- * A list of spendings that enforces uniqueness between its elements and does not allow nulls.
- * A Spending is considered unique by comparing using {@code Spending#isSameSpending(Spending)}.
- * As such, adding and updating of spending uses Spending#isSameSpending(Spending) for equality so as to ensure that the
- * Spending being added or updated is unique in terms of identity in the UniqueSpendingList.
- * However, the removal of a Spending uses Spending#equals(Object) so
- * as to ensure that the Spending with exactly the same fields will be removed.
- *
+ * A list of spendings
  * Supports a minimal set of list operations.
- *
- * @see Spending#isSameSpending(Spending)
  */
-public class UniqueSpendingList implements Iterable<Spending> {
+public class SpendingList implements Iterable<Spending> {
 
     private final ObservableList<Spending> internalList = FXCollections.observableArrayList();
     private final ObservableList<Spending> internalUnmodifiableList =
@@ -39,20 +30,15 @@ public class UniqueSpendingList implements Iterable<Spending> {
 
     /**
      * Adds a Spending to the list.
-     * The Spending must not already exist in the list.
      */
     public void add(Spending toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateSpendingException();
-        }
         internalList.add(toAdd);
     }
 
     /**
      * Replaces the Spending {@code target} in the list with {@code editedSpending}.
      * {@code target} must exist in the list.
-     * The Spending identity of {@code editedSpending} must not be the same as another existing Spending in the list.
      */
     public void setSpending(Spending target, Spending editedSpending) {
         requireAllNonNull(target, editedSpending);
@@ -60,10 +46,6 @@ public class UniqueSpendingList implements Iterable<Spending> {
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new SpendingNotFoundException();
-        }
-
-        if (!target.isSameSpending(editedSpending) && contains(editedSpending)) {
-            throw new DuplicateSpendingException();
         }
 
         internalList.set(index, editedSpending);
@@ -80,21 +62,16 @@ public class UniqueSpendingList implements Iterable<Spending> {
         }
     }
 
-    public void setSpendings(UniqueSpendingList replacement) {
+    public void setSpendings(SpendingList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
      * Replaces the contents of this list with {@code spendings}.
-     * {@code spendings} must not contain duplicate spendings.
      */
     public void setSpendings(List<Spending> spendings) {
         requireAllNonNull(spendings);
-        if (!spendingsAreUnique(spendings)) {
-            throw new DuplicateSpendingException();
-        }
-
         internalList.setAll(spendings);
     }
 
@@ -113,26 +90,12 @@ public class UniqueSpendingList implements Iterable<Spending> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueSpendingList // instanceof handles nulls
-                        && internalList.equals(((UniqueSpendingList) other).internalList));
+                || (other instanceof SpendingList // instanceof handles nulls
+                        && internalList.equals(((SpendingList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
-    }
-
-    /**
-     * Returns true if {@code spendings} contains only unique spendings.
-     */
-    private boolean spendingsAreUnique(List<Spending> spendings) {
-        for (int i = 0; i < spendings.size() - 1; i++) {
-            for (int j = i + 1; j < spendings.size(); j++) {
-                if (spendings.get(i).isSameSpending(spendings.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }

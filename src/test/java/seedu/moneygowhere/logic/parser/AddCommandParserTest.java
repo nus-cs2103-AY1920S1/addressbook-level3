@@ -76,9 +76,14 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Spending expectedSpending = new SpendingBuilder(AMY).withTags().build();
+        Spending expectedSpendingNoTag = new SpendingBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + DATE_DESC_AMY + REMARK_DESC_AMY + COST_DESC_AMY,
-                new AddCommand(expectedSpending));
+                new AddCommand(expectedSpendingNoTag));
+
+        // missing remark
+        Spending expectedSpendingNoRemark = new SpendingBuilder(AMY).withRemark("").build();
+        assertParseSuccess(parser, NAME_DESC_AMY + DATE_DESC_AMY + COST_DESC_AMY + TAG_DESC_FRIEND,
+                new AddCommand(expectedSpendingNoRemark));
     }
 
     @Test
@@ -91,10 +96,6 @@ public class AddCommandParserTest {
 
         // missing date prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_DATE_BOB + REMARK_DESC_BOB + COST_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + DATE_DESC_BOB + VALID_REMARK_BOB + COST_DESC_BOB,
                 expectedMessage);
 
         // missing cost prefix

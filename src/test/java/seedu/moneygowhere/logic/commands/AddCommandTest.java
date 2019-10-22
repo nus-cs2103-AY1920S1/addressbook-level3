@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.commons.core.GuiSettings;
-import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.ReadOnlyUserPrefs;
@@ -41,16 +40,6 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validSpending), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validSpending), modelStub.spendingsAdded);
-    }
-
-    @Test
-    public void execute_duplicateSpending_throwsCommandException() {
-        Spending validSpending = new SpendingBuilder().build();
-        AddCommand addCommand = new AddCommand(validSpending);
-        ModelStub modelStub = new ModelStubWithSpending(validSpending);
-
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_SPENDING, ()
-            -> addCommand.execute(modelStub));
     }
 
     @Test

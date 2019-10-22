@@ -21,8 +21,6 @@ import seedu.moneygowhere.model.spending.Spending;
 @JsonRootName(value = "spendingbook")
 class JsonSerializableSpendingBook {
 
-    public static final String MESSAGE_DUPLICATE_SPENDING = "Spending list contains duplicate Spending entries.";
-
     private final List<JsonAdaptedSpending> spendings = new ArrayList<>();
     private final List<JsonAdaptedReminder> reminders = new ArrayList<>();
     private String budget;
@@ -59,9 +57,6 @@ class JsonSerializableSpendingBook {
         SpendingBook spendingBook = new SpendingBook();
         for (JsonAdaptedSpending jsonAdaptedSpending : spendings) {
             Spending spending = jsonAdaptedSpending.toModelType();
-            if (spendingBook.hasSpending(spending)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_SPENDING);
-            }
             spendingBook.addSpending(spending);
         }
 

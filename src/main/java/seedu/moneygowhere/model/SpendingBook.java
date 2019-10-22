@@ -10,15 +10,14 @@ import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
-import seedu.moneygowhere.model.spending.UniqueSpendingList;
+import seedu.moneygowhere.model.spending.SpendingList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class SpendingBook implements ReadOnlySpendingBook {
 
-    private final UniqueSpendingList spendings;
+    private final SpendingList spendings;
     private final Budget budget;
     private List<Reminder> reminders;
 
@@ -30,7 +29,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
      *   among constructors.
      */
     {
-        spendings = new UniqueSpendingList();
+        spendings = new SpendingList();
         budget = new Budget(0);
         reminders = new ArrayList<>();
     }

@@ -48,7 +48,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_SPENDING_SUCCESS = "Edited Spending: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_SPENDING = "This Spending already exists in the MoneyGoWhere list.";
 
     private final Index index;
     private final EditSpendingDescriptor editSpendingDescriptor;
@@ -76,10 +75,6 @@ public class EditCommand extends Command {
 
         Spending spendingToEdit = lastShownList.get(index.getZeroBased());
         Spending editedSpending = createEditedSpending(spendingToEdit, editSpendingDescriptor);
-
-        if (!spendingToEdit.isSameSpending(editedSpending) && model.hasSpending(editedSpending)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SPENDING);
-        }
 
         model.setSpending(spendingToEdit, editedSpending);
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
