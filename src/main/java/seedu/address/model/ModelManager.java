@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.exceptions.NoRedoableStateException;
+import seedu.address.model.exceptions.NoUndoableStateException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
@@ -176,6 +178,32 @@ public class ModelManager implements Model {
     public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);
+    }
+    //=========== Undo and Redo Operations =============================================================
+
+    @Override
+    public void undo() {
+        addressBook.undo();
+    }
+
+    @Override
+    public boolean canUndo() {
+        return addressBook.canUndo();
+    }
+
+    @Override
+    public void redo() {
+        addressBook.redo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return addressBook.canRedo();
+    }
+
+    @Override
+    public void saveState() {
+        addressBook.saveState();
     }
 
     @Override

@@ -44,6 +44,7 @@ public class AddAssignmentCommand extends Command {
         }
 
         model.addAssignment(toAdd);
+        model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

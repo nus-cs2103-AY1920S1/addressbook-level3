@@ -44,6 +44,7 @@ public class AddLessonCommand extends Command {
         model.addLesson(toAdd);
         Scheduler scheduler = new Scheduler(toAdd);
         scheduler.scheduleLesson();
+        model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
