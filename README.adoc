@@ -1,6 +1,4 @@
-= VISIT - A Patient Tracking Application for Doctors On-The-Go
 :notitle:
-
 ++++
 <h1 align="center">
   <br>
