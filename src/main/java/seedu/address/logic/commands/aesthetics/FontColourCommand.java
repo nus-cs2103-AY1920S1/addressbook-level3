@@ -21,7 +21,7 @@ public class FontColourCommand extends Command {
             + "Parameter: COLOUR\n\n"
             + "Example: fontcolour turquoise\n"
             + "Example fontcolour #00FF00";
-    public static final String MESSAGE_NO_CHANGE = "The colour that you've keyed in is no different from "
+    private static final String MESSAGE_NO_CHANGE = "The colour that you've keyed in is no different from "
             + "what has already been set in your current settings! As such, there's nothing for me to update :)";
 
     private Colour fontColour;
@@ -35,10 +35,10 @@ public class FontColourCommand extends Command {
         requireNonNull(model);
         Colour previousColour = model.getFontColour();
         Colour newColour = fontColour;
-        model.setFontColour(newColour);
         if (previousColour.equals(newColour)) {
             throw new CommandException(MESSAGE_NO_CHANGE);
         }
+        model.setFontColour(newColour);
         String updateMessage = "Colour has been changed from " + previousColour + " to " + newColour + ".";
         return new CommandResult(MESSAGE_SUCCESS + " " + updateMessage);
     }

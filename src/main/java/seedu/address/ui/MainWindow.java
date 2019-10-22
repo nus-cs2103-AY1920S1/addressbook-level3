@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
+import static seedu.address.ui.DisplayPaneType.BACKGROUND;
 import static seedu.address.ui.DisplayPaneType.BIO;
 import static seedu.address.ui.DisplayPaneType.COLOUR;
 
@@ -85,7 +86,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         styleManager = new StyleManager(scene);
         setFontColour(logic.getGuiSettings());
-
+        setBackground(logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
@@ -127,6 +128,21 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * Returns messages for invalid references in a given map.
+     * @param fieldsContainingInvalidReferences Map that contains field and invalid reference pairs.
+     * @return Messages for invalid references in a given map.
+     */
+    private String getMessageForInvalidReferencesInMap(Map<String, String> fieldsContainingInvalidReferences) {
+        StringBuilder sb = new StringBuilder();
+        for (String fieldLabels : fieldsContainingInvalidReferences.keySet()) {
+            String field = fieldLabels;
+            String invalidReference = fieldsContainingInvalidReferences.get(field);
+            sb.append("- ").append(invalidReference).append(" of field ").append(field).append("\n");
+        }
+        return sb.toString();
+    }
+
 
     /**
      * Displays invalid references to the user if any.
@@ -134,22 +150,22 @@ public class MainWindow extends UiPart<Stage> {
      * during the next startup.
      * @param resultDisplay ResultDisplay object that is used to display information to user.
      */
-    void displayInvalidReferences(ResultDisplay resultDisplay) {
+    private void displayInvalidReferences(ResultDisplay resultDisplay) {
         List<Map<String, String>> listOfFieldsContainingInvalidReferences = logic
                 .getListOfFieldsContainingInvalidReferences();
-        System.out.println(listOfFieldsContainingInvalidReferences);
+        Map<String, String> guiFieldsContainingInvalidReferences =
+                logic.getGuiSettings().getFieldsContainingInvalidReferences();
 
         StringBuilder sb = new StringBuilder();
 
-        if (!listOfFieldsContainingInvalidReferences.isEmpty()) {
+        if (!listOfFieldsContainingInvalidReferences.isEmpty() || !guiFieldsContainingInvalidReferences.isEmpty()) {
             resultDisplay.appendNewLineInFeedBackToUser(2);
             sb.append(MESSAGE_UNABLE_TO_LOAD_REFERENCES);
+
+            sb.append(getMessageForInvalidReferencesInMap(guiFieldsContainingInvalidReferences));
+
             for (Map<String, String>  map : listOfFieldsContainingInvalidReferences) {
-                for (String fieldLabels : map.keySet()) {
-                    String field = fieldLabels;
-                    String invalidReference = map.get(field);
-                    sb.append("- ").append(invalidReference).append(" of field ").append(field).append("\n");
-                }
+                sb.append(getMessageForInvalidReferencesInMap(map));
             }
         }
         resultDisplay.appendFeedbackToUser(sb.toString().trim());
@@ -160,7 +176,7 @@ public class MainWindow extends UiPart<Stage> {
      * Displays the welcome message to the user.
      * @param resultDisplay ResultDisplay object that is used to display information to user.
      */
-    void displayWelcomeMessage(ResultDisplay resultDisplay) {
+    private void displayWelcomeMessage(ResultDisplay resultDisplay) {
         if (!logic.getFilteredUserList().isEmpty()) {
             String name = logic.getFilteredUserList().get(0).getName().toString();
             resultDisplay.appendFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
@@ -174,9 +190,9 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Displays the main background to the user.
      * @param mainDisplayPanePlaceholder MainDisplayPaneholder containing background to be displayed.
-     * @image String representation of path to background image to be displayed to the user upon startup.
+     * @imagePath String representation of path to background image to be displayed to the user upon startup.
      */
-    void showInitialBackground(StackPane mainDisplayPanePlaceholder, String imagePath) {
+    private void showInitialBackground(StackPane mainDisplayPanePlaceholder, String imagePath) {
         //        ImageView imageView = new ImageView(imagePath);
         //        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
         //        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
@@ -228,6 +244,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the background based on {@code guiSettings}.
+     *
+     * @param guiSettings
+     */
+    private void setBackground(GuiSettings guiSettings) {
+        styleManager.setBackground(guiSettings.getBackground());
+        System.out.println(scene.getStylesheets());
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -267,6 +293,9 @@ public class MainWindow extends UiPart<Stage> {
         if (displayPaneType == COLOUR) {
             setFontColour(logic.getGuiSettings());
             return true;
+        } else if (displayPaneType == BACKGROUND) {
+            setBackground(logic.getGuiSettings());
+            return false;
         } else {
             return false;
         }
@@ -283,7 +312,8 @@ public class MainWindow extends UiPart<Stage> {
             if (paneToDisplay == null) {
                 return;
             }
-            newPaneIsToBeCreated = (displayPaneType == COLOUR && paneToDisplay == BIO) || newPaneIsToBeCreated;
+            newPaneIsToBeCreated = ((displayPaneType == COLOUR || displayPaneType == BACKGROUND)
+                    && paneToDisplay == BIO) || newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
@@ -301,7 +331,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour());
+            (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour(), logic.getBackground());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();

@@ -64,6 +64,11 @@ public class BioTable extends UiPart<Region> {
 
     }
 
+    /**
+     * Sets individual font colours to columns other than those in the header column
+     * @param column Column for which colour is to be set.
+     * @param colour Colour to be set to the selected column.
+     */
     public void setFontColourToColumn(TableColumn<String, String> column, String colour) {
         column.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override

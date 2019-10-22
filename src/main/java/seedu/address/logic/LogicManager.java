@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
@@ -169,6 +170,11 @@ public class LogicManager implements Logic {
     @Override
     public Colour getFontColour() {
         return model.getFontColour();
+    }
+
+    @Override
+    public Background getBackground() {
+        return model.getBackground();
     }
 
 }

@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
@@ -306,13 +307,23 @@ public interface Model {
     //=========== Aesthetics =============================================================
 
     /**
+     * Returns the font colour to be set for this app.
+     */
+    Colour getFontColour();
+    
+    /**
      * Sets the font colour of this application and saves it to the user preferences file.
      */
     void setFontColour(Colour fontColour);
 
     /**
-     * Returns the font colour to be set for this app.
+     * Returns the background to be set for this app.
      */
-    Colour getFontColour();
+    Background getBackground();
+
+    /**
+     * Sets the background of this application and saves it to the user preferences file.
+     */
+    void setBackground(Background Background);
 
 }

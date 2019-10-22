@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.aesthetics.Colour;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new FontColourCommand object
  */
 public class FontColourCommandParser implements Parser<FontColourCommand> {
 
