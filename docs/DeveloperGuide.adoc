@@ -153,114 +153,115 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::dashboard[]
+=== Add/Delete/Edit/Find/List tasks
+==== Implementation
+The functions are found under the Dashboard. +
+The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
+by the user. The tasks are sorted accordingly by earliest date.
+Here, a task is represented by a Dashboard object.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The add/delete/edit/find/list mechanism is implemented in `DukeCooks v1.3`. It extends
+`DukeCooks` with a function to add/delete/edit/find tasks.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The operations are as followed:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `DukeCooks v1.3#add()` -- Adds and saves the task into `DukeCooks`.
+* `DukeCooks v1.3#delete()` -- Removes the specified task from `DukeCooks`.
+* `DukeCooks v1.3k#edit()` -- Edits the specified with a new task name and/or date.
+* `DukeCooks v1.3#find()` -- Finds a list of task with a given keyword.
+* `DukeCooks v1.3#list()` -- Finds a list of task with a given keyword.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+These operations are exposed in the Model interface as `Model#addDashboard()`,
+`Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` and
+`Model#getDashboardRecords()` respectively.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is an example usage scenario and how the add/delete/edit/find/list
+mechanism behaves at each step.
 
-image::UndoRedoState0.png[]
+Step 1. The user launches the application for the first time. `DukeCooks v1.3` will
+be initialized with the dashboard state, and the `currentStatePointer` pointing to
+that single dashboard state.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+/insert uml here
 
-image::UndoRedoState1.png[]
+Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
+task into Duke Cooks. The `add` command calls `Model#addDashboard()`, causing the task to
+be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
+`UniqueDashboardList#add()` which will call `UniqueDashboardList#sortDashboard()`. At this
+stage, the list of task is sorted by date. After which, the `add` command also calls
+`Model#saveDashboard()`, causing another modified dashboard state to be saved into the
+`UniqueDashboardList`.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+/insert uml here
 
-image::UndoRedoState2.png[]
+Step 3. The user executes `delete task 3` command to delete the 3rd task in the
+dashboard. The delete command calls `Model#deleteDashboard()` causing the specified task
+to be removed from `UniqueDashboardList`. In `UniqueDashboardList`, it calls
+`UniqueDashboardList#remove()` which will call `UniqueDashboardList#sortDashboard()`. At this
+stage, the list of task is sorted by date. Also, it calls `Model#saveDashboard()`,
+causing the modified state of the dashboard after the `delete task 3` command executes
+to be saved in the `UniqueDashboardList`, and the `currentStatePointer` is shifted to the
+newly inserted dashboard state.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+/insert uml here
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user executes `edit task...` command to edit a field in a task. The edit
+command calls `Model#setDashboard()` causing the edited task to be updated in
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#setDashboard()`
+which will call `UniqueDashboardList#sortDashboard()`. At this stage, the list of task is
+sorted by date. Also, it calls `Model#saveDashboard()`, causing the modified state of the
+dashboard after the `edit task...` command executes to `UniqueDashboardList`, and the
+`currentStatePointer` is shifted to the newly inserted dashboard state.
 
-image::UndoRedoState3.png[]
+/insert uml here
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Step 5. The user executes `find task...` command to find a list of task given a keyword.
+The find command calls `Model#hasDashboard()`, which searches through the
+`UniqueDashboardList` for tasks containing the particular keyword. The `currentStatePointer`
+remains at the same location after the step.
 
-The following sequence diagram shows how the undo operation works:
+/insert uml here
 
-image::UndoSequenceDiagram.png[]
+Step 6. The user executes `list task` command to view all the tasks found in `UniqueDashboardList`.
+The list command calls `Model#getDashboardRecords()`, which returns the `ReadOnlyDashboard` that
+returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
+homepage. The `currentStatePointer` remains at the same location after the step.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The following sequence diagram shows how the add operation works:
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+/insert uml here
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The following activity diagram summarizes what happens when a user executes a new
+command.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+/insert activity diagram here
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How add/delete/edit/find/list executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Sort the list whenever add/delete/edit is called.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: May have performance issues in terms of time.
+* **Alternative 2:** Keep an instance of the earliest and latest date. If dates fall
+out of range from the two dates, sorting does not happen.
+** Pros: Faster runtime.
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Aspect: Data structure to support the add/delete/edit/find/list commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+* **Alternative 1 (current choice):** Use `Collections.sort` to sort by date.
+** Pros: Easy to implement.
+** Cons: Current implementations require a `LocalDate` object to be create for every
+`TaskDate` object.
+* **Alternative 2:** Use `LocalDate` to store dates instead of creating a custom class,
+`TaskDate`.
+** Pros: Since this is found in the Java API, we do not have to worry about invalid dates
+being keyed.
+** Cons: As the current `TaskDate` works fine, refactoring the code to `LocalDate` might
+take some time.
+// end::dashboard[]
 
 == Documentation
 
