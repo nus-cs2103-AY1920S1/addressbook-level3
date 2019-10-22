@@ -3,6 +3,8 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -139,6 +141,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<User> getFilteredUserList() {
         return model.getFilteredUserList();
+    }
+
+    @Override
+    public List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
+        return storage.getListOfFieldsContainingInvalidReferences();
     }
 
     //=========== Statistics List =============================================================

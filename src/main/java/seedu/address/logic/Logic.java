@@ -2,6 +2,8 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -106,6 +108,12 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of users
      */
     ObservableList<User> getFilteredUserList();
+
+    /**
+     * Return a list of maps of fields in the json file that contain invalid references.
+     * @return List of maps of fields in the json file containing invalid references.
+     */
+    List<Map<String, String>> getListOfFieldsContainingInvalidReferences();
 
     //=========== Statistics List =============================================================
 

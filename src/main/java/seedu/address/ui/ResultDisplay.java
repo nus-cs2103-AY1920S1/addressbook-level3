@@ -13,6 +13,8 @@ public class ResultDisplay extends UiPart<Region> {
 
     private static final String FXML = "ResultDisplay.fxml";
 
+    private static final String NEW_LINE_CHAR = "\n";
+
     @FXML
     private TextArea resultDisplay;
 
@@ -23,6 +25,21 @@ public class ResultDisplay extends UiPart<Region> {
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         resultDisplay.setText(feedbackToUser);
+    }
+
+    public void appendFeedbackToUser(String feedbackToUser) {
+        requireNonNull(feedbackToUser);
+        setFeedbackToUser(getFeedbackToUser().concat(feedbackToUser));
+    }
+
+    public void appendNewLineInFeedBackToUser() {
+        appendFeedbackToUser(NEW_LINE_CHAR);
+    }
+
+    public void appendNewLineInFeedBackToUser(int n) {
+        for (int i = 0; i < n; i++) {
+            appendNewLineInFeedBackToUser();
+        }
     }
 
     public String getFeedbackToUser() {

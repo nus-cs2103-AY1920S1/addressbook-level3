@@ -1,12 +1,14 @@
 package seedu.address.storage.bio;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
+import static seedu.address.model.bio.BioFieldName.LABEL_DP_PATH;
 
-import java.awt.Image;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
@@ -48,6 +50,8 @@ class JsonAdaptedUser {
     private final List<JsonAdaptedGoals> goals = new ArrayList<>();
     private final String otherInfo;
 
+    private static Map<String, String> fieldsContainingInvalidReferences = new LinkedHashMap<>();
+
     /**
      * Constructs a {@code JsonAdaptedUser} with the given user details.
      */
@@ -68,6 +72,7 @@ class JsonAdaptedUser {
         this.nric = nric;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+
         if (contactNumbers != null) {
             this.contactNumbers.addAll(contactNumbers);
         }
@@ -137,13 +142,15 @@ class JsonAdaptedUser {
             try {
                 Image image = ImageIO.read(new File(dpPath));
                 if (image == null) {
-                    throw new IllegalValueException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                    throw new IOException();
                 }
             } catch (IOException e) {
-                throw new IllegalValueException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                fieldsContainingInvalidReferences.put(LABEL_DP_PATH, dpPath);
             }
         }
-        final DisplayPicPath modelDpPath = new DisplayPicPath(dpPath);
+        final DisplayPicPath modelDpPath = fieldsContainingInvalidReferences.containsKey(LABEL_DP_PATH)
+                ? new DisplayPicPath("")
+                : new DisplayPicPath(dpPath);
 
         if (profileDesc == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProfileDesc.class.getName()));
@@ -228,6 +235,15 @@ class JsonAdaptedUser {
         return new User(modelName, modelDpPath, modelProfileDesc, modelNric, modelGender, modelDateOfBirth,
                 modelContactNumbers, modelEmergencyContacts, modelMedicalConditions, modelAddress, modelGoals,
                 modelOtherBioInfo);
+    }
+
+    /**
+     * Returns a map of fields in the json file that contain invalid references.
+     * Map returned maps a field to the corresponding String representation of the invalid path.
+     * @return Map of fields in the json file that contain invalid references.
+     */
+    public static Map<String, String> getFieldsContainingInvalidReferences() {
+        return fieldsContainingInvalidReferences;
     }
 
 }

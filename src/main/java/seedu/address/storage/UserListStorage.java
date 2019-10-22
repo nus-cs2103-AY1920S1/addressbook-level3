@@ -2,6 +2,8 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -43,5 +45,12 @@ public interface UserListStorage {
      * @see #saveUserList(ReadOnlyUserList)
      */
     void saveUserList(ReadOnlyUserList userList, Path filePath) throws IOException;
+
+    /**
+     * Return a list of maps of fields in the json file that contain invalid references.
+     * @return List of maps of fields in the json file containing invalid references.
+     */
+    List<Map<String, String>> getListOfFieldsContainingInvalidReferences();
+
 
 }

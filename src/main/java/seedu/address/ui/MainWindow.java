@@ -2,11 +2,14 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
+import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
 import static seedu.address.ui.DisplayPaneType.BIO;
 import static seedu.address.ui.DisplayPaneType.COLOUR;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -124,11 +127,56 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-    /**
-     * Fills up all the placeholders of this window.
-     */
-    void fillInnerParts(String imagePath) throws URISyntaxException {
 
+    /**
+     * Displays invalid references to the user if any.
+     * Clears the list of invalid references after displaying to the user so the message would not be displayed again
+     * during the next startup.
+     * @param resultDisplay ResultDisplay object that is used to display information to user.
+     */
+    void displayInvalidReferences(ResultDisplay resultDisplay) {
+        List<Map<String, String>> listOfFieldsContainingInvalidReferences = logic
+                .getListOfFieldsContainingInvalidReferences();
+        System.out.println(listOfFieldsContainingInvalidReferences);
+
+        StringBuilder sb = new StringBuilder();
+
+        if (!listOfFieldsContainingInvalidReferences.isEmpty()) {
+            resultDisplay.appendNewLineInFeedBackToUser(2);
+            sb.append(MESSAGE_UNABLE_TO_LOAD_REFERENCES);
+            for (Map<String, String>  map : listOfFieldsContainingInvalidReferences) {
+                for (String fieldLabels : map.keySet()) {
+                    String field = fieldLabels;
+                    String invalidReference = map.get(field);
+                    sb.append("- ").append(invalidReference).append(" of field ").append(field).append("\n");
+                }
+            }
+        }
+        resultDisplay.appendFeedbackToUser(sb.toString().trim());
+        listOfFieldsContainingInvalidReferences.clear();
+    }
+
+    /**
+     * Displays the welcome message to the user.
+     * @param resultDisplay ResultDisplay object that is used to display information to user.
+     */
+    void displayWelcomeMessage(ResultDisplay resultDisplay) {
+        if (!logic.getFilteredUserList().isEmpty()) {
+            String name = logic.getFilteredUserList().get(0).getName().toString();
+            resultDisplay.appendFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
+                    + "assist you today?");
+        } else {
+            resultDisplay.appendFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
+                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
+        }
+    }
+
+    /**
+     * Displays the main background to the user.
+     * @param mainDisplayPanePlaceholder MainDisplayPaneholder containing background to be displayed.
+     * @image String representation of path to background image to be displayed to the user upon startup.
+     */
+    void showInitialBackground(StackPane mainDisplayPanePlaceholder, String imagePath) {
         //        ImageView imageView = new ImageView(imagePath);
         //        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
         //        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
@@ -139,18 +187,19 @@ public class MainWindow extends UiPart<Stage> {
                 + "-fx-background-position: center center; "
                 + "-fx-background-repeat: no-repeat;"
                 + "-fx-background-size: contain;");
+    }
+
+    /**
+     * Fills up intiial placeholders of this window.
+     * @imagePath String representation of path to background image to be displayed to the user upon startup.
+     */
+    void fillInnerParts(String imagePath) throws URISyntaxException {
+
+        showInitialBackground(mainDisplayPanePlaceholder, imagePath);
 
         resultDisplay = new ResultDisplay();
-
-        if (!logic.getFilteredUserList().isEmpty()) {
-            String name = logic.getFilteredUserList().get(0).getName().toString();
-            resultDisplay.setFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
-                    + "assist you today?");
-        } else {
-            resultDisplay.setFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
-                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
-        }
-
+        displayWelcomeMessage(resultDisplay);
+        displayInvalidReferences(resultDisplay);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

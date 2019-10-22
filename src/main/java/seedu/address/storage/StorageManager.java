@@ -2,6 +2,8 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -170,6 +172,11 @@ public class StorageManager implements Storage {
     public void saveUserList(ReadOnlyUserList userList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         userListStorage.saveUserList(userList, filePath);
+    }
+
+    @Override
+    public List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
+        return userListStorage.getListOfFieldsContainingInvalidReferences();
     }
 
     // ===================== Calendar ======================

@@ -2,6 +2,7 @@ package seedu.address.storage.bio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -22,6 +23,7 @@ class JsonSerializableUserList {
     public static final String MESSAGE_DUPLICATE_PERSON = "Users list contains duplicate user(s).";
 
     private final List<JsonAdaptedUser> users = new ArrayList<>();
+    private static List<Map<String, String>> listOfFieldsContainingInvalidReferences = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableUserList} with the given users.
@@ -46,15 +48,33 @@ class JsonSerializableUserList {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public UserList toModelType() throws IllegalValueException {
-        UserList addressBook = new UserList();
+        UserList userList = new UserList();
         for (JsonAdaptedUser jsonAdaptedUser : users) {
             User user = jsonAdaptedUser.toModelType();
-            if (addressBook.hasUser(user)) {
+
+            if (userList.hasUser(user)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addUser(user);
+
+            Map<String, String> fieldsContainingInvalidReferences = jsonAdaptedUser
+                    .getFieldsContainingInvalidReferences();
+
+            if (!fieldsContainingInvalidReferences.isEmpty()) {
+                listOfFieldsContainingInvalidReferences.add(fieldsContainingInvalidReferences);
+            }
+
+            userList.addUser(user);
         }
-        return addressBook;
+        return userList;
     }
+
+    /**
+     * Return a list of maps of fields in the json file that contain invalid references.
+     * @return List of maps of fields in the json file containing invalid references.
+     */
+    public static List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
+        return listOfFieldsContainingInvalidReferences;
+    }
+
 
 }

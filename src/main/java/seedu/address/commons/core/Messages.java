@@ -31,5 +31,7 @@ public class Messages {
             + "Your biography could be crucial information especially in times of an emergency. "
             + "Please enter the " + BioCommand.COMMAND_WORD + " command as soon as possible to set your biography, "
             + "alright?";
+    public static final String MESSAGE_UNABLE_TO_LOAD_REFERENCES = "We're unable to load the following references and "
+            + "as such have removed them so they will not cause any errors in the program:\n";
 
 }
