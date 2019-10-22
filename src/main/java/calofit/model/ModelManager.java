@@ -3,13 +3,11 @@ package calofit.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
@@ -27,14 +25,10 @@ import calofit.model.util.Statistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static Statistics statistics;
-
     private final DishDatabase dishDatabase;
     private final MealLog mealLog;
     private final UserPrefs userPrefs;
     private final FilteredList<Dish> filteredDishes;
-    private final FilteredList<Meal> filteredMeals;
-    private final SortedList<Meal> sortedMeals;
     private final CalorieBudget budget;
 
     /**
@@ -50,9 +44,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.mealLog = mealLog;
         this.filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
-        this.filteredMeals = new FilteredList<>(this.mealLog.getMeals());
-        this.sortedMeals = new SortedList<>(filteredMeals, Comparator.naturalOrder());
-        this.statistics = null;
         this.budget = new CalorieBudget();
     }
 
@@ -164,18 +155,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Meal> getFilteredMealList() {
-        return sortedMeals;
-    }
-
-    @Override
-    public void updateStatistics() {
-        this.statistics = Statistics.generateStatistics(this.mealLog, this.getCalorieBudget());
+    public ObservableList<Meal> getTodayMealList() {
+        return this.mealLog.getTodayMeals();
     }
 
     @Override
     public Statistics getStatistics() {
-        return this.statistics;
+        return Statistics.generateStatistics(this.mealLog, this.getCalorieBudget());
     }
 
     @Override

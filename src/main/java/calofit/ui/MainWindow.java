@@ -119,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        mealListPanel = new MealListPanel(logic.getFilteredMealList());
+        mealListPanel = new MealListPanel(logic.getTodayMealList());
         mealListPanelPlaceholder.getChildren().add(mealListPanel.getRoot());
 
         dishListPanel = new DishListPanel(logic.getFilteredDishList());
