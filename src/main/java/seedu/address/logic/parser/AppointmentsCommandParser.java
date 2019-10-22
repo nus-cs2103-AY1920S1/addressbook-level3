@@ -27,6 +27,7 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
      */
     public AppointmentsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
+        model.updateFilteredEventList();
 
         if (args.trim().isEmpty()) {
             return new AppointmentsCommand();
