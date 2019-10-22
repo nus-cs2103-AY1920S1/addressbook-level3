@@ -1,0 +1,10 @@
+@startuml
+:User inputs command;
+:Ensure no syntax error;
+:Create a list of available employees for the event filtered by tags;
+:Calculate the number of employees required by the event;
+:Check if supply exceeds demand;
+:Adds EmployeeId as a pointer of employee to event;
+:Sucessful allocation;
+
+@enduml
