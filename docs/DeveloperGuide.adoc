@@ -164,8 +164,23 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::tasks[]
 ==== Tasks
+Some models in IchiFund must be refreshed after a command is executed.
+For instance, when a new `Transaction` is added, all `Budget` must be recomputed.
+`Task` can be used to facilitate such updates.
+
 ===== Implementation
-===== Design Considerations
+This feature is managed by `TaskManager`.
+The role of `TaskManager` is to maintain a list of all active `Task`.
+
+The `LogicManager` holds an instance of the `TaskManager`.
+When the `LogicManager#execute()` is called, the following chain of operations occurs:
+
+1. After `Command#execute()` is completed, `TaskManager#executeAll()` is called.
+
+image::TaskCode.png[]
+
+[start=2]
+2. `TaskManager#executeAll()` will iterate through all active `Task` and call the respective `Task#execute()` method.
 // end::tasks[]
 
 === Transaction
@@ -232,8 +247,39 @@ The `delrep` command is facilitated by the Logic and Model components of the app
 
 // tag::budgetadd[]
 ==== Adding Budget
+
+The add budget feature allows the user to add a budget into IchiFund.
+This feature is facilitated by `BudgetFeatureParser`, `AddBudgetCommandParser`, and `AddBudgetCommand`.
+The arguments supported by this feature includes:
+
+- `Description`
+- `Amount`
+- `Category` (optional)
+- `Month` (optional)
+- `Year` (optional)
+
 ===== Implementation
-===== Design Considerations
+
+When the user input the `add` command in the Budget tab, the following chain of operations occurs:
+
+1. The `IchiFundParser` will delegate the parsing of the command to `BudgetFeatureParser` if the current active tab is Budget.
+
+2. The `BudgetFeatureParser` will delegate the parsing of the arguments to `AddBudgetCommandParser`.
+
+3. `AddBudgetCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+4. This arguments will be tokenized and the respective models for each argument are created.
+
+5. If the parsing of all arguments are successful, a new `Budget` object is created using the arguments, and a new `AddBudgetCommand` is returned back to `LogicManager`.
+
+6. The `LogicManager` executes `AddBudgetCommand#execute()`.
+
+7. The newly created `Budget` is added to the model.
+
+This process is further illustrated in the following sequence diagram:
+
+.Sequence Diagram for `add` Command under Budget Tab
+image::AddBudgetSequenceDiagram.png[]
 // end::budgetadd[]
 
 // tag::undoredo[]
