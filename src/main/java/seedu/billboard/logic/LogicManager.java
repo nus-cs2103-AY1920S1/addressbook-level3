@@ -8,18 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.commons.core.observable.ObservableData;
-import seedu.billboard.logic.commands.AddArchiveCommand;
-import seedu.billboard.logic.commands.AddCommand;
-import seedu.billboard.logic.commands.AddTagCommand;
-import seedu.billboard.logic.commands.ClearCommand;
-import seedu.billboard.logic.commands.Command;
-import seedu.billboard.logic.commands.CommandResult;
-import seedu.billboard.logic.commands.DeleteArchiveCommand;
-import seedu.billboard.logic.commands.DeleteCommand;
-import seedu.billboard.logic.commands.EditCommand;
-import seedu.billboard.logic.commands.FilterTagCommand;
-import seedu.billboard.logic.commands.RevertArchiveCommand;
-import seedu.billboard.logic.commands.UndoCommand;
+import seedu.billboard.logic.commands.*;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.BillboardParser;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -60,7 +49,8 @@ public class LogicManager implements Logic {
                 || (command instanceof AddTagCommand) || (command instanceof ClearCommand)
                 || (command instanceof DeleteArchiveCommand) || (command instanceof DeleteCommand)
                 || (command instanceof RevertArchiveCommand) || (command instanceof EditCommand)
-                || (command instanceof FilterTagCommand) || (command instanceof UndoCommand)) {
+                || (command instanceof FilterTagCommand) || (command instanceof UndoCommand)
+                || (command instanceof RemoveTagCommand)) {
             if (!(command instanceof UndoCommand)) {
                 UndoList.addCmd(commandText);
             }

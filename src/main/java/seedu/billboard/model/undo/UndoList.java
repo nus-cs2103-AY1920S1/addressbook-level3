@@ -28,6 +28,10 @@ public class UndoList {
         modelList.push(model);
     }
 
+    public static boolean isUndoable() {
+        return cmdList.size() > 0;
+    }
+
     public static void addCmd(String cmd) {
         cmdList.push(cmd);
     }

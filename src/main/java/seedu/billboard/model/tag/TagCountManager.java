@@ -115,7 +115,9 @@ public class TagCountManager {
      */
     public void setCount(Map<Tag, Integer> count) {
         requireNonNull(count);
-        this.count = new HashMap<>(count);
+        this.count.clear();
+        this.count.putAll(count);
+//        this.count = new HashMap<>(count);
     }
 
     /**
@@ -124,5 +126,12 @@ public class TagCountManager {
      */
     public Map<Tag, Integer> getCount() {
         return Collections.unmodifiableMap(count);
+    }
+
+
+    public TagCountManager getClone() {
+        TagCountManager result = new TagCountManager();
+        result.setCount(getCount());
+        return result;
     }
 }

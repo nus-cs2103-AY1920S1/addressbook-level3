@@ -89,7 +89,8 @@ public class ModelManager implements Model {
         combinedExpenses.addAll(nonArchiveExpenses);
         combinedExpenses.addAll(archiveExpense);
 
-        Billboard billboard = new Billboard();
+        Billboard billboard = this.billboard.getClone();
+//        Billboard billboard = new Billboard();
         billboard.setExpenses(combinedExpenses);
 
         return billboard;
@@ -288,7 +289,8 @@ public class ModelManager implements Model {
      */
     @Override
     public Model getClone() {
-        Billboard billboard = getCombinedBillboard().getClone();
+//        Billboard billboard = getCombinedBillboard().getClone();
+        Billboard billboard = getCombinedBillboard();
         return new ModelManager(billboard, userPrefs);
     }
 
