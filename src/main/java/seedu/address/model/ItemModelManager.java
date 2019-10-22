@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import javafx.collections.ObservableList;
@@ -458,6 +459,16 @@ public class ItemModelManager implements ItemModel {
      */
     public void sort() {
         this.visualList = visualList.sort();
+    }
+
+    /**
+     * Sorts the current visual list based on a comparator.
+     * @param comparator the comparator to sort the current list by.
+     */
+    public void sort(Comparator<Item> comparator) {
+        VisualizeList tempList = visualList.deepCopy();
+        tempList.sort(comparator);
+        this.visualList = tempList;
     }
 
     /**

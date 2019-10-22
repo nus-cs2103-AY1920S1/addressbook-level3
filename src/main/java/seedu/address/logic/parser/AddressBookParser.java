@@ -84,7 +84,7 @@ public class AddressBookParser {
             return new ShowCommandParser().parse(description, flags);
 
         case SortCommand.COMMAND_WORD:
-            return new SortCommand();
+            return new SortCommandParser().parse(description, flags);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -94,10 +94,7 @@ public class AddressBookParser {
 
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(description, flags);
-        /*
-        case ShowCommand.COMMAND_WORD:
-            return new ShowCommand(description);
-        */
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
