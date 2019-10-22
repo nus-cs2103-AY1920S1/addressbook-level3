@@ -51,7 +51,7 @@ public class DataCard extends UiPart<Region> {
             year.setText(data.getYear().toString());
         } catch (DateFieldNotFoundException ignored) {}
         try {
-            month.setText(data.getMonth().toString());
+            month.setText(data.getMonth().wordString());
         } catch (DateFieldNotFoundException ignored) {}
         try {
             day.setText(data.getDay().toString());

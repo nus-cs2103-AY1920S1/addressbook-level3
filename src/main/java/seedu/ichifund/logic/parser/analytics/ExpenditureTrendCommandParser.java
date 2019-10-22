@@ -4,14 +4,12 @@ import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import seedu.ichifund.logic.commands.analytics.ExpenditureTrendCommand;
 import seedu.ichifund.logic.parser.ArgumentMultimap;
 import seedu.ichifund.logic.parser.ArgumentTokenizer;
 import seedu.ichifund.logic.parser.Parser;
 import seedu.ichifund.logic.parser.ParserUtil;
-import seedu.ichifund.logic.parser.Prefix;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.date.Year;
 

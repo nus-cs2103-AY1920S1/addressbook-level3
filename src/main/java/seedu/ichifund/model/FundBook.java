@@ -301,7 +301,6 @@ public class FundBook implements ReadOnlyFundBook {
         return datas.asUnmodifiableObservableList();
     }
 
-// TO ADD AN ISSUE TO FIX THIS
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
