@@ -1,0 +1,24 @@
+@startuml
+
+abstract class Command
+
+Command <|-- GetStatisticsCommand
+GetStatisticsCommand -- CommandResult
+
+class GetStatisticsCommand {
+execute(model : Model) : CommandResult
+}
+
+class CommandResult {
+showStats : boolean
+isShowStats() : boolean
+setType(type : Type)
+getType() : Type
+}
+
+enum Type {
+CHART
+QUESTIONS
+}
+
+@enduml
