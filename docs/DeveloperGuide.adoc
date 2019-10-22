@@ -158,8 +158,52 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::tabswitching[]
 ==== Separate Parsing and Tab Switching
+In IchiFund, we separate the features by tabs. This is illustrated in the image below, which displays the five
+tabs of IchiFund, with the "Transaction" tab selected:
+
+image::FeatureTabs.png[]
+
+The parsing of commands for each feature is done separately, tied to their respective tabs.
+In other words, the commands specific to each feature can only be recognised when the feature is selected as the
+current tab.
+This allows for the overloading of commands across different features, reducing the complexity of commands for users.
+
+There are two aspects to consider in implementing separate parsing:
+
+. Detecting when the user switches tabs and communicating this to the `Logic` component
+. Determining how to parse commands on the end of `Logic` given which tab is selected.
+
 ===== Implementation
+In our implementation, we first separate the parsing of commands for different features by delegating them to their
+respective `FeatureParser` parsers. The main parser, `IchiFundParser`, keeps track of all `FeatureParser` objects, as
+well as the `FeatureParser` that is currently in use.
+
+This is illustrated in the object diagram below:
+
+image::ParserObjectDiagram.png[]
+
+When `IchiFundParser` parses a command, it first checks whether it is a global command (e.g. `help`, `exit`).
+Otherwise, it passes the command to `currentParserManager`, which checks if it is a valid command, and passes the
+arguments to the appropriate `Parser`.
+
+What remains is determining when to change `currentParserManager`. Here, we support 3 modes of tab switching:
+
+. Clicking of tabs (GUI)
+. Shortcut keys (GUI)
+. Specific commands (CLI)
+
 ===== Design Considerations
+
+* **Alternative 1 (current choice):** `Ui` detects change through an `InvalidationListener`.
+** Pros: The logic of parsing in `IchiFundParser` is clearer.
+** Cons: Requires greater understanding of JavaFX API to implement.
+* **Alternative 2:** `Logic` directly calls `Ui` whenever the specific command is made.
+** Pros: Easy to implement.
+** Cons: Creates a dependency from `Logic` to `Ui`.
+
+While Alternative 2 is much simpler to implement, we decided to choose
+Alternative 1 as it preserves the independence of `Logic` from `Ui`.
+
 // end::tabswitching[]
 
 // tag::tasks[]
