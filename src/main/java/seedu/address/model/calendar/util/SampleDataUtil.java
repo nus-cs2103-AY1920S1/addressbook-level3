@@ -23,7 +23,31 @@ public class SampleDataUtil {
             new Task(new TaskTitle("CS2100 Assignment"), new TaskDay("monday"),
                     new TaskDescription("Hardcopy only"),
                     new TaskDeadline("12-10-2012"),
-                    new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100"))
+                    new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100")),
+            new Task(new TaskTitle("Create slides"), new TaskDay("tuesday"),
+                new TaskDescription("Hardcopy only"),
+                new TaskDeadline("12-10-2012"),
+                new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("presentation")),
+            new Task(new TaskTitle("CS2102 Assignment"), new TaskDay("wednesday"),
+                new TaskDescription("Hardcopy only"),
+                new TaskDeadline("12-10-2012"),
+                new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100")),
+            new Task(new TaskTitle("CS2103 Assignment"), new TaskDay("thursday"),
+                new TaskDescription("Hardcopy only"),
+                new TaskDeadline("12-10-2012"),
+                new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100")),
+            new Task(new TaskTitle("CS2103 In Lecture Quiz"), new TaskDay("friday"),
+                new TaskDescription("Hardcopy only"),
+                new TaskDeadline("12-10-2012"),
+                new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100")),
+            new Task(new TaskTitle("CS2103 Quiz"), new TaskDay("sunday"),
+                new TaskDescription("Hardcopy only"),
+                new TaskDeadline("12-10-2012"),
+                new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100")),
+            new Task(new TaskTitle("CS2109 Lab"), new TaskDay("sunday"),
+                new TaskDescription("Hardcopy only"),
+                new TaskDeadline("12-10-2012"),
+                new TaskPlace("Blk 30 Geylang Street 29, #06-40"), getTagSet("CS2100"))
         };
     }
 

@@ -2,10 +2,10 @@ package seedu.address.logic.calendar.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 
 import java.util.Collection;

@@ -1,11 +1,11 @@
 package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDEADLINE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
