@@ -1,5 +1,7 @@
 package com.dukeacademy.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
@@ -9,7 +11,6 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.program.TestCaseResult;
-import com.dukeacademy.model.question.entities.TestCase;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -77,6 +78,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -135,11 +137,16 @@ public class MainWindow extends UiPart<Stage> {
         editorPanel = new Editor();
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
 
-        // Passing in sample test case and sample test case result into the constructor of RunCodeResult.
-        // The sample problem in this context is an adder function.
-        // Test case given is 1, 1. Expected result is 2, from 1 + 1.
-        runCodeResultPanel = new RunCodeResult(new TestCase("1 1", "2"),
-                TestCaseResult.getFailedTestCaseResult("1 1", "2", "3"));
+
+        List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
+        sampleTestCaseResults.add(
+                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz", "Fizz"));
+        sampleTestCaseResults.add(
+                TestCaseResult.getFailedTestCaseResult("25","Buzz", "FizzBuzz"));
+        sampleTestCaseResults.add(
+                TestCaseResult.getSuccessfulTestCaseResult("15","FizzBuzz", "FizzBuzz"));
+
+        runCodeResultPanel = new RunCodeResult(sampleTestCaseResults);
         runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
     }
 
