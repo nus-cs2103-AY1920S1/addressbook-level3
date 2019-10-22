@@ -1,13 +1,15 @@
 package seedu.ezwatchlist.api;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import info.movito.themoviedbapi.*;
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TmdbTV;
+import info.movito.themoviedbapi.TmdbTvSeasons;
+import info.movito.themoviedbapi.TvResultsPage;
 import info.movito.themoviedbapi.model.Credits;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -20,7 +22,15 @@ import info.movito.themoviedbapi.tools.MovieDbException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.model.ApiInterface;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Episode;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Main class for the API to connect to the server
@@ -82,8 +92,8 @@ public class ApiMain implements ApiInterface {
                 String overview = m.getOverview();
                 String releaseDate = m.getReleaseDate();
 
-                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false), new Date(releaseDate),
-                        runtime , new HashSet<Actor>());
+                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false),
+                        new Date(releaseDate), runtime , new HashSet<Actor>());
 
                 //retrieve image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
@@ -107,7 +117,8 @@ public class ApiMain implements ApiInterface {
      */
     public List<Movie> getMovieByName(String name) throws OnlineConnectionException {
         try {
-            MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, 1);
+            MovieResultsPage page =
+                    apiCall.getSearch().searchMovie(name, null, null, true, 1);
             ArrayList<Movie> movies = new ArrayList<>();
 
             for (MovieDb m : page.getResults()) {
@@ -123,8 +134,8 @@ public class ApiMain implements ApiInterface {
                 //actors
                 Set<Actor> actors = getActors(movie.getCast());
 
-                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false), new Date(releaseDate),
-                        runtime , actors);
+                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false),
+                        new Date(releaseDate), runtime , actors);
 
                 //retrieve image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
@@ -168,7 +179,7 @@ public class ApiMain implements ApiInterface {
                     ArrayList<Episode> episodeList = new ArrayList<>();
 
                     for (TvEpisode episode : episodes) {
-                        episodeList.add(new seedu.ezwatchlist.model.show.Episode(new Name(episode.getName()), episode.getEpisodeNumber()));
+                        episodeList.add(new Episode(new Name(episode.getName()), episode.getEpisodeNumber()));
                     }
 
                     seedu.ezwatchlist.model.show.TvSeason tvS =
@@ -183,10 +194,9 @@ public class ApiMain implements ApiInterface {
                 //actors
                 Set<Actor> actors = getActors(credits.getCast());
 
-                TvShow tvShowToAdd = new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), new IsWatched(false),
-                        date ,
-                        new RunningTime(20), actors, 0,
-                        tv.getNumberOfEpisodes(), seasonsList);
+                TvShow tvShowToAdd = new TvShow(new Name(tv.getName()), new Description(tv.getOverview()),
+                        new IsWatched(false), date, new RunningTime(20),
+                        actors, 0, tv.getNumberOfEpisodes(), seasonsList);
 
                 //image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, tv.getPosterPath());
@@ -210,58 +220,58 @@ public class ApiMain implements ApiInterface {
         return actors;
     }
 
-/**
- public void testImage(String name) {
- MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
- List<MovieDb> movies = page.getResults();
- MovieDb firstMovie = movies.get(0);
- ImageRetrieval imageRetrieval = new ImageRetrieval(apiCall, firstMovie.getPosterPath());
- imageRetrieval.downloadImage(firstMovie.getTitle());
- }
- /**
- * test function
- * @param args
- * @throws IOException
- * /
-public static void main(String[] args) throws IOException, OnlineConnectionException {
-ApiMain apiMain = new ApiMain();
-Scanner sc = new Scanner(System.in);
-String input = sc.next();
-apiMain.testImage(input);
-TmdbMovies movies = tmdbApi.getMovies();
-MovieDb movie = movies.getMovie(5353, null, TmdbMovies.MovieMethod.similar,
-TmdbMovies.MovieMethod.keywords, TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
-System.out.println(movie.getOriginalTitle());
-p2( movie.getSimilarMovies());
-List<Artwork> artworks = movie.getImages();
-String filePath = artworks.get(0).getFilePath();
-TmdbConfiguration configuration = tmdbApi.getConfiguration();
-final String baseUrl = configuration.getBaseUrl() + "w500";
-URL url = new URL(baseUrl + filePath);
-url.openStream();
-BufferedImage img = ImageIO.read();
-Graphics g = img.getGraphics();
-g.drawImage(img, 0, 0, null);
-//keywords
-List<Keyword> keywordList = movie.getKeywords();
-p(keywordList);
-List<Genre> genres = movie.getGenres();
-System.out.println("genres");
-p(genres);
-System.out.println("casts");
-List<PersonCast> cast = movie.getCast();
-p(cast);
-System.out.println("crew");
-p(movie.getCrew());
-}
-public static <T> void p (List<T> s) {
-for (T t : s)
-System.out.println(t);
-}
-public static void p2 (List<MovieDb> l) {
-for (MovieDb m : l) {
-System.out.println(m.getOriginalTitle());
-}
-}
- */
+    /**
+     public void testImage(String name) {
+     MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
+     List<MovieDb> movies = page.getResults();
+     MovieDb firstMovie = movies.get(0);
+     ImageRetrieval imageRetrieval = new ImageRetrieval(apiCall, firstMovie.getPosterPath());
+     imageRetrieval.downloadImage(firstMovie.getTitle());
+     }
+     /**
+     * test function
+     * @param args
+     * @throws IOException
+     * /
+    public static void main(String[] args) throws IOException, OnlineConnectionException {
+    ApiMain apiMain = new ApiMain();
+    Scanner sc = new Scanner(System.in);
+    String input = sc.next();
+    apiMain.testImage(input);
+    TmdbMovies movies = tmdbApi.getMovies();
+    MovieDb movie = movies.getMovie(5353, null, TmdbMovies.MovieMethod.similar,
+    TmdbMovies.MovieMethod.keywords, TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
+    System.out.println(movie.getOriginalTitle());
+    p2( movie.getSimilarMovies());
+    List<Artwork> artworks = movie.getImages();
+    String filePath = artworks.get(0).getFilePath();
+    TmdbConfiguration configuration = tmdbApi.getConfiguration();
+    final String baseUrl = configuration.getBaseUrl() + "w500";
+    URL url = new URL(baseUrl + filePath);
+    url.openStream();
+    BufferedImage img = ImageIO.read();
+    Graphics g = img.getGraphics();
+    g.drawImage(img, 0, 0, null);
+    //keywords
+    List<Keyword> keywordList = movie.getKeywords();
+    p(keywordList);
+    List<Genre> genres = movie.getGenres();
+    System.out.println("genres");
+    p(genres);
+    System.out.println("casts");
+    List<PersonCast> cast = movie.getCast();
+    p(cast);
+    System.out.println("crew");
+    p(movie.getCrew());
+    }
+    public static <T> void p (List<T> s) {
+    for (T t : s)
+    System.out.println(t);
+    }
+    public static void p2 (List<MovieDb> l) {
+    for (MovieDb m : l) {
+    System.out.println(m.getOriginalTitle());
+    }
+    }
+     */
 }

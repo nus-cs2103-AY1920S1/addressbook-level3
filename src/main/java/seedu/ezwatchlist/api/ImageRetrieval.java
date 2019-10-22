@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.*;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.config.TmdbConfiguration;
-import javafx.scene.image.Image;
 
 /**
  * A class for the image retrieval.
@@ -23,7 +26,8 @@ public class ImageRetrieval {
 
     public ImageRetrieval(TmdbApi tmdbApi, String filePath) {
         Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
-        IMAGE_CACHE_LOCATION = Paths.get(root.toString(),"src", "main", "resources", "images", "posters").toString() + File.separator;
+        IMAGE_CACHE_LOCATION = Paths.get(root.toString(), "src", "main", "resources", "images", "posters")
+                .toString() + File.separator;
         TmdbConfiguration configuration = tmdbApi.getConfiguration();
         API_BASE_URL = configuration.getBaseUrl() + DEFAULT_FILE_SIZE;
         imageUrl = API_BASE_URL + filePath;
@@ -40,7 +44,8 @@ public class ImageRetrieval {
 
     public void downloadImage(String fileName) {
         try (InputStream in = new URL(imageUrl).openStream()) {
-            Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION + fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png"));
+            Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION
+                    + fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png"));
         } catch(FileAlreadyExistsException f) {
             System.err.println("Duplicate image");
         } catch (IOException e) {
