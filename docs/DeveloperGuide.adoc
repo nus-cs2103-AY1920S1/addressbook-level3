@@ -123,7 +123,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores a `Context` object that represents the current application context.
-* stores a serializable `InternalState` object in order to keep track of primary key counters for both `Person` and `Activity`.
+* stores a JSON serializable `InternalState` object in order to keep track of primary key counters for both `Person` and `Activity`.
 * stores the Address Book and Activity Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
