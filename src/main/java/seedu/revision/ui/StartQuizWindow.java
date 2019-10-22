@@ -3,10 +3,15 @@ package seedu.revision.ui;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
@@ -46,7 +51,9 @@ public class StartQuizWindow extends Window {
     private AnswerableListPanel answerableListPanel;
     private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
+    private int currentAnswerableIndex = 0;
     private Iterator<Answerable> answerableIterator;
+//    private ObservableList<Answerable> filteredAnswerableList;
 
     @FXML
     private StackPane answerableListPanelPlaceholder;
@@ -64,12 +71,10 @@ public class StartQuizWindow extends Window {
      */
     void fillInnerParts() {
 
-//        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
-//        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
         answerableIterator = logic.getFilteredAnswerableList().iterator();
-//        if (answerableIterator.hasNext()) {
-            Answerable firstAnswerable = answerableIterator.next();
-//        }
+//        filteredAnswerableList = logic.getFilteredAnswerableList().sorted();
+        Answerable firstAnswerable = answerableIterator.next();
+//            Answerable firstAnswerable = filteredAnswerableList.get(currentAnswerableIndex);
 
         answersGridPane = new AnswersGridPane(firstAnswerable);
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
@@ -87,6 +92,43 @@ public class StartQuizWindow extends Window {
 
     void show() {
         primaryStage.show();
+    }
+
+    @FXML
+    private void handleEnd() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(null);
+        alert.setHeaderText(null);
+        alert.setGraphic(null);
+        alert.setContentText("Quiz has ended! Try again?\n" +
+                "Press [ENTER] to try again.\n" +
+                "Press [ESC] to return to main screen.");
+
+        ButtonType tryAgainButton = new ButtonType(
+                "Yes",
+                ButtonBar.ButtonData.OK_DONE
+        );
+        ButtonType endButton = new ButtonType(
+                "No",
+                ButtonBar.ButtonData.CANCEL_CLOSE
+        );
+
+        alert.getButtonTypes().setAll(tryAgainButton, endButton);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == tryAgainButton) {
+            restartQuiz();
+        } else if (result.get() == endButton) {
+            handleExit();
+        }
+    }
+
+    private void restartQuiz() {
+        fillInnerParts();
+//        answerableIterator = logic.getFilteredAnswerableList().iterator();
+//        CommandBox commandBox = new CommandBox(this::executeCommand);
+//        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
@@ -112,12 +154,13 @@ public class StartQuizWindow extends Window {
         if (commandText.equals("next")) {
             if (answerableIterator.hasNext()) {
                 Answerable nextAnswerable = answerableIterator.next();
+                logger.info(nextAnswerable.toString());
                 questionDisplay.setFeedbackToUser(nextAnswerable.getQuestion().toString());
                 answersGridPane.updateAnswers(nextAnswerable);
+                currentAnswerableIndex++;
                 return new CommandResult("go to next question", false, false);
             } else {
-                EndWindow endWindow = new EndWindow(this, mainWindow);
-                endWindow.show();
+                handleEnd();
             }
         }
         try {

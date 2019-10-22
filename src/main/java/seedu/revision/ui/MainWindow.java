@@ -50,10 +50,16 @@ public class MainWindow extends Window {
     }
 
     @FXML
-    public void handleStart() {
-        startQuizWindow = new StartQuizWindow(getPrimaryStage(), getLogic());
-        startQuizWindow.show();
-        startQuizWindow.fillInnerParts();
+    public void handleStart() throws CommandException {
+        logger.info(String.valueOf(logic.getFilteredAnswerableList().size()));
+        if (logic.getFilteredAnswerableList().size() > 0 ) {
+            startQuizWindow = new StartQuizWindow(getPrimaryStage(), getLogic());
+            startQuizWindow.show();
+            startQuizWindow.fillInnerParts();
+        } else {
+            resultDisplay.setFeedbackToUser("Cannot initialise quiz with empty test bank.");
+            throw new CommandException("Cannot initialise quiz with empty test bank.");
+        }
     }
     /**
      * Closes the application.
