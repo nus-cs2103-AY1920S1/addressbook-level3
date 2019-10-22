@@ -214,6 +214,23 @@ public class ModelManager implements Model {
         return billboard.retrieveTags(toRetrieve);
     }
 
+    @Override
+    public void incrementCount(Set<Tag> toIncrement) {
+        requireNonNull(toIncrement);
+        billboard.incrementCount(toIncrement);
+    }
+
+    @Override
+    public void decreaseCount(Set<Tag> toDecrease) {
+        requireNonNull(toDecrease);
+        billboard.decreaseCount(toDecrease);
+    }
+
+    @Override
+    public List<String> getTagNames() {
+        return billboard.getTagNames();
+    }
+
     //=========== Filtered Expense List Accessors =============================================================
 
     /**

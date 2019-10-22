@@ -18,37 +18,37 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.index.Index;
-import seedu.billboard.logic.commands.AddTagCommand;
+import seedu.billboard.logic.commands.RemoveTagCommand;
 import seedu.billboard.model.tag.Tag;
 
-public class AddTagCommandParserTest {
-    private AddTagCommandParser parser = new AddTagCommandParser();
+public class RemoveTagCommandParserTest {
+    private RemoveTagCommandParser parser = new RemoveTagCommandParser();
 
     @Test
     public void parse_indexSpecified_success() {
         // One tag
         Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + TAG_DESC_DINNER;
-        AddTagCommand expectedCommand = new AddTagCommand(INDEX_FIRST_EXPENSE,
+        RemoveTagCommand expectedCommand = new RemoveTagCommand(INDEX_FIRST_EXPENSE,
                 new ArrayList<>(Collections.singletonList(VALID_TAG_DINNER)));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // Multiple tags
         userInput = targetIndex.getOneBased() + TAG_DESC_DINNER + TAG_DESC_TAXES;
-        expectedCommand = new AddTagCommand(INDEX_FIRST_EXPENSE,
+        expectedCommand = new RemoveTagCommand(INDEX_FIRST_EXPENSE,
                 new ArrayList<>(Arrays.asList(VALID_TAG_DINNER, VALID_TAG_TAXES)));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //Duplicate tag
         userInput = targetIndex.getOneBased() + TAG_DESC_TAXES + TAG_DESC_TAXES;
-        expectedCommand = new AddTagCommand(INDEX_FIRST_EXPENSE,
+        expectedCommand = new RemoveTagCommand(INDEX_FIRST_EXPENSE,
                 new ArrayList<>(Arrays.asList(VALID_TAG_TAXES, VALID_TAG_TAXES)));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagCommand.MESSAGE_USAGE);
 
         // no parameters
         assertParseFailure(parser, PREAMBLE_WHITESPACE, expectedMessage);
@@ -56,6 +56,7 @@ public class AddTagCommandParserTest {
         //no index
         assertParseFailure(parser, TAG_DESC_DINNER, expectedMessage);
     }
+
     @Test
     public void parse_invalidTagName_failure() {
         String expectedMessage = Tag.MESSAGE_CONSTRAINTS;

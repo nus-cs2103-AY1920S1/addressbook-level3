@@ -151,6 +151,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void incrementCount(Set<Tag> toIncrement) {
+            throw new AssertionError("This method should not be called. ");
+        }
+
+        @Override
+        public void decreaseCount(Set<Tag> toDecrease) {
+            throw new AssertionError("This method should not be called. ");
+        }
+
+        @Override
+        public List<String> getTagNames() {
+            throw new AssertionError("This method should not be called. ");
+        }
+
+        @Override
         public ObservableList<Expense> getFilteredExpenses() {
             throw new AssertionError("This method should not be called.");
         }
