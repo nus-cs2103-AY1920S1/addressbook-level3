@@ -187,7 +187,11 @@ Step 5. The user executes `quit` command to exit from the quiz mode. The `quit` 
 
 The following sequence diagram shows how the `quiz` operation works:
 
-The following activity diagram summarizes what happens when a user executes a new command:
+image::QuizModeSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command for quiz:
+
+image::QuizModeActivityDiagram.png[]
 
 ==== Design Considerations
 
