@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.Rating;
 
 //@@author keiteo
 /**
@@ -33,9 +32,15 @@ public class FlashCardTestModel {
         //@@author LeonardTay748
         rating = currentFlashCard.getRating().toString();
 
-        if (rating.equals("good")){ model.editStats(0); }
-        if (rating.equals("hard")){ model.editStats(1); }
-        if (rating.equals("easy")){ model.editStats(2); }
+        if (rating.equals("good")) {
+            model.editStats(0);
+        }
+        if (rating.equals("hard")) {
+            model.editStats(1);
+        }
+        if (rating.equals("easy")) {
+            model.editStats(2);
+        }
 
         //@@author keiteo
         return currentFlashCard.getQuestion().toString();
