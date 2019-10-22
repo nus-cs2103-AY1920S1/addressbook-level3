@@ -1,13 +1,10 @@
 package seedu.address.ui.expenditure;
 
-import java.util.Optional;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.ui.UiPart;
 
@@ -24,8 +21,7 @@ public class ExpenditureCard extends UiPart<HBox> {
     private Label nameLabel;
     @FXML
     private Label budgetLabel;
-    @FXML
-    private Label dayLabel;
+
     @FXML
     private VBox propertiesContainer;
 
@@ -46,12 +42,6 @@ public class ExpenditureCard extends UiPart<HBox> {
         idLabel.setText(displayedIndex.getOneBased() + ".");
         nameLabel.setText(expenditure.getName().toString());
         budgetLabel.setText(" $" + expenditure.getBudget().toString());
-        Optional<DayNumber> day = expenditure.getDayNumber();
-        if (day.isPresent()) {
-            dayLabel.setText("  (Day " + day.get().toString() + ")");
-        } else {
-            dayLabel.setText("");
-        }
     }
     @Override
     public boolean equals(Object other) {
@@ -69,5 +59,9 @@ public class ExpenditureCard extends UiPart<HBox> {
         ExpenditureCard otherCard = (ExpenditureCard) other;
         return expenditure.equals(otherCard.expenditure)
                 && this.displayedIndex.equals(otherCard.displayedIndex);
+    }
+
+    public Expenditure getExpenditure() {
+        return expenditure;
     }
 }

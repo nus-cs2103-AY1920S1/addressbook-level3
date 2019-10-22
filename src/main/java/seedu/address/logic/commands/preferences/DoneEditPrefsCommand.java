@@ -17,7 +17,7 @@ public class DoneEditPrefsCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits your edited preferneces.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits your edited preferences.";
 
     public static final String MESSAGE_EDIT_PREFERENCES_SUCCESS = "Edited Preferences: %1$s";
     public static final String MESSAGE_NOT_EDITED = "All the fields must be provided!";
