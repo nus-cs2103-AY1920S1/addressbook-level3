@@ -27,7 +27,4 @@ public class DownCommand extends ScrollCommand {
         return new DownCommandResult(MESSAGE_SUCCESS, pane);
     }
 
-    public String getCommandWord() {
-        return this.COMMAND_WORD;
-    }
 }
