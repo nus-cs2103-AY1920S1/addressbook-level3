@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +14,7 @@ import seedu.address.logic.commands.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.distinctDate.DistinctDate;
+import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.event.Event;
 
 /**
@@ -36,7 +35,8 @@ public class ScheduleBox extends Tabs<AnchorPane> {
     @FXML
     private DatePicker datePicker;
 
-    public ScheduleBox(ObservableList<Event> eventList, ObservableList<DistinctDate> dateList, Logic logic, MainWindow mainWindow) {
+    public ScheduleBox(ObservableList<Event> eventList,
+                       ObservableList<DistinctDate> dateList, Logic logic, MainWindow mainWindow) {
         super(FXML, mainWindow, logic);
         eventsListView.setItems(eventList);
         eventsListView.setCellFactory(listView -> new EventListViewCell());

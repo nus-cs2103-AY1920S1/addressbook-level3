@@ -1,9 +1,10 @@
-package seedu.address.model.distinctDate;
-
-import seedu.address.model.event.Event;
+package seedu.address.model.distinctdate;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+
+import seedu.address.model.event.Event;
 
 /**
  * Represents a DistinctDate Object in the DistinctDateList

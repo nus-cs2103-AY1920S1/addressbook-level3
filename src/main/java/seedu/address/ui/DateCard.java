@@ -1,16 +1,14 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
 import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.distinctDate.DistinctDate;
+import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.event.Event;
 
 /**
@@ -52,6 +50,11 @@ public class DateCard extends UiPart<Region> {
         cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
+    /**
+     * Generates a string output based on the list of events inside the DistinctDate Object.
+     * @param date contains a list of events that i used to generate the string
+     * @return a string of the information of the events inside the object
+     */
     private String generateString(DistinctDate date) {
         List<Event> list = date.getListOfEvents();
         String outputString = "";

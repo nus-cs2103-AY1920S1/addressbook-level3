@@ -2,13 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
+import java.util.List;
+
 import seedu.address.logic.processor.DistinctDatesProcessor;
 import seedu.address.model.Model;
-import seedu.address.model.distinctDate.DistinctDate;
-import seedu.address.model.event.EventContainsKeyDatePredicate;
-
-import java.util.List;
+import seedu.address.model.distinctdate.DistinctDate;
 
 /**
  * Finds and lists all events in event list whose name contains any of the argument keywords.
@@ -17,7 +15,8 @@ import java.util.List;
 public class DisplayScheduleCommand extends Command {
     public static final String COMMAND_WORD = "display";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display all Dates and the events on that is on those dates"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Display all Dates and the events on that is on those dates"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed entire schedule";

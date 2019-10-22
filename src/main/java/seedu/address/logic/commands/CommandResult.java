@@ -82,7 +82,9 @@ public class CommandResult {
         return exit;
     }
 
-    public String getType() { return type; }
+    public String getType() {
+        return type;
+    }
 
     @Override
     public boolean equals(Object other) {
