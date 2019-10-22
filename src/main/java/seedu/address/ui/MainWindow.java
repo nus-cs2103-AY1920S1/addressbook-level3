@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -35,12 +36,17 @@ public class MainWindow extends UiPart<Stage> {
     private AssignmentListPanel assignmentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReminderListPanel reminderListPanel;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private SplitPane splitPane;
 
     @FXML
     private StackPane studentListPanelPlaceholder;
@@ -53,6 +59,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane reminderListPanelPlaceHolder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -114,6 +123,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         //studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
@@ -121,6 +131,9 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
 
         combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+
+        //reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
+        //reminderListPanelPlaceHolder.getChildren().add(reminderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -174,6 +187,9 @@ public class MainWindow extends UiPart<Stage> {
 
     public StudentListPanel getStudentListPanel() {
         return studentListPanel;
+    }
+    public ReminderListPanel getReminderListPanel() {
+        return reminderListPanel;
     }
 
     public AssignmentListPanel getAssignmentListPanel() {

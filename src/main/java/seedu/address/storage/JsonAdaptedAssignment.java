@@ -18,8 +18,10 @@ import seedu.address.model.assignment.AssignmentName;
 public class JsonAdaptedAssignment {
 
     private final String assignmentName;
+
     private final List<String> names = new ArrayList<>();
-    private final List<Integer> marks = new ArrayList<>();
+    private final List<String> marks = new ArrayList<>();
+    private boolean isCompleted;
 
     /**
      * Constructs a {@code JsonAdaptedAssignment} with the given {@code assignmentName}.
@@ -27,12 +29,14 @@ public class JsonAdaptedAssignment {
     @JsonCreator
     public JsonAdaptedAssignment(@JsonProperty("assignmentName") String assignmentName,
                                  @JsonProperty("studentNames") List<String> names,
-                                 @JsonProperty("studentMarks") List<Integer> marks) {
+                                 @JsonProperty("studentMarks") List<String> marks,
+                                 @JsonProperty("completionStatus") boolean isCompleted) {
         this.assignmentName = assignmentName;
         if (names != null && marks != null) {
             this.names.addAll(names);
             this.marks.addAll(marks);
         }
+        this.isCompleted = isCompleted;
     }
 
     /**
@@ -42,6 +46,7 @@ public class JsonAdaptedAssignment {
         assignmentName = source.getAssignmentName().assignmentName;
         names.addAll(source.namesStringListFromGrades());
         marks.addAll(source.marksStringListFromGrades());
+        isCompleted = source.isCompleted();
     }
 
 
@@ -51,16 +56,20 @@ public class JsonAdaptedAssignment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Assignment toModelType() throws IllegalValueException {
+
         if (assignmentName == null) {
+
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Assignment.class.getSimpleName()));
         }
         if (!AssignmentName.isValidAssignmentName(assignmentName)) {
-            throw new IllegalValueException(Assignment.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         final AssignmentName modelAssignmentName = new AssignmentName(assignmentName);
+
         Assignment newAssignment = new Assignment(modelAssignmentName);
         newAssignment.setGrades(this.names, this.marks);
+        newAssignment.setCompletionStatus(this.isCompleted);
         return newAssignment;
     }
 

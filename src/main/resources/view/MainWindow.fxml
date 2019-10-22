@@ -2,7 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.SplitPane?>
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
@@ -44,13 +46,35 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="combinedList" minWidth="0" prefHeight="340.0" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-          <StackPane fx:id="combinedListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-        </VBox>
-
+        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+          <VBox fx:id="reminderList" alignment="CENTER" minWidth="340" maxWidth="395" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Reminders" textFill="#FFD300">
+            <padding>
+              <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            </Label>
+            <StackPane fx:id="reminderListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+          </VBox>
+          <VBox fx:id="assignmentList" alignment="CENTER" minWidth="340" maxWidth="395" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="To be updated" textFill="#FFC300">
+            <padding>
+              <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            </Label>
+            <StackPane fx:id="assignmentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+          </VBox>
+          <VBox fx:id="combinedList" alignment="CENTER" minWidth="340" maxWidth="395" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Students/Assignments" textFill="#FFD300">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+              </padding>
+            </Label>
+            <StackPane fx:id="combinedListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+            <padding>
+              <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+          </VBox>
+        </SplitPane>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>

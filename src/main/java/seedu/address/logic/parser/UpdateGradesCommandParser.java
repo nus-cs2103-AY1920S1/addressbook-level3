@@ -27,7 +27,7 @@ public class UpdateGradesCommandParser implements Parser<UpdateGradesCommand> {
             ArgumentTokenizer.tokenize(args, PREFIX_MARKS);
 
         Index index;
-        List<Integer> marks = new ArrayList<>();
+        List<String> marks = new ArrayList<>();
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());

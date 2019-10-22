@@ -36,19 +36,19 @@ public class UpdateGradesCommand extends Command {
 
     private final Index index;
     private final List<String> students;
-    private final List<Integer> grades;
+    private final List<String> marks;
 
     /**
      * @param index of the assignment in the filtered assignment list to edit
-     * @param grades List of grades
+     * @param marks List of marks
      */
-    public UpdateGradesCommand(Index index, List<Integer> grades) {
+    public UpdateGradesCommand(Index index, List<String> marks) {
         requireNonNull(index);
-        requireNonNull(grades);
+        requireNonNull(marks);
 
         this.index = index;
         this.students = new ArrayList<String>();
-        this.grades = grades;
+        this.marks = marks;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class UpdateGradesCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX);
         }
 
-        if (lastShownStudentList.size() != grades.size()) {
+        if (lastShownStudentList.size() != marks.size()) {
             String tooManyInputsError = "Number of inputs should be " + lastShownStudentList.size();
             tooManyInputsError += " for " + lastShownStudentList.size() + " students";
             throw new CommandException(tooManyInputsError);
@@ -76,7 +76,7 @@ public class UpdateGradesCommand extends Command {
 
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         Assignment assignmentToEdit = lastShownAssignmentList.get(index.getZeroBased());
-        Assignment editedAssignment = createEditedAssignment(assignmentToEdit, students, grades);
+        Assignment editedAssignment = createEditedAssignment(assignmentToEdit, students, marks);
 
         if (!assignmentToEdit.isSameAssignment(editedAssignment) && model.hasAssignment(editedAssignment)) {
             throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
@@ -92,7 +92,8 @@ public class UpdateGradesCommand extends Command {
      * edited with {@code List<String> students} and {@code List<Integer> marks}
      */
     private static Assignment createEditedAssignment(Assignment assignmentToEdit,
-                                                     List<String> students, List<Integer> marks) {
+                                                     List<String> students, List<String> marks) {
+
         assert assignmentToEdit != null;
         assignmentToEdit.setGrades(students, marks);
         return assignmentToEdit;
@@ -113,6 +114,6 @@ public class UpdateGradesCommand extends Command {
         // state check
         UpdateGradesCommand e = (UpdateGradesCommand) other;
         return index.equals(e.index)
-                   && grades.equals(e.grades);
+                   && marks.equals(e.marks);
     }
 }

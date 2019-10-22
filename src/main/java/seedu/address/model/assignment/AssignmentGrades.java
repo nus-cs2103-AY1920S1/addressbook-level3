@@ -22,7 +22,7 @@ public class AssignmentGrades {
 
     public static final String VALIDATION_REGEX = "\\d+";
 
-    private HashMap<String, Integer> assignmentGrades;
+    private HashMap<String, String> assignmentGrades;
 
     /**
      * Constructs a {@code AssignmentGrades}.
@@ -31,7 +31,7 @@ public class AssignmentGrades {
         assignmentGrades = new LinkedHashMap<>();
     }
 
-    public Map<String, Integer> getGrades() {
+    public Map<String, String> getGrades() {
         return this.assignmentGrades;
     }
 
@@ -39,11 +39,11 @@ public class AssignmentGrades {
      * Parses a {@code List<String> grades} and {@code List<Integer> newGrades} to update assignmentGrades.
      * A LinkedHashMap is created with key-value pairs, with keys from grades and values from newGrades
      */
-    public void setGrades(List<String> studentNames, List<Integer> newGrades) {
+    public void setGrades(List<String> studentNames, List<String> newGrades) {
         //Add new grades
         for (int i = 0; i < studentNames.size(); i++) {
             String studentName = studentNames.get(i);
-            Integer studentGrade = newGrades.get(i);
+            String studentGrade = newGrades.get(i);
             if (assignmentGrades.containsKey(studentName)) {
                 assignmentGrades.replace(studentName, studentGrade);
             } else {
@@ -56,9 +56,18 @@ public class AssignmentGrades {
      * Parses a {@code String studentName}.
      * Removes the key-value pair for key: studentName.
      */
+    public void addOneStudentGrade (String studentName) {
+        assignmentGrades.put(studentName, "Did not do");
+    }
+
+    /**
+     * Parses a {@code String studentName}.
+     * Removes the key-value pair for key: studentName.
+     */
     public void deleteOneStudentGrade (String studentName) {
         assignmentGrades.remove(studentName);
     }
+
 
     /**
      * Returns a {@code List<String> names} created from keys in LinkedHashMap assignmentGrades
@@ -72,8 +81,8 @@ public class AssignmentGrades {
     /**
      * Returns a {@code List<Integer> marks} created from values in LinkedHashMap assignmentGrades
      */
-    public List<Integer> marksStringListFromGrades() {
-        List<Integer> marks = new ArrayList<>();
+    public List<String> marksStringListFromGrades() {
+        List<String> marks = new ArrayList<>();
         for (String key:assignmentGrades.keySet()) {
             marks.add(assignmentGrades.get(key));
         }
@@ -96,10 +105,10 @@ public class AssignmentGrades {
     public String toString() {
         String gradeOutput = "";
         List<String> names = this.namesStringListFromGrades();
-        List<Integer> marks = this.marksStringListFromGrades();
+        List<String> marks = this.marksStringListFromGrades();
         for (int i = 0; i < names.size(); i++) {
             String name = names.get(i);
-            String mark = marks.get(i).toString();
+            String mark = marks.get(i);
             gradeOutput += name + ": " + mark + "\n";
         }
         return gradeOutput;
