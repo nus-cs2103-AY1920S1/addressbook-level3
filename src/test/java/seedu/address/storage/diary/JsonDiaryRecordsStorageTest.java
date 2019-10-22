@@ -47,17 +47,17 @@ public class JsonDiaryRecordsStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readDiary("notJsonFormatDukeCooks.json"));
+        assertThrows(DataConversionException.class, () -> readDiary("notJsonFormatDiaryRecords.json"));
     }
 
     @Test
     public void readDiary_invalidDiaryDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDiary("invalidDiaryDukeCooks.json"));
+        assertThrows(DataConversionException.class, () -> readDiary("invalidDiaryRecords.json"));
     }
 
     @Test
     public void readDiary_invalidAndValidDiaryDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDiary("invalidAndValidDiariesDukeCooks.json"));
+        assertThrows(DataConversionException.class, () -> readDiary("invalidAndValidDiaryRecords.json"));
     }
 
     @Test

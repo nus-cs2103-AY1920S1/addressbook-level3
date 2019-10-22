@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY_DIARY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB_DIARY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.assertExerciseCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertDiaryCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.showDiaryAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DIARY;
@@ -89,7 +89,7 @@ public class EditDiaryCommandTest {
         EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder(firstDiary).build();
         EditDiaryCommand editDiaryCommand = new EditDiaryCommand(INDEX_SECOND_DIARY, descriptor);
 
-        assertExerciseCommandFailure(editDiaryCommand, model, EditDiaryCommand.MESSAGE_DUPLICATE_DIARY);
+        assertDiaryCommandFailure(editDiaryCommand, model, EditDiaryCommand.MESSAGE_DUPLICATE_DIARY);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class EditDiaryCommandTest {
         EditDiaryCommand editDiaryCommand = new EditDiaryCommand(INDEX_FIRST_DIARY,
                 new EditDiaryDescriptorBuilder(diaryInList).build());
 
-        assertExerciseCommandFailure(editDiaryCommand, model, EditDiaryCommand.MESSAGE_DUPLICATE_DIARY);
+        assertDiaryCommandFailure(editDiaryCommand, model, EditDiaryCommand.MESSAGE_DUPLICATE_DIARY);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class EditDiaryCommandTest {
         EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditDiaryCommand editDiaryCommand = new EditDiaryCommand(outOfBoundIndex, descriptor);
 
-        assertExerciseCommandFailure(editDiaryCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        assertDiaryCommandFailure(editDiaryCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     /**
@@ -127,7 +127,7 @@ public class EditDiaryCommandTest {
         EditDiaryCommand editDiaryCommand = new EditDiaryCommand(outOfBoundIndex,
                 new EditDiaryDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertExerciseCommandFailure(editDiaryCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        assertDiaryCommandFailure(editDiaryCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test

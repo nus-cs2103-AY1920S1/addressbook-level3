@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SETS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,9 +18,9 @@ import seedu.address.model.workout.exercise.components.Exercise;
 /**
  * Adds an exercise to Duke Cooks.
  */
-public class AddExerciseCommand extends Command {
+public class AddExerciseCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "addExercise";
+    public static final String VARIANT_WORD = "exercise";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an exercise to Duke Cooks. "
             + "Parameters: "

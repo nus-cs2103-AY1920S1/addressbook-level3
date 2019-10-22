@@ -14,7 +14,7 @@ import seedu.address.model.workout.exercise.components.IntensityContainsKeywords
  */
 public class FindExerciseByIntensityCommand extends FindCommand {
 
-    public static final String COMMAND_WORD = "findIntensity";
+    public static final String VARIANT_WORD = "exerciseIntensity";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all exercises with any intensity "
             + "specified by the user (case-insensitive) and displays them as a list with index numbers.\n"

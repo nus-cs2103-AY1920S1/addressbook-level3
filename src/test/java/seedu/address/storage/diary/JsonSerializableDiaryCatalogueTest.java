@@ -13,8 +13,8 @@ import seedu.address.testutil.diary.TypicalDiaries;
 
 public class JsonSerializableDiaryCatalogueTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableDukeCooksTest");
-    private static final Path TYPICAL_DIARIES_FILE = TEST_DATA_FOLDER.resolve("typicalDiariesDukeCooks.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableDiaryCatalogueTest");
+    private static final Path TYPICAL_DIARIES_FILE = TEST_DATA_FOLDER.resolve("typicalDiaryRecords.json");
 
     @Test
     public void toModelType_typicalDiariesFile_success() throws Exception {

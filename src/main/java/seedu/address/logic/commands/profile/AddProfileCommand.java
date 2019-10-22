@@ -2,7 +2,7 @@ package seedu.address.logic.commands.profile;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -11,9 +11,9 @@ import seedu.address.model.profile.person.Person;
 /**
  * Adds a person to Duke Cooks.
  */
-public class AddProfileCommand extends Command {
+public class AddProfileCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "addProfile";
+    public static final String VARIANT_WORD = "profile";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to Duke Cooks. ";
 
