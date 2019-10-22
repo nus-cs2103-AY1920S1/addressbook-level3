@@ -7,11 +7,29 @@ import seedu.address.model.Lesson.Lesson;
  */
 public class Reminder implements Runnable {
     private final Lesson lesson;
+    private String title;
+    private String details;
 
     public Reminder(Lesson lesson) {
         this.lesson = lesson;
     }
+
+    public String getTitle() {
+        return title;
+    }
+    public String getDetails() {
+        return details;
+    }
     public void run() {
         System.out.println(lesson);
+    }
+
+    public boolean isSameReminder(Reminder otherReminder){
+        if (this == otherReminder) {
+            return true;
+        }
+        return otherReminder != null
+                && otherReminder.getTitle().equals(getTitle())
+                && (otherReminder.getDetails().equals(getDetails()));
     }
 }

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Lesson.Lesson;
+import seedu.address.model.Scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -98,4 +99,10 @@ public interface Model {
      * @param lesson Lesson object.
      */
     boolean hasLesson(Lesson lesson);
+
+    /**
+     * returns an unmodifiable view of the filtered
+     * @return Ob
+     */
+    ObservableList<Reminder> getFilteredReminderList();
 }
