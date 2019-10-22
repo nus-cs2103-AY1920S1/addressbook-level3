@@ -25,10 +25,7 @@
     </rowConstraints>
 
     <children>
-        <Button fx:id="option1" maxHeight="300"  maxWidth="600"
-               style="-fx-background-color: #f8b1b1; -fx-background-radius: 10;
-                   -fx-padding: 10; -fx-border-radius: 10;
-                   -fx-border-color: #fbf3f3; -fx-border-width: 3;"
+        <Button styleClass="option-label" fx:id="option1" maxHeight="300"  maxWidth="600"
                text="\$option1" wrapText="true"
                GridPane.columnIndex="0" GridPane.rowIndex="0">
             <effect>
@@ -39,10 +36,7 @@
             </font>
         </Button>
 
-        <Button fx:id="option2" maxHeight="300"  maxWidth="600"
-               style="-fx-background-color: #f8b1b1; -fx-background-radius: 10;
-                   -fx-padding: 10; -fx-border-radius: 10;
-                   -fx-border-color: #fbf3f3; -fx-border-width: 3;"
+        <Button styleClass="option-label" fx:id="option2" maxHeight="300"  maxWidth="600"
                text="\$option2" wrapText="true"
                GridPane.columnIndex="1" GridPane.rowIndex="0">
             <effect>
@@ -53,10 +47,7 @@
             </font>
         </Button>
 
-        <Button fx:id="option3" maxHeight="300"  maxWidth="600"
-               style="-fx-background-color: #f8b1b1; -fx-background-radius: 10;
-                   -fx-padding: 10; -fx-border-radius: 10;
-                   -fx-border-color: #fbf3f3; -fx-border-width: 3;"
+        <Button styleClass="option-label" fx:id="option3" maxHeight="300"  maxWidth="600"
                text="\$option3" wrapText="true"
                GridPane.columnIndex="0" GridPane.rowIndex="1">
             <effect>
@@ -68,10 +59,7 @@
         </Button>
 
 
-        <Button fx:id="option4" maxHeight="300"  maxWidth="600"
-               style="-fx-background-color: #f8b1b1; -fx-background-radius: 10;
-                   -fx-padding: 10; -fx-border-radius: 10;
-                   -fx-border-color: #fbf3f3; -fx-border-width: 3;"
+        <Button styleClass="option-label" fx:id="option4" maxHeight="300"  maxWidth="600"
                text="\$option4" wrapText="true"
                GridPane.columnIndex="1" GridPane.rowIndex="1">
             <effect>

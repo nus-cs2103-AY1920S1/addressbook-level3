@@ -70,11 +70,13 @@ public class StartQuizWindow extends Window {
 //        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
 //        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
         ObservableList<Answerable> filteredList = logic.getFilteredAnswerableList();
+        Answerable firstAnswerable = filteredList.get(0);
 
-        answersGridPane = new AnswersGridPane(DEFAULT_QUESTION);
+        answersGridPane = new AnswersGridPane(firstAnswerable);
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         resultDisplay = new ResultDisplay();
+        resultDisplay.setFeedbackToUser(firstAnswerable.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());

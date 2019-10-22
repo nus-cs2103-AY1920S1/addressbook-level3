@@ -38,6 +38,8 @@ public class AnswersGridPane extends UiPart<Region> {
         option2.setText(answerList.get(1).answer);
         option3.setText(answerList.get(2).answer);
         option4.setText(answerList.get(3).answer);
+
+        this.getRoot().getStyleClass().add("option-label");
     }
 
 
