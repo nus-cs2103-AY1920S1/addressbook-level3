@@ -118,7 +118,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addTransaction(BankAccountOperation transaction){
+    public void addTransaction(BankAccountOperation transaction) {
         versionedBankAccount.addTransaction(transaction);
     }
 

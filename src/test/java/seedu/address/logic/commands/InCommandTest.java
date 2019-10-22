@@ -20,7 +20,10 @@ import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.transaction.*;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
 
 public class InCommandTest {
@@ -33,7 +36,7 @@ public class InCommandTest {
     }
 
     @Test
-    public void execute_TransactionAcceptedByModel_addSuccessful() throws Exception {
+    public void executeTransactionAcceptedByModeladdSuccessful() throws Exception {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         BankAccountOperation validTransaction = new TransactionBuilder().build();
 
@@ -43,40 +46,40 @@ public class InCommandTest {
         assertEquals(String.format(InCommand.MESSAGE_SUCCESS, validTransaction), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTransaction), modelStub.transactionsAdded);
     }
-//
-//    @Test
-//    public void execute_duplicatePerson_throwsCommandException() {
-//        Person validPerson = new PersonBuilder().build();
-//        InCommand addCommand = new InCommand(validPerson);
-//        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-//
-//        assertThrows(CommandException.class, InCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
-//    }
-//
-//    @Test
-//    public void equals() {
-//        Person alice = new PersonBuilder().withName("Alice").build();
-//        Person bob = new PersonBuilder().withName("Bob").build();
-//        InCommand addAliceCommand = new InCommand(alice);
-//        InCommand addBobCommand = new InCommand(bob);
-//
-//        // same object -> returns true
-//        assertTrue(addAliceCommand.equals(addAliceCommand));
-//
-//        // same values -> returns true
-//        InCommand addAliceCommandCopy = new InCommand(alice);
-//        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-//
-//        // different types -> returns false
-//        assertFalse(addAliceCommand.equals(1));
-//
-//        // null -> returns false
-//        assertFalse(addAliceCommand.equals(null));
-//
-//        // different person -> returns false
-//        assertFalse(addAliceCommand.equals(addBobCommand));
-//    }
+    /*
+    @Test
+    public void execute_duplicatePerson_throwsCommandException() {
+        Person validPerson = new PersonBuilder().build();
+        InCommand addCommand = new InCommand(validPerson);
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
+        assertThrows(CommandException.class, InCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void equals() {
+        Person alice = new PersonBuilder().withName("Alice").build();
+        Person bob = new PersonBuilder().withName("Bob").build();
+        InCommand addAliceCommand = new InCommand(alice);
+        InCommand addBobCommand = new InCommand(bob);
+
+        // same object -> returns true
+        assertTrue(addAliceCommand.equals(addAliceCommand));
+
+        // same values -> returns true
+        InCommand addAliceCommandCopy = new InCommand(alice);
+        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addAliceCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addAliceCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(addAliceCommand.equals(addBobCommand));
+    }
+    */
 
     /**
      * A default model stub that have all of the methods failing.

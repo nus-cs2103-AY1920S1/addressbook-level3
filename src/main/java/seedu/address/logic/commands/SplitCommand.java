@@ -33,8 +33,7 @@ public class SplitCommand extends Command {
 
     private final Split transaction;
 
-    public SplitCommand(Split transaction)
-    {
+    public SplitCommand(Split transaction) {
         requireNonNull(transaction);
         this.transaction = transaction;
     }
