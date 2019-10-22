@@ -16,6 +16,7 @@ import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.testutil.WordBankBuilder;
@@ -28,7 +29,7 @@ public class GameTest {
         WordBankBuilder wordBankBuilder = new WordBankBuilder();
         wordBankBuilder.withCard(ABRA);
         WordBank wb = wordBankBuilder.build();
-        Game game = new Game(wb, x -> Collections.shuffle(x));
+        Game game = new Game(wb, x -> Collections.shuffle(x), DifficultyEnum.EASY);
 
         // Makes correct guess; guess Abra as Abra
         assertTrue(game.checkGuess(new Guess(ABRA.getWord().toString())));
@@ -46,7 +47,7 @@ public class GameTest {
     @Test
     public void nullWordBankPassedIntoConstructor_throwsNullPointerException() {
         WordBank wb = null;
-        assertThrows(NullPointerException.class, () -> new Game(wb, x -> Collections.shuffle(x)));
+        assertThrows(NullPointerException.class, () -> new Game(wb, x -> Collections.shuffle(x), DifficultyEnum.EASY));
     }
 
     @Test
@@ -66,7 +67,7 @@ public class GameTest {
             cardVisitedCountMap.put(wb.getCard(Index.fromZeroBased(i)), 0);
         }
 
-        Game game = new Game(wb, x -> Collections.shuffle(x));
+        Game game = new Game(wb, x -> Collections.shuffle(x), DifficultyEnum.EASY);
 
         // Mark the first card as being seen once.
         Card firstCardOfBank = game.getCurrCard();
@@ -99,7 +100,7 @@ public class GameTest {
         wordBankBuilder.withCard(ABRA);
         wordBankBuilder.withCard(BUTTERFREE);
         WordBank wb = wordBankBuilder.build();
-        Game game = new Game(wb, x -> Collections.shuffle(x));
+        Game game = new Game(wb, x -> Collections.shuffle(x), DifficultyEnum.EASY);
 
         // Game has not ended, 2 cards left.
         assertFalse(game.isOver());
@@ -120,7 +121,7 @@ public class GameTest {
         WordBankBuilder wordBankBuilder = new WordBankBuilder();
         wordBankBuilder.withCard(ABRA);
         WordBank wb = wordBankBuilder.build();
-        Game game = new Game(wb, x -> Collections.shuffle(x));
+        Game game = new Game(wb, x -> Collections.shuffle(x), DifficultyEnum.EASY);
 
         // ABRA card shows correctly.
         assertEquals(ABRA.getMeaning().toString(), game.getCurrQuestion());
@@ -138,7 +139,7 @@ public class GameTest {
         wordBankBuilder.withCard(ABRA);
         wordBankBuilder.withCard(BUTTERFREE);
         WordBank wb = wordBankBuilder.build();
-        Game game = new Game(wb, x -> Collections.shuffle(x));
+        Game game = new Game(wb, x -> Collections.shuffle(x), DifficultyEnum.EASY);
 
         // Game has not ended yet.
         assertFalse(game.isOver());
@@ -163,7 +164,7 @@ public class GameTest {
             cardVisitedCountMap.put(wb.getCard(Index.fromZeroBased(i)), 0);
         }
 
-        Game game = new Game(wb, x -> Collections.shuffle(x));
+        Game game = new Game(wb, x -> Collections.shuffle(x), DifficultyEnum.EASY);
 
 
         // Shuffling method should not change the set of possible cards or introduce duplicates.

@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.Random;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import seedu.address.appmanager.AppManager;
 import seedu.address.model.globalstatistics.GlobalStatistics;
@@ -11,7 +10,17 @@ import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
-import seedu.address.ui.modules.*;
+import seedu.address.ui.modules.BankLabelPanel;
+import seedu.address.ui.modules.CardListPanel;
+import seedu.address.ui.modules.GameResultPanel;
+import seedu.address.ui.modules.HintLabel;
+import seedu.address.ui.modules.LoadBankPanel;
+import seedu.address.ui.modules.MainTitlePanel;
+import seedu.address.ui.modules.QuestionLabel;
+import seedu.address.ui.modules.SettingsPanel;
+import seedu.address.ui.modules.TitleScreenPanel;
+import seedu.address.ui.modules.WordBankStatisticsPanel;
+
 
 
 /**
@@ -147,6 +156,10 @@ public class ModularDisplay {
     }
 
 
+    /**
+     * Creates and returns a {@code TwoSplitRowLayout} that contains the question and hint label.
+     * @return
+     */
     public TwoSplitRowLayout createQuestionHints() {
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitRowLayout.addToTopPane(questionLabel.getRoot());
@@ -154,6 +167,10 @@ public class ModularDisplay {
         return twoSplitRowLayout;
     }
 
+    /**
+     * Updates the question label and reconstructs the TwoSplitRowDisplay with
+     * {@code question} on the {@code StackPaneToDisplay}.
+     */
     public void updateQuestion(String question, StackPane paneToDisplay) {
         questionLabel.updateQuestionLabel(question);
         hintLabel.updateHintLabel("No Hints Yet");
@@ -161,6 +178,10 @@ public class ModularDisplay {
         paneToDisplay.getChildren().add(createQuestionHints().getRoot());
     }
 
+    /**
+     * Updates the hint label and reconstructs the TwoSplitRowDisplay with
+     * {@code hint} on the {@code StackPaneToDisplay}.
+     */
     public void updateHint(String hint, StackPane paneToDisplay) {
         hintLabel.updateHintLabel(hint);
         paneToDisplay.getChildren().clear();

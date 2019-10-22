@@ -30,7 +30,6 @@ public class HintTimingQueue {
     }
 
     public long pollNextTimeToUpdate() {
-        System.out.println("pollNextTimeToUpdate <---------is queue empty?: " + hintTimesQueue.isEmpty());
         return hintTimesQueue.poll();
     }
 

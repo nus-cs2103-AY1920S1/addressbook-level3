@@ -37,17 +37,19 @@ public class StartCommand extends SwitchCommand {
 
     private Optional<DifficultyEnum> difficulty = Optional.empty();
 
-    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
-        return ModeEnum.GAME;
-    }
-
     public StartCommand() {
-
+        difficulty = Optional.empty();
     }
 
     public StartCommand(Optional<DifficultyEnum> difficulty) {
         this.difficulty = difficulty;
     }
+
+    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
+        return ModeEnum.GAME;
+    }
+
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

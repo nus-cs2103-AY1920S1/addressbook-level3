@@ -4,7 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.appsettings.DifficultyEnum;
@@ -18,11 +17,8 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
  */
 public class Game {
 
-    public static final int CORRECT_GUESS = 1;
-    public static final int WRONG_GUESS = 0;
     private DifficultyEnum currentGameDifficulty;
     private boolean isOver = false;
-    private FormattedHint formattedHint;
 
     // Shuffled Deck of Cards using cards from ReadOnlyWordBank
     private final List<Card> shuffledDeckOfCards;
@@ -72,11 +68,6 @@ public class Game {
     }
 
     public int getHintFormatSizeOfCurrCard() {
-        if (isOver()) {
-            System.out.println(this + " game is Already over!!");
-        }
-
-        System.out.println(getCurrCard() + "<---------------------current card");
         return getCurrCard().getHintFormatSize();
     }
 

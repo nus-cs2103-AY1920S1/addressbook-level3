@@ -48,7 +48,7 @@ public class AppManager {
         logic.setGuiSettings(guiSettings);
     }
 
-    private void setAndRunGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
+    private void setGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
         gameTimer = new GameTimer("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack,
@@ -105,9 +105,8 @@ public class AppManager {
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
-            setAndRunGameTimer(logic.getTimeAllowedPerQuestion(),
+            setGameTimer(logic.getTimeAllowedPerQuestion(),
                     logic.getHintFormatSizeFromCurrentGame());
-//            System.out.println(logic.getCurrentQuestion() + " " + logic.getHintFormatFromCurrentGame());
             Platform.runLater(() -> {
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
                 gameTimer.run();

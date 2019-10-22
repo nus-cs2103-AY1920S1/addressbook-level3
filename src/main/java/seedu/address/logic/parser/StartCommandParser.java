@@ -1,12 +1,10 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import java.util.Optional;
 
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appsettings.DifficultyEnum;
-
-import java.util.Optional;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

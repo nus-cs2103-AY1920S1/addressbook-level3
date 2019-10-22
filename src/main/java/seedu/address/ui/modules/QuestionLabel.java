@@ -5,6 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.ui.UiPart;
 
+/**
+ * UI Class that represents the region for the question to be displayed on.
+ */
 public class QuestionLabel extends UiPart<Region> {
     private static final String FXML = "questionLabel.fxml";
 
