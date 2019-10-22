@@ -10,7 +10,7 @@ When you begin a visit using `visit-start`, the patient's Visit Todos are copied
 
 === How to view the ongoing visit
 
-The ongoing visit can be viewed by clicking on the ongoing visit tab.
+The ongoing visit can be viewed by clicking on the current visit tab. Note that you will have to change tabs manually and your commands will not affect which tab you are viewing.
 
 === How to view the visit todos of a patient
 
