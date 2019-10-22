@@ -28,6 +28,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.history.CommandHistory;
 import seedu.billboard.model.undo.UndoList;
 import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.storage.Storage;
@@ -56,7 +57,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = billboardParser.parseCommand(commandText);
         commandResult = command.execute(model);
-
+        CommandHistory.addCmdHistory(commandText);
         if ((command instanceof AddArchiveCommand) || (command instanceof AddCommand)
                 || (command instanceof AddTagCommand) || (command instanceof ClearCommand)
                 || (command instanceof DeleteArchiveCommand) || (command instanceof DeleteCommand)

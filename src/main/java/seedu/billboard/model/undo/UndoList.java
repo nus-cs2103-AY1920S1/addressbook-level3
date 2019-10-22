@@ -10,7 +10,6 @@ import seedu.billboard.model.Model;
 public class UndoList {
     private static Stack<Model> modelList;
     private static Stack<String> cmdList;
-    private static boolean isFirst;
 
     public UndoList() {
         this.modelList = new Stack<>();

@@ -4,7 +4,7 @@ import seedu.billboard.logic.commands.UndoCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
 /**
- * Undo previous edit command.
+ * Ensure there is no input argument and creates a new UndoCommand object
  */
 public class UndoCommandParser implements Parser<UndoCommand> {
     /**
