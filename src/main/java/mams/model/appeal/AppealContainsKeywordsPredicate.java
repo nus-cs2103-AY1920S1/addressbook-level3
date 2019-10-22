@@ -1,9 +1,9 @@
 package mams.model.appeal;
 
-import mams.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import mams.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Module}'s {@code code} matches any of the keywords given.
@@ -20,11 +20,16 @@ public class AppealContainsKeywordsPredicate implements Predicate<Appeal> {
         return keywords.isEmpty();
     }
 
+    public int getListSize() {
+        return keywords.size();
+    }
+
     @Override
     public boolean test(Appeal appeal) {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(appeal.getAppealType(), keyword)
-                        || StringUtil.containsWordIgnoreCase(appeal.getModule_to_add(), keyword));
+                        || StringUtil.containsWordIgnoreCase(appeal.getModule_to_add(), keyword)
+                        || StringUtil.containsWordIgnoreCase(appeal.getStatus(), keyword));
     }
 
     @Override

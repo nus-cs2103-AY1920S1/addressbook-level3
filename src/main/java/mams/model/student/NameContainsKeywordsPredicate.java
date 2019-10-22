@@ -16,7 +16,11 @@ public class NameContainsKeywordsPredicate implements Predicate<Student> {
     }
 
     public boolean isEmpty() {
-        return keywords.isEmpty();
+        return keywords.get(0).trim().isEmpty();
+    }
+
+    public int getListSize() {
+        return keywords.size();
     }
 
     @Override

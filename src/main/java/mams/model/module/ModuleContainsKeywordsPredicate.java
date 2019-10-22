@@ -20,6 +20,10 @@ public class ModuleContainsKeywordsPredicate implements Predicate<Module> {
         return keywords.isEmpty();
     }
 
+    public int getListSize() {
+        return keywords.size();
+    }
+
     @Override
     public boolean test(Module module) {
         return keywords.stream()
