@@ -96,7 +96,6 @@ public class UniqueStudentList implements Iterable<Student> {
 
         internalList.setAll(students);
     }
-
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
