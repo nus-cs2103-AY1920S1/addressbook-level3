@@ -10,6 +10,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.DownCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -17,6 +18,8 @@ import seedu.address.logic.commands.PriorityCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ElisaCommandHistory;
 
@@ -94,10 +97,13 @@ public class AddressBookParser {
 
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(description, flags);
-        /*
-        case ShowCommand.COMMAND_WORD:
-            return new ShowCommand(description);
-        */
+
+        case UpCommand.COMMAND_WORD:
+            return new UpCommand(description);
+
+        case DownCommand.COMMAND_WORD:
+            return new DownCommand(description);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
