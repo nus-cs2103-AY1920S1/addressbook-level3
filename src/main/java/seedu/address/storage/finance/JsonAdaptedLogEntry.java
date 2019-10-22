@@ -26,7 +26,8 @@ import seedu.address.model.finance.logentry.LogEntry;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = JsonAdaptedSpendLogEntry.class, name = "AdaptedSpendLogEntry"),
         @JsonSubTypes.Type(value = JsonAdaptedIncomeLogEntry.class, name = "AdaptedIncomeLogEntry"),
-        @JsonSubTypes.Type(value = JsonAdaptedBorrowLogEntry.class, name = "AdaptedBorrowLogEntry") }
+        @JsonSubTypes.Type(value = JsonAdaptedBorrowLogEntry.class, name = "AdaptedBorrowLogEntry"),
+        @JsonSubTypes.Type(value = JsonAdaptedLendLogEntry.class, name = "AdaptedLendLogEntry") }
 )
 //@@author
 abstract class JsonAdaptedLogEntry {

@@ -49,7 +49,7 @@ public class IncomeCommandParser implements Parser<IncomeCommand> {
         TransactionMethod tMethod = ParserUtil.parseTransactionMethod(
                 argMultimap.getValue(PREFIX_TRANSACTION_METHOD).get());
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
-        Person from = ParserUtil.parseFrom(argMultimap.getValue(PREFIX_FROM).get());
+        Person from = ParserUtil.parsePerson(argMultimap.getValue(PREFIX_FROM).get());
 
         IncomeLogEntry logEntry = new IncomeLogEntry(amount, tDate, description, tMethod, categoryList, from);
 

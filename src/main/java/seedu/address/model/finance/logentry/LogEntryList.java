@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.finance.logentry.exceptions.LogEntryNotFoundException;
 
-
 /**
  * A list of finance log entries that does not allow nulls.
  * The removal of a log entry uses LogEntry#equals(Object) so

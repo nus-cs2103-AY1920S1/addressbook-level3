@@ -145,7 +145,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Person parseFrom(String name) throws ParseException {
+    public static Person parsePerson(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Person.isValidName(trimmedName)) {
