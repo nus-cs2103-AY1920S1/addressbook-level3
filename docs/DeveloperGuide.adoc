@@ -278,6 +278,18 @@ Back Command that calls `resetPredicate()`.
 === Inventory Tab
 
 === Cashier Tab
+This tab will act as a shopping cart and show sales item from the inventory that will contribute to sales made.
+
+To add the sales item into the cart, it will require an input of a description and its quantity.
+An optional input of category is provided to guide the cashier to find the desired item.
+
+Revenue from every checkout will also be automatically inputted as
+a positive transaction in Home tab with the cashier being the person-in-charge. For every sales made,
+the quantity of each item will be updated accordingly in the Inventory tab.
+
+This is the overall Class Diagram of this tab:
+
+.Class Diagram of Cashier Tab (cashier package)
 
 === Overview Tab
 

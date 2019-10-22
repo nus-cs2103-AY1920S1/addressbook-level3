@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import seedu.address.cashier.logic.commands.AddCommand;
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.commands.exception.NotANumberException;
-import seedu.address.cashier.logic.exception.NegativeQuantityException;
+import seedu.address.cashier.logic.commands.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
