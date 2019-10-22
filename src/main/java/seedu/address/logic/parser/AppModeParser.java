@@ -19,6 +19,7 @@ import seedu.address.logic.commands.appcommands.HelpCommand;
 import seedu.address.logic.commands.appcommands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
+import seedu.address.model.Model;
 
 /**
  * Parses user input.
@@ -31,11 +32,13 @@ public class AppModeParser extends ModeParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private List<ClassPair> commandParserClassPairs;
     private ClassUtil classUtil;
+    private Model model;
 
-    public AppModeParser() {
+    public AppModeParser(Model model) {
         //Class temp = AddCommandParser.class;
         this.commandParserClassPairs = new ArrayList<>();
-        this.classUtil = new ClassUtil();
+        this.classUtil = new ClassUtil(model);
+        this.model = model;
         commandParserClassPairs.add(new ClassPair(AddCommand.class, AddCommandParser.class));
         commandParserClassPairs.add(new ClassPair(EditCommand.class, EditCommandParser.class));
         commandParserClassPairs.add(new ClassPair(DeleteCommand.class, DeleteCommandParser.class));

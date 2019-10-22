@@ -9,13 +9,18 @@ import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ClassUtil {
 
+    private Model model;
 
+    public ClassUtil (Model model) {
+        this.model = model;
+    }
 
     public List<String> getAttribute(List<ClassPair> classes, String attr) {
         List<String> result = new ArrayList<>();

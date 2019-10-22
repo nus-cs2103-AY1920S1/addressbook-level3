@@ -19,6 +19,7 @@ import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
+import seedu.address.model.Model;
 
 
 
@@ -37,13 +38,15 @@ public class ParserManager {
     private ModeEnum tempMode;
     private List<ClassPair> commandParserClassPairs;
     private ClassUtil classUtil;
+    private Model model;
 
-    public ParserManager () {
+    public ParserManager (Model model) {
         this.mode = ModeEnum.LOAD;
         this.modeParser = setModeParser();
         this.tempMode = null;
         this.commandParserClassPairs = new ArrayList<>();
-        this.classUtil = new ClassUtil();
+        this.classUtil = new ClassUtil(model);
+        this.model = model;
         commandParserClassPairs.add(new ClassPair(BankCommand.class, BankCommandParser.class));
         commandParserClassPairs.add(new ClassPair(HomeCommand.class, null));
         commandParserClassPairs.add(new ClassPair(LoadScreenCommand.class, null));
@@ -58,7 +61,7 @@ public class ParserManager {
     private ModeParser setModeParser() {
         switch (this.mode) {
         case APP:
-            return new AppModeParser();
+            return new AppModeParser(model);
         case LOAD:
             return new LoadModeParser();
         case SETTINGS:

@@ -61,7 +61,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         this.game = game //get from constructor
          */
 
-        parserManager = new ParserManager();
+        parserManager = new ParserManager(model);
     }
 
     @Override
