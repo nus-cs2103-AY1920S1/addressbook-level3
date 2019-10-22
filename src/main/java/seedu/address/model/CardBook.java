@@ -12,7 +12,7 @@ import seedu.address.model.card.UniqueCardList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameCard comparison)
  */
-public class CardBook {
+public class CardBook implements ReadOnlyCardBook {
 
     private final UniqueCardList cards;
 
@@ -32,7 +32,7 @@ public class CardBook {
     /**
      * Creates an CardBook using the Persons in the {@code toBeCopied}
      */
-    public CardBook(CardBook toBeCopied) {
+    public CardBook(ReadOnlyCardBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -49,8 +49,9 @@ public class CardBook {
 
     /**
      * Resets the existing data of this {@code CardBook} with {@code newData}.
+     * @param newData
      */
-    public void resetData(CardBook newData) {
+    public void resetData(ReadOnlyCardBook newData) {
         requireNonNull(newData);
 
         setCards(newData.getCardList());

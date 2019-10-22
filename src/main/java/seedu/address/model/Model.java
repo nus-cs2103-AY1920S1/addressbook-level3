@@ -100,7 +100,6 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
-<<<<<<< HEAD
      * Returns true if a file with the same identity as {@code file} exists in the file book.
      */
     boolean hasFile(EncryptedFile file);
@@ -159,10 +158,10 @@ public interface Model {
     /**
      * Replaces card book data with the data in {@code cardBook}.
      */
-    void setCardBook(CardBook cardBook);
+    void setCardBook(ReadOnlyCardBook cardBook);
 
     /** Returns the AddressBook */
-    CardBook getCardBook();
+    ReadOnlyCardBook getCardBook();
 
     /**
      * Returns true if a card with the same identity as {@code card} exists in the card book.

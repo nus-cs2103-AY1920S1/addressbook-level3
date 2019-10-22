@@ -17,9 +17,9 @@ import seedu.address.logic.parser.FileBookParser;
 import seedu.address.logic.parser.NoteBookParser;
 import seedu.address.logic.parser.PasswordBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCardBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
@@ -50,10 +50,10 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        mode = "home";
         addressBookParser = new AddressBookParser();
         fileBookParser = new FileBookParser(storage.getStoragePassword());
         cardBookParser = new CardBookParser();
-        mode = "home";
         noteBookParser = new NoteBookParser();
         passwordBookParser = new PasswordBookParser();
     }
@@ -88,7 +88,7 @@ public class LogicManager implements Logic {
                 storage.saveFileBook(model.getFileBook());
                 break;
             case "card":
-                // storage.saveCardBook(model.getCardBook());
+                storage.saveCardBook(model.getCardBook());
                 break;
             case "note":
                 storage.saveNoteBook(model.getNoteBook());
@@ -135,7 +135,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Note> getFilteredNoteList() {
         return model.getFilteredNoteList();
-
     }
 
     @Override
@@ -144,7 +143,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CardBook getCardBook() {
+    public ReadOnlyCardBook getCardBook() {
         return model.getCardBook();
     }
 
@@ -161,6 +160,7 @@ public class LogicManager implements Logic {
     public Path getNoteBookFilePath() {
         return model.getNoteBookFilePath();
     }
+
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
@@ -170,7 +170,6 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
-
 
     public void setMode(String newMode) {
         mode = newMode;

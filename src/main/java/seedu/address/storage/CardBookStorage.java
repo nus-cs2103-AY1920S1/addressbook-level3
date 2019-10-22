@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.CardBook;
+import seedu.address.model.ReadOnlyCardBook;
 
 /**
  * Represents a storage for {@link seedu.address.model.CardBook}.
@@ -23,23 +24,23 @@ public interface CardBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<CardBook> readCardBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyCardBook> readCardBook() throws DataConversionException, IOException;
 
     /**
      * @see #getCardBookFilePath()
      */
-    Optional<CardBook> readCardBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyCardBook> readCardBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link CardBook} to the storage.
      * @param cardBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveCardBook(CardBook cardBook) throws IOException;
+    void saveCardBook(ReadOnlyCardBook cardBook) throws IOException;
 
     /**
-     * @see #saveCardBook(CardBook)
+     * @see #saveCardBook(ReadOnlyCardBook)
      */
-    void saveCardBook(CardBook cardBook, Path filePath) throws IOException;
+    void saveCardBook(ReadOnlyCardBook cardBook, Path filePath) throws IOException;
 
 }

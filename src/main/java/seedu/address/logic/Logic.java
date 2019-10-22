@@ -8,8 +8,8 @@ import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CardBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCardBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
@@ -70,7 +70,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getCardBook()
      */
-    CardBook getCardBook();
+    ReadOnlyCardBook getCardBook();
 
     /** Returns an unmodifiable view of the filtered list of cards */
     ObservableList<Card> getFilteredCardList();

@@ -26,20 +26,20 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final FileBook fileBook;
     private final CardBook cardBook;
+    private final NoteBook noteBook;
+    private final PasswordBook passwordBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<EncryptedFile> filteredFiles;
     private final FilteredList<Card> filteredCards;
-    private final NoteBook noteBook;
     private final FilteredList<Note> filteredNotes;
-    private final PasswordBook passwordBook;
     private final FilteredList<Password> filteredPasswords;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyFileBook fileBook,
-                        CardBook cardBook, ReadOnlyNoteBook noteBook, ReadOnlyPasswordBook passwordBook,
+                        ReadOnlyCardBook cardBook, ReadOnlyNoteBook noteBook, ReadOnlyPasswordBook passwordBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, fileBook, cardBook, passwordBook, userPrefs);
@@ -204,12 +204,12 @@ public class ModelManager implements Model {
     //=========== Card =====================================================================================
 
     @Override
-    public void setCardBook(CardBook cardBook) {
+    public void setCardBook(ReadOnlyCardBook cardBook) {
         this.cardBook.resetData(cardBook);
     }
 
     @Override
-    public CardBook getCardBook() {
+    public ReadOnlyCardBook getCardBook() {
         return cardBook;
     }
 

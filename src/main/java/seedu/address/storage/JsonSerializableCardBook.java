@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.CardBook;
+import seedu.address.model.ReadOnlyCardBook;
 import seedu.address.model.card.Card;
 
 /**
@@ -35,7 +36,7 @@ class JsonSerializableCardBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableCardBook}.
      */
-    public JsonSerializableCardBook(CardBook source) {
+    public JsonSerializableCardBook(ReadOnlyCardBook source) {
         cards.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
     }
 
