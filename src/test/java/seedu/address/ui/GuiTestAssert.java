@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.cards.CustomerCardHandle;
 import guitests.guihandles.cards.PersonCardHandle;
 import guitests.guihandles.panels.PersonListPanelHandle;
 
+import seedu.address.model.customer.Customer;
 import seedu.address.model.person.Person;
 
 /**
@@ -36,6 +38,17 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).sorted().collect(Collectors.toList()),
+                actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedCustomer}.
+     */
+    public static void assertCardDisplaysCustomer(Customer expectedCustomer, CustomerCardHandle actualCard) {
+        assertEquals(expectedCustomer.getCustomerName().fullName, actualCard.getName());
+        assertEquals(expectedCustomer.getContactNumber().value, actualCard.getContactNumber());
+        assertEquals(expectedCustomer.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedCustomer.getTags().stream().map(tag -> tag.tagName).sorted().collect(Collectors.toList()),
                 actualCard.getTags());
     }
 

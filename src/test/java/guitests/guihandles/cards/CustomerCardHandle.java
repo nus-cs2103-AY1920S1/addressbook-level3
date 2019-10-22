@@ -40,6 +40,10 @@ public class CustomerCardHandle extends NodeHandle<Node> {
                 .collect(Collectors.toList());
     }
 
+    public String getId() {
+        return idLabel.getText();
+    }
+
     public String getName() {
         return nameLabel.getText();
     }
