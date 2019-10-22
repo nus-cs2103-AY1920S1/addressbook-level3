@@ -43,6 +43,7 @@ public class InviteCommand extends Command {
 
     public static final String MESSAGE_NO_VIEWED_ACTIVITY = "There is no viewed activity currently.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "\"%s\" has duplicate entries, the first one will be added.";
+    public static final String MESSAGE_INVALID_PERSON = "Blank name encountered.";
 
     private final List<String> peopleToInvite;
 
@@ -76,6 +77,11 @@ public class InviteCommand extends Command {
         StringBuilder successMessage = new StringBuilder();
 
         for (String name : peopleToInvite) {
+
+            if (name.trim().equals("")) {
+                warningMessage.append(MESSAGE_INVALID_PERSON + "\n");
+                continue;
+            }
 
             keywords = Arrays.asList(name.split(" "));
             NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
