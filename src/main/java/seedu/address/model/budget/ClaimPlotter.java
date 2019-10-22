@@ -1,14 +1,15 @@
 package seedu.address.model.budget;
 
 import org.jfree.data.xy.XYSeries;
-import seedu.address.model.claim.Claim;
-import seedu.address.model.claim.Status;
-import seedu.address.model.commonvariables.Date;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.model.claim.Claim;
+import seedu.address.model.claim.Status;
+import seedu.address.model.commonvariables.Date;
 
 /**
  *  Represents the claim portion of the Budget graph
