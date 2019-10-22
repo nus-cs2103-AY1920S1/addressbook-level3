@@ -154,8 +154,44 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Global Features
+
+// tag::tabswitching[]
+==== Separate Parsing and Tab Switching
+===== Implementation
+===== Design Considerations
+// end::tabswitching[]
+
+// tag::tasks[]
+==== Tasks
+===== Implementation
+===== Design Considerations
+// end::tasks[]
+
+=== Transaction
+
+// tag::transfilter[]
+==== Filtering Transactions
+===== Implementation
+===== Design Considerations
+// end::transfilter[]
+
+// tag::transadd[]
+==== Adding Transactions
+===== Implementation
+===== Design Considerations
+// end::transadd[]
+
+=== Budget
+
+// tag::budgetadd[]
+==== Adding Budget
+===== Implementation
+===== Design Considerations
+// end::budgetadd[]
+
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=== [Demo] Use this as template for your section
 ==== Proposed Implementation
 ===== Test
 
@@ -236,13 +272,6 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
