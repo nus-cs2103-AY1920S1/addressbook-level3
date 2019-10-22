@@ -155,7 +155,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+// tag::suggest[]
 === [Proposed] Suggest feature
 
 ==== Proposed Implementation
@@ -204,7 +204,7 @@ image::SuggestCommand.png[]
 ** Pros: Neater and easier to maintain, since all suggest-related values are stored in the `Suggest` object.
 ** Cons: Additional class to maintain, harder for newcomers to understand code with too many classes.
 
-// end::undoredo[]
+// end::suggest[]
 
 // tag::dataencryption[]
 === [Proposed] Notification
