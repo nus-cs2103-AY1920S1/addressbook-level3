@@ -43,6 +43,7 @@ public class RecommendationSystem {
     private ObservableList<Purchase> purchaseHistory;
     private BigDecimal budget = new BigDecimal("10000");
     private Predicate<Food> predicate = f -> budget.compareTo(new BigDecimal(f.getPrice().value)) >= 0;
+    private int daysToExpire = 100;
 
     private boolean inUse;
 
@@ -158,6 +159,10 @@ public class RecommendationSystem {
 
     public void updateBudget(BigDecimal budget) {
         this.budget = budget;
+    }
+
+    public void updateDaysToExpire(int daysToExpire) {
+        this.daysToExpire = daysToExpire;
     }
 
 }

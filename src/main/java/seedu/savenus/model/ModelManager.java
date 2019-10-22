@@ -258,6 +258,7 @@ public class ModelManager implements Model {
         // Update the Recommendation System's purchase history and budget
         RecommendationSystem.getInstance().updatePurchaseHistory(purchaseHistory.getPurchaseHistoryList());
         RecommendationSystem.getInstance().updateBudget(getRemainingBudget().getRemainingBudgetAmount());
+        RecommendationSystem.getInstance().updateDaysToExpire(getDaysToExpire());
 
         return filteredFoods
                 .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
