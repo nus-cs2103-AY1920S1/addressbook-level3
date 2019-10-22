@@ -144,11 +144,15 @@ kind of flash card
 ** Cons: Harder to implement (FXML must reach into the object representing the second column)
 // end::lecimage[]
 
-=== Add revision task - `radd`
+=== Add revision task
 ==== Implementation
-The `radd` feature comes with the support of `Task` and `TaskList` model. The `TaskList` is essentially a list of
-`Task`. `AppData` keeps track of a `TaskList`. When `radd` command is executed, a `Task` will be added to the `TaskList`
-in `AppData` and reflected on the GUI.
+`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision. It extends `Command` class and adds a
+`Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data.
+
+The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
+exposed to `AppData#addTask(Task)`.
+
+The  `TaskList` class supports
 
 === Logging
 

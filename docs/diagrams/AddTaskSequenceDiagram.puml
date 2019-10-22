@@ -43,7 +43,6 @@ deactivate AddTaskForNoteCommandParser
 AddTaskForNoteCommandParser -[hidden]-> AppDataParser
 destroy AddTaskForNoteCommandParser
 
-
 AppDataParser --> LogicManager : a
 deactivate AppDataParser
 
