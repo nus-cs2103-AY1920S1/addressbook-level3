@@ -64,11 +64,6 @@ public interface Model {
     boolean hasEatery(Eatery eatery);
 
     /**
-     * Returns true if a eatery with the exact same identity as {@code eatery} exists in the address book.
-     */
-    boolean hasExactEatery(Eatery eatery);
-
-    /**
      * Deletes the given eatery.
      * The eatery must exist in the address book.
      */

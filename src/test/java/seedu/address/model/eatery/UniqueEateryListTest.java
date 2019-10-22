@@ -40,30 +40,6 @@ public class UniqueEateryListTest {
     }
 
     @Test
-    public void containsExact_eateryWithSameIdentityFieldsInList_returnsFalse() {
-        uniqueEateryList.add(ALICE);
-        Eatery editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertFalse(uniqueEateryList.containsExact(editedAlice));
-    }
-
-    @Test
-    public void containsExact_nullEatery_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueEateryList.containsExact(null));
-    }
-
-    @Test
-    public void containsExact_eateryNotInList_returnsFalse() {
-        assertFalse(uniqueEateryList.containsExact(ALICE));
-    }
-
-    @Test
-    public void containsExact_eateryInList_returnsTrue() {
-        uniqueEateryList.add(ALICE);
-        assertTrue(uniqueEateryList.containsExact(ALICE));
-    }
-
-    @Test
     public void contains_eateryWithSameIdentityFieldsInList_returnsTrue() {
         uniqueEateryList.add(ALICE);
         Eatery editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)

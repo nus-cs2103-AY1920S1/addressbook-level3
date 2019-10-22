@@ -115,12 +115,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasExactEatery(Eatery eatery) {
-        requireNonNull(eatery);
-        return addressBook.hasExactEatery(eatery);
-    }
-
-    @Override
     public void deleteEatery(Eatery target) {
         addressBook.removeEatery(target);
     }

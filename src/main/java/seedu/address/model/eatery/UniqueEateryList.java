@@ -37,14 +37,6 @@ public class UniqueEateryList implements Iterable<Eatery> {
     }
 
     /**
-     * Returns true if the list contains an identical eatery as the given argument.
-     */
-    public boolean containsExact(Eatery toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
-    }
-
-    /**
      * Adds a eatery to the list.
      * The eatery must not already exist in the list.
      */

@@ -79,30 +79,6 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasExactEatery_nullEatery_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasExactEatery(null));
-    }
-
-    @Test
-    public void hasExactEatery_eateryNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasExactEatery(ALICE));
-    }
-
-    @Test
-    public void hasExactEatery_eateryInAddressBook_returnsTrue() {
-        addressBook.addEatery(ALICE);
-        assertTrue(addressBook.hasExactEatery(ALICE));
-    }
-
-    @Test
-    public void hasExactEatery_eateryWithSameIdentityFieldsInAddressBook_returnsFalse() {
-        addressBook.addEatery(ALICE);
-        Eatery editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertFalse(addressBook.hasExactEatery(editedAlice));
-    }
-
-    @Test
     public void getEateryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getEateryList().remove(0));
     }
