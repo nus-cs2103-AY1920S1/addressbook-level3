@@ -20,8 +20,7 @@ public class CommandResult {
     private final boolean exit;
 
     private final PanelName panelName;
-    private final boolean showOrHidePanel;
-
+    private final boolean togglePanel;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -31,7 +30,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.panelName = null;
-        this.showOrHidePanel = false;
+        this.togglePanel = false;
     }
 
     /**
@@ -42,12 +41,12 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
-    public CommandResult(String feedbackToUser, PanelName panelName, boolean showOrHidePanel) {
+    public CommandResult(String feedbackToUser, PanelName panelName, boolean togglePanel) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
         this.panelName = panelName;
-        this.showOrHidePanel = showOrHidePanel;
+        this.togglePanel = togglePanel;
     }
 
     public String getFeedbackToUser() {
@@ -62,8 +61,8 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isShowOrHidePanel() {
-        return showOrHidePanel;
+    public boolean isTogglePanel() {
+        return togglePanel;
     }
 
     public PanelName getPanelName() {
@@ -85,12 +84,12 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && showOrHidePanel == otherCommandResult.showOrHidePanel;
+                && togglePanel == otherCommandResult.togglePanel;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, showOrHidePanel);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel);
     }
 
 }

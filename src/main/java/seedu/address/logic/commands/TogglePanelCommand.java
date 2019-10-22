@@ -7,20 +7,20 @@ import seedu.address.model.Model;
 import seedu.address.model.person.PanelName;
 
 /**
- * Lists all persons in the address book to the user.
+ * Toggles the visibility of a specified panel.
  */
-public class HidePanelCommand extends Command {
+public class TogglePanelCommand extends Command {
 
-    public static final String COMMAND_WORD = "hide";
+    public static final String COMMAND_WORD = "toggle";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "Hides the specified panel. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles the visibility the specified panel. "
             + "PARAMETERS: wishlist, budget or reminder. "
             + "EXAMPLE: " + COMMAND_WORD + " wishlist";
-    public static final String MESSAGE_SUCCESS = "Hid %1$s panel";
+    public static final String MESSAGE_SUCCESS = "Toggled visibility of %1$s panel";
 
     private final PanelName panelName;
 
-    public HidePanelCommand(PanelName panelName) {
+    public TogglePanelCommand(PanelName panelName) {
         this.panelName = panelName;
     }
 
