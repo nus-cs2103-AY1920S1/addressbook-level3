@@ -305,6 +305,17 @@ The `LogsCenter` class is used to manage the logging levels and logging destinat
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+[[Implementation-Projection]]
+=== Project Balance feature : `project`
+This feature allows users to _project_ their balance status based on past income and outflows
+as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
+
+==== Current Implementation
+The `project` command is facilitated by the Logic and Model components of the application, _PalPay_
+
+The sequence diagram below demonstrates how the `project [DATE]` command is handled by the application.
+image::Project.png[ProjectCommand Sequence Diagram]
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
