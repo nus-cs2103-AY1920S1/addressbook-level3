@@ -52,15 +52,16 @@ public class WordBankStatistics {
                     .or(() -> Optional.of(gameStats.getSecTaken()));
             // give badges
             switch (difficultyEnum) {
-                case EASY:
-                    receivedBadgeEasy = true;
-                    break;
-                case MEDIUM:
-                    receivedBadgeNormal = true;
-                    break;
-                case HARD:
-                    receivedBadgeHard = true;
-                    break;
+            case EASY:
+                receivedBadgeEasy = true;
+                break;
+            case MEDIUM:
+                receivedBadgeNormal = true;
+                break;
+            case HARD:
+                receivedBadgeHard = true;
+                break;
+            default:
             }
         }
         List<Card> correctCards = gameStats.getCorrectCards();
