@@ -27,7 +27,7 @@ public abstract class ScrollCommand extends Command {
         default:
             this.pane = "Illegal";
         }
-    } 
+    }
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         return new CommandResult("Scrolling");
