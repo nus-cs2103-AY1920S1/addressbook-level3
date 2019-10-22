@@ -12,11 +12,11 @@ import seedu.address.model.dashboard.exceptions.DashboardNotFoundException;
 import seedu.address.model.dashboard.exceptions.DuplicateDashboardException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of dashboards that enforces uniqueness between its elements and does not allow nulls.
  * A dashboard is considered unique by comparing using {@code Dashboard#isSameDashboard(Dashboard)}.
- * As such, adding and updating of persons uses Dashboard#isSameDashboard(Dashboard) for equality
- * so as to ensure that the diary being added or updated is unique in terms of identity in the UniqueTodoList.
- * However, the removal of a to-do uses Dashboard#equals(Object) so
+ * As such, adding and updating of dashboards uses Dashboard#isSameDashboard(Dashboard) for equality
+ * so as to ensure that the dashboard being added or updated is unique in terms of identity in the UniqueDashboardList.
+ * However, the removal of a dashboard uses Dashboard#equals(Object) so
  * as to ensure that the dashboard with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -83,6 +83,15 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     public void setDashboards(UniqueDashboardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+    }
+
+    public void setDashboards(List<Dashboard> dashboards) {
+        requireAllNonNull(dashboards);
+        if(!dashboardsAreUnique(dashboards)) {
+            throw new DuplicateDashboardException();
+        }
+
+        internalList.setAll(dashboards);
     }
 
 

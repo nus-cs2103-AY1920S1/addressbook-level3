@@ -10,7 +10,7 @@ public interface ReadOnlyDashboard {
 
     /**
      * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate todos.
+     * This list will not contain any duplicate dashboards.
      */
     ObservableList<Dashboard> getDashboardList();
 

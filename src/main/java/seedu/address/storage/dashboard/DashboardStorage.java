@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.dashboard.DashboardRecords;
 import seedu.address.model.dashboard.ReadOnlyDashboard;
-import seedu.address.model.diary.DiaryRecords;
 
 /**
- * Represents a storage for {@link DiaryRecords}.
+ * Represents a storage for {@link DashboardRecords}.
  */
 public interface DashboardStorage {
 

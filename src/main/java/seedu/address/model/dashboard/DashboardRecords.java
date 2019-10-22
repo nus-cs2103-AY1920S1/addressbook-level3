@@ -43,8 +43,8 @@ public class DashboardRecords implements ReadOnlyDashboard {
      * Replaces the contents of the dashboard list with {@code dashboards}.
      * {@code diaries} must not contain duplicate diaries.
      */
-    public void setDashboards(List<Dashboard> diaries) {
-        this.dashboards.setDashboards(dashboards);
+    public void setDashboards(List<Dashboard> dashboard) {
+        this.dashboards.setDashboards(dashboard);
     }
 
     /**

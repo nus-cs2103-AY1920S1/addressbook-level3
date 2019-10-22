@@ -292,13 +292,13 @@ public interface Model {
 
     /**
      * Deletes the given dashboard.
-     * The diary must exist in Duke Cooks.
+     * The dashboard must exist in Duke Cooks.
      */
     void deleteDashboard(Dashboard target);
 
     /**
      * Adds the given dashboard.
-     * {@code diary} must not already exist in Duke Cooks.
+     * {@code dashboard} must not already exist in Duke Cooks.
      */
     void addDashboard(Dashboard dashboard);
 
