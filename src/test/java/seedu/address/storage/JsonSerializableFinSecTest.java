@@ -15,7 +15,7 @@ public class JsonSerializableFinSecTest {
     //        JsonSerializableFinSec dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
     //                JsonSerializableFinSec.class).get();
     //        FinSec finSecFromFile = dataFromFile.toModelType();
-    //        FinSec typicalPersonsFinSec = TypicalContacts.getTypicalFinSec();
+    //        FinSec typicalPersonsFinSec = TypicalObjects.getTypicalFinSec();
     //        assertEquals(finSecFromFile, typicalPersonsFinSec);
     //    }
 
