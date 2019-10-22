@@ -42,6 +42,7 @@ public class DetailCommand extends Command {
         }
 
         Question questionToShow = lastShownList.get(targetIndex.getZeroBased());
+        model.setQuestionNumber(targetIndex.getOneBased());
         model.setShowQuestion(questionToShow);
 
         return new CommandResult(String.format(MESSAGE_SHOW_QUESTION_SUCCESS, questionToShow), "detail");

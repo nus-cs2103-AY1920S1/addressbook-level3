@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.quiz.person.Question;
 
 /**
@@ -76,6 +77,10 @@ public interface Model {
      * another existing question in the address book.
      */
     void setQuestion(Question target, Question editedQuestion);
+
+    void setQuestionNumber(int questionNumber);
+
+    int getQuestionNumber();
 
     /**
      * Set the question to be shown to the StackPane.

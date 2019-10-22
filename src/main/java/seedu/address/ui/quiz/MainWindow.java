@@ -185,7 +185,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowDetail()) {
-                questionDetailPanel = new QuestionDetailPanel(logic.getFilteredShowQuestionList());
+                questionDetailPanel = new QuestionDetailPanel(logic.getFilteredShowQuestionList(), logic.getQuestionNumber());
                 questionDetailPanelPlaceholder.getChildren().add(questionDetailPanel.getRoot());
             }
 

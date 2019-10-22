@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.quiz.person.Question;
 
 
@@ -23,6 +24,7 @@ public class ModelQuizManager implements Model {
     private final AddressQuizBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
+    private int showQuestionNumber;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -116,6 +118,15 @@ public class ModelQuizManager implements Model {
     @Override
     public void setShowQuestion(Question question) {
         addressBook.setShowQuestion(question);
+    }
+
+    @Override
+    public void setQuestionNumber(int questionNumber) {
+        showQuestionNumber = questionNumber;
+    }
+
+    public int getQuestionNumber() {
+        return showQuestionNumber;
     }
 
     //=========== Filtered Question List Accessors =============================================================

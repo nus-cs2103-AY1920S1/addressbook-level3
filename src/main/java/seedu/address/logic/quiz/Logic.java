@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.quiz.commands.CommandResult;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
@@ -31,6 +32,8 @@ public interface Logic {
      * @see seedu.address.model.quiz.Model#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
+
+    int getQuestionNumber();
 
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();

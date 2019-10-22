@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.quiz.commands.Command;
 import seedu.address.logic.quiz.commands.CommandResult;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
@@ -60,6 +61,11 @@ public class LogicQuizManager implements Logic {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
+    }
+
+    @Override
+    public int getQuestionNumber() {
+        return model.getQuestionNumber();
     }
 
     @Override

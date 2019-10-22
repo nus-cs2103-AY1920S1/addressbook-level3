@@ -20,5 +20,12 @@
     "category" : "CS2131",
     "type" : "high",
     "tagged" : [ "lecture" ]
+  }, {
+    "name" : "Wut is always coming, but never arrives?",
+    "comment" : "In the subsequent series of papers with Max Born and Pascual Jordan, during the same year, this matrix formulation of quantum mechanics was substantially elaborated.",
+    "answer" : "Tomorrow",
+    "category" : "CS2131",
+    "type" : "high",
+    "tagged" : [ "lecture" ]
   } ]
 }

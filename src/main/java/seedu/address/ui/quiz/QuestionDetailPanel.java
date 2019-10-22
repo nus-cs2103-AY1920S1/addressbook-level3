@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.quiz.person.Question;
 
 
@@ -15,6 +16,8 @@ import seedu.address.model.quiz.person.Question;
  * Panel containing the list of questions.
  */
 public class QuestionDetailPanel extends UiPart<Region> {
+    private int questionNumber;
+
     private static final String FXML = "QuestionDetailPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(QuestionDetailPanel.class);
 
@@ -25,8 +28,10 @@ public class QuestionDetailPanel extends UiPart<Region> {
         super(FXML);
     }
 
-    public QuestionDetailPanel(ObservableList<Question> questionList) {
+    public QuestionDetailPanel(ObservableList<Question> questionList, int questionNumber) {
         super(FXML);
+        this.questionNumber = questionNumber;
+
         questionDetailView.setItems(questionList);
         questionDetailView.setCellFactory(listView -> new QuestionListViewCell());
     }
@@ -43,7 +48,7 @@ public class QuestionDetailPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new QuestionDetailCard(question, getIndex() + 1).getRoot());
+                setGraphic(new QuestionDetailCard(question, questionNumber).getRoot());
             }
         }
     }

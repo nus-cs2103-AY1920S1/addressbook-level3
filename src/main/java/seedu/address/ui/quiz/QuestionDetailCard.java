@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import seedu.address.model.quiz.person.Question;
 
 
@@ -40,14 +41,14 @@ public class QuestionDetailCard extends UiPart<Region> {
     @FXML
     private Label category;
     @FXML
-    private Label comment;
+    private Text comment;
     @FXML
     private FlowPane tags;
 
     public QuestionDetailCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;
-        id.setText(displayedIndex + ". ");
+        id.setText("Filtered Question  #" + displayedIndex + "  ");
         name.setText(question.getName().fullName);
 
         if (question.getComment() == null) {
@@ -56,6 +57,7 @@ public class QuestionDetailCard extends UiPart<Region> {
             comment.setText(question.getComment().value);
         }
 
+        comment.wrappingWidthProperty().set(500);
         answer.setText(question.getAnswer().value);
         type.setText(question.getType().value);
         category.setText(question.getCategory().value);
