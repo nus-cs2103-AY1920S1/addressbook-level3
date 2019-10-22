@@ -82,6 +82,7 @@ public class QuestionAddCommand extends QuestionCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Question question;
+        // TODO: Throw exception if type does not exist
         switch (type) {
         case "open":
             question = new OpenEndedQuestion(this.question, this.answer);
