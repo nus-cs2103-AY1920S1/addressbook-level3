@@ -110,7 +110,7 @@ public class Incident {
         this.id = incidentId;
         this.callerNumber = callerNumber;
         this.description = description;
-        this.status = Status.COMPLETE;
+        this.status = status;
     }
 
     /**
