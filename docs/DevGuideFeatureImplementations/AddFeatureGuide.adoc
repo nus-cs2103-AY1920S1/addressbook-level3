@@ -1,5 +1,3 @@
-:imagesDir: images
-
 === Add feature
 ==== Implementation
 
