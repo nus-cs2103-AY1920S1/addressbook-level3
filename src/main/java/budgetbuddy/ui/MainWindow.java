@@ -185,7 +185,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            setCurrentPanel(panelMap.get(commandResult.getCommandCategory()));
+
+            ListPanel toSwitch = panelMap.get(commandResult.getCommandCategory());
+            if (toSwitch != null) {
+                setCurrentPanel(toSwitch);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
