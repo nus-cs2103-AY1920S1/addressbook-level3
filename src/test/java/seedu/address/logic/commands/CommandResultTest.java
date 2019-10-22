@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.ContextType;
+
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -33,6 +35,17 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        CommandResult contextualResult = new CommandResult("output", ContextType.LIST_ACTIVITY);
+
+        // identity -> returns true
+        assertTrue(contextualResult.equals(new CommandResult("output", ContextType.LIST_ACTIVITY)));
+
+        // empty context -> returns false
+        assertFalse(contextualResult.equals(commandResult));
+
+        // non-empty but different context -> returns false
+        assertFalse(contextualResult.equals(new CommandResult("output", ContextType.VIEW_ACTIVITY)));
     }
 
     @Test
@@ -50,5 +63,16 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+
+        CommandResult contextualResult = new CommandResult("feedback", ContextType.VIEW_ACTIVITY);
+
+        // identity -> returns same hashcode
+        assertEquals(contextualResult.hashCode(),
+                new CommandResult("feedback", ContextType.VIEW_ACTIVITY).hashCode());
+
+        // different context type -> returns different hashcode
+        assertNotEquals(contextualResult.hashCode(),
+                new CommandResult("feedback", ContextType.VIEW_CONTACT).hashCode());
+
     }
 }
