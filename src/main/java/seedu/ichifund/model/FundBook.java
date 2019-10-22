@@ -58,6 +58,8 @@ public class FundBook implements ReadOnlyFundBook {
      * Replaces the current unique id with {@code uniqueId}.
      */
     public void setCurrentRepeaterUniqueId(RepeaterUniqueId uniqueId) {
+        requireNonNull(uniqueId);
+
         this.currentRepeaterUniqueId = uniqueId;
     }
 
