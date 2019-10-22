@@ -1,10 +1,12 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
-import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -14,9 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.statistics.Statistics;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * An UI component that displays information of {@code Statistics}.
  */
@@ -24,7 +23,7 @@ public class StatisticsCard extends UiPart<Region> {
 
     private static final String FXML = "StatisticsCard.fxml";
 
-    public Statistics stat;
+    private Statistics stat;
 
     @FXML
     private HBox cardPane;
@@ -50,11 +49,15 @@ public class StatisticsCard extends UiPart<Region> {
         postStat(stat);
     }
 
+    /**
+     * Updates the UI elements with the processed statistics.
+     * @param stat
+     */
     public void postStat(ObservableList<Statistics> stat) {
         this.stat = stat.get(0);
         totalStudents.setText(String.valueOf(this.stat.getTotalStudents()));
         mean.setText((String.format("%.2f", this.stat.getMean())));
-        median.setText((String.format("%.2f",this.stat.getMedian())));
+        median.setText((String.format("%.2f", this.stat.getMedian())));
         min.setText((String.format("%.2f", this.stat.getMin())));
         max.setText((String.format("%.2f", this.stat.getMax())));
         standardDev.setText((String.format("%.2f", this.stat.getStandardDev())));

@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -7,10 +9,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.statistics.Statistics;
 
-import java.util.logging.Logger;
-
+/**
+ * Controller for a statistics report page.
+ */
 public class StatsReportWindow extends UiPart<Stage> {
 
     public static final String TIP = "Press 'Esc' to quit slideshow";

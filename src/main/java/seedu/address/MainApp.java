@@ -2,7 +2,6 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -27,7 +26,6 @@ import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
-import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.StatisticsRecord;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.StudentRecord;

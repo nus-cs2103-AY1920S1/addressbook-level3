@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.Note;

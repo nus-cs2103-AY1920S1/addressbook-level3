@@ -81,7 +81,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new StudentRecord(), new SavedQuestions(),
-                new NotesRecord(), new StatisticsRecord() ,new UserPrefs());
+                new NotesRecord(), new StatisticsRecord(), new UserPrefs());
     }
 
     //region PREFERENCES & SETTINGS

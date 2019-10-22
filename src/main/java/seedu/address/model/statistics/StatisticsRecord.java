@@ -1,9 +1,9 @@
 package seedu.address.model.statistics;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the statistics level

@@ -1,12 +1,15 @@
 package seedu.address.model.statistics;
 
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
+/**
+ * Represents a Statistics report generated from input data.
+ */
 public class Statistics {
 
     private HashMap<String, HashMap<String, Double>> data; //mapping of name to map of {subject, scores}
@@ -35,6 +38,9 @@ public class Statistics {
         processData();
     }
 
+    /**
+     * Initializes the groupings's size to zero before populating them with processed data.
+     */
     public void initializeData() {
         gradeGroupings.put("aboveEighty", 0);
         gradeGroupings.put("seventies", 0);
@@ -43,6 +49,10 @@ public class Statistics {
         gradeGroupings.put("belowFifty", 0);
     }
 
+    /**
+     * Generate the processed data.
+     * Finds: ranking, total data entries, min, max, mean, median, standard deviation.
+     */
     public void processData() {
         data.forEach((name, subjectScoreMap) -> studentWeightedScores.add(new StudentStat(name, subjectScoreMap)));
         studentWeightedScores.sort((s1, s2) -> s1.weightedScore >= s2.weightedScore ? 1 : -1);
@@ -62,11 +72,14 @@ public class Statistics {
         standardDev = statsGenerator.getStandardDeviation();
     }
 
+    /**
+     * Updates the counter for number of students who got the same score.
+     * @param score
+     */
     private void allocateDistribution(int score) {
         if (scoreCounters.containsKey(score)) {
             scoreCounters.put(score, scoreCounters.get(score) + 1);
-        }
-        else {
+        } else {
             scoreCounters.put(score, 1);
         }
     }
@@ -75,20 +88,20 @@ public class Statistics {
         return scoreCounters;
     }
 
+    /**
+     * Places each {@code StudentStat} into their respective score range groupings and updates the counter.
+     * @param studentStat
+     */
     private void sortIntoGrade(StudentStat studentStat) {
         if (studentStat.weightedScore >= 80) {
             gradeGroupings.put("aboveEighty", gradeGroupings.get("aboveEighty") + 1);
-        }
-        else if (studentStat.weightedScore >= 70) {
+        } else if (studentStat.weightedScore >= 70) {
             gradeGroupings.put("seventies", gradeGroupings.get("seventies") + 1);
-        }
-        else if (studentStat.weightedScore >= 60) {
+        } else if (studentStat.weightedScore >= 60) {
             gradeGroupings.put("sixties", gradeGroupings.get("sixties") + 1);
-        }
-        else if (studentStat.weightedScore >= 50) {
+        } else if (studentStat.weightedScore >= 50) {
             gradeGroupings.put("fifties", gradeGroupings.get("fifties") + 1);
-        }
-        else {
+        } else {
             gradeGroupings.put("belowFifty", gradeGroupings.get("belowFifty") + 1);
         }
     }
@@ -125,6 +138,9 @@ public class Statistics {
         return totalStudents;
     }
 
+    /**
+     * Represents a student data entry and their respective scores.
+     */
     private class StudentStat {
         protected String name;
         protected double weightedScore;
@@ -141,27 +157,5 @@ public class Statistics {
             double total = subjectScoreMap.values().stream().mapToDouble(score -> Double.valueOf(score)).sum();
             weightedScore = total / noSubjects;
         }
-    }
-
-    class ScoreCounter {
-        double score;
-        double count;
-
-        public ScoreCounter(double score) {
-            this.score = score;
-            count = 0;
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (this == other) {
-                return true;
-            }
-            else if (other instanceof ScoreCounter) {
-                return ((ScoreCounter) other).score == this.score;
-            }
-            return false;
-        }
-
     }
 }

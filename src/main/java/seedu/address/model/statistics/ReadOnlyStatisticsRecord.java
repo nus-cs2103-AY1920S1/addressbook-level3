@@ -1,9 +1,6 @@
 package seedu.address.model.statistics;
 
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
-
-import java.util.HashMap;
 
 /**
  * Unmodifiable view of a statistics record.

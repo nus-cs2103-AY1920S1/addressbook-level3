@@ -1,16 +1,7 @@
 package seedu.address.logic.parser.statistics;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import seedu.address.logic.commands.note.NoteAddCommand;
-import seedu.address.logic.commands.statistics.StatisticsAddCommand;
-import seedu.address.logic.commands.statistics.StatisticsCommand;
-import seedu.address.logic.parser.*;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.statistics.Statistics;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,9 +10,25 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import seedu.address.logic.commands.statistics.StatisticsAddCommand;
+import seedu.address.logic.commands.statistics.StatisticsCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.CliSyntax;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.statistics.Statistics;
+
+/**
+ * Parses input arguments and creates a new StatisticsCommand object
+ */
 public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 
     private HashMap<String, HashMap<String, Double>> data = new HashMap<>();
@@ -42,7 +49,7 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String
-                            .format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
+                            .format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE));
         }
 
         String method = argMultimap.getValue(CliSyntax.PREFIX_METHOD).orElse("");
@@ -54,8 +61,7 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
     }
 
     public void getExcel(String method, String filePath) throws ParseException {
-        try
-        {
+        try {
             FileInputStream file = new FileInputStream(new File(filePath));
 
             //Create Workbook instance holding reference to .xlsx file
@@ -74,8 +80,7 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
                     Cell studentCell = studentsIterator.next();
                     if (studentCell.getCellType() == CellType.STRING) {
                         students.add(studentCell.getStringCellValue());
-                    }
-                    else if (studentCell.getCellType() == CellType.NUMERIC) {
+                    } else if (studentCell.getCellType() == CellType.NUMERIC) {
                         students.add(String.valueOf(studentCell.getNumericCellValue()));
                     }
                 }
@@ -98,26 +103,21 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
                     Cell cell = cellIterator.next();
                     if (cell.getCellType() == CellType.STRING) {
                         throw new ParseException("Grade must be a numeric value, not string or text");
-                    }
-                    else if (cell.getCellType() == CellType.NUMERIC) {
+                    } else if (cell.getCellType() == CellType.NUMERIC) {
                         if (data.containsKey(students.get(i))) {
                             data.get(students.get(i)).put(subject, cell.getNumericCellValue());
-                        }
-                        else {
+                        } else {
                             HashMap<String, Double> subjectToScore = new HashMap<>();
                             subjectToScore.put(subject, cell.getNumericCellValue());
                             data.put(students.get(i), subjectToScore);
                         }
-                    }
-                    else {
+                    } else {
                         throw new ParseException("Excel file has illegal values");
                     }
                 }
             }
             file.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new ParseException("Error parsing excel file. Refer to user guide on file format.");
         }
     }

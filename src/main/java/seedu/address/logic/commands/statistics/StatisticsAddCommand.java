@@ -1,15 +1,15 @@
 package seedu.address.logic.commands.statistics;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.note.NoteAddCommand;
-import seedu.address.model.Model;
-import seedu.address.model.note.Note;
-import seedu.address.model.statistics.Statistics;
-
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.statistics.Statistics;
+
+/**
+ * Generates a Statistics Report
+ */
 public class StatisticsAddCommand extends StatisticsCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates students statistics\n"
