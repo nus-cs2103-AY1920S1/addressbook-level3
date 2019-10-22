@@ -18,8 +18,11 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListIncidentCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
+import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.SearchIncidentsCommand;
 import seedu.address.logic.commands.SubmitCommand;
+import seedu.address.logic.commands.SwapCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -82,11 +85,20 @@ public class AddressBookParser {
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
 
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
+
+        case SwapCommand.COMMAND_WORD:
+            return new SwapCommand();
+
         case SubmitCommand.COMMAND_WORD:
             return new SubmitCommand();
 
         case FillCommand.COMMAND_WORD:
             return new FillCommandParser().parse(arguments);
+
+        case NewCommand.COMMAND_WORD:
+            return new NewCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -27,7 +28,17 @@ public interface Model {
     /**
      * Gets the {@code Person} that is logged into the {@code Session}.
      */
-    Session getSession();
+    Person getLoggedInPerson();
+
+    /**
+     * Gets the {@code Person} that is logged into the {@code Session}.
+     */
+    Date getLoginTime();
+
+    /**
+     * Returns true if a user is logged in.
+     */
+    boolean isLoggedIn();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -91,6 +102,13 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the given incident {@code target} with {@code editedIncident}.
+     * {@code target} must exit in the address book.
+     * Incident details of {@code target} must not be the same as another existing incident in address book.
+     */
+    void setIncident(Incident target, Incident editedIncident);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -118,7 +136,7 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the filtered incident list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered Incident list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredIncidentList(Predicate<Incident> predicate);

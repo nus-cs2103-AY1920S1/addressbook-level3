@@ -14,6 +14,7 @@ import seedu.address.model.person.Username;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.Vehicle;
 
 /**
  * Represents an incident report in the IMS.
@@ -23,15 +24,29 @@ public class Incident {
     //is autofilled
     private final Person operator;
     private final IncidentDateTime incidentDateTime;
-    // private final Vehicle car;
+    private Vehicle vehicle;
     private final IncidentId id;
+
+    // starts off as a draft by default
+    // private boolean isDraft = true;
 
     //needs to be entered by operator
     private final Description incidentDesc;
     private final District location;
     private final CallerNumber callerNumber;
 
-
+    // changed by Mandy - to support NewCommand
+    public Incident (District location) {
+        this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                getTagSet("friends"), new Username("user1"), new Password("pass123"));
+        this.incidentDateTime = new IncidentDateTime();
+        this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
+        // TODO: fix dummy variable
+        this.incidentDesc = new Description("dummy description");
+        this.location = location;
+        // TODO: fix dummy variable
+        this.callerNumber = new CallerNumber("12345678");
+    }
     /**
      * Creates a new Incident report, fields will be filled in through prompts in the GUI.
      * @param callerNumber is the phone number of the caller that reported the incident.
@@ -63,6 +78,15 @@ public class Incident {
         //this.car = VehicleAssigner.assignVehicle(location);
     }
 
+    public Incident(District district, IncidentDateTime incidentDateTime, CallerNumber callerNumber, Description desc) {
+        this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                getTagSet("friends"), new Username("user1"), new Password("pass123"));
+        this.incidentDateTime = incidentDateTime;
+        this.location = district;
+        this.callerNumber = callerNumber;
+        this.incidentDesc = desc;
+        this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
+    }
 
     /**
      * static method to prompt operator for incident location
@@ -94,7 +118,6 @@ public class Incident {
         return new Description(desc);
     }
 
-
     public IncidentDateTime getDateTime() {
         return this.incidentDateTime;
     }
@@ -107,7 +130,7 @@ public class Incident {
         return this.callerNumber;
     }
 
-    public District getLocation() {
+    public District getDistrict() {
         return this.location;
     }
 
@@ -123,6 +146,10 @@ public class Incident {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     /**
@@ -153,7 +180,11 @@ public class Incident {
         }
 
         Incident otherIncident = (Incident) other;
+        return otherIncident.getDateTime().equals(getDateTime());
+        /* TODO: Fix equality check
         return otherIncident.getIncidentId().equals(getIncidentId())
                 && otherIncident.getDesc().equals(getDesc());
+         */
     }
+
 }

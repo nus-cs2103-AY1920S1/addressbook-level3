@@ -111,6 +111,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(target, editedPerson);
     }
 
+    public void setIncident(Incident target, Incident editedIncident) {
+        requireNonNull(editedIncident);
+        incidents.setIncident(target, editedIncident);
+    }
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.

@@ -48,4 +48,21 @@ public class Description {
     public String toString() {
         return desc;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Description)) {
+            return false;
+        }
+
+        // state check
+        Description e = (Description) other;
+
+        return e.desc.equals(this.desc);
+    }
 }

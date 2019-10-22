@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -55,8 +56,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Session getSession() {
-        return session;
+    public Person getLoggedInPerson() {
+        return session.getLoggedInPerson();
+    }
+
+    @Override
+    public Date getLoginTime() {
+        return session.getLoginTime();
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        return session.getLoggedInPerson() != null;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -130,6 +141,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -153,12 +165,19 @@ public class ModelManager implements Model {
         filteredIncidents.setPredicate(predicate);
     }
 
+
     //=========== Incidents ================================================================================
 
     @Override
     public boolean hasIncident(Incident incident) {
         requireNonNull(incident);
         return addressBook.hasIncident(incident);
+    }
+    @Override
+    public void setIncident(Incident target, Incident editedIncident) {
+        requireAllNonNull(target, editedIncident);
+        addressBook.setIncident(target, editedIncident);
+
     }
 
     @Override

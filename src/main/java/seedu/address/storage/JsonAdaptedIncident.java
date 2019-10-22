@@ -40,7 +40,7 @@ class JsonAdaptedIncident {
      */
     public JsonAdaptedIncident(Incident source) {
         incidentId = source.getIncidentId().getId();
-        districtNum = source.getLocation().districtNum;
+        districtNum = source.getDistrict().districtNum;
         dateTime = source.getDateTime().toString();
         operator = source.getOperator().getName().toString();
     }

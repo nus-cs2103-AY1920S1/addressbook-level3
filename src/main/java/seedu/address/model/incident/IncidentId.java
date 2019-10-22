@@ -2,15 +2,11 @@ package seedu.address.model.incident;
 
 /**
  * Generates Incident ID for the incident in this format: MMYYYYXXXX
- * MM = Month of incident
- * YYYY = Year of incident
- * XXXX = incident number of the month
+ * Where MM = Month of incident, YYYY = Year of incident, and XXXX = incident number of the month
  */
 public class IncidentId {
-    private static int previousMonth = 0;
-    private static int monthId = 0;
-    private int month;
-    private int year;
+    private static int previousMonth = 1;
+    private static int monthId = 1;
     private String id;
 
     /**
@@ -19,17 +15,14 @@ public class IncidentId {
      * @param yyyy year of incident
      */
     public IncidentId(int mm, int yyyy) {
+        this.id = String.format("%02d", mm) + yyyy + String.format("%04d", monthId);
+
         if (previousMonth != mm) {
             previousMonth = mm;
-            monthId = 0;
+            monthId = 1;
         } else {
             monthId++;
         }
-
-        this.month = mm;
-        this.year = yyyy;
-        int temp = mm * 100000000 + yyyy * 1000 + monthId;
-        this.id = String.format("%10d", temp);
     }
 
     public IncidentId(String id) {
@@ -38,5 +31,18 @@ public class IncidentId {
 
     public String getId() {
         return this.id;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof IncidentId)) {
+            return false;
+        }
+
+        return ((IncidentId) other).id.equals(this.id);
     }
 }
