@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.statistics;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.io.File;
@@ -43,24 +44,22 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer
-                .tokenize(args, CliSyntax.PREFIX_METHOD, CliSyntax.PREFIX_FILEPATH);
+                .tokenize(args, CliSyntax.PREFIX_FILEPATH);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_METHOD, CliSyntax.PREFIX_FILEPATH)
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FILEPATH)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                    String
-                            .format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE));
         }
 
-        String method = argMultimap.getValue(CliSyntax.PREFIX_METHOD).orElse("");
         String filePath = argMultimap.getValue(CliSyntax.PREFIX_FILEPATH).orElse("");
 
-        getExcel(method, filePath);
+        getExcel(filePath);
 
         return new StatisticsAddCommand(new Statistics(data));
     }
 
-    public void getExcel(String method, String filePath) throws ParseException {
+    public void getExcel(String filePath) throws ParseException {
         try {
             FileInputStream file = new FileInputStream(new File(filePath));
 
@@ -118,7 +117,7 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
             }
             file.close();
         } catch (Exception e) {
-            throw new ParseException("Error parsing excel file. Refer to user guide on file format.");
+            throw new ParseException(MESSAGE_FILE_NOT_FOUND);
         }
     }
 

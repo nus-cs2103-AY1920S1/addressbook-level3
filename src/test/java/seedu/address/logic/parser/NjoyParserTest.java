@@ -2,8 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -22,6 +21,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.question.QuestionAddCommand;
 import seedu.address.logic.commands.question.QuestionDeleteCommand;
 import seedu.address.logic.commands.question.QuestionEditCommand;
+import seedu.address.logic.commands.statistics.StatisticsAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.question.OpenEndedQuestion;
@@ -33,18 +33,16 @@ public class NjoyParserTest {
     private final NjoyParser parser = new NjoyParser();
 
     @Test
-    public void parseCommand_question_add() throws Exception {
-        Question question = new OpenEndedQuestion("Test", "Test Answer");
-        QuestionAddCommand command = (QuestionAddCommand) parser
-            .parseCommand(QuestionUtil.getAddCommand(question));
-        assertEquals(new QuestionAddCommand("Test", "Test Answer", "open"), command);
+    public void parseCommand_statistics_addEmptyFile() throws Exception {
+        assertThrows(ParseException.class, MESSAGE_FILE_NOT_FOUND, ()
+                -> parser.parseCommand("statistics file/e"));
     }
 
     @Test
-    public void parseCommand_question_delete() throws Exception {
-        QuestionDeleteCommand command = (QuestionDeleteCommand) parser.parseCommand(
-            QuestionUtil.getDeleteCommand(INDEX_FIRST_PERSON.getOneBased()));
-        assertEquals(new QuestionDeleteCommand(INDEX_FIRST_PERSON), command);
+    public void parseCommand_statistics_invalidSyntax() {
+        assertThrows(ParseException.class, String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE),
+                () -> parser.parseCommand("statistics"));
     }
 
     @Test
