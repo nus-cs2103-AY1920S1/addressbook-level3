@@ -106,9 +106,9 @@ public class ApiMain implements ApiInterface {
      * @throws OnlineConnectionException when not connected to the internet.
      */
     public List<Movie> getMovieByName(String name) throws OnlineConnectionException {
+        ArrayList<Movie> movies = new ArrayList<>();
         try {
             MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, 1);
-            ArrayList<Movie> movies = new ArrayList<>();
 
             for (MovieDb m : page.getResults()) {
                 String movieName = m.getTitle();
@@ -129,7 +129,6 @@ public class ApiMain implements ApiInterface {
                 //retrieve image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
                 String imagePath = instance.retrieveImage(movieName);
-                System.err.println("ImagePath is :" + imagePath + " from APIMAIN");
                 toAdd.setPoster(new Poster(imagePath));
 
                 movies.add(toAdd);
@@ -137,7 +136,7 @@ public class ApiMain implements ApiInterface {
             return movies;
         } catch (MovieDbException e) {
             notConnected();
-            return new ArrayList<Movie>();
+            return movies;
         }
     }
 
@@ -149,9 +148,10 @@ public class ApiMain implements ApiInterface {
      * @throws OnlineConnectionException when not connected to the internet.
      */
     public List<TvShow> getTvShowByName(String name) throws OnlineConnectionException {
+        ArrayList<TvShow> tvShows = new ArrayList<>();
+
         try {
             TvResultsPage page = apiCall.getSearch().searchTv(name, null, 1);
-            ArrayList<TvShow> tvShows = new ArrayList<>();
 
             for (TvSeries tv : page.getResults()) {
                 final int tvId = tv.getId();
@@ -197,7 +197,7 @@ public class ApiMain implements ApiInterface {
             return tvShows;
         } catch (MovieDbException e) {
             notConnected();
-            return new ArrayList<TvShow>();
+            return tvShows;
         }
     }
 

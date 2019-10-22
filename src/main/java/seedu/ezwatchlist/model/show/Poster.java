@@ -2,6 +2,7 @@ package seedu.ezwatchlist.model.show;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import seedu.ezwatchlist.api.ImageRetrieval;
 
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
@@ -14,7 +15,7 @@ import java.nio.file.Paths;
  * Represents a Show's poster in the watchlist.
  */
 public class Poster {
-    private static final String PLACEHOLDER_IMAGE = "poster-placeholder.png";
+    private static final String PLACEHOLDER_IMAGE = "/images/poster-placeholder.png";
     private String IMAGE_CACHE_LOCATION;
     private Image image;
     private String imagePath;
@@ -37,10 +38,9 @@ public class Poster {
         try {
 //            URL url = getClass().getResource(imagePath);
 //            String s = url.toExternalForm();
-            Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
-            Path ss = Paths.get(root.toString(),"src", "main", "resources",
-                    "images", "posters", imagePath);
+            String ss = ImageRetrieval.IMAGE_CACHE_LOCATION + File.separator + imagePath;
             File file = new File(ss.toString());
+            System.out.println("File path in Poster is :" + ss.toString());
             image = SwingFXUtils.toFXImage(ImageIO.read(file), null);
 
             if (image == null) {
