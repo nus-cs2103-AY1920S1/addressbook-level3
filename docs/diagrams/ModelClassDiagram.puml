@@ -5,18 +5,18 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyFinSec <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class FinSec
+Class ReadOnlyFinSec
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
+Package Contact {
+Class Contact
 Class Address
 Class Email
 Class Name
@@ -27,30 +27,47 @@ Class UniquePersonList
 Package Tag {
 Class Tag
 }
+
+Package Claim {
+Class UniqueClaimList
+Class Claim
+Class Id
+Class Hidden #FFFFFF
+}
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+FinSec .up.|> ReadOnlyFinSec
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" FinSec
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+FinSec *--> "1" UniquePersonList
+UniquePersonList o--> "*" Contact
+Contact *--> Name
+Contact *--> Phone
+Contact *--> Email
+Contact *--> Address
+Contact *--> "*" Tag
+Contact *--> "*" Id
+
+FinSec *--> "1" UniqueClaimList
+UniqueClaimList o--> "*" Claim
+Claim *-right-> Id
+Claim *-down-> Hidden
+Claim *-down-> Hidden
+Claim *-down-> Hidden
+
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Contact : filtered list
+ModelManager -->"1" Claim : filtered list
 @enduml
