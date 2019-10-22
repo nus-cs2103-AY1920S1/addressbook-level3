@@ -233,11 +233,11 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
-        public ObservableList<Day> getFilteredDayList() {
+        public ObservableList<Day> getFilteredItinerary() {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void updateFilteredDayList(Predicate<Day> predicate) {
+        public void updateFilteredItinerary(Predicate<Day> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

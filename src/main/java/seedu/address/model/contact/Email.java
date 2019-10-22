@@ -41,10 +41,6 @@ public class Email {
         value = email;
     }
 
-    public static Email emptyEmail() {
-        return new Email(EMPTY_EMAIL);
-    }
-
     /**
      * Returns if a given string is a valid email.
      */

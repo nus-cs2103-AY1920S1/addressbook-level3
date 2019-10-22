@@ -177,7 +177,7 @@ Step 2. The user executes `delete contact 5` command to delete the 5th contact i
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new contact. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add contact n/David ...` to add a new contact. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 

@@ -71,7 +71,7 @@ public class Contact {
         if (otherContact == this) {
             return true;
         }
-        // Needs to be changed
+
         return otherContact != null
                 && otherContact.getName().equals(getName())
                 && (otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail()));

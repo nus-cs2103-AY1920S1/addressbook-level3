@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.day.Day;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.itineraryitem.activity.Activity;
 
@@ -40,6 +41,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of contacts */
     ObservableList<Contact> getFilteredContactList();
+
+    /** Returns an unmodifiable view of the filtered list of contacts */
+    ObservableList<Day> getFilteredItinerary();
 
     /**
      * Returns the user prefs' address book file path.

@@ -115,7 +115,7 @@ public class PlannerTest {
         }
 
         @Override
-        public ObservableList<Day> getDayList() {
+        public ObservableList<Day> getItinerary() {
             return days;
         }
 

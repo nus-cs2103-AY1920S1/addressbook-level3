@@ -62,7 +62,7 @@ public class ScheduleActivityCommand extends ScheduleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Day> lastShownDays = model.getFilteredDayList();
+        List<Day> lastShownDays = model.getFilteredItinerary();
         List<Activity> lastShownActivities = model.getFilteredActivityList();
 
         if (dayIndex.getZeroBased() >= lastShownDays.size()) {
@@ -85,7 +85,7 @@ public class ScheduleActivityCommand extends ScheduleCommand {
         }
 
         model.setDays(editedDays);
-        model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
+        model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()));
     }
 

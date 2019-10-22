@@ -22,14 +22,14 @@ import seedu.address.model.itineraryitem.activity.UniqueActivityList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class Planner implements ReadOnlyPlanner {
     private String country;
     private final UniqueActivityList activities;
     private final UniqueAccommodationList accommodations;
     private final UniqueContactList contacts;
-    private final Itinerary days;
+    private final Itinerary itinerary;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -42,7 +42,7 @@ public class Planner implements ReadOnlyPlanner {
         activities = new UniqueActivityList();
         accommodations = new UniqueAccommodationList();
         contacts = new UniqueContactList();
-        days = new Itinerary();
+        itinerary = new Itinerary();
     }
 
     public Planner() {}
@@ -251,23 +251,23 @@ public class Planner implements ReadOnlyPlanner {
     public void resetDataDay(ReadOnlyPlanner newData) {
         requireNonNull(newData);
 
-        setDays(newData.getDayList());
+        setDays(newData.getItinerary());
     }
 
     public Name getName() {
-        return days.getName();
+        return itinerary.getName();
     }
 
     public LocalDate getStartDate() {
-        return days.getStartDate();
+        return itinerary.getStartDate();
     }
 
     public void setName(Name name) {
-        days.setName(name);
+        itinerary.setName(name);
     }
 
     public void setStartDate(LocalDate date) {
-        days.setStartDate(date);
+        itinerary.setStartDate(date);
     }
 
     /**
@@ -275,23 +275,23 @@ public class Planner implements ReadOnlyPlanner {
      * {@code persons} must not contain duplicate persons.
      */
     public void setDays(Itinerary itinerary) {
-        this.days.setDays(itinerary);
+        this.itinerary.setDays(itinerary);
     }
 
     /**
      * Replaces the contents of the contacts list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setDays(List<Day> days) {
-        this.days.setDays(days);
+    public void setDays(List<Day> itinerary) {
+        this.itinerary.setDays(itinerary);
     }
 
     /**
-     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
+     * Returns true if a day with the same identity as {@code day} exists in the itinerary.
      */
     public boolean hasDay(Day day) {
         requireNonNull(day);
-        return days.contains(day);
+        return itinerary.contains(day);
     }
 
     /**
@@ -299,7 +299,7 @@ public class Planner implements ReadOnlyPlanner {
      * The contacts must not already exist in the address book.
      */
     public void addDays(int n) {
-        this.days.add(n);
+        this.itinerary.add(n);
     }
 
     /**
@@ -307,7 +307,7 @@ public class Planner implements ReadOnlyPlanner {
      * {@code key} must exist in the address book.
      */
     public void removeDay(Day target) {
-        this.days.remove(target);
+        this.itinerary.remove(target);
     }
 
     //// util methods
@@ -316,7 +316,8 @@ public class Planner implements ReadOnlyPlanner {
     public String toString() {
         return accommodations.asUnmodifiableObservableList().size() + " accommodations, "
                + activities.asUnmodifiableObservableList().size() + " activities, "
-               + contacts.asUnmodifiableObservableList().size() + " contacts.";
+               + contacts.asUnmodifiableObservableList().size() + " contacts,"
+               + itinerary.asUnmodifiableObservableList().size() + " itinerary.";
     }
 
     @Override
@@ -336,8 +337,8 @@ public class Planner implements ReadOnlyPlanner {
     }
 
     @Override
-    public ObservableList<Day> getDayList() {
-        return days.asUnmodifiableObservableList();
+    public ObservableList<Day> getItinerary() {
+        return itinerary.asUnmodifiableObservableList();
     }
 
     @Override
@@ -347,7 +348,7 @@ public class Planner implements ReadOnlyPlanner {
                 && accommodations.equals(((Planner) other).accommodations))
                 && activities.equals(((Planner) other).activities)
                 && contacts.equals(((Planner) other).contacts)
-                && days.equals(((Planner) other).days);
+                && itinerary.equals(((Planner) other).itinerary);
     }
 
     @Override
