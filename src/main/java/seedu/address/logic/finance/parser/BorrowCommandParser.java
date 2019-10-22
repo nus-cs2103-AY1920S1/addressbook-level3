@@ -11,7 +11,7 @@ import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSAC
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.finance.commands.IncomeCommand;
+import seedu.address.logic.finance.commands.BorrowCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
@@ -19,19 +19,19 @@ import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
-import seedu.address.model.finance.logentry.IncomeLogEntry;
+import seedu.address.model.finance.logentry.BorrowLogEntry;
 
 /**
- * Parses input arguments and creates a new IncomeCommand object
+ * Parses input arguments and creates a new BorrowCommand object
  */
-public class IncomeCommandParser implements Parser<IncomeCommand> {
+public class BorrowCommandParser implements Parser<BorrowCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the IncomeCommand
-     * and returns an IncomeCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the BorrowCommand
+     * and returns an  BorrowCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public IncomeCommand parse(String args) throws ParseException {
+    public BorrowCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
                         PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY, PREFIX_FROM);
@@ -40,7 +40,7 @@ public class IncomeCommandParser implements Parser<IncomeCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
                 PREFIX_TRANSACTION_METHOD, PREFIX_FROM)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, IncomeCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BorrowCommand.MESSAGE_USAGE));
         }
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
@@ -51,9 +51,9 @@ public class IncomeCommandParser implements Parser<IncomeCommand> {
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
         Person from = ParserUtil.parseFrom(argMultimap.getValue(PREFIX_FROM).get());
 
-        IncomeLogEntry logEntry = new IncomeLogEntry(amount, tDate, description, tMethod, categoryList, from);
+        BorrowLogEntry logEntry = new BorrowLogEntry(amount, tDate, description, tMethod, categoryList, from);
 
-        return new IncomeCommand(logEntry);
+        return new BorrowCommand(logEntry);
     }
 
     /**

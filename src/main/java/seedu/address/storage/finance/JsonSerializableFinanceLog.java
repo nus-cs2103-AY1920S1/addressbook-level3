@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
+import seedu.address.model.finance.logentry.BorrowLogEntry;
 import seedu.address.model.finance.logentry.IncomeLogEntry;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.model.finance.logentry.SpendLogEntry;
@@ -68,13 +69,18 @@ class JsonSerializableFinanceLog {
 
         case IncomeLogEntry.LOG_ENTRY_TYPE:
             IncomeLogEntry incomeLogEntry = (IncomeLogEntry) log;
-            String from = incomeLogEntry.getFrom().name;
-            return new JsonAdaptedIncomeLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, from);
+            String src = incomeLogEntry.getFrom().name;
+            return new JsonAdaptedIncomeLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, src);
+
+        case BorrowLogEntry.LOG_ENTRY_TYPE:
+            BorrowLogEntry borrowLogEntry = (BorrowLogEntry) log;
+            String lender = borrowLogEntry.getFrom().name;
+            return new JsonAdaptedBorrowLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, lender);
 
         default:
             incomeLogEntry = (IncomeLogEntry) log;
-            from = incomeLogEntry.getFrom().name;
-            return new JsonAdaptedIncomeLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, from);
+            src = incomeLogEntry.getFrom().name;
+            return new JsonAdaptedIncomeLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, src);
         }
     }
 

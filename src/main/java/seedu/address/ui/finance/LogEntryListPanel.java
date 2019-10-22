@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.finance.logentry.BorrowLogEntry;
 import seedu.address.model.finance.logentry.IncomeLogEntry;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.model.finance.logentry.SpendLogEntry;
@@ -47,9 +48,15 @@ public class LogEntryListPanel extends UiPart<Region> {
                     SpendLogEntry spendLogEntry = (SpendLogEntry) logEntry;
                     setGraphic(new SpendLogEntryCard(spendLogEntry, getIndex() + 1).getRoot());
                     break;
+
                 case IncomeLogEntry.LOG_ENTRY_TYPE:
                     IncomeLogEntry incomeLogEntry = (IncomeLogEntry) logEntry;
                     setGraphic(new IncomeLogEntryCard(incomeLogEntry, getIndex() + 1).getRoot());
+                    break;
+
+                case BorrowLogEntry.LOG_ENTRY_TYPE:
+                    BorrowLogEntry borrowLogEntry = (BorrowLogEntry) logEntry;
+                    setGraphic(new BorrowLogEntryCard(borrowLogEntry, getIndex() + 1).getRoot());
                     break;
 
                 default:
