@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -10,8 +12,6 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
-
-import java.util.Objects;
 
 /**
  * Deletes a task from JARVIS

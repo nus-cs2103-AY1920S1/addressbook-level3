@@ -2,30 +2,18 @@ package seedu.jarvis.logic.commands.planner;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
-import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.course.CoursePlanner;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.history.HistoryManager;
-import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
-import seedu.jarvis.model.userprefs.UserPrefs;
 
 class DeleteTaskCommandTest {
 

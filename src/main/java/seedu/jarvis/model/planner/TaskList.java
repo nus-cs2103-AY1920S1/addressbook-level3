@@ -1,11 +1,11 @@
 package seedu.jarvis.model.planner;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a list of tasks in the planner
