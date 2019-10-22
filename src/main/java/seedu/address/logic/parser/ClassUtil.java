@@ -17,14 +17,20 @@ import seedu.address.model.Model;
 public class ClassUtil {
 
     private Model model;
+    private List<ClassPair> classPairs;
 
     public ClassUtil (Model model) {
         this.model = model;
+        this.classPairs = new ArrayList<>();
     }
 
-    public List<String> getAttribute(List<ClassPair> classes, String attr) {
+    public void add(ClassPair classPair) {
+        classPairs.add(classPair);
+    }
+
+    public List<String> getAttribute(String attr) {
         List<String> result = new ArrayList<>();
-        for (ClassPair clsPair : classes) {
+        for (ClassPair clsPair : classPairs) {
             try {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField(attr);
@@ -37,9 +43,9 @@ public class ClassUtil {
         return result;
     }
 
-    public Command getCommandInstance(List<ClassPair> classes, String commandWord, String arguments)
+    public Command getCommandInstance(String commandWord, String arguments)
             throws ParseException {
-        for (ClassPair clsPair : classes) {
+        for (ClassPair clsPair : classPairs) {
             try {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField("COMMAND_WORD");

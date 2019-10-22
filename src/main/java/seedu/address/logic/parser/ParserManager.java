@@ -36,7 +36,7 @@ public class ParserManager {
     private ModeParser modeParser;
     private ModeEnum mode;
     private ModeEnum tempMode;
-    private List<ClassPair> commandParserClassPairs;
+
     private ClassUtil classUtil;
     private Model model;
 
@@ -44,14 +44,13 @@ public class ParserManager {
         this.mode = ModeEnum.LOAD;
         this.modeParser = setModeParser();
         this.tempMode = null;
-        this.commandParserClassPairs = new ArrayList<>();
         this.classUtil = new ClassUtil(model);
         this.model = model;
-        commandParserClassPairs.add(new ClassPair(BankCommand.class, BankCommandParser.class));
-        commandParserClassPairs.add(new ClassPair(HomeCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(LoadScreenCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(StartCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(SwitchToSettingsCommand.class, null));
+        classUtil.add(new ClassPair(BankCommand.class, BankCommandParser.class));
+        classUtil.add(new ClassPair(HomeCommand.class, null));
+        classUtil.add(new ClassPair(LoadScreenCommand.class, null));
+        classUtil.add(new ClassPair(StartCommand.class, null));
+        classUtil.add(new ClassPair(SwitchToSettingsCommand.class, null));
     }
 
     public ModeEnum getMode() {
@@ -90,7 +89,7 @@ public class ParserManager {
 
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
-        for (String txt : classUtil.getAttribute(commandParserClassPairs, "COMMAND_WORD")) {
+        for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
             if (txt.contains(input)) {
                 temp.add(new AutoFillAction(txt));
             }
@@ -137,7 +136,7 @@ public class ParserManager {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        return (SwitchCommand) classUtil.getCommandInstance(commandParserClassPairs, commandWord, arguments);
+        return (SwitchCommand) classUtil.getCommandInstance(commandWord, arguments);
     }
 
 }
