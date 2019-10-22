@@ -27,6 +27,7 @@ import seedu.address.storage.earnings.JsonAdaptedEarnings;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_COMMAND = "Commands list contains duplicate command(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedEarnings> earning = new ArrayList<>();
@@ -79,7 +80,7 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedCommand jsonAdaptedCommand : commands) {
             CommandObject command = jsonAdaptedCommand.toModelType();
             if (addressBook.hasCommand(command)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_EARNINGS);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_COMMAND);
             }
             addressBook.addCommand(command);
         }

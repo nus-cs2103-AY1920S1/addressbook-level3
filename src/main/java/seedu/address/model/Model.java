@@ -100,34 +100,35 @@ public interface Model {
     ReadOnlyCalendar getCalendar();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a command with the same identity as {@code command} exists in the address book.
      */
     boolean hasCommand(CommandObject command);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given command.
+     * The command must exist in the address book.
      */
     void deleteCommand(CommandObject target);
 
     /**
-     * Adds the given earnings.
-     * {@code earnings} must not already exist in the address book.
+     * Adds the given command.
+     * {@code command} must not already exist in the address book.
      */
     void addCommand(CommandObject command);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given command {@code target} with {@code editedCommands}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The command identity of {@code editedCommands} must not be the same as
+     * another existing command in the address book.
      */
     void setCommands(CommandObject target, CommandObject editedCommands);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered command list */
     ObservableList<CommandObject> getFilteredCommandsList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered command list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCommandsList(Predicate<CommandObject> predicate);
