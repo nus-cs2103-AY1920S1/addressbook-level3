@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.DeleteNoteCommand;
+import seedu.address.logic.commands.note.DeleteNoteCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

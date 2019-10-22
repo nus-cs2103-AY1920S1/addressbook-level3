@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.note.ClearNoteCommand;
 import seedu.address.model.AppData;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
