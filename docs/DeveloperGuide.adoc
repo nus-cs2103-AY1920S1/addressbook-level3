@@ -156,10 +156,11 @@ This section describes some noteworthy details on how certain features are imple
 === Question feature
 
 The question feature utilises the `QuestionCommandParser` class to parse the user command input into the different
-command types and validates the input. There are two types of questions(`OpenEndedQuestion` and `McqQuestion`) which
+command types and validates the input. There are two types of questions `OpenEndedQuestion` and `McqQuestion` which
 extends the `Question` class. Questions are then added into the `QuestionBank#questions` observable list. +
 
 The feature comprises of five commands namely,
+
 * <<Feature-Question-Add, `QuestionAddCommand`>> - Adding questions
 * <<Feature-Question-Edit, `QuestionEditCommand`>> - Editing questions
 * <<Feature-Question-Delete, `QuestionDeleteCommand`>> - Deleting questions
@@ -169,7 +170,7 @@ The feature comprises of five commands namely,
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
 
-[.small]#To Add: Class diagram of the interaction between the question parser and commands#
+_To Add: Class diagram of the interaction between the question parser and commands_
 
 [[Feature-Question-Add]]
 ==== Add command
@@ -286,7 +287,7 @@ it falls below `0`. The behaviour of this follows the common procedure that most
 feel foreign to users.
 
 image::SlideshowFeatureActivityDiagram.png[]
-[.small]#Activity diagram of the actions performed#
+_Activity diagram of the actions performed_
 
 ==== Design Considerations
 
@@ -317,7 +318,7 @@ will not be confused by the layout.
 * ** Alternatives Considered: **
 ** Having a separate answer format for MCQ such that it will have an arrow beside the correct option _e.g A) 1965_ *< (Answer)*.
 However, this is not feasible as it will break the standard formatting of the answers display since both *Open Ended* and *MCQ*
-questions will have 2 different answer formats and may cause confusion to the users.
+questions will have 2 different answer formats and may cause confusion to the user.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
