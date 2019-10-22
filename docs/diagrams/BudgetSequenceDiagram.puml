@@ -46,6 +46,7 @@ CommandResult --> BudgetCommand
 deactivate CommandResult
 
 BudgetCommand --> LogicManager : result
+deactivate BudgetCommand
 
 [<--LogicManager
 deactivate LogicManager
