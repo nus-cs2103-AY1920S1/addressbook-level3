@@ -12,9 +12,10 @@ public class DirectoryPathTest {
     @Test
     public void directoryPath_invalidPath_throwsException() {
         String[] invalidDirectoryPathStrings = {
-                "file.docx",
-                "/file.docx/",
-                "\\file.docx\\"
+                "directory\\?????\\directory2",
+                "directory/?????/directory2",
+                "directory/*****/directory2",
+                "directory\\*****\\directory2"
         };
 
         for (String invalidDirectoryPathString : invalidDirectoryPathStrings) {
@@ -34,9 +35,11 @@ public class DirectoryPathTest {
                 "/directory/",
                 "\\directory\\",
                 "\\b c\\d",
-                "/b c/d"
+                "/b c/d",
                 "C:\\Users\\User\\Desktop\\",
-                "~/Desktop/"
+                "~/Desktop/",
+                "../",
+                "..\\"
         };
 
         for (String validDirectoryPathString : validDirectoryPathStrings) {
