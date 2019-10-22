@@ -181,7 +181,7 @@ Step 3. The success message will be return, while printing the updated dish list
 
 The following sequence diagram shows how the undo operation works:
 
------------ToBeCompleted
+image::SuggestCommand.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 

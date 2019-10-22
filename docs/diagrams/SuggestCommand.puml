@@ -17,48 +17,48 @@ ui -[UI_COLOR]> logic : execute("suggest")
 activate logic LOGIC_COLOR
 
 logic -[LOGIC_COLOR]> parser : parseCommand("suggest")
-activate parser LOGIC_COLOR
+activate parser PARSER_COLOR
 
-parser -[LOGIC_COLOR]> command : SuggestCommand()
-activate command LOGIC_COLOR
+parser -[PARSER_COLOR]> command : SuggestCommand()
+activate command COMMAND_COLOR
 
-command -[LOGIC_COLOR]-> parser : suggestCommand
+command -[COMMAND_COLOR]-> parser : suggestCommand
 deactivate command
 
-parser -[LOGIC_COLOR]-> logic : suggestCommand
+parser -[PARSER_COLOR]-> logic : suggestCommand
 deactivate parser
 
 logic -[LOGIC_COLOR]> command : execute(model)
-activate command LOGIC_COLOR
+activate command COMMAND_COLOR
 
-command -[LOGIC_COLOR]> model : getRemainingCalories()
+command -[COMMAND_COLOR]> model : getRemainingCalories()
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]> caloriebudget : budget.getCurrentBudget()
-activate caloriebudget MODEL_COLOR
+activate caloriebudget CALORIE_COLOR
 
-caloriebudget -[MODEL_COLOR]> model : remainingBudget
-deactivate caloriebudget MODEL_COLOR
+caloriebudget -[CALORIE_COLOR]> model : remainingBudget
+deactivate caloriebudget
 
 loop number of dishes times
 model -[MODEL_COLOR]> meallog : getDish().getCalories().getValue()
-activate meallog MODEL_COLOR
-meallog -[MODEL_COLOR]> model : c
+activate meallog MEALLOG_COLOR
+meallog -[MEALLOG_COLOR]> model : c
 model -[MODEL_COLOR]> model : deduct c from remainingBudget
-deactivate meallog MODEL_COLOR
+deactivate meallog MEALLOG_COLOR
 end
 
 model -[MODEL_COLOR]> command : remainingCalories
 deactivate model
 
-command -[MODEL_COLOR]> command : updateFilteredDishList()
+command -[COMMAND_COLOR]> command : updateFilteredDishList()
 
-command -[MODEL_COLOR]> logic : filteredDishList
+command -[COMMAND_COLOR]> logic : filteredDishList
 
-logic -[MODEL_COLOR]> ui : filteredDishList
+logic -[LOGIC_COLOR]> ui : filteredDishList
 deactivate logic
 
-ui -[MODEL_COLOR]> user : filteredDishList
+ui -[UI_COLOR]> user : filteredDishList
 deactivate ui
 
 @enduml
