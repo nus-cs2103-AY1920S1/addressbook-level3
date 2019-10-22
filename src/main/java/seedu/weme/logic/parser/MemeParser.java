@@ -6,12 +6,12 @@ import java.util.regex.Matcher;
 
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.HelpCommand;
-import seedu.weme.logic.commands.MemeLikeCommand;
 import seedu.weme.logic.commands.MemeAddCommand;
 import seedu.weme.logic.commands.MemeClearCommand;
 import seedu.weme.logic.commands.MemeDeleteCommand;
 import seedu.weme.logic.commands.MemeEditCommand;
 import seedu.weme.logic.commands.MemeFindCommand;
+import seedu.weme.logic.commands.MemeLikeCommand;
 import seedu.weme.logic.commands.MemeListCommand;
 import seedu.weme.logic.commands.MemeStageCommand;
 
