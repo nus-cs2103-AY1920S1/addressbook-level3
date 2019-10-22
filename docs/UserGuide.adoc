@@ -253,6 +253,44 @@ Examples:
 
 * `undonetask plan/1 task/1`
 
+=== Tabs
+
+==== Switching Tabs: `switchtab`
+Switches between tabs in the GUI +
+Format: `switchtab t/TAB_TYPE i/TAB_INDEX`
+
+* Tab Type
+** can be `display` or `details`
+
+Examples:
+
+* `switchtab t/display i/1`
+* `switchtab t/details i/2`
+
+==== Open Tabs: `opentab`
+Opens a new tab in the GUI +
+Format: `opentab m/MODEL_TYPE i/MODEL_INDEX`
+
+* Model Type
+** can be `problem`, `tag` or `plan`
+
+Examples:
+
+* `opentab m/problem i/1`
+* `opentab m/plan i/2`
+
+==== Close Tabs: `closetab`
+Closes a tab in the GUI +
+Format: `closetab t/TAB_TYPE i/TAB_INDEX`
+
+* Tab Type
+** can be `display` or `details`
+
+Examples:
+
+* `closetab t/display i/1`
+* `closetab t/details i/2`
+
 === Importing and Exporting data
 
 ==== Importing data: `import`
@@ -284,16 +322,6 @@ Examples:
 ==== Encrypting data files `[coming in v2.0]`
 
 === Miscellaneous
-
-==== Switching tabs : `switch`
-
-Switches to a tab display in the application. +
-Format: `switch INDEX`
-
-Examples:
-
-* `switch 1`
-Switches to the tab at index 1.
 
 ==== Viewing help : `help`
 

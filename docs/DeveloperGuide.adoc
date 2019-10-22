@@ -762,6 +762,16 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use Case 12: See details of an item
+
+*MSS*
+
+1.  User requests to see the details of a specified item from the list of items.
+2.  AlgoBase displays the details of that item.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
