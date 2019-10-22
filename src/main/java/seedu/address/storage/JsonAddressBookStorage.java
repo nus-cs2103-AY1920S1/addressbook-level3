@@ -19,7 +19,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-
 public class JsonAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
@@ -31,11 +30,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     public Path getAddressBookFilePath() {
-        return filePath;
-    }
-
-    //To delete
-    public Path getNoteFilePath() {
         return filePath;
     }
 
@@ -83,15 +77,18 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
         Optional<JsonSerializableFlashcard> jsonFlashcard = JsonUtil.readJsonFile(
                 flashcardFilePath, JsonSerializableFlashcard.class);
-        Optional<JsonSerializableFlashcard> jsonCheatSheet = JsonUtil.readJsonFile(
-                flashcardFilePath, JsonSerializableFlashcard.class);
-        //Adjust for notes for top and bottom
-        if (!jsonFlashcard.isPresent() && !jsonCheatSheet.isPresent()) {
+        Optional<JsonSerializableNote> jsonNote = JsonUtil.readJsonFile(
+                noteFilePath, JsonSerializableNote.class);
+        Optional<JsonSerializableCheatSheet> jsonCheatSheet = JsonUtil.readJsonFile(
+                cheatSheetFilePath, JsonSerializableCheatSheet.class);
+
+        if (!jsonFlashcard.isPresent() && !jsonNote.isPresent() && !jsonCheatSheet.isPresent()) {
             return Optional.empty();
         }
         AddressBook addressBook = new AddressBook();
         try {
             Optional.of(jsonFlashcard.get().toModelType(addressBook));
+            Optional.of(jsonNote.get().toModelType(addressBook));
             Optional.of(jsonCheatSheet.get().toModelType(addressBook));
             return Optional.of(addressBook);
         } catch (IllegalValueException ive) {
@@ -137,13 +134,19 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         FileUtil.createIfMissing(noteFilePath);
         FileUtil.createIfMissing(cheatSheetFilePath);
         JsonUtil.saveJsonFile(new JsonSerializableFlashcard(addressBook), flashcardFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableNote(addressBook), noteFilePath);
         JsonUtil.saveJsonFile(new JsonSerializableFlashcard(addressBook), cheatSheetFilePath);
-        //Add one more for note
     }
 
     //============== flashcard tools
     @Override
     public Path getFlashcardFilePath() {
+        return this.filePath;
+    }
+
+    //============== note tools
+    @Override
+    public Path getNoteFilePath() {
         return this.filePath;
     }
 
