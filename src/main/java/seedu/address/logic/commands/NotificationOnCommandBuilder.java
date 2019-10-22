@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
+import java.util.Map;
+
 import seedu.address.logic.NotificationManager;
 import seedu.address.logic.commands.options.Option;
 import seedu.address.logic.commands.options.OptionBuilder;
-
-import java.util.Map;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link NotificationOnCommand}.

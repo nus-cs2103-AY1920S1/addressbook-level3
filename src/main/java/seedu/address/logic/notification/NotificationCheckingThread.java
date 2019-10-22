@@ -52,6 +52,9 @@ public class NotificationCheckingThread extends Thread {
         }
     }
 
+    /**
+     * Finds the notifications that require need to be posted, and notifies the relevant listeners.
+     */
     private void checkAndPostNotifications() {
         ArrayList<PopupNotification> notifications = notificationChecker.getListOfPopupNotifications();
 

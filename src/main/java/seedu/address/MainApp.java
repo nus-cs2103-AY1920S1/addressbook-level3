@@ -48,7 +48,8 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_UNDO, () -> UndoCommand.newBuilder(undoRedoManager));
         commandManager.addCommand(COMMAND_REDO, () -> RedoCommand.newBuilder(undoRedoManager));
-        commandManager.addCommand(COMMAND_NOTIFICATION_OFF, () -> NotificationOffCommand.newBuilder(notificationManager));
+        commandManager
+            .addCommand(COMMAND_NOTIFICATION_OFF, () -> NotificationOffCommand.newBuilder(notificationManager));
         commandManager.addCommand(COMMAND_NOTIFICATION_ON, () -> NotificationOnCommand.newBuilder(notificationManager));
 
         // Add Listeners

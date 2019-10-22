@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_NOTIFICATION_OFF;
+
 import seedu.address.logic.NotificationManager;
 import seedu.address.ui.UserOutput;
-
-import static seedu.address.commons.core.Messages.MESSAGE_NOTIFICATION_OFF;
 
 /**
  * Represents a Command that switches notifications off.
