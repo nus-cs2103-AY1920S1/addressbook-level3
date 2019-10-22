@@ -2,7 +2,7 @@ package seedu.address.logic.commands.merge;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
 import seedu.address.model.Model;
 
 /**
@@ -12,15 +12,13 @@ public abstract class MergeRejectedCommand extends Command {
 
     public static final String COMMAND_WORD = "no";
 
-
     /**
      * Creates an {@code MergeRejectedCommand}.
      */
     public MergeRejectedCommand() {
     }
 
-    @Override
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model) throws DuplicatePolicyWithMergeException;
 
     public abstract boolean isLastMerge();
 
