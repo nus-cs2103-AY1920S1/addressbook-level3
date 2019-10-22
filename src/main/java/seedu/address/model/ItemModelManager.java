@@ -11,6 +11,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Task;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.CalendarList;
@@ -31,7 +32,7 @@ public class ItemModelManager implements ItemModel {
     private VisualizeList visualList;
     private final UserPrefs userPrefs;
     private ItemStorage itemStorage;
-    private final ElisaStateHistory elisaStateHistory;
+    private final ElisaCommandHistory elisaCommandHistory;
     private boolean priorityMode = false;
     private PriorityQueue<Item> sortedTask = null;
 
@@ -41,7 +42,8 @@ public class ItemModelManager implements ItemModel {
     private ActiveRemindersList activeReminders;
     private ArrayList<Item> futureReminders;
 
-    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory elisaStateHistory) {
+    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs,
+                            ElisaCommandHistory elisaCommandHistory) {
 
         this.taskList = new TaskList();
         this.eventList = new EventList();
@@ -50,7 +52,7 @@ public class ItemModelManager implements ItemModel {
         this.visualList = taskList;
         this.itemStorage = itemStorage;
         this.userPrefs = new UserPrefs(userPrefs);
-        this.elisaStateHistory = elisaStateHistory;
+        this.elisaCommandHistory = elisaCommandHistory;
 
         //Bryan Reminder
         pastReminders = new ReminderList();
@@ -122,11 +124,18 @@ public class ItemModelManager implements ItemModel {
 
         futureReminders = new ArrayList<Item>();
 
+        updateLists();
+    }
+
+
+    /**
+     * repopulate item lists from storage
+     * */
+
+    public void updateLists() {
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
-
-        elisaStateHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
     }
 
     /* Bryan Reminder
@@ -154,6 +163,11 @@ public class ItemModelManager implements ItemModel {
     @Override
     public final ArrayList<Item> getFutureRemindersList() {
         return futureReminders;
+    }
+
+    @Override
+    public void updateCommandHistory(Command command) {
+        elisaCommandHistory.pushCommand(command);
     }
 
     @Override
@@ -214,6 +228,16 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
+     * add given item into specified index
+     * */
+
+    public void addItem(ItemIndexWrapper wrapper) {
+        visualList.addToIndex(wrapper.getVisual(), wrapper.getItem());
+        itemStorage.add(wrapper.getStorage(), wrapper.getItem());
+        addToSeparateList(wrapper);
+    }
+
+    /**
      * Adds an item to a specific list
      * @param item the item to be added to the list
      * @param il the list the item is to be added to
@@ -241,40 +265,30 @@ public class ItemModelManager implements ItemModel {
         }
     }
 
-    @Override
-    public void setState(ElisaState state) {
-        setItemStorage(state.getStorage().deepCopy());
-        setVisualizeList(state.getVisualizeList().deepCopy());
-    }
+    /**
+     * add item to separate lists into given index
+     * */
 
-    @Override
-    public void setToCurrState() {
-        setState(elisaStateHistory.peekCommand().deepCopy());
-    }
+    public void addToSeparateList(ItemIndexWrapper wrapper) {
+        if (wrapper.getTask() != -1) {
+            taskList.addToIndex(wrapper.getTask(), wrapper.getItem());
+        }
 
-    @Override
-    public ElisaState getState() {
-        return new ElisaStateManager(getItemStorage().deepCopy(), getVisualList()).deepCopy();
-    }
+        if (wrapper.getEve() != -1) {
+            eventList.addToIndex(wrapper.getEve(), wrapper.getItem());
+        }
 
-    @Override
-    public ElisaStateHistory getElisaStateHistory() {
-        return elisaStateHistory;
-    }
-
-    @Override
-    public void updateModelLists() {
-        ItemStorage itemStorage = getItemStorage().deepCopy();
-        emptyLists();
-        for (int i = 0; i < itemStorage.size(); i++) {
-            addToSeparateList(itemStorage.get(i));
+        if (wrapper.getRem() != -1) {
+            reminderList.addToIndex(wrapper.getRem(), wrapper.getItem());
+            futureReminders.add(wrapper.getFrem(), wrapper.getItem());
         }
     }
 
     @Override
-    public void updateState() {
-        elisaStateHistory.pushCommand(getState().deepCopy());
+    public ElisaCommandHistory getElisaCommandHistory() {
+        return elisaCommandHistory;
     }
+
 
     /**
      * Remove an item from the current list.
@@ -282,13 +296,13 @@ public class ItemModelManager implements ItemModel {
      * @return the item that was removed
      */
     public Item removeItem(int index) {
-        Item item = visualList.remove(index);
+        Item item = visualList.removeItemFromList(index);
         if (visualList instanceof TaskList) {
-            taskList.remove(item);
+            taskList.removeItemFromList(item);
         } else if (visualList instanceof EventList) {
-            eventList.remove(item);
+            eventList.removeItemFromList(item);
         } else if (visualList instanceof ReminderList) {
-            reminderList.remove(item);
+            reminderList.removeItemFromList(item);
         } else {
             // never reached here as there are only three variants for the visualList
         }
@@ -297,20 +311,44 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
+     * remove the given item from the list(s)
+     * */
+
+    public Item removeItem(Item item) {
+        Item removedItem = visualList.removeItemFromList(item);
+        if (visualList instanceof TaskList) {
+            taskList.removeItemFromList(item);
+        } else if (visualList instanceof EventList) {
+            eventList.removeItemFromList(item);
+        } else if (visualList instanceof ReminderList) {
+            reminderList.removeItemFromList(item);
+        } else {
+            // never reached here as there are only three variants for the visualList
+        }
+        return removedItem;
+    }
+
+    /**
      * Deletes an item from the program.
      * @param index the index of the item to be deleted.
      * @return the item that was deleted from the program
      */
     public Item deleteItem(int index) {
-        Item item = visualList.remove(index);
+        Item item = visualList.removeItemFromList(index);
         itemStorage.remove(item);
-        taskList.remove(item);
-        eventList.remove(item);
-        reminderList.remove(item);
+        taskList.removeItemFromList(item);
+        eventList.removeItemFromList(item);
+        reminderList.removeItemFromList(item);
         if (priorityMode) {
             getNextTask();
         }
         return item;
+    }
+
+    public ItemIndexWrapper getIndices(int index) {
+        Item item = visualList.get(index);
+        return new ItemIndexWrapper(item, index, itemStorage.indexOf(item), taskList.indexOf(item),
+                eventList.indexOf(item), reminderList.indexOf(item), futureReminders.indexOf(item));
     }
 
     public VisualizeList getVisualList() {
@@ -501,6 +539,31 @@ public class ItemModelManager implements ItemModel {
             Task newTask = task.markComplete();
             Item newItem = item.changeTask(newTask);
             replaceItem(item, newItem);
+        }
+
+        return item;
+    }
+
+    /**
+     * mark a given task as not completed
+     * */
+
+    public Item markIncomplete(int index) throws IllegalListException {
+        Item item;
+        if (!(visualList instanceof TaskList)) {
+            throw new IllegalListException();
+        } else {
+            item = visualList.get(index);
+            Task task = item.getTask().get();
+            Task newTask = task.markIncomplete();
+            Item newItem = item.changeTask(newTask);
+            replaceItem(item, newItem);
+            sortedTask.add(newItem);
+        }
+
+        if (priorityMode) {
+            sortedTask.poll();
+            this.visualList = getNextTask();
         }
 
         return item;
