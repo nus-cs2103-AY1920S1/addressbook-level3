@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditNoteCommand;
-import seedu.address.logic.commands.EditNoteCommand.EditNoteDescriptor;
+import seedu.address.logic.commands.note.EditNoteCommand;
+import seedu.address.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.Title;

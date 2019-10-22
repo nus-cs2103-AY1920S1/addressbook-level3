@@ -20,8 +20,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditNoteCommand;
-import seedu.address.logic.commands.EditNoteCommand.EditNoteDescriptor;
+import seedu.address.logic.commands.note.EditNoteCommand;
+import seedu.address.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Title;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
