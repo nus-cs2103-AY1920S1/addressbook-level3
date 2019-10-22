@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.logic.commands.CommandLogic;
-import com.dukeacademy.logic.commands.CommandLogicManager;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
@@ -36,9 +35,9 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    protected CommandLogic commandLogic;
-    protected QuestionsLogic questionsLogic;
-    protected ProgramSubmissionLogic programSubmissionLogic;
+    private CommandLogic commandLogic;
+    private QuestionsLogic questionsLogic;
+    private ProgramSubmissionLogic programSubmissionLogic;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
@@ -68,7 +67,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane runCodeResultPlaceholder;
 
-    public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic, GuiSettings guiSettings) {
+    public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
+                      ProgramSubmissionLogic programSubmissionLogic, GuiSettings guiSettings) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -82,7 +82,8 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();    }
+        helpWindow = new HelpWindow();
+    }
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -141,6 +142,7 @@ public class MainWindow extends UiPart<Stage> {
 
         editorPanel = new Editor();
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
+        programSubmissionLogic.setUserProgramSubmissionChannel(editorPanel::getUserProgram);
 
         // Passing in sample test case and sample test case result into the constructor of RunCodeResult.
         // The sample problem in this context is an adder function.

@@ -1,6 +1,7 @@
 package com.dukeacademy.logic.commands.factory;
 
 import com.dukeacademy.logic.commands.Command;
+import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 
 /**
  * Encapsulates the creation of commands and its dependencies and exposes an interface that can be injected into
@@ -18,5 +19,5 @@ public interface CommandFactory {
      * @param commandArguments the command text from the user's input.
      * @return the corresponding command class instance.
      */
-    Command getCommand(String commandArguments);
+    Command getCommand(String commandArguments) throws InvalidCommandArgumentsException;
 }

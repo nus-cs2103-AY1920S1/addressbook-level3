@@ -1,14 +1,17 @@
 package com.dukeacademy.logic.commands;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.commons.util.StringUtil;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
+/**
+ * Helper class used by CommandLogicManager to keep track and instantiate registered Command classes.
+ */
 public class CommandParser {
     private Map<String, CommandSupplier> commandFactoryMap;
 
@@ -16,10 +19,21 @@ public class CommandParser {
         this.commandFactoryMap = new HashMap<>();
     }
 
-    public void registerCommandFactory(String commandWord, CommandSupplier commandSupplier) {
+    /**
+     * Registers a command into the command parser for future access.
+     * @param commandWord the keyword of the command.
+     * @param commandSupplier the supplier of the command.
+     */
+    public void registerCommand(String commandWord, CommandSupplier commandSupplier) {
         this.commandFactoryMap.put(commandWord, commandSupplier);
     }
 
+    /**
+     * Instantiates and returns a Command class instance based on the command text provided.
+     * @param commandText the command text used to invoke the command.
+     * @return a command instance corresponding to the command text.
+     * @throws ParseException if the command keyword or arguments are invalid.
+     */
     public Command parseCommandText(String commandText) throws ParseException {
         try {
             String commandWord = StringUtil.getFirstWord(commandText);

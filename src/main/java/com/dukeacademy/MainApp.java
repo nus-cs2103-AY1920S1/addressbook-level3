@@ -12,9 +12,12 @@ import com.dukeacademy.commons.core.Version;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
+import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandLogicManager;
+import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
+import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.logic.question.QuestionsLogicManager;
 import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
@@ -25,8 +28,8 @@ import com.dukeacademy.storage.prefs.UserPrefsStorage;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 import com.dukeacademy.storage.question.QuestionBankStorage;
 import com.dukeacademy.ui.Ui;
-
 import com.dukeacademy.ui.UiManager;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -63,18 +66,27 @@ public class MainApp extends Application {
 
         initLogging(config);
 
+        commandLogic = this.initCommandLogic();
         questionsLogic = this.initQuestionsLogic(userPrefs);
-        programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
-        commandLogic = this.initCommandLogic(userPrefs);
-        ui = this.initUi(userPrefs);
+        programSubmissionLogic = this.initProgramSubmissionLogic();
+        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic, userPrefs);
     }
 
+    /**
+     * Returns a new QuestionLogicManager based on the UserPrefs passed into the function.
+     * @param userPrefs a UserPrefs instance.
+     * @return a QuestionsLogicManager instance.
+     */
     private QuestionsLogicManager initQuestionsLogic(ReadOnlyUserPrefs userPrefs) {
         QuestionBankStorage storage = new JsonQuestionBankStorage(userPrefs.getQuestionBankFilePath());
         return new QuestionsLogicManager(storage);
     }
 
-    private ProgramSubmissionLogicManager initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
+    /**
+     * Returns a new ProgramSubmissionLogicManager based on the UserPrefs passed into the function.
+     * @return a ProgramSubmissionLogicManager instance.
+     */
+    private ProgramSubmissionLogicManager initProgramSubmissionLogic() {
         // TODO: eventually store program execution path in user prefs
         String outputPath = System.getProperty("user.home") + File.separator + "DukeAcademy";
         File file = new File(outputPath);
@@ -87,17 +99,23 @@ public class MainApp extends Application {
         } catch (LogicCreationException e) {
             logger.info("Fatal: failed to create program submission logic. Exiting app.");
             this.stop();
-            throw new RuntimeException();
+            return null;
         }
     }
 
-    private CommandLogicManager initCommandLogic(ReadOnlyUserPrefs userPrefs) {
+    /**
+     * Returns a new CommandLogicManager based on the UserPrefs passed into the function. Any commands to be registered
+     * in the CommandLogicManager is done in this method.
+     * @return a CommandLogicManger instance.
+     */
+    private CommandLogicManager initCommandLogic() {
         CommandLogicManager commandLogicManager = new CommandLogicManager();
         // TODO: create and register commands
         return commandLogicManager;
     }
 
-    private Ui initUi(ReadOnlyUserPrefs userPrefs) {
+    private Ui initUi(CommandLogic commandLogic, QuestionsLogic questionsLogic,
+                      ProgramSubmissionLogic programSubmissionLogic, ReadOnlyUserPrefs userPrefs) {
         return new UiManager(commandLogic, questionsLogic, programSubmissionLogic, userPrefs.getGuiSettings());
     }
 

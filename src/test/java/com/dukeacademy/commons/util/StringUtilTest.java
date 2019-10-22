@@ -7,8 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 
-import com.dukeacademy.commons.exceptions.IllegalValueException;
 import org.junit.jupiter.api.Test;
+
+import com.dukeacademy.commons.exceptions.IllegalValueException;
 
 public class StringUtilTest {
 
@@ -150,6 +151,10 @@ public class StringUtilTest {
 
         String expected1 = "Hello";
         String actual1 = StringUtil.getFirstWord("Hello      World!");
+        assertEquals(expected1, actual1);
+
+        String expected2 = "Hello";
+        String actual2 = StringUtil.getFirstWord("              Hello      World!");
         assertEquals(expected1, actual1);
 
         assertThrows(IllegalValueException.class, () -> StringUtil.getFirstWord(""));

@@ -5,9 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.dukeacademy.commons.core.index.Index;
-import com.dukeacademy.model.question.Question;
-
 /**
  * A utility class for test cases.
  */
@@ -30,5 +27,4 @@ public class TestUtil {
         }
         return SANDBOX_FOLDER.resolve(fileName);
     }
-    
 }

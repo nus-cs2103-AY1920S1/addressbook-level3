@@ -8,10 +8,9 @@ import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.util.StringUtil;
 
 import com.dukeacademy.logic.commands.CommandLogic;
-import com.dukeacademy.logic.commands.CommandLogicManager;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.model.prefs.UserPrefs;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -52,7 +51,8 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, commandLogic, questionsLogic, programSubmissionLogic, guiSettings);
+            mainWindow = new MainWindow(primaryStage, commandLogic, questionsLogic,
+                    programSubmissionLogic, guiSettings);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
