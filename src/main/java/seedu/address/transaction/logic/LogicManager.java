@@ -41,8 +41,7 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText)
             throws Exception {
         //model.resetPredicate();
-        Command command = parser.parseCommand(commandText,
-                model.getTransactionList().size(), personModel);
+        Command command = parser.parseCommand(commandText, personModel);
         CommandResult commandResult = command.execute(model, personModel);
         model.updateIndexes();
         personStorage.saveAddressBook(personModel.getAddressBook());

@@ -24,7 +24,7 @@ import seedu.address.util.Prefix;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser {
+public class AddCommandParser implements CommandParserWithPersonModel {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -32,7 +32,7 @@ public class AddCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      * @throws NoSuchPersonException if user inputs a transaction done by someone not in date base
      */
-    public AddCommand parse(String args, int transactionListSize, Model personModel)
+    public AddCommand parse(String args, Model personModel)
             throws ParseException, NoSuchPersonException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION,
@@ -51,7 +51,7 @@ public class AddCommandParser {
             double amount = Double.parseDouble(amountString);
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
             Transaction transaction = new Transaction(datetime, description, category, amount, person,
-                    transactionListSize + 1, false);
+                    0, false);
             AddCommand addCommand = new AddCommand(transaction);
             return addCommand;
         } catch (PersonNotFoundException e) {

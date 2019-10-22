@@ -48,8 +48,7 @@ class TransactionTabParserTest {
         Transaction transaction = new TransactionBuilder(person).build();
         AddCommand command = (AddCommand) parser.parseCommand(AddCommand.COMMAND_WORD
                         + DESC_NAME_ALICE + DESC_BUILDER_DATE + DESC_BUILDER_DESC
-                        + DESC_BUILDER_CATEGORY + DESC_BUILDER_AMOUNT,
-                personModel.getFilteredPersonList().size(), personModel);
+                        + DESC_BUILDER_CATEGORY + DESC_BUILDER_AMOUNT, personModel);
         assertEquals(new AddCommand(transaction), command);
     }
 
@@ -57,14 +56,14 @@ class TransactionTabParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteIndexCommand command = (DeleteIndexCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + 1, personModel.getFilteredPersonList().size(), personModel);
+                DeleteCommand.COMMAND_WORD + " " + 1, personModel);
         assertEquals(new DeleteIndexCommand(1), command);
     }
 
     @Test
     public void parseCommand_deletePerson() throws Exception {
         DeleteNameCommand command = (DeleteNameCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + DESC_NAME_ALICE, personModel.getFilteredPersonList().size(), personModel);
+                DeleteCommand.COMMAND_WORD + DESC_NAME_ALICE, personModel);
         assertEquals(new DeleteNameCommand(TypicalPersons.ALICE), command);
     }
 
@@ -73,16 +72,14 @@ class TransactionTabParserTest {
         EditCommand.EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
                 .withAmount(12.0).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + " 1 a/12", personModel.getFilteredPersonList().size(), personModel);
+                + " 1 a/12", personModel);
         assertEquals(new EditCommand(1, descriptor), command);
     }
 
     @Test
     public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, personModel.getFilteredPersonList().size(),
-                personModel) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3",
-                personModel.getFilteredPersonList().size(), personModel) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, personModel) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", personModel) instanceof ExitCommand);
     }
 
     @Test
@@ -90,35 +87,32 @@ class TransactionTabParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")),
-                personModel.getFilteredPersonList().size(), personModel);
+                personModel);
         assertEquals(new FindCommand(new TransactionContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_back() throws Exception {
-        assertTrue(parser.parseCommand(BackCommand.COMMAND_WORD,
-                personModel.getFilteredPersonList().size(), personModel) instanceof BackCommand);
-        assertTrue(parser.parseCommand(BackCommand.COMMAND_WORD + " 3",
-                personModel.getFilteredPersonList().size(), personModel) instanceof BackCommand);
+        assertTrue(parser.parseCommand(BackCommand.COMMAND_WORD, personModel) instanceof BackCommand);
+        assertTrue(parser.parseCommand(BackCommand.COMMAND_WORD + " 3", personModel) instanceof BackCommand);
     }
 
     @Test
     public void parseCommand_sort() throws Exception {
         SortNameCommand command = (SortNameCommand) parser.parseCommand(
-               SortCommand.COMMAND_WORD + " name", personModel.getFilteredPersonList().size(), personModel);
+               SortCommand.COMMAND_WORD + " name", personModel);
         assertEquals(new SortNameCommand(), command);
     }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(Exception.class, TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT, () ->
-                parser.parseCommand("", personModel.getFilteredPersonList().size(), personModel));
+                parser.parseCommand("", personModel));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(Exception.class, TransactionMessages.MESSAGE_NO_SUCH_COMMAND, () ->
-                parser.parseCommand("unknownCommand", personModel.getFilteredPersonList().size(),
-                        personModel));
+                parser.parseCommand("unknownCommand", personModel));
     }
 }

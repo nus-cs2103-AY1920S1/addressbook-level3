@@ -25,8 +25,7 @@ public class TransactionLogicStub implements Logic {
     @Override
     public CommandResult execute(String commandText) throws Exception {
         TransactionTabParser parser = new TransactionTabParser();
-        Command command = parser.parseCommand(commandText,
-                model.getTransactionList().size(), personModel);
+        Command command = parser.parseCommand(commandText, personModel);
         CommandResult commandResult = command.execute(model, personModel);
         return commandResult;
     }
