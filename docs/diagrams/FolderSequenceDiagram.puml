@@ -65,9 +65,9 @@ end box
 
 Ol -> TreeView :changeListener()
 note right: adds folder\nto the UI
-activate Ol
+activate TreeView
 TreeView -> Ol
-deactivate Ol
+deactivate TreeView
 
 Ol -> Work
 deactivate Ol

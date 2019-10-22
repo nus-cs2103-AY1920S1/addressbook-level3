@@ -267,15 +267,13 @@ image::FolderStructureState1.png[]
 [NOTE]
 If the parent folder is not provided, the parent folder will default to `root`.
 
-The following sequence diagram shows how the folder operation works:
+The following sequence diagram shows how in more detail how the execution of `folder GER1000 p/Work` works:
 
 image::FolderSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 Finally, the user sees his folder added successfully in the folder hierarchy.
-
-The following activity diagram summarizes what happens when a user executes a new command:
 
 ==== Design Considerations
 
