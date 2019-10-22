@@ -6,10 +6,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.dashboard.DeleteTaskCommand;
 import seedu.address.logic.commands.diary.DeleteDiaryCommand;
 import seedu.address.logic.commands.diary.DeletePageCommand;
 import seedu.address.logic.commands.exercise.DeleteExerciseCommand;
 import seedu.address.logic.commands.recipe.DeleteRecipeCommand;
+import seedu.address.logic.parser.dashboard.DeleteTaskCommandParser;
 import seedu.address.logic.parser.diary.DeleteDiaryCommandParser;
 import seedu.address.logic.parser.diary.DeletePageCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -41,6 +43,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (variant) {
+
+        case DeleteTaskCommand.VARIANT_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
 
         case DeleteRecipeCommand.VARIANT_WORD:
             return new DeleteRecipeCommandParser().parse(arguments);

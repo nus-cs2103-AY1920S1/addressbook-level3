@@ -100,18 +100,6 @@ public class DukeCooksParser {
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommand();
 
-        case AddTaskCommand.COMMAND_WORD:
-             return new AddTaskCommandParser().parse(arguments);
-
-        case DeleteTaskCommand.COMMAND_WORD:
-            return new DeleteTaskCommandParser().parse(arguments);
-
-        case EditTaskCommand.COMMAND_WORD:
-            return new EditTaskCommandParser().parse(arguments);
-
-        case FindTaskCommand.COMMAND_WORD:
-             return new FindTaskCommandParser().parse(arguments);
-
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

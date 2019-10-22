@@ -14,7 +14,7 @@ import seedu.address.model.dashboard.components.DashboardNameContainsKeywordsPre
  */
 public class FindTaskCommand extends FindCommand {
 
-    public static final String COMMAND_WORD = "taskfind";
+    public static final String VARIANT_WORD = "task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

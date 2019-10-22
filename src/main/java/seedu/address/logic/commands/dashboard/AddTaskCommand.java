@@ -12,7 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASKNAME;
 
 public class AddTaskCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "taskadd";
+    public static final String VARIANT_WORD = "task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to Duke Cooks. \n"
             + "Parameters: "

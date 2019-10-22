@@ -23,7 +23,7 @@ import seedu.address.model.dashboard.components.TaskDate;
  */
 public class EditTaskCommand extends EditCommand {
 
-    public static final String COMMAND_WORD = "taskedit";
+    public static final String VARIANT_WORD = "task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
