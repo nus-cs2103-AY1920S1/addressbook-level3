@@ -8,9 +8,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.commands.CommandAction;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
-import seedu.address.model.earnings.Date;
-import seedu.address.model.earnings.Earnings;
-import seedu.address.model.earnings.Module;
 
 /**
  * Jackson-friendly version of {@link CommandObject}.
@@ -51,15 +48,15 @@ public class JsonAdaptedCommand {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
         }
         if (!CommandAction.isValidAction(commandAction)) {
-            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(CommandAction.MESSAGE_CONSTRAINTS);
         }
         final CommandAction modelAction = new CommandAction(commandAction);
 
         if (commandWord == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
         }
-        if (!Module.isValidModuleName(commandWord)) {
-            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS);
+        if (!CommandWord.isValidWord(commandWord)) {
+            throw new IllegalValueException(CommandWord.MESSAGE_CONSTRAINTS);
         }
         final CommandWord modelWord = new CommandWord(commandWord);
         return new CommandObject(modelWord, modelAction);
