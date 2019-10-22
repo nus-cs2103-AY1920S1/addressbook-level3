@@ -24,4 +24,8 @@ public class ResultDisplay extends UiPart<Region> {
         requireNonNull(feedbackToUser);
         resultDisplay.setText(feedbackToUser);
     }
+
+    public String getCurrentTextOnDisplay() {
+        return resultDisplay.getText();
+    }
 }

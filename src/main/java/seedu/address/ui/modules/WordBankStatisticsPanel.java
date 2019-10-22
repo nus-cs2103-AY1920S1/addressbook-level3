@@ -1,24 +1,20 @@
 package seedu.address.ui.modules;
 
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.address.commons.util.AppUtil;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.statistics.CardStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
-
-
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 /**
  * Panel containing the word bank statistics
@@ -29,52 +25,35 @@ public class WordBankStatisticsPanel extends UiPart<Region> {
 
     private static final String FXML = "WordBankStatisticsPanel.fxml";
 
-    static final String BADGE_PATH = "/images/badges/";
-    static final Image BADGE_1_BNW = AppUtil.getImage(BADGE_PATH + "normal_badge_bnw.png");
-    static final Image BADGE_2_BNW = AppUtil.getImage(BADGE_PATH + "medium_badge_bnw.png");
-    static final Image BADGE_3_BNW = AppUtil.getImage(BADGE_PATH + "hard_badge_bnw.png");
-    static final Image BADGE_1_COLOR = AppUtil.getImage(BADGE_PATH + "normal_badge.png");
-    static final Image BADGE_2_COLOR = AppUtil.getImage(BADGE_PATH + "medium_badge.png");
-    static final Image BADGE_3_COLOR = AppUtil.getImage(BADGE_PATH + "hard_badge.png");
+    @FXML
+    private Label title;
 
     @FXML
-    Label title;
+    private StackPane badgesRowPlaceholder;
 
     @FXML
-    ImageView badge1;
+    private Label playedTimesText;
 
     @FXML
-    ImageView badge2;
+    private Label highScoreText;
 
     @FXML
-    ImageView badge3;
+    private Label fastestClearText;
 
     @FXML
-    Label playedTimesText;
+    private StackPane progressChartPlaceholder;
 
     @FXML
-    Label highScoreText;
+    private VBox mostMissedBox;
 
     @FXML
-    Label fastestClearText;
-
-    @FXML
-    StackPane progressChartPlaceholder;
-
-    @FXML
-    VBox mostMissedBox;
-
-    @FXML
-    VBox mostMissedList;
+    private VBox mostMissedList;
 
     public WordBankStatisticsPanel(WordBankStatistics wbStatistics, ReadOnlyWordBank wordBank) {
         super(FXML);
         this.title.setText(wbStatistics.getWordBankName());
 
-        // todo set depending on received badges
-        this.badge1.setImage(BADGE_1_BNW);
-        this.badge2.setImage(BADGE_2_BNW);
-        this.badge3.setImage(BADGE_3_BNW);
+        badgesRowPlaceholder.getChildren().add(new BadgesRow(true, true, false).getRoot());
 
         this.playedTimesText.setText(wbStatistics.getGamesPlayed()
             + (wbStatistics.getGamesPlayed() == 1

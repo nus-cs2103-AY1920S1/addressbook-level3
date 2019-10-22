@@ -19,6 +19,7 @@ import seedu.address.logic.commands.appcommands.HelpCommand;
 import seedu.address.logic.commands.appcommands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
+import seedu.address.model.Model;
 
 /**
  * Parses user input.
@@ -29,19 +30,21 @@ public class AppModeParser extends ModeParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private List<ClassPair> commandParserClassPairs;
+    private ClassUtil classUtil;
+    private Model model;
 
-    public AppModeParser() {
+    public AppModeParser(Model model) {
         //Class temp = AddCommandParser.class;
-        this.commandParserClassPairs = new ArrayList<>();
-        commandParserClassPairs.add(new ClassPair(AddCommand.class, AddCommandParser.class));
-        commandParserClassPairs.add(new ClassPair(EditCommand.class, EditCommandParser.class));
-        commandParserClassPairs.add(new ClassPair(DeleteCommand.class, DeleteCommandParser.class));
-        commandParserClassPairs.add(new ClassPair(FindCommand.class, FindCommandParser.class));
-        commandParserClassPairs.add(new ClassPair(ClearCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(ListCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(ExitCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(HelpCommand.class, null));
+        this.classUtil = new ClassUtil(model);
+        this.model = model;
+        classUtil.add(new ClassPair(AddCommand.class, AddCommandParser.class));
+        classUtil.add(new ClassPair(EditCommand.class, EditCommandParser.class));
+        classUtil.add(new ClassPair(DeleteCommand.class, DeleteCommandParser.class));
+        classUtil.add(new ClassPair(FindCommand.class, FindCommandParser.class));
+        classUtil.add(new ClassPair(ClearCommand.class, null));
+        classUtil.add(new ClassPair(ListCommand.class, null));
+        classUtil.add(new ClassPair(ExitCommand.class, null));
+        classUtil.add(new ClassPair(HelpCommand.class, null));
     }
 
     /**
@@ -60,7 +63,7 @@ public class AppModeParser extends ModeParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        Command temp = ClassUtil.getCommandInstance(commandParserClassPairs, commandWord, arguments);
+        Command temp = classUtil.getCommandInstance(commandWord, arguments);
         if (temp == null) {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         } else {
@@ -70,8 +73,8 @@ public class AppModeParser extends ModeParser {
 
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
-        for (String txt : ClassUtil.getAttribute(commandParserClassPairs, "COMMAND_WORD")) {
-            if (txt.contains(input)) {
+        for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
+            if (txt.contains(input) || input.contains(txt)) {
                 temp.add(new AutoFillAction(txt));
             }
         }

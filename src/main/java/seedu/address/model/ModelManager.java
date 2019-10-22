@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,9 +12,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.appsettings.DifficultyEnum;
+import seedu.address.model.appsettings.ReadOnlyAppSettings;
+import seedu.address.model.appsettings.ThemeEnum;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
-import seedu.address.model.gamedifficulty.DifficultyEnum;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -34,34 +38,47 @@ public class ModelManager implements Model {
     private WordBankStatistics wordBankStatistics;
     private final WordBankStatisticsList wordBankStatisticsList;
 
+    private final GlobalStatistics globalStatistics;
+
     private final UserPrefs userPrefs;
+
+    //Settings for the app.
+    private final AppSettings appSettings;
+
     private FilteredList<Card> filteredCards;
     private final FilteredList<WordBank> filteredWordBanks;
 
     //Placeholder game model
     private Game game = null;
-    private DifficultyEnum difficulty;
 
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
      */
-    public ModelManager(WordBankList wordBankList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(WordBankList wordBankList, WordBankStatisticsList wbStatsList,
+                        GlobalStatistics globalStatistics, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyAppSettings appSettings) {
         super();
         requireAllNonNull(wordBankList, userPrefs);
 
         logger.fine("Initializing with word bank list: " + wordBankList + " and user prefs " + userPrefs);
 
         this.wordBankList = wordBankList;
-        this.wordBankStatisticsList = new WordBankStatisticsList();
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
+        this.wordBankStatisticsList = wbStatsList;
+        this.globalStatistics = globalStatistics;
 
-        // Default Difficulty is always EASY.
-        this.difficulty = DifficultyEnum.EASY;
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.appSettings = new AppSettings(appSettings);
+
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
     }
 
     public ModelManager() {
-        this(new WordBankList((List) new ArrayList<WordBankList>()), new UserPrefs());
+        this(new WordBankList(Collections.emptyList()),
+                new WordBankStatisticsList(Collections.emptyList()),
+                new GlobalStatistics(),
+                new UserPrefs(),
+                new AppSettings());
     }
 
     // Placeholder setGame method
@@ -73,14 +90,70 @@ public class ModelManager implements Model {
         return this.game;
     }
 
+    //=========== AppSettings ================================================================================
     @Override
-    public void setDifficulty(DifficultyEnum difficultyEnum) {
-        this.difficulty = difficultyEnum;
+    public AppSettings getAppSettings() {
+        return appSettings;
     }
 
     @Override
-    public DifficultyEnum getDifficulty() {
-        return difficulty;
+    public Path getAppSettingsFilePath() {
+        return appSettings.getAppSettingsFilePath();
+    }
+
+    @Override
+    public void setDefaultDifficulty(DifficultyEnum difficultyEnum) {
+        appSettings.setDefaultDifficulty(difficultyEnum);
+    }
+
+    @Override
+    public DifficultyEnum getDefaultDifficulty() {
+        return appSettings.getDefaultDifficulty();
+    }
+
+    @Override
+    public ThemeEnum getDefaultTheme() {
+        return appSettings.getDefaultTheme();
+    }
+
+    @Override
+    public void setDefaultTheme(ThemeEnum defaultTheme) {
+        appSettings.setDefaultTheme(defaultTheme);
+    }
+
+    @Override
+    public boolean getHintsEnabled() {
+        return false;
+    }
+
+    @Override
+    public void setHintsEnabled(boolean enabled) {
+        requireNonNull(enabled);
+        appSettings.setHintsEnabled(enabled);
+    }
+
+    @Override
+    public long getTimeAllowedPerQuestion() {
+        return this.appSettings.getDefaultDifficulty().getTimeAllowedPerQuestion();
+    }
+
+    @Override
+    public FormattedHint getHintFormatFromCurrentGame() throws UnsupportedOperationException {
+        if (game == null || game.isOver()) {
+            throw new UnsupportedOperationException("No active game session to send hints from");
+        }
+        return game.getHintFormatForCurrCard();
+    }
+
+    @Override
+    public int getHintFormatSizeFromCurrentGame() {
+        return game.getHintFormatSizeOfCurrCard();
+    }
+
+    @Override
+    public boolean hintsAreEnabled() {
+        return true;
+        //        return difficulty.hintsAreEnabled();
     }
 
     //=========== UserPrefs ==================================================================================
@@ -199,6 +272,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
+
         filteredCards.setPredicate(predicate);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
@@ -223,6 +297,11 @@ public class ModelManager implements Model {
     @Override
     public void clearWordBankStatistics() {
         this.wordBankStatistics = null;
+    }
+
+    @Override
+    public GlobalStatistics getGlobalStatistics() {
+        return globalStatistics;
     }
 
     @Override

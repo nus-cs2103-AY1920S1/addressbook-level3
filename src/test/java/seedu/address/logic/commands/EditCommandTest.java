@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ABRA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BUTTERFREE;
+
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -14,12 +15,14 @@ import seedu.address.logic.commands.appcommands.EditCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
     private Model model = new ModelManager();
+
 
     //    @Test
     //    public void execute_allFieldsSpecifiedUnfilteredList_success() {

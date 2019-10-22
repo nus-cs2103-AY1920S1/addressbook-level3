@@ -30,7 +30,9 @@ public class BankCommand extends SwitchCommand {
         this.name = name;
     }
 
-
+    public BankCommand() {
+        this.name = null;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -42,11 +44,13 @@ public class BankCommand extends SwitchCommand {
         model.setWordBank(wbl.getWordBank(name));
         WordBankStatistics wbStats = wbStatsList.getWordBankStatistics(name);
         if (wbStats == null) {
-            model.setWordBankStatistics(WordBankStatistics.getEmpty(name));
+            WordBankStatistics newWbStats = WordBankStatistics.getEmpty(name);
+            model.setWordBankStatistics(newWbStats);
+            wbStatsList.addWordBanksStatistics(newWbStats);
         } else {
             model.setWordBankStatistics(wbStats);
         }
-        return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT , false, false);
+        return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT, false, false);
     }
 
     public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {

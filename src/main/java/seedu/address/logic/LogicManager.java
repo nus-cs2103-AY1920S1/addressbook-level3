@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -28,13 +27,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
+import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
-
 
 /**
  * The main LogicManager of the app.
@@ -58,7 +60,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         this.game = game //get from constructor
          */
 
-        parserManager = new ParserManager();
+        parserManager = new ParserManager(model);
     }
 
     @Override
@@ -101,7 +103,11 @@ public class LogicManager implements Logic, UiLogicHelper {
         Similar methods to saveWordBanks();
          */
         try {
+            if (getMode().equals(ModeEnum.SETTINGS)) {
+                storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
+            }
             ReadOnlyWordBank wb = model.getWordBank();
+
             Path wordBankListFilePath = storage.getWordBankListFilePath();
             if (!wb.getName().equals("Empty wordbank")) {
                 storage.saveWordBank(wb, wordBankListFilePath);
@@ -125,6 +131,7 @@ public class LogicManager implements Logic, UiLogicHelper {
                 storage.saveWordBank(wordBank, wordBankListFilePath);
                 model.getWordBankList().addBank(wordBank);
             }
+
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } catch (DataConversionException e) {
@@ -170,8 +177,23 @@ public class LogicManager implements Logic, UiLogicHelper {
             requireNonNull(model.getWordBankStatistics());
             WordBankStatistics currWbStats = model.getWordBankStatistics();
             currWbStats.update(gameStatistics);
-            storage.saveWordBankStatistics(currWbStats,
-                    Path.of("data/wbstats/" + currWbStats.getWordBankName() + ".json"));
+
+            Path targetPath = Path.of(model.getUserPrefs().getDataFilePath().toString(), "wbstats",
+                    currWbStats.getWordBankName() + ".json");
+
+            storage.saveWordBankStatistics(currWbStats, targetPath);
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+    }
+
+    @Override
+    public void incrementPlay() throws CommandException {
+        try {
+            requireNonNull(model.getGlobalStatistics());
+            GlobalStatistics globalStats = model.getGlobalStatistics();
+            globalStats.addPlay();
+            storage.saveGlobalStatistics(globalStats);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -183,13 +205,38 @@ public class LogicManager implements Logic, UiLogicHelper {
     }
 
     @Override
+    public WordBankStatisticsList getWordBankStatisticsList() {
+        return model.getWordBankStatisticsList();
+    }
+
+    @Override
+    public GlobalStatistics getGlobalStatistics() {
+        return model.getGlobalStatistics();
+    }
+
+    @Override
     public ReadOnlyWordBank getActiveWordBank() {
         return model.getWordBank();
     }
 
     @Override
     public long getTimeAllowedPerQuestion() {
-        return this.model.getDifficulty().getTimeAllowedPerQuestion();
+        return this.model.getTimeAllowedPerQuestion();
+    }
+
+    @Override
+    public FormattedHint getHintFormatFromCurrentGame() {
+        return this.model.getHintFormatFromCurrentGame();
+    }
+
+    @Override
+    public int getHintFormatSizeFromCurrentGame() {
+        return this.model.getHintFormatSizeFromCurrentGame();
+    }
+
+    @Override
+    public boolean hintsAreEnabled() {
+        return model.hintsAreEnabled();
     }
 
     @Override
@@ -204,11 +251,12 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     @Override
     public List<ModeEnum> getModes() {
-        List<ModeEnum> temp = new ArrayList<>();
-        temp.add(ModeEnum.APP);
-        temp.add(ModeEnum.LOAD);
-        temp.add(ModeEnum.GAME);
-        temp.add(ModeEnum.SETTINGS);
-        return temp;
+        return parserManager.getModes();
     }
+
+    @Override
+    public AppSettings getAppSettings() {
+        return this.model.getAppSettings();
+    }
+
 }

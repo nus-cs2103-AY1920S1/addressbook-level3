@@ -11,9 +11,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
+import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FormattedHint;
+import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 
@@ -61,15 +65,34 @@ public interface Logic extends UiLogicHelper {
 
     void saveUpdatedWbStatistics(GameStatistics gameStats) throws CommandException;
 
+    /**
+     * This method should be called every time a game finishes to correctly update global statistics
+     */
+    void incrementPlay() throws CommandException;
+
     WordBankStatistics getActiveWordBankStatistics();
+
+    WordBankStatisticsList getWordBankStatisticsList();
+
+    GlobalStatistics getGlobalStatistics();
 
     ReadOnlyWordBank getActiveWordBank();
 
     long getTimeAllowedPerQuestion();
 
-    public List<AutoFillAction> getMenuItems(String text);
+    AppSettings getAppSettings();
 
-    public ModeEnum getMode();
 
-    public List<ModeEnum> getModes();
+    FormattedHint getHintFormatFromCurrentGame();
+
+    int getHintFormatSizeFromCurrentGame();
+
+    boolean hintsAreEnabled();
+
+    List<AutoFillAction> getMenuItems(String text);
+
+    ModeEnum getMode();
+
+    List<ModeEnum> getModes();
+
 }

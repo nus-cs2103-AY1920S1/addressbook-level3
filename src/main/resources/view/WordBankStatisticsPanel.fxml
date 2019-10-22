@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
@@ -15,24 +14,13 @@
       <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@DarkTheme.css">
          <children>
             <Label fx:id="title" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header" text="Title" textAlignment="CENTER" />
+            <StackPane fx:id="badgesRowPlaceholder" />
             <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
                <children>
-                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                  <ImageView fx:id="badge1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="badge2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="badge3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="8.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
-               <children>
-                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+                  <Region HBox.hgrow="ALWAYS" />
                   <Label fx:id="title1112" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Played " textAlignment="CENTER" />
                   <Label fx:id="playedTimesText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="X times" textAlignment="CENTER" />
-                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+                  <Region HBox.hgrow="ALWAYS" />
                </children>
                <padding>
                   <Insets top="10.0" />

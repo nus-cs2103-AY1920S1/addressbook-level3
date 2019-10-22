@@ -87,7 +87,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
 
         Optional<JsonSerializableWordBank> jsonAddressBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableWordBank.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (jsonAddressBook.isEmpty()) {
             return Optional.empty();
         }
 

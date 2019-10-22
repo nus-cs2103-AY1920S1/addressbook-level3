@@ -167,8 +167,9 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 12.5pt;
     -fx-text-fill: white;
+    -fx-underline: true;
 }
 
 .timer-display {
@@ -176,6 +177,17 @@
     -fx-font-family: "monospace";
     -fx-font-size: 11.7pt;
     -fx-text-fill: pink;
+}
+
+.hint-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "monospace";
+    -fx-font-size: 11.7pt;
+    -fx-text-fill: pink;
+}
+
+.hint-display .text {
+    -fx-underline: true;
 }
 
 .result-display .label {
@@ -381,8 +393,7 @@
 }
 
 /*combo box*/
-.combo-box .list-cell
-{
+.combo-box .list-cell {
     -fx-background: grey;
     -fx-background-color: transparent;
     -fx-text-fill: white;
@@ -391,23 +402,34 @@
 }
 
 
-.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
-{
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
     -fx-background: -fx-accent;
     -fx-background-color: -fx-selection-bar;
     -fx-text-fill: white;
 }
 
-.combo-box-base
-{
-    -fx-skin: "com.sun.javafx.scene.control.skin.ComboBoxBaseSkin";
+.combo-box-base {
     -fx-background-color: grey, grey, grey, grey;
     -fx-background-radius: 5, 5, 4, 3;
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-padding: 0;
 }
 
+.tooltip {
+    -fx-font-size: 10pt;
+}
 
+#highlighted {
+    -fx-text-fill: #8cb0f5;
+}
+
+#slogan {
+    -fx-text-fill: #ec4c4c;
+}
+
+#avatar-shadow {
+    -fx-fill: #353535;
+}
 
 #tags {
     -fx-hgap: 7;

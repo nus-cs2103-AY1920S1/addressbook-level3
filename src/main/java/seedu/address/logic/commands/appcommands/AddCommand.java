@@ -41,6 +41,10 @@ public class AddCommand extends AppCommand {
         toAdd = card;
     }
 
+    public AddCommand() {
+        toAdd = null;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         System.err.println("in add command execute: " + model);

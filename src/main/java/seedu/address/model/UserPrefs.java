@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path dataFilePath = Paths.get("data");
     private Path wordBankListFilePath = Paths.get("data", "wordbanks");
+    private Path appSettingsFilePath = Paths.get("data" , "appsettings.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -54,6 +55,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setDataFilePath(Path dataFilePath) {
         requireNonNull(dataFilePath);
         this.dataFilePath = dataFilePath;
+    }
+
+    public Path getAppSettingsFilePath() {
+        return appSettingsFilePath;
+    }
+
+    public void setAppSettingsFilePath(Path appSettingsFilePath) {
+        requireNonNull(appSettingsFilePath);
+        this.appSettingsFilePath = appSettingsFilePath;
     }
 
     @Override

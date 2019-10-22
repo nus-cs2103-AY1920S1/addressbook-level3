@@ -4,7 +4,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.gamedifficulty.DifficultyEnum;
+import seedu.address.model.appsettings.DifficultyEnum;
 
 /**
  * Class that represents a command to change the Model's difficulty for all its games.
@@ -25,7 +25,7 @@ public class DifficultyCommand extends SettingsCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.setDifficulty(this.difficulty);
+        model.setDefaultDifficulty(this.difficulty);
         return new CommandResult("Difficulty is now set to: " + difficulty);
     }
 
