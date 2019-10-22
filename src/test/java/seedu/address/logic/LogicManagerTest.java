@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -120,6 +122,13 @@ public class LogicManagerTest {
         assertEquals(logic.getGuiSettings(), model.getGuiSettings());
     }
 
+    @Test
+    public void setGuiSettings_success() {
+        GuiSettings guiSettings = new GuiSettings(2.2, 2.2, 1, 3);
+        model.setGuiSettings(guiSettings);
+        assertEquals(logic.getGuiSettings(), guiSettings);
+        assertNotEquals(logic.getGuiSettings(), new GuiSettings());
+    }
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>

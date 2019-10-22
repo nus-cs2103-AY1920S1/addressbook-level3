@@ -133,19 +133,23 @@ public class LoanSlipUtil {
         //write logo
         doc.writeLogo();
         doc.writeLine();
+
         //Add paragraph to the document
         doc.writeHeader(currentBorrower.getName().toString());
         doc.writeLeftParagraph(currentBorrower.getBorrowerId().toString());
         doc.writeLine();
         doc.writeMidHeader("Books borrowed");
+
         //populate table
         String[] headerRow = new String[]{"S/N", "Book", "Due By"};
         doc.writeRow(headerRow);
         doc.writeRow(createBookRow());
+
         //add table to document
         doc.submitTable();
         doc.writeLine();
         doc.writeCentralisedParagraph(BYE_MESSAGE);
+
         //close document
         doc.closeDoc();
         isGenerated = true;

@@ -89,7 +89,7 @@ class LoanSlipUtilTest {
     }
 
     @Test
-    public void createLoanSlipInDirectory_noloanSlipMounted_failure() {
+    public void createLoanSlipInDirectory_noLoanSlipMounted_failure() {
         LoanSlipUtil.unmountLoanSlip();
         assertThrows(LoanSlipException.class, () -> LoanSlipUtil.createLoanSlipInDirectory());
     }

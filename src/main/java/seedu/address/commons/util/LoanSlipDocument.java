@@ -24,7 +24,6 @@ import com.itextpdf.layout.property.TextAlignment;
 public class LoanSlipDocument {
 
     private static final int HEADER_FONT_SIZE = 32;
-    private static final int SUB_HEADER_FONT_SIZE = 22;
     private static final int MID_HEADER_FONT_SIZE = 28;
     private static final int PARAGRAPH_FONT_SIZE = 20;
 
@@ -76,15 +75,6 @@ public class LoanSlipDocument {
      */
     public void writeHeader(String text) {
         writeToDocAlignLeft(text, HEADER_FONT_SIZE);
-    }
-
-    /**
-     * Writes the sub header of the document.
-     *
-     * @param text Text content of header.
-     */
-    public void writeSubHeader(String text) {
-        writeToDocAlignLeft(text, SUB_HEADER_FONT_SIZE);
     }
 
     /**
