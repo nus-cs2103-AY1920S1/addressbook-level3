@@ -30,7 +30,7 @@ public class PasswordValue {
     }
 
     public String getEncryptedPasswordValue() {
-        return StringUtil.changeToAsterix(value);
+        return StringUtil.passwordToAsterix(value);
     }
 
     public String getNonEncryptedPasswordValue() {

@@ -12,6 +12,7 @@ import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ReadCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -56,6 +57,8 @@ public class CardBookParser {
         case GoToCommand.COMMAND_WORD:
             return new GoToCommandParser().parse(arguments);
 
+        case ReadCardCommand.COMMAND_WORD:
+            return new ReadCardCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

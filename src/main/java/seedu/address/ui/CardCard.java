@@ -36,8 +36,8 @@ public class CardCard extends UiPart<Region> {
         this.c = card;
         id.setText(displayedIndex + ". ");
         description.setText(card.getDescription().value);
-        cardNumber.setText(card.getCardNumber().value);
-        cvc.setText(card.getCvc().value);
+        cardNumber.setText(card.getCardNumber().toString());
+        cvc.setText(card.getCvc().toString());
         c.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

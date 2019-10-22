@@ -24,11 +24,13 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.NoteBook;
 import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCardBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.util.SampleDataCardUtil;
 import seedu.address.model.util.SampleDataPasswordUtil;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -87,7 +89,8 @@ public class MainApp extends Application {
                 new JsonFileBookStorage(userPrefs.getFileBookFilePath(), password);
         CardBookStorage cardBookStorage =
                 new JsonCardBookStorage(userPrefs.getCardBookFilePath(), password);
-        NoteBookStorage noteBookStorage = new JsonNoteBookStorage(userPrefs.getNoteBookFilePath(), password);
+        NoteBookStorage noteBookStorage =
+                new JsonNoteBookStorage(userPrefs.getNoteBookFilePath(), password);
         PasswordBookStorage passwordBookStorage =
                 new JsonPasswordBookStorage(userPrefs.getPasswordBookFilePath(), password);
         storage = new StorageManager(addressBookStorage, fileBookStorage, cardBookStorage, noteBookStorage,
@@ -127,9 +130,10 @@ public class MainApp extends Application {
             initialAddressData = new AddressBook();
         }
         ReadOnlyFileBook initialDataFile = initFileBook(storage);
+        ReadOnlyCardBook initialCardData = initCardBook(storage);
         ReadOnlyNoteBook initialNoteData = initNoteBook(storage);
         ReadOnlyPasswordBook initialDataPassword = initPasswordBook(storage);
-        return new ModelManager(initialAddressData, initialDataFile, new CardBook(), initialNoteData,
+        return new ModelManager(initialAddressData, initialDataFile, initialCardData, initialNoteData,
                 initialDataPassword, userPrefs);
     }
 
@@ -177,6 +181,30 @@ public class MainApp extends Application {
             initialNoteData = new NoteBook();
         }
         return initialNoteData;
+    }
+
+    /**
+     * Returns a {@code Card} with the data from {@code storage}'s card book. <br>
+     * The data from the sample card book will be used instead if {@code storage}'s card book is not found,
+     * or an empty card book will be used instead if errors occur when reading {@code storage}'s card book.
+     */
+    private ReadOnlyCardBook initCardBook(Storage storage) {
+        Optional<ReadOnlyCardBook> cardBookOptional;
+        ReadOnlyCardBook initialCardData;
+        try {
+            cardBookOptional = storage.readCardBook();
+            if (!cardBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample CardBook");
+            }
+            initialCardData = cardBookOptional.orElseGet(SampleDataCardUtil::getSampleCardBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty CardBook");
+            initialCardData = new CardBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty CardBook");
+            initialCardData = new CardBook();
+        }
+        return initialCardData;
     }
 
     /**

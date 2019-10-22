@@ -29,7 +29,7 @@ public class UniqueCardList implements Iterable<Card> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent card as the given argument.
      */
     public boolean contains(Card toCheck) {
         requireNonNull(toCheck);
@@ -37,8 +37,8 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a card to the list.
+     * The card must not already exist in the list.
      */
     public void add(Card toAdd) {
         requireNonNull(toAdd);
@@ -49,9 +49,9 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedCard}.
+     * Replaces the card {@code target} in the list with {@code editedCard}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedCard} must not be the same as another existing person in the list.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the list.
      */
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);

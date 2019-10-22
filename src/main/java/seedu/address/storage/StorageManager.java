@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.CardBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCardBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
@@ -135,23 +135,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<CardBook> readCardBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyCardBook> readCardBook() throws DataConversionException, IOException {
         return readCardBook(cardBookStorage.getCardBookFilePath());
     }
 
     @Override
-    public Optional<CardBook> readCardBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCardBook> readCardBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return cardBookStorage.readCardBook(filePath);
     }
 
     @Override
-    public void saveCardBook(CardBook cardBook) throws IOException {
+    public void saveCardBook(ReadOnlyCardBook cardBook) throws IOException {
         saveCardBook(cardBook, cardBookStorage.getCardBookFilePath());
     }
 
     @Override
-    public void saveCardBook(CardBook cardBook, Path filePath) throws IOException {
+    public void saveCardBook(ReadOnlyCardBook cardBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         cardBookStorage.saveCardBook(cardBook, filePath);
     }

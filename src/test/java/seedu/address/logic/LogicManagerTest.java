@@ -23,10 +23,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCardBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.UserPrefs;
@@ -199,7 +199,7 @@ public class LogicManagerTest {
             super(filePath, PASSWORD);
         }
         @Override
-        public void saveCardBook(CardBook cardBook, Path filePath) throws IOException {
+        public void saveCardBook(ReadOnlyCardBook cardBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

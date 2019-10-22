@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.CardBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCardBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
@@ -51,10 +51,10 @@ public interface Storage extends AddressBookStorage, FileBookStorage, CardBookSt
     Path getCardBookFilePath();
 
     @Override
-    Optional<CardBook> readCardBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyCardBook> readCardBook() throws DataConversionException, IOException;
 
     @Override
-    void saveCardBook(CardBook cardBook) throws IOException;
+    void saveCardBook(ReadOnlyCardBook cardBook) throws IOException;
 
     Path getNoteBookFilePath();
 

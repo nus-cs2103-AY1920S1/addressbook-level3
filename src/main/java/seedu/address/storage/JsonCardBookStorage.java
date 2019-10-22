@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.CardBook;
+import seedu.address.model.ReadOnlyCardBook;
 
 /**
  * A class to access CardBook data stored as a json file on the hard disk.
@@ -34,7 +34,7 @@ public class JsonCardBookStorage implements CardBookStorage {
     }
 
     @Override
-    public Optional<CardBook> readCardBook() throws DataConversionException {
+    public Optional<ReadOnlyCardBook> readCardBook() throws DataConversionException {
         return readCardBook(filePath);
     }
 
@@ -44,11 +44,15 @@ public class JsonCardBookStorage implements CardBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<CardBook> readCardBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyCardBook> readCardBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableCardBook> jsonCardBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableCardBook.class);
+        Optional<JsonSerializableCardBook> jsonCardBook;
+        if (password == null) {
+            jsonCardBook = JsonUtil.readJsonFile(filePath, JsonSerializableCardBook.class);
+        } else {
+            jsonCardBook = JsonUtil.readEncryptedJsonFile(filePath, JsonSerializableCardBook.class, password);
+        }
         if (!jsonCardBook.isPresent()) {
             return Optional.empty();
         }
@@ -62,21 +66,25 @@ public class JsonCardBookStorage implements CardBookStorage {
     }
 
     @Override
-    public void saveCardBook(CardBook cardBook) throws IOException {
+    public void saveCardBook(ReadOnlyCardBook cardBook) throws IOException {
         saveCardBook(cardBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveCardBook(CardBook)}.
+     * Similar to {@link #saveCardBook(ReadOnlyCardBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveCardBook(CardBook cardBook, Path filePath) throws IOException {
+    public void saveCardBook(ReadOnlyCardBook cardBook, Path filePath) throws IOException {
         requireNonNull(cardBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableCardBook(cardBook), filePath);
+        if (password == null) {
+            JsonUtil.saveJsonFile(new JsonSerializableCardBook(cardBook), filePath);
+        } else {
+            JsonUtil.saveEncryptedJsonFile(new JsonSerializableCardBook(cardBook), filePath, password);
+        }
     }
 
 }
