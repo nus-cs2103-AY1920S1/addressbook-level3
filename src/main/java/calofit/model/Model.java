@@ -93,7 +93,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered Meal List.
      */
-    ObservableList<Meal> getFilteredMealList();
+    ObservableList<Meal> getTodayMealList();
 
     void addMeal(Meal meal);
 

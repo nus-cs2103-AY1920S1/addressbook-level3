@@ -40,11 +40,11 @@ BudgetBar {
 }
 
 #budgetMark {
-    -fx-stroke: orange;
+    -fx-stroke: rgba(255, 165, 0, 0.6);
     -fx-stroke-width: 10px;
 }
 #budgetExtraMark {
-    -fx-stroke: red;
+    -fx-stroke: rgba(255, 0, 0, 0.6);
     -fx-stroke-width: 10px;
 }
 

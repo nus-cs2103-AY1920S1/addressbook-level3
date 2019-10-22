@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":Ui" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":CommandParser" as parser PARSER_COLOR
+Participant "suggestCommand:Command" as command COMMAND_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":CalorieBudget" as caloriebudget CALORIE_COLOR
+Participant ":MealLog" as meallog MEALLOG_COLOR
+
+user -[USER_COLOR]> ui : "report"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("suggest")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> parser : parseCommand("suggest")
+activate parser PARSER_COLOR
+
+parser -[PARSER_COLOR]> command : SuggestCommand()
+activate command COMMAND_COLOR
+
+command -[COMMAND_COLOR]-> parser : suggestCommand
+deactivate command
+
+parser -[PARSER_COLOR]-> logic : suggestCommand
+deactivate parser
+
+logic -[LOGIC_COLOR]> command : execute(model)
+activate command COMMAND_COLOR
+
+command -[COMMAND_COLOR]> model : getRemainingCalories()
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> caloriebudget : budget.getCurrentBudget()
+activate caloriebudget CALORIE_COLOR
+
+caloriebudget -[CALORIE_COLOR]> model : remainingBudget
+deactivate caloriebudget
+
+loop number of dishes times
+model -[MODEL_COLOR]> meallog : getDish().getCalories().getValue()
+activate meallog MEALLOG_COLOR
+meallog -[MEALLOG_COLOR]> model : c
+model -[MODEL_COLOR]> model : deduct c from remainingBudget
+deactivate meallog MEALLOG_COLOR
+end
+
+model -[MODEL_COLOR]> command : remainingCalories
+deactivate model
+
+command -[COMMAND_COLOR]> command : updateFilteredDishList()
+
+command -[COMMAND_COLOR]> logic : filteredDishList
+
+logic -[LOGIC_COLOR]> ui : filteredDishList
+deactivate logic
+
+ui -[UI_COLOR]> user : filteredDishList
+deactivate ui
+
+@enduml
