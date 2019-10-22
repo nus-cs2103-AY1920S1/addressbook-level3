@@ -138,12 +138,25 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/dream/fcard/logic/storage/StorageManager.java[`StorageManager.java`]
+*API* : link:{repoURL}/src/main/java/dream/fcard/util/json/JsonParser.java[`JsonParser.java`]
+*API* : link:{repoURL}/src/main/java/dream/fcard/util/FileReadWrite.java[`FileReadWrite.java`]
+
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* interface to save deck by calling `FileReadWrite`
+* interface to load deck by calling `FileReadWrite`, send string to `JsonParser` and creating deck objects from `JsonValue`
+
+The `JsonParser` component,
+
+* takes any string of JSON format and returns a `JsonValue`
+
+The `FileReadWrite` component,
+
+* resolves root directory for app save data
+* interface for user to provide their custom root directory
+* writes file and creates path directories if none
 
 [[Design-Commons]]
 === Common classes
