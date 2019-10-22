@@ -131,7 +131,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
      * Removes the equivalent UserTag from the list.
      * The UserTag must exist in the list.
      */
-    public void remove(Tag toRemove) throws TagNotFoundException, InvalidTagModificationException {
+    public void removeTag(Tag toRemove) throws TagNotFoundException, InvalidTagModificationException {
         requireNonNull(toRemove);
         if (toRemove.isDefault()) {
             throw new InvalidTagModificationException();

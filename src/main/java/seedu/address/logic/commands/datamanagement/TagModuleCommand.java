@@ -16,7 +16,7 @@ import seedu.address.model.tag.UserTag;
 /**
  * Adds a tag to a module.
  */
-public class AddTagCommand extends Command {
+public class TagModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "addtag";
 
@@ -37,11 +37,11 @@ public class AddTagCommand extends Command {
     private boolean newTagCreated = false;
 
     /**
-     * Creates an {@code AddTagCommand} to add a tag with the given name to the module of the given module code.
+     * Creates an {@code TagModuleCommand} to add a tag with the given name to the module of the given module code.
      *
      * @param tagName
      */
-    public AddTagCommand(String tagName, String moduleCode) {
+    public TagModuleCommand(String tagName, String moduleCode) {
         requireAllNonNull(tagName, moduleCode);
         this.tagName = tagName;
         this.moduleCode = moduleCode;
@@ -74,14 +74,9 @@ public class AddTagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, moduleCode));
     }
 
-    private boolean moduleContainsTag(Module module, Tag tag) {
-        return module.getTags().contains(tag);
-    }
-
     /**
      * Creates a new tag with the given tag name and adds it to the {@code UniqueTaglist}
-     *
-     * @param tagName       The name of the tag.
+     * @param tagName The name of the tag.
      * @return The tag that was created.
      */
     private UserTag createNewTag(String tagName) {
