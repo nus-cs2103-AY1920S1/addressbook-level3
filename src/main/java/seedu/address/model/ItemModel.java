@@ -94,6 +94,8 @@ public interface ItemModel {
 
     public boolean togglePriorityMode() throws IllegalListException;
 
+    public void toggleOffPriorityMode();
+
     public Item markComplete(int index) throws IllegalListException;
 
     public Item markIncomplete(int index) throws IllegalListException;

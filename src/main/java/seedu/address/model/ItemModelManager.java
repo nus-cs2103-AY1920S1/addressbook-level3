@@ -479,34 +479,10 @@ public class ItemModelManager implements ItemModel {
             throw new IllegalListException();
         }
 
-        priorityMode = !priorityMode;
-        if (!priorityMode) {
-            sortedTask = null;
-            this.visualList = taskList;
+        if (priorityMode) {
+            toggleOffPriorityMode();
         } else {
-            sortedTask = new PriorityQueue<>((item1, item2) -> {
-                Task task1 = item1.getTask().get();
-                Task task2 = item2.getTask().get();
-                if (task1.isComplete() && !task2.isComplete()) {
-                    return 1;
-                } else if (!task1.isComplete() && task2.isComplete()) {
-                    return -1;
-                } else {
-                    return task1.getPriority().compareTo(task2.getPriority());
-                }
-            });
-            for (int i = 0; i < taskList.size(); i++) {
-                Item item = taskList.get(i);
-                if (!item.getTask().get().isComplete()) {
-                    sortedTask.add(item);
-                }
-            }
-
-            if (sortedTask.size() == 0) {
-                priorityMode = false;
-                return priorityMode;
-            }
-            this.visualList = getNextTask();
+            toggleOnPriorityMode();
         }
         return priorityMode;
     }
@@ -521,6 +497,43 @@ public class ItemModelManager implements ItemModel {
 
         result.add(sortedTask.peek());
         return result;
+    }
+
+    /**
+     * Turns off the priority mode.
+     */
+    public void toggleOffPriorityMode() {
+        this.sortedTask = null;
+        this.visualList = taskList;
+        this.priorityMode = false;
+    }
+
+    /**
+     * Turns on the priority mode.
+     */
+    private void toggleOnPriorityMode() {
+        this.priorityMode = true;
+        sortedTask = new PriorityQueue<>((item1, item2) -> {
+            Task task1 = item1.getTask().get();
+            Task task2 = item2.getTask().get();
+            if (task1.isComplete() && !task2.isComplete()) {
+                return 1;
+            } else if (!task1.isComplete() && task2.isComplete()) {
+                return -1;
+            } else {
+                return task1.getPriority().compareTo(task2.getPriority());
+            }
+        });
+        for (int i = 0; i < taskList.size(); i++) {
+            Item item = taskList.get(i);
+            if (!item.getTask().get().isComplete()) {
+                sortedTask.add(item);
+            }
+        }
+        if (sortedTask.size() == 0) {
+            priorityMode = false;
+        }
+        this.visualList = getNextTask();
     }
 
     /**
