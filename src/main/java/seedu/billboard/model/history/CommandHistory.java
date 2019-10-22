@@ -73,7 +73,7 @@ public class CommandHistory {
      */
     public static String getCmdHistory() {
         String result = HAVE_HISTORY;
-        for (int i = cmdList.size(); i > 0; i--) {
+        for (int i = cmdList.size() - 1; i > 0; i--) {
             result = result.concat("\n\t");
             result = result.concat(cmdList.get(i - 1));
         }
