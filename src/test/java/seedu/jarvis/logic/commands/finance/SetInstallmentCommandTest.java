@@ -17,7 +17,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
@@ -52,8 +51,8 @@ public class SetInstallmentCommandTest {
 
     @Test
     public void equals() {
-        Installment spotify = new InstallmentBuilder().withDescription(new InstallmentDescription("spotify")).build();
-        Installment netflix = new InstallmentBuilder().withDescription(new InstallmentDescription("netflix")).build();
+        Installment spotify = new InstallmentBuilder().withDescription("spotify").build();
+        Installment netflix = new InstallmentBuilder().withDescription("netflix").build();
         SetInstallmentCommand addSpotifyCommand = new SetInstallmentCommand(spotify);
         SetInstallmentCommand addNetflixCommand = new SetInstallmentCommand(netflix);
 

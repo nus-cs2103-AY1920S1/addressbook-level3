@@ -246,7 +246,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredInstallmentList(Predicate<Installment> predicate) {
-
+        financeTracker.updateFilteredInstallmentList(predicate);
     }
 
     @Override
@@ -391,6 +391,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return historyManager.equals(other.historyManager)
                 && financeTracker.equals(other.financeTracker)
+                && financeTracker.getFilteredPurchaseList().equals(other.financeTracker.getFilteredPurchaseList())
+                && financeTracker.getFilteredInstallmentList().equals(other.financeTracker.getFilteredInstallmentList())
                 && planner.equals(other.planner)
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())

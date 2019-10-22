@@ -29,7 +29,8 @@ public class FinanceTracker {
 
     {
         purchaseList = new PurchaseList();
-        filteredPurchases = new FilteredList<>(getPurchaseList(), FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
+        filteredPurchases = new FilteredList<>(getPurchaseList(),
+                FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
         installmentList = new InstallmentList();
         filteredInstallments = new FilteredList<>(getInstallmentList(),
                 FinanceTrackerModel.PREDICATE_SHOW_ALL_INSTALLMENTS);
@@ -198,7 +199,7 @@ public class FinanceTracker {
     }
 
     /**
-     * Updates {@code Predicate} to be applied to filter {@code filteredPurchases}.
+     * Updates {@code Predicate} to be applied to filter {@code filteredInstallments}.
      */
     public void updateFilteredInstallmentList(Predicate<Installment> installment) {
         requireNonNull(installment);

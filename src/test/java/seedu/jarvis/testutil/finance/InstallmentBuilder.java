@@ -30,16 +30,16 @@ public class InstallmentBuilder {
     /**
      * Sets the {@code Description} of the {@code Purchase} that we are building.
      */
-    public InstallmentBuilder withDescription(InstallmentDescription description) {
-        this.description = description;
+    public InstallmentBuilder withDescription(String description) {
+        this.description = new InstallmentDescription(description);
         return this;
     }
 
     /**
      * Sets the {@code moneySpent} of the {@code Purchase} that we are building.
      */
-    public InstallmentBuilder withMoneySpent(InstallmentMoneyPaid subscriptionPrice) {
-        this.subscriptionPrice = subscriptionPrice;
+    public InstallmentBuilder withMoneySpent(String subscriptionPrice) {
+        this.subscriptionPrice = new InstallmentMoneyPaid(subscriptionPrice);
         return this;
     }
 
