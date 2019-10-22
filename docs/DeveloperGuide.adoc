@@ -122,14 +122,11 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Weme data in `MemeBook`.
+* exposes an unmodifiable `ObservableList<Meme>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Template>`
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -234,6 +231,92 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::templates[]
+=== Templates feature
+Many memes are based off templates. Meme lovers often store a list of templates and process them to generate new memes when needed.
+A template typically reserves whitespace for the user to fill in text to give the template meanings.
+Weme provides this feature and allows the users to store their favourite templates and generate memes with the templates.
+
+==== Current Implementation
+
+Like a `Meme`, a `Template` also has an associated image that is stored on the hard disk.
+Each `Template` object has 2 fields, `Name` and `ImagePath`, where `Name` serves as the identifier and `ImagePath` holds the path to the image of this template.
+A user can add, edit, delete, or find a template.
+
+image::ModelClassDiagram.png[]
+
+Templates are stored alongside `Memes` in `MemeBook` in a `UniqueTemplateList`.
+The `ModelManager` will store a `FilteredList<Template>` that only holds the `Templates` that satisfy the current filter predicate.
+The `Model` exposes this filtered list of `Templates` as an unmodifiable `ObservableList<Template>` that the UI can subscribe to.
+In order to display the effect of adding text to a template while in meme creation mode,
+`CommandResult` will be extended to store the user's actions and the UI will use this information to update itself accordingly.
+
+When the user requests to generate a meme using a template, Weme will enter meme creation mode.
+The user can then add any text to one or more places on the template image.
+When the user is done, Weme will create a new `Meme` with all the added text included.
+The user can then browse this `Meme` in the collection and export or share it as desired.
+
+Given below is an example usage scenario of meme creation using a template.
+
+Step 1. The user launches the application and enters the *Templates* tab.
+
+Step 2. The user executes `find doge` command to find the _doge_ template.
+The `FilteredList<Template>` in `ModelManager` will be updated with a predicate that matches only templates whose names match _doge_.
+
+Step 3. Assuming the template that the user wants to use is displayed as the first template, the user executes `use 1` to enter meme creation mode.
+Weme will update the `ModelContext` to receive commands that are meant for template manipulation, and the UI will zoom into the template chosen.
+
+Step 4. The user executes `add cs students be like x/0.3 y/0.5` command to add the text "cs students be like".
+The text will be placed 30% horizontally from the left border and 50% vertically from the top border.
+This is made possible because the execution of this command returns a `CommandResult` that stores the text and position information.
+UI will then use this information to render the text at the correct position.
+The newly added text will be labelled number *1* for future references.
+
+Step 5. The user decides that there is a typo in the text because "cs" is not capitalized.
+The user executes the command `delete 1` to delete the text labelled *1*, which is the text that was just added.
+
+Step 6. The user then executes `add CS student be like x/0.3 y/0.5` to add the correct text.
+
+Step 7. The user executes `generate d/A meme about CS students t/funny t/CS` to complete the editing session.
+Weme will create a new image with the text added and create a new `Meme` with that image.
+The `Meme` created will also have description "A meme about CS students" and tags "funny" and "CS".
+The description and tag arguments are similar to those for `Meme` add command.
+
+[NOTE]
+The user can also abort any meme creation session by typing `abort`. This will put Weme back to displaying the content of the *Templates* tab.
+
+The following activity diagram summarizes the meme creation process:
+
+image::MemeCreationActivityDiagram.png[]
+
+The following sequence diagram shows how `CommandResult` relays information about the text added to the UI.
+
+image::TemplateCommandResultSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to update the UI while adding text to templates
+
+* **Alternative 1 (current choice):** Wrap the text and position information in `CommandResult`, let the UI decide what to do.
+** Pros: No additional coupling, clearer separation of concerns.
+** Cons: Additional layer of abstraction in `CommandResult`.
+* **Alternative 2:** Execution of the command updates the UI directly.
+** Pros: More direct, less abstraction
+** Cons: `Command` will have dependency on `UI`
+
+===== Aspect: How the user adds/deletes text
+
+* **Alternative 1 (current choice):** The user enters commands to add/delete text.
+** Pros: Easier to implement.
+** Cons: User might not be able to position the text accurately.
+* **Alternative 2:** The user controls the UI through individual key strokes.
+For example, `a` to add a piece of text, arrow keys to adjust the position of the currently selected text,
+`1` to select text labelled *1* and `d` to delete the currently selected text.
+** Pros: The user can accurately adjust the position of the text.
+** Cons: Very hard to implement. Requires major work on the UI.
+
+// end::templates[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
