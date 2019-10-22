@@ -7,7 +7,7 @@ import seedu.weme.logic.commands.MemeLikeCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new MemeDeleteCommand object
+ * Parses input arguments and creates a new MemeLikeCommand object
  */
 public class MemeLikeCommandParser implements Parser<MemeLikeCommand> {
 

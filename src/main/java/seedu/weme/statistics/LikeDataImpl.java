@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
 /**
- * Like data.
+ * Implementation of LikeData interface.
  */
 public class LikeDataImpl {
 
