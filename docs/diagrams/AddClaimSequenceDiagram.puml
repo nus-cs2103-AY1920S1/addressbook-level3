@@ -7,7 +7,7 @@ participant ":FinSecParser" as FinSecParser LOGIC_COLOR
 participant ":AddClaimCommandParser" as AddClaimCommandParser LOGIC_COLOR
 participant ":claim:PendingClaim" as Claim LOGIC_COLOR
 participant "cmd:AddClaimCommand" as AddClaimCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -57,15 +57,18 @@ LogicManager -> AddClaimCommand : execute()
 activate AddClaimCommand
 
 
-AddClaimCommand -> Model : has_claim(claim)
+AddClaimCommand -> Model : hasClaim(claim)
 activate Model
-
 Model --> AddClaimCommand
 deactivate Model
 
-AddClaimCommand -> Model : add_claim(claim)
+AddClaimCommand -> Model : hasContactFor(claim)
 activate Model
+Model --> AddClaimCommand
+deactivate Model
 
+AddClaimCommand -> Model : addClaim(claim)
+activate Model
 Model --> AddClaimCommand
 deactivate Model
 
