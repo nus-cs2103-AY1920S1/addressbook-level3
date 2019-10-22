@@ -23,9 +23,9 @@ public class TypicalBudgets {
     public static final Budget OUTSIDE_SCHOOL = new BudgetBuilder()
             .withDescription("Outside school expenses")
             .withAmount("200")
-            .withStartDate("01-10-2019")
+            .withStartDate("05-09-2019")
             .withPeriod("month")
-            .withEndDate("01-11-2019")
+            .withEndDate("05-10-2019")
             .withIsPrimary(false)
             .withProportionUsed(new Percentage(50))
             .build();
