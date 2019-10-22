@@ -245,7 +245,6 @@ public class ModelManager implements Model {
     @Override
     public void addCalendarEntry(CalendarEntry calendarEntry) {
         calendar.addCalendarEntry(calendarEntry);
-
     }
 
     @Override
@@ -258,6 +257,7 @@ public class ModelManager implements Model {
     public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
         return filteredCalenderEntryList;
     }
+
 
     @Override
     public void setUser(User target, User editedUser) {

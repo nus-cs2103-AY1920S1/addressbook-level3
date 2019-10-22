@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
+    private ReminderListPanel reminderListPanel;
 
     @FXML
     private Scene scene;
@@ -56,6 +57,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    @FXML
+    private StackPane reminderListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -137,6 +140,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getFilteredCalendarEntryList());
+        reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
     }
 
     /**

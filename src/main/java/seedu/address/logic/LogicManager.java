@@ -14,8 +14,10 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.bio.User;
+import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.storage.Storage;
@@ -136,4 +138,13 @@ public class LogicManager implements Logic {
         return model.getFilteredUserList();
     }
 
+    @Override
+    public ReadOnlyCalendar getCalendar() {
+        return model.getCalendar();
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
+        return model.getFilteredCalendarEntryList();
+    }
 }

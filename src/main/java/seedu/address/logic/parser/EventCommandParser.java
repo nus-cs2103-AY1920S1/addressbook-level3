@@ -57,7 +57,7 @@ public class EventCommandParser implements Parser<EventCommand> {
     }
 
     private String getAutoReminderDescription(Event event, TimeDuration timeDuration) {
-        return "Event: " + event.getDescription() + "in " + timeDuration;
+        return "Event: " + event.getDescription() + " in " + timeDuration;
     }
 
     /**

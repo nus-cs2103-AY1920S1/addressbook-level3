@@ -11,8 +11,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ScrollPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="SugarMummy App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="SugarMummy App" minWidth="650" minHeight="550" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -46,13 +48,18 @@
           </padding>
         </StackPane>
 
-        <VBox styleClass="pane-with-border" minWidth="340" prefWidth="340" minHeight="270" prefHeight="270" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <SplitPane VBox.vgrow="ALWAYS">
+          <items>
+            <VBox styleClass="pane-with-border" minWidth="340" minHeight="270" prefHeight="270" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
 
+            <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefWidth="250" prefHeight="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+          </items>
+        </SplitPane>
       </VBox>
     </Scene>
   </scene>
