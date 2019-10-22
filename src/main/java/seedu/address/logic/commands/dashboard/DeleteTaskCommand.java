@@ -14,7 +14,7 @@ import static java.util.Objects.requireNonNull;
 
 public class DeleteTaskCommand extends DeleteCommand {
 
-    public static final String VARIANT_WORD = "task";
+    public static final String COMMAND_WORD = "taskdelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the displayed task list. \n"
