@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -20,6 +21,7 @@ import seedu.revision.logic.commands.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
@@ -34,7 +36,7 @@ public class StartQuizWindow extends UiPart<Stage> {
 
     Answer correctAnswerStub = new Answer("CORRECT");
     Set<Answer> correctAnswerSetStub = new HashSet<>(Arrays.asList(correctAnswerStub));
-    Answer wrongAnswerStub = new Answer("WRONG");
+    Answer[] wrongAnswerStub = {new Answer("WRONG A"), new Answer("WRONG B"), new Answer("WRONG C"),};
     Set<Answer> wrongAnswerSetStub = new HashSet<>(Arrays.asList(wrongAnswerStub));
     Category categoryStub = new Category("math");
     Set<Category> categoriesStub = new HashSet<>(Arrays.asList(categoryStub));
@@ -73,8 +75,6 @@ public class StartQuizWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-
 
     public StartQuizWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -138,6 +138,7 @@ public class StartQuizWindow extends UiPart<Stage> {
 
 //        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
 //        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
+        ObservableList<Answerable> filteredList = logic.getFilteredAnswerableList();
 
         answersGridPane = new AnswersGridPane(DEFAULT_QUESTION);
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
