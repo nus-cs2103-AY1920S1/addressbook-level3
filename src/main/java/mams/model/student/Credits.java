@@ -15,6 +15,7 @@ public class Credits {
             "Credits numbers should only contain numbers, and it should be at least 2 digits long";
     public static final String VALIDATION_REGEX = "\\d{2,}";
     public final String value;
+    public final int intValue;
 
     /**
      * Constructs a {@code Credits}.
@@ -25,6 +26,7 @@ public class Credits {
         requireNonNull(credits);
         AppUtil.checkArgument(isValidCredits(credits), MESSAGE_CONSTRAINTS);
         value = credits;
+        intValue = Integer.parseInt(value);
     }
 
     /**
@@ -32,6 +34,10 @@ public class Credits {
      */
     public static boolean isValidCredits(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public int getIntVal() {
+        return this.intValue;
     }
 
     @Override
