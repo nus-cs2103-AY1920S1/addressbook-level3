@@ -38,7 +38,10 @@ Package purchase {
 }
 
 Package wallet {
+    Interface WalletStorage <<Interface>>
     Class JsonAdaptedWallet
+    Class JsonWalletStorage
+    Class JsonSerializableWallet
 }
 
 Package savings {
@@ -67,10 +70,15 @@ StorageManager o--> PurchaseHistoryStorage
 StorageManager o--> CustomSortStorage
 StorageManager o-right-> SavingsStorage
 StorageManager o-left-> RecsStorage
+StorageManager o-down-> WalletStorage
 
 JsonPurchaseHistoryStorage .left.|> PurchaseHistoryStorage
 JsonPurchaseHistoryStorage .down.> JsonSerializablePurchase
 JsonSerializablePurchase .down.> JsonAdaptedPurchase
+
+JsonWalletStorage .left.|> WalletStorage
+JsonWalletStorage .down.> JsonSerializableWallet
+JsonSerializableWallet .right.> JsonAdaptedWallet
 
 JsonSavingsStorage .left.|> SavingsStorage
 JsonSavingsStorage .down.> JsonSerializableSavingsAccount
@@ -90,5 +98,4 @@ JsonMenuStorage .left.|> MenuStorage
 JsonMenuStorage .down.> JsonSerializableMenu
 JsonSerializableMenu .down.> JsonSerializableFood
 JsonSerializableFood .right.> JsonAdaptedTag
-JsonSerializableMenu .right.> JsonAdaptedWallet
 @enduml
