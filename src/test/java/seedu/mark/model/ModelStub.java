@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -19,7 +20,6 @@ import seedu.mark.model.reminder.Reminder;
 /**
  * A default model stub that have all of the methods failing.
  */
-
 public class ModelStub implements Model {
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -108,6 +108,21 @@ public class ModelStub implements Model {
 
     @Override
     public void addFolders(FolderStructure foldersToAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasTagger(SelectiveBookmarkTagger tagger) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addTagger(SelectiveBookmarkTagger tagger) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void applyAllTaggers() {
         throw new AssertionError("This method should not be called.");
     }
 

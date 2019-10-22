@@ -26,6 +26,13 @@ public class Tag {
     }
 
     /**
+     * Creates a copy of the given {@code Tag}.
+     */
+    public Tag(Tag tagToCopy) {
+        this(tagToCopy.tagName);
+    }
+
+    /**
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {

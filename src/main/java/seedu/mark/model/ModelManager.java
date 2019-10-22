@@ -18,6 +18,7 @@ import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.annotation.ParagraphIdentifier;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -179,6 +180,25 @@ public class ModelManager implements Model {
         // import each folder into import-folder
         // check for duplicate folders and rename if necessary (e.g. folder-1)
         // for each Bookmark in list, if name = renamed-folder, change name to new-name
+    }
+
+    @Override
+    public boolean hasTagger(SelectiveBookmarkTagger tagger) {
+        requireNonNull(tagger);
+
+        return versionedMark.hasTagger(tagger);
+    }
+
+    @Override
+    public void addTagger(SelectiveBookmarkTagger tagger) {
+        requireNonNull(tagger);
+
+        versionedMark.addTagger(tagger);
+    }
+
+    @Override
+    public void applyAllTaggers() {
+        versionedMark.applyAllTaggers();
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================

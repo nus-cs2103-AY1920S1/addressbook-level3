@@ -9,6 +9,8 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
+import seedu.mark.model.autotag.AutotagController;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
@@ -28,13 +30,21 @@ public class Mark implements ReadOnlyMark {
 
     private final ReminderAssociation reminderAssociation;
 
+
     private final ObservableList<Reminder> reminders;
+
+    private final AutotagController autotagController;
+
 
     public Mark() {
         bookmarks = new UniqueBookmarkList();
         folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
         reminderAssociation = new ReminderAssociation();
+
         reminders = reminderAssociation.getReminderList();
+
+        autotagController = new AutotagController(new ArrayList<>());
+
     }
 
     /**
@@ -113,7 +123,6 @@ public class Mark implements ReadOnlyMark {
         this.folderStructure.getSubfolders().addAll(folderStructure.getSubfolders());
     }
 
-
     /**
      * Creates a new folder with name {@code folder} under {@code parentFolder}.
      * {@code folder} must not exist.
@@ -183,6 +192,20 @@ public class Mark implements ReadOnlyMark {
         }
     }
 
+    //// autotag controller operations
+
+    public boolean hasTagger(SelectiveBookmarkTagger tagger) {
+        return autotagController.hasTagger(tagger);
+    }
+
+    public void addTagger(SelectiveBookmarkTagger tagger) {
+        autotagController.addTagger(tagger);
+    }
+
+    public void applyAllTaggers() {
+        setBookmarks(autotagController.applyTaggersToList(getBookmarkList()));
+    }
+
     //// util methods
 
     @Override
@@ -209,6 +232,11 @@ public class Mark implements ReadOnlyMark {
     @Override
     public ObservableList<Reminder> getReminderList() {
         return reminders;
+    }
+
+    @Override
+    public AutotagController getAutotagController() {
+        return autotagController;
     }
 
 
