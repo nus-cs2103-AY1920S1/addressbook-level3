@@ -41,7 +41,7 @@ public class ListPanel<T> extends UiPart<Region> {
             } else if (entry instanceof Person) {
                 setGraphic(new PersonCard((Person) entry, getIndex() + 1).getRoot());
             } else if (entry instanceof Activity) {
-                // Do nothing for now
+                setGraphic(new ActivityCard((Activity) entry, getIndex() + 1).getRoot());
             }
         }
     }
