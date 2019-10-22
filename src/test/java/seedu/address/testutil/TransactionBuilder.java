@@ -30,19 +30,12 @@ public class TransactionBuilder {
 
     private Amount amount;
     private Date date;
-    private Person peopleInvolved;
     private Set<Tag> tags;
 
     public TransactionBuilder() {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
         // date = new Date(DEFAULT_DATE);
         date = new Date(DEFAULT_DATE);
-        peopleInvolved = new Person(
-                new Name(DEFAULT_NAME),
-                new Phone(DEFAULT_PHONE),
-                new Email(DEFAULT_EMAIL),
-                new Address(DEFAULT_ADDRESS),
-                new HashSet<>());
         tags = new HashSet<>();
     }
 
@@ -52,7 +45,6 @@ public class TransactionBuilder {
     public TransactionBuilder(Transaction transactionToCopy) {
         amount = transactionToCopy.getAmount();
         date = transactionToCopy.getDate();
-        peopleInvolved = transactionToCopy.getPeopleInvolved();
         tags = new HashSet<>(transactionToCopy.getTags());
     }
 
@@ -80,20 +72,6 @@ public class TransactionBuilder {
         return this;
     }
 
-    // TODO: EDIT THIS METHOD
-
-    /**
-     * Sets the {@code PeopleInvolved} of the {@code Transaction} that we are building.
-     */
-    public TransactionBuilder withPeopleInvolved(String peopleInvolved) {
-        this.peopleInvolved = new Person(
-                new Name(DEFAULT_NAME),
-                new Phone(DEFAULT_PHONE),
-                new Email(DEFAULT_EMAIL),
-                new Address(DEFAULT_ADDRESS),
-                new HashSet<>());
-        return this;
-    }
 
     // TODO: Change constructor
     public Transaction build() {

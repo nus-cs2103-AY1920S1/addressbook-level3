@@ -9,7 +9,7 @@ import seedu.address.model.util.Date;
 /**
  * Handles in transactions.
  */
-public class InTransaction extends Transaction {
+public class InTransaction extends Transaction implements BankAccountOperation {
     public InTransaction(Amount amount, Date date) {
         super(amount, date);
     }

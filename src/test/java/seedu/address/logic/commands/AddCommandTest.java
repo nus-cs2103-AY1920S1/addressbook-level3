@@ -8,15 +8,14 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 
 import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.SplitTransaction;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.*;
 
 public class AddCommandTest {
 
@@ -107,7 +106,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addTransaction(Transaction transaction) {
+        public void handleOperation(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -152,37 +151,37 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTransactions(List<Transaction> transactionHistory) {
+        public void setTransactions(List<BankAccountOperation> transactionHistory) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasTransaction(Transaction transaction) {
+        public boolean hasTransaction(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteTransaction(Transaction target) {
+        public void deleteTransaction(BankAccountOperation target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setTransaction(Transaction target, Transaction editedTransaction) {
+        public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Transaction> getFilteredTransactionList() {
+        public FilteredList<BankAccountOperation> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+        public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addSplit(SplitTransaction transaction) {
+        public void handleOperation(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -204,7 +203,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasTransaction(Transaction transaction) {
+        public boolean hasTransaction(BankAccountOperation transaction) {
             requireNonNull(transaction);
             return this.transaction.isSameTransaction(transaction);
         }
@@ -214,18 +213,12 @@ public class AddCommandTest {
      * A Model stub that always accept the transaction being added.
      */
     private class ModelStubAcceptingTransactionAdded extends ModelStub {
-        final ArrayList<Transaction> transactionsAdded = new ArrayList<>();
+        final ArrayList<BankAccountOperation> transactionsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasTransaction(Transaction transaction) {
+        public boolean hasTransaction(BankAccountOperation transaction) {
             requireNonNull(transaction);
             return transactionsAdded.stream().anyMatch(transaction::isSameTransaction);
-        }
-
-        @Override
-        public void addTransaction(Transaction transaction) {
-            requireNonNull(transaction);
-            transactionsAdded.add(transaction);
         }
 
         @Override

@@ -79,6 +79,14 @@ public class Amount implements Comparable<Amount> {
         return new Amount((int) newAmount);
     }
 
+    /**
+     * Create new Amount of 0
+     * @return Amount of 0
+     */
+    public static Amount zero() {
+        return new Amount(0);
+    }
+
     @Override
     public String toString() {
         return String.format("%.2f", amount / 100.0);

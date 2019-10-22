@@ -67,4 +67,9 @@ public class Date implements Comparable<Date> {
     public int compareTo(Date date) {
         return this.date.compareTo(date.date);
     }
+
+    public static Date now() {
+        String today = DATE_FORMATTER.format(LocalDate.now());
+        return new Date(today);
+    }
 }

@@ -13,22 +13,19 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.InTransaction;
-import seedu.address.model.transaction.OutTransaction;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.*;
 
 /**
  * Contains utility methods for populating {@code BankAccount} with sample data.
  */
 public class SampleDataUtil {
-    public static Transaction[] getSampleTransactions() {
-        return new Transaction[] {
-            new InTransaction(new Amount(100), new Date(LocalDate.now().toString())),
-            new OutTransaction(new Amount(44.44), new Date(LocalDate.now().toString())),
-            new OutTransaction(new Amount(23.3), new Date(LocalDate.now().toString())),
-            new InTransaction(new Amount(34.01), new Date(LocalDate.now().toString())),
-            new OutTransaction(new Amount(9.99), new Date(LocalDate.now().toString()))
+    public static BankAccountOperation[] getSampleTransactions() {
+        return new BankAccountOperation[] {
+            new InTransaction(new Amount(100), Date.now()),
+            new OutTransaction(new Amount(44.44),Date.now()),
+            new OutTransaction(new Amount(23.3), Date.now()),
+            new InTransaction(new Amount(34.01), Date.now()),
+            new OutTransaction(new Amount(9.99), Date.now())
         };
     }
 
@@ -60,7 +57,7 @@ public class SampleDataUtil {
      */
     public static ReadOnlyBankAccount getSampleBankAccount() {
         BankAccount sampleBankAccount = new BankAccount();
-        for (Transaction sampleTxn : getSampleTransactions()) {
+        for (BankAccountOperation sampleTxn : getSampleTransactions()) {
             sampleBankAccount.addTransaction(sampleTxn);
         }
         return sampleBankAccount;
