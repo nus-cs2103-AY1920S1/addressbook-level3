@@ -123,6 +123,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Billboard and ArchiveWrapper data, i.e current expenses and archived past expenses.
+* stores `UniqueTagList` and `TagCountManager` to track tags.
 * exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -353,6 +354,90 @@ No filtering of archive and non-archive expense from the same list is needed.
 ** Cons: More difficult to implement, as more JSON storage classes must be added and knowledge on serialising and deserialising new objects is needed.
 
 // end::archive[]
+
+// tag::tagging[]
+=== Tagging
+==== Proposed Implementation
+The tag feature supports the following operations:
+
+* Adding tags to an expense
+* Removing tags from an expense
+* Filtering expenses by tag
+* Listing all existing tags
+
+These actions are facilitated by the `UniqueTagList` and `TagCountManager` classes:
+
+* `UniqueTagList` maps `String` to `Tag` where `String` is the name of the `Tag`. It ensures that the same `Tag` is referenced instead of creating many `Tag` objects of the same name when adding tags.
+* `TagCountManager` maps `Tag` to `Integer`, where `Integer` is the number of `Expense` under each `Tag`. It allows `Tag` objects that are not tagged with any `Expense` to be tracked and removed.
+
+Operations include:
+
+* `UniqueTagList#retrieveTags(List<String>)` -- Retrieves corresponding tags from `UniqueTagList` based on the list of tag names.
+* `UniqueTagList#removeAll(List<Tag>)` -- Removes tags given in the list from the `UniqueTagList`.
+* `UniqueTagList#getTagNames()` -- Returns a list of tag names.
+* `TagCountManager#incrementAllCount(Set<Tag>)` -- Increment the number of expenses mapped to tags given in the set by 1.
+* `TagCountManager#decreaseAllCount(Set<Tag>)` -- Decrease number of expenses mapped to tags given in the set by 1.
+* `TagCountManager#removeZeroCount()` -- Removes all mappings where number of expense is equal to 0.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#retrieveTags(List<String>)`
+* `Model#incrementCount(Set<Tag>)`
+* `Model#decreaseCount(Set<Tag>)` -- `TagCountManager#removeZeroCount()` and `UniqueTagList#removeAll(List<Tag>)` is called in this method as well to remove tags that does not have any expense tagged to it from `UniqueTagList` and `TagCountManager`.
+* `Model#getTagNames()`
+
+Given below is an example usage scenario and how the adding tag mechanism behaves at each step.
+
+Step 1.
+The user launches the application. The `Model` is initialized with saved data. All tags are loaded into `UniqueTagList` and `TagCountManager`.
+
+Step 2.
+User enters the command `tag add 1 t/test t/test2` to add tags to the 1st `Expense` in Billboard. `BillboardParser` parses the command, creating a `TagCommandParser`.
+The `TagCommandParser` then parses `add 1 t/test t/test2` and creates an `AddTagCommandParser`. Subsequently, the `AddTagCommandParser` parses `1 t/test1 t/test2` into `Index` 1 and
+a list of `String` consisting of `test1` and `test2`. They are then used to create `AddTagCommand` which is returned to `LogicManager`.
+
+Step 3.
+`LogicManager` executes the `AddTagCommand`. During execution, `AddTagCommand` calls `Model#retrieveTags(Set<String>)` on the list consisting of `test1` and `test2` which returns a set of `Tag`.
+`Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The 1st `Expense` is edited and updated in the `Model` using `Model#setExpense(Expense, Expense)` and is then shown on the UI.
+
+[NOTE]
+Duplicate tags in an `Expense` is not allowed.
+If the user tries to add existing `Tag` to an `Expense`, it will not be added, and `Model#incrementCount` will not be called.
+If the user tries to add duplicate `Tag`, i.e enter 2 of the same `Tag`, it will only be added once and number of expense under that `Tag` will only increment by 1.
+
+The following sequence diagram shows how the adding tag operation works.
+
+image::AddTagSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user enters a command to add tags to an expense.
+
+image::AddTagActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Data structure to support tag commands
+* **Alternative 1 (current choice):** Use a `UniqueTagList` to map tag names to `Tag` and `TagCountManager` to map `Tag` to number of `Expense` under it.
+** Pros:
+*** Each structure has only one responsibility.
+*** Fast retrieval and update of data
+** Cons:
+*** Requires maintenance of both structures as they need to sync with each other.
+*** Retrieval of `Expense` under a `Tag` requires filtering through the whole list of `Expense`.
+
+* **Alternative 2 :** Have each `Tag` store a list of `Expense` tagged to it.
+** Pros:
+*** Fast retrieval of `Expenses` under each `Tag`
+** Cons:
+*** Circular dependency
+*** Since implementation of Billboard objects are immutable, there is a constant need to update the `Expense` by replacing it with the updated `Expense` even after executing non-tag related commands.
+
+* **Alternative 3 :** Use one map to map `Tag` to `Expense` tagged to it.
+** Pros:
+*** Fast retrieval of `Expenses` under each `Tag`
+** Cons:
+*** Since implementation of Billboard objects are immutable, there is a constant need to update the `Expense` by replacing it with the updated `Expense` even after executing non-tag related commands.
+
+// end::tagging[]
 
 === Logging
 

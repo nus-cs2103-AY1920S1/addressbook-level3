@@ -28,6 +28,8 @@ Class Archive
 
 Package Tag {
 Class Tag
+Class UniqueTagList
+Class TagCountManager
 }
 }
 
@@ -45,6 +47,10 @@ ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 Billboard *--> "1" ExpenseList
+Billboard *--> "1" UniqueTagList
+Billboard *--> "1" TagCountManager
+UniqueTagList *--> "*" Tag
+TagCountManager o--> "*" Tag
 ArchiveWrapper *--> "*" Archive
 ExpenseList o--> "*" Expense
 Archive o--> "*" Expense
@@ -52,7 +58,7 @@ ExpenseList <|-right Archive
 Expense *--> Name
 Expense *--> Amount
 Expense *--> Description
-Expense *--> "*" Tag
+Expense o--> "*" Tag
 
 Description -[hidden]right-> Amount
 

@@ -1,0 +1,100 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":TagCommandParser" as TagCommandParser LOGIC_COLOR
+participant ":AddTagCommandParser" as AddTagCommandParser LOGIC_COLOR
+participant "a:AddTagCommand" as AddTagCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("tag add 1 t/test")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("tag add 1 t/test")
+activate AddressBookParser
+
+create TagCommandParser
+AddressBookParser -> TagCommandParser
+activate TagCommandParser
+
+TagCommandParser --> AddressBookParser
+deactivate TagCommandParser
+
+AddressBookParser -> TagCommandParser : parse("add 1 t/test")
+activate TagCommandParser
+
+create AddTagCommandParser
+TagCommandParser -> AddTagCommandParser
+activate AddTagCommandParser
+
+AddTagCommandParser --> TagCommandParser
+deactivate AddTagCommandParser
+
+TagCommandParser -> AddTagCommandParser : parse("1 t/test")
+activate AddTagCommandParser
+
+create AddTagCommand
+AddTagCommandParser -> AddTagCommand
+activate AddTagCommand
+
+AddTagCommand --> AddTagCommandParser : a
+deactivate AddTagCommand
+
+AddTagCommandParser --> TagCommandParser : a
+deactivate AddTagCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddTagCommandParser -[hidden]-> TagCommandParser
+destroy AddTagCommandParser
+
+TagCommandParser --> AddressBookParser : a
+deactivate TagCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TagCommandParser -[hidden]-> AddressBookParser
+destroy TagCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AddTagCommand : execute()
+activate AddTagCommand
+
+AddTagCommand -> Model : retrieveTags("test")
+activate Model
+
+Model --> AddTagCommand : tag
+deactivate Model
+
+AddTagCommand -> Model : incrementCount(tag)
+activate Model
+
+Model --> AddTagCommand
+deactivate Model
+
+AddTagCommand -> Model : setExpense(1)
+activate Model
+
+Model --> AddTagCommand
+deactivate Model
+
+create CommandResult
+AddTagCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTagCommand
+deactivate CommandResult
+
+AddTagCommand --> LogicManager : result
+deactivate AddTagCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
+
