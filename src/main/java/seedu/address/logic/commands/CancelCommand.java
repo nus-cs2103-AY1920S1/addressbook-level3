@@ -13,7 +13,7 @@ public class CancelCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_CANCEL_MESSAGE,
-                false, false, false, false);
+                false, false, false, false, false);
     }
 
 }

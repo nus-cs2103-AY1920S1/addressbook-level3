@@ -190,8 +190,9 @@ public class ModelManager implements Model {
         return this.savedCommand.peek();
     }
 
-    //=========== Filtered List Accessors =============================================================
-=======
+    /**
+     *  Checks if the task exists in the addressbook.
+     */
     public boolean hasTask(Task task) {
         requireNonNull(task);
         return addressBook.hasTask(task);
@@ -230,11 +231,6 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public void addTask(Task task) {
-
     }
 
     public ObservableList<Earnings> getFilteredEarningsList() {

@@ -45,7 +45,7 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of CommandObjects */
     ObservableList<CommandObject> getFilteredCommandsList();
-  
+
     /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getFilteredTaskList();
 

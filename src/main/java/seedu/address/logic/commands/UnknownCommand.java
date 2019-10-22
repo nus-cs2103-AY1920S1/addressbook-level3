@@ -20,6 +20,6 @@ public class UnknownCommand extends Command {
     public CommandResult execute(Model model) {
         model.saveCommand(this.unknown);
         return new CommandResult(this.unknown + SHOWING_UNKNOWN_MESSAGE,
-                false, false, false, true);
+                false, false, false, true, false);
     }
 }

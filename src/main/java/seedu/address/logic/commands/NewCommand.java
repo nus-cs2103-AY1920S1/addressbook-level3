@@ -28,7 +28,7 @@ public class NewCommand extends Command {
 
         return new CommandResult(SHOWING_NEW_COMMAND_MESSAGE
                 + this.prevUnknownCommand + " to " + this.userInput,
-                false, false, false, false);
+                false, false, false, false, false);
     }
 
 }

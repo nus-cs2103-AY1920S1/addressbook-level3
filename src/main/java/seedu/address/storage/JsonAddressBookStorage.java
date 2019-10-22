@@ -52,11 +52,9 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         }
 
         try {
-            System.out.println("succ");
             return Optional.of(jsonAddressBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            System.out.println("fail");
             throw new DataConversionException(ive);
         }
     }

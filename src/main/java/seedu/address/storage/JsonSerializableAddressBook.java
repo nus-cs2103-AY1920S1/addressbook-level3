@@ -50,7 +50,6 @@ class JsonSerializableAddressBook {
         this.commands.addAll(commands);
         this.tasks.addAll(tasks);
 
-                                    
     }
 
     /**
@@ -94,6 +93,7 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_COMMAND);
             }
             addressBook.addCommand(command);
+        }
 
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
             Task task = jsonAdaptedTask.toModelType();

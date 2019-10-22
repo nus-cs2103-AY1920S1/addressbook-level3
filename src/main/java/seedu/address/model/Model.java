@@ -98,8 +98,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    void addTask(Task task);
-
     /**
      * Returns true if a command with the same identity as {@code command} exists in the address book.
      */
