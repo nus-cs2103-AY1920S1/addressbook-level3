@@ -19,6 +19,7 @@ import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 
 /**
  * Adds a repeater to IchiFund.
@@ -70,7 +71,13 @@ public class AddRepeaterCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.addRepeater(toAdd);
+        model.addRepeater(new Repeater(
+                    model.getCurrentRepeaterUniqueId(),
+                    toAdd.getDescription(), toAdd.getAmount(), toAdd.getCategory(),
+                    toAdd.getTransactionType(), toAdd.getMonthStartOffset(), toAdd.getMonthEndOffset(),
+                    toAdd.getStartDate(), toAdd.getEndDate()));
+        model.setCurrentRepeaterUniqueId(new RepeaterUniqueId(String.valueOf(
+                    model.getCurrentRepeaterUniqueId().id + 1)));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
