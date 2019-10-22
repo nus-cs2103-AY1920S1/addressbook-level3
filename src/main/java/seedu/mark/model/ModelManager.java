@@ -50,15 +50,15 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
         annotatedDocument = new SortedList<Paragraph>(
-                //TODO: change this to link to proper offline document
-                FXCollections.observableArrayList(
-                        new OfflineDocument("example doc",
-                                OfflineDocument.OFFLINE_DOC_EXAMPLE).getCollection()), (
-            Paragraph p1, Paragraph p2) -> {
-            ParagraphIdentifier pid1 = p1.getId();
-            ParagraphIdentifier pid2 = p2.getId();
-            return pid1.compareTo(pid2);
-        }
+            //TODO: change this to link to proper offline document
+            FXCollections.observableArrayList(
+                    new OfflineDocument("example doc", OfflineDocument.OFFLINE_DOC_EXAMPLE)
+                    .getCollection()),
+            (Paragraph p1, Paragraph p2) -> {
+                    ParagraphIdentifier pid1 = p1.getId();
+                    ParagraphIdentifier pid2 = p2.getId();
+                    return pid1.compareTo(pid2);
+            }
         );
     }
 
