@@ -29,8 +29,8 @@ public class StatisticsView extends UiPart<Region> {
         super(FXML);
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
         new PieChart.Data("NOT STARTED", stats.getPortionTasksByStatus().get(TaskStatus.UNBEGUN)),
-        new PieChart.Data("DOING", 2),
-        new PieChart.Data("DONE", 1));
+        new PieChart.Data("DOING", stats.getPortionTasksByStatus().get(TaskStatus.DOING)),
+        new PieChart.Data("DONE", stats.getPortionTasksByStatus().get(TaskStatus.DONE)));
 
         taskByStatus.setData(pieChartData);
     }
