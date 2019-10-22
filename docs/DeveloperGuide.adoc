@@ -519,7 +519,6 @@ command is entered.
 .Execution sequence of the `check 1` command
 image::CheckSequenceDiagram.png[width="800"]
 
-==== Why was it implemented this way?
 1) The only parameter after the `check` command in the user input is passed into the LogicManager::execute method of the LogicManager instance. +
 
 2) The LogicManager::execute method calls FinSecParser::parseCommand which receives the user input as a parameter. +
@@ -616,6 +615,11 @@ will then be passed as parameter to the `ModelManager::handleClaim` or `Model::h
 
 * This method creates a new `IndividualClaimWindow` with the claim object that was passed as a parameter. If the window is not showing, the
 `IndividualClaimWindow::show` method is called else it will call the `IndividualClaimWindow::focus` method to focus on the current claim.
+
+==== Why was it implemented this way?
+The pop-up method seems to be the best way to attract the attention of the user and make sure that the user can see clearly what he wants to
+check at that point in time. A pop-up is also easy because it allows the user to return immediately to the lists of claims or contacts and he/she
+can continue to work on his tasks immediately.
 
 ==== Alternatives Considered
 
