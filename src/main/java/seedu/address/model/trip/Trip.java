@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
@@ -27,13 +28,13 @@ public class Trip {
     private final Budget totalBudget;
     private final Diary diary;
 
-    private final InventoryList inventoryList = new InventoryList();
+    private final InventoryList inventoryList;
 
     /**
      * Constructs a trip.
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary) {
+                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary, InventoryList inventoryList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -43,6 +44,7 @@ public class Trip {
         this.expenditureList = expenditureList;
         this.tripId = new TripId();
         this.diary = diary;
+        this.inventoryList = inventoryList;
     }
 
     //Compulsory field getters
