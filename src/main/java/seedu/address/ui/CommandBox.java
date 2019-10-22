@@ -25,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, List<String> history) {
+    public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         //this.history = history;
