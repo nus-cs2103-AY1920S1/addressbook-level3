@@ -21,7 +21,6 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
@@ -74,4 +73,5 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
+
 }

@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
@@ -27,6 +28,8 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    CommandResult executeUnknown(String commandText) throws CommandException, ParseException;
+
     /**
      * Returns the AddressBook.
      *
@@ -40,7 +43,10 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of earnings */
     ObservableList<Earnings> getFilteredEarningsList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of CommandObjects */
+    ObservableList<CommandObject> getFilteredCommandsList();
+
+    /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getFilteredTaskList();
 
     /** Returns an unmodifiable view of the filtered list of reminders */
@@ -61,4 +67,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }
