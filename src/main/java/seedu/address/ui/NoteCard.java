@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.note.Note;
@@ -22,6 +23,8 @@ public class NoteCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label content;
+    @FXML
+    private ImageView image;
 
     public NoteCard(Note note, int displayedIndex) {
         super(FXML);
@@ -29,6 +32,7 @@ public class NoteCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText(note.getTitle().title);
         content.setText(note.getContent().content);
+        image.setImage(note.getImage());
     }
 
     @Override

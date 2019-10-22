@@ -128,24 +128,42 @@ This section describes some finer details on how certain features are implemente
 === Image support for lecture notes
 ==== Implementation
 
-(Implementation of image support for lecture notes)
+Instead of a custom class to represent an image, JavaFX's `scene.image.Image` is used instead.
+This is out of necessity, since an `ImageView` is needed to display an image in the GUI and it requires
+an `Image` object, not just a `String` path to the image. No significant coupling is introduced
+by this choice because `Image` objects can exist without a GUI to display them.
 
-image::UndoRedoState0.png[]
+The dialog brought up to let the user choose a file returns `null` if the dialog is closed
+_without_ choosing a file (i.e. clicking the close button). Treating `null` as "no image" would surprise the user who
+decides to edit a lecture note's image but then decides not to – the image would simply disappear without
+warning. Therefore the value `i/none` has to be explicitly provided to remove the image, and `EditNoteDescriptor`
+has an additional field `isImageRemoved` to track this. If the image comes out as `null` but `i/none` was
+not provided, the image is unchanged.
+
+To avoid a dependency of the `Logic` module on the `UI` module when selecting an image, there is the interface
+`NoteImageSelector` exclusive to the `parser.note` package whose `selectImage` method provides the necessary image.
+This is possible because `FileChooser.showOpenDialog()`, which shows the dialog, can be fed an argument of `null`
+instead of having to rely on a `Window` object, which is the domain of the `UI` module.
+
+.Sequence diagram for the execution of `EditNoteCommandParser`
+image::ImageSelectionSequenceDiagram.png[]
 
 ==== Design considerations: where to place the image?
 
-* _Alternative 1:_ Images are shown within each lecture note in the first column, and each lecture note
+* _Alternative 1 (current choice):_ Images are shown within each lecture note in the first column, and each lecture note
 shows all of its title, content and image
 ** Pros: Easier to implement (FXML does not have to reach into other places)
-** Cons: Scrolling through lecture notes, all with images, takes time
-* _Alternative 2:_ Place the images in the second column, below their corresponding title and content.
-** Pros: More visually appealing, and by keeping just one note in the second column it becomes a
-kind of flash card
-** Cons: Harder to implement (FXML must reach into the object representing the second column)
+** Cons: Scrolling through lecture notes, all with images, takes time, but this downside is alleviated
+by the `findnote` command
+* _Alternative 2:_ Place the images in the second column, below their corresponding title and content
+** Pros: More visually appealing, since by keeping just one note in the second column it becomes a kind of flash card
+** Cons: Harder to implement (FXML must reach into the object representing the second column),
+need to have a separate `NotePreview` JavaFX object since images are only going to be displayed
+in the second column
 // end::lecimage[]
 
 === Question management feature
-==== Current Implementation
+==== Current implementation
 
 The question management feature is facilitated by `Model`.
 The question-related commands extend `Command` with the question object if necessary.
@@ -188,22 +206,20 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::AddQuestionActivityDiagram.png[]
 
-==== Design Considerations
-
-===== Aspect: How addq/deleteq/editq commmands execute
-* **Alternative 1 (current choice):** Update the internal storage `UniqueQuestionList` in `AppData` first, then save the updated appData
+===== Design considerations: How `addq`/`deleteq`/`editq` commands execute
+* _Alternative 1 (current choice):_ Update the internal storage `UniqueQuestionList` in `AppData` first, then save the updated appData
 in local storage when the command finishes executing.
 ** Pros: Easy to implement.
 ** Cons: Need the extra step to ensure that the internal list is correctly maintained.
-* **Alternative 2:** Update the local storage directly when the command is executing.
+* _Alternative 2:_ Update the local storage directly when the command is executing.
 ** Pros: No need to implement the internal list.
 ** Cons: Will access local memory more frequently. May have performance issues in terms of memory usage.
 
-===== Aspect: Data structure to support the question commands
-* **Alternative 1 (current choice):** Use a `UniqueQuestionList` to store questions in `AppData`.
+===== Design considerations: Data structure to support the question commands
+* _Alternative 1 (current choice):_ Use a `UniqueQuestionList` to store questions in `AppData`.
 ** Pros: Cater to the question model specifically. Question list operations are encapsulated in one class.
 ** Cons: Logic is duplicated as other models also implement similar list structure.
-* **Alternative 2:** Use Java list to store the questions.
+* _Alternative 2:_ Use Java list to store the questions.
 ** Pros: Do not need to maintain a separate list class.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
@@ -505,7 +521,7 @@ Use case ends
 [none]
 * 1a. Student also gives `-i` in the command
 [none]
-** 1a1. Application brings up a file selection dialogue
+** 1a1. Application brings up a file selection dialog
 ** 1a2. Student selects the image they wish to include in the lecture note
 ** 1a3. Application accepts the image
 * Use case resumes from step 2

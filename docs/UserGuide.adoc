@@ -63,10 +63,12 @@ Format: `addnote t/TITLE c/CONTENT [i/]`
 
 ==== Editing lecture notes: `editnote`
 Edits an existing lecture note. Providing `i/` brings up the image selection dialogue, like `addnote`;
-this can be used to change the image. At least one of `t/`, `c/` and `i/` must be provided.
+this can be used to change the image. At least one of `t/`, `c/` and `i/` must be provided,
+or `i/` must have the argument `none` to remove the image. If the image dialogue is closed
+without selecting an image, the image remains unchanged.
 
-The index must be between 1 and the number of notes and flashcards combined, inclusive. +
-Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/]`
+The index must be between 1 and the number of notes inclusive. +
+Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/[none]]`
 
 ==== Viewing lecture notes: `findnote`
 Find lecture notes whose title contains every given word (space-separated, ignoring case),

@@ -1,12 +1,18 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.note;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.note.AddNoteCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
@@ -23,7 +29,8 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
      * @throws ParseException if the user input does not conform to the expected format
      */
     public AddNoteCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT, PREFIX_IMAGE);
+        Note note;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CONTENT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
@@ -31,7 +38,11 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
-        Note note = new Note(title, content);
+        if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
+            note = new Note(title, content, NoteImageSelector.selectImage());
+        } else {
+            note = new Note(title, content);
+        }
         return new AddNoteCommand(note);
     }
 

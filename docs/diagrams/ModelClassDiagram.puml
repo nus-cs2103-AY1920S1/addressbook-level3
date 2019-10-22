@@ -19,6 +19,7 @@ Package Note {
 Class Note
 Class Content
 Class Title
+Class Image
 Class UniqueNoteList
 }
 
@@ -37,6 +38,7 @@ AppData *--> "1" UniqueNoteList
 UniqueNoteList o--> "*" Note
 Note *--> Title
 Note *--> Content
+Note *-->"0..1" Image
 
 ModelManager -->"1" Note : filtered list
 @enduml

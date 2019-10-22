@@ -18,6 +18,7 @@ import static seedu.address.testutil.TypicalAppData.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.note.AddNoteCommand;
+import seedu.address.logic.parser.note.AddNoteCommandParser;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.Title;
