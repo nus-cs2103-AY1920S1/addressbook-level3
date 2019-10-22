@@ -33,6 +33,6 @@ public class FlashCardTestModelTest {
     public void getQuestion_validTestList_success() {
         flashCardTestModel = new FlashCardTestModel(testList);
         String expectedOutput = "0 + 10";
-        assertEquals(expectedOutput, flashCardTestModel.getQuestion());
+        assertEquals(expectedOutput, flashCardTestModel.getQuestion(new Model()));
     }
 }
