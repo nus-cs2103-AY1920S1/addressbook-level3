@@ -14,7 +14,15 @@ import seedu.address.commons.core.item.Item;
  * Panel containing the list of items.
  */
 public class ReminderListPanel extends UiPart<Region> {
+
+    //We decided to set the number of items to scroll to 5 because that is
+    //the number of items displayed in the minimum window size.
+    private static final int NUM_OF_ITEMS_TO_SCROLL = 5;
     private static final String FXML = "ReminderListPanel.fxml";
+
+    private static int currentPosition;
+    private static int itemSize;
+
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     @FXML
@@ -24,8 +32,9 @@ public class ReminderListPanel extends UiPart<Region> {
         super(FXML);
         reminderListView.setItems(itemList);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
-        reminderListView.scrollTo(itemList.size());
-
+        itemSize = reminderListView.getItems().size();
+        reminderListView.scrollTo(itemSize);
+        currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
     }
 
     /**
@@ -45,4 +54,28 @@ public class ReminderListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Scrolls up.
+     */
+    public void scrollUp() {
+        if (currentPosition - NUM_OF_ITEMS_TO_SCROLL <= 0) {
+            currentPosition = 0;
+        } else {
+            currentPosition = currentPosition - NUM_OF_ITEMS_TO_SCROLL;
+        }
+        reminderListView.scrollTo(currentPosition);
+
+    }
+
+    /**
+     * Scrolls down.
+     */
+    public void scrollDown() {
+        if (currentPosition + NUM_OF_ITEMS_TO_SCROLL >= itemSize) {
+            currentPosition = itemSize - NUM_OF_ITEMS_TO_SCROLL;
+        } else {
+            currentPosition = currentPosition + NUM_OF_ITEMS_TO_SCROLL;
+        }
+        reminderListView.scrollTo(currentPosition);
+    }
 }
