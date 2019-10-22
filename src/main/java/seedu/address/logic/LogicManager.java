@@ -103,7 +103,7 @@ public class LogicManager implements Logic {
     public ObservableList<CommandObject> getFilteredCommandsList() {
         return model.getFilteredCommandsList();
     }
-    
+
     @Override
     public ObservableList<Reminder> getFilteredReminderList() {
         return model.getFilteredReminderList();

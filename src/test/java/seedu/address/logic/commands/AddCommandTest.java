@@ -89,6 +89,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteEarnings(Earnings earnings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String getSavedCommand() {
             throw new AssertionError("This method should not be called.");
         }

@@ -138,7 +138,7 @@ public class AddressBookParser {
 
             case DeleteCustomCommand.COMMAND_WORD:
                 return new DeleteCustomCommandParser().parse(arguments);
-                
+
             case ChangeTabCommand.COMMAND_WORD:
                 return new ChangeTabCommandParser().parse(arguments);
 

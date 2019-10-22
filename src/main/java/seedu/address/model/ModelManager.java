@@ -148,6 +148,11 @@ public class ModelManager implements Model {
         addressBook.setEarnings(target, editedEarnings);
     }
 
+    @Override
+    public void deleteEarnings(Earnings target) {
+        addressBook.removeEarnings(target);
+    }
+
 
     @Override
     public boolean hasCommand(CommandObject command) {

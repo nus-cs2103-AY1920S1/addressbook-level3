@@ -23,7 +23,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueEarningsList earning;
     private final UniqueCommandsList commands;
     private final UniqueReminderList reminder;
-  
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -216,7 +216,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<CommandObject> getCommandsList() {
         return commands.asUnmodifiableObservableList();
     }
-  
+
     @Override
     public ObservableList<Reminder> getReminderList() {
         return reminder.asUnmodifiableObservableList();

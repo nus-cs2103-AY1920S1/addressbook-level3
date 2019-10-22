@@ -44,7 +44,7 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of commands */
     ObservableList<CommandObject> getFilteredCommandsList();
-  
+
     /** Returns an unmodifiable view of the filtered list of reminders */
     ObservableList<Reminder> getFilteredReminderList();
 

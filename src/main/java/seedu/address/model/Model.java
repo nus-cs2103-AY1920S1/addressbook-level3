@@ -140,6 +140,7 @@ public interface Model {
      */
     void addEarnings(Earnings earnings);
 
+    void deleteEarnings(Earnings earnings);
 
     boolean hasEarnings(Earnings earnings);
     /**

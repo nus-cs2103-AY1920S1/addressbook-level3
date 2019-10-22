@@ -112,7 +112,7 @@ public class AddressBookTest {
         public ObservableList<CommandObject> getCommandsList() {
             return commands;
         }
-      
+
         @Override
         public ObservableList<Reminder> getReminderList() {
             return reminder;
