@@ -37,34 +37,54 @@ public class CalendarGridDay extends UiPart<Region> {
         colorChange();
     }
 
+    /**
+     * Increases the total number of Events and changes the color accordingly.
+     */
     public void addAnEvent() {
         this.totalEvents++;
         colorChange();
     }
 
+    /**
+     * Return the day, month and year.
+     *
+     * @return The day, month and year.
+     */
     public Integer[] getDayMonthYear() {
         Integer[] dayMonthYear = {day, month, year};
         return dayMonthYear;
     }
 
-    public void otherMonths() {
+    /**
+     * Reduces the opacity as the given Calendar Screen is of a different month.
+     */
+    public void reduceOpacity() {
         calendarDay.setStyle("-fx-opacity: " + 0.25);
     }
 
+    /**
+     * Adjusts the color of the circle to indicate how many events are there on that day.
+     */
     private void colorChange() {
         ColorAdjust colorAdjust = new ColorAdjust();
-        if(this.totalEvents == 0) {
+        if (this.totalEvents == 0) {
             calendarDayCircle.setStyle("-fx-opacity: " + 0);
             calendarDayCircle.setEffect(colorAdjust);
         } else {
             calendarDayCircle.setStyle("-fx-opacity: " + 0.5);
-            colorAdjust.setSaturation(getSaturationValue(this.totalEvents, MAX_EVENT));
+            colorAdjust.setSaturation(getSaturationValue(this.totalEvents));
             calendarDayCircle.setEffect(colorAdjust);
         }
     }
 
-    private float getSaturationValue(float events, float max) {
-        return (events / max) * (MAX_SATURATION - BASE_SATURATION) + BASE_SATURATION;
+    /**
+     * Returns a float value of a saturation by the number of given events against a threshold value.
+     *
+     * @param events The total number of events of the current day.
+     * @return Returns a float value of a saturation by the number of given events against a threshold value.
+     */
+    private float getSaturationValue(float events) {
+        return (events / MAX_EVENT) * (MAX_SATURATION - BASE_SATURATION) + BASE_SATURATION;
     }
 
 

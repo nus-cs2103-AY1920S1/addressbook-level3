@@ -1,8 +1,5 @@
 package seedu.address.logic;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -64,10 +61,10 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
                 } else if (commandInput.equals("week 2 \"11/2019\"")) {
                     this.mainWindow.viewWeek(2, 11, 2019);
                 } else if (commandInput.equals("month")) {
-                    this.mainWindow.viewMonth(11, 2019);;
+                    this.mainWindow.viewMonth(11, 2019);
                 } else if (commandInput.equals("calendar 11/2019")) {
                     // No need for day
-                    this.mainWindow.changeCalendarScreenDate( 11, 2019);
+                    this.mainWindow.changeCalendarScreenDate(11, 2019);
                 } else {
                     // Notify listeners of new command input.
                     this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));

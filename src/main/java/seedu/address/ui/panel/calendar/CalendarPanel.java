@@ -43,6 +43,9 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
      * The points are calendar screen view, timeline view and details view.
      *
      * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
+     * @see TimelineView
+     * @see CalendarScreen
+     * @see Details
      */
     public CalendarPanel(UiParser uiParser) {
         super(FXML);
@@ -52,7 +55,8 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
 
         Integer[] dayMonthYear = uiParser.getDateToNumbers(this.date);
         this.calendarScreen = new CalendarScreen(dayMonthYear[1], dayMonthYear[2], uiParser);
-        this.timelineView = new TimelineDayView(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2], eventList, uiParser);
+        this.timelineView = new TimelineDayView(
+                dayMonthYear[0], dayMonthYear[1], dayMonthYear[2], eventList, uiParser);
         this.details = new Details(uiParser);
 
         timelinePlaceholder.getChildren().add(this.timelineView.getRoot()); // Left
@@ -61,6 +65,12 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
 
     }
 
+    /**
+     * Changes the CalendarScreen date only.
+     *
+     * @param month The given month.
+     * @param year The given year.
+     */
     public void changeCalendarScreenDate(int month, int year) {
         calendarScreenPlaceholder.getChildren().clear();
         calendarScreen = new CalendarScreen(month, year, uiParser);
@@ -68,10 +78,20 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
         calendarScreen.eventChange(eventList);
     }
 
+    /**
+     * Re-sizes the TimelineView.
+     */
     public void resizeTimelineView() {
         timelineView.resizeTimelineView();
     }
 
+    /**
+     * Changes to TimelineDayView with a given day, month and year.
+     *
+     * @param day The given day.
+     * @param month The given month.
+     * @param year The given year.
+     */
     public void changeToDayView(int day, int month, int year) {
         changeCalendarScreenDate(month, year);
         timelinePlaceholder.getChildren().clear();
@@ -79,13 +99,27 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
+    /**
+     * Changes to TimelineDayView with a given week, month and year.
+     *
+     * @param week The given week.
+     * @param month The given month.
+     * @param year The given year.
+     */
     public void changeToWeekView(int week, int month, int year) {
         changeCalendarScreenDate(month, year);
         timelinePlaceholder.getChildren().clear();
-        this.timelineView = new TimelineWeekView(week, month, year, calendarScreen.getStartingDay(week), eventList, uiParser);
+        this.timelineView = new TimelineWeekView(
+                week, month, year, calendarScreen.getStartingDay(week), eventList, uiParser);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
+    /**
+     * Changes to TimelineDayView with a given month and year.
+     *
+     * @param month The given month.
+     * @param year The given year.
+     */
     public void changeToMonthView(int month, int year) {
         changeCalendarScreenDate(month, year);
         timelinePlaceholder.getChildren().clear();

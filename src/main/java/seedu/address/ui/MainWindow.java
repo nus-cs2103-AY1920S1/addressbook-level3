@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -170,7 +169,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Temporary method to view the calendar
+     * Changes the View Panel to show the Calendar Panel.
      */
     public void viewCalendar() {
         calendarPanel.getRoot().setVisible(true);
@@ -179,23 +178,43 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         viewTitle.setText("Calendar");
     }
 
+    /**
+     * Changes the View Panel to show the Calendar Panel of a certain day.
+     *
+     * @param day The given day.
+     * @param month The given month.
+     * @param year The given year.
+     */
     public void viewDay(int day, int month, int year) {
         calendarPanel.changeToDayView(day, month, year);
         viewCalendar();
     }
 
+    /**
+     * Changes the View Panel to show the Calendar Panel of a certain week.
+     *
+     * @param week The given day.
+     * @param month The given month.
+     * @param year The given year.
+     */
     public void viewWeek(int week, int month, int year) {
         calendarPanel.changeToWeekView(week, month, year);
         viewCalendar();
     }
 
+    /**
+     * Changes the View Panel to show the Calendar Panel of a certain month.
+     *
+     * @param month The given month.
+     * @param year The given year.
+     */
     public void viewMonth(int month, int year) {
         calendarPanel.changeToMonthView(month, year);
         viewCalendar();
     }
 
     /**
-     * Temporary method to view the event list
+     * Changes the View Panel to show the List Panel.
      */
     public void viewList() {
         calendarPanel.getRoot().setVisible(false);
@@ -205,7 +224,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Temporary method to view the event list
+     * Changes the View Panel to show the Log Panel.
      */
     public void viewLog() {
         calendarPanel.getRoot().setVisible(false);
@@ -226,7 +245,8 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
                 new KeyFrame(Duration.seconds(0), event -> {
                     popUpPanel.getChildren().add(popUpBoxRoot);
                     popUpBoxRoot.setTranslateY(popUpBoxRoot.getTranslateY() - 40);
-                    TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
+                    TranslateTransition translateTransition =
+                            new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
                     double initialPos = popUpBoxRoot.getTranslateY();
                     translateTransition.setFromY(initialPos);
                     translateTransition.setToY(initialPos + 40);
@@ -236,7 +256,8 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
                     translateTransition.play();
                 }),
                 new KeyFrame(Duration.seconds(3), event -> {
-                    TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
+                    TranslateTransition translateTransition =
+                            new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
                     double initialPos = popUpBoxRoot.getTranslateY();
                     translateTransition.setFromY(initialPos);
                     translateTransition.setToY(initialPos - 40);
@@ -279,15 +300,23 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         calendarPanel.changeCalendarScreenDate(month, year);
     }
 
+    /**
+     * Adds Listeners that re-sizes the calendar panel when the width has been changed.
+     */
     private void addResizingListeners() {
         primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+            public void changed(ObservableValue<? extends Number> observableValue,
+                                Number oldSceneWidth,
+                                Number newSceneWidth) {
                 calendarPanel.resizeTimelineView();
             }
         });
     }
 
+    /**
+     * Prints the welcome message.
+     */
     private void welcomeMessage() {
         onUserOutput(new UserOutput(WELCOME_MESSAGE), ColorTheme.WELCOME);
     }
