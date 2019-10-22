@@ -67,19 +67,18 @@ public class Room {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == null || !(other instanceof Room)) {
-            return false;
-        }
-
         if (other == this) {
             return true;
+        }
+
+        if (!(other instanceof Room)) {
+            return false;
         }
 
         Room o = (Room) other;
         return getDoctor().equals(o.getDoctor())
                 && getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
                 && isResting == o.isResting
-                && (getCurrentPatient().isEmpty()
-                    || getCurrentPatient().get().equals(o.getCurrentPatient().get()));
+                && getCurrentPatient().equals(o.getCurrentPatient());
     }
 }
