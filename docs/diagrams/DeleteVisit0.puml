@@ -14,5 +14,3 @@ endif
 :Show List of Visit Reports;
 stop
 @enduml
-
-@enduml
