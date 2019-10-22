@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.PieChart?>
+
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+    <HBox alignment="TOP_RIGHT">
+        <VBox alignment="CENTER_RIGHT" minHeight="105">
+            <padding><Insets top="100" right="100" bottom="100" left="100"/></padding>
+            <LineChart fx:id="lineChart" VBox.vgrow="SOMETIMES" prefHeight="400" prefWidth="600">
+                <xAxis>
+                    <NumberAxis side="BOTTOM" label="Num Students" autoRanging="true"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT" label="Score" autoRanging="true"/>
+                </yAxis>
+            </LineChart>
+        </VBox>
+
+        <VBox alignment="CENTER_LEFT" minHeight="105">
+            <padding><Insets top="100" right="100" bottom="100" left="100"/></padding>
+            <PieChart fx:id="distributionChart" VBox.vgrow="SOMETIMES" prefHeight="400" prefWidth="600"/>
+        </VBox>
+
+    </HBox>
+
+    <HBox alignment="BOTTOM_CENTER">
+        <HBox>
+            <Label text="Total Students: " styleClass="cell_big_label" />
+            <Label fx:id="totalStudents" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Mean: " styleClass="cell_big_label">
+            </Label>
+            <Label fx:id="mean" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Median: " styleClass="cell_big_label">
+            </Label>
+            <Label fx:id="median" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Min: " styleClass="cell_big_label"/>
+            <Label fx:id="min" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Max: " styleClass="cell_big_label"/>
+            <Label fx:id="max" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+        <HBox>
+            <Label text="Standard Dev: " styleClass="cell_big_label"/>
+            <Label fx:id="standardDev" text="\$first" styleClass="copyable-label"/>
+            <padding><Insets right="50" bottom="20" left="10"/></padding>
+        </HBox>
+    </HBox>
+
+</VBox>
+

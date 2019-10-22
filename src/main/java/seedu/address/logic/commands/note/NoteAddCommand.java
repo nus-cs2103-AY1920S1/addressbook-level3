@@ -19,7 +19,7 @@ public class NoteAddCommand extends NoteCommand {
             + "Example: note note/Tuesday desc/Grade 6A prelim papers.\n";
 
     public static final String MESSAGE_SUCCESS = "New Note added: %1$s";
-    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in the notes recod";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in the notes record";
 
     private final Note toAdd;
 
