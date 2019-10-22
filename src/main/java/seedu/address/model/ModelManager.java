@@ -177,7 +177,6 @@ public class ModelManager implements Model {
     public void setIncident(Incident target, Incident editedIncident) {
         requireAllNonNull(target, editedIncident);
         incidentManager.setIncident(target, editedIncident);
-
     }
 
     @Override
@@ -196,13 +195,6 @@ public class ModelManager implements Model {
     public ObservableList<Incident> getFilteredIncidentList() {
         return filteredIncidents;
     }
-
-    /*
-    @Override
-    public void updateFilteredIncidentList(Predicate<Incident> predicate) {
-        requireNonNull(predicate);
-        filteredIncidents.setPredicate(predicate);
-    }*/
 
     //=========== Filtered Vehicle List Accessors =============================================================
 

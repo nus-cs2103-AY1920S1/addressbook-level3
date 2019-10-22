@@ -20,6 +20,9 @@ public interface Model {
     /** {@code Predicate} for incidents that always evaluate to true */
     Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS = unused -> true;
 
+    /** {@code Predicate} for filtering draft incident reporst */
+    Predicate<Incident> PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS = Incident::isDraft;
+
     /**
      * Sets the {@code Person} that is logged into the {@code Session}.
      */

@@ -52,7 +52,7 @@ public class Incident {
         DRAFT, COMPLETE, FINAL
     }
 
-    private Status status;
+    private Status status = Status.DRAFT; // default is draft
 
     /** Constructor for generating an incident draft according to 'new' command i.e. fills auto-filled fields.
      * @param operator operator generating the new incident report.
@@ -100,30 +100,38 @@ public class Incident {
     }
 
     /**
-     * Updates incident report by filling callerNumber and description fields. Triggered by 'fill' command.
-     * @param callerNumber phone number of the caller reporting the incident.
-     * @param description description of this incident.
+     * Constructor for generating an incident draft according to 'fill' command i.e. all fields filled.
      */
-    public void updateReport(CallerNumber callerNumber, Description description) {
+    public Incident(Person operator, District location, IncidentDateTime incidentDateTime, IncidentId incidentId,
+                    CallerNumber callerNumber, Description description, Status status) {
+        this.operator = operator;
+        this.location = location;
+        this.incidentDateTime = incidentDateTime;
+        this.id = incidentId;
         this.callerNumber = callerNumber;
         this.description = description;
-        updateStatus(Status.COMPLETE); // all fields have been filled
+        this.status = status;
+    }
+
+    /**
+     * Returns a new updated incident report by filling callerNumber and description fields.
+     * Triggered by 'fill' command.
+     * @param callerNumber phone number of the caller reporting the incident.
+     * @param description description of this incident.
+     * @return updated incident report.
+     */
+    public static Incident updateReport(Incident toUpdate, CallerNumber callerNumber, Description description) {
+        return new Incident(toUpdate.getOperator(), toUpdate.getDistrict(), toUpdate.getIncidentDateTime(),
+                toUpdate.getIncidentId(), callerNumber, description, Status.COMPLETE);
     }
 
     /**
      * Submits this report by updating its status.
      */
     public void submit() {
-        updateStatus(Status.FINAL); // report has been submitted
+        // updateStatus(Status.FINAL); // report has been submitted
     }
 
-    /**
-     * Updates status of this incident report with given status.
-     * @param updatedStatus updated status of this incident report.
-     */
-    private void updateStatus(Status updatedStatus) {
-        this.status = updatedStatus;
-    }
 
     public IncidentDateTime getDateTime() {
         return this.incidentDateTime;
@@ -149,6 +157,10 @@ public class Incident {
         return operator;
     }
 
+    public IncidentDateTime getIncidentDateTime() {
+        return incidentDateTime;
+    }
+
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Tag::new)
@@ -157,6 +169,30 @@ public class Incident {
 
     public Status getStatus() {
         return status;
+    }
+
+    /**
+     * Checks if incident is a draft.
+     * @return true if incident is a draft, false otherwise.
+     */
+    public boolean isDraft() {
+        return this.status.equals(Status.DRAFT);
+    }
+
+    /**
+     * Checks if incident is completely filled.
+     * @return true if incident is completely filled, false otherwise.
+     */
+    public boolean isComplete() {
+        return this.status.equals(Status.COMPLETE);
+    }
+
+    /**
+     * Checks if incident has been submitted.
+     * @return true if incident has been submitted, false otherwise.
+     */
+    public boolean isSubmitted() {
+        return this.status.equals(Status.FINAL);
     }
 
     /**
