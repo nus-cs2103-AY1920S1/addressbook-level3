@@ -6,15 +6,13 @@ import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
+/**
+ * Represents a Cashier tab's model stub.
+ */
 public class CashierModelStubAcceptingItemAdded extends CashierModelStub {
 
-    final ArrayList<Item> itemsAdded;
-    InventoryModelStubAcceptingItemAdded inventoryModelStub = new InventoryModelStubAcceptingItemAdded();
-
-    public void setInventoryModelStub(InventoryModelStubAcceptingItemAdded inventoryModelStub) {
-        this.inventoryModelStub = inventoryModelStub;
-        //inventoryModelStub.addItem(TypicalItem.FISH_BURGER);
-    }
+    private final ArrayList<Item> itemsAdded;
+    private InventoryModelStubAcceptingItemAdded inventoryModelStub = new InventoryModelStubAcceptingItemAdded();
 
     public CashierModelStubAcceptingItemAdded() {
         itemsAdded = new ArrayList<>();
@@ -24,9 +22,9 @@ public class CashierModelStubAcceptingItemAdded extends CashierModelStub {
         itemsAdded = arr;
     }
 
-    @Override
-    public void addItem(Item i) {
-        itemsAdded.add(i);
+    public void setInventoryModelStub(InventoryModelStubAcceptingItemAdded inventoryModelStub) {
+        this.inventoryModelStub = inventoryModelStub;
+        //inventoryModelStub.addItem(TypicalItem.FISH_BURGER);
     }
 
     @Override
@@ -36,6 +34,11 @@ public class CashierModelStubAcceptingItemAdded extends CashierModelStub {
 
     public ArrayList<Item> getItemsAdded() {
         return itemsAdded;
+    }
+
+    @Override
+    public void addItem(Item i) {
+        itemsAdded.add(i);
     }
 
     @Override

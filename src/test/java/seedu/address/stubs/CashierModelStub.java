@@ -12,6 +12,9 @@ import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Represents a Cashier tab's Model stub.
+ */
 public class CashierModelStub implements Model {
 
     @Override
@@ -85,7 +88,9 @@ public class CashierModelStub implements Model {
     }
 
     @Override
-    public Transaction checkoutAsTransaction(double amount, Person person, seedu.address.transaction.model.Model transactionModel) throws Exception {
+    public Transaction checkoutAsTransaction(double amount,
+                                             Person person, seedu.address.transaction.model.Model transactionModel)
+            throws Exception {
         throw new AssertionError("This method should not be called.");
     }
 

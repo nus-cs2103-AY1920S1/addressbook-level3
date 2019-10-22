@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.inventory.model.Item;
 
+/**
+ * Represents a Cashier tab's Model stub.
+ */
 public class CashierModelStubWithItem extends CashierModelStub {
     private Item item;
 

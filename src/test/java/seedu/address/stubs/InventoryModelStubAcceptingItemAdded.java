@@ -7,6 +7,9 @@ import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
+/**
+ * Represents a Inventory tab's Model stub.
+ */
 public class InventoryModelStubAcceptingItemAdded extends InventoryModelStub {
 
     final ArrayList<Item> itemsAdded;
@@ -47,3 +50,5 @@ public class InventoryModelStubAcceptingItemAdded extends InventoryModelStub {
     }
 
 }
+
+

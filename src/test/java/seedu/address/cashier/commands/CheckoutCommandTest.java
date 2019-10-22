@@ -48,16 +48,14 @@ public class CheckoutCommandTest {
     }
 
     @Test
-    public void execute_validTotalAmountAndChange_withoutCashier_throwsNoCashierFoundException() {
+    public void execute_validTotalAmountAndChangeWithoutCashier_throwsNoCashierFoundException() {
         CheckoutCommand checkoutCommand = new CheckoutCommand(VALID_TOTAL_AMOUNT, VALID_CHANGE);
         String expectedMessage = CashierMessages.NO_CASHIER;
         assertCommandFailure(checkoutCommand, model, expectedMessage,
                 personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
     }
 
-
-
-/*
+    /*
     @Test
     public void execute_validTotalAmount_validChange_successful() throws Exception {
         CheckoutCommand checkoutCommand = new CheckoutCommand(validTotalAmount, validChange);
@@ -81,6 +79,6 @@ public class CheckoutCommandTest {
 
         //assertEquals(expectedMessage, commandResult.getFeedbackToUser());
 
-    }
-*/
+    }*/
+
 }

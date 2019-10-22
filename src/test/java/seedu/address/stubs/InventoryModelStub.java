@@ -4,6 +4,9 @@ import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 
+/**
+ * Represents a Inventory tab's Model stub.
+ */
 public class InventoryModelStub implements Model {
 
     @Override

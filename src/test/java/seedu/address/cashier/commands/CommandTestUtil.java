@@ -27,7 +27,7 @@ import seedu.address.inventory.model.Item;
 public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String VALID_DESCRIPTION_FISH_BURGER = "burger";
-    public static final String VALID_DESCRIPTION_STORYBOOK= "the tale";
+    public static final String VALID_DESCRIPTION_STORYBOOK = "the tale";
     public static final String VALID_CATEGORY = "food";
     public static final String VALID_QUANTITY = "20";
     public static final String VALID_COST = "3.25";
@@ -38,7 +38,7 @@ public class CommandTestUtil {
     //public static final String DESC_NAME_AMY = " " + PREFIX_PERSON + VALID_NAME_AMY;
     public static final String DESC_CATEGORY = " " + PREFIX_CATEGORY + VALID_CATEGORY;
     public static final String DESC_QUANTITY = " " + PREFIX_QUANTITY + VALID_QUANTITY;
-    public static final String DESC_COST = " " + PREFIX_COST+ VALID_COST;
+    public static final String DESC_COST = " " + PREFIX_COST + VALID_COST;
     public static final String DESC_PRICE = " " + PREFIX_PRICE + VALID_PRICE;
 
     public static final String DESC_BUILDER_QUANTITY = " " + PREFIX_QUANTITY + DEFAULT_QUANTITY;
@@ -47,16 +47,17 @@ public class CommandTestUtil {
     public static final String DESC_BUILDER_DESC = " " + PREFIX_DESCRIPTION + DEFAULT_DESCRIPTION;
     public static final String DESC_BUILDER_CATEGORY = " " + PREFIX_CATEGORY + DEFAULT_CATEGORY;
 
- /*   public static final String INVALID_DATE_1 = " "  + PREFIX_DATETIME + "03-sep-2019";
+    /*public static final String INVALID_DATE_1 = " "  + PREFIX_DATETIME + "03-sep-2019";
     public static final String INVALID_DATE_2 = " "  + PREFIX_DATETIME + "3-Sep-2019";
-    public static final String INVALID_DATE_3 = " "  + PREFIX_DATETIME + "3/Sep/2019";   */
+    public static final String INVALID_DATE_3 = " "  + PREFIX_DATETIME + "3/Sep/2019"; */
     public static final String INVALID_QUANTITY = " " + PREFIX_QUANTITY + "hi";
 
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link seedu.address.cashier.logic.commands.CommandResult} matches {@code expectedCommandResult} <br>
+     * - the returned {@link seedu.address.cashier.logic.commands.CommandResult}
+     * matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model cashierModel,
@@ -120,11 +121,11 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the person with the given name in the
      * {@code model}'s transaction list
      */
-/*    public static void showTransactionsOfPerson(Model model, String name) {
+    /*public static void showTransactionsOfPerson(Model model, String name) {
         assertTrue(model.hasTransactionWithName(name));
         final String[] splitName = name.split("\\s+");
         model.updatePredicate(new TransactionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
         //to apply the predicate on the filtered list
         model.getFilteredList();
-    }   */
+    } */
 }

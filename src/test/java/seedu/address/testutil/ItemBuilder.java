@@ -4,6 +4,9 @@ import java.text.DecimalFormat;
 
 import seedu.address.inventory.model.Item;
 
+/**
+ * Builds aan item with default attributes.
+ */
 public class ItemBuilder {
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     public static final String DEFAULT_CATEGORY = "food";
@@ -92,7 +95,7 @@ public class ItemBuilder {
     /**
      * Sets the ID of the {@code Item} that we are building.
      */
-    public ItemBuilder withId(String Id) {
+    public ItemBuilder withId(String id) {
         this.id = id;
         return this;
     }

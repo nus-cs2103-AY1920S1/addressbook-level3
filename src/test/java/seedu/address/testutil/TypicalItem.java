@@ -6,6 +6,9 @@ import java.util.Arrays;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
+/**
+ * A utility class containing a list of {@code Item} objects to be used in tests.
+ */
 public class TypicalItem {
     public static final Item FISH_BURGER = new ItemBuilder()
             .withId("1")

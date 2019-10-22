@@ -11,7 +11,9 @@ import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
-
+/**
+ * Represents a Cashier tab's Logic stub.
+ */
 public class CashierLogicStub implements Logic {
     private ModelManager model;
     private seedu.address.person.model.Model personModel;
