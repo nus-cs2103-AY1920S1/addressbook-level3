@@ -9,7 +9,6 @@ import seedu.address.logic.commands.expenditure.EnterEditExpenditureCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.navbar.NavbarViewParser;
-import seedu.address.logic.parser.sidebar.EnterExpenseManagerParser;
 
 /**
  * Parses commands related to the expense manager page.

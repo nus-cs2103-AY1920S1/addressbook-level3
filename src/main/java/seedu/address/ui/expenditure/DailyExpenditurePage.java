@@ -1,8 +1,14 @@
 package seedu.address.ui.expenditure;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
@@ -12,12 +18,7 @@ import seedu.address.logic.commands.sidebar.EnterExpenseManagerCommand;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.template.PageWithSidebar;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * {@code Page} for displaying the expenditure details.
@@ -30,7 +31,7 @@ public class DailyExpenditurePage extends ExpensesPage {
 
 
     @FXML
-    private ScrollPane ExpendituresContainer;
+    private ScrollPane expendituresContainer;
 
     @FXML
     private ToggleButton viewOptionButton;
@@ -49,13 +50,13 @@ public class DailyExpenditurePage extends ExpensesPage {
     public void fillPage() {
         VBox dailyExpendituresPanelContainer = new VBox();
         dailyExpendituresPanelContainer.getChildren().addAll(generateTitledPanes());
-        ExpendituresContainer.setContent(dailyExpendituresPanelContainer);
+        expendituresContainer.setContent(dailyExpendituresPanelContainer);
     }
 
     /**
-     * Generates total expenditure and total budget for the trip
+     * Generates total expenditure and total budget for the trip.
      */
-    private void generateSummary(){
+    private void generateSummary() {
         totalExpenditure = expenses.stream().mapToDouble(expense -> {
             return Double.parseDouble(expense.getBudget().toString());
         }).sum();
@@ -63,40 +64,50 @@ public class DailyExpenditurePage extends ExpensesPage {
         totalBudget = Double.parseDouble(model.getPageStatus().getTrip().getBudget().toString());
     };
 
-
+    /**
+     * Divides expenditures into lists of expenditure cards grouped according to day.
+     */
     private void divideExpenditures() {
         expenditureLists = new ArrayList<>();
-        for(int i = 0; i < numberOfDay; i++){
+        for (int i = 0; i <= numberOfDay; i++) {
             expenditureLists.add(new ArrayList<>());
         }
 
-        for(int j = 0; j < expenses.size(); j++) {
+        for (int j = 0; j < expenses.size(); j++) {
             Expenditure expenditure = expenses.get(j);
-            if(expenditure.getDayNumber().isEmpty()){
+            if (expenditure.getDayNumber().isEmpty()) {
                 expenditureLists.get(0).add(new ExpenditureCard(expenditure, Index.fromZeroBased(j)));
             } else {
-                expenditureLists.get(Integer.parseInt(expenditure.getDayNumber().get().value)).
-                        add(new ExpenditureCard(expenditure, Index.fromZeroBased(j)));
+                expenditureLists.get(Integer.parseInt(expenditure.getDayNumber().get().value))
+                        .add(new ExpenditureCard(expenditure, Index.fromZeroBased(j)));
             }
         }
     }
 
+    /**
+     * Get the number of days in the trip.
+     */
     private void getNumberOfDay() {
-        if(expenses.get(expenses.size() - 1).getDayNumber().isPresent()) {
-            numberOfDay = Integer.parseInt(expenses.get(expenses.size() - 1).getDayNumber().get().value) + 1;
-        } else {numberOfDay = 1;}
+        if (expenses.get(expenses.size() - 1).getDayNumber().isPresent()) {
+            numberOfDay = Integer.parseInt(expenses.get(expenses.size() - 1).getDayNumber().get().value);
+        } else {
+            numberOfDay = 0;
+        }
     }
 
+    /**
+     * Generates titled panes containing expenditures in each day.
+     */
     private List<TitledPane> generateTitledPanes() {
         divideExpenditures();
-        List<TitledPane> titledPanes = IntStream.range(0, numberOfDay)
+        List<TitledPane> titledPanes = IntStream.range(0, numberOfDay + 1)
                 .mapToObj(Index::fromZeroBased)
                 .filter(index -> expenditureLists.get(index.getZeroBased()).size() != 0)
                 .map(index -> {
                     DailyExpendituresPanel dailyExpendituresPanel = new DailyExpendituresPanel(
                             expenditureLists.get(index.getZeroBased()), index, model);
                     String header;
-                    if(index.getZeroBased() == 0) {
+                    if (index.getZeroBased() == 0) {
                         header = "Unassigned";
                     } else {
                         header = "Day " + index.getZeroBased();

@@ -29,7 +29,6 @@ import seedu.address.ui.diary.DiaryPage;
 import seedu.address.ui.expenditure.DailyExpenditurePage;
 import seedu.address.ui.expenditure.EditExpenditurePage;
 import seedu.address.ui.expenditure.ExpensesListPage;
-import seedu.address.ui.expenditure.ExpensesPage;
 import seedu.address.ui.inventory.InventoryPage;
 import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.itinerary.EditDayPage;

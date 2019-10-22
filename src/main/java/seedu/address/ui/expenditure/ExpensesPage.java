@@ -52,7 +52,7 @@ public abstract class ExpensesPage extends PageWithSidebar<AnchorPane> {
     /**
      * Generates total expenditure and total budget for the trip
      */
-    private void generateSummary(){
+    private void generateSummary() {
         totalExpenditure = expenses.stream().mapToDouble(expense -> {
             return Double.parseDouble(expense.getBudget().toString());
         }).sum();

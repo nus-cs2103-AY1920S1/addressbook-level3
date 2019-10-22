@@ -40,8 +40,8 @@ public class DoneEditExpenditureCommand extends Command {
                 //buildExpenditure() requires compulsory fields to be non null, failing which
                 //NullPointerException is caught below
                 expenditureToAdd = editExpenditureDescriptor.buildExpenditure();
-                if(expenditureToAdd.getDayNumber().isPresent()){
-                    if(Integer.parseInt(expenditureToAdd.getDayNumber().get().toString())
+                if (expenditureToAdd.getDayNumber().isPresent()) {
+                    if (Integer.parseInt(expenditureToAdd.getDayNumber().get().toString())
                             > model.getPageStatus().getTrip().getDayList().internalList.size()) {
                         throw new NullPointerException();
                     }

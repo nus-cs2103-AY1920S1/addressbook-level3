@@ -1,13 +1,10 @@
 package seedu.address.ui.expenditure;
 
-import java.util.Optional;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.ui.UiPart;
 

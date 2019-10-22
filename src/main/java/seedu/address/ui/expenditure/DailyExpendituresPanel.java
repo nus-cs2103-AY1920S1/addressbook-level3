@@ -1,5 +1,9 @@
 package seedu.address.ui.expenditure;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -7,13 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
-import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.ui.UiPart;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * TODO: Implement display for inventory and booking labels.
@@ -47,11 +46,11 @@ public class DailyExpendituresPanel extends UiPart<HBox> {
      */
     private void fillDailyExpendituresPanelLabels() {
         expenditureCardContainer.getChildren().clear();
-        double totalExpense = IntStream.range(0, expenditures.size()).
-                mapToDouble(index -> expenditures.get(index).getExpenditure().getBudget().value).sum();
+        double totalExpense = IntStream.range(0, expenditures.size())
+                .mapToDouble(index -> expenditures.get(index).getExpenditure().getBudget().value).sum();
         dailyExpensesLabel.setText("Expenses: $" + totalExpense);
 
-        if(index.getZeroBased() == 0) {
+        if (index.getZeroBased() == 0) {
             dailyBudgetLabel.setText("");
             dailyBudgetLeftLabel.setText("");
         } else {
