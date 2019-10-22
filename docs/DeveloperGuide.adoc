@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= EatMe Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-W11-3/main/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W11-3`      Since: `September 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -153,87 +153,32 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+// tag::add[]
+=== Add eatery feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The add mechanism is facilitated by `AddressBook`. It implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `AddressBook#hasEatery(Eatery e)` -- Checks if an Eatery with the same identity as Eatery e exists in the address book.
+* `AddressBook#addEatery(Eatery e)` -- Adds an Eatery to the address book. The eatery must not already exist in the address book.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#hasEatery()` and `Model#addEatery()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the add eatery mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the default eateries.
 
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+Step 2. The user executes `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` to add a new eatery. The `add` command also calls `Model#addEatery(Eatery e)`.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If the command is missing a `Name`, `Address`, or `Category` parameter, the execution of the add command will fail and the application will throw a `ParseException`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
+The following sequence diagram shows how the add operation works:
+image:add-sd.PNG[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+image::add-ad.PNG[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -279,16 +224,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of <<eatery, eateries>>
-** budget
-** <<category, category>>
-** location
+* has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage eateries faster than a typical mouse/GUI driven app with statistics of key details such as budget, category and location
+*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -298,25 +240,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |food blogger |keep a list of outstanding cafes |clear them in an orderly fashion.
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |student |keep a list of affordable eateries |save money
+|`* * *` |user |add a new person |
 
-|`* * *` |person with many food allergies |keep track of dishes I have ordered before |avoid ordering hazardous food
+|`* * *` |user |delete a person |remove entries that I no longer need
 
-<<<<<<< HEAD
-|`* * *` |user |find a person by name |locate details of eateries without having to go through the entire list
-=======
-|`* * *` |foodie |remember places |share this experience with my family and friends
->>>>>>> upstream/master
+|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* *` |digital nomad |tag places with free power + wifi |sit there for extended periods of time
+|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-<<<<<<< HEAD
-|`*` |user with many eateries in the address book |sort eateries by name |locate a person easily
-=======
-|`*` |working adult |view the menu beforehand |save time from thinking what to eat
->>>>>>> upstream/master
+|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -324,26 +258,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `EatMe` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Removing an eatery from todo
+=== Use case: Delete person
 
 *MSS*
 
-<<<<<<< HEAD
-1.  User requests to list eateries
-2.  AddressBook shows a list of eateries
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
 3.  User requests to delete a specific person in the list
 4.  AddressBook deletes the person
-=======
-1.  User requests to view his todo list
-2.  EatMe toggles to the todo mode
-3.  User requests to mark an eatery as visited in the list
-4.  EatMe shifts the data over
-5.  EatMe toggles to the main mode
-6.  EatMe requests user for whatever information left that is required before saving in the main mode
->>>>>>> upstream/master
 +
 Use case ends.
 
@@ -354,68 +279,12 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given eatery is invalid.
+* 3a. The given index is invalid.
 +
 [none]
-** 3a1. EatMe shows an error message.
+** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
-
-* 6a. The given information is of the wrong format.
-+
-[none]
-** 6a1. EatMe shows an error message.
-+
-Use case resumes at step 8.
-
-[discrete]
-=== Use case: Tagging an eatery in main
-
-*MSS*
-
-1.  User requests to add a tag to an eatery
-2.  EatMe updates the eatery accordingly
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The list is empty.
-+
-Use case ends.
-
-* 1b. The user gives invalid information.
-+
-[none]
-** 1b1. EatMe shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
-=== Use case: Viewing a menu beforehand
-
-*MSS*
-
-1.  User searches for an eatery
-2.  EatMe displays the eatery accordingly
-3.  User reads the entry for the menu
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The list is empty.
-+
-Use case ends.
-
-* 1b. The user gives invalid information.
-+
-[none]
-** 1b1. EatMe shows an error message.
-+
-Use case resumes at step 1.
 
 _{More to be added}_
 
@@ -423,9 +292,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 eateries without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Main functionalities (CRUD) should work without WiFi.
 
 _{More to be added}_
 
@@ -435,28 +303,25 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[eatery]] Eatery::
-Any place that serves food open to the public (ie, restaurants, cafes, roadside, pushcart)
-
-[[category]] Category::
-Broadly containts cuisines (self-explanatory) and eating place (ie, a buffet, fusion)
+[[private-contact-detail]] Private contact detail::
+A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
 
-*Soon*
+*Product Name*
 
-Author: Beginner AB
+Author: ...
 
 Pros:
 
-* Shows trending restaurants nearby
-* Hide option
+* ...
+* ...
 
 Cons:
 
-* Unable to delete lists
-* Unable to search
+* ...
+* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -484,9 +349,9 @@ _{ more test cases ... }_
 
 === Deleting a person
 
-. Deleting a person while all eateries are listed
+. Deleting a person while all persons are listed
 
-.. Prerequisites: List all eateries using the `list` command. Multiple eateries in the list.
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -503,3 +368,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
