@@ -31,12 +31,12 @@ public class ViewCommand extends Command {
             + "based on their indexes on the displayed lists. Specify up to three items "
             + "(one from each type) in a single " + COMMAND_WORD + " command.\n"
             + "Parameters: KEYWORD "
-            + "[" + PREFIX_APPEAL + "INDEX" + "] "
-            + "[" + PREFIX_MODULE + "INDEX" + "] "
-            + "[" + PREFIX_STUDENT + "INDEX" + "]\n"
+            + " [" + PREFIX_APPEAL + "INDEX" + "] "
+            + " [" + PREFIX_MODULE + "INDEX" + "] "
+            + "  [" + PREFIX_STUDENT + "INDEX" + "]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_APPEAL + "1"
-            + PREFIX_MODULE + "11"
+            + PREFIX_APPEAL + "1 "
+            + PREFIX_MODULE + "11 "
             + PREFIX_STUDENT + "10\n";
 
     public static final String MESSAGE_VIEW_SUCCESS = "Displayed items with ID: %1$s";
