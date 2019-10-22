@@ -47,7 +47,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     /**
      * Modifies balance of each Person involved in Split. Person is added
      * into Ledger's personList if not already inside.
-     * @param balance Total spending in the Split
+     * @param balance initial balance in the Ledger
      * @param peopleInLedger UniqueList of people involved in the Split
      * @return updated balance after splitting
      *
@@ -56,18 +56,14 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     public Amount handleBalance(Amount balance, UniquePersonList peopleInLedger) {
         Iterator<Person> personInvolvedIterator = peopleInvolved.iterator();
         Iterator<Amount> amountIterator = splitAmounts.iterator();
+        Amount newBalance = balance;
         while (personInvolvedIterator.hasNext()) {
             Amount expenditure = amountIterator.next();
             Person person = personInvolvedIterator.next();
-            if (peopleInLedger.contains(person)) {
-                person = peopleInLedger.get(person).get();
-            } else {
-                peopleInLedger.add(person);
-            }
-            balance = balance.subtractAmount(expenditure);
-            person.spend(expenditure);
+            LendMoney transaction = new LendMoney(person, expenditure);
+            newBalance = transaction.handleBalance(newBalance, peopleInLedger);
         }
-        return balance;
+        return newBalance;
     }
 
     @Override

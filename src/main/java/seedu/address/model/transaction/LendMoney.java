@@ -9,6 +9,10 @@ public class LendMoney extends Payment {
         super(person, amount, date);
     }
 
+    public LendMoney(Person person, Amount amount) {
+        super(person, amount);
+    }
+
     @Override
     public Amount handleBalance(Amount balance, UniquePersonList peopleInLedger) {
         Person target = super.handleTarget(peopleInLedger);
