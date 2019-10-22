@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.PARTICIPANT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PARTICIPANT_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_ALT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_ALT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPTION;
@@ -37,12 +36,7 @@ public class ExpenseCommandParserTest {
                 add(VALID_NAME_BOB);
             }
         };
-        ArrayList<Amount> amounts = new ArrayList<>() {
-
-            {
-                add(new Amount(Double.parseDouble(VALID_AMOUNT)));
-            }
-        };
+        Amount amount = new Amount(Double.parseDouble(VALID_AMOUNT));
 
         assertParseSuccess(
             parser,
@@ -52,7 +46,7 @@ public class ExpenseCommandParserTest {
             + VALID_EXPENSE_DESCRIPTION_DESC,
             new ExpenseCommand(
                 persons,
-                amounts,
+                amount,
                 VALID_EXPENSE_DESCRIPTION
             )
         );
@@ -67,17 +61,11 @@ public class ExpenseCommandParserTest {
                 add(VALID_NAME_AMY);
             }
         };
-        ArrayList<Amount> amounts = new ArrayList<>() {
-
-            {
-                add(new Amount(Double.parseDouble(VALID_AMOUNT)));
-                add(new Amount(Double.parseDouble(VALID_AMOUNT_ALT)));
-            }
-        };
+        Amount amount = new Amount(Double.parseDouble(VALID_AMOUNT));
 
         ExpenseCommand result = new ExpenseCommand(
                 persons,
-                amounts,
+                amount,
                 VALID_EXPENSE_DESCRIPTION
         );
 
@@ -88,43 +76,7 @@ public class ExpenseCommandParserTest {
                 + PARTICIPANT_DESC_BOB
                 + VALID_AMOUNT_DESC
                 + PARTICIPANT_DESC_AMY
-                + VALID_AMOUNT_ALT_DESC
                 + VALID_EXPENSE_DESCRIPTION_DESC,
-                result
-        );
-
-        // These check that as long as the relative ordering of each participant and expense is maintained,
-        // the result is the same
-        assertParseSuccess(
-                parser,
-                PREAMBLE_WHITESPACE
-                        + PARTICIPANT_DESC_BOB
-                        + PARTICIPANT_DESC_AMY
-                        + VALID_AMOUNT_DESC
-                        + VALID_AMOUNT_ALT_DESC
-                        + VALID_EXPENSE_DESCRIPTION_DESC,
-                result
-        );
-
-        assertParseSuccess(
-                parser,
-                PREAMBLE_WHITESPACE
-                        + VALID_AMOUNT_DESC
-                        + PARTICIPANT_DESC_BOB
-                        + PARTICIPANT_DESC_AMY
-                        + VALID_AMOUNT_ALT_DESC
-                        + VALID_EXPENSE_DESCRIPTION_DESC,
-                result
-        );
-
-        assertParseSuccess(
-                parser,
-                PREAMBLE_WHITESPACE
-                        + VALID_AMOUNT_DESC
-                        + VALID_AMOUNT_ALT_DESC
-                        + VALID_EXPENSE_DESCRIPTION_DESC
-                        + PARTICIPANT_DESC_BOB
-                        + PARTICIPANT_DESC_AMY,
                 result
         );
 
