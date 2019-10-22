@@ -1,5 +1,7 @@
 package budgetbuddy.commons.core.index;
 
+import java.util.Comparator;
+
 /**
  * Represents a zero-based or one-based index.
  *
@@ -50,5 +52,16 @@ public class Index {
         return other == this // short circuit if same object
                 || (other instanceof Index // instanceof handles nulls
                 && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
+    }
+
+    @Override
+    public String toString() {
+        return zeroBasedIndex + "";
+    }
+
+    public static class SortByIndex implements Comparator<Index> {
+        public int compare(Index first, Index second) {
+            return first.getZeroBased() - second.getZeroBased();
+        }
     }
 }

@@ -41,7 +41,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         Name name = CommandParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
-        Person person = new Person(name, new LoanList());
+        Person person = new Person(name);
 
         return new AddCommand(person);
     }

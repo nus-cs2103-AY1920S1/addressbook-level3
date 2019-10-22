@@ -30,13 +30,10 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
         ArgumentMultimap argMultiMap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DATE);
 
-        Index personIndex;
         Index loanIndex;
         try {
-            String[] personLoanIndicesArr = argMultiMap.getPreamble().split("\\.");
-            personIndex = CommandParserUtil.parseIndex(personLoanIndicesArr[0]);
-            loanIndex = CommandParserUtil.parseIndex(personLoanIndicesArr[1]);
-        } catch (ParseException | IndexOutOfBoundsException e) {
+            loanIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
+        } catch (ParseException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanEditCommand.MESSAGE_USAGE), e);
         }
@@ -59,6 +56,6 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
             throw new ParseException(LoanEditCommand.MESSAGE_UNEDITED);
         }
 
-        return new LoanEditCommand(personIndex, loanIndex, loanEditDescriptor);
+        return new LoanEditCommand(loanIndex, loanEditDescriptor);
     }
 }

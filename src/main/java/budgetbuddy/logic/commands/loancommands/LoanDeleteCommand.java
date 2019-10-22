@@ -10,9 +10,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.LoanList;
-import budgetbuddy.model.loan.util.PersonLoanIndexPair;
+import budgetbuddy.model.person.Person;
 
 /**
  * Delete one or more loans.
@@ -29,28 +27,22 @@ public class LoanDeleteCommand extends MultiLoanCommand {
             + MULTI_LOAN_SYNTAX_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "Loan(s) deleted.";
-    public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";
 
-    public LoanDeleteCommand(
-            List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
-        super(personLoanIndexPairs, personIndices);
+    public LoanDeleteCommand(List<Index> loanIndices, List<Person> persons) throws CommandException {
+        super(loanIndices, persons);
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getLoansManager());
 
         LoansManager loansManager = model.getLoansManager();
-        LoanList targetLoans = constructTargetLoanList(loansManager);
-        Consumer<Loan> operation = loansManager::deleteLoan;
+        List<Index> targetLoanIndices = constructTargetLoanIndicesList(loansManager);
+        Consumer<Index> deleteLoanOp = loansManager::deleteLoan;
 
-        try {
-            actOnTargetLoans(targetLoans, operation);
-        } catch (CommandException e) {
-            throw new CommandException(MESSAGE_FAILURE);
-        }
+        actOnTargetLoans(targetLoanIndices, deleteLoanOp);
 
-        String resultMessage = constructMultiLoanResult(MESSAGE_SUCCESS, MESSAGE_FAILURE);
+        String resultMessage = constructMultiLoanResult(MESSAGE_SUCCESS);
         return new CommandResult(resultMessage);
     }
 

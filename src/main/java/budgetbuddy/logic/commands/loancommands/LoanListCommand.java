@@ -5,8 +5,11 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_SORT;
 
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandResult;
+import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.person.Person;
+import budgetbuddy.model.loan.Loan;
+
+import javafx.collections.ObservableList;
 
 /**
  * Lists loans.
@@ -29,16 +32,14 @@ public class LoanListCommand extends Command {
     public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getLoansManager());
 
+        LoansManager loansManager = model.getLoansManager();
+        ObservableList<Loan> loans = loansManager.getSortedLoans();
+
         // TODO Display the list in the main window instead of in the command result text box.
         StringBuilder builder = new StringBuilder();
         builder.append("Current Loans:");
-        for (int i = 0; i < model.getLoansManager().getPersonsList().size(); i++) {
-            builder.append("\n");
-            Person person = model.getLoansManager().getPersonsList().get(i);
-            builder.append(i + 1).append(". ").append(person.toString()).append("\n");
-            for (int j = 0; j < person.getLoans().size(); j++) {
-                builder.append("  ").append(j + 1).append(".").append(person.getLoans().get(j)).append("\n");
-            }
+        for (int i = 0; i < loansManager.getLoansCount(); i++) {
+            builder.append(loans.get(i));
         }
 
         return new CommandResult(builder.toString());

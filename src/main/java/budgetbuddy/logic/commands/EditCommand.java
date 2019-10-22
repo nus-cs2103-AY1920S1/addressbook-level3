@@ -79,7 +79,7 @@ public class EditCommand extends Command {
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
 
-        return new Person(updatedName, new LoanList());
+        return new Person(updatedName);
     }
 
     @Override
