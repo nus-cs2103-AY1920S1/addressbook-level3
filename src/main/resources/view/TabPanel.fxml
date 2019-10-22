@@ -83,5 +83,23 @@
                </VBox>
            </content>
          </Tab>
+          <Tab text="Archived">
+          <graphic>
+              <ImageView>
+                  <image>
+                      <Image url="@../images/archiveIcon.png"/>
+                  </image>
+              </ImageView>
+          </graphic>
+              <content>
+                  <VBox fx:id="archivedOrderList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                      <padding>
+                          <Insets top="5" right="0" bottom="0" left="0" />
+                      </padding>
+
+                      <StackPane fx:id="archivedOrderListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
+                  </VBox>
+              </content>
+          </Tab>
       </tabs></TabPane>
 </VBox>

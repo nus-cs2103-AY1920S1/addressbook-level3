@@ -1,9 +1,10 @@
-package seedu.address.model.order;
+package seedu.address.model.order.predicates;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.order.Order;
 
 /**
  * Tests that a {@code Order}'s {@code Id} matches any of the keywords given.

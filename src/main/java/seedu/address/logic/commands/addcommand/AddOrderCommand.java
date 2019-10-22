@@ -90,10 +90,6 @@ public class AddOrderCommand extends Command {
         Order toAdd = new Order(UUID.randomUUID(), customer, phone, toAddPrice,
                 Status.UNSCHEDULED, Optional.empty(), toAddTags);
 
-        if (model.hasOrder(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
-        }
-
         model.addOrder(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiChange.ORDER);
     }

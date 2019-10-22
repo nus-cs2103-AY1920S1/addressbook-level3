@@ -100,6 +100,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Order> getArchivedFilteredOrderList() {
+        /******* for zhi xiang *****/
+
+        return model.getFilteredOrderList();
+    }
+
+
+    @Override
     public ObservableList<Schedule> getFilteredScheduleList() {
         return model.getFilteredScheduleList(); }
 
