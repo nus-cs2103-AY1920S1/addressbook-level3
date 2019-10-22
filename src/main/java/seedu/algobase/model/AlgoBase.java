@@ -57,7 +57,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         setProblems(newData.getProblemList());
         setPlans(newData.getPlanList());
         setTags(newData.getTagList());
-        setPlans(newData.getPlanList());
     }
 
     //========== Problem ================================================================

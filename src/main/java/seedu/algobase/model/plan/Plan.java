@@ -59,7 +59,6 @@ public class Plan {
      * with an updated {@code taskSet}.
      */
     public static Plan updateTasks(Plan planToUpdate, Set<Task> taskSet) {
-
         assert planToUpdate != null;
 
         long id = planToUpdate.id;

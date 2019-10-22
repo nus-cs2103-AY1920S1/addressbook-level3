@@ -63,8 +63,8 @@ class JsonAdaptedPlan {
         startDate = plan.getStartDate().format(ParserUtil.FORMATTER);
         endDate = plan.getEndDate().format(ParserUtil.FORMATTER);
         taskList.addAll(plan.getTasks().stream()
-                .map(JsonAdaptedTask::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedTask::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -99,7 +99,7 @@ class JsonAdaptedPlan {
     public long retrieveId(String id) throws IllegalValueException {
         if (id == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
 
         try {
@@ -119,8 +119,8 @@ class JsonAdaptedPlan {
     public PlanName retrieveName(String name) throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            PlanName.class.getSimpleName()));
+                String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PlanName.class.getSimpleName()));
         }
         if (!PlanName.isValidName(name)) {
             throw new IllegalValueException(PlanName.MESSAGE_CONSTRAINTS);
@@ -138,8 +138,8 @@ class JsonAdaptedPlan {
     public PlanDescription retrieveDescription(String description) throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            PlanDescription.class.getSimpleName()));
+                String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PlanDescription.class.getSimpleName()));
         }
 
         if (PlanDescription.isDefaultDescription(description)) {
@@ -163,7 +163,7 @@ class JsonAdaptedPlan {
     private LocalDate retrieveDate(String date) throws IllegalValueException {
         if (date == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "Date"));
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "Date"));
         }
 
         try {
