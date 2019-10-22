@@ -1,7 +1,6 @@
 package budgetbuddy.model.person;
 
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static budgetbuddy.testutil.Assert.assertThrows;
 import static budgetbuddy.testutil.TypicalPersons.ALICE;
 import static budgetbuddy.testutil.TypicalPersons.BOB;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,12 +11,6 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.testutil.PersonBuilder;
 
 public class PersonTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getLoans().remove(0));
-    }
 
     @Test
     public void isSamePerson() {

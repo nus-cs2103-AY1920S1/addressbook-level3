@@ -1,7 +1,6 @@
 package budgetbuddy.testutil;
 
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.person.Person;
 
 /**
@@ -12,11 +11,9 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Kurtz";
 
     private Name name;
-    private LoanList loans;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        loans = new LoanList();
     }
 
     /**
@@ -24,8 +21,6 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
-        loans = new LoanList();
-        loans.replaceList(personToCopy.getLoans());
     }
 
     /**
@@ -36,16 +31,8 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code LoanList} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withLoans(LoanList loans) {
-        this.loans.replaceList(loans.asUnmodifiableObservableList());
-        return this;
-    }
-
     public Person build() {
-        return new Person(name, loans);
+        return new Person(name);
     }
 
 }
