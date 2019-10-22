@@ -33,8 +33,8 @@ public class StatsManager implements StatsEngine {
     }
 
     @Override
-    public void incrementLikesByMeme(Meme meme) {
-        likeData.incrementLikesByMeme(meme);
+    public void incrementMemeLikeCount(Meme meme) {
+        likeData.incrementMemeLikeCount(meme);
     }
 
     @Override

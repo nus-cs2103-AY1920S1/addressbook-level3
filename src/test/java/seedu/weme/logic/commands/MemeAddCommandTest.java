@@ -228,12 +228,12 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void incrementLikesByMeme(Meme meme) {
+        public void incrementMemeLikeCount(Meme meme) {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public void deleteLikesByMeme(Meme meme) {
+        public void clearMemeStats(Meme meme) {
             throw new AssertionError("This method should not be called");
         }
 

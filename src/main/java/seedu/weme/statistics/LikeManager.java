@@ -72,7 +72,7 @@ public class LikeManager implements LikeData {
     }
 
     @Override
-    public void incrementLikesByMeme(Meme meme) {
+    public void incrementMemeLikeCount(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.setLikesByMemeRef(memeRef, INCREMENT);
     }

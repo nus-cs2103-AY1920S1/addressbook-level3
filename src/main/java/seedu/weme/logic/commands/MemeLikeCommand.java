@@ -13,7 +13,7 @@ import seedu.weme.model.meme.Meme;
 /**
  * Likes a meme in the display window.
  */
-public class LikeCommand extends Command {
+public class MemeLikeCommand extends Command {
 
     public static final String COMMAND_WORD = "like";
 
@@ -29,7 +29,7 @@ public class LikeCommand extends Command {
     /**
      * @param index of the meme in the filtered meme list to like
      */
-    public LikeCommand(Index index) {
+    public MemeLikeCommand(Index index) {
         requireNonNull(index);
 
         this.index = index;
@@ -46,7 +46,7 @@ public class LikeCommand extends Command {
 
         Meme memeToLike = lastShownList.get(index.getZeroBased());
 
-        model.incrementLikesByMeme(memeToLike);
+        model.incrementMemeLikeCount(memeToLike);
         return new CommandResult(String.format(MESSAGE_LIKE_MEME_SUCCESS, memeToLike));
     }
 
@@ -58,12 +58,12 @@ public class LikeCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof LikeCommand)) {
+        if (!(other instanceof MemeLikeCommand)) {
             return false;
         }
 
         // state check
-        LikeCommand e = (LikeCommand) other;
+        MemeLikeCommand e = (MemeLikeCommand) other;
         return index.equals(e.index);
     }
 

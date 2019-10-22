@@ -162,12 +162,12 @@ public interface Model {
     /**
      * Increments likes of a meme by the Meme object.
      */
-    void incrementLikesByMeme(Meme meme);
+    void incrementMemeLikeCount(Meme meme);
 
     /**
-     * Deletes like data by meme.
+     * Deletes stats data by meme.
      */
-    void deleteLikesByMeme(Meme memeToDelete);
+    void clearMemeStats(Meme memeToDelete);
 
 
     /**

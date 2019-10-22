@@ -219,12 +219,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void incrementLikesByMeme(Meme meme) {
-        statsEngine.incrementLikesByMeme(meme);
+    public void incrementMemeLikeCount(Meme meme) {
+        statsEngine.incrementMemeLikeCount(meme);
     }
 
     @Override
-    public void deleteLikesByMeme(Meme meme) {
+    public void clearMemeStats(Meme meme) {
         statsEngine.deleteLikesByMeme(meme);
     }
 

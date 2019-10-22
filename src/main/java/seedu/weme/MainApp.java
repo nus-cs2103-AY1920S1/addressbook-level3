@@ -91,15 +91,17 @@ public class MainApp extends Application {
             initialData = memeBookOptional.orElseGet(() -> SampleDataUtil.getSampleMemeBook(userPrefs));
             statsEngineOptional = storage.readStatsData();
             if (!statsEngineOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample LikeData");
+                logger.info("Stats file not found. Will be starting with a sample StatsEngine");
             }
             initialStatsEngine = statsEngineOptional.orElseGet(() -> SampleDataUtil.getSampleStatsData(userPrefs));
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty MemeBook and LikeData");
+            logger.warning("Data file not in the correct format. "
+                    + "Will be starting with an empty MemeBook and StatsEngine");
             initialData = new MemeBook();
             initialStatsEngine = new StatsManager();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty MemeBook and LikeData");
+            logger.warning("Problem while reading from the file. "
+                    + "Will be starting with an empty MemeBook and LikeData");
             initialData = new MemeBook();
             initialStatsEngine = new StatsManager();
         }

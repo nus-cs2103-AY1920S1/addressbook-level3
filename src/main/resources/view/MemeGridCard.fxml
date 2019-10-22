@@ -24,14 +24,11 @@
       <ImageView fx:id="display" cache="true" fitHeight="200" fitWidth="200" pickOnBounds="true" preserveRatio="true" />
       <FlowPane fx:id="tags" alignment="CENTER" />
       <Label fx:id="description" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_small_label" text="\$description" />
-         <Pane prefHeight="24.0" prefWidth="240.0">
-            <children>
-               <Label fx:id="likes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="193.0" layoutY="4.0" styleClass="cell_small_label" text="\$likes" />
-            </children>
+        <Pane prefHeight="24.0" prefWidth="240.0">
+          <children>
+            <Label fx:id="likes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="193.0" layoutY="4.0" styleClass="cell_small_label" text="\$likes" />
+          </children>
          </Pane>
     </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
   </GridPane>
 </HBox>

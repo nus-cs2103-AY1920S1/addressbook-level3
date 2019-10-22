@@ -34,7 +34,7 @@ public class MemeDeleteCommandTest {
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getStatsEngine());
+        ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new StatsManager());
         expectedModel.deleteMeme(memeToDelete);
         expectedModel.commitMemeBook();
 
@@ -58,7 +58,7 @@ public class MemeDeleteCommandTest {
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getStatsEngine());
+        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new StatsManager());
         expectedModel.deleteMeme(memeToDelete);
         showNoMeme(expectedModel);
         expectedModel.commitMemeBook();

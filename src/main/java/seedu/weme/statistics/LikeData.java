@@ -34,7 +34,7 @@ public interface LikeData {
     /**
      * Likes a meme once.
      */
-    void incrementLikesByMeme(Meme meme);
+    void incrementMemeLikeCount(Meme meme);
 
     /**
      * Dislikes a meme once.

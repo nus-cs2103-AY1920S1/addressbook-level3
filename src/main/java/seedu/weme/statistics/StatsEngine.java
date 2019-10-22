@@ -14,7 +14,7 @@ public interface StatsEngine {
 
     ObservableMap<String, Integer> getObservableLikeData();
 
-    void incrementLikesByMeme(Meme meme);
+    void incrementMemeLikeCount(Meme meme);
 
     void deleteLikesByMeme(Meme meme);
 }
