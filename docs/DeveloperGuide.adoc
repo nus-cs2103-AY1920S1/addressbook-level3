@@ -129,7 +129,7 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:ModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
