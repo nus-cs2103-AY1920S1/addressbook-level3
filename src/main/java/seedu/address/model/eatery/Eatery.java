@@ -19,6 +19,7 @@ public class Eatery {
     // Data fields
     private final Address address;
     private final Category category;
+    private Set<Review> reviews = new HashSet<>();
     private Set<Tag> tags = new HashSet<>();
 
     /**
@@ -63,6 +64,21 @@ public class Eatery {
         return category;
     }
 
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews.clear();
+        for (Review r : reviews) {
+            this.addReview(r);
+        }
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -81,7 +97,8 @@ public class Eatery {
         }
 
         return otherEatery != null
-                && otherEatery.getName().equals(getName());
+                && otherEatery.getName().equals(getName())
+                && otherEatery.getAddress().equals(getAddress());
     }
 
     /**
@@ -109,15 +126,13 @@ public class Eatery {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, isOpen, address, tags);
+        return Objects.hash(name, isOpen, address, reviews, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" isOpen: ")
-                .append(getIsOpen())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Category: ")
