@@ -109,7 +109,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
         PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage,
-                financialTrackerPage, achievementsPage, addressBookPage);
+                financialTrackerPage, achievementsPage, addressBookPage, diaryPage);
 
     }
 

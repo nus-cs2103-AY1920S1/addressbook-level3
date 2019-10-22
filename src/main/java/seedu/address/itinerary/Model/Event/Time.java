@@ -1,5 +1,8 @@
-package seedu.address.itinerary.model.Event;
+package seedu.address.itinerary.model.event;
 
+/**
+ * Time attribute for the event in the itinerary.
+ */
 public class Time {
     public static final String MESSAGE_CONSTRAINTS =
             "Time should only contain numerals and be written in the 24hrs format.\n"
@@ -10,7 +13,7 @@ public class Time {
     public final String time;
 
     public Time(String time) {
-        this.time = time;
+        this.time = formatTime(time);
     }
 
     /**
@@ -20,8 +23,36 @@ public class Time {
         return time.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * @param time current time.
+     * @return format current time based on HH:MM a.m. / p.m..
+     */
+    private String formatTime(String time) {
+        int hour = Integer.parseInt(time.substring(0, 2));
+        String minutes = time.substring(2);
+        String zone;
+        if (hour > 12) {
+            hour -= 12;
+            zone = "p.m.";
+        } else if (hour == 0) {
+            hour = 12;
+            zone = "a.m.";
+        } else {
+            zone = "a.m.";
+        }
+
+        return hour + ":" + minutes + " " + zone;
+    }
+
     @Override
     public String toString() {
         return time;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Time // instanceof handles nulls
+                && time.equals(((Time) other).time)); // state check
     }
 }

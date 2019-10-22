@@ -1,4 +1,4 @@
-package seedu.address.itinerary.model.Event;
+package seedu.address.itinerary.model.event;
 
 /**
  * Date of the event in the itinerary.
@@ -17,7 +17,7 @@ public class Date {
     public final String date;
 
     public Date(String date) {
-        this.date = date;
+        this.date = formatDate(date);
     }
 
     /**
@@ -27,8 +27,27 @@ public class Date {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Format the date in the event to dd/MM/yyyy.
+     * @param date attribute in the given event.
+     * @return formatted date based on dd/MM/yyyy.
+     */
+    private String formatDate(String date) {
+        String day = date.substring(0, 2);
+        String month = date.substring(2, 4);
+        String year = date.substring(4);
+        return day + "/" + month + "/" + year;
+    }
+
     @Override
     public String toString() {
         return date;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Date // instanceof handles nulls
+                && date.equals(((Date) other).date)); // state check
     }
 }

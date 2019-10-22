@@ -1,5 +1,7 @@
 package seedu.address.itinerary.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
@@ -15,17 +17,25 @@ import seedu.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.*;
+import seedu.address.ui.CommandBox;
+import seedu.address.ui.Page;
+import seedu.address.ui.PageType;
+import seedu.address.ui.ResultDisplay;
+import seedu.address.ui.UiPart;
 
-import java.util.logging.Logger;
-
+/**
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
+ */
+@SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class ItineraryPage extends UiPart<VBox> implements Page {
-    private final static PageType pageType = PageType.ITINERARY;
-    private final static String fxmlWindow = "ItineraryWindow.fxml";
+    private static final PageType pageType = PageType.ITINERARY;
+    private static final String fxmlWindow = "ItineraryWindow.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private ResultDisplay resultDisplay;
     private EventPanel eventPanel;
-    private final Logger logger = LogsCenter.getLogger(getClass());
     private ItineraryParser itineraryParser;
     private Model model;
 
@@ -58,6 +68,9 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         fillInnerParts();
     }
 
+    /**
+     * Fills up all the placeholders of this window.
+     */
     private void fillInnerParts() {
         eventPanel = new EventPanel(model.getFilteredEventList());
         eventPlaceHolder.getChildren().add(eventPanel.getRoot());
@@ -65,7 +78,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -80,6 +93,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     /**
      * Changes application page.
      */
+    @SuppressWarnings("unused")
     @FXML
     private void handlePageChange(CommandResult commandResult) {
     }
@@ -100,13 +114,10 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             Command command = itineraryParser.parseCommand(commandText);
+            model.addAction(commandText);
             CommandResult commandResult = command.execute(model);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                //handleHelp();
-            }
 
             if (commandResult.isExit()) {
                 handleExit();

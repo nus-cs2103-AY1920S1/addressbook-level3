@@ -1,14 +1,23 @@
 package seedu.address.itinerary.parser;
 
-import seedu.address.itinerary.commands.AddEventCommand;
-import seedu.address.itinerary.model.Event.*;
-import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.itinerary.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.itinerary.parser.CliSyntax.*;
+import seedu.address.itinerary.commands.AddEventCommand;
+import seedu.address.itinerary.model.event.Date;
+import seedu.address.itinerary.model.event.Description;
+import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.model.event.Location;
+import seedu.address.itinerary.model.event.Time;
+import seedu.address.itinerary.model.event.Title;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -20,11 +29,14 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME,
+                        PREFIX_LOCATION, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME,
+                PREFIX_LOCATION, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }

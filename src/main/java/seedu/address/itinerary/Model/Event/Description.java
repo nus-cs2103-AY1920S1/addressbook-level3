@@ -1,4 +1,4 @@
-package seedu.address.itinerary.model.Event;
+package seedu.address.itinerary.model.event;
 
 /**
  * A short description complementing the event in the itinerary.
@@ -29,5 +29,12 @@ public class Description {
     @Override
     public String toString() {
         return desc;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Description // instanceof handles nulls
+                && desc.equals(((Description) other).desc)); // state check
     }
 }
