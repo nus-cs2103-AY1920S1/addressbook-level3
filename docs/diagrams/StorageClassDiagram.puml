@@ -6,19 +6,20 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface XYZStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonXYZStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> XYZStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonXYZStorage .left.|> XYZStorage
+JsonXYZStorage .down.> JsonSerializableXYZStorage
+JsonSerializableXYZStorage .right.> JsonSerializableXYZ
+JsonSerializableXYZ .right.> JsonAdaptedXYZ
+note left of XYZStorage: XYZ refers to individual\ncomponents in DukeCooks.\nExample: RecipeBook, Diary
 @enduml
