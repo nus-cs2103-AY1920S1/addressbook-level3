@@ -11,6 +11,7 @@ import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -36,6 +37,16 @@ public class AverageMap {
     private final ObservableMap<LocalDate, Double> internalMap = FXCollections.observableHashMap();
     private final ObservableMap<LocalDate, Double> internalUnmodifiableMap =
             FXCollections.unmodifiableObservableMap(internalMap);
+    private final SimpleStringProperty internalAverageType = new SimpleStringProperty();
+    private final SimpleStringProperty internalRecordType = new SimpleStringProperty();
+
+    public SimpleStringProperty getInternalAverageType() {
+        return internalAverageType;
+    }
+
+    public SimpleStringProperty getInternalRecordType() {
+        return internalRecordType;
+    }
 
     /**
      * Calculates average values of a given record type based on the average type given.
@@ -66,6 +77,10 @@ public class AverageMap {
 
         internalMap.clear();
         internalMap.putAll(countAverageMap);
+
+        internalAverageType.setValue(averageType.toString());
+
+        internalRecordType.setValue(recordType.toString());
     }
 
     //TODO: abstract this by using ModelManager#updateFilteredRecordList.

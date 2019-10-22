@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
@@ -142,12 +143,12 @@ public class LogicManager implements Logic {
     //=========== Statistics List =============================================================
 
     @Override
-    public AverageType getAverageType() {
+    public SimpleStringProperty getAverageType() {
         return model.getAverageType();
     }
 
     @Override
-    public RecordType getRecordType() {
+    public SimpleStringProperty getRecordType() {
         return model.getRecordType();
     }
 

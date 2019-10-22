@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
@@ -111,12 +112,12 @@ public interface Logic {
     /**
      * Returns the last average type calculated.
      */
-    AverageType getAverageType();
+    SimpleStringProperty getAverageType();
 
     /**
      * Returns the last record type whose average is calculated.
      */
-    RecordType getRecordType();
+    SimpleStringProperty getRecordType();
 
     /**
      * Returns a {@code Map} object that maps time period to the respective average values.

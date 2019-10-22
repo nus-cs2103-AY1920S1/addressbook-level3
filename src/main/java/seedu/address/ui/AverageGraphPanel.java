@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
@@ -13,8 +16,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.record.RecordType;
-import seedu.address.model.statistics.AverageType;
 
 /**
  * Represents a panel of an average graph.
@@ -35,12 +36,29 @@ public class AverageGraphPanel extends UiPart<Region> {
     private NumberAxis yAxis;
 
 
-    public AverageGraphPanel(ObservableMap<LocalDate, Double> averageMap, AverageType averageType, RecordType recordType) {
+    public AverageGraphPanel(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
+                             SimpleStringProperty recordType) {
         super(FXML);
 
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
+                lineChart.getData().clear();
+                createChart(averageMap, averageType, recordType);
+            }
+        });
+
+        averageType.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                lineChart.getData().clear();
+                createChart(averageMap, averageType, recordType);
+            }
+        });
+
+        recordType.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 lineChart.getData().clear();
                 createChart(averageMap, averageType, recordType);
             }
@@ -56,7 +74,8 @@ public class AverageGraphPanel extends UiPart<Region> {
     /**
      * A convenience function to display chart.
      */
-    private void createChart(ObservableMap<LocalDate, Double> averageMap, AverageType averageType, RecordType recordType) {
+    private void createChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
+                             SimpleStringProperty recordType) {
         setTitle(averageType, recordType);
 
         setAxesLabel(averageType, recordType);
@@ -67,15 +86,15 @@ public class AverageGraphPanel extends UiPart<Region> {
     /**
      * Sets chart title.
      */
-    private void setTitle(AverageType averageType, RecordType recordType) {
+    private void setTitle(SimpleStringProperty averageType, SimpleStringProperty recordType) {
         String recordLabel = getRecordLabel(recordType);
-        lineChart.setTitle(String.format(TITLE, averageType.toString(), recordLabel));
+        lineChart.setTitle(String.format(TITLE, averageType.get(), recordLabel));
     }
 
     /**
      * Sets labels of x and y axes according to average type and record type.
      */
-    private void setAxesLabel(AverageType averageType, RecordType recordType) {
+    private void setAxesLabel(SimpleStringProperty averageType, SimpleStringProperty recordType) {
         String xAxisLabel = getXAxisLabel(averageType);
         xAxis.setLabel(xAxisLabel);
 
@@ -99,35 +118,41 @@ public class AverageGraphPanel extends UiPart<Region> {
     /**
      * Gets the record type to be used in chart title.
      */
-    private String getRecordLabel(RecordType recordType) {
-        switch (recordType) {
-        case BMI:
+    private String getRecordLabel(SimpleStringProperty recordType) {
+        switch (recordType.get().toUpperCase()) {
+        case "BMI":
             return "weight";
-        case BLOODSUGAR:
+        case "BLOODSUGAR":
             return "blood sugar";
         default:
             return "";
         }
     }
 
-    private String getYAxisLabel(RecordType recordType) {
-        switch (recordType) {
-        case BMI:
+    /**
+     * Gets the record type to be used for y axis label.
+     */
+    private String getYAxisLabel(SimpleStringProperty recordType) {
+        switch (recordType.get().toUpperCase()) {
+        case "BMI":
             return "Weight (kg)";
-        case BLOODSUGAR:
+        case "BLOODSUGAR":
             return "Bloodsugar (mmol/L)";
         default:
             return "";
         }
     }
 
-    private String getXAxisLabel(AverageType averageType) {
-        switch (averageType) {
-        case DAILY:
+    /**
+     * Gets the average type to be used for x axis label.
+     */
+    private String getXAxisLabel(SimpleStringProperty averageType) {
+        switch (averageType.get().toUpperCase()) {
+        case "DAILY":
             return "Day";
-        case MONTHLY:
+        case "MONTHLY":
             return "Month";
-        case WEEKLY:
+        case "WEEKLY":
             return "Week";
         default:
             return "";

@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
@@ -188,25 +189,15 @@ public interface Model {
     /**
      * Returns the last average type calculated.
      */
-    AverageType getAverageType();
+    SimpleStringProperty getAverageType();
 
     /**
      * Returns the last record type whose average is calculated.
      */
-    RecordType getRecordType();
+    SimpleStringProperty getRecordType();
 
     /**
-     * Sets the average type being calculated currently.
-     */
-    void setAverageType(AverageType averageType);
-
-    /**
-     * Sets the record type whose average is being calculated currently.
-     */
-    void setRecordType(RecordType recordType);
-
-    /**
-     * Calculate average values of a record type.
+     * Calculates average values of a record type.
      */
     void calculateAverageMap(AverageType averageType, RecordType recordType, int count);
 
