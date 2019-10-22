@@ -5,11 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+import javafx.fxml.FXML;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
+import seedu.address.ui.IndividualClaimWindow;
+import seedu.address.ui.IndividualContactWindow;
 
 /**
  * The API of the Model component.
@@ -90,6 +93,20 @@ public interface Model {
     boolean hasClaim(Claim claim);
 
     /**
+     * Opens the claim window or focuses on it if it's already opened.
+     */
+    @FXML
+    public static void handleClaim(Claim claim) {
+        IndividualClaimWindow individualClaimWindow = new IndividualClaimWindow(claim);
+
+        if (!individualClaimWindow.isShowing()) {
+            individualClaimWindow.show();
+        } else {
+            individualClaimWindow.focus();
+        }
+    }
+
+    /**
      * Deletes the given claim.
      * The claim must exist.
      */
@@ -159,6 +176,21 @@ public interface Model {
      * in the address book.
      */
     void setIncome(Income target, Income editedIncome);
+
+    /**
+     * Opens the claim window or focuses on it if it's already opened.
+     */
+    @FXML
+    public static void handleContact(Contact contact) {
+
+        IndividualContactWindow individualContactWindow = new IndividualContactWindow(contact);
+
+        if (!individualContactWindow.isShowing()) {
+            individualContactWindow.show();
+        } else {
+            individualContactWindow.focus();
+        }
+    }
 
     boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion);
 
