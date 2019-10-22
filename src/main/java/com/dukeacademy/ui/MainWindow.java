@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private Editor editorPanel;
-    private RunCodeResult runCodeResultPanel;
+    private CodeResultPanel codeResultPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -61,7 +61,7 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane editorPlaceholder;
 
     @FXML
-    private AnchorPane runCodeResultPlaceholder;
+    private AnchorPane codeResultPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -142,12 +142,12 @@ public class MainWindow extends UiPart<Stage> {
         sampleTestCaseResults.add(
                 TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz", "Fizz"));
         sampleTestCaseResults.add(
-                TestCaseResult.getFailedTestCaseResult("25","Buzz", "FizzBuzz"));
+                TestCaseResult.getFailedTestCaseResult("25", "Buzz", "FizzBuzz"));
         sampleTestCaseResults.add(
-                TestCaseResult.getSuccessfulTestCaseResult("15","FizzBuzz", "FizzBuzz"));
+                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz", "FizzBuzz"));
 
-        runCodeResultPanel = new RunCodeResult(sampleTestCaseResults);
-        runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
+        codeResultPanel = new CodeResultPanel(sampleTestCaseResults);
+        codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
     }
 
     /**
@@ -198,8 +198,8 @@ public class MainWindow extends UiPart<Stage> {
         return editorPanel;
     }
 
-    public RunCodeResult getRunCodeResultPanel() {
-        return runCodeResultPanel;
+    public CodeResultPanel getRunCodeResultPanel() {
+        return codeResultPanel;
     }
 
     /**
