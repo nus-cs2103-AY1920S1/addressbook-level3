@@ -40,13 +40,13 @@ The user manually stores definitions / vocabulary into a word dataset. He can al
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`/help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`/list`* : lists all data sets.
-* **`/start`** : starts the quiz.
-* **`/stop`** : stops the quiz
-* *`/exit`* : exits the app
+* *`list`* : lists all cards in a word bank.
+* **`start`** : starts the game.
+* **`stop`** : stops the game.
+* *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -56,85 +56,73 @@ e.g. typing *`/help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* All commands are typed with `/` in front of them to differentiate them from answers that the user puts in. `~` will be used as an escape character in case `/` is used as part of the answer.
-    - Eg, `~/help` will be intepreted by the computer as a string "/help" instead of the command `/help`.
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add w/WORD`, `WORD` is a parameter which can be used as `add w/Charmander m/Fire starter pokemon`.
+* Items in square brackets are optional e.g `w/WORD [t/TAG]` can be used as `w/Squirtle t/Water type` or as `w/Squirtle`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
 ====
 
-=== Viewing help : `/help`
+=== Viewing help : `help`
 
-Format: `/help`
+Format: `help`
 
-=== Loading a data set : `/load`
+=== Loading a data set : `bank`
 
-Loads a data set from storage. +
-Format: `/load DATASET_NAME`
+Initialise a word bank data set from storage. +
+Format: `bank word_bank_name`
 
 [TIP]
-Use `/list` to get all data sets currently in your storage.
+Use `list` to get all word banks currently in your storage.
 
 Examples:
 
-* `/load List of animals`
-* `/load All gen 1 pokemon`
+* `bank List of animals`
+* `bank All gen 1 pokemon`
 
-=== Listing all data sets : `/list`
+=== Listing all data sets : `load`
 
 Shows a list of all data sets currently in storage. +
-Format: `/list`
+Format: `load`
 
-=== Viewing a data set's content : `/view`
+=== Viewing a data set's content : `list`
 
 Views the content of a data set. +
-Format: `/view DATASET_NAME`
+Format: `list`
 
-Examples :
+==== Create new data set : `create`
 
-* `/view Anatomy of the guitar`
-* `/view Steps in the krebs cycle`
-
-=== Editor mode : `/editor`
-
-Opens the in-app editor for managing data sets. All changes made in editor is automatically saved in storage. +
-Format: `/editor`
-
-==== Create new data set : `/new`
-
-Creates a new data set with specified name. Will automatically be set in edit mode for that data set. +
-Format: `/new DATASET_NAME`
+Creates a new word bank with specified name. Will automatically be set in edit mode for that data set. +
+Format: `create DATASET_NAME`
 
 Examples:
 
-* `/new Parts of the arm`
-* `/new All amino acids`
+* `create CS2040`
+* `create Biology`
 
-==== Editing a data set's content : `/edit`
+==== Editing a data set's content : `edit`
 
 Enters edit mode for selected data set. +
-Format: `/edit DATASET_NAME`
+Format: `edit DATASET_NAME`
 
 Examples:
 
-* `/edit List of animals`
-* `/edit Teeth`
+* `edit List of animals`
+* `edit Teeth`
 
-===== Adding a word : `/add`
+===== Adding a word : `add`
 
 Adds a new word-description pair to the data set. +
-Format: `/add /w WORD /d DESCRIPTION`
+Format: `add w/word m/meaning`
 
 NOTE: Word can be more than just 1 word. Can consist of multiple words if term to remember requires it.
 
 Examples:
 
-* `/add /w Elephant /d Has a long nose`
-* `/add /w Newton's third law of motion /d Every action will produce and equal and opposite reaction`
-* `/add /w Kopi Luwak /d Coffee produced from the coffee beans found in the faeces of a civet cat`
+* `add w/ Elephant m/ Has a long nose`
+* `add w/ Newton's third law of motion m/ Every action will produce and equal and opposite reaction`
+* `add w/ Kopi Luwak m/ Coffee produced from the coffee beans found in the faeces of a civet cat`
 
-===== Locating a word/description: `/find`
+===== Locating a word/description: `find`
 
 Finds entry whose word or description contain any of the given keywords. +
 Format: `/find KEYWORD [MORE_KEYWORDS]...`
@@ -155,10 +143,10 @@ Returns entries containing elephant and giraffe.
 Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or words.
 
 // tag::delete[]
-===== Deleting a word : `/delete`
+===== Deleting a word : `delete`
 
 Deletes the specified word from the data set. +
-Format: `/delete INDEX`
+Format: `delete w/card`
 
 ****
 * Deletes the word at the specified `INDEX`.
@@ -168,25 +156,25 @@ Format: `/delete INDEX`
 
 Examples:
 
-* `/list` +
-`/delete 2` +
+* `list` +
+`delete 2` +
 Deletes the 2nd word in the data set.
-* `/find elephant` +
+* `find elephant` +
 `delete 1` +
 Deletes the 1st word in the results of the `/find` command.
 // end::delete[]
 
-=== Start new game session : `/start`
+=== Start new game session : `start`
 
 Starts a game session with the desired data set. +
 Format: `/start List of animals`
 
-=== Stop game session : `/stop`
+=== Stop game session : `stop`
 
 Stops current game session (all progress will be lost) and returns to the home page. +
 Format: `/stop`
 
-=== Viewing statistics : `/stats`
+=== Viewing statistics : `stats`
 
 Views and compares statistics. Can be specified to view stats for specific data sets. +
 Format: `/stats [DATASET_NAME]`
@@ -198,7 +186,7 @@ Returns overall statistics for the whole app.
 * `/stats List of animals` +
 Returns statistics for the data set `List of animals`.
 
-=== Changing settings : `/settings`
+=== Changing settings : `settings`
 
 Goes into the settings menu. +
 Format: `/settings`
@@ -251,7 +239,7 @@ Examples:
 * `/back`
 * `/back home`
 
-=== Exiting the program : `/exit`
+=== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
@@ -281,33 +269,30 @@ Have more than one account to monitor statistics on the same computer
 
 == Command Summary
 
-* *Help* : `/help`
-* *Load* : `/load DATASET_NAME` +
-e.g. `/load List of animals`
-* *List* : `/list`
-* *View* : `/view DATASET_NAME` +
-e.g. `/view List of animals`
-* *Editor* : `/editor` +
-    ** *New* : `/new DATASET_NAME` +
-    e.g. `/new Car brands`
-    ** *Edit* : `/edit DATASET_NAME` +
-    e.g. `/edit List of animals`
-        *** *Add* : `/add /w WORD /d DESCRIPTION` +
-        e.g. `/add /w Elephant /d Has a long nose` +
-        e.g. `/add /w Giraffe /d Has a long neck`
-        *** *Find* : `/find WORD [WORDS]...` +
-        e.g. `/find long`
-        *** *Delete* : `/delete INDEX` +
-        e.g. `/delete 1`
-* *Start* : `/start DATASET_NAME` +
-e.g. `/start List of animals`
-* *Stop* : `/stop`
-* *Stats* : `/stats [DATASET_NAME]` +
-e.g. `/stats` +
-e.g. `/stats List of animals`
-* *Settings* : `/settings`
+* *Help* : `help`
+* *Load* : `load DATASET_NAME` +
+e.g. `load List of animals`
+* *List* : `list`
+* *View* : `view DATASET_NAME` +
+e.g. `view List of animals`
+* *Editor* : `editor` +
+    ** *New* : `new DATASET_NAME` +
+    e.g. `new Car brands`
+    ** *Edit* : `edit DATASET_NAME` +
+    e.g. `edit List of animals`
+        *** *Add* : `add w/ WORD m/ MEANING` +
+        e.g. `add w/ Elephant m/ Has a long nose` +
+        e.g. `add w/ Giraffe m/ Has a long neck`
+        *** *Find* : `find WORD [WORDS]...` +
+        e.g. `find long`
+        *** *Delete* : `delete BANKNAME` +
+        e.g. `delete BANKNAME`
+* *Start* : `start [DIFFICULTY]` +
+e.g. `start easy`
+* *Stop* : `stop`
+* *Settings* : `settings`
     ** *Theme* : `/theme dark/light`
     ** *Hints* : `/hints on/off`
     ** *Difficulty* : `/difficulty low/medium/high`
-* *Back* : `/back [home]`
-* *Exit* : `/exit`
+* *Back* : `back [home]`
+* *Exit* : `exit`
