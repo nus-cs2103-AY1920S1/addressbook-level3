@@ -26,6 +26,7 @@ public class LoanSlipDocument {
     private static final int HEADER_FONT_SIZE = 32;
     private static final int MID_HEADER_FONT_SIZE = 28;
     private static final int PARAGRAPH_FONT_SIZE = 20;
+    private static final double SCALE_RATIO = 0.1;
 
     private static final String FONT = "src/main/resources/font/Lato-Black.ttf";
     private static final String LOGO_PATH = "src/main/resources/images/LiBerryLogo.png";
@@ -50,8 +51,8 @@ public class LoanSlipDocument {
     public void writeLogo() {
         try {
             Image pdfImg = createImage(LOGO_PATH);
-            double newWidth = pdfImg.getImageWidth() * 0.1;
-            double newHeight = pdfImg.getImageHeight() * 0.1;
+            double newWidth = pdfImg.getImageWidth() * SCALE_RATIO;
+            double newHeight = pdfImg.getImageHeight() * SCALE_RATIO;
             pdfImg.scaleToFit((float) newWidth, (float) newHeight);
             pdfImg.setHorizontalAlignment(HorizontalAlignment.LEFT);
             doc.add(pdfImg);
