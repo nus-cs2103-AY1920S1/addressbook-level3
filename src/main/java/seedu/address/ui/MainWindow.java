@@ -189,6 +189,11 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         viewCalendar();
     }
 
+    public void viewMonth(int month, int year) {
+        calendarPanel.changeToMonthView(month, year);
+        viewCalendar();
+    }
+
     /**
      * Temporary method to view the event list
      */

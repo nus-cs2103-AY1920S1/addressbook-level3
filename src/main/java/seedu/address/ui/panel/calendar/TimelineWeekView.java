@@ -3,14 +3,7 @@ package seedu.address.ui.panel.calendar;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.EventCard;
@@ -23,19 +16,10 @@ public class TimelineWeekView extends TimelineView {
 
     private static final String FXML = "TimelineWeekView.fxml";
 
-    private UiParser uiParser;
     private Integer[][] days;
     private Integer week;
     private Integer month;
     private Integer year;
-
-    private ArrayList<EventCardHolder> eventCardHolders;
-
-    @FXML
-    private Label timelineTitle;
-
-    @FXML
-    private GridPane timelineGrid;
 
     /**
      * Constructor for TimelineWeekView for a particular week.
@@ -51,15 +35,16 @@ public class TimelineWeekView extends TimelineView {
                             Integer[][] days,
                             List<EventSource> eventList,
                             UiParser uiParser) {
-        super(FXML);
-        this.uiParser = uiParser;
+        super(uiParser, FXML);
         this.week = week;
         this.month = month;
         this.year = year;
         this.days = days;
-        this.eventCardHolders = new ArrayList<>();
+        this.totalRows = 7;
 
         this.timelineTitle.setText("Timeline: " + uiParser.getEnglishWeekDate(week, month, year));
+        addGrids();
+        addLabels(getLabels());
         addEventCardHolders();
         eventChange(eventList);
     }
@@ -102,58 +87,13 @@ public class TimelineWeekView extends TimelineView {
         eventCardHolder.addEvent(eventCard);
 
         // Set Constraints for the grid pane
-        System.out.println(eventIndex);
         RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventIndex - 1);
-
-        Task<Void> sleeper = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                try {
-                    Thread.sleep(TIMING);
-                } catch (InterruptedException e) {
-                }
-                return null;
-            }
-        };
-        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                resizeTimelineView();
-            }
-        });
-        new Thread(sleeper).start();
+        updateSizeDelay(rowConstraints, eventCardHolder);
     }
 
-
-    /**
-     * Resets the timeline by removing all of the eventCards and reset the size.
-     */
-    private void resetTimeline() {
-        for (int eventWeek = 0; eventWeek < eventCardHolders.size(); eventWeek++) {
-            // Reset RowConstraints
-            RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventWeek);
-            rowConstraints.setPrefHeight(0);
-
-            // Reset EventCards for each hour
-            eventCardHolders.get(eventWeek).removeEventCards();
-        }
-    }
-
-    private void addEventCardHolders() {
-        for(int i = 0; i < 7; i++) {
-            EventCardHolder eventCardHolder = new EventCardHolder();
-            eventCardHolders.add(eventCardHolder);
-            timelineGrid.add(eventCardHolder.getRoot(), 1, i);
-        }
-    }
-
-    @Override
-    public void resizeTimelineView() {
-        for(int weekDay = 0; weekDay < eventCardHolders.size(); weekDay++) {
-            EventCardHolder eventCardHolder = eventCardHolders.get(weekDay);
-            RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(weekDay);
-            rowConstraints.setPrefHeight(eventCardHolder.getHeight() + SPACING);
-        }
+    private String[] getLabels() {
+        String[] labels = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        return labels;
     }
 
     @Override

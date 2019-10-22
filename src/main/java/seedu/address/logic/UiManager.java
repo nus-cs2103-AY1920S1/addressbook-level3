@@ -64,7 +64,7 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
                 } else if (commandInput.equals("week 2 \"11/2019\"")) {
                     this.mainWindow.viewWeek(2, 11, 2019);
                 } else if (commandInput.equals("month")) {
-                    // TODO: Implement month view.
+                    this.mainWindow.viewMonth(11, 2019);;
                 } else if (commandInput.equals("calendar 11/2019")) {
                     // No need for day
                     this.mainWindow.changeCalendarScreenDate( 11, 2019);

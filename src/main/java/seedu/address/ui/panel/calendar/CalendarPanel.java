@@ -86,6 +86,13 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
+    public void changeToMonthView(int month, int year) {
+        changeCalendarScreenDate(month, year);
+        timelinePlaceholder.getChildren().clear();
+        this.timelineView = new TimelineMonthView(month, year, eventList, uiParser);
+        timelinePlaceholder.getChildren().add(timelineView.getRoot());
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
         this.timelineView.eventChange(events);

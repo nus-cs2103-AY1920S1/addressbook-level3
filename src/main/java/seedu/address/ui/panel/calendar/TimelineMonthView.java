@@ -1,8 +1,10 @@
 package seedu.address.ui.panel.calendar;
 
-import java.util.ArrayList;
+import java.time.YearMonth;
 import java.util.List;
 
+import javafx.geometry.VPos;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
 import seedu.address.model.events.EventSource;
@@ -13,35 +15,30 @@ import seedu.address.ui.UiParser;
 /**
  * An UI component that displays the feedback to the user.
  */
-public class TimelineDayView extends TimelineView {
+public class TimelineMonthView extends TimelineView {
 
-    private static final String FXML = "TimelineDayView.fxml";
+    private static final String FXML = "TimelineMonthView.fxml";
 
-    private Integer day;
     private Integer month;
     private Integer year;
 
-
     /**
-     * Constructor for TimelineDayView for a particular day.
+     * Constructor for TimelineMonthView for a particular month.
      *
-     * @param day Represents the day of the timeline.
      * @param month Represents the month of the timeline.
      * @param year Represents the year of the timeline.
      * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
      */
-    public TimelineDayView(Integer day,
-                           Integer month,
-                           Integer year,
-                           List<EventSource> eventList,
-                           UiParser uiParser) {
+    public TimelineMonthView(Integer month,
+                             Integer year,
+                             List<EventSource> eventList,
+                             UiParser uiParser) {
         super(uiParser, FXML);
-        this.day = day;
         this.month = month;
         this.year = year;
-        this.totalRows = 24;
+        this.totalRows = YearMonth.of(year, month).lengthOfMonth();
 
-        this.timelineTitle.setText("Timeline: " + uiParser.getEnglishDate(day, month, year));
+        this.timelineTitle.setText("Timeline: " + uiParser.getEnglishDate(month, year));
         addGrids();
         addLabels(getLabels());
         addEventCardHolders();
@@ -55,7 +52,7 @@ public class TimelineDayView extends TimelineView {
      */
     private boolean sameDate(EventSource event) {
         Integer[] dayMonthYear = uiParser.getDateToNumbers(event.getStartDateTime().toInstant());
-        return dayMonthYear[0].equals(day) && dayMonthYear[1].equals(month) && dayMonthYear[2].equals(year);
+        return dayMonthYear[1].equals(month) && dayMonthYear[2].equals(year);
     }
 
     /**
@@ -64,24 +61,21 @@ public class TimelineDayView extends TimelineView {
      */
     private void addEventCard(EventSource event) {
         // Gets the event Hour
-        Integer eventHour = uiParser.getHour(event.getStartDateTime().toInstant());
+        Integer eventDay = uiParser.getDay(event.getStartDateTime().toInstant());
 
         EventCard eventCard = new EventCard(event, uiParser);
-        EventCardHolder eventCardHolder = eventCardHolders.get(eventHour);
+        EventCardHolder eventCardHolder = eventCardHolders.get(eventDay - 1);
         eventCardHolder.addEvent(eventCard);
 
         // Set Constraints for the grid pane
-        RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventHour);
+        RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventDay - 1);
         updateSizeDelay(rowConstraints, eventCardHolder);
     }
 
     private String[] getLabels() {
-        String[] labels = new String[24];
-        for(int time = 0; time < 10; time++) {
-            labels[time] = "0" + time + ":00";
-        }
-        for(int time = 10; time < 24; time++) {
-            labels[time] = time + ":00";
+        String[] labels = new String[totalRows];
+        for(Integer day = 0; day < totalRows; day++) {
+            labels[day] = String.valueOf(day + 1);
         }
         return labels;
     }
