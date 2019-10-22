@@ -12,7 +12,7 @@ public class AutoCompleteListFilter {
     /**
      * Filter unrelated words from either prefix or command wordlist
      *
-     * @param matchedWords linkedlist of current matched words
+     * @param matchedWords      linkedlist of current matched words
      * @param listToBeSuggested list to be filtered
      * @return
      */
@@ -22,17 +22,13 @@ public class AutoCompleteListFilter {
         // filter based on first 2 correct word
         for (AutoCompleteWord autoCompleteWord : listToBeSuggested) {
             boolean isRelated = true;
-            if (matchedWords.size() >= 1) {
-                if (!matchedWords.get(0).getSuggestedWord().equals(((AssociableWord) autoCompleteWord)
-                        .getAssociatedWordList().get(0))) {
-                    isRelated = false;
-                }
+            if (matchedWords.size() >= 1 && !matchedWords.get(0).getSuggestedWord()
+                    .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(0))) {
+                isRelated = false;
             }
-            if (matchedWords.size() >= 2) {
-                if (!matchedWords.get(1).getSuggestedWord().equals(((AssociableWord) autoCompleteWord)
-                        .getAssociatedWordList().get(1))) {
-                    isRelated = false;
-                }
+            if (matchedWords.size() >= 2 && !matchedWords.get(1).getSuggestedWord()
+                    .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(1))) {
+                isRelated = false;
             }
             if (isRelated) {
                 filteredList.add(autoCompleteWord);

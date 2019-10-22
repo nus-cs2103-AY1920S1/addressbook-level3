@@ -151,10 +151,8 @@ public class AutoCompletePanel extends UiPart<Region> {
             if (isCorrectFirstSegment) {
                 isCorrectSecondSegment = matchSecondSegment(segments[1]);
             }
-            if (segments.length >= 3) {
-                if (isCorrectFirstSegment && isCorrectSecondSegment) {
-                    matchRestOfSegment(segments);
-                }
+            if (segments.length >= 3 && isCorrectFirstSegment && isCorrectSecondSegment) {
+                matchRestOfSegment(segments);
             }
         }
     }
