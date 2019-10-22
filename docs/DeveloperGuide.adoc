@@ -260,6 +260,9 @@ image::ScheduleCommandSequenceDiagram.png[]
 
 Basically, after the setCalendarDate(calendar) method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its setAgendaView(calendar) method.
 
+Adding on, we will be adding an additional feature to check for clashing schedules.
+In the case of a clash, users will be given a choice to allow clashing schedules, or to just change to timing to avoid the clashes.
+
 ===== Design Considerations / Alternative designs considered
 
 We do not keep a list of `Appointment` in `CalendarPanel` as `Appointment` is only used for `Agenda` while the rest of our system uses `Schedule`.
