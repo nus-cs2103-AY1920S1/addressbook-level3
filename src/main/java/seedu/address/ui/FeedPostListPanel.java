@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -31,8 +35,31 @@ public class FeedPostListPanel extends UiPart<Region> {
         feedPostListView.setItems(feedPostList);
         feedPostListView.setCellFactory(listView -> new FeedPostListViewCell());
 
+        fetchPosts(feedPostList, feedList.getFeedList());
+
+        ObservableList<Feed> observableFeedList = feedList.getFeedList();
+        ListChangeListener<Feed> listener = change -> updatePosts(feedPostList, change);
+        observableFeedList.addListener(listener);
+    }
+
+    private void updatePosts(ObservableList<FeedPost> feedPostList, ListChangeListener.Change<? extends Feed> change) {
+        change.next();
+        List<Feed> added = change.getAddedSubList().stream().filter(Objects::nonNull).collect(Collectors.toList());
+        List<Feed> removed = change.getRemoved().stream().filter(Objects::nonNull).collect(Collectors.toList());
+
+        if (added.size() > 0) {
+            fetchPosts(feedPostList, added);
+        }
+        if (removed.size() > 0) {
+            for (Feed f : removed) {
+                feedPostList.removeIf(feedPost -> feedPost.getSource().equals(f.getName()));
+            }
+        }
+    }
+
+    private void fetchPosts(ObservableList<FeedPost> feedPostList, List<Feed> feedList) {
         Runnable feedPostFetch = () -> {
-            for (Feed feed : feedList.getFeedList()) {
+            for (Feed feed : feedList) {
                 ObservableList<FeedPost> feedPosts = feed.fetchPosts();
                 Platform.runLater(() -> {
                     feedPostList.addAll(feedPosts);
