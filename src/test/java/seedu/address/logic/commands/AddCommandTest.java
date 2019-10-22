@@ -183,6 +183,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void cancelOngoingVisit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void unsetOngoingVisit() {
             throw new AssertionError("This method should not be called.");
         }
