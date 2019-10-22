@@ -9,6 +9,8 @@ import java.util.Objects;
  */
 public class CommandResult {
     
+    protected String pane = "";
+    
     protected final String feedbackToUser;
 
     /**
@@ -71,5 +73,8 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
-
+    
+    public String getPane() {
+        return this.pane;
+    }
 }
