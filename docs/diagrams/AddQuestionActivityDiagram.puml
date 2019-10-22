@@ -9,6 +9,7 @@ if () then ([input is valid])
     local storage;
     :Display command result;
 else ([else])
+    :Exception thrown;
 endif
 stop
 @enduml

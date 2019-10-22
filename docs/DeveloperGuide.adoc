@@ -161,8 +161,8 @@ The commands include:
 * `FindQuestionCommand` -- Finds a question with a specified keyword. (to be implemented)
 
 These operations are exposed in the `Model` interface as `Model#addQuestion(Question question)`,
-`Model#deleteQuestion(Question question)`, `Model#updateFilteredQuestionList(Predicate<Question> predicate)`,
-`Model#getFilteredQuestionList()` and `Model#setQuestion(Question target, Question editedQuestion)` respectively.
+`Model#deleteQuestion(Question question)`, `Model#getFilteredQuestionList()` and
+`Model#setQuestion(Question target, Question editedQuestion)` respectively.
 
 Given below is an example usage scenario and how the question mechanism behaves at each step.
 
