@@ -33,7 +33,7 @@ class JsonAdaptedShow {
     private final int runningTime;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
 
-    public String typee() {
+    public String type() {
         return type;
     }
     /**

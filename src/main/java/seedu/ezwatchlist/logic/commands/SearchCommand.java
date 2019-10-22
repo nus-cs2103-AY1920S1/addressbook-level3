@@ -63,7 +63,7 @@ public class SearchCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        //try {
+        try {
             List<Show> searchResult = new ArrayList<>();
 
             if (!showName.getName().equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
@@ -73,24 +73,24 @@ public class SearchCommand extends Command {
                 }
             }
 
-            /*if (!name.equals("")) {
-                List<Movie> movies = new ApiMain().getMovieByName(name);
-                List<TvShow> tvShows = new ApiMain().getTvShowByName(name);
+            if (!showName.getName().equals("")) {
+                List<Movie> movies = new ApiMain().getMovieByName(showName.getName());
+                List<TvShow> tvShows = new ApiMain().getTvShowByName(showName.getName());
                 for (Movie movie : movies) {
                     searchResult.add(movie);
                 }
                 for(TvShow tvShow : tvShows) {
                     searchResult.add(tvShow);
                 }
-            }*/
+            }
 
             model.updateSearchResultList(searchResult);
 
             return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getSearchResultList().size()));
-        //} catch (OnlineConnectionException e) {
-            //return null;
+        } catch (OnlineConnectionException e) {
+            return null;
             //to be added
-        //}
+        }
     }
 
     @Override

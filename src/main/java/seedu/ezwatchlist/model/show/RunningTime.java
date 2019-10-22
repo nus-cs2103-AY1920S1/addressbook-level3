@@ -12,7 +12,7 @@ public class RunningTime {
     public static final String MESSAGE_CONSTRAINTS =
             "Running time can take any integer values, and it should not be blank";
     public static final String MESSAGE_CONSTRAINTS2 =
-            "Running time can take only positive values.";
+            "Running time can take only positive values or zero.";
 
     public final int value;
 
@@ -35,7 +35,7 @@ public class RunningTime {
      * Returns true if a given integer is a valid running time.
      */
     public static boolean isValidRunningTime(int test) {
-        return test > 0;
+        return test >= 0;
     }
 
     @Override
