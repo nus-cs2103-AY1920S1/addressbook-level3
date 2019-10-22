@@ -69,7 +69,7 @@ public class ExportCommand extends Command {
         return new CommandResult(
                 String.format(
                         MESSAGE_EXPORT_SUCCESS,
-                        documentPath.toString()
+                        documentPath.toAbsolutePathString()
                 )
         );
     }

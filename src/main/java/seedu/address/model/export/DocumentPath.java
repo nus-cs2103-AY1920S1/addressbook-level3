@@ -81,6 +81,17 @@ public class DocumentPath {
         return directoryPath.toString() + File.separator + documentFilePath.toString();
     }
 
+    public String toAbsolutePathString() {
+        Path dirPath = Paths.get(directoryPath.toString());
+        Path docFilePath = Paths.get(documentFilePath.toString());
+
+        return dirPath
+                .resolve(docFilePath)
+                .toAbsolutePath()
+                .normalize()
+                .toString();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
