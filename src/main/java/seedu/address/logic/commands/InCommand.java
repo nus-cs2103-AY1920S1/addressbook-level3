@@ -24,9 +24,9 @@ public class InCommand extends Command {
             + PREFIX_DATE + "DATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Milk "
+            + PREFIX_NAME + "milk "
             + PREFIX_AMOUNT + "100 "
-            + PREFIX_DATE + "2019/01/01 "
+            + PREFIX_DATE + "24022019 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
