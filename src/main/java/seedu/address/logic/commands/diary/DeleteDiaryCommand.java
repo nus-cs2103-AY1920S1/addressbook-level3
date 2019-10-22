@@ -6,8 +6,8 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.components.Diary;
@@ -15,9 +15,9 @@ import seedu.address.model.diary.components.Diary;
 /**
  * Deletes a diary identified using it's displayed index from Duke Cooks.
  */
-public class DeleteDiaryCommand extends Command {
+public class DeleteDiaryCommand extends DeleteCommand {
 
-    public static final String COMMAND_WORD = "deleteDiary";
+    public static final String VARIANT_WORD = "diary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the diary identified by the index number used in the displayed diary list.\n"

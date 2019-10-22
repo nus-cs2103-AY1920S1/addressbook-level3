@@ -13,8 +13,9 @@ import seedu.address.testutil.exercise.TypicalExercises;
 
 public class JsonSerializableExerciseCatalogueTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableDukeCooksTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsDukeCooks.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonSerializableWorkoutPlannerTest");
+    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalExerciseWorkoutPlanner.json");
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {

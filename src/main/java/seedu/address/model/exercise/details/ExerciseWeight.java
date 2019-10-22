@@ -2,8 +2,9 @@ package seedu.address.model.exercise.details;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.exercise.details.unit.WeightUnit;
+import java.util.Objects;
 
+import seedu.address.model.exercise.details.unit.WeightUnit;
 
 /**
  * Represents the Weight used in an exercise in the Workout Planner.
@@ -32,5 +33,25 @@ public class ExerciseWeight<Float> extends ExerciseDetail {
                 .append(getUnit())
                 .append(']');
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ExerciseWeight)) {
+            return false;
+        }
+
+        ExerciseWeight otherWeight = (ExerciseWeight) other;
+        return otherWeight.getMagnitude().equals(getMagnitude())
+                && otherWeight.getUnit().equals(getUnit());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(magnitude, unit);
     }
 }

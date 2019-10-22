@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.exercise;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertExerciseCommandFailure;
 import static seedu.address.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +24,9 @@ public class AddExerciseCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateExercise_throwsCommandException() {
         Exercise exerciseInList = model.getWorkoutPlanner().getExerciseList().get(0);
-        assertCommandFailure(new AddExerciseCommand(exerciseInList), model, AddExerciseCommand
+        assertExerciseCommandFailure(new AddExerciseCommand(exerciseInList), model, AddExerciseCommand
                 .MESSAGE_DUPLICATE_PERSON);
     }
 

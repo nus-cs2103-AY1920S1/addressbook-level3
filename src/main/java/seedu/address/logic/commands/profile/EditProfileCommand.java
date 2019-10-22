@@ -17,8 +17,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.common.Name;
@@ -33,9 +33,9 @@ import seedu.address.model.profile.person.Weight;
 /**
  * Edits the details of an existing person in Duke Cooks.
  */
-public class EditProfileCommand extends Command {
+public class EditProfileCommand extends EditCommand {
 
-    public static final String COMMAND_WORD = "editProfile";
+    public static final String VARIANT_WORD = "profile";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the user profile "
             + "Existing values will be overwritten by the input values.\n"

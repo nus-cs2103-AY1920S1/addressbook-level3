@@ -11,8 +11,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FATS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTENSITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROTEIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SETS;
@@ -30,6 +32,7 @@ import seedu.address.logic.commands.exercise.EditExerciseCommand;
 import seedu.address.logic.commands.profile.EditProfileCommand;
 import seedu.address.logic.commands.recipe.EditRecipeCommand;
 import seedu.address.model.Model;
+import seedu.address.model.diary.DiaryRecords;
 import seedu.address.model.diary.components.Diary;
 import seedu.address.model.diary.components.DiaryNameContainsKeywordsPredicate;
 import seedu.address.model.exercise.WorkoutPlanner;
@@ -78,6 +81,10 @@ public class CommandTestUtil {
     public static final String VALID_HISTORY_STROKE = "stroke";
     public static final String VALID_NAME_PUSHUP = "Pushup";
     public static final String VALID_NAME_SITUP = "Situp";
+    public static final String VALID_MUSCLE_ABS = "Abs";
+    public static final String VALID_MUSCLE_CHEST = "Chest";
+    public static final String VALID_INTENSITY_MEDIUM = "medium";
+    public static final String VALID_INTENSITY_HIGH = "high";
     public static final MusclesTrained VALID_MUSCLES_TRAINED = new MusclesTrained(new MuscleType("Chest"),
             new ArrayList<MuscleType>());
     public static final Intensity VALID_INTENSITY_NAME = Intensity.MEDIUM;
@@ -110,11 +117,15 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_PUSHUP = " " + PREFIX_NAME + VALID_NAME_PUSHUP;
     public static final String NAME_DESC_SITUP = " " + PREFIX_NAME + VALID_NAME_SITUP;
-    public static final String SETS_DESC_FIVE = " " + PREFIX_REPETITIONS + VALID_SETS_FIVE;
+    public static final String MUSCLE_DESC_ABS = " " + PREFIX_PRIMARY_MUSCLE + VALID_MUSCLE_ABS;
+    public static final String MUSCLE_DESC_CHEST = " " + PREFIX_PRIMARY_MUSCLE + VALID_MUSCLE_CHEST;
+    public static final String INTENSITY_DESC_MEDIUM = " " + PREFIX_INTENSITY + VALID_INTENSITY_MEDIUM;
+    public static final String INTENSITY_DESC_HIGH = " " + PREFIX_INTENSITY + VALID_INTENSITY_HIGH;
+    public static final String SETS_DESC_FIVE = " " + PREFIX_SETS + VALID_SETS_FIVE;
     public static final String REPS_DESC_SIXTY = " " + PREFIX_REPETITIONS + VALID_REPS_SIXTY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Pushup&"; // '&' not allowed in names
-    public static final String INVALID_SETS_DESC = " " + PREFIX_SETS + "5*"; // '*' not allowed in tags
+    public static final String INVALID_SETS_DESC = " " + PREFIX_SETS + "0;;*"; // '*' not allowed in tags
     public static final String INVALID_FOOD_NAME_DESC = " " + PREFIX_NAME + "Fish & Chips"; // '&' not allowed in names
     public static final String INVALID_INGREDIENT_DESC = " " + PREFIX_INGREDIENT
             + "Cheese*Burger"; // '*' not allowed in ingredient names
@@ -210,16 +221,34 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - Duke Cooks, filtered person list and selected person in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+    public static void assertExerciseCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         WorkoutPlanner expectedWorkoutPlanner = (WorkoutPlanner) actualModel.getWorkoutPlanner();
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExerciseList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedWorkoutPlanner, actualModel.getWorkoutPlanner());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredExerciseList());
     }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - Diary Record, filtered diary list and selected diary in {@code actualModel} remain unchanged
+     */
+    public static void assertDiaryCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        DiaryRecords expectedDiaryRecord = new DiaryRecords(actualModel.getDiaryRecords());
+        List<Diary> expectedDiaryList = new ArrayList<>(actualModel.getFilteredDiaryList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedDiaryRecord, actualModel.getDiaryRecords());
+        assertEquals(expectedDiaryList, actualModel.getFilteredDiaryList());
+    }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s Duke Cooks.

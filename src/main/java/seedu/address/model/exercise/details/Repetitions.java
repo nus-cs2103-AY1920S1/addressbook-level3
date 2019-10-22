@@ -24,4 +24,23 @@ public class Repetitions<Integer> extends ExerciseDetail {
                 .append("]");
         return builder.toString();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Repetitions)) {
+            return false;
+        }
+
+        Repetitions otherReps = (Repetitions) other;
+        return otherReps.getMagnitude().equals(getMagnitude());
+    }
+
+    @Override
+    public int hashCode() {
+        return magnitude.hashCode();
+    }
 }

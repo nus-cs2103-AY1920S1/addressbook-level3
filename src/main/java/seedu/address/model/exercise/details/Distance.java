@@ -2,7 +2,10 @@ package seedu.address.model.exercise.details;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
 import seedu.address.model.exercise.details.unit.DistanceUnit;
+
 
 /**
  * Represents the Distance of an exercise in the Workout Planner.
@@ -31,5 +34,25 @@ public class Distance<Float> extends ExerciseDetail {
                 .append(getUnit())
                 .append(']');
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Distance)) {
+            return false;
+        }
+
+        Distance otherDistance = (Distance) other;
+        return otherDistance.getMagnitude().equals(getMagnitude())
+                && otherDistance.getUnit().equals(getUnit());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(magnitude, unit);
     }
 }

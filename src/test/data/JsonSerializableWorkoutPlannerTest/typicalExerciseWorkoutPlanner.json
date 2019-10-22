@@ -1,0 +1,120 @@
+{
+  "_comment": "WorkoutPlanner save file which contains the same Exercise values as in TypicalExercises#getTypicalWorkoutPlanner()",
+  "exercises" : [ {
+    "name" : "Abs Rollout",
+    "primaryMuscle" : "Abs",
+    "secondaryMuscles" : [ ],
+    "intensity" : "medium",
+    "details" : [ {
+      "typ" : "REP",
+      "magnitude" : 20,
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.Repetitions",
+        "magnitude" : 20
+      }
+    }, {
+      "typ" : "SET",
+      "magnitude" : 4,
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.Sets",
+        "magnitude" : 4
+      }
+    } ]
+  }, {
+    "name" : "Burpees",
+    "primaryMuscle" : "Cardiovascular",
+    "secondaryMuscles" : [ "Arms", "Chest", "Thighs" ],
+    "intensity" : "high",
+    "details" : [ {
+      "typ" : "SET",
+      "magnitude" : 5,
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.Sets",
+        "magnitude" : 5
+      }
+    }, {
+      "typ" : "REP",
+      "magnitude" : 30,
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.Repetitions",
+        "magnitude" : 30
+      }
+    } ]
+  }, {
+    "name" : "Curtsy Lunge",
+    "primaryMuscle" : "Thighs",
+    "secondaryMuscles" : [ "Calves", "Hamstring"],
+    "intensity" : "medium",
+    "details" : [ {
+      "typ" : "SET",
+      "magnitude" : 4,
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.Sets",
+        "magnitude" : 4
+      }
+    }, {
+      "typ" : "WGT",
+      "magnitude" : 10.0,
+      "unit" : "POUND",
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.ExerciseWeight",
+        "magnitude" : 10.0,
+        "unit" : "POUND"
+      }
+    }, {
+      "typ" : "REP",
+      "magnitude" : 15,
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.Repetitions",
+        "magnitude" : 15
+      }
+    } ]
+  }, {
+    "name" : "Deadlift",
+    "primaryMuscle" : "Lower Back",
+    "secondaryMuscles" : [ "Hamstring", "Upper Back" ],
+    "intensity" : "medium",
+    "details" : [ {
+      "typ" : "REP",
+      "magnitude" : 5,
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.Repetitions",
+        "magnitude" : 5
+      }
+    }, {
+      "typ" : "SET",
+      "magnitude" : 5,
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.Sets",
+        "magnitude" : 5
+      }
+    }, {
+      "typ" : "WGT",
+      "magnitude" : 100.0,
+      "unit" : "KILOGRAM",
+      "toModelType" : {
+        "@class" : "seedu.address.model.exercise.details.ExerciseWeight",
+        "magnitude" : 100.0,
+        "unit" : "KILOGRAM"
+      }
+    } ]
+  }, {
+    "name" : "Explosive Pushup",
+    "primaryMuscle" : "Chest",
+    "secondaryMuscles" : [ "Triceps", "Cardiovascular" ],
+    "intensity" : "high",
+    "details" : [ ]
+  }, {
+    "name" : "Dumbbell Flye",
+    "primaryMuscle" : "Chest",
+    "secondaryMuscles" : [ "Shoulders" ],
+    "intensity" : "medium",
+    "details" : [ ]
+  }, {
+    "name" : "Goblet Squats",
+    "primaryMuscle" : "Thighs",
+    "secondaryMuscles" : [ "Calves", "Hamstrings" ],
+    "intensity" : "low",
+    "details" : [ ]
+  } ]
+}
