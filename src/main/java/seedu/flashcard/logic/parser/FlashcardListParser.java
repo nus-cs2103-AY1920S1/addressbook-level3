@@ -79,13 +79,13 @@ public class FlashcardListParser {
             return new DeleteTagCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
-            return new ViewCommandParser().parse(arguments);
+            return new QuizCommandParser().parse(arguments);
 
         case FlipCommand.COMMAND_WORD:
             return new FlipCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
-            return new FullViewCommandParser().parse(arguments);
+            return new ViewCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKOWN_COMMAND);

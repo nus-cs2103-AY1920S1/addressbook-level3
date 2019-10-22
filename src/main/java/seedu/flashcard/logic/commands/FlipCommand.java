@@ -6,6 +6,8 @@ import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.McqFlashcard;
+import seedu.flashcard.model.flashcard.exceptions.ChoiceNotFoundException;
 
 /**
  * Command to input an answer to the last viewed flashcard and see the correct answer.
@@ -21,6 +23,8 @@ public class FlipCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Flashcard flipped";
     private static final String MESSAGE_NULL_VIEW_FLASHCARD = "There are no viewed flashcards";
+    private static final String MESSAGE_INVALID_CHOICE = "The index of the choice you chose is invalid.";
+
     public final Answer answer;
 
     public FlipCommand(Answer answer) {
@@ -34,12 +38,30 @@ public class FlipCommand extends Command {
         if (lastViewedFlashcard == null) {
             throw new CommandException(MESSAGE_NULL_VIEW_FLASHCARD);
         }
-        boolean isCorrect = lastViewedFlashcard.checkAnswer(answer);
+
+        Answer updatedAnswer = updateAnswer(lastViewedFlashcard);
+        boolean isCorrect = lastViewedFlashcard.checkAnswer(updatedAnswer);
+
         if (isCorrect) {
-            return new CommandResult("Your answer: " + answer.toString() + " is correct.\n");
+            return new CommandResult("Your answer: " + updatedAnswer.toString() + " is correct.\n");
         } else {
-            return new CommandResult("Your answer: " + answer.toString() + " is incorrect.\n"
-                + "The correct answer is: " + lastViewedFlashcard.getAnswer().toString());
+            return new CommandResult("Your answer: " + updatedAnswer.toString() + " is incorrect.\n"
+                    + "The correct answer is: " + lastViewedFlashcard.getAnswer().toString());
         }
     }
+
+    public Answer updateAnswer(Flashcard flashcard) throws CommandException {
+        if (!flashcard.isMcq()) {
+            return answer;
+        } else {
+            McqFlashcard mcqCard = (McqFlashcard)flashcard;
+            int index = Integer.parseInt(answer.getAnswer()) - 1;
+            if (index >= mcqCard.getChoices().size()) {
+                throw new CommandException(MESSAGE_INVALID_CHOICE);
+            }
+            Answer newAnswer = new Answer(mcqCard.getChoices().get(index).getChoice());
+            return newAnswer;
+        }
+    }
+
 }

@@ -123,6 +123,11 @@ public abstract class Flashcard {
     }
 
     /**
+     * Checks whether the card is a MCQ Flashcard.
+     * @return Returns true if the card is a McqFlashcard.
+     */
+    public abstract boolean isMcq();
+    /**
      * Get the representation of this flashcard containing the answer.
      */
     public String fullString() {

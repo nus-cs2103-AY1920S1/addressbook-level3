@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import seedu.flashcard.model.flashcard.exceptions.ChoiceNotFoundException;
 import seedu.flashcard.model.tag.Tag;
 
 public class McqFlashcard extends Flashcard {
@@ -36,6 +37,10 @@ public class McqFlashcard extends Flashcard {
             }
         }
         return false;
+    }
+    @Override
+    public boolean isMcq() {
+        return true;
     }
 
     @Override
