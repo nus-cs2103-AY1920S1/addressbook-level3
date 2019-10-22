@@ -1,46 +1,23 @@
 package seedu.address.ui;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import jfxtras.icalendarfx.VCalendar;
-import jfxtras.icalendarfx.components.VEvent;
-import jfxtras.icalendarfx.properties.calendar.CalendarScale;
-import jfxtras.icalendarfx.properties.calendar.Version;
-import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
-import jfxtras.icalendarfx.properties.component.time.DateTimeStart;
-import jfxtras.internal.scene.control.skin.agenda.*;
-import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
-import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import jfxtras.scene.control.agenda.Agenda;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -60,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
+    private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
     private EventSchedulePanel eventSchedulePanel;
 
@@ -168,7 +146,6 @@ public class MainWindow extends UiPart<Stage> {
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
-        //primaryStage.setFullScreen(true);
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
@@ -199,6 +176,20 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the statistics report window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats() {
+        statsReportWindow = new StatsReportWindow();
+        StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
+        statsReportWindow.setStatsCard(statsCard);
+        if (!statsReportWindow.isShowing()) {
+            statsReportWindow.show();
+        } else {
+            statsReportWindow.focus();
+        }
+    }
 
     void show() {
 //
@@ -316,6 +307,9 @@ public class MainWindow extends UiPart<Stage> {
                 eventSchedulePanel.updateScheduler();
             }
 
+            if (commandResult.isShowStatistic()) {
+                handleStats();
+            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -3,19 +3,15 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import jfxtras.icalendarfx.components.VEvent;
-import jfxtras.icalendarfx.properties.component.descriptive.Categories;
-import jfxtras.icalendarfx.properties.component.descriptive.Comment;
-import jfxtras.icalendarfx.properties.component.time.DateTimeStart;
-import seedu.address.commons.core.index.Index;
-
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import jfxtras.icalendarfx.components.VEvent;
+import seedu.address.commons.core.index.Index;
 
 public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VEvent> {
     private final String DAILY_RRULE_STRING = "FREQ=DAILY;INTERVAL=1";
@@ -43,11 +39,17 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         resetData(events);
     }
 
+    /**
+     * Get all Events backed by vEvents observable list.
+     */
     public List<Event> getAllEvents() {
-        return VEventsToEventsMapper(this.vEvents);
+        return vEventsToEventsMapper(this.vEvents);
     }
 
-    private List<Event> VEventsToEventsMapper(List<VEvent> vEvents) {
+    /**
+     * Maps all @param vEvents to a list of Events
+     */
+    private List<Event> vEventsToEventsMapper(List<VEvent> vEvents) {
         ArrayList<Event> eventList = new ArrayList<>();
         for (VEvent vEvent : vEvents) {
             vEvent.setDescription("testDescription");
@@ -71,14 +73,20 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     public void resetData(List<Event> newData) {
         requireNonNull(newData);
 
-        setVEvents(EventsToVEventsMapper(newData));
+        setVEvents(eventsToVEventsMapper(newData));
     }
 
+    /**
+     * Maps all Events in @param readOnlyEvents to a list of VEvents
+     */
     private ArrayList<VEvent> readOnlyEventsToVEventsMapper(ReadOnlyEvents readOnlyEvents) {
-        return EventsToVEventsMapper(readOnlyEvents.getAllEvents());
+        return eventsToVEventsMapper(readOnlyEvents.getAllEvents());
     }
 
-    private ArrayList<VEvent> EventsToVEventsMapper(List<Event> events) {
+    /**
+     * Maps all Events in @param events to a list of VEvents
+     */
+    private ArrayList<VEvent> eventsToVEventsMapper(List<Event> events) {
         ArrayList<VEvent> resultVEventList = new ArrayList<>();
         for (Event event : events) {
             resultVEventList.add(eventToVEventMapper(event));

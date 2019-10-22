@@ -12,6 +12,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * API of the Logic component
@@ -41,6 +43,18 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+    //endregion
+
+    //region Statistics
+    /**
+     * Returns the StatisticsRecord.
+     *
+     * @see seedu.address.model.Model#getStatisticsRecord()
+     */
+    ReadOnlyStatisticsRecord getStatisticsRecord();
+
+    /** Returns an unmodifiable view of the processed statistics of students */
+    ObservableList<Statistics> getProcessedStatistics();
     //endregion
 
     //region Notes

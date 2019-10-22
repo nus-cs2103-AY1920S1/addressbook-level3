@@ -1,17 +1,15 @@
 package seedu.address.logic.commands.event;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.note.NoteCommand;
 import seedu.address.model.Model;
-import seedu.address.model.note.Note;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a event identified using it's displayed index beside it's event name.

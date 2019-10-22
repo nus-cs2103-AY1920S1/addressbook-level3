@@ -21,7 +21,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.ReadOnlyEvents;
-import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.note.NotesRecord;
@@ -30,9 +29,13 @@ import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.quiz.SavedQuizzes;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.StatisticsRecord;
+import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.StudentRecord;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleNotesUtil;
+import seedu.address.model.util.SampleStatisticUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -114,12 +117,14 @@ public class MainApp extends Application {
         Optional<ReadOnlyEvents> eventsOptional;
         Optional<ReadOnlyQuizzes> quizzesOptional;
         Optional<ReadOnlyNotesRecord> notesRecordOptional;
+
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
         ReadOnlyEvents initialEvents;
         ReadOnlyQuizzes initialQuizzes;
         ReadOnlyNotesRecord initialNotesRecord;
+        ReadOnlyStatisticsRecord initialStatisticsRecord;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -153,6 +158,7 @@ public class MainApp extends Application {
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
             initialEvents = eventsOptional.orElseGet(SampleDataUtil::getSampleEventsList);
             initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
+            initialStatisticsRecord = SampleStatisticUtil.getSampleStatisticsRecord();
             initialQuizzes = quizzesOptional.orElseGet(SampleDataUtil::getSampleQuizList);
 
 
@@ -165,6 +171,8 @@ public class MainApp extends Application {
             initialEvents = new EventRecord();
             initialQuizzes = new SavedQuizzes();
             initialNotesRecord = new NotesRecord();
+            initialStatisticsRecord = new StatisticsRecord(); //later
+
         } catch (IOException e) {
             logger.warning(
                 "Problem while reading from the file. Will be starting with an empty AddressBook");
@@ -172,13 +180,13 @@ public class MainApp extends Application {
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
             initialEvents = new EventRecord();
-            initialNotesRecord = new NotesRecord();
             initialQuizzes = new SavedQuizzes();
             initialNotesRecord = new NotesRecord();
+            initialStatisticsRecord = new StatisticsRecord(); //later
         }
 
         return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialQuizzes,
-                initialNotesRecord, initialEvents, userPrefs);
+                initialNotesRecord, initialEvents, initialStatisticsRecord, userPrefs);
     }
 
     private void initLogging(Config config) {

@@ -14,7 +14,6 @@ import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.storage.event.EventStorage;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
-import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.quiz.QuizStorage;

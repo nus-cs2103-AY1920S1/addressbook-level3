@@ -358,3 +358,12 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#distributionChart {
+    -fx-text-fill: white;
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}

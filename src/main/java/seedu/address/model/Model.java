@@ -16,6 +16,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 
@@ -328,5 +330,11 @@ public interface Model {
     void setVEvent(VEvent target, VEvent editedVEvent);
     String getVEventSummary();
     ObservableList<VEvent> getVEventList();
+    //endregion
+
+    //region Statistics
+    ReadOnlyStatisticsRecord getStatisticsRecord();
+    ObservableList<Statistics> getProcessedStatistics();
+    void addStatistics(Statistics statistics);
     //endregion
 }

@@ -1,17 +1,16 @@
 package seedu.address.logic.commands.event;
 
-import jfxtras.icalendarfx.components.VEvent;
-import jfxtras.icalendarfx.properties.component.descriptive.Categories;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 /**
  * Creates a new event to be added to the event list.
  */
@@ -25,18 +24,18 @@ public class EventAddCommand extends EventCommand {
             + "endDateTime/ [ENDDATETIME]\n"
             + "recur/ [DAILY/WEEKLY/NONE]\n"
             + "color/ [0 - 23]\n"
-            + "Example: event eventName/ cs2100 lecture startDateTime/ 2019-10-21T14:00 " +
-            "endDateTime/ 2019-10-21T15:00 recur/ none color/1";
+            + "Example: event eventName/ cs2100 lecture startDateTime/ 2019-10-21T14:00 "
+            + "endDateTime/ 2019-10-21T15:00 recur/ none color/1";
 
-    private final String UNIQUEIDENTIFIER = "njoyassistant";
-    private final String WEEKLYRECURRENCERULE = "FREQ=WEEKLY;INTERVAL=1";
-    private final String DAILYRECURRENCERULE = "FREQ=DAILY;INTERVAL=1";
+    private final String uniqueIdentifier = "njoyassistant";
+    private final String weeklyRecurrenceRule = "FREQ=WEEKLY;INTERVAL=1";
+    private final String dailyRecurrenceRule = "FREQ=DAILY;INTERVAL=1";
 
-    private final String BADDATEFORMATMESSASGE = "Invalid DateTime Format. " +
-            "Please follow the format: yyyy-MM-ddTHH:mm, " +
-            "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
-    private final String INVALIDRECURTYPE = "Invalid Recurrence Type";
-    private final String INVALIDEVENTRANGE = "Invalid date range between start and end dateTime";
+    private final String badDateFormatMessage = "Invalid DateTime Format. "
+            + "Please follow the format: yyyy-MM-ddTHH:mm, "
+            + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
+    private final String invalidRecurrenceType = "Invalid Recurrence Type";
+    private final String invalidEventRange = "Invalid date range between start and end dateTime";
 
     private final String eventName;
     private final String startDateTimeString;
@@ -54,10 +53,10 @@ public class EventAddCommand extends EventCommand {
      */
     public EventAddCommand(String eventName, String startDateTimeString, String endDateTimeString,
                            String recurTypeString) {
-        requireAllNonNull(eventName);
-        requireAllNonNull(startDateTimeString);
-        requireAllNonNull(endDateTimeString);
-        requireAllNonNull(recurTypeString);
+        requireNonNull(eventName);
+        requireNonNull(startDateTimeString);
+        requireNonNull(endDateTimeString);
+        requireNonNull(recurTypeString);
 
         this.eventName = eventName;
         this.startDateTimeString = startDateTimeString;
@@ -76,10 +75,10 @@ public class EventAddCommand extends EventCommand {
      */
     public EventAddCommand(String eventName, String startDateTimeString, String endDateTimeString,
                            String recurTypeString, String colorNumberString) {
-        requireAllNonNull(eventName);
-        requireAllNonNull(startDateTimeString);
-        requireAllNonNull(endDateTimeString);
-        requireAllNonNull(recurTypeString);
+        requireNonNull(eventName);
+        requireNonNull(startDateTimeString);
+        requireNonNull(endDateTimeString);
+        requireNonNull(recurTypeString);
 
         this.eventName = eventName;
         this.startDateTimeString = startDateTimeString;
@@ -104,24 +103,24 @@ public class EventAddCommand extends EventCommand {
             startDateTime = LocalDateTime.parse(startDateTimeString);
             endDateTime = LocalDateTime.parse(endDateTimeString);
         } catch (DateTimeParseException dtpEx) {
-            throw new CommandException(BADDATEFORMATMESSASGE, dtpEx);
+            throw new CommandException(badDateFormatMessage, dtpEx);
         }
 
         if (startDateTime.compareTo(endDateTime) >= 1) {
-            throw new CommandException(INVALIDEVENTRANGE);
+            throw new CommandException(invalidEventRange);
         }
 
         vEvent.setDateTimeStart(startDateTime);
         vEvent.setDateTimeEnd(endDateTime);
 
-        vEvent.setUniqueIdentifier(UNIQUEIDENTIFIER);
+        vEvent.setUniqueIdentifier(uniqueIdentifier);
 
         if (recurTypeString.equals("weekly")) {
-            vEvent.setRecurrenceRule(WEEKLYRECURRENCERULE);
+            vEvent.setRecurrenceRule(weeklyRecurrenceRule);
         } else if (recurTypeString.equals("daily")) {
-            vEvent.setRecurrenceRule(DAILYRECURRENCERULE);
+            vEvent.setRecurrenceRule(dailyRecurrenceRule);
         } else if (!recurTypeString.equals("none")) {
-            throw new CommandException(INVALIDRECURTYPE);
+            throw new CommandException(invalidRecurrenceType);
         }
 
         Categories colorCategory = new Categories(colorNumberString);
@@ -131,7 +130,7 @@ public class EventAddCommand extends EventCommand {
 
         model.addVEvent(vEvent);
         return new CommandResult(generateSuccessMessage(vEvent),
-                false, false, false, true);
+                false, false, false, false, true);
     }
 
     /**

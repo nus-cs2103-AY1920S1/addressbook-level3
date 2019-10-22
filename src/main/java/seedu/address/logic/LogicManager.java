@@ -18,6 +18,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -72,6 +74,16 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public ReadOnlyStatisticsRecord getStatisticsRecord() {
+        return model.getStatisticsRecord();
+    }
+
+    @Override
+    public ObservableList<Statistics> getProcessedStatistics() {
+        return model.getProcessedStatistics();
     }
 
     @Override
