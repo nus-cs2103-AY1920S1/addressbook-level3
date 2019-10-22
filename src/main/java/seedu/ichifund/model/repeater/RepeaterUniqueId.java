@@ -9,7 +9,8 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
  */
 public class RepeaterUniqueId {
 
-    public static final String MESSAGE_CONSTRAINTS = "RepeaterUniqueId should either be empty or only contain numbers";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Repeater unique ids should either be empty or only contain numbers";
     public static final String VALIDATION_REGEX = "[0-9]*";
 
     public final Integer id;
