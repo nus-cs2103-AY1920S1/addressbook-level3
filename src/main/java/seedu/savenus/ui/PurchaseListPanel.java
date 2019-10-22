@@ -44,4 +44,8 @@ public class PurchaseListPanel extends UiPart<Region> {
         }
     }
 
+    public void updatePurchaseList(ObservableList<Purchase> purchaseList) {
+        purchaseListView.setItems(purchaseList);
+    }
+
 }

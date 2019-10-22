@@ -153,23 +153,23 @@ public class UserRecommendations {
     @Override
     public String toString() {
         return "Current likes: Categories: " + getLikedCategories()
-                .stream().map(c -> c.category)
+                .stream().parallel().map(c -> c.category)
                 .collect(Collectors.joining(", "))
                 + " | Tags: " + getLikedTags()
-                .stream().map(t -> t.tagName)
+                .stream().parallel().map(t -> t.tagName)
                 .collect(Collectors.joining(", "))
                 + " | Locations: " + getLikedLocations()
-                .stream().map(l -> l.location)
+                .stream().parallel().map(l -> l.location)
                 .collect(Collectors.joining(", "))
                 + "\nCurrent dislikes:"
                 + " Categories: " + getDislikedCategories()
-                .stream().map(c -> c.category)
+                .stream().parallel().map(c -> c.category)
                 .collect(Collectors.joining(", "))
                 + " | Tags: " + getDislikedTags()
-                .stream().map(t -> t.tagName)
+                .stream().parallel().map(t -> t.tagName)
                 .collect(Collectors.joining(", "))
                 + " | Locations: " + getDislikedLocations()
-                .stream().map(l -> l.location)
+                .stream().parallel().map(l -> l.location)
                 .collect(Collectors.joining(", "));
     }
 }

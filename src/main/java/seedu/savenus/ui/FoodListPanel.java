@@ -48,4 +48,8 @@ public class FoodListPanel extends UiPart<Region> {
         }
     }
 
+    public void updateFoodList(ObservableList<Food> foodList) {
+        foodListView.setItems(foodList);
+    }
+
 }

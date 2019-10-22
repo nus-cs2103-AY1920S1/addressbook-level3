@@ -52,13 +52,19 @@ public class JsonAdaptedRecs {
      * Converts a given {@code UserRecommendations} into this class for Jackson use.
      */
     public JsonAdaptedRecs(UserRecommendations source) {
-        likedCategories = source.getLikedCategories().stream().map(c -> c.category).collect(Collectors.toSet());
-        likedTags = source.getLikedTags().stream().map(t -> t.tagName).collect(Collectors.toSet());
-        likedLocations = source.getLikedLocations().stream().map(l -> l.location).collect(Collectors.toSet());
+        likedCategories = source.getLikedCategories().stream().parallel()
+                .map(c -> c.category).collect(Collectors.toSet());
+        likedTags = source.getLikedTags().stream().parallel()
+                .map(t -> t.tagName).collect(Collectors.toSet());
+        likedLocations = source.getLikedLocations().stream().parallel()
+                .map(l -> l.location).collect(Collectors.toSet());
 
-        dislikedCategories = source.getDislikedCategories().stream().map(c -> c.category).collect(Collectors.toSet());
-        dislikedTags = source.getDislikedTags().stream().map(t -> t.tagName).collect(Collectors.toSet());
-        dislikedLocations = source.getDislikedLocations().stream().map(l -> l.location).collect(Collectors.toSet());
+        dislikedCategories = source.getDislikedCategories().stream().parallel()
+                .map(c -> c.category).collect(Collectors.toSet());
+        dislikedTags = source.getDislikedTags().stream().parallel()
+                .map(t -> t.tagName).collect(Collectors.toSet());
+        dislikedLocations = source.getDislikedLocations().stream().parallel()
+                .map(l -> l.location).collect(Collectors.toSet());
     }
 
     /**
@@ -82,30 +88,30 @@ public class JsonAdaptedRecs {
         try {
             // Convert all to lowercase, and parse into new category / tag / location
             // This will throw IllegalArgumentExceptions if there are any problems with the saved data
-            Set<Category> newLikedCategories = likedCategories.stream()
+            Set<Category> newLikedCategories = likedCategories.stream().parallel()
                     .map(c -> new Category(c.toLowerCase()))
                     .collect(Collectors.toSet());
-            Set<Tag> newLikedTags = likedTags.stream()
+            Set<Tag> newLikedTags = likedTags.stream().parallel()
                     .map(t -> new Tag(t.toLowerCase()))
                     .collect(Collectors.toSet());
-            Set<Location> newLikedLocation = likedLocations.stream()
+            Set<Location> newLikedLocation = likedLocations.stream().parallel()
                     .map(l -> new Location(l.toLowerCase()))
                     .collect(Collectors.toSet());
 
-            Set<Category> newDislikedCategories = dislikedCategories.stream()
+            Set<Category> newDislikedCategories = dislikedCategories.stream().parallel()
                     .map(c -> new Category(c.toLowerCase()))
                     .collect(Collectors.toSet());
-            Set<Tag> newDislikedTags = dislikedTags.stream()
+            Set<Tag> newDislikedTags = dislikedTags.stream().parallel()
                     .map(t -> new Tag(t.toLowerCase()))
                     .collect(Collectors.toSet());
-            Set<Location> newDislikedLocation = dislikedLocations.stream()
+            Set<Location> newDislikedLocation = dislikedLocations.stream().parallel()
                     .map(l -> new Location(l.toLowerCase()))
                     .collect(Collectors.toSet());
 
             // Check for no overlaps
-            if (newLikedCategories.stream().anyMatch(newDislikedCategories::contains)
-                    || newLikedTags.stream().anyMatch(newDislikedTags::contains)
-                    || newLikedLocation.stream().anyMatch(newDislikedLocation::contains)) {
+            if (newLikedCategories.stream().parallel().anyMatch(newDislikedCategories::contains)
+                    || newLikedTags.stream().parallel().anyMatch(newDislikedTags::contains)
+                    || newLikedLocation.stream().parallel().anyMatch(newDislikedLocation::contains)) {
                 throw new IllegalArgumentException(DUPLICATE_ENTRY_OPPOSING_FOUND);
             }
 

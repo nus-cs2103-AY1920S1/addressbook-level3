@@ -264,6 +264,11 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Food> getFilteredFoodList() {
+        // Update the Recommendation System's purchase history and budget
+        RecommendationSystem.getInstance().updatePurchaseHistory(purchaseHistory.getPurchaseHistoryList());
+        RecommendationSystem.getInstance().updateDaysToExpire(getDaysToExpire());
+        RecommendationSystem.getInstance().updateBudget(getRemainingBudget().getRemainingBudgetAmount());
+
         return filteredFoods
                 .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
                 .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
