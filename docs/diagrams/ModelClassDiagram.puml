@@ -96,5 +96,5 @@ LoanRecords -[hidden]> BorrowerRecords
 LoanList -[hidden]right> Name
 
 
-ModelManager -->"1" Book : filtered list
+ModelManager -->"*" Book : filtered list
 @enduml
