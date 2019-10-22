@@ -28,8 +28,9 @@ public class InviteCommand extends Command {
             + "[" + PREFIX_PARTICIPANT + "PARTICIPANT]...\n"
             + "Example: invite p/Ben p/David";
 
-    public static final String MESSAGE_RESULT =
-            "Invited the following participants successfully to the activity:\n%s\n%s";
+    public static final String MESSAGE_RESULT = "\n%s\n%s";
+
+    public static final String MESSAGE_SUCCESS_INVITE = "Invited \"%s\" into the activity.";
 
     public static final String MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY =
             "Unable to invite \"%s\" as he/she already exists in the activity.";
@@ -85,7 +86,7 @@ public class InviteCommand extends Command {
             if (findResult.size() != 1) {
                 String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
                 warningMessage.append(warning).append("\n");
-                throw new CommandException(warning);
+                continue;
             }
 
             Person personToInvite = findResult.get(0);
@@ -94,16 +95,16 @@ public class InviteCommand extends Command {
             if (activityToInviteTo.hasPerson(idOfPersonToInvite)) {
                 String warning = String.format(MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY, name);
                 warningMessage.append(warning).append("\n");
-                throw new CommandException(warning);
+                continue;
             }
             if (idsToInvite.contains(idOfPersonToInvite)) {
                 String warning = String.format(MESSAGE_DUPLICATE_ENTRY, name);
                 warningMessage.append(warning).append("\n");
-                throw new CommandException(warning);
+                continue;
             }
 
             idsToInvite.add(idOfPersonToInvite);
-            successMessage.append(personToInvite.getName() + "\n");
+            successMessage.append(String.format(MESSAGE_SUCCESS_INVITE, personToInvite.getName()) + "\n");
         }
 
         for (Integer id : idsToInvite) {
