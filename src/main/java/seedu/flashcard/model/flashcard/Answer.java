@@ -27,6 +27,10 @@ public class Answer {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this

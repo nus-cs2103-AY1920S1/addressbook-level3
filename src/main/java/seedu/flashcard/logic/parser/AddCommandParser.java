@@ -46,6 +46,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
 
+        if (arePrefixesPresent(argMultimap, PREFIX_CHOICE)
+            && !choices.contains(new Choice(answer.getAnswer()))) {
+            throw new ParseException("The answer must be the same as a given choice");
+        }
+
         Flashcard flashcard = new Flashcard(question, choices, definition, tagList, answer);
 
         return new AddCommand(flashcard);

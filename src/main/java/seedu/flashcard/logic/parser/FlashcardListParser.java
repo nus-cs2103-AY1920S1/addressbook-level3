@@ -14,12 +14,12 @@ import seedu.flashcard.logic.commands.EditCommand;
 import seedu.flashcard.logic.commands.ExitCommand;
 import seedu.flashcard.logic.commands.FindCommand;
 import seedu.flashcard.logic.commands.FlipCommand;
-import seedu.flashcard.logic.commands.FullViewCommand;
+import seedu.flashcard.logic.commands.ViewCommand;
 import seedu.flashcard.logic.commands.HelpCommand;
 import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.commands.ListCommand;
 import seedu.flashcard.logic.commands.ListTagCommand;
-import seedu.flashcard.logic.commands.ViewCommand;
+import seedu.flashcard.logic.commands.QuizCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 
 /**
@@ -78,13 +78,13 @@ public class FlashcardListParser {
         case DeleteTagCommand.COMMAND_WORD:
             return new DeleteTagCommandParser().parse(arguments);
 
-        case ViewCommand.COMMAND_WORD:
+        case QuizCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
 
         case FlipCommand.COMMAND_WORD:
             return new FlipCommandParser().parse(arguments);
 
-        case FullViewCommand.COMMAND_WORD:
+        case ViewCommand.COMMAND_WORD:
             return new FullViewCommandParser().parse(arguments);
 
         default:

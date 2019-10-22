@@ -3,13 +3,13 @@ package seedu.flashcard.logic.parser;
 import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.flashcard.commons.core.index.Index;
-import seedu.flashcard.logic.commands.FullViewCommand;
+import seedu.flashcard.logic.commands.ViewCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input argument to generate a {@code FullViewCommand}
+ * Parses input argument to generate a {@code ViewCommand}
  */
-public class FullViewCommandParser implements Parser<FullViewCommand> {
+public class FullViewCommandParser implements Parser<ViewCommand> {
 
     /**
      * Parses the given context into a full view command
@@ -17,12 +17,12 @@ public class FullViewCommandParser implements Parser<FullViewCommand> {
      * @return new full view command
      */
     @Override
-    public FullViewCommand parse(String args) throws ParseException {
+    public ViewCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
-            return new FullViewCommand(index);
+            return new ViewCommand(index);
         } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FullViewCommand.MESSAGE_USAGE), e);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE), e);
         }
     }
 }
