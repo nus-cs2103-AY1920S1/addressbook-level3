@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Time;
 import seedu.address.model.person.Wish;
 import seedu.address.model.tag.Tag;
 
@@ -51,7 +51,7 @@ class JsonAdaptedWish {
     public JsonAdaptedWish(Wish source) {
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
-        time = source.getTime().fullTime;
+        time = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -77,12 +77,10 @@ class JsonAdaptedWish {
         }
         final Description modelDesc = new Description(desc);
 
-        final Time modelTime = new Time(time);
 
+        final Date modelDate = new Date(time);
         final Amount modelAmt = new Amount(amt);
-
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Wish(modelDesc, modelTime, modelAmt, modelTags);
+        return new Wish(modelDesc, modelDate, modelAmt, modelTags);
     }
-
 }

@@ -18,7 +18,7 @@ public class Entry {
     // Identity fields
     private final Description desc;
     private final Amount amt;
-
+    private final Date date;
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -26,10 +26,11 @@ public class Entry {
      * Every field must be present and not null.
      */
 
-    public Entry(Description desc, Amount amount, Set<Tag> tags) {
+    public Entry(Description desc, Date date, Amount amount, Set<Tag> tags) {
         requireAllNonNull(desc, amount, tags);
         this.desc = desc;
         this.amt = amount;
+        this.date = date;
         this.tags.addAll(tags);
     }
 
@@ -43,6 +44,10 @@ public class Entry {
 
     public String getType() {
         return "Not like this";
+    }
+
+    public Date getDate() {
+        return this.date;
     }
 
     /**
