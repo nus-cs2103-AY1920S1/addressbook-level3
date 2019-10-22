@@ -65,7 +65,7 @@ public class ExportCommandTest {
     public void execute_validInput_fileCreated() {
         String expectedMessage = String.format(
                 ExportCommand.MESSAGE_EXPORT_SUCCESS,
-                firstDocumentPath
+                firstDocumentPath.toAbsolutePathString()
         );
 
         deleteFileIfExists(firstDocumentPath);
