@@ -187,6 +187,21 @@ public class Appeal {
         return moduleToDrop;
     }
 
+    public String getModulesToChange() {
+        String modulesAffected = "";
+        if (!previousModule.isEmpty() || !newModule.isEmpty()) {
+            modulesAffected += "Module to drop: "
+                    + previousModule
+                    + "\nModule to add: "
+                    + newModule;
+        } else if (!moduleToAdd.isEmpty()) {
+            modulesAffected += "Module to drop: " + moduleToDrop;
+        } else if (!moduleToAdd.isEmpty()) {
+            modulesAffected += "Module to add: " + moduleToAdd;
+        }
+        return modulesAffected;
+    }
+
     public boolean isResolved() {
         return resolved;
     }
