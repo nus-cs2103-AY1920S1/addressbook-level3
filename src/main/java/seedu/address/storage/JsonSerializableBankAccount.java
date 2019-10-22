@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
 
 /**
  * An Immutable BankAccount that is serializable to JSON format.
@@ -20,6 +21,7 @@ import seedu.address.model.transaction.BankAccountOperation;
 class JsonSerializableBankAccount {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
+    public static final String MESSAGE_DUPLICATE_BUDGET = "Transactions list contains duplicate budget(s).";
 
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
@@ -65,6 +67,10 @@ class JsonSerializableBankAccount {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
             bankAccount.addTransaction(txn);
+        }
+        for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
+            Budget bud = jsonAdaptedBudget.toModelType();
+            bankAccount.addBudget(bud);
         }
         return bankAccount;
     }
