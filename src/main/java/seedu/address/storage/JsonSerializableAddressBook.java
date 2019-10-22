@@ -92,8 +92,8 @@ class JsonSerializableAddressBook {
             addressBook.addExpenseReminder(reminder);
         }
 
-        for (JsonAdaptedWishReminder JsonAdaptedWishReminder : wishReminders) {
-            WishReminder reminder = JsonAdaptedWishReminder.toModelType();
+        for (JsonAdaptedWishReminder jsonAdaptedWishReminder : wishReminders) {
+            WishReminder reminder = jsonAdaptedWishReminder.toModelType();
             addressBook.addWishReminder(reminder);
         }
 

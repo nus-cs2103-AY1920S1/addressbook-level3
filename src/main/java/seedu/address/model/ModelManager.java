@@ -356,6 +356,10 @@ public class ModelManager implements Model {
         filteredBudgets.setPredicate(predicate);
     }
 
+    /**
+     * return list of reminders matching this condition.
+     * @param predicate condition to be matched.
+     */
     public void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate) {
         requireNonNull(predicate);
         filteredAutoExpenses.setPredicate(predicate);

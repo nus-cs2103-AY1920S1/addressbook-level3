@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Budget;
 import seedu.address.model.person.AutoExpense;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;

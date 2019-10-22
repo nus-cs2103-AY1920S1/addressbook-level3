@@ -73,7 +73,7 @@ public class CommandBox extends UiPart<Region> {
      */
     private void navigateToPreviousInput() {
         assert historySnapshot != null;
-        if(!historySnapshot.hasPrevious()) {
+        if (!historySnapshot.hasPrevious()) {
             return;
         }
         replaceText(historySnapshot.previous());
