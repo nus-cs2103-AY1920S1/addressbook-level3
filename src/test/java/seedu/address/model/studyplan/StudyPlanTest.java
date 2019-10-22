@@ -44,28 +44,28 @@ public class StudyPlanTest {
         assertFalse(SP_1.isSameStudyPlan(null));
 
 
-        StudyPlan editedSP_1 = new StudyPlanBuilder(SP_1).withTitle("Different title").build();
+        StudyPlan editedSP1 = new StudyPlanBuilder(SP_1).withTitle("Different title").build();
 
         /*
         // different phone and email -> returns false
-        assertFalse(SP_1.isSameStudyPlan(editedSP_1));
+        assertFalse(SP_1.isSameStudyPlan(editedSP1));
 
         // different name -> returns false
-        editedSP_1 = new StudyPlanBuilder(SP_1).withName(VALID_NAME_BOB).build();
-        assertFalse(SP_1.isSameStudyPlan(editedSP_1));
+        editedSP1 = new StudyPlanBuilder(SP_1).withName(VALID_NAME_BOB).build();
+        assertFalse(SP_1.isSameStudyPlan(editedSP1));
         */
 
         // same index, different attributes -> returns true
-        assertTrue(SP_1.isSameStudyPlan(editedSP_1));
+        assertTrue(SP_1.isSameStudyPlan(editedSP1));
 
         // same index, same title, different attributes -> returns true
-        editedSP_1 = new StudyPlanBuilder(SP_1).withTitle("Different title").withActivated(false).build();
-        assertTrue(SP_1.isSameStudyPlan(editedSP_1));
+        editedSP1 = new StudyPlanBuilder(SP_1).withTitle("Different title").withActivated(false).build();
+        assertTrue(SP_1.isSameStudyPlan(editedSP1));
 
         /*
         // same name, same phone, same email, different attributes -> returns true
-        editedSP_1 = new StudyPlanBuilder(SP_1).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(SP_1.isSameStudyPlan(editedSP_1));
+        editedSP1 = new StudyPlanBuilder(SP_1).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(SP_1.isSameStudyPlan(editedSP1));
         */
     }
 
