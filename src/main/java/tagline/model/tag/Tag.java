@@ -16,8 +16,6 @@ public abstract class Tag {
         GROUP_TAG,
     }
 
-    private static int nextId = 1; //temporary implementation of an incrementing tag ID
-
     public final TagId tagId;
     public final TagType tagType;
 
@@ -42,11 +40,26 @@ public abstract class Tag {
         this.tagType = tagType;
     }
 
+    /**
+     * Returns true if {@code other} has the same data and ID as this object.
+     * This defines a stronger notion of equality between two tags.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Tag // instanceof handles nulls
-            && tagType.equals(((Tag) other).tagType)); // state check
+            && tagType.equals(((Tag) other).tagType) // state check
+            && tagId.equals(((Tag) other).tagId));
+    }
+
+    /**
+     * Returns true if {@code other} has the same data as this object.
+     * This defines a weaker notion of equality between two tags.
+     */
+    public boolean isSameContent(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Tag // instanceof handles nulls
+                && tagType.equals(((Tag) other).tagType));
     }
 
     @Override

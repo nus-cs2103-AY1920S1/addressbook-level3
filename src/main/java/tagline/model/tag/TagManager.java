@@ -1,37 +1,47 @@
 package tagline.model.tag;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 /**
  * Represents the in-memory model of all tag data.
  */
 public class TagManager implements TagModel {
-    private final TagList tagList;
+    private final TagBook tagBook;
 
     /**
-     * Initializes a TagManager with the given tagList.
+     * Initializes a TagManager with the given {@code tagBook}.
      */
-    public TagManager(ReadOnlyTagList tagList) {
-        this.tagList = new TagList(tagList);
+    public TagManager(ReadOnlyTagBook tagBook) {
+        this.tagBook = new TagBook(tagBook);
     }
 
-    public void setTagList(ReadOnlyTagList tagList) {
-        this.tagList.setTagList(tagList);
+    @Override
+    public void setTagBook(ReadOnlyTagBook tagBook) {
+        this.tagBook.resetData(tagBook);
     }
 
-    public ReadOnlyTagList getTagList() {
-        return this.tagList;
+    @Override
+    public ReadOnlyTagBook getTagBook() {
+        return tagBook;
     }
 
-    public boolean containsTag(Tag tag) {
-        return tagList.containsTag(tag);
+    @Override
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tagBook.hasTag(tag);
     }
 
+    @Override
     public void addTag(Tag tag) {
-        tagList.addTag(tag);
+        requireNonNull(tag);
+        tagBook.addTag(tag);
     }
 
+    @Override
     public List<Tag> findTag(TagId tagId) {
-        return tagList.findTag(tagId);
+        requireNonNull(tagId);
+        return tagBook.findTag(tagId);
     }
 }

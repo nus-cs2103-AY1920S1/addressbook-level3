@@ -34,7 +34,7 @@ public class NoteManagerTest {
         assertThrows(NullPointerException.class, () -> noteManager.setUserPrefs(null));
     }
 
-    // TODO renable after userprefs is edited for Notes
+    // TODO re-enable after userprefs is edited for Notes
     //@Test
     //public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
     //    UserPrefs userPrefs = new UserPrefs();

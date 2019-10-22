@@ -22,38 +22,38 @@ public class UniqueContactListTest {
     private final UniqueContactList uniqueContactList = new UniqueContactList();
 
     @Test
-    public void contains_nullContact_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueContactList.contains(null));
+    public void containsContact_nullContact_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueContactList.containsContact(null));
     }
 
     @Test
-    public void contains_contactNotInList_returnsFalse() {
-        assertFalse(uniqueContactList.contains(ALICE));
+    public void containsContact_contactNotInList_returnsFalse() {
+        assertFalse(uniqueContactList.containsContact(ALICE));
     }
 
     @Test
-    public void contains_contactInList_returnsTrue() {
-        uniqueContactList.add(ALICE);
-        assertTrue(uniqueContactList.contains(ALICE));
+    public void containsContact_contactInList_returnsTrue() {
+        uniqueContactList.addContact(ALICE);
+        assertTrue(uniqueContactList.containsContact(ALICE));
     }
 
     @Test
-    public void contains_contactWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueContactList.add(ALICE);
+    public void containsContact_contactWithSameIdentityFieldsInList_returnsTrue() {
+        uniqueContactList.addContact(ALICE);
         Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
-        assertTrue(uniqueContactList.contains(editedAlice));
+        assertTrue(uniqueContactList.containsContact(editedAlice));
     }
 
     @Test
-    public void add_nullContact_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueContactList.add(null));
+    public void addContact_nullContact_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueContactList.addContact(null));
     }
 
     @Test
-    public void add_duplicateContact_throwsDuplicateContactException() {
-        uniqueContactList.add(ALICE);
-        assertThrows(DuplicateContactException.class, () -> uniqueContactList.add(ALICE));
+    public void addContact_duplicateContact_throwsDuplicateContactException() {
+        uniqueContactList.addContact(ALICE);
+        assertThrows(DuplicateContactException.class, () -> uniqueContactList.addContact(ALICE));
     }
 
     @Test
@@ -73,54 +73,54 @@ public class UniqueContactListTest {
 
     @Test
     public void setContact_editedContactIsSameContact_success() {
-        uniqueContactList.add(ALICE);
+        uniqueContactList.addContact(ALICE);
         uniqueContactList.setContact(ALICE, ALICE);
         UniqueContactList expectedUniqueContactList = new UniqueContactList();
-        expectedUniqueContactList.add(ALICE);
+        expectedUniqueContactList.addContact(ALICE);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
 
     @Test
     public void setContact_editedContactHasSameIdentity_success() {
-        uniqueContactList.add(ALICE);
+        uniqueContactList.addContact(ALICE);
         Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         uniqueContactList.setContact(ALICE, editedAlice);
         UniqueContactList expectedUniqueContactList = new UniqueContactList();
-        expectedUniqueContactList.add(editedAlice);
+        expectedUniqueContactList.addContact(editedAlice);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
 
     @Test
     public void setContact_editedContactHasDifferentIdentity_success() {
-        uniqueContactList.add(ALICE);
+        uniqueContactList.addContact(ALICE);
         uniqueContactList.setContact(ALICE, BOB);
         UniqueContactList expectedUniqueContactList = new UniqueContactList();
-        expectedUniqueContactList.add(BOB);
+        expectedUniqueContactList.addContact(BOB);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
 
     @Test
     public void setContact_editedContactHasNonUniqueIdentity_throwsDuplicateContactException() {
-        uniqueContactList.add(ALICE);
-        uniqueContactList.add(BOB);
+        uniqueContactList.addContact(ALICE);
+        uniqueContactList.addContact(BOB);
         assertThrows(DuplicateContactException.class, () -> uniqueContactList.setContact(ALICE, BOB));
     }
 
     @Test
-    public void remove_nullContact_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueContactList.remove(null));
+    public void removeContact_nullContact_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueContactList.removeContact(null));
     }
 
     @Test
-    public void remove_contactDoesNotExist_throwsContactNotFoundException() {
-        assertThrows(ContactNotFoundException.class, () -> uniqueContactList.remove(ALICE));
+    public void removeContact_contactDoesNotExist_throwsContactNotFoundException() {
+        assertThrows(ContactNotFoundException.class, () -> uniqueContactList.removeContact(ALICE));
     }
 
     @Test
-    public void remove_existingContact_removesContact() {
-        uniqueContactList.add(ALICE);
-        uniqueContactList.remove(ALICE);
+    public void removeContact_existingContact_removesContact() {
+        uniqueContactList.addContact(ALICE);
+        uniqueContactList.removeContact(ALICE);
         UniqueContactList expectedUniqueContactList = new UniqueContactList();
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
@@ -132,9 +132,9 @@ public class UniqueContactListTest {
 
     @Test
     public void setContacts_uniqueContactList_replacesOwnListWithProvidedUniqueContactList() {
-        uniqueContactList.add(ALICE);
+        uniqueContactList.addContact(ALICE);
         UniqueContactList expectedUniqueContactList = new UniqueContactList();
-        expectedUniqueContactList.add(BOB);
+        expectedUniqueContactList.addContact(BOB);
         uniqueContactList.setContacts(expectedUniqueContactList);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
@@ -146,11 +146,11 @@ public class UniqueContactListTest {
 
     @Test
     public void setContacts_list_replacesOwnListWithProvidedList() {
-        uniqueContactList.add(ALICE);
+        uniqueContactList.addContact(ALICE);
         List<Contact> contactList = Collections.singletonList(BOB);
         uniqueContactList.setContacts(contactList);
         UniqueContactList expectedUniqueContactList = new UniqueContactList();
-        expectedUniqueContactList.add(BOB);
+        expectedUniqueContactList.addContact(BOB);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
 

@@ -1,6 +1,5 @@
 package tagline.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.testutil.Assert.assertThrows;
 
@@ -33,14 +32,14 @@ public class TagParserUtilTest {
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
         Tag expectedTag = new ContactTag(new ContactId(VALID_TAG_1.substring(1)));
-        assertEquals(expectedTag, TagParserUtil.parseTag(VALID_TAG_1));
+        assertTrue(expectedTag.isSameContent(TagParserUtil.parseTag(VALID_TAG_1)));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
         Tag expectedTag = new ContactTag(new ContactId(VALID_TAG_1.substring(1)));
-        assertEquals(expectedTag, TagParserUtil.parseTag(tagWithWhitespace));
+        assertTrue(expectedTag.isSameContent(TagParserUtil.parseTag(tagWithWhitespace)));
     }
 
     @Test
@@ -52,11 +51,11 @@ public class TagParserUtilTest {
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
+    public void parseTags_emptyCollection_returnsEmptySet() {
         assertTrue(TagParserUtil.parseTags(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
+    public void parseTags_collectionWithValidTags_returnsTagSet() {
     }
 }

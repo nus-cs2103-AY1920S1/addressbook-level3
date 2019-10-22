@@ -7,19 +7,19 @@ import java.util.List;
  */
 public interface TagModel {
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces tag book data with the data in {@code tagBook}.
      */
-    void setTagList(ReadOnlyTagList tagList);
+    void setTagBook(ReadOnlyTagBook tagList);
 
     /**
-     * Returns a read-only view of the tag list.
+     * Returns a read-only view of the tag book.
      */
-    ReadOnlyTagList getTagList();
+    ReadOnlyTagBook getTagBook();
 
     /**
      * Returns true if {@code tag} exists in the tag list.
      */
-    boolean containsTag(Tag tag);
+    boolean hasTag(Tag tag);
 
     /**
      * Adds the given tag.

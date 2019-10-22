@@ -32,7 +32,7 @@ public class UniqueNoteList implements Iterable<Note> {
     /**
      * Returns true if the list contains an equivalent note as the given argument.
      */
-    public boolean contains(Note toCheck) {
+    public boolean containsNote(Note toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameNote);
     }
@@ -41,9 +41,9 @@ public class UniqueNoteList implements Iterable<Note> {
      * Adds a note to the list.
      * The note must not already exist in the list.
      */
-    public void add(Note toAdd) {
+    public void addNote(Note toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+        if (containsNote(toAdd)) {
             throw new DuplicateNoteException();
         }
         internalList.add(toAdd);
@@ -79,7 +79,7 @@ public class UniqueNoteList implements Iterable<Note> {
             throw new NoteNotFoundException();
         }
 
-        if (!target.isSameNote(editedNote) && contains(editedNote)) {
+        if (!target.isSameNote(editedNote) && containsNote(editedNote)) {
             throw new DuplicateNoteException();
         }
 
@@ -90,7 +90,7 @@ public class UniqueNoteList implements Iterable<Note> {
      * Removes the equivalent note from the list.
      * The note must exist in the list.
      */
-    public void remove(Note toRemove) {
+    public void removeNote(Note toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new NoteNotFoundException();

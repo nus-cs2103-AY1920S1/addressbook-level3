@@ -34,7 +34,7 @@ public class UniqueContactList implements Iterable<Contact> {
     /**
      * Returns true if the list contains an equivalent contact as the given argument.
      */
-    public boolean contains(Contact toCheck) {
+    public boolean containsContact(Contact toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameContact);
     }
@@ -64,9 +64,9 @@ public class UniqueContactList implements Iterable<Contact> {
      * Adds a contact to the list.
      * The contact must not already exist in the list.
      */
-    public void add(Contact toAdd) {
+    public void addContact(Contact toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+        if (containsContact(toAdd)) {
             throw new DuplicateContactException();
         }
         internalList.add(toAdd);
@@ -85,7 +85,7 @@ public class UniqueContactList implements Iterable<Contact> {
             throw new ContactNotFoundException();
         }
 
-        if (!target.isSameContact(editedContact) && contains(editedContact)) {
+        if (!target.isSameContact(editedContact) && containsContact(editedContact)) {
             throw new DuplicateContactException();
         }
 
@@ -96,7 +96,7 @@ public class UniqueContactList implements Iterable<Contact> {
      * Removes the equivalent contact from the list.
      * The contact must exist in the list.
      */
-    public void remove(Contact toRemove) {
+    public void removeContact(Contact toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new ContactNotFoundException();

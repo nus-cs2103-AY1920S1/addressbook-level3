@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Unmodifiable view of a tag list.
  */
-public interface ReadOnlyTagList {
+public interface ReadOnlyTagBook {
 
     /**
      * Returns an unmodifiable view of the tag list.

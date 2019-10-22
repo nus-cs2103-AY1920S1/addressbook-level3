@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasContact(Contact contact) {
         requireNonNull(contact);
-        return contacts.contains(contact);
+        return contacts.containsContact(contact);
     }
 
     /**
@@ -73,7 +73,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addContact(Contact p) {
         requireNonNull(p.getContactId());
         assert (findContact(p.getContactId()).isEmpty()) : "Contact id is not unique";
-        contacts.add(p);
+        contacts.addContact(p);
     }
 
     /**
@@ -94,12 +94,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removeContact(Contact key) {
-        contacts.remove(key);
+        contacts.removeContact(key);
     }
 
+    /**
+     * Finds a contact with ID equal to {@code contactId}.
+     */
     public Optional<Contact> findContact(ContactId contactId) {
         return contacts.findContact(contactId);
     }
+
     //// util methods
 
     /**

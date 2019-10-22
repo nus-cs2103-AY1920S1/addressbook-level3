@@ -12,48 +12,48 @@ import tagline.commons.exceptions.DataConversionException;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.commons.util.FileUtil;
 import tagline.commons.util.JsonUtil;
-import tagline.model.tag.ReadOnlyTagList;
+import tagline.model.tag.ReadOnlyTagBook;
 import tagline.storage.note.JsonNoteBookStorage;
 
 /**
- * A class to access TagList data stored as a json file on the hard disk.
+ * A class to access UniqueTagBook data stored as a json file on the hard disk.
  */
-public class JsonTagListStorage implements TagListStorage {
+public class JsonTagBookStorage implements TagBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonNoteBookStorage.class);
 
     private Path filePath;
 
-    public JsonTagListStorage(Path filePath) {
+    public JsonTagBookStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getTagListFilePath() {
+    public Path getTagBookFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyTagList> readTagList() throws DataConversionException {
-        return readTagList(filePath);
+    public Optional<ReadOnlyTagBook> readTagBook() throws DataConversionException {
+        return readTagBook(filePath);
     }
 
     /**
-     * Similar to {@link #readTagList()}.
+     * Similar to {@link #readTagBook()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTagList> readTagList(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyTagBook> readTagBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSeriazableTagList> jsonTagList = JsonUtil.readJsonFile(
-            filePath, JsonSeriazableTagList.class);
-        if (!jsonTagList.isPresent()) {
+        Optional<JsonSerializableTagBook> jsonTagBook = JsonUtil.readJsonFile(
+            filePath, JsonSerializableTagBook.class);
+        if (!jsonTagBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonTagList.get().toModelType());
+            return Optional.of(jsonTagBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,21 +61,21 @@ public class JsonTagListStorage implements TagListStorage {
     }
 
     @Override
-    public void saveTagList(ReadOnlyTagList tagList) throws IOException {
-        saveTagList(tagList, filePath);
+    public void saveTagBook(ReadOnlyTagBook tagBook) throws IOException {
+        saveTagBook(tagBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveTagList(ReadOnlyTagList)}.
+     * Similar to {@link #saveTagBook(ReadOnlyTagBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveTagList(ReadOnlyTagList tagList, Path filePath) throws IOException {
-        requireNonNull(tagList);
+    public void saveTagBook(ReadOnlyTagBook tagBook, Path filePath) throws IOException {
+        requireNonNull(tagBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSeriazableTagList(tagList), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableTagBook(tagBook), filePath);
     }
 
 }

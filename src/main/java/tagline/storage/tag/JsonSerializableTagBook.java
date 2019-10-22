@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import tagline.commons.exceptions.IllegalValueException;
-import tagline.model.tag.ReadOnlyTagList;
+import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
-import tagline.model.tag.TagList;
+import tagline.model.tag.TagBook;
 
 /**
- * An Immutable TagList that is serializable to JSON format.
+ * An Immutable UniqueTagList that is serializable to JSON format.
  */
-public class JsonSeriazableTagList {
+public class JsonSerializableTagBook {
 
     public static final String MESSAGE_DUPLICATE_TAG = "Tag list contains duplicate tag(s).";
 
@@ -25,7 +25,7 @@ public class JsonSeriazableTagList {
      * Constructs a {@code JsonSerializableNoteBook} with the given notes.
      */
     @JsonCreator
-    public JsonSeriazableTagList(@JsonProperty("tags") List<JsonAdaptedTag> tags) {
+    public JsonSerializableTagBook(@JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.tags.addAll(tags);
     }
 
@@ -34,25 +34,25 @@ public class JsonSeriazableTagList {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableNoteBook}.
      */
-    public JsonSeriazableTagList(ReadOnlyTagList source) {
+    public JsonSerializableTagBook(ReadOnlyTagBook source) {
         tags.addAll(source.getTagList().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code NoteBook} object.
+     * Converts this tag book into the model's {@code TagBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public TagList toModelType() throws IllegalValueException {
-        TagList tagList = new TagList();
+    public TagBook toModelType() throws IllegalValueException {
+        TagBook tagBook = new TagBook();
         for (JsonAdaptedTag jsonAdaptedTag : tags) {
             Tag tag = jsonAdaptedTag.toModelType();
-            if (tagList.containsTag(tag)) {
+            if (tagBook.hasTag(tag)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
             }
-            tagList.addTag(tag);
+            tagBook.addTag(tag);
         }
-        return tagList;
+        return tagBook;
     }
 
 }
