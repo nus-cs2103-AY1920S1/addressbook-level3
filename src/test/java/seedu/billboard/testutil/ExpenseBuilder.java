@@ -67,6 +67,14 @@ public class ExpenseBuilder {
     }
 
     /**
+     * Removes all existing tags in {@code Expense}.
+     */
+    public ExpenseBuilder removeAllTags() {
+        this.tags = new HashSet<>();
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and merge it with the existing tag set to create a new
      * set to set it to the {@code Expense} that we are building
      */

@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
+import seedu.billboard.model.tag.Tag;
+import seedu.billboard.model.tag.TagCountManager;
+import seedu.billboard.model.tag.UniqueTagList;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 public class BillboardTest {
@@ -119,6 +123,8 @@ public class BillboardTest {
      */
     private static class BillboardStub implements ReadOnlyBillboard {
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
+        private final UniqueTagList uniqueTagList = new UniqueTagList();
+        private final TagCountManager countManager = new TagCountManager();
 
         BillboardStub(Collection<Expense> expenses) {
             this.expenses.setAll(expenses);
@@ -137,6 +143,16 @@ public class BillboardTest {
         @Override
         public ReadOnlyBillboard removeArchiveExpenses() {
             return null;
+        }
+
+        @Override
+        public Map<String, Tag> getUniqueTagList() {
+            return uniqueTagList.getTagList();
+        }
+
+        @Override
+        public Map<Tag, Integer> getCountManager() {
+            return countManager.getCountMap();
         }
 
     }
