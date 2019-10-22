@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.card.Card;
 
 /**
@@ -17,28 +18,51 @@ public class WordBankStatistics {
     private Optional<Double> fastestClear; // empty if never cleared
     private final List<CardStatistics> cardStats = new ArrayList<>();
     private final List<ScoreData> scoreStats = new ArrayList<>();
+    private boolean receivedBadgeEasy;
+    private boolean receivedBadgeNormal;
+    private boolean receivedBadgeHard;
 
     public WordBankStatistics(String wordBankName,
                               int gamesPlayed,
                               Optional<Double> fastestClear,
                               List<CardStatistics> cardStats,
-                              List<ScoreData> scoreStats) {
+                              List<ScoreData> scoreStats,
+                              boolean receivedBadgeEasy,
+                              boolean receivedBadgeNormal,
+                              boolean receivedBadgeHard) {
         this.wordBankName = wordBankName;
         this.gamesPlayed = gamesPlayed;
         this.fastestClear = fastestClear;
         this.cardStats.addAll(cardStats);
         this.scoreStats.addAll(scoreStats);
+
+        this.receivedBadgeEasy = receivedBadgeEasy;
+        this.receivedBadgeNormal = receivedBadgeNormal;
+        this.receivedBadgeHard = receivedBadgeHard;
     }
 
     /**
-     * Updates this word bank statistics to include {@code gameStats}.
+     * Updates this word bank statistics to include {@code gameStats} of the difficulty {@code difficultyEnum}.
      */
-    public void update(GameStatistics gameStats) {
+    public void update(GameStatistics gameStats, DifficultyEnum difficultyEnum) {
         ++gamesPlayed;
         if (gameStats.allCorrect()) {
             // update fastestClear if necessary
             fastestClear = fastestClear.map(aDouble -> Math.min(aDouble, gameStats.getSecTaken()))
                     .or(() -> Optional.of(gameStats.getSecTaken()));
+            // give badges
+            switch (difficultyEnum) {
+            case EASY:
+                receivedBadgeEasy = true;
+                break;
+            case MEDIUM:
+                receivedBadgeNormal = true;
+                break;
+            case HARD:
+                receivedBadgeHard = true;
+                break;
+            default:
+            }
         }
         List<Card> correctCards = gameStats.getCorrectCards();
         List<Card> wrongCards = gameStats.getWrongCards();
@@ -99,6 +123,18 @@ public class WordBankStatistics {
         return cardStats;
     }
 
+    public boolean receivedBadgeEasy() {
+        return receivedBadgeEasy;
+    }
+
+    public boolean receivedBadgeNormal() {
+        return receivedBadgeNormal;
+    }
+
+    public boolean receivedBadgeHard() {
+        return receivedBadgeHard;
+    }
+
     /**
      * Removes the statistics from a chosen card via its cardID.
      *
@@ -121,7 +157,8 @@ public class WordBankStatistics {
                 0,
                 Optional.empty(),
                 Collections.emptyList(),
-                Collections.emptyList());
+                Collections.emptyList(),
+                false, false, false);
     }
 
     @Override

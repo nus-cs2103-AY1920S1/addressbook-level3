@@ -67,7 +67,8 @@ public class GameResultPanel extends UiPart<Region> {
         AnchorPane.setLeftAnchor(title, 0.0);
         title.setText(gameStatistics.getTitle());
 
-        badgesRowPlaceholder.getChildren().add(new BadgesRow(true, true, false).getRoot());
+        badgesRowPlaceholder.getChildren().add(new BadgesRow(wbStatistics.receivedBadgeEasy(),
+                wbStatistics.receivedBadgeNormal(), wbStatistics.receivedBadgeHard()).getRoot());
 
         // init score text
         int score = gameStatistics.getScore();

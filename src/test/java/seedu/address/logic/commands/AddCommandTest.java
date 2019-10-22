@@ -123,6 +123,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public DifficultyEnum getCurrentGameDifficulty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setDefaultTheme(ThemeEnum themeEnum) {
 
         }
