@@ -102,6 +102,7 @@ public class DashboardRecords implements ReadOnlyDashboard {
         // TODO: refine later
     }
 
+
     @Override
     public ObservableList<Dashboard> getDashboardList() {
         return dashboards.asUnmodifiableObservableList();
@@ -118,4 +119,5 @@ public class DashboardRecords implements ReadOnlyDashboard {
     public int hashCode() {
         return dashboards.hashCode();
     }
+
 }

@@ -9,7 +9,7 @@ import seedu.address.model.dashboard.components.Dashboard;
 public interface ReadOnlyDashboard {
 
     /**
-     * Returns an unmodifiable view of the persons list.
+     * Returns an unmodifiable view of the dashboard list.
      * This list will not contain any duplicate dashboards.
      */
     ObservableList<Dashboard> getDashboardList();

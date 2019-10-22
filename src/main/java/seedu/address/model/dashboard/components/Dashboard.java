@@ -2,6 +2,7 @@ package seedu.address.model.dashboard.components;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -31,6 +32,12 @@ public class Dashboard {
 
     public TaskDate getTaskDate() {
         return taskDate;
+    }
+
+    public LocalDate getLocalDate() {
+        TaskDate td = getTaskDate();
+        LocalDate ld = LocalDate.of(Integer.parseInt(td.year), Integer.parseInt(td.month), Integer.parseInt(td.day));
+        return ld;
     }
 
     /**
