@@ -1,56 +1,127 @@
 @startuml
 !include style.puml
+left to right direction
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
-Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
-Class Model
-Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
+show <<enumeration>> fields
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
-}
+Package Model <<Rectangle>> {
 
-Package Tag {
-Class Tag
-}
+    Interface ReadOnlyAlgoBase <<Interface>>
+    Interface ReadOnlyUserPrefs <<Interface>>
+    Interface Model <<Interface>>
+    Interface ObservableList <<Interface>>
+    Class LocalDateTime
+    Class Index
+    Class IntegerProperty
+    Class AlgoBase
+    Class ModelManager
+    Class UserPrefs
+    Class Boolean
+    enum ModelType <<enumeration>> {
+        PROBLEM,
+        TAG,
+        PLAN,
+        TASK
+    }
+
+    Package Gui {
+        Class GuiState
+        Class TabData
+        Class TabManager
+        enum TabType <<enumeration>> {
+            DISPLAY,
+            DETAILS
+        }
+    }
+
+    Package Plan {
+        Class NameContainsKeywordsPredicate
+        Class Plan
+        Class PlanDescription
+        Class PlanList
+        Class PlanName
+    }
+
+    Package Problem {
+        Class Author
+        Class Description
+        Class Difficulty
+        Class Name
+        Class Problem
+        Class Remark
+        Class Source
+        Class UniqueProblemList
+        Class WebLink
+    }
+
+    Package Tag {
+        Class Tag
+        Class UniqueTagList
+    }
+
+    Package Task {
+        Class Task
+    }
+
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+AlgoBase .up.|> ReadOnlyAlgoBase
 
+'Model & UserPrefs
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" AlgoBase
 ModelManager o-left-> "1" UserPrefs
+ModelManager -->"1" Problem : filtered and sorted list
+ModelManager -->"1" Tag: filtered list
+ModelManager -->"1" Plan: filtered list
+ModelManager -->"1" Task: filtered list
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+'AlgoBase
+AlgoBase *--> "1" UniqueProblemList
+AlgoBase *--> "1" UniqueTagList
+AlgoBase *--> "1" PlanList
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+'Problem
+UniqueProblemList o--> "*" Problem
+Problem *--> Author
+Problem *--> Description
+Problem *--> Difficulty
+Problem *--> Name
+Problem *--> Remark
+Problem *--> Source
+Problem *--> WebLink
+Problem *--> "*" Tag
 
-ModelManager -->"1" Person : filtered list
+'Tag
+UniqueTagList o--> "*" Tag
+
+'Plan
+Plan *--> "1" PlanName
+Plan *--> "1" PlanDescription
+Plan *--> "1" LocalDateTime : startDate
+Plan *--> "1" LocalDateTime : endDate
+PlanList o--> "*" Task
+
+'Task
+Task *--> "1" Problem
+Task *--> "1" Boolean : isSolved
+Task *--> "1" LocalDateTime : datetime
+
+'Gui
+GuiState *--> "1" TabManager
+TabData *--> "1" ModelType
+TabData *--> "1" Index : modelIndex
+TabManager *--> "1" IntegerProperty : displayTabPaneIndex
+TabManager *--> "1" IntegerProperty : detailsTabPaneIndex
+TabManager *--> "*" TabData : tabs
+
+
 @enduml
