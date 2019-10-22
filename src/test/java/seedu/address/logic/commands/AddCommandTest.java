@@ -21,6 +21,7 @@ import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCardBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -211,7 +212,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setCardBook(CardBook newData) {
+        public void setCardBook(ReadOnlyCardBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
