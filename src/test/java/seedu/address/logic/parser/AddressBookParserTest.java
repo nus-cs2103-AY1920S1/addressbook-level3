@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.PersonBuilder;
+import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -24,11 +26,15 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.SuggestionCommand;
+import seedu.address.logic.commands.merge.MergePersonCommand;
+import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.PolicyUtil;
 
 public class AddressBookParserTest {
 
@@ -36,9 +42,16 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
+        Person person = new PersonBuilder().withPolicies().withTags().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_addpolicy() throws Exception {
+        Policy policy = new PolicyBuilder().withTags().withCriteria().build();
+        AddPolicyCommand command = (AddPolicyCommand) parser.parseCommand(PolicyUtil.getAddPolicyCommand(policy));
+        assertEquals(new AddPolicyCommand(policy), command);
     }
 
     @Test
@@ -88,6 +101,34 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(ListPeopleCommand.COMMAND_WORD) instanceof ListPeopleCommand);
         assertTrue(parser.parseCommand(ListPeopleCommand.COMMAND_WORD + " 3") instanceof ListPeopleCommand);
     }
+
+    /**
+     * A new parser is created for this method as the parsing of a merge person command changes the state of the
+     * AddressBookParser.
+     *
+     */
+    @Test
+    public void parseCommand_mergePerson() throws Exception {
+        AddressBookParser parser = new AddressBookParser();
+        Person person = new PersonBuilder().withPolicies().withTags().build();
+        assertTrue(parser.parseCommand(MergePersonCommand.COMMAND_WORD + " "
+                + PersonUtil.getAddCommand(person), true) instanceof MergePersonCommand);
+    }
+
+    /**
+     * A new parser is created for this method as the parsing of a merge person command changes the state of the
+     * AddressBookParser.
+     *
+     */
+    @Test
+    public void parseCommand_mergePolicy() throws Exception {
+        AddressBookParser parser = new AddressBookParser();
+        Policy policy = new PolicyBuilder().withTags().withCriteria().build();
+        assertTrue(parser.parseCommand(MergePolicyCommand.COMMAND_WORD + " "
+                + PolicyUtil.getAddPolicyCommand(policy), true)
+                instanceof MergePolicyCommand);
+    }
+
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
