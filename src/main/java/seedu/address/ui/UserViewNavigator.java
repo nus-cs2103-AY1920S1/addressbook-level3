@@ -55,7 +55,7 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadStatsView(Logic logic) {
-        statisticsView = new StatisticsView(logic.getStatistics());
+        statisticsView = new StatisticsView(logic.getStatistics(), logic.getFilteredMemberList());
         userViewController.setUserView(statisticsView);
     }
 

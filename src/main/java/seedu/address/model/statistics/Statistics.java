@@ -90,7 +90,7 @@ public class Statistics {
 
         portionTasksByStatus.put(TaskStatus.UNBEGUN, unbegun);
         portionTasksByStatus.put(TaskStatus.DOING, doing);
-        portionTasksByStatus.put(TaskStatus.DOING, done);
+        portionTasksByStatus.put(TaskStatus.DONE, done);
     }
 
     public HashMap<Member, Double> getPortionMembersByTasks() {

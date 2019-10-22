@@ -17,7 +17,7 @@
         </VBox>
         <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
             <children>
-                <Label id="doingLabel" text="Members by tasks allocated" />
+                <Label id="memberByTasks" text="Members by tasks allocated" />
                 <PieChart fx:id="memberByTasks" prefWidth="300" prefHeight="300" />
             </children>
         </VBox>
