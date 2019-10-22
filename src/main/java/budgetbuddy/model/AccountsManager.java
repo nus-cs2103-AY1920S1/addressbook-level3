@@ -20,10 +20,11 @@ public class AccountsManager {
 
     private final UniqueAccountList accounts;
 
-    private FilteredList<Account> filteredAccounts;
+    private final FilteredList<Account> filteredAccounts;
 
     public AccountsManager() {
         this.accounts = new UniqueAccountList();
+        filteredAccounts = new FilteredList<>(this.getAccountsList(), s -> true);
     }
 
     /**
@@ -44,6 +45,14 @@ public class AccountsManager {
     public ObservableList<Account> getAccountsList() {
         return accounts.asUnmodifiableObservableList();
     }
+
+    /**
+     * Returns an unmodifiable view of the list of Account
+     */
+    public ObservableList<Account> getFilteredAccountList() {
+        return filteredAccounts;
+    }
+
 
     /**
      * Adds a given account to its specified account in the list.
