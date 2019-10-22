@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.incident.Incident;
 import seedu.address.model.vehicle.District;
 
 /**
