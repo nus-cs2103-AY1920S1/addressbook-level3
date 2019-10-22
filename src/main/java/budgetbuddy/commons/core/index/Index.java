@@ -59,7 +59,10 @@ public class Index {
         return zeroBasedIndex + "";
     }
 
-    public static class SortByIndex implements Comparator<Index> {
+    /**
+     * A comparator to sort indices in descending order.
+     */
+    public static class SortDescending implements Comparator<Index> {
         public int compare(Index first, Index second) {
             return first.getZeroBased() - second.getZeroBased();
         }

@@ -99,7 +99,7 @@ public abstract class MultiLoanCommand extends Command {
      */
     protected void actOnTargetLoans(List<Index> targetLoanIndices, Consumer<Index> operation) {
         int indicesProcessed = 0;
-        targetLoanIndices.sort(new Index.SortByIndex()); // indices MUST be sorted before iteration
+        targetLoanIndices.sort(new Index.SortDescending()); // indices MUST be sorted before iteration
         for (Index index : targetLoanIndices) {
             try {
                 operation.accept(Index.fromZeroBased(index.getZeroBased() - indicesProcessed));
