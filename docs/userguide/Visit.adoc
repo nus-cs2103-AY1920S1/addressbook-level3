@@ -1,3 +1,4 @@
+// tag::visit[]
 [[Visit]]
 == Visit Management
 ====
@@ -80,3 +81,4 @@ This would set task 2 to unfinished and change the remarks. Once you have finish
 Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can then mark that visit as finished using `visit-now-finish`, which will archive that visit. The ongoing visit will be removed from the Ongoing Visit tab.
 
 Format: `visit-now-finish`
+// end::patient[]

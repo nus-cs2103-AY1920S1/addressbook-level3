@@ -1,3 +1,4 @@
+// tag::patient[]
 == Patient Features
 ====
 *Patient Features*
@@ -111,3 +112,4 @@ Deletes the patient which had been assigned the index 1.
 
 Warning:
 If `pat-delete` is successfully executed, the indexes of remaining patients may change. Please verify the index of the patient you are referencing after executing this command.
+// end::patient[]

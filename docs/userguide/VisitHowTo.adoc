@@ -1,4 +1,7 @@
+// tag::visithowto[]
 [[VisitHowTo]]
+== Visit Tutorials / How-To Guide(s)
+
 === What are Visit Todos (and Visit Tasks)?
 
 Visit Todos are, as the name suggests, todo items. These are items that are attached to a patient and are todo items that you want to be reminded to do when you visit that patient. Each Visit Todo contains a description of that task.
@@ -50,3 +53,4 @@ Finally, once you have concluded the visit, you can finish the visit using `visi
 
 *Viewing previous Visits* + 
 You can view the visits of a patient using `pat-list` and `pat-find`. Visits are displayed under their patient details. In this case, it may be better to use `pat-find` to find John's records e.g. `pat-find John Heng`.
+// end::visithowto[]

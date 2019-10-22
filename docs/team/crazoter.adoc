@@ -49,9 +49,13 @@ https://github.com/AY1920S1-CS2103-F10-1/main/pull/73[#73]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../userguide/Patient.adoc[]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../userguide/Visit.adoc[]
+
+include::../userguide/VisitHowTo.adoc[]
+
+include::../userguide/Security.adoc[]
 
 == Contributions to the Developer Guide
 
