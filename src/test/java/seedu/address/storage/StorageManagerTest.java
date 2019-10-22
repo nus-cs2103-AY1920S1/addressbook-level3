@@ -23,6 +23,7 @@ import seedu.address.model.profile.ReadOnlyUserProfile;
 import seedu.address.model.profile.UserProfile;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;
 import seedu.address.model.recipe.RecipeBook;
+import seedu.address.storage.dashboard.JsonDashboardStorage;
 import seedu.address.storage.diary.JsonDiaryStorage;
 import seedu.address.storage.exercise.JsonWorkoutPlannerStorage;
 import seedu.address.storage.health.JsonHealthRecordsStorage;
@@ -43,9 +44,10 @@ public class StorageManagerTest {
         JsonRecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(getTempFilePath("ab"));
         JsonWorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(getTempFilePath("ab"));
         JsonDiaryStorage diaryStorage = new JsonDiaryStorage(getTempFilePath("ab"));
+        JsonDashboardStorage dashboardStorage = new JsonDashboardStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(userProfileStorage, healthRecordsStorage,
-                recipeBookStorage, workoutPlannerStorage, diaryStorage, userPrefsStorage);
+                recipeBookStorage, workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

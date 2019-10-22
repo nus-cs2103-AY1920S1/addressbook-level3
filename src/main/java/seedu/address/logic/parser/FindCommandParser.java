@@ -6,10 +6,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.dashboard.FindTaskCommand;
 import seedu.address.logic.commands.exercise.FindExerciseByIntensityCommand;
 import seedu.address.logic.commands.exercise.FindExerciseByMuscleCommand;
 import seedu.address.logic.commands.exercise.FindExerciseCommand;
 import seedu.address.logic.commands.recipe.FindRecipeCommand;
+import seedu.address.logic.parser.dashboard.FindTaskCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.exercise.FindExerciseByIntensityCommandParser;
 import seedu.address.logic.parser.exercise.FindExerciseByMuscleCommandParser;
@@ -41,6 +43,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (variant) {
+
+        case FindTaskCommand.VARIANT_WORD:
+            return new FindTaskCommandParser().parse(arguments);
 
         case FindRecipeCommand.VARIANT_WORD:
             return new FindRecipeCommandParser().parse(arguments);

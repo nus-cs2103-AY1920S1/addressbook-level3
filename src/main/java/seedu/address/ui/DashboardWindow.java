@@ -22,9 +22,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class RecipeBookWindow extends UiPart<Stage> {
+public class DashboardWindow extends UiPart<Stage> {
 
-    private static final String FXML = "RecipeBookWindow.fxml";
+    private static final String FXML = "DashboardWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -32,7 +32,7 @@ public class RecipeBookWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private RecipeListPanel recipeListPanel;
+    private DashboardListPanel dashboardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,7 +43,7 @@ public class RecipeBookWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane recipeListPanelPlaceholder;
+    private StackPane versatilePanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -69,7 +69,7 @@ public class RecipeBookWindow extends UiPart<Stage> {
     @FXML
     private Button diary;
 
-    public RecipeBookWindow(Stage primaryStage, Logic logic) {
+    public DashboardWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -124,15 +124,16 @@ public class RecipeBookWindow extends UiPart<Stage> {
 
     /**
      * Fills up all the placeholders of this window.
+     * with dashboard tab view.
      */
     void fillInnerParts() {
-        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
-        recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
+        versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRecipesFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getDashboardFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -195,10 +196,7 @@ public class RecipeBookWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchProfile() {
-        primaryStage.hide();
-        UserProfileWindow userProfileWindow = new UserProfileWindow(getPrimaryStage(), logic);
-        userProfileWindow.show();
-        userProfileWindow.fillInnerParts();
+        // do nothing
     }
 
     /**
@@ -206,7 +204,10 @@ public class RecipeBookWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchRecipe() {
-        // do nothing
+        primaryStage.hide();
+        RecipeBookWindow recipeBookWindow = new RecipeBookWindow(getPrimaryStage(), logic);
+        recipeBookWindow.show();
+        recipeBookWindow.fillInnerParts();
     }
 
     /**
@@ -242,14 +243,15 @@ public class RecipeBookWindow extends UiPart<Stage> {
         diaryWindow.fillInnerParts();
     }
 
-    public RecipeListPanel getRecipeListPanel() {
-        return recipeListPanel;
+
+    public DashboardListPanel getDashboardListPanel() {
+        return dashboardListPanel;
     }
 
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
