@@ -22,7 +22,6 @@ public class RedoCommand extends Command {
         model.redo();
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-        model.saveState();
         return new CommandResult(MESSAGE_REDO_SUCCESS);
     }
 }

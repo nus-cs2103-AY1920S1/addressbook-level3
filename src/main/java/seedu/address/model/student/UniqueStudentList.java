@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.student.exceptions.AssignmentNotFoundException;
+import seedu.address.model.student.exceptions.StudentNotFoundException;
 import seedu.address.model.student.exceptions.DuplicateAssignmentException;
 
 /**
@@ -58,7 +58,7 @@ public class UniqueStudentList implements Iterable<Student> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new AssignmentNotFoundException();
+            throw new StudentNotFoundException();
         }
 
         if (!target.isSameStudent(editedStudent) && contains(editedStudent)) {
@@ -75,7 +75,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public void remove(Student toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new AssignmentNotFoundException();
+            throw new StudentNotFoundException();
         }
     }
 
@@ -93,7 +93,6 @@ public class UniqueStudentList implements Iterable<Student> {
         if (!studentsAreUnique(students)) {
             throw new DuplicateAssignmentException();
         }
-
         internalList.setAll(students);
     }
 

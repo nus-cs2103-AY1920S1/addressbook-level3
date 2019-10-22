@@ -2,17 +2,19 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
-import seedu.address.model.exceptions.NoRedoableStateException;
-import seedu.address.model.exceptions.NoUndoableStateException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
+
+import javax.swing.event.ChangeListener;
 
 /**
  * Wraps all data at the address-book level
@@ -23,7 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
     private final UniqueLessonList lessons;
-    private final UndoManager undoManager;
+    //private final ArrayList<InvalidationListener> invalidationListenersList = new ArrayList<>();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -36,7 +38,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         students = new UniqueStudentList();
         assignments = new UniqueAssignmentList();
         lessons = new UniqueLessonList();
-        undoManager = new UndoManager();
     }
 
     public AddressBook() {
@@ -58,41 +59,23 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setStudents(List<Student> students) {
         this.students.setStudents(students);
-        //undoManager.saveMemento(new Memento (this));
     }
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments.setAssignments(assignments);
-        //undoManager.saveMemento(new Memento (this));
     }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
+        System.out.println("RESETING DATA");
         requireNonNull(newData);
         setStudents(newData.getStudentList());
+        for (Student s : newData.getStudentList()) {
+            System.out.println(s.getName());
+        }
         setAssignments(newData.getAssignmentList());
-    }
-
-    public void undo() {
-        undoManager.undo();
-    }
-
-    public boolean canUndo() {
-        return undoManager.canUndo();
-    }
-
-    public void redo() {
-        undoManager.redo();
-    }
-
-    public boolean canRedo() {
-        return undoManager.canRedo();
-    }
-
-    public void saveState() {
-        undoManager.saveState();
     }
 
     //// student-level operations
@@ -119,6 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addStudent(Student p) {
         students.add(p);
+        System.out.println("At addressbook: " + this);
     }
 
     /**
@@ -151,6 +135,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedAssignment);
 
         assignments.setAssignment(target, editedAssignment);
+
     }
 
     /**

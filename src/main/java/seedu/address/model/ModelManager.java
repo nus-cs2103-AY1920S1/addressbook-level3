@@ -4,16 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.exceptions.NoRedoableStateException;
-import seedu.address.model.exceptions.NoUndoableStateException;
+import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
@@ -24,6 +26,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final Caretaker caretaker;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Assignment> filteredAssignments;
@@ -38,6 +41,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.caretaker = new Caretaker(new Memento(addressBook), this.addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredAssignments = new FilteredList<>(this.addressBook.getAssignmentList());
@@ -183,28 +187,41 @@ public class ModelManager implements Model {
 
     @Override
     public void undo() {
-        addressBook.undo();
+        caretaker.undo();
     }
 
     @Override
     public boolean canUndo() {
-        return addressBook.canUndo();
+        return caretaker.canUndo();
     }
 
     @Override
     public void redo() {
-        addressBook.redo();
+        caretaker.redo();
     }
 
     @Override
     public boolean canRedo() {
-        return addressBook.canRedo();
+        return caretaker.canRedo();
     }
 
     @Override
     public void saveState() {
-        addressBook.saveState();
+        caretaker.saveState();
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
+
+    //=========== Event Listeners =============================================================
+    /*
+    @Override
+    public void checkListeners(Observable observable) {
+        ArrayList<InvalidationListener> listeners = new ArrayList<>(observable);
+        for (InvalidationListener listener : listeners) {
+            listener.invalidated()
+        }
+    }
+    */
 
     @Override
     public boolean equals(Object obj) {

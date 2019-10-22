@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.student.exceptions.AssignmentNotFoundException;
+import seedu.address.model.student.exceptions.StudentNotFoundException;
 import seedu.address.model.student.exceptions.DuplicateAssignmentException;
 import seedu.address.testutil.StudentBuilder;
 
@@ -70,7 +70,7 @@ public class UniqueStudentListTest {
 
     @Test
     public void setStudent_targetStudentNotInList_throwsStudentNotFoundException() {
-        assertThrows(AssignmentNotFoundException.class, () -> uniqueStudentList.setStudent(ALICE, ALICE));
+        assertThrows(StudentNotFoundException.class, () -> uniqueStudentList.setStudent(ALICE, ALICE));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class UniqueStudentListTest {
 
     @Test
     public void remove_studentDoesNotExist_throwsStudentNotFoundException() {
-        assertThrows(AssignmentNotFoundException.class, () -> uniqueStudentList.remove(ALICE));
+        assertThrows(StudentNotFoundException.class, () -> uniqueStudentList.remove(ALICE));
     }
 
     @Test

@@ -1,21 +1,5 @@
 {
-  "students" : [ {
-    "name" : "test6",
-    "phone" : "222222",
-    "email" : "test5@gmail.com",
-    "parentPhone" : "333333",
-    "address" : "test5",
-    "medicalCondition" : "NIL",
-    "tagged" : [ ]
-  }, {
-    "name" : "test8",
-    "phone" : "234234234",
-    "email" : "test8@gmail.com",
-    "parentPhone" : "2342342342",
-    "address" : "test8",
-    "medicalCondition" : "sinus",
-    "tagged" : [ ]
-  } ],
+  "students" : [ ],
   "assignments" : [ {
     "assignmentName" : "math",
     "grades" : [ ]
@@ -36,6 +20,12 @@
     "grades" : [ ]
   }, {
     "assignmentName" : "math test1",
+    "grades" : [ ]
+  }, {
+    "assignmentName" : "science work",
+    "grades" : [ ]
+  }, {
+    "assignmentName" : "placeholder",
     "grades" : [ ]
   } ]
 }
