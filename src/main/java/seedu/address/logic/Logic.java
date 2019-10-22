@@ -14,6 +14,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
+import seedu.address.model.student.Student;
 
 /**
  * API of the Logic component
@@ -85,9 +86,14 @@ public interface Logic {
      */
     ObservableList<Note> getFilteredNotesList();
 
-    /**
-     * Returns the user prefs' notes record file path.
-     */
+    /** Returns an unmodifiable view of the filtered list of students */
+
+    ObservableList<Student> getFilteredStudentList();
+
+
+        /**
+         * Returns the user prefs' notes record file path.
+         */
     Path getNotesRecordFilePath();
     //endregion
 
