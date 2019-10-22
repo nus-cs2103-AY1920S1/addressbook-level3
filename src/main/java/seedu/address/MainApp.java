@@ -76,8 +76,9 @@ public class MainApp extends Application {
         PhoneBookStorage phoneBookStorage = new JsonPhoneBookStorage(userPrefs.getPhoneBookFilePath());
         ScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage(userPrefs.getScheduleBookFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
+        OrderBookStorage archivedOrderBookStorage = new JsonOrderBookStorage(userPrefs.getArchivedOrderBookFilePath());
         storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage, scheduleBookStorage,
-                orderBookStorage, userPrefsStorage);
+                orderBookStorage, archivedOrderBookStorage, userPrefsStorage);
 
         initLogging(config);
         //create statistic manager;
@@ -97,11 +98,13 @@ public class MainApp extends Application {
         Optional<ReadOnlyDataBook<Phone>> phoneBookOptional;
         Optional<ReadOnlyDataBook<Schedule>> scheduleBookOptional;
         Optional<ReadOnlyDataBook<Order>> orderBookOptional;
+        Optional<ReadOnlyDataBook<Order>> archivedOrderBookOptional;
 
         ReadOnlyDataBook<Customer> initialCustomerData;
         ReadOnlyDataBook<Phone> initialPhoneData;
         ReadOnlyDataBook<Schedule> initialScheduleData;
         ReadOnlyDataBook<Order> initialOrderData;
+        ReadOnlyDataBook<Order> initialArchivedOrderData;
 
         try {
             customerBookOptional = storage.readCustomerBook();
@@ -175,11 +178,27 @@ public class MainApp extends Application {
             initialOrderData = new DataBook<>();
         }
 
-        //ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
-        //ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
-        //ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
+        try {
+            archivedOrderBookOptional = storage.readArchivedOrderBook();
+
+            if (!archivedOrderBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Archived Order DataBook");
+            }
+
+            initialArchivedOrderData = archivedOrderBookOptional.orElse(new DataBook<Order>());
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Order DataBook");
+
+            initialArchivedOrderData = new DataBook<>();
+
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Order DataBook");
+            initialArchivedOrderData = new DataBook<>();
+        }
+
         return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, initialScheduleData,
-                userPrefs);
+                initialArchivedOrderData, userPrefs);
     }
 
     private void initLogging(Config config) {

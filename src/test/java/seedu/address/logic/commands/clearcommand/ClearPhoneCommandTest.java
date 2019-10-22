@@ -12,6 +12,7 @@ import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 
 public class ClearPhoneCommandTest {
@@ -27,9 +28,9 @@ public class ClearPhoneCommandTest {
     @Test
     public void execute_nonEmptyPhoneBook_success() {
         Model model = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-                getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-                getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         expectedModel.setPhoneBook(new DataBook<Phone>());
 
         assertCommandSuccess(new ClearPhoneCommand(), model, ClearPhoneCommand.MESSAGE_SUCCESS, expectedModel);
