@@ -22,13 +22,11 @@ import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
-import seedu.address.model.quiz.Quiz;
-import seedu.address.model.quiz.QuizBank;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.quiz.SavedQuizzes;
 import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.StatisticsRecord;
-import seedu.address.model.quiz.ReadOnlyQuizzes;
-import seedu.address.model.quiz.SavedQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
@@ -64,7 +62,8 @@ public class ModelManager implements Model {
                         ReadOnlyStatisticsRecord statisticsRecord,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, studentRecord, savedQuestions, savedQuizzed, notesRecord, statisticsRecord, userPrefs);
+        requireAllNonNull(addressBook, studentRecord, savedQuestions,
+                savedQuizzes, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
                 "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -83,7 +82,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new SaveQuizzes(),
+        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new SavedQuizzes(),
                 new NotesRecord(), new StatisticsRecord(), new UserPrefs());
     }
 
