@@ -7,9 +7,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.model.aesthetics.Background;
 
 /**
@@ -20,12 +24,14 @@ public class StyleManager {
     private static final String SEPARATOR = System.getProperty("os.name").startsWith("Windows") ? "\\" : "/";
 
     private Scene scene;
+    private VBox mainWindowPlaceholder;
+    private StackPane mainDisplayPanePlaceholder;
     private File myStyleSheet;
+    private Background background;
 
-    private String backgroundColour;
-
-    public StyleManager(Scene scene) {
+    public StyleManager(Scene scene, VBox mainWindowPlaceholder) {
         this.scene = scene;
+        this.mainWindowPlaceholder = mainWindowPlaceholder;
     }
 
     /**
@@ -111,7 +117,7 @@ public class StyleManager {
         }
         return lineReadFromReader;
     }
-
+    
     /**
      * Sets the font colour of this style manager's scene.
      * @param fontColour String representation of a CSS font colour.
@@ -148,11 +154,53 @@ public class StyleManager {
         }
     }
 
+    private void ignoreUntilNextField(BufferedReader br, String initialLine) throws IOException {
+        boolean foundOpeningCurlyBraces = initialLine.contains("{");
+        boolean foundClosingCurlyBraces = initialLine.contains("}");
+        
+        String lineConsumed;
+        
+        while (!foundOpeningCurlyBraces && (lineConsumed = br.readLine()) != null) {
+            if (lineConsumed.contains("{")) {
+                foundOpeningCurlyBraces = true;
+            }
+        }
+
+        while (!foundClosingCurlyBraces && (lineConsumed = br.readLine()) != null) {
+            if (lineConsumed.contains("}")) {
+                foundClosingCurlyBraces = true;
+            }
+        }
+    }
+    
+    
+    public void setBackgroundImage(Background background) {
+        String filePath = background.getBackgroundPicPath();
+        String bgSize = background.getBgSize();
+        String bgRepeat = background.getBgRepeat();
+
+        File file = new File(filePath);
+
+        System.out.println("Setting");
+        if (this.background == null || !this.background.equals(background)) {
+            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + file.toURI().toString() + "'); "
+                    + "-fx-background-position: center center; "
+                    + "-fx-background-repeat: " + bgRepeat + ";"
+                    + "-fx-background-size: " + bgSize + ";");
+            this.background = background;
+        }
+    }
+    
     /**
      * Sets the background of this style manager's scene.
      * @param background String representation of a CSS background.
      */
     public void setBackground(Background background) {
+
+        List<String> fieldsToIgnore = new ArrayList<>();
+        //        fieldsToIgnore.add(".profile-scroll");
+        //        fieldsToIgnore.add(".scroll-bar");
+
         try {
             InputStream is;
             File outputCss;
@@ -170,22 +218,26 @@ public class StyleManager {
             String lineReadFromReader;
             String lineToWriteViaWriter = "";
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-            if (background.isBackgroundColour()) {
-                String backgroundColour = background.toString();
-                while ((lineReadFromReader = br.readLine()) != null) {
-                    String changedBackgroundFields = getLineAfterReplacement(lineReadFromReader, "fx-background",
-                            backgroundColour);
-                    String changedBackgroundColourFields = getLineAfterReplacement(changedBackgroundFields,
-                            "fx-background-color",
-                            backgroundColour);
-                    lineToWriteViaWriter += changedBackgroundColourFields + "\n";
+            
+            String backgroundColour = background.isBackgroundColour() ? background.toString() :"rgba(255, 255, 255, .35)";
+            while ((lineReadFromReader = br.readLine()) != null) {
+                for (String fieldToIgnore : fieldsToIgnore) {
+                    if (lineReadFromReader.startsWith(fieldToIgnore)) {
+                        ignoreUntilNextField(br, lineReadFromReader);
+                    }
                 }
-            } else {
-                while ((lineReadFromReader = br.readLine()) != null) {
-                    lineToWriteViaWriter += lineReadFromReader + "\n";
-                }
+                String changedBackgroundFields = getLineAfterReplacement(lineReadFromReader, "fx-background",
+                        backgroundColour);
+                String changedBackgroundColourFields = getLineAfterReplacement(changedBackgroundFields,
+                        "fx-background-color",
+                        backgroundColour);
+                lineToWriteViaWriter += changedBackgroundColourFields + "\n";
             }
+            
+            if (!background.isBackgroundColour()) {
+                setBackgroundImage(background);
+            }
+
             FileWriter fw = new FileWriter(outputCss);
             fw.write(lineToWriteViaWriter);
             fw.close();

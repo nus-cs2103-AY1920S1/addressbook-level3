@@ -20,7 +20,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -84,9 +83,17 @@ public class MainWindow extends UiPart<Stage> {
 
         mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
-        styleManager = new StyleManager(scene);
+        styleManager = new StyleManager(scene, mainWindowPlaceholder);
         setFontColour(logic.getGuiSettings());
         setBackground(logic.getGuiSettings());
+    }
+
+    /**
+     * Constructor that displays an initial background image;
+     */
+    public MainWindow(Stage primaryStage, Logic logic, String imagePath) {
+        this(primaryStage, logic);
+        showInitialBackground(mainDisplayPanePlaceholder, imagePath);
     }
 
     public Stage getPrimaryStage() {
@@ -209,10 +216,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up intiial placeholders of this window.
      * @imagePath String representation of path to background image to be displayed to the user upon startup.
      */
-    void fillInnerParts(String imagePath) throws URISyntaxException {
-
-        showInitialBackground(mainDisplayPanePlaceholder, imagePath);
-
+    void fillInnerParts() throws URISyntaxException {
         resultDisplay = new ResultDisplay();
         displayWelcomeMessage(resultDisplay);
         displayInvalidReferences(resultDisplay);
@@ -295,7 +299,7 @@ public class MainWindow extends UiPart<Stage> {
             return true;
         } else if (displayPaneType == BACKGROUND) {
             setBackground(logic.getGuiSettings());
-            return false;
+            return true;
         } else {
             return false;
         }
@@ -310,11 +314,12 @@ public class MainWindow extends UiPart<Stage> {
         } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
             DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
             if (paneToDisplay == null) {
+                System.out.println("Called here");
                 return;
             }
             newPaneIsToBeCreated = ((displayPaneType == COLOUR || displayPaneType == BACKGROUND)
                     && paneToDisplay == BIO) || newPaneIsToBeCreated;
-            mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
+            mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
                 .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
