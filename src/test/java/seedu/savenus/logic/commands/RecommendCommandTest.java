@@ -15,6 +15,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.purchase.PurchaseHistory;
+import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
@@ -39,13 +40,17 @@ public class RecommendCommandTest {
 
     @Test
     public void execute_recommendCommand() {
-        assertCommandSuccess(new RecommendCommand(), model, RecommendCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RecommendCommand(), model,
+                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget()),
+                expectedModel);
         assertTrue(model.getRecommendationSystem().isInUse());
     }
 
     @Test
     public void recommendCommand_notInUse_afterList() {
-        assertCommandSuccess(new RecommendCommand(), model, RecommendCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RecommendCommand(), model,
+                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget()),
+                expectedModel);
         assertTrue(model.getRecommendationSystem().isInUse());
 
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
@@ -54,7 +59,9 @@ public class RecommendCommandTest {
 
     @Test
     public void recommendCommand_notInUse_afterAdd() throws CommandException {
-        assertCommandSuccess(new RecommendCommand(), model, RecommendCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RecommendCommand(), model,
+                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget()),
+                expectedModel);
         assertTrue(model.getRecommendationSystem().isInUse());
 
         CommandResult commandResult = new AddCommand(CHICKEN_RICE).execute(model);

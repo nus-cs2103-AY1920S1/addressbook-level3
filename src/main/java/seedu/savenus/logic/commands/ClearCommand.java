@@ -13,8 +13,8 @@ import seedu.savenus.model.savings.SavingsAccount;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Your menu has been cleared!";
-
+    public static final String MESSAGE_SUCCESS = "Your menu, purchase history, savings account, likes and dislikes "
+            + "have been cleared!";
 
     @Override
     public CommandResult execute(Model model) {
@@ -22,6 +22,8 @@ public class ClearCommand extends Command {
         model.setMenu(new Menu());
         model.setPurchaseHistory(new PurchaseHistory());
         model.setSavingsAccount(new SavingsAccount());
+        model.clearLikes();
+        model.clearDislikes();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
