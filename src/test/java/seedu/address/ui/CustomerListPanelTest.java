@@ -5,16 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalCustomers.getTypicalCustomers;
 import static seedu.address.ui.GuiTestAssert.assertCardDisplaysCustomer;
-import static seedu.address.ui.GuiTestAssert.assertCardDisplaysPerson;
 
 import java.util.Collections;
 
-import guitests.guihandles.cards.CustomerCardHandle;
-import guitests.guihandles.panels.CustomerListPanelHandle;
-import jfxtras.icalendarfx.properties.component.relationship.Contact;
 import org.junit.jupiter.api.Test;
 
-import guitests.guihandles.panels.PersonListPanelHandle;
+import guitests.guihandles.cards.CustomerCardHandle;
+import guitests.guihandles.panels.CustomerListPanelHandle;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +21,7 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.CustomerName;
 import seedu.address.model.customer.Email;
 import seedu.address.ui.panels.CustomerListPanel;
+
 
 public class CustomerListPanelTest extends GuiUnitTest {
     private static final ObservableList<Customer> TYPICAL_CUSTOMERS =
