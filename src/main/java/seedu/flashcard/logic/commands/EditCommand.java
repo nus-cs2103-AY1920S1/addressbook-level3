@@ -3,8 +3,8 @@ package seedu.flashcard.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 
 import java.util.ArrayList;
@@ -75,10 +75,10 @@ public class EditCommand extends Command {
         }
         Flashcard flashcardToEdit = lastShownList.get(index.getZeroBased());
         Flashcard editedFlashcard;
-        if (flashcardToEdit instanceof ShortAnswerFlashcard) {
+        if (!flashcardToEdit.isMcq()) {
             editedFlashcard = createEditedShortAnswerFlashcard(flashcardToEdit, editFlashcardDescriptor);
         } else {
-            editedFlashcard = createEditedMcqFlashcard((McqFlashcard)flashcardToEdit, editFlashcardDescriptor);
+            editedFlashcard = createEditedMcqFlashcard((McqFlashcard) flashcardToEdit, editFlashcardDescriptor);
         }
         if (!flashcardToEdit.isSameFlashcard(editedFlashcard) && model.hasFlashcard(editedFlashcard)) {
             throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);
@@ -89,7 +89,7 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Flashcard} with the details of {@code flashcardToEdit}
+     * Creates and returns a {@code McqFlashcard} with the details of {@code flashcardToEdit}
      * edited with {@code editFlashcardDescriptor}.
      */
     private static Flashcard createEditedMcqFlashcard(McqFlashcard flashcardToEdit,
@@ -103,6 +103,10 @@ public class EditCommand extends Command {
         return new McqFlashcard(updatedQuestion, updatedChoices, updatedDefinition, updatedTags, updatedAnswer);
     }
 
+    /**
+     * Creates and returns a {@code ShortAnswerFlashcard} with the details of {@code flashcardToEdit}
+     * edited with {@code editFlashcardDescriptor}.
+     */
     private static Flashcard createEditedShortAnswerFlashcard(Flashcard flashcardToEdit,
                                                    EditFlashcardDescriptor editFlashcardDescriptor) {
         assert flashcardToEdit != null;

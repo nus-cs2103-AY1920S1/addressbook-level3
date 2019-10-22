@@ -26,12 +26,12 @@ public class JsonAdaptedFlashcard {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Flashcard's %s field is missing.";
 
-    protected final String question;
+    private final String question;
+    private final String definition;
+    private final String answer;
+    private final String type;
     private final List<JsonAdaptedChoice> choices = new ArrayList<>();
-    protected final String definition;
-    protected final List<JsonAdaptedTag> tagged = new ArrayList<>();
-    protected final String answer;
-    protected final String type;
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedFlashcard} with the given flashcard details.
@@ -61,7 +61,7 @@ public class JsonAdaptedFlashcard {
     public JsonAdaptedFlashcard(Flashcard source) {
         question = source.getQuestion().question;
         if (source.isMcq()) {
-            McqFlashcard mcqCard = (McqFlashcard)source;
+            McqFlashcard mcqCard = (McqFlashcard) source;
             choices.addAll(mcqCard.getChoices().stream().map(JsonAdaptedChoice::new).collect(Collectors.toList()));
         }
         definition = source.getDefinition().definition;
@@ -91,7 +91,8 @@ public class JsonAdaptedFlashcard {
         }
 
         if (question == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Question.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Question.class.getSimpleName()));
         }
         if (!Question.isValidQuestion(question)) {
             throw new IllegalValueException(Question.MESSAGE_CONSTRAINTS);

@@ -5,8 +5,8 @@ import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;

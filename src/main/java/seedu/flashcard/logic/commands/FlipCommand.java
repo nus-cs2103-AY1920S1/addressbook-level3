@@ -7,7 +7,6 @@ import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.McqFlashcard;
-import seedu.flashcard.model.flashcard.exceptions.ChoiceNotFoundException;
 
 /**
  * Command to input an answer to the last viewed flashcard and see the correct answer.
@@ -50,11 +49,17 @@ public class FlipCommand extends Command {
         }
     }
 
+    /**
+     * Retrieves the content of the MCQ answer if it is a MCQ Flashcard.
+     * @param flashcard The last viewed flashcard.
+     * @return An updated answer if the flashcard is a MCQ one, if not it returns the original answer.
+     * @throws CommandException If the choice index is invalid.
+     */
     public Answer updateAnswer(Flashcard flashcard) throws CommandException {
         if (!flashcard.isMcq()) {
             return answer;
         } else {
-            McqFlashcard mcqCard = (McqFlashcard)flashcard;
+            McqFlashcard mcqCard = (McqFlashcard) flashcard;
             int index = Integer.parseInt(answer.getAnswer()) - 1;
             if (index >= mcqCard.getChoices().size()) {
                 throw new CommandException(MESSAGE_INVALID_CHOICE);

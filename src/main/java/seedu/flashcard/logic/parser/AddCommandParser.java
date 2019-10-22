@@ -4,13 +4,12 @@ import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
-
 
 import seedu.flashcard.logic.commands.AddCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
@@ -28,7 +27,7 @@ import seedu.flashcard.model.tag.Tag;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
-    private final String ANSWER_CHOICE_MISMATCH = "The answer must be the same as a given choice.";
+    private static final String ANSWER_CHOICE_MISMATCH = "The answer must be the same as a given choice.";
     /**
      * Parses the string of arguments to be added.
      * @param args string containing the parameters for the new flashcard

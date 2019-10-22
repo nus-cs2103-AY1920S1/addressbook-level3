@@ -14,7 +14,6 @@ import seedu.flashcard.logic.commands.EditCommand;
 import seedu.flashcard.logic.commands.ExitCommand;
 import seedu.flashcard.logic.commands.FindCommand;
 import seedu.flashcard.logic.commands.FlipCommand;
-import seedu.flashcard.logic.commands.ViewCommand;
 import seedu.flashcard.logic.commands.HelpCommand;
 import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.commands.ListCommand;

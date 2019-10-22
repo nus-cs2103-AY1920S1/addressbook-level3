@@ -12,8 +12,6 @@ import seedu.flashcard.commons.exceptions.IllegalValueException;
 import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
 import seedu.flashcard.model.flashcard.Flashcard;
-import seedu.flashcard.model.flashcard.McqFlashcard;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 
 /**
  * An Immutable FlashcardList that is serializable to JSON format.

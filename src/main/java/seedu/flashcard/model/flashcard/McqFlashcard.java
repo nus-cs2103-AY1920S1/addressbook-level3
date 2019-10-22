@@ -1,15 +1,15 @@
 package seedu.flashcard.model.flashcard;
 
-import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import seedu.flashcard.model.flashcard.exceptions.ChoiceNotFoundException;
 import seedu.flashcard.model.tag.Tag;
 
+/**
+ * Represents a MCQ Flashcard with a list of choices.
+ */
 public class McqFlashcard extends Flashcard {
 
     private final List<Choice> choices = new ArrayList<>();
@@ -38,6 +38,7 @@ public class McqFlashcard extends Flashcard {
         }
         return false;
     }
+
     @Override
     public boolean isMcq() {
         return true;

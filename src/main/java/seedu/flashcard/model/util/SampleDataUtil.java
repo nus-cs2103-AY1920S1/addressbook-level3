@@ -39,7 +39,7 @@ public class SampleDataUtil {
                 new Definition("Any Cauchy sequence converges in this metric space"),
                 getTagSet("mathematics", "metric space"),
                 new Answer("Closed subspaces in a complete metric space is also complete")),
-            new ShortAnswerFlashcard(new Question("What is the 11611 meters tunnel on the boarder of France and Italy?"),
+            new ShortAnswerFlashcard(new Question("What is the 11611 meters tunnel on the border of France and Italy?"),
                 new Definition("An amazing tunnel in Europe."),
                 getTagSet("geography", "favorite"),
                 new Answer("Mount Blanc Tunnel")),
