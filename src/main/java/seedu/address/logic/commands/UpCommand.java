@@ -26,4 +26,8 @@ public class UpCommand extends ScrollCommand {
         }
         return new UpCommandResult(MESSAGE_SUCCESS, pane);
     }
+    
+    public String getCommandWord() {
+        return this.COMMAND_WORD;
+    }
 }
