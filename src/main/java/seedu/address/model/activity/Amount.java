@@ -22,10 +22,6 @@ public class Amount {
         value = amount;
     }
 
-    public double getValue() {
-        return value;
-    }
-
     /**
      * Returns true if the given amount is a valid amount.
      */

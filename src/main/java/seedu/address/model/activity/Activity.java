@@ -98,8 +98,10 @@ public class Activity {
     }
 
     /**
-     * Gets the transfer matrix. Every (i, j) entry reflects how much i receives
-     * from j. Negative amounts means i has to give j money.
+     * Gets the transfer matrix.
+     * @return The matrix. Every (i, j) entry reflects how much i receives from
+     * j. Negative amounts means i has to give j money.
+     *
      */
     public ArrayList<ArrayList<Double>> getTransferMatrix() {
         simplifyExpenses();
@@ -178,7 +180,7 @@ public class Activity {
         int payerPos = participantIds.indexOf(payer);
         int[] involved = expense.getInvolved();
         int[] positionMask;
-        double amount = expense.getAmount().getValue();
+        double amount = expense.getAmount().value;
 
         if (!hasPerson(expense.getPersonId())) {
             throw new PersonNotInActivityException();
@@ -235,8 +237,6 @@ public class Activity {
             }
             participantBalances.set(a, acc);
         }
-
-        System.out.println("Balances: " + participantBalances.toString());
 
         while (i != n && j != n) {
             double bi;
