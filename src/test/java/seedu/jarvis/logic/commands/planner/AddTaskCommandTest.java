@@ -45,7 +45,7 @@ class AddTaskCommandTest {
     @Test
     void executeInverse() {
         Model planner = new ModelManager();
-        Task t = new Todo("borrow book");
+        Task t = new Todo("borrow and read book");
         AddTaskCommand command = new AddTaskCommand(t);
         assertDoesNotThrow(() -> command.executeInverse(planner));
     }

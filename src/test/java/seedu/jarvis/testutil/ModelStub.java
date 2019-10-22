@@ -246,6 +246,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addTask(int zeroBasedIndex, Task task) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void removeCca(Cca cca) {
         throw new AssertionError("This method should not be called.");
     }
@@ -297,6 +302,11 @@ public class ModelStub implements Model {
 
     @Override
     public void deleteTask(Index index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteTask(Task t) {
         throw new AssertionError("This method should not be called.");
     }
 

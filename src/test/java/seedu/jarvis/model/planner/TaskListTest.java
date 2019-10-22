@@ -49,7 +49,7 @@ class TaskListTest {
         Task toAdd = new Todo("middle");
         testList.add(1, toAdd);
 
-        assertEquals(testList.getTask(ParserUtil.parseIndex("1")),
+        assertEquals(testList.getTask(ParserUtil.parseIndex("2")),
                     toAdd);
     }
 
