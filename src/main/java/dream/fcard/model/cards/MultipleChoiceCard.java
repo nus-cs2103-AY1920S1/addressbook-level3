@@ -1,5 +1,7 @@
 package dream.fcard.model.cards;
 
+import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -50,7 +52,7 @@ public class MultipleChoiceCard extends FrontBackCard {
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
 
-        priority = 1;
+        priority = LOW_PRIORITY;
     }
     //@author
 

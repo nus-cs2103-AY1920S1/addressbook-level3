@@ -11,10 +11,10 @@ import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import org.junit.jupiter.api.Test;
 
 import dream.fcard.model.exceptions.IndexNotFoundException;
- */
+*/
 
 class MultipleChoiceCardTest {
-       /*
+/*
     @Test
     void evaluate_correctChoice_sample() throws IndexNotFoundException, DuplicateInChoicesException {
         ArrayList<String> choices = new ArrayList<>();
@@ -22,6 +22,8 @@ class MultipleChoiceCardTest {
         choices.add("bye");
 
         MultipleChoiceCard card = new MultipleChoiceCard("What is hello?", "1", choices);
+
+        System.out.println(card.getPriority());
        //assertEquals(true, card.evaluate("hello"));
     }
 

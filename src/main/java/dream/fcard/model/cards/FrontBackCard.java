@@ -1,5 +1,7 @@
 package dream.fcard.model.cards;
 
+import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
+
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonObject;
@@ -10,7 +12,6 @@ import javafx.scene.Node;
  * Card that evaluates input to match back of card.
  */
 public class FrontBackCard extends FlashCard {
-
     /**
      * Constructor to create a FrontBackCard.
      * Takes in 2 String, front text and back text.
@@ -23,7 +24,7 @@ public class FrontBackCard extends FlashCard {
         front = frontString;
 
         // Default priority is 1
-        priority = 1;
+        priority = LOW_PRIORITY;
     }
 
     public FrontBackCard(String frontString, String backString, int priorityLevel) {

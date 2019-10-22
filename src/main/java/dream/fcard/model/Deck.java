@@ -27,6 +27,7 @@ public class Deck implements JsonInterface {
     public Deck() {
         cards = new ArrayList<>();
         deckName = "untitled";
+        cardsTestQueue = new PriorityQueue<>();
     }
 
     /**
@@ -37,6 +38,7 @@ public class Deck implements JsonInterface {
     public Deck(String name) {
         cards = new ArrayList<>();
         deckName = name;
+        cardsTestQueue = new PriorityQueue<>();
     }
 
     /**
@@ -47,6 +49,8 @@ public class Deck implements JsonInterface {
     public Deck(ArrayList<FlashCard> initialCards, String name) {
         cards = initialCards;
         deckName = name;
+
+        cardsTestQueue = new PriorityQueue<>();
     }
 
     /**
