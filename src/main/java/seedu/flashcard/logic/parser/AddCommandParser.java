@@ -28,6 +28,7 @@ import seedu.flashcard.model.tag.Tag;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    private final String ANSWER_CHOICE_MISMATCH = "The answer must be the same as a given choice.";
     /**
      * Parses the string of arguments to be added.
      * @param args string containing the parameters for the new flashcard
@@ -53,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Flashcard flashcard;
         if (arePrefixesPresent(argMultimap, PREFIX_CHOICE)) {
             if (!choices.contains(new Choice(answer.getAnswer()))) {
-                throw new ParseException("The answer must be the same as a given choice");
+                throw new ParseException(ANSWER_CHOICE_MISMATCH);
             } else {
                 flashcard = new McqFlashcard(question, choices, definition, tagList, answer);
             }

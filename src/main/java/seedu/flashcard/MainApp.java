@@ -84,6 +84,7 @@ public class MainApp extends Application {
             }
             initialData = flashcardListOptional.orElseGet(SampleDataUtil::getSampleFlashcardList);
 
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new FlashcardList();

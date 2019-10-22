@@ -60,14 +60,14 @@ public class JsonAdaptedFlashcard {
      */
     public JsonAdaptedFlashcard(Flashcard source) {
         question = source.getQuestion().question;
-        if (source instanceof McqFlashcard) {
+        if (source.isMcq()) {
             McqFlashcard mcqCard = (McqFlashcard)source;
             choices.addAll(mcqCard.getChoices().stream().map(JsonAdaptedChoice::new).collect(Collectors.toList()));
         }
         definition = source.getDefinition().definition;
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
         answer = source.getAnswer().answer;
-        if (source instanceof McqFlashcard) {
+        if (source.isMcq()) {
             type = "McqFlashcard";
         } else {
             type = "ShortAnswerFlashcard";
@@ -122,7 +122,7 @@ public class JsonAdaptedFlashcard {
 
         final List<Choice> modelChoices = new ArrayList<>(flashcardChoices);
 
-        if (type == "McqFlashcard") {
+        if (type.equals("McqFlashcard")) {
             return new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer);
         } else {
             return new ShortAnswerFlashcard(modelQuestion, modelDefinition, modelTags, modelAnswer);
