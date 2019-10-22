@@ -27,8 +27,9 @@ import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.ListTagCommand;
+import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SortCommand;
-import seedu.algobase.logic.commands.SwitchCommand;
+import seedu.algobase.logic.commands.SwitchTabCommand;
 import seedu.algobase.logic.commands.UndoneTaskCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
@@ -129,8 +130,11 @@ public class AlgoBaseParser {
         case EditTagCommand.COMMAND_WORD:
             return new EditTagCommandParser().parse(arguments);
 
-        case SwitchCommand.COMMAND_WORD:
-            return new SwitchCommandParser().parse(arguments);
+        case SwitchTabCommand.COMMAND_WORD:
+            return new SwitchTabCommandParser().parse(arguments);
+
+        case OpenTabCommand.COMMAND_WORD:
+            return new OpenTabCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

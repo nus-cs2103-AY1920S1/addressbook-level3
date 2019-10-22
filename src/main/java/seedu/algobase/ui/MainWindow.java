@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -16,7 +17,10 @@ import seedu.algobase.logic.Logic;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.ModelEnum;
+import seedu.algobase.model.ModelType;
+import seedu.algobase.ui.details.DetailsTabPane;
+import seedu.algobase.ui.display.DisplayTab;
+import seedu.algobase.ui.display.DisplayTabPane;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private DisplayTabPane displayTabPane;
+    private DetailsTabPane detailsTabPane;
     private ProblemListPanel problemListPanel;
     private PlanListPanel planListPanel;
     private TaskListPanel taskListPanel;
@@ -52,7 +57,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane displayTabPanePlaceholder;
+    private SplitPane layoutPanePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -111,18 +116,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
-        planListPanel = new PlanListPanel(logic.getProcessedPlanList());
-        taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
-        DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
-        DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
-        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName(), planListPanel);
-        DisplayTab taskListPanelTab = new DisplayTab(ModelEnum.TASK.getTabName(), taskListPanel);
+        displayTabPane = getDisplayTabPane();
+        detailsTabPane = new DetailsTabPane(logic);
 
-        displayTabPane =
-            new DisplayTabPane(
-                logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab);
-        displayTabPanePlaceholder.getChildren().add(displayTabPane.getRoot());
+        layoutPanePlaceholder.getItems().add(displayTabPane.getRoot());
+        layoutPanePlaceholder.getItems().add(detailsTabPane.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -132,6 +130,18 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private DisplayTabPane getDisplayTabPane() {
+        problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
+        planListPanel = new PlanListPanel(logic.getProcessedPlanList());
+        taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
+        DisplayTab problemListPanelTab = new DisplayTab(ModelType.PROBLEM.getTabName(), problemListPanel);
+        DisplayTab tagListPanelTab = new DisplayTab(ModelType.TAG.getTabName());
+        DisplayTab planListPanelTab = new DisplayTab(ModelType.PLAN.getTabName(), planListPanel);
+        DisplayTab taskListPanelTab = new DisplayTab(ModelType.TASK.getTabName(), taskListPanel);
+        return new DisplayTabPane(
+            logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab);
     }
 
     /**
