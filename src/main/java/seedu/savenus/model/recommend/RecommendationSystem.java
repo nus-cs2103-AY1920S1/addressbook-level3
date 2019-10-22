@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Category;
@@ -183,6 +184,39 @@ public class RecommendationSystem {
         if (millisSinceLastPurchase > 0 && millisSinceLastPurchase < JUST_BOUGHT_FOOD_VALIDITY) {
             weight += calculateIdenticalFoodNegativeWeight(millisSinceLastPurchase).doubleValue();
         }
+
+        // Calculate bonus for purchases of food with similar tags
+        long numberOfMatchedTags = purchaseHistory.stream()
+                .map(purchase -> purchase.getPurchasedFood().getTags())
+                .map(tagSet -> tagSet.stream()
+                        .map(tag -> new Tag(tag.tagName.toLowerCase())).collect(Collectors.toSet()))
+                .map(tagSet -> tagSet.stream()
+                        .filter(tag -> food.getTags().stream()
+                                .map(foodTag -> new Tag(foodTag.tagName.toLowerCase()))
+                                .collect(Collectors.toSet())
+                                .contains(tag)))
+                .map(Stream::count)
+                .mapToLong(Long::longValue).sum();
+
+        weight += numberOfMatchedTags * HISTORY_TAG_WEIGHT;
+
+        // Calculate bonus for purchases of food with similar location
+        long numberOfMatchedLocations = purchaseHistory.stream()
+                .map(purchase -> purchase.getPurchasedFood().getLocation())
+                .map(location -> new Location(location.location.toLowerCase()))
+                .filter(location -> new Location(food.getLocation().location.toLowerCase()).equals(location))
+                .count();
+
+        weight += numberOfMatchedLocations * HISTORY_LOCATION_WEIGHT;
+
+        // Calculate bonus for purchases of food with similar category
+        long numberOfMatchedCategories = purchaseHistory.stream()
+                .map(purchase -> purchase.getPurchasedFood().getCategory())
+                .map(category -> new Category(category.category.toLowerCase()))
+                .filter(category -> new Category(food.getCategory().category.toLowerCase()).equals(category))
+                .count();
+
+        weight += numberOfMatchedCategories * HISTORY_CATEGORY_WEIGHT;
 
         return weight;
     }
