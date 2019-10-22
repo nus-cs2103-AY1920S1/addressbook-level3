@@ -24,7 +24,7 @@
   <scene>
     <Scene>
 
-      <VBox>
+      <VBox styleClass="background">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                <stylesheets>
                   <URL value="@DarkTheme.css" />
@@ -40,7 +40,7 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
         </StackPane>
-            <GridPane>
+            <GridPane styleClass="grid-pane">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="215.0" />

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -30,21 +31,29 @@
                   <TableColumn fx:id="subtotalCol" prefWidth="120.0" text="Subtotal" />
               </columns>
             </TableView>
-            <Label text="Total amount:" GridPane.rowIndex="1">
+            <Label styleClass="label-bright" text="Total amount:" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
                <font>
                   <Font size="16.0" />
                </font>
+               <stylesheets>
+                  <URL value="@DarkTheme.css" />
+                  <URL value="@Extensions.css" />
+               </stylesheets>
             </Label>
-            <Label text="Cashier:" GridPane.rowIndex="1">
+            <Label styleClass="label-bright" text="Cashier:" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="400.0" />
                </GridPane.margin>
                <font>
                   <Font size="16.0" />
                </font>
+               <stylesheets>
+                  <URL value="@DarkTheme.css" />
+                  <URL value="@Extensions.css" />
+               </stylesheets>
             </Label>
          </children>
       </GridPane>
