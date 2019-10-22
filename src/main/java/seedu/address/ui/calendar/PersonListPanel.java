@@ -19,6 +19,8 @@ public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "CalendarListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
+    private final ObservableList<Task> mainTaskList;
+
     @FXML
     private ListView<Task> mondayListView;
     @FXML
@@ -37,6 +39,8 @@ public class PersonListPanel extends UiPart<Region> {
 
     public PersonListPanel(ObservableList<Task> taskList) {
         super(FXML);
+
+        this.mainTaskList = taskList;
 
         FilteredList<Task> mondayTaskList =
             taskList.filtered(task -> task.getTaskDay().toString().equals("monday"));
@@ -81,7 +85,13 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
+                for (int i = 0; i < mainTaskList.size(); i++) {
+                    if (mainTaskList.get(i).equals(task)) {
+                        setGraphic(new PersonCard(task, i + 1).getRoot());
+                        break;
+                    }
+                }
+                // setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
             }
         }
     }

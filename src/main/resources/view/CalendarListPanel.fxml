@@ -1,18 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
  <HBox VBox.vgrow="ALWAYS">
-  <ListView fx:id="mondayListView" />
-  <ListView fx:id="tuesdayListView" />
-  <ListView fx:id="wednesdayListView" />
-  <ListView fx:id="thursdayListView" />
-  <ListView fx:id="fridayListView" />
-  <ListView fx:id="saturdayListView" />
-  <ListView fx:id="sundayListView" />
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <Label contentDisplay="CENTER" text="Monday">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+        <ListView fx:id="mondayListView" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER">
+         <children>
+             <Label contentDisplay="CENTER" text="Tuesday">
+                 <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="tuesdayListView" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0">
+         <children>
+             <Label contentDisplay="CENTER" text="Wednesday">
+                 <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="wednesdayListView" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="1695.0" layoutY="10.0">
+         <children>
+             <Label contentDisplay="CENTER" text="Thursday">
+                 <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="thursdayListView" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="1795.0" layoutY="10.0">
+         <children>
+             <Label contentDisplay="CENTER" text="Friday">
+                 <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="fridayListView" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="1895.0" layoutY="10.0">
+         <children>
+             <Label contentDisplay="CENTER" text="Saturday">
+                 <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="saturdayListView" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="1995.0" layoutY="10.0">
+         <children>
+             <Label contentDisplay="CENTER" text="Sunday">
+                 <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="sundayListView" />
+         </children>
+      </VBox>
  </HBox>
 </VBox>
