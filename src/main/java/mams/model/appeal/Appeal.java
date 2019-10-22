@@ -191,8 +191,8 @@ public class Appeal {
     public ArrayList<String> getModulesToChange() {
         ArrayList<String> modulesAffected = new ArrayList<>();
         if (!previousModule.isEmpty() || !newModule.isEmpty()) {
-                    modulesAffected.add(previousModule);
-                    modulesAffected.add(newModule);
+            modulesAffected.add(previousModule);
+            modulesAffected.add(newModule);
         } else if (!moduleToAdd.isEmpty()) {
             modulesAffected.add(moduleToDrop);
         } else if (!moduleToAdd.isEmpty()) {
