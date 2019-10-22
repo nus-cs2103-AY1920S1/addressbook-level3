@@ -14,7 +14,7 @@
   <GridPane HBox.hgrow="ALWAYS" hgap="8">
     <columnConstraints>
       <ColumnConstraints hgrow="NEVER" prefWidth="50" />
-      <ColumnConstraints hgrow="SOMETIMES" prefWidth="320" />
+      <ColumnConstraints hgrow="SOMETIMES" prefWidth="310" />
       <ColumnConstraints hgrow="NEVER" prefWidth="70" />
     </columnConstraints>
     <VBox spacing="2" alignment="CENTER" minHeight="75" GridPane.columnIndex="0">

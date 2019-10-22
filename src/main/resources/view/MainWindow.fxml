@@ -26,7 +26,7 @@
             minHeight="120" maxHeight="120" />
 
         <VBox fx:id="contentRoot" styleClass="content-root" VBox.vgrow="ALWAYS">
-          <StackPane fx:id="contentContainer" styleClass="content-display" VBox.vgrow="ALWAYS"/>
+          <StackPane fx:id="contentContainer" styleClass="content-display" VBox.vgrow="ALWAYS" />
         </VBox>
 
         <StackPane fx:id="statusBarContainer" styleClass="status-bar-root" />
