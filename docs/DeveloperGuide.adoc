@@ -261,7 +261,7 @@ NOTE: The lifeline for `GenReportCommand` should end at the destroy marker (X) b
 
 The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creates the document.
 
-The following activity diagram summarizes what happens when a user executes a 'genReport <BODY_ID>' command:
+The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID>` command:
 
 image::CommitActivityDiagram.png[]
 
@@ -275,6 +275,15 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Creates a Word Document file.
 ** Pros: Implementation allows user to edit the contents of the report.
 ** Cons: Implementation defeats the purpose of being automated.
+
+===== Aspect: How report is formatted
+
+* **Alternative 1 (current choice):** Uses tables to organise related details in the report.
+** Pros: Implementation allows report to be organised, increases readability for user.
+** Cons: Implementation is tedious.
+* **Alternative 2:** Lists all attributes in the report without any formatting.
+** Pros: Implementation is easy.
+** Cons: Implementation decreases readability for user.
 // end::genpdf[]
 
 === Logging
