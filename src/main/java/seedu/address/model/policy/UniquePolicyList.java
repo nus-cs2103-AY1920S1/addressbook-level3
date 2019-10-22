@@ -100,6 +100,7 @@ public class UniquePolicyList implements Iterable<Policy> {
         }
     }
 
+    // Todo: No usages found for this function. Delete?
     public void setPolicies(UniquePolicyList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

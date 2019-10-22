@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.binitem.BinItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 
@@ -44,13 +45,17 @@ public class DeletePolicyCommand extends Command {
         Policy policyToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePolicy(policyToDelete);
 
-        // Update persons with the edited policy
+        // Update persons that have the deleted policy
         for (Person p : model.getAddressBook().getPersonList()) {
             if (p.hasPolicy(policyToDelete)) {
                 Person editedPerson = new PersonBuilder(p).removePolicies(policyToDelete).build();
                 model.setPerson(p, editedPerson);
             }
         }
+
+        // Move policy to bin
+        BinItem policyToBin = new BinItem(policyToDelete);
+        model.addBinItem(policyToBin);
 
         // to maintain the model's state for undo/redo
         model.saveAddressBookState();

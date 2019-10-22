@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.model.binitem.BinItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -24,6 +25,11 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Policy> PREDICATE_SHOW_ALL_POLICIES = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<BinItem> PREDICATE_SHOW_ALL_BIN_ITEMS = unused -> true;
 
     /**
      * Returns the user prefs.
@@ -181,6 +187,42 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPolicyList(Predicate<Policy> predicate);
+
+    /**
+     * Returns true if a BinItem with the same identity as {@code binItem} exists in the address book.
+     */
+    boolean hasBinItem(BinItem binItem);
+
+    /**
+     * Deletes the given BinItem.
+     * The BinItem must exist in the bin.
+     */
+    void deleteBinItem(BinItem target);
+
+    /**
+     * Adds the given BinItem.
+     * {@code binItem} must not already exist in the bin.
+     */
+    void addBinItem(BinItem binItem);
+
+    /**
+     * Replaces the given BinItem {@code target} with {@code editedBinItem}.
+     * {@code target} must exist in the bin.
+     * The BinItem identity of {@code editedBinItem} must not be the same as another existing BinItem in the bin.
+     */
+    void setBinItem(BinItem target, BinItem editedBinItem);
+
+    /**
+     * Returns an unmodifiable view of the filtered BinItem list
+     */
+    ObservableList<BinItem> getFilteredBinItemList();
+
+    /**
+     * Updates the filter of the filtered BinItem list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredBinItemList(Predicate<BinItem> predicate);
 
     /**
      * Checks whether an undo is possible in the address book.

@@ -8,6 +8,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.binitem.BinItem;
+import seedu.address.model.binitem.Binnable;
 import seedu.address.model.person.Person;
 
 /**
@@ -41,6 +43,11 @@ public class DeleteCommand extends Command {
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
+
+        // Move person to bin
+        BinItem personToBin = new BinItem(personToDelete);
+        model.addBinItem(personToBin);
+
         // to maintain the model's state for undo/redo
         model.saveAddressBookState();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

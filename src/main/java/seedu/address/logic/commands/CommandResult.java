@@ -36,6 +36,11 @@ public class CommandResult {
      */
     private boolean listPeople;
 
+    /**
+     * Application should display list of BinItems
+     */
+    private boolean listBin;
+
     /** Application should expand the person on the right panel */
     private boolean expandPerson;
 
