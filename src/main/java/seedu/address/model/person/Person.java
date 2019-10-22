@@ -208,10 +208,8 @@ public class Person {
         }
         //Verify Visit is not ongoing
         Optional<Visit> optionalVisit = model.getOngoingVisit();
-        if (optionalVisit.isPresent()) {
-            if (optionalVisit.get().equals(visit)) {
-                model.unsetOngoingVisit();
-            }
+        if (optionalVisit.isPresent() && optionalVisit.get().equals(visit)) {
+            model.unsetOngoingVisit();
         }
         visits.remove(visit);
     }
