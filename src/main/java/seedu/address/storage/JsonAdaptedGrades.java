@@ -11,30 +11,30 @@ import seedu.address.model.assignment.Grade;
  */
 class JsonAdaptedGrades {
 
-    private final String grades;
+    private final String marks;
 
     /**
      * Constructs a {@code JsonAdaptedGrades} with the given {@code grades}.
      */
     @JsonCreator
     public JsonAdaptedGrades(String grades) {
-        this.grades = grades;
+        this.marks = grades;
     }
 
     /**
      * Converts a given {@code Grade} into this class for Jackson use.
      */
     public JsonAdaptedGrades(Grade source) {
-        grades = source.value;
+        marks = source.value;
     }
 
     public JsonAdaptedGrades(Integer grades) {
-        this.grades = grades + "";
+        this.marks = grades + "";
     }
 
     @JsonValue
     public String getGrades() {
-        return grades;
+        return marks;
     }
 
     /**
@@ -43,10 +43,10 @@ class JsonAdaptedGrades {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Grade toModelType() throws IllegalValueException {
-        if (!Grade.isValidGrade(grades)) {
+        if (!Grade.isValidGrade(marks)) {
             throw new IllegalValueException(Grade.MESSAGE_CONSTRAINTS);
         }
-        return new Grade(grades);
+        return new Grade(marks);
     }
 
 }

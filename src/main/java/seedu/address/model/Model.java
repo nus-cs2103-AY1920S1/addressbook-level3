@@ -15,6 +15,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+    Predicate<Student> PREDICATE_SHOW_NO_STUDENTS = used -> false;
+    Predicate<Assignment> PREDICATE_SHOW_NO_ASSIGNMENTS = used -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -88,4 +90,8 @@ public interface Model {
      */
     void updateFilteredStudentList(Predicate<Student> predicate);
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    boolean isDisplayStudents();
+    void displayStudents();
+    void displayAssignments();
 }

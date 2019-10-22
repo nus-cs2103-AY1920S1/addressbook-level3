@@ -45,6 +45,18 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
+    public boolean isDisplayStudents() {
+        return addressBook.isDisplayStudents();
+    }
+
+    public void displayStudents() {
+        addressBook.displayStudents();
+    }
+
+    public void displayAssignments() {
+        addressBook.displayAssignments();
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override

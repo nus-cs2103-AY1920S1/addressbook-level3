@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private StudentListPanel studentListPanel;
+    private AssignmentListPanel assignmentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +44,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane studentListPanelPlaceholder;
+
+    @FXML
+    private StackPane assignmentListPanelPlaceholder;
+
+    @FXML
+    private StackPane combinedListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,7 +115,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        //studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+
+        assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+
+        combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -164,6 +176,10 @@ public class MainWindow extends UiPart<Stage> {
         return studentListPanel;
     }
 
+    public AssignmentListPanel getAssignmentListPanel() {
+        return assignmentListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -174,6 +190,15 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (logic.isDisplayStudents()) {
+                combinedListPanelPlaceholder.getChildren().clear();
+                combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+            } else {
+                combinedListPanelPlaceholder.getChildren().clear();
+                combinedListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+            }
+
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

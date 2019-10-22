@@ -1,9 +1,10 @@
 package seedu.address.model.assignment;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
@@ -37,23 +38,11 @@ public class Assignment {
         return this.assignmentName;
     }
 
-    public Set<Integer> getGrades() {
-        return new HashSet<>(assignmentGrades.values());
+    public Map<String, Integer> getGrades() {
+        return this.assignmentGrades;
     }
 
     public void setGrades(List<String> studentNames, List<Integer> newGrades) {
-        //Remove grades of students that no longer exist in the classroom
-        for (String existingName: assignmentGrades.keySet()) {
-            boolean shouldInclude = false;
-            for (String updatedName: studentNames) {
-                if (updatedName.equals(existingName)) {
-                    shouldInclude = true;
-                }
-            }
-            if (!shouldInclude) {
-                assignmentGrades.remove(existingName);
-            }
-        }
         //Add new grades
         for (int i = 0; i < studentNames.size(); i++) {
             String studentName = studentNames.get(i);
@@ -65,7 +54,36 @@ public class Assignment {
             }
         }
         this.isCompleted = true;
+    }
 
+    public void deleteOneStudentGrade (String studentName) {
+        assignmentGrades.remove(studentName);
+    }
+
+    public List<Integer> marksStringListFromGrades() {
+        List<Integer> marks = new ArrayList<>();
+        for (String key:assignmentGrades.keySet()) {
+            marks.add(assignmentGrades.get(key));
+        }
+        return marks;
+    }
+
+    public List<String> namesStringListFromGrades() {
+        List<String> names = new ArrayList<>();
+        names.addAll(assignmentGrades.keySet());
+        return names;
+    }
+
+    public String gradesMapToString() {
+        String gradeOutput = "";
+        List<String> names = this.namesStringListFromGrades();
+        List<Integer> marks = this.marksStringListFromGrades();
+        for (int i = 0; i < names.size(); i++) {
+            String name = names.get(i);
+            String mark = marks.get(i).toString();
+            gradeOutput += name + ": " + mark + "\n";
+        }
+        return gradeOutput;
     }
 
     /**

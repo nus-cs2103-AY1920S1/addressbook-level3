@@ -1,40 +1,40 @@
 {
   "students" : [ {
-    "name" : "test5",
-    "phone" : "222222",
-    "email" : "test5@gmail.com",
-    "parentPhone" : "333333",
-    "address" : "test5",
-    "medicalCondition" : "NIL",
-    "tagged" : [ ]
+    "name" : "John Doe",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "parentPhone" : "91234567",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "medicalCondition" : "Sinus",
+    "tagged" : [ "owesMoney", "friends" ]
   }, {
-    "name" : "test6",
-    "phone" : "222222",
-    "email" : "test6@gmail.com",
-    "parentPhone" : "333333",
-    "address" : "test6",
-    "medicalCondition" : "AIDS",
-    "tagged" : [ ]
+    "name" : "Jane Doe",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "parentPhone" : "91234567",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "medicalCondition" : "Sinus",
+    "tagged" : [ "owesMoney", "friends" ]
   }, {
-    "name" : "test7",
-    "phone" : "1231231",
-    "email" : "test7@gmail.com",
-    "parentPhone" : "1231231",
-    "address" : "test7",
-    "medicalCondition" : "NIL",
-    "tagged" : [ ]
+    "name" : "Pizza Doe",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "parentPhone" : "91234567",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "medicalCondition" : "Sinus",
+    "tagged" : [ "owesMoney", "friends" ]
   } ],
   "assignments" : [ {
     "assignmentName" : "math",
-    "grades" : [ "20", "40", "30" ]
+    "names" : [ "John Doe", "Jane Doe" ],
+    "marks" : [ 10, 20 ]
   }, {
     "assignmentName" : "math test 2",
-    "grades" : [ ]
-  }, {
-    "assignmentName" : "homework 3",
-    "grades" : [ "50", "40", "30" ]
+    "names" : [ "John Doe", "Jane Doe" ],
+    "marks" : [ 10, 20 ]
   }, {
     "assignmentName" : "english homework",
-    "grades" : [ ]
+    "names" : [ ],
+    "marks" : [ ]
   } ]
 }

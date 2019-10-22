@@ -18,6 +18,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
+    private boolean isDisplayStudents = true;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -136,6 +137,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeAssignment(Assignment key) {
         assignments.remove(key);
     }
+
+    public boolean isDisplayStudents() {
+        return this.isDisplayStudents;
+    }
+
+    public void displayStudents() {
+        this.isDisplayStudents = true;
+    }
+
+    public void displayAssignments() {
+        this.isDisplayStudents = false;
+    }
+
 
     //// util methods
 

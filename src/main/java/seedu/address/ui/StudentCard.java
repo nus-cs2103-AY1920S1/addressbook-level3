@@ -60,6 +60,7 @@ public class StudentCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
