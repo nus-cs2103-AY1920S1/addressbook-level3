@@ -39,7 +39,8 @@
             <MenuItem fx:id="earningstab" mnemonicParsing="false" onAction="#handleEarnings" text="Earnings" />
           </Menu>
           <Menu mnemonicParsing="false" text="Calendar">
-            <MenuItem fx:id="calendartab" mnemonicParsing="false" onAction="#handleCalendar" text="Calendar" />
+            <MenuItem fx:id="calendartab" mnemonicParsing="false" onAction="#handleCalendarDate" text="ByDate" />
+            <MenuItem fx:id="tasktab" mnemonicParsing="false" onAction="#handleCalendarTask" text="ByTask" />
           </Menu>
           <Menu mnemonicParsing="false" text="Notes">
             <MenuItem fx:id="notestab" mnemonicParsing="false" onAction="#handleNotes" text="Notes" />

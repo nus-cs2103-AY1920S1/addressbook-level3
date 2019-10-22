@@ -13,7 +13,7 @@ import seedu.address.model.task.Task;
 
 
 /**
- * command to add tasks.
+ * command to add reminders.
  */
 public class AddReminderCommand extends Command {
     public static final String COMMAND_WORD = "Add Reminder";

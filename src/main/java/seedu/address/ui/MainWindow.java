@@ -13,12 +13,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ChangeTabCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.WindowView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private EarningsListPanel earningsListPanel;
+    private ReminderListPanel reminderListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -155,6 +153,26 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Fills up all the placeholders with reminders list in the window.
+     */
+    void fillReminders() {
+        reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
+        personListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -178,6 +196,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the reminder window or focuses on it if it's already opened.
+     */
     @FXML
     public void handleReminderBox() {
         if (!reminderWindow.isShowing()) {
@@ -187,28 +208,49 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches to the reminder tab.
+     */
     @FXML
     public void handleReminder() throws CommandException, ParseException {
-        String USER_COMMAND = "change_tab tab/reminders";
-        executeCommand(USER_COMMAND);
+        String userCommand = "change_tab tab/reminders";
+        executeCommand(userCommand);
     }
 
+    /**
+     * Switches to the earnings tab.
+     */
     @FXML
     public void handleEarnings() throws ParseException, CommandException {
-        String USER_COMMAND = "change_tab tab/earnings";
-        executeCommand(USER_COMMAND);
+        String userCommand = "change_tab tab/earnings";
+        executeCommand(userCommand);
     }
 
+    /**
+     * Switches to the calendar tab sorted by the date.
+     */
     @FXML
-    public void handleCalendar() throws ParseException, CommandException {
-        String USER_COMMAND = "change_tab tab/calendar";
-        executeCommand(USER_COMMAND);
+    public void handleCalendarDate() throws ParseException, CommandException {
+        String userCommand = "change_tab tab/calendar";
+        executeCommand(userCommand);
     }
 
+    /**
+     * Switches to the calendar tab sorted by the task.
+     */
+    @FXML
+    public void handleCalendarTask() throws ParseException, CommandException {
+        String userCommand = "change_tab tab/calendar";
+        executeCommand(userCommand);
+    }
+
+    /**
+     * Switches to the notepad tab.
+     */
     @FXML
     public void handleNotes() throws ParseException, CommandException {
-        String USER_COMMAND = "change_tab tab/notepad";
-        executeCommand(USER_COMMAND);
+        String userCommand = "change_tab tab/notepad";
+        executeCommand(userCommand);
     }
 
     void show() {
@@ -229,6 +271,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public EarningsListPanel getEarningsListPanel() {
         return earningsListPanel;
+    }
+
+    public ReminderListPanel getReminderListPanel() {
+        return reminderListPanel;
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -254,12 +300,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-
-            /*if (commandResult.isEarnings()) {
-                Earnings earnings = commandResult.getEarnings();
-                handleEarnings(earnings);
-            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {
