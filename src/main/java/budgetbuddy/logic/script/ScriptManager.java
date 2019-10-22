@@ -1,39 +1,46 @@
 package budgetbuddy.logic.script;
 
+import javax.script.Bindings;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import budgetbuddy.logic.script.exceptions.ScriptException;
-import budgetbuddy.model.Model;
 
 /**
- * Evaluates scripts on a model.
+ * Evaluates scripts.
  */
 public class ScriptManager {
-    private static final Object scriptEngineLock;
-    private static ScriptEngine scriptEngine;
+    private final Object scriptEngineLock;
+    private final ScriptEnvironmentInitialiser initialiser;
+    private final ScriptEngine scriptEngine;
 
-    static {
+    /**
+     * Creates a new ScriptManager with the specified environment initialiser.
+     *
+     * @param initialiser The environment initialiser.
+     */
+    public ScriptManager(ScriptEnvironmentInitialiser initialiser) {
+        this.initialiser = initialiser;
         scriptEngineLock = new Object();
-        initialise();
+        scriptEngine = new ScriptEngineManager().getEngineByName("nashorn");
+        if (scriptEngine == null) {
+            throw new IllegalStateException("Could not instantiate JavaScript engine");
+        }
+        initialiser.initialise(this);
     }
 
     /**
-     * Is a private constructor for a static-only class.
-     */
-    private ScriptManager() { }
-
-    /**
-     * Evaluate a script on the given model.
+     * Evaluates a script.
+     *
+     * The context between evaluations is persisted.
+     *
      * @param script the script
-     * @param model the model
      * @return the result of the script, which may be <code>null</code>
      * @throws ScriptException if an exception occurs during script evaluation
      */
-    public static Object evaluateScript(String script, Model model) throws ScriptException {
+    public Object evaluateScript(String script) throws ScriptException {
         synchronized (scriptEngineLock) {
-            scriptEngine.getBindings(ScriptContext.ENGINE_SCOPE).put("ab", model);
             try {
                 return scriptEngine.eval(script);
             } catch (Exception ex) {
@@ -43,14 +50,28 @@ public class ScriptManager {
     }
 
     /**
-     * Initialises the script engine of the script manager.
+     * Resets the script evaluation context.
+     *
+     * This removes any variables declared by previously evaluated scripts, and re-initialises the context
+     * using the initialiser provided when this ScriptManager was created.
      */
-    private static void initialise() {
+    public void resetEnvironment() {
         synchronized (scriptEngineLock) {
-            scriptEngine = new ScriptEngineManager().getEngineByExtension("js");
-            if (scriptEngine == null) {
-                throw new IllegalStateException("Could not instantiate JavaScript engine");
-            }
+            Bindings newBindings = scriptEngine.createBindings();
+            scriptEngine.setBindings(newBindings, ScriptContext.ENGINE_SCOPE);
+            initialiser.initialise(this);
+        }
+    }
+
+    /**
+     * Sets a variable in the script evaluation context.
+     *
+     * @param name The name of the variable to be set
+     * @param value The value the variable should be set to
+     */
+    public void setVariable(String name, Object value) {
+        synchronized (scriptEngineLock) {
+            scriptEngine.put(name, value);
         }
     }
 }

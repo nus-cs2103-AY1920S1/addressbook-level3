@@ -1,5 +1,7 @@
 package budgetbuddy.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.script.ScriptManager;
 import budgetbuddy.logic.script.exceptions.ScriptException;
@@ -21,9 +23,10 @@ public class EvalCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, ScriptManager scriptManager) throws CommandException {
+        requireNonNull(scriptManager);
         try {
-            Object result = ScriptManager.evaluateScript(script, model);
+            Object result = scriptManager.evaluateScript(script);
             if (result == null) {
                 return new CommandResult(MESSAGE_NO_RESULT);
             } else {
@@ -32,5 +35,10 @@ public class EvalCommand extends Command {
         } catch (ScriptException se) {
             throw new CommandException(String.format(MESSAGE_SCRIPT_EXCEPTION, se.getMessage()), se);
         }
+    }
+
+    @Override
+    protected CommandResult execute(Model model) throws CommandException {
+        return execute(model, null);
     }
 }

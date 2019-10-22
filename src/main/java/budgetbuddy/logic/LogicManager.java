@@ -11,6 +11,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.logic.script.ScriptManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.person.Person;
@@ -27,11 +28,17 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandLineParser addressBookParser;
+    private final ScriptManager scriptManager;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new CommandLineParser();
+        scriptManager = new ScriptManager(engine -> {
+            // TODO: This will be pulled out into a separate class in a future PR
+            // TODO: Currently, this just brings it to feature-parity
+            engine.setVariable("ab", model);
+        });
     }
 
     @Override
@@ -40,7 +47,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        commandResult = command.execute(model, scriptManager);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
