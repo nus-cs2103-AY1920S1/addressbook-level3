@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_FROM;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
@@ -26,13 +27,15 @@ public class BorrowCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_TRANSACTION_METHOD + "TRANSACTION_METHOD "
             + PREFIX_FROM + "PERSON_BORROWED_FROM "
+            + PREFIX_DEADLINE + "DATE_TO_RETURN_BY"
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_AMOUNT + "2 "
             + PREFIX_DAY + "09-08-2019 "
             + PREFIX_DESCRIPTION + "Dilys egg tarts "
             + PREFIX_TRANSACTION_METHOD + "Cash "
-            + PREFIX_FROM + "Classmate";
+            + PREFIX_FROM + "Classmate "
+            + PREFIX_DEADLINE + "11-09-2019";
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s \n";
 

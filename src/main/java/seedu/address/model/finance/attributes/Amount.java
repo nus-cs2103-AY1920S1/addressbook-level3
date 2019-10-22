@@ -17,7 +17,6 @@ public class Amount {
      */
     public static final String VALIDATION_REGEX = "[\\d]+|[\\d]+\\.[\\d]{1,2}";
 
-
     public final double amount;
 
     /**
@@ -41,7 +40,15 @@ public class Amount {
 
     @Override
     public String toString() {
-        return Double.toString(amount);
+        String strAmount = Double.toString(amount);
+
+        // Ensure 2 decimals places
+        String oneDecimalRegex = "[\\d]+\\.[0-9]$";
+        if (strAmount.matches(oneDecimalRegex)) {
+            strAmount = strAmount + "0";
+        }
+
+        return strAmount;
     }
 
     @Override

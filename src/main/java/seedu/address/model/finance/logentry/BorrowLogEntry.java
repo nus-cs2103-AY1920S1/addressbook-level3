@@ -4,6 +4,7 @@ import java.util.Set;
 
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
@@ -17,19 +18,23 @@ public class BorrowLogEntry extends LogEntry {
 
     // Meta data
     public static final String LOG_ENTRY_TYPE = "borrow";
+    private static boolean isRepaid; // whether borrowed money has been returned to lender
 
     // Fields
     private final Person from; // person borrowed from
+    private Deadline deadline;
 
     /**
      * Every field must be present and not null.
      */
     public BorrowLogEntry(Amount amount, TransactionDate transactionDate, Description description,
                           TransactionMethod transactionMethod, Set<Category> categories,
-                          Person from) {
+                          Person from, Deadline deadline) {
         super(amount, transactionDate, description,
                 transactionMethod, categories);
         this.from = from;
+        this.deadline = deadline;
+        this.isRepaid = false;
     }
 
     public String getLogEntryType() {
@@ -38,6 +43,18 @@ public class BorrowLogEntry extends LogEntry {
 
     public Person getFrom() {
         return from;
+    }
+
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
+    public boolean getIsRepaid() {
+        return isRepaid;
+    }
+
+    public void setRepaid() {
+        isRepaid = true;
     }
 
     @Override
@@ -56,7 +73,9 @@ public class BorrowLogEntry extends LogEntry {
                 && otherLogEntry.getDescription().equals(getDescription())
                 && otherLogEntry.getTransactionMethod().equals(getTransactionMethod())
                 && otherLogEntry.getCategories().equals(getCategories())
-                && otherLogEntry.getFrom().equals(getFrom());
+                && otherLogEntry.getFrom().equals(getFrom())
+                && otherLogEntry.getDeadline().equals(getDeadline())
+                && (otherLogEntry.getIsRepaid() == getIsRepaid());
     }
 
     @Override
@@ -72,6 +91,8 @@ public class BorrowLogEntry extends LogEntry {
                 .append(getTransactionMethod())
                 .append(" From: ")
                 .append(getFrom())
+                .append(" Deadline: ")
+                .append(getDeadline())
                 .append(" Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();

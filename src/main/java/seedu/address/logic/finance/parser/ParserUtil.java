@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.Place;
@@ -152,6 +153,21 @@ public class ParserUtil {
             throw new ParseException(Person.MESSAGE_CONSTRAINTS);
         }
         return new Person(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String deadline} into a {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Deadline} is invalid.
+     */
+    public static Deadline parseDeadline(String deadline) throws ParseException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
+        if (!Deadline.isValidDeadline(trimmedDeadline)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        return new Deadline(trimmedDeadline);
     }
 
 }

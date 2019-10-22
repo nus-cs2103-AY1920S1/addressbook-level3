@@ -76,7 +76,10 @@ class JsonSerializableFinanceLog {
         case BorrowLogEntry.LOG_ENTRY_TYPE:
             BorrowLogEntry borrowLogEntry = (BorrowLogEntry) log;
             String borrowedFrom = borrowLogEntry.getFrom().name;
-            return new JsonAdaptedBorrowLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, borrowedFrom);
+            String deadline = borrowLogEntry.getDeadline().value;
+            String isRepaid = Boolean.toString(borrowLogEntry.getIsRepaid());
+            return new JsonAdaptedBorrowLogEntry(amount, tDate, desc, tMethod, categories, logEntryType,
+                    borrowedFrom, deadline, isRepaid);
 
         case LendLogEntry.LOG_ENTRY_TYPE:
             LendLogEntry lendLogEntry = (LendLogEntry) log;

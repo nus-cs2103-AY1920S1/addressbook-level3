@@ -8,39 +8,39 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The date the transaction of the associated log entry was made.
- * Guarantees: is valid as declared in {@link #isValidTransactionDate(String)}
+ * Deadline for money borrowed or lent to be repaid or returned.
+ * Guarantees: is valid as declared in {@link #isValidDeadline(String)}
  */
-public class TransactionDate {
+public class Deadline {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Dates should be in the form DD-MM-YYYY and should not be in the future";
+            "Deadlines should be in the form DD-MM-YYYY and should not be in the past";
 
     public final String value;
 
     /**
-     * Constructs a {@code TransactionDate}.
+     * Constructs a {@code Deadline}.
      *
-     * @param transactionDate A valid transaction date.
+     * @param deadline A valid deadline.
      */
-    public TransactionDate(String transactionDate) {
-        requireNonNull(transactionDate);
-        checkArgument(isValidTransactionDate(transactionDate), MESSAGE_CONSTRAINTS);
-        value = transactionDate;
+    public Deadline(String deadline) {
+        requireNonNull(deadline);
+        checkArgument(isValidDeadline(deadline), MESSAGE_CONSTRAINTS);
+        value = deadline;
     }
 
     /**
-     * Returns true if a given string is a valid transaction date.
+     * Returns true if a given string is a valid deadline.
      */
-    public static boolean isValidTransactionDate(String test) {
+    public static boolean isValidDeadline(String test) {
         SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date currentDate = new Date();
         try {
             Date testDate = validFormat.parse(test);
             boolean isToday = testDate.equals(currentDate);
-            boolean isPast = testDate.before(currentDate);
-            return isToday || isPast;
+            boolean isFuture = testDate.after(currentDate);
+            return isToday || isFuture;
         } catch (ParseException e) {
             return false;
         }
@@ -54,8 +54,8 @@ public class TransactionDate {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TransactionDate // instanceof handles nulls
-                && value.equals(((TransactionDate) other).value)); // state check
+                || (other instanceof Deadline // instanceof handles nulls
+                && value.equals(((Deadline) other).value)); // state check
     }
 
     @Override
