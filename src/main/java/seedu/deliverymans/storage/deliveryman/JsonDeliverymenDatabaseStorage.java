@@ -13,7 +13,6 @@ import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.commons.util.FileUtil;
 import seedu.deliverymans.commons.util.JsonUtil;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.storage.customer.JsonSerializableCustomerDatabase;
 
 /**
  * A class to access Deliverymen database data stored as a json file on the hard disk.

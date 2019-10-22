@@ -3,7 +3,7 @@ package seedu.deliverymans.model.deliveryman;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
+// import javafx.collections.transformation.SortedList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
 
 /**
@@ -28,6 +28,9 @@ public class StatusManager {
         this.statuses = new UniqueStatusList();
     }
 
+    /**
+     *
+     */
     public void updateStatusOf(Deliveryman deliveryman, String strStatus) {
         removePreviousStatus(deliveryman);
         assignStatusTagTo(deliveryman, strStatus);
@@ -36,35 +39,41 @@ public class StatusManager {
     /**
      * Replaces the status tag of a deliveryman with another one.
      */
-    public void assignStatusTagTo(Deliveryman deliveryman, String strStatus ) {
+    public void assignStatusTagTo(Deliveryman deliveryman, String strStatus) {
         switch (strStatus) {
-            case "AVAILABLE":
-               deliveryman.setStatusTo(statuses.getAvailableTag());
-               availableMen.add(deliveryman);
-               break;
-            case "UNAVAILABLE":
-                deliveryman.setStatusTo(statuses.getUnavailableTag());
-                unavailableMen.add(deliveryman);
-                break;
-            case "DELIVERING":
-                deliveryman.setStatusTo(statuses.getDeliveringTag());
-                deliveringMen.add(deliveryman);
-                break;
-            default:
-                return;
+        case "AVAILABLE":
+            deliveryman.setStatusTo(statuses.getAvailableTag());
+            availableMen.add(deliveryman);
+            break;
+        case "UNAVAILABLE":
+            deliveryman.setStatusTo(statuses.getUnavailableTag());
+            unavailableMen.add(deliveryman);
+            break;
+        case "DELIVERING":
+            deliveryman.setStatusTo(statuses.getDeliveringTag());
+            deliveringMen.add(deliveryman);
+            break;
+        default:
+            return;
         }
     }
 
+    /**
+     *
+     */
     public void removePreviousStatus(Deliveryman deliveryman) {
         switch (deliveryman.getStatus().getDescription()) {
-            case "AVAILABLE":
-                availableMen.remove(deliveryman);
-                break;
-            case "UNAVAILABLE":
-                unavailableMen.remove(deliveryman);
-                break;
-            case "DELIVERING":
-                deliveringMen.remove(deliveryman);
+        case "AVAILABLE":
+            availableMen.remove(deliveryman);
+            break;
+        case "UNAVAILABLE":
+            unavailableMen.remove(deliveryman);
+            break;
+        case "DELIVERING":
+            deliveringMen.remove(deliveryman);
+            break;
+        default:
+            return;
         }
     }
 
