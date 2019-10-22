@@ -185,7 +185,7 @@ To facilitate the manipulation of `Loan` objects, `LoansManager` implements the 
 * `LoansManager#getLoans()` -- Gets the current list of loans.
 * `LoansManager#addLoan(Loan toAdd)` -- Adds the `Loan toAdd` to `loans`.
 * `LoansManager#editLoan(Loan toEdit, Loan editedLoan)` -- Edits `Loan toEdit` to match `Loan editedLoan`.
-* `LoansManager#updateStatus(Loan toUpdate, Status newStatus)` -- Updates the `Status` of `Loan toUpdate` to `newStatus`.
+* `LoansManager#updateLoanStatus(Loan toUpdate, Status newStatus)` -- Updates the `Status` of `Loan toUpdate` to `newStatus`.
 * `LoansManager#deleteLoan(Loan toDelete)` -- Deletes `Loan toDelete` from `loans`.
 
 Additionally, the state of `loans` is saved between sessions.
@@ -219,7 +219,7 @@ and `toEdit` is replaced with `editedLoan`.
 If `toEdit` cannot be found by the `LoansManager` in `loans`, an error message will be displayed to notify the user.
 
 Step 5. The user executes the command `loan paid 1` to update the status of the first loan in the list to *paid*.
-`LoansManager#updateStatus(Loan toUpdate, Status newStatus)` is called
+`LoansManager#updateLoanStatus(Loan toUpdate, Status newStatus)` is called
 (where `toUpdate` is the targeted first loan in `loans` and `newStatus` has the value `Status.PAID`)
 and the loan `toUpdate` in `loans` has its `status` updated to `newStatus`.
 
