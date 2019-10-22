@@ -32,7 +32,7 @@ public class DashboardWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private DashboardListPanel dashboardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -127,13 +127,13 @@ public class DashboardWindow extends UiPart<Stage> {
      * with health records tab view.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        versatilePanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
+        versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getUserProfileFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getDashboardFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -244,8 +244,8 @@ public class DashboardWindow extends UiPart<Stage> {
     }
 
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public DashboardListPanel getDashboardListPanel() {
+        return dashboardListPanel;
     }
 
     /**

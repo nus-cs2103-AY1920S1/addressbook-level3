@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.common.Name;
 import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.dashboard.components.DashboardName;
 
@@ -43,7 +42,7 @@ class JsonAdaptedDashboard {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     DashboardName.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!DashboardName.isValidName(name)) {
             throw new IllegalValueException(DashboardName.MESSAGE_CONSTRAINTS);
         }
         final DashboardName modelName = new DashboardName(name);

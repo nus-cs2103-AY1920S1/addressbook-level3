@@ -7,10 +7,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -36,20 +36,13 @@
                             <Label fx:id="dashboardName" styleClass="cell_big_label" text="\$first" />
                         </children>
                      </HBox>
-                     <VBox fx:id="ingredients">
-                         <opaqueInsets>
-                             <Insets />
-                         </opaqueInsets>
-                         <VBox.margin>
-                             <Insets left="10.0" />
-                         </VBox.margin>
-                  </VBox>
+                     <FlowPane fx:id="details" />
                  </children>
               </VBox>
           </children>
-           <rowConstraints>
-               <RowConstraints />
-           </rowConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
        </GridPane>
    </children>
 </HBox>
