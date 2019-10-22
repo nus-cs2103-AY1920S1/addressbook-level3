@@ -18,8 +18,8 @@ import seedu.address.model.vehicle.Vehicle;
 /**
  * An Immutable IncidentManager that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "incidentManager")
+class JsonSerializableIncidentManager {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_INCIDENT = "Incidents list contains duplicate incident(s)";
@@ -30,10 +30,10 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedVehicle> vehicles = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons and vehicles.
+     * Constructs a {@code JsonSerializableIncidentManager} with the given persons and vehicles.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+    public JsonSerializableIncidentManager(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
                                        @JsonProperty("incidents") List<JsonAdaptedIncident> incidents,
                                        @JsonProperty("vehicles") List<JsonAdaptedVehicle> vehicles) {
         this.persons.addAll(persons);
@@ -44,9 +44,9 @@ class JsonSerializableAddressBook {
     /**
      * Converts a given {@code ReadOnlyIncidentManager} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableIncidentManager}.
      */
-    public JsonSerializableAddressBook(ReadOnlyIncidentManager source) {
+    public JsonSerializableIncidentManager(ReadOnlyIncidentManager source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         incidents.addAll(source.getIncidentList().stream().map(JsonAdaptedIncident::new).collect(Collectors.toList()));
         vehicles.addAll(source.getVehicleList().stream().map(JsonAdaptedVehicle::new).collect(Collectors.toList()));

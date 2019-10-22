@@ -32,13 +32,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given incidentManager and userPrefs.
      */
-    public ModelManager(ReadOnlyIncidentManager addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyIncidentManager incidentManager, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(incidentManager, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + incidentManager + " and user prefs " + userPrefs);
 
-        this.incidentManager = new IncidentManager(addressBook);
+        this.incidentManager = new IncidentManager(incidentManager);
         this.userPrefs = new UserPrefs(userPrefs);
         session = new Session(null);
         filteredPersons = new FilteredList<>(this.incidentManager.getPersonList());
@@ -95,14 +95,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getIncidentManagerFilePath() {
+        return userPrefs.getIncidentManagerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setIncidentManagerFilePath(Path incidentManagerFilePath) {
+        requireNonNull(incidentManagerFilePath);
+        userPrefs.setIncidentManagerFilePath(incidentManagerFilePath);
     }
 
     //=========== IncidentManager ================================================================================
@@ -146,7 +146,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedIncidentManager}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -190,7 +190,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedIncidentManager}
      */
     @Override
     public ObservableList<Incident> getFilteredIncidentList() {
@@ -208,7 +208,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Vehicle} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedIncidentManager}
      */
     @Override
     public ObservableList<Vehicle> getFilteredVehicleList() {

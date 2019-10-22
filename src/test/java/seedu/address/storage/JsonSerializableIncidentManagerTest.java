@@ -15,49 +15,50 @@ import seedu.address.testutil.TypicalEntities;
 
 public class JsonSerializableIncidentManagerTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableIncidentManagerTest");
-    private static final Path TYPICAL_ENTITIES_FILE = TEST_DATA_FOLDER.resolve("typicalEntitiesAddressBook.json");
-    private static final Path INVALID_ENTITY_FILE = TEST_DATA_FOLDER.resolve("invalidEntityAddressBook.json");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
-    private static final Path DUPLICATE_ENTITY_FILE = TEST_DATA_FOLDER.resolve("duplicateEntityAddressBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.json");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonSerializableIncidentManagerTest");
+    private static final Path TYPICAL_ENTITIES_FILE = TEST_DATA_FOLDER.resolve("typicalEntitiesIncidentManager.json");
+    private static final Path INVALID_ENTITY_FILE = TEST_DATA_FOLDER.resolve("invalidEntityIncidentManager.json");
+    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonIncidentManager.json");
+    private static final Path DUPLICATE_ENTITY_FILE = TEST_DATA_FOLDER.resolve("duplicateEntityIncidentManager.json");
+    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonIncidentManager.json");
 
     @Test
     public void toModelType_typicalEntitiesFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_ENTITIES_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableIncidentManager dataFromFile = JsonUtil.readJsonFile(TYPICAL_ENTITIES_FILE,
+                JsonSerializableIncidentManager.class).get();
         IncidentManager incidentManagerFromFile = dataFromFile.toModelType();
-        IncidentManager typicalPersonsIncidentManager = TypicalEntities.getTypicalAddressBook();
+        IncidentManager typicalPersonsIncidentManager = TypicalEntities.getTypicalIncidentManager();
         assertEquals(incidentManagerFromFile, typicalPersonsIncidentManager);
     }
 
     @Test
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableIncidentManager dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
+                JsonSerializableIncidentManager.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
-                JsonSerializableAddressBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON,
+        JsonSerializableIncidentManager dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
+                JsonSerializableIncidentManager.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableIncidentManager.MESSAGE_DUPLICATE_PERSON,
                 dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_invalidEntityFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_ENTITY_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableIncidentManager dataFromFile = JsonUtil.readJsonFile(INVALID_ENTITY_FILE,
+                JsonSerializableIncidentManager.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateEntities_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_ENTITY_FILE,
-                JsonSerializableAddressBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_VEHICLE,
+        JsonSerializableIncidentManager dataFromFile = JsonUtil.readJsonFile(DUPLICATE_ENTITY_FILE,
+                JsonSerializableIncidentManager.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableIncidentManager.MESSAGE_DUPLICATE_VEHICLE,
                 dataFromFile::toModelType);
     }
 }

@@ -21,12 +21,12 @@ public interface Storage extends IncidentManagerStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getIncidentManagerFilePath();
 
     @Override
-    Optional<ReadOnlyIncidentManager> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyIncidentManager> readIncidentManager() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyIncidentManager addressBook) throws IOException;
+    void saveIncidentManager(ReadOnlyIncidentManager incidentManager) throws IOException;
 
 }

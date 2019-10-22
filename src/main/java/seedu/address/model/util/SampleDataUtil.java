@@ -73,7 +73,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyIncidentManager getSampleAddressBook() {
+    public static ReadOnlyIncidentManager getSampleIncidentManager() {
         IncidentManager sampleAb = new IncidentManager();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);

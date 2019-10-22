@@ -13,7 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIncidentManager;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -30,7 +30,7 @@ import seedu.address.model.UserPrefs;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
 
     /*
     @Test

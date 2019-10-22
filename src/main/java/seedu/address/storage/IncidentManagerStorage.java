@@ -16,7 +16,7 @@ public interface IncidentManagerStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getIncidentManagerFilePath();
 
     /**
      * Returns IncidentManager data as a {@link ReadOnlyIncidentManager}.
@@ -24,23 +24,23 @@ public interface IncidentManagerStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyIncidentManager> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyIncidentManager> readIncidentManager() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getIncidentManagerFilePath()
      */
-    Optional<ReadOnlyIncidentManager> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyIncidentManager> readIncidentManager(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyIncidentManager} to the storage.
-     * @param addressBook cannot be null.
+     * @param incidentManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyIncidentManager addressBook) throws IOException;
+    void saveIncidentManager(ReadOnlyIncidentManager incidentManager) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyIncidentManager)
+     * @see #saveIncidentManager(ReadOnlyIncidentManager)
      */
-    void saveAddressBook(ReadOnlyIncidentManager addressBook, Path filePath) throws IOException;
+    void saveIncidentManager(ReadOnlyIncidentManager incidentManager, Path filePath) throws IOException;
 
 }

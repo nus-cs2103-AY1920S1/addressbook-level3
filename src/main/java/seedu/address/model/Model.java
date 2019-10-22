@@ -63,12 +63,12 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getIncidentManagerFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setIncidentManagerFilePath(Path incidentManagerFilePath);
 
     /**
      * Replaces address book data with the data in {@code incidentManager}.

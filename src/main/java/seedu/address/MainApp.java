@@ -56,7 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        IncidentManagerStorage incidentManagerStorage = new JsonIncidentManagerStorage(userPrefs.getAddressBookFilePath());
+        IncidentManagerStorage incidentManagerStorage =
+                new JsonIncidentManagerStorage(userPrefs.getIncidentManagerFilePath());
         storage = new StorageManager(incidentManagerStorage, userPrefsStorage);
 
         initLogging(config);
@@ -74,14 +75,14 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyIncidentManager> addressBookOptional;
+        Optional<ReadOnlyIncidentManager> incidentManagerOptional;
         ReadOnlyIncidentManager initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            incidentManagerOptional = storage.readIncidentManager();
+            if (!incidentManagerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample IncidentManager");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = incidentManagerOptional.orElseGet(SampleDataUtil::getSampleIncidentManager);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty IncidentManager");
             initialData = new IncidentManager();

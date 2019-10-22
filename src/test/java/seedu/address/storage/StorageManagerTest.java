@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIncidentManager;
 
 import java.nio.file.Path;
 
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonIncidentManagerStorage addressBookStorage = new JsonIncidentManagerStorage(getTempFilePath("ab"));
+        JsonIncidentManagerStorage incidentManagerStorage = new JsonIncidentManagerStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(incidentManagerStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void incidentManagerReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonIncidentManagerStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonIncidentManagerStorageTest} class.
          */
-        IncidentManager original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyIncidentManager retrieved = storageManager.readAddressBook().get();
+        IncidentManager original = getTypicalIncidentManager();
+        storageManager.saveIncidentManager(original);
+        ReadOnlyIncidentManager retrieved = storageManager.readIncidentManager().get();
         assertEquals(original, new IncidentManager(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getIncidentManagerFilePath() {
+        assertNotNull(storageManager.getIncidentManagerFilePath());
     }
 
 }

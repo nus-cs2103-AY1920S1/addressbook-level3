@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getIncidentManager());
+            storage.saveIncidentManager(model.getIncidentManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -66,7 +66,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyIncidentManager getAddressBook() {
+    public ReadOnlyIncidentManager getIncidentManager() {
         return model.getIncidentManager();
     }
 
@@ -106,8 +106,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getIncidentManagerFilePath() {
+        return model.getIncidentManagerFilePath();
     }
 
     @Override

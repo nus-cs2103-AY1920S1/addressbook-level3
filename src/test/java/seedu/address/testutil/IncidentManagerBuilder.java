@@ -4,26 +4,26 @@ import seedu.address.model.IncidentManager;
 import seedu.address.model.person.Person;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building IncidentManager objects.
  * Example usage: <br>
- *     {@code IncidentManager ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code IncidentManager ab = new IncidentManagerBuilder().withPerson("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class IncidentManagerBuilder {
 
     private IncidentManager incidentManager;
 
-    public AddressBookBuilder() {
+    public IncidentManagerBuilder() {
         incidentManager = new IncidentManager();
     }
 
-    public AddressBookBuilder(IncidentManager incidentManager) {
+    public IncidentManagerBuilder(IncidentManager incidentManager) {
         this.incidentManager = incidentManager;
     }
 
     /**
      * Adds a new {@code Person} to the {@code IncidentManager} that we are building.
      */
-    public AddressBookBuilder withPerson(Person person) {
+    public IncidentManagerBuilder withPerson(Person person) {
         incidentManager.addPerson(person);
         return this;
     }

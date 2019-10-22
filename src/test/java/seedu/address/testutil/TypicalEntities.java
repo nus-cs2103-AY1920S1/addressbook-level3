@@ -75,7 +75,7 @@ public class TypicalEntities {
     /**
      * Returns an {@code IncidentManager} with all the typical persons.
      */
-    public static IncidentManager getTypicalAddressBook() {
+    public static IncidentManager getTypicalIncidentManager() {
         IncidentManager ab = new IncidentManager();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);

@@ -27,32 +27,32 @@ public class JsonIncidentManagerStorage implements IncidentManagerStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getIncidentManagerFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyIncidentManager> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyIncidentManager> readIncidentManager() throws DataConversionException {
+        return readIncidentManager(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readIncidentManager()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyIncidentManager> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyIncidentManager> readIncidentManager(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableIncidentManager> jsonIncidentManager = JsonUtil.readJsonFile(
+                filePath, JsonSerializableIncidentManager.class);
+        if (!jsonIncidentManager.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonIncidentManager.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonIncidentManagerStorage implements IncidentManagerStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyIncidentManager addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveIncidentManager(ReadOnlyIncidentManager incidentManager) throws IOException {
+        saveIncidentManager(incidentManager, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyIncidentManager)}.
+     * Similar to {@link #saveIncidentManager(ReadOnlyIncidentManager)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyIncidentManager addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveIncidentManager(ReadOnlyIncidentManager incidentManager, Path filePath) throws IOException {
+        requireNonNull(incidentManager);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableIncidentManager(incidentManager), filePath);
     }
 
 }

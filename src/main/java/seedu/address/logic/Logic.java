@@ -31,7 +31,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getIncidentManager()
      */
-    ReadOnlyIncidentManager getAddressBook();
+    ReadOnlyIncidentManager getIncidentManager();
 
     /** Returns the current person logged in */
     Person getLoggedInPerson();
@@ -57,7 +57,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getIncidentManagerFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

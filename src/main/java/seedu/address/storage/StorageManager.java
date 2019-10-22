@@ -48,30 +48,31 @@ public class StorageManager implements Storage {
     // ================ IncidentManager methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return incidentManagerStorage.getAddressBookFilePath();
+    public Path getIncidentManagerFilePath() {
+        return incidentManagerStorage.getIncidentManagerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyIncidentManager> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(incidentManagerStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyIncidentManager> readIncidentManager() throws DataConversionException, IOException {
+        return readIncidentManager(incidentManagerStorage.getIncidentManagerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyIncidentManager> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyIncidentManager> readIncidentManager(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return incidentManagerStorage.readAddressBook(filePath);
+        return incidentManagerStorage.readIncidentManager(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyIncidentManager addressBook) throws IOException {
-        saveAddressBook(addressBook, incidentManagerStorage.getAddressBookFilePath());
+    public void saveIncidentManager(ReadOnlyIncidentManager incidentManager) throws IOException {
+        saveIncidentManager(incidentManager, incidentManagerStorage.getIncidentManagerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyIncidentManager addressBook, Path filePath) throws IOException {
+    public void saveIncidentManager(ReadOnlyIncidentManager incidentManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        incidentManagerStorage.saveAddressBook(addressBook, filePath);
+        incidentManagerStorage.saveIncidentManager(incidentManager, filePath);
     }
 
 }

@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIncidentManager;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -20,18 +20,20 @@ import seedu.address.model.IncidentManager;
 import seedu.address.model.ReadOnlyIncidentManager;
 
 public class JsonIncidentManagerStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonIncidentManagerStorageTest");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonIncidentManagerStorageTest");
 
     @TempDir
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readIncidentManager_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readIncidentManager(null));
     }
 
-    private java.util.Optional<ReadOnlyIncidentManager> readAddressBook(String filePath) throws Exception {
-        return new JsonIncidentManagerStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyIncidentManager> readIncidentManager(String filePath) throws Exception {
+        return new JsonIncidentManagerStorage(Paths.get(filePath))
+                .readIncidentManager(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -42,69 +44,70 @@ public class JsonIncidentManagerStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readIncidentManager("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readIncidentManager("notJsonFormatIncidentManager.json"));
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+    public void readIncidentManager_invalidPersonIncidentManager_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readIncidentManager("invalidPersonIncidentManager.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    public void readIncidentManager_invalidAndValidPersonIncidentManager_throwDataConversionException() {
+        assertThrows(
+                DataConversionException.class, () -> readIncidentManager("invalidAndValidPersonIncidentManager.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        IncidentManager original = getTypicalAddressBook();
-        JsonIncidentManagerStorage jsonAddressBookStorage = new JsonIncidentManagerStorage(filePath);
+    public void readAndSaveIncidentManager_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempIncidentManager.json");
+        IncidentManager original = getTypicalIncidentManager();
+        JsonIncidentManagerStorage jsonIncidentManagerStorage = new JsonIncidentManagerStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyIncidentManager readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonIncidentManagerStorage.saveIncidentManager(original, filePath);
+        ReadOnlyIncidentManager readBack = jsonIncidentManagerStorage.readIncidentManager(filePath).get();
         assertEquals(original, new IncidentManager(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonIncidentManagerStorage.saveIncidentManager(original, filePath);
+        readBack = jsonIncidentManagerStorage.readIncidentManager(filePath).get();
         assertEquals(original, new IncidentManager(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonIncidentManagerStorage.saveIncidentManager(original); // file path not specified
+        readBack = jsonIncidentManagerStorage.readIncidentManager().get(); // file path not specified
         assertEquals(original, new IncidentManager(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveIncidentManager_nullIncidentManager_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveIncidentManager(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code incidentManager} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyIncidentManager addressBook, String filePath) {
+    private void saveIncidentManager(ReadOnlyIncidentManager incidentManager, String filePath) {
         try {
             new JsonIncidentManagerStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveIncidentManager(incidentManager, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new IncidentManager(), null));
+    public void saveIncidentManager_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveIncidentManager(new IncidentManager(), null));
     }
 }

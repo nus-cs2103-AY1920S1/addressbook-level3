@@ -44,10 +44,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonIncidentManagerStorage addressBookStorage =
-                new JsonIncidentManagerStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonIncidentManagerStorage incidentManagerStorage =
+                new JsonIncidentManagerStorage(temporaryFolder.resolve("incidentManager.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(incidentManagerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
         model.setSession(AMY); // Added to simulate a logged in person
     }
@@ -73,11 +73,11 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonIncidentManagerIoExceptionThrowingStub
-        JsonIncidentManagerStorage addressBookStorage =
-                new JsonIncidentManagerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonIncidentManagerStorage incidentManagerStorage = new JsonIncidentManagerIoExceptionThrowingStub(
+                temporaryFolder.resolve("ioExceptionIncidentManager.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(incidentManagerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -157,7 +157,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyIncidentManager addressBook, Path filePath) throws IOException {
+        public void saveIncidentManager(ReadOnlyIncidentManager incidentManager, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
