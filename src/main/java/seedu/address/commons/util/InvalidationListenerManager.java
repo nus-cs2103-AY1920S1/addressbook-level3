@@ -48,4 +48,5 @@ public class InvalidationListenerManager {
         requireNonNull(listener);
         listeners.remove(listener);
     }
+
 }

@@ -108,4 +108,5 @@ public class ListElementPointer {
         ListElementPointer iterator = (ListElementPointer) other;
         return list.equals(iterator.list) && index == iterator.index;
     }
+
 }

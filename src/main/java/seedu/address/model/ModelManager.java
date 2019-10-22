@@ -304,7 +304,6 @@ public class ModelManager implements Model {
     public ObservableList<Budget> getFilteredBudgets() {
         return filteredBudgets;
     }
-  
     @Override
     public ObservableList<AutoExpense> getFilteredAutoExpenses() {
         return filteredAutoExpenses;

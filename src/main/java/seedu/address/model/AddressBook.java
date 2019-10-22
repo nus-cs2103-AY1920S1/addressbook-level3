@@ -41,7 +41,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final ExpenseTrackerList expenseTrackers;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
     private final WishReminderList wishReminders;
-  
+
     /*
      * The 'unusual' code block below is a non-static initialization block,
      * sometimes used to avoid duplication between constructors. See
@@ -414,7 +414,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
-    
     /**
      * Removes {@code key} from this {@code autoExpenses}. {@code key} must exist in
      * the address book.
