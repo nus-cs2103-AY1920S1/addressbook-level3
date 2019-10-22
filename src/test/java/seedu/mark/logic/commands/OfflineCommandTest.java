@@ -24,7 +24,7 @@ import seedu.mark.testutil.BookmarkBuilder;
 class OfflineCommandTest {
 
     @Test
-    void execute_validIndex_successful() throws CommandException {
+    public void execute_validIndex_successful() throws CommandException {
         Bookmark validBookmark = new BookmarkBuilder().withCachedCopy(new CachedCopy(VALID_CACHED_HTML)).build();
         ModelAcceptingOfflineCommand modelStub = new ModelAcceptingOfflineCommand(validBookmark);
 
@@ -35,7 +35,7 @@ class OfflineCommandTest {
     }
 
     @Test
-    void execute_invalidIndex_throwsCommandException() throws CommandException {
+    public void execute_invalidIndex_throwsCommandException() throws CommandException {
         Bookmark validBookmark = new BookmarkBuilder().build(); // no cached copy
         ModelAcceptingOfflineCommand modelStub = new ModelAcceptingOfflineCommand(validBookmark);
 
@@ -45,7 +45,7 @@ class OfflineCommandTest {
 
 
     @Test
-    void testEquals() {
+    public void testEquals() {
         OfflineCommand command = new OfflineCommand(INDEX_FIRST_BOOKMARK);
         OfflineCommand other = new OfflineCommand(INDEX_FIRST_BOOKMARK);
         assertEquals(command, other);

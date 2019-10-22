@@ -32,7 +32,7 @@ class CacheCommandTest {
     }
 
     @Test
-    void testEquals() {
+    public void testEquals() {
         CacheCommand command = new CacheCommand(INDEX_FIRST_BOOKMARK);
         CacheCommand other = new CacheCommand(INDEX_FIRST_BOOKMARK);
         assertEquals(command, other);
@@ -52,6 +52,7 @@ class CacheCommandTest {
 
         @Override
         public void saveMark() {
+            // phantom save just for testing
         }
 
         @Override
@@ -61,6 +62,7 @@ class CacheCommandTest {
 
         @Override
         public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {
+            // phantom update just for testing
         }
     }
 }
