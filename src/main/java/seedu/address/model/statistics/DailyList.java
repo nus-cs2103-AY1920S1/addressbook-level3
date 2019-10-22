@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 
@@ -20,6 +22,16 @@ public class DailyList {
     private double totalExpense;
     private double totalIncome;
 
+    public DailyList(FilteredList<Entry> retrievedExpenseList, LocalDate date) {
+        listOfExpenses = retrievedExpenseList;
+        listOfIncomes = FXCollections.observableArrayList();
+        dateOfRecord = date;
+        System.out.println(dateOfRecord);
+        totalExpense = 0.00;
+        totalIncome = 0.00;
+        initLoadFromFilteredList(retrievedExpenseList);
+    }
+
     public DailyList() {
         listOfExpenses = FXCollections.observableArrayList();;
         listOfIncomes = FXCollections.observableArrayList();
@@ -27,6 +39,12 @@ public class DailyList {
         System.out.println(dateOfRecord);
         totalExpense = 0.00;
         totalIncome = 0.00;
+    }
+
+    private void initLoadFromFilteredList(FilteredList<Entry> entryList) {
+        for (int i = 0; i < entryList.size(); i++) {
+            totalExpense = totalExpense + entryList.get(i).getAmount().value;
+        }
     }
 
     public ObservableList<Expense> getListOfExpenses() {
@@ -37,6 +55,7 @@ public class DailyList {
         return listOfIncomes;
     }
 
+    public int getTotal
     public double getTotalExpense() {
         return totalExpense;
     }

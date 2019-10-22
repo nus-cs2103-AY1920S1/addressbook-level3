@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Entry[] getSampleEntries() {
         return new Entry[] {
-            new Entry(new Description("mala @ deck"), new Date("2019 09 09"), new Amount(5.40), getTagSet("mala")),
+            new Entry(new Description("mala deck"), new Date("2019 09 09"), new Amount(5.40), getTagSet("mala")),
             new Entry(new Description("chicken rice"), new Date("2019 09 09"), new Amount(3.50), getTagSet("mala"))
         };
     }

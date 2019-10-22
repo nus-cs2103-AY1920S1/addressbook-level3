@@ -1,0 +1,51 @@
+package seedu.address.model.statistics;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.Month;
+
+import javafx.collections.ObservableMap;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
+import seedu.address.model.person.SortSequence;
+import seedu.address.model.person.SortType;
+import seedu.address.model.util.EntryComparator;
+
+public class MonthList {
+
+    private ObservableMap<Integer, DailyList> dailyRecord;
+    private FilteredList<Expense> filteredListForMonth;
+    private SortType sortByTime = new SortType("Time");
+    private SortSequence sortByDesc = new SortSequence("Descending");
+    private Month month;
+    private int year;
+
+    public MonthList(FilteredList<Entry> filteredList, Month month, int year) {
+        this.filteredListForMonth = filteredList;
+        this.month = month;
+        this.year = year;
+        initRecords();
+    }
+
+    private void initRecords() {
+        filteredListForMonth.sort(new EntryComparator(sortByTime,sortByDesc));
+        createObsMap();
+    }
+
+    private void createObsMap() {
+        for (int i = 0; i < 31; i++) {
+            try {
+                LocalDate.of(year,month.getValue(),i);
+            } catch (DateTimeException e) {
+                continue;
+            }
+            FilteredList<Entry> filteredListByDay = filteredListForMonth.filtered(EntryContainsDayPredicate(i));
+            DailyList dailyList = new DailyList(filteredListByDay, LocalDate.of(year, month.getValue(), i));
+            dailyRecord.put(i,dailyList);
+        }
+    }
+
+    private void calculate
+
+}
