@@ -94,8 +94,7 @@ public class AddCommandTest {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        personManager, reimbursementModel, reimbursementManager, transactionModel,
-                        transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
         CommandResult commandResult =
                 new AddCommand(validPerson).execute(modelStub, logic, reimbursementLogic, cashierLogic);
 
@@ -158,8 +157,7 @@ public class AddCommandTest {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        personManager, reimbursementModel, reimbursementManager, transactionModel,
-                        transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () ->
                 addCommand.execute(personModelStub, logic, reimbursementLogic, cashierLogic));
