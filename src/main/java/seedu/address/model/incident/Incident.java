@@ -13,7 +13,6 @@ import seedu.address.model.person.Username;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
 
 /**
  * Represents an incident report in the IMS.
