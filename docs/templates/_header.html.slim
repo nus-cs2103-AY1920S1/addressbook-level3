@@ -1,17 +1,12 @@
 / NOTE: You must restart the gradle daemon after modifying any template file for the changes to take effect.
-- if !(attr? 'no-site-header') && (attr? 'site-seedu')
-  #seedu-header
-    nav.navbar.navbar-lg.navbar-light.bg-lighter
-      .container
-        a.navbar-brand href='https://ay1920s1-cs2103t-f12-2.github.io/main/'
-          img src=(site_url 'https://github.com/AY1920S1-CS2103T-F12-2/main/raw/master/docs/images/UnrealUnity.png') alt='Team UnrealUnity'
-
 - if !(attr? 'no-site-header')
   #site-header
     nav.navbar.navbar-light.bg-light
+      a.navbar-brand href='https://ay1920s1-cs2103t-f12-2.github.io/main/'
+          img src=(site_url 'https://github.com/AY1920S1-CS2103T-F12-2/main/raw/master/docs/images/UnrealUnity.png') alt='Team UnrealUnity'
       .container
         ul.navbar-nav
-		  li.nav-item
+		      li.nav-item
             =nav_link('Index', 'index.html', 'Index')
           li.nav-item
             =nav_link('UserGuide', 'UserGuide.html', 'User Guide')
