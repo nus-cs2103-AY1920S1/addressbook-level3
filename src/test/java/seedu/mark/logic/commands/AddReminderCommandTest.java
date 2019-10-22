@@ -51,8 +51,6 @@ class AddReminderCommandTest {
                 commandResult.getFeedbackToUser());
     }
 
-
-
     @Test
     public void execute_duplicateBookmark_throwsCommandException() throws CommandException {
         LocalDateTime time = LocalDateTime.now();
@@ -83,7 +81,7 @@ class AddReminderCommandTest {
         }
 
         @Override
-        public void saveMark() {
+        public void saveMark(String record) {
             // called by {@code AddReminderCommand#execute()}
         }
 

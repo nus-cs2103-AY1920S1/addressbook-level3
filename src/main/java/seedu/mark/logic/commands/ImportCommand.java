@@ -109,6 +109,8 @@ public class ImportCommand extends Command {
                 ? String.format(MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
                     importer.getExistingBookmarksAsString())
                 : String.format(MESSAGE_IMPORT_SUCCESS, filePath);
+
+        model.saveMark(message);
         return new CommandResult(message);
     }
 
@@ -230,7 +232,6 @@ public class ImportCommand extends Command {
          */
         public void importBookmarks() {
             model.addBookmarks(bookmarksToImport);
-            model.saveMark();
         }
 
         public void importFolders() {

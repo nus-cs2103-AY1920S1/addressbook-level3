@@ -116,7 +116,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveMark() {
+        public void saveMark(String record) {
             // called by {@code AddCommand#execute()}
         }
 

@@ -152,17 +152,17 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void undoMark() {
+    public String undoMark() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void redoMark() {
+    public String redoMark() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void saveMark() {
+    public void saveMark(String record) {
         throw new AssertionError("This method should not be called.");
     }
 

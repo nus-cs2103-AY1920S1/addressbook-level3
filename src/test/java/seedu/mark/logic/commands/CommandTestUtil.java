@@ -155,7 +155,7 @@ public class CommandTestUtil {
 
         Bookmark bookmarkToDelete = model.getFilteredBookmarkList().get(targetIndex.getZeroBased());
         model.deleteBookmark(bookmarkToDelete);
-        model.saveMark();
+        model.saveMark(String.format(DeleteCommand.MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete));
 
         assertEquals(initialSize - 1, model.getFilteredBookmarkList().size());
     }

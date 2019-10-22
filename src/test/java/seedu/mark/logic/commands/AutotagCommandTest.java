@@ -83,9 +83,8 @@ public class AutotagCommandTest {
         AutotagCommand command = new AutotagCommand(tagger);
 
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
-        expectedModel.saveMark();
         String expectedMessage = String.format(MESSAGE_AUTOTAG_ADDED, tagger);
-
+        expectedModel.saveMark(expectedMessage);
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
     }
 
@@ -99,9 +98,9 @@ public class AutotagCommandTest {
 
         Bookmark expectedBookmark1 = new BookmarkBuilder(ALICE).withTags("friends", "oneTagged").build();
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
-        expectedModel.setBookmark(ALICE, expectedBookmark1);
-        expectedModel.saveMark();
         String expectedMessage = String.format(MESSAGE_AUTOTAG_ADDED, tagger);
+        expectedModel.setBookmark(ALICE, expectedBookmark1);
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
     }
@@ -117,10 +116,10 @@ public class AutotagCommandTest {
         Bookmark expectedBookmark1 = new BookmarkBuilder(CARL).withTags("namesContainKu").build();
         Bookmark expectedBookmark2 = new BookmarkBuilder(FIONA).withTags("namesContainKu").build();
         Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
+        String expectedMessage = String.format(MESSAGE_AUTOTAG_ADDED, tagger);
         expectedModel.setBookmark(CARL, expectedBookmark1);
         expectedModel.setBookmark(FIONA, expectedBookmark2);
-        expectedModel.saveMark();
-        String expectedMessage = String.format(MESSAGE_AUTOTAG_ADDED, tagger);
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
     }
