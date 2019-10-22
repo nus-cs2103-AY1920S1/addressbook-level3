@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import dream.fcard.logic.storage.Schema;
-//import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
@@ -17,6 +17,7 @@ import javafx.scene.Node;
 /**
  * FrontBackCard with additional data of multiple choices.
  */
+//@@author huiminlim
 public class MultipleChoiceCard extends FrontBackCard {
 
     private ArrayList<String> choices;
@@ -30,17 +31,15 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @param choicesArg  original sorted choices
      */
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg)
-    /*throws DuplicateInChoicesException */ {
+            throws DuplicateInChoicesException {
         super(frontString, backString);
 
         // Checks if choices contain duplicate
         boolean hasDuplicateInChoice = hasChoiceContainDuplicate(choicesArg);
 
-        /*
         if (hasDuplicateInChoice) {
             throw new DuplicateInChoicesException("Duplicates found in choices provided.");
         }
-         */
 
         choices = choicesArg;
 
@@ -209,3 +208,4 @@ public class MultipleChoiceCard extends FrontBackCard {
         return back;
     }
 }
+//@author
