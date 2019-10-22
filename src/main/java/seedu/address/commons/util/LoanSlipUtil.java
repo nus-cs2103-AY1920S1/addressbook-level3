@@ -163,23 +163,8 @@ public class LoanSlipUtil {
         String[] currentBookDetails = new String[3];
         currentBookDetails[0] = currentBook.getSerialNumber().toString();
         currentBookDetails[1] = currentBook.getTitle().toString();
-        currentBookDetails[2] = formatDate(currentLoan.getDueDate().toString());
+        currentBookDetails[2] = DateUtil.formatDate(currentLoan.getDueDate().toString());
         return currentBookDetails;
-    }
-
-    /**
-     * Formats the date to be printed on the loan slip.
-     *
-     * @param date date to be formatted.
-     * @return a formatted date as a {@code String}
-     */
-    private static String formatDate(String date) {
-        String[] pieces = date.split("-");
-        String result = "";
-        for (String s : pieces) {
-            result = s + "-" + result;
-        }
-        return result.substring(0, result.length() - 1);
     }
 
     /**

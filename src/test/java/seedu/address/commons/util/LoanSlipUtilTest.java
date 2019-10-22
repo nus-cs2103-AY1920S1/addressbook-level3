@@ -91,14 +91,14 @@ class LoanSlipUtilTest {
     @Test
     public void createLoanSlipInDirectory_noloanSlipMounted_failure() {
         LoanSlipUtil.unmountLoanSlip();
-        assertThrows(LoanSlipException.class, () ->LoanSlipUtil.createLoanSlipInDirectory());
+        assertThrows(LoanSlipException.class, () -> LoanSlipUtil.createLoanSlipInDirectory());
     }
 
     @Test
     public void openLoanSlip_loanSlipNotReady_failure() {
         LoanSlipUtil.unmountLoanSlip();
-        assertThrows(LoanSlipException.class, () ->LoanSlipUtil.openLoanSlip());
+        assertThrows(LoanSlipException.class, () -> LoanSlipUtil.openLoanSlip());
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoanSlip(loan, book, borrower));
-        assertThrows(LoanSlipException.class, () ->LoanSlipUtil.openLoanSlip());
+        assertThrows(LoanSlipException.class, () -> LoanSlipUtil.openLoanSlip());
     }
 }

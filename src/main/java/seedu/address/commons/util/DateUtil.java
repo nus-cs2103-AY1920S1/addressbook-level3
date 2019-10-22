@@ -68,4 +68,19 @@ public class DateUtil {
 
         return (int) startDate.until(endDate, ChronoUnit.DAYS);
     }
+
+    /**
+     * Formats the date to be printed on the loan slip.
+     *
+     * @param date date to be formatted.
+     * @return a formatted date as a {@code String}
+     */
+    public static String formatDate(String date) {
+        String[] pieces = date.split("-");
+        String result = "";
+        for (String s : pieces) {
+            result = s + "-" + result;
+        }
+        return result.substring(0, result.length() - 1);
+    }
 }
