@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AppDataParser" as AppDataParser LOGIC_COLOR
+participant ":AddQuestionCommandParser" as AddQuestionCommandParser LOGIC_COLOR
+participant "d:AddQuestionCommand" as AddQuestionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addq q/Q a/A s/S d/D")
+activate LogicManager
+
+LogicManager -> AppDataParser : parseCommand("addq q/Q a/A s/S d/D")
+activate AppDataParser
+
+create AddQuestionCommandParser
+AppDataParser -> AddQuestionCommandParser
+activate AddQuestionCommandParser
+
+AddQuestionCommandParser --> AppDataParser
+deactivate AddQuestionCommandParser
+
+AppDataParser -> AddQuestionCommandParser : parse("q/Q a/A s/S d/D")
+activate AddQuestionCommandParser
+
+create AddQuestionCommand
+AddQuestionCommandParser -> AddQuestionCommand
+activate AddQuestionCommand
+
+AddQuestionCommand --> AddQuestionCommandParser : q
+deactivate AddQuestionCommand
+
+AddQuestionCommandParser --> AppDataParser : q
+deactivate AddQuestionCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddQuestionCommandParser -[hidden]-> AppDataParser
+destroy AddQuestionCommandParser
+
+AppDataParser --> LogicManager : q
+deactivate AppDataParser
+
+LogicManager -> AddQuestionCommand : execute()
+activate AddQuestionCommand
+
+AddQuestionCommand -> Model : addQuestion(toAdd)
+activate Model
+
+Model --> AddQuestionCommand
+deactivate Model
+
+create CommandResult
+AddQuestionCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddQuestionCommand
+deactivate CommandResult
+
+AddQuestionCommand --> LogicManager : result
+deactivate AddQuestionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
