@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes addq command;
+:Check input;
+
+if () then ([input is valid])
+    :Add question to AppData;
+    :Save AppData to
+    local storage;
+    :Display command result;
+else ([else])
+endif
+stop
+@enduml

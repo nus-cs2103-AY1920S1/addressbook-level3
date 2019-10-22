@@ -144,6 +144,70 @@ kind of flash card
 ** Cons: Harder to implement (FXML must reach into the object representing the second column)
 // end::lecimage[]
 
+=== Question management feature
+==== Current Implementation
+
+The question management feature is facilitated by `Model`.
+The question-related commands extend `Command` with the question object if necessary.
+The commands update the `Model` which is implemented by `ModelManager`.
+This in turn updates `AppData` which stores all the questions internally as `UniqueQuestionList`.
+Local data will be updated in the end by `LogicManager`.
+The commands include:
+
+* `AddQuestionCommand` -- Adds a new question to the app.
+* `DeleteQuestionCommand` -- Deletes an existing question in the app.
+* `ListQuestionCommand` -- Views the list of all questions available.
+* `EditQuestionCommand` -- Edits an existing question in the app. (to be implemented)
+* `FindQuestionCommand` -- Finds a question with a specified keyword. (to be implemented)
+
+These operations are exposed in the `Model` interface as `Model#addQuestion(Question question)`,
+`Model#deleteQuestion(Question question)`, `Model#updateFilteredQuestionList(Predicate<Question> predicate)`,
+`Model#getFilteredQuestionList()` and `Model#setQuestion(Question target, Question editedQuestion)` respectively.
+
+Given below is an example usage scenario and how the question mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The app will load all existing information from storage.
+
+Step 2. The user executes `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY` command to add a new question to the app.
+The `addq` command calls `Model#addQuestion(Question question)`, causing the `AppData` to be updated with the new question.
+
+Step 3. The user executes `deleteq 5` command to delete the 5th question in the app. The `deleteq` command calls `Model#deleteQuestion(Question target)`
+and `Model#updateFilteredQuestionList(Predicate<Question> predicate)`, causing the `AppData` to be updated with the
+target question removed.
+
+Step 4. The user executes `editq 2 a/NEW_ANSWER` command to edit the answer of the 2nd question in the app.
+The `editq` command calls `Model#setQuestion(Question target, Question editedQuestion)` and
+`Model#updateFilteredQuestionList(Predicate<Question> predicate)`, causing the `AppData` to be updated with the original
+question being replaced by the edited question.
+
+The following sequence diagram shows how the `addq` operation works:
+
+image::AddQuestionSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::AddQuestionActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How addq/deleteq/editq commmands execute
+* **Alternative 1 (current choice):** Update the internal storage `UniqueQuestionList` in `AppData` first, then save the updated appData
+in local storage when the command finishes executing.
+** Pros: Easy to implement.
+** Cons: Need the extra step to ensure that the internal list is correctly maintained.
+* **Alternative 2:** Update the local storage directly when the command is executing.
+** Pros: No need to implement the internal list.
+** Cons: Will access local memory more frequently. May have performance issues in terms of memory usage.
+
+===== Aspect: Data structure to support the question commands
+* **Alternative 1 (current choice):** Use a `UniqueQuestionList` to store questions in `AppData`.
+** Pros: Cater to the question model specifically. Question list operations are encapsulated in one class.
+** Cons: Logic is duplicated as other models also implement similar list structure.
+* **Alternative 2:** Use Java list to store the questions.
+** Pros: Do not need to maintain a separate list class.
+** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
+list operations.
+
 === Logging
 
 We use `java.util.logging` for logging. The `LogsCenter` class is used to manage the logging levels and destinations.
