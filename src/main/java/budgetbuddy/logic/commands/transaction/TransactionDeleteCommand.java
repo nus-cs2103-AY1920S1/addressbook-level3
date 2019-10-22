@@ -37,7 +37,7 @@ public class TransactionDeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        requireAllNonNull(model, model.getAccountBook());
+        requireAllNonNull(model, model.getAccountsManager());
         List<Transaction> lastShownList = model.getFilteredTransactions();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -45,7 +45,7 @@ public class TransactionDeleteCommand extends Command {
         }
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteTransaction(transactionToDelete);
+        model.getAccountsManager().removeTransaction(transactionToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete), null);
     }
 }

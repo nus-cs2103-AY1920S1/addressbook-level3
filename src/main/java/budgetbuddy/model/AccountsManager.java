@@ -8,6 +8,7 @@ import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.transaction.Transaction;
 import javafx.collections.ObservableList;
 
 /**
@@ -70,6 +71,29 @@ public class AccountsManager {
         } else {
             throw new AccountNotFoundException();
         }
+    }
+
+    /**
+     * Returns an unmodifiable view of the transaction list.
+     */
+    public ObservableList<Transaction> getTransactionList() {
+        return accounts.getTransactionList();
+    }
+
+    /**
+     * Adds a transaction to the AccountBook
+     */
+    //TODO implement addTransaction
+    public void addTransaction(Transaction toAdd) {
+        Account accountToCheck = toAdd.getAccount();
+        if (accounts.contains(accountToCheck)) {
+
+        }
+    }
+
+    //TODO implement removeTransaction
+    public void removeTransaction(Transaction toDelete){
+
     }
 
     @Override

@@ -20,11 +20,6 @@ public interface Model {
      */
     LoansManager getLoansManager();
 
-    /**
-     * Returns the accountBook
-     */
-    AccountBook getAccountBook();
-
     void deleteTransaction(Transaction target);
 
     /*

@@ -22,7 +22,6 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final LoansManager loansManager;
-    private final AccountBook accountBook;
     private final AccountsManager accountsManager;
     private final RuleManager ruleManager;
 
@@ -48,8 +47,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.accountBook = new AccountBook();
-        filteredTransactions = new FilteredList<>(this.accountBook.getTransactionList());
+        filteredTransactions = new FilteredList<>(this.accountsManager.getTransactionList());
     }
 
     public ModelManager() {
@@ -67,12 +65,6 @@ public class ModelManager implements Model {
     //=========== Account Book ===============================================================================
 
     @Override
-    public AccountBook getAccountBook() {
-        //TODO return the AccountBook when it's added, for now just returns a new AccountBook
-        return new AccountBook();
-    }
-
-    @Override
     public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
@@ -85,7 +77,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTransaction(Transaction target) {
-        accountBook.removeTransaction(target);
+        accountsManager.removeTransaction(target);
     }
 
     @Override
