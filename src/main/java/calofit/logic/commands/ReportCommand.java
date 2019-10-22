@@ -24,9 +24,8 @@ public class ReportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (model.getMealLog().getCurrentMonthMeals().size() == 0) {
-            throw new CommandException("You currently have no meals in CaloFit for thuis month. Get Started! :)");
+            throw new CommandException("You currently have no meals in CaloFit for this month. Get Started! :)");
         }
-        model.updateStatistics();
         return new CommandResult(MESSAGE_SUCCESS, false, true, false);
     }
 
