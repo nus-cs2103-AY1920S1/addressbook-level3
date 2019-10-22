@@ -116,22 +116,39 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
+The `Model` component:
+
+* Stores the data of Mark.
+* Does not depend on any of the other three components.
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` consists of the following:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+1. `VersionedMark` - contains Mark data
+2. `UserPrefs` - represents the user's preferences
+3. `OfflineDocument` - represents the current document being displayed in the offline tab
+4. `Url` - represents the current URL being displayed in the offline tab
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+It also exposes an unmodifiable `ObservableList<Bookmark>` that
+can be 'observed', e.g. the UI can be bound to this list so that the UI automatically updates
+when the list data are changed.
+
+`VersionedMark` contains a list of `ReadOnlyMark` objects that represent past or future states of
+Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssociation` object, an
+`AutotagController`, and a `FolderStructure`.
+
+.Structure of the Annotation package
+image::AnnotationPackageClassDiagram.png[]
+
+The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
+An `OfflineDocument` consists of zero or more `Paragraph` objects. A `Paragraph` can be either a `PhantomParagraph`, which
+contains only an `AnnotationNote` and a `ParagraphIdentifier`, or a `TrueParagraph`, which contains `AnnotationNote`,
+`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `AnnotationNote` and `Highlight` are optional fields
+whenever they are used, i.e. in `PhantomParagraph` and/or `TrueParagraph`.
 
 [[Design-Storage]]
 === Storage component
