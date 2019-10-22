@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.Percentage;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
@@ -31,6 +33,7 @@ class JsonAdaptedBudget {
     private final String period;
     private final boolean isPrimary;
     private List<JsonAdaptedExpense> expenses = new ArrayList<>();
+    private final String proportionUsed;
 
     /**
      * Constructs a {@code JsonAdaptedBudget} with the given budget details.
@@ -42,7 +45,8 @@ class JsonAdaptedBudget {
                              @JsonProperty("endDate") String endDate,
                              @JsonProperty("period") String period,
                              @JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
-                             @JsonProperty("isPrimary") boolean isPrimary) {
+                             @JsonProperty("isPrimary") boolean isPrimary,
+                             @JsonProperty("proportionUsed") String proportionUsed) {
         this.description = description;
         this.amount = amount;
         this.startDate = startDate;
@@ -52,6 +56,7 @@ class JsonAdaptedBudget {
             this.expenses.addAll(expenses);
         }
         this.isPrimary = isPrimary;
+        this.proportionUsed = proportionUsed;
     }
 
     /**
@@ -67,6 +72,7 @@ class JsonAdaptedBudget {
                 .map(JsonAdaptedExpense::new)
                 .collect(Collectors.toList()));
         isPrimary = source.isPrimary();
+        proportionUsed = source.getProportionUsed().toString();
     }
 
     /**
@@ -100,35 +106,46 @@ class JsonAdaptedBudget {
 
         if (startDate == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
-        //if (!Timestamp.isValidTimestamp(startDate)) {
-        //    throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
-        //}
-        final Timestamp modelStartDate = Timestamp.createTimestampIfValid(startDate).get();
-
-        /*
-        if (endDate == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
-        }
-        if (!Timestamp.isValidTimestamp(endDate)) {
+        if (Timestamp.createTimestampIfValid(startDate).isEmpty()) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
-        final LocalDate modelEndDate = ParserUtil.parseDate(endDate);
-         */
+        final Timestamp modelStartDate = Timestamp.createTimestampIfValid(startDate).get();
+
+
+        if (endDate == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
+        }
+        if (Timestamp.createTimestampIfValid(endDate).isEmpty()) {
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+        }
+        final Timestamp modelEndDate = Timestamp.createTimestampIfValid(endDate).get();
 
         if (period == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Period.class.getSimpleName()));
         }
+        try {
+            ParserUtil.parsePeriod(period);
+        } catch (ParseException e) {
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
+        }
         final Period modelPeriod = ParserUtil.parsePeriod(period);
 
-        Budget budget = new Budget(modelDescription, modelAmount, modelStartDate, modelPeriod, expenseList);
-
-        if (isPrimary) {
-            budget.setPrimary();
+        if (proportionUsed == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Percentage.class.getSimpleName()));
         }
+        int proportionValue = Percentage.getProportionFromString(proportionUsed);
+        if (!Percentage.isValidPercentage(proportionValue)) {
+            throw new IllegalValueException(Percentage.MESSAGE_CONSTRAINTS);
+        }
+        final Percentage proportionUsed = new Percentage(proportionValue);
+
+        Budget budget = new Budget(modelDescription, modelAmount, modelStartDate, modelEndDate, modelPeriod, expenseList, isPrimary, proportionUsed);
+
         return budget;
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.model.budget;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
@@ -39,6 +40,12 @@ public class Percentage {
      */
     public static boolean isValidPercentage(int input) {
         return input >= 0 && input <= 100;
+    }
+
+    public static int getProportionFromString(String string) {
+        requireAllNonNull(string);
+        String proportionString = string.substring(0, string.length() - 1);
+        return Integer.parseInt(proportionString);
     }
 
     @Override
