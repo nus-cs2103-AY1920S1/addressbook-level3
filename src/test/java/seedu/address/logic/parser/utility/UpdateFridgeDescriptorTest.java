@@ -35,7 +35,8 @@ class UpdateFridgeDescriptorTest {
 
         Body body = new BodyBuilder(ALICE).build();
         UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
-        descriptor.setBody(body);
+        descriptor.setBodyId(body.getIdNum());
+        descriptor.setNewBody(body);
         descriptor.setFridgeStatus(FridgeStatus.OCCUPIED);
 
         Fridge fridgeCopy = new FridgeBuilder().build();
@@ -51,7 +52,8 @@ class UpdateFridgeDescriptorTest {
         Fridge fridge = new FridgeBuilder().build();
         Body body = new BodyBuilder(ALICE).build();
         UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
-        descriptor.setBody(body);
+        descriptor.setNewBody(body);
+        descriptor.setBodyId(body.getIdNum());
 
         Fridge fridgeCopy = new FridgeBuilder().build();
         fridgeCopy.setBody(body);
@@ -63,8 +65,8 @@ class UpdateFridgeDescriptorTest {
     void getSetBody() {
         Body body = new BodyBuilder(ALICE).build();
         UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
-        descriptor.setBody(body);
-        assertEquals(descriptor.getBody().get(), body);
+        descriptor.setBodyId(body.getIdNum());
+        assertEquals(descriptor.getBodyId().get(), body.getIdNum());
     }
 
     @Test
@@ -72,6 +74,14 @@ class UpdateFridgeDescriptorTest {
         UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
         descriptor.setFridgeStatus(FridgeStatus.OCCUPIED);
         assertEquals(descriptor.getFridgeStatus().get(), FridgeStatus.OCCUPIED);
+    }
+
+    @Test
+    void getSetNewBody() {
+        Body body = new BodyBuilder().build();
+        UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
+        descriptor.setNewBody(body);
+        assertEquals(descriptor.getNewBody().get(), body);
     }
 
     @Test

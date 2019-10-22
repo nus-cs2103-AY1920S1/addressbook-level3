@@ -6,7 +6,19 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GenReportCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -42,6 +54,9 @@ public class AddressBookParser {
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);
 
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -57,11 +72,22 @@ public class AddressBookParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+<<<<<<< HEAD
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
+=======
+        case GenReportCommand.COMMAND_WORD:
+            return new GenReportCommandParser().parse(arguments);
+>>>>>>> b91a2fdad2d42185e84b3e5302f9eec16d9db141
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

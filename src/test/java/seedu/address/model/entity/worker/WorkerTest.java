@@ -29,29 +29,29 @@ class WorkerTest {
 
     @SuppressWarnings("checkstyle:Regexp")
     @Test
-    public void isSamePerson() {
+    public void isSameWorker() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(ALICE.isSameWorker(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(ALICE.isSameWorker(null));
 
         // different person entirely -> returns false
-        assertFalse(ALICE.isSamePerson(BENSON));
+        assertFalse(ALICE.isSameWorker(BENSON));
 
-        // different phone and email -> returns false
+        // different phone -> returns true
         Worker editedAlice = new WorkerBuilder(ALICE).withPhone(WorkerBuilder.DEFAULT_PHONE).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameWorker(editedAlice));
 
         // different name -> returns false
         editedAlice = new WorkerBuilder(ALICE).withName(DEFAULT_NAME).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameWorker(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new WorkerBuilder(ALICE).withDateJoined(WorkerBuilder.DEFAULT_DATE_JOINED)
             .withDateOfBirth(WorkerBuilder.DEFAULT_DATE_OF_BIRTH)
             .withEmploymentStatus(WorkerBuilder.DEFAULT_EMPLOYMENT_STATUS).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameWorker(editedAlice));
     }
 
     @Test
@@ -90,34 +90,40 @@ class WorkerTest {
 
     @Test
     void gettersAndSetters_correct() throws ParseException {
-        assertEquals(IdentificationNumber.customGenerateId("W", 1), ALICE.getWorkerIdNum());
+        assertEquals(IdentificationNumber.customGenerateId("W", 1), ALICE.getIdNum());
         Worker testWorker = new WorkerBuilder().build();
 
+        // Name
         assertEquals(new Name(DEFAULT_NAME), testWorker.getName());
 
+        // Date
         Date newDate = ParserUtil.parseDate("2/2/2000");
         testWorker.setDateJoined(newDate);
         assertEquals(newDate, testWorker.getDateJoined());
         testWorker.setDateOfBirth(newDate);
-        assertEquals(newDate, testWorker.getDateOfBirth());
+        assertEquals(newDate, testWorker.getDateOfBirth().get());
 
+        // Designation
         testWorker.setDesignation("manager");
-        assertEquals("manager", testWorker.getDesignation());
+        assertEquals("manager", testWorker.getDesignation().get());
 
+        // Phone number
         PhoneNumber newPhone = new PhoneNumber("90000001");
         testWorker.setPhone(newPhone);
-        assertEquals(newPhone, testWorker.getPhone());
+        assertEquals(newPhone, testWorker.getPhone().get());
 
+        // Sex
         testWorker.setSex(FEMALE);
         assertEquals(FEMALE, testWorker.getSex());
 
+        // Employment status
         testWorker.setEmploymentStatus("Test status");
-        assertEquals("Test status", testWorker.getEmploymentStatus());
+        assertEquals("Test status", testWorker.getEmploymentStatus().get());
     }
 
     @Test
     void toString_correct() throws ParseException {
-        assertEquals(DEFAULT_NAME + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
+        assertEquals(DEFAULT_NAME + " Worker ID: W00001" + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
                 + " Date of Birth: " + ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH)
                 + " Date Joined: " + ParserUtil.parseDate(DEFAULT_DATE_JOINED)
                 + " Designation: " + DEFAULT_DESIGNATION + " Employment Status: " + DEFAULT_EMPLOYMENT_STATUS,

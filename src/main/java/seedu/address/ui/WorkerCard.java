@@ -39,7 +39,7 @@ public class WorkerCard extends UiPart<Region> {
         this.worker = worker;
         id.setText(displayedIndex + ". ");
         name.setText(worker.getName().fullName);
-        workerId.setText(worker.getWorkerIdNum().toString());
+        workerId.setText(worker.getIdNum().toString());
         dateJoined.setText(worker.getDateJoined().toString());
     }
 

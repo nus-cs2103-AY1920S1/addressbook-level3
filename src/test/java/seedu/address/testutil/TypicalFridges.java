@@ -3,6 +3,10 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.entity.fridge.Fridge;
 
 //@author arjavibahety
@@ -16,4 +20,8 @@ public class TypicalFridges {
     public static final Fridge BOB_FRIDGE = new FridgeBuilder().withBody(BOB).build();
 
     private TypicalFridges() {} // prevents instantiation
+
+    public static List<Fridge> getTypicalFridges() {
+        return new ArrayList<>(Arrays.asList(EMPTY_FRIDGE, ALICE_FRIDGE, BOB_FRIDGE));
+    }
 }

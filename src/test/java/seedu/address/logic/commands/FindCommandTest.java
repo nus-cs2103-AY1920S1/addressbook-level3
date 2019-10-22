@@ -7,9 +7,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_BODIES_LISTED_OVERVIEW
 import static seedu.address.commons.core.Messages.MESSAGE_NO_FLAG;
 import static seedu.address.commons.core.Messages.MESSAGE_WORKERS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
-import static seedu.address.testutil.TypicalBodies.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalWorkers.BENSON;
 import static seedu.address.testutil.TypicalWorkers.CHARLIE;
 
