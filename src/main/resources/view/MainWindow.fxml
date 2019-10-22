@@ -28,14 +28,22 @@
       </stylesheets>
 
       <VBox maxWidth="1250.0" prefHeight="650.0" prefWidth="1250.0">
-        <MenuBar fx:id="menuBar" prefHeight="35.0" prefWidth="1250.0" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+            <AnchorPane maxHeight="28.0" prefHeight="28.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
+               <children>
+              <MenuBar fx:id="menuBar" maxHeight="28.0" prefHeight="28.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Menu mnemonicParsing="false" text="File">
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                      <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                  </Menu>
+              </MenuBar>
+                  <StackPane fx:id="notificationButtonPlaceholder" maxHeight="1.0" prefHeight="1.0" AnchorPane.leftAnchor="100.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></StackPane>
+               </children>
+            </AnchorPane>
             <AnchorPane maxHeight="21.0" prefHeight="21.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
                <children>
                   <Text fill="LIGHTGRAY" fontSmoothingType="LCD" layoutX="220.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Body List" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
@@ -48,10 +56,6 @@
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Text>
-                  <StackPane fx:id="notificationButtonPlaceholder" alignment="BOTTOM_CENTER" layoutX="890.0" maxHeight="15.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.rightAnchor="265.0">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets></StackPane>
                </children>
             </AnchorPane>
             <HBox prefHeight="450.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
@@ -101,7 +105,7 @@
                </children>
             </HBox>
 
-              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="120.0" prefHeight="100.0" styleClass="stack-pane" VBox.vgrow="ALWAYS">
+              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="120.0" prefHeight="100.0" styleClass="stack-pane" visible="false" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>

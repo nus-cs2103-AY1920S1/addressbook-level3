@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<ScrollPane prefHeight="450.0" prefWidth="294.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" maxHeight="450.0" maxWidth="294.0" prefHeight="450.0" prefWidth="294.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
     <VBox alignment="CENTER" minHeight="105" prefHeight="450.0" prefWidth="280.0" styleClass="box">
       <padding>
@@ -90,14 +89,24 @@
          </VBox>
          <AnchorPane prefHeight="58.0" prefWidth="237.0">
             <children>
-            <Label fx:id="NOK" alignment="CENTER" contentDisplay="RIGHT" layoutX="-35.0" layoutY="12.0" text="NOK" />
-               <VBox alignment="CENTER_LEFT" layoutX="78.0" layoutY="6.0" prefHeight="72.0" prefWidth="160.0" AnchorPane.rightAnchor="22.0">
+               <HBox alignment="CENTER" layoutX="-35.0" layoutY="12.0">
                   <children>
-                     <Label fx:id="selectedBodyNokName" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Name" />
-                     <Label fx:id="selectedBodyNokRelationship" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="14.0" prefWidth="89.0" text="NOK Relationship" />
-                     <Label fx:id="selectedBodyNokPhone" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Phone" />
+                  <Label fx:id="NOK" alignment="CENTER" contentDisplay="RIGHT" text="NOK" />
+                     <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="160.0">
+                        <children>
+                           <Label fx:id="selectedBodyNokName" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Name" />
+                           <Label fx:id="selectedBodyNokRelationship" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="14.0" prefWidth="89.0" text="NOK Relationship" />
+                           <Label fx:id="selectedBodyNokPhone" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Phone" />
+                        </children>
+                        <opaqueInsets>
+                           <Insets />
+                        </opaqueInsets>
+                        <HBox.margin>
+                           <Insets left="15.0" />
+                        </HBox.margin>
+                     </VBox>
                   </children>
-               </VBox>
+               </HBox>
             </children>
             <VBox.margin>
                <Insets top="20.0" />

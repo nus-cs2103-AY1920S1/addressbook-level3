@@ -178,6 +178,14 @@
     -fx-text-fill: black !important;
 }
 
+.result-display .scroll-bar:horizontal .thumb {
+    -fx-pref-height: 1;
+    -fx-padding: -2;
+    -fx-arrows-visible: 2;
+    -fx-legend-visible: 2;
+    -fx-page-information-visible:2
+}
+
 .status-bar .label {
     -fx-font-family: "Century Gothic";
     -fx-text-fill: white;
@@ -310,6 +318,7 @@
 .scroll-bar .thumb {
     -fx-background-color: white;
     -fx-background-radius: 5em;
+    -fx-opacity: 0.8;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -514,5 +523,4 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-font-size: 12;
-    -fx-text-alignment: center-right;
 }
