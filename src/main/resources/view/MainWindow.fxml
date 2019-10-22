@@ -66,29 +66,29 @@
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
           <!-- to contain the side panels in tilepane -->
-            <TilePane orientation="VERTICAL" prefRows="2">
-                <VBox fx:id="wishesPlaceHolder" minWidth="140" prefHeight="280" styleClass="pane-with-border">
+            <VBox fx:id="sidePanelsPlaceHolder" minWidth="200">
+                <VBox fx:id="wishesPlaceHolder" minWidth="140" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <padding>
                       <Insets bottom="10" left="10" right="10" top="10" />
                     </padding>
                     <Label fx:id="wishlistTitle" styleClass="cell_big_label" text="Wishlist" />
                     <!--<Label styleClass="cell_small_label" text="subtext" />-->
                 </VBox>
-                <VBox fx:id="budgetsPlaceHolder" minWidth="140" prefHeight="280" styleClass="pane-with-border">
+                <VBox fx:id="budgetsPlaceHolder" minWidth="140" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <padding>
                       <Insets bottom="10" left="10" right="10" top="10" />
                     </padding>
                     <Label fx:id="budgetTitle" styleClass="cell_big_label" text="Budgets" />
                     <!--<Label styleClass="cell_small_label" text="subtext" />-->
                 </VBox>
-                <VBox fx:id="remindersPlaceHolder" minWidth="140" prefHeight="280" styleClass="pane-with-border">
+                <VBox fx:id="remindersPlaceHolder" minWidth="140" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <padding>
                       <Insets bottom="10" left="10" right="10" top="10" />
                     </padding>
                     <Label fx:id="remindersTitle" styleClass="cell_big_label" text="Reminders" />
                     <!--<Label styleClass="cell_small_label" text="subtext" />-->
                 </VBox>
-            </TilePane>
+            </VBox>
         </HBox>
     </Scene>
   </scene>

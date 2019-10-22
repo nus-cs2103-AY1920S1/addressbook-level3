@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -54,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private VBox sidePanelsPlaceHolder;
 
     @FXML
     private VBox wishesPlaceHolder;
@@ -183,6 +187,12 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    private void hideTilePaneIfNecessary() {
+        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()) {
+            sidePanelsPlaceHolder.setManaged(false);
+        }
+    }
+
     public EntryListPanel getEntryListPanel() {
         return entryListPanel;
     }
@@ -210,22 +220,41 @@ public class MainWindow extends UiPart<Stage> {
                 PanelName panelName = commandResult.getPanelName();
                 String panelNameString = panelName.getName();
                 boolean isManaged;
+                boolean isVisible;
                 switch (panelNameString) {
                 case "wishlist":
                     isManaged = wishesPlaceHolder.isManaged();
                     wishesPlaceHolder.setManaged(!isManaged);
+                    isVisible = wishesPlaceHolder.isVisible();
+                    wishesPlaceHolder.setVisible(!isVisible);
+                    System.out.println("wishes managed: " + wishesPlaceHolder.isManaged());
+                    System.out.println("budgets managed: " + budgetsPlaceHolder.isManaged());
+                    System.out.println("reminders managed: " + remindersPlaceHolder.isManaged());
+
                     break;
                 case "budget":
                     isManaged = budgetsPlaceHolder.isManaged();
                     budgetsPlaceHolder.setManaged(!isManaged);
+                    isVisible = budgetsPlaceHolder.isVisible();
+                    budgetsPlaceHolder.setVisible(!isVisible);
+                    System.out.println("wishes managed: " + wishesPlaceHolder.isManaged());
+                    System.out.println("budgets managed: " + budgetsPlaceHolder.isManaged());
+                    System.out.println("reminders managed: " + remindersPlaceHolder.isManaged());
                     break;
                 case "reminder":
                     isManaged = remindersPlaceHolder.isManaged();
                     remindersPlaceHolder.setManaged(!isManaged);
+                    isVisible = remindersPlaceHolder.isVisible();
+                    remindersPlaceHolder.setVisible(!isVisible);
+                    System.out.println("wishes managed: " + wishesPlaceHolder.isManaged());
+                    System.out.println("budgets managed: " + budgetsPlaceHolder.isManaged());
+                    System.out.println("reminders managed: " + remindersPlaceHolder.isManaged());
+
                     break;
                 default:
                     break;
                 }
+                hideTilePaneIfNecessary();
             }
 
             return commandResult;
