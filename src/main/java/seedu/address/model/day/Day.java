@@ -16,6 +16,10 @@ public class Day {
 
     private final Timetable timetable;
 
+    public Day() {
+        this.timetable = new Timetable();
+    }
+
     public Day(List<ActivityWithTime> activitiesForDay) throws CommandException {
         this.timetable = new Timetable(activitiesForDay);
     }

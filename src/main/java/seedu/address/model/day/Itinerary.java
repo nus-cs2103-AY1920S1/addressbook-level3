@@ -4,13 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.day.exceptions.DayNotFoundException;
 import seedu.address.model.day.exceptions.DuplicateDayException;
 import seedu.address.model.field.Name;
@@ -42,10 +40,10 @@ public class Itinerary implements Iterable<Day> {
     /**
      * Adds a number of days to the planner.
      */
-    public void add(int numDays) throws CommandException {
+    public void add(int numDays) {
         requireNonNull(numDays);
         for (int i = 0; i < numDays; i++) {
-            Day toAdd = new Day(new ArrayList<>());
+            Day toAdd = new Day();
             internalList.add(toAdd);
         }
     }

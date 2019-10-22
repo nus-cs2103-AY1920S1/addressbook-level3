@@ -14,7 +14,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
@@ -176,7 +175,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addDays(int n) throws CommandException {
+    public void addDays(int n) {
         planner.addDays(n);
     }
 

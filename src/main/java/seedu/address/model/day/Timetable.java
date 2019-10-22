@@ -23,6 +23,10 @@ public class Timetable {
 
     private TreeSet<ActivityWithTime> timetable;
 
+    public Timetable() {
+        timetable = new TreeSet<>();
+    }
+
     public Timetable(List<ActivityWithTime> activities) throws CommandException {
         this.timetable = new TreeSet<>();
         if (activities.size() > 0) {

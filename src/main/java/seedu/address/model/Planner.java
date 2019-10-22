@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.accommodation.UniqueAccommodationList;
 import seedu.address.model.activity.Activity;
@@ -299,7 +298,7 @@ public class Planner implements ReadOnlyPlanner {
      * Adds a contacts to the address book.
      * The contacts must not already exist in the address book.
      */
-    public void addDays(int n) throws CommandException {
+    public void addDays(int n) {
         this.days.add(n);
     }
 
