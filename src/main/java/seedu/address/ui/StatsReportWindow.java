@@ -6,33 +6,34 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Controller for a help page
+ * Controller for a statistics report page.
  */
-public class SlideshowWindow extends UiPart<Stage> {
+public class StatsReportWindow extends UiPart<Stage> {
 
     public static final String TIP = "Press 'Esc' to quit slideshow";
 
-    private static final Logger logger = LogsCenter.getLogger(SlideshowWindow.class);
-    private static final String FXML = "SlideshowWindow.fxml";
+    private static final Logger logger = LogsCenter.getLogger(StatsReportWindow.class);
+    private static final String FXML = "StatsReportWindow.fxml";
 
+    private StatisticsCard statsCard;
 
-    @FXML
-    private Label questionLabel;
-    @FXML
-    private Label answerLabel;
     @FXML
     private Label tipLabel;
+
+    @FXML
+    private StackPane statisticsPanelPlaceholder;
 
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public SlideshowWindow(Stage root) {
+    public StatsReportWindow(Stage root) {
         super(FXML, root);
 
         tipLabel.setText(TIP);
@@ -44,13 +45,21 @@ public class SlideshowWindow extends UiPart<Stage> {
                 root.close();
             }
         });
+
+        root.getScene().getStylesheets().add("view/LightTheme.css");
+        root.getScene().getStylesheets().add("view/Extensions.css");
     }
 
     /**
      * Creates a new HelpWindow.
      */
-    public SlideshowWindow() {
+    public StatsReportWindow() {
         this(new Stage());
+    }
+
+    public void setStatsCard(StatisticsCard statsCard) {
+        this.statsCard = statsCard;
+        statisticsPanelPlaceholder.getChildren().add(statsCard.getRoot());
     }
 
     /**
@@ -75,6 +84,7 @@ public class SlideshowWindow extends UiPart<Stage> {
         logger.fine("Show slideshow.");
         getRoot().show();
         getRoot().centerOnScreen();
+        getRoot().setFullScreen(true);
     }
 
     /**
@@ -97,4 +107,5 @@ public class SlideshowWindow extends UiPart<Stage> {
     public void focus() {
         getRoot().requestFocus();
     }
+
 }

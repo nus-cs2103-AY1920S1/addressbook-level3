@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
+    private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
 
     @FXML
@@ -143,7 +144,6 @@ public class MainWindow extends UiPart<Stage> {
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
-        //primaryStage.setFullScreen(true);
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
@@ -171,6 +171,21 @@ public class MainWindow extends UiPart<Stage> {
             slideShowWindow.show();
         } else {
             slideShowWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the statistics report window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats() {
+        statsReportWindow = new StatsReportWindow();
+        StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
+        statsReportWindow.setStatsCard(statsCard);
+        if (!statsReportWindow.isShowing()) {
+            statsReportWindow.show();
+        } else {
+            statsReportWindow.focus();
         }
     }
 
@@ -216,6 +231,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowStatistic()) {
+                handleStats();
             }
 
             return commandResult;

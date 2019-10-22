@@ -14,6 +14,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.quiz.SavedQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
@@ -68,6 +70,10 @@ public class SampleDataUtil {
         return savedQuestions;
     }
 
+    public static ReadOnlyQuizzes getSampleQuizList() {
+        SavedQuizzes savedQuizzes = new SavedQuizzes();
+        return savedQuizzes;
+    }
     public static ReadOnlyStudentRecord getSampleStudents(){
         StudentRecord studentRecord = new StudentRecord();
         Student student = new Student(new seedu.address.model.student.Name("SampleStudent"));

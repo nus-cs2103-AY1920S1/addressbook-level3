@@ -12,6 +12,9 @@ import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 
@@ -231,6 +234,27 @@ public interface Model {
 
     //endregion
 
+    //region SavedQuizzes
+    /**
+     * Returns the user prefs' quizzes file path.
+     */
+    Path getSavedQuizzesFilePath();
+
+    /**
+     * Sets the user prefs' quizzes file path.
+     */
+    void setSavedQuizzesFilePath(Path savedQuizzesFilePath);
+
+    /**
+     * Replaces quizzes data with the data in {@code savedQuizzes}.
+     */
+    void setSavedQuizzes(ReadOnlyQuizzes savedQuizzes);
+
+    /** Returns the saved questions */
+    ReadOnlyQuizzes getSavedQuizzes();
+
+    //endregion
+
     //region NotesRecord
     /**
      * Returns the user prefs' notes record file path.
@@ -286,4 +310,9 @@ public interface Model {
     void updateFilteredNotesList(Predicate<Note> predicate);
     //endregion
 
+    //region Statistics
+    ReadOnlyStatisticsRecord getStatisticsRecord();
+    ObservableList<Statistics> getProcessedStatistics();
+    void addStatistics(Statistics statistics);
+    //endregion
 }

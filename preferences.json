@@ -10,5 +10,6 @@
   "addressBookFilePath" : "data/addressbook.json",
   "studentRecordFilePath" : "data/students.json",
   "savedQuestionsFilePath" : "data/questions.json",
+  "savedQuizzesFilePath" : "data/quizzes.json",
   "notesRecordFilePath" : "data/notes.json"
 }
