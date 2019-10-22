@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -29,7 +30,16 @@ public class FetchWindow extends UiPart<Stage> {
     private ListView<Employee> eventListView;
 
     @FXML
-    private Text eventDescription;
+    private TextArea eventDescription;
+
+    @FXML
+    private Text currentListHeader;
+
+    @FXML
+    private Text eventHeader;
+
+    @FXML
+    private Text availableListHeader;
 
     /**
      * Creates a new FetchWindow.
@@ -47,7 +57,9 @@ public class FetchWindow extends UiPart<Stage> {
         personListView.setCellFactory(listView -> new PersonListViewCell());
         eventListView.setItems(list);
         eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
-        eventDescription.setText("EVENT DISPLAYED:" + event.toString());
+        eventDescription.setText(event.toStringWithNewLine());
+        //currentListHeader.setText("Current employee list for event:");
+        //availableListHeader.setText("List of employees who are available:");
     }
 
     /**
@@ -131,7 +143,7 @@ public class FetchWindow extends UiPart<Stage> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventCard(event, getIndex() + 1).getRoot());
+                setGraphic(new EventCard(event, getIndex() + 1, null).getRoot());
             }
         }
     }

@@ -78,8 +78,10 @@ public class Event {
                 .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId().id))
                 .collect(Collectors.toList());
         long nonOverlapEventsCount = containsEmployeeEventList.stream()
-                .filter(x -> startDate.date.compareTo(x.getEndDate().date) > 0
-                        && endDate.date.compareTo(x.getStartDate().date) < 0).count();
+                .filter(x -> (startDate.date.compareTo(x.getEndDate().date) > 0
+                        && endDate.date.compareTo(x.getEndDate().date) > 0)
+                        || (startDate.date.compareTo(x.getStartDate().date) < 0
+                                && endDate.date.compareTo(x.getStartDate().date) < 0)).count();
         return nonOverlapEventsCount == containsEmployeeEventList.size();
     }
 
@@ -147,6 +149,21 @@ public class Event {
         builder.append(" Event Start Date: ").append(getStartDate());
         builder.append(" Event End Date: ").append(getEndDate());
         builder.append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Returns a similar toString() variation with new line for GUI display.
+     */
+    public String toStringWithNewLine() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Event Name: ").append(getName());
+        builder.append(" \nEvent Venue: ").append(getVenue());
+        builder.append(" \nEvent Manpower Count: ").append(getManpowerAllocatedList().getCurrentManpowerCount() + " / ")
+                .append(getManpowerNeeded());
+        builder.append(" \nEvent Date: ").append(getStartDate()).append(" - " + getEndDate());
+        builder.append(" \nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

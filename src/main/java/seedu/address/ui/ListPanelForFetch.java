@@ -30,6 +30,9 @@ public class ListPanelForFetch extends UiPart<Region> {
     @FXML
     private Text eventDescription;
 
+    @FXML
+    private Text employeeListText;
+
     /**
      * Constructor for fetch command
      */
@@ -46,6 +49,7 @@ public class ListPanelForFetch extends UiPart<Region> {
         eventListView.setItems(list);
         eventListView.setCellFactory(listView -> new PersonListViewCell());
         eventDescription.setText("EVENT DISPLAYED:" + event.toString());
+
     }
 
 
@@ -76,7 +80,7 @@ public class ListPanelForFetch extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventCard(event, getIndex() + 1).getRoot());
+                setGraphic(new EventCard(event, getIndex() + 1, null).getRoot());
             }
         }
     }
