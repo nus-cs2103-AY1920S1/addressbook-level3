@@ -24,6 +24,10 @@ public class LoanSlipUtil {
     private static final String BYE_MESSAGE = "We hope to see you again!";
     private static final String DEST = "./data/loan_slips/";
 
+    private static final float FIRST_ROW_WIDTH = 75F;
+    private static final float SECOND_ROW_WIDTH = 325F;
+    private static final float THIRD_ROW_WIDTH = 125F;
+
     private static Loan currentLoan;
     private static Book currentBook;
     private static Borrower currentBorrower;
@@ -32,6 +36,7 @@ public class LoanSlipUtil {
 
     private static boolean isMounted = false;
     private static boolean isGenerated = false;
+
 
     /**
      * Mounts a Loan slip in preparation for creating a pdf version of it.
@@ -84,58 +89,86 @@ public class LoanSlipUtil {
             requireNonNull(currentLoan);
             requireNonNull(currentBook);
             requireNonNull(currentBorrower);
-            String finalDest = DEST + currentLoan.getLoanId().toString() + PDF_EXTENSION;
-            File file = new File(finalDest);
-            file.getParentFile().mkdirs();
-            PdfWriter writer = new PdfWriter(finalDest);
-            //Initialize PDF document
-            PdfDocument pdf = new PdfDocument(writer);
-            // Initialize document
-            Document document = new Document(pdf);
-            float [] pointColumnWidths = {75F, 325F, 125F};
+            Document document = createDocument(currentLoan.getLoanId().toString());
+            float [] pointColumnWidths = {FIRST_ROW_WIDTH, SECOND_ROW_WIDTH, THIRD_ROW_WIDTH};
             Table table = new Table(pointColumnWidths);
             LoanSlipDocument doc = new LoanSlipDocument(document, table);
-            //write logo
-            doc.writeLogo();
-            doc.writeLine();
-            //Add paragraph to the document
-            doc.writeHeader(currentBorrower.getName().toString());
-            doc.writeSubHeader(currentBorrower.getBorrowerId().toString());
-            doc.writeLine();
-            doc.writeHeader("Books borrowed");
-            //populate table
-            doc.addCell("S/N");
-            doc.addCell("Book");
-            doc.addCell("Due by");
-            doc.addCell(currentBook.getSerialNumber().toString());
-            doc.addCell(currentBook.getTitle().toString());
-            doc.addCell(formatDate(currentLoan.getDueDate().toString()));
-            //add table to document
-            doc.submitTable();
-            doc.writeLine();
-            doc.writeParagraph(BYE_MESSAGE);
-            //Close document
-            currentFile = file;
-            isGenerated = true;
-            doc.closeDoc();
+            generateLiberryLoanSlip(doc);
         } catch (IOException e) {
             throw new LoanSlipException(e.getMessage());
         }
     }
 
     /**
-     * Formats the date to be printed on the loan slip.
+     * Creates a {@code File} object to be populated with information.
      *
-     * @param date date to be formatted.
-     * @return a formatted date as a {@code String}
+     * @param docName name of the new file object.
+     * @return a {@code Document} object representing the file.
+     * @throws IOException if there are errors in creating the new file.
      */
-    private static String formatDate(String date) {
-        String[] pieces = date.split("-");
-        String result = "";
-        for (String s : pieces) {
-            result = s + "-" + result;
+    private static Document createDocument(String docName) throws IOException, LoanSlipException {
+        if (!isMounted) {
+            throw new LoanSlipException("No Loan slip mounted yet");
         }
-        return result.substring(0, result.length() - 1);
+        String finalDest = DEST + docName + PDF_EXTENSION;
+        File file = new File(finalDest);
+        file.getParentFile().mkdirs();
+        PdfWriter writer = new PdfWriter(finalDest);
+        //Initialize PDF document
+        PdfDocument pdf = new PdfDocument(writer);
+        // Initialize document
+        currentFile = file;
+        return new Document(pdf);
+    }
+
+    /**
+     * Populates the pdf file with information, creating the loan slip.
+     *
+     * @param doc {@code LoanSlipDocument} object to be populated with data.
+     */
+    private static void generateLiberryLoanSlip(LoanSlipDocument doc) throws LoanSlipException {
+        if (!isMounted) {
+            throw new LoanSlipException("No Loan slip mounted yet");
+        }
+        //write logo
+        doc.writeLogo();
+        doc.writeLine();
+
+        //Add paragraph to the document
+        doc.writeHeader(currentBorrower.getName().toString());
+        doc.writeLeftParagraph(currentBorrower.getBorrowerId().toString());
+        doc.writeLine();
+        doc.writeMidHeader("Books borrowed");
+
+        //populate table
+        String[] headerRow = new String[]{"S/N", "Book", "Due By"};
+        doc.writeRow(headerRow);
+        doc.writeRow(createBookRow());
+
+        //add table to document
+        doc.submitTable();
+        doc.writeLine();
+        doc.writeCentralisedParagraph(BYE_MESSAGE);
+
+        //close document
+        doc.closeDoc();
+        isGenerated = true;
+    }
+
+    /**
+     * Creates an array using the details from the mounted loan slip.
+     *
+     * @return an array of string representing a row of the table.
+     */
+    private static String[] createBookRow() throws LoanSlipException {
+        if (!isMounted) {
+            throw new LoanSlipException("No Loan slip mounted yet");
+        }
+        String[] currentBookDetails = new String[3];
+        currentBookDetails[0] = currentBook.getSerialNumber().toString();
+        currentBookDetails[1] = currentBook.getTitle().toString();
+        currentBookDetails[2] = DateUtil.formatDate(currentLoan.getDueDate());
+        return currentBookDetails;
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageData;
@@ -23,8 +24,9 @@ import com.itextpdf.layout.property.TextAlignment;
 public class LoanSlipDocument {
 
     private static final int HEADER_FONT_SIZE = 32;
-    private static final int SUB_HEADER_FONT_SIZE = 22;
+    private static final int MID_HEADER_FONT_SIZE = 28;
     private static final int PARAGRAPH_FONT_SIZE = 20;
+    private static final double SCALE_RATIO = 0.1;
 
     private static final String FONT = "src/main/resources/font/Lato-Black.ttf";
     private static final String LOGO_PATH = "src/main/resources/images/LiBerryLogo.png";
@@ -49,8 +51,8 @@ public class LoanSlipDocument {
     public void writeLogo() {
         try {
             Image pdfImg = createImage(LOGO_PATH);
-            double newWidth = pdfImg.getImageWidth() * 0.1;
-            double newHeight = pdfImg.getImageHeight() * 0.1;
+            double newWidth = pdfImg.getImageWidth() * SCALE_RATIO;
+            double newHeight = pdfImg.getImageHeight() * SCALE_RATIO;
             pdfImg.scaleToFit((float) newWidth, (float) newHeight);
             pdfImg.setHorizontalAlignment(HorizontalAlignment.LEFT);
             doc.add(pdfImg);
@@ -60,8 +62,11 @@ public class LoanSlipDocument {
         }
     }
 
+    /**
+     * Writes the divider line for the loan slip.
+     */
     public void writeLine() {
-        writeToDoc(LINE_DIVIDER, PARAGRAPH_FONT_SIZE);
+        writeToDocAlignLeft(LINE_DIVIDER, PARAGRAPH_FONT_SIZE);
     }
 
     /**
@@ -70,25 +75,35 @@ public class LoanSlipDocument {
      * @param text Text content of header.
      */
     public void writeHeader(String text) {
-        writeToDoc(text, HEADER_FONT_SIZE);
+        writeToDocAlignLeft(text, HEADER_FONT_SIZE);
     }
 
     /**
-     * Writes the header of the document.
+     * Writes the mid header of the document.
      *
      * @param text Text content of header.
      */
-    public void writeSubHeader(String text) {
-        writeToDoc(text, SUB_HEADER_FONT_SIZE);
+    public void writeMidHeader(String text) {
+        writeToDocAlignLeft(text, MID_HEADER_FONT_SIZE);
     }
 
     /**
-     * Writes a paragraph of the document.
+     * Writes a paragraph of the document, aligned to left.
      *
      * @param text Text content of header.
      */
-    public void writeParagraph(String text) {
-        writeToDoc(text, PARAGRAPH_FONT_SIZE);
+    public void writeLeftParagraph(String text) {
+        writeToDocAlignLeft(text, PARAGRAPH_FONT_SIZE);
+    }
+
+
+    /**
+     * Writes a paragraph of the document, centralised.
+     *
+     * @param text Text content of header.
+     */
+    public void writeCentralisedParagraph(String text) {
+        writeToDocCentralised(text, PARAGRAPH_FONT_SIZE);
     }
 
     /**
@@ -99,8 +114,20 @@ public class LoanSlipDocument {
     public void addCell(String text) {
         Cell cell = new Cell();
         cell.setBorder(Border.NO_BORDER);
-        cell.add(customParagraph(text, 18));
+        cell.add(customLeftParagraph(text, 18));
         table.addCell(cell);
+    }
+
+    /**
+     * Writes a row to the table.
+     *
+     * @param elements row of elements.
+     */
+    public void writeRow(String[] elements) {
+        int noOfCols = table.getNumberOfColumns();
+        if (elements.length == noOfCols) {
+            Arrays.stream(elements).forEach(e -> addCell(e));
+        }
     }
 
     /**
@@ -123,8 +150,14 @@ public class LoanSlipDocument {
      * @param text Text to be written.
      * @param fontSize font size of the text.
      */
-    private void writeToDoc(String text, int fontSize) {
-        Paragraph p = customParagraph(text, fontSize);
+    private void writeToDocAlignLeft(String text, int fontSize) {
+        Paragraph p = customLeftParagraph(text, fontSize);
+        doc.add(p);
+    }
+
+    private void writeToDocCentralised(String text, int fontSize) {
+        Paragraph p = alignParagraph(TextAlignment.CENTER);
+        p.add(text).setFontSize(fontSize);
         doc.add(p);
     }
 
@@ -136,7 +169,19 @@ public class LoanSlipDocument {
      * @param fontSize font size of text.
      * @return {@code Paragraph} object to be added to document.
      */
-    private Paragraph customParagraph(String text, int fontSize) {
+    private Paragraph customLeftParagraph(String text, int fontSize) {
+        Paragraph p = alignParagraph(TextAlignment.LEFT);
+        p.add(text).setFontSize(fontSize);
+        return p;
+    }
+
+    /**
+     * Creates a paragraph with the given alignment.
+     *
+     * @param textAlignment Alignment of the paragraph to be created.
+     * @return a {@code Paragraph} Object with the custom alignment specified.
+     */
+    private Paragraph alignParagraph(TextAlignment textAlignment) {
         Paragraph p = new Paragraph();
         try {
             PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.WINANSI, true);
@@ -145,8 +190,7 @@ public class LoanSlipDocument {
             // error occur while loading font, use default font
             e.printStackTrace();
         }
-        p.setTextAlignment(TextAlignment.LEFT);
-        p.add(text).setFontSize(fontSize);
+        p.setTextAlignment(textAlignment);
         return p;
     }
 

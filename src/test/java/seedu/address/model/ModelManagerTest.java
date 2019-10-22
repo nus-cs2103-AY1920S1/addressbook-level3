@@ -11,8 +11,12 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
+import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
+import static seedu.address.testutil.TypicalBorrowers.ALICE;
 import static seedu.address.testutil.TypicalBorrowers.BOB;
 import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
+import static seedu.address.testutil.TypicalLoans.LOAN_1;
+import static seedu.address.testutil.TypicalLoans.getTypicalLoanRecords;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,6 +33,7 @@ import seedu.address.logic.commands.ServeCommand;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
 import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.exceptions.NotInServeModeException;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
 import seedu.address.testutil.BookBuilder;
@@ -192,10 +197,17 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getServingBorrower_notInServeMode_throwsAssertionError() {
+    public void getServingBorrower_notInServeMode_throwsNotInServeModeException() {
         modelManager = new ModelManager();
 
-        assertThrows(AssertionError.class, () -> modelManager.getServingBorrower());
+        assertThrows(NotInServeModeException.class, () -> modelManager.getServingBorrower());
+    }
+
+    @Test
+    public void getBorrowerBooks_notInServeMode_throwsNotInServeModeException() {
+        modelManager = new ModelManager();
+
+        assertThrows(NotInServeModeException.class, () -> modelManager.getBorrowerBooks());
     }
 
     @Test
@@ -207,6 +219,43 @@ public class ModelManagerTest {
         new ServeCommand(validBorrowerId).execute(modelManager);
 
         assertTrue(modelManager.getBorrowerBooks().isEmpty());
+    }
+
+    @Test
+    public void servingBorrowerNewLoan_inServeMode_success() {
+        Model modelManager = new ModelManager(getTypicalCatalog(), getTypicalLoanRecords(),
+                getTypicalBorrowerRecords(), new UserPrefs());
+
+        modelManager.setServingBorrower(ALICE);
+        modelManager.servingBorrowerNewLoan(LOAN_1);
+        assertTrue(modelManager.getServingBorrower().hasCurrentLoan(LOAN_1));
+    }
+
+    @Test
+    public void servingBorrowerNewLoan_notInServeMode_throwsNotInServeModeException() {
+        Model modelManager = new ModelManager();
+
+        assertThrows(NotInServeModeException.class, () ->
+                modelManager.servingBorrowerNewLoan(LOAN_1));
+    }
+
+    @Test
+    public void servingBorrowerReturnLoan_inServeMode_success() {
+        Model modelManager = new ModelManager(getTypicalCatalog(), getTypicalLoanRecords(),
+                getTypicalBorrowerRecords(), new UserPrefs());
+
+        modelManager.setServingBorrower(ALICE);
+        modelManager.servingBorrowerNewLoan(LOAN_1);
+        modelManager.servingBorrowerReturnLoan(LOAN_1);
+        assertFalse(modelManager.getServingBorrower().hasCurrentLoan(LOAN_1));
+    }
+
+    @Test
+    public void servingBorrowerReturnLoan_notInServeMode_throwsNotInServeModeException() {
+        Model modelManager = new ModelManager();
+
+        assertThrows(NotInServeModeException.class, () ->
+                modelManager.servingBorrowerReturnLoan(LOAN_1));
     }
 
     @Test
