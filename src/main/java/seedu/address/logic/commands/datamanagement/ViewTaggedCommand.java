@@ -60,7 +60,7 @@ public class ViewTaggedCommand extends Command {
 
     private Set<Module> getMatchingModules(String tagName, HashMap<String, Module> moduleHashMap) {
         Set<String> moduleNames = moduleHashMap.keySet();
-        Set<Module> matchingModules = new HashSet<Module>();
+        Set<Module> matchingModules = new HashSet<>();
         for (String moduleName : moduleNames) {
             Module currentModule = moduleHashMap.get(moduleName);
             boolean matches = checkMatch(currentModule, tagName);
@@ -72,7 +72,7 @@ public class ViewTaggedCommand extends Command {
     }
 
     private Set<Module> getAllMatchingModules(HashMap<String, Module> moduleHashMap) {
-        Set<Module> allMatchingModules = new HashSet<Module>();
+        Set<Module> allMatchingModules = new HashSet<>();
         for (String tagName : tagNames) {
             Set<Module> matchingModules = getMatchingModules(tagName, moduleHashMap);
             if (allMatchingModules.size() == 0) {
@@ -103,5 +103,4 @@ public class ViewTaggedCommand extends Command {
         }
         return false;
     }
-
 }

@@ -48,7 +48,7 @@ public class SemesterCard extends UiPart<Region> {
         super(FXML);
         this.semester = semester;
         name.setText(semester.getSemesterName().name());
-        totalMcCount.setText("(" + Integer.toString(semester.getMcCount()) + ")");
+        totalMcCount.setText("(" + semester.getMcCount() + ")");
 
         ObservableList<Module> modules = semester.getModules().asUnmodifiableObservableList();
 

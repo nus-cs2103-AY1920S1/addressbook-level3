@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -18,10 +17,10 @@ public class ViewModuleTagsCommand extends Command {
     public static final String COMMAND_WORD = "viewtags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all tags attached to a specific module. "
-        + "Parameters: "
-        + PREFIX_MODULE_CODE + "MODULE CODE \n"
-        + "Example: "
-        + "viewtags t/CS3230";
+            + "Parameters: "
+            + "MODULE CODE \n"
+            + "Example: "
+            + "viewtags CS3230";
 
     public static final String MESSAGE_SUCCESS = "All tags for the module shown";
     private final String moduleCode;
