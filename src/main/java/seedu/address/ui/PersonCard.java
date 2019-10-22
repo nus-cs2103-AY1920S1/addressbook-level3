@@ -4,11 +4,13 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 import seedu.address.model.visittodo.VisitTodo;
 
 /**
@@ -41,9 +43,19 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label noVisitTodosLabel;
+    @FXML
+    private Label noVisitsLabel;
+    @FXML
     private FlowPane tags;
     @FXML
     private VBox visitTodos;
+    @FXML
+    private VBox visits;
+    @FXML
+    private TitledPane visitTodosTitledPane;
+    @FXML
+    private TitledPane visitsTitledPane;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -59,10 +71,23 @@ public class PersonCard extends UiPart<Region> {
         // TODO: Make this more beautiful or extend list/find with a prefix
         // that optionally shows these fields
         int visitTodoIndex = 1;
-        for (VisitTodo visitTodo : person.getVisitTodos()) {
-            visitTodos.getChildren().add(
-                    new Label(visitTodoIndex + ". " + visitTodo.getDescription()));
-            visitTodoIndex++;
+        if (!person.getVisitTodos().isEmpty()) {
+            noVisitTodosLabel.setVisible(false);
+            for (VisitTodo visitTodo : person.getVisitTodos()) {
+                visitTodos.getChildren().add(
+                        new Label(visitTodoIndex + ". " + visitTodo.getDescription()));
+                visitTodoIndex++;
+            }
+        }
+
+        int visitIndex = 1;
+        if (!person.getVisits().isEmpty()) {
+            noVisitsLabel.setVisible(false);
+            for (Visit visit : person.getVisits()) {
+                visits.getChildren().add(
+                        new Label(visitIndex + ". " + visit.toString()));
+                visitIndex++;
+            }
         }
     }
 
