@@ -61,6 +61,9 @@ public class MainDisplayPane {
         case DELETE:
             return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()),
                     newPaneIsToBeCreated);
+        case AVERAGE:
+            return getMappedPane(displayPaneType, () -> new AverageGraphPanel(logic.getAverageMap(),
+                            logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
         default:
             return null;
         }

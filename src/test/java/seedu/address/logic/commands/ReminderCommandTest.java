@@ -7,12 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -26,7 +28,9 @@ import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
+import seedu.address.model.statistics.AverageType;
 import seedu.address.testutil.ReminderBuilder;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
@@ -322,7 +326,14 @@ class ReminderCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //=========== User List =============================================================
+        //=========== Statistics List =============================================================
+
+        @Override
+        public AverageType getAverageType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Aesthetics =============================================================
 
         @Override
         public Colour getFontColour() {
@@ -334,6 +345,32 @@ class ReminderCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=========== Records =============================================================
+
+        @Override
+        public RecordType getRecordType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAverageType(AverageType averageType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRecordType(RecordType recordType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableMap<LocalDate, Double> getAverageMap() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
