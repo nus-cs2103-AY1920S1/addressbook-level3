@@ -337,12 +337,12 @@ class AddFoodCommandTest {
         public Colour getFontColour() {
             throw new AssertionError("This method should not be called.");
         }
-          
+
         @Override
         public void setFontColour(Colour fontColour) {
             throw new AssertionError("This method should not be called.");
         }
-          
+
         //=========== Records =============================================================
 
         @Override
@@ -369,7 +369,7 @@ class AddFoodCommandTest {
         public ObservableMap<LocalDate, Double> getAverageMap() {
             throw new AssertionError("This method should not be called.");
         }
-    
+
     }
 
     /**
