@@ -22,6 +22,8 @@ public class CheatSheet extends StudyBuddyItem {
     // Data fields
     private final Set<Content> contents = new HashSet<>();
 
+    private int contentIndex = 0;
+
     /**
      * Every field must be present and not null.
      */
@@ -92,6 +94,15 @@ public class CheatSheet extends StudyBuddyItem {
                 && otherCheatSheet.getTitle().equals(getTitle());
     }
 
+    private void resetContentIndex() {
+        this.contentIndex = 0;
+    }
+
+    private String formatContent(Content c) {
+        this.contentIndex++;
+        return "[ " + contentIndex + ". " + c + " ]";
+    }
+
     /**
      * Returns true if both cheatsheets have the same identity and data fields.
      * This defines a stronger notion of equality between two cheatsheets.
@@ -120,6 +131,7 @@ public class CheatSheet extends StudyBuddyItem {
 
     @Override
     public String toString() {
+        this.resetContentIndex();
         final StringBuilder builder = new StringBuilder();
         builder.append(" Title: ")
                 .append(getTitle())
@@ -127,7 +139,7 @@ public class CheatSheet extends StudyBuddyItem {
         getTags().forEach(builder::append);
 
         builder.append(" Contents: ");
-        getContents().forEach(builder::append);
+        getContents().forEach(c -> builder.append(formatContent(c)));
 
         return builder.toString();
     }
