@@ -317,9 +317,7 @@ The `Budget` object calculates the cash `amount` values all existing `Income` ob
 It then returns the difference in values as the `budget` value and creates a graph detailing the statistics for the month.
 
 ==== Current Implementation
-Below is a sequence of steps that illustrates the interaction between various classes when the `budget` command is entered.
-
-<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `goto contacts`
+<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `budget`
 command is entered.
 [[addSeqDiagram]]
 [reftext="Figure 2.3.2.1"]
