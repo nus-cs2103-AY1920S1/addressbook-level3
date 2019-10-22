@@ -1,7 +1,5 @@
 package budgetbuddy.model.util;
 
-import budgetbuddy.model.AddressBook;
-import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 
@@ -19,13 +17,4 @@ public class SampleDataUtil {
             new Person(new Name("Roy Balakrishnan"))
         };
     }
-
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
-        }
-        return sampleAb;
-    }
-
 }

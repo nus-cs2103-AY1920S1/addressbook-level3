@@ -46,7 +46,7 @@ public class AccountCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof AccountCard)) {
             return false;
         }
 

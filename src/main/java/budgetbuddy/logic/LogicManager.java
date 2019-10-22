@@ -1,7 +1,6 @@
 package budgetbuddy.logic;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.GuiSettings;
@@ -13,8 +12,6 @@ import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.script.ScriptManager;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.ReadOnlyAddressBook;
-import budgetbuddy.model.person.Person;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.storage.Storage;
 import javafx.collections.ObservableList;
@@ -51,7 +48,6 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model, scriptManager);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
             storage.saveLoans(model.getLoansManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -61,23 +57,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<Rule> getRuleList() {
         return model.getRuleManager().getRuleList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override

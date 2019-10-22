@@ -18,5 +18,4 @@ public class UserPrefsTest {
         UserPrefs userPrefs = new UserPrefs();
         assertThrows(NullPointerException.class, () -> userPrefs.setAddressBookFilePath(null));
     }
-
 }

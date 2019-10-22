@@ -14,17 +14,12 @@ import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.Logic;
 import budgetbuddy.logic.LogicManager;
 import budgetbuddy.model.AccountsManager;
-import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
-import budgetbuddy.model.ReadOnlyAddressBook;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
-import budgetbuddy.model.util.SampleDataUtil;
-import budgetbuddy.storage.AddressBookStorage;
-import budgetbuddy.storage.JsonAddressBookStorage;
 import budgetbuddy.storage.JsonUserPrefsStorage;
 import budgetbuddy.storage.Storage;
 import budgetbuddy.storage.StorageManager;
@@ -33,7 +28,6 @@ import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.ui.Ui;
 import budgetbuddy.ui.UiManager;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -62,9 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         LoansStorage loansStorage = new JsonLoansStorage(userPrefs.getLoansFilePath());
-        storage = new StorageManager(addressBookStorage, loansStorage, userPrefsStorage);
+        storage = new StorageManager(loansStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -83,32 +76,9 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         AccountsManager accountsManager = new AccountsManager();
         LoansManager loansManager = initLoansManager(storage);
-        ReadOnlyAddressBook initialData = initAddressBook(storage);
         RuleManager ruleManager = new RuleManager();
 
-        return new ModelManager(loansManager, ruleManager, accountsManager, initialData, userPrefs);
-    }
-
-    /**
-     * Loads and returns an Address Book from storage.
-     * Returns an empty Address Book if file not found or if exception occurs during loading.
-     */
-    private ReadOnlyAddressBook initAddressBook(Storage storage) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (addressBookOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample Budget Buddy");
-            }
-            return addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Budget Buddy");
-            return new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Budget Buddy");
-            return new AddressBook();
-        }
+        return new ModelManager(loansManager, ruleManager, accountsManager, userPrefs);
     }
 
     /**

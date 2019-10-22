@@ -3,11 +3,6 @@ package budgetbuddy.testutil;
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.person.Person;
 
 /**
@@ -34,19 +29,4 @@ public class TypicalPersons {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
-
-    /**
-     * Returns an {@code AddressBook} with all the typical persons.
-     */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
-        }
-        return ab;
-    }
-
-    public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
 }
