@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+start
+:User executes addvisit command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([given date])
+    if () then ([valid date]);
+    :date is set as input;
+    else([else])
+        :shows error;
+        stop
+    endif
+else ([else])
+    :date is set as current date;
+endif
+:shows pop-up form for user to fill in;
+:User saves changes;
+:VisitList is updated by invoking SaveVisitCommand;
+
+stop
+
+@enduml

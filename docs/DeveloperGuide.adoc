@@ -242,6 +242,62 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::visitationreport[]
+=== Visitation Report feature
+==== Implementation
+
+The Visitation Report feature allows the user to `add`, `delete` and `edit` a `VisitReport` such that for every housecall, information like the prescription and diagnosis can be stored. Every `Person` has a `VisitList` attribute and each `VisitList` object contains an arraylist of `VisitReport` objects. The feature is facillitated by `VisitRecordWindow` which creates a form for the user to key in the details of the report, `VisitListPanel` which creates an indexed pop up list of visit reports for the user to check the index of the report they want to edit/delete and `SaveVisitCommand` which saves the users input from the form. The following operations are also implemented:
+
+* `VisitList#addRecord()` -- Adds new `VisitReport` object to stored arraylist
+* `VisitList#editRecord()` -- Replaces `VisitReport` object at given index in arraylist with given `VisitReport`
+* `VisitList#deleteRecord()` -- Deletes `VisitReport` by index from stored arraylist
+
+
+
+Given below is an example usage scenario and how every component of the Visitation Report feature behaves at each step.
+
+Step 1. The user executes `addvisit 5 v/12/12/2019` command to add a visit report to the visitlist of the 5th person in the address book. This returns a  `CommandResult` which has the attribute `date` set as String `12/12/2019`. `MainWindow#executeCommand()` is called and the check for `CommandResult#isAddVisit()` passes, calling  `VisitRecordWindow#setReportInfo()` to pass the `index` of the person, the `date`, and a `Logic` object to initialize the respective attributes in the `VisitRecordWindow` class. `MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
+
+image::addvisit0.png[]
+
+[NOTE]
+If the user executes `addvisit 5` instead, the `date` attribute of the `CommandResult` will be set as the current date and the rest of the flow remains the same.
+
+Step 2. The user fills in the form and presses `f2` on the keyboard or clicks the `submit` button to save the report. This calls `VisitRecordWindow#saveReport()` which will create a new `SaveVisitCommand` and executes it, updating the `VisitList` of the person via `Model#setPerson()`.
+
+Step 3. The user decides to edit the report and executes the `editvisit 1 i/1` command.`MainWindow#executeCommand()` is called and the check for `CommandResult#isEditVisit()` passes, calling  `VisitRecordWindow#setOldReportInfo()` which initializes the respective attributes of `VisitRecordWindow` and populate the form with the content of the `VisitReport` from  `CommandResult#getOldReport()` .`MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
+
+image::editvisit0.png[]
+
+[NOTE]
+If the user executes `editvisit 1` instead, a `CommandResult` with a `ObservableList<VisitReport>` object will be returned. `MainWindow#executeCommand()` runs and the check for `CommandResult#isEditVisit()` fails while the check for `CommandResult#isShowVisitList()` passes, calling `VisitListPanel#setup()` which populates the `VisitListPanel` with the contents of the `ObservableList<VisitReport>` object from `CommandResult#getObservableVisitList()`.`MainWindow#handleShowVisitList()` is then called to display a pop up list showing an indexed list of all visitation records of the person.
+
+Step 4. The user edits the form and presses `f2` on the keyboard or clicks the `submit` button to save the changes. The same mechanism mentioned in `Step 2` is used to update the contents of the edited visit report.
+
+Step 5. The user then decides that the report was beyond salvaging and decides to delete it. Executing the command `deletevisit 1 d/1`, `VisitList#deleteRecord()` deletes the entry from the arraylist and `Model#setPerson()` updates the person with the new `VisitList`. The `CommandResult#isShowVisitList()` check in  `MainWindow#executeCommand()` passes and a pop up list showing an indexed list of all visitation records of the person is displayed.
+
+image::deletevisit0.png[]
+
+[NOTE]
+If the user executes `deletevisit 1` instead, the index value will be set to `-1` and the `VisitList#deleteRecord()` block would be skipped, but the rest of the flow remains the same.
+
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* Creates a new `Person` object each time and using `Model#setPerson()` to replace the original person for every change in `VisitList `
+** Pros: Easy to implement and reuses existing code.
+** Cons: May have performance issues in terms of memory usage.
+
+
+===== Aspect: Data structure to support the addvisit/deletevisit/editvisit commands
+
+*  Use a arraylist to store the `VisitReport` objects in `VisitList` object
+** Pros: Fast retrieval by index.
+** Cons: Need to handle index out of bound errors.
+// end::visitationreport[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -385,33 +441,29 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to add new visitation record for a specific patient in the list
-4.  AddressBook adds new visitation record for chosen patient
+* Precondition: User can see list of persons
+1.  User requests to add new visitation record for a specific patient in the list
+2.  AddressBook adds new visitation record for chosen patient
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 1a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. AddressBook shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Edit visitation record
 
 *MSS*
 
-1.  User requests to edit visitation record for specific patient on specific date
+* Precondition: User can see list of persons
+1.  User requests to edit visitation record for specific patient by patient index
 2.  AddressBook shows pop-up form for user to edit visitation record
 3.  User saves edit
 4.  AddressBook saves edit
@@ -421,26 +473,21 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The record does not exist.
+* 1a. The user does not provide a record index
 +
 [none]
-** 1a1. AddressBook shows an error message.
-
-Use case resumes at step 1.
-
-* 1b. There are multiple records with the same name and date
+** 1a1. AddressBook shows an indexed list of visitation records
 +
-[none]
-** 1b1. AddressBook shows list of records and prompts user to re-enter last command with index of record to edit.
-
 Use case resumes at step 1.
+
 
 [discrete]
 === Use case: Delete visitation record
 
 *MSS*
 
-1.  User requests to delete visitation record for specific patient on specific date
+* Precondition: User can see list of persons
+1.  User requests to delete visitation record for specific patient by index
 2.  AddressBook deletes visitation record
 
 +
@@ -449,19 +496,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The record does not exist.
+* 1a. The user does not provide a record index
 +
 [none]
-** 1a1. AddressBook shows an error message.
-
+** 1a1. AddressBook shows an indexed list of visitation records
 Use case resumes at step 1.
 
-* 1b. There are multiple records with the same name and date
-+
-[none]
-** 1b1. AddressBook shows list of records and prompts user to re-enter last command with index of record to delete.
-
-Use case resumes at step 1.
 
 [discrete]
 === Use case: Save user-defined macros

@@ -1,0 +1,21 @@
+@startuml
+start
+:User executes editvisit command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([given report index])
+    if () then ([valid index]);
+        :shows pop-up form for user to fill in;
+        :User saves changes;
+        :VisitList is updated by invoking SaveVisitCommand;
+    else([else])
+        :shows error;
+    endif
+else ([no report index])
+    :Show indexed list of Visit Reports;
+endif
+
+stop
+@enduml
