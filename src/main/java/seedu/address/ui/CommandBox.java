@@ -19,19 +19,20 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    //private final List<String> history;
-    //private ListElementPointer historySnapshot;
+    private final List<String> history;
+    private ListElementPointer historySnapshot;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, List<String> history) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        //this.history = history;
+        this.history = history;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        //historySnapshot = new ListElementPointer(this.history);
+        historySnapshot = new ListElementPointer(this.history);
+        assert historySnapshot != null;
     }
 
     /**
