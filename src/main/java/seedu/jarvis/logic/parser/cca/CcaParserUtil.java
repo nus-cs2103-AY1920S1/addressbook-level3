@@ -11,6 +11,8 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 
 /**
  * Contains utility methods used for parsing strings in the Cca classes.
@@ -87,6 +89,33 @@ public class CcaParserUtil {
             equipmentList.addEquipment(parseEquipment(equipmentName));
         }
         return equipmentList;
+    }
+
+    /**
+     * Parses a {@code String ccaMilestone} into a {@code CcaMilestone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ccaMilestone} is invalid.
+     */
+    public static CcaMilestone parseCcaMilestone(String ccaMilestone) throws ParseException {
+        requireNonNull(ccaMilestone);
+        String trimmedCcaMilestone = ccaMilestone.trim();
+        if (!CcaMilestone.isValidCcaMilestone(trimmedCcaMilestone)) {
+            throw new ParseException(CcaMilestone.MESSAGE_CONSTRAINTS);
+        }
+        return new CcaMilestone(trimmedCcaMilestone);
+    }
+
+    /**
+     * Parses {@code Collection<String> ccaMilestones} into a {@code CcaMilestoneList}.
+     */
+    public static CcaProgressList parseCcaMilestones(Collection<String> ccaMilestones) throws ParseException {
+        requireNonNull(ccaMilestones);
+        final CcaProgressList ccaProgressList = new CcaProgressList();
+        for (String ccaMilestoneName : ccaMilestones) {
+            ccaProgressList.add(parseCcaMilestone(ccaMilestoneName));
+        }
+        return ccaProgressList;
     }
 
 }

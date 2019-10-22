@@ -7,9 +7,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 import seedu.jarvis.model.cca.exceptions.CcaNotFoundException;
 import seedu.jarvis.model.cca.exceptions.DuplicateCcaException;
 
@@ -63,11 +62,11 @@ public class CcaList {
      *
      * @return the {@Cca} based on its {@code index}.
      */
-    public Cca getCca(Index index) throws CommandException {
+    public Cca getCca(Index index) {
         requireNonNull(index);
 
         if (index.getZeroBased() >= internalCcaList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
+            throw new CcaNotFoundException();
         }
 
         return internalCcaList.get(index.getZeroBased());
@@ -125,6 +124,18 @@ public class CcaList {
     }
 
     /**
+     * Adds a progress to the chosen {@code Cca}.
+     *
+     * @param toBeUpdatedCca is the chosen Cca.
+     * @param ccaProgressList is added to the Cca.
+     */
+    public void addProgress(Cca toBeUpdatedCca, CcaProgressList ccaProgressList) {
+        requireAllNonNull(toBeUpdatedCca, ccaProgressList);
+
+        toBeUpdatedCca.addProgress(ccaProgressList);
+    }
+
+    /**
      * Removes {@code toBeRemovedCca} from the {@code CcaList}.
      */
     public void removeCca(Cca toBeRemovedCca) {
@@ -134,6 +145,15 @@ public class CcaList {
         }
 
         internalCcaList.remove(toBeRemovedCca);
+    }
+
+    /**
+     * Increments the progress of the chosen {@code Cca} by 1 {@code Milestone} based on the {@code Index} of the Cca.
+     */
+    public void increaseProgress(Index index) {
+        requireNonNull(index);
+        Cca cca = getCca(index);
+        cca.increaseProgress();
     }
 
     @Override
@@ -153,5 +173,6 @@ public class CcaList {
         }
         return sb.toString();
     }
+
 
 }

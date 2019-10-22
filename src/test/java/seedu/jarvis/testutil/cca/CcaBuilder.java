@@ -5,6 +5,7 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 
 /**
  * A utility class to help with building Person objects.
@@ -18,12 +19,14 @@ public class CcaBuilder {
     private CcaName name;
     private CcaType ccaType;
     private EquipmentList equipmentList;
+    private CcaProgress ccaProgress;
 
     public CcaBuilder() {
         name = new CcaName(DEFAULT_NAME);
         ccaType = new CcaType(DEFAULT_CCATYPE);
         equipmentList = new EquipmentList();
         equipmentList.addEquipment(new Equipment(DEFAULT_EQUIPMENT));
+        ccaProgress = new CcaProgress();
     }
 
     /**
@@ -33,6 +36,7 @@ public class CcaBuilder {
         name = ccaToCopy.getName();
         ccaType = ccaToCopy.getCcaType();
         equipmentList = ccaToCopy.getEquipmentList();
+        ccaProgress = ccaToCopy.getCcaProgress();
     }
 
     /**
@@ -67,15 +71,25 @@ public class CcaBuilder {
     /**
      * Sets an empty {@code EquipmentList} for the {@code Cca} that we are building.
      *
-     * @return
+     * @return a CcaBuilder object.
      */
     public CcaBuilder withEquipmentList() {
         this.equipmentList = new EquipmentList();
         return this;
     }
 
+    /**
+     * Sets an empty {@code CcaProgress} for the {@code Cca} that we are building.
+     *
+     * @return a CcaBuilder object.
+     */
+    public CcaBuilder withCcaProgress() {
+        this.ccaProgress = new CcaProgress();
+        return this;
+    }
+
     public Cca build() {
-        return new Cca(name, ccaType, equipmentList);
+        return new Cca(name, ccaType, equipmentList, ccaProgress);
     }
 
 }
