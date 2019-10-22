@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.main.model.ReadOnlyUserPrefs;
-import seedu.main.model.UserPrefs;
+import seedu.address.main.model.ReadOnlyUserPrefs;
+import seedu.address.main.model.UserPrefs;
 
 /**
  * Represents the in-memory addressBookModel of the address book data.

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.AddressBookModel;
 import seedu.address.model.AddressBookModelManager;
-import seedu.main.model.UserPrefs;
+import seedu.address.main.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel) and unit tests for ListCommand.

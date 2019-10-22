@@ -31,9 +31,9 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
-import seedu.main.model.UserPrefsModel;
-import seedu.main.model.UserPrefsModelManager;
-import seedu.main.model.UserPrefs;
+import seedu.address.main.model.UserPrefs;
+import seedu.address.main.model.UserPrefsModel;
+import seedu.address.main.model.UserPrefsModelManager;
 
 public class AddressBookLogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

@@ -16,7 +16,7 @@ import seedu.address.model.AddressBookModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
-import seedu.main.model.UserPrefsModel;
+import seedu.address.main.model.UserPrefsModel;
 
 /**
  * The main AddressBookLogicManager of the app.

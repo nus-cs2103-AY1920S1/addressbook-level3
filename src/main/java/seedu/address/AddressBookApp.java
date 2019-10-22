@@ -19,8 +19,8 @@
 //import seedu.address.model.AddressBookModel;
 //import seedu.address.model.AddressBookModelManager;
 //import seedu.address.model.ReadOnlyAddressBook;
-//import seedu.main.model.ReadOnlyUserPrefs;
-//import seedu.main.model.UserPrefs;
+//import seedu.address.main.model.ReadOnlyUserPrefs;
+//import seedu.address.main.model.UserPrefs;
 //import seedu.address.model.util.SampleDataUtil;
 //import seedu.address.storage.AddressBookStorage;
 //import seedu.address.storage.JsonAddressBookStorage;
@@ -28,8 +28,8 @@
 //import seedu.address.storage.Storage;
 //import seedu.address.storage.StorageManager;
 //import seedu.address.storage.UserPrefsStorage;
-//import seedu.main.ui.Ui;
-//import seedu.main.ui.UiManager;
+//import seedu.address.main.ui.Ui;
+//import seedu.address.main.ui.UiManager;
 //
 ///**
 // * Runs the application.

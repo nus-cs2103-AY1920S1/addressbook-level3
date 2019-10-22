@@ -16,7 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBookModel;
 import seedu.address.model.AddressBookModelManager;
 import seedu.address.model.person.Person;
-import seedu.main.model.UserPrefs;
+import seedu.address.main.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel, UndoCommand and RedoCommand) and unit tests for

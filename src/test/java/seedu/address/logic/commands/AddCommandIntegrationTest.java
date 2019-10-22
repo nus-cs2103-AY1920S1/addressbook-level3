@@ -11,7 +11,7 @@ import seedu.address.model.AddressBookModel;
 import seedu.address.model.AddressBookModelManager;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
-import seedu.main.model.UserPrefs;
+import seedu.address.main.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel) for {@code AddCommand}.
