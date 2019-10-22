@@ -1,23 +1,21 @@
 package seedu.address.autocomplete;
 
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.LogsCenter;
+
+import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * A handler that initialises autocomplete word bank and updates list of autocomplete words to be shown
  */
 public class AutoCompleteListUpdater {
-    private static final Logger logger = LogsCenter.getLogger(AutoCompleteListUpdater.class);
-
     private ObservableList<AutoCompleteWord> oListSuggestedWords;
-    private ObservableList<AutoCompleteWord> oListAllWords;
+    private ObservableList<AutoCompleteWord> oListSuggestedWordsCopy;
 
-    public void setList(ObservableList<AutoCompleteWord> oListAllWords) {
-        this.oListAllWords = oListAllWords;
-        this.oListSuggestedWords = FXCollections.observableArrayList(oListAllWords);
+    public void setList(ObservableList<AutoCompleteWord> oListSuggestedWords) {
+        this.oListSuggestedWords = oListSuggestedWords;
+        this.oListSuggestedWordsCopy = FXCollections.observableArrayList(oListSuggestedWords);
     }
 
     /**
@@ -25,16 +23,23 @@ public class AutoCompleteListUpdater {
      *
      * @param currentPhraseInCommandBox string in command box textfield
      */
-    public void updateSuggestedWordsInList(String currentPhraseInCommandBox) {
+    public void updateSuggestedWordsInList(int numberOfMatchedWords, String currentPhraseInCommandBox) {
         oListSuggestedWords.clear();
-        String[] userinputs = currentPhraseInCommandBox.split(" ");
+        String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
+        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
 
-        for (AutoCompleteWord autoCompleteWord : oListAllWords) {
-            if (autoCompleteWord.getSuggestedWord().startsWith(userinputs[userinputs.length - 1])) {
-                oListSuggestedWords.add(autoCompleteWord);
+        LinkedList<String> combinedList = new LinkedList<>(firstSegmentParts);
+        combinedList.addAll(Arrays.asList(segments).subList(1, segments.length));
+
+        if (numberOfMatchedWords == combinedList.size()) {
+            oListSuggestedWords.addAll(oListSuggestedWordsCopy);
+        } else {
+            for (AutoCompleteWord autoCompleteWord : oListSuggestedWordsCopy) {
+                if (autoCompleteWord.getSuggestedWord().startsWith(combinedList.get(numberOfMatchedWords))) {
+                    oListSuggestedWords.add(autoCompleteWord);
+                }
             }
         }
-        logger.info("Current number of suggested word is " + oListSuggestedWords.size());
     }
 
     public ObservableList<AutoCompleteWord> getOListSuggestedWords() {

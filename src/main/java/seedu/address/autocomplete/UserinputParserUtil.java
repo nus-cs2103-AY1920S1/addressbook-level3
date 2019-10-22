@@ -4,11 +4,11 @@ import java.util.LinkedList;
 
 public class UserinputParserUtil {
 
-    public String[] splitIntoSegments(String currentPhraseInCommandBox) {
+    public static String[] splitIntoSegments(String currentPhraseInCommandBox) {
         return currentPhraseInCommandBox.split(" ");
     }
 
-    public LinkedList<String> parseFirstSegment(String firstSegment) {
+    public static LinkedList<String> parseFirstSegment(String firstSegment) {
         LinkedList<String> splitWords = new LinkedList<>();
 
         String[] parts = firstSegment.split("-");

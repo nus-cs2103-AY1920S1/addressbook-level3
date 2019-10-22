@@ -86,41 +86,33 @@ public class CommandBox extends UiPart<Region> {
             int newIndex;
             switch (event.getCode()) {
             case UP:
-                newIndex = (autoCompletePanel.getSelectedIndex() - 1);
-                if (newIndex < 0) {
-                    newIndex = 0;
-                }
-                autoCompletePanel.setSelected(newIndex);
+                autoCompletePanel.setSelected(autoCompletePanel.getSelectedIndex() - 1);
                 commandTextField.positionCaret(commandTextField.getText().length());
                 break;
             case DOWN:
-                newIndex = (autoCompletePanel.getSelectedIndex() + 1);
-                if (newIndex > autoCompletePanel.getTotalItems() - 1) {
-                    newIndex = autoCompletePanel.getTotalItems() - 1;
-                }
-                autoCompletePanel.setSelected(newIndex);
+                autoCompletePanel.setSelected(autoCompletePanel.getSelectedIndex() + 1);
+                commandTextField.positionCaret(commandTextField.getText().length());
                 break;
             case RIGHT:
                 try {
-                    String textInTextField = "";
+                    StringBuilder textInTextField = new StringBuilder();
                     for (AutoCompleteWord autoCompleteWord : autoCompletePanel.getMatchedWordsList()) {
-                        textInTextField += autoCompleteWord.getSuggestedWord() + autoCompleteWord.getConnectorChar();
+                        textInTextField
+                                .append(autoCompleteWord.getSuggestedWord())
+                                .append(autoCompleteWord.getConnectorChar());
                     }
-                    textInTextField += autoCompletePanel.getSelected().getSuggestedWord();
-                    commandTextField.setText(textInTextField);
+                    textInTextField.append(autoCompletePanel.getSelected().getSuggestedWord());
+                    commandTextField.setText(textInTextField.toString());
                     commandTextField.positionCaret(commandTextField.getText().length());
 
-                    // Update listview to change current list
-                    autoCompletePanel.updateListView(textInTextField);
+                    autoCompletePanel.updateListView(textInTextField.toString());
 
                 } catch (NullPointerException e) {
                     logger.info("Nothing is selected thus left key does not work");
                 }
                 break;
             default:
-                String textInTextField = commandTextField.getText() + event.getText();
-                // Update listview to update current list
-                autoCompletePanel.updateListView(textInTextField);
+                autoCompletePanel.updateListView(commandTextField.getText() + event.getText());
             }
         });
     }

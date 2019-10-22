@@ -26,7 +26,6 @@ public class AutoCompletePanel extends UiPart<Region> {
     private AutoCompleteListUpdater autoCompleteListUpdater;
     private AutoCompleteWordStorage autoCompleteWordStorage;
     private AutoCompleteListFilter autoCompleteListFilter;
-    private UserinputParserUtil userinputParserUtil;
 
     @FXML
     private ListView<AutoCompleteWord> autoCompleteWordListView;
@@ -34,7 +33,6 @@ public class AutoCompletePanel extends UiPart<Region> {
     public AutoCompletePanel() {
         super(FXML);
 
-        userinputParserUtil = new UserinputParserUtil();
         autoCompleteWordStorage = new AutoCompleteWordStorage();
         autoCompleteListUpdater = new AutoCompleteListUpdater();
         autoCompleteListFilter = new AutoCompleteListFilter();
@@ -64,6 +62,11 @@ public class AutoCompletePanel extends UiPart<Region> {
     }
 
     public void setSelected(int index) {
+        if (index > getTotalItems() - 1) {
+            index = getTotalItems() - 1;
+        } else if (index < 0) {
+            index = 0;
+        }
         autoCompleteWordListView.getSelectionModel().select(index);
         this.selectedIndex = index;
     }
@@ -84,17 +87,7 @@ public class AutoCompletePanel extends UiPart<Region> {
     public void updateListView(String currentPhraseInCommandBox) {
         updateMatchedWords(currentPhraseInCommandBox);
         resetList();
-        // Choose which list to set
-        /*boolean isNextList = chooseList(currentPhraseInCommandBox);
-
-        // Update words in current list base on string in command box
-        if (isNextList) {
-            System.out.println("updated after list changed");
-            autoCompleteWordHandler.updateSuggestedWordsInList("");
-        } else {
-            System.out.println("updated without list change");
-            autoCompleteWordHandler.updateSuggestedWordsInList(currentPhraseInCommandBox);
-        }*/
+        autoCompleteListUpdater.updateSuggestedWordsInList(matchedAutoCompleteWords.size(), currentPhraseInCommandBox);
     }
 
     public void resetList() {
@@ -132,7 +125,7 @@ public class AutoCompletePanel extends UiPart<Region> {
     // segments[1] -> either prefix or index
     // segments[2] onwards -> prefix
     public void updateMatchedWords(String currentPhraseInCommandBox) {
-        String[] segments = userinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
+        String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
         matchedAutoCompleteWords.clear();
 
         boolean isCorrectFirstSegment = matchFirstSegment(segments[0]);
@@ -154,7 +147,7 @@ public class AutoCompletePanel extends UiPart<Region> {
         boolean isCorrectObjectWord = false;
         boolean isCorrectCommandWord = false;
 
-        LinkedList<String> firstSegmentParts = userinputParserUtil.parseFirstSegment(firstSegment);
+        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(firstSegment);
         if (firstSegmentParts.size() >= 1) {
             // First object word
             for (AutoCompleteWord currentACWord : autoCompleteWordStorage.getOListAllObjectWord()) {

@@ -61,6 +61,7 @@ public class AutoCompleteWordStorage {
         oListAllPrefixWord.add(new PrefixWord("patient", "find", "t/"));
         oListAllPrefixWord.add(new PrefixWord("medcon", "find", "c/"));
         oListAllPrefixWord.add(new PrefixWord("patient", "add-medcon", "c/"));
+        oListAllPrefixWord.add(new PrefixWord("med", "add", "testt/"));
         oListAllPrefixWord.add(new PrefixWord("appt", "edit", "c/"));
 
         return oListAllPrefixWord;
@@ -82,15 +83,15 @@ public class AutoCompleteWordStorage {
     }
 
     public ObservableList<AutoCompleteWord> getOListAllCommandWord() {
-        return oListAllCommandWord;
+        return FXCollections.observableArrayList(oListAllCommandWord);
     }
 
     public ObservableList<AutoCompleteWord> getOListAllPrefixWord() {
-        return oListAllPrefixWord;
+        return FXCollections.observableArrayList(oListAllPrefixWord);
     }
 
     public ObservableList<AutoCompleteWord> getOListAllObjectWord() {
-        return oListAllObjectWord;
+        return FXCollections.observableArrayList(oListAllObjectWord);
     }
 
     // total person/medcon etc may change during runtime (to improve later)
