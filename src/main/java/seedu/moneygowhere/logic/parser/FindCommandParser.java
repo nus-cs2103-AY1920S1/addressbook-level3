@@ -59,10 +59,14 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
             List<Cost> costs = ParserUtil.parseCosts(argMultimap.getAllValues(PREFIX_COST));
 
+            if (costs.size() != 2) {
+                throw new ParseException(Cost.MESSAGE_CONSTRAINTS);
+            }
+
             double min = Double.parseDouble(costs.get(0).value);
             double max = Double.parseDouble(costs.get(1).value);
 
-            if (costs.size() != 2 || min > max) {
+            if (min > max) {
                 throw new ParseException(Cost.MESSAGE_CONSTRAINTS);
             }
 
