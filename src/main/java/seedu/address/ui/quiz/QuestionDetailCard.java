@@ -51,6 +51,8 @@ public class QuestionDetailCard extends UiPart<Region> {
         id.setText("Filtered Question  #" + displayedIndex + "  ");
         name.setText(question.getName().fullName);
 
+        System.out.println("BABY SHARL" + question.getComment());
+
         if (question.getComment() == null) {
             comment.setText("No explanation yet");
         } else {

@@ -35,6 +35,8 @@ public interface Logic {
 
     int getQuestionNumber();
 
+    boolean getShowAnswer();
+
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();
 

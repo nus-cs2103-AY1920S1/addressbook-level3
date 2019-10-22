@@ -25,6 +25,7 @@ public class ModelQuizManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
     private int showQuestionNumber;
+    private boolean showAnswer;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +36,7 @@ public class ModelQuizManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        this.showAnswer = true;
         this.addressBook = new AddressQuizBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
@@ -127,6 +129,14 @@ public class ModelQuizManager implements Model {
 
     public int getQuestionNumber() {
         return showQuestionNumber;
+    }
+
+    public void setShowAnswer(boolean showAnswer) {
+        this.showAnswer = showAnswer;
+    }
+
+    public boolean getShowAnswer() {
+        return showAnswer;
     }
 
     //=========== Filtered Question List Accessors =============================================================

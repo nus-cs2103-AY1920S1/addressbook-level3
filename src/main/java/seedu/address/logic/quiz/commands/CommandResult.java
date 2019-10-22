@@ -15,6 +15,9 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    /** Decide whether to show answer or not to the user. */
+    private boolean showAnswer;
+
     /** Show question details to the user. */
     private boolean showDetail;
 
@@ -26,6 +29,12 @@ public class CommandResult {
             this.showDetail = true;
         } else {
             this.showDetail = false;
+        }
+
+        if (specialCommand.equals("show")) {
+            this.showAnswer = true;
+        } else {
+            this.showAnswer = false;
         }
 
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -56,6 +65,10 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isShowAnswer() {
+        return showAnswer;
     }
 
     public boolean isShowDetail() {

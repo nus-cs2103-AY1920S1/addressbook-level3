@@ -39,15 +39,16 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
+        <Label fx:id="type" style="-fx-border-color: #000000; -fx-label-padding: 3;" styleClass="cell_small_label" text="\$type">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
       </HBox>
          <Separator prefWidth="200.0" style="-fx-background-color: #FF9100;" />
          <HBox prefHeight="22.0" prefWidth="120.0" style="-fx-padding: 2 0 0 0;">
             <children>
-                <Label fx:id="type" style="-fx-border-color: #000000; -fx-label-padding: 3;" styleClass="cell_small_label" text="\$type">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
+
             <Label fx:id="answerText" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="Answer:  ">
                   Answer: <font>
                      <Font size="14.0" />

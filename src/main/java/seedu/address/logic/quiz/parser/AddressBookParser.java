@@ -71,6 +71,9 @@ public class AddressBookParser {
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
 
+        case ViewAnswerCommand.COMMAND_WORD:
+            return new ViewAnswerCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -49,8 +49,6 @@ class JsonQuizAdaptedQuestion {
      */
     public JsonQuizAdaptedQuestion(Question source) {
         name = source.getName().fullName;
-        System.out.println("UHUHO" + name);
-        System.out.println("UHUHO" + source.getComment());
 
         if (source.getComment() == null) {
             comment = null;

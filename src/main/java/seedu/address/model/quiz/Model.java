@@ -82,6 +82,10 @@ public interface Model {
 
     int getQuestionNumber();
 
+    void setShowAnswer(boolean showAnswer);
+
+    boolean getShowAnswer();
+
     /**
      * Set the question to be shown to the StackPane.
      * @param question

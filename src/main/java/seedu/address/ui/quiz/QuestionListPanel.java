@@ -15,14 +15,17 @@ import seedu.address.model.quiz.person.Question;
  * Panel containing the list of questions.
  */
 public class QuestionListPanel extends UiPart<Region> {
+    private boolean showAnswer;
     private static final String FXML = "QuestionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(QuestionListPanel.class);
 
     @FXML
     private ListView<Question> questionListView;
 
-    public QuestionListPanel(ObservableList<Question> questionList) {
+    public QuestionListPanel(ObservableList<Question> questionList, boolean showAnswer) {
         super(FXML);
+        this.showAnswer = showAnswer;
+
         questionListView.setItems(questionList);
         questionListView.setCellFactory(listView -> new QuestionListViewCell());
     }
@@ -39,7 +42,7 @@ public class QuestionListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new QuestionCard(question, getIndex() + 1).getRoot());
+                setGraphic(new QuestionCard(question, getIndex() + 1, showAnswer).getRoot());
             }
         }
     }

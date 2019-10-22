@@ -112,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList(), logic.getShowAnswer());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -182,6 +182,11 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowAnswer()) {
+                questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList(), logic.getShowAnswer());
+                questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
             }
 
             if (commandResult.isShowDetail()) {

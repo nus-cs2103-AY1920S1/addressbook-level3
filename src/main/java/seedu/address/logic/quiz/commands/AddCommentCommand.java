@@ -52,7 +52,7 @@ public class AddCommentCommand extends Command {
         requireNonNull(questionComment);
 
         this.index = index;
-        this.questionComment = questionComment;
+        this.questionComment = questionComment.trim();
     }
 
     @Override
@@ -71,7 +71,8 @@ public class AddCommentCommand extends Command {
 
         model.setQuestion(questionToEdit, editedQuestion);
         model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
-        return new CommandResult(String.format(MESSAGE_COMMENT_QUESTION_SUCCESS, questionComment));
+
+        return new CommandResult(String.format(MESSAGE_COMMENT_QUESTION_SUCCESS, questionComment), "detail");
     }
 
     /**

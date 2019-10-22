@@ -69,6 +69,11 @@ public class LogicQuizManager implements Logic {
     }
 
     @Override
+    public boolean getShowAnswer() {
+        return model.getShowAnswer();
+    }
+
+    @Override
     public ObservableList<Question> getFilteredQuestionList() {
         return model.getFilteredQuestionList();
     }
