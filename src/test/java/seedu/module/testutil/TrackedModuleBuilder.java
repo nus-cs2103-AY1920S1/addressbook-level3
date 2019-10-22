@@ -1,5 +1,8 @@
 package seedu.module.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.Deadline;
 import seedu.module.model.module.TrackedModule;
@@ -12,12 +15,12 @@ public class TrackedModuleBuilder {
     public static final String DEFAULT_MODULE_CODE = "CS2103T";
     public static final String DEFAULT_TITLE = "Software Engineering";
     public static final String DEFAULT_DESCRIPTION = "Lorem Ipsum";
-    public static final Deadline DEFAULT_DEADLINE = new Deadline("Description");
+    public static final List<Deadline> DEFAULT_DEADLINE = new ArrayList<>();
 
     private String moduleCode;
     private String title;
     private String description;
-    private Deadline deadline;
+    private List<Deadline> deadline;
 
     public TrackedModuleBuilder() {
         moduleCode = DEFAULT_MODULE_CODE;
@@ -33,7 +36,7 @@ public class TrackedModuleBuilder {
         moduleCode = moduleToCopy.getModuleCode();
         title = moduleToCopy.getTitle();
         description = moduleToCopy.getDescription();
-        deadline = moduleToCopy.getDeadline();
+        deadline = moduleToCopy.getDeadlineList();
     }
 
     /**
@@ -55,7 +58,7 @@ public class TrackedModuleBuilder {
     /**
      * Sets the description of the {@code TrackedModule} that we are building.
      */
-    public TrackedModuleBuilder withDeadline(Deadline deadline) {
+    public TrackedModuleBuilder withDeadline(List<Deadline> deadline) {
         this.deadline = deadline;
         return this;
     }
@@ -69,6 +72,6 @@ public class TrackedModuleBuilder {
     }
 
     public TrackedModule build() {
-        return new TrackedModule(new ArchivedModule(moduleCode, title, description), deadline);
+        return new TrackedModule(new ArchivedModule(moduleCode, title, description));
     }
 }

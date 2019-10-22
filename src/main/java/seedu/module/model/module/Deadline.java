@@ -7,35 +7,44 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class Deadline {
-    private String value;
+    public static final String MESSAGE_CONSTRAINTS = "Not a valid Deadline";
 
-    public Deadline(String deadline) {
-        requireNonNull(deadline);
-        value = deadline;
+    private String description;
+    private String time;
+
+    public Deadline(String description, String time) {
+        requireNonNull(description);
+        this.description = description;
+        this.time = time;
     }
 
-    public String getValue() {
-        return value;
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public void setValue(String newValue) {
-        value = newValue;
+        this.description = newValue;
     }
 
     @Override
     public String toString() {
-        return value;
+        return description + " ," + time;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Deadline // instanceof handles nulls
-                && value.equals(((Deadline) other).value)); // state check
+                && description.equals(((Deadline) other).description))
+                && time.equals(((Deadline) other).time); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return description.hashCode();
     }
 }

@@ -45,7 +45,7 @@ public class ModuleCard extends UiPart<Region> {
         title.setText(module.getTitle());
         description.setText(module.getDescription());
         if (module instanceof Trackable) {
-            deadline.setText(((Trackable) module).getDeadline().getValue());
+            deadline.setText(((Trackable) module).getDeadline());
         }
     }
 
