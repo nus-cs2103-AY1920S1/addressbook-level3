@@ -102,7 +102,7 @@ Format: `clear`
 ==== Adding a book: `add`
 
 Adds a new book to library records. +
-Format: `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]`
+Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
 
 [TIP]
 A book can have any number of genres (including 0)
