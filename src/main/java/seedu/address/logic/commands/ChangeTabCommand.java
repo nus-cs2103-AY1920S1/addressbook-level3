@@ -29,6 +29,7 @@ public class ChangeTabCommand extends Command {
     public static final String MESSAGE_SUCCESS_EARNINGS = "Changed tab to EARNINGS";
     public static final String MESSAGE_SUCCESS_STUDENT_PROFILE = "Changed tab to STUDENT_PROFILE";
     public static final String MESSAGE_SUCCESS_NOTEPAD = "Changed tab to NOTEPAD";
+    public static final String MESSAGE_SUCCESS_REMINDERS = "Changed tab to REMINDERS";
     public static final String MESSAGE_ERROR = "Error: Unable to change tab";
 
     private WindowView newView;
@@ -46,6 +47,18 @@ public class ChangeTabCommand extends Command {
         if (newView.getIndexNumber() == 2) {
             model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
             return new CommandResult(MESSAGE_SUCCESS_EARNINGS);
+        } else if (newView.getIndexNumber() == 1) {
+            model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
+            return new CommandResult(MESSAGE_SUCCESS_CALENDAR);
+        } else if (newView.getIndexNumber() == 3) {
+            model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
+            return new CommandResult(MESSAGE_SUCCESS_STUDENT_PROFILE);
+        } else if (newView.getIndexNumber() == 4) {
+            model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
+            return new CommandResult(MESSAGE_SUCCESS_NOTEPAD);
+        } else if (newView.getIndexNumber() == 5) {
+            model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
+            return new CommandResult(MESSAGE_SUCCESS_REMINDERS);
         } else {
             return new CommandResult(MESSAGE_ERROR);
         }
