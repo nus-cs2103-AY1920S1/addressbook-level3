@@ -16,6 +16,7 @@ public class NotificationCheckingThread extends Thread {
     private static final Logger logger = LogsCenter.getLogger(NotificationCheckingThread.class);
     private static final long millisecondsInAMinute = 60000;
 
+    private boolean notificationsOn = true;
     private ArrayList<PopupListener> popupListeners = new ArrayList<>();
 
     private NotificationChecker notificationChecker;
@@ -28,23 +29,36 @@ public class NotificationCheckingThread extends Thread {
         popupListeners.add(popupListener);
     }
 
+    public void switchOffNotifications() {
+        notificationsOn = false;
+    }
+
+    public void switchOnNotifications() {
+        notificationsOn = true;
+    }
+
     @Override
     public void run() {
         try {
             while (true) {
-                ArrayList<PopupNotification> notifications = notificationChecker.getListOfPopupNotifications();
-
-                for (PopupNotification pn : notifications) {
-                    for (PopupListener popupListener : popupListeners) {
-                        popupListener.notify(pn);
-                    }
+                if (notificationsOn) {
+                    checkAndPostNotifications();
                 }
 
                 Thread.sleep(findMillisecondsToNextMinute());
             }
-
         } catch (InterruptedException e) {
             logger.info("NotificationManagingThread successfully interrupted.");
+        }
+    }
+
+    private void checkAndPostNotifications() {
+        ArrayList<PopupNotification> notifications = notificationChecker.getListOfPopupNotifications();
+
+        for (PopupNotification pn : notifications) {
+            for (PopupListener popupListener : popupListeners) {
+                popupListener.notify(pn);
+            }
         }
     }
 

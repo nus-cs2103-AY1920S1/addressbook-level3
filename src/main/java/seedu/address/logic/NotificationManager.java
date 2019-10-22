@@ -17,4 +17,12 @@ public class NotificationManager {
         notificationCheckingThread.setDaemon(true);
         notificationCheckingThread.start();
     }
+
+    public void switchOffNotifications() {
+        notificationCheckingThread.switchOffNotifications();
+    }
+
+    public void switchOnNotifications() {
+        notificationCheckingThread.switchOnNotifications();
+    }
 }
