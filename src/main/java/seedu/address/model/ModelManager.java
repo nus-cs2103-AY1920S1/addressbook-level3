@@ -65,12 +65,10 @@ public class ModelManager implements Model {
         sortedEntryList.setComparator(new EntryComparator(sortByDescription, sortByAsc));
         filteredEntries = new FilteredList<>(sortedEntryList);
         filteredExpenseReminders = new FilteredList<>(versionedAddressBook.getExpenseReminderList());
+        filteredWishReminders = new FilteredList<>(versionedAddressBook.getWishReminderList());
         expenseTrackers = new ExpenseTrackerManager(versionedAddressBook.getExpenseTrackerList());
-        filteredExpenseReminders = new FilteredList<>(this.addressBook.getExpenseReminderList());
-        filteredWishReminders = new FilteredList<>(this.addressBook.getWishReminderList());
-        expenseTrackers = new ExpenseTrackerManager(this.addressBook.getExpenseTrackerList());
         expenseTrackers.track(filteredExpenses);
-        this.addressBook.updateExpenseReminders();
+        versionedAddressBook.updateExpenseReminders();
     }
 
     public ModelManager() {

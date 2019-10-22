@@ -22,8 +22,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 
@@ -39,7 +39,7 @@ public class EditBudgetCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESC + "NAME] "
-            + "[" + PREFIX_TIME + "TIME] "
+            + "[" + PREFIX_TIME + "DATE] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -93,10 +93,10 @@ public class EditBudgetCommand extends Command {
     private static Budget createEditedBudget(Budget budgetToEdit, EditBudgetDescriptor editEntryDescriptor) {
         assert budgetToEdit != null;
         Description updatedName = editEntryDescriptor.getDesc().orElse(budgetToEdit.getDesc());
-        Time updatedTime = editEntryDescriptor.getTime().orElse(budgetToEdit.getTime());
+        Date updatedDate = editEntryDescriptor.getDate().orElse(budgetToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(budgetToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(budgetToEdit.getTags());
-        return new Budget(updatedName, updatedTime, updatedAmount, updatedTags);
+        return new Budget(updatedName, updatedDate, updatedAmount, updatedTags);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class EditBudgetCommand extends Command {
      */
     public static class EditBudgetDescriptor {
         private Description desc;
-        private Time time;
+        private Date date;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -135,7 +135,7 @@ public class EditBudgetCommand extends Command {
          */
         public EditBudgetDescriptor(EditBudgetDescriptor toCopy) {
             setDesc(toCopy.desc);
-            setTime(toCopy.time);
+            setDate(toCopy.date);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
@@ -155,12 +155,12 @@ public class EditBudgetCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
-        public void setTime(Time time) {
-            this.time = time;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Time> getTime() {
-            return Optional.ofNullable(time);
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         public void setAmount(Amount amt) {
@@ -206,7 +206,7 @@ public class EditBudgetCommand extends Command {
 
             return getDesc().equals(e.getDesc())
                     && getAmount().equals(e.getAmount())
-                    && getTime().equals(e.getTime())
+                    && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());
         }
     }

@@ -447,14 +447,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeWishReminder(WishReminder key) {
         wishReminders.remove(key);
     }
-    /**
-     * Removes {@code key} from this {@code autoExpenses}. {@code key} must exist in
-     * the address book.
-     */
-    public void removeAutoExpense(AutoExpense key) {
-        autoExpenses.remove(key);
-        entries.remove(key);
-    }
 
     @Override
     public void addListener(InvalidationListener listener) {
