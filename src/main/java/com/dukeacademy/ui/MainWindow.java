@@ -4,9 +4,12 @@ import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
+import com.dukeacademy.logic.program.ProgramSubmissionLogic;
+import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.program.TestCaseResult;
 import com.dukeacademy.model.question.entities.TestCase;
 
@@ -31,7 +34,9 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    protected CommandLogic commandLogic;
+    protected QuestionsLogic questionsLogic;
+    protected ProgramSubmissionLogic programSubmissionLogic;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
@@ -61,20 +66,20 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane runCodeResultPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        this.commandLogic = commandLogic;
+        this.programSubmissionLogic = programSubmissionLogic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+//        setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
-    }
+        helpWindow = new HelpWindow();    }
 
     public Stage getPrimaryStage() {
         return primaryStage;

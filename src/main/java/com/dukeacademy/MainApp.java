@@ -43,9 +43,9 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Storage storage;
     protected Config config;
+    protected CommandLogic commandLogic;
     protected QuestionsLogic questionsLogic;
     protected ProgramSubmissionLogic programSubmissionLogic;
-    protected CommandLogic commandLogic;
 
     @Override
     public void init() throws Exception {
@@ -80,30 +80,10 @@ public class MainApp extends Application {
     private CommandLogic initCommandLogic(ReadOnlyUserPrefs userPrefs) {
         // TODO: initialize command logic from user prefs and register all command factories
     }
-//    /**
-//     * Returns a {@code ModelManager} with the data from {@code storage}'s question bank and {@code userPrefs}. <br>
-//     * The data from the sample question bank will be used instead if {@code storage}'s question bank is not found,
-//     * or an empty question bank will be used instead if errors occur when reading {@code storage}'s question bank.
-//     */
-//    private QuestionsLogic initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-//        Optional<QuestionBank> addressBookOptional;
-//        QuestionBank initialData;
-//        try {
-//            addressBookOptional = storage.readQuestionBank();
-//            if (!addressBookOptional.isPresent()) {
-//                logger.info("Data file not found. Will be starting with a sample QuestionBank");
-//            }
-//            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleQuestionBank);
-//        } catch (DataConversionException e) {
-//            logger.warning("Data file not in the correct format. Will be starting with an empty QuestionBank");
-//            initialData = new StandardQuestionBank();
-//        } catch (IOException e) {
-//            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
-//            initialData = new StandardQuestionBank();
-//        }
-//
-//        return new ModelManager(initialData, userPrefs);
-//    }
+
+    private Ui initUi(ReadOnlyUserPrefs userPrefs) {
+        // TODO: initialize ui from user prefs
+    }
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
