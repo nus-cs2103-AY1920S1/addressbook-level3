@@ -8,10 +8,6 @@ import seedu.address.model.ItemModel;
  */
 public abstract class ScrollCommand extends Command {
 
-    public static final String COMMAND_WORD = "down";
-    public static final String MESSAGE_SUCCESS = "Scrolling down...";
-    public static final String MESSAGE_USAGE = "Message Usage";
-
     protected String pane;
 
     public ScrollCommand(String input) {
@@ -32,7 +28,5 @@ public abstract class ScrollCommand extends Command {
     public CommandResult execute(ItemModel model) throws CommandException {
         return new CommandResult("Scrolling");
     }
-    public String getCommandWord() {
-        return this.COMMAND_WORD;
-    }
+    public abstract String getCommandWord();
 }
