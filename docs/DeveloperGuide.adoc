@@ -329,8 +329,30 @@ The `LogsCenter` class is used to manage the logging levels and logging destinat
 
 [[Implementation-Configuration]]
 === Configuration
-
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+
+// tag::set[]
+=== Set Budget Feature: `set`
+
+This feature allows the user to set a budget for a given time period for a category, if specified.
+The user is allowed to set multiple budgets.
+Upon setting the budget and prior to the deadline, the user's `OutTransaction` will deduct the amount from each budget in the list respectively.
+
+==== Current Implementation
+
+The `set` command is an extension of parent `Command` class, facilitated by the _Logic_ and _Model_ components of the application, _PalPay_ +
+Given an *amount* and *date*, a new Budget is set for the user. +
+Upon setting a new budget, a `BudgetCard` is created and displayed in a list in the application window
+till the date set by the user.
+
+// TODO: add PUML figure for Sequence diagram
+
+==== Design Considerations
+
+
+// end::set[]
+
 
 [[Implementation-Projection]]
 === Project Balance feature: `project`
