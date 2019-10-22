@@ -237,6 +237,8 @@ In order to implement the find function, we decided to create a predicate for ea
 
 
 
+
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
