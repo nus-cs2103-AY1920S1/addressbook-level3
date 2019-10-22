@@ -10,7 +10,7 @@ import seedu.billboard.model.undo.UndoList;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String EMPTY_UNDO_LIST= "There is no command to be undo.";
+    public static final String EMPTY_UNDO_LIST = "There is no command to be undo.";
 
     /**
      * Executes the command and returns the result message.
