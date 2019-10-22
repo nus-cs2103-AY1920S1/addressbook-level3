@@ -29,6 +29,14 @@ public class Id {
         value = id;
     }
 
+    /**
+     * Returns the idcount as integer
+     * @return
+     */
+    public Integer getIdCount() {
+        return idCount;
+    }
+
     public static boolean isValidId(String test) {
         return test.matches(VALIDATION_REGEX);
     }

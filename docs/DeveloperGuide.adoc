@@ -262,20 +262,23 @@ of the command. It is taken in as the parameter and the index of this View deter
 
 ==== Current Implementation
 
-==== Design Consideration
+==== Why was it implemented this way?
+
+==== Alternatives Considered
 
 
 === Check feature
-This section is an overview of the check feature, an extended feature of the Goto feature. This feature can only be used
-after going to contacts or claims page. It is used to examine each contact or claim individually.
-It also provides some design considerations to give users an insight of how the current solutions are worked out.
+This feature is an extended feature of the goto feature because this feature can only be run when
+the user is in the claims or contacts page. This command is called when the user wants to check each contact or claim individually.
 
 ==== Overview
 Just like the Goto Command, there are various message attributes: `MESSAGE_SUCCESS_CONTACT`, `MESSAGE_SUCCESS_CLAIM`, `MESSAGE_FAILURE`,
 `MESSAGE_USAGE` that informs the user if the `check` command was successfully executed and if so which individual pop-up is showing.
 ==== Current Implementation
 
-==== Design Consideration
+==== Why was it implemented this way?
+
+==== Alternatives Considered
 
 [appendix]
 == Product Scope
