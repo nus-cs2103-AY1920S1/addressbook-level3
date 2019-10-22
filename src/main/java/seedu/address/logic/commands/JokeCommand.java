@@ -23,8 +23,4 @@ public class JokeCommand extends Command {
         return new CommandResult(jokeList.getJoke());
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }
