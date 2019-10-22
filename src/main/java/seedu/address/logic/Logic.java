@@ -61,6 +61,7 @@ public interface Logic {
     //endregion
 
     //region Statistics
+
     /**
      * Returns the StatisticsRecord.
      *
@@ -68,7 +69,9 @@ public interface Logic {
      */
     ReadOnlyStatisticsRecord getStatisticsRecord();
 
-    /** Returns an unmodifiable view of the processed statistics of students */
+    /**
+     * Returns an unmodifiable view of the processed statistics of students
+     */
     ObservableList<Statistics> getProcessedStatistics();
     //endregion
 
@@ -86,14 +89,16 @@ public interface Logic {
      */
     ObservableList<Note> getFilteredNotesList();
 
-    /** Returns an unmodifiable view of the filtered list of students */
+    /**
+     * Returns an unmodifiable view of the filtered list of students
+     */
 
     ObservableList<Student> getFilteredStudentList();
 
 
-        /**
-         * Returns the user prefs' notes record file path.
-         */
+    /**
+     * Returns the user prefs' notes record file path.
+     */
     Path getNotesRecordFilePath();
     //endregion
 
