@@ -350,7 +350,7 @@ public class AddCommandTest {
         }
 
         //=========== Records =============================================================
-          
+
         @Override
         public RecordType getRecordType() {
             throw new AssertionError("This method should not be called.");
