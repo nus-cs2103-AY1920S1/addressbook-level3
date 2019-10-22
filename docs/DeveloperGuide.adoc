@@ -188,7 +188,10 @@ To facilitate the manipulation of `Loan` objects, `LoansManager` implements the 
 * `LoansManager#updateLoanStatus(Loan toUpdate, Status newStatus)` -- Updates the `Status` of `Loan toUpdate` to `newStatus`.
 * `LoansManager#deleteLoan(Loan toDelete)` -- Deletes `Loan toDelete` from `loans`.
 
-Additionally, the state of `loans` is saved between sessions.
+Finally, `LoansManager` also maintains a `persons` list, to keep track of the persons referenced by each `loan`.
+The `persons` list contains no duplicates persons.
+
+The state of `loans` is saved between sessions.
 This data is stored separately in the file `loans.json` on the local hard disk.
 
 Given below is an example usage scenario and how the `LoansManager` behaves at each step.
@@ -202,8 +205,8 @@ This creates a new loan `toAdd` of `amount` 4.20 `out` to the `person` John, wit
 `LoansManager#addLoan(Loan toAdd)` is then called and `toAdd` is added to `loans`.
 
 [NOTE]
-If the `person` of the loan `toAdd` already exists in `LoansManager`, then it is set to reference the existing `person`.
-Otherwise, a new `person` is created using the given name of the `person` in the loan `toAdd`.
+If the `person` of the loan `toAdd` already exists in `persons`, then it is set to reference the existing `person`.
+Otherwise, the `person` referenced by the loan `toAdd` is added to `persons`.
 
 Step 3. The user executes the command `loan list` to see their current list of loans.
 `LoansManager#getLoans()` is called.
@@ -224,12 +227,22 @@ Step 5. The user executes the command `loan paid 1` to update the status of the 
 and the loan `toUpdate` in `loans` has its `status` updated to `newStatus`.
 
 [NOTE]
+If `toUpdate` cannot be found by the `LoansManager` in `loans`, an error message will be displayed to notify the user.
+
+[NOTE]
 The command `loan unpaid` works identically to `loan paid`, except that `newStatus` has the value `Status.UNPAID`.
 
 Step 6. The user executes the command `loan delete 1` to delete the first loan in the list.
 `LoansManager#deleteLoan(Loan toDelete)` is called,
 where `toDelete` is the first loan in `loans`,
 and `toDelete` is removed from `loans`.
+
+[NOTE]
+If the `person` that `toDelete` references no longer has any `loan` that references it after the deletion of `toDelete`,
+then the `person` will be deleted from `persons`.
+
+[NOTE]
+If `toDelete` cannot be found by the `LoansManager` in `loans`, an error message will be displayed to notify the user.
 
 ===== Multi-Loan Targeting
 
