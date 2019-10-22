@@ -5,17 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 import static seedu.address.testutil.TypicalPhones.getTypicalPhones;
-import static seedu.address.ui.GuiTestAssert.assertCardDisplaysCustomer;
 import static seedu.address.ui.GuiTestAssertPhone.assertCardDisplaysPhone;
 
 import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.cards.PhoneCardHandle;
 import guitests.guihandles.panels.PhoneListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
@@ -26,7 +27,7 @@ import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
 import seedu.address.ui.panels.PhoneListPanel;
 
-public class PhoneListPanelTest  extends GuiUnitTest{
+public class PhoneListPanelTest extends GuiUnitTest {
     private static final ObservableList<Phone> TYPICAL_PHONE =
             FXCollections.observableList(getTypicalPhones());
 

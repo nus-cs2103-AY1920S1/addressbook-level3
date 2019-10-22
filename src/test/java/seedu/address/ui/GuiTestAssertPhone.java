@@ -7,6 +7,10 @@ import java.util.stream.Collectors;
 import guitests.guihandles.cards.PhoneCardHandle;
 import seedu.address.model.phone.Phone;
 
+/**
+ * assertion for Phone class (not just customer phone)
+ * will integrate with main test assert class  when person code removed
+ */
 public class GuiTestAssertPhone {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPhone}.
