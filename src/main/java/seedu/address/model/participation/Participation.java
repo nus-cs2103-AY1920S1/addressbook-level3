@@ -99,6 +99,20 @@ public class Participation extends UniqueElement {
     }
 
     /**
+     * Gets the highest score of each of the three lifts in this format: Squat/Bench/Deadlift.
+     * @return a string representation of the three lift score
+     */
+    public String getThreeLiftScore() {
+        StringBuilder topAttemptsString = new StringBuilder();
+        for (Exercise exercise : competition.getExerciseList()) {
+            Lift lift = exercise.getLift();
+            topAttemptsString.append("/").append(getLiftScore(lift));
+        }
+        String outputAttempts = topAttemptsString.toString();
+        return outputAttempts.substring(1);
+    }
+
+    /**
      * Returns true if both participations have the same identity and data fields.
      * This defines a stronger notion of equality between two participations.
      */

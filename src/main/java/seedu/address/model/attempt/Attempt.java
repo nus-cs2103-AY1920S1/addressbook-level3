@@ -88,11 +88,11 @@ public class Attempt {
         }
 
         String liftName = splitString[0];
-        Lift lift = Lift.getLiftCorrespondingToName(splitString[0]);
+        Lift lift = Lift.getLiftCorrespondingToName(liftName);
         String stringVersonOfHasAttempted = splitString[1];
-        boolean hasAttempted = stringVersonOfHasAttempted == TRUE_IN_STRING_FORM;
+        boolean hasAttempted = stringVersonOfHasAttempted.equals(TRUE_IN_STRING_FORM);
         String stringVersonOfIsSuccessful = splitString[2];
-        boolean isSuccessful = stringVersonOfIsSuccessful == TRUE_IN_STRING_FORM;
+        boolean isSuccessful = stringVersonOfIsSuccessful.equals(TRUE_IN_STRING_FORM);
         String stringVersonOfWeight = splitString[3];
         int weightAttempted = Integer.parseInt(stringVersonOfWeight);
         return new Attempt(lift, hasAttempted, isSuccessful, weightAttempted);
