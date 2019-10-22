@@ -199,25 +199,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void goToWatchlist() {
+    public void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
     }
 
     @FXML
-    private void goToWatched() {
+    public void goToWatched() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
     }
 
     @FXML
-    private void goToSearch() {
+    public void goToSearch() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
     }
 
     @FXML
-    private void goToStatistics() {
+    public void goToStatistics() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
     }
