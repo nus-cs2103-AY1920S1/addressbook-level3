@@ -262,7 +262,6 @@ image:: InviteSequenceDiagram.png[]
 NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity and decides to remove that person by executing the `disinvite` command.
-image::UndoRedoState3.png[]
 
 Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()`, removing participants from the activity. The activityList will then be modified due to a change in participants which is stored in the ActivityBook.
 
