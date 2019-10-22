@@ -1,5 +1,7 @@
 package com.dukeacademy.commons.util;
 
+import com.dukeacademy.commons.exceptions.IllegalValueException;
+
 import static com.dukeacademy.commons.util.AppUtil.checkArgument;
 
 import static java.util.Objects.requireNonNull;
@@ -7,11 +9,13 @@ import static java.util.Objects.requireNonNull;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    public static final String VALID_WORD_REGEX = "[^\\s].*";
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
@@ -64,6 +68,25 @@ public class StringUtil {
             return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
+        }
+    }
+
+    public static String getFirstWord(String s) throws IllegalValueException {
+        if (!s.matches(VALID_WORD_REGEX)) {
+            throw new IllegalValueException("String is not a valid word.");
+        }
+        return s.split(" ", 2)[0];
+    }
+
+    public static String removeFirstWord(String s) throws IllegalValueException {
+        if (!s.matches(VALID_WORD_REGEX)) {
+            throw new IllegalValueException("String is not a valid word.");
+        }
+
+        if (s.split("\\s", 2).length == 1) {
+            return "";
+        } else {
+            return s.split("\\s", 2)[1];
         }
     }
 }

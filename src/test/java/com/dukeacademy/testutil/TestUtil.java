@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.dukeacademy.commons.core.index.Index;
-import com.dukeacademy.model.Model;
 import com.dukeacademy.model.question.Question;
 
 /**

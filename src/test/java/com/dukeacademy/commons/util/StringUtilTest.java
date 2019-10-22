@@ -1,11 +1,13 @@
 package com.dukeacademy.commons.util;
 
 import static com.dukeacademy.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 
+import com.dukeacademy.commons.exceptions.IllegalValueException;
 import org.junit.jupiter.api.Test;
 
 public class StringUtilTest {
@@ -140,4 +142,35 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    @Test
+    void getFirstWord() throws IllegalValueException {
+        String expected = "Hello";
+        String actual = StringUtil.getFirstWord("Hello World!");
+        assertEquals(expected, actual);
+
+        String expected1 = "Hello";
+        String actual1 = StringUtil.getFirstWord("Hello      World!");
+        assertEquals(expected1, actual1);
+
+        assertThrows(IllegalValueException.class, () -> StringUtil.getFirstWord(""));
+        assertThrows(IllegalValueException.class, () -> StringUtil.getFirstWord("    "));
+    }
+
+    @Test
+    void removeFirstWord() throws IllegalValueException {
+        String expected = "World!";
+        String actual = StringUtil.removeFirstWord("Hello World!");
+        assertEquals(expected, actual);
+
+        String expected1 = "World!";
+        String actual1 = StringUtil.removeFirstWord("Hello      World!");
+        assertEquals(expected1, actual1);
+
+        String expected2 = "";
+        String actual2 = StringUtil.removeFirstWord("HelloWorld!");
+        assertEquals(expected2, actual2);
+
+        assertThrows(IllegalValueException.class, () -> StringUtil.getFirstWord(""));
+        assertThrows(IllegalValueException.class, () -> StringUtil.getFirstWord("    "));
+    }
 }

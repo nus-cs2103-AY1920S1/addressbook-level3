@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.core.Messages;
-import com.dukeacademy.logic.commands.HelpCommand;
-import com.dukeacademy.logic.commands.ListCommand;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.testutil.Assert;
 

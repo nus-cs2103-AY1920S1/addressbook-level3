@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import com.dukeacademy.MainApp;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.util.StringUtil;
-import com.dukeacademy.logic.Logic;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;

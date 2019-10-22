@@ -11,10 +11,9 @@ import com.dukeacademy.commons.core.Version;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
-import com.dukeacademy.logic.Logic;
-import com.dukeacademy.logic.LogicManager;
-import com.dukeacademy.model.Model;
-import com.dukeacademy.model.ModelManager;
+import com.dukeacademy.logic.commands.CommandLogic;
+import com.dukeacademy.logic.program.ProgramSubmissionLogic;
+import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.model.question.QuestionBank;
@@ -42,10 +41,11 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    protected Logic logic;
     protected Storage storage;
-    protected Model model;
     protected Config config;
+    protected QuestionsLogic questionsLogic;
+    protected ProgramSubmissionLogic programSubmissionLogic;
+    protected CommandLogic commandLogic;
 
     @Override
     public void init() throws Exception {
@@ -64,37 +64,46 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
-
-        logic = new LogicManager(model, storage);
-
-        ui = new UiManager(logic);
+        questionsLogic = this.initQuestionsLogic(userPrefs);
+        programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
+        commandLogic = this.initCommandLogic(userPrefs);
     }
 
-    /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s question bank and {@code userPrefs}. <br>
-     * The data from the sample question bank will be used instead if {@code storage}'s question bank is not found,
-     * or an empty question bank will be used instead if errors occur when reading {@code storage}'s question bank.
-     */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<QuestionBank> addressBookOptional;
-        QuestionBank initialData;
-        try {
-            addressBookOptional = storage.readQuestionBank();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample QuestionBank");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleQuestionBank);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty QuestionBank");
-            initialData = new StandardQuestionBank();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
-            initialData = new StandardQuestionBank();
-        }
-
-        return new ModelManager(initialData, userPrefs);
+    private QuestionsLogic initQuestionsLogic(ReadOnlyUserPrefs userPrefs) {
+        // TODO: initialize questions logic from user prefs
     }
+
+    private ProgramSubmissionLogic initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
+        // TODO: initialize program submission logic from user prefs
+    }
+
+    private CommandLogic initCommandLogic(ReadOnlyUserPrefs userPrefs) {
+        // TODO: initialize command logic from user prefs and register all command factories
+    }
+//    /**
+//     * Returns a {@code ModelManager} with the data from {@code storage}'s question bank and {@code userPrefs}. <br>
+//     * The data from the sample question bank will be used instead if {@code storage}'s question bank is not found,
+//     * or an empty question bank will be used instead if errors occur when reading {@code storage}'s question bank.
+//     */
+//    private QuestionsLogic initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+//        Optional<QuestionBank> addressBookOptional;
+//        QuestionBank initialData;
+//        try {
+//            addressBookOptional = storage.readQuestionBank();
+//            if (!addressBookOptional.isPresent()) {
+//                logger.info("Data file not found. Will be starting with a sample QuestionBank");
+//            }
+//            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleQuestionBank);
+//        } catch (DataConversionException e) {
+//            logger.warning("Data file not in the correct format. Will be starting with an empty QuestionBank");
+//            initialData = new StandardQuestionBank();
+//        } catch (IOException e) {
+//            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
+//            initialData = new StandardQuestionBank();
+//        }
+//
+//        return new ModelManager(initialData, userPrefs);
+//    }
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
@@ -177,10 +186,10 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Difficulty Book ] =============================");
-        try {
-            storage.saveUserPrefs(model.getUserPrefs());
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        }
+//        try {
+//            storage.saveUserPrefs(model.getUserPrefs());
+//        } catch (IOException e) {
+//            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+//        }
     }
 }
