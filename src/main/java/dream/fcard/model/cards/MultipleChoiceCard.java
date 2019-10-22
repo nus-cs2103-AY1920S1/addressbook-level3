@@ -17,7 +17,6 @@ import javafx.scene.Node;
 /**
  * FrontBackCard with additional data of multiple choices.
  */
-//@@author huiminlim
 public class MultipleChoiceCard extends FrontBackCard {
 
     private ArrayList<String> choices;
@@ -30,6 +29,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @param backString  original sorted answer index
      * @param choicesArg  original sorted choices
      */
+    //@@author huiminlim
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg)
             throws DuplicateInChoicesException {
         super(frontString, backString);
@@ -49,6 +49,7 @@ public class MultipleChoiceCard extends FrontBackCard {
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
     }
+    //@author
 
     @Override
     public JsonValue toJson() {
@@ -68,6 +69,7 @@ public class MultipleChoiceCard extends FrontBackCard {
         return super.toJson();
     }
 
+    //@@author huiminlim
     @Override
     public Node renderFront() {
         // Shuffle choices first
@@ -75,7 +77,9 @@ public class MultipleChoiceCard extends FrontBackCard {
 
         return super.renderFront();
     }
+    //@author
 
+    //@@author huiminlim
     @Override
     public Boolean evaluate(String in) throws IndexNotFoundException {
 
@@ -89,12 +93,13 @@ public class MultipleChoiceCard extends FrontBackCard {
         }
 
         // Assume options must be a non-negative integer
-        if (userAnswer >= choices.size() || userAnswer < 0) {
+        if (isNotValidChoice(answerIndex)) {
             throw new IndexNotFoundException("Choice provided is not valid - " + userAnswer);
         }
 
         return userAnswer == answerIndex;
     }
+    //@author
 
     /**
      * Checks if ArrayList of choices contain duplicates.
@@ -103,6 +108,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @param choiceSet ArrayList of possible String of choices to check.
      * @return Boolean true if ArrayList of choices have duplicates, false if no duplicates.
      */
+    //@@author huiminlim
     private boolean hasChoiceContainDuplicate(ArrayList<String> choiceSet) {
         HashMap<String, Integer> choiceMap = new HashMap<>();
 
@@ -119,24 +125,29 @@ public class MultipleChoiceCard extends FrontBackCard {
         }
         return false;
     }
+    //@author
 
     /**
      * Edits the front text of the MultipleChoiceCard.
      *
      * @param newText String of text to replace the front of MultipleChoiceCard.
      */
+    //@@author huiminlim
     public void editFront(String newText) {
         front = newText;
     }
+    //@author
 
     /**
      * Edits the back text of the MultipleChoiceCard.
      *
      * @param newText String of text to replace the back of MultipleChoiceCard.
      */
+    //@author huiminlim
     public void editBack(String newText) {
         back = newText;
     }
+    //@author
 
     /**
      * Edits one of string in choices, given new text and index.
@@ -145,18 +156,34 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @param newChoice String text of new choice option to replace current choice.
      * @throws IndexNotFoundException If index >= number of choices or < 0.
      */
+    //@author huiminlim
     public void editChoice(int index, String newChoice) throws IndexNotFoundException {
 
-        if (index < 0 || index > choices.size()) {
+        if (isNotValidChoice(index)) {
             throw new IndexNotFoundException("Choice index provided is invalid - " + index);
         }
         choices.add(index, newChoice);
         choices.remove(index + 1);
     }
+    //@author
+
+    /**
+     * Checks if the given choice arrayList index is valid.
+     * Valid choice index include >= 1 or less than choice size + 1.
+     *
+     * @param choiceIndex
+     * @return boolean true if not in valid range, false if in valid range.
+     */
+    //@author huiminlim
+    private boolean isNotValidChoice(int choiceIndex) {
+        return choiceIndex < 1 || choiceIndex > choices.size() + 1;
+    }
+    //@author
 
     /**
      * Shuffles the choices of choices and updates the index of correct answer.
      */
+    //@author huiminlim
     private void shuffleChoices() {
         // Obtain String of correct answer before sorting
         String correctAnswer = choices.get(answerIndex);
@@ -175,6 +202,7 @@ public class MultipleChoiceCard extends FrontBackCard {
             }
         }
     }
+    //@author
 
     /**
      * Get the String text of choice given the index of the choice.
@@ -183,29 +211,34 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @return String of text of targeted option.
      * @throws IndexNotFoundException If index >= number of choices or < 0.
      */
+    //@author huiminlim
     public String getChoice(int index) throws IndexNotFoundException {
-        if (index < 0 || index > choices.size()) {
+        if (isNotValidChoice(index)) {
             throw new IndexNotFoundException("Choice index provided is invalid - " + index);
         }
         return choices.get(index);
     }
+    //@author
 
     /**
      * Get the String of front of MultipleChoiceCard.
      *
      * @return String of text in front of MultipleChoiceCard.
      */
+    //@author huiminlim
     public String getFront() {
         return front;
     }
+    //@author
 
     /**
      * Get the String of back of MultipleChoiceCard.
      *
      * @return String of text in back of MultipleChoiceCard.
      */
+    //@author huiminlim
     public String getBack() {
         return back;
     }
+    //@author
 }
-//@author

@@ -1,5 +1,7 @@
 package dream.fcard.model;
 
+//@author huiminlim
+
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -19,3 +21,4 @@ class StateTest {
     }
 
 }
+//@author
