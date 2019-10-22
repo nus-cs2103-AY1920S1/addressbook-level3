@@ -208,6 +208,74 @@ in local storage when the command finishes executing.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
 
+=== Quiz mode for revision
+==== Implementation
+
+The quiz mode feature is facilitated by `Model`.
+The quiz-related commands extend `Command` with specific question object.
+The commands update the `Model` which is implemented by `ModelManager`.
+This in turn updates `AppData` which stores filtered specific questions internally as `QuizQuestionList`.
+Local data will be updated in the end by `LogicManager`.
+The commands include:
+
+* `QuizModeCommand` -- Enters the quiz mode with questions selected by user.
+* `QuizCheckAnswer` -- Checks the correctness of answer entered by user.
+* `QuizShowAnswerCommand` -- Shows the answer for current question.
+* `QuitQuizModeCommand` -- Quits the quiz mode.
+
+These operations are exposed in the `Model` interface as `Model#getQuizQuestions(int numOfQuestions, Subject subject
+Difficulty difficulty)`, `Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`,
+`Model#showQuizAnswer(int index)`, `Model#getFilteredQuizQuestionList()`, `Model#getFilteredQuizResultList()`,
+`Model#checkQuizAnswer(int index, Answer answer)`, `Model#addQuizResult(QuizResult quizResult)`,
+`Model#getFilteredQuizResultList()` and `Model#clearQuizQuestionList()` respectively.
+
+Given below is an example usage scenario and how the question mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The app will load all existing information from storage.
+
+Step 2. The user executes `quiz n/NUMBER OF QUESTIONS d/DIFFICULTY s/SUBJECT` command to enter quiz mode of the app.
+The `quiz` command calls `Model#getQuizQuestions(int numOfQuestions, Subject subject Difficulty difficulty)` and
+`Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`, causing the `AppData` to be updated with
+a list of specific question selected by user for quiz.
+
+Step 3. The user executes `INDEX:ANSWER` to answer the question. It calls `Model#checkQuizAnswer(int index,
+Answer answer)` and `Model#addQuizResult(QuizResult quizResult)`, causing the `AppData` to be updated with the result
+of the answer.
+
+Step 4. The user executes `show 2` command to show the answer of 2nd quiz question in the app. The `show` command calls
+`Model#showQuizAnswer(int index)`, causing the `AppData` to display the answer on the Ui.
+
+Step 5. The user executes `quit` command to exit from the quiz mode. The `quit` command calls
+`Model#clearQuizQuestionList()`, causing the `AppData` to clear all quiz question list and return to normal mode.
+
+The following sequence diagram shows how the `quiz` operation works:
+
+image::QuizModeSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command for quiz:
+
+image::QuizModeActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to store the quiz results
+* **Alternative 1 (current choice):** Update the internal storage `QuizResultList` in `AppData` first, then save the
+updated appData in local storage when the command finishes executing.
+** Pros: Easy to implement.
+** Cons: Need the extra step to ensure that the internal list is correctly maintained.
+* **Alternative 2:** Update the local storage directly when the command is executing.
+** Pros: No need to implement the internal list.
+** Cons: Will access local memory more frequently. May have performance issues in terms of memory usage.
+
+===== Aspect: Data structure to support the quiz commands
+* **Alternative 1 (current choice):** Use `QuizQuestionList` and `QuizResultList` to store data in `AppData`.
+** Pros: Cater to the quiz model specifically. Quiz question and result list operations are encapsulated in one class.
+** Cons: Logic is duplicated as other models also implement similar list structure.
+* **Alternative 2:** Use Java list to store the quiz questions and results.
+** Pros: Do not need to maintain a separate list class.
+** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
+list operations.
+
 === Add revision task
 ==== Implementation
 `AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `radd`. It extends `Command` class and adds a
