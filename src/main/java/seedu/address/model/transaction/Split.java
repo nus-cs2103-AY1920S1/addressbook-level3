@@ -15,16 +15,12 @@ import seedu.address.model.util.Date;
  */
 public class Split extends Transaction implements UndoableAction, LedgerOperation {
 
-    private final Amount amount;
-    private final Date date;
     private final List<Amount> splitAmounts;
     private final UniquePersonList peopleInvolved;
 
     public Split(Amount amount, Date date, List<Integer> shares, UniquePersonList people) {
         super(amount, date);
         requireAllNonNull(amount, date, shares, people);
-        this.amount = amount;
-        this.date = date;
         this.peopleInvolved = people;
         int denominator = shares.stream().mapToInt(i -> i).sum();
         List<Amount> amounts = shares.stream()
@@ -69,7 +65,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
                 peopleInLedger.add(person);
             }
             balance = balance.subtractAmount(expenditure);
-            person.handleExpense(expenditure);
+            person.spend(expenditure);
         }
         return balance;
     }

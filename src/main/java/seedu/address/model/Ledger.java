@@ -3,8 +3,8 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.Split;
-import seedu.address.model.transaction.Transaction;
 
 import java.util.Comparator;
 
@@ -30,12 +30,12 @@ public class Ledger implements ReadOnlyLedger{
     }
 
     @Override
-    public ObservableList<Transaction> getLoanHistory() {
+    public ObservableList<LedgerOperation> getLoanHistory() {
         return null;
     }
 
     @Override
-    public ObservableList<Transaction> getSortedLoanHistory(Comparator<Transaction> t) {
+    public ObservableList<LedgerOperation> getSortedLoanHistory(Comparator<LedgerOperation> t) {
         return null;
     }
 

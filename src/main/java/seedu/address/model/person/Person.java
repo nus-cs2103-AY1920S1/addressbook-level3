@@ -95,8 +95,12 @@ public class Person {
     /**
      * @param amount amount of money spent in {@link Split}
      */
-    public void handleExpense(Amount amount) {
+    public void spend(Amount amount) {
         balance = balance.subtractAmount(amount);
+    }
+
+    public void receive(Amount amount) {
+        balance = balance.addAmount(amount);
     }
 
 

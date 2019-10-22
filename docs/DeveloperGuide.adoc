@@ -303,9 +303,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |visual person | see how much budget I have left in each category |cut down on spending as necessary
 
-|`* * *` |student with many friends |split the bill with my friends |know how much I should pay for a meal
+|`* * *` |student with many friends |split the bill with my friends |know how much I should payment for a meal
 
-|`* * *` |student who forgets to pay his debt on time |be reminded to pay my debt before the deadline |stop incurring interests
+|`* * *` |student who forgets to payment his debt on time |be reminded to payment my debt before the deadline |stop incurring interests
 
 |`* *` |patriotic Singaporean who travels to JB often |easily calculate how much Ringgit to bring |enjoy my holiday with insufficient money
 
