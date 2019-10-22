@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class CommandResult {
 
-    protected final String pane;
+    protected String pane;
     
     protected final String feedbackToUser;
 
