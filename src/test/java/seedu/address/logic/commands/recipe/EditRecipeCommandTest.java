@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.recipe.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -162,7 +161,7 @@ public class EditRecipeCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearRecipeCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditRecipeCommand(INDEX_SECOND_RECIPE, DESC_FISH)));

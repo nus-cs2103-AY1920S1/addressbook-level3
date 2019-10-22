@@ -6,8 +6,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.dashboard.AddTaskCommand;
@@ -40,13 +45,6 @@ import seedu.address.logic.parser.diary.DeleteDiaryCommandParser;
 import seedu.address.logic.parser.diary.DeletePageCommandParser;
 import seedu.address.logic.parser.diary.EditDiaryCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.exercise.AddExerciseCommandParser;
-import seedu.address.logic.parser.exercise.DeleteExerciseCommandParser;
-import seedu.address.logic.parser.exercise.EditExerciseCommandParser;
-import seedu.address.logic.parser.exercise.FindExerciseCommandParser;
-import seedu.address.logic.parser.health.AddHealthCommandParser;
-import seedu.address.logic.parser.profile.AddProfileCommandParser;
-import seedu.address.logic.parser.profile.EditProfileCommandParser;
 
 /**
  * Parses user input.
@@ -75,35 +73,23 @@ public class DukeCooksParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddExerciseCommand.COMMAND_WORD:
-            return new AddExerciseCommandParser().parse(arguments);
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
-        case EditExerciseCommand.COMMAND_WORD:
-            return new EditExerciseCommandParser().parse(arguments);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommandParser().parse(arguments);
 
-        case AddProfileCommand.COMMAND_WORD:
-            return new AddProfileCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
-        case DeleteExerciseCommand.COMMAND_WORD:
-            return new DeleteExerciseCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
-        case EditProfileCommand.COMMAND_WORD:
-            return new EditProfileCommandParser().parse(arguments);
-
-        case ClearExerciseCommand.COMMAND_WORD:
-            return new ClearExerciseCommand();
-
-        case FindExerciseCommand.COMMAND_WORD:
-            return new FindExerciseCommandParser().parse(arguments);
-
-        case AddHealthCommand.COMMAND_WORD:
-            return new AddHealthCommandParser().parse(arguments);
-
-        case ListExerciseCommand.COMMAND_WORD:
-            return new ListExerciseCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -113,21 +99,6 @@ public class DukeCooksParser {
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommand();
-
-        case AddDiaryCommand.COMMAND_WORD:
-            return new AddDiaryCommandParser().parse(arguments);
-
-        case EditDiaryCommand.COMMAND_WORD:
-            return new EditDiaryCommandParser().parse(arguments);
-
-        case DeleteDiaryCommand.COMMAND_WORD:
-            return new DeleteDiaryCommandParser().parse(arguments);
-
-        case AddPageCommand.COMMAND_WORD:
-            return new AddPageCommandParser().parse(arguments);
-
-        case DeletePageCommand.COMMAND_WORD:
-            return new DeletePageCommandParser().parse(arguments);
 
         case AddTaskCommand.COMMAND_WORD:
              return new AddTaskCommandParser().parse(arguments);

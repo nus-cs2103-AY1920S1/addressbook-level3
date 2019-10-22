@@ -13,16 +13,18 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.exercise.ClearExerciseCommand;
+import seedu.address.logic.commands.exercise.ListExerciseCommand;
 import seedu.address.logic.commands.profile.EditProfileCommand;
 import seedu.address.logic.commands.recipe.AddRecipeCommand;
+import seedu.address.logic.commands.recipe.ClearRecipeCommand;
 import seedu.address.logic.commands.recipe.DeleteRecipeCommand;
 import seedu.address.logic.commands.recipe.EditRecipeCommand;
 import seedu.address.logic.commands.recipe.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.logic.commands.recipe.FindRecipeCommand;
+import seedu.address.logic.commands.recipe.ListRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.person.Person;
 import seedu.address.model.recipe.components.Recipe;
@@ -46,9 +48,21 @@ public class DukeCooksParserTest {
     }
 
     @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    public void parseCommand_clearExercise() throws Exception {
+        assertTrue(parser.parseCommand(ClearExerciseCommand.COMMAND_WORD
+                + " " + ClearExerciseCommand.VARIANT_WORD) instanceof ClearExerciseCommand);
+        assertTrue(parser.parseCommand(ClearExerciseCommand.COMMAND_WORD
+                + " " + ClearExerciseCommand.VARIANT_WORD
+                + " 3") instanceof ClearExerciseCommand);
+    }
+
+    @Test
+    public void parseCommand_clearRecipe() throws Exception {
+        assertTrue(parser.parseCommand(ClearRecipeCommand.COMMAND_WORD
+                + " " + ClearRecipeCommand.VARIANT_WORD) instanceof ClearRecipeCommand);
+        assertTrue(parser.parseCommand(ClearRecipeCommand.COMMAND_WORD
+                + " " + ClearRecipeCommand.VARIANT_WORD
+                + " 3") instanceof ClearRecipeCommand);
     }
 
     @Test
@@ -60,10 +74,11 @@ public class DukeCooksParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_editProfile() throws Exception {
         Person person = new PersonBuilder().build();
         EditProfileCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditProfileCommand command = (EditProfileCommand) parser.parseCommand(EditProfileCommand.COMMAND_WORD
+                + " " + EditProfileCommand.VARIANT_WORD
                 + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditProfileCommand(descriptor), command);
     }
@@ -73,7 +88,7 @@ public class DukeCooksParserTest {
         Recipe recipe = new RecipeBuilder().build();
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(recipe).build();
         EditRecipeCommand command = (EditRecipeCommand) parser.parseCommand(EditRecipeCommand.COMMAND_WORD
-                + " " + DeleteRecipeCommand.VARIANT_WORD + " " + INDEX_FIRST_RECIPE.getOneBased() + " "
+                + " " + EditRecipeCommand.VARIANT_WORD + " " + INDEX_FIRST_RECIPE.getOneBased() + " "
                 + RecipeUtil.getEditRecipeDescriptorDetails(descriptor));
         assertEquals(new EditRecipeCommand(INDEX_FIRST_RECIPE, descriptor), command);
     }
@@ -100,15 +115,19 @@ public class DukeCooksParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    public void parseCommand_listExercise() throws Exception {
+        assertTrue(parser.parseCommand(ListExerciseCommand.COMMAND_WORD
+                + " " + ListExerciseCommand.VARIANT_WORD) instanceof ListExerciseCommand);
+        assertTrue(parser.parseCommand(ListExerciseCommand.COMMAND_WORD
+                + " " + ListExerciseCommand.VARIANT_WORD + " 3") instanceof ListExerciseCommand);
     }
 
     @Test
     public void parseCommand_listRecipe() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListRecipeCommand.COMMAND_WORD
+                + " " + ListRecipeCommand.VARIANT_WORD) instanceof ListRecipeCommand);
+        assertTrue(parser.parseCommand(ListRecipeCommand.COMMAND_WORD
+                + " " + ListRecipeCommand.VARIANT_WORD + " 3") instanceof ListRecipeCommand);
     }
 
     @Test

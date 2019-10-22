@@ -5,14 +5,20 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPL
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.BLOODTYPE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.CALORIES_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.CARBS_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.DOB_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.FATS_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.HEIGHT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.PROTEIN_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.exercise.TypicalExercises.PUSHUP;
 import static seedu.address.testutil.profile.TypicalProfiles.AMY;
+import static seedu.address.testutil.recipe.TypicalRecipes.FISH;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,10 +28,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exercise.ListExerciseCommand;
 import seedu.address.logic.commands.profile.AddProfileCommand;
+import seedu.address.logic.commands.recipe.AddRecipeCommand;
+import seedu.address.logic.commands.recipe.ListRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -33,10 +40,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.dashboard.ReadOnlyDashboard;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
-import seedu.address.model.exercise.components.Exercise;
 import seedu.address.model.profile.ReadOnlyUserProfile;
 import seedu.address.model.profile.person.Person;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;
+import seedu.address.model.recipe.components.Recipe;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.dashboard.JsonDashboardStorage;
@@ -45,8 +52,8 @@ import seedu.address.storage.exercise.JsonWorkoutPlannerStorage;
 import seedu.address.storage.health.JsonHealthRecordsStorage;
 import seedu.address.storage.profile.JsonUserProfileStorage;
 import seedu.address.storage.recipe.JsonRecipeBookStorage;
-import seedu.address.testutil.exercise.ExerciseBuilder;
 import seedu.address.testutil.profile.PersonBuilder;
+import seedu.address.testutil.recipe.RecipeBuilder;
 
 
 public class LogicManagerTest {
@@ -92,19 +99,19 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete exercise 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    public void execute_validRecipeCommand_success() throws Exception {
+        String listCommand = ListRecipeCommand.COMMAND_WORD + " " + ListRecipeCommand.VARIANT_WORD;
+        assertCommandSuccess(listCommand, ListRecipeCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
     public void execute_validExerciseCommand_success() throws Exception {
-        String listCommand = ListExerciseCommand.COMMAND_WORD;
+        String listCommand = ListExerciseCommand.COMMAND_WORD + " " + ListExerciseCommand.VARIANT_WORD;
         assertCommandSuccess(listCommand, ListExerciseCommand.MESSAGE_SUCCESS, model);
     }
 
@@ -135,21 +142,25 @@ public class LogicManagerTest {
                 .resolve("ioExceptionUserPrefs.json"));
         logic = new LogicManager(model, storage);
 
-        // Execute add command
-        //String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD + " " + NAME_DESC_FISH
-        //        + INGREDIENT_DESC_FISH + CALORIES_DESC_FISH + CARBS_DESC_FISH + FATS_DESC_FISH + PROTEIN_DESC_FISH;
-        //Recipe expectedRecipe = new RecipeBuilder(FISH).build();
-        String addCommand = AddProfileCommand.COMMAND_WORD + NAME_DESC_AMY + DOB_DESC + GENDER_DESC
-                + BLOODTYPE_DESC + HEIGHT_DESC + WEIGHT_DESC;
-        Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
-        Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
-                .withDetails(null, null, null, null, null, null)
-                .build();
+
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
-        //expectedModel.addRecipe(expectedRecipe);
-        expectedModel.addExercise(expectedExercise);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+
+        // Execute add command
+        String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD + " " + NAME_DESC_FISH
+                + INGREDIENT_DESC_FISH + CALORIES_DESC_FISH + CARBS_DESC_FISH + FATS_DESC_FISH + PROTEIN_DESC_FISH;
+        Recipe expectedRecipe = new RecipeBuilder(FISH).build();
+
+        expectedModel.addRecipe(expectedRecipe);
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+
+        addCommand = AddProfileCommand.COMMAND_WORD + " " + AddProfileCommand.VARIANT_WORD
+                + NAME_DESC_AMY + DOB_DESC + GENDER_DESC + BLOODTYPE_DESC + HEIGHT_DESC + WEIGHT_DESC;
+        Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
+        //Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
+        //       .withDetails(null, null, null, null, null, null)
+        //        .build();
+        expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 

@@ -66,47 +66,35 @@ public class EditExerciseCommandParser implements Parser<EditExerciseCommand> {
 
         Set<ExerciseDetail> exerciseDetails = new HashSet<>();
 
-        argMultimap.getValue(PREFIX_DISTANCE).ifPresent(value -> {
-            Distance distance;
-            try {
-                distance = WorkoutPlannerParserUtil.parseDistance(value);
-                exerciseDetails.add(distance);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        });
+        if (argMultimap.getValue(PREFIX_DISTANCE).isPresent()) {
+            Distance distance = WorkoutPlannerParserUtil.parseDistance(argMultimap
+                   .getValue(PREFIX_DISTANCE).get());
+            exerciseDetails.add(distance);
+        }
 
-        argMultimap.getValue(PREFIX_REPETITIONS).ifPresent(value -> {
-            Repetitions reps;
-            try {
-                reps = WorkoutPlannerParserUtil.parseRepetitions(value);
-                exerciseDetails.add(reps);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        });
+        if (argMultimap.getValue(PREFIX_REPETITIONS).isPresent()) {
+            Repetitions reps = WorkoutPlannerParserUtil.parseRepetitions(argMultimap
+                    .getValue(PREFIX_REPETITIONS).get());
+            exerciseDetails.add(reps);
+        }
 
-        argMultimap.getValue(PREFIX_SETS).ifPresent(value -> {
-            Sets sets;
-            try {
-                sets = WorkoutPlannerParserUtil.parseSets(value);
-                exerciseDetails.add(sets);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        });
+        if (argMultimap.getValue(PREFIX_SETS).isPresent()) {
+            Sets sets = WorkoutPlannerParserUtil.parseSets(argMultimap
+                    .getValue(PREFIX_SETS).get());
+            exerciseDetails.add(sets);
+        }
 
-        argMultimap.getValue(PREFIX_WEIGHT).ifPresent(value -> {
-            ExerciseWeight exerciseWeight;
-            try {
-                exerciseWeight = WorkoutPlannerParserUtil.parseWeight(value);
-                exerciseDetails.add(exerciseWeight);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        });
+        if (argMultimap.getValue(PREFIX_WEIGHT).isPresent()) {
+            ExerciseWeight weight = WorkoutPlannerParserUtil.parseWeight(argMultimap
+                    .getValue(PREFIX_WEIGHT).get());
+            exerciseDetails.add(weight);
+        }
 
-        editExerciseDescriptor.setExerciseDetails(exerciseDetails);
+        if (exerciseDetails.isEmpty()) {
+            editExerciseDescriptor.setExerciseDetails(null);
+        } else {
+            editExerciseDescriptor.setExerciseDetails(exerciseDetails);
+        }
 
         if (!editExerciseDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditExerciseCommand.MESSAGE_NOT_EDITED);

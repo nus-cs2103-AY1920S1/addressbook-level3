@@ -8,6 +8,8 @@ import static seedu.address.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exercise.ListExerciseCommand;
+import seedu.address.logic.commands.recipe.ListRecipeCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -27,13 +29,18 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    public void execute_recipeListIsNotFiltered_showsSameList() {
+        assertCommandSuccess(new ListRecipeCommand(), model, ListRecipeCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    public void execute_exerciseListIsNotFiltered_showsSameList() {
+        assertCommandSuccess(new ListExerciseCommand(), model, ListExerciseCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_recipeListIsFiltered_showsEverything() {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListRecipeCommand(), model, ListRecipeCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

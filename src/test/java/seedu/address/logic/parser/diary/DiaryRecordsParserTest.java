@@ -36,7 +36,8 @@ public class DiaryRecordsParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteDiaryCommand command = (DeleteDiaryCommand) parser.parseCommand(
-                DeleteDiaryCommand.COMMAND_WORD + " " + INDEX_FIRST_DIARY.getOneBased());
+                DeleteDiaryCommand.COMMAND_WORD + " " + DeleteDiaryCommand.VARIANT_WORD
+                        + " " + INDEX_FIRST_DIARY.getOneBased());
         assertEquals(new DeleteDiaryCommand(INDEX_FIRST_DIARY), command);
     }
 
@@ -44,8 +45,9 @@ public class DiaryRecordsParserTest {
     public void parseCommand_edit() throws Exception {
         Diary diary = new DiaryBuilder().build();
         EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder(diary).build();
-        EditDiaryCommand command = (EditDiaryCommand) parser.parseCommand(EditDiaryCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_DIARY.getOneBased() + " " + DiaryUtil.getEditDiaryDescriptorDetails(descriptor));
+        EditDiaryCommand command = (EditDiaryCommand) parser.parseCommand(EditDiaryCommand.COMMAND_WORD
+                + " " + EditDiaryCommand.VARIANT_WORD
+                + " " + INDEX_FIRST_DIARY.getOneBased() + " " + DiaryUtil.getEditDiaryDescriptorDetails(descriptor));
         assertEquals(new EditDiaryCommand(INDEX_FIRST_DIARY, descriptor), command);
     }
 
