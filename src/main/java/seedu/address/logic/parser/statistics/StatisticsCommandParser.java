@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -116,8 +118,10 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
                 }
             }
             file.close();
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             throw new ParseException(MESSAGE_FILE_NOT_FOUND);
+        } catch (IOException e) {
+            throw new ParseException("Error generating statistics");
         }
     }
 

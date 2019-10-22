@@ -19,7 +19,6 @@ public class StatisticsAddCommand extends StatisticsCommand {
             + "Example: statistics method/auto file/C:\\Users\\MyUser\\Desktop\\SampleData.xlsx\n";
 
     public static final String MESSAGE_SUCCESS = "Statistics Generated";
-    public static final String MESSAGE_DUPLICATE_STATISTICS = "This statistics already been generated";
 
     private final Statistics toAdd;
     /**
