@@ -104,6 +104,11 @@ public interface Model {
     void setFoods(List<Food> list);
 
     /**
+     * Gets back the original list.
+     */
+    ObservableList<Food> getFoods();
+
+    /**
      * Simply sets the auto-sort flag.
      * @param autoSortFlag the auto-sort flag.
      */

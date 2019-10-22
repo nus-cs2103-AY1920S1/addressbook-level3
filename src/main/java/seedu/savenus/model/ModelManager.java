@@ -180,6 +180,11 @@ public class ModelManager implements Model {
         menu.setFoods(list);
     }
 
+    @Override
+    public ObservableList<Food> getFoods() {
+        return menu.getFoodList();
+    }
+
     //=========== PurchaseHistory Methods =========================================================================
 
     @Override

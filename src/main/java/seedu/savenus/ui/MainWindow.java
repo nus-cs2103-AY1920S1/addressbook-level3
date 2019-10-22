@@ -234,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
             foodListPanel.updateFoodList(logic.getFilteredFoodList());
 
             if (logic.getAutoSortFlag()) {
-                ObservableList<Food> foodList = logic.getFilteredFoodList();
+                ObservableList<Food> foodList = logic.getFoods();
                 SortedList<Food> sortedList = foodList.sorted(logic.getCustomSorter().getComparator());
                 logic.setFoods(sortedList);
             }
