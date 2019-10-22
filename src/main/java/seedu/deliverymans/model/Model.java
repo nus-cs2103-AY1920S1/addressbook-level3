@@ -1,6 +1,7 @@
 package seedu.deliverymans.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -296,6 +297,16 @@ public interface Model {
      * The customer must exist in the address book.
      */
     void deleteDeliveryman(Deliveryman target);
+
+    /**
+     * Returns a list of all the currently available deliverymen.
+     */
+    List<Deliveryman> listAvailableDeliverymen();
+
+    /**
+     * Returns a list of all the currently unavailable deliverymen.
+     */
+    void listUnavailableDeliverymen();
 
     /**
      * Replaces the given deliveryman {@code target} with {@code editedDeliveryman}.

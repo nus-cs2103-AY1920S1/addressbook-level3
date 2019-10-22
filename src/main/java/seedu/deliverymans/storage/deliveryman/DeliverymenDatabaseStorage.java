@@ -6,10 +6,9 @@ import java.util.Optional;
 
 import seedu.deliverymans.commons.exceptions.DataConversionException;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 
 /**
- * Represents a storage for {@link seedu.deliverymans.model.database.RestaurantDatabase}.
+ * Represents a storage for {@link seedu.deliverymans.model.database.DeliverymenDatabase}.
  */
 public interface DeliverymenDatabaseStorage {
 
@@ -19,7 +18,7 @@ public interface DeliverymenDatabaseStorage {
     Path getDeliverymenDatabaseFilePath();
 
     /**
-     * Returns RestaurantDatabase data as a {@link ReadOnlyRestaurantDatabase}.
+     * Returns DeliverymenDatabase data as a {@link ReadOnlyDeliverymenDatabase}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -33,11 +32,11 @@ public interface DeliverymenDatabaseStorage {
             throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyRestaurantDatabase} to the storage.
-     * @param restaurantDatabase cannot be null.
+     * Saves the given {@link ReadOnlyDeliverymenDatabase} to the storage.
+     * @param deliverymenDatabase cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveDeliverymenDatabase(ReadOnlyDeliverymenDatabase restaurantDatabase) throws IOException;
+    void saveDeliverymenDatabase(ReadOnlyDeliverymenDatabase deliverymenDatabase) throws IOException;
 
     /**
      * @see #saveDeliverymenDatabase(ReadOnlyDeliverymenDatabase)

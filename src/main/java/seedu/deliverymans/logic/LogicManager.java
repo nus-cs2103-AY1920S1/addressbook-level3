@@ -53,6 +53,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveRestaurantDatabase(model.getRestaurantDatabase());
+            storage.saveDeliverymenDatabase(model.getDeliverymenDatabase());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -81,6 +82,7 @@ public class LogicManager implements Logic {
     public ObservableList<Customer> getFilteredCustomerList() {
         return model.getFilteredCustomerList();
     }
+
     //=========== Deliveryman =============================================================
     @Override
     public ReadOnlyDeliverymenDatabase getDeliverymenDatabase() {
@@ -96,6 +98,7 @@ public class LogicManager implements Logic {
     public Path getDeliverymenDatabaseFilePath() {
         return model.getDeliverymenDatabaseFilePath();
     }
+
     //=========== Restaurant =============================================================
     @Override
     public ReadOnlyRestaurantDatabase getRestaurantDatabase() {
@@ -142,4 +145,5 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
 }
