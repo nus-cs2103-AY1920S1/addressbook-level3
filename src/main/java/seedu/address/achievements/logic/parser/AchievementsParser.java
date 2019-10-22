@@ -11,7 +11,7 @@ import seedu.address.achievements.logic.commands.HelpCommand;
 import seedu.address.achievements.model.StatisticsModel;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.main.logic.commands.Command;
+import seedu.address.logic.commands.Command;
 
 /**
  * Parses user input.

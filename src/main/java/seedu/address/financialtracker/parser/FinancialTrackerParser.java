@@ -12,7 +12,7 @@ import seedu.address.financialtracker.commands.DeleteFinCommand;
 import seedu.address.financialtracker.commands.ExitCommand;
 import seedu.address.financialtracker.commands.SummaryCommand;
 import seedu.address.logic.commands.GoToCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

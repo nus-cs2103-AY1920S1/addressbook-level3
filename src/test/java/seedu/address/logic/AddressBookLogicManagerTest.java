@@ -18,22 +18,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.address.logic.AddressBookLogicManager;
+import seedu.address.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBookModel;
-import seedu.address.model.AddressBookModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.AddressBookModelManager;
+import seedu.address.address.model.ReadOnlyAddressBook;
+import seedu.address.address.model.person.Person;
+import seedu.address.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.main.model.UserPrefs;
-import seedu.address.main.model.UserPrefsModel;
-import seedu.address.main.model.UserPrefsModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.UserPrefsModel;
+import seedu.address.model.UserPrefsModelManager;
 
 public class AddressBookLogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

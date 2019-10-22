@@ -2,7 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.AddressBookModel;
+import seedu.address.address.logic.commands.Command;
+import seedu.address.address.model.AddressBookModel;
 
 /**
  * Switch to financial tracker window command.

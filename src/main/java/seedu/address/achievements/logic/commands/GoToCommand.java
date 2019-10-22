@@ -4,7 +4,7 @@ import seedu.address.achievements.model.StatisticsModel;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
-import seedu.address.main.logic.commands.Command;
+import seedu.address.logic.commands.Command;
 
 /**
  * GoTo a specific page with user input entered by the user.
