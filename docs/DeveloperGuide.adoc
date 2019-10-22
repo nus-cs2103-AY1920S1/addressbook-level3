@@ -16,6 +16,16 @@ endif::[]
 
 By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
 
+== Introduction
+
+Welcome to Mark. This developer guide aims to introduce potential developers to the structure and implementation of Mark,
+so that you can contribute too!
+
+The guide first covers the high-level design of Mark, and then discusses the implementation of key features and the
+rationale behind certain design decisions. Next, it provides links to guides for the tools used in Documentation, Testing,
+and DevOps. Finally, the appendices of this guide specify the product scope, requirements, a glossary, and instructions for
+manual testing.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
