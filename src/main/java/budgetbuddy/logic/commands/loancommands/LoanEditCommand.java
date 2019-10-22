@@ -68,7 +68,7 @@ public class LoanEditCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedLoan));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedLoan), null);
     }
 
     /**

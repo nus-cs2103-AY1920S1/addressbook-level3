@@ -50,7 +50,7 @@ public class AccountDeleteCommand extends Command {
         Account accountToDelete = lastShownList.get(targetIndex.getZeroBased());
         accountsManager.deleteAccount(accountToDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete), null);
     }
 
     @Override

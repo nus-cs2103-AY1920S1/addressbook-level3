@@ -36,7 +36,7 @@ public class AccountAddCommand extends Command {
         requireAllNonNull(model, model.getAccountsManager());
 
         model.getAccountsManager().addAccount(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), null);
     }
 
     @Override

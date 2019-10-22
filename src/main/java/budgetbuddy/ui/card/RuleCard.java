@@ -1,10 +1,11 @@
-package budgetbuddy.ui;
+package budgetbuddy.ui.card;
 
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
 import budgetbuddy.model.rule.expression.ActionExpression;
 import budgetbuddy.model.rule.expression.PredicateExpression;
+import budgetbuddy.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -16,7 +17,7 @@ import javafx.scene.layout.Region;
  */
 public class RuleCard extends UiPart<Region> {
 
-    private static final String FXML = "RuleListCard.fxml";
+    private static final String FXML = "RuleCard.fxml";
 
     public final Rule rule;
 

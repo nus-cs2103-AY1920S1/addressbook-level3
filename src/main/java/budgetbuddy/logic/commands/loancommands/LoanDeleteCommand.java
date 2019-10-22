@@ -43,7 +43,7 @@ public class LoanDeleteCommand extends MultiLoanCommand {
         actOnTargetLoans(targetLoanIndices, deleteLoanOp);
 
         String resultMessage = constructMultiLoanResult(MESSAGE_SUCCESS);
-        return new CommandResult(resultMessage);
+        return new CommandResult(resultMessage, null);
     }
 
     @Override

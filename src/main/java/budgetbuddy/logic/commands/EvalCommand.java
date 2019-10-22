@@ -28,9 +28,9 @@ public class EvalCommand extends Command {
         try {
             Object result = scriptManager.evaluateScript(script);
             if (result == null) {
-                return new CommandResult(MESSAGE_NO_RESULT);
+                return new CommandResult(MESSAGE_NO_RESULT, null);
             } else {
-                return new CommandResult(result.toString());
+                return new CommandResult(result.toString(), null);
             }
         } catch (ScriptException se) {
             throw new CommandException(String.format(MESSAGE_SCRIPT_EXCEPTION, se.getMessage()), se);

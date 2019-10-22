@@ -38,7 +38,7 @@ public class LoanUnpaidCommand extends UpdateStatusCommand {
         updateStatuses(model.getLoansManager(), Status.UNPAID);
 
         String result = constructMultiLoanResult(MESSAGE_SUCCESS);
-        return new CommandResult(result);
+        return new CommandResult(result, null);
     }
 
     @Override

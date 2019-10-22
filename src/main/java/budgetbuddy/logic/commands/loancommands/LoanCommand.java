@@ -48,7 +48,7 @@ public class LoanCommand extends Command {
         requireAllNonNull(model, model.getLoansManager());
 
         model.getLoansManager().addLoan(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), null);
     }
 
     @Override

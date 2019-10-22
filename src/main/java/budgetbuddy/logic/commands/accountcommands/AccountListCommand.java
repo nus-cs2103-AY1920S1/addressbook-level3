@@ -31,6 +31,6 @@ public class AccountListCommand extends Command {
             builder.append(i + 1).append(". ").append(account.getName().toString()).append("\n");
         }
 
-        return new CommandResult(builder.toString());
+        return new CommandResult(builder.toString(), null);
     }
 }

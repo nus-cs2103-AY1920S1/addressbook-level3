@@ -1,26 +1,26 @@
-package budgetbuddy.ui;
+package budgetbuddy.ui.panel;
 
 import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.rule.Rule;
+import budgetbuddy.ui.card.RuleCard;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 
 /**
  * Panel containing the list of rules.
  */
-public class RuleListPanel extends UiPart<Region> {
-    private static final String FXML = "RuleListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(RuleListPanel.class);
+public class RulePanel extends ListPanel {
+    private static final String FXML = "RulePanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(RulePanel.class);
 
     @FXML
     private ListView<Rule> ruleListView;
 
-    public RuleListPanel(ObservableList<Rule> ruleList) {
+    public RulePanel(ObservableList<Rule> ruleList) {
         super(FXML);
         ruleListView.setItems(ruleList);
         ruleListView.setCellFactory(listView -> new RuleListViewCell());
@@ -42,5 +42,4 @@ public class RuleListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

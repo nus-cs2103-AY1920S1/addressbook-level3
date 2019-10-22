@@ -42,6 +42,6 @@ public class LoanListCommand extends Command {
             builder.append(loans.get(i)).append("\n");
         }
 
-        return new CommandResult(builder.toString());
+        return new CommandResult(builder.toString(), null);
     }
 }

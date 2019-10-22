@@ -10,6 +10,7 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.rule.Rule;
+import budgetbuddy.ui.panel.RulePanel;
 
 /**
  * Adds a rule to budget buddy.
@@ -49,6 +50,6 @@ public class RuleAddCommand extends Command {
         }
 
         ruleManager.addRule(rule);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, rule));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, rule), RulePanel.class);
     }
 }

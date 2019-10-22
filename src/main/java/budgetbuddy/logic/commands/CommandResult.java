@@ -4,12 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import budgetbuddy.ui.panel.ListPanel;
+
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
 
     private final String feedbackToUser;
+
+    private final Class<? extends ListPanel> panelClass;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -20,22 +24,29 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser,
+                         Class<? extends ListPanel> panelClass, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        // todo: add requireNonNull on panelClass after every command has set their panelClass
+        this.panelClass = panelClass;
         this.showHelp = showHelp;
         this.exit = exit;
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code panelClass},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, Class<? extends ListPanel> panelClass) {
+        this(feedbackToUser, panelClass, false, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public Class<? extends ListPanel> getPanelClass() {
+        return panelClass;
     }
 
     public boolean isShowHelp() {

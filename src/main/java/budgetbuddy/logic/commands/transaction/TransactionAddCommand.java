@@ -64,6 +64,6 @@ public class TransactionAddCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), null);
     }
 }
