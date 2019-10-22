@@ -69,6 +69,16 @@ public class Student {
         return Collections.unmodifiableSet(ret);
     }
 
+    public int getNumberOfMods() {
+        int count = 0;
+        for (Tag tag : tags) {
+            if (tag.type.equals("module")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public Set<Tag> getCurrentAppeals() {
         Set<Tag> ret = new HashSet<>();
         for (Tag tag : tags) {
