@@ -23,7 +23,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.visit.BeginVisitCommand;
 import seedu.address.logic.commands.visit.CancelOngoingVisitCommand;
 import seedu.address.logic.commands.visit.FinishOngoingVisitCommand;
-import seedu.address.logic.commands.visit.ShowOngoingVisitCommand;
 import seedu.address.logic.commands.visit.UpdateOngoingVisitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.visit.BeginVisitCommandParser;
@@ -97,9 +96,6 @@ public class AddressBookParser {
 
         case FinishOngoingVisitCommand.COMMAND_WORD:
             return new FinishOngoingVisitCommand();
-
-        case ShowOngoingVisitCommand.COMMAND_WORD:
-            return new ShowOngoingVisitCommand();
 
         case UpdateOngoingVisitCommand.COMMAND_WORD:
             return new UpdateOngoingVisitCommandParser().parse(arguments);
