@@ -154,4 +154,7 @@ public interface Model {
 
     List<Book> getBorrowerBooks();
 
+    Borrower getBorrowerFromId(BorrowerId borrowerId);
+
+    void setBorrower(Borrower borrowerToEdit, Borrower editedBorrower);
 }

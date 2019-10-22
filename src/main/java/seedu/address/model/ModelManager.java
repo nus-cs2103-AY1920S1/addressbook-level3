@@ -324,4 +324,9 @@ public class ModelManager implements Model {
                 .map(sn -> catalog.getBook(sn))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Borrower getBorrowerFromId(BorrowerId borrowerId) {
+        return borrowerRecords.getBorrowerFromId(borrowerId);
+    }
 }
