@@ -52,6 +52,7 @@ For all use cases:
 
 * System: guiltTrip()
 * Actor: User
+
 ==== Use Case 01: View History
 
 ===== MSS
@@ -68,6 +69,7 @@ Use case ends.
 . 3a. The given index is invalid.
 .. 3a1. guiltTrip() shows an error message.
 Use case resumes at step 2
+
 ==== Use Case 02: Add Expense
 
 ===== MSS
@@ -77,6 +79,7 @@ Use Case: user adds an expense
 . User adds an expense.
 . GuiltTrip creates an expense entry.
 . GuiltTrip informs user that the expense have been created.
+
 ==== Use Case 03: Change the details of an existing Expense Entry
 
 ===== MSS

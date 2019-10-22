@@ -123,6 +123,9 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses {@code String panelNamee} into a {@code PanelName}.
+     */
     public static PanelName parsePanelName(String panelName) throws ParseException {
         requireNonNull(panelName);
         String trimmedPanelName = panelName.trim();

@@ -89,7 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setExpenseTrackers(List<ExpenseTracker> trackers) {
         this.expenseTrackers.setEntries(trackers);
     }
-    
+
     public void setWishReminders(List<WishReminder> wishReminders) {
         this.wishReminders.setEntries(wishReminders);
     }

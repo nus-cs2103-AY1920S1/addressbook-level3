@@ -207,7 +207,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Toggles the isVisible and isManaged property of the specified place holder.
+     * Toggles the isVisible and isManaged properties of the specified place holder.
      * @param placeHolder specified place holder to be toggled.
      */
     private void togglePlaceHolder(VBox placeHolder) {
@@ -217,6 +217,11 @@ public class MainWindow extends UiPart<Stage> {
         placeHolder.setVisible(!isVisible);
     }
 
+    /**
+     * Sets both the isVisible and isManaged properties the side panel place holder to false if none of the side panels
+     * are visible and managed.
+     * Otherwise, both of those properties are set to true.
+     */
     private void toggleEntireSidePanelIfNecessary() {
         if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()) {
             sidePanelsPlaceHolder.setManaged(false);
