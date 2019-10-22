@@ -25,7 +25,7 @@ import seedu.address.model.expense.Expense;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(),new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

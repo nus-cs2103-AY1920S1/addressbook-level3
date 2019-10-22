@@ -32,7 +32,7 @@ public class AddBudgetCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New budget added: %1$s";
     public static final String MESSAGE_DUPLICATE_BUDGET = "This budget already exists in the budget list";
-    public static final String MESSAGE_BUDGET_CLASH = "This budget period clashes with another budget in the budget list";
+    public static final String MESSAGE_BUDGET_CLASH = "This budget period clashes with another budget";
     public static final String MESSAGE_START_BEFORE_END = "The budget end date has to be after its start date";
 
     private final Budget toAdd;

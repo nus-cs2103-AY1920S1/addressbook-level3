@@ -2,8 +2,6 @@ package seedu.address.model.budget;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.Objects;
 
 import seedu.address.model.ExpenseList;
@@ -11,7 +9,6 @@ import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents an expense in the expense list.
@@ -26,7 +23,7 @@ public class Budget {
     private final Date startDate;
     private final Date endDate;
     private final Amount amount;
-    private  Amount amountLeft;
+    private Amount amountLeft;
 
     // Expense List
     private final ExpenseList expenseList;
@@ -64,8 +61,14 @@ public class Budget {
         return endDate;
     }
 
-    public ExpenseList getExpenseList() { return expenseList; }
+    public ExpenseList getExpenseList() {
+        return expenseList;
+    }
 
+    /**
+     * Adds an expense into the expenselist inside the budget.
+     * @param expense an expense to be added into a budget.
+     */
     public void addExpenseIntoBudget(Expense expense) {
         expenseList.addExpense(expense);
         recalculateAmountLeft();
@@ -75,10 +78,19 @@ public class Budget {
         return expenseList.hasExpense(expense);
     }
 
+    /**
+     * Checks whether a given date falls within any budget period.
+     * @param date a valid date.
+     * @return a boolean value.
+     */
     public boolean isDateWithinBudgetPeriod(Date date) {
         return !date.localDate.isBefore(startDate.localDate) && !date.localDate.isAfter(endDate.localDate);
     }
 
+    /**
+     * Recalculates the amountLeft in budget after an expense is added into the budget.
+     * This is to prevent accidental amendments directly in the data file to result in wrong amount left.
+     */
     public void recalculateAmountLeft() {
         double amountLeft = this.amount.getValue();
         for (Expense expense : expenseList.getExpenseList()) {

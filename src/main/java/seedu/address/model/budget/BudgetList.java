@@ -16,7 +16,7 @@ public class BudgetList implements ReadOnlyBudgetList {
 
     private final UniqueBudgetList budgets;
 
-    /*
+     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
@@ -108,6 +108,11 @@ public class BudgetList implements ReadOnlyBudgetList {
         return toReturn;
     }
 
+    /**
+     * Checks whether a new budget to be added clashes with any existing budget period.
+     * @param newBudget a valid budget.
+     * @return a boolean value.
+     */
     public boolean hasBudgetPeriodClash(Budget newBudget) {
         List<Budget> lastShownList = getBudgetList();
         for (Budget budget : lastShownList) {

@@ -34,7 +34,7 @@ public class Amount {
     }
 
     public double getValue() {
-        return Double.parseDouble(value.replaceAll("[^\\d.]",""));
+        return Double.parseDouble(value.replaceAll("[^\\d.]", ""));
     }
 
     @Override

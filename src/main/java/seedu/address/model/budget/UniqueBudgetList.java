@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.budget.exceptions.DuplicateBudgetException;
 import seedu.address.model.budget.exceptions.BudgetNotFoundException;
+import seedu.address.model.budget.exceptions.DuplicateBudgetException;
 
 /**
  * A list of budgets that enforces uniqueness between its elements and does not allow nulls.

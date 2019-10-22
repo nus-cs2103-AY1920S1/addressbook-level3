@@ -2,20 +2,13 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseList;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Date;
-import seedu.address.model.budget.Budget;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Budget}.
@@ -107,11 +100,11 @@ class JsonAdaptedBudget {
         final Date modelEndDate = new Date(endDate);
 
         if (expenseList == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ExpenseList.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                ExpenseList.class.getSimpleName()));
         }
 
-        return new Budget(modelName, modelAmount, modelAmountLeft, modelStartDate, modelEndDate, new ExpenseList(expenseList.toModelType()));
-
-        // need to do for budget expenselist also
+        return new Budget(modelName, modelAmount, modelAmountLeft, modelStartDate, modelEndDate,
+            new ExpenseList(expenseList.toModelType()));
     }
 }
