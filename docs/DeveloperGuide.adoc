@@ -275,7 +275,15 @@ The following activity diagram summarizes what happens when a user attempts to a
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
 
 ==== Design Considerations
+//TODO: alternatives 1 2 3 (current choice); rmb to rename aspect properly
+===== Aspect: How to CLI annotate
+===== Aspect: How to structure offline documents (to support annotation to a paragraph)
+===== Aspect: What kind of annotations to support
 
+===== Aspect: How to store annotations
+separate, with paragraph, add annotation class for abstraction blah
+
+===== Aspect: Which data structure to use
 
 // end::dataencryption[]
 
