@@ -19,13 +19,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEarningsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-<<<<<<< HEAD
+import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.commands.calendar.DeleteTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
-=======
-import seedu.address.logic.commands.UpdateEarningsCommand;
->>>>>>> 336de04d2d5c460fce3f1a4e1127370e1d12cd08
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -85,7 +82,6 @@ public class AddressBookParser {
         case ChangeTabCommand.COMMAND_WORD:
             return new ChangeTabCommandParser().parse(arguments);
 
-<<<<<<< HEAD
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
 
@@ -94,7 +90,7 @@ public class AddressBookParser {
 
         case ListTasksCommand.COMMAND_WORD:
             return new ListTasksCommand();
-=======
+
         case UpdateEarningsCommand.COMMAND_WORD:
             return new UpdateEarningsCommandParser().parse(arguments);
 
@@ -103,7 +99,6 @@ public class AddressBookParser {
 
         case FindEarningsCommand.COMMAND_WORD:
             return new FindEarningsCommandParser().parse(arguments);
->>>>>>> 336de04d2d5c460fce3f1a4e1127370e1d12cd08
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
