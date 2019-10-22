@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.logic.commands.CommandLogic;
+import com.dukeacademy.logic.commands.CommandLogicManager;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
@@ -34,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    protected CommandLogic commandLogic;
+    protected CommandLogicManager commandLogic;
     protected QuestionsLogic questionsLogic;
     protected ProgramSubmissionLogic programSubmissionLogic;
 
@@ -66,7 +66,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane runCodeResultPlaceholder;
 
-    public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
+    public MainWindow(Stage primaryStage, CommandLogicManager commandLogic, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies

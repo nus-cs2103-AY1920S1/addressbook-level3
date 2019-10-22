@@ -3,10 +3,8 @@ package com.dukeacademy.logic.commands.factory;
 import com.dukeacademy.logic.commands.Command;
 
 /**
- * This interface is used to inject dependencies into command class instances without breaking the open close
- * principle. When a user command is received, it will be matched to the factory which has the same command word and
- * the factory will be used to instantiate the command instance instead. The logic class would not have to know about
- * the dependencies for the command constructor.
+ * Encapsulates the creation of commands and its dependencies and exposes an interface that can be injected into
+ * the command logic.
  */
 public interface CommandFactory {
     /**

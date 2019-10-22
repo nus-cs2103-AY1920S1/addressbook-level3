@@ -11,14 +11,11 @@ import com.dukeacademy.commons.core.Version;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
-import com.dukeacademy.logic.commands.CommandLogic;
+import com.dukeacademy.logic.commands.CommandLogicManager;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
-import com.dukeacademy.model.question.QuestionBank;
-import com.dukeacademy.model.question.StandardQuestionBank;
-import com.dukeacademy.model.util.SampleDataUtil;
 import com.dukeacademy.storage.Storage;
 import com.dukeacademy.storage.StorageManager;
 import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
@@ -26,7 +23,6 @@ import com.dukeacademy.storage.prefs.UserPrefsStorage;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 import com.dukeacademy.storage.question.QuestionBankStorage;
 import com.dukeacademy.ui.Ui;
-import com.dukeacademy.ui.UiManager;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -43,7 +39,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Storage storage;
     protected Config config;
-    protected CommandLogic commandLogic;
+    protected CommandLogicManager commandLogic;
     protected QuestionsLogic questionsLogic;
     protected ProgramSubmissionLogic programSubmissionLogic;
 
@@ -77,7 +73,7 @@ public class MainApp extends Application {
         // TODO: initialize program submission logic from user prefs
     }
 
-    private CommandLogic initCommandLogic(ReadOnlyUserPrefs userPrefs) {
+    private CommandLogicManager initCommandLogic(ReadOnlyUserPrefs userPrefs) {
         // TODO: initialize command logic from user prefs and register all command factories
     }
 

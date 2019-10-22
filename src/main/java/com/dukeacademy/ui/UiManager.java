@@ -6,7 +6,7 @@ import com.dukeacademy.MainApp;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.util.StringUtil;
 
-import com.dukeacademy.logic.commands.CommandLogic;
+import com.dukeacademy.logic.commands.CommandLogicManager;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import javafx.application.Platform;
@@ -26,12 +26,12 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/dukeacademy-icon.png";
 
-    protected CommandLogic commandLogic;
+    protected CommandLogicManager commandLogic;
     protected QuestionsLogic questionsLogic;
     protected ProgramSubmissionLogic programSubmissionLogic;
     private MainWindow mainWindow;
 
-    public UiManager(CommandLogic commandLogic, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
+    public UiManager(CommandLogicManager commandLogic, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
         super();
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
