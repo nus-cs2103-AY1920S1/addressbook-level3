@@ -23,7 +23,7 @@ public class SampleDataUtil {
 
     public static Flashcard[] getSampleFlashcards() {
         return new Flashcard[]{
-            new McqFlashcard(new Question("Which of the following is true about compactness"),
+            new McqFlashcard(new Question("Which of the following is true about compactness?"),
                 getChoiceList("The real number space is a compact space",
                     "The complex plane is a compact space",
                     "A compact subspace of a compact metric space must be closed",
@@ -31,7 +31,7 @@ public class SampleDataUtil {
                 new Definition("For any open covering of a metric space, there is a finite subcover."),
                      getTagSet("mathematics", "metric space"),
                 new Answer("A compact subspace of a compact metric space must be closed")),
-            new McqFlashcard(new Question("Which of the following is true about completeness"),
+            new McqFlashcard(new Question("Which of the following is true about completeness?"),
                 getChoiceList("The rational number space is a complete space",
                     "Compact spaces are always complete",
                     "A complete subspace of a complete space myst be totally bounded",
@@ -39,7 +39,7 @@ public class SampleDataUtil {
                 new Definition("Any Cauchy sequence converges in this metric space"),
                 getTagSet("mathematics", "metric space"),
                 new Answer("Closed subspaces in a complete metric space is also complete")),
-            new ShortAnswerFlashcard(new Question("What is the 11611 meters tunnel on the boarder of France and Italy"),
+            new ShortAnswerFlashcard(new Question("What is the 11611 meters tunnel on the boarder of France and Italy?"),
                 new Definition("An amazing tunnel in Europe."),
                 getTagSet("geography", "favorite"),
                 new Answer("Mount Blanc Tunnel")),
