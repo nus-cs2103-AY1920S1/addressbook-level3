@@ -8,7 +8,6 @@ public abstract class RuleAction {
     public static final String MESSAGE_CONSTRAINTS =
             "Actions should be either expressions or scripts "
                     + "and should not be blank";
-    public static final String TYPE_EXPRESSION = "EXPRESSION";
 
     public abstract String getType();
 }

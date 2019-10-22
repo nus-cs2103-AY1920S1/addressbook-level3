@@ -5,6 +5,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RulePredicate;
 
 /**
@@ -57,7 +58,7 @@ public class PredicateExpression extends RulePredicate {
 
     @Override
     public String getType() {
-        return RulePredicate.TYPE_EXPRESSION;
+        return Rule.TYPE_EXPRESSION;
     }
 
     /**

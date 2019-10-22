@@ -46,7 +46,7 @@ public class RuleCard extends UiPart<Region> {
         RulePredicate predicate = rule.getPredicate();
         predicatePrefix.setText("IF");
         predicateDelimiter.setText(":");
-        if (predicate.getType().equals(RulePredicate.TYPE_EXPRESSION)) {
+        if (predicate.getType().equals(Rule.TYPE_EXPRESSION)) {
             PredicateExpression predExpr = (PredicateExpression) predicate;
             Label attr = new Label(predExpr.getAttribute().toString());
             Label op = new Label(predExpr.getOperator().toString());
@@ -63,7 +63,7 @@ public class RuleCard extends UiPart<Region> {
         RuleAction action = rule.getAction();
         actionPrefix.setText("THEN");
         actionDelimiter.setText(":");
-        if (action.getType().equals(RuleAction.TYPE_EXPRESSION)) {
+        if (action.getType().equals(Rule.TYPE_EXPRESSION)) {
             ActionExpression actExpr = (ActionExpression) action;
             Label op = new Label(actExpr.getOperator().toString());
             Label val = new Label(actExpr.getValue().toString());
