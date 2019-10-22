@@ -3,7 +3,7 @@ package seedu.address.model.lesson;
 import java.util.Objects;
 
 /**
- * Represents a Lesson in the AddressBook.
+ * Represents a lesson in the AddressBook.
  */
 public class Lesson {
     private final Time time;

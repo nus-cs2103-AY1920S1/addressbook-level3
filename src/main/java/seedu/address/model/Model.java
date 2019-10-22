@@ -93,13 +93,13 @@ public interface Model {
 
     /**
      * Adds the given lesson.
-     * @param lesson Lesson object.
+     * @param lesson lesson object.
      */
     void addLesson(Lesson lesson);
 
     /**
-     * Returns true if a Lesson with the same identity exists in the addressbook.
-     * @param lesson Lesson object.
+     * Returns true if a lesson with the same identity exists in the addressbook.
+     * @param lesson lesson object.
      */
     boolean hasLesson(Lesson lesson);
 }
