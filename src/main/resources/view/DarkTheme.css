@@ -328,7 +328,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #answerableListPanel, #answerableWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
@@ -337,12 +337,12 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+#categories {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#tags .label {
+#categories .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
@@ -350,3 +350,36 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#answer {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+#answer .label {
+    -fx-start-margin: 40;
+    -fx-min-height: 30;
+    -fx-text-fill: white;
+    -fx-background-color: #959595;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 20;
+    -fx-background-radius: 2;
+    -fx-font-size: 15;
+}
+/*#correctAnswer .label {*/
+/*    -fx-text-fill: white;*/
+/*    -fx-background-color: #0a9100;*/
+/*    -fx-padding: 1 3 1 3;*/
+/*    -fx-border-radius: 2;*/
+/*    -fx-background-radius: 2;*/
+/*    -fx-font-size: 11;*/
+/*}*/
+
+/*#wrongAnswer .label {*/
+/*    -fx-text-fill: white;*/
+/*    -fx-background-color: #911600;*/
+/*    -fx-padding: 1 3 1 3;*/
+/*    -fx-border-radius: 2;*/
+/*    -fx-background-radius: 2;*/
+/*    -fx-font-size: 11;*/
+/*}*/
