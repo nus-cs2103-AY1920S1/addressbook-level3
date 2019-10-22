@@ -1,4 +1,4 @@
-package seedu.address.ui.autocomplete;
+package seedu.address.logic.search;
 
 import java.util.Comparator;
 

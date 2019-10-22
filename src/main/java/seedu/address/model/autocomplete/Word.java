@@ -1,4 +1,4 @@
-package seedu.address.ui.autocomplete;
+package seedu.address.model.autocomplete;
 
 import java.util.Comparator;
 
@@ -94,7 +94,7 @@ public class Word implements Comparable<Word> {
     }
 
     /**
-     * Compares two words in lexicographic order by word.
+     * Compares two words in lexicographic order.
      *
      * @return -1 if this is (less than) that
      * 0 if this (is the same as) that

@@ -1,4 +1,4 @@
-package seedu.address.ui.autocomplete;
+package seedu.address.logic.search;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.MainApp;
+import seedu.address.model.autocomplete.AutoCompleteModel;
+import seedu.address.model.autocomplete.Word;
 
 /**
  * Main controller class to execute the searching logic

@@ -17,8 +17,7 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.autocomplete.AutoComplete;
-import seedu.address.ui.autocomplete.QueryCard;
+import seedu.address.logic.search.AutoComplete;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

@@ -1,6 +1,8 @@
-package seedu.address.ui.autocomplete;
+package seedu.address.model.autocomplete;
 
 import java.util.Arrays;
+
+import seedu.address.logic.search.BinarySearch;
 
 /**
  * Given the data and the query, this class is for searching for words in the data
