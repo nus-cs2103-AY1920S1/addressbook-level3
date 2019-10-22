@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.commands.Command;
 import seedu.address.financialtracker.parser.FinancialTrackerParser;
-import seedu.address.logic.AddressBookLogic;
+import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
