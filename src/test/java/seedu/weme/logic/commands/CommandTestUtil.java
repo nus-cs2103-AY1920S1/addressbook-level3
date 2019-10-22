@@ -15,7 +15,7 @@ import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.Model;
-import seedu.weme.model.meme.ImagePath;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.PathMatchesPathPredicate;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;

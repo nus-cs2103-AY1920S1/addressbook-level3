@@ -15,8 +15,8 @@ import seedu.weme.commons.core.index.Index;
 import seedu.weme.commons.util.StringUtil;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.ModelContext;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
-import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**

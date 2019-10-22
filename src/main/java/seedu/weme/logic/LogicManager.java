@@ -18,6 +18,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.template.Template;
 import seedu.weme.storage.Storage;
 
 /**
@@ -68,6 +69,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Meme> getFilteredMemeList() {
         return model.getFilteredMemeList();
+    }
+
+    @Override
+    public ObservableList<Template> getFilteredTemplateList() {
+        return model.getFilteredTemplateList();
     }
 
     @Override

@@ -3,8 +3,8 @@ package seedu.weme.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.weme.testutil.Assert.assertThrows;
+import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
 import static seedu.weme.testutil.TypicalMemes.DOGE;
-import static seedu.weme.testutil.TypicalMemes.getTypicalMemeBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

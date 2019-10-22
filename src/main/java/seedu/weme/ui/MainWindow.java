@@ -154,6 +154,9 @@ public class MainWindow extends UiPart<Stage> {
         MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList());
         memesPanel.getChildren().add(memeGridPanel.getRoot());
 
+        TemplateGridPanel templateGridPanel = new TemplateGridPanel(logic.getFilteredTemplateList());
+        templatesPanel.getChildren().add(templateGridPanel.getRoot());
+
         // TODO: Fill in other panels here
     }
 

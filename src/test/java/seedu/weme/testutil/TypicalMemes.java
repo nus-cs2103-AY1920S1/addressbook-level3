@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.weme.model.MemeBook;
 import seedu.weme.model.meme.Meme;
 
 /**
@@ -32,17 +31,6 @@ public class TypicalMemes {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalMemes() {} // prevents instantiation
-
-    /**
-     * Returns an {@code MemeBook} with all the typical memes.
-     */
-    public static MemeBook getTypicalMemeBook() {
-        MemeBook ab = new MemeBook();
-        for (Meme meme : getTypicalMemes()) {
-            ab.addMeme(meme);
-        }
-        return ab;
-    }
 
     public static List<Meme> getTypicalMemes() {
         return new ArrayList<>(Arrays.asList(CHARMANDER, DOGE, JOKER, TOY));

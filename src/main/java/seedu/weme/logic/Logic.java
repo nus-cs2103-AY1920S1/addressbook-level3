@@ -11,6 +11,7 @@ import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.template.Template;
 
 /**
  * API of the Logic component
@@ -34,6 +35,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of memes */
     ObservableList<Meme> getFilteredMemeList();
+
+    /** Returns an unmodifiable view of the filtered list of templates */
+    ObservableList<Template> getFilteredTemplateList();
 
     /** Returns the current context */
     SimpleObjectProperty<ModelContext> getContext();
