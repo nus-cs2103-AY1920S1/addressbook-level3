@@ -58,6 +58,10 @@ public class DetailWindowDisplay {
     }
 
     public GroupDisplay getGroupDisplay() {
-        return this.groupDisplay;
+        return groupDisplay;
+    }
+
+    public FreeSchedule getFreeSchedule() {
+        return freeSchedule;
     }
 }

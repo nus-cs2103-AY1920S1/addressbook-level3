@@ -303,7 +303,7 @@ public class MainWindow extends UiPart<Stage> {
             case GROUP:
                 ScheduleView groupScheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules(),
                         colors,
-                        detailWindowDisplay.getGroupDisplay().getGroupName());
+                        detailWindowDisplay.getGroupDisplay().getGroupName(), detailWindowDisplay.getFreeSchedule());
                 handleChangeOnDetailsView(groupScheduleView.getRoot());
                 handleSidePanelChange(new GroupInformation(detailWindowDisplay, colors).getRoot());
                 scheduleView = groupScheduleView;

@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.GroupDetailCard;
 import seedu.address.ui.util.MemberList;
 
