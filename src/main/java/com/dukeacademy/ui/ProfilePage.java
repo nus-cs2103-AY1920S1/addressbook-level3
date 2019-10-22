@@ -7,41 +7,52 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
-
+/**
+ * A profile page which has two tabs, a progress tab that shows user's completion of questions,
+ * and a bookmarks tab which shows questions which user chose to bookmark.
+ */
 public class ProfilePage extends UiPart<Region> {
     private static final String FXML = "ProfilePage.fxml";
 
     @FXML
-    TabPane profilePane;
+    private TabPane profilePane;
 
     @FXML
-    ProgressIndicator indicator;
+    private ProgressIndicator indicator;
 
     @FXML
-    Text numDone;
+    private Text numDone;
 
     @FXML
-    Text numTotal;
+    private Text numTotal;
 
     @FXML
-    Text skillLevel;
+    private Text skillLevel;
 
     public ProfilePage() {
         super(FXML);
         indicator.setMinWidth(130);
         indicator.setMinHeight(130);
-        double progress = 71.0/80.0;
+        double progress = 71.0 / 80.0;
         indicator.setProgress(progress);
         numDone.setText("71");
         numTotal.setText("80");
         fillSkillLevel(progress);
     }
 
+    /**
+     * Closes the profile page on click of the button.
+     * @param event the ActionEvent
+     */
     @FXML
     public void onCloseButtonClick(ActionEvent event) {
         profilePane.setVisible(false);
     }
 
+    /**
+     * Fills the skill level of the user.
+     * @param progress the degree of completion of questions achieved by the user
+     */
     private void fillSkillLevel(double progress) {
         if (progress < 0.3) {
             skillLevel.setText("Novice");
