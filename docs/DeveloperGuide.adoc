@@ -225,9 +225,163 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Claim feature
+
+The `add_claim` command allows for admins to register Claims into FinSec.
+
+The format for the `add_claim` command is as follows:
+
+ add_claim d/<DESCRIPTION> c/<CASH AMOUNT> date/<DATE> n/<NAME> p/<PHONE NUMBER>
+
+==== Adding a Claim
+
+*Overview*
+
+The add claim `add_claim` mechanism is facilitated by `AddClaimCommand` and `AddClaimCommandParser`, taking in the
+following input from the user:`Description`, `Amount`, `Date`, `Name` and `Phone`, which will construct `Claim` objects.
+
+.Add Claim Command Sequence Diagram
+image::AddClaimSequenceDiagram.png[]
+
+.Add Claim Command Sequence Diagram (extension)
+image::AddClaimSequenceDiagram_Model.png[]
+
+The `AddClaimCommandParser` implements `Parser` with the following operation:
+
+* `AddClaimCommandParser#parse()` - This operation will take in a String input from the user that will create `Claim`
+objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 'p/'. The String value after the individual prefixes will
+create the respective object: d/`description`, c/`amount`, date/`date`,  n/`name` and p/`phone`. A regex validation
+check will be imposed upon the creation of each argument. Any checks that fails the validation would prompt the user on
+the failed component.
+
+For example:
+
+** `date` would use `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY.
+
+** `amount` would use `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of
+2 decimal places.
+
+** `phone` would use `ParserUtil#parsePhone()` to ensure that the phone number entered would only contain numbers that
+are at least 3 numbers long.
+
+* After validation checks are completed with no errors, a `Claim` object will be constructed with `Id`, `Description`,
+`Amount`, `Date`, `Name` and `Phone` as the parameters.
+
+* `AddClaimCommandParser` would then return an `AddClaimCommand` object with `Claim` as its attribute.
+
+* `AddClaimCommand#execute` checks against all existing contacts against the inputs `name` and `phone` to make sure
+the contact exists.
+
+*Example*
+
+Given below is an example usage scenario of how `add_claim` mechanism behaves at each step.
+
+*Step 1:* The user executes:
+....
+add_claim d/Logistics for Sports Day c/150.60 date/21-12-2019 n/Melissa p/99875432`
+....
+This adds a `Claim` of $150.60 for Logistics for Sports Day by Melissa, with a phone identity of 99875432.
+
+*Step 2:* `LogicManager` would use `FinSecParser#parse()` to parse input from the user.
+
+*Step 3:* `FinSecParser` would determine which command is being used and creates the respective parser. In this case,
+`AddClaimCommandParser` is being created and the user's input would be passed in as a parameter.
+
+*Step 4:* `AddClaimCommandParser` would do a validation check on the user's input before creating and returning a
+`AddClaimCommand` object with `Claim` as its attribute.
+
+*Step 5:* `LogicManager` would execute `AddClaimCommand#execute()`, checking whether there is an existing Claim and also
+whether there is an existing contact for the claim, then adding the `PendingClaim` into the `Model` which is handled by the
+`ModelManager`.
+
+*Step 6:* `AddClaimCommand` would return a `CommandResult` to the `LogicManager` which would then be returned back to
+the user.
+
+
+==== Approving a Claim
+
+This feature allows the user to approve a `PendingClaim` from the `UniqueClaimList` through its index.
+
+The approve claim feature is facilitated by the `ApproveClaimCommandParser` and the `ApproveClaimCommand`.
+
+The `ApproveClaimCommand` is part of the logic component of our application. It interacts with the model and storage
+components of our application.
+
+==== Rejecting a Claim
+
+This feature allows the user to reject a `PendingClaim` from the `UniqueClaimList` through its index.
+
+The approve claim feature is facilitated by the `RejectClaimCommandParser` and the `RejectClaimCommand`.
+
+The `RejectClaimCommand` is part of the logic component of our application. It interacts with the model and storage
+components of our application.
+
 === Income feature
 
-_{Explain here how the data encryption feature will be implemented}_
+The `add_income` command allows for users to register new `Income` objects into FinSec.
+
+The format for the `add_income` command is as follows:
+
+`add_income d/<description> c/<cash amount> date/<date> n/<name> p/<phone number>`
+
+==== Adding an Income
+
+*Overview*
+
+The add income `add_income` mechanism is facilitated by `AddIncomeCommand` and `AddIncomeCommandParser`. It takes in the following input from the user:
+`description`, `cash amount`, `name` and `phone number`, which will construct individual objects that construct an `Income` object.
+
+The `AddIncomeCommandParser` implements `Parser` with the following operation:
+
+
+* `AddIncomeCommandParser#parse()` - This operation will take in a `String` input from the user that will create individual objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 'p/'. The `String` value after the individual prefixes will create
+the respective object: d/ `description`, c/ `cash amount`, date/`date`,  n/ `name` and p/ `phone`. A validation check will be imposed upon the creation of each object. Any checks that fails the validation would prompt the user on the failed component.
+For example:
+
+** `cash amount` would use `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of 2 decimal places.
+
+** `phone` would use `ParserUtil#parsePhone()` to ensure that the phone number entered would only contain numbers that are at least 3 numbers long.
+
+** `date` would use `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY.
+
+* After validation checks are completed with no errors, an `Income` object is then constructed with `description`, `cash`, `date`, `name` and `phone` as the parameters.
+
+* `AddIncomeCommandParser` would then return a `AddIncomeCommand` object with `Income` as the parameter.
+
+*Example*
+
+Given below is an example usage scenario of how `add_income` mechanisam behaves at each step.
+
+*Step 1:* The user executes `add_income d/shirt sales c/100.05 date/11-11-2019 n/John Doe p/91111111` to add an income of $100.05 of shirt sales received from John Doe who is contactable at 91111111.
+
+*Step 2:* `LogicManager` would use `FinSecParser#parse()` to parse input from the user.
+
+*Step 3:* `FinSecParser` would determine which command is being used and creates the respective parser. In this case, `AddIncomeCommandParser` is being created and the user's input would be passed in as a parameter.
+
+*Step 4:* `AddIncomeCommandParser` would do a validation check on the user's input before creating and returning a `AddIncomeCommand` object with `Income` as the parameter.
+
+*Step 5:* `LogicManager` would use `AddIncomeCommand#execute()` to add the `Income` into the `Model` which is handled by the `ModelManager`.
+
+*Step 6:* `AddIncomeCommand` would return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
+
+
+==== Deleting an Income
+
+This feature allows the user to delete an income entry from the Unique Incomes List through its index.
+
+The delete income feature is facilitated by the `DeleteIncomeCommandParser` and the `DeleteIncomeCommand`.
+
+The delete income command is part of the logic component of our application. It interacts with the model and storage components of our application.
+
+==== Editing an Income
+
+This feature allows the user to edit any attribute of the income entries. There are a total of five attributes for each entry, the description of the income, the amount of money received, the date it was received, the name of the person / organisation the user
+received the money from and the contact number. The user can edit at least one and up to all attributes.
+
+The edit income feature is facilitated by the `EditIncomeCommandParser` and the `EditIncomeCommand`.
+
+The edit command is part of the logic component of our application. It interacts with the model component of our software architecture.
+
 
 // end::dataencryption[]
 
