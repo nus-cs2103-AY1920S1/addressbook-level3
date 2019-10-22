@@ -15,6 +15,7 @@ import mams.logic.commands.HelpCommand;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.RejectCommand;
 import mams.logic.commands.RemoveModCommand;
+import mams.logic.commands.ViewCommand;
 import mams.logic.parser.exceptions.ParseException;
 
 /**
@@ -73,6 +74,9 @@ public class MamsParser {
 
         case RemoveModCommand.COMMAND_WORD_REMOVE_MOD:
             return new RemoveModCommandParser().parse(arguments);
+
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

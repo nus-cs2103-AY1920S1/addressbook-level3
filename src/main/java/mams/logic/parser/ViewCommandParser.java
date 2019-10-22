@@ -2,11 +2,11 @@ package mams.logic.parser;
 
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.stream.Stream;
+
 import mams.commons.core.index.Index;
 import mams.logic.commands.ViewCommand;
 import mams.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new ViewCommand object
@@ -22,7 +22,7 @@ public class ViewCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the ViewCommand
      * and returns a ViewCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform to the expected format
      */
     public ViewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -33,18 +33,22 @@ public class ViewCommandParser {
         }
 
         try {
+            Index appealIndex = null;
+            Index moduleIndex = null;
+            Index studentIndex = null;
+
             if (argMultimap.getValue(PREFIX_APPEALS).isPresent()) {
-                Index appealIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEALS).get());
+                appealIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEALS).get());
             }
 
             if (argMultimap.getValue(PREFIX_MODS).isPresent()) {
-                Index moduleIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MODS).get());
+                moduleIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MODS).get());
             }
 
             if (argMultimap.getValue(PREFIX_STUDENTS).isPresent()) {
-                Index studentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENTS).get());
+                studentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENTS).get());
             }
-            return new ViewCommand();
+            return new ViewCommand(appealIndex, moduleIndex, studentIndex);
         } catch (ParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }

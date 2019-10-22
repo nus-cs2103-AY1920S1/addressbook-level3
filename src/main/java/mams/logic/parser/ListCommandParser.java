@@ -2,10 +2,9 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import mams.logic.commands.ListCommand;
-import mams.logic.parser.exceptions.ParseException;
-
 import java.util.stream.Stream;
+
+import mams.logic.commands.ListCommand;
 
 /**
  * Parses input arguments and creates a new ListCommand object
