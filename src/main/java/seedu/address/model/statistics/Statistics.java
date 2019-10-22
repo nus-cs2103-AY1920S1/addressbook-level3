@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javafx.collections.transformation.FilteredList;
+import javafx.collections.ObservableList;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -23,18 +23,24 @@ public class Statistics {
 
     public static final String MESSAGE_CONSTRAINTS_END_DATE = "Start date must be before end date.";
 
-    private FilteredList<Expense> expenses;
+    private ObservableList<Expense> expenses;
 
     private List<Category> categories;
-
+    //gonna remove soon, currently for debugging into ResultDisplay
     private StringBuilder statsBuilder = new StringBuilder();
+
+    private List<String> formattedCategories;
+
+    private List<Double> formattedPercentages;
+
+    private String title;
 
     /**
      * Creates a Statistics object
      * @param expenses A list of expenses in the current budget
      * @param categories A list of tags used among all expenses
      */
-    private Statistics(FilteredList<Expense> expenses, List<Category> categories) {
+    private Statistics(ObservableList<Expense> expenses, List<Category> categories) {
         requireNonNull(categories);
         this.expenses = expenses;
         this.categories = categories;
@@ -43,24 +49,32 @@ public class Statistics {
     /**
      * Returns the lists of all expenses in the current budget
      */
-    public FilteredList<Expense> getExpenses() {
+    public ObservableList<Expense> getExpenses() {
         return expenses;
     }
 
     /**
-     * Returns the tags used among all expenses
+     * Returns the formatted categories to be used as labels for the PieChart
+     * @return
      */
-    public List<Category> getCategories() {
-        return categories;
+    public List<String> getFormattedCategories() {
+        return formattedCategories;
     }
 
+    public List<Double> getFormattedPercentages() {
+        return formattedPercentages;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 
     /**
      * A factory method for creating a Statistics object
      * @param expenses A list of expenses in the current budget
      * @return Statistics object
      */
-    public static Statistics startStatistics(FilteredList<Expense> expenses) {
+    public static Statistics startStatistics(ObservableList<Expense> expenses) {
         requireNonNull(expenses);
         List<Category> categories = collateTagNames(expenses);
         return new Statistics(expenses, categories);
@@ -172,12 +186,19 @@ public class Statistics {
 
         ArrayList<ArrayList<Expense>> data = extractRelevantExpenses(startDate, endDate);
 
+        String title = String.format("Statistics Summary from %s to %s\n", startDate, endDate);
 
-        statsBuilder.append("Statistics Summary\n");
-        statsBuilder.append(String.format("From %s to %s\n", startDate, endDate));
-
-
+        //keeping old methods for debugging
         ArrayList<ArrayList<Object>> table = createEmptyTableWithPercentage();
+
+        ArrayList<Double> percentages = new ArrayList<>();
+        ArrayList<Integer> numberOfEntries = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+        for (Category category : categories) {
+            percentages.add(0.0);
+            numberOfEntries.add(0);
+            names.add(category.categoryName);
+        }
 
         List<String> headers = List.of("Category: ",
                 "Amount Spent ($): ",
@@ -185,8 +206,47 @@ public class Statistics {
                 "Percentage: ");
         convertDataToFigures(data, table, true);
         convertTableToString(table, headers);
+        //end of debugging
+
+        generatePercentages(data, percentages, numberOfEntries, names, title);
     }
 
+    private void generatePercentages(ArrayList<ArrayList<Expense>> data, ArrayList<Double> percentages,
+                                     ArrayList<Integer> numberOfEntries, ArrayList<String> names,
+                                     String titleWithPeriod) {
+        double totalAmount = 0.0;
+
+        for (int i = 0; i < categories.size(); i++) {
+            ArrayList<Expense> categoryStats = data.get(i);
+
+            //update entry number and the total
+            for (Expense expense : categoryStats) {
+                double oldCategoricalTotal = percentages.get(i);
+                double price = Double.parseDouble(expense.getPrice().value);
+                percentages.set(i, oldCategoricalTotal + price);
+                totalAmount += price;
+                int oldNumberOfEntries = numberOfEntries.get(i);
+                numberOfEntries.set(i, oldNumberOfEntries + 1);
+            }
+        }
+
+        for (int i = 0; i < categories.size(); i++) {
+            double categoricalTotal = percentages.get(i);
+            double roundedResult = Math.round(categoricalTotal * 10000 / totalAmount) / 100.0;
+            percentages.set(i, roundedResult);
+
+            //append the percentage of total expenditure for each category to its name
+            String oldName = names.get(i);
+            names.set(i, String.format("%s(%.2f%%)", oldName, roundedResult));
+        }
+
+        this.formattedCategories = names;
+        this.formattedPercentages = percentages;
+        this.title = String.format("%s\nTotal amount: $%.2f",titleWithPeriod,totalAmount);
+    }
+
+
+    //depreciated method
     /**
      * Creates an empty table
      *
@@ -205,6 +265,8 @@ public class Statistics {
         }
         return table;
     }
+    //depreciated method
+
 
     /**
      * Creates an empty table
@@ -232,13 +294,15 @@ public class Statistics {
 
         ArrayList<Object> entryForTotal = table.get(categories.size());
         entryForTotal.set(0, "Total");
-
+        //loop all categories
         for (int i = 0; i < categories.size(); i++) {
             ArrayList<Expense> categoryStats = data.get(i);
             ArrayList<Object> tableEntry = table.get(i);
 
             double categoricalTotal = 0;
             int entryNumber = 0;
+            
+            //update entry number and the total
             for (Expense expense : categoryStats) {
                 categoricalTotal += Double.parseDouble(expense.getPrice().value);
                 entryNumber++;
@@ -325,7 +389,7 @@ public class Statistics {
     /**
      * Returns a list of tags used among all expenses
      */
-    private static List<Category> collateTagNames(FilteredList<Expense> expenses) {
+    private static List<Category> collateTagNames(ObservableList<Expense> expenses) {
         Set<Category> categories = new HashSet<>();
         for (Expense expense: expenses) {
             categories.add(expense.getCategory());
@@ -334,6 +398,4 @@ public class Statistics {
         List<Category> result = new ArrayList<>(categories);
         return result;
     }
-
-
 }

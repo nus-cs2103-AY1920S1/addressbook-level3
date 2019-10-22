@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,23 +20,42 @@ public class CommandResult {
 
     private final boolean statistic;
 
+    private final List<String> names;
+
+    private final List<Double> percentages;
+
+    private final String title;
+
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified fields. Meant for statsCommand
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic,
+                         List<String> names, List<Double> percentages, String title) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.statistic = statistic;
+        this.names = names;
+        this.percentages = percentages;
+        this.title = title;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
+     * and other fields set to their default value. Meant for most MooLah commands
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, null, null, null);
     }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value. Meant for Help and Bye commands.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic) {
+        this(feedbackToUser, showHelp, exit, statistic, null, null, null);
+    }
+
 
     public String getFeedbackToUser() {
         return feedbackToUser;
@@ -51,6 +71,18 @@ public class CommandResult {
 
     public boolean isStatistic() {
         return statistic;
+    }
+
+    public List<String> getNames() {
+        return names;
+    }
+
+    public List<Double> getPercentages() {
+        return percentages;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @Override

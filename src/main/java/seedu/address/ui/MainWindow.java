@@ -45,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     //private BudgetListPanel budgetListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsWindow statsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -74,7 +75,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
     }
 
     public Stage getPrimaryStage() {
@@ -146,7 +146,7 @@ public class MainWindow extends UiPart<Stage> {
                 "event d/ <description> p/ <amount> date/ <date>");
         commandBox.enableSyntaxHightlightingForCommand("stats",
                 List.of(PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_END_DATE),
-                "stats sd/ <start_date> ed/ <end_date>");
+                "stats    ");
         commandBox.enableSyntaxHightlightingForCommand("undo",
                 Collections.emptyList(),
                 "undo");
@@ -182,6 +182,17 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
+
+    @FXML
+    private void handleStats(CommandResult commandResult) {
+        this.statsWindow = new StatsWindow(commandResult.getNames(),commandResult.getPercentages(), commandResult.getTitle());
+        if (!statsWindow.isShowing()) {
+            statsWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
 
     void show() {
         primaryStage.show();
@@ -220,6 +231,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isStatistic()) {
+                handleStats(commandResult);
             }
 
             return commandResult;
