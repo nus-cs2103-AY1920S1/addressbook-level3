@@ -180,7 +180,7 @@ This is the overall Class Diagram of this tab:
 image::HomeTabClassDiagram.png[]
 
 ==== Add Command feature
-The add command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
+The Add command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
 has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
@@ -217,7 +217,7 @@ image::TransactionUpdatingReimbursement.png[]
 This is done for every feature in the `LogicManager`.
 
 ==== Delete Feature
-The add command is facilitated by the `VersionedtreasurerPro`. The delete feature allows for 2 types of deletion, by
+The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
 
@@ -253,7 +253,7 @@ The following sequence diagram shows how the back command works:
 image::HomeTabBackCommandSequenceDiagram.png[]
 
 ==== Sort Feature
-The add command is facilitated by the `VersionedtreasurerPro`. The sort feature allows for 3 types of sort, by name in
+The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
 alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
 
 The following sequence diagram shows how the sort command works:
