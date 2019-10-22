@@ -6,6 +6,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:icons: font
 ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
@@ -31,11 +32,14 @@ reimbursements to members, inventory and member’s contact details easily.
 ===  Key to the icons and formatting used in the document
 
 [NOTE]
-This symbol indicates important information or detail.
+This symbol indicates important information or definition.
 
-`Model`
-Text with white highlight indicates a component, class or object in the architecture of
+`Model` :
+Text with grey highlight indicates a component, class or object in the architecture of
 the application.
+
+[blue]`*command*` :
+Text with blue fonts and grey highlight indicates a command that can be inputted by the user.
 
 === Introduction of treasurerPro
 
@@ -56,30 +60,31 @@ enhancements in more detail, as well as the relevant documentation I have added 
 relation to these enhancements.
 
 === Enhancements
-I added the enhancements of the different commands for the Home Tab. The basic create, read, update and delete (CRUD)
-commands were added.
+I added the enhancements of the different commands for the Home Tab.
 
 ==== Add, Delete and Edit Commands
+The basic create, read, update and delete (CRUD) commands were added. The user can [blue]`*add*`, [blue]`*delete*` and
+[blue]`*edit*` transactions.
 
 * What it does:
-It allows the user to create, delete and edit transactions. It also allows the application to restore data from
-previous usage of the application
+It allows the user to create, delete and update transactions. It also allows the application to restore data from
+previous usage of the application by reading a data text file.
 
 * Justification:
-It forms the fundamental features required for the Home Tab to be useful for users to keep track of transactions
+It forms the fundamental features required for the `Home Tab` to be useful for users to keep track of transactions.
 
 * Highlights:
-These commands help to store and keep track of transactions in the Home Tab but also help keep track of sales
-transactions from the Cashier Tab. The transactions are also tabulated by members that require reimbursement in the
-Reimbursement Tab.
+These commands help to store and keep track of transactions in the `Home Tab` but also help keep track of sales
+transactions from the `Cashier Tab`. The transactions are also tabulated by members that require reimbursement in the
+`Reimbursement Tab`.
 
 ==== Sort Command
 
-A sort command was also implemented for the transactions in the table to sort the commands to a certain order.
+A [blue]`*sort*` command was also implemented for the transactions in the table to sort the commands to a certain order.
 
 * What it does:
 The addition of transactions requires the user to input the date, description, category, amount of money and
-person accountable for each transaction. Thus, the sort helps to sort the transactions by the alphabetical order of
+person accountable for each transaction. Thus, the command helps to sort the transactions by the alphabetical order of
 the person's name, by the date (from oldest to most recent) or amount (from largest to smallest).
 
 * Justification:
@@ -91,10 +96,10 @@ This command can be extended easily to allow for sorting of transactions in the 
 
 ==== Find Command
 
-A find command was also implemented to help find specific transactions that match the keywords inputted by the user.
+A [blue]`*find*` command was also implemented to help find specific transactions that match the keywords inputted by the user.
 
 * What it does:
-The find command allows user to filter out the transactions to only show those that match the keywords from all
+The command allows user to filter out the transactions to only show those that match the keywords from all
 the transactions recorded.
 
 * Justification:
@@ -103,24 +108,191 @@ better.
 
 ==== Go and Exit Command
 
-Lastly, a go command and exit command was implemented to help navigate to another tab and leave the application.
+Lastly, a [blue]`*go*` command and [blue]`*exit*` command was implemented to help navigate to another tab
+and leave the application.
 
 * What it does:
-The go command helps the user to navigate to another tab without having to click on the tab and the exit command allows
-the user to leave the application without having to click on the window's icon as well.
+The [blue]`*go*` command helps the user to navigate to another tab without having to click on the tab and the
+[blue]`*exit*` command allows the user to leave the application without having to click on the window's exit icon
+as well.
 
 * Justification: This ensures the application is a command-line interface application which requires no clicking
 at all.
 
 === Code contributed
 
+The code contributed by me can be found in the following links:
+
+* https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/transaction[Functional Code]
+
+* https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/transaction/[Test Code]
+
+[NOTE]
+The links lead to our team's GitHub repository
+
+
 === Other contributions
-I integrated the original `AddressBook` into the Members Tab.
+
+* Integration of `Transaction Tab` with other newly implemented tabs
+
+** Integrated `Transaction Tab` with `Reimbursement Tab`:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[pull request #49]
+footnote:[Making a pull request is a way of submitting contributions to an open development project.]
+
+[NOTE]
+Our workflow requires us to push to our own forked repository before making a pull request to our group repository
+which allows our members to review the new code before it can be merged with the current code in the group repository.
+
+* Integration of existing `AddressBook` into our application
+
+** Integrated the original `AddressBook` into the `Members Tab` in GUI footnote:[GUI stands for graphical user interface. It refers to the visual means of interacting with the application, such
+as windows, buttons and menus.]:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[pull request #42]
+
+** Integrated the Edit and Delete command of `AddressBook` with the logic of `Transaction Tab`:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49/commits/af0e17f2d0b9101c91122329ccd676ee6c7bc0fe[pull request #49],
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/85/commits/3aebcd9053985fcc07e9145cff89fb579d9fde9e[pull request #85]
+
+* Tools
+
+** Added Travis CI for the repository. footnote:[Travis CI will automatically detect when a commit has been made and pushed to the GitHub repository,
+and each time this happens, it will try to build the project and run tests according to the standards set.]
+
+[NOTE]
+By version 1.2, our team ensures that we only merge pull requests that pass all the tests to ensure
+we can meet the milestones with higher quality code.
+
+* Documentation
+
+** Added to user stories to the User Guide:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/22[pull request #22]
+
+** Edited the READ.ME cover of our repository:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/19[pull request #19]
+
 
 == Contributions to the User Guide
 === Current enhancement
 === Proposed enhancement for v2.0
 
 ==  Contributions to the Developer Guide
+The following section shows my additions to the treasurerPro Developer Guide for the `Home Tab` features.
+
 === Current enhancement
+(start of extract from Developer Guide)
+
+[very big]##3.1 Home Tab##
+
+This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
+cost of buying items to sell.
+
+Each transaction will require an input of its date, description, category, amount
+and member that is accountable for it.
+
+Revenue from each cashier checkout will also be automatically inputted as
+a positive transaction in this tab with the person being the cashier. The inputted transactions that corresponds to
+a spending will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
+
+
+This is the overall Class Diagram of this tab:
+
+.Class Diagram of Home Tab (transaction package)
+
+image::HomeTabClassDiagram.png[]
+
+[big]##3.1.1 Add Command feature##
+
+The add command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
+person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
+to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
+has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
+
+The following sequence diagram shows how the add command works:
+
+.Sequence Diagram of Add Command in Home Tab (transaction package)
+
+image::HomeTabAddCommandSequenceDiagram.png[]
+
+The following activity diagram shows the steps needed to add a new transaction:
+
+.Activity Diagram of Add Command in Home Tab (transaction package)
+
+image::HomeTabActivityDiagramAddCommand.png[]
+
+As shown, when a user does not input all the compulsory fields or input a name that does not match anyone in
+the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is
+done, a response message is shown as well by our mascot, Leo.
+
+In addition, since the `resetPredicate()` method is called as shown, the UI table will immediately show the full
+transaction list regardless of the list at the start of the activity diagram showing the filtered list
+due to prior the inputted Find Command.
+
+Since the reimbursement tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
+amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
+
+The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
+
+.Sequence Diagram of updating Reimbursement Tab (reimbursement package)
+
+image::TransactionUpdatingReimbursement.png[]
+
+This is done for every feature in the `LogicManager`.
+
+[big]##3.1.2 Delete Feature##
+
+The add command is facilitated by the `VersionedtreasurerPro`. The delete feature allows for 2 types of deletion, by
+the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
+that person to be deleted.
+
+The following sequence diagram shows how the delete by name command works:
+
+.Sequence Diagram of Delete Command in Home Tab (transaction package)
+
+image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
+
+After this, the reimbursement tab is updated as shown in Figure 12.
+The delete by index implementation would be similar but does not require interaction with the `Model` from the
+`AddressBook` in the person package.
+
+The following activity diagram shows the steps needed to delete a new transaction:
+
+.Activity Diagram of Delete Command in Home Tab (transaction package)
+
+image::HomeTabActivityDiagramDeleteCommand.png[]
+
+The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
+be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
+When a successful deletion is done, a response message is shown as well.
+
+In addition, since the `resetPredicate()` method is not called as shown, the UI table will continue to show the
+filtered transaction list if the prior input is a Find Command and the list at the start of the activity diagram shows
+a filtered list by the Find Command's keywords. To view the full transaction list, the user would have to input the
+Back Command that calls `resetPredicate()`.
+
+The following sequence diagram shows how the back command works:
+
+.Sequence Diagram of Back Command in Home Tab (transaction package)
+
+image::HomeTabBackCommandSequenceDiagram.png[]
+
+[big]##3.1.3 Sort Feature##
+
+The add command is facilitated by the `VersionedtreasurerPro`. The sort feature allows for 3 types of sort, by name in
+alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
+
+The following sequence diagram shows how the sort command works:
+
+.Sequence Diagram of Sort Command in Home Tab (transaction package)
+
+image::HomeTabSortCommandSequenceDiagram.png[]
+
+When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
+the incorrect user input. When it is successfully sorted, there will also be a response message shown.
+
+Similar to the Delete Command, since the `resetPredicate()` method is not called as shown, the UI table will
+continue to show the filtered transaction list if the prior input is a Find Command and the list at the start
+of the activity diagram shows a filtered list by the Find Command's keywords.
+To view the full transaction list, the user would have to input the
+Back Command that calls `resetPredicate()`.
+
 === Proposed enhancement for v2.0
