@@ -43,9 +43,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         NameContainsKeywordsPredicate studentPred = new NameContainsKeywordsPredicate(
                 argMultimap.getAllValues(PREFIX_STUDENT));
         ModuleContainsKeywordsPredicate modulePred = new ModuleContainsKeywordsPredicate(
-                argMultimap.getAllValues(PREFIX_MODULE_CODE));
+                argMultimap.getAllValues(PREFIX_MODULE));
         AppealContainsKeywordsPredicate appealPred = new AppealContainsKeywordsPredicate(
-                argMultimap.getAllValues(PREFIX_APPEALID));
+                argMultimap.getAllValues(PREFIX_APPEAL));
 
         if (args.contains(PREFIX_STUDENT.toString()) && studentPred.isEmpty()) {
             throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
@@ -53,13 +53,13 @@ public class FindCommandParser implements Parser<FindCommand> {
             predicates.add(studentPred);
         }
 
-        if (args.contains(PREFIX_MODULE_CODE.toString()) && modulePred.isEmpty()) {
+        if (args.contains(PREFIX_MODULE.toString()) && modulePred.isEmpty()) {
             throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
         } else {
             predicates.add(modulePred);
         }
 
-        if (args.contains(PREFIX_APPEALID.toString()) && appealPred.isEmpty()) {
+        if (args.contains(PREFIX_APPEAL.toString()) && appealPred.isEmpty()) {
             throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
         } else {
             predicates.add(appealPred);
