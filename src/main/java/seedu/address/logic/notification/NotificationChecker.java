@@ -3,7 +3,7 @@ package seedu.address.logic.notification;
 import java.util.ArrayList;
 
 import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.systemtray.PopupNotification;
 

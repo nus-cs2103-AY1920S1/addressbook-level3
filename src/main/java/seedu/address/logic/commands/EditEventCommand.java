@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.UserOutput;
 

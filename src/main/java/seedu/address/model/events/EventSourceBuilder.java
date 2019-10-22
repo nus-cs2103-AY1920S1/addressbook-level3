@@ -1,5 +1,7 @@
 package seedu.address.model.events;
 
+import seedu.address.model.DateTime;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
