@@ -30,8 +30,8 @@ public interface Logic {
      */
     ReadOnlyCatalog getCatalog();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Book> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of books */
+    ObservableList<Book> getFilteredBookList();
 
     /**
      * Returns the user prefs' catalog file path.

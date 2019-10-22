@@ -16,7 +16,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InfoCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoanCommand;
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.ReturnCommand;
@@ -65,9 +64,6 @@ public class CatalogParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

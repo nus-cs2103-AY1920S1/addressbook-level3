@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -18,9 +19,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -72,16 +73,10 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-    }
-
-    @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+        // Setup LogicManager with JsonCatalogIoExceptionThrowingStub
         JsonCatalogStorage catalogStorage =
-                new JsonCatalogIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+                new JsonCatalogIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCatalog.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonBorrowerRecordsStorage borrowerRecordsStorage =
@@ -104,9 +99,36 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredBookList().remove(0));
     }
 
+    @Test
+    public void getCatalog_success() {
+        assertEquals(logic.getCatalog(), model.getCatalog());
+    }
+
+    @Test
+    public void getFilteredBookList_success() {
+        assertEquals(logic.getFilteredBookList(), model.getFilteredBookList());
+    }
+
+    @Test
+    public void getCatalogFilePath_success() {
+        assertEquals(logic.getCatalogFilePath(), model.getCatalogFilePath());
+    }
+
+    @Test
+    public void getGuiSettings_success() {
+        assertEquals(logic.getGuiSettings(), model.getGuiSettings());
+    }
+
+    @Test
+    public void setGuiSettings_success() {
+        GuiSettings guiSettings = new GuiSettings(2.2, 2.2, 1, 3);
+        model.setGuiSettings(guiSettings);
+        assertEquals(logic.getGuiSettings(), guiSettings);
+        assertNotEquals(logic.getGuiSettings(), new GuiSettings());
+    }
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
@@ -173,5 +195,6 @@ public class LogicManagerTest {
         public void saveCatalog(ReadOnlyCatalog addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
+
     }
 }
