@@ -205,7 +205,7 @@ Format: `done`
 ==== Editing a borrower: `edit`
 
 Edit borrower’s particulars. +
-Format: `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }`
+Format: `edit { [id/K0001] [n/NAME] [p/PHONE_NUMBER] [e/email] }`
 
 ****
 * Edits the currently serving borrower's particulars.
@@ -215,9 +215,9 @@ Format: `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }`
 
 Examples:
 
-* `edit p/91234567 e/jane@austen.com` +
+* `edit id/K0001 p/91234567 e/jane@austen.com` +
 Edits the phone number and borrower's email address to be `91234567` and `jane@austen.com` respectively.
-* `edit n/Betsy Crower` +
+* `edit id/K0001 n/Betsy Crower` +
 Edits the name of the borrower to be `Betsy Crower`
 
 ==== Loaning book(s): `loan`
@@ -309,8 +309,8 @@ e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Serve mode* : `serve id/BORROWER_ID` +
 e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
-* *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
-e.g. `edit p/91234567 e/jane@austen.com`
+* *Edit a borrower's particulars* : `edit { [id/BORROWER_ID] [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
+e.g. `edit id/K0001 p/91234567 e/jane@austen.com`
 * *Loan book(s)* : `loan sn/BOOK_SN...` +
 e.g. `loan sn/B00201 sn/B02929 sn/B00203`
 * *Renew book(s)* : `renew INDEX… [-all]`
