@@ -35,9 +35,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all modules
+* *`list`* : lists all modules.
 * **`add`**`cs2103t` : adds a module with module code `cs2103t` to be tracked by ModuleBook.
-* **`delete`**`cs2103t` : deletes module with code `cs2103t`
+* **`delete`**`1` : deletes module at index 1.
 * **`deadline`**`cs2103t`**`d/complete UG and DG`**`t/time` : adds deadline to module with code 'cs2103t'
 * *`exit`* : exits the app
 
@@ -50,28 +50,50 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add CS1101S`.
-* Items in square brackets are optional e.g `MODULE_CODE [MODULE_TITLE]` can be used as `CS1231 discrete structures`
+* Items in square brackets are optional e.g `MODULE_CODE [MODULE_TITLE]` can be used as `CS1231 discrete structures`.
 //* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 //* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Viewing help: `help`
 
 Format: `help`
 
-=== Adding a module: `add`
+=== Finding a module: `find`
 
-Adds a module to be tracked +
-Format: `add MODULE_CODE`
+Find modules with the the given keyword. +
+Format: `find MODULE_CODE`
+
+****
+* The search is case insensitive. e.g `cs2103t` will match `CS2103T`.
+* Only module code is searched.
+* Only full words will be matched e.g. `cs2103` will not match `cs2103t`.
+****
 
 [TIP]
-Modules are imported from Nusmods database
+Modules are imported from NUSMods database.
+
+
+Examples:
+
+* `find cs2103t`
+
+=== Adding a module: `add`
+
+Adds a module to be tracked. +
+Format: `add MODULE_CODE`
+****
+* The add is case insensitive. e.g `cs2103t` will match `CS2103T`.
+* Only module code is searched for module to be added.
+* Only full words will be matched e.g. `cs2103` will not match `cs2103t`.
+****
+[TIP]
+Modules are imported from NUSMods database.
 
 
 Examples:
 
 * `add cs2103t`
-* `add manual MODULE_CODE (not in database)`
 
 === Viewing a module: `view`
 
@@ -82,7 +104,6 @@ Format: `view <MODULE_CODE>`
 Example: `view cs1231`
 
 === Return from module view: `back`
-
 Returns from the module view.
 
 Format: `back`
@@ -200,11 +221,10 @@ Deletes deadline task numbered from the respective module.
 
 Example: `deadline cs2103t a/delete l/2`
 
-=== Listing all modules : `list`
+=== Listing all tracked modules : `list`
 
 Shows a list of all current tracked modules. +
 Format: `list`
-
 
 ////
 === Editing a person : `edit`
@@ -227,58 +247,16 @@ Edits the phone number and email address of the 1st module to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd module to be `Betsy Crower` and clears all existing tags.
 
-=== Locating modules by name: `find`
-
-Finds modules whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `computing` will match `Computing`
-* The order of the keywords does not matter. e.g. `software engineering` will match `engineering software`
-* Only module code and module title are searched.
-* Only full words will be matched e.g. `computer` will not match `computers`
-//* Modules matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find computer` +
-Returns `cs2100` and `cs2105`
-* `find Betsy Tim John`?? +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
 === Deleting a module : `delete`
 
-Untrack the specified module from ModuleBook. +
-Format: `delete MODULE_CODE`
-
-****
-* Deletes module associated with specified `MODULE_CODE`.
-****
+Deletes a module from the tracked list. +
+Format: `delete MODULE_INDEX`
 
 Examples:
 
-* `delete cs2100` +
-  Removes module CS2100 from tracked module list.
-
+* `delete 1`
 ////
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-////
-
-// end::delete[]
-
-////
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-////
-
-
-=== Exiting the program : `exit`
+=== Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
@@ -357,10 +335,10 @@ Exits module-view and return to module list
 === List View
 * *Add* `add MODULE_CODE` +
 e.g. `add cs2101`
-* *Delete* : `delete MODULE_CODE` +
-e.g. `delete cs1231`
+* *Delete* : `delete MODULE_INDEX` +
+e.g. `delete 1`
 * *Exit* : `exit`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Find* : `find MODULE_CODE` +
 e.g. `find cs2101`
 * *Help* : `help`
 * *List* : `list`

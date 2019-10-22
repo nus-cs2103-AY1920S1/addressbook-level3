@@ -7,19 +7,31 @@ Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "delete 1"
+user -[USER_COLOR]> ui : "add CS2103T"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("delete 1")
+ui -[UI_COLOR]> logic : execute("add CS2103T")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : deleteModule(m)
+logic -[LOGIC_COLOR]> model : updateFilteredArchivedModuleList(CS2103T)
+activate model MODEL_COLOR
+
+model --[MODEL_COLOR]> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> model : addModule(CS2103T)
+activate model MODEL_COLOR
+
+model --[MODEL_COLOR]> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> model : displayTrackedList()
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
+logic -[LOGIC_COLOR]> storage : saveModuleBook(moduleBook)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file

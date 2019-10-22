@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModuleBookParser" as ModuleBookParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add CS2103T")
+activate LogicManager
+
+LogicManager -> ModuleBookParser : parseCommand("add CS2103T")
+activate ModuleBookParser
+
+create AddCommandParser
+ModuleBookParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> ModuleBookParser
+deactivate AddCommandParser
+
+ModuleBookParser -> AddCommandParser : parse("CS2103T")
+activate AddCommandParser
+
+create AddCommand
+AddCommandParser -> AddCommand
+activate AddCommand
+
+AddCommand --> AddCommandParser : a
+deactivate AddCommand
+
+AddCommandParser --> ModuleBookParser : a
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> ModuleBookParser
+destroy AddCommandParser
+
+ModuleBookParser --> LogicManager : a
+deactivate ModuleBookParser
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+AddCommand -> Model : updateFilteredArchivedModuleList(pred)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+AddCommand -> Model : addModule(CS2103T)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+AddCommand -> Model : displayTrackedList()
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCommand
+deactivate CommandResult
+
+AddCommand --> LogicManager : result
+deactivate AddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
