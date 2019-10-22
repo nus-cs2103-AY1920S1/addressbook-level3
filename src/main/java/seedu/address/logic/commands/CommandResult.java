@@ -8,8 +8,6 @@ import java.util.Objects;
  * Represents the result of a command execution.
  */
 public class CommandResult {
-
-    protected String pane;
     
     protected final String feedbackToUser;
 
@@ -74,7 +72,4 @@ public class CommandResult {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
-    public String getPane() {
-        return this.pane;
-    }
 }
