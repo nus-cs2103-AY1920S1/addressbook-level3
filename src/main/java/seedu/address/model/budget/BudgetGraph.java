@@ -83,7 +83,7 @@ public class BudgetGraph extends JFrame {
      *  Maps data points to the Budget Graph
      */
 
-    private XYDataset createDataSet(List<Claim> claimList,List<Income> incomeList) {
+    private XYDataset createDataSet(List<Claim> claimList, List<Income> incomeList) {
         final XYSeries claim = new XYSeries("Claim");
         ClaimPlotter claimPlotter = new ClaimPlotter(claimList, claim);
 
