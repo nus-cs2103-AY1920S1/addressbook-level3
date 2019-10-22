@@ -5,13 +5,13 @@ import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.repeater.AddRepeaterCommand;
 import seedu.ichifund.logic.commands.repeater.DeleteRepeaterCommand;
-import seedu.ichifund.logic.parser.ParserManager;
+import seedu.ichifund.logic.parser.FeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
  * Passes user input to the appropriate Parser for commands related to the repeater feature.
  */
-public class RepeaterParserManager implements ParserManager {
+public class RepeaterFeatureParser implements FeatureParser {
 
     private final int tabIndex = 1;
 

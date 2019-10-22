@@ -36,12 +36,12 @@ public interface Logic {
     /**
      * Returns an unmodifiable version of the index of the current parser manager.
      */
-    ObservableValue<Integer> getCurrentParserManagerIndex();
+    ObservableValue<Integer> getCurrentFeatureParserIndex();
 
     /**
      * Sets the current parser manager according to the given index.
      */
-    void setParserManager(int index);
+    void setFeatureParser(int index);
 
     /**
      * Returns the FundBook.

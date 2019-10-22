@@ -33,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private ObservableValue<Integer> currentParserManagerIndex;
+    private ObservableValue<Integer> currentFeatureParserIndex;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -91,7 +91,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.currentParserManagerIndex = logic.getCurrentParserManagerIndex();
+        this.currentFeatureParserIndex = logic.getCurrentFeatureParserIndex();
         setupParserSwitching();
 
         // Configure the UI
@@ -103,13 +103,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setupParserSwitching() {
-        // Add listener to check when Logic changes parserManagerIndex.
-        this.currentParserManagerIndex.addListener(new ParserManagerIndexListener(mainTabPane));
+        // Add listener to check when Logic changes currentFeatureParserIndex.
+        this.currentFeatureParserIndex.addListener(new FeatureParserIndexListener(mainTabPane));
 
-        // When tab switching is done by a mouse click, this we change parserManagerIndex through Logic.
+        // When tab switching is done by a mouse click, this we change currentFeatureParserIndex through Logic.
         mainTabPane.setOnMouseClicked(event -> {
             int selectedIndex = mainTabPane.getSelectionModel().getSelectedIndex();
-            logic.setParserManager(selectedIndex);
+            logic.setFeatureParser(selectedIndex);
         });
     }
 
@@ -213,8 +213,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowTransaction() {
-        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
-        logic.setParserManager(0);
+        // This triggers an invalidation event in FeatureParserIndexListener, resulting in a tab switch.
+        logic.setFeatureParser(0);
     }
 
     /**
@@ -222,8 +222,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowRepeater() {
-        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
-        logic.setParserManager(1);
+        // This triggers an invalidation event in FeatureParserIndexListener, resulting in a tab switch.
+        logic.setFeatureParser(1);
     }
 
     /**
@@ -231,8 +231,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowBudget() {
-        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
-        logic.setParserManager(2);
+        // This triggers an invalidation event in FeatureParserIndexListener, resulting in a tab switch.
+        logic.setFeatureParser(2);
     }
 
     /**
@@ -240,8 +240,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowLoan() {
-        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
-        logic.setParserManager(3);
+        // This triggers an invalidation event in FeatureParserIndexListener, resulting in a tab switch.
+        logic.setFeatureParser(3);
     }
 
     /**
@@ -249,8 +249,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowAnalytics() {
-        // This triggers an invalidation event in ParserManagerIndexListener, resulting in a tab switch.
-        logic.setParserManager(4);
+        // This triggers an invalidation event in FeatureParserIndexListener, resulting in a tab switch.
+        logic.setFeatureParser(4);
     }
 
     /**
@@ -309,19 +309,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Listener for invalidation of currentParserManager.
+     * Listener for invalidation of currentFeatureParserIndex.
      */
-    private class ParserManagerIndexListener implements InvalidationListener {
+    private class FeatureParserIndexListener implements InvalidationListener {
         private TabPane tabPane;
 
-        public ParserManagerIndexListener(TabPane tabpane) {
+        public FeatureParserIndexListener(TabPane tabpane) {
             this.tabPane = tabpane;
         }
 
         @Override
         public void invalidated(Observable observable) {
             // Change tabs in TabPane
-            this.tabPane.getSelectionModel().select(currentParserManagerIndex.getValue());
+            this.tabPane.getSelectionModel().select(currentFeatureParserIndex.getValue());
         }
     }
 }
