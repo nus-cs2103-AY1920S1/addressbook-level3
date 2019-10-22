@@ -71,15 +71,18 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
 
         Optional<JsonSerializableFlashcard> jsonFlashcard = JsonUtil.readJsonFile(
                 flashcardFilePath, JsonSerializableFlashcard.class);
+        Optional<JsonSerializableNote> jsonNote = JsonUtil.readJsonFile(
+                noteFilePath, JsonSerializableNote.class);
         Optional<JsonSerializableCheatSheet> jsonCheatSheet = JsonUtil.readJsonFile(
                 cheatSheetFilePath, JsonSerializableCheatSheet.class);
-        //Adjust for notes for top and bottom
-        if (!jsonFlashcard.isPresent() && !jsonCheatSheet.isPresent()) {
+
+        if (!jsonFlashcard.isPresent() && !jsonNote.isPresent() && !jsonCheatSheet.isPresent()) {
             return Optional.empty();
         }
         AddressBook addressBook = new AddressBook();
         try {
             Optional.of(jsonFlashcard.get().toModelType(addressBook));
+            Optional.of(jsonNote.get().toModelType(addressBook));
             Optional.of(jsonCheatSheet.get().toModelType(addressBook));
             return Optional.of(addressBook);
         } catch (IllegalValueException ive) {
@@ -112,7 +115,7 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
         FileUtil.createIfMissing(noteFilePath);
         FileUtil.createIfMissing(cheatSheetFilePath);
         JsonUtil.saveJsonFile(new JsonSerializableFlashcard(addressBook), flashcardFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableNote(addressBook), noteFilePath);
         JsonUtil.saveJsonFile(new JsonSerializableCheatSheet(addressBook), cheatSheetFilePath);
-        //Add one more for note
     }
 }
