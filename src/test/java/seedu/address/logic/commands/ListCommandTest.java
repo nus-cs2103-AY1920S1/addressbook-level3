@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.CommandSubType;
 import seedu.address.model.Context;
+import seedu.address.model.ContextType;
 import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -25,6 +26,7 @@ public class ListCommandTest {
     private Model model;
     private Model expectedModel;
     private String expectedMessage;
+    private CommandResult expectedResult;
 
     @BeforeEach
     public void setUp() {
@@ -34,12 +36,13 @@ public class ListCommandTest {
                 model.getAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
         expectedModel.setContext(Context.newListContactContext());
         expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, "contacts");
+        expectedResult = new CommandResult(expectedMessage, ContextType.LIST_CONTACT);
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListCommand(CommandSubType.CONTACT),
-                model, expectedMessage, expectedModel);
+                model, expectedResult, expectedModel);
         System.out.println(expectedModel.getContext().getType());
     }
 
@@ -47,18 +50,19 @@ public class ListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListCommand(CommandSubType.CONTACT),
-                model, expectedMessage, expectedModel);
+                model, expectedResult, expectedModel);
     }
 
     @Test
     public void execute_activityListIsFiltered_showsEverything() {
         expectedModel.setContext(Context.newListActivityContext());
         expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, "activities");
+        expectedResult = new CommandResult(expectedMessage, ContextType.LIST_ACTIVITY);
 
         model.updateFilteredActivityList((activity) ->
             activity.getTitle().equals(new Title("Lunch")));
 
         assertCommandSuccess(new ListCommand(CommandSubType.ACTIVITY),
-                model, expectedMessage, expectedModel);
+                model, expectedResult, expectedModel);
     }
 }
