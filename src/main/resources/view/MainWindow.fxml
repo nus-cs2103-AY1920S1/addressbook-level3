@@ -57,7 +57,7 @@
                               <Insets bottom="10" left="10" right="10" top="10" />
                             </padding>
                                  <children>
-                               <StackPane fx:id="listPanelPlaceholder" />
+                               <StackPane fx:id="listPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                                  </children>
                           </VBox>
                            </children>

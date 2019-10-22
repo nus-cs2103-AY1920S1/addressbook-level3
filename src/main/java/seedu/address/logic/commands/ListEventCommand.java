@@ -18,6 +18,7 @@ public class ListEventCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.updateFilteredScheduledEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
