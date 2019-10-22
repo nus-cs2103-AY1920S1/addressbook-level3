@@ -5,10 +5,6 @@ import static seedu.address.storage.JsonAdaptedExpense.MISSING_FIELD_MESSAGE_FOR
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.BUSAN_TRIP;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -26,9 +22,7 @@ public class JsonAdaptedExpenseTest {
 
     private static final String VALID_DESCRIPTION = BUSAN_TRIP.getDescription().toString();
     private static final String VALID_PRICE = BUSAN_TRIP.getPrice().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BUSAN_TRIP.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList());
+    private static final String VALID_CATEGORY = BUSAN_TRIP.getCategory().getCategoryName();
     private static final String VALID_UNIQUE_IDENTIFIER = BUSAN_TRIP.getUniqueIdentifier().toString();
     private static final String VALID_TIMESTAMP = BUSAN_TRIP.getTimestamp().toString();
 
@@ -42,7 +36,7 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_invalidDescription_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(INVALID_DESCRIPTION, VALID_PRICE,
-                        VALID_TAGS, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
+                        VALID_CATEGORY, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
         String expectedMessage = Description.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
@@ -50,7 +44,7 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
-                new JsonAdaptedExpense(null, VALID_PRICE, VALID_TAGS, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
+                new JsonAdaptedExpense(null, VALID_PRICE, VALID_CATEGORY, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
@@ -59,7 +53,7 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_invalidPrice_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, INVALID_PRICE,
-                        VALID_TAGS, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
+                        VALID_CATEGORY, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
         String expectedMessage = Price.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
@@ -68,26 +62,17 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_nullPrice_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, null,
-                        VALID_TAGS, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
+                        VALID_CATEGORY, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
 
-    @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedExpense expense =
-                new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
-                        invalidTags, VALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
-        assertThrows(IllegalValueException.class, expense::toModelType);
-    }
 
     @Test
     public void toModelType_invalidUniqueIdentifier_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
-                        VALID_TAGS, INVALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
+                        VALID_CATEGORY, INVALID_UNIQUE_IDENTIFIER, VALID_TIMESTAMP);
         String expectedMessage = UniqueIdentifier.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
@@ -96,7 +81,7 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_nullUniqueIdentifier_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
-                        VALID_TAGS, VALID_TIMESTAMP, null);
+                        VALID_CATEGORY, VALID_TIMESTAMP, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueIdentifier.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
@@ -105,7 +90,7 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_invalidTimestamp_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
-                        VALID_TAGS, INVALID_TIMESTAMP, VALID_UNIQUE_IDENTIFIER);
+                        VALID_CATEGORY, INVALID_TIMESTAMP, VALID_UNIQUE_IDENTIFIER);
         String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_DATE;
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }

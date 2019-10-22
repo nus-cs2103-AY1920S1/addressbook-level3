@@ -1,28 +1,26 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * Edits the details of an existing expense in the address book.
@@ -37,8 +35,8 @@ public class EditCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_PRICE + "PRICE] "
-            + "[" + PREFIX_TAG + "TAG]"
-            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY]"
+            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "3512.123 ";
 
@@ -99,11 +97,10 @@ public class EditCommand extends UndoableCommand {
 
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Price updatedPrice = editExpenseDescriptor.getPrice().orElse(expenseToEdit.getPrice());
-        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
+        Category updatedCategory = editExpenseDescriptor.getCategory().orElse(expenseToEdit.getCategory());
         Timestamp updatedTimestamp = editExpenseDescriptor.getTimestamp().orElse(expenseToEdit.getTimestamp());
 
-
-        return new Expense(updatedDescription, updatedPrice, updatedTags,
+        return new Expense(updatedDescription, updatedPrice, updatedCategory,
                 updatedTimestamp, expenseToEdit.getUniqueIdentifier());
     }
 
@@ -132,7 +129,7 @@ public class EditCommand extends UndoableCommand {
     public static class EditExpenseDescriptor {
         private Description description;
         private Price price;
-        private Set<Tag> tags;
+        private Category category;
         private Timestamp timestamp;
 
         public EditExpenseDescriptor() {}
@@ -144,7 +141,7 @@ public class EditCommand extends UndoableCommand {
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setDescription(toCopy.description);
             setPrice(toCopy.price);
-            setTags(toCopy.tags);
+            setCategory(toCopy.category);
             setTimestamp(toCopy.timestamp);
         }
 
@@ -152,7 +149,7 @@ public class EditCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, price, tags, timestamp);
+            return CollectionUtil.isAnyNonNull(description, price, category, timestamp);
         }
 
         public void setDescription(Description description) {
@@ -171,21 +168,12 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(price);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setCategory(Category category) {
+            this.category = category;
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         public void setTimestamp(Timestamp timestamp) {
@@ -213,7 +201,7 @@ public class EditCommand extends UndoableCommand {
 
             return getDescription().equals(e.getDescription())
                     && getPrice().equals(e.getPrice())
-                    && getTags().equals(e.getTags())
+                    && getCategory().equals(e.getCategory())
                     && getTimestamp().equals(e.getTimestamp());
         }
     }

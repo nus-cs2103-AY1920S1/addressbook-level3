@@ -1,16 +1,13 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
-
-import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Expense.
@@ -31,9 +28,7 @@ public class ExpenseUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_DESCRIPTION + expense.getDescription().fullDescription + " ");
         sb.append(PREFIX_PRICE + expense.getPrice().value + " ");
-        expense.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        sb.append(PREFIX_CATEGORY + expense.getCategory().getCategoryName() + " ");
         sb.append(PREFIX_TIMESTAMP + expense.getTimestamp().toString() + " ");
         return sb.toString();
     }
@@ -46,16 +41,16 @@ public class ExpenseUtil {
         descriptor.getDescription().ifPresent(description -> sb
                 .append(PREFIX_DESCRIPTION).append(description.fullDescription).append(" "));
         descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
+        descriptor.getCategory().ifPresent(category -> sb.append(PREFIX_CATEGORY).append(
+                category.getCategoryName()).append(" "));
         descriptor.getTimestamp()
                 .ifPresent(timestamp -> sb.append(PREFIX_TIMESTAMP).append(timestamp.toString()).append(" "));
         return sb.toString();
     }
+
+
+
+
+
+
 }

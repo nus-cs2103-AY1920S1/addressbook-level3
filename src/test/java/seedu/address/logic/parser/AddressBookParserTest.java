@@ -71,6 +71,7 @@ public class AddressBookParserTest {
         assertEquals(new DeleteCommand(INDEX_FIRST_EXPENSE), command);
     }
 
+
     @Test
     public void parseCommand_edit() throws Exception {
         Expense expense = new ExpenseBuilder().build();
@@ -79,8 +80,10 @@ public class AddressBookParserTest {
                         + INDEX_FIRST_EXPENSE.getOneBased() + " "
                         + ExpenseUtil.getEditExpenseDescriptorDetails(descriptor),
                 readOnlyUserPrefs);
+
         assertEquals(new EditCommand(INDEX_FIRST_EXPENSE, descriptor), command);
     }
+
 
     @Test
     public void parseCommand_exit() throws Exception {
