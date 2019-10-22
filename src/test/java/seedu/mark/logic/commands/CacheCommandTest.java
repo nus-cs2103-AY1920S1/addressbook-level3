@@ -51,7 +51,7 @@ class CacheCommandTest {
         }
 
         @Override
-        public void saveMark() {
+        public void saveMark(String message) {
             // phantom save just for testing
         }
 

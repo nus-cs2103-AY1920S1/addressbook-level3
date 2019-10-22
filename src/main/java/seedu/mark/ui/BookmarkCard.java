@@ -47,7 +47,7 @@ public class BookmarkCard extends UiPart<Region> {
     public BookmarkCard(Bookmark bookmark, int displayedIndex) {
         super(FXML);
         this.bookmark = bookmark;
-        id.setText(displayedIndex + ". " + Math.random());
+        id.setText(displayedIndex + ". ");
         name.setText(bookmark.getName().value);
         url.setText(bookmark.getUrl().value);
         remark.setText(bookmark.getRemark().value);
