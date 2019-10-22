@@ -2,7 +2,7 @@ package seedu.jarvis.logic.commands.planner;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ class DeleteTaskCommandTest {
     @Test
     void hasInverseExecution() throws ParseException {
         DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("2"));
-        assertFalse(command.hasInverseExecution());
+        assertTrue(command.hasInverseExecution());
     }
 
     @Test
@@ -55,10 +55,21 @@ class DeleteTaskCommandTest {
     }
 
     @Test
-    void executeInverse() throws ParseException {
-        Model planner = new ModelManager();
-        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("1"));
-        assertDoesNotThrow(() -> command.executeInverse(planner));
+    void executeInverse_success() throws CommandException, ParseException {
+        Model model = new ModelManager();
+        Model expected = new ModelManager();
+        Task toDelete = new Todo("borrow book");
+
+        model.addTask(toDelete);
+        expected.addTask(toDelete);
+
+        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("1"), toDelete);
+        command.execute(model);
+
+        command.executeInverse(model);
+
+        assertEquals(expected, model);
+
     }
 
     @Test

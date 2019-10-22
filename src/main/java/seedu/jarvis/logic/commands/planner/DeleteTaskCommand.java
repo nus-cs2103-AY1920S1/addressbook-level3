@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -23,9 +25,25 @@ public class DeleteTaskCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task:\n%1$s";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New task added task: %1$s";
+    public static final String MESSAGE_INVERSE_TASK_TO_ADD_ALREADY_EXIST = "Task already added: %1$s";
+
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
+    private Task deletedTask;
+
+    /**
+     * Creates a {@code DeleteTaskCommand} and sets TargetIndex to the {@code Index} and {@code Task} that was
+     * deleted, which is null if the task has not been deleted.
+     *
+     * @param targetIndex {@code Index} of the {@code Task} to be deleted
+     * @param deletedTask {@code Task} that was deleted, which is null if the task has not been deleted
+     */
+    public DeleteTaskCommand(Index targetIndex, Task deletedTask) {
+        this.targetIndex = targetIndex;
+        this.deletedTask = deletedTask;
+    }
 
     /**
      * Creates a {@code DeleteTaskCommand} and sets targetIndex to the {@code Index}
@@ -88,15 +106,41 @@ public class DeleteTaskCommand extends Command {
 
     }
 
+    /**
+     * Adds back the {@code Task} that was deleted
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} of a successful restore of the deleted {@code Task}
+     * if the {@code Task} is not already in the planner
+     * @throws CommandException If the task to be added will be in conflict with an existing task
+     * in the planner
+     */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (model.hasTask(deletedTask)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_TASK_TO_ADD_ALREADY_EXIST, deletedTask));
+        }
+
+        model.addTask(targetIndex.getZeroBased(), deletedTask);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedTask));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteTaskCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex));
+        if (other == this) {
+            // short circuit if same object
+            return true;
+        }
+
+        //instanceof handles nulls
+        if (!(other instanceof DeleteTaskCommand)) {
+            return false;
+        }
+
+        return targetIndex.equals(((DeleteTaskCommand) other).targetIndex)
+                && Objects.equals(deletedTask, ((DeleteTaskCommand) other).deletedTask);
     }
 }

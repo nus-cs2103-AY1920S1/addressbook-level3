@@ -31,11 +31,26 @@ class TaskListTest {
     }
 
     @Test
-    void add() {
+    void add_task() {
         Task t = new Todo("borrow");
         TaskList testList = new TaskList();
         testList.add(t);
         assertNotNull(testList.getTasks());
+    }
+
+    @Test
+    void add_taskAndIndex() throws ParseException {
+        Task t = new Todo("borrow");
+        Task t2 = new Todo("help");
+        TaskList testList = new TaskList();
+        testList.add(t);
+        testList.add(t2);
+
+        Task toAdd = new Todo("middle");
+        testList.add(1, toAdd);
+
+        assertEquals(testList.getTask(ParserUtil.parseIndex("2")),
+                    toAdd);
     }
 
     @Test
@@ -120,14 +135,33 @@ class TaskListTest {
     }
 
     @Test
-    void deleteTask() throws ParseException {
+    void deleteTask_index() throws ParseException {
         ArrayList<Task> tasks = new ArrayList<>();
+
         tasks.add(new Todo("borrow book"));
         tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
         tasks.add(new Todo("help"));
+
         TaskList taskTest = new TaskList(tasks);
 
         taskTest.deleteTask(ParserUtil.parseIndex("2"));
+
+        assertEquals(2, taskTest.size());
+        assertTrue(new Todo("help").equals(taskTest.getTask(ParserUtil.parseIndex("2"))));
+    }
+
+    @Test
+    void deleteTask_task() throws ParseException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        Task toDelete = new Todo("borrow book");
+
+        tasks.add(toDelete);
+        tasks.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasks.add(new Todo("help"));
+
+        TaskList taskTest = new TaskList(tasks);
+
+        taskTest.deleteTask(toDelete);
 
         assertEquals(2, taskTest.size());
         assertTrue(new Todo("help").equals(taskTest.getTask(ParserUtil.parseIndex("2"))));
