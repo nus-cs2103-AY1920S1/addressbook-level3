@@ -249,7 +249,7 @@ The archive feature supports the following actions:
 * Listing all existing archive names
 
 
-These actions is facilitated by the `ArchiveWrapper` and `Archive` classes:
+These actions are facilitated by the `ArchiveWrapper` and `Archive` classes:
 
 *  `Archive` extends from `ExpenseList` in order to encapsulate an archive name and a list of expenses together as an archive.
 * `ArchiveWrapper` manages all existing archives and hashes each `Archive` object to its archive name.
@@ -288,8 +288,8 @@ In this case, the arguments are `3` and `archiveName` +
 
 `AddArchiveCommandParser` then returns a `AddArchiveCommand` object to be executed. The `AddArchiveCommand` performs two checks before executing any changes:
 
-* First, it is changed if entered index, `3`, is a valid index from the current expense list. An exception is thrown and the command is aborted if the index is invalid.
-so the model is left unmodified.
+* First, it is changed if entered index, `3`, is a valid index from the current expense list. An exception is thrown and the command is aborted if the index is invalid,
+so `Model` is left unmodified in this case.
 * Next, it is checked if the entered archive name, `archiveName`, is an existing archive by calling `Model#HasArchive(String)`. If the archive does not already exist,
 then a new archive is created with the given archive name using `Model#addArchive(Archive)`. +
 
@@ -300,11 +300,44 @@ After the checks are completed and if no exception is thrown, the command execut
 * Next, the expense's `archiveName` field is updated using `Expense#archiveTo(String)`
 * Lastly, the expense is added to the specified archive using `Model#addArchiveExpense(String, Expense)`
 
-Finally, a `CommandResult` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful.
+Finally, a `CommandResult` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful. +
+
+The following activity diagram summarizes what happens when a user executes a new `AddArchiveCommand`:
 
 ===== Storing Archive
+All expenses, archived and non-archived, are stored in a single JSON file. +
+
+Upon start up of the application, all expenses are retrieved from JSON format and passed into
+`ModelManager` as a combined `Billboard` object. During the initialization of `ModelManager`, the expenses in this `Billboard` object are filtered out into non-archived and
+archived expenses by each `Expense` object's `archiveName` field. The separate lists of non-archive and archive expenses are then used to initialize new `Billboard` and
+`ArchiveWrapper` objects of `ModelManager` respectively. +
+
+After each command is executed, the expenses in `Model` are saved into the JSON file. The method `Model#getCombinedBillboard` is called which collates all `Expense` objects
+from its `Billboard` and `ArchiveWrapper` objects together into a single list and creates a new combined `Billboard` object. This combined `Billboard` is returned and used by
+`Storage` to serialize into JSON format and writes it into the JSON file.
 
 ==== Design Considerations
+===== Aspect: Data Structure to hold archives in `ArchiveWrapper`
+* ** Alternative 1 (Current implementation): ** Use of HashMap, mapping each archive name to its `Archive` object
+** Pros: Instant access to any archive with the archive name given. Therefore, performing add/delete archive expense operations or checking if an archive exists is fast.
+** Cons: As `ArchiveWrapper` is initialized with a single list of archive `Expense` objects, the initialization process is slower as this given list needs to be iterated
+through to filter each `Expense` object into their respective `Archive` objects in the HashMap.
+
+* ** Alternative 2: ** Use a single list to store all archive expenses
+** Pros: Initialization of `ArchiveWrapper` is fast, as the given list of archive expenses need not be processed.
+** Cons: Some operations, like delete archive expense or get all archive names, are slower as the entire list must be iterated through each time in the worst case scenario.
+For example, to check if an expense exists in a particular archive, the entire list must be iterated if the expense to be found is at the end of the list.
+
+===== Aspect: Storing archives
+* ** Alternative 1 (Current implementation): ** Storing non-archive and archive expenses together
+** Pros: No new storage classes need to be implemented, as this implementation uses the existing classes only.
+** Cons: Initialization process of `ModelManager` is slower as the expenses need to be filtered into archive and non-archive expenses first.
+
+* ** Alternative 2: ** Storing archive expenses as `Archive` objects in a separate file
+** Pros: Initialization process of `ModelManager` is faster, as its `ArchiveWrapper` object can be initialized directly with the list of `Archive` objects retrieved from the JSON file.
+No filtering of archive and non-archive expense from the same list is needed.
+** Cons: More difficult to implement, as more JSON storage classes must be added and knowledge on serialising and deserialising new objects is needed.
+
 // end::archive[]
 
 === Logging
