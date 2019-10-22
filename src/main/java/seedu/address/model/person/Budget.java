@@ -10,20 +10,30 @@ import seedu.address.model.tag.Tag;
 public class Budget extends Entry {
 
     private static final String ENTRY_TYPE = "Budget";
-    private final Time time;
+
+    private Amount spent;
 
     public Budget(Description desc, Time time, Amount amount, Set<Tag> tags) {
-        super(desc, amount, tags);
-        this.time = time;
+        super(desc, time, amount, tags);
+        spent = new Amount(0);
+    }
+
+    /**
+     * Returns amount spent out of the budget.
+     *
+     * TODO: display on UI side panel
+     *
+     * @return amount Amount spent (calculated from expenses)
+     */
+    public Amount getSpent() {
+        return spent;
     }
 
     public String getType() {
         return this.ENTRY_TYPE;
     }
 
-    public Time getTime() {
-        return this.time;
-    }
+
 
     /**
      * Returns true if both budgets have the same data fields.
@@ -55,7 +65,7 @@ public class Budget extends Entry {
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + time + ")");
+        builder.append("(" + getTime() + ")");
         return builder.toString();
     }
 }

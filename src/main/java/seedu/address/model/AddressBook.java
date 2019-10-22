@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.BudgetList;
 import seedu.address.model.person.AutoExpense;
@@ -36,6 +38,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final AutoExpenseList autoExpenses;
     private final ExpenseReminderList expenseReminders;
     private final ExpenseTrackerList expenseTrackers;
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
     /*
      * The 'unusual' code block below is a non-static initialization block,
      * sometimes used to avoid duplication between constructors. See
@@ -74,34 +77,42 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setEntries(List<Entry> entries) {
         this.entries.setEntries(entries);
+        indicateModified();
     }
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses.setEntries(expenses);
+        indicateModified();
     }
 
     public void setIncomes(List<Income> incomes) {
         this.incomes.setEntries(incomes);
+        indicateModified();
     }
 
     public void setWishes(List<Wish> wishes) {
         this.wishes.setEntries(wishes);
+        indicateModified();
     }
 
     public void setAutoExpenses(List<AutoExpense> autoExpenses) {
         this.autoExpenses.setEntries(autoExpenses);
+        indicateModified();
     }
 
     public void setExpenseReminders(List<ExpenseReminder> expenseReminders) {
         this.expenseReminders.setEntries(expenseReminders);
+        indicateModified();
     }
 
     public void setExpenseTrackers(List<ExpenseTracker> trackers) {
         this.expenseTrackers.setEntries(trackers);
+        indicateModified();
     }
 
     public void setBudgets(List<Budget> budgets) {
         this.budgets.setEntries(budgets);
+        indicateModified();
     }
 
     /**
@@ -145,6 +156,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEntry(Entry entry) {
         entries.add(entry);
+        indicateModified();
     }
 
     /**
@@ -155,6 +167,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addExpense(Expense expense) {
         entries.add(expense);
         expenses.add(expense);
+        indicateModified();
     }
 
     /**
@@ -165,6 +178,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addIncome(Income income) {
         entries.add(income);
         incomes.add(income);
+        indicateModified();
     }
 
     /**
@@ -174,6 +188,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addBudget(Budget budget) {
         entries.add(budget);
         budgets.add(budget);
+        indicateModified();
     }
 
     /**
@@ -184,10 +199,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addWish(Wish wish) {
         entries.add(wish);
         wishes.add(wish);
+        indicateModified();
     }
 
     private void addExpenseTracker(ExpenseTracker tracker) {
         expenseTrackers.add(tracker);
+        indicateModified();
     }
 
     /**
@@ -198,6 +215,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addExpenseReminder(ExpenseReminder expenseReminder) {
         expenseReminders.add(expenseReminder);
         addExpenseTracker(expenseReminder.getTracker());
+        indicateModified();
     }
 
     /**
@@ -208,6 +226,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addAutoExpense(AutoExpense autoExpense) {
         entries.add(autoExpense);
         autoExpenses.add(autoExpense);
+        indicateModified();
     }
 
     /**
@@ -219,6 +238,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setEntry(Entry target, Entry editedEntry) {
         requireNonNull(editedEntry);
         entries.setEntry(target, editedEntry);
+        indicateModified();
     }
 
     /**
@@ -231,6 +251,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntry);
         expenses.setExpense(target, editedEntry);
         entries.setEntry(target, editedEntry);
+        indicateModified();
     }
 
     /**
@@ -243,6 +264,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntry);
         incomes.setIncome(target, editedEntry);
         entries.setEntry(target, editedEntry);
+        indicateModified();
     }
 
     /**
@@ -255,11 +277,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntry);
         wishes.setWish(target, editedEntry);
         entries.setEntry(target, editedEntry);
+        indicateModified();
     }
 
     private void setExpenseTracker(ExpenseTracker target, ExpenseTracker editedEntry) {
         requireNonNull(editedEntry);
         expenseTrackers.setTracker(target, editedEntry);
+        indicateModified();
     }
 
     /**
@@ -272,6 +296,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntry);
         expenseReminders.setExpenseReminder(target, editedEntry);
         setExpenseTracker(target.getTracker(), editedEntry.getTracker());
+        indicateModified();
     }
 
     /**
@@ -283,6 +308,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);
         budgets.setBudget(target, editedEntry);
+        indicateModified();
     }
 
     /**
@@ -295,6 +321,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntry);
         autoExpenses.setAutoExpense(target, editedEntry);
         entries.setEntry(target, editedEntry);
+        indicateModified();
     }
 
     /**
@@ -303,6 +330,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEntry(Entry key) {
         entries.remove(key);
+        indicateModified();
     }
 
     /**
@@ -312,6 +340,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeExpense(Expense key) {
         expenses.remove(key);
         entries.remove(key);
+        indicateModified();
     }
 
     /**
@@ -321,6 +350,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeIncome(Income key) {
         incomes.remove(key);
         entries.remove(key);
+        indicateModified();
     }
 
     /**
@@ -330,6 +360,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeWish(Wish key) {
         wishes.remove(key);
         entries.remove(key);
+        indicateModified();
     }
 
     /**
@@ -339,6 +370,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeBudget(Budget key) {
         budgets.remove(key);
         entries.remove(key);
+        indicateModified();
     }
 
     
@@ -349,6 +381,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeAutoExpense(AutoExpense key) {
         autoExpenses.remove(key);
         entries.remove(key);
+        indicateModified();
     }
 
     /**
@@ -357,6 +390,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     private void removeExpenseTracker(ExpenseTracker key) {
         expenseTrackers.remove(key);
+        indicateModified();
     }
 
     /**
@@ -366,10 +400,28 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeExpenseReminder(ExpenseReminder key) {
         expenseReminders.remove(key);
         removeExpenseTracker(key.getTracker());
+        indicateModified();
     }
 
     public void updateExpenseReminders() {
         expenseReminders.updateList();
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        invalidationListenerManager.addListener(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        invalidationListenerManager.removeListener(listener);
+    }
+
+    /**
+     * Notifies listeners that the finance tracker has been modified.
+     */
+    protected void indicateModified() {
+        invalidationListenerManager.callListeners(this);
     }
 
     //// util methods

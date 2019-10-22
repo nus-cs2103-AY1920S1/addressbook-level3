@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -17,15 +19,19 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final List<String> history;
+    private ListElementPointer historySnapshot;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, List<String> history) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.history = history;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        historySnapshot = new ListElementPointer(history);
     }
 
     /**
@@ -60,6 +66,50 @@ public class CommandBox extends UiPart<Region> {
 
         styleClass.add(ERROR_STYLE_CLASS);
     }
+
+    /**
+     * Update the text field with the previous input in {@code historySnapshot},
+     * if there exists a previous input in {@code historySnapshot}
+     */
+    private void navigateToPreviousInput() {
+        assert historySnapshot != null;
+        if(!historySnapshot.hasPrevious()) {
+            return;
+        }
+        replaceText(historySnapshot.previous());
+    }
+
+    /**
+     * Updates the text field with the next input in {@code historySnapshot},
+     * if there exists a next input in {@code historySnapshot}
+     */
+    private void navigateToNextInput() {
+        assert historySnapshot != null;
+        if (!historySnapshot.hasNext()) {
+            return;
+        }
+        replaceText(historySnapshot.next());
+    }
+
+    /**
+     * Sets {@code CommandBox}'s text field with {@code text} and
+     * positions the caret to the end of the {@code text}
+     */
+    private void replaceText(String text) {
+        commandTextField.setText(text);
+        commandTextField.positionCaret(commandTextField.getText().length());
+    }
+
+    /**
+     * Initializes the history snapshot.
+     */
+    private void initHistory() {
+        historySnapshot = new ListElementPointer(history);
+        // add an empty string to represent the most-recent end of historySnapshot, to be shown to
+        // the user if she tries to navigate past the most-recent end of the historySnapshot.
+        historySnapshot.add("");
+    }
+
 
     /**
      * Represents a function that can execute commands.

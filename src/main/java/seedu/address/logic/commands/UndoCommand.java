@@ -17,12 +17,6 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(MESSAGE_FAILURE);
-    }
-
-    /*
-    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
@@ -33,5 +27,5 @@ public class UndoCommand extends Command {
         model.undoAddressBook();
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         return new CommandResult(MESSAGE_SUCCESS);
-    }*/
+    }
 }

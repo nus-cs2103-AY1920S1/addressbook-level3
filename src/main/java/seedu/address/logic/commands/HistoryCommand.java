@@ -18,12 +18,6 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     @Override
-    public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_NO_HISTORY);
-    }
-
-    /*
-    @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
         ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
@@ -34,6 +28,5 @@ public class HistoryCommand extends Command {
 
         Collections.reverse(previousCommands);
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
-    } */
-
+    }
 }

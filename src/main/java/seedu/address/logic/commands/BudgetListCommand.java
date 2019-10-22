@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
@@ -16,7 +17,7 @@ public class BudgetListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
         return new CommandResult(MESSAGE_SUCCESS);

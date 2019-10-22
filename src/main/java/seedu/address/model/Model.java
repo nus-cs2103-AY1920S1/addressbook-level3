@@ -34,7 +34,6 @@ public interface Model {
 
     Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
 
-
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -179,19 +178,30 @@ public interface Model {
 
     void updateFilteredBudgets(Predicate<Budget> predicate);
 
-    //Returns true if the model has previous address book states to restore.
-    //boolean canUndoAddressBook();
+    /**
+     * Returns true if the model has previous finance tracker states to restore.
+     */
+    boolean canUndoAddressBook();
 
-    //Returns true if the model has undone address book states to restore.
-    //boolean canRedoAddressBook();
+    /**
+     * Returns true if the model has undone finance tracker states to restore.
+     */
+    boolean canRedoAddressBook();
 
-    //Restores the model's address book to its previous state.
-    //void undoAddressBook();
+    /**
+     * Restores the model's finance tracker to its previous state.
+     */
+    void undoAddressBook();
 
-    //Restores the model's address book to its previously undone state.
-    //void redoAddressBook();
+    /**
+     * Restores the model's finance tracker to its previously undone state.
+     */
+    void redoAddressBook();
 
-    public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
+    /**
+     * Saves the current finance tracker state for undo/redo
+     */
+    void commitAddressBook();
 
     void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
 
