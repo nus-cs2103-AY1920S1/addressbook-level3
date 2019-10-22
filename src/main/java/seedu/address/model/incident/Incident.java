@@ -29,7 +29,7 @@ public class Incident {
     private final IncidentDateTime incidentDateTime;
 
     /** The vehicle assigned to investigate this incident. */
-    private Vehicle vehicle; // TODO add vehicle details to incident report
+    //private Vehicle vehicle; TODO add vehicle details to incident report
 
     /** The unique id associated with this incident. */
     private final IncidentId id;
@@ -54,7 +54,6 @@ public class Incident {
     }
 
     private Status status;
-
 
     /** Constructor for generating an incident draft according to 'new' command i.e. fills auto-filled fields.
      * @param operator operator generating the new incident report.
@@ -157,9 +156,16 @@ public class Incident {
                 .collect(Collectors.toSet());
     }
 
-    public void addVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public Status getStatus() {
+        return status;
     }
+
+    /**
+     * To be uncommented after vehicle assignment is done. Commented now to avoid code quality check failures.
+     * public void addVehicle(Vehicle vehicle) {
+     *    this.vehicle = vehicle;
+     * }
+     */
 
     /**
      * Returns true if both Vehicles of the same VehicleType have at least one other identity field that is the same.
