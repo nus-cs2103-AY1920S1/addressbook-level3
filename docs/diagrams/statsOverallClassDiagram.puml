@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Package UI {
+Interface UIPart <<Interface>>
+class MainWindow
+}
+Package Logic {
+Interface Logic <<Interface>>
+}
+Package Statistics {
+Interface Statistics  <<Interface>>
+class StatisticManager
+}
+
+MainWindow .left.|> UIPart
+MainWindow .right.-> Logic
+
+Logic .down.-> Statistics
+StatisticManager .up.|> Statistics
+
+@enduml

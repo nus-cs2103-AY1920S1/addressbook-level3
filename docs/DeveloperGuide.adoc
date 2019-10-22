@@ -157,10 +157,10 @@ This section describes some noteworthy details on how certain features are imple
 === Statistics Calculation and Chart generation feature
 ==== Implementation
 
-This statistic calculation and chart generation feature
-extends `Seller Manager Lite` which allows seller to quickly
-generate total statistics from their `DataBooks`, through the use
-of a `statistic` module that handles this calculation.
+This statistic calculation and chart generation feature extends `Seller Manager Lite` which allows seller to quickly
+generate total statistics from their `DataBooks`, through the use of a `statistic`
+module that handles this calculation.
+
 There is three type of statistic to be calculated and only on `completed orders`:
 
 * `Profit`
@@ -172,14 +172,18 @@ It implements the following mode of operations:
 * default mode with no date input: generates on all completed order total `profit` , `cost` or `revenue`
 ** The command enter by the user will be e.g for profit type `generate-s s/PROFIT`
 
-* mode with date input from user: The statistic command takes in 2 `dates`, `starting date` and `ending date` and generates the `profit`
-, `cost` or `revenue`  each `month` between this 2 dates.
+* mode with date input from user: The statistic command takes in 2 `dates`, `starting date` and `ending date`
+and generates the `profit`, `cost` or `revenue`  each `month` between this 2 dates.
 ** command entered by user will be e.g for profit type`generate-s s/PROFIT s1/YYYY.MM.DD s2/YYYY.MM.DD`
+
+Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
+
+image::StatisticsCalculationActvityDiagram.png[]
 
 ===== Statistic Module
 The statistic module exposes the calculation operations in the `Statistics` interface.
 analogous to the output mode, there are 2 types of methods in this module, one that returns a
-`String` and the other and `XYChart.Data<String,Number>`
+`String` and the other and `XYChart.Series<String,Number>`
 
 * Methods that return a `String`:
 
@@ -187,11 +191,18 @@ analogous to the output mode, there are 2 types of methods in this module, one t
 ** `calculateTotalRevenueOnCompleted()`
 ** `calculateTotalCostOnCompleted()`
 
-* Methods that return a `XYChart.Data<String,Number>`:
+* Methods that return a `XYChart.Series<String,Number>`:
 
 ** `calculateTotalProfitOnCompletedGraph()`
 ** `calculateTotalRevenueOnCompletedGraph()`
 ** `calculateTotalCostOnCompletedGraph()`
+
+All methods were written using java8 Stream() feature. This is such that there are no loops in the code to make it
+more readable and maintainable.
+
+`org.apache.commons.math3.stat.StatUtils` library is used to calculate the raw data inside a `double[]` .
+While the current `v1.4` only use `sum` to calculate the exact `profit` , `revenue` and `cost` , `v2.0` implementation
+will make use of the `linear regression` / `average` methods inside the library to generate more advanced statistics.
 
 ===== Design Considerations / Alternative designs considered
 
@@ -201,27 +212,82 @@ the main focus of this feature was to *calculate statistics only when needed*.
 One way that was initially considered was actually to maintain a running statistic
 counter upon loading of the main app, update this counter when calculation is needed ,
 and then display it. This implementation would be much easier to implement within the existing AB3 code
-since it meant extending the `Model` class with a statistic model, than having the UI class to read from
+since it meant extending the `Model` class with a statistic model, than having the `UI` class to read from
 this value *However, we dropped this due to the consideration
 mentioned in the previous paragraph*
 
+====== Decision 1:
+
 Given that consideration, we decided that it will be the `UI` to trigger this call to `Logic` for calculation
-and then display the result of that call.
+and then display the result of that call. Thus when Statistics need to be shown, the `UI` module will query the
+`Logic` for the respective data
+
+One of the motivation for this approach was to maintain the architecture that is already in place in AB3.
 
 Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
 the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
 with the actual changes on data done with a call to model during `execute(model)`.
 
+
+====== Decision 2:
+
 We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
 queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class to the
-`UI` to use in its query to logic.
+`UI` to use in its query to logic. When the Ui executes the command to logic, the `CommandResult` is returned with
+this object, which the `UI` will then use to communicate to `Logic`.
 
-Attached below is a quick summary of what occurs when a statistic command is entered by the user:
+The resulting change is that the `commandResult` type will have a slightly different behaviour. *All `commands` that
+are not `statsCommand` will call the default constructor of the `commandResult` class, where there is  an
+`Optional.empty()` in place of the `StatsPayload` * .
+
+All `statsCommand` type will have call the constructor of `commandResult` class and pass the `StatsPayload` object in.
+
+The key motivation behind this idea of a payload was to be able to encapsulate details about the calculation inside a
+single object, passed it to the appropriate place to be "unwrapped" when needed. This unwrapping is done by the
+`mainWindow` class in SMLJ and subsequently the data is passed to the  `statistic` module.
+
+
+A high level view of the packages working together:
+
+image::statsOverallClassDiagram.png[]
+
+====== Step-by-step breakdown
+
+Below is a more in-depth explanation at each step:
+
+step 1: User inputs a stats command e.g `generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13`.
+
+The commandBox executes it and the `MainWindow` runs its `executeCommand(commandText)` method.
+
+Referring to the sequence diagram below,this results in `logic.execute(commandText)` being called and
+the `statsCommandParser` parses the input from the user, returning a
+`Command` object
+
+step 2: the logic then calls `command.execute(command)` (refer to the second set of arrow coming out of `LogicManager`)
+
+When this happens, the `StatsCommand` execute triggering a call to create the new `StatsPayload`. Then this is used to
+create a new `CommandResult` object and returns that to `Logic` , completing the execution of the user input command.
+
+Shown below is a quick summary of step 1-2:
 
 image::StatsCommandSequenceDiagram.png[]
 
+step 3: After the logic component completes it execution and return a `CommandResult`, the `UI` will call
+`performUiChanges` that handles the specific `UI` change.
+
+This then results in the `statsPayload` class being passed to `Logic` class and subsequently the `statistics` module,
+where the appropriate calculation will take place.
 
 
+step 4: `Statistic Manager` calculates the date
+
+Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
+a `String` or a `XYChart.Series<String, Number>`
+
+step 5: with this output from logic, `Statistic Window` will then handle the diplaying of the statistic, be it in chart
+form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
+
+image::StatisticsCalculationUI.png[]
 
 === Find Customer/Phone feature
 
@@ -235,9 +301,7 @@ The find feature allows the user to find the order according to its data field o
 
 In order to implement the find function, we decided to create a predicate for each field.
 
-
-
-
+=======
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation

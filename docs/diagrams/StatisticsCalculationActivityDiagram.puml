@@ -11,8 +11,8 @@ if () then ([Has date input])
 else ([else])
     :create StatsPayload Object with default date;
 endif
-:command sends feedback to Ui;
-:MainWindow triggers call to Logic Manager;
+:commandResult sent back to Ui;
+:MainWindow triggers call to Logic Manager with StatsPayload object;
 :logic manager uses statistic manager to calculate statistics;
 :display Statistics;
 stop
