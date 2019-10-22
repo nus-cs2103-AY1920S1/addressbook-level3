@@ -4,8 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_ADD_EVENT_SUCCESS;
 
 import java.util.Objects;
 
-import seedu.address.model.ModelManager;
 import seedu.address.model.DateTime;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.UserOutput;
 

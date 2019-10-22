@@ -1,11 +1,11 @@
 package seedu.address.model.events;
 
-import seedu.address.model.DateTime;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.address.model.DateTime;
 
 /**
  * Represents a Builder responsible for creating {@link EventSource}.

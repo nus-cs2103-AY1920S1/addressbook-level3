@@ -1,9 +1,9 @@
 package seedu.address.model.tasks;
 
-import seedu.address.model.DateTime;
-
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.address.model.DateTime;
 
 /**
  * Represents a TaskSource in Horo.

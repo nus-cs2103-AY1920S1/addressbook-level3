@@ -1,12 +1,12 @@
 package seedu.address.model.events;
 
-import seedu.address.model.DateTime;
-
 import static seedu.address.commons.util.IcsUtil.generateUid;
 import static seedu.address.commons.util.IcsUtil.toIcsTimeStamp;
 
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.address.model.DateTime;
 
 /**
  * Represents an EventSource in Horo.
