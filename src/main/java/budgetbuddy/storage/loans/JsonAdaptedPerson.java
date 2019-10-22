@@ -22,17 +22,13 @@ public class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String name;
-    private final List<JsonAdaptedLoan> loans = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name,
-            @JsonProperty("loans") List<JsonAdaptedLoan> loans) {
-        requireNonNull(loans);
+    public JsonAdaptedPerson(@JsonProperty("name") String name) {
         this.name = name;
-        this.loans.addAll(loans);
     }
 
     /**
@@ -40,9 +36,6 @@ public class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().name;
-        loans.addAll(source.getLoans().stream()
-                .map(JsonAdaptedLoan::new)
-                .collect(Collectors.toList()));
     }
 
     /**
@@ -59,12 +52,7 @@ public class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        Person person = new Person(modelName, new LoanList());
-        for (JsonAdaptedLoan loan : loans) {
-            person.addLoan(loan.toModelType());
-        }
-
-        return person;
+        return new Person(modelName);
     }
 
 }

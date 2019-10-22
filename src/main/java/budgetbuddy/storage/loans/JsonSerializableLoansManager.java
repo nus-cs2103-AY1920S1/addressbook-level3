@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.LoansManager;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.person.Person;
 
 /**
@@ -18,16 +19,14 @@ import budgetbuddy.model.person.Person;
 @JsonRootName(value = "loansmanager")
 public class JsonSerializableLoansManager {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedLoan> jsonAdaptedLoans = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableLoansManager} with the given persons.
+     * Constructs a {@code JsonSerializableLoansManager} with the given loans.
      */
     @JsonCreator
-    public JsonSerializableLoansManager(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableLoansManager(@JsonProperty("loans") List<JsonAdaptedLoan> persons) {
+        this.jsonAdaptedLoans.addAll(persons);
     }
 
     /**
@@ -35,7 +34,7 @@ public class JsonSerializableLoansManager {
      * @param source Future changes to the source will not affect the created {@code JsonSerializableLoansManager}.
      */
     public JsonSerializableLoansManager(LoansManager source) {
-        persons.addAll(source.getPersonsList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        jsonAdaptedLoans.addAll(source.getLoans().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
     }
 
     /**
@@ -43,14 +42,10 @@ public class JsonSerializableLoansManager {
      * @throws IllegalValueException If any data constraints are violated.
      */
     public LoansManager toModelType() throws IllegalValueException {
-        List<Person> personsList = new ArrayList<Person>();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (personsList.contains(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            personsList.add(person);
+        List<Loan> loans = new ArrayList<Loan>();
+        for (JsonAdaptedLoan jsonAdaptedLoan : jsonAdaptedLoans) {
+            loans.add(jsonAdaptedLoan.toModelType());
         }
-        return new LoansManager(personsList);
+        return new LoansManager(loans);
     }
 }
