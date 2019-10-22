@@ -10,9 +10,9 @@ import seedu.address.model.ItemModel;
  */
 public class DownCommand extends ScrollCommand {
 
-    public final String COMMAND_WORD = "down";
-    public final String MESSAGE_SUCCESS = "Scrolling down...";
-    public final String MESSAGE_USAGE = "down L / down R";
+    public static final String COMMAND_WORD = "down";
+    public static final String MESSAGE_SUCCESS = "Scrolling down...";
+    public static final String MESSAGE_USAGE = "down L / down R";
     
     public DownCommand(String input) {
         super(input);
