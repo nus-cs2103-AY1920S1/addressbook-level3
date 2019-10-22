@@ -17,7 +17,6 @@ import javafx.scene.Node;
 /**
  * FrontBackCard with additional data of multiple choices.
  */
-//@@author huiminlim
 public class MultipleChoiceCard extends FrontBackCard {
 
     private ArrayList<String> choices;
@@ -30,6 +29,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @param backString  original sorted answer index
      * @param choicesArg  original sorted choices
      */
+    //@@author huiminlim
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg)
             throws DuplicateInChoicesException {
         super(frontString, backString);
@@ -49,6 +49,7 @@ public class MultipleChoiceCard extends FrontBackCard {
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
     }
+    //@author
 
     @Override
     public JsonValue toJson() {
@@ -68,6 +69,7 @@ public class MultipleChoiceCard extends FrontBackCard {
         return super.toJson();
     }
 
+    //@@author huiminlim
     @Override
     public Node renderFront() {
         // Shuffle choices first
@@ -75,7 +77,9 @@ public class MultipleChoiceCard extends FrontBackCard {
 
         return super.renderFront();
     }
+    //@author
 
+    //@@author huiminlim
     @Override
     public Boolean evaluate(String in) throws IndexNotFoundException {
 
@@ -89,12 +93,13 @@ public class MultipleChoiceCard extends FrontBackCard {
         }
 
         // Assume options must be a non-negative integer
-        if (userAnswer >= choices.size() || userAnswer < 0) {
+        if (isNotValidChoice(answerIndex)) {
             throw new IndexNotFoundException("Choice provided is not valid - " + userAnswer);
         }
 
         return userAnswer == answerIndex;
     }
+    //@author
 
     /**
      * Checks if ArrayList of choices contain duplicates.
@@ -147,11 +152,22 @@ public class MultipleChoiceCard extends FrontBackCard {
      */
     public void editChoice(int index, String newChoice) throws IndexNotFoundException {
 
-        if (index < 0 || index > choices.size()) {
+        if (isNotValidChoice(index)) {
             throw new IndexNotFoundException("Choice index provided is invalid - " + index);
         }
         choices.add(index, newChoice);
         choices.remove(index + 1);
+    }
+
+    /**
+     * Checks if the given choice arrayList index is valid.
+     * Valid choice index include >= 1 or less than choice size + 1.
+     *
+     * @param choiceIndex
+     * @return boolean true if not in valid range, false if in valid range.
+     */
+    private boolean isNotValidChoice(int choiceIndex) {
+        return choiceIndex < 1 || choiceIndex > choices.size() + 1;
     }
 
     /**
@@ -184,7 +200,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @throws IndexNotFoundException If index >= number of choices or < 0.
      */
     public String getChoice(int index) throws IndexNotFoundException {
-        if (index < 0 || index > choices.size()) {
+        if (isNotValidChoice(index)) {
             throw new IndexNotFoundException("Choice index provided is invalid - " + index);
         }
         return choices.get(index);
