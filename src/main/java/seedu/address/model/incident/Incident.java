@@ -37,7 +37,6 @@ public class Incident {
      * @param callerNumber is the phone number of the caller that reported the incident.
      */
     public Incident(CallerNumber callerNumber, District location, Description description) {
-        //this.operator = autofilled on sign in
         // TODO: autofill operator upon sign in. Currently dummy data
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
@@ -47,7 +46,6 @@ public class Incident {
         this.incidentDesc = description;
         this.location = location;
         this.callerNumber = callerNumber;
-        //this.car = VehicleAssigner.assignVehicle(location);
     }
 
     // load past incident cases
@@ -60,17 +58,17 @@ public class Incident {
         this.incidentDesc = new Description("Fluff description for search testing arson fire fires");
         this.location = location;
         this.callerNumber = new CallerNumber("98989898");
-        //this.car = VehicleAssigner.assignVehicle(location);
     }
 
-    public Incident(District district, IncidentDateTime incidentDateTime, CallerNumber callerNumber, Description desc) {
+    public Incident(IncidentId id, District district, IncidentDateTime incidentDateTime,
+                    CallerNumber callerNumber, Description desc) {
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
         this.location = district;
         this.callerNumber = callerNumber;
         this.incidentDesc = desc;
-        this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
+        this.id = id;
     }
 
 
@@ -145,7 +143,10 @@ public class Incident {
         }
 
         return otherIncident != null
-                && otherIncident.getIncidentId().equals(getIncidentId());
+                && otherIncident.getDateTime().equals(getDateTime())
+                && otherIncident.getCallerNumber().equals(getCallerNumber())
+                && otherIncident.getDesc().equals(getDesc())
+                && otherIncident.getDistrict().equals(getDistrict());
     }
 
     /**
@@ -163,8 +164,18 @@ public class Incident {
         }
 
         Incident otherIncident = (Incident) other;
-        return otherIncident.getIncidentId().equals(getIncidentId())
-                && otherIncident.getDesc().equals(getDesc());
+        //return otherIncident.getIncidentId().equals(getIncidentId())
+        //&& otherIncident.getDesc().equals(getDesc());
+        return otherIncident.getDateTime().equals(getDateTime())
+                && otherIncident.getCallerNumber().equals(getCallerNumber())
+                && otherIncident.getDesc().equals(getDesc())
+                && otherIncident.getDistrict().equals(getDistrict());
     }
 
+    // TODO: more refined toString method
+    @Override
+    public String toString() {
+        return /*"Incident datetime:" + incidentDateTime.toString() +
+                "\n + */"Incident Description: " + incidentDesc.toString();
+    }
 }

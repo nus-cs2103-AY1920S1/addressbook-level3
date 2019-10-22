@@ -32,6 +32,7 @@ public class IncidentId {
         this.id = String.format("%010d", temp);
     }
 
+
     public IncidentId(String id) {
         this.id = id;
     }

@@ -84,6 +84,8 @@ public class TypicalEntities {
                 new District(16), new Availability("BUSY")));
         ab.addIncident(new Incident(new IncidentId(3, 2018), new District(3),
                 new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
+        ab.addIncident(new Incident(new IncidentId(2, 2019), new District(2),
+                new IncidentDateTime("2019-02-09T11:04:22"), "Alex Teo"));
         return ab;
     }
 

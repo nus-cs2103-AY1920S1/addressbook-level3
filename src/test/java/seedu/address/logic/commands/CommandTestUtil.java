@@ -148,6 +148,6 @@ public class CommandTestUtil {
         final Description description = new Description(descriptionArr[0]);
         model.updateFilteredIncidentList(new DescriptionKeywordsPredicate(description));
 
-        assertEquals(1, model.getFilteredIncidentList().size());
+        assertEquals(2, model.getFilteredIncidentList().size());
     }
 }
