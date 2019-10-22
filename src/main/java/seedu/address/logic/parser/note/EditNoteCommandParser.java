@@ -1,13 +1,18 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.note;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.note.EditNoteCommand;
 import seedu.address.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -21,9 +26,7 @@ public class EditNoteCommandParser implements Parser<EditNoteCommand> {
      */
     public EditNoteCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
-
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT, PREFIX_IMAGE);
         Index index;
 
         try {
@@ -38,6 +41,13 @@ public class EditNoteCommandParser implements Parser<EditNoteCommand> {
         }
         if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
             editNoteDescriptor.setContent(ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()));
+        }
+        if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
+            if (argMultimap.getValue(PREFIX_IMAGE).get().equals("none")) {
+                editNoteDescriptor.setImageRemoved(true);
+            } else {
+                editNoteDescriptor.setImage(NoteImageSelector.selectImage());
+            }
         }
 
         if (!editNoteDescriptor.isAnyFieldEdited()) {

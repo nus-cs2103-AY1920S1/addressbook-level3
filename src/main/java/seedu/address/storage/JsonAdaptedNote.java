@@ -3,6 +3,7 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javafx.scene.image.Image;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
@@ -16,14 +17,17 @@ class JsonAdaptedNote {
 
     private final String title;
     private final String content;
+    private final String imageUrl;
 
     /**
      * Constructs a {@code JsonAdaptedNote} with the given lecture note details.
      */
     @JsonCreator
-    public JsonAdaptedNote(@JsonProperty("title") String title, @JsonProperty("content") String content) {
+    public JsonAdaptedNote(@JsonProperty("title") String title, @JsonProperty("content") String content,
+                           @JsonProperty("imageUrl") String imageUrl) {
         this.title = title;
         this.content = content;
+        this.imageUrl = imageUrl;
     }
 
     /**
@@ -32,6 +36,7 @@ class JsonAdaptedNote {
     public JsonAdaptedNote(Note source) {
         title = source.getTitle().title;
         content = source.getContent().content;
+        imageUrl = source.getImageUrl();
     }
 
     /**
@@ -56,6 +61,10 @@ class JsonAdaptedNote {
         }
         final Content modelContent = new Content(content);
 
-        return new Note(modelTitle, modelContent);
+        if (imageUrl == null || imageUrl.equals("none")) {
+            return new Note(modelTitle, modelContent);
+        } else {
+            return new Note(modelTitle, modelContent, new Image(imageUrl));
+        }
     }
 }

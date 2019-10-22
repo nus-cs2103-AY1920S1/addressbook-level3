@@ -2,12 +2,14 @@ package seedu.address.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;
 import java.util.Optional;
 
+import javafx.scene.image.Image;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -31,9 +33,11 @@ public class EditNoteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TITLE + "TITLE] "
             + "[" + PREFIX_CONTENT + "CONTENT] "
+            + "[" + PREFIX_IMAGE + "]\n"
             + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_TITLE + "Linked lists "
-            + PREFIX_CONTENT + "A linked list may be singly or doubly linked.";
+            + PREFIX_CONTENT + "A linked list may be singly or doubly linked.\n"
+            + "Using /i will open up a file dialog to select the image";
 
     public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited lecture note: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided";
@@ -84,7 +88,10 @@ public class EditNoteCommand extends Command {
 
         Title updatedTitle = editNoteDescriptor.getTitle().orElse(noteToEdit.getTitle());
         Content updatedContent = editNoteDescriptor.getContent().orElse(noteToEdit.getContent());
-        return new Note(updatedTitle, updatedContent);
+        if (editNoteDescriptor.getImageRemoved()) {
+            return new Note(updatedTitle, updatedContent);
+        }
+        return new Note(updatedTitle, updatedContent, editNoteDescriptor.getImage().orElse(noteToEdit.getImage()));
     }
 
     @Override
@@ -106,12 +113,15 @@ public class EditNoteCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the lecture note with. Each non-empty field value will replace the
-     * corresponding field value of the note.
+     * Stores the details to edit the lecture note with.
+     * A non-empty title or content will replace the corresponding field value of the note;
+     * the image field is considered edited if <code>isImageRemoved</code> is true or image is non-null.
      */
     public static class EditNoteDescriptor {
         private Title title;
         private Content content;
+        private Image image;
+        private boolean isImageRemoved = false;
 
         public EditNoteDescriptor() {}
 
@@ -122,13 +132,15 @@ public class EditNoteCommand extends Command {
         public EditNoteDescriptor(EditNoteDescriptor toCopy) {
             setTitle(toCopy.title);
             setContent(toCopy.content);
+            setImage(toCopy.image);
+            setImageRemoved(toCopy.isImageRemoved);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, content);
+            return CollectionUtil.isAnyNonNull(title, content) || isImageRemoved || image != null;
         }
 
         public void setTitle(Title title) {
@@ -147,6 +159,22 @@ public class EditNoteCommand extends Command {
             return Optional.ofNullable(content);
         }
 
+        public void setImage(Image image) {
+            this.image = image;
+        }
+
+        public Optional<Image> getImage() {
+            return Optional.ofNullable(image);
+        }
+
+        public void setImageRemoved(boolean isImageRemoved) {
+            this.isImageRemoved = isImageRemoved;
+        }
+
+        boolean getImageRemoved() {
+            return isImageRemoved;
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -162,7 +190,10 @@ public class EditNoteCommand extends Command {
             // state check
             EditNoteDescriptor e = (EditNoteDescriptor) other;
 
-            return getTitle().equals(e.getTitle()) && getContent().equals(e.getContent());
+            return getTitle().equals(e.getTitle())
+                    && getContent().equals(e.getContent())
+                    && getImage().equals(e.getImage())
+                    && isImageRemoved == e.isImageRemoved;
         }
     }
 }
