@@ -263,7 +263,7 @@ The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creat
 
 The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID>` command:
 
-image::CommitActivityDiagram.png[]
+image::GenReportActivityDiagram.png[]
 
 ==== Design Considerations
 
