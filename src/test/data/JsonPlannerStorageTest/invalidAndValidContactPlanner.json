@@ -1,5 +1,5 @@
 {
-  "persons": [ {
+  "contacts": [ {
     "name": "Valid Person",
     "phone": "9482424",
     "email": "hans@example.com",

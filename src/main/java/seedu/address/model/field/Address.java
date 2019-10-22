@@ -30,10 +30,6 @@ public class Address {
         value = address;
     }
 
-    public static Address emptyAddress() {
-        return new Address("No address recorded.");
-    }
-
     /**
      * Returns true if a given string is a valid email.
      */

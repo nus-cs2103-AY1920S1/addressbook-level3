@@ -17,7 +17,7 @@ public class ListDayCommand extends ListCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
+        model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -24,7 +24,7 @@ public class ContactTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameContact() {
         // same object -> returns true
         assertTrue(ALICE.isSameContact(ALICE));
 

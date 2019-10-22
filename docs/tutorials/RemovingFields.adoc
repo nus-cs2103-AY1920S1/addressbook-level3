@@ -14,9 +14,9 @@ Perfection is achieved, not when there is nothing more to add, but when there is
 
 == Introduction
 When working on Address Book, you will most likely find that some features and fields that are no longer necessary.
-In scenarios like this, you can consider refactoring the existing `Person` model to suit your use case.
+In scenarios like this, you can consider refactoring the existing `Contact` model to suit your use case.
 
-In this tutorial, we'll do exactly just that and remove the `address` field from `Person`.
+In this tutorial, we'll do exactly just that and remove the `address` field from `Contact`.
 
 == Safely deleting `Address`
 
@@ -24,7 +24,7 @@ Fortunately, the IntelliJ IDEA provides a robust refactoring tool that can ident
 Let's try to use it as much as we can.
 
 === Assisted refactoring
-The `address` field in `Person` is actually an instance of the `seedu.address.model.contacts.Address` class.
+The `address` field in `Contact` is actually an instance of the `seedu.address.model.field.Address` class.
 Since removing the `Address` class will break the application, we start by identifying ``Address``'s usages.
 This allows us to see code that depends on `Address` to function properly and edit them on a case-by-case basis.
 Right-click the `Address` class and select `Refactor` > `Safe Delete` through the menu.
@@ -41,18 +41,18 @@ image::SafeDeleteConflicts.png[width=955, height=640px]
 Remove usages of `Address` by performing ``Safe Delete``s on each entry.
 You will need to exercise discretion when removing usages of `Address`.
 Functions like `ParserUtil#parseAddress()` can be safely removed but its usages must be removed as well.
-Other usages like in `EditPersonDescriptor` may require more careful inspection.
+Other usages like in `EditContactDescriptor` may require more careful inspection.
 
-Let's try removing references to `Address` in `EditPersonDescriptor`.
+Let's try removing references to `Address` in `EditContactDescriptor`.
 
-. Safe delete the field `address` in `EditPersonDescriptor`
+. Safe delete the field `address` in `EditContactDescriptor`
 . Select `Yes` when prompted to remove getters and setters
 . Select `View Usages` again image:UnsafeDeleteOnField.png[width=1145px, height=583px]
 . Remove the usages of `address` and select `Do refactor` when you are done.
 +
 TIP: Removing usages may result in errors.
 Exercise discretion and fix them.
-For example, removing the `address` field from the `Person` class will require you to modify its constructor.
+For example, removing the `address` field from the `Contact` class will require you to modify its constructor.
 
 . Repeat the steps for the remaining usages of `Address`
 
@@ -65,13 +65,13 @@ You can find them by searching for instances of the word `address` in your code 
 
 Places of interest to look out for would be resources used by the application.
 `main/resources` contains images and `fxml` files used by the application and `test/resources` contains test data.
-For example, there is a `$address` in each `PersonCard` that has not been removed nor identified.
+For example, there is a `$address` in each `ContactCard` that has not been removed nor identified.
 
 image::$address.png[width=1090px, height=890px]
 
-A quick look at the `PersonCard` class and its `fxml` file quickly reveals why it slipped past the automated refactoring.
+A quick look at the `ContactCard` class and its `fxml` file quickly reveals why it slipped past the automated refactoring.
 
-.PersonCard.java
+.ContactCard.java
 [source, java]
 ----
 ...
@@ -80,7 +80,7 @@ private Label address;
 ...
 ----
 
-.PersonCard.fxml
+.ContactCard.fxml
 [source, xml]
 ----
 ...
@@ -102,12 +102,12 @@ What's left to do is to clean up references to `Address` in test data and docume
 In `src/test/data/`, data meant for testing purposes are stored.
 While keeping the `address` field in the json files does not cause the tests to fail, it is not good practice to let cruft from old features accumulate.
 
-.invalidPersonAddressBook.json
+.invalidContactAddressBook.json
 [source, json]
 ```
 {
   "activities": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
+    "name": "Contact with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
     "email": "hans@example.com",
     "address": "4th street"

@@ -15,8 +15,8 @@ import seedu.address.model.contact.exceptions.DuplicateContactException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A contacts is considered unique by comparing using {@code Contact#isSamePerson(Contact)}. As such, adding and
- * updating of persons uses Contact#isSamePerson(Contact) for equality so as to ensure that the contacts being
+ * A contacts is considered unique by comparing using {@code Contact#isSameContact(Contact)}. As such, adding and
+ * updating of persons uses Contact#isSameContact(Contact) for equality so as to ensure that the contacts being
  * added or updated is unique in terms of identity in the UniqueContactList. However, the removal of a
  * contacts uses Contact#equals(Object) so as to ensure that the contacts with exactly the same fields will be removed.
  *
