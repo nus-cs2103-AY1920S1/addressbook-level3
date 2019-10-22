@@ -13,7 +13,7 @@ import seedu.address.logic.parser.navbar.NavbarViewParser;
 /**
  * Parses commands related to the expense manager page.
  */
-public class ExpenseManagerParser implements PageParser {
+public class DaysViewParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterCreateExpenditureCommand.COMMAND_WORD + " "
             + DeleteExpenditureCommand.COMMAND_WORD + " "
@@ -36,8 +36,6 @@ public class ExpenseManagerParser implements PageParser {
             return new DeleteExpenditureParser().parse(arguments);
         case EDIT:
             return new EnterEditExpenditureParser().parse(arguments);
-        case SHOWDAYS:
-            return new EnterDaysViewParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }
