@@ -5,13 +5,13 @@ import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.budget.AddBudgetCommand;
 import seedu.ichifund.logic.commands.budget.DeleteBudgetCommand;
-import seedu.ichifund.logic.parser.ParserManager;
+import seedu.ichifund.logic.parser.FeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
  * Passes user input to the appropriate Parser for commands related to the budget feature.
  */
-public class BudgetParserManager implements ParserManager {
+public class BudgetFeatureParser implements FeatureParser {
 
     private final int tabIndex = 2;
 

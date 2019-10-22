@@ -18,12 +18,12 @@ import seedu.ichifund.logic.commands.ExitCommand;
 import seedu.ichifund.logic.commands.FindCommand;
 import seedu.ichifund.logic.commands.HelpCommand;
 import seedu.ichifund.logic.commands.ListCommand;
-import seedu.ichifund.logic.parser.analytics.AnalyticsParserManager;
-import seedu.ichifund.logic.parser.budget.BudgetParserManager;
+import seedu.ichifund.logic.parser.analytics.AnalyticsFeatureParser;
+import seedu.ichifund.logic.parser.budget.BudgetFeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
-import seedu.ichifund.logic.parser.loan.LoanParserManager;
-import seedu.ichifund.logic.parser.repeater.RepeaterParserManager;
-import seedu.ichifund.logic.parser.transaction.TransactionParserManager;
+import seedu.ichifund.logic.parser.loan.LoanFeatureParser;
+import seedu.ichifund.logic.parser.repeater.RepeaterFeatureParser;
+import seedu.ichifund.logic.parser.transaction.TransactionFeatureParser;
 
 /**
  * Parses user input.
@@ -35,19 +35,19 @@ public class IchiFundParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private final ArrayList<ParserManager> parserManagers;
-    private ParserManager currentParserManager;
+    private final ArrayList<FeatureParser> featureParsers;
+    private FeatureParser currentFeatureParser;
     private SimpleObjectProperty<Integer> currentParserManagerIndex;
 
     public IchiFundParser() {
-        parserManagers = new ArrayList<>();
-        parserManagers.add(new TransactionParserManager());
-        parserManagers.add(new RepeaterParserManager());
-        parserManagers.add(new BudgetParserManager());
-        parserManagers.add(new LoanParserManager());
-        parserManagers.add(new AnalyticsParserManager());
-        currentParserManager = parserManagers.get(0);
-        currentParserManagerIndex = new SimpleObjectProperty<>(currentParserManager.getTabIndex());
+        featureParsers = new ArrayList<>();
+        featureParsers.add(new TransactionFeatureParser());
+        featureParsers.add(new RepeaterFeatureParser());
+        featureParsers.add(new BudgetFeatureParser());
+        featureParsers.add(new LoanFeatureParser());
+        featureParsers.add(new AnalyticsFeatureParser());
+        currentFeatureParser = featureParsers.get(0);
+        currentParserManagerIndex = new SimpleObjectProperty<>(currentFeatureParser.getTabIndex());
     }
 
     /**
@@ -98,33 +98,33 @@ public class IchiFundParser {
 
     /**
      * Checks if user input is for tab switching and performs tab switching.
-     * Otherwise, passes user input into the current {@code ParserManager} for parsing.
+     * Otherwise, passes user input into the current {@code FeatureParser} for parsing.
      *
      * @return The command based on the user input. EmptyCommand for tab switching.
-     * @throws ParseException If the user input does not conform the expected format for the {@code ParserManager}
+     * @throws ParseException If the user input does not conform the expected format for the {@code FeatureParser}
      */
     private Command handleFeatureCommand(String commandWord, String arguments) throws ParseException {
         boolean isTabSwitchCommand = false;
 
-        for (ParserManager parserManager : parserManagers) {
-            if (parserManager.getTabSwitchCommandWord().equals(commandWord)) {
+        for (FeatureParser featureParser : featureParsers) {
+            if (featureParser.getTabSwitchCommandWord().equals(commandWord)) {
                 isTabSwitchCommand = true;
-                setParserManager(parserManager.getTabIndex());
+                setParserManager(featureParser.getTabIndex());
             }
         }
 
         if (!isTabSwitchCommand) {
-            return currentParserManager.parseCommand(commandWord, arguments);
+            return currentFeatureParser.parseCommand(commandWord, arguments);
         }
 
         return new EmptyCommand();
     }
 
     public void setParserManager(int index) {
-        ParserManager parserManager = parserManagers.get(index);
-        assert(parserManager.getTabIndex() == index);
-        currentParserManager = parserManager;
-        currentParserManagerIndex.setValue(currentParserManager.getTabIndex());
+        FeatureParser featureParser = featureParsers.get(index);
+        assert(featureParser.getTabIndex() == index);
+        currentFeatureParser = featureParser;
+        currentParserManagerIndex.setValue(currentFeatureParser.getTabIndex());
     }
 
     public ObservableValue<Integer> getCurrentParserManagerIndex() {
