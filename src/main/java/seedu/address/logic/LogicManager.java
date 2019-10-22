@@ -23,7 +23,6 @@ import seedu.address.logic.commands.loadcommands.CreateCommand;
 import seedu.address.logic.commands.loadcommands.ExportCommand;
 import seedu.address.logic.commands.loadcommands.ImportCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
-import seedu.address.logic.parser.DukemonParser;
 import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
@@ -50,7 +49,6 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     private final Model model;
     private final Storage storage;
-    private final DukemonParser dukemonParser;
 
     private final ParserManager parserManager;
 
@@ -62,7 +60,6 @@ public class LogicManager implements Logic, UiLogicHelper {
         Step 9.
         this.game = game //get from constructor
          */
-        dukemonParser = new DukemonParser();
 
         parserManager = new ParserManager();
     }
