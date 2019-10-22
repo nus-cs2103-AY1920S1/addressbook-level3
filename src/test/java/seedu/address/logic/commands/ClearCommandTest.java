@@ -9,6 +9,7 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.BudgetList;
 
 public class ClearCommandTest {
 
@@ -22,8 +23,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyExpenseList_success() {
-        Model model = new ModelManager(getTypicalExpenseList(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalExpenseList(), new UserPrefs());
+        Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalExpenseList(), new BudgetList(), new UserPrefs());
         expectedModel.setExpenseList(new ExpenseList());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

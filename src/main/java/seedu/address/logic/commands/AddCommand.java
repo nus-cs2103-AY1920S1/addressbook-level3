@@ -5,15 +5,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.budget.BudgetList.getBudgetExpenseFallsInto;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Adds an expense to the expense list.
@@ -52,24 +48,12 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // check if toAdd falls into any budget period
-        Optional<Budget> b = getBudgetExpenseFallsInto(toAdd);
-        if (b.isPresent()) {
-            Budget toAddInto = b.get();
-            if (toAddInto.budgetHasExpense(toAdd)) {
-                throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
-            } else {
-                toAddInto.addExpenseIntoBudget(toAdd);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-            }
-        } else {
-            if (model.hasExpense(toAdd)) {
-                throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
-            }
-
-            model.addExpense(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        if (model.hasExpense(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
+
+        model.addExpense(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

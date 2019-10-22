@@ -8,9 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.AddBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ExpenseList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Date;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
 
 import java.util.stream.Stream;
@@ -40,7 +42,7 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
         Date startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
-        Budget budget = new Budget(name, amount, startDate, endDate);
+        Budget budget = new Budget(name, amount, amount, startDate, endDate, new ExpenseList());
 
         return new AddBudgetCommand(budget);
     }

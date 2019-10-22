@@ -41,7 +41,7 @@ class JsonSerializableExpenseList {
     }
 
     /**
-     * Converts this address book into the model's {@code ExpenseList} object.
+     * Converts this expense list into the model's {@code ExpenseList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

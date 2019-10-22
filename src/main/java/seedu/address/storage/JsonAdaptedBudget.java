@@ -7,6 +7,7 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Date;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
@@ -81,6 +82,14 @@ class JsonAdaptedBudget {
         }
         final Amount modelAmount = new Amount(amount);
 
+        if (amountLeft == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+        }
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        final Amount modelAmountLeft = new Amount(amount);
+
         if (startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
@@ -97,7 +106,7 @@ class JsonAdaptedBudget {
         }
         final Date modelEndDate = new Date(endDate);
 
-        return new Budget(modelName, modelAmount, modelStartDate, modelEndDate);
+        return new Budget(modelName, modelAmount, modelAmountLeft, modelStartDate, modelEndDate, new ExpenseList());
 
         // need to do for budget expenselist also
     }

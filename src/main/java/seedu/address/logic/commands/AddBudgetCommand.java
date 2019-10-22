@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.model.budget.BudgetList.checkInputBudgetPeriodClashWithCurrentBudgets;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -54,7 +53,7 @@ public class AddBudgetCommand extends Command {
             throw new CommandException(MESSAGE_START_BEFORE_END);
         }
 
-        if (checkInputBudgetPeriodClashWithCurrentBudgets(toAdd)) {
+        if (model.hasBudgetPeriodClash(toAdd)) {
             throw new CommandException(MESSAGE_BUDGET_CLASH);
         }
 

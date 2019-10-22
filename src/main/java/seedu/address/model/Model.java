@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -48,16 +49,6 @@ public interface Model {
     void setExpenseListFilePath(Path expenseListFilePath);
 
     /**
-     * Returns the user prefs' budget list file path.
-     */
-    Path getBudgetListFilePath();
-
-    /**
-     * Sets the user prefs' budget list file path.
-     */
-    void setBudgetListFilePath(Path expenseListFilePath);
-
-    /**
      * Replaces expense list data with the data in {@code expenseList}.
      */
     void setExpenseList(ReadOnlyExpenseList expenseList);
@@ -98,6 +89,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenseList(Predicate<Expense> predicate);
+
+    /**
+     * Returns the user prefs' budget list file path.
+     */
+    Path getBudgetListFilePath();
+
+    /**
+     * Sets the user prefs' budget list file path.
+     */
+    void setBudgetListFilePath(Path expenseListFilePath);
 
     /**
      * Replaces budget list data with the data in {@code budgetList}.
@@ -141,4 +142,9 @@ public interface Model {
      */
     void updateFilteredBudgetList(Predicate<Budget> predicate);
 
+    boolean hasBudgetPeriodClash(Budget newBudget);
+
+    Optional<Budget> getBudgetExpenseFallsInto(Expense expense);
+
+    boolean expenseFallsIntoABudget(Expense expense);
 }

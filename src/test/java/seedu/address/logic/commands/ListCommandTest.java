@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.BudgetList;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -22,8 +23,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExpenseList(), new UserPrefs());
-        expectedModel = new ModelManager(model.getExpenseList(), new UserPrefs());
+        model = new ModelManager(getTypicalExpenseList(), new BudgetList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getExpenseList(), new BudgetList(), new UserPrefs());
     }
 
     @Test

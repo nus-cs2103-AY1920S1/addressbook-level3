@@ -34,14 +34,14 @@ public class Budget {
     /**
      * Every field must be present and not null.
      */
-    public Budget(Name name, Amount amount, Date startDate, Date endDate) {
+    public Budget(Name name, Amount amount, Amount amountLeft, Date startDate, Date endDate, ExpenseList expenseList) {
         requireAllNonNull(name, amount, startDate, endDate);
         this.name = name;
         this.amount = amount;
-        this.amountLeft = amount;
+        this.amountLeft = amountLeft;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.expenseList = new ExpenseList();
+        this.expenseList = expenseList;
     }
 
     public Name getName() {

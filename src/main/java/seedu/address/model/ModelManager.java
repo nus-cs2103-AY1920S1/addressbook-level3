@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -110,7 +111,11 @@ public class ModelManager implements Model {
     @Override
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
-        return expenseList.hasExpense(expense);
+        if (expenseFallsIntoABudget(expense)) {
+            return getBudgetExpenseFallsInto(expense).get().budgetHasExpense(expense);
+        } else {
+            return expenseList.hasExpense(expense);
+        }
     }
 
     @Override
@@ -120,8 +125,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addExpense(Expense expense) {
-        expenseList.addExpense(expense);
-        updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+        if (expenseFallsIntoABudget(expense)) {
+            getBudgetExpenseFallsInto(expense).get().addExpenseIntoBudget(expense);
+        } else {
+            expenseList.addExpense(expense);
+            updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+        }
     }
 
     @Override
@@ -164,7 +173,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return expenseList.equals(other.expenseList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredExpenses.equals(other.filteredExpenses);
+                && filteredExpenses.equals(other.filteredExpenses)
+                && budgetList.equals(other.budgetList)
+                && filteredBudgets.equals(other.filteredBudgets);
     }
 
     //=========== BudgetList ================================================================================
@@ -201,6 +212,23 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedBudget);
 
         budgetList.setBudget(target, editedBudget);
+    }
+
+    @Override
+    public Optional<Budget> getBudgetExpenseFallsInto(Expense expense) {
+        requireNonNull(expense);
+        return budgetList.getBudgetExpenseFallsInto(expense);
+    }
+
+    @Override
+    public boolean expenseFallsIntoABudget(Expense expense) {
+        return getBudgetExpenseFallsInto(expense).isPresent();
+    }
+
+    @Override
+    public boolean hasBudgetPeriodClash(Budget budget) {
+        requireNonNull(budget);
+        return budgetList.hasBudgetPeriodClash(budget);
     }
 
     //=========== Filtered Budget List Accessors =============================================================

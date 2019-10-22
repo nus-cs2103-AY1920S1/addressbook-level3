@@ -16,6 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.BudgetList;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -24,7 +25,7 @@ import seedu.address.model.expense.Expense;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(),new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +34,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getExpenseList(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getExpenseList(), new BudgetList(), new UserPrefs());
         expectedModel.deleteExpense(expenseToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +57,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        Model expectedModel = new ModelManager(model.getExpenseList(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseList(), new BudgetList(), new UserPrefs());
         expectedModel.deleteExpense(expenseToDelete);
         showNoExpense(expectedModel);
 

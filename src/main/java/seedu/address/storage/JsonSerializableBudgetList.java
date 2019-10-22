@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @JsonRootName(value = "budgetlist")
 class JsonSerializableBudgetList {
 
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "Budgets list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
 
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
 
@@ -40,7 +40,7 @@ class JsonSerializableBudgetList {
     }
 
     /**
-     * Converts this address book into the model's {@code BudgetList} object.
+     * Converts this budget list into the model's {@code BudgetList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -49,7 +49,7 @@ class JsonSerializableBudgetList {
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
             if (budgetList.hasBudget(budget)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
             }
             budgetList.addBudget(budget);
         }

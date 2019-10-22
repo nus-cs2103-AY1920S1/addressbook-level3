@@ -2,13 +2,10 @@ package seedu.address.model.budget;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import seedu.address.model.Model;
 
 import javafx.collections.ObservableList;
-import java.util.Date;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -17,7 +14,7 @@ import seedu.address.model.expense.Expense;
  */
 public class BudgetList implements ReadOnlyBudgetList {
 
-    private static UniqueBudgetList budgets;
+    private final UniqueBudgetList budgets;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -99,9 +96,9 @@ public class BudgetList implements ReadOnlyBudgetList {
 
     //// util methods
 
-    public static Optional<Budget> getBudgetExpenseFallsInto(Expense expense) {
+    public Optional<Budget> getBudgetExpenseFallsInto(Expense expense) {
         Optional<Budget> toReturn = Optional.empty();
-        List<Budget> lastShownList = budgets.asUnmodifiableObservableList();
+        List<Budget> lastShownList = getBudgetList();
         for (Budget budget : lastShownList) {
             if (budget.isDateWithinBudgetPeriod(expense.getDate())) {
                 toReturn = Optional.of(budget);
@@ -111,8 +108,8 @@ public class BudgetList implements ReadOnlyBudgetList {
         return toReturn;
     }
 
-    public static boolean checkInputBudgetPeriodClashWithCurrentBudgets(Budget newBudget) {
-        List<Budget> lastShownList = budgets.asUnmodifiableObservableList();
+    public boolean hasBudgetPeriodClash(Budget newBudget) {
+        List<Budget> lastShownList = getBudgetList();
         for (Budget budget : lastShownList) {
             if (budget.isDateWithinBudgetPeriod(newBudget.getStartDate())
                     || budget.isDateWithinBudgetPeriod(newBudget.getEndDate())) {
@@ -136,11 +133,9 @@ public class BudgetList implements ReadOnlyBudgetList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                       || (other instanceof BudgetList // instanceof handles nulls
-                                   && budgets.equals(((BudgetList) other).budgets));
+            || (other instanceof BudgetList // instanceof handles nulls
+            && budgets.equals(((BudgetList) other).budgets));
     }
-
-
 
     @Override
     public int hashCode() {
