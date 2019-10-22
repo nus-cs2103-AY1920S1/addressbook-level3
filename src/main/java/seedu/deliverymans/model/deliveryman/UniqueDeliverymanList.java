@@ -91,15 +91,6 @@ public class UniqueDeliverymanList implements Iterable<Deliveryman> {
         internalList.setAll(deliverymen);
     }
 
-    /**
-     * Changes the status of a deliveryman to another status.
-     * @param deliveryman
-     * @param newStatus
-     */
-    public void setStatusOf(Deliveryman deliveryman, DeliverymanStatus newStatus) {
-        deliveryman.setStatusTo(newStatus);
-    }
-
     @Override
     public Iterator<Deliveryman> iterator() {
         return internalList.iterator();

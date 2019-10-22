@@ -14,13 +14,13 @@ import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
- * An Immutable CustomerDatabase that is serializable to JSON format.
+ * An Immutable DeliverymenDatabase that is serializable to JSON format.
  */
 
 @JsonRootName(value = "deliverymendatabase")
 public class JsonSerializableDeliverymenDatabase {
 
-    public static final String MESSAGE_DUPLICATE_DELIVERYMEN = "deliverymen list contains duplicate deliverymen.";
+    public static final String MESSAGE_DUPLICATE_DELIVERYMEN = "Deliverymen list contains duplicate deliverymen.";
 
     private final List<JsonAdaptedDeliveryman> deliverymen = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class JsonSerializableDeliverymenDatabase {
      * Constructs a {@code JsonSerializableDeliverymenDatabase} with the given deliverymen.
      */
     @JsonCreator
-    public JsonSerializableDeliverymenDatabase(@JsonProperty("persons") List<JsonAdaptedDeliveryman> deliverymen) {
+    public JsonSerializableDeliverymenDatabase(@JsonProperty("deliverymen") List<JsonAdaptedDeliveryman> deliverymen) {
         this.deliverymen.addAll(deliverymen);
     }
 
@@ -38,12 +38,14 @@ public class JsonSerializableDeliverymenDatabase {
      * @param source future changes to this will not affect the created {@code JsonSerializableDeliverymenDatabase}.
      */
     public JsonSerializableDeliverymenDatabase(ReadOnlyDeliverymenDatabase source) {
-        deliverymen.addAll(source.getDeliverymenList().stream().map(JsonAdaptedDeliveryman::new)
+        deliverymen.addAll(source.getDeliverymenList()
+                .stream()
+                .map(JsonAdaptedDeliveryman::new)
                 .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code DeliverymenDatabase} object.
+     * Converts this deliverymen book into the model's {@code DeliverymenDatabase} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

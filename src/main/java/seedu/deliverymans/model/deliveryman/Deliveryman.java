@@ -1,7 +1,6 @@
 package seedu.deliverymans.model.deliveryman;
 
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.deliverymans.model.deliveryman.DeliverymanStatus.UNAVAILABLE;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,6 +10,7 @@ import java.util.Set;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 
 /**
  * Represents a deliveryman
@@ -25,7 +25,7 @@ public class Deliveryman {
     // Data fields
     private final DeliveryHistory deliveryHistory;
     private final Set<Tag> tags = new HashSet<>();
-    private final DeliverymanStatus status;
+    private StatusTag status;
 
     /**
      * Every field must be present and not null.
@@ -35,7 +35,7 @@ public class Deliveryman {
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
-        status = UNAVAILABLE; // editing field will affect status
+        status = new StatusTag("UNAVAILABLE"); // editing field will affect status
         deliveryHistory = null;
     }
 
@@ -47,7 +47,9 @@ public class Deliveryman {
         return Collections.unmodifiableSet(tags);
     }
 
-    public void setStatusTo(DeliverymanStatus status) {} // this class should have all attributes as final?
+    public void setStatusTo(StatusTag status) {
+        this.status = status;
+    } // this class should have all attributes as final?
 
     public Name getName() {
         return name;
@@ -57,7 +59,7 @@ public class Deliveryman {
         return phone;
     }
 
-    public DeliverymanStatus getStatus() {
+    public StatusTag getStatus() {
         return status;
     }
 

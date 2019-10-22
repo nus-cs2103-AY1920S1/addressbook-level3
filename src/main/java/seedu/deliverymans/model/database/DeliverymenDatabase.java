@@ -1,16 +1,12 @@
 package seedu.deliverymans.model.database;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.model.deliveryman.DeliverymanStatus.AVAILABLE;
-import static seedu.deliverymans.model.deliveryman.DeliverymanStatus.DELIVERING;
-import static seedu.deliverymans.model.deliveryman.DeliverymanStatus.UNAVAILABLE;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.DeliverymanStatus;
-import seedu.deliverymans.model.deliveryman.DeliverymanStatusList;
+import seedu.deliverymans.model.deliveryman.StatusManager;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 
 /**
@@ -20,11 +16,11 @@ import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
 
     private final UniqueDeliverymanList deliverymen;
-    private DeliverymanStatusList statusList; // to be implemented
-    // private final List<DeliverymanStatus> statusTag;
+    private final StatusManager statusManager;
 
     {
         deliverymen = new UniqueDeliverymanList();
+        statusManager = new StatusManager(deliverymen);
     }
 
     public DeliverymenDatabase() {}
@@ -96,8 +92,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Replaces the current status of a deliveryman.
      */
-    public void setStatusOf(Deliveryman target, DeliverymanStatus newStatus) {
-        deliverymen.setStatusOf(target, newStatus);
+    public void setStatusOf(Deliveryman target, String newStatus) {
+        statusManager.updateStatusOf(target, newStatus);
     }
 
     //// util methods
