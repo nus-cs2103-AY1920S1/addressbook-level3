@@ -15,7 +15,7 @@ public class StudentAddCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new student\n"
             + "Parameters:\n"
             + "student/[STUDENT_NAME]\n"
-            + "Example: student student/JusBevo \n\n";
+            + "Full Example: student student/njoy --> creates new student called njoy\n\n";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student record";
