@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.ichifund.model.analytics.Data;
+import seedu.ichifund.model.analytics.DataList;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.budget.UniqueBudgetList;
 import seedu.ichifund.model.person.Person;
@@ -28,6 +30,7 @@ public class FundBook implements ReadOnlyFundBook {
     private final UniqueRepeaterList repeaters;
     private final UniqueBudgetList budgets;
     private final TransactionList transactions;
+    private final DataList datas;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -42,6 +45,7 @@ public class FundBook implements ReadOnlyFundBook {
         repeaters = new UniqueRepeaterList();
         budgets = new UniqueBudgetList();
         transactions = new TransactionList();
+        datas = new DataList();
     }
 
     public FundBook() {}
@@ -97,6 +101,13 @@ public class FundBook implements ReadOnlyFundBook {
     }
 
     /**
+     * Replaces the contents of the data list with {@code data}.
+     */
+    public void setData(List<Data> data) {
+        datas.setData(data);
+    }
+
+    /**
      * Resets the existing data of this {@code FundBook} with {@code newData}.
      */
     public void resetData(ReadOnlyFundBook newData) {
@@ -106,6 +117,7 @@ public class FundBook implements ReadOnlyFundBook {
         setRepeaters(newData.getRepeaterList());
         setBudgets(newData.getBudgetList());
         setTransactions(newData.getTransactionList());
+        setData(newData.getDataList());
     }
 
     //// person-level operations
@@ -284,6 +296,12 @@ public class FundBook implements ReadOnlyFundBook {
         return transactions.asUnmodifiableObservableList();
     }
 
+    @Override
+    public ObservableList<Data> getDataList() {
+        return datas.asUnmodifiableObservableList();
+    }
+
+// TO ADD AN ISSUE TO FIX THIS
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

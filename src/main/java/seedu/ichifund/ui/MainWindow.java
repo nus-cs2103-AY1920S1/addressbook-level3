@@ -20,6 +20,7 @@ import seedu.ichifund.logic.Logic;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
+import seedu.ichifund.model.analytics.TrendReport;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -40,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private TransactionListPanel transactionListPanel;
     private RepeaterListPanel repeaterListPanel;
     private BudgetListPanel budgetListPanel;
+    private DataListPanel dataListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -78,6 +80,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane budgetListPanelPlaceholder;
+
+    @FXML
+    private StackPane dataListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -172,6 +177,9 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        dataListPanel = new DataListPanel(logic.getDataList());
+        dataListPanelPlaceholder.getChildren().add(dataListPanel.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFundBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -279,6 +287,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public BudgetListPanel getBudgetListPanel() {
         return budgetListPanel;
+    }
+
+    public DataListPanel getDataListPanel() {
+        return dataListPanel;
     }
 
     /**

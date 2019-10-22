@@ -1,13 +1,17 @@
 package seedu.ichifund.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
+import seedu.ichifund.model.analytics.Data;
+import seedu.ichifund.model.analytics.TrendReport;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
+import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
@@ -195,4 +199,10 @@ public interface Model {
     void updateFilteredBudgetList(Predicate<Budget> predicate);
 
     ObservableValue<TransactionContext> getTransactionContextProperty();
+
+    /** Returns the current analytics view */
+    ObservableList<Data> getDataList();
+
+    /** Updates the current analytics view */
+    void updateDataList(List<Data> datas);
 }

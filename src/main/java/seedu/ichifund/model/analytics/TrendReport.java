@@ -3,46 +3,90 @@ package seedu.ichifund.model.analytics;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
-import seedu.ichifund.model.Model;
-import seedu.ichifund.model.amount.Amount;
-import seedu.ichifund.model.analytics.exceptions.ReportException;
-import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 
 /**
- * Represents a report for expenditure, income or balance trends.
+ * Represents a report for expenditure, income or balance trends, with the ability to be generated.
  */
-public abstract class TrendReport extends Report {
+public class TrendReport {
+
+    private final Year year;
+    private List<Data> trend;
 
     /**
      * Constructs a {@code TrendReport}.
      *
-     * @param month A month.
      * @param year A year.
      */
-    public TrendReport(Month month, Year year) {
-        super(month, year);
+    public TrendReport(Year year) {
+        requireNonNull(year);
+        this.year = year;
     }
 
     /**
-     * Generates the report.
+     * Fills the {@code TrendReport}.
      *
-     * @param model {@code Model} which the report should be based on.
-     * @return feedback message of the operation result for display
-     * @throws ReportException If an error occurs during report generation.
+     * @param trendList Trends to fill the report.
+     */
+    public void fillReport(List<Data> trendList) {
+        requireNonNull(trendList);
+        this.trend = trendList;
+    }
+
+    /**
+     * Retrieves the year.
+     */
+    public Year getYear() {
+        return year;
+    }
+
+    /**
+     * Retrieves the trend list.
+     */
+    public List<Data> getTrendList() {
+        return trend;
+    }
+
+    /**
+     * Returns true if both trend reports contain the same year and data.
+     * This defines a stronger notion of equality between two trend reports.
      */
     @Override
-    public ReportException generate(Model model) throws ReportException {
-        requireNonNull(model);
-        throw new ReportException("TO-DO");
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TrendReport)) {
+            return false;
+        }
+
+        TrendReport otherReport = (TrendReport) other;
+        return otherReport.getYear().equals(getYear())
+                && otherReport.getTrendList().equals(getTrendList());
     }
 
-    /**
-     * Fetches the relevant transaction information to generate the trend report.
-     *
-     * @param model {@code Model} which the report should be based on.
-     * @param year {@code year} which the report should be based on.
-     */
-    public abstract List<Amount> fetch(Model model, Year year);
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, trend);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Year: ")
+                .append(getYear());
+
+        String[] months = new String[] { "January", "February", "March",
+                "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        for (int i = 0; i < 12; i++) {
+            builder.append(months[i])
+                    .append(": ")
+                    .append(trend.get(i));
+        }
+
+        return builder.toString();
+    }
 }
