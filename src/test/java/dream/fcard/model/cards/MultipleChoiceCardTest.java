@@ -1,22 +1,31 @@
 package dream.fcard.model.cards;
 
 //@author huiminlim
-
 /*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import org.junit.jupiter.api.Test;
 
 import dream.fcard.model.exceptions.IndexNotFoundException;
-
-
  */
-class MultipleChoiceCardTest {
 
-   /*
+class MultipleChoiceCardTest {
+       /*
+    @Test
+    void evaluate_correctChoice_sample() throws IndexNotFoundException, DuplicateInChoicesException {
+        ArrayList<String> choices = new ArrayList<>();
+        choices.add("hello");
+        choices.add("bye");
+
+        MultipleChoiceCard card = new MultipleChoiceCard("What is hello?", "1", choices);
+       //assertEquals(true, card.evaluate("hello"));
+    }
+
+
     @Test
     void evaluate_correctChoice_trueReturned() throws IndexNotFoundException {
         ArrayList<String> choices = new ArrayList<>();

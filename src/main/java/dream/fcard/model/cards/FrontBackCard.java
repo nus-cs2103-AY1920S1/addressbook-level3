@@ -9,10 +9,7 @@ import javafx.scene.Node;
 /**
  * Card that evaluates input to match back of card.
  */
-public class FrontBackCard implements FlashCard {
-
-    protected String back;
-    protected String front;
+public class FrontBackCard extends FlashCard {
 
     public FrontBackCard(String frontString, String backString) {
         back = backString;
@@ -40,7 +37,6 @@ public class FrontBackCard implements FlashCard {
         return null;
     }
 
-    @Override
     public Boolean evaluate(String in) throws IndexNotFoundException {
         return in.equals(back);
     }

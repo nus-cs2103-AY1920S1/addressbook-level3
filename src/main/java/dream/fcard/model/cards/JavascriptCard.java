@@ -8,10 +8,7 @@ import javafx.scene.Node;
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
  */
-public class JavascriptCard implements FlashCard {
-
-    protected String front;
-    protected String back;
+public class JavascriptCard extends FlashCard {
 
     public JavascriptCard(String frontString, String outputString) {
         front = frontString;
