@@ -242,7 +242,6 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 
 === Undo/Redo Feature
-
 ==== Overview
 The application should be able to undo and redo changes made by commands to give the user more flexibility in their inputs.
 Undo and redo operations should also be undo or redo multiple commands in a command.
