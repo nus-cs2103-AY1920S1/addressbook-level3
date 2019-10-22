@@ -90,7 +90,7 @@ public class IchiFundParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-        
+
         default:
             return handleFeatureCommand(commandWord, arguments);
         }
