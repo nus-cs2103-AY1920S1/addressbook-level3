@@ -4,10 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_NO_STUDENTS;
 
-import java.util.List;
-
 import seedu.address.model.Model;
-import seedu.address.model.assignment.Assignment;
 
 /**
  * Lists all assignments in the classroom to the user.

@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
@@ -63,8 +64,8 @@ public class ParserUtil {
     public static AssignmentName parseAssignmentName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!AssignmentName.isValidAssignmentName(trimmedName)) {
+            throw new ParseException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         return new AssignmentName(trimmedName);
     }
@@ -78,9 +79,13 @@ public class ParserUtil {
      */
     public static List<Integer> parseAssignmentGrades(String grades) throws ParseException {
         requireNonNull(grades);
+
         List<Integer> output = new ArrayList<>();
         String trimmedGrades = grades.trim();
         String[] individualGrades = trimmedGrades.split(" ");
+        if (!AssignmentGrades.isValidGrade(individualGrades)) {
+            throw new ParseException(AssignmentGrades.MESSAGE_CONSTRAINTS);
+        }
         for (String grade: individualGrades) {
             Integer integerGrade = Integer.parseInt(grade);
             output.add(integerGrade);

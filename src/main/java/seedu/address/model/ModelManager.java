@@ -45,18 +45,6 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public boolean isDisplayStudents() {
-        return addressBook.isDisplayStudents();
-    }
-
-    public void displayStudents() {
-        addressBook.displayStudents();
-    }
-
-    public void displayAssignments() {
-        addressBook.displayAssignments();
-    }
-
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -150,6 +138,18 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedAssignment);
 
         addressBook.setAssignment(target, editedAssignment);
+    }
+
+    public boolean isDisplayStudents() {
+        return addressBook.isDisplayStudents();
+    }
+
+    public void displayStudents() {
+        addressBook.displayStudents();
+    }
+
+    public void displayAssignments() {
+        addressBook.displayAssignments();
     }
 
     //=========== Filtered Student List Accessors =============================================================

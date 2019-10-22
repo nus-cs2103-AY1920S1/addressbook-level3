@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 
 import java.util.List;
 
@@ -35,17 +36,18 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Student> lastShownList = model.getFilteredStudentList();
+        model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         List<Assignment> assignmentList = model.getFilteredAssignmentList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
-    }
+        }
 
         Student studentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteStudent(studentToDelete);
 
         for (Assignment assignment: assignmentList) {
-            assignment.deleteOneStudentGrade(studentToDelete.getName().fullName);
+            model.setAssignment(assignment, assignment.deleteOneStudentGrade(studentToDelete.getName().fullName));
         }
         return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
     }

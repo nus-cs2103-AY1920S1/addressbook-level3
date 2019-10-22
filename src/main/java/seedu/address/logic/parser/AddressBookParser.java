@@ -12,13 +12,13 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.UpdateGradesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -51,8 +51,8 @@ public class AddressBookParser {
         case ListAssignmentCommand.COMMAND_WORD:
             return new ListAssignmentCommand();
 
-        case EditAssignmentCommand.COMMAND_WORD:
-            return new EditAssignmentCommandParser().parse(arguments);
+        case UpdateGradesCommand.COMMAND_WORD:
+            return new UpdateGradesCommandParser().parse(arguments);
 
         case AddAssignmentCommand.COMMAND_WORD:
             return new AddAssignmentCommandParser().parse(arguments);

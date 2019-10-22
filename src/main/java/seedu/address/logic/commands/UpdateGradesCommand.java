@@ -16,13 +16,13 @@ import seedu.address.model.student.Student;
 
 
 /**
- * Edits the details of an existing assignment in the address book.
+ * Updates the grades of an existing assignment in the address book.
  */
-public class EditAssignmentCommand extends Command {
+public class UpdateGradesCommand extends Command {
 
-    public static final String COMMAND_WORD = "editassign";
+    public static final String COMMAND_WORD = "grades";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the scores of the assignment identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the grades of the assignment identified "
                                                    + "by the index number of the assignment list. "
                                                    + "Existing values will be overwritten by the input values.\n"
                                                    + "Parameters: INDEX (must be a positive integer) "
@@ -32,7 +32,6 @@ public class EditAssignmentCommand extends Command {
 
 
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the address book.";
 
     private final Index index;
@@ -43,14 +42,13 @@ public class EditAssignmentCommand extends Command {
      * @param index of the assignment in the filtered assignment list to edit
      * @param grades List of grades
      */
-    public EditAssignmentCommand(Index index, List<Integer> grades) {
+    public UpdateGradesCommand(Index index, List<Integer> grades) {
         requireNonNull(index);
         requireNonNull(grades);
 
         this.index = index;
         this.students = new ArrayList<String>();
         this.grades = grades;
-
     }
 
     @Override
@@ -65,11 +63,18 @@ public class EditAssignmentCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX);
         }
 
+        if (lastShownStudentList.size() != grades.size()) {
+            String tooManyInputsError = "Number of inputs should be " + lastShownStudentList.size();
+            tooManyInputsError += " for " + lastShownStudentList.size() + " students";
+            throw new CommandException(tooManyInputsError);
+        }
+
         for (Student s : lastShownStudentList) {
             String name = s.getName().fullName;
             students.add(name);
         }
 
+        model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         Assignment assignmentToEdit = lastShownAssignmentList.get(index.getZeroBased());
         Assignment editedAssignment = createEditedAssignment(assignmentToEdit, students, grades);
 
@@ -84,13 +89,12 @@ public class EditAssignmentCommand extends Command {
 
     /**
      * Creates and returns a {@code Assignment} with the details of {@code assignmentToEdit}
-     * edited with {@code editAssignmentDescriptor}.
+     * edited with {@code List<String> students} and {@code List<Integer> marks}
      */
     private static Assignment createEditedAssignment(Assignment assignmentToEdit,
-                                                     List<String> students, List<Integer> grades) {
+                                                     List<String> students, List<Integer> marks) {
         assert assignmentToEdit != null;
-        assignmentToEdit.setGrades(students, grades);
-
+        assignmentToEdit.setGrades(students, marks);
         return assignmentToEdit;
     }
 
@@ -102,12 +106,12 @@ public class EditAssignmentCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditAssignmentCommand)) {
+        if (!(other instanceof UpdateGradesCommand)) {
             return false;
         }
 
         // state check
-        EditAssignmentCommand e = (EditAssignmentCommand) other;
+        UpdateGradesCommand e = (UpdateGradesCommand) other;
         return index.equals(e.index)
                    && grades.equals(e.grades);
     }

@@ -178,6 +178,21 @@ public class AddCommandTest {
         public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void displayAssignments() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void displayStudents() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public boolean isDisplayStudents() {
+            throw new AssertionError("This method should not be called");
+        }
     }
 
     /**

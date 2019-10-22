@@ -83,15 +83,34 @@ public interface Model {
     void setAssignment(Assignment target, Assignment editedAssignment);
     /** Returns an unmodifiable view of the filtered student list */
     ObservableList<Student> getFilteredStudentList();
+
+    /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
+
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStudentList(Predicate<Student> predicate);
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
+    /**
+     * Returns the boolean AddressBook.isDisplayStudents to determine if students should be displayed.
+     */
     boolean isDisplayStudents();
+
+    /**
+     * Sets the boolean AddressBook.isDisplayStudents to true, to display student list.
+     */
     void displayStudents();
+
+    /**
+     * Sets the boolean AddressBook.isDisplayStudents to false, to display assignment list.
+     */
     void displayAssignments();
 }

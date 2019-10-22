@@ -1,16 +1,16 @@
 package seedu.address.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.assignment.Assignment;
-import seedu.address.model.assignment.AssignmentName;
+import static seedu.address.storage.JsonAdaptedStudent.MISSING_FIELD_MESSAGE_FORMAT;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static seedu.address.storage.JsonAdaptedStudent.MISSING_FIELD_MESSAGE_FORMAT;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentName;
 
 /**
  * Jackson-friendly version of {@link Assignment}.
@@ -52,7 +52,8 @@ public class JsonAdaptedAssignment {
      */
     public Assignment toModelType() throws IllegalValueException {
         if (assignmentName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Assignment.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Assignment.class.getSimpleName()));
         }
         if (!AssignmentName.isValidAssignmentName(assignmentName)) {
             throw new IllegalValueException(Assignment.MESSAGE_CONSTRAINTS);
