@@ -23,8 +23,6 @@ import seedu.address.commons.core.item.Task;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
-import seedu.address.model.item.EventList;
-import seedu.address.model.item.TaskList;
 import seedu.address.model.item.VisualizeList;
 import seedu.address.model.tag.Tag;
 

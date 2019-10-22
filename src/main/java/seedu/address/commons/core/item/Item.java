@@ -169,6 +169,11 @@ public class Item {
                 .build();
     }
 
+    /**
+     * Changes the priority of the item.
+     * @param newPriority the new priority for the item.
+     * @return new Item with the new priority.
+     */
     public Item changePriority(Priority newPriority) {
         return new ItemBuilder().setItemDescription(itemDescription)
                 .setTask(task)

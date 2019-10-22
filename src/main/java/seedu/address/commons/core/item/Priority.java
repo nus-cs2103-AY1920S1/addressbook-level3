@@ -1,10 +1,11 @@
 package seedu.address.commons.core.item;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import seedu.address.commons.util.JsonUtil;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import seedu.address.commons.util.JsonUtil;
 
 /**
  * Available priority levels for tasks and events.
