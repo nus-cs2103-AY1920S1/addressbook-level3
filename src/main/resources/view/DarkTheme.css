@@ -300,6 +300,25 @@
     -fx-background-color: #1d1d1d;
 }
 
+.info-header {
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 45pt;
+    -fx-text-fill: white;
+}
+
+.info-big-label {
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 25pt;
+    -fx-text-fill: white;
+}
+
+.info-small-label {
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 15pt;
+    -fx-text-fill: white;
+
+}
+
 .command-text {
     -fx-border-color: transparent;
 }
