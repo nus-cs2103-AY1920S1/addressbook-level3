@@ -11,7 +11,7 @@ public class DocumentPathTest {
 
     @Test
     public void documentPath_invalidPath_throwsException() {
-        String invalidDocumentPathStrings[] = {
+        String[] invalidDocumentPathStrings = {
                 "C:\\Users\\User\\Documents\\cheatsheet",
                 "cheatsheet.txt",
                 "cheatsheet.docxx",
@@ -35,7 +35,7 @@ public class DocumentPathTest {
 
     @Test
     public void documentPath_validPath_success() {
-        String validDocumentPathStrings[] = {
+        String[] validDocumentPathStrings = {
                 "cheat_sheet.docx",
                 "cheat-sheet.docx",
                 "windows_directory\\cheatsheet.docx",
