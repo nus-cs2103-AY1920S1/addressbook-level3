@@ -18,7 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ModelManager;
+import seedu.address.model.Model;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 
@@ -178,21 +178,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the claim window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleContact(Contact contact) {
-
-        individualContactWindow = new IndividualContactWindow(contact);
-
-        if (!individualContactWindow.isShowing()) {
-            individualContactWindow.show();
-        } else {
-            individualContactWindow.focus();
-        }
-    }
-
-    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -257,12 +242,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isClaim()) {
                 Claim claim = commandResult.giveClaim();
-                ModelManager.handleClaim(claim);
+                Model.handleClaim(claim);
             }
 
             if (commandResult.isContact()) {
                 Contact contact = commandResult.giveContact();
-                handleContact(contact);
+                Model.handleContact(contact);
             }
 
             return commandResult;

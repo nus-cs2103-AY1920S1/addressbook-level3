@@ -254,12 +254,12 @@ with goto based on commands implemented with the revamp of the original list fea
 It also provides some design considerations to give users an insight of how the current solutions are worked out.
 
 ==== Overview
-In the Goto Command, there are various message attributes: `MESSAGE_SUCCESS_CONTACTS`, `MESSAGE_SUCCESS_CLAIMS`, `MESSAGE_SUCCESS_INCOMES`, `MESSAGE FAILURE`,
+There are various message attributes in goto command: `MESSAGE_SUCCESS_CONTACTS`, `MESSAGE_SUCCESS_CLAIMS`, `MESSAGE_SUCCESS_INCOMES`, `MESSAGE FAILURE`,
 `MESSAGE_USAGE` that informs the user if the changing of View is successful. The attribute `View` is also stored as an attribute
 of the command. It is taken in as the parameter and the index of this View determines the list that will be shown in the MainWindow.
 
 ==== Current Implementation
-Figure 4.3.1.1 is a sequence of steps that illustrates the interaction between various classes when the `goto` command is entered.
+Figure 2.4.2.1 is a sequence of steps that illustrates the interaction between various classes when the `goto` command is entered.
 `goto claims`
 
 <<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `goto contacts`
@@ -282,7 +282,7 @@ instance of the GotoCommandParser.
 3) FinSecParser calls the GotoCommandParser::parse method. This instance of GotoCommandParser then takes in the rest of the string,
 in this case: `claims` +
 
-* A `View` instance is then created when the ParserUtil:parseView method is called. This method takes in the argument from the GotoCommandPaser::parse method parameter
+* A `View` instance is then created when the ParserUtil:parseView method is called. This method takes in the argument from the GotoCommandParser::parse method parameter
 and returns a GotoCommand with the View instance. This View forms the gotoView attribute of this specific GotoCommand instance.
 
 * When the argument for the GotoCommandParser::parse method is not recognised or present, a `ParseException` will be thrown with an error
@@ -313,7 +313,7 @@ public CommandResult execute(Model model) throws CommandException {
     }
 }
 
-* A check to ensure that the model passed into the `GotoCommand::execute` method is not null is made before the rest of the method continues.
+* The model parameter passed into the `GotoCommand::execute` method is checked to be not null is made before the rest of the method continues.
 
 * The `View::getIndex` method is then called to determine the gotoView for this current `GotoCommand` instance. There are 3 alternatives for
 this command. They are `1, 2, 3`. These indexes refer to `contacts`, `claims` and `incomes` respectively.
@@ -358,10 +358,120 @@ the user is in the claims or contacts page. This command is called when the user
 
 ==== Overview
 Just like the Goto Command, there are various message attributes: `MESSAGE_SUCCESS_CONTACT`, `MESSAGE_SUCCESS_CLAIM`, `MESSAGE_FAILURE`,
-`MESSAGE_USAGE` that informs the user if the `check` command was successfully executed and if so which individual pop-up is showing.
+`MESSAGE_USAGE` that informs the user if the `check` command was successfully executed and if so which individual pop-up is showing. The 2 lists
+that will benefit from these are the contacts and claims list. It is to allow the user to see a clear and concise understanding of the
+individual claim or contact. It comes in the form of a pop-up that shows the most important attributes that belong to the claim or contact.
+
 ==== Current Implementation
+The check command takes in a single parameter that is the `Index`.
+
+Figure 2.5.2.1 is a sequence of steps that illustrates the interaction between various classes when the `check` command is entered.
+
+<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `check 1`
+command is entered.
+[[addSeqDiagram]]
+[reftext="Figure 2.5.2.1"]
+[caption="Figure 2.5.2.1: "]
+.Execution sequence of the `check 1` command
+image::CheckSequenceDiagram.png[width="800"]
 
 ==== Why was it implemented this way?
+1) The only parameter after the `check` command in the user input is passed into the LogicManager::execute method of the LogicManager instance. +
+
+2) The LogicManager::execute method calls FinSecParser::parseCommand which receives the user input as a parameter. +
+
+* This user input which is in `String` format is then formatted, the first word before the space is taken as the command word
+and the rest of the String is grouped together as the argument that will be used later by the CheckCommandParser.
+* With the command word determined, the FinSecParser instance identifies the command as a `check` command and constructs an
+instance of the CheckCommandParser.
+
+3) FinSecParser calls the CheckCommandParser::parse method. This instance of CheckCommandParser then takes in the rest of the string,
+in this case: `1` +
+
+* An `Index` instance is then created when the ParserUtil:parseIndex method is called. This method takes in the argument from the CheckCommandParser::parse method parameter
+and returns a CheckCommand with the Index instance. This Index forms the index attribute of this specific CheckCommand instance.
+
+* When the argument for the CheckCommandParser::parse method is not recognised or present, a `ParseException` will be thrown with an error
+message that asks for the proper usage of the check Command.
+
+4) This newly created CheckCommand object is returned to the LogicManager instance through the CheckCommandParser and FinSecParser objects.
+
+5) In the LogicManager object, it then calls the `CheckCommand::execute` method
+
+* The method takes in a `Model` object to access the application’s data context, the general storage of data for the application
+
+* The code snippet below shows the `CheckCommand::execute` method +
+
+[source, java]
+
+public CommandResult execute(Model model) throws CommandException {
+    requireNonNull(model);
+    //if the current state is not claims or contacts, the check command will be invalid
+    if (UiManager.getState().equals("claims")) {
+        List<Claim> lastShownList = model.getFilteredClaimList();
+        //throw error if index not valid
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CLAIM_DISPLAYED_INDEX);
+        }
+        Claim claimToShow = lastShownList.get(index.getZeroBased());
+        return new CommandResult(MESSAGE_SUCCESS_CLAIM, false, false, true, claimToShow);
+    } else if (UiManager.getState().equals("contacts")) {
+        List<Contact> contactList = model.getFilteredContactList();
+        //throw error if index not valid
+        if (index.getZeroBased() >= contactList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        Contact contactToShow = contactList.get(index.getZeroBased());
+        return new CommandResult(MESSAGE_SUCCESS_CONTACT, false, false, false, true, contactToShow);
+    } else {
+        return new CommandException(MESSAGE_FAILURE);
+    }
+}
+
+* The model parameter in the `CheckCommand::execute` method is checked to be not null is made before the rest of the method continues.
+
+* The method `UiManager::getState` is called to ensure the state of the current `View` is one of the 2, namely `contacts` or `claims`.
+
+6) Depending on which alternative is chosen based on the index of the gotoView, the `model` instance will then be updated with the correct list
+of items.
+
+* If the user is in the claims list, the method `Model::getFilteredClaimList` is called to get the latest list of claims
+
+* The specific `claimToShow` is then retrieved through the `get` method from the list
+
+* An instance of `CommandResult` is then returned with the specific success message, the boolean for showClaim in the `CommandResult` constructor
+to be set to true and this `claimToShow` is passed into the constructor as a parameter.
+
+* If the index that was retrieved through the `Model::getIndex` method is invalid or larger than the size of the list, then a `CommandException` will
+be thrown with the `MESSAGE_FAILURE` static attribute.
+
+7) This `GotoCommand::execute` method completes by returning a new `CommandResult` with the specific success message to its calling method
+which is `LogicManager::execute`.
+
+8) `LogicManager::execute` method returns a `commandResult` instance to the calling method which is `MainWindow::executeCommand`
+
+* The specific feedback is then retrieved through `CommandResult::getFeedbackToUser` and set in the result display of the MainWindow.
+
+9) The methods `CommandResult::isClaim` or `CommandResult::isContact` are then invoked to check if this `commandResult` instance is a `claim` or a `contact`
+then the methods `CommandResult::giveClaim` or `CommandResult::giveContact` are called to give the specific objects respectively. Either of these objects
+will then be passed as parameter to the `ModelManager::handleClaim` or `Model::handleContact` methods.
+
+10) The code snippet below shows the `Model::handleClaim` method +
+
+[source, java]
+
+@FXML
+    public static void handleClaim(Claim claim) {
+        IndividualClaimWindow individualClaimWindow = new IndividualClaimWindow(claim);
+        if (!individualClaimWindow.isShowing()) {
+            individualClaimWindow.show();
+        } else {
+            individualClaimWindow.focus();
+        }
+    }
+
+* This method creates a new `IndividualClaimWindow` with the claim object that was passed as a parameter. If the window is not showing, the
+`IndividualClaimWindow::show` method is called else it will call the `IndividualClaimWindow::focus` method to focus on the current claim.
 
 ==== Alternatives Considered
 
