@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.logic.Logic;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
@@ -29,7 +30,7 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private HashMap<Class<? extends ListPanel>, ListPanel> panelMap;
+    private HashMap<CommandCategory, ListPanel> panelMap;
 
     private Stage primaryStage;
     private Logic logic;
@@ -114,7 +115,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         // instantiate all list panels
         ruleListPanel = new RulePanel(logic.getRuleList());
-        panelMap.put(RulePanel.class, ruleListPanel);
+        panelMap.put(CommandCategory.RULE, ruleListPanel);
 
         // add initial panel as child
         // setCurrentPanel(INITIAL_PANEL_HERE.getRoot());
@@ -184,7 +185,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            setCurrentPanel(panelMap.get(commandResult.getPanelClass()));
+            setCurrentPanel(panelMap.get(commandResult.getCommandCategory()));
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
