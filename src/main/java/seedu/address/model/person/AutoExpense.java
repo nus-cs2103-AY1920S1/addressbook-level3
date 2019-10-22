@@ -10,15 +10,15 @@ import seedu.address.model.tag.Tag;
 public class AutoExpense extends Entry {
 
     private static final String ENTRY_TYPE = "AutoExpense";
-    private final Time lastTime;
+    private final Date lastTime;
     private final String freq;
 
     // should take in desc, freq, amt, tags
     // TODO: freq as an enum or a class:
     // monthly, weekly, daily, fortnightly
     public AutoExpense(Description desc, Amount amount, Set<Tag> tags, String freq) {
-        super(desc, new Time("stub time"), amount, tags);
-        this.lastTime = new Time("right now lmao");
+        super(desc, new Date("stub time"), amount, tags);
+        this.lastTime = new Date("right now lmao");
         this.freq = freq;
     }
 
@@ -31,7 +31,7 @@ public class AutoExpense extends Entry {
      *
      * @return
      */
-    public Time getNextTime() {
+    public Date getNextTime() {
         // TODO: wishful thinking
         // return lastTime + freq;
         return lastTime;
@@ -42,7 +42,7 @@ public class AutoExpense extends Entry {
      *
      * @return
      */
-    public Time getLastTime() {
+    public Date getLastTime() {
         return lastTime;
     }
 

@@ -14,6 +14,7 @@ import seedu.address.model.person.Income;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.WishReminder;
 
 /**
  * The API of the Model component.
@@ -21,17 +22,11 @@ import seedu.address.model.person.Wish;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
-
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
-
     Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
-
     Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
-
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
-
     Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
-
     Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
 
     /**
@@ -162,6 +157,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expense reminder list */
     ObservableList<ExpenseReminder> getFilteredExpenseReminders();
 
+    ObservableList<WishReminder> getFiltereWishReminders();
     /**
      * Updates the filter of the filtered entry list to filter by the given
      * {@code predicate}.
@@ -208,4 +204,6 @@ public interface Model {
     void sortFilteredEntry(SortType comparator, SortSequence sequence);
 
     void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
+
+    void updateFilteredWishReminders(Predicate<WishReminder> predicate);
 }

@@ -28,7 +28,7 @@ public class EntryComparator implements Comparator<Entry> {
         case "description":
             return (e1.getDesc().fullDesc).compareTo(e2.getDesc().fullDesc) * this.sequence.getSequence();
         case "time":
-            return (e1.getTime().fullTime).compareTo(e2.getTime().fullTime) * this.sequence.getSequence();
+            return (e1.getDate().toString()).compareTo(e2.getDate().toString()) * this.sequence.getSequence();
         default:
             //TODO
             return 1;

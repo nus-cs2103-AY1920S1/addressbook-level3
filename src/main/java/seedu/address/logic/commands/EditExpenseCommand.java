@@ -21,9 +21,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Expense;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -92,7 +92,7 @@ public class EditExpenseCommand extends Command {
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editEntryDescriptor) {
         assert expenseToEdit != null;
         Description updatedName = editEntryDescriptor.getDesc().orElse(expenseToEdit.getDesc());
-        Time updatedTime = editEntryDescriptor.getTime().orElse(expenseToEdit.getTime());
+        Date updatedTime = editEntryDescriptor.getTime().orElse(expenseToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(expenseToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(expenseToEdit.getTags());
         return new Expense(updatedName, updatedTime, updatedAmount, updatedTags);
@@ -122,7 +122,7 @@ public class EditExpenseCommand extends Command {
      */
     public static class EditExpenseDescriptor {
         private Description desc;
-        private Time time;
+        private Date date;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -134,7 +134,7 @@ public class EditExpenseCommand extends Command {
          */
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setDesc(toCopy.desc);
-            setTime(toCopy.time);
+            setTime(toCopy.date);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
@@ -154,12 +154,12 @@ public class EditExpenseCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
-        public void setTime(Time time) {
-            this.time = time;
+        public void setTime(Date time) {
+            this.date = time;
         }
 
-        public Optional<Time> getTime() {
-            return Optional.ofNullable(time);
+        public Optional<Date> getTime() {
+            return Optional.ofNullable(date);
         }
 
         public void setAmount(Amount amt) {

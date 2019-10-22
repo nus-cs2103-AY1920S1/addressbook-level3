@@ -21,9 +21,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,11 +93,11 @@ public class EditCommand extends Command {
         assert entryToEdit != null;
 
         Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
-        Time updatedTime = editEntryDescriptor.getTime().orElse(entryToEdit.getTime());
+        Date updatedDate = editEntryDescriptor.getDate().orElse(entryToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
-        return new Entry(updatedName, updatedTime, updatedAmount, updatedTags);
+        return new Entry(updatedName, updatedDate, updatedAmount, updatedTags);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class EditCommand extends Command {
      */
     public static class EditEntryDescriptor {
         private Description desc;
-        private Time time;
+        private Date time;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -137,7 +137,7 @@ public class EditCommand extends Command {
         public EditEntryDescriptor(EditEntryDescriptor toCopy) {
             setDesc(toCopy.desc);
             setAmount(toCopy.amt);
-            setTime(toCopy.time);
+            setDate(toCopy.time);
             setTags(toCopy.tags);
         }
 
@@ -156,11 +156,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
-        public void setTime(Time time) {
+        public void setDate(Date time) {
             this.time = time;
         }
 
-        public Optional<Time> getTime() {
+        public Optional<Date> getDate() {
             return Optional.ofNullable(time);
         }
 
@@ -205,7 +205,7 @@ public class EditCommand extends Command {
             EditEntryDescriptor e = (EditEntryDescriptor) other;
 
             return getDesc().equals(e.getDesc())
-                    && getTime().equals(e.getTime())
+                    && getDate().equals(e.getDate())
                     && getAmount().equals(e.getAmount())
                     && getTags().equals(e.getTags());
         }

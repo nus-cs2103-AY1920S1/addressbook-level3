@@ -22,6 +22,7 @@ import seedu.address.model.person.Income;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.WishReminder;
 import seedu.address.model.util.EntryComparator;
 
 /**
@@ -42,6 +43,7 @@ public class ModelManager implements Model {
     private final FilteredList<ExpenseReminder> filteredExpenseReminders;
     private final ExpenseTrackerManager expenseTrackers;
     private final VersionedAddressBook versionedAddressBook;
+    private final FilteredList<WishReminder> filteredWishReminders;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -64,6 +66,11 @@ public class ModelManager implements Model {
         filteredEntries = new FilteredList<>(sortedEntryList);
         filteredExpenseReminders = new FilteredList<>(versionedAddressBook.getExpenseReminderList());
         expenseTrackers = new ExpenseTrackerManager(versionedAddressBook.getExpenseTrackerList());
+        filteredExpenseReminders = new FilteredList<>(this.addressBook.getExpenseReminderList());
+        filteredWishReminders = new FilteredList<>(this.addressBook.getWishReminderList());
+        expenseTrackers = new ExpenseTrackerManager(this.addressBook.getExpenseTrackerList());
+        expenseTrackers.track(filteredExpenses);
+        this.addressBook.updateExpenseReminders();
     }
 
     public ModelManager() {
@@ -268,8 +275,8 @@ public class ModelManager implements Model {
         versionedAddressBook.updateExpenseReminders();
     }
 
+
     // =========== Filtered Person List Accessors
-    // =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Entry} backed by the
@@ -309,7 +316,15 @@ public class ModelManager implements Model {
         return filteredExpenseReminders;
     }
 
-    @Override
+
+    public ObservableList<WishReminder> getFiltereWishReminders() {
+        return filteredWishReminders;
+    }
+
+    /**
+     * return List of Entries matching condition.
+     * @param predicate predicate to filter
+     */
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredEntries.setPredicate(predicate);
@@ -349,7 +364,10 @@ public class ModelManager implements Model {
         filteredAutoExpenses.setPredicate(predicate);
     }
 
-    @Override
+    /**
+     * return list of reminders matching this condition.
+     * @param predicate condition to be matched.
+     */
     public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate) {
         requireNonNull(predicate);
         filteredExpenseReminders.setPredicate(predicate);
@@ -380,6 +398,12 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public void updateFilteredWishReminders(Predicate<WishReminder> predicate) {
+        requireNonNull(predicate);
+        filteredWishReminders.setPredicate(predicate);
     }
 
     @Override

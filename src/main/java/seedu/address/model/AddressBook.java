@@ -23,13 +23,14 @@ import seedu.address.model.person.IncomeList;
 import seedu.address.model.person.UniqueEntryList;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishList;
+import seedu.address.model.person.WishReminder;
+import seedu.address.model.person.WishReminderList;
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by
  * .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
-
     private final UniqueEntryList entries;
     private final ExpenseList expenses;
     private final IncomeList incomes;
@@ -39,6 +40,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final ExpenseReminderList expenseReminders;
     private final ExpenseTrackerList expenseTrackers;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final WishReminderList wishReminders;
+  
     /*
      * The 'unusual' code block below is a non-static initialization block,
      * sometimes used to avoid duplication between constructors. See
@@ -56,11 +59,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         autoExpenses = new AutoExpenseList();
         expenseReminders = new ExpenseReminderList();
         expenseTrackers = new ExpenseTrackerList();
+        wishReminders = new WishReminderList();
     }
-
     public AddressBook() {
     }
-
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
@@ -68,9 +70,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this();
         resetData(toBeCopied);
     }
-
     //// list overwrite operations
-
     /**
      * Replaces the contents of entries with {@code entry}. {@code entry} must not
      * contain duplicate entries.
@@ -79,32 +79,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.entries.setEntries(entries);
         indicateModified();
     }
-
     public void setExpenses(List<Expense> expenses) {
         this.expenses.setEntries(expenses);
         indicateModified();
     }
-
     public void setIncomes(List<Income> incomes) {
         this.incomes.setEntries(incomes);
         indicateModified();
     }
-
     public void setWishes(List<Wish> wishes) {
         this.wishes.setEntries(wishes);
         indicateModified();
     }
-
     public void setAutoExpenses(List<AutoExpense> autoExpenses) {
         this.autoExpenses.setEntries(autoExpenses);
         indicateModified();
     }
-
     public void setExpenseReminders(List<ExpenseReminder> expenseReminders) {
         this.expenseReminders.setEntries(expenseReminders);
         indicateModified();
     }
-
     public void setExpenseTrackers(List<ExpenseTracker> trackers) {
         this.expenseTrackers.setEntries(trackers);
         indicateModified();
@@ -114,7 +108,29 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.budgets.setEntries(budgets);
         indicateModified();
     }
-
+    public void setWishReminders(List<WishReminder> wishReminders) {
+        this.wishReminders.setEntries(wishReminders);
+    }
+    /**
+     * updates the status of all reminders in ExpenseReminderList
+     */
+    public void updateExpenseReminders() {
+        expenseReminders.updateList();
+    }
+    /**
+     * When Wishes and WishReminders are read from list, new instances are created.
+     * As such editing a wish after loading a file may result in WishReminder not updating wish accordingly.
+     * This attempts to address that.
+     */
+    private void mapWishToReminders() {
+        for (WishReminder reminder : wishReminders) {
+            for (Wish wish : wishes) {
+                if ((reminder.getWish()).equals(wish)) {
+                    reminder.setWish(wish);
+                }
+            }
+        }
+    }
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -128,10 +144,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         setAutoExpenses(newData.getAutoExpenseList());
         setExpenseReminders(newData.getExpenseReminderList());
         setExpenseTrackers(newData.getExpenseTrackerList());
+        setWishReminders(newData.getWishReminderList());
+        mapWishToReminders();
     }
-
     //// person-level operations
-
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * address book.
@@ -140,7 +156,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(entry);
         return entries.contains(entry);
     }
-
     /**
      * Returns true if a reminder with the same identity as {@code reminder} exists
      * in the address book.
@@ -149,10 +164,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(reminder);
         return expenseReminders.contains(reminder);
     }
+    /**
+     * Returns true if a reminder with the same identity as {@code reminder} exists in the address book.
+     */
+    public boolean hasWishReminder(WishReminder reminder) {
+        requireNonNull(reminder);
+        return wishReminders.contains(reminder);
+    }
 
     /**
-     * Adds a person to the address book. The person must not already exist in the
-     * address book.
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
      */
     public void addEntry(Entry entry) {
         entries.add(entry);
@@ -209,7 +231,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds the specified ExpenseTrackerReminder to the app.
-     *
      * @param expenseReminder the specified ExpenseTracker to be added.
      */
     public void addExpenseReminder(ExpenseReminder expenseReminder) {
@@ -218,6 +239,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Adds the specified ExpenseTrackerReminder to the app.
+     * @param wishReminder the specified ExpenseTracker to be added.
+     */
+    public void addWishReminder(WishReminder wishReminder) {
+        wishReminders.add(wishReminder);
+    }
     /**
      * Adds the specified AutoExpense to the finance app.
      *
@@ -287,10 +315,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given ExpenseTracker {@code target} in the list with
-     * {@code editedTracker}. {@code target} must exist in the address book. The
-     * ExpenseTracer identity of {@code editedTracker} must not be the same as
-     * another existing ExpenseTracker in the address book.
+     * Replaces the given ExpenseTracker {@code target} in the list with {@code editedTracker}.
+     * {@code target} must exist in the address book.
+     * The ExpenseTracer identity of {@code editedTracker}
+     * must not be the same as another existing ExpenseTracker in the address book.
      */
     public void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry) {
         requireNonNull(editedEntry);
@@ -310,6 +338,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         budgets.setBudget(target, editedEntry);
         indicateModified();
     }
+
+    /**
+     * Replaces the given ExpenseTracker {@code target} in the list with {@code editedTracker}.
+     * {@code target} must exist in the address book.
+     * The ExpenseTracer identity of {@code editedTracker}
+     * must not be the same as another existing ExpenseTracker in the address book.
+     */
+    public void setWishReminder(WishReminder target, WishReminder editedEntry) {
+        requireNonNull(editedEntry);
+        wishReminders.setWishReminder(target, editedEntry);
+    }
+
+
 
     /**
      * Replaces the given AutoExpense {@code target} in the list with
@@ -388,23 +429,31 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code expensetracker}.
      * {@code key} must exist in the address book.
      */
+
     private void removeExpenseTracker(ExpenseTracker key) {
         expenseTrackers.remove(key);
         indicateModified();
     }
 
     /**
-     * Removes {@code key} from this {@code wishes}. {@code key} must exist in the
-     * address book.
+     * Removes {@code key} from this {@code wishes}.
+     * {@code key} must exist in the address book.
      */
     public void removeExpenseReminder(ExpenseReminder key) {
         expenseReminders.remove(key);
         removeExpenseTracker(key.getTracker());
         indicateModified();
     }
-
-    public void updateExpenseReminders() {
-        expenseReminders.updateList();
+    public void removeWishReminder(WishReminder key) {
+        wishReminders.remove(key);
+    }
+    /**
+     * Removes {@code key} from this {@code autoExpenses}. {@code key} must exist in
+     * the address book.
+     */
+    public void removeAutoExpense(AutoExpense key) {
+        autoExpenses.remove(key);
+        entries.remove(key);
     }
 
     @Override
@@ -468,6 +517,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<ExpenseTracker> getExpenseTrackerList() {
         return expenseTrackers.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<WishReminder> getWishReminderList() {
+        return wishReminders.asUnmodifiableObservableList();
     }
 
     @Override

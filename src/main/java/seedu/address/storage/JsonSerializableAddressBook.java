@@ -16,6 +16,8 @@ import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.WishReminder;
+
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -30,6 +32,7 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedWish> wishes = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
     private final List<JsonAdaptedExpenseReminder> expenseReminders = new ArrayList<>();
+    private final List<JsonAdaptedWishReminder> wishReminders = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
@@ -52,6 +55,11 @@ class JsonSerializableAddressBook {
         budgets.addAll(source.getBudgetList().stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
         expenseReminders.addAll(source.getExpenseReminderList().stream().map(JsonAdaptedExpenseReminder::new)
                 .collect(Collectors.toList()));
+        expenseReminders.addAll(
+                source.getExpenseReminderList().stream().map(
+                        JsonAdaptedExpenseReminder::new).collect(Collectors.toList()));
+        wishReminders.addAll(
+                source.getWishReminderList().stream().map(JsonAdaptedWishReminder::new).collect(Collectors.toList()));
     }
 
     /**
@@ -83,6 +91,12 @@ class JsonSerializableAddressBook {
             ExpenseReminder reminder = jsonAdaptedExpenseReminder.toModelType();
             addressBook.addExpenseReminder(reminder);
         }
+
+        for (JsonAdaptedWishReminder JsonAdaptedWishReminder : wishReminders) {
+            WishReminder reminder = JsonAdaptedWishReminder.toModelType();
+            addressBook.addWishReminder(reminder);
+        }
+
         return addressBook;
     }
 
