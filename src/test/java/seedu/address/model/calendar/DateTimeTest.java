@@ -45,6 +45,6 @@ class DateTimeTest {
 
     @Test
     void testToString() {
-        assertEquals("2020 Jan 20 12:30", validDateTime.toString());
+        assertEquals("2020-01-20 12:30", validDateTime.toString());
     }
 }
