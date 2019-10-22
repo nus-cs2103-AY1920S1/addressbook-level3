@@ -17,13 +17,13 @@ mw -> mw ++: handleStats(statsPayload)
 
 mw -> logic ++: statsPayload
 
-logic -> sm ++: (respective calculation method)
-sm -> sm
+logic -> sm ++: statsPayload
+sm -> sm : calculate
 sm -> logic --: result
 
 logic -> mw --:result
 
-mw -> sw ++:
+mw -> sw ++: result
 sw -> sw ++: buildChart()
 sw -> mw --: statsWindow
 <- mw : CommandResult
