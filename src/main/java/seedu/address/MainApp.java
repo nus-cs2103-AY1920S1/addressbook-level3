@@ -23,7 +23,6 @@ import seedu.address.model.ElisaStateHistoryManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemModelManager;
 import seedu.address.model.ItemStorage;
-import seedu.address.model.JokeList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
