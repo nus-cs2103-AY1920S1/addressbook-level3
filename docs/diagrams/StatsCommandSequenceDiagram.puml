@@ -27,7 +27,7 @@ abp --> logic --: command
 logic -> ec ++: execute, model
 
 ec -> cr ++: StatsPayload, UiChange
-cr -> ec ++: commandResult
+cr -> ec --: commandResult
 ec -> logic --: commandResult
 
 <- logic :commandResult
