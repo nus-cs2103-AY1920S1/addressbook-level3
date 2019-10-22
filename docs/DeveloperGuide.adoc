@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/savenus/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `MenuParser` class to parse the user command.
+.  `Logic` uses the `SaveNusParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -123,11 +123,14 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Menu data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Wallet data.
+* stores the PurchaseHistory data.
+* exposes the `RemainingBudget` and `DaysToExpire` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `Wallet` change.
+* exposes an unmodifiable `ObservableList<Food>` and `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in either of the lists change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Menu`, which `Person` can reference. This would allow `Menu` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference. This would allow `Menu` to only require one `Tag` object per unique `Tag`, instead of each `Food` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -142,7 +145,9 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Menu data in json format and read it back.
+* can save the `Menu` data in json format and read it back.
+* can save the `Wallet` data in json format and read it back.
+* can save the `PurchaseHistory` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
