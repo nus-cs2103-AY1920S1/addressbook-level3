@@ -1,8 +1,8 @@
 package seedu.address.model.studyplan;
 
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /*
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 */
+
 import static seedu.address.testutil.TypicalStudyPlans.SP_1;
 import static seedu.address.testutil.TypicalStudyPlans.SP_2;
 
@@ -87,25 +88,25 @@ public class StudyPlanTest {
         assertFalse(SP_1.equals(SP_2));
 
         // different index -> returns false
-        StudyPlan editedSP_1 = new StudyPlanBuilder(SP_1).withIndex(6).build();
-        assertFalse(SP_1.equals(editedSP_1));
+        StudyPlan editedSP1 = new StudyPlanBuilder(SP_1).withIndex(6).build();
+        assertFalse(SP_1.equals(editedSP1));
 
         /*
         // different phone -> returns false
-        editedSP_1 = new StudyPlanBuilder(SP_1).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(SP_1.equals(editedSP_1));
+        editedSP1 = new StudyPlanBuilder(SP_1).withPhone(VALID_PHONE_BOB).build();
+        assertFalse(SP_1.equals(editedSP1));
 
         // different email -> returns false
-        editedSP_1 = new StudyPlanBuilder(SP_1).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(SP_1.equals(editedSP_1));
+        editedSP1 = new StudyPlanBuilder(SP_1).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(SP_1.equals(editedSP1));
 
         // different address -> returns false
-        editedSP_1 = new StudyPlanBuilder(SP_1).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(SP_1.equals(editedSP_1));
+        editedSP1 = new StudyPlanBuilder(SP_1).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(SP_1.equals(editedSP1));
 
         // different tags -> returns false
-        editedSP_1 = new StudyPlanBuilder(SP_1).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(SP_1.equals(editedSP_1));
+        editedSP1 = new StudyPlanBuilder(SP_1).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(SP_1.equals(editedSP1));
         */
     }
 }

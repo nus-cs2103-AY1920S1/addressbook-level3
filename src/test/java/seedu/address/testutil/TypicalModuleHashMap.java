@@ -19,15 +19,15 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class TypicalModuleHashMap {
 
-    public static final Module moduleCS1101S = convertModuleInfoToModule(CS1101S);
-    public static final Module moduleCS2040S = convertModuleInfoToModule(CS2040S);
-    public static final Module moduleCS4248 = convertModuleInfoToModule(CS4248);
+    public static final Module MODULE_CS1101S = convertModuleInfoToModule(CS1101S);
+    public static final Module MODULE_CS2040S = convertModuleInfoToModule(CS2040S);
+    public static final Module MODULE_CS4248 = convertModuleInfoToModule(CS4248);
 
     public static HashMap<String, Module> getTypicalModuleHashMap() {
         HashMap<String, Module> moduleHashMap = new HashMap<>();
-        moduleHashMap.put("CS1101S", moduleCS1101S);
-        moduleHashMap.put("CS2040S", moduleCS2040S);
-        moduleHashMap.put("CS4248", moduleCS4248);
+        moduleHashMap.put("CS1101S", MODULE_CS1101S);
+        moduleHashMap.put("CS2040S", MODULE_CS2040S);
+        moduleHashMap.put("CS4248", MODULE_CS4248);
         return moduleHashMap;
     }
 
