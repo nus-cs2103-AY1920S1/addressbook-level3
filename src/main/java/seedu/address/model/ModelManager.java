@@ -329,4 +329,15 @@ public class ModelManager implements Model {
     public Borrower getBorrowerFromId(BorrowerId borrowerId) {
         return borrowerRecords.getBorrowerFromId(borrowerId);
     }
+
+    @Override
+    public void setBorrower(Borrower borrowerToEdit, Borrower editedBorrower) {
+
+    }
+
+    @Override
+    public boolean hasDuplicatedBorrower(Borrower editedBorrower) {
+        return borrowerRecords.hasDuplicateBorrower(editedBorrower);
+    }
+
 }

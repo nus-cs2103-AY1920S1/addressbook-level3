@@ -67,7 +67,7 @@ public class EditBorrowerCommand extends Command {
         Borrower borrowerToEdit = model.getBorrowerFromId(id);
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);
 
-        if (!borrowerToEdit.isSameBorrower(editedBorrower) && model.hasBorrower(editedBorrower)) {
+        if (model.hasDuplicatedBorrower(editedBorrower)) {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
         }
 
@@ -98,7 +98,7 @@ public class EditBorrowerCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditBorrowerCommand)) {
             return false;
         }
 
@@ -116,6 +116,7 @@ public class EditBorrowerCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private BorrowerId id;
 
         public EditBorrowerDescriptor() {}
 
@@ -127,6 +128,7 @@ public class EditBorrowerCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setId(toCopy.id);
         }
 
         /**
@@ -158,6 +160,10 @@ public class EditBorrowerCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setId(BorrowerId id) {
+            this.id = id;
         }
 
         @Override
