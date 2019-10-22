@@ -17,11 +17,14 @@ public class StudentListPanel extends UiPart<Region> {
     private static final String FXML = "ItemListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
+    private ObservableList<Student> studentList;
+
     @FXML
     private ListView<Student> itemListView;
 
     public StudentListPanel(ObservableList<Student> studentList) {
         super(FXML);
+        this.studentList = studentList;
         itemListView.setItems(studentList);
         itemListView.setCellFactory(listView -> new StudentListViewCell());
     }

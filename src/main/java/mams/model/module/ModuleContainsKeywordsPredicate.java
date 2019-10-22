@@ -20,10 +20,16 @@ public class ModuleContainsKeywordsPredicate implements Predicate<Module> {
         return keywords.isEmpty();
     }
 
+    public int getListSize() {
+        return keywords.size();
+    }
+
     @Override
     public boolean test(Module module) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleCode(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleCode(), keyword)
+                        || StringUtil.containsWordIgnoreCase(module.getModuleName(), keyword)
+                        || StringUtil.containsWordIgnoreCase(module.getModuleDescription(), keyword));
     }
 
     @Override

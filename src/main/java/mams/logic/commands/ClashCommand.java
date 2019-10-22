@@ -1,6 +1,6 @@
 package mams.logic.commands;
 
-import static mams.logic.parser.CliSyntax.PREFIX_APPEALID;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
@@ -21,7 +21,7 @@ public abstract class ClashCommand extends Command {
             + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS1010 " + PREFIX_MODULE + "CS2030 "
             + "\nor " + COMMAND_WORD + " "
-            + PREFIX_APPEALID + "c00001"
+            + PREFIX_APPEAL + "c00001"
             + "\nor " + COMMAND_WORD + " "
             + PREFIX_STUDENT + "A0111234X";
 
