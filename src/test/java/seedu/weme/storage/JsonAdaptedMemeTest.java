@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
-import seedu.weme.model.meme.ImagePath;
 
 public class JsonAdaptedMemeTest {
     private static final String INVALID_TAG = "#friend";

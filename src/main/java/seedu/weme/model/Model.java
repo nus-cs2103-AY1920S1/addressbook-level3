@@ -10,6 +10,7 @@ import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.StatsEngine;
+import seedu.weme.model.template.Template;
 
 /**
  * The API of the Model component.
@@ -17,6 +18,8 @@ import seedu.weme.statistics.StatsEngine;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Meme> PREDICATE_SHOW_ALL_MEMES = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -110,6 +113,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMemeList(Predicate<Meme> predicate);
+
+    /** Returns an unmodifiable view of the filtered template list */
+    ObservableList<Template> getFilteredTemplateList();
+
+    /**
+     * Updates the filter of the filtered template list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTemplateList(Predicate<Template> predicate);
 
     /**
      * Returns the context of the model.

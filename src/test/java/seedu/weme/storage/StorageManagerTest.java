@@ -2,7 +2,7 @@ package seedu.weme.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.weme.testutil.TypicalMemes.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
 
 import java.nio.file.Path;
 

@@ -24,6 +24,7 @@ import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.StatsEngine;
 import seedu.weme.testutil.MemeBuilder;
@@ -168,6 +169,16 @@ public class MemeAddCommandTest {
 
         @Override
         public void updateFilteredMemeList(Predicate<Meme> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Template> getFilteredTemplateList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTemplateList(Predicate<Template> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

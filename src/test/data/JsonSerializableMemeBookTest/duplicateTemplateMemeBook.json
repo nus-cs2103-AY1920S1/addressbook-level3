@@ -1,0 +1,11 @@
+{
+  "memes": [],
+  "templates" : [ {
+    "name" : "Drake Reaction",
+    "filePath": "src/test/data/templates/drake_template.jpg"
+  }, {
+    "name" : "Drake Reaction",
+    "filePath": "src/test/data/templates/drake_template.jpg"
+  } ]
+}
+

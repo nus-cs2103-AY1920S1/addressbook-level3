@@ -1,5 +1,5 @@
 {
-  "_comment": "Meme save file which contains the same Meme values as in TypicalMemes#getTypicalMemes()",
+  "_comment": "Meme book save file which contains the same Meme values as in TypicalMemes#getTypicalMemes() and same Template values as in TypicalTemplates#getTypicalTemplates()",
   "memes" : [ {
     "filePath": "src/test/data/memes/charmander_meme.jpg",
     "tagged" : [ "charmander" ],
@@ -16,5 +16,15 @@
     "filePath": "src/test/data/memes/toy_meme.jpg",
     "tagged" : ["toy"],
     "description" : "A toy story meme."
-  }]
+  }],
+  "templates" : [ {
+    "name" : "Drake Reaction",
+    "filePath": "src/test/data/templates/drake_template.jpg"
+  }, {
+    "name" : "Is This",
+    "filePath": "src/test/data/templates/is_this_template.jpg"
+  }, {
+    "name" : "Quiz Kid",
+    "filePath": "src/test/data/templates/quiz_kid_template.jpg"
+  } ]
 }

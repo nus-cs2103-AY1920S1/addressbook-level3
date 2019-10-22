@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.commons.core.Messages.MESSAGE_MEMES_LISTED_OVERVIEW;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.weme.testutil.TypicalMemes.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -10,8 +10,8 @@ import java.util.stream.Stream;
 
 import seedu.weme.logic.commands.MemeAddCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
-import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 

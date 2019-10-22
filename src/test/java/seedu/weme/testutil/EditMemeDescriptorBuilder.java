@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 
 import seedu.weme.logic.commands.MemeEditCommand;
 import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
-import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 

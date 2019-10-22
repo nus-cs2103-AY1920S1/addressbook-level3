@@ -15,8 +15,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
-import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 public class ParserUtilTest {

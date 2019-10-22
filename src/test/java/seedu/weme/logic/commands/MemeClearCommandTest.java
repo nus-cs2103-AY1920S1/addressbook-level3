@@ -1,7 +1,7 @@
 package seedu.weme.logic.commands;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.weme.testutil.TypicalMemes.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
 
 import org.junit.jupiter.api.Test;
 

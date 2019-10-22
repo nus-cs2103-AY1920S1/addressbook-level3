@@ -12,6 +12,7 @@ import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.template.Template;
 
 /**
  * An Immutable MemeBook that is serializable to JSON format.
@@ -20,15 +21,19 @@ import seedu.weme.model.meme.Meme;
 class JsonSerializableMemeBook {
 
     public static final String MESSAGE_DUPLICATE_MEME = "Memes list contains duplicate meme(s).";
+    public static final String MESSAGE_DUPLICATE_TEMPLATE = "Templates list contains duplicate meme(s).";
 
     private final List<JsonAdaptedMeme> memes = new ArrayList<>();
+    private final List<JsonAdaptedTemplate> templates = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableMemeBook} with the given memes.
+     * Constructs a {@code JsonSerializableMemeBook} with the given memes and templates.
      */
     @JsonCreator
-    public JsonSerializableMemeBook(@JsonProperty("memes") List<JsonAdaptedMeme> memes) {
+    public JsonSerializableMemeBook(@JsonProperty("memes") List<JsonAdaptedMeme> memes,
+                                    @JsonProperty("templates") List<JsonAdaptedTemplate> templates) {
         this.memes.addAll(memes);
+        this.templates.addAll(templates);
     }
 
     /**
@@ -38,6 +43,7 @@ class JsonSerializableMemeBook {
      */
     public JsonSerializableMemeBook(ReadOnlyMemeBook source) {
         memes.addAll(source.getMemeList().stream().map(JsonAdaptedMeme::new).collect(Collectors.toList()));
+        templates.addAll(source.getTemplateList().stream().map(JsonAdaptedTemplate::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +59,13 @@ class JsonSerializableMemeBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEME);
             }
             memeBook.addMeme(meme);
+        }
+        for (JsonAdaptedTemplate jsonAdaptedTemplate : templates) {
+            Template template = jsonAdaptedTemplate.toModelType();
+            if (memeBook.hasTemplate(template)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TEMPLATE);
+            }
+            memeBook.addTemplate(template);
         }
         return memeBook;
     }
