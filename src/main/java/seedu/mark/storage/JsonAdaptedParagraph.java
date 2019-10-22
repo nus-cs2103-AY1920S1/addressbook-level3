@@ -7,7 +7,6 @@ import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.parser.ParserUtil;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.annotation.Annotation;
-import seedu.mark.model.annotation.AnnotationNote;
 import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.annotation.ParagraphContent;
 import seedu.mark.model.annotation.ParagraphIdentifier;

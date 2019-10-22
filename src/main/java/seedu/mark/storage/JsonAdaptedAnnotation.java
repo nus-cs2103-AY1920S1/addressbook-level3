@@ -27,11 +27,16 @@ public class JsonAdaptedAnnotation {
      * Converts a given {@code Annotation} into this class for Jackson use.
      */
     public JsonAdaptedAnnotation(Annotation an) {
-        this.highlight = an.getHighlight().toString();
-        if (an.hasNote()) {
-            this.note = an.getNote().toString();
-        } else {
+        if (an == null) {
+            this.highlight = null;
             this.note = null;
+        } else {
+            this.highlight = an.getHighlight().toString();
+            if (an.hasNote()) {
+                this.note = an.getNote().toString();
+            } else {
+                this.note = null;
+            }
         }
     }
 

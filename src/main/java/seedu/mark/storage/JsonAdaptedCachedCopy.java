@@ -4,10 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import seedu.mark.commons.exceptions.IllegalValueException;
-import seedu.mark.model.annotation.OfflineDocument;
-import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.bookmark.CachedCopy;
 
 public class JsonAdaptedCachedCopy {
