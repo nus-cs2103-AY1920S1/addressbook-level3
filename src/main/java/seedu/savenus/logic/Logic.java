@@ -49,6 +49,11 @@ public interface Logic {
     void setFoods(List<Food> list);
 
     /**
+     * Gets back the original list.
+     */
+    ObservableList<Food> getFoods();
+
+    /**
      * Returns the user prefs' menu file path.
      */
     Path getMenuFilePath();
