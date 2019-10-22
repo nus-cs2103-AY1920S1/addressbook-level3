@@ -9,6 +9,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Expense {
     private final int personId;
+    private int[] involvedIds;
     private final Amount amount;
     private final String description;
     private boolean isDeleted;
@@ -20,11 +21,32 @@ public class Expense {
      * @param description Description of the expense (can be an empty string).
      */
     public Expense(int personId, Amount amount, String description) {
-        requireAllNonNull(amount, description);
+        requireAllNonNull(personId, amount, description);
         this.personId = personId;
         this.amount = amount;
         this.description = description;
         this.isDeleted = false;
+        involvedIds = null;
+    }
+
+    public Expense(int personId, Amount amount, String description, int ... ids) {
+        this(personId, amount, description);
+        requireAllNonNull(ids);
+        this.involvedIds = ids;
+    }
+
+    /**
+     * Returns an array of all the primary keys of involved people in this expense.
+     * Note that this function can return null, in that case it means no list has
+     * been provided to the constructor and you may assume everyone is involved.
+     * Usually after adding to an activity this gets initialized by the activity.
+     */
+    public int[] getInvolved() {
+        return involvedIds;
+    }
+
+    public void setInvolved(int[] ids) {
+        involvedIds = ids;
     }
 
     public Amount getAmount() {
