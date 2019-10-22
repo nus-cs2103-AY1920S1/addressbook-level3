@@ -19,6 +19,7 @@ import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;

@@ -10,6 +10,7 @@ import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.quiz.QuizParser;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
@@ -45,9 +46,18 @@ public class QuizLogicManager implements QuizLogic {
         Command command = quizParser.parseCommand(commandText, currentAnswerable);
         commandResult = command.execute(model);
 
+        //If user exits the quiz, restore the filtered list to original state.
+        if (commandResult.isExit()) {
+            ListCommand originalList = new ListCommand(null, null);
+            originalList.execute(model);
+        }
+
         return commandResult;
     }
 
+    public Model getModel() {
+        return model;
+    }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
