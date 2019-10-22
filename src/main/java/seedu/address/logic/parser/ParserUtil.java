@@ -18,6 +18,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
 import seedu.address.model.bio.DisplayPicPath;
@@ -323,6 +324,23 @@ public class ParserUtil {
         } else {
             return new OtherBioInfo("");
         }
+    }
+
+    //=========== Aesthetics =============================================================
+
+    /**
+     * Parses a {@code String colour} into a {@code Colour}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code colour} is invalid.
+     */
+    public static Colour parseColour(String colour) throws ParseException {
+        requireNonNull(colour);
+        String trimmedColour = colour.trim();
+        if (!Colour.isValidColour(trimmedColour)) {
+            throw new ParseException(Colour.MESSAGE_CONSTRAINTS);
+        }
+        return new Colour(trimmedColour);
     }
 
     //=========== Food Map =============================================================
