@@ -206,8 +206,6 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     *
-     * 
      * @return
      */
     public ArrayList<FlashCard> getSubsetForTest() {
@@ -222,12 +220,12 @@ public class Deck implements JsonInterface {
         int sizeOfHighPrioritySet = totalDeckSize - sizeOfLowPrioritySet;
         int sizeOfTestSet = sizeOfHighPrioritySet + sizeOfLowPrioritySet;
 
-        for(int i = 0; i < sizeOfHighPrioritySet; i++){
+        for (int i = 0; i < sizeOfHighPrioritySet; i++) {
             FlashCard chosenCard = getRandomCard(highPriorityQueue);
             testSet.add(chosenCard);
         }
 
-        for(int i = 0; i < sizeOfLowPrioritySet; i++){
+        for (int i = 0; i < sizeOfLowPrioritySet; i++) {
             FlashCard chosenCard = getRandomCard(lowPriorityQueue);
             testSet.add(chosenCard);
         }
@@ -235,7 +233,11 @@ public class Deck implements JsonInterface {
         return testSet;
     }
 
-    private FlashCard getRandomCard(ArrayList<FlashCard> list){
+    /**
+     * @param list
+     * @return
+     */
+    private FlashCard getRandomCard(ArrayList<FlashCard> list) {
         Random rand = new Random(System.currentTimeMillis());
         int chosenCardIndex = rand.nextInt(list.size());
         return list.get(chosenCardIndex);
