@@ -71,9 +71,9 @@ public class ActivityWindow extends UiPart<Region> {
 
     public void displayNote(Note note) {
         notesTabWindowController.loadNote(note);
+    }
 
     public void displayCheatSheet(CheatSheet cheatSheet) {
         cheatsheetTabWindowController.loadCheatSheet(cheatSheet);
     }
-
 }
