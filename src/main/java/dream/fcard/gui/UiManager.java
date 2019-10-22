@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * The manager of the UI component.
  */
-public class UiManager {
+public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -23,6 +23,10 @@ public class UiManager {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private MainWindow mainWindow;
+
+    public UiManager() {
+        super();
+    }
 
     /**
      * Shows an alert dialog on {@code owner} with the given parameters.
@@ -44,6 +48,7 @@ public class UiManager {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
+    @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
 
