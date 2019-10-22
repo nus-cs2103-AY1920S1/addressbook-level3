@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
 
 /**
  * Represents the result of a command execution.
@@ -22,17 +23,25 @@ public class CommandResult {
     /** The claim pop-up should appear*/
     private boolean showClaim;
 
+    /** The contact pop-up should appear*/
+    private boolean showContact;
+
     /** Claim object */
     private Claim claim;
+
+    /** Contact object */
+    private Contact contact;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showClaim) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean showClaim, boolean showContact) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showClaim = showClaim;
+        this.showContact = showContact;
     }
 
     /**
@@ -47,11 +56,26 @@ public class CommandResult {
     }
 
     /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showClaim,
+                         boolean showContact, Contact contact) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showClaim = showClaim;
+        this.showContact = showContact;
+        this.contact = contact;
+    }
+
+
+    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false,
+                false, false);
     }
 
     public String getFeedbackToUser() {
@@ -70,12 +94,24 @@ public class CommandResult {
         return showClaim;
     }
 
+    public boolean isContact() {
+        return showContact;
+    }
+
     /**
      * Returns the claim in the constructor
      * @return
      */
     public Claim giveClaim() {
         return claim;
+    }
+
+    /**
+     * Returns the claim in the constructor
+     * @return
+     */
+    public Contact giveContact() {
+        return contact;
     }
 
     @Override

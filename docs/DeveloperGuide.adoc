@@ -143,11 +143,9 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some important details on how the features are implemented
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Claim feature
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
@@ -227,14 +225,13 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Income feature
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
-=== Logging
+=== Budget feature
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -250,10 +247,123 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+=== Goto feature
+This section describes the different Views that Goto can bring a user to. This is also an overview of the goto details and how users can interact
+with goto based on commands implemented with the revamp of the original list feature.
+It also provides some design considerations to give users an insight of how the current solutions are worked out.
 
+==== Overview
+In the Goto Command, there are various message attributes: `MESSAGE_SUCCESS_CONTACTS`, `MESSAGE_SUCCESS_CLAIMS`, `MESSAGE_SUCCESS_INCOMES`, `MESSAGE FAILURE`,
+`MESSAGE_USAGE` that informs the user if the changing of View is successful. The attribute `View` is also stored as an attribute
+of the command. It is taken in as the parameter and the index of this View determines the list that will be shown in the MainWindow.
+
+==== Current Implementation
+Figure 4.3.1.1 is a sequence of steps that illustrates the interaction between various classes when the `goto` command is entered.
+`goto claims`
+
+<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `goto contacts`
+command is entered.
+[[addSeqDiagram]]
+[reftext="Figure 2.4.2.1"]
+[caption="Figure 2.4.2.1: "]
+.Execution sequence of the `goto contacts` command
+image::GotoSequenceDiagram.png[width="800"]
+
+1) The only parameter after the goto command in the user input is passed into the LogicManager::execute method of the LogicManager instance. +
+
+2) The LogicManager::execute method calls FinSecParser::parseCommand which receives the user input as a parameter. +
+
+* This user input which is in `String` format is then formatted, the first word before the space is taken as the command word
+and the rest of the String is grouped together as the argument that will be used later by the GotoCommandParser.
+* With the command word determined, the FinSecParser instance identifies the command as a `goto` command and constructs an
+instance of the GotoCommandParser.
+
+3) FinSecParser calls the GotoCommandParser::parse method. This instance of GotoCommandParser then takes in the rest of the string,
+in this case: `claims` +
+
+* A `View` instance is then created when the ParserUtil:parseView method is called. This method takes in the argument from the GotoCommandPaser::parse method parameter
+and returns a GotoCommand with the View instance. This View forms the gotoView attribute of this specific GotoCommand instance.
+
+* When the argument for the GotoCommandParser::parse method is not recognised or present, a `ParseException` will be thrown with an error
+message that asks for the proper usage of the goto Command.
+
+4) This newly created GotoCommand object is returned to the LogicManager instance through the GotoCommandParser and FinSecParser objects.
+
+5) In the LogicManager object, it then calls the `GotoCommand::execute` method
+
+* The method takes in a `Model` object to access the application’s data context, the general storage of data for the application
+
+* The code snippet below shows the `GotoCommand::execute` method +
+
+[source, java]
+public CommandResult execute(Model model) throws CommandException {
+    requireNonNull(model);
+    if (gotoView.getIndex() == 1) { //case of contacts
+        model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(MESSAGE_SUCCESS_CONTACTS);
+    } else if (gotoView.getIndex() == 2) { //case of claims
+        model.updateFilteredClaimList(PREDICATE_SHOW_ALL_CLAIMS);
+        return new CommandResult(MESSAGE_SUCCESS_CLAIMS);
+    } else if (gotoView.getIndex() == 3) { //case of income
+        model.updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
+        return new CommandResult(MESSAGE_SUCCESS_INCOMES);
+    } else {
+        throw new CommandException(MESSAGE_FAILURE);
+    }
+}
+
+* A check to ensure that the model passed into the `GotoCommand::execute` method is not null is made before the rest of the method continues.
+
+* The `View::getIndex` method is then called to determine the gotoView for this current `GotoCommand` instance. There are 3 alternatives for
+this command. They are `1, 2, 3`. These indexes refer to `contacts`, `claims` and `incomes` respectively.
+
+6) Depending on which alternative is chosen based on the index of the gotoView, the `model` instance will then be updated with the correct list
+of items.
+
+* If the user wants to go to contacts, the `Model::updateFilteredContactList` method is called with a true predicate as the argument
+
+* If the user wants to go to claims, the `Model::updateFilteredClaimList` method is called with a true predicate as the argument
+
+* If the user wants to go to incomes, the `Model::updateFilteredIncomeList` method is called with a true predicate as the argument
+
+* If the index that was retrieved through the `Model::getIndex` method is invalid or not within these 3 numbers, then a `CommandException` will
+be thrown with the `MESSAGE_FAILURE` static attribute.
+
+7) This `GotoCommand::execute` method completes by returning a new `CommandResult` with the specific success message to its calling method
+which is `LogicManager::execute`.
+
+8) `LogicManager::execute` method returns a `CommandResult` to the calling method which is `MainWindow::executeCommand`
+
+* The specific feedback is then retrieved through `CommandResult::getFeedbackToUser` and set in the result display of the MainWindow.
+
+==== Why was it implemented this way?
+Our application allows for adding of claims and incomes, which are the extra features in comparison to the original AddressBook. Therefore, instead
+of placing all of them into the same list
+
+* We found the need to split them into 3 separate lists instead of placing them in the same window where a user sees 3 lists cluttered together.
+
+* We want the user to have a clear command to know that he/she is no longer on the contacts list and has moved on to another list.
+
+* In addition, with these new Views created, upon successful invocation of the `add_contacts`, `add_claim` or `add_income` methods by the user, the UI will
+change automatically to either the contact, claims or incomes page. This gives the user a clear indication if the specific entry he/she has added
+is successful.
+
+==== Alternatives Considered
+
+
+=== Check feature
+This feature is an extended feature of the goto feature because this feature can only be run when
+the user is in the claims or contacts page. This command is called when the user wants to check each contact or claim individually.
+
+==== Overview
+Just like the Goto Command, there are various message attributes: `MESSAGE_SUCCESS_CONTACT`, `MESSAGE_SUCCESS_CLAIM`, `MESSAGE_FAILURE`,
+`MESSAGE_USAGE` that informs the user if the `check` command was successfully executed and if so which individual pop-up is showing.
+==== Current Implementation
+
+==== Why was it implemented this way?
+
+==== Alternatives Considered
 
 [appendix]
 == Product Scope

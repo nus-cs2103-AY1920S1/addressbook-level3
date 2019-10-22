@@ -37,7 +37,9 @@ public class AddClaimCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New claim added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This claim already exists";
+    public static final String MESSAGE_DUPLICATE_CLAIM = "This claim already exists";
+    public static final String MESSAGE_CONTACT_NOT_FOUND = "Contact cannot be found, please enter an existing "
+            + "contact or make a new contact first";
 
     private final Claim toAdd;
 
@@ -54,7 +56,11 @@ public class AddClaimCommand extends Command {
         requireNonNull(model);
 
         if (model.hasClaim(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CLAIM);
+        }
+
+        if (!model.hasContactFor(toAdd)) {
+            throw new CommandException(MESSAGE_CONTACT_NOT_FOUND);
         }
 
         model.addClaim(toAdd);

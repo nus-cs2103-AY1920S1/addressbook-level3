@@ -5,6 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLAIMS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCOMES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.View;
@@ -38,7 +39,7 @@ public class GotoCommand extends Command {
      * @param view 3 different types of view possible
      * @throws ParseException if the view is not properly typed by user
      */
-    public GotoCommand(View view) throws ParseException {
+    public GotoCommand(View view) {
         try {
             if (view == null) {
                 throw new ParseException("error");
@@ -55,7 +56,7 @@ public class GotoCommand extends Command {
      * @return
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (gotoView.getIndex() == 1) { //case of contacts
             model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
@@ -67,7 +68,14 @@ public class GotoCommand extends Command {
             model.updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
             return new CommandResult(MESSAGE_SUCCESS_INCOMES);
         } else {
-            return new CommandResult(MESSAGE_FAILURE);
+            throw new CommandException(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GotoCommand // instanceof handles nulls
+                && gotoView.equals(((GotoCommand) other).gotoView)); // state check
     }
 }

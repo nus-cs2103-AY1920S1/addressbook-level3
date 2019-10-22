@@ -9,13 +9,14 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
+import javafx.fxml.FXML;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
+import seedu.address.ui.IndividualClaimWindow;
 import seedu.address.ui.UiManager;
 
 /**
@@ -38,7 +39,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(finSec, userPrefs);
 
-        logger.fine("Initializing with address book: " + finSec + " and user prefs " + userPrefs);
+        logger.fine("Initializing with finSec: " + finSec + " and user prefs " + userPrefs);
 
         this.finSec = new FinSec(finSec);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -158,6 +159,29 @@ public class ModelManager implements Model {
     public void rejectClaim(Claim claim) {
         requireNonNull(claim);
         finSec.rejectClaim(claim);
+    }
+
+    /** Finds the {@code contact} for a {@code claim}.
+    *
+    * @return true if contact has been found.
+    */
+    public boolean hasContactFor(Claim claim) {
+        requireNonNull(claim);
+        return finSec.hasContact(claim.getName(), claim.getPhone());
+    }
+
+    /**
+     * Opens the claim window or focuses on it if it's already opened.
+     */
+    @FXML
+    public static void handleClaim(Claim claim) {
+        IndividualClaimWindow individualClaimWindow = new IndividualClaimWindow(claim);
+
+        if (!individualClaimWindow.isShowing()) {
+            individualClaimWindow.show();
+        } else {
+            individualClaimWindow.focus();
+        }
     }
 
     //=========== Suggestions ================================================================================

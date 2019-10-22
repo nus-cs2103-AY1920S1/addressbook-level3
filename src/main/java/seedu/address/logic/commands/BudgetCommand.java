@@ -4,6 +4,8 @@ import java.util.List;
 
 import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetGraph;
+//import seedu.address.model.budget.ClaimPlotter;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 
@@ -24,6 +26,8 @@ public class BudgetCommand extends Command {
         String message;
 
         Budget budget = new Budget(claimList, incomeList);
+        BudgetGraph budgetGraph = new BudgetGraph(claimList, incomeList);
+        budgetGraph.displayBudgetGraph();
         budget.calculateBudget();
 
         message = "Total income: "
@@ -37,6 +41,9 @@ public class BudgetCommand extends Command {
             message += "\nWarning, you are over budget!";
         }
 
-        return new CommandResult(message, false, false, false);
+
+
+
+        return new CommandResult(message, false, false, false, false);
     }
 }

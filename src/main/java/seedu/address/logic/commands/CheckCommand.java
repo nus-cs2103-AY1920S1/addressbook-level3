@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
 import seedu.address.ui.UiManager;
 
 /**
@@ -50,10 +52,21 @@ public class CheckCommand extends Command {
         //if the current state is not claims or contacts, the check command will be invalid
         if (UiManager.getState().equals("claims")) {
             List<Claim> lastShownList = model.getFilteredClaimList();
+            //throw error if index not valid
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_CLAIM_DISPLAYED_INDEX);
+            }
+
             Claim claimToShow = lastShownList.get(index.getZeroBased());
             return new CommandResult(MESSAGE_SUCCESS_CLAIM, false, false, true, claimToShow);
         } else if (UiManager.getState().equals("contacts")) {
-            return new CommandResult(MESSAGE_SUCCESS_CONTACT);
+            List<Contact> contactList = model.getFilteredContactList();
+            //throw error if index not valid
+            if (index.getZeroBased() >= contactList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            Contact contactToShow = contactList.get(index.getZeroBased());
+            return new CommandResult(MESSAGE_SUCCESS_CONTACT, false, false, false, true, contactToShow);
         } else {
             return new CommandResult(MESSAGE_FAILURE);
         }

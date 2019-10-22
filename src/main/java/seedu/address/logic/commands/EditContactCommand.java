@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -21,9 +19,9 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
@@ -43,7 +41,6 @@ public class EditContactCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -106,10 +103,10 @@ public class EditContactCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(contactToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(contactToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(contactToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(contactToEdit.getTags());
+        Set<Id> updatedClaims = editPersonDescriptor.getClaims().orElse(contactToEdit.getClaims());
 
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Contact(updatedName, updatedPhone, updatedEmail, updatedTags, updatedClaims);
     }
 
     @Override
@@ -138,8 +135,8 @@ public class EditContactCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
         private Set<Tag> tags;
+        private Set<Id> claims;
 
         public EditPersonDescriptor() {}
 
@@ -151,15 +148,15 @@ public class EditContactCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setClaims(toCopy.claims);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
         }
 
         public void setName(Name name) {
@@ -186,13 +183,6 @@ public class EditContactCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -209,6 +199,23 @@ public class EditContactCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code claims} to this object's {@code claims}.
+         * A defensive copy of {@code claims} is used internally.
+         */
+        public void setClaims(Set<Id> claims) {
+            this.claims = (claims != null) ? new HashSet<>(claims) : null;
+        }
+
+        /**
+         * Returns an unmodifiable id set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code id} is null.
+         */
+        public Optional<Set<Id>> getClaims() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(claims)) : Optional.empty();
         }
 
         @Override
@@ -229,7 +236,6 @@ public class EditContactCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }
     }
