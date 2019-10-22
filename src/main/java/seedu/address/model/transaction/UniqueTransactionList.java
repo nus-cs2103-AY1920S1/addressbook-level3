@@ -21,18 +21,18 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Transaction#isSameTransaction(Transaction)
+ * @see Transaction#isSameTransaction(BankAccountOperation)
  */
-public class UniqueTransactionList implements Iterable<Transaction> {
+public class UniqueTransactionList implements Iterable<BankAccountOperation> {
 
-    private final ObservableList<Transaction> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Transaction> internalUnmodifiableList =
+    private final ObservableList<BankAccountOperation> internalList = FXCollections.observableArrayList();
+    private final ObservableList<BankAccountOperation> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent transaction as the given argument.
      */
-    public boolean contains(Transaction toCheck) {
+    public boolean contains(BankAccountOperation toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
@@ -42,7 +42,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * The transaction must not already exist in the list.
      * @param toAdd
      */
-    public void add(Transaction toAdd) {
+    public void add(BankAccountOperation toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -56,7 +56,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * The transaction identity of {@code editedTransaction} must not be the same as
      * another existing transaction in the list.
      */
-    public void setTransaction(Transaction target, Transaction editedTransaction) {
+    public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 
         int index = internalList.indexOf(target);
@@ -65,6 +65,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         }
 
         if (!target.equals(editedTransaction) && contains(editedTransaction)) {
+            // TODO: throw correct exception
             throw new DuplicatePersonException();
         }
 
@@ -75,7 +76,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * Removes the equivalent transaction from the list.
      * The transaction must exist in the list.
      */
-    public void remove(Transaction toRemove) {
+    public void remove(BankAccountOperation toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
@@ -86,7 +87,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * Replaces the contents of this list with {@code transactions}.
      * {@code transaction} must not contain duplicate transactions.
      */
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(List<BankAccountOperation> transactions) {
         requireAllNonNull(transactions);
         if (!transactionsAreUnique(transactions)) {
             throw new DuplicatePersonException();
@@ -99,12 +100,12 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      * @return
      */
-    public ObservableList<Transaction> asUnmodifiableObservableList() {
+    public ObservableList<BankAccountOperation> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Transaction> iterator() {
+    public Iterator<BankAccountOperation> iterator() {
         return internalList.iterator();
     }
 
@@ -123,7 +124,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     /**
      * Returns true if {@code transactions} contains only unique transactions.
      */
-    private boolean transactionsAreUnique(List<Transaction> transactions) {
+    private boolean transactionsAreUnique(List<BankAccountOperation> transactions) {
         for (int i = 0; i < transactions.size() - 1; i++) {
             for (int j = i + 1; j < transactions.size(); j++) {
                 if (transactions.get(i).equals(transactions.get(j))) {

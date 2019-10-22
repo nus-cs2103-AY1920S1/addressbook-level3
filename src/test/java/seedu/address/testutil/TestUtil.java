@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.BankAccountOperation;
 
 /**
  * A utility class for test cases.
@@ -48,8 +48,9 @@ public class TestUtil {
 
     /**
      * Returns the transaction in the {@code model}'s transaction list at {@code index}.
+     * @return
      */
-    public static Transaction getTransaction(Model model, Index index) {
+    public static BankAccountOperation getTransaction(Model model, Index index) {
         return model.getFilteredTransactionList().get(index.getZeroBased());
     }
 }

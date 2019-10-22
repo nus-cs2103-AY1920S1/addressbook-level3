@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.BankAccountOperation;
 
 /**
  * Adds an income to the bank account.
@@ -32,9 +32,9 @@ public class InCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
 
-    private final Transaction transaction;
+    private final BankAccountOperation transaction;
 
-    public InCommand(Transaction transaction) {
+    public InCommand(BankAccountOperation transaction) {
         this.transaction = transaction;
     }
 
@@ -42,7 +42,7 @@ public class InCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addTransaction(transaction);
+        model.handleOperation(transaction);
         model.commitBankAccount();
         return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
     }

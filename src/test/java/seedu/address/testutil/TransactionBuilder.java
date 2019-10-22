@@ -3,13 +3,9 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
@@ -30,19 +26,12 @@ public class TransactionBuilder {
 
     private Amount amount;
     private Date date;
-    private Person peopleInvolved;
     private Set<Tag> tags;
 
     public TransactionBuilder() {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
         // date = new Date(DEFAULT_DATE);
         date = new Date(DEFAULT_DATE);
-        peopleInvolved = new Person(
-                new Name(DEFAULT_NAME),
-                new Phone(DEFAULT_PHONE),
-                new Email(DEFAULT_EMAIL),
-                new Address(DEFAULT_ADDRESS),
-                new HashSet<>());
         tags = new HashSet<>();
     }
 
@@ -52,7 +41,6 @@ public class TransactionBuilder {
     public TransactionBuilder(Transaction transactionToCopy) {
         amount = transactionToCopy.getAmount();
         date = transactionToCopy.getDate();
-        peopleInvolved = transactionToCopy.getPeopleInvolved();
         tags = new HashSet<>(transactionToCopy.getTags());
     }
 
@@ -80,23 +68,9 @@ public class TransactionBuilder {
         return this;
     }
 
-    // TODO: EDIT THIS METHOD
-
-    /**
-     * Sets the {@code PeopleInvolved} of the {@code Transaction} that we are building.
-     */
-    public TransactionBuilder withPeopleInvolved(String peopleInvolved) {
-        this.peopleInvolved = new Person(
-                new Name(DEFAULT_NAME),
-                new Phone(DEFAULT_PHONE),
-                new Email(DEFAULT_EMAIL),
-                new Address(DEFAULT_ADDRESS),
-                new HashSet<>());
-        return this;
-    }
 
     // TODO: Change constructor
-    public Transaction build() {
+    public BankAccountOperation build() {
         return new InTransaction(amount, date, tags);
     }
 

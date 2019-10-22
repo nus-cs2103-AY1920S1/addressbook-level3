@@ -6,11 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.OutTransaction;
-import seedu.address.model.transaction.SplitTransaction;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.UniqueTransactionList;
 
@@ -19,13 +20,11 @@ import seedu.address.model.transaction.UniqueTransactionList;
  */
 public class BankAccount implements ReadOnlyBankAccount {
     private Amount balance;
-    private Ledger ledger;
     private UniqueBudgetList budgets;
     private UniqueTransactionList transactions;
 
     public BankAccount() {
-        balance = new Amount(0);
-        ledger = new Ledger();
+        balance = Amount.zero();
         budgets = new UniqueBudgetList();
         transactions = new UniqueTransactionList();
     }
@@ -45,7 +44,7 @@ public class BankAccount implements ReadOnlyBankAccount {
         setBudgets(newData.getBudgetHistory());
     }
 
-    public void setTransactions(List<Transaction> transactionHistory) {
+    public void setTransactions(List<BankAccountOperation> transactionHistory) {
         this.transactions.setTransactions(transactionHistory);
     }
 
@@ -59,7 +58,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      * The transaction identity of {@code editedTransaction} must not be the same as
      * another existing transaction in the bank account.
      */
-    public void setTransaction(Transaction target, Transaction editedTransaction) {
+    public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
         requireNonNull(editedTransaction);
 
         transactions.setTransaction(target, editedTransaction);
@@ -71,7 +70,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      *
      * @param txn Transaction to be added to bank account.
      */
-    public void addTransaction(Transaction txn) {
+    public void addTransaction(BankAccountOperation txn) {
         transactions.add(txn);
         updateBudgets(txn);
         Amount newBalance = txn.handleBalance(this.balance);
@@ -92,7 +91,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      * Removes {@code key} from this {@code BankAccount}.
      * {@code key} must exist in the bank account.
      */
-    public void removeTransaction(Transaction key) {
+    public void removeTransaction(BankAccountOperation key) {
         transactions.remove(key);
     }
 
@@ -102,27 +101,16 @@ public class BankAccount implements ReadOnlyBankAccount {
      * @param transaction Transaction to be checked.
      * @return true if transaction is in bank account, else otherwise.
      */
-    public boolean hasTransaction(Transaction transaction) {
+    public boolean hasTransaction(BankAccountOperation transaction) {
         requireNonNull(transaction);
         return transactions.contains(transaction);
-    }
-
-    /**
-     * Handles SplitTransactions separately from normal transactions
-     *
-     * @param transaction Adds transaction to transactionHistory and
-     *                    passes to ledger to handle
-     */
-    public void split(SplitTransaction transaction) {
-        transactions.add(transaction);
-        ledger.addSplitTransaction(transaction);
     }
 
     /**
      * Updates each budget in {@code budgets} when OutTransaction is made.
      * @param txn Transaction can be either InTransaction or OutTransaction.
      */
-    private void updateBudgets(Transaction txn) {
+    private void updateBudgets(BankAccountOperation txn) {
         if (txn instanceof OutTransaction) {
             for (Budget bd: budgets) {
                 bd.updateBudget(txn.getAmount());
@@ -131,7 +119,7 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     @Override
-    public ObservableList<Transaction> getTransactionHistory() {
+    public ObservableList<BankAccountOperation> getTransactionHistory() {
         return transactions.asUnmodifiableObservableList();
     }
 
@@ -141,7 +129,7 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     @Override
-    public ObservableList<Transaction> getSortedTransactionHistory(Comparator<Transaction> t) {
+    public SortedList<BankAccountOperation> getSortedTransactionHistory(Comparator<BankAccountOperation> t) {
         return getTransactionHistory().sorted(t);
     }
 
@@ -163,5 +151,10 @@ public class BankAccount implements ReadOnlyBankAccount {
         BankAccount otherBankAccount = (BankAccount) other;
         return this.balance.equals(otherBankAccount.balance)
                 && this.transactions.equals(otherBankAccount.transactions);
+    }
+
+    // TODO: implement stub
+    public void addLoan(LedgerOperation operation) {
+        // stub
     }
 }

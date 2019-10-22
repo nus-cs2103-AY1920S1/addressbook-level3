@@ -11,7 +11,7 @@ import seedu.address.model.util.Date;
 /**
  * API of Transaction.
  */
-public abstract class Transaction {
+public abstract class Transaction implements UndoableAction {
 
     protected Amount amount;
     protected Date date;
@@ -50,10 +50,6 @@ public abstract class Transaction {
         return date;
     }
 
-    public Person getPeopleInvolved() {
-        return peopleInvolved;
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -62,21 +58,19 @@ public abstract class Transaction {
         return Collections.unmodifiableSet(tags);
     }
 
-    public abstract Amount handleBalance(Amount balance);
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSameTransaction(Transaction otherTransaction) {
+    public boolean isSameTransaction(BankAccountOperation otherTransaction) {
         if (otherTransaction == this) {
             return true;
         }
 
         return otherTransaction != null
                 && otherTransaction.getAmount().equals(getAmount())
-                && otherTransaction.getDate().equals(getDate())
-                && otherTransaction.getPeopleInvolved().equals(getPeopleInvolved());
+                && otherTransaction.getDate().equals(getDate());
     }
 
     @Override

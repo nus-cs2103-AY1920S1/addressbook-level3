@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.BankAccountOperation;
 
 /**
  * An UI component that displays information of a {@code Transaction}.
@@ -16,7 +16,7 @@ public class TransactionCard extends UiPart<Region> {
 
     private static final String FXML = "TransactionListCard.fxml";
 
-    public final Transaction transaction;
+    public final BankAccountOperation transaction;
 
     @FXML
     private HBox cardPane;
@@ -27,17 +27,14 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label people;
-    @FXML
     private FlowPane tags;
 
-    public TransactionCard(Transaction transaction, int displayedIndex) {
+    public TransactionCard(BankAccountOperation transaction, int displayedIndex) {
         super(FXML);
         this.transaction = transaction;
         id.setText(displayedIndex + ". ");
         amount.setText(transaction.getAmount().toString());
         date.setText(transaction.getDate().toString());
-        people.setText(transaction.getPeopleInvolved().getName().fullName);
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

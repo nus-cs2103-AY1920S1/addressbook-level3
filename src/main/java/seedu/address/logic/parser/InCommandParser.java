@@ -16,8 +16,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.InTransaction;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
 
 /**
@@ -41,7 +41,7 @@ public class InCommandParser implements Parser<InCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Transaction transaction = new InTransaction(amount, date, tagList, person);
+        BankAccountOperation transaction = new InTransaction(amount, date, tagList, person);
 
         return new InCommand(transaction);
 

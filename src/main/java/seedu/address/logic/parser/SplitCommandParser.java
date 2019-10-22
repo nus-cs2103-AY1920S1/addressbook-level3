@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -17,7 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.SplitTransaction;
+import seedu.address.model.transaction.Split;
 import seedu.address.model.util.Date;
 
 /**
@@ -41,16 +39,12 @@ public class SplitCommandParser implements Parser<SplitCommand> {
             people.add(new Person(name));
         }
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElse(timeNowString()));
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElse(Date.now().toString()));
         List<Integer> shares = ParserUtil.parseShares(argMultimap.getAllValues(PREFIX_SHARE));
 
-        SplitTransaction transaction = new SplitTransaction(amount, date, shares, people);
+        Split transaction = new Split(amount, date, shares, people);
         return new SplitCommand(transaction);
 
-    }
-
-    private String timeNowString() {
-        return DateTimeFormatter.ofPattern("ddMMyyyy").format(LocalDate.now());
     }
 
     /**

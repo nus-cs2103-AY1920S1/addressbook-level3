@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.util.Date;
 
 /**
@@ -14,12 +14,12 @@ import seedu.address.model.util.Date;
  */
 public class Projection {
 
-    public final ObservableList<Transaction> transactionHistory;
+    public final ObservableList<BankAccountOperation> transactionHistory;
     public final Date date;
     public final Model model;
     private Amount projection;
 
-    public Projection(ObservableList<Transaction> transactionHistory, Date date, Model model) {
+    public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date, Model model) {
         this.transactionHistory = transactionHistory;
         this.date = date;
         this.model = model;
@@ -34,7 +34,7 @@ public class Projection {
         int totalDaysElapsed = (int) DAYS.between(transactionHistory.get(0)
                 .getDate().toLocalDate(), LocalDate.now());
 
-        for (Transaction transaction : transactionHistory) {
+        for (BankAccountOperation transaction : transactionHistory) {
             totalPrev = totalPrev.addAmount(transaction.getAmount());
         }
         int daysAfter = (int) DAYS.between(LocalDate.now(), date.toLocalDate());

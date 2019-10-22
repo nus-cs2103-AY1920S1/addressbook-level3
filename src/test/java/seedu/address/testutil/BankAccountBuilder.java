@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.BankAccount;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.BankAccountOperation;
 
 /**
  * A utility class to help with building BankAccount objects.
@@ -21,9 +21,10 @@ public class BankAccountBuilder {
     }
 
     /**
-     * Adds a new {@code Transaction} to the {@code BankAccount} that we are building.
+     * Adds a new {@code BankAccountOperation} to the {@code BankAccount} that we are building.
+     * @param transaction An operation
      */
-    public BankAccountBuilder withTransaction(Transaction transaction) {
+    public BankAccountBuilder withTransaction(BankAccountOperation transaction) {
         bankAccount.addTransaction(transaction);
         return this;
     }

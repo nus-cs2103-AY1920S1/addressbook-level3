@@ -5,7 +5,7 @@ import seedu.address.model.util.Date;
 /**
  * Handles out transactions.
  */
-public class OutTransaction extends Transaction {
+public class OutTransaction extends Transaction implements BankAccountOperation {
     public OutTransaction(Amount amount, Date date) {
         super(amount, date);
     }

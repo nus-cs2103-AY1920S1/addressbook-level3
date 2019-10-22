@@ -8,7 +8,7 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code Transaction}'s {@code Tag} matches the {@code Tag} given.
  */
-public class TransactionContainsTagsPredicate implements Predicate<Transaction> {
+public class TransactionContainsTagsPredicate implements Predicate<BankAccountOperation> {
 
     private final List<String> keyTags;
 
@@ -17,7 +17,7 @@ public class TransactionContainsTagsPredicate implements Predicate<Transaction> 
     }
 
     @Override
-    public boolean test(Transaction transaction) {
+    public boolean test(BankAccountOperation transaction) {
         return keyTags.stream()
                 .anyMatch(keyTag -> isTagInsideTags(transaction, keyTag));
     }
@@ -28,7 +28,7 @@ public class TransactionContainsTagsPredicate implements Predicate<Transaction> 
      * @param transaction {@code Transaction} to be checked.
      * @param keyTag      Tag to be found in {@code Transaction}
      */
-    private boolean isTagInsideTags(Transaction transaction, String keyTag) {
+    private boolean isTagInsideTags(BankAccountOperation transaction, String keyTag) {
         return transaction
                 .getTags()
                 .stream()

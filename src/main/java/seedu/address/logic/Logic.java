@@ -9,8 +9,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * API of the Logic component
@@ -47,13 +47,15 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /** Returns an unmodifiable view of the filtered list of transactions */
-    ObservableList<Transaction> getFilteredTransactionList();
+    /** Returns an unmodifiable view of the filtered list of transactions
+     * @return*/
+    ObservableList<BankAccountOperation> getFilteredTransactionList();
 
     /**
      * Returns an ObservableList of Transactions
+     * @return
      */
-    ObservableList<Transaction> getTransactionList();
+    ObservableList<BankAccountOperation> getTransactionList();
 
     ObservableList<Budget> getBudgetList();
 }

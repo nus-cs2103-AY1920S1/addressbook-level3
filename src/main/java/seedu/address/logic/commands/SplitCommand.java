@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.SplitTransaction;
+import seedu.address.model.transaction.Split;
 
 /**
  * Splits an amount into smaller different amounts.
@@ -31,9 +31,9 @@ public class SplitCommand extends Command {
             + PREFIX_SHARE + "2"
             + PREFIX_SHARE + "3";
 
-    private final SplitTransaction transaction;
+    private final Split transaction;
 
-    public SplitCommand(SplitTransaction transaction) {
+    public SplitCommand(Split transaction) {
         this.transaction = transaction;
     }
 
@@ -41,7 +41,7 @@ public class SplitCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addSplit(transaction);
+        model.handleOperation(transaction);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
     }

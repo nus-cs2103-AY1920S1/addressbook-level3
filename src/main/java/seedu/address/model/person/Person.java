@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Split;
 
 /**
  * Represents a Person in the address book.
@@ -92,10 +93,14 @@ public class Person {
     }
 
     /**
-     * @param amount amount of money spent in {@link seedu.address.model.transaction.SplitTransaction}
+     * @param amount amount of money spent in {@link Split}
      */
-    public void handleExpense(Amount amount) {
+    public void spend(Amount amount) {
         balance = balance.subtractAmount(amount);
+    }
+
+    public void receive(Amount amount) {
+        balance = balance.addAmount(amount);
     }
 
 

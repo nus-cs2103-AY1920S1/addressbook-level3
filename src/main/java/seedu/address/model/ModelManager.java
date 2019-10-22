@@ -12,9 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.SplitTransaction;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.LedgerOperation;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,7 +24,7 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
     private final VersionedBankAccount versionedBankAccount;
-    private final FilteredList<Transaction> filteredTransactions;
+    private final FilteredList<BankAccountOperation> filteredTransactions;
     private final FilteredList<Budget> filteredBudgets;
 
     /**
@@ -95,26 +95,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasTransaction(Transaction transaction) {
+    public boolean hasTransaction(BankAccountOperation transaction) {
         requireNonNull(transaction);
         return versionedBankAccount.hasTransaction(transaction);
     }
 
     @Override
-    public void deleteTransaction(Transaction transaction) {
+    public void deleteTransaction(BankAccountOperation transaction) {
         versionedBankAccount.removeTransaction(transaction);
     }
 
     @Override
-    public void setTransaction(Transaction target, Transaction editedTransaction) {
+    public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 
         versionedBankAccount.setTransaction(target, editedTransaction);
-    }
-
-    @Override
-    public void addTransaction(Transaction transaction) {
-        versionedBankAccount.addTransaction(transaction);
     }
 
     @Override
@@ -125,9 +120,10 @@ public class ModelManager implements Model {
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
+     * @return
      */
     @Override
-    public ObservableList<Transaction> getFilteredTransactionList() {
+    public FilteredList<BankAccountOperation> getFilteredTransactionList() {
         return filteredTransactions;
     }
 
@@ -161,19 +157,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTransactions(List<Transaction> transactionHistory) {
+    public void setTransactions(List<BankAccountOperation> transactionHistory) {
         versionedBankAccount.setTransactions(transactionHistory);
     }
 
     @Override
-    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+    public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
     }
 
     @Override
-    public void addSplit(SplitTransaction transaction) {
-        versionedBankAccount.split(transaction);
+    public void handleOperation(BankAccountOperation operation) {
+        versionedBankAccount.addTransaction(operation);
+    }
+
+    @Override
+    public void handleOperation(LedgerOperation operation) {
+        versionedBankAccount.addLoan(operation);
     }
 
     @Override
