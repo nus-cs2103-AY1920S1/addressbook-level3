@@ -319,6 +319,14 @@ It then returns the difference in values as the `budget` value and creates a gra
 ==== Current Implementation
 Below is a sequence of steps that illustrates the interaction between various classes when the `budget` command is entered.
 
+<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `goto contacts`
+command is entered.
+[[addSeqDiagram]]
+[reftext="Figure 2.3.2.1"]
+[caption="Figure 2.3.2.1: "]
+.Execution sequence of the `budget` command
+image::BudgetSequenceDiagram.png[width="800"]
+
 1) The `budget` command is passed on to the `LogicManager` as `commandText` +
 
 2) The LogicManager::execute method then calls FinSecParser::parseCommand which receives the user input (`budget`) as a parameter. +
