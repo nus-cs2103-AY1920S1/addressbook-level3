@@ -23,8 +23,8 @@ import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListEventCommand;
-import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.ManualAllocateCommand;
+import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
