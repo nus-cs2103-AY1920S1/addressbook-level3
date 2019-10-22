@@ -2,60 +2,63 @@ package seedu.address.model.entity.worker;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
+import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 
 //@@author shaoyi
 /**
  * Represents a worker entry in Mortago.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Worker {
+public class Worker implements Entity {
 
     // Identity fields
     private final IdentificationNumber workerIdNum;
     private final Name name;
-    private Phone phone;
-    private String sex; // NOTE: type String will be replaced with Sex class after Amber's PR is merged
+    private Sex sex;
 
     // Data fields
-    private Date dateOfBirth;
     private Date dateJoined;
-    private Designation designation;
-    private String employmentStatus;
+    private Optional<String> designation;
+    private Optional<Date> dateOfBirth;
+    private Optional<PhoneNumber> phone;
+    private Optional<String> employmentStatus;
 
-    public Worker(Name name, Phone phone, String sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
-                  Designation designation) {
-        this.workerIdNum = IdentificationNumber.generateNewWorkerId();
+    public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
+                  String designation) {
+        this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
         this.name = name;
-        this.phone = phone;
+        this.phone = Optional.ofNullable(phone);
         this.sex = sex;
-        this.employmentStatus = employmentStatus;
-        this.dateOfBirth = dateOfBirth;
+        this.employmentStatus = Optional.ofNullable(employmentStatus);
+        this.dateOfBirth = Optional.ofNullable(dateOfBirth);
         this.dateJoined = dateJoined;
-        this.designation = designation;
+        this.designation = Optional.ofNullable(designation);
     }
 
-    public Worker(Name name, Phone phone, String sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
-                  Designation designation, boolean isTestWorker) {
+    public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
+                  String designation, boolean isTestWorker) {
         if (isTestWorker) {
-            this.workerIdNum = IdentificationNumber.customGenerateId("W", 1);
+            this.workerIdNum = IdentificationNumber.customGenerateTestId("W", 1);
         } else {
-            this.workerIdNum = IdentificationNumber.generateNewWorkerId();
+            this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
         }
         this.name = name;
-        this.phone = phone;
+        this.phone = Optional.ofNullable(phone);
         this.sex = sex;
-        this.employmentStatus = employmentStatus;
-        this.dateOfBirth = dateOfBirth;
+        this.employmentStatus = Optional.ofNullable(employmentStatus);
+        this.dateOfBirth = Optional.ofNullable(dateOfBirth);
         this.dateJoined = dateJoined;
-        this.designation = designation;
+        this.designation = Optional.ofNullable(designation);
     }
 
 
-    public IdentificationNumber getWorkerIdNum() {
+    public IdentificationNumber getIdNum() {
         return workerIdNum;
     }
 
@@ -63,15 +66,15 @@ public class Worker {
         return name;
     }
 
-    public Phone getPhone() {
+    public Optional<PhoneNumber> getPhone() {
         return phone;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public Date getDateOfBirth() {
+    public Optional<Date> getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -79,51 +82,58 @@ public class Worker {
         return dateJoined;
     }
 
-    public Designation getDesignation() {
+    public Optional<String> getDesignation() {
         return designation;
     }
 
-    public String getEmploymentStatus() {
+    public Optional<String> getEmploymentStatus() {
         return employmentStatus;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setPhone(PhoneNumber phone) {
+        this.phone = Optional.ofNullable(phone);
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = Optional.ofNullable(dateOfBirth);
     }
 
     public void setDateJoined(Date dateJoined) {
         this.dateJoined = dateJoined;
     }
 
-    public void setDesignation(Designation designation) {
-        this.designation = designation;
+    public void setDesignation(String designation) {
+        this.designation = Optional.ofNullable(designation);
     }
 
     public void setEmploymentStatus(String employmentStatus) {
-        this.employmentStatus = employmentStatus;
+        this.employmentStatus = Optional.ofNullable(employmentStatus);
     }
 
     /**
      * Returns true if both workers have the same identity fields.
      * This defines a weaker notion of equality between two workers.
      */
-    public boolean isSamePerson(Worker otherWorker) {
-        if (otherWorker == this) {
+    public boolean isSameWorker(Object o) {
+        if (o == this) {
             return true;
+        } else if (o instanceof Worker) {
+            Worker otherWorker = (Worker) o;
+            return otherWorker != null
+                && otherWorker.getName().equals(getName())
+                && otherWorker.getSex().equals(getSex());
+        } else {
+            return false;
         }
+    }
 
-        return otherWorker != null
-            && otherWorker.getName().equals(getName())
-            && otherWorker.getSex().equals(getSex())
-            && (otherWorker.getPhone().equals(getPhone()));
+    @Override
+    public boolean isSameEntity(Object o) {
+        return isSameWorker(o);
     }
 
     /**
@@ -142,33 +152,37 @@ public class Worker {
 
         Worker otherPerson = (Worker) other;
         return otherPerson.getName().equals(getName())
+            && otherPerson.getSex().equals(getSex())
             && otherPerson.getPhone().equals(getPhone())
-            && otherPerson.getSex().equals(getSex());
+            && otherPerson.getDateJoined().equals(getDateJoined())
+            && otherPerson.getDateOfBirth().equals(getDateOfBirth())
+            && otherPerson.getDesignation().equals(getDesignation());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, sex);
+        return Objects.hash(name, phone, sex, workerIdNum, employmentStatus, dateJoined, dateOfBirth, designation);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+            .append(" Worker ID: ")
+            .append(getIdNum())
             .append(" Sex: ")
             .append(getSex())
             .append(" Phone: ")
-            .append(getPhone())
+            .append(phone.isPresent() ? phone.get() : OPTIONAL_FIELD_EMPTY)
             .append(" Date of Birth: ")
-            .append(getDateOfBirth())
+            .append(dateOfBirth.isPresent() ? dateOfBirth.get() : OPTIONAL_FIELD_EMPTY)
             .append(" Date Joined: ")
             .append(getDateJoined())
             .append(" Designation: ")
-            .append(getDesignation())
+            .append(designation.isPresent() ? designation.get() : OPTIONAL_FIELD_EMPTY)
             .append(" Employment Status: ")
-            .append(getEmploymentStatus());
+            .append(employmentStatus.isPresent() ? employmentStatus.get() : OPTIONAL_FIELD_EMPTY);
         return builder.toString();
     }
-
 }

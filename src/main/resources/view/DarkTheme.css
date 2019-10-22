@@ -49,11 +49,11 @@
 }
 
 .table-view .column-header-background {
-    -fx-background-color: transparent;
+    -fx-background-color: #4d4d4d;
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
+    -fx-size: 20;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
@@ -65,7 +65,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -349,4 +349,90 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+.bodyStatusLabelArrived {
+    -fx-text-fill: black;
+    -fx-background-color: #FF555E;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-alignment: center;
+}
+
+.bodyStatusLabelClaimed {
+    -fx-text-fill: black;
+    -fx-background-color: #8BF18B;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-alignment: center;
+}
+
+.bodyStatusLabelPending {
+    -fx-text-fill: black;
+    -fx-background-color: #FFE981;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-alignment: center;
+}
+
+.bodyStatusLabelPendingPoliceReport {
+    -fx-text-fill: black;
+    -fx-background-color: #FF8650;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-alignment: center;
+}
+
+
+.chart {
+    -fx-padding: 10px;
+}
+.chart-content {
+}
+
+.chart-title {
+  -fx-text-fill: white;
+  -fx-font-family: "Segoe UI Semibold";
+}
+
+.axis-label {
+  -fx-text-fill: white;
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-font-size: 1em;
+}
+
+.chart-legend {
+   -fx-background-color: transparent;
+   -fx-padding: 20px;
+}
+
+.chart-legend-item-symbol{
+   -fx-background-radius: 50%;
+}
+
+.chart-legend-item{
+    -fx-text-fill: white;
+}
+
+.chart-plot-background {
+    -fx-background-color: #383838;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: grey;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: grey;
+}
+.chart-alternative-row-fill {
+    -fx-fill: #white;
+    -fx-stroke: #2B3941;
+    -fx-stroke-width: 0;
 }
