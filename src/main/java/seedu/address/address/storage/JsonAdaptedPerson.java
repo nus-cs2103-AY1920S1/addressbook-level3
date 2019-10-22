@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import seedu.address.address.storage.JsonAdaptedTag;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.address.model.country.Country;
 import seedu.address.address.model.person.Address;
 import seedu.address.address.model.person.Email;
@@ -19,11 +16,12 @@ import seedu.address.address.model.person.Person;
 import seedu.address.address.model.person.Phone;
 import seedu.address.address.model.person.Remark;
 import seedu.address.address.model.tag.Tag;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Jackson-friendly version of {@link Person}.
  */
-class JsonAdaptedPerson {
+public class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
