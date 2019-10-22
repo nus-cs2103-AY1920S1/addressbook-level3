@@ -278,7 +278,7 @@ The following sequence diagram shows how the sorting of transactions work when t
 
 image::SortSequenceDiagram.png[]
 Figure [Fill in Later].
-Sequential Diagram for `sort amount`
+Sequence Diagram for `sort amount`
 
 -To Be Continued-
 
