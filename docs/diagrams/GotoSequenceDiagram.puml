@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FinSecParser" as FinSecParser LOGIC_COLOR
+participant ":GotoCommandParser" as GotoCommandParser LOGIC_COLOR
+participant "d:GotoCommand" as GotoCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("goto contacts")
+activate LogicManager
+
+LogicManager -> FinSecParser : parseCommand("goto contacts")
+activate FinSecParser
+
+create GotoCommandParser
+FinSecParser -> GotoCommandParser
+activate GotoCommandParser
+
+GotoCommandParser --> FinSecParser
+deactivate GotoCommandParser
+
+FinSecParser -> GotoCommandParser : parse("contacts")
+activate GotoCommandParser
+
+create GotoCommand
+GotoCommandParser -> GotoCommand
+activate GotoCommand
+
+GotoCommand --> GotoCommandParser : d
+deactivate GotoCommand
+
+GotoCommandParser --> FinSecParser : d
+deactivate GotoCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+GotoCommandParser -[hidden]-> FinSecParser
+destroy GotoCommandParser
+
+FinSecParser --> LogicManager : d
+deactivate FinSecParser
+
+LogicManager -> GotoCommand : execute()
+activate GotoCommand
+
+GotoCommand -> Model : updatedFilteredContactList(p -> true)
+activate Model
+
+Model --> GotoCommand
+deactivate Model
+
+create CommandResult
+GotoCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> GotoCommand
+deactivate CommandResult
+
+GotoCommand --> LogicManager : result
+deactivate GotoCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
