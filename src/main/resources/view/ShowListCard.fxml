@@ -18,7 +18,7 @@
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="136.00001220703126" minWidth="10.0" prefWidth="101.60004425048828" />
             <ColumnConstraints hgrow="ALWAYS" maxWidth="256.8000244140625" minWidth="10.0" prefWidth="256.8000244140625" />
         </columnConstraints>
-      <ImageView fx:id="posterPlaceholder" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" />
+      <ImageView fx:id="poster" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" />
         <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />

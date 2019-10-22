@@ -1,12 +1,18 @@
 package seedu.ezwatchlist.spellcheck;
 
-import java.util.Comparator;
-import javafx.util.Pair;
-
 import java.io.IOException;
+
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
+import javafx.util.Pair;
+
+import seedu.ezwatchlist.spellcheck.exceptions.SpellCheckException;
+
+/**
+ * Spellcheck class is used to suggest words based on comparisons with the word dictionary.
+ */
 public class SpellCheck {
     public static final int KEYBOARD_DISTANCE_SORT = 0;
     private WordDictionary dict;
@@ -15,8 +21,8 @@ public class SpellCheck {
     private int errorSensitivity = 1;
 
     public SpellCheck() throws IOException {
-            dict = new WordDictionary();
-            isCaseSensitive = true;
+        dict = new WordDictionary();
+        isCaseSensitive = true;
     }
 
     public void setErrorSensitivity(int errSensitivity) {
@@ -31,7 +37,7 @@ public class SpellCheck {
         isCaseSensitive = bool;
     }
 
-    public String suggest(String word) throws Exception {
+    public String suggest(String word) throws SpellCheckException {
         dict.updateWordList();
         Iterator<String> it = dict.getWordList().iterator();
         PriorityQueue<Pair<String, Integer>> suggestions =
@@ -45,11 +51,12 @@ public class SpellCheck {
                 suggestions.add(pair);
             }
         }
+
         Pair<String, Integer> head = suggestions.peek();
         if (head != null) {
             return head.getKey();
         } else {
-            throw new Exception("Can't find any suggestions");
+            throw new SpellCheckException("Can't find any suggestions");
         }
     }
 
@@ -90,5 +97,4 @@ public class SpellCheck {
         }
         return ledCosts[s2.length()];
     }
-
 }
