@@ -2,12 +2,14 @@ package seedu.address.logic.commands.findcommand;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
-import seedu.address.model.order.IdContainsKeywordsPredicate;
+import seedu.address.model.order.Order;
 
 /**
  * Finds and lists all orders in order book whose id contains any of the argument keywords.
@@ -15,16 +17,16 @@ import seedu.address.model.order.IdContainsKeywordsPredicate;
  */
 public class FindOrderCommand extends Command {
 
-    public static final String COMMAND_WORD = "find -o";
+    public static final String COMMAND_WORD = "find-o";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all Order whose ID matches the input "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all order whose data fields matches the input "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + "12345678";
 
-    private final IdContainsKeywordsPredicate predicate;
+    private final Predicate<Order> predicate;
 
-    public FindOrderCommand(IdContainsKeywordsPredicate predicate) {
+    public FindOrderCommand(Predicate<Order> predicate) {
         this.predicate = predicate;
     }
 
