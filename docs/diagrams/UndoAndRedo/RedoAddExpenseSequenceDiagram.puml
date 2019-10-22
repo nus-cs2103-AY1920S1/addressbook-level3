@@ -1,0 +1,87 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "LogicManager" as LogicManager LOGIC_COLOR
+participant "ThriftParser" as ThriftParser LOGIC_COLOR
+participant "r:RedoCommand" as RedoCommand LOGIC_COLOR
+participant "a:AddExpenseCommand" as AddExpenseCommand LOGIC_COLOR
+participant "CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "Model" as Model MODEL_COLOR
+participant "PastUndoableCommand" as PastUndoableCommand MODEL_COLOR
+participant "Thrift" as Thrift MODEL_COLOR
+participant "TransactionList" as TransactionList MODEL_COLOR
+end box
+
+[-> LogicManager : execute("redo")
+activate LogicManager
+
+LogicManager -> ThriftParser : parseCommand("redo")
+activate ThriftParser
+
+create RedoCommand
+ThriftParser -> RedoCommand
+activate RedoCommand
+
+RedoCommand --> ThriftParser
+deactivate RedoCommand
+
+ThriftParser --> LogicManager : r
+deactivate ThriftParser
+
+LogicManager -> RedoCommand : execute(model)
+activate RedoCommand
+
+RedoCommand -> Model : getUndoneCommand()
+activate Model
+
+Model -> PastUndoableCommand : getCommandToRedo()
+activate PastUndoableCommand
+
+PastUndoableCommand --> Model : a
+deactivate PastUndoableCommand
+
+Model --> RedoCommand : a
+deactivate Model
+
+RedoCommand -> AddExpenseCommand : redo(model)
+activate AddExpenseCommand
+
+AddExpenseCommand -> Model : addExpense(transaction)
+activate Model
+
+Model -> Thrift : addTransaction(transaction)
+activate Thrift
+
+Thrift -> TransactionList : add(transaction)
+activate TransactionList
+
+TransactionList --> Thrift
+deactivate TransactionList
+
+Thrift --> Model
+deactivate Thrift
+
+Model --> AddExpenseCommand
+deactivate Model
+
+AddExpenseCommand --> RedoCommand
+deactivate AddExpenseCommand
+
+create CommandResult
+RedoCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> RedoCommand
+deactivate CommandResult
+
+RedoCommand --> LogicManager
+deactivate RedoCommand
+
+[<-- LogicManager
+destroy RedoCommand
+deactivate LogicManager
+@enduml

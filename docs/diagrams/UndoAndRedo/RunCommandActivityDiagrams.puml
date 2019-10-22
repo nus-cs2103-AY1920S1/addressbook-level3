@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes command;
+if () then ([UndoCommand or RedoCommand])
+    if () then ([UndoCommand])
+        :Purge the RedoStack;
+        :Pop command from UndoStack;
+        :Push command to RedoStack;
+        :Undo the command;
+    else ([RedoCommand])
+        :Pop command from RedoStack;
+        :Push command to UndoStack;
+        :Redo the command;
+    endif
+else ([else])
+
+endif
+if () then ([is undoable])
+    :Adds command to UndoStack;
+else ([else])
+
+endif
+stop
+@enduml

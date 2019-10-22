@@ -35,6 +35,15 @@ A developer should be able to understand the design, architecture and goals of T
 This developer guide specifies the technical and non-technical details of THRIFT.
 The technical aspects include the design and architecture while the non-technical aspects include the user stories, use cases and <<nfr, NFRs>>.
 
+=== About the document
+
+[horizontal]
+*add_expense n/Laksa v/4*:: Bold text indicates user input.
+
+`Description`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable name.
+
+`**THRIFT**`:: Bold text with mark-up indicates a class/package name.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -134,7 +143,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[628, 600]
 
 *API* : link:{repoURL}/src/main/java/thrift/model/Model.java[`Model.java`]
 
@@ -143,6 +152,7 @@ The `**Model**`,
 * stores a `**UserPref**` object that represents the user's preferences.
 * stores `**THRIFT**` data.
 * stores `**BudgetList**` which contains budget set for different months by the user.
+* stores `**PastUndoableCommands**` which keeps track of undoable commands for future undo and redo operation.
 * exposes an unmodifiable `**ObservableList<Transaction>**` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -177,7 +187,7 @@ Classes used by multiple components are in the `**thrift.commons**` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::budget[]
-=== Add Expense/Income feature
+=== Adding transactions
 ==== Implementation
 The **add_expense**/**add_income** feature is implemented through polymorphism. `**Expense**` and `**Income**` are both subclasses of the abstract class `Transaction`.
 Each `**Transaction**` contains the following mandatory fields: `Description`, `TransactionDate` and `Value`; as well as optional fields: `Remark`,
@@ -267,6 +277,96 @@ are applied when restoring `**THRIFT**` data from the data file.
 ** Pros: Calculations become trivial: to get balance, sum up the entire `**List<Transaction>**`.
 ** Cons: Overhead to parse user input to allow only a single negative symbol and no other symbols.
 
+=== Tagging/Untagging transactions
+
+=== Updating transactions
+
+=== Undo/Redoing undoable commands
+*Undo* command allows the user to revert `**THRIFT**` to its previous state when they have made a mistake. *Redo* command does
+the opposite of *undo* command, useful for when the user wishes to execute the command instead.
+
+The underlying data structure of the undo and redo feature is implemented in `**PastUndoableCommands**`. It consists of two stacks:
+`UndoStack` and `RedoStack`. It provides the following methods:
+
+* `PastUndoableCommands#addPastCommand(Undoable undoable)` -- Keeps track of the undoable commands.
+* `PastUndoableCommands#getCommandToUndo()` -- Retrieves undoable commands from `UndoStack` for user to perform undo.
+* `PastUndoableCommands#hasUndoable()` -- Checks if there are any commands to perform undo.
+* `PastUndoableCommands#getCommandToRedo()` -- Retrieves undone commands from `RedoStack` for user to perform redo.
+* `PastUndoableCommands#hasRedoCommand()` -- Checks if there are any commands to perform redo.
+
+The function wrappers to these methods are `Model#keepTrackCommands(Undoable command)`, `Model#getPreviousUndoableCommand()`, `Model#hasUndoableCommand()`,
+`Model#getUndoneCommand()` and `Model#hasUndoneCommand()` respectively.
+
+NOTE: Undoable commands are *add_expense*, *add_income*, *clone*, *delete*, *tag*, *untag*, *update*.
+
+Every undoable command will be stored in the `UndoStack` once it is executed. It will only be stored in `RedoStack` when the user executed
+*undo*.
+
+==== Implementation
+The below scenario illustrates how undo and redo feature works:
+
+Step 1. The application is launched with an empty transaction list. Both `UndoStack` and `RedoStack` are empty upon initializing `**PastUndoableCommands**`.
+
+image::UndoAndRedo/initialUndoRedo.PNG[338, 300]
+
+Step 2. The user executes *add_expense n/Laksa v/4* to add Laksa to the `**TransactionList**`.
+The `**LogicManager**` invokes the method `Model#keepTrackCommands(Undoable undoable)` to keep track of the `**AddExpenseCommand**` object
+that was used to add Laksa. This `**AddExpenseCommand**` object is pushed into `UndoStack`.
+
+image::UndoAndRedo/addExpense.PNG[357, 300]
+
+Step 3. The user executes *update i/1 v/3.50* to update the cost of the Laksa to $3.50.
+The `**LogicManager**` calls the method `Model#keepTrackCommands(Undoable undoable)` to keep track of the `**UpdateCommand**` object
+that was used to update the cost of the Laksa. This `**UpdateCommand**` object is pushed into `UndoStack`.
+
+image::UndoAndRedo/updateExpense.PNG[341, 300]
+
+Step 4. The user executes *undo* to revert the cost of the Laksa to $4.00.
+The `**UndoCommand**` invokes the method `Model#getPreviousUndoableCommand()` to retrieve the `**UpdateCommand**` object.
+`**UpdateCommand**` is popped from `UndoStack` and pushed into `RedoStack` before being returned to the callee.
+
+image::UndoAndRedo/undo.PNG[320, 300]
+
+Step 5. The user executes *undo* to remove Laksa from `**TransactionList**`.
+The `**UndoCommand**` invokes the method `Model#getPreviousUndoableCommand()` to retrieve the `**AddExpenseCommand**` object.
+`**AddExpenseCommand**` is popped from `UndoStack` and pushed into `RedoStack` before being returned to the callee.
+
+image::UndoAndRedo/undo2.PNG[326, 300]
+
+The sequence diagram shows how *undo* work for *add_expense* command:
+
+.Sequence diagram of how *undo* command is applied at the back-end
+image::UndoAndRedo/UndoAddExpenseSequenceDiagram.png[]
+
+Step 6. The user executes *redo* to add Laksa back to `**TransactionList**`.
+The `**RedoCommand**` invokes the method `Model#getUndoneCommand()` to retrieve the `**AddExpenseCommand**` object.
+`**AddExpenseCommand**` is popped from `RedoStack` and pushed into `UndoStack` before being returned to the callee.
+
+image::UndoAndRedo/redo.PNG[325, 300]
+
+NOTE: All commands stored in `RedoStack` are purged when the user executes another undoable command.
+
+The sequence diagram shows how *redo* work for *add_expense* command:
+
+.Sequence diagram of how *redo* command is applied at the back-end
+image::UndoAndRedo/RedoAddExpenseSequenceDiagram.png[]
+
+The following activity diagram shows what happens if the user executes a command:
+
+.Activity diagram of the command execution.
+image::UndoAndRedo/RunCommandActivityDiagrams.png[]
+
+==== Design considerations
+
+===== Aspect: Data structure used to keep track of undoable command
+
+* **Alternative 1 (current choice):** Use two stacks. One stack stores the command to undo while the other stack stores the command to redo.
+** Pros: Easy to implement.
+** Cons: Need to carefully manage the two stacks. For example, you need to pop the command from one stack and push it into another stack.
+* **Alternative 2:** Use an arraylist and a pointer to indicate the next command to undo.
+** Pros: Easy to implement.
+** Cons: Need to carefully manage the pointer. For example, you need to ensure that the pointer stays within the size of an arraylist.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -350,7 +450,7 @@ image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== [Proposed] Data encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
@@ -385,12 +485,12 @@ Refer to the guide <<Documentation#, here>>.
 
 Refer to the guide <<Testing#, here>>.
 
-== Dev Ops
+== Dev ops
 
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
-== Product Scope
+== Product scope
 
 *Target user profile*:
 
@@ -407,7 +507,7 @@ Refer to the guide <<DevOps#, here>>.
 * congregates all info regarding fees and costs in a single location
 
 [appendix]
-== User Stories
+== User stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -617,7 +717,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 
 [appendix]
-== Use Cases
+== Use cases
 
 (For all use cases below, the *System* is the `THRIFT` and the *Actor* is the `user`, unless specified otherwise)
 
@@ -844,7 +944,7 @@ _Use case ends_
 _Use case ends_
 
 [appendix]
-== Non Functional Requirements
+== Non functional requirements
 
 . THRIFT should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
 . THRIFT should be able to hold up to 250 transactions without a noticeable drop in performance for typical usage.
@@ -856,7 +956,7 @@ _Use case ends_
 
 [appendix]
 == Glossary
-
+[horizontal]
 [[thrift]] THRIFT::
 Stands for "Terminal-input Human Readable Interactive Finance Tracker". It is the application this developer guide is for.
 
@@ -877,7 +977,7 @@ with the goal of ensuring the systems are running efficiently and effectively.
 
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
@@ -1138,7 +1238,7 @@ Expected: Transaction regarding to the income received from bursary is added bac
 .. Test case:
 +
 --
-... `delete 1`
+... `delete i/1`
 ... `undo`
 ... `redo`
 --

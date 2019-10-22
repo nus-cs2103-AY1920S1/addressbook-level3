@@ -21,6 +21,7 @@ package Command {
 Class XYZCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
+class "<<Interface>>\nUndoable" as Undoable
 }
 
 Interface Logic <<Interface>>
@@ -49,6 +50,7 @@ XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
+XYZCommand -right-|> Undoable
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model

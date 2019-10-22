@@ -14,6 +14,7 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class PastUndoableCommands
 
 Package Transaction {
 abstract Class Transaction
@@ -47,6 +48,7 @@ Model .right.> ObservableList
 ModelManager o--> "1" Thrift
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o-right-> "1" PastUndoableCommands
 
 Thrift *--> "1" TransactionList
 Thrift *--> "1" BudgetList
