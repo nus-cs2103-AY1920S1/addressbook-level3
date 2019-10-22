@@ -83,6 +83,7 @@ image::UiClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
+
 The structure of the `TabView` is depicted here:
 
 .Structure of the TabView Component, which is a part of the UI component
@@ -243,9 +244,38 @@ image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== [Proposed] Annotation feature
+==== Proposed Implementation
+The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
+Such an offline document is represented by `OfflineDocument`, which contains `Paragraph`s. As each annotation is targeted to an entire paragraph,
+we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
 
-_{Explain here how the data encryption feature will be implemented}_
+The following object diagram shows a state where an `OfflineDocument`  object contains an annotated `Paragraph`:
+//TODO: draw object diagram of this possible state
+
+
+There are three parts to the annotation feature:
+ * Add an annotation (executed by `AddAnnotationCommand#execute()`).
+ * Delete an annotation (executed by `DeleteAnnotationCommand#execute()`).
+ * Edit an annotation (executed by `EditAnnotationCommand#execute()`).
+
+These executions are triggered by `annotation` command inputs entered into the `CommandBox`, which calls the respective command parser to create the command.
+Subsequently, the appropriate `Paragraph`(s) is retrieved and the annotation is handled according to the command.
+
+The following sequence diagram illustrates how the adding annotation operation works:
+//TODO: draw sequence diagram for (add) annotate
+
+For the delete operation, it is simpler ...
+//TODO: del op change from adding to paragraph to delete from paragraph
+
+//TODO: edit -- add the other parts of the command (eg shift from one p to another); atm only edit note and highlight
+//TODO: object diagram showing only paragraph and annotation for all three above
+
+The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
+//TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
+
+==== Design Considerations
+
 
 // end::dataencryption[]
 
