@@ -372,7 +372,9 @@ I submit a book title query
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, unless specified otherwise)
+image::UseCases.png[]
+
+(For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
 
 [discrete]
 === Use case: Delete book
@@ -391,8 +393,10 @@ Use case ends.
 [none]
 * 2a. The list is empty.
 +
-Use case ends.
-
+[none]
+Use case ends
++
+{empty} +
 * 3a. The given index is invalid.
 +
 [none]
@@ -420,17 +424,28 @@ Use case ends.
 [none]
 ** 2a1. LiBerry requests for a valid and registered ID.
 [none]
-** 2a2. User enters new ID
+** 2a2. User enters new ID.
 ** Steps 2a1-2a2 are repeated until the ID entered is valid.
 +
-Use case ends.
-
-* 3a. The given index is invalid.
+Use case resumes at step 3.
++
+{empty} +
+* 3a. The book cannot be loaned out.
 +
 [none]
 ** 3a1. LiBerry shows an error message.
 +
-Use case resumes at step 2.
+Use case ends.
++
+{empty} +
+[none]
+* *a. At any time, the user makes a typo in the input.
+[none]
+** *a1. User undoes the last command entered.
+[none]
+** *a2. User re-types the input.
++
+Use case resumes at the step preceding this.
 
 _{More to be added}_
 
