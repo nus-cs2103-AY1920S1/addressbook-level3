@@ -66,11 +66,9 @@ public class CommandBox extends UiPart<Region> {
 
         styleClass.add(ERROR_STYLE_CLASS);
     }
-
-    /**
-     * Update the text field with the previous input in {@code historySnapshot},
-     * if there exists a previous input in {@code historySnapshot}
-     */
+/*
+     //Update the text field with the previous input in {@code historySnapshot},
+     //if there exists a previous input in {@code historySnapshot}
     private void navigateToPreviousInput() {
         assert historySnapshot != null;
         if (!historySnapshot.hasPrevious()) {
@@ -79,10 +77,8 @@ public class CommandBox extends UiPart<Region> {
         replaceText(historySnapshot.previous());
     }
 
-    /**
-     * Updates the text field with the next input in {@code historySnapshot},
-     * if there exists a next input in {@code historySnapshot}
-     */
+     //Updates the text field with the next input in {@code historySnapshot},
+     //if there exists a next input in {@code historySnapshot}
     private void navigateToNextInput() {
         assert historySnapshot != null;
         if (!historySnapshot.hasNext()) {
@@ -91,18 +87,7 @@ public class CommandBox extends UiPart<Region> {
         replaceText(historySnapshot.next());
     }
 
-    /**
-     * Sets {@code CommandBox}'s text field with {@code text} and
-     * positions the caret to the end of the {@code text}
-     */
-    private void replaceText(String text) {
-        commandTextField.setText(text);
-        commandTextField.positionCaret(commandTextField.getText().length());
-    }
-
-    /**
-     * Initializes the history snapshot.
-     */
+    //Initializes the history snapshot.
     private void initHistory() {
         historySnapshot = new ListElementPointer(history);
         // add an empty string to represent the most-recent end of historySnapshot, to be shown to
@@ -110,6 +95,13 @@ public class CommandBox extends UiPart<Region> {
         historySnapshot.add("");
     }
 
+     //Sets {@code CommandBox}'s text field with {@code text} and
+     //positions the caret to the end of the {@code text}
+    private void replaceText(String text) {
+        commandTextField.setText(text);
+        commandTextField.positionCaret(commandTextField.getText().length());
+    }
+*/
 
     /**
      * Represents a function that can execute commands.
