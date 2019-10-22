@@ -10,6 +10,7 @@ import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
 
 /**
@@ -70,6 +71,11 @@ class JsonAdaptedRecord {
         }
         final DateTime modelDateTime = new DateTime(dateTime);
 
+        if (recordType == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                RecordType.class.getSimpleName()));
+        }
+
         if (recordType.equals("BloodSugar")) {
 
             if (concentration == null) {
@@ -103,8 +109,9 @@ class JsonAdaptedRecord {
             final Weight modelWeight = new Weight(weight);
 
             return new Bmi(modelHeight, modelWeight, modelDateTime);
+        } else {
+            throw new IllegalValueException(RecordType.MESSAGE_CONSTRAINTS);
         }
-        return null;
     }
 
 }
