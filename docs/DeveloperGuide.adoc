@@ -164,8 +164,23 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::tasks[]
 ==== Tasks
+Some models in IchiFund must be refreshed after a command is executed.
+For instance, when a new `Transaction` is added, all `Budget` must be recomputed.
+`Task` can be used to facilitate such updates.
+
 ===== Implementation
-===== Design Considerations
+This feature is managed by `TaskManager`.
+The role of `TaskManager` is to maintain a list of all active `Task`.
+
+The `LogicManager` holds an instance of the `TaskManager`.
+When the `LogicManager#execute()` is called, the following chain of operations occurs:
+
+1. After `Command#execute()` is completed, `TaskManager#executeAll()` is called.
+
+image::TaskCode.png[]
+
+[start=2]
+2. `TaskManager#executeAll()` will iterate through all active `Task` and call the respective `Task#execute()` method.
 // end::tasks[]
 
 === Transaction
@@ -217,6 +232,7 @@ When the user input the `add` command in the Budget tab, the following chain of 
 
 This process is further illustrated in the following sequence diagram:
 
+.Sequence Diagram for `add` Command under Budget Tab
 image::AddBudgetSequenceDiagram.png[]
 // end::budgetadd[]
 
