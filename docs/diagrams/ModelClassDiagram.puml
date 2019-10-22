@@ -14,6 +14,9 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class InternalState
+class ActivityBook
+class Context
 
 Package Person {
 Class Person
@@ -22,6 +25,13 @@ Class Email
 Class Name
 Class Phone
 Class UniquePersonList
+}
+
+Package Activity {
+Class Activity
+Class Title
+Class Expense
+Class Amount
 }
 
 Package Tag {
@@ -38,6 +48,9 @@ ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" AddressBook
 ModelManager o-left-> "1" UserPrefs
+ModelManager o-right-> "1" InternalState
+ModelManager o-right-> "1" Context
+ModelManager o--> "1" ActivityBook
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
@@ -47,6 +60,14 @@ Person *--> Phone
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
+
+ActivityBook *--> "*" Activity
+Activity *-right-> "1" Title
+Activity *-down-> "*" Expense
+Expense *--> "1" Amount
+
+Context *--> "0..1" Activity
+Context *--> "0..1" Person
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
