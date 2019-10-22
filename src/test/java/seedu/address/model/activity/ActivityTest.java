@@ -96,7 +96,56 @@ public class ActivityTest {
     }
 
     @Test
+    public void debtAlgo_checkThreePersonsButOnlyTwoAreInvolved() {
+        int aid = TypicalPersons.ALICE.getPrimaryKey();
+        int eid = TypicalPersons.ELLE.getPrimaryKey();
+        Amount bout = new Amount(30);
+        Amount tree = new Amount(60);
+        Expense one = new Expense(aid, bout, "testing", eid);
+        Expense two = new Expense(eid, tree, "testing", aid);
+
+        Activity a = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.ELLE)
+            .addPerson(TypicalPersons.GEORGE)
+            .build();
+
+        a.addExpense(one);
+        a.addExpense(two);
+
+        // In the end, A owes G $30. G owes A -$30 just for bookkeeping.
+        ArrayList<ArrayList<Double>> matrix = new ArrayList<>(
+                List.of(
+                    // (Same for rows)       A    E    G
+                    new ArrayList<>(List.of(0.0, -15.0, 0.0)),
+                    new ArrayList<>(List.of(15.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0))
+                    ));
+
+        assertEquals(matrix, a.getTransferMatrix());
+
+        one = new Expense(eid, bout, "testing", aid);
+        two = new Expense(aid, tree, "testing", eid);
+
+        a.addExpense(one);
+        a.addExpense(two);
+
+        // In the end, E owes G $30.
+        matrix = new ArrayList<>(
+                List.of(
+                    // (Same for rows)       A    E    G
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0))
+                    ));
+
+        assertEquals(matrix, a.getTransferMatrix());
+    }
+
+    @Test
     public void debtAlgo_checkFourPersons() {
+        // Hey I swear I drew the graph manually and calculated it
         int aid = TypicalPersons.ALICE.getPrimaryKey();
         int bid = TypicalPersons.BOB.getPrimaryKey();
         int eid = TypicalPersons.ELLE.getPrimaryKey();
