@@ -28,7 +28,7 @@ public class AddBioCommand extends Command {
 
     public static final String COMMAND_WORD = "addbio";
 
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Adds a user to the address book.\n"
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Adds the user's biography.\n"
             + "Note that Name, contact number(s), emergency contact(s) and medical condition(s) cannot be empty.\n\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "

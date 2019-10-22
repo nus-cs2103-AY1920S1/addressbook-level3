@@ -16,7 +16,7 @@ import seedu.sgm.model.food.UniqueFoodList;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserListStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, UserListStorage, UserPrefsStorage, CalendarStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -53,7 +53,12 @@ public interface Storage extends AddressBookStorage, UserListStorage, UserPrefsS
 
     public void saveRecordList(UniqueRecordList recordList, Path filePath) throws IOException;
 
-    Optional<ReadOnlyCalendar> readCalendarEntryList();
+    Path getEventFilePath();
+    Path getReminderFilePath();
+
+    Optional<ReadOnlyCalendar> readCalendar() throws DataConversionException, IOException;
+
+    void saveCalendar(ReadOnlyCalendar calendar) throws IOException;
 
     // ================ UserList methods ==============================
     @Override

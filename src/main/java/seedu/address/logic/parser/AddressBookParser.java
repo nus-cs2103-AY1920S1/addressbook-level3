@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_ARGUMENTS_MUST_BE_EMPTY;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -21,10 +22,12 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecmFoodCommand;
 import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.achvm.AchvmCommand;
+import seedu.address.logic.commands.aesthetics.FontColourCommand;
 import seedu.address.logic.commands.bio.AddBioCommand;
 import seedu.address.logic.commands.bio.BioCommand;
 import seedu.address.logic.commands.bio.ClearBioCommand;
 import seedu.address.logic.commands.bio.EditBioCommand;
+import seedu.address.logic.parser.aesthetics.FontColourCommandParser;
 import seedu.address.logic.parser.bio.AddBioCommandParser;
 import seedu.address.logic.parser.bio.EditBioCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -75,6 +78,7 @@ public class AddressBookParser {
             return new ListCommand();
 
         case BioCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
             return new BioCommand();
 
         case AddBioCommand.COMMAND_WORD:
@@ -84,15 +88,19 @@ public class AddressBookParser {
             return new EditBioCommandParser().parse(arguments);
 
         case ClearBioCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
             return new ClearBioCommand();
 
         case AchvmCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
             return new AchvmCommand();
 
         case ExitCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
             return new HelpCommand();
 
         case AverageCommand.COMMAND_WORD:
@@ -110,8 +118,23 @@ public class AddressBookParser {
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments);
 
+        case FontColourCommand.COMMAND_WORD:
+            return new FontColourCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Ensures commands not meant to have trailing arguments do not have any.
+     * Trailing spaces following commands are fine and would have been trimmed off automatically by the program.
+     * @param arguments Argument inputs keyed in by the user following the command.
+     * @throws ParseException If there are additional arguments after the command.
+     */
+    private void requireEmptyArguments(String arguments) throws ParseException {
+        if (!arguments.isEmpty()) {
+            throw new ParseException(MESSAGE_ARGUMENTS_MUST_BE_EMPTY);
         }
     }
 

@@ -2,9 +2,11 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -15,9 +17,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
+import seedu.address.model.statistics.AverageType;
 import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
@@ -56,6 +61,7 @@ public class LogicManager implements Logic {
             storage.saveUserList(model.getUserList());
             storage.saveFoodList(model.getUniqueFoodListObject());
             storage.saveRecordList(model.getUniqueRecordListObject());
+            storage.saveCalendar(model.getCalendar());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -133,6 +139,29 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<User> getFilteredUserList() {
         return model.getFilteredUserList();
+    }
+
+    //=========== Statistics List =============================================================
+
+    @Override
+    public AverageType getAverageType() {
+        return model.getAverageType();
+    }
+
+    @Override
+    public RecordType getRecordType() {
+        return model.getRecordType();
+    }
+
+    @Override
+    public ObservableMap<LocalDate, Double> getAverageMap() {
+        return model.getAverageMap();
+    }
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public Colour getFontColour() {
+        return model.getFontColour();
     }
 
 }

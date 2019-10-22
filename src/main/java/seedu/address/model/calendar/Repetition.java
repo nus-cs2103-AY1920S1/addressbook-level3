@@ -17,7 +17,7 @@ public enum Repetition {
      */
     Weekly;
 
-    public static final String MESSAGE_CONSTRAINTS = "Repetition can only take value 'none', 'daily' or 'weekly'"
+    public static final String MESSAGE_CONSTRAINTS = "Repetition can only take value 'once', 'daily' or 'weekly'"
             + "(case insensitive)";
 
     /**
@@ -25,7 +25,7 @@ public enum Repetition {
      */
     public static boolean isValidRepetition(String repetition) {
         String lowerRepetition = repetition.toLowerCase();
-        return lowerRepetition.equals("none") || lowerRepetition.equals("daily") || lowerRepetition.equals("weekly");
+        return lowerRepetition.equals("once") || lowerRepetition.equals("daily") || lowerRepetition.equals("weekly");
     }
 
     /**
@@ -34,7 +34,7 @@ public enum Repetition {
     public static Repetition of(String repetition) {
         String lowerRepetition = repetition.toLowerCase();
         switch (lowerRepetition) {
-        case "none":
+        case "once":
             return Repetition.Once;
         case "daily":
             return Repetition.Daily;
@@ -43,6 +43,11 @@ public enum Repetition {
         default:
             return Repetition.Once;
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.name().toLowerCase();
     }
 
 }

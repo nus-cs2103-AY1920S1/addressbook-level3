@@ -22,7 +22,7 @@ public class ReminderCommand extends Command {
             + "[" + PREFIX_CALENDAR_REPETITION + "REPETITION]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CALENDAR_DESCRIPTION + "Insulin injection "
-            + PREFIX_DATETIME + "31/5/2020 16:00 "
+            + PREFIX_DATETIME + "2020-05-31 16:00 "
             + PREFIX_CALENDAR_REPETITION + "everyday";
 
     public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
