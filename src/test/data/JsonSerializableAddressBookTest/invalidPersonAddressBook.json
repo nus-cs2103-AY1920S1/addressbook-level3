@@ -1,8 +1,23 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+  "employees" : [ {
+    "name" : "!@#John11 Doe",
+    "phone" : "98",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "friends" ],
+    "id" : "000",
+    "position" : "Manager",
+    "gender" : "Male",
+    "joindate" : "12/12/2012"
+  }, {
+    "name" : "John Doea",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "friend" ],
+    "id" : "001",
+    "position" : "Manager",
+    "gender" : "Male",
+    "joindate" : "12/12/2012"
   } ]
 }

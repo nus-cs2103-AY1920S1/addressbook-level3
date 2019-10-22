@@ -2,8 +2,10 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -17,6 +19,8 @@ public class EventCard extends UiPart<Region> {
     private static final String FXML = "EventListCard.fxml";
 
     public final Event event;
+    private MainWindow mainWindow;
+    private Integer index;
 
     @FXML
     private HBox cardPane;
@@ -25,27 +29,41 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label eventId;
-    @FXML
     private Label venue;
     @FXML
     private Label startDate;
     @FXML
+    private Label manpowerCount;
+    @FXML
     private FlowPane tags;
 
-    public EventCard(Event event, int displayedIndex) {
+    public EventCard(Event event, int displayedIndex, MainWindow mainWindow) {
         super(FXML);
         this.event = event;
+        this.mainWindow = mainWindow;
+        this.index = displayedIndex - 1;
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().eventName);
-        eventId.setText("ID: " + event.getEventId().id);
         venue.setText(event.getVenue().venue);
-        startDate.setText(event.getStartDate().startDate + " to "
-                + event.getEndDate().endDate);
+        manpowerCount.setText("Manpower: " + event.getManpowerAllocatedList().getCurrentManpowerCount() + " / "
+                + event.getManpowerNeeded().value);
+        startDate.setText(event.getStartDate().date + " to "
+                + event.getEndDate().date);
         event.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                mainWindow.handleFetch(index);
+            }
+        };
+        cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
+
+
+
 
     @Override
     public boolean equals(Object other) {

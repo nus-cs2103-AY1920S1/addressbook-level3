@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" title="Fetch" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <icons>
+      <Image url="@/images/help_icon.png" />
+   </icons>
+   <scene>
+      <Scene>
+         <root>
+            <HBox alignment="CENTER" prefHeight="600.0" prefWidth="700.0">
+               <opaqueInsets>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </padding>
+               <children>
+                  <VBox prefHeight="485.0" prefWidth="478.0">
+                     <children>
+                        <AnchorPane fx:id="leftAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="77.0" prefWidth="239.0">
+                           <children>
+                              <Text fx:id="availableListHeader" fill="#131313" layoutX="13.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of employees who are available:" wrappingWidth="188.536865234375">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Text>
+                           </children>
+                        </AnchorPane>
+                        <ListView fx:id="personListView" prefHeight="509.0" prefWidth="239.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="485.0" prefWidth="685.0">
+                     <children>
+                        <ScrollPane prefHeight="277.0" prefWidth="446.0">
+                           <content>
+                              <AnchorPane fx:id="rightAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="234.0" prefWidth="444.0">
+                                 <children>
+                                    <Text fx:id="currentListHeader" fill="#1c1919" layoutX="38.0" layoutY="181.20000000000016" strokeType="OUTSIDE" strokeWidth="0.0" text="Current employee list for event:" wrappingWidth="332.5366668701172" AnchorPane.bottomAnchor="8.399999999999835">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font></Text>
+                                    <Text fx:id="eventHeader" fill="#1c1919" layoutX="39.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event description:" wrappingWidth="332.5366668701172" AnchorPane.topAnchor="3.0">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font></Text>
+                                    <TextArea fx:id="eventDescription" layoutX="15.0" layoutY="32.0" prefHeight="158.0" prefWidth="394.0" AnchorPane.topAnchor="32.0" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <ListView fx:id="eventListView" prefHeight="392.0" prefWidth="446.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </root>
+      </Scene>
+   </scene>
+</fx:root>

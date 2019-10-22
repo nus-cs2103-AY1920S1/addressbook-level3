@@ -1,5 +1,6 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
+    /*-fx-background-color: derive(#0d4178, 20%);*/
     background-color: #383838; /* Used in the default.html file */
 }
 
@@ -100,11 +101,12 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #085878;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    /*-fx-background-color: #515658; even: #3c3e3f*/
+    -fx-background-color: #07717d; /*changed color*/
 }
 
 .list-cell:filled:selected {
@@ -133,7 +135,7 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#1d1d1d, 20%); /*color for command line input*/
 }
 
 .pane-with-border {

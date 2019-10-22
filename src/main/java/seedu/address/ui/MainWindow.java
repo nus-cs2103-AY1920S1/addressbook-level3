@@ -32,8 +32,14 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
+    private ListPanelForFetch listPanelForFetch;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private FetchWindow fetchWindow;
+    private ScheduleBox scheduleBox;
+
+    @FXML
+    private StackPane schedulePlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -61,7 +67,6 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -107,8 +112,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        listPanel = new ListPanel(logic.getFilteredPersonList(), logic.getFilteredEventList());
-        personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList(), this);
+        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -118,6 +123,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
+        schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
     }
 
     /**
@@ -144,6 +152,23 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the fetch window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleFetch(Integer index) {
+        fetchWindow = new FetchWindow(logic.getFilteredEmployeeList(),
+                logic.getFilteredEventList(), logic.getFilteredEventList().get(index));
+        //fetchWindow.getRoot().setScene();
+        fetchWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        if (!fetchWindow.isShowing()) {
+            fetchWindow.show();
+        } else {
+            fetchWindow.focus();
+        }
+    }
+
+
     void show() {
         primaryStage.show();
     }
@@ -160,6 +185,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+
+
     public seedu.address.ui.ListPanel getListPanel() {
         return listPanel;
     }
@@ -169,7 +196,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -182,12 +209,29 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+            if (commandResult.getFetch() != null) {
+                handleFetch(commandResult.getFetch());
+                //listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+            }
 
+            /*if (commandResult.isFetch()) {
+                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(),
+                        logic.getFilteredEventList(), logic.getFilteredEventList().get(0));
+                listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+            } else {
+                listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
+                listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
+            }*/
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
+
+
+
+
 }

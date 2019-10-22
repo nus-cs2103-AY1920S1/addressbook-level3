@@ -2,9 +2,12 @@ package seedu.address.model.event;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import seedu.address.model.employee.Employee;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -13,53 +16,40 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     //Identity Fields
-    private final EventId eventId;
-
-    //Data Fields
     private final EventName name;
+    private final EventDate startDate;
+    private final EventDate endDate;
+
+    //data fields
     private final EventVenue venue;
     private final EventManpowerNeeded manpowerNeeded;
-    private final EventHoursNeeded hoursNeeded;
-    private final EventStartDate startDate;
-    private final EventEndDate endDate;
     private final EventManpowerAllocatedList manpowerAllocatedList;
+    private final EventDateTimeMap eventDateTimeMap;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Event(EventId id, EventName name, EventVenue venue, EventHoursNeeded hoursNeeded,
-                 EventManpowerNeeded manpowerNeeded, EventStartDate startDate,
-                 EventEndDate endDate, Set<Tag> tags) {
-        this.eventId = id;
+    public Event(EventName name, EventVenue venue,
+                 EventManpowerNeeded manpowerNeeded, EventDate startDate,
+                 EventDate endDate, Set<Tag> tags) {
         this.name = name;
         this.venue = venue;
-        this.hoursNeeded = hoursNeeded;
         this.manpowerNeeded = manpowerNeeded;
         this.manpowerAllocatedList = new EventManpowerAllocatedList();
+        this.eventDateTimeMap = new EventDateTimeMap();
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags.addAll(tags);
     }
 
-    /**
-     * Temporary Constructor
-     */
-    public Event() {
-        this.eventId = null;
-        this.name = null;
-        this.venue = null;
-        this.hoursNeeded = null;
-        this.manpowerNeeded = null;
-        this.manpowerAllocatedList = new EventManpowerAllocatedList();
-        this.startDate = null;
-        this.endDate = null;
-        this.tags.addAll(tags);
-    }
-
-    public EventId getEventId() {
-        return eventId;
-    }
-
     public EventName getName() {
         return name;
+    }
+
+    public EventDate getStartDate() {
+        return startDate;
+    }
+
+    public EventDate getEndDate() {
+        return endDate;
     }
 
     public EventVenue getVenue() {
@@ -70,20 +60,29 @@ public class Event {
         return manpowerNeeded;
     }
 
-    public EventHoursNeeded getHoursNeeded() {
-        return hoursNeeded;
-    }
-
-    public EventStartDate getStartDate() {
-        return startDate;
-    }
-
-    public EventEndDate getEndDate() {
-        return endDate;
-    }
-
     public EventManpowerAllocatedList getManpowerAllocatedList() {
         return manpowerAllocatedList;
+    }
+
+    public EventDateTimeMap getEventDateTimeMap() {
+        return eventDateTimeMap;
+    }
+
+    /**
+     * Checks if an employee is available for this event.
+     * @param employee
+     * @param filteredEventList
+     */
+    public boolean isAvailableForEvent(Employee employee, List<Event> filteredEventList) {
+        List<Event> containsEmployeeEventList = filteredEventList.stream()
+                .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId().id))
+                .collect(Collectors.toList());
+        long nonOverlapEventsCount = containsEmployeeEventList.stream()
+                .filter(x -> (startDate.date.compareTo(x.getEndDate().date) > 0
+                        && endDate.date.compareTo(x.getEndDate().date) > 0)
+                        || (startDate.date.compareTo(x.getStartDate().date) < 0
+                                && endDate.date.compareTo(x.getStartDate().date) < 0)).count();
+        return nonOverlapEventsCount == containsEmployeeEventList.size();
     }
 
     /**
@@ -104,7 +103,9 @@ public class Event {
         }
 
         return otherEvent != null
-                && otherEvent.getEventId().equals(getEventId());
+                && otherEvent.getName().equals(getName())
+                && otherEvent.getStartDate().equals(getStartDate())
+                && otherEvent.getEndDate().equals(getEndDate());
     }
 
     /**
@@ -122,35 +123,47 @@ public class Event {
         }
 
         Event otherEvent = (Event) other;
-        return otherEvent.getEventId().equals(getEventId())
-                && otherEvent.getName().equals(getName())
+        return otherEvent.getName().equals(getName())
                 && otherEvent.getVenue().equals(getVenue())
                 && otherEvent.getManpowerNeeded().equals(getManpowerNeeded())
-                && otherEvent.getHoursNeeded().equals(getHoursNeeded())
                 && otherEvent.getStartDate().equals(getStartDate())
                 && otherEvent.getEndDate().equals(getEndDate())
                 && otherEvent.getManpowerAllocatedList().equals(getManpowerAllocatedList())
+                && otherEvent.getEventDateTimeMap().equals(getEventDateTimeMap())
                 && otherEvent.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(eventId, name, venue, manpowerNeeded, hoursNeeded,
-            startDate, endDate, manpowerAllocatedList, tags);
+        return Objects.hash(name, venue, manpowerNeeded,
+                startDate, endDate, manpowerAllocatedList, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Event ID: ").append(getEventId());
         builder.append(" Event Venue: ").append(getVenue());
         builder.append(" Event Manpower Needed: ").append(getManpowerNeeded());
-        builder.append(" Event Hours Needed: ").append(getHoursNeeded());
         builder.append(" Event Start Date: ").append(getStartDate());
         builder.append(" Event End Date: ").append(getEndDate());
         builder.append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Returns a similar toString() variation with new line for GUI display.
+     */
+    public String toStringWithNewLine() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Event Name: ").append(getName());
+        builder.append(" \nEvent Venue: ").append(getVenue());
+        builder.append(" \nEvent Manpower Count: ").append(getManpowerAllocatedList().getCurrentManpowerCount() + " / ")
+                .append(getManpowerNeeded());
+        builder.append(" \nEvent Date: ").append(getStartDate()).append(" - " + getEndDate());
+        builder.append(" \nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
