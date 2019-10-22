@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AppDataParser" as AppDataParser LOGIC_COLOR
+participant ":QuizModeCommandParser" as QuizModeCommandParser LOGIC_COLOR
+participant "d:QuizModeCommand" as QuizModeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("quiz n/N d/D s/S")
+activate LogicManager
+
+LogicManager -> AppDataParser : parseCommand("quiz n/N d/D s/S")
+activate AppDataParser
+
+create QuizModeCommandParser
+AppDataParser -> QuizModeCommandParser
+activate QuizModeCommandParser
+
+QuizModeCommandParser -> AppDataParser
+deactivate QuizModeCommandParser
+
+AppDataParser -> QuizModeCommandParser : parse("n/N d/D s/S")
+activate QuizModeCommandParser
+
+create QuizModeCommand
+QuizModeCommandParser -> QuizModeCommand
+activate QuizModeCommand
+
+QuizModeCommand --> QuizModeCommandParser : q
+deactivate QuizModeCommand
+
+QuizModeCommandParser --> AppDataParser : q
+deactivate QuizModeCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+QuizModeCommandParser -[hidden]-> AppDataParser
+destroy QuizModeCommandParser
+
+AppDataParser --> LogicManager : q
+deactivate AppDataParser
+
+LogicManager -> QuizModeCommand : execute()
+activate QuizModeCommand
+
+QuizModeCommand -> Model : model.setQuizQuestionList(quizQuestionList)
+activate Model
+
+Model --> QuizModeCommand
+deactivate Model
+
+create CommandResult
+QuizModeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> QuizModeCommand
+deactivate CommandResult
+
+QuizModeCommand --> LogicManager : result
+deactivate QuizModeCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
