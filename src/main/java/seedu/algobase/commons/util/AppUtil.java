@@ -36,4 +36,17 @@ public class AppUtil {
             throw new IllegalArgumentException(errorMessage);
         }
     }
+
+    public static String getClassStringField(Class targetClass, String fieldName) {
+        try {
+            String result = (String) targetClass.getField(fieldName).get("");
+            return result;
+        } catch (NoSuchFieldException e) {
+            throw new AssertionError("Class " + targetClass.getName()
+                + "doesn't have " + fieldName + " field.");
+        } catch (IllegalAccessException e) {
+            throw new AssertionError("Class " + targetClass.getName()
+                + "has non-public " + fieldName + ".");
+        }
+    }
 }

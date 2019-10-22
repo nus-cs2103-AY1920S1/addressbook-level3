@@ -7,11 +7,12 @@ import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.GuiState;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.model.task.Task;
 
 /**
  * API of the Logic component
@@ -48,6 +49,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of plans */
     ObservableList<Plan> getProcessedPlanList();
+
+    /** Returns an unmodifiable view of the filtered list of tasks */
+    ObservableList<Task> getProcessedTaskList();
 
     /**
      * Returns the user prefs' algobase file path.

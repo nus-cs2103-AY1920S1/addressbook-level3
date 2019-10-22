@@ -23,7 +23,7 @@ class AddCommandTest {
     }
 
     @Test
-    public void execute_problemAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_problemAcceptedByModel_addsSuccessful() throws Exception {
         ModelStubAcceptingProblemAdded modelStub = new ModelStubAcceptingProblemAdded();
         Problem validProblem = new ProblemBuilder().build();
 

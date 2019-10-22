@@ -5,7 +5,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
-import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.AddTagCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.tag.Tag;
@@ -25,7 +24,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
         }
         Tag tag = new ParserUtil().parseTag(argMultimap.getValue(PREFIX_TAG).get());
         return new AddTagCommand(tag);

@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.algobase.model.plan.exceptions.PlanNotFoundException;
+import seedu.algobase.model.task.Task;
 
 /**
  * A list of plans.
@@ -22,6 +23,9 @@ public class PlanList implements Iterable<Plan> {
     private final ObservableList<Plan> internalList = FXCollections.observableArrayList();
     private final ObservableList<Plan> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<Task> internalTaskList = FXCollections.observableArrayList();
+    private final ObservableList<Task> internalUnmodifiableTaskList =
+        FXCollections.unmodifiableObservableList(internalTaskList);
 
     /**
      * Adds a Plan to the list.
@@ -29,6 +33,7 @@ public class PlanList implements Iterable<Plan> {
     public void add(Plan toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+        internalTaskList.setAll(toAdd.getTasks());
     }
 
     /**
@@ -44,6 +49,7 @@ public class PlanList implements Iterable<Plan> {
         }
 
         internalList.set(index, updatedPlan);
+        internalTaskList.setAll(updatedPlan.getTasks());
     }
 
     /**
@@ -55,6 +61,7 @@ public class PlanList implements Iterable<Plan> {
         if (!internalList.remove(toRemove)) {
             throw new PlanNotFoundException();
         }
+        internalTaskList.setAll();
     }
 
     public void setPlans(PlanList replacement) {
@@ -76,6 +83,13 @@ public class PlanList implements Iterable<Plan> {
      */
     public ObservableList<Plan> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns the backing task list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Task> getUnmodifiableObservableTaskList() {
+        return internalUnmodifiableTaskList;
     }
 
     @Override

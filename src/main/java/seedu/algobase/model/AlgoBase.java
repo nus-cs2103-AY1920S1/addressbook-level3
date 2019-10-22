@@ -11,6 +11,7 @@ import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.UniqueProblemList;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.tag.UniqueTagList;
+import seedu.algobase.model.task.Task;
 
 /**
  * Wraps all data at the algobase level
@@ -32,9 +33,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     {
         problems = new UniqueProblemList();
         plans = new PlanList();
-    }
-
-    {
         tags = new UniqueTagList();
     }
 
@@ -103,7 +101,12 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         problems.remove(key);
     }
 
-    //// tag methods
+    @Override
+    public ObservableList<Problem> getProblemList() {
+        return problems.asUnmodifiableObservableList();
+    }
+
+    //========== Tag ====================================================================
     /**
      * Replaces the contents of the Tag list with {@code tags}.
      * {@code tags} must not contain duplicate tags.
@@ -111,9 +114,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     public void setTags(List<Tag> tags) {
         this.tags.setTags(tags);
     }
-
-
-    //// tag-level operations
 
     /**
      * Returns true if a Tag with the same identity as {@code Tag} exists in the algobase.
@@ -140,9 +140,18 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         requireNonNull(editedTag);
         tags.setTag(target, editedTag);
     }
+
+    /**
+     * Removes {@code key} from this {@code AlgoBase}.
+     * {@code key} must exist in the algobase.
+     */
+    public void removeTag(Tag key) {
+        tags.remove(key);
+    }
+
     @Override
-    public ObservableList<Problem> getProblemList() {
-        return problems.asUnmodifiableObservableList();
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     //========== Plan ===================================================================
@@ -174,16 +183,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         plans.setPlan(target, editedPlan);
     }
 
-    /**
-     * Removes {@code key} from this {@code AlgoBase}.
-     * {@code key} must exist in the algobase.
-     */
-    public void removeTag(Tag key) {
-        tags.remove(key);
-    }
-
-    //// util methods
-
     public void removePlan(Plan key) {
         plans.remove(key);
     }
@@ -193,17 +192,19 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         return plans.asUnmodifiableObservableList();
     }
 
+    //========== Task ===================================================================
+
+    @Override
+    public ObservableList<Task> getCurrentTaskList() {
+        return plans.getUnmodifiableObservableTaskList();
+    }
+
     //========== Util ===================================================================
 
     @Override
     public String toString() {
         return tags.asUnmodifiableObservableList().size() + " tags";
         // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Tag> getTagList() {
-        return tags.asUnmodifiableObservableList();
     }
 
     @Override

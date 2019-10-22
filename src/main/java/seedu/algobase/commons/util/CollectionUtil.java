@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import javafx.collections.ObservableList;
+import seedu.algobase.commons.core.index.Index;
+
 /**
  * Utility methods related to Collections
  */
@@ -35,5 +38,22 @@ public class CollectionUtil {
 
     public static boolean isArrayOfLength(Object[] array, int length) {
         return array.length == length;
+    }
+
+    /**
+     * Checks if an observable list contains an index.
+     *
+     * @param index index to be checked.
+     * @param items observable list of items.
+     * @param <T> type of items that list contains.
+     * @throws IndexOutOfBoundsException if list of items does not contain the index.
+     */
+    public static <T> boolean isWithinListRange(Index index, ObservableList<T> items) {
+        int itemIndex = index.getZeroBased();
+        if (itemIndex < 0 || itemIndex >= items.size()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

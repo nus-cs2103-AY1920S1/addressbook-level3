@@ -12,12 +12,13 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.AlgoBaseParser;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.GuiState;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.model.task.Task;
 import seedu.algobase.storage.Storage;
 
 /**
@@ -60,8 +61,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Problem> getProcessedProblemList() {
-        return model.getFilteredProblemList();
+    public GuiState getGuiState() {
+        return model.getGuiState();
     }
 
     @Override
@@ -69,13 +70,18 @@ public class LogicManager implements Logic {
         return model.getFilteredTagList();
     }
 
-    public GuiState getGuiState() {
-        return model.getGuiState();
+    public ObservableList<Problem> getProcessedProblemList() {
+        return model.getFilteredProblemList();
     }
 
     @Override
     public ObservableList<Plan> getProcessedPlanList() {
         return model.getFilteredPlanList();
+    }
+
+    @Override
+    public ObservableList<Task> getProcessedTaskList() {
+        return model.getCurrentTaskList();
     }
 
     @Override
