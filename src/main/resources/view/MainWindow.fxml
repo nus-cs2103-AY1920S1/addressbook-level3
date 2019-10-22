@@ -27,45 +27,39 @@
         <URL value="@ExtensionsDark.css" />
       </stylesheets>
 
-        <HBox>
+        <HBox minHeight="1180" prefHeight="1180" maxHeight="1180">
+          <VBox HBox.hgrow="ALWAYS">
+            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+              <Menu mnemonicParsing="false" text="File">
+                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+              </Menu>
+              <Menu mnemonicParsing="false" text="Help">
+                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+              </Menu>
+            </MenuBar>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-<!--        <TabPane GridPane.rowIndex="0" GridPane.columnIndex="1" >-->
-<!--          <Tab text="text">-->
-<!--          </Tab>-->
-<!--        </TabPane>-->
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+              <padding>
+                <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+            </StackPane>
 
+            <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+              </padding>
+              <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+            </VBox>
 
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+              <padding>
+                <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+            </StackPane>
 
-        <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-          <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-        </VBox>
-
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-          <!-- to contain the side panels in tilepane -->
+            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+          </VBox>
+            <!-- to contain the side panels in vbox -->
             <VBox fx:id="sidePanelsPlaceHolder" minWidth="300" prefWidth="300">
                 <VBox fx:id="wishesPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <padding>

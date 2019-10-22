@@ -254,7 +254,7 @@ public class MainWindow extends UiPart<Stage> {
                 PanelName panelName = commandResult.getPanelName();
                 String panelNameString = panelName.getName();
                 togglePanel(panelNameString);
-                //toggleEntireSidePanelIfNecessary();
+                toggleEntireSidePanelIfNecessary();
             }
 
             return commandResult;
