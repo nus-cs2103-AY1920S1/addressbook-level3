@@ -68,6 +68,4 @@ DishDatabase -[hidden]right-> MealLog
 Tag -[hidden]right-> TimeStamp
 
 ModelManager -->"1" Dish : filtered list
-ModelManager -->"1" Meal : filtered list
-ModelManager -->"1" Meal : sorted list
 @enduml

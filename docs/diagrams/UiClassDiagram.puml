@@ -60,6 +60,7 @@ ReportWindow -down-|> UiPart
 
 DishCard ..> Model
 MealCard ..> Model
+BudgetBar ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
