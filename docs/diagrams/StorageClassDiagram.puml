@@ -6,19 +6,37 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface StudyBuddyStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonStudyBuddyStorage
+Class JsonSerializableCheatSheet
+Class JsonSerializableFlashcard
+Class JsonSerializableNote
+Class JsonAdaptedCheatSheet
+Class JsonAdaptedContent
+Class JsonAdaptedFlashcard
+Class JsonAdaptedNote
+Class JsonAdaptedTag
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> StudyBuddyStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonStudyBuddyStorage .left.|> StudyBuddyStorage
+JsonStudyBuddyStorage .down.> JsonSerializableCheatSheet
+JsonStudyBuddyStorage .down.> JsonSerializableFlashcard
+JsonStudyBuddyStorage .down.> JsonSerializableNote
+
+JsonSerializableCheatSheet .down.> JsonAdaptedCheatSheet
+JsonAdaptedCheatSheet .down.> JsonAdaptedContent
+JsonAdaptedCheatSheet .down.> JsonAdaptedTag
+
+JsonSerializableFlashcard .down.> JsonAdaptedFlashcard
+JsonAdaptedFlashcard .down.> JsonAdaptedTag
+
+JsonSerializableNote .down.> JsonAdaptedNote
+JsonAdaptedNote .down.> JsonAdaptedTag
 @enduml
