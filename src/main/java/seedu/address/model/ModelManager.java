@@ -31,6 +31,7 @@ public class ModelManager implements Model {
     private final FilteredList<Earnings> filteredEarnings;
     private final FilteredList<CommandObject> filteredCommands;
     private Stack<String> savedCommand;
+    private final FilteredList<Task> filteredTasks;
     private final FilteredList<Reminder> filteredReminder;
 
     /**
@@ -48,6 +49,7 @@ public class ModelManager implements Model {
         filteredEarnings = new FilteredList<>(this.addressBook.getEarningsList());
         filteredCommands = new FilteredList<>(this.addressBook.getCommandsList());
         savedCommand = new Stack<String>();
+        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         filteredReminder = new FilteredList<>(this.addressBook.getReminderList());
 
     }
@@ -189,6 +191,31 @@ public class ModelManager implements Model {
     }
 
     //=========== Filtered List Accessors =============================================================
+=======
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return addressBook.hasTask(task);
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        addressBook.removeTask(target);
+    }
+
+    @Override
+    public void addTask(Task task) {
+        addressBook.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+
+        addressBook.setTask(target, editedTask);
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -228,6 +255,24 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredEarnings.setPredicate(predicate);
         UiManager.startEarnings();
+    }
+
+    //=========== Filtered Task List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTasks;
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+        UiManager.startTasks();
     }
 
     @Override

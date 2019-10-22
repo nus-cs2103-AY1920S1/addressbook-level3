@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.earnings.Earnings;
-
+import seedu.address.model.task.Task;
 
 
 /**
@@ -25,15 +25,24 @@ public class CommandResult {
 
     private boolean showEarnings;
     private Earnings earnings;
+
+    private boolean showTasks;
+    private Task task;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings, boolean unknown) {
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, 
+                         boolean showEarnings, boolean unknown, boolean showTasks) {
+
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showEarnings = showEarnings;
         this.unknown = unknown;
+        this.showTasks = showTasks;
+
     }
 
     /**
@@ -47,6 +56,18 @@ public class CommandResult {
         this.showEarnings = showEarnings;
         this.earnings = earnings;
         this.unknown = unknown;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp,
+                         boolean exit, boolean showTasks, Task task) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showTasks = showTasks;
+        this.task = task;
     }
 
     /**
@@ -79,6 +100,14 @@ public class CommandResult {
 
     public Earnings getEarnings() {
         return earnings;
+    }
+
+    public boolean isTasks() {
+        return showTasks;
+    }
+
+    public Task getTask() {
+        return task;
     }
 
     @Override

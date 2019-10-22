@@ -19,6 +19,7 @@ import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
+import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
 /**
@@ -36,6 +37,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser(getFilteredCommandsList());
+
     }
 
     @Override
@@ -48,7 +50,6 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
-            //storage.saveCalendar(model.getCalendar());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -98,6 +99,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<CommandObject> getFilteredCommandsList() {
         return model.getFilteredCommandsList();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return model.getFilteredTaskList();
     }
 
     @Override

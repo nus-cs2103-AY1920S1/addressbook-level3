@@ -13,6 +13,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.UniqueReminderList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskList;
+
 
 /**
  * Wraps all data at the address-book level
@@ -22,6 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueEarningsList earning;
     private final UniqueCommandsList commands;
+    private final TaskList tasks;
     private final UniqueReminderList reminder;
 
     /*
@@ -35,6 +39,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         earning = new UniqueEarningsList();
         commands = new UniqueCommandsList();
+        tasks = new TaskList();
         reminder = new UniqueReminderList();
 
     }
@@ -67,6 +72,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.earning.setEarnings(earnings);
     }
 
+
+
     /**
      * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -77,6 +84,61 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         earning.setEarnings(target, editedEarnings);
     }
+
+    //// task-level operations
+    /**
+     * Replaces the contents of the task list with {@code tasks}.
+     * {@code tasks} must not contain duplicate tasks.
+     */
+    public void setTasks(List<Task> tasks) {
+        this.tasks.setTasks(tasks);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setTask(Task target, Task editedTask) {
+        requireNonNull(editedTask);
+
+        tasks.setTask(target, editedTask);
+    }
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return tasks.contains(task);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addTask(Task t) {
+        tasks.add(t);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTask(Task key) {
+        tasks.remove(key);
+    }
+
+    /**
+     * set new string for task
+     * @return a tasks string
+     */
+    public String toTasksString() {
+        return tasks.asUnmodifiableObservableList().size() + " tasks";
+        // TODO: refine later
+    }
+
+    //// person-level operations
 
     /**
      * Replaces the contents of the commands list with {@code commands}.
@@ -107,9 +169,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEarnings(newData.getEarningsList());
         setCommands(newData.getCommandsList());
-    }
+        setTasks(newData.getTaskList());
 
-    //// person-level operations
+    }
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -216,6 +278,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<CommandObject> getCommandsList() {
         return commands.asUnmodifiableObservableList();
     }
+  
+    @Override
+    public ObservableList<Task> getTaskList() {
+        return tasks.asUnmodifiableObservableList();
+    }
 
     @Override
     public ObservableList<Reminder> getReminderList() {
@@ -226,7 +293,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && (persons.equals(((AddressBook) other).persons))
+                || (tasks.equals(((AddressBook) other).tasks)));
     }
 
     @Override
