@@ -17,11 +17,12 @@ import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Contains tests for both LikeCommand and DislikeCommand
@@ -58,7 +59,7 @@ public class PreferenceCommandTest {
         testLocation.add(SECOND_LOCATION);
 
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new CustomSorter(), new SavingsAccount());
+                new Wallet(), new CustomSorter(), new SavingsAccount());
         model.clearDislikes();
         model.clearLikes();
     }

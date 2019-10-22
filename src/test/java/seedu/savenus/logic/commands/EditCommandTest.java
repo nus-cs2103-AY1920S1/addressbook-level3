@@ -23,11 +23,12 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.Menu;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.EditFoodDescriptorBuilder;
 import seedu.savenus.testutil.FoodBuilder;
 
@@ -37,7 +38,7 @@ import seedu.savenus.testutil.FoodBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-            new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
+            new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -48,7 +49,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FOOD_SUCCESS, editedFood);
 
         Model expectedModel = new ModelManager(new Menu(model.getMenu()), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
         expectedModel.setFood(model.getFilteredFoodList().get(0), editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -70,7 +71,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FOOD_SUCCESS, editedFood);
 
         Model expectedModel = new ModelManager(new Menu(model.getMenu()), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
         expectedModel.setFood(lastFood, editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -84,7 +85,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FOOD_SUCCESS, editedFood);
 
         Model expectedModel = new ModelManager(new Menu(model.getMenu()), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -101,7 +102,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FOOD_SUCCESS, editedFood);
 
         Model expectedModel = new ModelManager(new Menu(model.getMenu()), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
         expectedModel.setFood(model.getFilteredFoodList().get(0), editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

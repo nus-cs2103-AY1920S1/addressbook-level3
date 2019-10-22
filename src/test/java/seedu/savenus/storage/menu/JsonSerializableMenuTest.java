@@ -18,20 +18,12 @@ public class JsonSerializableMenuTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableMenuTest");
     private static final Path TYPICAL_FOOD_FILE = TEST_DATA_FOLDER.resolve("typicalFoodMenu.json");
     private static final Path INVALID_FOOD_FILE = TEST_DATA_FOLDER.resolve("invalidFoodMenu.json");
-    private static final Path INVALID_WALLET_FILE = TEST_DATA_FOLDER.resolve("invalidWalletMenu.json");
     private static final Path DUPLICATE_FOOD_FILE = TEST_DATA_FOLDER.resolve("duplicateFoodMenu.json");
 
     @Test
     public void toModelType_invalidFoodMenu_throwsIllegalValueException() throws Exception {
         JsonSerializableMenu dataFromFile = JsonUtil.readJsonFile(INVALID_FOOD_FILE,
             JsonSerializableMenu.class).get();
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidWalletMenu_throwsIllegalValueException() throws Exception {
-        JsonSerializableMenu dataFromFile = JsonUtil.readJsonFile(INVALID_WALLET_FILE,
-                JsonSerializableMenu.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 

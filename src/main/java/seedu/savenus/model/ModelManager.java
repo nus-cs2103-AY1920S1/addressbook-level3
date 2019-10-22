@@ -25,8 +25,8 @@ import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
@@ -49,6 +49,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
     private final PurchaseHistory purchaseHistory;
+    private final Wallet wallet;
     private final CustomSorter customSorter;
     private final SavingsAccount savingsAccount;
     private boolean autoSortFlag;
@@ -57,7 +58,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given menu and userPrefs.
      */
     public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
-                        ReadOnlyPurchaseHistory purchaseHistory,
+                        ReadOnlyPurchaseHistory purchaseHistory, Wallet wallet,
                         CustomSorter customSorter, ReadOnlySavingsAccount savingsAccount) {
         super();
         requireAllNonNull(menu, userPrefs);
@@ -68,6 +69,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFoods = new FilteredList<>(this.menu.getFoodList());
         this.purchaseHistory = new PurchaseHistory(purchaseHistory);
+        this.wallet = wallet;
         this.savingsAccount = new SavingsAccount(savingsAccount);
         this.customSorter = customSorter;
         this.autoSortFlag = false;
@@ -76,7 +78,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new Menu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -124,6 +126,18 @@ public class ModelManager implements Model {
         requireNonNull(menuFilePath);
         userPrefs.setPurchaseHistoryFilePath(menuFilePath);
     }
+
+    @Override
+    public Path getWalletFilePath() {
+        return userPrefs.getWalletFilePath();
+    }
+
+    @Override
+    public void setWalletFilePath(Path menuFilePath) {
+        requireNonNull(menuFilePath);
+        userPrefs.setWalletFilePath(menuFilePath);
+    }
+
 
     //=========== Menu ================================================================================
 
@@ -205,12 +219,12 @@ public class ModelManager implements Model {
      * Get user's {@code Wallet}.
      */
     public Wallet getWallet() {
-        return menu.getWallet();
+        return wallet;
     }
 
     @Override
     public RemainingBudget getRemainingBudget() {
-        return menu.getWallet().getRemainingBudget();
+        return wallet.getRemainingBudget();
     }
 
     @Override
@@ -219,12 +233,12 @@ public class ModelManager implements Model {
         if (newRemainingBudget.getRemainingBudgetAmount().compareTo(new BigDecimal(1000000.00)) == 1) {
             throw new CommandException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
         }
-        menu.getWallet().setRemainingBudget(newRemainingBudget);
+        wallet.setRemainingBudget(newRemainingBudget);
     }
 
     @Override
     public int getDaysToExpire() {
-        return menu.getWallet().getNumberOfDaysToExpire();
+        return wallet.getNumberOfDaysToExpire();
     }
 
     @Override
@@ -233,13 +247,13 @@ public class ModelManager implements Model {
         if (newDaysToExpire.getDaysToExpire() > 365) {
             throw new CommandException(DaysToExpire.INTEGER_CONSTRAINTS);
         }
-        menu.getWallet().setDaysToExpire(newDaysToExpire);
+        wallet.setDaysToExpire(newDaysToExpire);
     }
 
     @Override
     public void buyFood(Food foodToBuy) throws CommandException {
         requireNonNull(foodToBuy);
-        menu.getWallet().deduct(foodToBuy.getPrice());
+        wallet.deduct(foodToBuy.getPrice());
     }
 
     //=========== Filtered Food List Accessors =============================================================
@@ -366,7 +380,7 @@ public class ModelManager implements Model {
     @Override
     public void deductFromWallet(Savings savings) throws CommandException {
         requireNonNull(savings);
-        menu.getWallet().deduct(savings);
+        wallet.deduct(savings);
     }
 
     /**
@@ -398,7 +412,11 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return menu.equals(other.menu)
                 && userPrefs.equals(other.userPrefs)
-                && filteredFoods.equals(other.filteredFoods);
+                && filteredFoods.equals(other.filteredFoods)
+                && purchaseHistory.equals(other.purchaseHistory)
+                && wallet.equals(other.wallet)
+                && customSorter.equals(other.customSorter)
+                && savingsAccount.equals(other.savingsAccount);
     }
 
     @Override

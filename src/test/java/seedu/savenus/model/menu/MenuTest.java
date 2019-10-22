@@ -100,11 +100,6 @@ public class MenuTest {
             return foods;
         }
 
-        @Override
-        public Wallet getWallet() {
-            return wallet;
-        }
-
     }
 
 }

@@ -12,6 +12,7 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.sort.CustomSorter;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * API of the Logic component
@@ -27,11 +28,13 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the Menu.
      *
      * @see seedu.savenus.model.Model#getMenu()
      */
     ReadOnlyMenu getMenu();
+
+    Wallet getWallet();
 
     CustomSorter getCustomSorter();
 
@@ -54,6 +57,11 @@ public interface Logic {
      * Returns the user prefs' purchase history file path.
      */
     Path getPurchaseHistoryFilePath();
+
+    /**
+     * Returns the user prefs' wallet file path.
+     */
+    Path getWalletFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

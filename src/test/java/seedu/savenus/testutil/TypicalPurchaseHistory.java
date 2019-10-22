@@ -4,8 +4,8 @@ import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 import static seedu.savenus.testutil.TypicalMenu.WAGYU_DONBURI;
 
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.TimeOfPurchase;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
 
 /**
  * A utility class containing a list of {@code Purchase} objects to be used in tests.

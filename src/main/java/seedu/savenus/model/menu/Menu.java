@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.UniqueFoodList;
-import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Wraps all data at the menu level
@@ -16,7 +15,6 @@ import seedu.savenus.model.wallet.Wallet;
 public class Menu implements ReadOnlyMenu {
 
     private final UniqueFoodList foods;
-    private final Wallet wallet;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -27,7 +25,6 @@ public class Menu implements ReadOnlyMenu {
      */
     {
         foods = new UniqueFoodList();
-        wallet = new Wallet();
     }
 
     public Menu() {}
@@ -57,7 +54,6 @@ public class Menu implements ReadOnlyMenu {
         requireNonNull(newData);
 
         setFoods(newData.getFoodList());
-        setWallet(newData.getWallet());
     }
 
     //// food-level operations
@@ -98,28 +94,11 @@ public class Menu implements ReadOnlyMenu {
         foods.remove(key);
     }
 
-    //// wallet operations
-
-    /**
-     * Set user's {@code Wallet}.
-     */
-    public void setWallet(Wallet wallet) {
-        this.wallet.setRemainingBudget(wallet.getRemainingBudget());
-        this.wallet.setDaysToExpire(wallet.getDaysToExpire());
-    }
-
-    /**
-     * Get user's {@code Wallet}.
-     */
-    public Wallet getWallet() {
-        return wallet;
-    }
-
     //// util methods
     @Override
     public String toString() {
         return foods.asUnmodifiableObservableList().size()
-                + " Food Items: \n" + "...\n" + "Wallet: \n" + wallet.toString();
+                + " Food Items: \n" + "...\n";
         // TODO: refine later
     }
 
@@ -132,8 +111,7 @@ public class Menu implements ReadOnlyMenu {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Menu // instanceof handles nulls
-                && foods.equals(((Menu) other).foods))
-                && wallet.equals(((Menu) other).wallet);
+                && foods.equals(((Menu) other).foods));
     }
 
     @Override

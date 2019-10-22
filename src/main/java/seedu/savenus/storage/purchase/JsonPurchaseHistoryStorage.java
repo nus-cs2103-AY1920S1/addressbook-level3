@@ -1,4 +1,4 @@
-package seedu.savenus.storage.purchasehistory;
+package seedu.savenus.storage.purchase;
 
 import static java.util.Objects.requireNonNull;
 
@@ -12,7 +12,7 @@ import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.commons.util.FileUtil;
 import seedu.savenus.commons.util.JsonUtil;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.storage.menu.JsonMenuStorage;
 
 /**
