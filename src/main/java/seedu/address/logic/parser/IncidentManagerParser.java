@@ -92,7 +92,11 @@ public class IncidentManagerParser {
             return new SwapCommand();
 
         case SubmitCommand.COMMAND_WORD:
-            return new SubmitCommand();
+            if (arguments.isEmpty()) {
+                return new SubmitCommand();
+            } else {
+                return new SubmitCommandParser().parse(arguments);
+            }
 
         case FillCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {
