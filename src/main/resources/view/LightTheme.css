@@ -12,7 +12,7 @@
     -fx-border-color: #c0c0c0;
     -fx-border-radius: 4px;
     -fx-border-width: 1;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Noto Sans CJK SC Regular", "Segoe UI", sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: black;
 }
@@ -28,7 +28,7 @@
     -fx-border-color: #c0c0c0;
     -fx-border-radius: 4px;
     -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Noto Sans CJK SC Light", "Segoe UI Light", sans-serif;
     -fx-font-size: 10pt;
     -fx-text-fill: black;
     -fx-highlight-fill: lightblue;
@@ -59,13 +59,6 @@
     -fx-border-width: 1;
 }
 
-.content-entry-list .label {
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 12pt;
-    -fx-text-fill: black;
-    -fx-highlight-fill: lightblue;
-}
-
 .card-pane {
     -fx-padding: 8;
     -fx-background-color: transparent;
@@ -73,14 +66,14 @@
 }
 
 .content-display .card-large-label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Noto Sans CJK SC Black", "Segoe UI", sans-serif;
     -fx-font-weight: bolder;
     -fx-font-size: 14px;
     -fx-text-fill: black;
 }
 
 .content-display .card-label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Noto Sans CJK SC Regular", "Segoe UI", sans-serif;
     -fx-font-size: 12px;
     -fx-text-fill: black;
 }
@@ -96,7 +89,7 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
     -fx-font-weight: bold;
     -fx-text-fill: #e0e0e0;
 }
@@ -112,8 +105,9 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
     -fx-font-weight: bold;
     -fx-font-size: 9pt;
     -fx-text-fill: black;
 }
+

@@ -1,14 +1,14 @@
 {
   "activityList" : [ {
-    "primaryKey": 0,
+    "primaryKey" : 0,
     "title" : "Breakfast",
     "participants" : [ 0 ],
     "expenses" : [ ]
   },
   {
-    "primaryKey": 1,
+    "primaryKey" : 0,
     "title" : "Lunch",
-    "participants" : [ 2, 3 ],
+    "participants" : [ 0 ],
     "expenses" : [ ]
   } ]
 }

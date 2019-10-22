@@ -9,7 +9,7 @@
 
  .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Noto Sans CJK SC Regular", "Segoe UI", sans-serif;
     -fx-text-fill: #404040;
 }
 
@@ -124,7 +124,8 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Noto Sans CJK SC Regular", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -146,7 +147,8 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #b0b0b0;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Noto Sans CJK SC Regular", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
     -fx-font-size: 11pt;
     -fx-text-fill: #404040;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;

@@ -18,6 +18,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.ActivityBookBuilder;
@@ -96,40 +97,76 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void findPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.findPerson(null));
+    public void findPersonAny_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.findPersonAny(null));
     }
 
     @Test
-    public void findPerson_personInAddressBook_returnsSingle() {
+    public void findPersonAny_personInAddressBook_returnsSingle() {
         modelManager.addPerson(ALICE);
         modelManager.addPerson(BENSON);
         List<String> keywords = Arrays.asList("Pauline");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
-        ArrayList<Person> searchResult = modelManager.findPerson(predicate);
+        ArrayList<Person> searchResult = modelManager.findPersonAny(predicate);
         ArrayList<Person> expectedSearchResult = new ArrayList<Person>(Arrays.asList(ALICE));
         assertEquals(searchResult, expectedSearchResult);
     }
 
     @Test
-    public void findPerson_personNotInAddressBook_returnsEmpty() {
+    public void findPersonAny_personNotInAddressBook_returnsEmpty() {
         modelManager.addPerson(BENSON);
         List<String> keywords = Arrays.asList("Pauline");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
-        ArrayList<Person> searchResult = modelManager.findPerson(predicate);
+        ArrayList<Person> searchResult = modelManager.findPersonAny(predicate);
         ArrayList<Person> expectedSearchResult = new ArrayList<Person>();
         assertEquals(searchResult, expectedSearchResult);
     }
 
     @Test
-    public void findPerson_multiplePeopleInAddressBook_returnsMultiple() {
+    public void findPersonAny_multiplePeopleInAddressBook_returnsMultiple() {
         Person aliceFamilyMember = new PersonBuilder(ALICE).withName("Adam Pauline").build();
         modelManager.addPerson(ALICE);
         modelManager.addPerson(aliceFamilyMember);
         List<String> keywords = Arrays.asList("Pauline");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
-        ArrayList<Person> searchResult = modelManager.findPerson(predicate);
+        ArrayList<Person> searchResult = modelManager.findPersonAny(predicate);
         ArrayList<Person> expectedSearchResult = new ArrayList<Person>(Arrays.asList(ALICE, aliceFamilyMember));
+        assertEquals(searchResult, expectedSearchResult);
+    }
+
+    @Test
+    public void findPersonAll_personInAddressBook_returnsSingle() {
+        modelManager.addPerson(ALICE);
+        Person aliceFamilyMember = new PersonBuilder(ALICE).withName("Adam James Pauline").build();
+        modelManager.addPerson(aliceFamilyMember);
+        List<String> keywords = Arrays.asList("Adam", "Pauline");
+        NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+        ArrayList<Person> searchResult = modelManager.findPersonAll(predicate);
+        ArrayList<Person> expectedSearchResult = new ArrayList<Person>(Arrays.asList(aliceFamilyMember));
+        assertEquals(searchResult, expectedSearchResult);
+    }
+
+    @Test
+    public void findPersonAll_personNotInAddressBook_returnsEmpty() {
+        modelManager.addPerson(BENSON);
+        List<String> keywords = Arrays.asList("Pauline");
+        NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+        ArrayList<Person> searchResult = modelManager.findPersonAll(predicate);
+        ArrayList<Person> expectedSearchResult = new ArrayList<Person>();
+        assertEquals(searchResult, expectedSearchResult);
+    }
+
+    @Test
+    public void findPersonAll_multiplePeopleInAddressBook_returnsMultiple() {
+        Person aliceFamilyMember = new PersonBuilder(ALICE).withName("Adam James Pauline").build();
+        Person aliceFamilyMember2 = new PersonBuilder(ALICE).withName("Michael James Pauline").build();
+        modelManager.addPerson(ALICE);
+        modelManager.addPerson(aliceFamilyMember);
+        modelManager.addPerson(aliceFamilyMember2);
+        List<String> keywords = Arrays.asList("Pauline", "James");
+        NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+        ArrayList<Person> searchResult = modelManager.findPersonAll(predicate);
+        ArrayList<Person> expectedSearchResult = new ArrayList<>(Arrays.asList(aliceFamilyMember, aliceFamilyMember2));
         assertEquals(searchResult, expectedSearchResult);
     }
 

@@ -18,6 +18,8 @@ import seedu.address.model.activity.Activity;
 @JsonRootName(value = "activitybook")
 class JsonActivityBook {
 
+    public static final String MESSAGE_DUPLICATE_PRIMARY_KEY = "Activity list contains duplicate primary key(s).";
+
     private final List<JsonAdaptedActivity> activityList = new ArrayList<>();
 
     /**
@@ -47,6 +49,9 @@ class JsonActivityBook {
         ActivityBook activityBook = new ActivityBook();
         for (JsonAdaptedActivity jsonAdaptedActivity : activityList) {
             Activity activity = jsonAdaptedActivity.toModelType();
+            if (activityBook.hasPrimaryKey(activity.getPrimaryKey())) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PRIMARY_KEY);
+            }
             activityBook.addActivity(activity);
         }
         return activityBook;

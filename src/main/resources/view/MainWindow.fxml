@@ -19,17 +19,18 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox styleClass="app-root">
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxContainer" styleClass="command-input-root" />
+      <VBox styleClass="app-root" minWidth="512" minHeight="700">
+        <StackPane fx:id="commandBoxContainer" styleClass="command-input-root" />
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayContainer" styleClass="result-display-root"
+        <StackPane fx:id="resultDisplayContainer" styleClass="result-display-root"
             minHeight="120" maxHeight="120" />
 
-        <VBox fx:id="contentRoot" styleClass="content-root" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <StackPane fx:id="contentContainer" VBox.vgrow="ALWAYS" styleClass="content-display" />
+        <VBox fx:id="contentRoot" styleClass="content-root" VBox.vgrow="ALWAYS">
+          <StackPane fx:id="contentContainer" styleClass="content-display"
+            VBox.vgrow="ALWAYS"/>
         </VBox>
 
-        <StackPane fx:id="statusBarContainer" VBox.vgrow="NEVER" styleClass="status-bar-root" />
+        <StackPane fx:id="statusBarContainer" styleClass="status-bar-root" />
       </VBox>
     </Scene>
   </scene>

@@ -49,6 +49,7 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
+        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel);
@@ -76,7 +77,7 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
-
+        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel);
     }
@@ -103,6 +104,7 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
+        expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel);

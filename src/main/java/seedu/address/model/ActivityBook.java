@@ -29,6 +29,18 @@ public class ActivityBook implements ReadOnlyActivityBook {
     }
 
     // ================ List overwrite operations ================
+    
+    /**
+     * Returns true if an activity with the same primary key as {@code primaryKey} exists in the activity book.
+     */
+    public boolean hasPrimaryKey(int primaryKey) {
+        for (Activity activity : activityList) {
+            if (activity.getPrimaryKey() == primaryKey) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Replaces the contents of the activity list with {@code activityList}.
