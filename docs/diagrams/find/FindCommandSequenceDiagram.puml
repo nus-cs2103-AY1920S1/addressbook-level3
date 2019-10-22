@@ -1,0 +1,51 @@
+@startuml
+box "Logic" #LightBlue
+[-> LogicManager: execute(commandText)
+
+activate LogicManager
+	LogicManager -> AlgoBaseParser: parseCommand(commandText)
+	activate AlgoBaseParser
+		AlgoBaseParser -> FindCommandParser: parse(arguments)
+		activate FindCommandParser
+			ref over FindCommandParser: Tokenizes user input.
+			create FindProblemDescriptor
+			FindCommandParser -> FindProblemDescriptor : FindProblemDescriptor()
+			activate FindProblemDescriptor
+				FindProblemDescriptor --> FindCommandParser
+			deactivate FindProblemDescriptor
+			opt argument for name is present
+				ref over FindCommandParser: get argument value as a list
+				create NameContainsKeywordsPredicate
+				FindCommandParser -> NameContainsKeywordsPredicate : NameContainsKeywordsPredicate(...
+				activate NameContainsKeywordsPredicate
+					NameContainsKeywordsPredicate --> FindCommandParser
+				deactivate NameContainsKeywordsPredicate
+				FindCommandParser -> NameContainsKeywordsPredicate : NameContainsKeywordsPredicate(nameKeywords)
+				FindCommandParser -> FindProblemDescriptor : setNamePredicate(...)
+			end
+			ref over FindCommandParser: check if other fields are present, add to the descriptor
+			create FindCommand
+			FindCommandParser -> FindCommand : FindCommand(descriptor)
+			activate FindCommand
+				FindCommand --> FindCommandParser
+			deactivate FindCommand
+			FindCommandParser --> AlgoBaseParser
+		deactivate FindCommandParser
+		AlgoBaseParser --> LogicManager
+		LogicManager -> FindCommand : execute(model)
+		activate FindCommand
+end box
+box "Model" #Pink
+			FindCommand -> Model : updateFilteredProblemList(predicate)
+			create CommandResult
+			FindCommand -> CommandResult
+			activate CommandResult
+				CommandResult --> FindCommand
+			deactivate CommandResult
+end box
+			FindCommand --> LogicManager
+		deactivate FindCommand
+	deactivate AlgoBaseParser
+
+deactivate LogicManager
+@enduml
