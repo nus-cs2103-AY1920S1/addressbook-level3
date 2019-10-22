@@ -15,6 +15,7 @@ import seedu.ichifund.model.transaction.TransactionType;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Repeater {
+    private final RepeaterUniqueId uniqueId;
     private final Description description;
     private final Amount amount;
     private final Category category;
@@ -24,12 +25,14 @@ public class Repeater {
     private final Date startDate;
     private final Date endDate;
 
-    public Repeater(Description description, Amount amount, Category category, TransactionType transactionType,
-            MonthOffset monthStartOffset, MonthOffset monthEndOffset, Date startDate, Date endDate) {
+    public Repeater(RepeaterUniqueId uniqueId, Description description, Amount amount, Category category,
+            TransactionType transactionType, MonthOffset monthStartOffset, MonthOffset monthEndOffset,
+            Date startDate, Date endDate) {
 
-        requireAllNonNull(description, amount, category, transactionType, monthStartOffset, monthEndOffset,
-                startDate, endDate);
+        requireAllNonNull(uniqueId, description, amount, category, transactionType, monthStartOffset,
+                monthEndOffset, startDate, endDate);
 
+        this.uniqueId = uniqueId;
         this.description = description;
         this.amount = amount;
         this.category = category;
@@ -38,6 +41,10 @@ public class Repeater {
         this.monthEndOffset = monthEndOffset;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public RepeaterUniqueId getUniqueId() {
+        return this.uniqueId;
     }
 
     public Description getDescription() {
@@ -86,6 +93,7 @@ public class Repeater {
         }
 
         return otherRepeater != null
+                && otherRepeater.getUniqueId().equals(getUniqueId())
                 && otherRepeater.getDescription().equals(getDescription())
                 && otherRepeater.getAmount().equals(getAmount())
                 && otherRepeater.getCategory().equals(getCategory())
@@ -111,7 +119,8 @@ public class Repeater {
         }
 
         Repeater otherRepeater = (Repeater) other;
-        return otherRepeater.getDescription().equals(getDescription())
+        return otherRepeater.getUniqueId().equals(getUniqueId())
+                && otherRepeater.getDescription().equals(getDescription())
                 && otherRepeater.getAmount().equals(getAmount())
                 && otherRepeater.getCategory().equals(getCategory())
                 && otherRepeater.getTransactionType().equals(getTransactionType())
@@ -123,7 +132,7 @@ public class Repeater {
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, amount, category, transactionType, monthStartOffset, monthEndOffset,
-                startDate, endDate);
+        return Objects.hash(uniqueId, description, amount, category, transactionType,
+                monthStartOffset, monthEndOffset, startDate, endDate);
     }
 }

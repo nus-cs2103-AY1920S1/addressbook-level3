@@ -31,6 +31,7 @@ import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.repeater.MonthOffset;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.TransactionType;
 
@@ -61,6 +62,7 @@ public class AddRepeaterCommandParser implements Parser<AddRepeaterCommand> {
                     AddRepeaterCommand.MESSAGE_USAGE));
         }
 
+        RepeaterUniqueId uniqueId = new RepeaterUniqueId(""); // Delete assignment to command execution.
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Amount amount = ParserUtil.parsePositiveAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
@@ -81,7 +83,7 @@ public class AddRepeaterCommandParser implements Parser<AddRepeaterCommand> {
         Year endYear = ParserUtil.parseYear(argMultimap.getValue(PREFIX_END_YEAR).get());
         Date endDate = constructDate(endDay, endMonth, endYear);
 
-        Repeater repeater = new Repeater(description, amount, category, transactionType,
+        Repeater repeater = new Repeater(uniqueId, description, amount, category, transactionType,
                 monthStartOffset, monthEndOffset, startDate, endDate);
 
         return new AddRepeaterCommand(repeater);

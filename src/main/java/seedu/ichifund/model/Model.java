@@ -10,6 +10,7 @@ import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
@@ -58,6 +59,16 @@ public interface Model {
 
     /** Returns the FundBook */
     ReadOnlyFundBook getFundBook();
+
+    /**
+     * Gets the current repeeater unique id.
+     */
+    RepeaterUniqueId getCurrentRepeaterUniqueId();
+
+    /**
+     * Sets current repeater unique id to {@code uniqueId}.
+     */
+    void setCurrentRepeaterUniqueId(RepeaterUniqueId uniqueId);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the fund book.

@@ -12,6 +12,7 @@ import seedu.ichifund.model.budget.UniqueBudgetList;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.person.UniquePersonList;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.repeater.UniqueRepeaterList;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionList;
@@ -22,6 +23,7 @@ import seedu.ichifund.model.transaction.TransactionList;
  */
 public class FundBook implements ReadOnlyFundBook {
 
+    private RepeaterUniqueId currentRepeaterUniqueId;
     private final UniquePersonList persons;
     private final UniqueRepeaterList repeaters;
     private final UniqueBudgetList budgets;
@@ -35,6 +37,7 @@ public class FundBook implements ReadOnlyFundBook {
      *   among constructors.
      */
     {
+        currentRepeaterUniqueId = new RepeaterUniqueId("0");
         persons = new UniquePersonList();
         repeaters = new UniqueRepeaterList();
         budgets = new UniqueBudgetList();
@@ -49,6 +52,15 @@ public class FundBook implements ReadOnlyFundBook {
     public FundBook(ReadOnlyFundBook toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    /**
+     * Replaces the current unique id with {@code uniqueId}.
+     */
+    public void setCurrentRepeaterUniqueId(RepeaterUniqueId uniqueId) {
+        requireNonNull(uniqueId);
+
+        this.currentRepeaterUniqueId = uniqueId;
     }
 
     //// list overwrite operations
@@ -248,6 +260,11 @@ public class FundBook implements ReadOnlyFundBook {
     }
 
     @Override
+    public RepeaterUniqueId getCurrentRepeaterUniqueId() {
+        return currentRepeaterUniqueId;
+    }
+
+    @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
@@ -271,7 +288,10 @@ public class FundBook implements ReadOnlyFundBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FundBook // instanceof handles nulls
+                && currentRepeaterUniqueId.equals(((FundBook) other).currentRepeaterUniqueId)
                 && persons.equals(((FundBook) other).persons)
+                && transactions.equals(((FundBook) other).transactions)
+                && repeaters.equals(((FundBook) other).repeaters)
                 && budgets.equals(((FundBook) other).budgets));
     }
 

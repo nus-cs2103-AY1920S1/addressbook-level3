@@ -26,6 +26,7 @@ import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.testutil.PersonBuilder;
 
@@ -111,6 +112,16 @@ public class AddCommandTest {
 
         @Override
         public void setFundBookFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public RepeaterUniqueId getCurrentRepeaterUniqueId() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentRepeaterUniqueId(RepeaterUniqueId uniqueId) {
             throw new AssertionError("This method should not be called.");
         }
 
