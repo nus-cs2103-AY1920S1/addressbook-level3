@@ -32,13 +32,14 @@ public class TransactionTabParser {
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
+     * @param personModel Model of person package
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format.
      * @throws NoSuchPersonException if the user inputs a person not found in data base.
      * @throws NotANumberException if the user input does not conform the expected format for delete.
      * @throws NoSuchSortException if the user input does not conform the expected format for sort.
      * */
-    public Command parseCommand(String userInput, int transactionListSize, Model personModel)
+    public Command parseCommand(String userInput, Model personModel)
             throws ParseException, NoSuchPersonException, NotANumberException, NoSuchSortException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -50,7 +51,7 @@ public class TransactionTabParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments, transactionListSize, personModel);
+            return new AddCommandParser().parse(arguments, personModel);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments, personModel);
