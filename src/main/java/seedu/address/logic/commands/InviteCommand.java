@@ -71,43 +71,39 @@ public class InviteCommand extends Command {
         List<String> keywords;
         List<Person> findResult;
         List<Integer> idsToInvite = new ArrayList<>();
-        StringBuilder messageNotInvited = new StringBuilder();
-        StringBuilder messageInvited = new StringBuilder();
+        StringBuilder warningMessage = new StringBuilder();
+        StringBuilder successMessage = new StringBuilder();
 
         for (String name : peopleToInvite) {
 
             keywords = Arrays.asList(name.split(" "));
             NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
 
-            try {
-                findResult = model.findPersonAll(predicate);
-                assert findResult != null : "List of people in contacts should not be null.";
-                if (findResult.size() != 1) {
-                    throw new CommandException(String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name));
-                }
-            } catch (CommandException e) {
-                messageNotInvited.append(e.getMessage() + "\n");
-                continue;
-            }
+            findResult = model.findPersonAll(predicate);
+            assert findResult != null : "List of people in contacts should not be null.";
 
-            assert findResult.size() == 1 : "There should only be 1 match";
+            if (findResult.size() != 1) {
+                String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
+                warningMessage.append(warning).append("\n");
+                throw new CommandException(warning);
+            }
 
             Person personToInvite = findResult.get(0);
             Integer idOfPersonToInvite = personToInvite.getPrimaryKey();
 
-            try {
-                if (activityToInviteTo.hasPerson(idOfPersonToInvite)) {
-                    throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY, name));
-                }
-                if (idsToInvite.contains(idOfPersonToInvite)) {
-                    throw new CommandException(String.format(MESSAGE_DUPLICATE_ENTRY, name));
-                }
-                idsToInvite.add(idOfPersonToInvite);
-                messageInvited.append(personToInvite.getName() + "\n");
-            } catch (CommandException e) {
-                messageNotInvited.append(e.getMessage() + "\n");
-                continue;
+            if (activityToInviteTo.hasPerson(idOfPersonToInvite)) {
+                String warning = String.format(MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY, name);
+                warningMessage.append(warning).append("\n");
+                throw new CommandException(warning);
             }
+            if (idsToInvite.contains(idOfPersonToInvite)) {
+                String warning = String.format(MESSAGE_DUPLICATE_ENTRY, name);
+                warningMessage.append(warning).append("\n");
+                throw new CommandException(warning);
+            }
+
+            idsToInvite.add(idOfPersonToInvite);
+            successMessage.append(personToInvite.getName() + "\n");
         }
 
         for (Integer id : idsToInvite) {
@@ -116,7 +112,7 @@ public class InviteCommand extends Command {
 
         activityToInviteTo.updateContextAndView(model);
 
-        return new CommandResult(String.format(MESSAGE_RESULT, messageInvited, messageNotInvited));
+        return new CommandResult(String.format(MESSAGE_RESULT, successMessage, warningMessage));
     }
 
     @Override
