@@ -29,12 +29,16 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private boolean unknown;
 
     // Independent Ui parts residing in this Ui container
     private EarningsListPanel earningsListPanel;
+    private ReminderListPanel reminderListPanel;
     private PersonListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReminderWindow reminderWindow;
     private ReminderBox reminderBox;
 
     @FXML
@@ -69,6 +73,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        this.unknown = false;
+        reminderWindow = new ReminderWindow();
+
     }
 
     public Stage getPrimaryStage() {
@@ -120,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         reminderBox = new ReminderBox();
-        reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -140,7 +147,47 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         reminderBox = new ReminderBox();
-        reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders with reminders list in the window.
+     */
+    void fillReminders() {
+        reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
+        personListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillTasks() {
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -173,6 +220,63 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the reminder window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleReminderBox() {
+        if (!reminderWindow.isShowing()) {
+            reminderWindow.show();
+        } else {
+            reminderWindow.focus();
+        }
+    }
+
+    /**
+     * Switches to the reminder tab.
+     */
+    @FXML
+    public void handleReminder() throws CommandException, ParseException {
+        String userCommand = "change_tab tab/reminders";
+        executeCommand(userCommand);
+    }
+
+    /**
+     * Switches to the earnings tab.
+     */
+    @FXML
+    public void handleEarnings() throws ParseException, CommandException {
+        String userCommand = "change_tab tab/earnings";
+        executeCommand(userCommand);
+    }
+
+    /**
+     * Switches to the calendar tab sorted by the date.
+     */
+    @FXML
+    public void handleCalendarDate() throws ParseException, CommandException {
+        String userCommand = "change_tab tab/calendar";
+        executeCommand(userCommand);
+    }
+
+    /**
+     * Switches to the calendar tab sorted by the task.
+     */
+    @FXML
+    public void handleCalendarTask() throws ParseException, CommandException {
+        String userCommand = "change_tab tab/calendar";
+        executeCommand(userCommand);
+    }
+
+    /**
+     * Switches to the notepad tab.
+     */
+    @FXML
+    public void handleNotes() throws ParseException, CommandException {
+        String userCommand = "change_tab tab/notepad";
+        executeCommand(userCommand);
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -189,12 +293,24 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    private void handleUnknown() {
+        this.unknown = !this.unknown;
+    }
+
     public EarningsListPanel getEarningsListPanel() {
         return earningsListPanel;
     }
 
+    public ReminderListPanel getReminderListPanel() {
+        return reminderListPanel;
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
 
     /**
@@ -204,25 +320,36 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (this.unknown) {
+                CommandResult commandResult = logic.executeUnknown(commandText);
+                if (!commandResult.isUnknown()) {
+                    handleUnknown();
+                }
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
+                return commandResult;
+            } else {
+                CommandResult commandResult = logic.execute(commandText);
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+                if (commandResult.isShowHelp()) {
+                    handleHelp();
+                }
+
+                if (commandResult.isExit()) {
+                    handleExit();
+                }
+
+                if (commandResult.isUnknown()) {
+                    handleUnknown();
+                }
+
+                return commandResult;
             }
 
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            /*if (commandResult.isEarnings()) {
-                Earnings earnings = commandResult.getEarnings();
-                handleEarnings(earnings);
-            }*/
-
-            return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

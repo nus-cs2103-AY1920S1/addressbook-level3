@@ -33,7 +33,6 @@ public class EarningsListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Earnings earnings, boolean empty) {
             super.updateItem(earnings, empty);
-
             if (empty || earnings == null) {
                 setGraphic(null);
                 setText(null);

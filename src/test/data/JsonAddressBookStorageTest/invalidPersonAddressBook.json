@@ -1,9 +1,13 @@
 {
-  "persons": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+  "persons" : [ {
+    "name" : "caesar",
+    "picture" : "caesar.jspg",
+    "classId" : "No Class Assigned Yet!",
+    "attendance" : "0",
+    "result" : "0",
+    "participation" : "0"
   } ],
-  "earning": []
+  "earning" : [ ],
+  "commands" : [ ],
+  "tasks" : [ ]
 }
