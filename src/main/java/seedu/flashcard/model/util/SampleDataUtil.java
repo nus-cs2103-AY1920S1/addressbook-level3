@@ -1,6 +1,7 @@
 package seedu.flashcard.model.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class SampleDataUtil {
     public static Flashcard[] getSampleFlashcards() {
         return new Flashcard[]{
             new McqFlashcard(new Question("Which of the following is true about compactness"),
-                getChoiceSet("The real number space is a compact space",
+                getChoiceList("The real number space is a compact space",
                     "The complex plane is a compact space",
                     "A compact subspace of a compact metric space must be closed",
                     "A closed subspace of a compact metric space must be compact"),
@@ -31,7 +32,7 @@ public class SampleDataUtil {
                      getTagSet("mathematics", "metric space"),
                 new Answer("A compact subspace of a compact metric space must be closed")),
             new McqFlashcard(new Question("Which of the following is true about completeness"),
-                getChoiceSet("The rational number space is a complete space",
+                getChoiceList("The rational number space is a complete space",
                     "Compact spaces are always complete",
                     "A complete subspace of a complete space myst be totally bounded",
                     "Closed subspaces in a complete metric space is also complete"),
@@ -65,10 +66,10 @@ public class SampleDataUtil {
     /**
      * Returns a choice set containing the list of strings given.
      */
-    public static Set<Choice> getChoiceSet(String... strings) {
+    public static List<Choice> getChoiceList(String... strings) {
         return Arrays.stream(strings)
                 .map(Choice::new)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
 }

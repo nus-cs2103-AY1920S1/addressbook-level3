@@ -2,33 +2,34 @@ package seedu.flashcard.model.flashcard;
 
 import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.flashcard.model.tag.Tag;
 
 public class McqFlashcard extends Flashcard {
 
-    private final Set<Choice> choices = new HashSet<>();
+    private final List<Choice> choices = new ArrayList<>();
 
-    public McqFlashcard(Question question, Set<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
+    public McqFlashcard(Question question, List<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
         super(question, definitions, tags, answer);
         this.choices.addAll(choices);
     }
 
     /**
-     * Returns an immutable choice set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable choice list, which throws {@code UnsupportedOperationException}
      * if modification is attempted
      */
-    public Set<Choice> getChoices() {
-        return Collections.unmodifiableSet(choices);
+    public List<Choice> getChoices() {
+        return Collections.unmodifiableList(choices);
     }
 
     /**
      * Returns true if any choices is from the choice list
      */
-    public boolean hasAnyChoice(Set<Choice> choices) {
+    public boolean hasAnyChoice(List<Choice> choices) {
         for (Choice choice : choices) {
             if (getChoices().contains(choice)) {
                 return true;

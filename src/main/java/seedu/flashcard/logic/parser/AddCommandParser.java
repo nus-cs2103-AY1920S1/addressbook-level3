@@ -7,6 +7,7 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -44,7 +45,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Question question = ParserUtil.parseWord(argMultimap.getValue(PREFIX_QUESTION).get());
-        Set<Choice> choices = ParserUtil.parseChoices(argMultimap.getAllValues(PREFIX_CHOICE));
+        List<Choice> choices = ParserUtil.parseChoices(argMultimap.getAllValues(PREFIX_CHOICE));
         Definition definition = ParserUtil.parseDefinition(argMultimap.getValue(PREFIX_DEFINITION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());

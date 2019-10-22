@@ -2,8 +2,10 @@ package seedu.flashcard.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.flashcard.commons.core.index.Index;
@@ -65,15 +67,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> Choices} into a {@code Set<Choices>}.
+     * Parses {@code Collection<String> Choices} into a {@code List<Choices>}.
      */
-    public static Set<Choice> parseChoices(Collection<String> choices) throws ParseException {
+    public static List<Choice> parseChoices(Collection<String> choices) throws ParseException {
         requireNonNull(choices);
-        final Set<Choice> choiceSet = new HashSet<>();
+        final List<Choice> choiceList = new ArrayList<>();
         for (String choice : choices) {
-            choiceSet.add(parseChoice(choice));
+            choiceList.add(parseChoice(choice));
         }
-        return choiceSet;
+        return choiceList;
     }
 
     /**

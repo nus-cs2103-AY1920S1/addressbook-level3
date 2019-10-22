@@ -7,6 +7,7 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.flashcard.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -95,7 +96,7 @@ public class EditCommand extends Command {
                                                       EditFlashcardDescriptor editFlashcardDescriptor) {
         assert flashcardToEdit != null;
         Question updatedQuestion = editFlashcardDescriptor.getQuestion().orElse(flashcardToEdit.getQuestion());
-        Set<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
+        List<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
         Definition updatedDefinition = editFlashcardDescriptor.getDefinition().orElse(flashcardToEdit.getDefinition());
         Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
         Answer updatedAnswer = editFlashcardDescriptor.getAnswer().orElse(flashcardToEdit.getAnswer());
@@ -137,7 +138,7 @@ public class EditCommand extends Command {
 
         private Question question;
         private Definition definition;
-        private Set<Choice> choices;
+        private List<Choice> choices;
         private Set<Tag> tags;
         private Answer answer;
 
@@ -172,8 +173,8 @@ public class EditCommand extends Command {
          * Sets {@code choices} to this object's {@code choices}.
          * A defensive copy of {@code choices} is used internally.
          */
-        public void setChoices(Set<Choice> choices) {
-            this.choices = (choices != null) ? new HashSet<>(choices) : null;
+        public void setChoices(List<Choice> choices) {
+            this.choices = (choices != null) ? new ArrayList<>(choices) : null;
         }
 
         /**
@@ -181,8 +182,8 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code choice} is null.
          */
-        public Optional<Set<Choice>> getChoices() {
-            return (choices != null) ? Optional.of(Collections.unmodifiableSet(choices)) : Optional.empty();
+        public Optional<List<Choice>> getChoices() {
+            return (choices != null) ? Optional.of(Collections.unmodifiableList(choices)) : Optional.empty();
         }
 
         public void setDefinition(Definition definition) {

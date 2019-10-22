@@ -120,7 +120,7 @@ public class JsonAdaptedFlashcard {
             flashcardChoices.add(choice.toModelType());
         }
 
-        final Set<Choice> modelChoices = new HashSet<>(flashcardChoices);
+        final List<Choice> modelChoices = new ArrayList<>(flashcardChoices);
 
         if (type == "McqFlashcard") {
             return new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer);

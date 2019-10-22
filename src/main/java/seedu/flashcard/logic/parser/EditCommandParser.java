@@ -10,6 +10,7 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -74,14 +75,14 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code choices} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero choices.
      */
-    private Optional<Set<Choice>> parseChoicesForEdit(Collection<String> choices) throws ParseException {
+    private Optional<List<Choice>> parseChoicesForEdit(Collection<String> choices) throws ParseException {
         assert choices != null;
 
         if (choices.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> choiceSet = choices.size() == 1 && choices.contains("") ? Collections.emptySet() : choices;
-        return Optional.of(ParserUtil.parseChoices(choiceSet));
+        Collection<String> choiceList = choices.size() == 1 && choices.contains("") ? Collections.emptyList() : choices;
+        return Optional.of(ParserUtil.parseChoices(choiceList));
     }
 
     /**
