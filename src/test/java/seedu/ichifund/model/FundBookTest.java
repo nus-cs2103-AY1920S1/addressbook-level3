@@ -22,6 +22,7 @@ import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.person.exceptions.DuplicatePersonException;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.testutil.BudgetBuilder;
 import seedu.ichifund.testutil.PersonBuilder;
@@ -57,11 +58,12 @@ public class FundBookTest {
         Repeater repeater = new RepeaterBuilder().build();
         Budget budget = new BudgetBuilder().build();
         Transaction transaction = new TransactionBuilder().build();
+        RepeaterUniqueId currentRepeaterUniqueId = new RepeaterUniqueId("0");
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         List<Repeater> repeaters = Collections.singletonList(repeater);
         List<Budget> budgets = Collections.singletonList(budget);
         List<Transaction> transactions = Collections.singletonList(transaction);
-        FundBookStub newData = new FundBookStub(newPersons, repeaters, budgets, transactions);
+        FundBookStub newData = new FundBookStub(currentRepeaterUniqueId, newPersons, repeaters, budgets, transactions);
 
         assertThrows(DuplicatePersonException.class, () -> fundBook.resetData(newData));
     }
@@ -99,17 +101,24 @@ public class FundBookTest {
      * A stub ReadOnlyFundBook whose persons list can violate interface constraints.
      */
     private static class FundBookStub implements ReadOnlyFundBook {
+        private RepeaterUniqueId currentRepeaterUniqueId = new RepeaterUniqueId("0");
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Repeater> repeaters = FXCollections.observableArrayList();
         private final ObservableList<Budget> budgets = FXCollections.observableArrayList();
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
-        FundBookStub(Collection<Person> persons, Collection<Repeater> repeaters, Collection<Budget> budgets,
-                     Collection<Transaction> transactions) {
+        FundBookStub(RepeaterUniqueId currentRepeaterUniqueId, Collection<Person> persons,
+                Collection<Repeater> repeaters, Collection<Budget> budgets, Collection<Transaction> transactions) {
+            this.currentRepeaterUniqueId = currentRepeaterUniqueId;
             this.persons.setAll(persons);
             this.repeaters.setAll(repeaters);
             this.budgets.setAll(budgets);
             this.transactions.setAll(transactions);
+        }
+
+        @Override
+        public RepeaterUniqueId getCurrentRepeaterUniqueId() {
+            return currentRepeaterUniqueId;
         }
 
         @Override

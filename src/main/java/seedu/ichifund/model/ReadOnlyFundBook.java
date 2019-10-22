@@ -4,12 +4,18 @@ import javafx.collections.ObservableList;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Unmodifiable view of an fund book
  */
 public interface ReadOnlyFundBook {
+
+    /**
+     * Returns an unmodifiable view of the current repeater unique id.
+     */
+    RepeaterUniqueId getCurrentRepeaterUniqueId();
 
     /**
      * Returns an unmodifiable view of the persons list.
