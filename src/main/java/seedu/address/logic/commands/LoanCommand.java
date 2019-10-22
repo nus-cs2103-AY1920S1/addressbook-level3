@@ -74,8 +74,8 @@ public class LoanCommand extends Command {
 
         // replace the previous Book object with a new Book object that has a Loan
         model.setBook(bookToBeLoaned, loanedOutBook);
-        servingBorrower.addNewLoan(loan); // add Loan object to Borrower
         model.addLoan(loan); // add Loan object to LoanRecords in model
+        model.servingBorrowerNewLoan(loan); // add Loan object to Borrower's currentLoanList
 
         try {
             LoanSlipUtil.mountLoanSlip(loan, loanedOutBook, servingBorrower);
