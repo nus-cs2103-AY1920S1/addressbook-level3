@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,7 +22,6 @@ import seedu.address.logic.commands.loadcommands.CreateCommand;
 import seedu.address.logic.commands.loadcommands.ExportCommand;
 import seedu.address.logic.commands.loadcommands.ImportCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
-import seedu.address.logic.parser.DukemonParser;
 import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
@@ -50,7 +48,6 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     private final Model model;
     private final Storage storage;
-    private final DukemonParser dukemonParser;
 
     private final ParserManager parserManager;
 
@@ -62,9 +59,8 @@ public class LogicManager implements Logic, UiLogicHelper {
         Step 9.
         this.game = game //get from constructor
          */
-        dukemonParser = new DukemonParser();
 
-        parserManager = new ParserManager();
+        parserManager = new ParserManager(model);
     }
 
     @Override
@@ -255,12 +251,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     @Override
     public List<ModeEnum> getModes() {
-        List<ModeEnum> temp = new ArrayList<>();
-        temp.add(ModeEnum.APP);
-        temp.add(ModeEnum.LOAD);
-        temp.add(ModeEnum.GAME);
-        temp.add(ModeEnum.SETTINGS);
-        return temp;
+        return parserManager.getModes();
     }
 
     @Override

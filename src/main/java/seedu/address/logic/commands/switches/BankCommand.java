@@ -30,6 +30,10 @@ public class BankCommand extends SwitchCommand {
         this.name = name;
     }
 
+    public BankCommand() {
+        this.name = null;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         WordBankList wbl = model.getWordBankList();

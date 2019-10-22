@@ -18,7 +18,7 @@
                         <ComboBox fx:id="commandComboField" prefWidth="150.0" promptText="load" stylesheets="@DarkTheme.css" />
                      </children>
                   </VBox>
-                 <TextField fx:id="commandTextField" onAction="#handleCommandEntered" prefHeight="40.0" prefWidth="1017.0" promptText="Enter command here..." text="setting" HBox.hgrow="ALWAYS" />
+                 <TextField fx:id="commandTextField" onAction="#handleCommandEntered" prefHeight="40.0" prefWidth="1017.0" promptText="Enter command here..." text="" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <MenuBar fx:id="commandMenuField" prefHeight="3.0" prefWidth="1077.0">

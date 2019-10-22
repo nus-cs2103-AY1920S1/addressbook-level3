@@ -9,17 +9,54 @@ import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ClassUtil {
 
+    private Model model;
+    private List<ClassPair> classPairs;
+    private List<ClassPair> filteredList;
 
+    public ClassUtil (Model model) {
+        this.model = model;
+        this.classPairs = new ArrayList<>();
+        this.filteredList = new ArrayList<>();
+    }
 
-    public static List<String> getAttribute(List<ClassPair> classes, String attr) {
+    public void add(ClassPair classPair) {
+        classPairs.add(classPair);
+    }
+
+    /**
+     *  Filters list of classes to only include valid ones in processing
+     */
+    private void filterList() {
+        filteredList.clear();
+        for (ClassPair clsPair : classPairs) {
+            System.out.println("FILTERING list");
+            try {
+                Class cls = clsPair.getCommand();
+                Constructor cons = cls.getConstructor();
+                Command test = (Command) cons.newInstance();
+                boolean temp = test.precondition(model);
+                System.out.println(temp);
+                if (temp) {
+                    filteredList.add(clsPair);
+                }
+            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
+                    | InvocationTargetException e) {
+                System.out.println("Erorrorror");
+            }
+        }
+    }
+
+    public List<String> getAttribute(String attr) {
+        filterList();
         List<String> result = new ArrayList<>();
-        for (ClassPair clsPair : classes) {
+        for (ClassPair clsPair : filteredList) {
             try {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField(attr);
@@ -32,9 +69,10 @@ public class ClassUtil {
         return result;
     }
 
-    public static Command getCommandInstance(List<ClassPair> classes, String commandWord, String arguments)
+    public Command getCommandInstance(String commandWord, String arguments)
             throws ParseException {
-        for (ClassPair clsPair : classes) {
+        filterList();
+        for (ClassPair clsPair : filteredList) {
             try {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField("COMMAND_WORD");

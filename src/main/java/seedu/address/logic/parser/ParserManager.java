@@ -19,6 +19,7 @@ import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
+import seedu.address.model.Model;
 
 
 
@@ -35,18 +36,21 @@ public class ParserManager {
     private ModeParser modeParser;
     private ModeEnum mode;
     private ModeEnum tempMode;
-    private List<ClassPair> commandParserClassPairs;
 
-    public ParserManager () {
+    private ClassUtil classUtil;
+    private Model model;
+
+    public ParserManager (Model model) {
         this.mode = ModeEnum.LOAD;
         this.modeParser = setModeParser();
         this.tempMode = null;
-        this.commandParserClassPairs = new ArrayList<>();
-        commandParserClassPairs.add(new ClassPair(BankCommand.class, BankCommandParser.class));
-        commandParserClassPairs.add(new ClassPair(HomeCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(LoadScreenCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(StartCommand.class, null));
-        commandParserClassPairs.add(new ClassPair(SwitchToSettingsCommand.class, null));
+        this.classUtil = new ClassUtil(model);
+        this.model = model;
+        classUtil.add(new ClassPair(BankCommand.class, BankCommandParser.class));
+        classUtil.add(new ClassPair(HomeCommand.class, null));
+        classUtil.add(new ClassPair(LoadScreenCommand.class, null));
+        classUtil.add(new ClassPair(StartCommand.class, null));
+        classUtil.add(new ClassPair(SwitchToSettingsCommand.class, null));
     }
 
     public ModeEnum getMode() {
@@ -56,7 +60,7 @@ public class ParserManager {
     private ModeParser setModeParser() {
         switch (this.mode) {
         case APP:
-            return new AppModeParser();
+            return new AppModeParser(model);
         case LOAD:
             return new LoadModeParser();
         case SETTINGS:
@@ -85,8 +89,8 @@ public class ParserManager {
 
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
-        for (String txt : ClassUtil.getAttribute(commandParserClassPairs, "COMMAND_WORD")) {
-            if (txt.contains(input)) {
+        for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
+            if (txt.contains(input) || input.contains(txt)) {
                 temp.add(new AutoFillAction(txt));
             }
         }
@@ -132,7 +136,17 @@ public class ParserManager {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        return (SwitchCommand) ClassUtil.getCommandInstance(commandParserClassPairs, commandWord, arguments);
+        return (SwitchCommand) classUtil.getCommandInstance(commandWord, arguments);
+    }
+
+    public List<ModeEnum> getModes() {
+        List<ModeEnum> temp = new ArrayList<>();
+        // TODO make it dynamic to switch command;
+        temp.add(ModeEnum.APP);
+        temp.add(ModeEnum.LOAD);
+        temp.add(ModeEnum.GAME);
+        temp.add(ModeEnum.SETTINGS);
+        return temp;
     }
 
 }
