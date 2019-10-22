@@ -55,6 +55,11 @@ public class CommandTestUtil {
     public static final String START_DATE_DESC_SCHOOL = " " + PREFIX_START_DATE + VALID_START_DATE_SCHOOL;
     public static final String PERIOD_DESC_SCHOOL = " " + PREFIX_PERIOD + VALID_PERIOD_SCHOOL;
 
+    public static final String DESCRIPTION_DESC_SCHOOL = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_SCHOOL;
+    public static final String AMOUNT_DESC_SCHOOL = " " + PREFIX_PRICE + VALID_AMOUNT_SCHOOL;
+    public static final String START_DATE_DESC_SCHOOL = " " + PREFIX_START_DATE + VALID_START_DATE_SCHOOL;
+    public static final String PERIOD_DESC_SCHOOL = " " + PREFIX_PERIOD + VALID_PERIOD_SCHOOL;
+
     // '&' not allowed in descriptions
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";
     // 'a' not allowed in prices
