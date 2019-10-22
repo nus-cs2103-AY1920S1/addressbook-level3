@@ -1,5 +1,7 @@
 package dream.fcard.model.cards;
 
+//@author huiminlim
+
 /*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -69,3 +71,4 @@ class MultipleChoiceCardTest {
 
      */
 }
+//@author

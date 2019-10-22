@@ -1,3 +1,5 @@
+//@author huiminlim
+
 package dream.fcard.model.cards;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,3 +17,4 @@ class FrontBackCardTest {
         assertEquals(false, card.evaluate("abc"));
     }
 }
+//@author
