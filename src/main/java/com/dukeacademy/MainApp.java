@@ -1,5 +1,6 @@
 package com.dukeacademy;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -12,8 +13,9 @@ import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
 import com.dukeacademy.logic.commands.CommandLogicManager;
-import com.dukeacademy.logic.program.ProgramSubmissionLogic;
-import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
+import com.dukeacademy.logic.program.exceptions.LogicCreationException;
+import com.dukeacademy.logic.question.QuestionsLogicManager;
 import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.storage.Storage;
@@ -24,6 +26,7 @@ import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 import com.dukeacademy.storage.question.QuestionBankStorage;
 import com.dukeacademy.ui.Ui;
 
+import com.dukeacademy.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -40,8 +43,8 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Config config;
     protected CommandLogicManager commandLogic;
-    protected QuestionsLogic questionsLogic;
-    protected ProgramSubmissionLogic programSubmissionLogic;
+    protected QuestionsLogicManager questionsLogic;
+    protected ProgramSubmissionLogicManager programSubmissionLogic;
 
     @Override
     public void init() throws Exception {
@@ -63,22 +66,39 @@ public class MainApp extends Application {
         questionsLogic = this.initQuestionsLogic(userPrefs);
         programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
         commandLogic = this.initCommandLogic(userPrefs);
+        ui = this.initUi(userPrefs);
     }
 
-    private QuestionsLogic initQuestionsLogic(ReadOnlyUserPrefs userPrefs) {
-        // TODO: initialize questions logic from user prefs
+    private QuestionsLogicManager initQuestionsLogic(ReadOnlyUserPrefs userPrefs) {
+        QuestionBankStorage storage = new JsonQuestionBankStorage(userPrefs.getQuestionBankFilePath());
+        return new QuestionsLogicManager(storage);
     }
 
-    private ProgramSubmissionLogic initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
-        // TODO: initialize program submission logic from user prefs
+    private ProgramSubmissionLogicManager initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
+        // TODO: eventually store program execution path in user prefs
+        String outputPath = System.getProperty("user.home") + File.separator + "DukeAcademy";
+        File file = new File(outputPath);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        try {
+            return new ProgramSubmissionLogicManager(outputPath);
+        } catch (LogicCreationException e) {
+            logger.info("Fatal: failed to create program submission logic. Exiting app.");
+            this.stop();
+            throw new RuntimeException();
+        }
     }
 
     private CommandLogicManager initCommandLogic(ReadOnlyUserPrefs userPrefs) {
-        // TODO: initialize command logic from user prefs and register all command factories
+        CommandLogicManager commandLogicManager = new CommandLogicManager();
+        // TODO: create and register commands
+        return commandLogicManager;
     }
 
     private Ui initUi(ReadOnlyUserPrefs userPrefs) {
-        // TODO: initialize ui from user prefs
+        return new UiManager(commandLogic, questionsLogic, programSubmissionLogic, userPrefs.getGuiSettings());
     }
 
     private void initLogging(Config config) {
@@ -162,10 +182,6 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Difficulty Book ] =============================");
-//        try {
-//            storage.saveUserPrefs(model.getUserPrefs());
-//        } catch (IOException e) {
-//            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-//        }
+        this.programSubmissionLogic.closeProgramSubmissionLogicManager();
     }
 }

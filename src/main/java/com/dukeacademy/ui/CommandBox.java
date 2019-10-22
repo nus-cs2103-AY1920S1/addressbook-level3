@@ -70,7 +70,6 @@ public class CommandBox extends UiPart<Region> {
         /**
          * Executes the command and returns the result.
          *
-         * @see Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }

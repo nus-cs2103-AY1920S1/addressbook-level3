@@ -1,9 +1,11 @@
 package com.dukeacademy.ui;
 
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandLogicManager;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
@@ -34,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    protected CommandLogicManager commandLogic;
+    protected CommandLogic commandLogic;
     protected QuestionsLogic questionsLogic;
     protected ProgramSubmissionLogic programSubmissionLogic;
 
@@ -66,16 +68,17 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane runCodeResultPlaceholder;
 
-    public MainWindow(Stage primaryStage, CommandLogicManager commandLogic, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
+    public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic, GuiSettings guiSettings) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.commandLogic = commandLogic;
+        this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
 
         // Configure the UI
-//        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(guiSettings);
 
         setAccelerators();
 
@@ -123,14 +126,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        questionListPanel = new QuestionListPanel(logic.getFilteredPersonList());
+        questionListPanel = new QuestionListPanel(questionsLogic.getFilteredQuestionsList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter =
-            new StatusBarFooter(logic.getQuestionBankFilePath());
+            new StatusBarFooter(Path.of("hello"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -180,9 +183,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -202,11 +202,10 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = commandLogic.executeCommand(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

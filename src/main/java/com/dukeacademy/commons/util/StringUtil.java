@@ -75,7 +75,7 @@ public class StringUtil {
         if (!s.matches(VALID_WORD_REGEX)) {
             throw new IllegalValueException("String is not a valid word.");
         }
-        return s.split(" ", 2)[0];
+        return s.split(" ", 2)[0].trim();
     }
 
     public static String removeFirstWord(String s) throws IllegalValueException {
@@ -86,7 +86,7 @@ public class StringUtil {
         if (s.split("\\s", 2).length == 1) {
             return "";
         } else {
-            return s.split("\\s", 2)[1];
+            return s.split("\\s", 2)[1].stripLeading();
         }
     }
 }

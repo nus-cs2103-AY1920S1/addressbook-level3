@@ -25,7 +25,7 @@ public class CommandParser {
             String commandWord = StringUtil.getFirstWord(commandText);
             String commandArguments = StringUtil.removeFirstWord(commandText);
 
-            return Optional.of(this.commandFactoryMap.get(commandWord))
+            return Optional.ofNullable(this.commandFactoryMap.get(commandWord))
                     .map(supplier -> {
                         try {
                             return supplier.getCommand(commandArguments);
