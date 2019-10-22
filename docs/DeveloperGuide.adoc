@@ -243,8 +243,8 @@ _{Explain here how the data encryption feature will be implemented}_
 // end::dataencryption[]
 
 // tag::genpdf[]
-=== [Proposed] Generate PDF feature
-==== Proposed Implementation
+=== Generate PDF feature
+==== Implementation
 
 The generate PDF feature is facilitated by `ReportGenerator`.
 It extends `Mortago` with the ability to create a report, supported by iText external library.
@@ -255,7 +255,7 @@ Additionally, it implements the following operations:
 
 The following sequence diagram shows how the execute operation works:
 
-image::UndoSequenceDiagram.png[]
+image::GenReportSequenceDiagram.png[]
 
 NOTE: The lifeline for `GenReportCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
