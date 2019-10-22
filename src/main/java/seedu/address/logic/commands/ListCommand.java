@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORDS;
 
 import seedu.address.model.Model;
 import seedu.address.ui.DisplayPaneType;
@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
