@@ -1,7 +1,8 @@
 package seedu.address.model.incident;
 
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
+
 import java.util.Arrays;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,37 +16,64 @@ import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
 
+
 /**
  * Represents an incident report in the IMS.
  */
 public class Incident {
 
-    //is autofilled
+    // auto-filled fields
+
+    /** The operator on call who created this incident report. */
     private final Person operator;
+
+    /** Date and time information of this incident report. */
     private final IncidentDateTime incidentDateTime;
-    // private final Vehicle car;
+
+    /** The vehicle assigned to investigate this incident. */
+    //private Vehicle vehicle; TODO add vehicle details to incident report
+
+    /** The unique id associated with this incident. */
     private final IncidentId id;
 
-    //needs to be entered by operator
-    private final Description incidentDesc;
+    /** The location associated with this incident. */
     private final District location;
-    private final CallerNumber callerNumber;
 
+    // fields to be filled in by the operator
 
-    /**
-     * Creates a new Incident report, fields will be filled in through prompts in the GUI.
-     * @param callerNumber is the phone number of the caller that reported the incident.
+    /** A description of this incident. */
+    private Description description;
+
+    /** The caller number associated with this incident. */
+    private CallerNumber callerNumber;
+
+    /** Enum to track incident status. */
+    // draft - not all fields filled AND not submitted.
+    // complete - all fields filled AND not submitted.
+    // final - all fields filled AND submitted.
+    private enum Status {
+        DRAFT, COMPLETE, FINAL
+    }
+
+    private Status status;
+
+    /** Constructor for generating an incident draft according to 'new' command i.e. fills auto-filled fields.
+     * @param operator operator generating the new incident report.
+     * @param location district number where the incident occurred.
      */
-    public Incident(CallerNumber callerNumber, District location, Description description) {
-        // TODO: autofill operator upon sign in. Currently dummy data
-        this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends"), new Username("user1"), new Password("pass123"));
+    public Incident (Person operator, District location) {
+        this.operator = operator;
+        this.location = location;
+
         this.incidentDateTime = new IncidentDateTime();
         this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
-        // changed by Atharv - incident constructor takes in CallerNumber, District, and Description, not String
-        this.incidentDesc = description;
-        this.location = location;
-        this.callerNumber = callerNumber;
+        // this.vehicle = TODO
+
+        this.status = Status.DRAFT; // newly created report
+
+        // set to null as they will be filled in later
+        this.description = null;
+        this.callerNumber = null;
     }
 
     // load past incident cases
@@ -55,60 +83,58 @@ public class Incident {
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
         this.id = id;
-        this.incidentDesc = new Description("Fluff description for search testing arson fire fires");
+        this.description = new Description("Fluff description for search testing arson fire fires");
         this.location = location;
         this.callerNumber = new CallerNumber("98989898");
     }
 
+    // constructor used by edit command.
+    // TODO change to accommodate 'Status'. i.e. only 'FINAL' reports can be edited.
     public Incident(IncidentId id, District district, IncidentDateTime incidentDateTime,
                     CallerNumber callerNumber, Description desc) {
+
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
         this.location = district;
         this.callerNumber = callerNumber;
-        this.incidentDesc = desc;
+        this.description = desc;
         this.id = id;
-    }
-
-
-    /**
-     * static method to prompt operator for incident location
-     * @return district which will be stored to location
-     */
-    public static District promptForLocation() {
-        System.out.println("Enter location:"); //need to change to GUI prompt
-        Scanner sc = new Scanner(System.in); //need to change to GUI input
-        int dist = Integer.parseInt(sc.next());
-        while (!District.isValidDistrict(dist)) {
-            System.out.println("Please enter a valid district");
-            dist = Integer.parseInt(sc.next());
-        }
-        return new District(dist);
+        // this.vehicle = TODO
     }
 
     /**
-     * static method to prompt operator for incident description
-     * @return a new description object
+     * Updates incident report by filling callerNumber and description fields. Triggered by 'fill' command.
+     * @param callerNumber phone number of the caller reporting the incident.
+     * @param description description of this incident.
      */
-    public static Description promptForDescription() {
-        System.out.println("Enter incident description now? y/n"); //change to GUI
-        Scanner sc = new Scanner(System.in); //change to GUI
-        String desc = "";
-        if (sc.next().equals("y")) {
-            System.out.println("Please enter description:");
-            desc = sc.nextLine();
-        }
-        return new Description(desc);
+    public void updateReport(CallerNumber callerNumber, Description description) {
+        this.callerNumber = callerNumber;
+        this.description = description;
+        updateStatus(Status.COMPLETE); // all fields have been filled
     }
 
+    /**
+     * Submits this report by updating its status.
+     */
+    public void submit() {
+        updateStatus(Status.FINAL); // report has been submitted
+    }
+
+    /**
+     * Updates status of this incident report with given status.
+     * @param updatedStatus updated status of this incident report.
+     */
+    private void updateStatus(Status updatedStatus) {
+        this.status = updatedStatus;
+    }
 
     public IncidentDateTime getDateTime() {
         return this.incidentDateTime;
     }
 
     public Description getDesc() {
-        return this.incidentDesc;
+        return this.description;
     }
 
     public CallerNumber getCallerNumber() {
@@ -132,6 +158,17 @@ public class Incident {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * To be uncommented after vehicle assignment is done. Commented now to avoid code quality check failures.
+     * public void addVehicle(Vehicle vehicle) {
+     *    this.vehicle = vehicle;
+     * }
+     */
 
     /**
      * Returns true if both Vehicles of the same VehicleType have at least one other identity field that is the same.
@@ -164,8 +201,7 @@ public class Incident {
         }
 
         Incident otherIncident = (Incident) other;
-        //return otherIncident.getIncidentId().equals(getIncidentId())
-        //&& otherIncident.getDesc().equals(getDesc());
+
         return otherIncident.getDateTime().equals(getDateTime())
                 && otherIncident.getCallerNumber().equals(getCallerNumber())
                 && otherIncident.getDesc().equals(getDesc())
@@ -176,6 +212,6 @@ public class Incident {
     @Override
     public String toString() {
         return /*"Incident datetime:" + incidentDateTime.toString() +
-                "\n + */"Incident Description: " + incidentDesc.toString();
+                "\n + */"Incident Description: " + description.toString();
     }
 }

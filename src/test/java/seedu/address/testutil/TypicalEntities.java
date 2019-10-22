@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.IncidentManager;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
@@ -73,19 +73,21 @@ public class TypicalEntities {
     private TypicalEntities() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code IncidentManager} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static IncidentManager getTypicalIncidentManager() {
+        IncidentManager ab = new IncidentManager();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        ab.addIncident(new Incident(new IncidentId(3, 2018), new District(6),
+                new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
         ab.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
-        ab.addIncident(new Incident(new IncidentId(3, 2018), new District(3),
-                new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
+
         ab.addIncident(new Incident(new IncidentId(2, 2019), new District(2),
                 new IncidentDateTime("2019-02-09T11:04:22"), "Alex Teo"));
+
         return ab;
     }
 

@@ -13,7 +13,7 @@ endif::[]
 Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 
 == Introduction
-When working on Address Book, you will most likely find that some features and fields that are no longer necessary.
+When working on Incident Manager, you will most likely find that some features and fields that are no longer necessary.
 In scenarios like this, you can consider refactoring the existing `Person` model to suit your use case.
 
 In this tutorial, we'll do exactly just that and remove the `address` field from `Person`.
@@ -102,7 +102,7 @@ What's left to do is to clean up references to `Address` in test data and docume
 In `src/test/data/`, data meant for testing purposes are stored.
 While keeping the `address` field in the json files does not cause the tests to fail, it is not good practice to let cruft from old features accumulate.
 
-.invalidPersonAddressBook.json
+.invalidPersonIncidentManager.json
 [source, json]
 ```
 {
