@@ -28,8 +28,13 @@ public abstract class ScrollCommand extends Command {
             this.pane = "Illegal";
         }
     }
+    
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         return new CommandResult("Scrolling");
+    }
+    
+    public String getCommandWord() {
+        return this.COMMAND_WORD;
     }
 }
