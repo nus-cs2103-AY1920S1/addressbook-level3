@@ -154,12 +154,15 @@ Classes used by multiple components are in the `seedu.calofit.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=======
 include::DevGuideFeatureImplementations/report.adoc[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+include::DevGuideFeatureImplementations/suggest.adoc[]
 
-_{Explain here how the data encryption feature will be implemented}_
+// tag::dataencryption[]
+=== [Proposed] Notification
+
+_{Explain here how the notification feature will be implemented}_
 
 // end::dataencryption[]
 

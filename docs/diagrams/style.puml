@@ -42,6 +42,15 @@
 
 !define USER_COLOR #000000
 
+!define PARSER_COLOR #Olive
+
+!define COMMAND_COLOR #Coral
+
+!define CALORIE_COLOR #Purple
+
+!define MEALLOG_COLOR #Silver
+
+
 skinparam BackgroundColor #FFFFFFF
 
 skinparam Shadowing false
