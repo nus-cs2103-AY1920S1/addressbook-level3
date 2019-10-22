@@ -134,7 +134,7 @@ public class Order implements Identifiable<Order> {
         }
 
         return other != null
-                && other.getId().equals(getId());
+                && other.getPhone().equals(getPhone());
     }
 
 }

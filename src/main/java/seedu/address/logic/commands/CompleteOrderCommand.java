@@ -59,6 +59,7 @@ public class CompleteOrderCommand extends Command {
         Order completedOrder = new Order(id, customer, phone, price, Status.COMPLETED, schedule, tags);
 
         model.setOrder(orderToComplete, completedOrder);
+        model.deletePhone(phone);
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete), UiChange.ORDER);
     }
