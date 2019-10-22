@@ -157,6 +157,8 @@ This section describes some noteworthy details on how certain features are imple
 =======
 include::DevGuideFeatureImplementations/report.adoc[]
 
+include::DevGuideFeatureImplementations/suggest.adoc[]
+
 // tag::dataencryption[]
 === [Proposed] Notification
 

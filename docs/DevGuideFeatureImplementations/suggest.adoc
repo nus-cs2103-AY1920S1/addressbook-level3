@@ -22,7 +22,7 @@ Step 2. The user enters `"suggest"` in the Command Line Input to invoke the `Sug
 
 Step 3. The success message will be return, while printing the updated dish list on CaloFit.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the suggest operation works:
 
 image::SuggestCommand.png[]
 
