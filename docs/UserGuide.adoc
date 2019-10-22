@@ -211,46 +211,49 @@ Format: `goal delete <id ...>`
 ==== Add a new loan : `loan out|in`
 
 Adds a new loan out/in entry.
-Each person has a unique ID and each person's loans have unique IDs (across both out and in entries).
-If date is not given, it is set to the default date.
+Each loan has a unique ID (across both out and in entries).
+If date is not given, it is set to the current date.
 
-Format: `loan out|in p/<person's name> x/<amount> d/<description> [w/<date>]`
+Format: `loan out|in p/<person's name> x/<amount> [w/<date>] [d/<description>]`
 
 ==== List loans : `loan list`
 
-Displays a list of all loans, sorted by newest first.
+Displays a list of all loans, sorted alphabetically by person first, then by newest for each person's loans.
 
-Format: `loan list [p/<person's name ...>] [o|i] [s/a]`
+Format: `loan list [p/<person ...>] [o|i] [s/<a|p>]`
 ****
-* Adding a person's name filters the list to that/those person(s)'s loans.
+* Adding a person's name filters the list to that/those person(s)'s loans only.
 * Adding ‘o’ argument filters list to out loans only.
 * Adding ‘i’ argument filters list to in loans only.
-* Add `s/a` to sort the list by amount.
+* Add `s/a` to sort the list by amount, or `s/p` to sort by person.
 ****
 
 ==== Edit loan : `loan edit`
 
 Edits the specified field of the loan entry with the specified ID.
 
-Format: `loan edit <person number>.<loan number> [x/<amount>] [d/<description>] [w/<date>]`
+Format: `loan edit <loan ID> [<p/person>] [x/<amount>] [d/<description>] [w/<date>]`
 
 ==== Mark loan(s) as paid : `loan paid`
 
 Marks the specified loan(s) as paid.
+If a person's name is specified, all their loans are marked as paid.
 
-Format: `loan paid <person number>[.<loan number>[- ...]] ...`
+Format: `loan paid <loan ID ...> [<p/person ...>]`
 
 ==== Mark loan(s) as unpaid : `loan unpaid`
 
 Marks the specified loan(s) as unpaid.
+If a person's name is specified, all their loans are marked as unpaid.
 
-Format:  `loan unpaid <person number>[.<loan number>[- ...]] ...`
+Format: `loan unpaid <loan ID ...> <p/person ...>`
 
 ==== Delete loan(s) : `loan delete`
 
 Deletes the loan(s) with the specified loan ID(s).
+If a person's name is specified, all of that person's loans are deleted.
 
-Format: `loan delete <person number>[.<loan number>[- ...]] ...`
+Format: `loan delete <loan ID ...> <p/person ...>`
 
 ==== Calculate loans : `loan split`
 
