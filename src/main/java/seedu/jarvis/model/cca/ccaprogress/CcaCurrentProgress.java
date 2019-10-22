@@ -85,4 +85,20 @@ public class CcaCurrentProgress {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CcaCurrentProgress)) {
+            return false;
+        }
+
+        CcaCurrentProgress otherCcaCurrentProgress = (CcaCurrentProgress) other;
+        return otherCcaCurrentProgress.maxProgress == this.maxProgress
+                && otherCcaCurrentProgress.currentProgress == this.currentProgress;
+    }
+
 }

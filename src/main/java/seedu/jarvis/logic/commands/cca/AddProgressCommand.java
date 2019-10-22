@@ -1,5 +1,9 @@
 package seedu.jarvis.logic.commands.cca;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVELS;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -8,10 +12,6 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVELS;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
 
 /**
  * Adds a progress tracker to the specified cca .
@@ -72,14 +72,10 @@ public class AddProgressCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
         }
 
-        /**
-         * TODO Does the implementation below violate the law of demeter?
-         */
         targetCca = model.getCca(targetIndex);
         model.addProgress(targetCca, toAddCcaProgressList);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
-//        return new CommandResult("Calling from add-progress command - work in progress!!");
     }
 
     @Override

@@ -457,6 +457,11 @@ public class ModelManager implements Model {
         ccaTracker.addProgress(targetCca, toAddCcaProgressList);
     }
 
+    @Override
+    public void increaseProgress(Index index) {
+        ccaTracker.increaseProgress(index);
+    }
+
     //=========== Planner =============================================================
 
     /**

@@ -1,12 +1,12 @@
 package seedu.jarvis.model.cca;
 
-import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
-import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
-
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+
+import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
 
 /**
  * Represents a Cca in the Jarvis parser.
@@ -60,15 +60,30 @@ public class Cca {
         return ccaProgress;
     }
 
+    /**
+     * Returns true if the cca progresslist is empty.
+     *
+     * @return true if the cca progresslist is empty.
+     */
     public boolean ccaProgressListIsEmpty() {
         return ccaProgress.ccaProgressListIsEmpty();
     }
 
+    /**
+     * Adds a progresslist to the {@code CcaProgress}.
+     */
     public void addProgress(CcaProgressList ccaProgressList) {
         if (!ccaProgressListIsEmpty()) {
             throw new CcaProgressAlreadySetException();
         }
         ccaProgress.setMilestones(ccaProgressList);
+    }
+
+    /**
+     * Increments the progress of the {@code Cca} by 1 {@code Milestone}.
+     */
+    public void increaseProgress() {
+        ccaProgress.increaseProgress();
     }
 
     /**

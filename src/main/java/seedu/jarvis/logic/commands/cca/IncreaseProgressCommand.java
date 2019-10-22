@@ -2,8 +2,6 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Objects;
-
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -53,11 +51,9 @@ public class IncreaseProgressCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
         }
 
-        /**
-         * TODO Implement method in model!!
-         */
+        model.increaseProgress(targetIndex);
 
-        return new CommandResult("Hello from commandresult - work in progress");
+        return new CommandResult(String.format(MESSAGE_INCREMENT_PROGRESS_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override

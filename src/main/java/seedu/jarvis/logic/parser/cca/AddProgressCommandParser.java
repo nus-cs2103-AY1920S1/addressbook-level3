@@ -1,5 +1,12 @@
 package seedu.jarvis.logic.parser.cca;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVELS;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
+
+import java.util.stream.Stream;
+
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.cca.AddProgressCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
@@ -9,13 +16,6 @@ import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
-
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVELS;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
 
 /**--
  * Parses input arguments and creates a new {@code AddProgressCommand} object.

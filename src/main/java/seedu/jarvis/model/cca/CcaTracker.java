@@ -152,8 +152,12 @@ public class CcaTracker {
         ccaList.addProgress(toBeUpdatedCca, ccaProgressList);
     }
 
-    public void increaseProgress() {
-
+    /**
+     * Increases the progress of the chosen {@code Cca} by 1 {@code Milestone}.
+     */
+    public void increaseProgress(Index index) {
+        requireNonNull(index);
+        ccaList.increaseProgress(index);
     }
 
     /**

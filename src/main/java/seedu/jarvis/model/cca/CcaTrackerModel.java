@@ -65,4 +65,6 @@ public interface CcaTrackerModel {
     public ObservableList<Cca> getFilteredCcaList();
 
     public void addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList);
+
+    public void increaseProgress(Index index);
 }

@@ -3,7 +3,6 @@ package seedu.jarvis.logic.parser.cca;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.logic.commands.cca.DeleteCcaCommand;
 import seedu.jarvis.logic.commands.cca.IncreaseProgressCommand;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;

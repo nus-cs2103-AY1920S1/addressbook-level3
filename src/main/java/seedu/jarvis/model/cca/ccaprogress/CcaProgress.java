@@ -38,6 +38,11 @@ public class CcaProgress {
         ccaCurrentProgress.setMaxProgress(ccaProgressList.size());
     }
 
+    /**
+     * Checks if the CcaProgressList is empty.
+     *
+     * @return true of the {@code CcaProgressList} is empty.
+     */
     public boolean ccaProgressListIsEmpty() {
         if (ccaProgressList.size() == 0) {
             return true;
@@ -45,4 +50,27 @@ public class CcaProgress {
 
         return false;
     }
+
+    /**
+     * Increases the progress by 1 {@code Milestone}.
+     */
+    public void increaseProgress() {
+        ccaCurrentProgress.increaseProgress();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CcaProgress)) {
+            return false;
+        }
+
+        CcaProgress otherCcaProgress = (CcaProgress) other;
+        return otherCcaProgress.ccaProgressList.equals(this.ccaProgressList)
+                && otherCcaProgress.ccaCurrentProgress.equals(this.ccaCurrentProgress);
+    }
+
 }
