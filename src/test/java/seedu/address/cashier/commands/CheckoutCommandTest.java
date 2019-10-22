@@ -56,6 +56,7 @@ public class CheckoutCommandTest {
     }
 
 
+
 /*
     @Test
     public void execute_validTotalAmount_validChange_successful() throws Exception {
