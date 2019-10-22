@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.algobase.commons.util.IdUtil;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -34,7 +35,7 @@ public class Problem {
     public Problem(Name name, Author author, WebLink webLink, Description description, Set<Tag> tags,
                    Difficulty difficulty, Remark remark, Source source) {
         requireAllNonNull(name, author, webLink, description, tags, difficulty, remark, source);
-        this.id = System.currentTimeMillis() / 1000L;
+        this.id = IdUtil.generateId();
         this.name = name;
         this.author = author;
         this.webLink = webLink;

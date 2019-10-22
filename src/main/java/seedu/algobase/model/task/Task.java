@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.algobase.commons.util.IdUtil;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
 import seedu.algobase.model.problem.Difficulty;
@@ -32,7 +33,7 @@ public class Task {
      */
     public Task(Problem problem, LocalDate targetDate, boolean isSolved) {
         requireAllNonNull(problem);
-        this.id = System.currentTimeMillis() / 1000L;
+        this.id = IdUtil.generateId();
         this.problem = problem;
         this.isSolved = isSolved;
         this.targetDate = targetDate;

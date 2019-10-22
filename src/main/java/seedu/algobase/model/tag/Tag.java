@@ -3,6 +3,8 @@ package seedu.algobase.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
+import seedu.algobase.commons.util.IdUtil;
+
 /**
  * Represents a Tag in the algobase.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
@@ -24,7 +26,7 @@ public class Tag {
     public Tag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.id = System.currentTimeMillis() / 1000L;
+        this.id = IdUtil.generateId();
         this.tagName = tagName;
     }
 

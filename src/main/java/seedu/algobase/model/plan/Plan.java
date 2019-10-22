@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.algobase.commons.util.IdUtil;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -32,7 +33,7 @@ public class Plan {
     public Plan(PlanName planName, PlanDescription planDescription, LocalDate startDate, LocalDate endDate,
                 Set<Task> tasks) {
         requireAllNonNull(planName, planDescription, startDate, endDate, tasks);
-        this.id = System.currentTimeMillis() / 1000L;
+        this.id = IdUtil.generateId();
         this.planName = planName;
         this.planDescription = planDescription;
         this.startDate = startDate;
