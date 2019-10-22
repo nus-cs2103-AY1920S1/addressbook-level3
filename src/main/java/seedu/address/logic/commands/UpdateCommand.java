@@ -11,8 +11,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.*;
 import seedu.address.model.util.Date;
 
 import java.util.Collections;
@@ -27,26 +26,29 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the bank account.\n"
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_DATE + "DATE "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
+            + "by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_AMOUNT + "AMOUNT] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "chicken "
-            + PREFIX_AMOUNT + "5 "
-            + PREFIX_DATE + "10102019 "
-            + PREFIX_TAG + "lunch "
-            + PREFIX_TAG + "foodAndBeverage";
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_AMOUNT + "123 "
+            + PREFIX_DATE + "12022019";
+
+    public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
+    public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
 
     private final Index targetIndex;
+    private final UpdateTransactionDescriptor updateTransactionDescriptor;
 
-    public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
-
-    public UpdateCommand(Index targetIndex) {
+    public UpdateCommand(Index targetIndex, UpdateTransactionDescriptor updateTransactionDescriptor) {
         requireNonNull(targetIndex);
+        requireNonNull(updateTransactionDescriptor);
+
         this.targetIndex = targetIndex;
+        this.updateTransactionDescriptor = new UpdateTransactionDescriptor(updateTransactionDescriptor);
     }
 
     @Override
@@ -60,12 +62,31 @@ public class UpdateCommand extends Command {
         }
 
         BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteTransaction(transactionToReplace);
+        BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace, updateTransactionDescriptor);
+
+        model.setTransaction(transactionToReplace, updatedTransaction);
         model.commitBankAccount();
-        return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToReplace));
+
+
+        return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
+    }
+
+    private static BankAccountOperation createUpdatedTransaction(BankAccountOperation transactionToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
+        assert transactionToEdit != null;
+
+        Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
+        Date updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
+        Set<Tag> updatedTags = updateTransactionDescriptor.getTags().orElse(transactionToEdit.getTags());
+        
+        if(transactionToEdit instanceof InTransaction) {
+            return new InTransaction(updatedAmount, updatedDate, updatedTags);
+        } else {
+            return new OutTransaction(updatedAmount, updatedDate, updatedTags);
+        }
     }
 
     public static class UpdateTransactionDescriptor {
+        // TODO: Add name object
         private Amount amount;
         private Date date;
         private Set<Tag> tags;
