@@ -52,11 +52,43 @@ public class Card {
     }
 
     /**
+     * Returns the non-encrypted CardNumber
+     * @return non-encrypted CardNumber
+     */
+    public String getNonEncryptedCardNumber() {
+        return cardNumber.getNonEncryptedCardNumber();
+    }
+
+    /**
+     * Returns the non-encrypted CardNumber
+     * @return non-encrypted CardNumber
+     */
+    public String getNonEncryptedCvc() {
+        return cvc.getNonEncryptedCvc();
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns the non-encrypted Card
+     * returns non-encrypted Card
+     */
+    public String toNonAsterixString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getDescription())
+                .append(" Card Number: ")
+                .append(getNonEncryptedCardNumber())
+                .append(" CVC: ")
+                .append(getNonEncryptedCvc())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
 
     /**
@@ -73,10 +105,8 @@ public class Card {
         }
 
         Card otherCard = (Card) other;
-        return otherCard.getDescription().equals(getDescription())
-                && otherCard.getCardNumber().equals(getCardNumber())
-                && otherCard.getCvc().equals(getCvc())
-                && otherCard.getTags().equals(getTags());
+        return otherCard.getNonEncryptedCardNumber().equals(getNonEncryptedCardNumber())
+                && otherCard.getNonEncryptedCvc().equals(getNonEncryptedCvc());
     }
 
     /**

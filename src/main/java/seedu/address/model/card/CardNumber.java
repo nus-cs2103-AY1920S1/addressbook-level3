@@ -3,6 +3,8 @@ package seedu.address.model.card;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Cards's number in the card book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCardNumber(String)}
@@ -31,14 +33,20 @@ public class CardNumber {
      * Returns true if a given string is a valid card number.
      */
     public static boolean isValidCardNumber(String test) {
-        System.out.println("t" + test + "t");
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getEncryptedCardNumber() {
+        return StringUtil.cardNumberToAsterix(value);
+    }
+
+    public String getNonEncryptedCardNumber() {
+        return value;
+    }
 
     @Override
     public String toString() {
-        return value;
+        return getEncryptedCardNumber();
     }
 
     @Override

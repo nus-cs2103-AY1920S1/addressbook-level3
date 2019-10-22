@@ -84,16 +84,34 @@ public class StringUtil {
 
     /**
      * Returns the encrypted Password with asterixs.
-     * @param toBeChanged
+     * @param password
      * @return encrypted Password
      */
-    public static String changeToAsterix(String toBeChanged) {
-        int len = toBeChanged.length();
+    public static String passwordToAsterix(String password) {
+        int len = password.length();
         if (len <= 3) {
             return asterix(len);
         } else {
-            return toBeChanged.substring(0, 2) + asterix(len - 2);
+            return password.substring(0, 2) + asterix(len - 2);
         }
+    }
+
+    /**
+     * Returns the encrypted Card Number with asterixs.
+     * @param cardNumber
+     * @return encrypted card number
+     */
+    public static String cardNumberToAsterix(String cardNumber) {
+        int len = 16;
+        return cardNumber.substring(0, 4) + asterix(12);
+    }
+
+    /**
+     * Returns the encrypted Cvc with asterixs.
+     * @return encrypted cvc
+     */
+    public static String cvcToAsterix() {
+        return asterix(3);
     }
 
     /**

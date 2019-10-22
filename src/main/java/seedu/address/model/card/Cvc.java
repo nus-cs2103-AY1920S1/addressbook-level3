@@ -3,6 +3,8 @@ package seedu.address.model.card;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Represents a Cards's CVC in the card book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCvc(String)}
@@ -34,10 +36,17 @@ public class Cvc {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getEncryptedCvc() {
+        return StringUtil.cvcToAsterix();
+    }
+
+    public String getNonEncryptedCvc() {
+        return value;
+    }
 
     @Override
     public String toString() {
-        return value;
+        return getEncryptedCvc();
     }
 
     @Override
