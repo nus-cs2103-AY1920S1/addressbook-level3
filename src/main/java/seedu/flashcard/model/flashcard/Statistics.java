@@ -43,14 +43,14 @@ public class Statistics {
                 totalAttempted++;
             } else {
                 totalUnattempted++;
-                unattemptedList.add(flashcard.getWord().toString());
+                unattemptedList.add(flashcard.getQuestion().toString());
             }
 
             correctSeries.setName("correct");
-            correctSeries.getData().add(new XYChart.Data<>(flashcard.getWord().toString(), score.getCorrectAnswers()));
+            correctSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().toString(), score.getCorrectAnswers()));
 
             wrongSeries.setName("wrong");
-            wrongSeries.getData().add(new XYChart.Data<>(flashcard.getWord().toString(), score.getWrongAnswers()));
+            wrongSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().toString(), score.getWrongAnswers()));
         }
     }
 
