@@ -6,11 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.exceptions.CommandException;
@@ -45,6 +49,7 @@ public class LogicManagerTest {
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertHistorySuccess(invalidCommand);
     }
 
     @Test
@@ -59,6 +64,8 @@ public class LogicManagerTest {
                 " " + ListCommand.APPEALS
                 + " " + ListCommand.MODULES
                 + " " + ListCommand.STUDENTS), model);
+
+        assertHistorySuccess(ListCommand.COMMAND_WORD);
     }
 
     @Test
@@ -130,6 +137,17 @@ public class LogicManagerTest {
             String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
+    }
+
+    /**
+     * Asserts that the {@code CommandHistory} object within {@code LogicManager} is storing the correct sequence
+     * of command inputs.
+     * @param sequenceOfExpectedCommands
+     */
+    private void assertHistorySuccess(String... sequenceOfExpectedCommands) {
+        ObservableList<String> expected = FXCollections.unmodifiableObservableList(
+                FXCollections.observableList(new ArrayList<String>(Arrays.asList(sequenceOfExpectedCommands))));
+        assertEquals(expected, logic.getCommandHistory());
     }
 
     /**
