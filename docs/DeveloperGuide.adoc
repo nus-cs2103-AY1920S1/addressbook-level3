@@ -62,7 +62,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[]
 
 [discrete]
-==== How the architecture components interact with each other
+==== Interaction of architecture components
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete recipe 1`.
 
@@ -79,7 +79,18 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `XYZListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+[NOTE]
+====
+XYZListPanel refers to the 5 different individual components in our application.
+The 5 different components are:
+* Dashboard
+* RecipeBook
+* Exercise
+* Health
+* Diary
+====
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -123,8 +134,19 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Duke Cooks data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<XYZ>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+[NOTE]
+====
+XYZ refers to the 5 different individual components in our application.
+The 5 different components are:
+* Dashboard
+* RecipeBook
+* Exercise
+* Health
+* Diary
+====
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -142,7 +164,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the DukeCooks data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
