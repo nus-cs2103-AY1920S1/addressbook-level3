@@ -13,14 +13,14 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIncidentManager;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 //import org.junit.jupiter.api.Test;
 
-//import seedu.address.model.AddressBook;
+//import seedu.address.model.IncidentManager;
 
 //import seedu.address.model.incident.Incident;
 //import seedu.address.testutil.EditIncidentBuilder;
@@ -30,7 +30,7 @@ import seedu.address.model.UserPrefs;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
 
     /*
     @Test
@@ -48,7 +48,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         //model.getFilteredIncidentList().add(new IncidentBuilder().build());
         expectedModel.setIncident(model.getFilteredIncidentList().get(0), editedIncident);
 
@@ -70,7 +70,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -83,7 +83,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -99,7 +99,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -119,7 +119,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_ENTITY);
 
         // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_ENTITY.getZeroBased());
+        Person personInList = model.getIncidentManager().getPersonList().get(INDEX_SECOND_ENTITY.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTITY,
                 new EditPersonDescriptorBuilder(personInList).build());
 
@@ -147,7 +147,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_ENTITY);
         Index outOfBoundIndex = INDEX_SECOND_ENTITY;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getIncidentManager().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

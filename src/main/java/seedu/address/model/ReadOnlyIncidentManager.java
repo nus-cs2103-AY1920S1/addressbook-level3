@@ -8,7 +8,7 @@ import seedu.address.model.vehicle.Vehicle;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyIncidentManager {
 
     /**
      * Returns an unmodifiable view of the persons list.

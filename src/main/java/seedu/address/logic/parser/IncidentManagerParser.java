@@ -28,7 +28,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class IncidentManagerParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -95,7 +95,11 @@ public class AddressBookParser {
             return new SubmitCommand();
 
         case FillCommand.COMMAND_WORD:
-            return new FillCommandParser().parse(arguments);
+            if (arguments.isEmpty()) {
+                return new FillCommand(); // TODO remove nulls by merging / inheriting commands
+            } else {
+                return new FillCommandParser().parse(arguments);
+            }
 
         case NewCommand.COMMAND_WORD:
             return new NewCommandParser().parse(arguments);
