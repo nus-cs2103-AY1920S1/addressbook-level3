@@ -25,16 +25,16 @@ import seedu.address.model.task.Task;
  *
  * @see Task#isSameTask(Task)
  */
-public class UniqueMappingList implements Iterable<Mapping> {
+public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
 
-    private final ObservableList<Mapping> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Mapping> internalUnmodifiableList =
+    private final ObservableList<TasMemMapping> internalList = FXCollections.observableArrayList();
+    private final ObservableList<TasMemMapping> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     public ObservableList<Member> getMappedMembers(Task task) {
         requireNonNull(task);
         ObservableList<Member> result = FXCollections.observableArrayList();
-        for (Mapping mapping : internalList) {
+        for (TasMemMapping mapping : internalList) {
             if (mapping.hasTask(task)) {
                 result.add(mapping.getMember());
             }
@@ -45,7 +45,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
     public ObservableList<Task> getMappedTasks(Member member) {
         requireNonNull(member);
         ObservableList<Task> result = FXCollections.observableArrayList();
-        for (Mapping mapping : internalList) {
+        for (TasMemMapping mapping : internalList) {
             if (mapping.hasMember(member)) {
                 result.add(mapping.getTask());
             }
@@ -58,7 +58,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
      */
     public HashMap<Task, ObservableList<Member>> listMemberByTask() {
         HashMap<Task, ObservableList<Member>> result = new HashMap<>();
-        for (Mapping mapping : internalList) {
+        for (TasMemMapping mapping : internalList) {
             Task currentTask = mapping.getTask();
             if (result.get(currentTask) == null) {
                 result.put(currentTask, FXCollections.observableArrayList());
@@ -71,7 +71,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(Mapping toCheck) {
+    public boolean contains(TasMemMapping toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameMapping);
     }
@@ -80,7 +80,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
      * Adds a task to the list.
      * The task must not already exist in the list.
      */
-    public void add(Mapping toAdd) {
+    public void add(TasMemMapping toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateMappingException();
@@ -93,7 +93,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
      * {@code target} must exist in the list.
      * The task identity of {@code editedTask} must not be the same as another existing task in the list.
      */
-    public void setMapping(Mapping target, Mapping editedMapping) {
+    public void setMapping(TasMemMapping target, TasMemMapping editedMapping) {
         requireAllNonNull(target, editedMapping);
 
         int index = internalList.indexOf(target);
@@ -112,14 +112,14 @@ public class UniqueMappingList implements Iterable<Mapping> {
      * Removes the equivalent task from the list.
      * The task must exist in the list.
      */
-    public void remove(Mapping toRemove) {
+    public void remove(TasMemMapping toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new MappingNotFoundException();
         }
     }
 
-    public void setMappings(UniqueMappingList replacement) {
+    public void setMappings(UniqueTasMemMappingList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -128,7 +128,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
      * Replaces the contents of this list with {@code tasks}.
      * {@code tasks} must not contain duplicate tasks.
      */
-    public void setMappings(List<Mapping> mappings) {
+    public void setMappings(List<TasMemMapping> mappings) {
         requireAllNonNull(mappings);
         if (!mappingsAreUnique(mappings)) {
             throw new DuplicateMappingException();
@@ -140,20 +140,20 @@ public class UniqueMappingList implements Iterable<Mapping> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Mapping> asUnmodifiableObservableList() {
+    public ObservableList<TasMemMapping> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Mapping> iterator() {
+    public Iterator<TasMemMapping> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueMappingList // instanceof handles nulls
-                        && internalList.equals(((UniqueMappingList) other).internalList));
+                || (other instanceof UniqueTasMemMappingList // instanceof handles nulls
+                        && internalList.equals(((UniqueTasMemMappingList) other).internalList));
     }
 
     @Override
@@ -164,7 +164,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
     /**
      * Returns true if {@code tasks} contains only unique tasks.
      */
-    private boolean mappingsAreUnique(List<Mapping> mappings) {
+    private boolean mappingsAreUnique(List<TasMemMapping> mappings) {
         for (int i = 0; i < mappings.size() - 1; i++) {
             for (int j = i + 1; j < mappings.size(); j++) {
                 if (mappings.get(i).isSameMapping(mappings.get(j))) {
