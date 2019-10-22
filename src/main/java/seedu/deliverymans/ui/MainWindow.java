@@ -18,6 +18,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,11 +33,14 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    private Context currentContext;
+
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
     private RestaurantListPanel restaurantListPanel;
+    private FoodListPanel foodListPanel;
     private ResultDisplay resultDisplay;
     private StatisticsDisplay statisticsDisplay;
     private HelpWindow helpWindow;
@@ -68,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.currentContext = null;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -198,13 +203,15 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
         case EDITING:
+            Restaurant editing = logic.getEditingRestaurantList().get(0);
             editingRestaurantPlaceholder.setPrefHeight(125.0);
             editingRestaurantPlaceholder.setMinHeight(125.0);
             restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
             editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+            foodListPanel = new FoodListPanel(editing.getMenu());
+            listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
             statisticsDisplay = new StatisticsDisplay();
-            statisticsPlaceholder.setStyle("-fx-border-color: derive(#1d1d1d, 20%); -fx-border-top-width: 1px;");
             statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
             statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS");
             break;
@@ -227,9 +234,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            Context nextContext = commandResult.getContext();
 
-            if (commandResult.getContext() != null) {
-                changeContext(commandResult.getContext());
+            if (nextContext != null && nextContext != currentContext) {
+                changeContext(nextContext);
             }
 
             if (commandResult.isShowHelp()) {

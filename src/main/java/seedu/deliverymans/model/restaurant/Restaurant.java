@@ -1,14 +1,19 @@
 package seedu.deliverymans.model.restaurant;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
+import seedu.deliverymans.model.food.exceptions.DuplicateFoodException;
+import seedu.deliverymans.model.food.exceptions.FoodNotFoundException;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.order.Order;
 
@@ -27,7 +32,7 @@ public class Restaurant {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Order> orders = new HashSet<>();
-    private final Set<Food> menu = new HashSet<>();
+    private final ObservableList<Food> menu = FXCollections.observableArrayList();
 
     /**
      * Every field must be present and not null.
@@ -41,13 +46,24 @@ public class Restaurant {
         this.tags.addAll(tags);
     }
 
-    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags) {
+    public Restaurant(Name name, Location location, Set<Tag> tags, ObservableList<Food> menu) {
+        requireAllNonNull(name, location, tags, menu);
+        this.numberOfRatings = 0;
+        this.name = name;
+        this.location = location;
+        this.rating = new Rating("0");
+        this.tags.addAll(tags);
+        this.menu.addAll(menu);
+    }
+
+    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu) {
         requireAllNonNull(name, location, rating, numberOfRatings, tags);
         this.numberOfRatings = 0;
         this.name = name;
         this.location = location;
         this.rating = rating;
         this.tags.addAll(tags);
+        this.menu.addAll(menu);
     }
 
     public Name getName() {
@@ -70,8 +86,32 @@ public class Restaurant {
         return orders;
     }
 
-    public Set<Food> getMenu() {
+    public ObservableList<Food> getMenu() {
         return menu;
+    }
+
+    /**
+     * Adds the food item to the restaurant's menu
+     * @param toAdd
+     */
+    public void addFood(Food toAdd) {
+        requireNonNull(toAdd);
+        boolean isDuplicate = menu.stream().anyMatch(toAdd::isSameFood);
+        if (isDuplicate) {
+            throw new DuplicateFoodException();
+        }
+        menu.add(toAdd);
+    }
+
+    /**
+     * Removes the food time from the restaurant's menu
+     * @param toRemove
+     */
+    public void removeFood(Food toRemove) {
+        requireAllNonNull(toRemove);
+        if (!menu.remove(toRemove)) {
+            throw new FoodNotFoundException();
+        }
     }
 
     /**

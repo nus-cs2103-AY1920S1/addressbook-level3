@@ -6,6 +6,6 @@ package seedu.deliverymans.model.restaurant.exceptions;
  */
 public class DuplicateRestaurantException extends RuntimeException {
     public DuplicateRestaurantException() {
-        super("Operation would result in duplicate persons");
+        super("Operation would result in duplicate restaurants");
     }
 }

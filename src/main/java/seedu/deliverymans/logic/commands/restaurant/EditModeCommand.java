@@ -16,7 +16,7 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 /**
  * Goes into editing mode for a restaurant
  */
-public class EditRestaurantCommand extends Command {
+public class EditModeCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the restaurant identified "
@@ -33,7 +33,7 @@ public class EditRestaurantCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Restaurant}
      */
-    public EditRestaurantCommand(Index targetIndex) {
+    public EditModeCommand(Index targetIndex) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
@@ -56,7 +56,7 @@ public class EditRestaurantCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EditRestaurantCommand // instanceof handles nulls
-                && targetIndex.equals(((EditRestaurantCommand) other).targetIndex));
+                || (other instanceof EditModeCommand // instanceof handles nulls
+                && targetIndex.equals(((EditModeCommand) other).targetIndex));
     }
 }

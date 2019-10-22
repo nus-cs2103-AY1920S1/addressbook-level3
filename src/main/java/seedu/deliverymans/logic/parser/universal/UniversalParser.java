@@ -20,6 +20,7 @@ import seedu.deliverymans.logic.commands.universal.UndoCommand;
 import seedu.deliverymans.logic.parser.customer.CustomerParser;
 import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.logic.parser.restaurant.EditingParser;
 import seedu.deliverymans.logic.parser.restaurant.RestaurantParser;
 
 /**
@@ -97,9 +98,18 @@ public class UniversalParser {
             case CUSTOMER:
                 return new CustomerParser().parseCommand(userInput);
             case RESTAURANT:
-                return new RestaurantParser().parseCommand(userInput);
+                Command command = new RestaurantParser().parseCommand(userInput);
+                if (commandWord.equals("edit")) {
+                    currentContext = Context.EDITING;
+                }
+                return command;
             case DELIVERYMEN:
                 return new DeliverymanParser().parseCommand(userInput);
+            case EDITING:
+                if (commandWord.equals("exitedit")) {
+                    currentContext = Context.RESTAURANT;
+                }
+                return new EditingParser().parseCommand(userInput);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
