@@ -1,6 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
@@ -47,7 +48,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
 
         if (model.hasBookmark(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_BOOKMARK);
@@ -55,7 +56,7 @@ public class AddCommand extends Command {
 
         model.addBookmark(toAdd);
         model.applyAllTaggers();
-        model.saveMark();
+        model.saveMark(String.format(MESSAGE_SUCCESS, toAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
