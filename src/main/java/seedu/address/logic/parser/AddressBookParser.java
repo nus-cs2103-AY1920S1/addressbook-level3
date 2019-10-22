@@ -36,6 +36,7 @@ import seedu.address.logic.commands.listcommand.ListCustomerCommand;
 import seedu.address.logic.commands.listcommand.ListOrderCommand;
 import seedu.address.logic.commands.listcommand.ListPhoneCommand;
 import seedu.address.logic.commands.statisticcommand.StatsCommand;
+import seedu.address.logic.commands.switchcommand.SwitchArchivedOrderPanelCommand;
 import seedu.address.logic.commands.switchcommand.SwitchCustomerPanelCommand;
 import seedu.address.logic.commands.switchcommand.SwitchOrderPanelCommand;
 import seedu.address.logic.commands.switchcommand.SwitchPhonePanelCommand;
@@ -180,6 +181,9 @@ public class AddressBookParser {
 
         case SwitchSchedulePanelCommand.COMMAND_WORD:
             return new SwitchSchedulePanelCommand();
+
+        case SwitchArchivedOrderPanelCommand.COMMAND_WORD:
+            return new SwitchArchivedOrderPanelCommand();
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);

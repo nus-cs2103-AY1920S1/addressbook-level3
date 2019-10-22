@@ -64,8 +64,13 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of order */
     ObservableList<Order> getFilteredOrderList();
 
+    /** Returns an unmodifiable view of the filtered list of order */
+    ObservableList<Order> getArchivedFilteredOrderList();
+
     /** Returns an unmodifiable view of the filtered list of schedule */
     ObservableList<Schedule> getFilteredScheduleList();
+
+
 
     /**
      * Returns the user prefs' address book file path.
