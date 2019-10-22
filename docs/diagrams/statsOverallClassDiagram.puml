@@ -23,6 +23,4 @@ MainWindow .right.-> Logic
 Logic .down.-> Statistics
 StatisticManager .up.|> Statistics
 
-
-
 @enduml
