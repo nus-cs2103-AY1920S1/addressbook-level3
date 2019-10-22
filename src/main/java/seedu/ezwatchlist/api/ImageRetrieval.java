@@ -24,7 +24,6 @@ public class ImageRetrieval {
     public ImageRetrieval(TmdbApi tmdbApi, String filePath) {
         Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
         IMAGE_CACHE_LOCATION = Paths.get(root.toString(),"src", "main", "resources", "images", "posters").toString() + File.separator;
-        System.out.println(IMAGE_CACHE_LOCATION);
         TmdbConfiguration configuration = tmdbApi.getConfiguration();
         API_BASE_URL = configuration.getBaseUrl() + DEFAULT_FILE_SIZE;
         imageUrl = API_BASE_URL + filePath;
@@ -32,7 +31,7 @@ public class ImageRetrieval {
 
     public String retrieveImage(String fileName) {
         downloadImage(fileName);
-        return FXML_IMAGE_ROOT + fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png";
+        return fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png";
     }
 
     public String getImageUrl() {

@@ -88,8 +88,7 @@ public class SearchCommand extends Command {
 
             return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getSearchResultList().size()));
         } catch (OnlineConnectionException e) {
-            return null;
-            //to be added
+            return new CommandResult("Not connected to internet");            //to be added
         }
     }
 
