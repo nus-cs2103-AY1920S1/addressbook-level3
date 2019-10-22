@@ -296,18 +296,21 @@ Step 2. The user executes `stats s/CS2103T` command to get the statistics of all
 The `stats` command creates a new `commandResult` setting the type of command to `CHART`.
 
 The following class diagram shows how the `GetStatisticsCommand` and `CommandResult` class are related.
+
 image::StatisticsClassDiagram.png[]
 
 Step 3. The `commandResult` will call the relevant methods to filter the `quizResults` list and create the relevant outputs.
 It will then show a statistics panel, hiding all notes and tasks.
 
 The following sequence diagram shows how the statistics operation works:
+
 image::StatisticsSequenceDiagram.png[]
 
 Step 4. The user now decides to stop viewing statistics and decides to view all notes and tasks again using the `listnote` command.
 The statistics panel will now be hidden.
 
 The following activity diagram summarizes what happens when a user executes the statistics command:
+
 image::StatisticsActivityDiagram.png[]
 
 ==== Design Considerations
