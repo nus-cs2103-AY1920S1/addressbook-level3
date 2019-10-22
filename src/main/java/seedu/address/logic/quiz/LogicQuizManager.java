@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.quiz.commands.Command;
 import seedu.address.logic.quiz.commands.CommandResult;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
@@ -17,8 +16,6 @@ import seedu.address.model.quiz.Model;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.storage.quiz.Storage;
-
-
 
 /**
  * The main LogicManager of the app.

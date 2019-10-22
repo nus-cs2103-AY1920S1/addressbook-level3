@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.quiz.commands.CommandResult;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
@@ -33,8 +32,14 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /**
+     * Return the Question which I am currently viewing.
+     */
     int getQuestionNumber();
 
+    /**
+     * Return a boolean whether to show the answer or not from the question list.
+     */
     boolean getShowAnswer();
 
     /** Returns an unmodifiable view of the filtered list of questions */

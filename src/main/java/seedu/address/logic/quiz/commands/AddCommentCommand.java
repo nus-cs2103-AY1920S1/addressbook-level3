@@ -1,11 +1,8 @@
 package seedu.address.logic.quiz.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_TYPE;
+
+import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.model.quiz.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 
 import java.util.Collections;
@@ -19,11 +16,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.Model;
+
 import seedu.address.model.quiz.person.*;
 import seedu.address.model.quiz.tag.Tag;
 
 /**
- * Edits the details of an existing question in modulo quiz.
+ * Add comment or explanation of an existing question in modulo quiz.
  */
 public class AddCommentCommand extends Command {
 
@@ -34,8 +32,9 @@ public class AddCommentCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: " + COMMAND_WORD
             + "INDEX (must be a positive integer) "
-            + "COMMENT"
-            + "Example: " + COMMAND_WORD + "CS2103 1 "
+            + PREFIX_COMMENT + "COMMENT"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_COMMENT
             + "The explanation is on lecture notes chapter 9 page 24.";
 
     public static final String MESSAGE_COMMENT_QUESTION_SUCCESS = "Commented Question: %1$s";

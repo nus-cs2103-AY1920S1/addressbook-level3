@@ -15,9 +15,10 @@ import seedu.address.model.quiz.person.Question;
  * Panel containing the list of questions.
  */
 public class QuestionListPanel extends UiPart<Region> {
-    private boolean showAnswer;
     private static final String FXML = "QuestionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(QuestionListPanel.class);
+
+    private boolean showAnswer;
 
     @FXML
     private ListView<Question> questionListView;

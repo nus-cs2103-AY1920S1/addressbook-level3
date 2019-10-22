@@ -1,16 +1,14 @@
 package seedu.address.logic.quiz.commands;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.quiz.commands.exceptions.CommandException;
-import seedu.address.model.quiz.Model;
-import seedu.address.model.quiz.person.Question;
-
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 
-public class ViewAnswerCommand  extends Command {
+import seedu.address.logic.quiz.commands.exceptions.CommandException;
+import seedu.address.model.quiz.Model;
+
+/**
+ * Enable or disable the visibility of the answer from the quiz question list.
+ */
+public class ViewAnswerCommand extends Command {
 
     public static final String COMMAND_WORD = "showAnswer";
 

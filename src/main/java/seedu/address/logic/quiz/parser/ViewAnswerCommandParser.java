@@ -1,10 +1,13 @@
 package seedu.address.logic.quiz.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.quiz.commands.ViewAnswerCommand;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ *  Parses input arguments and creates a new ViewAnswerCommand object.
+ */
 public class ViewAnswerCommandParser implements Parser<ViewAnswerCommand> {
 
     /**
@@ -20,5 +23,4 @@ public class ViewAnswerCommandParser implements Parser<ViewAnswerCommand> {
 
         return new ViewAnswerCommand(args);
     }
-
 }

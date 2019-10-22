@@ -8,7 +8,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.quiz.person.Question;
 
 
@@ -16,10 +15,10 @@ import seedu.address.model.quiz.person.Question;
  * Panel containing the list of questions.
  */
 public class QuestionDetailPanel extends UiPart<Region> {
-    private int questionNumber;
-
     private static final String FXML = "QuestionDetailPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(QuestionDetailPanel.class);
+
+    private int questionNumber;
 
     @FXML
     private ListView<Question> questionDetailView;
