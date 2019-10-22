@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import dream.fcard.logic.storage.Schema;
-//import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
