@@ -30,7 +30,7 @@ AlgoBase (AB) is for those who prefer to use a desktop app for managing algorith
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in the result window and open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all problems
@@ -297,7 +297,13 @@ Switches to the tab at index 1.
 
 ==== Viewing help : `help`
 
-Format: `help`
+List all possible commands or find command usage using the command word. +
+Format: `help [COMMAND_WORD]`
+
+* `help`
+Shows all possible commands.
+* `help add`
+Shows command usage for `add` command.
 
 ==== Clearing all entries : `clear`
 

@@ -1,25 +1,26 @@
-package seedu.algobase.ui;
+package seedu.algobase.ui.details;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Region;
+import seedu.algobase.ui.UiPart;
 
 /**
  * An UI component that displays tab content.
  */
-public class DisplayTab extends UiPart<Region> {
+public class DetailsTab extends UiPart<Region> {
 
-    private static final String FXML = "DisplayTab.fxml";
+    private static final String FXML = "DetailsTab.fxml";
 
     @FXML
     private Tab tabContentPlaceholder;
 
-    public DisplayTab(String name) {
+    public DetailsTab(String name) {
         super(FXML);
         tabContentPlaceholder = new Tab(name);
     }
 
-    public DisplayTab(String name, UiPart<Region> uiPart) {
+    public DetailsTab(String name, UiPart<Region> uiPart) {
         super(FXML);
         tabContentPlaceholder = new Tab(name, uiPart.getRoot());
     }
