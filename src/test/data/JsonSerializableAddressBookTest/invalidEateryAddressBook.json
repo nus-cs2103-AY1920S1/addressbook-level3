@@ -1,6 +1,7 @@
 {
   "eateries": [ {
     "name": "Hans Muster",
-    "address": "4th street"
+    "address": "4th street",
+    "category": "Western"
   } ]
 }

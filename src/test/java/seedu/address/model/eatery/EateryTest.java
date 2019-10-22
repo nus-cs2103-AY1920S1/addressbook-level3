@@ -25,6 +25,7 @@ public class EateryTest {
     public void isSameEatery() {
         // same object -> returns true
         assertTrue(ALICE.isSameEatery(ALICE));
+        assertTrue(ALICE.isSameEatery(new EateryBuilder(ALICE).build()));
 
         // null -> returns false
         assertFalse(ALICE.isSameEatery(null));

@@ -11,9 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.eatery.Address;
+import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.eatery.Tag;
 
 /**
  * Jackson-friendly version of {@link Eatery}.
@@ -23,7 +24,9 @@ class JsonAdaptedEatery {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Eatery's %s field is missing!";
 
     private final String name;
+    private final String isOpen;
     private final String address;
+    private final String category;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -31,10 +34,14 @@ class JsonAdaptedEatery {
      */
     @JsonCreator
     public JsonAdaptedEatery(@JsonProperty("name") String name,
+                             @JsonProperty("isOpen") String isOpen,
                              @JsonProperty("address") String address,
+                             @JsonProperty("category") String category,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
+        this.isOpen = isOpen;
         this.address = address;
+        this.category = category;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -45,7 +52,9 @@ class JsonAdaptedEatery {
      */
     public JsonAdaptedEatery(Eatery source) {
         name = source.getName().fullName;
+        isOpen = String.valueOf(source.getIsOpen());
         address = source.getAddress().value;
+        category = source.getCategory().getName();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -70,6 +79,15 @@ class JsonAdaptedEatery {
         }
         final Name modelName = new Name(name);
 
+        if (isOpen == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "isOpen"));
+        }
+
+        if (!isOpen.equals("true") && !isOpen.equals("false")) {
+            throw new IllegalValueException("isOpen has to be either true or false, not blank or anything else.");
+        }
+        final boolean modelIsOpen = Boolean.parseBoolean(isOpen.toLowerCase());
+
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
@@ -78,8 +96,16 @@ class JsonAdaptedEatery {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(eateryTags);
-        return new Eatery(modelName, modelAddress, modelTags);
-    }
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
+        }
+        if (!Category.isValidCategory(category)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
+        }
+        final Category modelCategory = new Category(category);
 
+        final Set<Tag> modelTags = new HashSet<>(eateryTags);
+        return new Eatery(modelName, modelIsOpen, modelAddress, modelCategory, modelTags);
+    }
 }

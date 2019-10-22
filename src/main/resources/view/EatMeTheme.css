@@ -1,0 +1,50 @@
+// General UI
+.root, .list-cell {
+    -fx-background-color: white;
+}
+.list-cell:selected {
+    -fx-background-color: #eee;
+}
+
+.list-cell Label,
+.list-cell:selected Label {
+    -fx-text-fill: black;
+}
+
+// Utilities
+.container {
+    -fx-padding: 10;
+}
+
+.plain-border-box {
+    -fx-border-color: #ccc;
+    -fx-border-radius: 0;
+    -fx-border-insets: 0;
+    -fx-background-color: white;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+// Person card
+.list-item {
+    -fx-padding: 10 0;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #ccc;
+}
+
+#tags {
+    -fx-padding: 5 0 0 0;
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+}
+
+#tags Label {
+    -fx-text-fill: white;
+    -fx-padding: 5;
+    -fx-background-color: orange;
+}
+
+// Statusbar
+.statusbar {
+    -fx-padding: 0 10 10;
+}

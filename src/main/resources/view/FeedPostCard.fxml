@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Hyperlink?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="240" prefWidth="240" styleClass="list-item">
+    <Label fx:id="source" text="\$source" wrapText="true"/>
+    <Label fx:id="title" text="\$title" wrapText="true"/>
+    <Hyperlink fx:id="address" text="\$address" wrapText="true"/>
+</VBox>

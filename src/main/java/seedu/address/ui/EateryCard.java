@@ -35,6 +35,8 @@ public class EateryCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label category;
+    @FXML
     private FlowPane tags;
 
     public EateryCard(Eatery eatery, int displayedIndex) {
@@ -43,9 +45,10 @@ public class EateryCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(eatery.getName().fullName);
         address.setText(eatery.getAddress().value);
+        category.setText(eatery.getCategory().getName());
         eatery.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .sorted(Comparator.comparing(tag -> tag.getName()))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.getName())));
     }
 
     @Override
