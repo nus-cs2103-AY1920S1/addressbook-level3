@@ -216,7 +216,7 @@
     "appealDescription" : "I want to graduate earlier",
     "previousModule" : "",
     "newModule" : "",
-    "moduleToAdd" : "",
+    "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
     "resolved" : false,
     "result" : "",

@@ -7,12 +7,12 @@ import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import mams.commons.core.Messages;
 import mams.logic.commands.FindCommand;
-import mams.logic.commands.FindModCommand;
-import mams.logic.commands.FindStudentCommand;
 import mams.logic.parser.exceptions.ParseException;
+import mams.model.appeal.AppealContainsKeywordsPredicate;
 import mams.model.module.ModuleContainsKeywordsPredicate;
 import mams.model.student.NameContainsKeywordsPredicate;
 
@@ -22,8 +22,7 @@ import mams.model.student.NameContainsKeywordsPredicate;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
-    private List<String> studentKeywords = new ArrayList<>();
-    private List<String> moduleKeywords = new ArrayList<>();
+    private List<Predicate> predicates = new ArrayList<>();
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -41,18 +40,34 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE_CODE, PREFIX_APPEALID);
 
-        if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
-            studentKeywords = argMultimap.getAllValues(PREFIX_STUDENT);
-            return new FindStudentCommand(new NameContainsKeywordsPredicate(studentKeywords));
+        NameContainsKeywordsPredicate studentPred = new NameContainsKeywordsPredicate(
+                argMultimap.getAllValues(PREFIX_STUDENT));
+        ModuleContainsKeywordsPredicate modulePred = new ModuleContainsKeywordsPredicate(
+                argMultimap.getAllValues(PREFIX_MODULE_CODE));
+        AppealContainsKeywordsPredicate appealPred = new AppealContainsKeywordsPredicate(
+                argMultimap.getAllValues(PREFIX_APPEALID));
+
+        if (args.contains(PREFIX_STUDENT.toString()) && studentPred.isEmpty()) {
+            throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
+        } else {
+            predicates.add(studentPred);
         }
 
-        if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
-            moduleKeywords = argMultimap.getAllValues(PREFIX_MODULE_CODE);
-            return new FindModCommand(new ModuleContainsKeywordsPredicate(moduleKeywords));
+        if (args.contains(PREFIX_MODULE_CODE.toString()) && modulePred.isEmpty()) {
+            throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
+        } else {
+            predicates.add(modulePred);
         }
 
-        // for compilation
-        return new FindStudentCommand(new NameContainsKeywordsPredicate(studentKeywords));
+        if (args.contains(PREFIX_APPEALID.toString()) && appealPred.isEmpty()) {
+            throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
+        } else {
+            predicates.add(appealPred);
+        }
+
+        return new FindCommand(predicates);
     }
+
+
 
 }

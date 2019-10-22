@@ -191,6 +191,14 @@ public class Appeal {
         return resolved;
     }
 
+    public String getStatus() {
+        if (isResolved()) {
+            return "resolved";
+        } else {
+            return "unresolved";
+        }
+    }
+
     public String getResult() {
         return result;
     }
