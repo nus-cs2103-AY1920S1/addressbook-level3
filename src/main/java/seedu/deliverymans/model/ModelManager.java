@@ -5,6 +5,7 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -298,6 +299,16 @@ public class ModelManager implements Model {
     public boolean hasDeliveryman(Deliveryman deliveryman) {
         requireNonNull(deliveryman);
         return deliverymenDatabase.hasDeliveryman(deliveryman);
+    }
+
+    @Override
+    public List<Deliveryman> listAvailableDeliverymen() {
+        return deliverymenDatabase.listAvailableMen();
+    }
+
+    @Override
+    public void listUnavailableDeliverymen() {
+        deliverymenDatabase.listUnavailableMen();
     }
 
     @Override

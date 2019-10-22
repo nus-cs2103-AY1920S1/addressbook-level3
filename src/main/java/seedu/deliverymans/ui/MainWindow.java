@@ -192,7 +192,6 @@ public class MainWindow extends UiPart<Stage> {
         case DELIVERYMEN:
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            statisticsDisplay.setFeedbackToUser("I LOVE DAMITH");
             break;
         case RESTAURANT:
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());

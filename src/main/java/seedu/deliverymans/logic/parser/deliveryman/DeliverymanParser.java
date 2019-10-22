@@ -61,7 +61,7 @@ public class DeliverymanParser {
             return new ListCommand(arguments);
 
         case ListAvailCommand.COMMAND_WORD:
-            return new ListAvailCommand(arguments);
+            return new ListAvailCommand();
 
         case SortCommand.COMMAND_WORD:
             return new SortCommand(arguments);
