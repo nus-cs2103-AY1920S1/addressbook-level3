@@ -22,8 +22,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalContacts.AMY;
-import static seedu.address.testutil.TypicalContacts.BOB;
+import static seedu.address.testutil.TypicalObjects.AMY;
+import static seedu.address.testutil.TypicalObjects.BOB;
 
 import org.junit.jupiter.api.Test;
 

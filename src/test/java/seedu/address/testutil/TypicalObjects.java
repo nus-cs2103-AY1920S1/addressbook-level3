@@ -19,7 +19,7 @@ import seedu.address.model.contact.Contact;
 /**
  * A utility class containing a list of {@code FinSec} objects to be used in tests.
  */
-public class TypicalContacts {
+public class TypicalObjects {
 
     public static final Contact ALICE = new ContactBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
@@ -56,7 +56,7 @@ public class TypicalContacts {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalContacts() {} // prevents instantiation
+    private TypicalObjects() {} // prevents instantiation
 
     /**
      * Returns an {@code FinSec} with all the typical persons.

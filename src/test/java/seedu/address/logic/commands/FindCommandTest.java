@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
+import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
 
 import java.util.Arrays;
 import java.util.Collections;
