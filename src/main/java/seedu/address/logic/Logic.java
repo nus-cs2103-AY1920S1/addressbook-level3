@@ -82,6 +82,7 @@ public interface Logic extends UiLogicHelper {
 
     AppSettings getAppSettings();
 
+    String getCurrentQuestion();
 
     FormattedHint getHintFormatFromCurrentGame();
 

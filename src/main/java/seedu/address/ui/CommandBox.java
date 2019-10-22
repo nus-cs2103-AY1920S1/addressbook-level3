@@ -66,7 +66,7 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
         commandTextField.textProperty().addListener((observable, oldCommand, newCommand) -> {
-            System.out.println("command changing from " + oldCommand + " to " + newCommand);
+            //System.out.println("command changing from " + oldCommand + " to " + newCommand);
             updateMenu(oldCommand, newCommand);
         });
     }

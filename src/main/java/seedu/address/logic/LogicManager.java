@@ -259,4 +259,9 @@ public class LogicManager implements Logic, UiLogicHelper {
         return this.model.getAppSettings();
     }
 
+    @Override
+    public String getCurrentQuestion() {
+        return model.getGame().getCurrQuestion();
+    }
+
 }

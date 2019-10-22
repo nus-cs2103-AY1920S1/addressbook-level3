@@ -399,6 +399,19 @@
     -fx-background-radius: 0;
 }
 
+.hint-label {
+    -fx-font-family: "monospace";
+    -fx-font-size: 20pt;
+    -fx-text-fill: pink;
+}
+
+.question-label {
+    -fx-font-family: "Times New Roman";
+    -fx-underline: true;
+    -fx-font-size: 24pt;
+    -fx-text-fill: lightgreen;
+}
+
 .progress-bar > .track {
     -fx-box-border: red;
     -fx-control-inner-background: #383838;

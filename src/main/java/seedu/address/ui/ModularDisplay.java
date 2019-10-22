@@ -13,11 +13,14 @@ import seedu.address.ui.layouts.TwoSplitRowLayout;
 import seedu.address.ui.modules.BankLabelPanel;
 import seedu.address.ui.modules.CardListPanel;
 import seedu.address.ui.modules.GameResultPanel;
+import seedu.address.ui.modules.HintLabel;
 import seedu.address.ui.modules.LoadBankPanel;
 import seedu.address.ui.modules.MainTitlePanel;
+import seedu.address.ui.modules.QuestionLabel;
 import seedu.address.ui.modules.SettingsPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
+
 
 
 /**
@@ -36,6 +39,10 @@ public class ModularDisplay {
     private final SettingsPanel settingsPanel;
     private final AppManager appManager;
 
+    //For the game
+    private QuestionLabel questionLabel;
+    private HintLabel hintLabel;
+
     /**
      * Changes the screen.
      *
@@ -45,6 +52,8 @@ public class ModularDisplay {
         loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
         titleScreenPanel = new TitleScreenPanel();
         settingsPanel = new SettingsPanel(appManager.getAppSettings());
+        questionLabel = new QuestionLabel();
+        hintLabel = new HintLabel();
         this.appManager = appManager;
     }
 
@@ -146,4 +155,36 @@ public class ModularDisplay {
         paneToDisplay.getChildren().add(settingsPanel.getRoot());
     }
 
+
+    /**
+     * Creates and returns a {@code TwoSplitRowLayout} that contains the question and hint label.
+     * @return
+     */
+    public TwoSplitRowLayout createQuestionHints() {
+        twoSplitRowLayout = new TwoSplitRowLayout();
+        twoSplitRowLayout.addToTopPane(questionLabel.getRoot());
+        twoSplitRowLayout.addToBottomPane(hintLabel.getRoot());
+        return twoSplitRowLayout;
+    }
+
+    /**
+     * Updates the question label and reconstructs the TwoSplitRowDisplay with
+     * {@code question} on the {@code StackPaneToDisplay}.
+     */
+    public void updateQuestion(String question, StackPane paneToDisplay) {
+        questionLabel.updateQuestionLabel(question);
+        hintLabel.updateHintLabel("No Hints Yet");
+        paneToDisplay.getChildren().clear();
+        paneToDisplay.getChildren().add(createQuestionHints().getRoot());
+    }
+
+    /**
+     * Updates the hint label and reconstructs the TwoSplitRowDisplay with
+     * {@code hint} on the {@code StackPaneToDisplay}.
+     */
+    public void updateHint(String hint, StackPane paneToDisplay) {
+        hintLabel.updateHintLabel(hint);
+        paneToDisplay.getChildren().clear();
+        paneToDisplay.getChildren().add(createQuestionHints().getRoot());
+    }
 }

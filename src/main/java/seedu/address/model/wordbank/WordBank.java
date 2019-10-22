@@ -107,9 +107,12 @@ public class WordBank implements ReadOnlyWordBank {
         return cards.asUnmodifiableObservableList();
     }
 
+    /**
+     * Returns a clone of the {@code card} at the specified {@index}.
+     */
     @Override
     public Card getCard(Index index) {
-        return cards.get(index);
+        return cards.get(index).clone();
     }
 
     @Override

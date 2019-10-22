@@ -72,7 +72,9 @@ public class GameTimer implements Runnable {
     public void abortTimer() {
         cancelled = true;
         this.timer.cancel();
-        timerDisplayCallBack.updateTimerDisplay("", 0, totalTimeGiven);
+        Platform.runLater(() -> {
+            timerDisplayCallBack.updateTimerDisplay("", 0, totalTimeGiven);
+        });
     }
 
     /**
@@ -96,6 +98,7 @@ public class GameTimer implements Runnable {
 
                     // When timeLeft has reached a timeStamp to request for more hints from AppManager.
                     if (nextTimeForHint != -100L && nextTimeForHint == timeLeft) {
+                        System.out.println(timeLeft + "<---------------------------- gameTimer hint");
                         callBackToUpdateHints();
                     }
 

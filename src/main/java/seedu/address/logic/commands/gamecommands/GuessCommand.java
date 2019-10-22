@@ -35,7 +35,7 @@ public class GuessCommand extends GameCommand {
                     + "Type 'start' to try again!");
         }*/
 
-        if (model.getGame() == null) {
+        if (model.gameIsOver()) {
             return new CommandResult(MESSAGE_NO_ACTIVE_GAME);
         }
 

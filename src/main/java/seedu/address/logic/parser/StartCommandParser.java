@@ -1,9 +1,10 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import java.util.Optional;
 
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appsettings.DifficultyEnum;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -18,10 +19,26 @@ public class StartCommandParser implements Parser<StartCommand> {
     @Override
     public StartCommand parse(String userInput) throws ParseException {
         String trimmedArgs = userInput.trim();
+
+        Optional<DifficultyEnum> difficulty = Optional.empty();
+
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
+            return new StartCommand(difficulty);
         }
-        return new StartCommand();
+
+        switch (trimmedArgs.toUpperCase()) {
+        case "EASY":
+            difficulty = Optional.of(DifficultyEnum.EASY);
+            break;
+        case "MEDIUM":
+            difficulty = Optional.of(DifficultyEnum.MEDIUM);
+            break;
+        case "HARD":
+            difficulty = Optional.of(DifficultyEnum.HARD);
+            break;
+        default:
+            throw new ParseException("No such difficulty " + trimmedArgs.toUpperCase());
+        }
+        return new StartCommand(difficulty);
     }
 }
