@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -24,6 +25,9 @@ public class WordBankStatisticsPanel extends UiPart<Region> {
     private static final int HARDEST_CARDS_NUM_SHOW = 5;
 
     private static final String FXML = "WordBankStatisticsPanel.fxml";
+
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     private Label title;
@@ -51,6 +55,7 @@ public class WordBankStatisticsPanel extends UiPart<Region> {
 
     public WordBankStatisticsPanel(WordBankStatistics wbStatistics, ReadOnlyWordBank wordBank) {
         super(FXML);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.title.setText(wbStatistics.getWordBankName());
 
         badgesRowPlaceholder.getChildren().add(new BadgesRow(true, true, false).getRoot());

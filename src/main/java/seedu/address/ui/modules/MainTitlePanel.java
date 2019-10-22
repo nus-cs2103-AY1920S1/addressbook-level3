@@ -13,6 +13,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -34,6 +35,9 @@ public class MainTitlePanel extends UiPart<Region> {
 
     private static final String FXML = "MainTitlePanel.fxml";
     private static final Image LOGO = AppUtil.getImage("/images/logo.png");
+
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     private BorderPane logoPlaceholder;
@@ -59,6 +63,8 @@ public class MainTitlePanel extends UiPart<Region> {
     public MainTitlePanel(GlobalStatistics globalStats, Optional<WordBankStatistics> maxWbStats,
                           int avatarId) {
         super(FXML);
+
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         ImageView titleImage = new ImageView();
         titleImage.setImage(LOGO);
