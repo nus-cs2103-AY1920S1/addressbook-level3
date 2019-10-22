@@ -9,17 +9,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.IncidentManager;
+import seedu.address.model.ReadOnlyIncidentManager;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Vehicle;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable IncidentManager that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "incidentManager")
+class JsonSerializableIncidentManager {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_INCIDENT = "Incidents list contains duplicate incident(s)";
@@ -30,10 +30,10 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedVehicle> vehicles = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons and vehicles.
+     * Constructs a {@code JsonSerializableIncidentManager} with the given persons and vehicles.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+    public JsonSerializableIncidentManager(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
                                        @JsonProperty("incidents") List<JsonAdaptedIncident> incidents,
                                        @JsonProperty("vehicles") List<JsonAdaptedVehicle> vehicles) {
         this.persons.addAll(persons);
@@ -42,51 +42,51 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyIncidentManager} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableIncidentManager}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableIncidentManager(ReadOnlyIncidentManager source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         incidents.addAll(source.getIncidentList().stream().map(JsonAdaptedIncident::new).collect(Collectors.toList()));
         vehicles.addAll(source.getVehicleList().stream().map(JsonAdaptedVehicle::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code IncidentManager} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public IncidentManager toModelType() throws IllegalValueException {
+        IncidentManager incidentManager = new IncidentManager();
         // for persons
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (incidentManager.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            incidentManager.addPerson(person);
         }
 
         // for incidents
         for (JsonAdaptedIncident jsonAdaptedIncident : incidents) {
             Incident incident = jsonAdaptedIncident.toModelType();
-            if (addressBook.hasIncident(incident)) {
+            if (incidentManager.hasIncident(incident)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INCIDENT);
             }
-            addressBook.addIncident(incident);
+            incidentManager.addIncident(incident);
         }
 
         // for vehicles
         for (JsonAdaptedVehicle jsonAdaptedVehicle : vehicles) {
             Vehicle vehicle = jsonAdaptedVehicle.toModelType();
-            if (addressBook.hasVehicle(vehicle)) {
+            if (incidentManager.hasVehicle(vehicle)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_VEHICLE);
             }
-            addressBook.addVehicle(vehicle);
+            incidentManager.addVehicle(vehicle);
         }
 
-        return addressBook;
+        return incidentManager;
     }
 
 }

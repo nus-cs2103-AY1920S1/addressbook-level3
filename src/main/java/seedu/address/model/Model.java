@@ -66,20 +66,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getIncidentManagerFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setIncidentManagerFilePath(Path incidentManagerFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code incidentManager}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setIncidentManager(ReadOnlyIncidentManager incidentManager);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the IncidentManager */
+    ReadOnlyIncidentManager getIncidentManager();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

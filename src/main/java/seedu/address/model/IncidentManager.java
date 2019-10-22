@@ -16,7 +16,7 @@ import seedu.address.model.vehicle.Vehicle;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class IncidentManager implements ReadOnlyIncidentManager {
 
     private final UniquePersonList persons;
     private final UniqueIncidentList incidents;
@@ -35,12 +35,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         vehicles = new UniqueVehicleList();
     }
 
-    public AddressBook() {}
+    public IncidentManager() {}
 
     /**
-     * Creates an AddressBook using the Persons and Vehicles in the {@code toBeCopied}
+     * Creates an IncidentManager using the Persons and Vehicles in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public IncidentManager(ReadOnlyIncidentManager toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -72,9 +72,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code IncidentManager} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyIncidentManager newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -117,7 +117,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code IncidentManager}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -189,10 +189,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons)
-                && incidents.equals(((AddressBook) other).incidents)
-                && vehicles.equals(((AddressBook) other).vehicles));
+                || (other instanceof IncidentManager // instanceof handles nulls
+                && persons.equals(((IncidentManager) other).persons)
+                && incidents.equals(((IncidentManager) other).incidents)
+                && vehicles.equals(((IncidentManager) other).vehicles));
     }
 
     @Override

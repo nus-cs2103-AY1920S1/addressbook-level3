@@ -25,7 +25,7 @@ The Incident Management System (IMS) is a desktop app made for emergency call op
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `ims.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your Incident Manager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -133,12 +133,12 @@ Examples:
 
 === Listing all persons : `list`
 
-Shows a list of all persons registered in the address book. +
+Shows a list of all persons registered in the incident Manager. +
 Format: `list`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
+Edits an existing person in the incident Manager. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -179,7 +179,7 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 // tag::delete[]
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified person from the incident Manager. +
 Format: `delete INDEX`
 
 ****
@@ -192,7 +192,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in the incident Manager.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
@@ -200,7 +200,7 @@ Deletes the 1st person in the results of the `find` command.
 // end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the incident Manager. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -210,7 +210,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Incident Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
