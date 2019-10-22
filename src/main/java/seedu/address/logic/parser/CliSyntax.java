@@ -7,6 +7,7 @@ import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignPolicyCommand;
 import seedu.address.logic.commands.DeletePolicyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
+import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
@@ -51,7 +52,7 @@ public class CliSyntax {
             EditPolicyCommand.COMMAND_WORD);
     public static final Prefix PREFIX_YEARS = new Prefix("years/", AddPolicyCommand.COMMAND_WORD,
             EditPolicyCommand.COMMAND_WORD);
-    public static final Prefix PREFIX_PRICE = new Prefix ("p/", AddPolicyCommand.COMMAND_WORD,
+    public static final Prefix PREFIX_PRICE = new Prefix ("pr/", AddPolicyCommand.COMMAND_WORD,
             EditPolicyCommand.COMMAND_WORD);
     public static final Prefix PREFIX_START_AGE = new Prefix ("sa/", AddPolicyCommand.COMMAND_WORD,
             EditPolicyCommand.COMMAND_WORD);
@@ -71,12 +72,12 @@ public class CliSyntax {
     // TODO: Add in alternative commands
 
     // Visual Representation prefix
-    public static final Prefix PREFIX_INDICATOR = new Prefix("i/");
-    public static final Prefix PREFIX_FORMAT = new Prefix("f/");
+    public static final Prefix PREFIX_INDICATOR = new Prefix("i/", DisplayCommand.COMMAND_WORD);
+    public static final Prefix PREFIX_FORMAT = new Prefix("f/", DisplayCommand.COMMAND_WORD);
 
     public static final Prefix[] USER_PREFIXES = new Prefix[]{
         PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH, PREFIX_POLICY,
-        PREFIX_TAG, PREFIX_DESCRIPTION, PREFIX_COVERAGE, PREFIX_DAYS, PREFIX_MONTHS, PREFIX_YEARS, PREFIX_PRICE,
-        PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_ON, PREFIX_OFF, PREFIX_INDICATOR, PREFIX_FORMAT
+        PREFIX_TAG, PREFIX_DESCRIPTION, PREFIX_COVERAGE, PREFIX_START_AGE, PREFIX_END_AGE,
+        PREFIX_PRICE, PREFIX_CRITERIA, PREFIX_ON, PREFIX_OFF, PREFIX_INDICATOR, PREFIX_FORMAT
     };
 }

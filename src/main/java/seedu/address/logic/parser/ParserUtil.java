@@ -343,6 +343,7 @@ public class ParserUtil {
      * @return Suggested command word.
      */
     public static String parseCommand(String inputCommand, String arguments) {
+        requireNonNull(inputCommand, arguments);
         return similarPrefixesAndShortestDistance(inputCommand, arguments);
     }
 
@@ -363,7 +364,7 @@ public class ParserUtil {
             return getShortestDistanceString(command, shortListedCommands);
         }
         ArgumentMultimap argMultimap;
-        argMultimap = ArgumentTokenizer.tokenize(arguments, CliSyntax.USER_PREFIXES);
+        argMultimap = ArgumentTokenizer.tokenize(arguments, USER_PREFIXES);
 
         for (int i = 0; i < USER_PREFIXES.length; i++) {
             Prefix prefix = USER_PREFIXES[i];
