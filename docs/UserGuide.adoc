@@ -153,7 +153,7 @@ e.g. `/quiz manual/ quizID/CS2103T_Quiz questionNumbers/1 2 3`
 This creates a quiz named "CS2103T_Quiz" and adds question numbers 1, 2 and 3 from the question bank to the quiz.
 . *Creating quizzes automatically* ​- `/quiz auto/ quizID/[quizName] numQuestions/[numberOfQuestions] type/[typeOfQuestion]` +
 e.g. `/quiz auto/ quizID/CS2103T_Quiz numQuestions/3 type/open`
-This creates a quiz named "CS2103T_Quiz" and adds 3 questions fromm the question bank to the quiz, ensuring there are no duplicates.
+This creates a quiz named "CS2103T_Quiz" and adds 3 questions from the question bank to the quiz, ensuring there are no duplicates.
 . *Adding questions to quizzes* ​- `/quiz add quizID/[quizName] questionNumber/[questionNumber] quizQuestionNumber/[quizQuestionNumber]` +
 e.g. `/quiz add quizID/CS2103T_Quiz questionNumber/1 quizQuestionNumber/3`
 This adds the question number 1 from the question bank to the quiz "CS2103T_Quiz"'s question number 3, shifting questions previously at or after question 3, down by 1 question. I.e question 3 becomes question 4, question 4 becomes question 5 to accomodate for the added question.
