@@ -10,16 +10,18 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.QuestionStorage;
+import seedu.address.storage.quiz.QuizStorage;
 import seedu.address.storage.student.StudentRecordStorage;
 
 /**
  * API of the Storage component
  */
 public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRecordStorage,
-        QuestionStorage, NotesRecordStorage {
+        QuestionStorage, QuizStorage, NotesRecordStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -58,6 +60,18 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
 
     @Override
     void saveQuestions(ReadOnlyQuestions savedQuestions) throws IOException;
+    //endregion
+
+    //region Quiz methods
+
+    @Override
+    Path getSavedQuizzesFilePath();
+
+    @Override
+    Optional<ReadOnlyQuizzes> readQuizzes() throws DataConversionException, IOException;
+
+    @Override
+    void saveQuizzes(ReadOnlyQuizzes savedQuizzes) throws IOException;
     //endregion
 
     //region NotesRecord methods

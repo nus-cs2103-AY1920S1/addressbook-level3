@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path studentRecordFilePath = Paths.get("data" , "students.json");
     private Path savedQuestionsFilePath = Paths.get("data" , "questions.json");
+    private Path savedQuizzesFilePath = Paths.get("data" , "quizzes.json");
     private Path notesRecordFilePath = Paths.get("data", "notes.json");
 
 
@@ -41,6 +42,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setStudentRecordFilePath(newUserPrefs.getStudentRecordFilePath());
+        setSavedQuizzesFilePath(newUserPrefs.getSavedQuizzesFilePath());
         setNotesRecordFilePath(newUserPrefs.getNotesRecordFilePath());
     }
 
@@ -86,6 +88,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
     //endregion
 
+    //region SavedQuizzes
+    public Path getSavedQuizzesFilePath() {
+        return savedQuizzesFilePath;
+    }
+
+    public void setSavedQuizzesFilePath(Path savedQuizzesFilePath) {
+        requireNonNull(savedQuizzesFilePath);
+        this.savedQuizzesFilePath = savedQuizzesFilePath;
+    }
+
+    //endregion
+
     //region NotesRecord
     public Path getNotesRecordFilePath() {
         return notesRecordFilePath;
@@ -117,7 +131,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     @Override
     public int hashCode() {
         return Objects.hash(guiSettings, addressBookFilePath, studentRecordFilePath,
-                savedQuestionsFilePath, notesRecordFilePath);
+                savedQuestionsFilePath, savedQuizzesFilePath, notesRecordFilePath);
     }
 
     @Override
@@ -127,6 +141,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal address book data file location : " + addressBookFilePath);
         sb.append("\nLocal student data file location : " + studentRecordFilePath);
         sb.append("\nLocal questions data file location : " + savedQuestionsFilePath);
+        sb.append("\nLocal quizzes data file location : " + savedQuizzesFilePath);
         sb.append("\nLocal notes data file location : " + notesRecordFilePath);
         return sb.toString();
     }

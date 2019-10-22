@@ -27,6 +27,8 @@ import seedu.address.model.quiz.QuizBank;
 import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.StatisticsRecord;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.quiz.SavedQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
@@ -40,11 +42,11 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final QuizBank quizBank;
     private final ListOfGroups groupList;
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
     private final SavedQuestions savedQuestions;
+    private final SavedQuizzes savedQuizzes;
     private final NotesRecord notesRecord;
     private final StatisticsRecord statisticsRecord;
     private final FilteredList<Person> filteredPersons;
@@ -57,21 +59,22 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyAddressBook addressBook,
                         ReadOnlyStudentRecord studentRecord,
                         ReadOnlyQuestions savedQuestions,
+                        ReadOnlyQuizzes savedQuizzes,
                         ReadOnlyNotesRecord notesRecord,
                         ReadOnlyStatisticsRecord statisticsRecord,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, studentRecord, savedQuestions, notesRecord, statisticsRecord, userPrefs);
+        requireAllNonNull(addressBook, studentRecord, savedQuestions, savedQuizzed, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
                 "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.quizBank = new QuizBank();
         this.groupList = new ListOfGroups();
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
         this.savedQuestions = new SavedQuestions(savedQuestions);
+        this.savedQuizzes = new SavedQuizzes(savedQuizzes);
         this.notesRecord = new NotesRecord(notesRecord);
         this.statisticsRecord = new StatisticsRecord(statisticsRecord);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -80,7 +83,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new StudentRecord(), new SavedQuestions(),
+        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new SaveQuizzes(),
                 new NotesRecord(), new StatisticsRecord(), new UserPrefs());
     }
 
@@ -369,100 +372,54 @@ public class ModelManager implements Model {
     //endregion
 
     //region Quizzes
+
     @Override
     public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
-        Quiz quiz = new Quiz(quizId);
-
-        ArrayList<Question> questions = new ArrayList<>();
-        for (Integer i : questionNumbers) {
-            questions.add(savedQuestions.getQuestion(Index.fromOneBased(i)));
-        }
-
-        for (Question q : questions) {
-            quiz.addQuestion(q);
-        }
-
-        quizBank.addQuiz(quiz);
+        savedQuizzes.createQuizManually(quizId, questionNumbers, savedQuestions);
     }
 
     @Override
     public void createQuizAutomatically(String quizId, int numQuestions, String type) {
-        Quiz quiz = new Quiz(quizId);
-
-        ArrayList<Question> relevantQuestions = new ArrayList<>();
-        switch (type) {
-        case "mcq":
-            //relevantQuestions = savedQuestions.getMcqQuestions();
-            break;
-        case "open":
-            //relevantQuestions = savedQuestions.getOpenEndedQuestions();
-            break;
-        case "all":
-            //relevantQuestions = savedQuestions.getAllQuestions();
-            break;
-        default:
-            break;
-        }
-
-        int listSize = relevantQuestions.size();
-
-        if (listSize > numQuestions) {
-            for (int i = 0; i < numQuestions; i++) {
-                int randomQuestionIndex = getRandomQuestionIndex(listSize);
-                Question randomQuestion = relevantQuestions.get(randomQuestionIndex);
-                boolean isSuccess = quiz.addQuestion(randomQuestion);
-                while (!isSuccess) {
-                    randomQuestionIndex = getRandomQuestionIndex(listSize);
-                    randomQuestion = relevantQuestions.get(randomQuestionIndex);
-                    isSuccess = quiz.addQuestion(randomQuestion);
-                }
-            }
-        } else {
-            for (Question q : relevantQuestions) {
-                quiz.addQuestion(q);
-            }
-        }
-
-        quizBank.addQuiz(quiz);
+        savedQuizzes.createQuizAutomatically(quizId, numQuestions, type, savedQuestions);
     }
 
     @Override
     public boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber) {
-        int questionIndex = questionNumber - 1;
-        Question question = savedQuestions.getQuestion(Index.fromZeroBased(questionIndex));
-
-        int quizIndex = quizBank.getQuizIndex(quizId);
-        if (quizIndex != -1) {
-            Quiz quiz = quizBank.getQuiz(quizIndex);
-            return quiz.addQuestion(quizQuestionNumber, question);
-        }
-        return false;
+        return savedQuizzes.addQuizQuestion(quizId, questionNumber, quizQuestionNumber, savedQuestions);
     }
 
     @Override
     public void removeQuizQuestion(String quizId, int questionNumber) {
-        int quizIndex = quizBank.getQuizIndex(quizId);
-        if (quizIndex != -1) {
-            Quiz quiz = quizBank.getQuiz(quizIndex);
-            quiz.removeQuestion(questionNumber);
-        }
+        savedQuizzes.removeQuizQuestion(quizId, questionNumber);
     }
 
     @Override
     public String getQuestionsAndAnswers(String quizId) {
-        String questions = "";
-        String answers = "";
-        int quizIndex = quizBank.getQuizIndex(quizId);
-        if (quizIndex != -1) {
-            Quiz quiz = quizBank.getQuiz(quizIndex);
-            questions = quiz.getFormattedQuestions();
-            answers = quiz.getFormattedAnswers();
-        }
-        return questions + answers;
+        return savedQuizzes.getQuestionsAndAnswers(quizId);
     }
 
-    private static int getRandomQuestionIndex(int listSize) {
-        return (int) Math.floor(Math.random() * listSize);
+    //endregion
+
+    //region SavedQuizzes
+    @Override
+    public void setSavedQuizzesFilePath(Path savedQuizzesFilePath) {
+        requireNonNull(savedQuizzesFilePath);
+        userPrefs.setSavedQuizzesFilePath(savedQuizzesFilePath);
+    }
+
+    @Override
+    public Path getSavedQuizzesFilePath() {
+        return userPrefs.getSavedQuizzesFilePath();
+    }
+
+    @Override
+    public void setSavedQuizzes(ReadOnlyQuizzes savedQuizzes) {
+        this.savedQuizzes.resetData(savedQuizzes);
+    }
+
+    @Override
+    public ReadOnlyQuizzes getSavedQuizzes() {
+        return savedQuizzes;
     }
     //endregion
 
