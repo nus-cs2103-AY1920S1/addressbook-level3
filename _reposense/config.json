@@ -1,15 +1,35 @@
 {
-  "ignoreGlobList": ["about-us/**", "**index.html"],
-  "formats": ["html", "css"],
-  "ignoreCommitList": ["90018e49f129ce7e0abdc8b18e91c9813588c601", "67890def"],
   "authors":
   [
     {
       "githubId": "huiminlim",
-      "emails": ["e0036379@u.nus.edu"],
       "displayName": "LIM H ... I MIN",
-      "authorNames": ["timothyleong97", "PhireHandy", "shawnpunchew11", "nattanyz", "AHaliq"],
-      "ignoreGlobList": ["**.css"]
+      "authorNames": ["huiminlim"],
+    },
+    {
+      "githubId": "AHaliq",
+      "displayName": "ABDUL ... ATIFF",
+      "authorNames": ["AHaliq"],
+    },
+    {
+      "githubId": "timothyleong97",
+      "displayName": "LEONG ... MOTHY",
+      "authorNames": ["timothyleong97"],
+    },
+    {
+      "githubId": "nattanyz",
+      "displayName": "TAN Y ... TALIE",
+      "authorNames": ["nattanyz"],
+    },
+    {
+      "githubId": "PhireHandy",
+      "displayName": "MUHAM ... ILANI",
+      "authorNames": ["PhireHandy"],
+    },
+    {
+      "githubId": "shawnpunchew11",
+      "displayName": "SHAWN ... CHEW",
+      "authorNames": ["shawnpunchew11"],
     }
   ]
 }
