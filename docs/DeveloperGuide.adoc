@@ -209,7 +209,7 @@ Since the reimbursement tab tabulates the amount to be reimbursed to a person, i
 amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
 
 The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
-
+[[update-reimbursement]]
 .Sequence Diagram of updating Reimbursement Tab (reimbursement package)
 
 image::TransactionUpdatingReimbursement.png[]
@@ -227,7 +227,7 @@ The following sequence diagram shows how the delete by name command works:
 
 image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
 
-After this, the reimbursement tab is updated as shown in Figure 12.
+After this, the reimbursement tab is updated as shown in <<update-reimbursement,Figure 12>>.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
 
@@ -272,19 +272,8 @@ To view the full transaction list, the user would have to input the
 Back Command that calls `resetPredicate()`.
 
 === Members Tab
-
-=== Reimbursement Tab
-
-=== Inventory Tab
-
-=== Cashier Tab
-
-=== Overview Tab
-
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-
-==== Proposed Implementation
+==== [Proposed] Undo/Redo feature
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
@@ -355,6 +344,15 @@ image::UndoRedoState5.png[]
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
+
+=== Reimbursement Tab
+
+=== Inventory Tab
+
+=== Cashier Tab
+
+=== Overview Tab
+
 
 ==== Design Considerations
 
