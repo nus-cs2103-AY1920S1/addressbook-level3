@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,7 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.history.HistoryManager;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.training.Training;
 
 /**
@@ -24,7 +28,9 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final Attendance attendance;
     private final FilteredList<Person> filteredPersons;
+    private ReadOnlyAddressBook readOnlyAddressBook;
     private Person selectedPerson;
+    private HistoryManager history = new HistoryManager();
 
 
     /**
@@ -91,6 +97,22 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+    
+    @Override
+    public ReadOnlyAddressBook getAddressBookDeepCopy() {
+        UniquePersonList persons = addressBook.getPersons();
+        AddressBook deepCopy = new AddressBook();
+        deepCopy.getPersons().setPersons(persons);
+        return deepCopy;
+    }
+    
+    @Override
+    public void undo() {
+        Command undoableCommand = HistoryManager.commands.pop();
+        HistoryManager.addressBooks.pop();
+        ReadOnlyAddressBook afterUndoneState = HistoryManager.addressBooks.pop();
+        addressBook.resetData(afterUndoneState);
     }
 
     @Override

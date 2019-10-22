@@ -25,7 +25,8 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
     private final Index targetIndex;
-
+    private final boolean isUndoable = true;
+    
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -43,7 +44,12 @@ public class DeleteCommand extends Command {
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
-
+    
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

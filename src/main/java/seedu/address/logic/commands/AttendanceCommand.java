@@ -73,4 +73,10 @@ public class AttendanceCommand extends Command {
         // Command Result does not return MESSAGE_SUCCESS at the moment, used to demo.
         return new CommandResult(result.toString());
     }
+    
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+    
 }

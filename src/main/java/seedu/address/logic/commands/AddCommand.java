@@ -37,6 +37,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
+    private final boolean isUndoable = true;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -57,7 +58,12 @@ public class AddCommand extends Command {
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
-
+    
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

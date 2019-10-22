@@ -53,7 +53,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setPersons(newData.getPersonList());
     }
 
@@ -86,6 +85,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(target, editedPerson);
     }
 
+    public UniquePersonList getPersons() {
+        return this.persons;
+    }
+    
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.

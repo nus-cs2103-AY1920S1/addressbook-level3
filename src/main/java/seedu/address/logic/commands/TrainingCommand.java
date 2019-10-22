@@ -78,4 +78,9 @@ public class TrainingCommand extends Command {
         model.addTraining(training);
         return new CommandResult(TRAINING_ADD_SUCCESS);
     }
+    
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
 }

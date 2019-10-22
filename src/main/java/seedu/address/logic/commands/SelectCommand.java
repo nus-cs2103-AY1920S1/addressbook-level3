@@ -46,7 +46,12 @@ public class SelectCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, selectedPerson),
                 selectedPerson);
     }
-
+    
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
