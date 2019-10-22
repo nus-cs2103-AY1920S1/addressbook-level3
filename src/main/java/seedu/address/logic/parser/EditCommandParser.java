@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -31,7 +31,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CALLER, PREFIX_LOCATION, PREFIX_DATETIME, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_CALLER_NUMBER, PREFIX_LOCATION, PREFIX_DATETIME,
+                        PREFIX_DESCRIPTION);
 
         Index index;
 
@@ -58,8 +59,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_PASSWORD).isPresent()) {
             editPersonDescriptor.setPassword(ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get()));
         } */
-        if (argMultimap.getValue(PREFIX_CALLER).isPresent()) {
-            editIncident.setCaller(ParserUtil.parseCallerNumber(argMultimap.getValue(PREFIX_CALLER).get()));
+        if (argMultimap.getValue(PREFIX_CALLER_NUMBER).isPresent()) {
+            editIncident.setCaller(ParserUtil.parseCallerNumber(argMultimap.getValue(PREFIX_CALLER_NUMBER).get()));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             editIncident.setDistrict(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));

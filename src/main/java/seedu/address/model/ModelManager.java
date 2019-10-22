@@ -172,7 +172,6 @@ public class ModelManager implements Model {
     public void setIncident(Incident target, Incident editedIncident) {
         requireAllNonNull(target, editedIncident);
         incidentManager.setIncident(target, editedIncident);
-
     }
 
     @Override
