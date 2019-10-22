@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -9,11 +10,13 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.visit.Visit;
+import seedu.address.model.visit.exceptions.VisitNotFoundException;
 import seedu.address.model.visittodo.VisitTodo;
 
 /**
@@ -154,4 +157,51 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     * Return index of visit from the visit list.
+     */
+    public int indexOfVisit(Visit visit) {
+        requireNonNull(visit);
+        return visits.indexOf(visit);
+    }
+
+    /**
+     * Add visit to patient's visit list.
+     */
+    public void addVisit(Visit visit) {
+        requireNonNull(visit);
+        visits.add(visit);
+    }
+
+    /**
+     * Add a list of visits to patient's visit list.
+     */
+    public void addVisits(List<Visit> visits) {
+        requireNonNull(visits);
+        this.visits.addAll(visits);
+    }
+
+    /**
+     * Update a visit in the patient's list of visits.
+     */
+    public void updateVisit(Visit target, Visit updatedVisit) {
+        requireAllNonNull(target, updatedVisit);
+        int indexOf = this.visits.indexOf(target);
+        if (indexOf > -1) {
+            this.visits.set(indexOf, updatedVisit);
+        } else {
+            //This should not happen under normal circumstances (code error)
+            throw new VisitNotFoundException();
+        }
+    }
+
+    /**
+     * Get visit by index from the visit list (Optional object).
+     */
+    public Optional<Visit> getVisitByIndex(int value) {
+        if (value >= 0 && value < visits.size()) {
+            return Optional.of(visits.get(value));
+        }
+        return Optional.empty();
+    }
 }

@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +13,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.StartDateTime;
+import seedu.address.model.person.Person;
 import seedu.address.model.visit.Remark;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visittask.VisitTask;
+
 
 /**
  * Jackson-friendly version of {@link Visit}.
@@ -62,11 +66,15 @@ public class JsonAdaptedVisit {
     }
 
     /**
-     * Converts this Jackson-friendly adapted visit object into the model's {@code Visit} object.
+     * Converts this Jackson-friendly adapted visit object into the model's {@code Visit} object
+     * with a reference to its patient object.
+     * Because this patient object is not saved together with the Visit, it is only passed in when the visit
+     * object needs to be converted to its model type.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
-    public Visit toModelType() throws IllegalValueException {
+    public Visit toModelType(Person patient) throws IllegalValueException {
+        requireNonNull(patient);
         final List<VisitTask> modelVisitTasks = new ArrayList<>();
         for (JsonAdaptedVisitTask visitTask : visitTasks) {
             modelVisitTasks.add(visitTask.toModelType());
@@ -97,7 +105,7 @@ public class JsonAdaptedVisit {
             modelEndDateTime = new EndDateTime(endDateTime);
         }
 
-        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks);
+        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks, patient);
     }
 
 }
