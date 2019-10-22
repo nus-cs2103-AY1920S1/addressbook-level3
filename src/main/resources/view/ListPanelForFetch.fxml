@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<HBox prefHeight="410.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <ListView fx:id="personListView" prefHeight="410.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+      <children>
+         <ScrollPane prefHeight="200.0" prefWidth="200.0">
+           <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="270.0">
+                  <children>
+                     <Text fx:id="eventDescription" fill="#1c1919" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="221.3367156982422" />
+                  </children>
+               </AnchorPane>
+           </content>
+         </ScrollPane>
+          <ListView fx:id="eventListView" />
+      </children>
+   </VBox>
+</HBox>

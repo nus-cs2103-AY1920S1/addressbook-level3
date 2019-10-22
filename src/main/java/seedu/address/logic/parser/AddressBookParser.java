@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AllCommands;
+import seedu.address.logic.commands.AutoAllocateCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -22,6 +24,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.StatisticsCommand;
+import seedu.address.logic.commands.ManualAllocateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -75,6 +78,9 @@ public class AddressBookParser {
         case FetchEventCommand.COMMAND_WORD:
             return new FetchEventCommandParser().parse(arguments);
 
+        case DisplayScheduleForDateCommand.COMMAND_WORD:
+            return new DisplayScheduleForDateParser().parse(arguments);
+
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
@@ -86,6 +92,12 @@ public class AddressBookParser {
 
         case ListEventCommand.COMMAND_WORD:
             return new ListEventCommand();
+
+        case ManualAllocateCommand.COMMAND_WORD:
+            return new ManualAllocateCommandParser().parse(arguments);
+
+        case AutoAllocateCommand.COMMAND_WORD:
+            return new AutoAllocateCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

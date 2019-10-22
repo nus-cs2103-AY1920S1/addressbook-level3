@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_HOURS_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
@@ -29,13 +28,14 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditEventCommand
      * and returns an EditEventCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_EVENT_VENUE, PREFIX_EVENT_MANPOWER_NEEDED,
-                        PREFIX_EVENT_HOURS_NEEDED, PREFIX_EVENT_START_DATE, PREFIX_EVENT_END_DATE, PREFIX_TAG);
+                        PREFIX_EVENT_START_DATE, PREFIX_EVENT_END_DATE, PREFIX_TAG);
 
         Index index;
 
@@ -56,16 +56,12 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             editEventDescriptor.setManpowerNeeded(ParserUtil.parseManpowerNeeded(
                     argMultimap.getValue(PREFIX_EVENT_MANPOWER_NEEDED).get()));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_HOURS_NEEDED).isPresent()) {
-            editEventDescriptor.setHoursNeeded(ParserUtil.parseHoursNeeded(
-                    argMultimap.getValue(PREFIX_EVENT_HOURS_NEEDED).get()));
-        }
         if (argMultimap.getValue(PREFIX_EVENT_START_DATE).isPresent()) {
-            editEventDescriptor.setStartDate(ParserUtil.parseStartDate(
+            editEventDescriptor.setStartDate(ParserUtil.parseDate(
                     argMultimap.getValue(PREFIX_EVENT_START_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_EVENT_END_DATE).isPresent()) {
-            editEventDescriptor.setEndDate(ParserUtil.parseEndDate(
+            editEventDescriptor.setEndDate(ParserUtil.parseDate(
                     argMultimap.getValue(PREFIX_EVENT_END_DATE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editEventDescriptor::setTags);
