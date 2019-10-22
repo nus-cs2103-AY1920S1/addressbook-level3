@@ -11,11 +11,13 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.statistics.CustomLineChart;
 
 /**
  * Represents a panel of an average graph.
@@ -26,15 +28,13 @@ public class AverageGraphPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(AverageGraphPanel.class);
 
-    @FXML
-    private LineChart<String, Double> lineChart;
+    private final CategoryAxis xAxis = new CategoryAxis();
+    private final NumberAxis yAxis = new NumberAxis();
+
+    private final CustomLineChart<String, Number> customLineChart = new CustomLineChart<>(xAxis, yAxis);
 
     @FXML
-    private CategoryAxis xAxis;
-
-    @FXML
-    private NumberAxis yAxis;
-
+    private ScrollPane scrollPane;
 
     public AverageGraphPanel(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
                              SimpleStringProperty recordType) {
@@ -43,7 +43,8 @@ public class AverageGraphPanel extends UiPart<Region> {
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
-                lineChart.getData().clear();
+                customLineChart.getData().clear();
+                customLineChart.removeAllHorizontalRangeMarker();
                 createChart(averageMap, averageType, recordType);
             }
         });
@@ -51,7 +52,8 @@ public class AverageGraphPanel extends UiPart<Region> {
         averageType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                lineChart.getData().clear();
+                customLineChart.getData().clear();
+                customLineChart.removeAllHorizontalRangeMarker();
                 createChart(averageMap, averageType, recordType);
             }
         });
@@ -59,16 +61,21 @@ public class AverageGraphPanel extends UiPart<Region> {
         recordType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                lineChart.getData().clear();
+                customLineChart.getData().clear();
+                customLineChart.removeAllHorizontalRangeMarker();
                 createChart(averageMap, averageType, recordType);
             }
         });
 
-        lineChart.setAnimated(false);
+        customLineChart.setAnimated(false);
 
-        lineChart.setLegendVisible(false);
+        customLineChart.setLegendVisible(false);
+
+
 
         createChart(averageMap, averageType, recordType);
+        scrollPane.setContent(customLineChart);
+
     }
 
     /**
@@ -88,7 +95,7 @@ public class AverageGraphPanel extends UiPart<Region> {
      */
     private void setTitle(SimpleStringProperty averageType, SimpleStringProperty recordType) {
         String recordLabel = getRecordLabel(recordType);
-        lineChart.setTitle(String.format(TITLE, averageType.get(), recordLabel));
+        customLineChart.setTitle(String.format(TITLE, averageType.get(), recordLabel));
     }
 
     /**
@@ -106,13 +113,13 @@ public class AverageGraphPanel extends UiPart<Region> {
      * Loads data from averageMap and display in chart.
      */
     private void loadAndShowChart(ObservableMap<LocalDate, Double> averageMap) {
-        XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
         for (Map.Entry<LocalDate, Double> entry : averageMap.entrySet()) {
             LocalDate date = entry.getKey();
             Double average = entry.getValue();
-            dataSeries.getData().add(new XYChart.Data<String, Double>(date.toString(), average));
+            dataSeries.getData().add(new XYChart.Data<String, Number>(date.toString(), average));
         }
-        lineChart.getData().add(dataSeries);
+        customLineChart.getData().add(dataSeries);
     }
 
     /**
@@ -131,12 +138,15 @@ public class AverageGraphPanel extends UiPart<Region> {
 
     /**
      * Gets the record type to be used for y axis label.
+     * Adds horizontal range marker if record type is blood sugar.
      */
     private String getYAxisLabel(SimpleStringProperty recordType) {
         switch (recordType.get().toUpperCase()) {
         case "BMI":
             return "Weight (kg)";
         case "BLOODSUGAR":
+            XYChart.Data<Number, Number> horizontalRangeMarker = new XYChart.Data<>(4.0, 5.4);
+            customLineChart.addHorizontalRangeMarker(horizontalRangeMarker, Color.GREEN);
             return "Bloodsugar (mmol/L)";
         default:
             return "";
