@@ -68,7 +68,7 @@ public class Budget {
 
     public void addExpenseIntoBudget(Expense expense) {
         expenseList.addExpense(expense);
-        deductAmountLeft(expense);
+        recalculateAmountLeft();
     }
 
     public boolean budgetHasExpense(Expense expense) {
@@ -79,9 +79,11 @@ public class Budget {
         return !date.localDate.isBefore(startDate.localDate) && !date.localDate.isAfter(endDate.localDate);
     }
 
-    public void deductAmountLeft(Expense expense) {
-        double amountLeft = this.amountLeft.getValue();
-        amountLeft -= expense.getAmount().getValue();
+    public void recalculateAmountLeft() {
+        double amountLeft = this.amount.getValue();
+        for (Expense expense : expenseList.getExpenseList()) {
+            amountLeft -= expense.getAmount().getValue();
+        }
         this.amountLeft = new Amount("" + amountLeft);
     }
 

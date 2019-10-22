@@ -64,4 +64,5 @@ public class AddBudgetCommand extends Command {
         model.addBudget(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
 }

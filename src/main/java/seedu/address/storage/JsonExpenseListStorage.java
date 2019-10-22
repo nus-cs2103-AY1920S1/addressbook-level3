@@ -60,8 +60,8 @@ public class JsonExpenseListStorage implements ExpenseListStorage {
     }
 
     @Override
-    public void saveExpenseList(ReadOnlyExpenseList addressBook) throws IOException {
-        saveExpenseList(addressBook, filePath);
+    public void saveExpenseList(ReadOnlyExpenseList expenseList) throws IOException {
+        saveExpenseList(expenseList, filePath);
     }
 
     /**

@@ -85,10 +85,10 @@ class JsonAdaptedBudget {
         if (amountLeft == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
-        if (!Amount.isValidAmount(amount)) {
+        if (!Amount.isValidAmount(amountLeft)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
-        final Amount modelAmountLeft = new Amount(amount);
+        final Amount modelAmountLeft = new Amount(amountLeft);
 
         if (startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
@@ -106,7 +106,11 @@ class JsonAdaptedBudget {
         }
         final Date modelEndDate = new Date(endDate);
 
-        return new Budget(modelName, modelAmount, modelAmountLeft, modelStartDate, modelEndDate, new ExpenseList());
+        if (expenseList == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ExpenseList.class.getSimpleName()));
+        }
+
+        return new Budget(modelName, modelAmount, modelAmountLeft, modelStartDate, modelEndDate, new ExpenseList(expenseList.toModelType()));
 
         // need to do for budget expenselist also
     }
