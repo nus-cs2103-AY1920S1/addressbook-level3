@@ -1,28 +1,31 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.*;
-import seedu.address.model.util.Date;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.InTransaction;
+import seedu.address.model.transaction.OutTransaction;
+import seedu.address.model.util.Date;
 
+/**
+ * Updates the details of an existing Transaction in the BankAccount.
+ */
 public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
@@ -62,7 +65,8 @@ public class UpdateCommand extends Command {
         }
 
         BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
-        BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace, updateTransactionDescriptor);
+        BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace,
+                updateTransactionDescriptor);
 
         model.setTransaction(transactionToReplace, updatedTransaction);
         model.commitBankAccount();
@@ -70,21 +74,29 @@ public class UpdateCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
     }
-
-    private static BankAccountOperation createUpdatedTransaction(BankAccountOperation transactionToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    private static BankAccountOperation createUpdatedTransaction(BankAccountOperation transactionToEdit,
+                                                UpdateTransactionDescriptor updateTransactionDescriptor) {
         assert transactionToEdit != null;
 
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         Set<Tag> updatedTags = updateTransactionDescriptor.getTags().orElse(transactionToEdit.getTags());
-        
-        if(transactionToEdit instanceof InTransaction) {
+
+        if (transactionToEdit instanceof InTransaction) {
             return new InTransaction(updatedAmount, updatedDate, updatedTags);
         } else {
             return new OutTransaction(updatedAmount, updatedDate, updatedTags);
         }
     }
 
+    /**
+     * Stores the details to update the transaction with. Each non-empty field value will replace the
+     * corresponding field value of the transaction.
+     */
     public static class UpdateTransactionDescriptor {
         // TODO: Add name object
         private Amount amount;
