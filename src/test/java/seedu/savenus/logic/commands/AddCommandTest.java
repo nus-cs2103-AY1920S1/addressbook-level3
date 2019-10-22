@@ -28,8 +28,8 @@ import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.Savings;
@@ -37,6 +37,7 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.FoodBuilder;
 
 public class AddCommandTest {
@@ -130,7 +131,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPurchaseHistoryFilePath(Path menuFilePath) {
+        public void setPurchaseHistoryFilePath(Path purchaseHistoryFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getWalletFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setWalletFilePath(Path walletFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,6 +207,11 @@ public class AddCommandTest {
 
         @Override
         public void buyFood(Food foodToBuy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Wallet getWallet() {
             throw new AssertionError("This method should not be called.");
         }
 

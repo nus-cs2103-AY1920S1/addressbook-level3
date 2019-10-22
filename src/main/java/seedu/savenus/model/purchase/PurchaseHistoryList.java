@@ -1,4 +1,4 @@
-package seedu.savenus.model.purchasehistory;
+package seedu.savenus.model.purchase;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
@@ -11,7 +11,6 @@ import java.util.stream.StreamSupport;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
 
 /**

@@ -8,18 +8,20 @@ import java.util.logging.Logger;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.menu.ReadOnlyMenu;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.storage.menu.MenuStorage;
-import seedu.savenus.storage.purchasehistory.PurchaseHistoryStorage;
+import seedu.savenus.storage.purchase.PurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.RecsStorage;
 import seedu.savenus.storage.savings.SavingsStorage;
 import seedu.savenus.storage.sort.CustomSortStorage;
 import seedu.savenus.storage.userprefs.UserPrefsStorage;
+import seedu.savenus.storage.wallet.WalletStorage;
 
 /**
  * Manages storage of $aveNUS Menu Food data in local storage.
@@ -32,10 +34,11 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private RecsStorage userRecsStorage;
     private PurchaseHistoryStorage purchaseHistoryStorage;
+    private WalletStorage walletStorage;
     private CustomSortStorage customSortStorage;
 
     public StorageManager(MenuStorage menuStorage, UserPrefsStorage userPrefsStorage, RecsStorage userRecsStorage,
-                          PurchaseHistoryStorage purchaseHistoryStorage,
+                          PurchaseHistoryStorage purchaseHistoryStorage, WalletStorage walletStorage,
                           CustomSortStorage customSortStorage, SavingsStorage savingsAccountStorage) {
         super();
         this.menuStorage = menuStorage;
@@ -43,6 +46,7 @@ public class StorageManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
         this.userRecsStorage = userRecsStorage;
         this.purchaseHistoryStorage = purchaseHistoryStorage;
+        this.walletStorage = walletStorage;
         this.customSortStorage = customSortStorage;
     }
 
@@ -121,7 +125,36 @@ public class StorageManager implements Storage {
         userRecsStorage.saveRecs(recs, filePath);
     }
 
-    // =============== PurchaseHistory methods ========================
+    // =============== Wallet methods ========================
+    @Override
+    public Path getWalletFilePath() {
+        return walletStorage.getWalletFilePath();
+    }
+
+    @Override
+    public Optional<Wallet> readWallet() throws DataConversionException, IOException {
+        return readWallet(walletStorage.getWalletFilePath());
+    }
+
+    @Override
+    public Optional<Wallet> readWallet(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read wallet data from file: " + filePath);
+        return walletStorage.readWallet(filePath);
+    }
+
+    @Override
+    public void saveWallet(Wallet wallet) throws IOException {
+        saveWallet(wallet, walletStorage.getWalletFilePath());
+    }
+
+    @Override
+    public void saveWallet(Wallet wallet, Path filePath) throws IOException {
+        logger.fine("Attempting to write wallet to data file: " + filePath);
+        walletStorage.saveWallet(wallet, filePath);
+    }
+
+    // =============== Purchase History methods ========================
     @Override
     public Path getPurchaseHistoryFilePath() {
         return purchaseHistoryStorage.getPurchaseHistoryFilePath();

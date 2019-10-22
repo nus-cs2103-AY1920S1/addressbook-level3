@@ -1,7 +1,6 @@
-package seedu.savenus.model.purchasehistory;
+package seedu.savenus.model.purchase;
 
 import javafx.collections.ObservableList;
-import seedu.savenus.model.purchase.Purchase;
 
 /**
  * Unmodifiable view of a PurchaseHistory

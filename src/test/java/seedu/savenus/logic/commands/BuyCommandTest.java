@@ -16,11 +16,12 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.purchase.Purchase;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -33,7 +34,7 @@ public class BuyCommandTest {
     // Please refer to the wallet and purchase history tests
 
     private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-            new PurchaseHistory(), new CustomSorter(), new SavingsAccount());
+            new PurchaseHistory(), new Wallet("100", "30"), new CustomSorter(), new SavingsAccount());
 
     @Test
     public void equals() {

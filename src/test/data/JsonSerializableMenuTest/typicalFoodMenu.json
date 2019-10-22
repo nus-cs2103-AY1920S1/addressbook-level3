@@ -62,9 +62,5 @@
     "location" : "Techno Edge",
     "openingHours": "0900 1700",
     "restrictions": "Halal"
-  } ],
-  "wallet" : {
-    "remainingBudget" : "100.00",
-    "daysToExpire" : "30"
-  }
+  } ]
 }

@@ -1,12 +1,12 @@
-package seedu.savenus.storage.purchasehistory;
+package seedu.savenus.storage.purchase;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.savenus.commons.exceptions.DataConversionException;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 
 /**
  * Represents a storage for {@link PurchaseHistory}.

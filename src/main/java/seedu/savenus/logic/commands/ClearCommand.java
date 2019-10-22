@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.savenus.model.Model;
 import seedu.savenus.model.menu.Menu;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.savings.SavingsAccount;
 
 /**

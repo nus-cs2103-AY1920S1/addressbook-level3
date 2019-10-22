@@ -1,4 +1,4 @@
-package seedu.savenus.storage.purchasehistory;
+package seedu.savenus.storage.purchase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.purchase.Purchase;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
-import seedu.savenus.storage.purchase.JsonAdaptedPurchase;
+import seedu.savenus.model.purchase.PurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 
 /**
  * An Immutable Purchase History that is serializable to JSON format.
