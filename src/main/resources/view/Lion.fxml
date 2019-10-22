@@ -23,7 +23,7 @@
             <URL value="@Extensions.css" />
          </stylesheets>
       </Label>
-      <ScrollPane fx:id="messageScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="545.0" prefWidth="205.0" styleClass="background">
+      <ScrollPane fx:id="messageScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="545.0" prefWidth="205.0">
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
@@ -32,7 +32,7 @@
             <URL value="@Extensions.css" />
          </stylesheets>
          <content>
-            <VBox fx:id="responseWindow" styleClass="background">
+            <VBox fx:id="responseWindow" styleClass="scroll-pane">
                <stylesheets>
                   <URL value="@DarkTheme.css" />
                   <URL value="@Extensions.css" />
