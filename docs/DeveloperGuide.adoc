@@ -78,7 +78,14 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+`UserViewMain` is the component responsible for switching the user view. The controller class of `UserViewMain` is `UserViewController`. When the user enters a command, `UserViewUpdate` interacts
+with `UserViewMain` to switch the view of the user. `UserViewMain` then interacts with `UserViewUpdate`, which obtains the
+relevant data from `Logic`, to create the relevant `UiPart`. These `UiPart` components are the `MemberListPanel`,
+`ProjectDashBoardView` etc. This component is then passed to `UserViewController` to set the current view of
+`UserViewMain` component.
+
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
