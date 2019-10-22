@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-T10-2/main
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-2/main/tree/master
 
 By: `Team T10-2`      Since: `Oct 2019`      Licence: `MIT`
 
