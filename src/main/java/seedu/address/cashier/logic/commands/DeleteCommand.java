@@ -1,7 +1,6 @@
 package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_DELETED_ITEM;
-import static seedu.address.person.commons.core.LogsCenter.logger;
 
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
@@ -24,7 +23,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(int index) {
         assert index > 0 : "Index must be a positive integer.";
-        logger.info("Delete index: " + index);
+        //logger.info("Delete index: " + index);
         this.index = index;
     }
 
@@ -40,7 +39,7 @@ public class DeleteCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(CashierMessages.NO_SUCH_INDEX_CASHIER);
         }
-        logger.info("Deleted Item: " + item.toString());
+        //logger.info("Deleted Item: " + item.toString());
         return new CommandResult(String.format(MESSAGE_DELETED_ITEM, item));
     }
 }

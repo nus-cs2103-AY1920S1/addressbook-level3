@@ -4,7 +4,6 @@ import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADDED_ITEM;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
-import static seedu.address.person.commons.core.LogsCenter.logger;
 
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
 import seedu.address.cashier.model.Model;
@@ -29,8 +28,8 @@ public class AddCommand extends Command {
         assert description != null : "Description cannot be null.";
         assert quantity >= 0 : "Quantity must be a positive integer.";
 
-        logger.info("description of item added: " + description);
-        logger.info("quantity of item added: " + quantity);
+        //logger.info("description of item added: " + description);
+        //logger.info("quantity of item added: " + quantity);
 
         this.description = description;
         this.quantity = quantity;
@@ -57,7 +56,7 @@ public class AddCommand extends Command {
         } catch (NoSuchItemException e) {
             throw new NoSuchItemException(NO_SUCH_ITEM_CASHIER);
         }
-        logger.info("Item added: " + i.toString());
+        //logger.info("Item added: " + i.toString());
         return new CommandResult(String.format(MESSAGE_ADDED_ITEM, i.getDescription()));
     }
 }

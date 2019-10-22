@@ -2,8 +2,8 @@ package seedu.address.cashier.logic;
 
 import java.util.ArrayList;
 
-import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.logic.commands.CommandResult;
+import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 

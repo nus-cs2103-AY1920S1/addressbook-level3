@@ -3,7 +3,6 @@ package seedu.address.cashier.logic.parser;
 import seedu.address.cashier.logic.commands.SetCashierCommand;
 import seedu.address.cashier.logic.commands.exception.NoSuchPersonException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
-import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;

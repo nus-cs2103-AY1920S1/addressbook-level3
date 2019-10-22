@@ -23,7 +23,7 @@ public class LogsCenter {
     private static Level currentLogLevel = Level.INFO;
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
-    public static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
+    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
 
     /**
      * Initializes with a custom log level (specified in the {@code config} object)

@@ -1,7 +1,6 @@
 package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
-import static seedu.address.person.commons.core.LogsCenter.logger;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.ui.CashierMessages;
@@ -27,8 +26,8 @@ public class CheckoutCommand extends Command {
         assert totalAmount >= 0 : "Total amount cannot be negative.";
         assert change >= 0 : "Change cannot be negative.";
 
-        logger.info("Total Amount: " + totalAmount);
-        logger.info("Change: " + change);
+        //logger.info("Total Amount: " + totalAmount);
+        //logger.info("Change: " + change);
 
         this.totalAmount = totalAmount;
         this.change = change;
@@ -47,7 +46,7 @@ public class CheckoutCommand extends Command {
             throw new NoCashierFoundException(CashierMessages.NO_CASHIER);
         }
         modelManager.checkoutAsTransaction(totalAmount, p, transactionModel);
-        logger.info("Cashier set to: " + p.toString());
+        //logger.info("Cashier set to: " + p.toString());
         modelManager.updateInventoryList();
         modelManager.writeInInventoryFile();
         inventoryModel.readInUpdatedList();
