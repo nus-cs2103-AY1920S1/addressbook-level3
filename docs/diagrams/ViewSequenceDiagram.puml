@@ -1,4 +1,4 @@
-@startuml ViewSequenceDiagram
+@startuml
 
 !include style.puml
 
