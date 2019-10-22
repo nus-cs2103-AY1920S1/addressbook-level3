@@ -36,7 +36,7 @@ public class AccountFindCommand extends Command {
         accountsManager.updateFilteredAccountList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ACCOUNTS_LISTED_OVERVIEW,
-                        accountsManager.getFilteredAccountList().size()));
+                        accountsManager.getFilteredAccountList().size()), null);
     }
 
     @Override
