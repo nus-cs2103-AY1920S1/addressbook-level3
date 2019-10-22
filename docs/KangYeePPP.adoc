@@ -1,5 +1,5 @@
 = Lim Kang Yee – Project Portfolio for treasurerPro (tP)
-
+:site-section: ProjectPortfolio
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -8,20 +8,20 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 ifdef::env-github[]
-:tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-
 
 This project portfolio briefly introduces the project, treasurerPro and outlines my contributions to the project
 and explains the feature I implemented.
 
-== About the team
+== Introduction
+
+=== About the team
 
 My team consists of 5 software engineering students under the module CS2103T. 4 of us, including me, are year 2
 Computer Science students and the other is a year 4 Computer Engineering student.
 
-== About the project
+=== About the project
 
 This project is part of the module Software Engineering Project, CS2103T where we were tasked to develop a basic
 command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
@@ -29,4 +29,99 @@ Our team decided to incorporate and morph the AddressBook application as part of
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
 reimbursements to members, inventory and member’s contact details easily.
 
-==  Key to the icons and formatting used in the document
+===  Key to the icons and formatting used in the document
+
+[NOTE]
+This symbol indicates important information or detail.
+
+`Model`
+Text with grey highlight indicates a component, class or object in the architecture of
+the application.
+
+=== Introduction of treasurerPro
+
+This desktop application consists of 6 tabs, a command box for users to input their commands and a response box
+for Leo, our lion mascot. Each tab serves a different purpose that helps treasurers and members better manage their club
+or Society's finances. The home tab keeps track of individual transactions. The members tab keep track of all contact
+details of members. The reimbursement tab keeps track of reimbursement records for members that have spent for the club.
+The inventory tab keeps track of items for sale. The cashier tab is a convenient way for the club or society to do
+cashiering duties which helps to directly input sales into the system. The overview tab allows treasurers to plan the
+club or society's finances.
+
+This is what our application looks like when it is first opened. (graphical user interface for treasurerPro):
+image:Ui.png[]
+
+== Summary of contributions
+My role was to design and write the codes for the Home Tab features. The following sections illustrate these
+enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in
+relation to these enhancements.
+
+=== Enhancements
+I added the enhancements of the different commands for the Home Tab. The basic create, read, update and delete (CRUD)
+commands were added.
+
+==== Add, Delete and Edit Commands
+
+* What it does:
+It allows the user to create, delete and edit transactions. It also allows the application to restore data from
+previous usage of the application
+
+* Justification:
+It forms the fundamental features required for the Home Tab to be useful for users to keep track of transactions
+
+* Highlights:
+These commands help to store and keep track of transactions in the Home Tab but also help keep track of sales
+transactions from the Cashier Tab. The transactions are also tabulated by members that require reimbursement in the
+Reimbursement Tab.
+
+==== Sort Command
+
+A sort command was also implemented for the transactions in the table to sort the commands to a certain order.
+
+* What it does:
+The addition of transactions requires the user to input the date, description, category, amount of money and
+person accountable for each transaction. Thus, the sort helps to sort the transactions by the alphabetical order of
+the person's name, by the date (from oldest to most recent) or amount (from largest to smallest).
+
+* Justification:
+It is useful for users to keep track of transactions and look at the transaction records according to different
+priority.
+
+* Highlights:
+This command can be extended easily to allow for sorting of transactions in the reverse order.
+
+==== Find Command
+
+A find command was also implemented to help find specific transactions that match the keywords inputted by the user.
+
+* What it does:
+The find command allows user to filter out the transactions to only show those that match the keywords from all
+the transactions recorded.
+
+* Justification:
+This allows users to easily find and filter out transactions to call another command to manage the transactions
+better.
+
+==== Go and Exit Command
+
+Lastly, a go command and exit command was implemented to help navigate to another tab and leave the application.
+
+* What it does:
+The go command helps the user to navigate to another tab without having to click on the tab and the exit command allows
+the user to leave the application without having to click on the window's icon as well.
+
+* Justification: This ensures the application is a command-line interface application which requires no clicking
+at all.
+
+=== Code contributed
+
+=== Other contributions
+I integrated the original `AddressBook` into the Members Tab.
+
+== Contributions to the User Guide
+=== Current enhancement
+=== Proposed enhancement for v2.0
+
+==  Contributions to the Developer Guide
+=== Current enhancement
+=== Proposed enhancement for v2.0
