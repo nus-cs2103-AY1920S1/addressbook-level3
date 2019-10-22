@@ -225,6 +225,8 @@ image::AddTaskSequenceDiagram.png[]
 * **Alternative 1 (current implementation):** implement `Task` as abstract class with two subclasses to support task for
 notes and questions respectively.
 
+image::TaskClassDiagram.png[]
+
 === Logging
 
 We use `java.util.logging` for logging. The `LogsCenter` class is used to manage the logging levels and destinations.
