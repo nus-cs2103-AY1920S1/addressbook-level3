@@ -76,9 +76,15 @@ Assuming then in the above scenario you discovered bed bugs after checking again
 
 This would set task 2 to unfinished and change the remarks. Once you have finished changing the bedsheets, you can then verify there are no bed bugs and use `visit-now-update f/2` to mark task 2 as finished.
 
-=== Finishing the ongoing Visit `visit-now-finish`
+=== Cancelling the ongoing Visit `visit-cancel`
 
-Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can then mark that visit as finished using `visit-now-finish`, which will archive that visit. The ongoing visit will be removed from the Current Visit tab.
+Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can cancel that visit using `visit-cancel`, which will cancel the visit and remove it from the list of visits of the patient. The ongoing visit will also be removed from the Current Visit tab.
 
-Format: `visit-now-finish`
-// end::patient[]
+Format: `visit-cancel`
+
+=== Finishing the ongoing Visit `visit-end`
+
+Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can then mark that visit as finished using `visit-end`, which will archive that visit. The ongoing visit will be removed from the Current Visit tab.
+
+Format: `visit-end`
+// end::visit[]

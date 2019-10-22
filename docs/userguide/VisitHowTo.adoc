@@ -37,6 +37,9 @@ Alternatively, if John is an existing patient in NurseTraverse you can update Jo
 *Starting a Visit* +
 Let's assume that you decide to visit John's house. When you are at John's house during a house visit and you want to begin keeping track of your visit and recording visit details, you can use `visit-start`. In this scenario, John is the 2nd patient in `pat-list`, so you would use `visit-start 2`. Since you can only be visiting one patient at one time, you can only have one ongoing visit at any time; `visit-start` can only be performed if there is no ongoing visit.
 
+*Cancelling a Visit* +
+If you realized you started the visit for a wrong person, you can cancel it using `visit-cancel`.
+
 *Updating a Visit's details* +
 Once you have begun a visit using `visit-start`, you can begin updating the visit's details using `visit-now-update`. Let's assume that you've finished all the tasks in the checklist during your visit with John, so an example would be `visit-now-update f/1 f/2 f/3`.
 
@@ -49,7 +52,7 @@ You can also set the visit's remarks. An example would be `visit-now-update r/Re
 Finally, you can combine all of the above into one command: `visit-now-update f/1 f/2 f/3 d/1 140/90mmHg d/2 37.0 r/Remember to bring stretch band next session`.
 
 *Finishing a Visit* +
-Finally, once you have concluded the visit, you can finish the visit using `visit-now-finish`. This will tell the application that the ongoing visit has concluded. It will then save the visit under the patient (in this case, John).
+Finally, once you have concluded the visit, you can finish the visit using `visit-end`. This will tell the application that the ongoing visit has concluded. It will then save the visit under the patient (in this case, John).
 
 *Viewing previous Visits* +
 You can view the visits of a patient using `pat-list` and `pat-find`. Visits are displayed under their patient details. In this case, it may be better to use `pat-find` to find John's records e.g. `pat-find John Heng`.
