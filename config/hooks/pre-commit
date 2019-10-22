@@ -12,7 +12,7 @@ if [ $RESULT -eq 0 ]
 then
     echo -e "\n================ Pre-commit checks: PASSED ================\n"
 else
-    echo -e "\n================ Pre-commit checks: FAILED ================"
+    echo -e "\n================ Pre-commit checks: FAILED ================\n"
 fi
 
 # Return exit code to determine if commit passes
