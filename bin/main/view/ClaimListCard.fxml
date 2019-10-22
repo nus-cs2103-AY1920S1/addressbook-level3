@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="date" text="\$date" />
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -37,4 +38,5 @@
          <RowConstraints />
       </rowConstraints>
   </GridPane>
+   <Label fx:id="status" text="\$status" />
 </HBox>

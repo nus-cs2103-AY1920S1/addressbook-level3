@@ -38,7 +38,7 @@ public class GotoCommand extends Command {
      * @param view 3 different types of view possible
      * @throws ParseException if the view is not properly typed by user
      */
-    public GotoCommand(View view) throws ParseException {
+    public GotoCommand(View view) {
         try {
             if (view == null) {
                 throw new ParseException("error");
@@ -69,5 +69,12 @@ public class GotoCommand extends Command {
         } else {
             return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GotoCommand // instanceof handles nulls
+                && gotoView.equals(((GotoCommand) other).gotoView)); // state check
     }
 }

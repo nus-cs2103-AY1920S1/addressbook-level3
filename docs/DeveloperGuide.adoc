@@ -249,10 +249,16 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 
 === Goto feature
-==== Introduction
 This section describes the different Views that Goto can bring a user to. This is also an overview of the goto details and how users can interact
 with goto based on commands implemented with the revamp of the original list feature.
 It also provides some design considerations to give users an insight of how the current solutions are worked out.
+
+==== Overview
+In the Goto Command, there are various message attributes: `MESSAGE_SUCCESS_CONTACTS`, `MESSAGE_SUCCESS_CLAIMS`, `MESSAGE_SUCCESS_INCOMES`, `MESSAGE FAILURE`,
+`MESSAGE_USAGE` that informs the user if the changing of View is successful. The attribute `View` is also stored as an attribute
+of the command. It is taken in as the parameter and the index of this View determines the list that will be shown in the MainWindow.
+
+==== Current Usage
 
 ==== Current Implementation
 
@@ -260,11 +266,13 @@ It also provides some design considerations to give users an insight of how the 
 
 
 === Check feature
-==== Introduction
 This section is an overview of the check feature, an extended feature of the Goto feature. This feature can only be used
 after going to contacts or claims page. It is used to examine each contact or claim individually.
 It also provides some design considerations to give users an insight of how the current solutions are worked out.
 
+==== Overview
+Just like the Goto Command, there are various message attributes: `MESSAGE_SUCCESS_CONTACT`, `MESSAGE_SUCCESS_CLAIM`, `MESSAGE_FAILURE`,
+`MESSAGE_USAGE` that informs the user if the `check` command was successfully executed and if so which individual pop-up is showing.
 ==== Current Implementation
 
 ==== Design Consideration
