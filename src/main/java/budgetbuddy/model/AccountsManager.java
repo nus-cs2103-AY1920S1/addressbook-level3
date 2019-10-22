@@ -3,6 +3,7 @@ package budgetbuddy.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
@@ -10,6 +11,7 @@ import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Manages the loans of each person in a list of persons.
@@ -18,9 +20,8 @@ public class AccountsManager {
 
     private final UniqueAccountList accounts;
 
-    /**
-     * Creates a new (empty) list of accounts.
-     */
+    private FilteredList<Account> filteredAccounts;
+
     public AccountsManager() {
         this.accounts = new UniqueAccountList();
     }
@@ -32,7 +33,9 @@ public class AccountsManager {
     public AccountsManager(List<Account> accounts) {
         requireNonNull(accounts);
         this.accounts = new UniqueAccountList(accounts);
+        filteredAccounts = new FilteredList<>(this.getAccountsList(), s -> true);
     }
+
 
     /**
      * Retrieves the list of accounts.
@@ -71,6 +74,15 @@ public class AccountsManager {
         } else {
             throw new AccountNotFoundException();
         }
+    }
+
+    /**
+     * Updates the filter of the filtered account list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    public void updateFilteredAccountList(Predicate<Account> predicate) {
+        requireNonNull(predicate);
+        filteredAccounts.setPredicate(predicate);
     }
 
     /**
