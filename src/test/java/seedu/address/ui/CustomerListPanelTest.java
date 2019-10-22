@@ -63,12 +63,12 @@ public class CustomerListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of persons containing {@code customerCount} persons that is used to populate the
      * {@code PersonListPanel}.
      */
-    private ObservableList<Customer> createBackingList(int personCount) {
+    private ObservableList<Customer> createBackingList(int customerCount) {
         ObservableList<Customer> backingList = FXCollections.observableArrayList();
-        for (int i = 0; i < personCount; i++) {
+        for (int i = 0; i < customerCount; i++) {
             CustomerName name = new CustomerName(i + "a");
             ContactNumber contactNumber = new ContactNumber("12345678");
             Email email = new Email("a@aa");

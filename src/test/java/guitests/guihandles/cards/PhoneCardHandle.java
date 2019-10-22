@@ -20,6 +20,8 @@ public class PhoneCardHandle extends NodeHandle<Node> {
     private static final String COLOUR_FIELD_ID = "#colour";
     private static final String COST_FIELD_ID = "#cost";
     private static final String TAGS_FIELD_ID = "#tags";
+    private static final String IDENTITY_FIELD_ID = "#identityNumber";
+    private static final String SERIAL_FIELD_ID = "#serialNumber";
 
 
     private final Label nameLabel;
@@ -28,6 +30,8 @@ public class PhoneCardHandle extends NodeHandle<Node> {
     private final Label capacityLabel;
     private final Label brandLabel;
     private final Label idLabel;
+    private final Label identityLabel;
+    private final Label serialNumLabel;
     private final List<Label> tagLabels;
 
 
@@ -41,11 +45,21 @@ public class PhoneCardHandle extends NodeHandle<Node> {
         brandLabel = getChildNode(BRAND_FIELD_ID);
         idLabel = getChildNode(ID_FIELD_ID);
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
+        identityLabel = getChildNode(IDENTITY_FIELD_ID);
+        serialNumLabel = getChildNode(SERIAL_FIELD_ID);
         tagLabels = tagsContainer
                 .getChildrenUnmodifiable()
                 .stream()
                 .map(Label.class::cast)
                 .collect(Collectors.toList());
+    }
+
+    public String getIdentityNumber() {
+        return identityLabel.getText();
+    }
+
+    public String getSerialNumber() {
+        return serialNumLabel.getText();
     }
 
     public String getId() {

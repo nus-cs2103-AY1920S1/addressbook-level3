@@ -104,7 +104,7 @@ public class PhoneListPanelHandle extends NodeHandle<ListView<Phone>> {
      * Returns the phone card handle of a phone associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PhoneCardHandle getPersonCardHandle(int index) {
+    public PhoneCardHandle getPhoneCardHandle(int index) {
         return getAllCardNodes().stream()
                 .map(PhoneCardHandle::new)
                 .filter(handle -> handle.equals(getPhone(index)))
