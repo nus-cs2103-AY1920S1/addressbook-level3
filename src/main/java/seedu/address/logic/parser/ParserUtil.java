@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -104,6 +106,23 @@ public class ParserUtil {
         if (!PanelName.isValidPanelName(trimmedPanelName)) {
             throw new ParseException(PanelName.MESSAGE_CONSTRAINTS);
         }
+
+        // standardise panel names
+        ArrayList<String> aliasesForWishlist = new ArrayList<>(Arrays.asList("wishlist", "wish", "wishes", "w"));
+        if (aliasesForWishlist.contains(trimmedPanelName)) {
+            trimmedPanelName = "wishlist";
+        }
+
+        ArrayList<String> aliasesForBudget = new ArrayList<>(Arrays.asList("budget", "budgets", "b"));
+        if (aliasesForBudget.contains(trimmedPanelName)) {
+            trimmedPanelName = "budget";
+        }
+
+        ArrayList<String> aliasesForReminder = new ArrayList<>(Arrays.asList("reminder", "reminders", "r"));
+        if (aliasesForReminder.contains(trimmedPanelName)) {
+            trimmedPanelName = "reminder";
+        }
+
         return new PanelName(trimmedPanelName);
     }
 

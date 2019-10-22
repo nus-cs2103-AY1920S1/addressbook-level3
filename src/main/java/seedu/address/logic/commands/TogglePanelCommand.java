@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import seedu.address.model.Model;
 import seedu.address.model.person.PanelName;
@@ -14,7 +13,8 @@ public class TogglePanelCommand extends Command {
     public static final String COMMAND_WORD = "toggle";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles the visibility the specified panel. "
-            + "PARAMETERS: wishlist, budget or reminder. "
+            + "PARAMETERS: (wishlist) wishlist/wishes/wish/w, (budget) budget/budgets/b "
+            + "or (reminder) reminder/reminders/r. "
             + "EXAMPLE: " + COMMAND_WORD + " wishlist";
     public static final String MESSAGE_SUCCESS = "Toggled visibility of %1$s panel";
 

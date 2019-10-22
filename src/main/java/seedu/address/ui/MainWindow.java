@@ -186,6 +186,37 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Calls the togglePlaceHolder method with the place holder of the specified panel.
+     * @param panelName name of the specified panel to be toggled.
+     */
+    private void togglePanel(String panelName) {
+        switch (panelName) {
+        case "wishlist":
+            togglePlaceHolder(wishesPlaceHolder);
+            break;
+        case "budget":
+            togglePlaceHolder(budgetsPlaceHolder);
+            break;
+        case "reminder":
+            togglePlaceHolder(remindersPlaceHolder);
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Toggles the isVisible and isManaged property of the specified place holder.
+     * @param placeHolder specified place holder to be toggled.
+     */
+    private void togglePlaceHolder(VBox placeHolder) {
+        boolean isManaged = placeHolder.isManaged();
+        placeHolder.setManaged(!isManaged);
+        boolean isVisible = placeHolder.isVisible();
+        placeHolder.setVisible(!isVisible);
+    }
+
     private void toggleEntireSidePanelIfNecessary() {
         if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()) {
             sidePanelsPlaceHolder.setManaged(false);
@@ -222,31 +253,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isTogglePanel()) {
                 PanelName panelName = commandResult.getPanelName();
                 String panelNameString = panelName.getName();
-                boolean isManaged;
-                boolean isVisible;
-                switch (panelNameString) {
-                case "wishlist":
-                    isManaged = wishesPlaceHolder.isManaged();
-                    wishesPlaceHolder.setManaged(!isManaged);
-                    isVisible = wishesPlaceHolder.isVisible();
-                    wishesPlaceHolder.setVisible(!isVisible);
-                    break;
-                case "budget":
-                    isManaged = budgetsPlaceHolder.isManaged();
-                    budgetsPlaceHolder.setManaged(!isManaged);
-                    isVisible = budgetsPlaceHolder.isVisible();
-                    budgetsPlaceHolder.setVisible(!isVisible);
-                    break;
-                case "reminder":
-                    isManaged = remindersPlaceHolder.isManaged();
-                    remindersPlaceHolder.setManaged(!isManaged);
-                    isVisible = remindersPlaceHolder.isVisible();
-                    remindersPlaceHolder.setVisible(!isVisible);
-                    break;
-                default:
-                    break;
-                }
-                toggleEntireSidePanelIfNecessary();
+                togglePanel(panelNameString);
+                //toggleEntireSidePanelIfNecessary();
             }
 
             return commandResult;

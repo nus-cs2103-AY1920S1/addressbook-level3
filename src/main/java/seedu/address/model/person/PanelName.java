@@ -28,9 +28,34 @@ public class PanelName {
      */
     public static boolean isValidPanelName(String test) {
         String testLowerCase = test.toLowerCase();
-        if (testLowerCase.equals("wishlist") || testLowerCase.equals("budget") || testLowerCase.equals("reminder")) {
+        /*if (testLowerCase.equals("wishlist") || testLowerCase.equals("budget") || testLowerCase.equals("reminder")) {
             return true;
         } else {
+            return false;
+        }*/
+
+        switch (testLowerCase) {
+        case "wishlist":
+            // Fallthrough
+        case "wishes":
+            // Fallthrough
+        case "wish":
+            // Fallthrough
+        case "w":
+            // Fallthrough
+        case "budget":
+            // Fallthrough
+        case "budgets":
+            // Fallthrough
+        case "b":
+            // Fallthrough
+        case "reminders":
+            // Fallthrough
+        case "reminder":
+            // Fallthrough
+        case "r":
+            return true; // all the above cases are accepted arguments
+        default:
             return false;
         }
     }
