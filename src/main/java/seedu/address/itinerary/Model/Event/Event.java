@@ -1,4 +1,4 @@
-package seedu.address.itinerary.model.Event;
+package seedu.address.itinerary.model.event;
 
 /**
  * The events which makes up the itinerary list.
@@ -48,6 +48,12 @@ public class Event {
         isDone = true;
     }
 
+
+    /**
+     * Check whether two events have similar attribute value.
+     * @param otherEvent another event in comparison to the current event.
+     * @return boolean result whether the two event have the same attribute value.
+     */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
             return true;
