@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
