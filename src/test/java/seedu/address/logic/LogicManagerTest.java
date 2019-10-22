@@ -67,6 +67,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
+        JsonDashboardStorage dashboardStorage =
+                new JsonDashboardStorage(temporaryFolder.resolve("dashboard.json"));
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookStorage(temporaryFolder.resolve("recipes.json"));
         JsonUserProfileStorage userProfileStorage =
@@ -77,7 +79,6 @@ public class LogicManagerTest {
                 new JsonWorkoutPlannerStorage(temporaryFolder.resolve("exercises.json"));
         JsonDiaryStorage diaryStorage =
                 new JsonDiaryStorage(temporaryFolder.resolve("diary.json"));
-        JsonDashboardStorage dashboardStorage = new JsonDashboardStorage((temporaryFolder.resolve("dashboard.json")));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, healthRecordsStorage,
@@ -210,9 +211,9 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(),
-                model.getRecipeBook(), model.getWorkoutPlanner(), model.getDiaryRecords(), new UserPrefs(),
-                model.getDashboardRecords());
+        Model expectedModel = new ModelManager(model.getUserProfile(), model.getDashboardRecords(),
+                model.getHealthRecords(), model.getRecipeBook(), model.getWorkoutPlanner(),
+                model.getDiaryRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
