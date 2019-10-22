@@ -24,7 +24,8 @@ Computer Science students and the other is a year 4 Computer Engineering student
 === About the project
 
 This project is part of the module Software Engineering Project, CS2103T where we were tasked to develop a basic
-command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
+command line interface footnote:[Command line interface applications allow users to use all the features in the app by typing and without a need to click on anything]
+desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
 reimbursements to members, inventory and member’s contact details easily.
@@ -39,7 +40,7 @@ Text with grey highlight indicates a component, class or object in the architect
 the application.
 
 [blue]`*command*` :
-Text with blue fonts and grey highlight indicates a command that can be inputted by the user.
+Text with blue font and grey highlight indicates a command that can be inputted by the user.
 
 === Introduction of treasurerPro
 
@@ -229,6 +230,7 @@ amount to indicate a spending that needs to be reimbursed, the reimbursement tab
 
 The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
 
+[[update reimbursement]]
 image::TransactionUpdatingReimbursement.png[]
 [italic small red]*Figure 12. Sequence Diagram of updating Reimbursement Tab (reimbursement package)*
 
@@ -245,7 +247,7 @@ The following sequence diagram shows how the delete by name command works:
 image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
 [italic small red]*Figure 13. Sequence Diagram of Delete Command in Home Tab (transaction package)*
 
-After this, the reimbursement tab is updated as shown in Figure 12.
+After this, the reimbursement tab is updated as shown in <<update reimbursement, Figure 12>>.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
 
