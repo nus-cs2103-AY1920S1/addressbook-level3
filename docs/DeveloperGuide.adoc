@@ -320,6 +320,27 @@ _Figure 3. Sequence Diagram for the Execution of `find` Command_
 // end::find[]
 //@@author le0tan
 
+//@@author tiuweehan
+// tag::switchTab[]
+
+=== Switch Tab Feature
+
+image::gui/SwitchTabCommandActivityDiagram.png[]
+_Figure 1. Activity Diagram for the Execution of `switchtab` Command_
+
+image::gui/SwitchTabsSequenceDiagram0.png[]
+_Figure 2. Activity Diagram for the Execution of `switchtab` Command_
+
+image::gui/SwitchTabsSequenceDiagram1.png[]
+_Figure 3. Activity Diagram for the Execution of `switchtab` Command_
+
+image::gui/SwitchTabsSequenceDiagram2.png[]
+_Figure 4. Activity Diagram for the Execution of `switchtab` Command_
+
+
+// end::switchTab[]
+//@@author tiuweehan
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

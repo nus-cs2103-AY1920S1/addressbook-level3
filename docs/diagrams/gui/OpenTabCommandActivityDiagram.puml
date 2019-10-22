@@ -1,0 +1,19 @@
+@startuml
+
+start
+
+:User executes a open tab command;
+
+if () then ([command is valid])
+	:Instantiate a OpenTabCommand with the model type and index;
+	:Execute OpenTabCommand;
+	:Update list of tab data in TabManager with the index of the model;
+	:Listener is activated and new tab is reflected in UI;
+else ([else])
+	:Throw an exception;
+	:Update UI to notify the user;
+endif
+
+stop
+
+@enduml
