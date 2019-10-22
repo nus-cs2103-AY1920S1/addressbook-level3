@@ -17,7 +17,7 @@ Interface Statistics  <<Interface>>
 class StatisticManager
 }
 
-MainWindow .left.|> UI
+MainWindow .left.|> UIPart
 MainWindow .right.-> Logic
 
 Logic .down.-> Statistics
