@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
 import seedu.address.ui.UiManager;
 
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Earnings> filteredEarnings;
+    private final FilteredList<Reminder> filteredReminder;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,6 +42,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredEarnings = new FilteredList<>(this.addressBook.getEarningsList());
+        filteredReminder = new FilteredList<>(this.addressBook.getReminderList());
     }
 
     public ModelManager() {
@@ -172,6 +175,11 @@ public class ModelManager implements Model {
 
     public ObservableList<Earnings> getFilteredEarningsList() {
         return filteredEarnings;
+    }
+
+    /** Returns an unmodifiable view of the filtered person list */
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return filteredReminder;
     }
 
     @Override
