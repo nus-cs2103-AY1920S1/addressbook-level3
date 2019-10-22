@@ -7,14 +7,13 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.module.Module;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UserTag;
 
 /**
  * Adds a tag to a module.
  */
-public class AddTagCommand extends Command {
+public class TagModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "addtag";
 
@@ -23,7 +22,7 @@ public class AddTagCommand extends Command {
             + "MODULE CODE "
             + "TAG_NAME \n"
             + "Example: "
-            + "tag m/CS3230 t/exchange";
+            + "tag CS3230 exchange";
 
     public static final String MESSAGE_SUCCESS_TAG_ADDED = "A new tag %1$s has been created and added to module %2$s";
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been added to module %2$s";
@@ -35,11 +34,11 @@ public class AddTagCommand extends Command {
     private boolean newTagCreated = false;
 
     /**
-     * Creates an {@code AddTagCommand} to add a tag with the given name to the module of the given module code.
+     * Creates an {@code TagModuleCommand} to add a tag with the given name to the module of the given module code.
      *
      * @param tagName
      */
-    public AddTagCommand(String tagName, String moduleCode) {
+    public TagModuleCommand(String tagName, String moduleCode) {
         requireAllNonNull(tagName, moduleCode);
         this.tagName = tagName;
         this.moduleCode = moduleCode;
@@ -72,13 +71,8 @@ public class AddTagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, moduleCode));
     }
 
-    private boolean moduleContainsTag(Module module, Tag tag) {
-        return module.getTags().contains(tag);
-    }
-
     /**
      * Creates a new tag with the given tag name and adds it to the {@code UniqueTaglist}
-     *
      * @param tagName The name of the tag.
      * @return The tag that was created.
      */

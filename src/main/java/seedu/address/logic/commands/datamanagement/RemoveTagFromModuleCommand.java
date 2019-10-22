@@ -23,7 +23,7 @@ public class RemoveTagFromModuleCommand extends Command {
             + "MODULE_CODE "
             + "TAG_NAME \n"
             + "Example: "
-            + "remove m/CS3230 t/exchange";
+            + "remove CS3230 exchange";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s removed from %2$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "The module %1$s does not have the tag [%2$s]";
