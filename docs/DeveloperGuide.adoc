@@ -186,7 +186,7 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::repeateradd[]
 === Adding Repeater : `addrep`
-=== Overview
+==== Overview
 This feature allows the user to add a repeater in IchiFund. Adding a repeater also creates the transactions associated with the added repeater.
 ==== Implementation
 The `addrep` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `addrep` behaves at each step.
@@ -206,7 +206,7 @@ The `addrep` command is facilitated by the Logic and Model components of the app
 
 // tag::repeaterdelete[]
 === Deleting Repeater : `delrep`
-=== Overview
+==== Overview
 This feature allows the user to delete repeater in IchiFund. Delete a repeater also deletes the transactions associated with the deleted repeater.
 ==== Implementation
 The `delrep` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `delrep` behaves at each step.
