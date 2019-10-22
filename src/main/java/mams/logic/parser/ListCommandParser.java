@@ -2,6 +2,11 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import static mams.logic.parser.CliSyntax.PREFIX_ALL;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
+import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
+
 import java.util.stream.Stream;
 
 import mams.logic.commands.ListCommand;
@@ -10,12 +15,6 @@ import mams.logic.commands.ListCommand;
  * Parses input arguments and creates a new ListCommand object
  */
 public class ListCommandParser {
-
-    // TODO standardize prefixes with rest of the group. leaving these here for now.
-    public static final Prefix PREFIX_MODS = new Prefix("mod/");
-    public static final Prefix PREFIX_STUDENTS = new Prefix("stu/");
-    public static final Prefix PREFIX_APPEALS = new Prefix("app/");
-    public static final Prefix PREFIX_ALL = new Prefix("all/");
 
     private boolean showStudents = false;
     private boolean showModules = false;
@@ -30,21 +29,21 @@ public class ListCommandParser {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_APPEALS, PREFIX_STUDENTS, PREFIX_MODS);
+                ArgumentTokenizer.tokenize(args, PREFIX_ALL, PREFIX_APPEAL, PREFIX_STUDENT, PREFIX_MODULE);
 
         boolean showAllPrefixPresent = argMultimap.getValue(PREFIX_ALL).isPresent();
 
-        // if show all prefix is present, or if no prefixes were specified, default to list all items.
-        showAll = showAllPrefixPresent || arePrefixesAbsent(argMultimap, PREFIX_APPEALS,
-                PREFIX_MODS, PREFIX_STUDENTS);
+        // if PREFIX_ALL is present, or if no prefixes were specified, default to list all items.
+        showAll = showAllPrefixPresent || arePrefixesAbsent(argMultimap, PREFIX_APPEAL,
+                PREFIX_MODULE, PREFIX_STUDENT);
 
-        if (argMultimap.getValue(PREFIX_APPEALS).isPresent() || showAll) {
+        if (argMultimap.getValue(PREFIX_APPEAL).isPresent() || showAll) {
             showAppeals = true;
         }
-        if (argMultimap.getValue(PREFIX_MODS).isPresent() || showAll) {
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent() || showAll) {
             showModules = true;
         }
-        if (argMultimap.getValue(PREFIX_STUDENTS).isPresent() || showAll) {
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent() || showAll) {
             showStudents = true;
         }
 

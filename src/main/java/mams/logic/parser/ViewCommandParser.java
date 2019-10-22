@@ -1,6 +1,9 @@
 package mams.logic.parser;
 
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
+import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.stream.Stream;
 
@@ -13,12 +16,6 @@ import mams.logic.parser.exceptions.ParseException;
  */
 public class ViewCommandParser {
 
-    // TODO standardize prefixes with rest of the group. leaving these here as local statics for now.
-    public static final Prefix PREFIX_MODS = new Prefix("mod/");
-    public static final Prefix PREFIX_STUDENTS = new Prefix("stu/");
-    public static final Prefix PREFIX_APPEALS = new Prefix("app/");
-    public static final Prefix PREFIX_ALL = new Prefix("all/");
-
     /**
      * Parses the given {@code String} of arguments in the context of the ViewCommand
      * and returns a ViewCommand object for execution.
@@ -26,9 +23,9 @@ public class ViewCommandParser {
      */
     public ViewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_APPEALS, PREFIX_MODS, PREFIX_STUDENTS);
+                ArgumentTokenizer.tokenize(args, PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT);
 
-        if (areAllPrefixesAbsent(argMultimap, PREFIX_APPEALS, PREFIX_MODS, PREFIX_STUDENTS)) {
+        if (areAllPrefixesAbsent(argMultimap, PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
 
@@ -37,16 +34,16 @@ public class ViewCommandParser {
             Index moduleIndex = null;
             Index studentIndex = null;
 
-            if (argMultimap.getValue(PREFIX_APPEALS).isPresent()) {
-                appealIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEALS).get());
+            if (argMultimap.getValue(PREFIX_APPEAL).isPresent()) {
+                appealIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEAL).get());
             }
 
-            if (argMultimap.getValue(PREFIX_MODS).isPresent()) {
-                moduleIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MODS).get());
+            if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
+                moduleIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MODULE).get());
             }
 
-            if (argMultimap.getValue(PREFIX_STUDENTS).isPresent()) {
-                studentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENTS).get());
+            if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
+                studentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get());
             }
             return new ViewCommand(appealIndex, moduleIndex, studentIndex);
         } catch (ParseException e) {

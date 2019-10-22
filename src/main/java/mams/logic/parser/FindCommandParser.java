@@ -1,8 +1,8 @@
 package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.PREFIX_APPEALID;
-import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
+import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.ArrayList;
@@ -39,15 +39,15 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE_CODE, PREFIX_APPEALID);
+                ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE, PREFIX_APPEAL);
 
         if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
             studentKeywords = argMultimap.getAllValues(PREFIX_STUDENT);
             return new FindStudentCommand(new NameContainsKeywordsPredicate(studentKeywords));
         }
 
-        if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
-            moduleKeywords = argMultimap.getAllValues(PREFIX_MODULE_CODE);
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
+            moduleKeywords = argMultimap.getAllValues(PREFIX_MODULE);
             return new FindModCommand(new ModuleContainsKeywordsPredicate(moduleKeywords));
         }
 

@@ -6,9 +6,9 @@ import static mams.commons.core.Messages.MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX;
 import static mams.commons.core.Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX;
 import static mams.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
 import static mams.commons.util.CollectionUtil.isAnyNonNull;
-import static mams.logic.parser.ViewCommandParser.PREFIX_APPEALS;
-import static mams.logic.parser.ViewCommandParser.PREFIX_MODS;
-import static mams.logic.parser.ViewCommandParser.PREFIX_STUDENTS;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
+import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.List;
 
@@ -28,16 +28,16 @@ public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays expanded view of items "
-            + "based on its index on the displayed list. Specify up to three items"
+            + "based on their indexes on the displayed lists. Specify up to three items "
             + "(one from each type) in a single " + COMMAND_WORD + " command.\n"
             + "Parameters: KEYWORD "
-            + "[" + PREFIX_APPEALS + "INDEX" + "] "
-            + "[" + PREFIX_MODS + "INDEX" + "] "
-            + "[" + PREFIX_STUDENTS + "INDEX" + "]\n"
+            + "[" + PREFIX_APPEAL + "INDEX" + "] "
+            + "[" + PREFIX_MODULE + "INDEX" + "] "
+            + "[" + PREFIX_STUDENT + "INDEX" + "]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_APPEALS + "1"
-            + PREFIX_MODS + "CS2103"
-            + PREFIX_STUDENTS + "10\n";
+            + PREFIX_APPEAL + "1"
+            + PREFIX_MODULE + "11"
+            + PREFIX_STUDENT + "10\n";
 
     public static final String MESSAGE_VIEW_SUCCESS = "Displayed items with ID: %1$s";
 

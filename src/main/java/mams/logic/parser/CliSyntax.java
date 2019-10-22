@@ -15,11 +15,13 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
     /* Prefix definitions for Module class */
-    public static final Prefix PREFIX_MODULE_CODE = new Prefix("m/");
+    public static final Prefix PREFIX_MODULE = new Prefix("m/");
 
-    /*Prefix definitions for Appeal class */
+    /* Prefix definitions for Appeal class */
     public static final Prefix PREFIX_REASON = new Prefix("rr/");
-    public static final Prefix PREFIX_APPEALID = new Prefix("a/");
+    public static final Prefix PREFIX_APPEAL = new Prefix("a/");
 
+    /* Other misc. prefix definitions */
+    public static final Prefix PREFIX_ALL = new Prefix("all/");
 
 }
