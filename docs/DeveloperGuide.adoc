@@ -72,7 +72,7 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
@@ -89,7 +89,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -112,7 +112,7 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -132,7 +132,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -145,7 +145,7 @@ The `Storage` component,
 * can save the Address Book data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common Classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -154,7 +154,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=== [Proposed] Undo/Redo Feature
 ==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -241,6 +241,17 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::sorttransactions[]
+=== Sort Transactions Feature : `sort`
+This feature allows the user to _sort_ their bank account by the _amount_ or _date_ of their transanctions by using the command `sort amount` or `sort date` respectively.
+
+==== Current Implementation
+The `sort` command is facilitated by the _Logic_ and _Model_ components of the application, _PalPay_.
+
+The sequence diagram below shows how the sorting of transactions work when the user enters `sort amount`.
+
+// end::sorttransactions[]
 
 === Logging
 
@@ -427,7 +438,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Person
 
 . Deleting a person while all persons are listed
 
@@ -441,7 +452,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 
