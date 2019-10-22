@@ -44,4 +44,5 @@ logic -[LOGIC_COLOR]-> ui : result
 deactivate logic
 
 deactivate ui
+
 @enduml
