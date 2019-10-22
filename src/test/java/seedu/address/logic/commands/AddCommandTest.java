@@ -343,7 +343,7 @@ public class AddCommandTest {
         public Colour getFontColour() {
             throw new AssertionError("This method should not be called.");
         }
-          
+
         @Override
         public void setFontColour(Colour fontColour) {
             throw new AssertionError("This method should not be called.");
