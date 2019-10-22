@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Planner <<Rectangle>> {
+    Class Planner
+    Class TaskList
+    abstract Class Task
+}
+
+Planner *--> "1" TaskList
+TaskList o--> "*" Task
+
+@enduml

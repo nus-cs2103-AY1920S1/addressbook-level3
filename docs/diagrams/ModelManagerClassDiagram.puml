@@ -24,4 +24,5 @@ Model -up-|> FinanceTrackerModel
 Model -up-|> CcaTrackerModel
 Model -up-|> PlannerModel
 Model -up-|> CoursePlannerModel
+
 @enduml
