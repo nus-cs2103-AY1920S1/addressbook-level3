@@ -1,0 +1,32 @@
+= Lim Kang Yee – Project Portfolio for treasurerPro (tP)
+
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+
+
+This project portfolio briefly introduces the project, treasurerPro and outlines my contributions to the project
+and explains the feature I implemented.
+
+== About the team
+
+My team consists of 5 software engineering students under the module CS2103T. 4 of us, including me, are year 2
+Computer Science students and the other is a year 4 Computer Engineering student.
+
+== About the project
+
+This project is part of the module Software Engineering Project, CS2103T where we were tasked to develop a basic
+command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
+Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
+enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
+reimbursements to members, inventory and member’s contact details easily.
+
+==  Key to the icons and formatting used in the document
