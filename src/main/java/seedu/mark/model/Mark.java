@@ -65,6 +65,7 @@ public class Mark implements ReadOnlyMark {
 
         setBookmarks(newData.getBookmarkList());
         setFolderStructure(newData.getFolderStructure().clone());
+        setAutotagController(newData.getAutotagController());
     }
 
     //// bookmark-level operations
@@ -174,6 +175,17 @@ public class Mark implements ReadOnlyMark {
     }
 
     //// autotag controller operations
+
+    /**
+     * Replaces the taggers in the current {@code AutotagController} with
+     * taggers from {@code autotagController}.
+     */
+    public void setAutotagController(AutotagController autotagController) {
+        requireNonNull(autotagController);
+
+        this.autotagController.removeAllTaggers();
+        autotagController.getTaggers().forEach(this.autotagController::addTagger);
+    }
 
     public boolean hasTagger(SelectiveBookmarkTagger tagger) {
         return autotagController.hasTagger(tagger);
