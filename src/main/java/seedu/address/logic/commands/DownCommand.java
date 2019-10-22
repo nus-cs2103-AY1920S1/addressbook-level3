@@ -13,7 +13,7 @@ public class DownCommand extends ScrollCommand {
     public static final String COMMAND_WORD = "down";
     public static final String MESSAGE_SUCCESS = "Scrolling down...";
     public static final String MESSAGE_USAGE = "down L / down R";
-    
+
     public DownCommand(String input) {
         super(input);
     }
@@ -26,7 +26,7 @@ public class DownCommand extends ScrollCommand {
         }
         return new DownCommandResult(MESSAGE_SUCCESS, pane);
     }
-    
+
     public String getCommandWord() {
         return this.COMMAND_WORD;
     }
