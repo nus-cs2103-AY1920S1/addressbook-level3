@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.WordBank;
 
@@ -128,7 +129,7 @@ public class WordBankList implements ReadOnlyWordBankList {
                 return wb;
             }
         }
-        return null;
+        return this.getWordBank("sample"); // returning the sample bank if can't find
     }
 
     @Override

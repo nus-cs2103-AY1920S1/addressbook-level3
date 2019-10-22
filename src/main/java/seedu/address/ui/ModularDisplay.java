@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.Random;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import seedu.address.appmanager.AppManager;
 import seedu.address.model.globalstatistics.GlobalStatistics;
@@ -10,14 +11,7 @@ import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
-import seedu.address.ui.modules.BankLabelPanel;
-import seedu.address.ui.modules.CardListPanel;
-import seedu.address.ui.modules.GameResultPanel;
-import seedu.address.ui.modules.LoadBankPanel;
-import seedu.address.ui.modules.MainTitlePanel;
-import seedu.address.ui.modules.SettingsPanel;
-import seedu.address.ui.modules.TitleScreenPanel;
-import seedu.address.ui.modules.WordBankStatisticsPanel;
+import seedu.address.ui.modules.*;
 
 
 /**
@@ -36,6 +30,10 @@ public class ModularDisplay {
     private final SettingsPanel settingsPanel;
     private final AppManager appManager;
 
+    //For the game
+    private QuestionLabel questionLabel;
+    private HintLabel hintLabel;
+
     /**
      * Changes the screen.
      *
@@ -45,6 +43,8 @@ public class ModularDisplay {
         loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
         titleScreenPanel = new TitleScreenPanel();
         settingsPanel = new SettingsPanel(appManager.getAppSettings());
+        questionLabel = new QuestionLabel();
+        hintLabel = new HintLabel();
         this.appManager = appManager;
     }
 
@@ -146,4 +146,24 @@ public class ModularDisplay {
         paneToDisplay.getChildren().add(settingsPanel.getRoot());
     }
 
+
+    public TwoSplitRowLayout createQuestionHints() {
+        twoSplitRowLayout = new TwoSplitRowLayout();
+        twoSplitRowLayout.addToTopPane(questionLabel.getRoot());
+        twoSplitRowLayout.addToBottomPane(hintLabel.getRoot());
+        return twoSplitRowLayout;
+    }
+
+    public void updateQuestion(String question, StackPane paneToDisplay) {
+        questionLabel.updateQuestionLabel(question);
+        hintLabel.updateHintLabel("No Hints Yet");
+        paneToDisplay.getChildren().clear();
+        paneToDisplay.getChildren().add(createQuestionHints().getRoot());
+    }
+
+    public void updateHint(String hint, StackPane paneToDisplay) {
+        hintLabel.updateHintLabel(hint);
+        paneToDisplay.getChildren().clear();
+        paneToDisplay.getChildren().add(createQuestionHints().getRoot());
+    }
 }

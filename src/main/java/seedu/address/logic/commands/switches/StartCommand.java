@@ -9,6 +9,7 @@ Extends to Step 15 in Game.java
 package seedu.address.logic.commands.switches;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SwitchCommand;
@@ -16,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
+import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.game.Game;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -33,23 +35,49 @@ public class StartCommand extends SwitchCommand {
     private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
             + " (Use 'stop' to terminate) Guess the word:";
 
+    private Optional<DifficultyEnum> difficulty = Optional.empty();
+
     public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
         return ModeEnum.GAME;
     }
 
+    public StartCommand() {
+
+    }
+
+    public StartCommand(Optional<DifficultyEnum> difficulty) {
+        this.difficulty = difficulty;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (model.getGame() != null && !model.getGame().isOver()) {
+        System.out.println(model.getWordBank().getName() + "current thread is" + Thread.currentThread().getName());
+        System.out.println(model.gameIsOver() + "<-------- is game over??");
+        System.out.println((model.getGame() == null) + "<-------- GAME IS NULL ????");
+
+        if (model.getWordBank() == null) {
+            throw new CommandException("You have not loaded a wordBank!");
+        }
+
+        if (!model.gameIsOver()) {
             throw new CommandException(MESSAGE_GAME_IN_PROGRESS
                     + "\n" + model.getGame().getCurrQuestion());
         }
+
+        System.out.println(model.getWordBank());
 
         String wordBankName = model.getWordBank().getName();
         WordBankList wbList = model.getWordBankList();
         WordBank wordBank = wbList.getWordBank(wordBankName);
 
-        Game newGame = new Game(wordBank, x -> Collections.shuffle(x));
-        model.setGame(newGame);
+        if (difficulty.isPresent()) {
+            Game newGame = new Game(wordBank, x -> Collections.shuffle(x), difficulty.get());
+            model.setGame(newGame);
+        } else {
+            Game newGame = new Game(wordBank, x -> Collections.shuffle(x), model.getDefaultDifficulty());
+            model.setGame(newGame);
+        }
+
         String currQuestion = model.getGame().getCurrQuestion();
         return new StartCommandResult(wordBankName, currQuestion);
     }

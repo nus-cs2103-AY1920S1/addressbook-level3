@@ -143,11 +143,13 @@ public class MainWindow extends UiPart<Stage> {
         //Set up timer display
         timerDisplay = new TimerDisplay();
         timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
-        //Set up callback function in GameManager to update TimerDisplay
+        //Set up callback function in AppManager to update TimerDisplay
         appManager.setTimerDisplayCallBack(this::updateTimerDisplay);
-        //Set up callback function in GameManager to update ResultDisplay
+        //Set up callback function in AppManager to update HintDisplay
         appManager.setHintDisplayCallBack(this::updateHintDisplay);
-        //Set up callback function in GameManager to call MainWindow's executeCommand
+        //Set up callback function in AppManager to update QuestionDisplay
+        appManager.setQuestionDisplayCallBack(this::updateQuestionDisplay);
+        //Set up callback function in AppManager to call MainWindow's executeCommand
         appManager.setMainWindowExecuteCallBack(this::executeCommand);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
@@ -285,11 +287,17 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the HintDisplay section of the UI with the {@code resultDisplayMessage} string.
      */
-    private void updateHintDisplay(String resultDisplayMessage) {
+    private void updateHintDisplay(String hintString) {
         // Todo: implement HintDisplay window and show hints there instead
-        String[] tokens = resultDisplay.getCurrentTextOnDisplay().split("\n");
-        String toDisplay = tokens[0] + "\n" + tokens[1] + "\n" + resultDisplayMessage;
-        resultDisplay.setFeedbackToUser(toDisplay);
+        modularDisplay.updateHint(hintString, modularDisplayPlaceholder);
+    }
+
+    /**
+     * Updates the QuestionDisplay section of the UI in the modularDisplay with
+     * {@code questionString}
+     */
+    private void updateQuestionDisplay(String questionString) {
+        modularDisplay.updateQuestion(questionString, modularDisplayPlaceholder);
     }
 
 }

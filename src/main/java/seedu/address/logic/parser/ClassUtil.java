@@ -36,19 +36,17 @@ public class ClassUtil {
     private void filterList() {
         filteredList.clear();
         for (ClassPair clsPair : classPairs) {
-            System.out.println("FILTERING list");
             try {
                 Class cls = clsPair.getCommand();
                 Constructor cons = cls.getConstructor();
                 Command test = (Command) cons.newInstance();
                 boolean temp = test.precondition(model);
-                System.out.println(temp);
                 if (temp) {
                     filteredList.add(clsPair);
                 }
             } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
                     | InvocationTargetException e) {
-                System.out.println("Erorrorror");
+                System.err.println("Erorrorror");
             }
         }
     }
@@ -72,6 +70,7 @@ public class ClassUtil {
     public Command getCommandInstance(String commandWord, String arguments)
             throws ParseException {
         filterList();
+
         for (ClassPair clsPair : filteredList) {
             try {
                 Class cls = clsPair.getCommand();
