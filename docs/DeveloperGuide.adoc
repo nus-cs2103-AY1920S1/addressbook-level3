@@ -154,20 +154,47 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The core of undo/redo is placed in the undo/redo history of `ModelManager`. Its mechanism uses the Command design pattern,
+allowing each individual command to be undone/redone without knowing the specific command type.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+Firstly, there are two instances of `CommandHistory`, stored internally as `commandHistory` and `undoHistory` in `ModelManager`.
+The former instance stores previously executed commands while the latter stores previously undone commands.
+`CommandHistory` wraps a `Deque<UndoableCommand>`. Its functions imposes a `MAX_SIZE` which determines how many commands can be stored in the command history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+In `ModelManager`, four key operations regarding `CommandHistory` are implemented:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* `ModelManager#addExecutedCommand(UndoableCommand command)` -- Adds a command that was executed to the start of `commandHistory`.
+* `ModelManager#getExecutedCommand()` -- Removes the last command that was executed and added to `commandHistory` and returns it.
+* `ModelManager#addUndoneCommand(UndoableCommand command)` -- Adds a command that was undone to the start of `undoHistory`.
+* `ModelManager#getUndoneCommand()` -- Removes the last command that was undone and added to `undoHistory` and returns it.
+
+In the `Model` interface implemented by `ModelManager`, these four operations are respectively exposed as
+`Model#addExecutedCommand(UndoableCommand command)`, `Model#getExecutedCommand()`, `Model#addUndoneCommand(UndoableCommand command)`, and `Model#getUndoneCommand()`.
+
+
+Next, the `UndoableCommand` stored in the `Model` is actually a normal `Command` that changes program state.
+The `UndoableCommand` class is an abstract class that extends the abstract `Command` class. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
+
+A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
+``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
+When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of ModelManager` respectively.
+Therefore, an `UndoableCommand` should not be undone before it was executed or redone before it was undone.
+
+To defend against improper undoing or redoing, `UndoableCommand` contains an inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to `UNDOABLE`, `REDOABLE`, and `PRE_EXECUTION`.
+Before a command is undone or redone, the command's state is checked for validity.
+These states are only changed when a `Command#execute(Model model)` or `UndoableCommand#undo(Model model)` has successfully executed.
+Thus, this lowers the likelihood of bugs in undo/redo.
+
+Lastly, undo/redo is initiated when user input creates an `UndoCommand` or `RedoCommand`. When either of them are executed, they respectively get the last
+executed or undone command from the `CommandHistory` in `ModelManager`. As the retrieved command is an instance of `UndoableCommand`, an attempt will be made to execute `UndoableCommand#undo(Model model)` or `UndoableComman#redo(Model model)`.
+If it is successful, undo/redo is succesful. Otherwise, an error message is shown.
+
+This is the mechanism of undo/redo from start to end. Below is an example of a usage scenario that illustrates how undo/redo works.
+
+<Custom Diagrams and text>
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
@@ -213,6 +240,8 @@ image::UndoRedoState5.png[]
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
+
+<end Custom Diagrams and text>
 
 ==== Design Considerations
 
