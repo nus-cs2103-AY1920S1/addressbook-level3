@@ -1,0 +1,33 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package Statistic <<Rectangle>> {
+    class Statistic
+    class StatsFactory
+    StatsFactory - Statistic : creates >
+}
+
+class StatsFactory {
+    -ObservableList<Exercise> exercises
+    -String chart
+    -String category
+    -Date startDate
+    -Date endDate
+    +generateStatistics() : Statistic
+    -getTotalExerciseQuantiity()
+    -getTotalCalories()
+    -getFilteredExercise
+}
+
+class Statistic {
+    -String category
+    -String chart
+    -ArrayList<String> properties
+    -ArrayList<Double> values
+    +getCategory() : String
+    +getChart() : String
+    +getProperties() : ArrayList<String>
+    +getValues() : ArrayList<Double>
+}
+
+@enduml

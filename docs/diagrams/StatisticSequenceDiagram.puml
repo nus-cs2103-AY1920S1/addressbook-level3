@@ -1,0 +1,33 @@
+@startuml Statistic
+!include style.puml
+
+title __Statistic__
+actor User USER_COLOR
+participant "__:Ui__" as Ui UI_COLOR
+participant "__:Logic__" as Logic LOGIC_COLOR
+participant "__:Model__" as Model MODEL_COLOR
+participant "__:Statistic__" as Statistic #ABC
+
+User -[USER_COLOR]> Ui: stats t/exercise h/piechart
+activate Ui UI_COLOR
+
+Ui -[UI_COLOR]> Logic: execute("t/exercise h/piechart")
+activate Logic LOGIC_COLOR
+
+Logic -[LOGIC_COLOR]> Model: getExerciseBook()
+activate Model MODEL_COLOR
+
+Model -[MODEL_COLOR]> Statistic: generateStatistic(exerciseBook)
+activate Statistic #ABC
+return statistic
+
+Model -[MODEL_COLOR]> Logic: statistic
+deactivate Model
+
+Logic --[LOGIC_COLOR]> Ui: statistic
+deactivate Logic
+
+Ui --[UI_COLOR]> User
+deactivate Ui
+
+@enduml
