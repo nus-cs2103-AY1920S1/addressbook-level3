@@ -87,7 +87,7 @@ Each of the four components
 For example, the `**Logic**` component (see the class diagram given below) defines it's API in the _Logic.java_ interface and exposes its functionality using the _LogicManager.java_ class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagramv1.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -121,7 +121,7 @@ The `**UI**` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagramv1.png[]
 
 *API* :
 link:{repoURL}/src/main/java/thrift/logic/Logic.java[`Logic.java`]
@@ -457,7 +457,7 @@ image::UndoAndRedo/RunCommandActivityDiagrams.png[]
 ** Cons: Need to carefully manage the pointer. For example, you need to ensure that the pointer stays within the size of an arraylist.
 
 // tag::Filtering transactions[]
-=== Filtering Transactions
+=== Filtering transactions
 
 The *List* command allows the user to bring up a list of `**Transactions**`, and filter it by month or by its tags.
 This feature is implemented by using a `**Predicate<Transaction>**` to filter the `**Transactions**` by month or tags.
@@ -490,7 +490,7 @@ Step 5. The final list of filtered transactions will be brought up.
 The activity diagram below will give an overview of what is happening when the command is executed.
 
 .Activity diagram of the command execution.
-image::list/ListActivityDiagram.PNG[]
+image::list/ListActivityDiagram.png[]
 
 ==== Design Considerations
 

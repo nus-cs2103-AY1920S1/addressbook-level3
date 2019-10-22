@@ -18,10 +18,15 @@ Class Prefix
 }
 
 package Command {
+Class ABCCommand
+note left: ABCCommand = \nFindCommand, \nListCommand, \nBudgetCommand, etc
 Class XYZCommand
+note left: XYZCommand = \nAddExpenseCommand, \nAddIncomeCommand, \nUndoCommand, etc
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 class "<<Interface>>\nUndoable" as Undoable
+Class "{abstract}\nScrollableCommand" as ScrollableCommand
+Class "{abstract}\nUnscrollableCommand" as UnscrollableCommand
 }
 
 Interface Logic <<Interface>>
@@ -29,6 +34,14 @@ Class LogicManager
 }
 
 package Model{
+Class HiddenModel #FFFFFF
+}
+
+package Storage{
+Class HiddenModel #FFFFFF
+}
+
+package UI{
 Class HiddenModel #FFFFFF
 }
 
@@ -40,6 +53,7 @@ LogicManager -->"1" ThriftParser
 ThriftParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
+XYZCommandParser ..> ABCCommand : creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
@@ -49,13 +63,24 @@ CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-XYZCommand -right-|> Undoable
+ScrollableCommand -up-|> Command
+UnscrollableCommand -up-|> Command
+XYZCommand .up.|> Undoable
+XYZCommand -up-|> ScrollableCommand
+ABCCommand -up-|>UnscrollableCommand
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddExpenseCommand, \nFindCommand, etc
+
+ScrollableCommand ..> UI
+LogicManager -right-> Storage
+
+ScrollableCommand -[hidden]left- UI
+ThriftParser -[hidden]up- Logic
+Undoable -[hidden]right- ThriftParser
+XYZCommand -[hidden]right- ParserUtil
+
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
