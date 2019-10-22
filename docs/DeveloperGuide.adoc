@@ -24,7 +24,6 @@ Refer to the guide <<SettingUp#, here>>.
 
 [[Design-Architecture]]
 === Architecture
-
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
@@ -314,6 +313,7 @@ as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
 The `project` command is facilitated by the Logic and Model components of the application, _PalPay_
 
 The sequence diagram below demonstrates how the `project [DATE]` command is handled by the application.
+
 image::Project.png[ProjectCommand Sequence Diagram]
 
 == Documentation
