@@ -11,6 +11,8 @@ import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.UniqueEarningsList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.reminder.UniqueReminderList;
 
 /**
  * Wraps all data at the address-book level
@@ -20,6 +22,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueEarningsList earning;
     private final UniqueCommandsList commands;
+    private final UniqueReminderList reminder;
+  
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -31,6 +35,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         earning = new UniqueEarningsList();
         commands = new UniqueCommandsList();
+        reminder = new UniqueReminderList();
+
     }
 
     public AddressBook() {}
@@ -209,6 +215,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<CommandObject> getCommandsList() {
         return commands.asUnmodifiableObservableList();
+    }
+  
+    @Override
+    public ObservableList<Reminder> getReminderList() {
+        return reminder.asUnmodifiableObservableList();
     }
 
     @Override

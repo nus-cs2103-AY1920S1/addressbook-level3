@@ -20,6 +20,7 @@ import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -91,6 +92,7 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Earnings> earnings = FXCollections.observableArrayList();
         private final ObservableList<CommandObject> commands = FXCollections.observableArrayList();
+        private final ObservableList<Reminder> reminder = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -109,6 +111,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<CommandObject> getCommandsList() {
             return commands;
+        }
+      
+        @Override
+        public ObservableList<Reminder> getReminderList() {
+            return reminder;
         }
     }
 

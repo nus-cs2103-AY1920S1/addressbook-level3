@@ -4,21 +4,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.earnings.Earnings;
+import seedu.address.model.reminder.Reminder;
 
 /**
  * A UI component that displays information of a {@code Earnings}.
  */
-public class EarningsCard extends UiPart<Region> {
+public class ReminderCard extends UiPart<Region> {
 
-    private static final String FXML = "EarningsListCard.fxml";
+    private static final String FXML = "ReminderListCard.fxml";
 
-    public final Earnings earnings;
+    public final Reminder reminders;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label classId;
+    private Label description;
     @FXML
     private Label id;
     @FXML
@@ -26,13 +26,13 @@ public class EarningsCard extends UiPart<Region> {
     @FXML
     private Label amount;
 
-    public EarningsCard(Earnings earnings, int displayedIndex) {
+    public ReminderCard(Reminder reminders, int displayedIndex) {
         super(FXML);
-        this.earnings = earnings;
+        this.reminders = reminders;
         id.setText(displayedIndex + ". ");
-        classId.setText("ClassId: " + earnings.getClassId().value);
-        date.setText("Date: " + earnings.getDate().dateNum);
-        amount.setText("Amount: " + earnings.getAmount().amount);
+        description.setText(reminders.getDescription().toString());
+        //date.setText(reminders.getDate().dateNum);
+        //amount.setText(reminders.getAmount().amount);
     }
 
     @Override
@@ -43,13 +43,13 @@ public class EarningsCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EarningsCard)) {
+        if (!(other instanceof ReminderCard)) {
             return false;
         }
 
         // state check
-        EarningsCard card = (EarningsCard) other;
+        ReminderCard card = (ReminderCard) other;
         return id.getText().equals(card.id.getText())
-                && earnings.equals(card.earnings);
+                && reminders.equals(card.reminders);
     }
 }

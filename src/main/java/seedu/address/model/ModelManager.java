@@ -15,7 +15,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
+import seedu.address.ui.UiManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +31,7 @@ public class ModelManager implements Model {
     private final FilteredList<Earnings> filteredEarnings;
     private final FilteredList<CommandObject> filteredCommands;
     private Stack<String> savedCommand;
+    private final FilteredList<Reminder> filteredReminder;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,6 +48,8 @@ public class ModelManager implements Model {
         filteredEarnings = new FilteredList<>(this.addressBook.getEarningsList());
         filteredCommands = new FilteredList<>(this.addressBook.getCommandsList());
         savedCommand = new Stack<String>();
+        filteredReminder = new FilteredList<>(this.addressBook.getReminderList());
+
     }
 
     public ModelManager() {
@@ -209,14 +214,20 @@ public class ModelManager implements Model {
         return filteredEarnings;
     }
 
+
     public ObservableList<CommandObject> getFilteredCommandsList() {
         return filteredCommands;
+    }
+
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return filteredReminder;
     }
 
     @Override
     public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
         requireNonNull(predicate);
         filteredEarnings.setPredicate(predicate);
+        UiManager.startEarnings();
     }
 
     @Override

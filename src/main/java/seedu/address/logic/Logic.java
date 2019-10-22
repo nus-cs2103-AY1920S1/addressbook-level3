@@ -12,6 +12,7 @@ import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 
 /**
  * API of the Logic component
@@ -43,6 +44,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of commands */
     ObservableList<CommandObject> getFilteredCommandsList();
+  
+    /** Returns an unmodifiable view of the filtered list of reminders */
+    ObservableList<Reminder> getFilteredReminderList();
 
     /**
      * Returns the user prefs' address book file path.

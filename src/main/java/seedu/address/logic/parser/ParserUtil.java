@@ -10,13 +10,13 @@ import java.util.TreeMap;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.WindowView;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.commands.CommandAction;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
-import seedu.address.model.earnings.Module;
 import seedu.address.model.earnings.Month;
 import seedu.address.model.earnings.Week;
 import seedu.address.model.person.Attendance;
@@ -37,6 +37,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_COMMAND = "No such command to be deleted!";
 
+    private static int viewIndexNumber;
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -79,6 +80,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String destination} into a {@code WindowView}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code destination} is invalid.
+     */
+    public static WindowView parseWindowView(String destination) throws ParseException {
+        requireNonNull(destination);
+        String trimmedDestination = destination.trim();
+        if (!WindowView.isValidWindowView(trimmedDestination)) {
+            throw new ParseException(WindowView.MESSAGE_CONSTRAINTS);
+        }
+        return new WindowView(trimmedDestination);
     }
 
     /**
@@ -236,21 +252,6 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
-    }
-
-    /**
-     * Parses a {@code String module} into an {@code Module}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code module} is invalid.
-     */
-    public static Module parseModule(String module) throws ParseException {
-        requireNonNull(module);
-        String trimmedModule = module.trim();
-        if (!Module.isValidModuleName(trimmedModule)) {
-            throw new ParseException(Module.MESSAGE_CONSTRAINTS);
-        }
-        return new Module(trimmedModule);
     }
 
     /**

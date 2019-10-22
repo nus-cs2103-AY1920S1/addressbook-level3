@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
 
 /**
@@ -150,6 +151,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Earnings> getFilteredEarningsList();
+
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Reminder> getFilteredReminderList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
