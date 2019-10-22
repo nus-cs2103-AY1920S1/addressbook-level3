@@ -1,0 +1,18 @@
+@startuml
+start
+:User attempts to execute command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([else])
+    if () then ([else])
+    :System displays error message;
+    else ([is Login or Add or Exit])
+    :Command is executed;
+    endif
+else ([isLoggedIn])
+:Command is executed;
+endif
+stop
+@enduml
