@@ -25,6 +25,9 @@ import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.quiz.SavedQuizzes;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.StatisticsRecord;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
@@ -44,6 +47,7 @@ public class ModelManager implements Model {
     private final SavedQuestions savedQuestions;
     private final SavedQuizzes savedQuizzes;
     private final NotesRecord notesRecord;
+    private final StatisticsRecord statisticsRecord;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Note> filteredNotes;
@@ -52,13 +56,15 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook,
-        ReadOnlyStudentRecord studentRecord,
-        ReadOnlyQuestions savedQuestions,
-        ReadOnlyQuizzes savedQuizzes,
-        ReadOnlyNotesRecord notesRecord,
-        ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyStudentRecord studentRecord,
+                        ReadOnlyQuestions savedQuestions,
+                        ReadOnlyQuizzes savedQuizzes,
+                        ReadOnlyNotesRecord notesRecord,
+                        ReadOnlyStatisticsRecord statisticsRecord,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, studentRecord, savedQuestions, savedQuizzes, notesRecord, userPrefs);
+        requireAllNonNull(addressBook, studentRecord, savedQuestions,
+                savedQuizzes, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
             "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -70,14 +76,15 @@ public class ModelManager implements Model {
         this.savedQuestions = new SavedQuestions(savedQuestions);
         this.savedQuizzes = new SavedQuizzes(savedQuizzes);
         this.notesRecord = new NotesRecord(notesRecord);
+        this.statisticsRecord = new StatisticsRecord(statisticsRecord);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
         filteredNotes = new FilteredList<>(this.notesRecord.getNotesList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new StudentRecord(), new SavedQuestions(),
-            new SavedQuizzes(), new NotesRecord(), new UserPrefs());
+        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new SavedQuizzes(),
+                new NotesRecord(), new StatisticsRecord(), new UserPrefs());
     }
 
     //region PREFERENCES & SETTINGS
@@ -208,6 +215,21 @@ public class ModelManager implements Model {
     }
     //endregion
 
+    //region Statistics
+    @Override
+    public ReadOnlyStatisticsRecord getStatisticsRecord() {
+        return statisticsRecord;
+    }
+
+    @Override
+    public ObservableList<Statistics> getProcessedStatistics() {
+        return statisticsRecord.getProcessedStatistics();
+    }
+
+    @Override
+    public void addStatistics(Statistics statistic) {
+        statisticsRecord.setStatistics(statistic);
+    }
     //region Students
     @Override
     public boolean hasStudent(Student student) {

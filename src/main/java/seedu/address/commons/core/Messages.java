@@ -15,4 +15,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX = "The question index provided is invalid";
     public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";
     public static final String MESSAGE_INVALID_NOTE_DISPLAYED_INDEX = "The note index provided is invalid";
+    public static final String MESSAGE_FILE_NOT_FOUND = "Error searching excel file. Please ensure file path is valid.";
 }

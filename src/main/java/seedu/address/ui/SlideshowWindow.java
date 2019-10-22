@@ -32,6 +32,7 @@ public class SlideshowWindow extends UiPart<Stage> {
 
     private int currQuestionIndex = 0;
 
+
     @FXML
     private Pane questionPane;
     @FXML

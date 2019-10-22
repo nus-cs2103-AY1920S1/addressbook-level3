@@ -27,10 +27,13 @@ import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.quiz.SavedQuizzes;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.StatisticsRecord;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.StudentRecord;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleNotesUtil;
+import seedu.address.model.util.SampleStatisticUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -107,11 +110,13 @@ public class MainApp extends Application {
         Optional<ReadOnlyQuestions> questionsOptional;
         Optional<ReadOnlyQuizzes> quizzesOptional;
         Optional<ReadOnlyNotesRecord> notesRecordOptional;
+
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
         ReadOnlyQuizzes initialQuizzes;
         ReadOnlyNotesRecord initialNotesRecord;
+        ReadOnlyStatisticsRecord initialStatisticsRecord;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -140,6 +145,7 @@ public class MainApp extends Application {
             initialStudentRecord = studentRecordOptional.orElseGet(null); //get samplestudentrecord
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
             initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
+            initialStatisticsRecord = SampleStatisticUtil.getSampleStatisticsRecord();
             initialQuizzes = quizzesOptional.orElseGet(SampleDataUtil::getSampleQuizList);
 
         } catch (DataConversionException e) {
@@ -151,6 +157,7 @@ public class MainApp extends Application {
             initialQuizzes = new SavedQuizzes();
 
             initialNotesRecord = new NotesRecord();
+            initialStatisticsRecord = new StatisticsRecord(); //later
 
         } catch (IOException e) {
             logger.warning(
@@ -160,10 +167,11 @@ public class MainApp extends Application {
             initialQuestions = new SavedQuestions();
             initialQuizzes = new SavedQuizzes();
             initialNotesRecord = new NotesRecord();
+            initialStatisticsRecord = new StatisticsRecord(); //later
         }
 
         return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialQuizzes,
-                initialNotesRecord, userPrefs);
+                initialNotesRecord, initialStatisticsRecord, userPrefs);
     }
 
     private void initLogging(Config config) {

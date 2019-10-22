@@ -18,6 +18,8 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -77,6 +79,15 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Question> getSlideshowQuestions() {
         return model.getSlideshowQuestions();
+    }
+
+    public ReadOnlyStatisticsRecord getStatisticsRecord() {
+        return model.getStatisticsRecord();
+    }
+
+    @Override
+    public ObservableList<Statistics> getProcessedStatistics() {
+        return model.getProcessedStatistics();
     }
 
     @Override

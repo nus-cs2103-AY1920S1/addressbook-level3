@@ -18,12 +18,13 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.note.NotesRecord;
 import seedu.address.model.question.Question;
 import seedu.address.model.quiz.SavedQuizzes;
+import seedu.address.model.statistics.StatisticsRecord;
 import seedu.address.model.student.StudentRecord;
 
 public class QuestionDeleteCommandTest {
 
     private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(),
+        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new StatisticsRecord(),
         new UserPrefs());
 
     @Test
