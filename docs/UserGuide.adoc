@@ -73,13 +73,19 @@ Examples:
 * `add cs2103t`
 * `add manual MODULE_CODE (not in database)`
 
-=== View the module: `view`
+=== Viewing a module: `view`
 
-View a tracked module and enters module viewing mode. In module viewing, a different set of commands are available [see <<Module-View>>].
+Views a module and enters the module view. Can be a tracked module or an archived module.
 
-Format: `view MODULE_CODE`
+Format: `view <MODULE_CODE>`
 
 Example: `view cs1231`
+
+=== Return from module view: `back`
+
+Returns from the module view.
+
+Format: `back`
 
 === Add deadline to the module: `deadline`
 
@@ -187,6 +193,23 @@ Multiple users can use the same application on the same computer.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+== Glossary
+
+=== Common Application terms
+
+**Home view** - The state of the application that displays the home page in the main panel.
+
+**Module view** - The state of the application that displays the specified module in the main panel.
+
+=== Common Module terms
+
+**Archived** - A module that the institution provides. Can be viewed and tracked.
+
+**Tracked** - A module that is tracked. References an archived module. Can be viewed.
+
+
+
 ////
 
 

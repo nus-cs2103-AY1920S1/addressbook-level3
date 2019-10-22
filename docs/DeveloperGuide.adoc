@@ -149,6 +149,64 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::moduleview[]
+=== Module View Feature
+
+The module view feature allows users to view a module to access extra information about the module. The user can view (and unview) a module using the `view` (and `back`) commands.
+
+==== Implementation
+The module view feature is facilitated by `displayedModule` in `ModelManager`. The following describes how the `displayedModule` is modified and read to the `Ui`.
+
+. The user enters a view command in the `Ui`.
+
+. `LogicManager` parses the user input, constructs and executes the `ViewCommand`.
+
+. The `ViewCommand` attempts to find the matching module from the list of Tracked Modules, else it attempts to find the matching module from the list of Archived Modules, else it throws an exception.
+
+. The `ViewCommand` sets the `displayedModule` in the `Model` and returns the `CommandResult` to the `LogicManager`.
+
+. The `LogicManager` returns the `CommandResult` to the `Ui`.
+
+. The `Ui` gets the `displayedModule` from `LogicManager` and updates the Ui to display the module.
+
+The following sequence diagram shows how the module view feature is executed.
+
+image::ModuleViewSequenceDiagram.png[]
+
+[NOTE]
+The `BackCommand` mostly follows the same sequence as described above, except that it sets the displayed module to `null`.
+
+The following sequence diagram shows how the `ViewCommand` attempts to find the module from the `Model`.
+
+image::ModuleViewSequenceDiagram_FindModule.png[]
+
+==== Design Considerations
+
+===== Updating the Ui
+
+**Current Implementation**: New field in the `CommandResult` that the Ui will check to determine if it needs to update.
+
+Pros:
+
+* Simple and easy to control what command updates the Ui.
+
+Cons:
+
+* More difficult to maintain over the course of the project. New Ui elements require new fields to update the Ui.
+
+**Alternate Implementation**: Every command updates the Ui.
+
+Pros:
+
+* Maintainance free.
+
+Cons:
+
+* Potentially inefficient.
+* Possible side effects from certain commands.
+
+// end::moduleview[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

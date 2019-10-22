@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+actor user
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ViewCommand" as ViewCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+user -> MainWindow : "view cs2103t"
+activate MainWindow
+
+MainWindow -> LogicManager : executeCommand("view cs2103t")
+activate LogicManager
+
+LogicManager -> ViewCommand ** : create and execute
+activate ViewCommand
+
+ref over ViewCommand, Model : find matching module
+
+ViewCommand -> Model : setDisplayedModule(m)
+activate Model
+
+Model --> ViewCommand
+deactivate Model
+
+ViewCommand --> LogicManager : CommandResult
+deactivate ViewCommand
+destroy ViewCommand
+
+LogicManager --> MainWindow : CommandResult
+deactivate LogicManager
+
+MainWindow -> MainWindow : handleShowModule()
+activate MainWindow
+
+MainWindow -> LogicManager : getDisplayedModule()
+activate LogicManager
+
+LogicManager -> Model : getDisplayedModule()
+activate Model
+
+Model --> LogicManager : Module
+deactivate Model
+
+LogicManager --> MainWindow : Module
+deactivate LogicManager
+
+MainWindow --> MainWindow
+deactivate MainWindow
+
+MainWindow --> user : updated Ui
+deactivate MainWindow
+
+@enduml
