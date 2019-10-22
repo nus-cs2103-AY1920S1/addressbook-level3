@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -20,18 +21,25 @@ public class AutoCompletePanel extends UiPart<Region> {
 
     private int selectedIndex = 0;
 
-    private AutoCompleteWordHandler autoCompleteWordHandler;
+    private LinkedList<AutoCompleteWord> matchedAutoCompleteWords = new LinkedList<>();
+
+    private AutoCompleteListUpdater autoCompleteListUpdater;
     private AutoCompleteWordStorage autoCompleteWordStorage;
+    private AutoCompleteListFilter autoCompleteListFilter;
+    private UserinputParserUtil userinputParserUtil;
 
     @FXML
     private ListView<AutoCompleteWord> autoCompleteWordListView;
 
     public AutoCompletePanel() {
         super(FXML);
-        // Set initial list
+
+        userinputParserUtil = new UserinputParserUtil();
         autoCompleteWordStorage = new AutoCompleteWordStorage();
-        autoCompleteWordHandler = new AutoCompleteWordHandler(autoCompleteWordStorage.getOListAllObjectWord());
-        autoCompleteWordListView.setItems(autoCompleteWordHandler.getOListSuggestedWords());
+        autoCompleteListUpdater = new AutoCompleteListUpdater();
+        autoCompleteListFilter = new AutoCompleteListFilter();
+        autoCompleteListUpdater.setList(autoCompleteWordStorage.getOListAllObjectWord());
+        autoCompleteWordListView.setItems(autoCompleteListUpdater.getOListSuggestedWords());
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
@@ -42,7 +50,6 @@ public class AutoCompletePanel extends UiPart<Region> {
         @Override
         protected void updateItem(AutoCompleteWord autoCompleteWord, boolean empty) {
             super.updateItem(autoCompleteWord, empty);
-
             if (empty || autoCompleteWord == null) {
                 setGraphic(null);
                 setText(null);
@@ -75,10 +82,10 @@ public class AutoCompletePanel extends UiPart<Region> {
      * @param currentPhraseInCommandBox current String in command
      */
     public void updateListView(String currentPhraseInCommandBox) {
-        logger.info("Updated list");
-
+        updateMatchedWords(currentPhraseInCommandBox);
+        resetList();
         // Choose which list to set
-        boolean isNextList = chooseList(currentPhraseInCommandBox);
+        /*boolean isNextList = chooseList(currentPhraseInCommandBox);
 
         // Update words in current list base on string in command box
         if (isNextList) {
@@ -87,51 +94,122 @@ public class AutoCompletePanel extends UiPart<Region> {
         } else {
             System.out.println("updated without list change");
             autoCompleteWordHandler.updateSuggestedWordsInList(currentPhraseInCommandBox);
-        }
+        }*/
     }
 
-    public boolean chooseList(String currentPhraseInCommandBox) {
-        // Whenever commandTextField is blank, set to object list
-        if (currentPhraseInCommandBox.isBlank()) {
-            logger.info("Changed to object list");
-            // change to object list
-            setCurrentList(autoCompleteWordStorage.getOListAllObjectWord());
+    public void resetList() {
+        if (matchedAutoCompleteWords.size() == 0) {
+            // Set to object list
+            autoCompleteListUpdater.setList(autoCompleteWordStorage.getOListAllObjectWord());
+        } else if (matchedAutoCompleteWords.size() == 1) {
+            // Set to command list
+            ObservableList<AutoCompleteWord> filteredList = autoCompleteListFilter.filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllCommandWord());
+            autoCompleteListUpdater.setList(filteredList);
+        } else if (matchedAutoCompleteWords.size() == 2) {
+            // Set to prefix/index/empty list
+            if (((CommandWord) matchedAutoCompleteWords.get(1)).hasIndex()) {
+                autoCompleteListUpdater.setList(autoCompleteWordStorage.generateOListAllIndexWord());
+            } else if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
+                ObservableList<AutoCompleteWord> filteredList = autoCompleteListFilter.filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord());
+                autoCompleteListUpdater.setList(filteredList);
+            } else {
+                autoCompleteListUpdater.setList(FXCollections.observableArrayList());
+            }
         } else {
-            String[] userinputs = currentPhraseInCommandBox.split(" ");
-            if (userinputs.length == 1) {
-                // change to command list
-                for (AutoCompleteWord autoCompleteWord : autoCompleteWordStorage.getOListAllObjectWord()) {
-                    // if the last word matches any words in current list
-                    if (autoCompleteWord.getSuggestedWord().matches(userinputs[0])) {
-                        logger.info("Changed to command list");
-                        setCurrentList(autoCompleteWordStorage.getOListAllCommandWord());
-                        return true;
-                    }
-                }
-                // Go back to previous list
-                // At this point there is only one word in commandbox textfield and the word does not match any of the object word list
-                setCurrentList(autoCompleteWordStorage.getOListAllObjectWord());
-            } else if (userinputs.length == 2) {
-                // change to command list
-                for (AutoCompleteWord autoCompleteWord : autoCompleteWordStorage.getOListAllCommandWord()) {
-                    // if the last word matches any words in current list
-                    if (autoCompleteWord.getSuggestedWord().matches(userinputs[1])) {
-                        logger.info("Changed to prefix list");
-                        setCurrentList(autoCompleteWordStorage.getOListAllPrefixWord());
-                        return true;
-                    }
-                }
-                // Go back to previous list
-                // At this point there is two word in commandbox textfield but the 2nd word does not match any of the command word list
-                setCurrentList(autoCompleteWordStorage.getOListAllCommandWord());
+            // Set to prefix/empty list
+            if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
+                ObservableList<AutoCompleteWord> filteredList = autoCompleteListFilter.filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord());
+                autoCompleteListUpdater.setList(filteredList);
+            } else {
+                autoCompleteListUpdater.setList(FXCollections.observableArrayList());
             }
         }
-        return false;
+        autoCompleteWordListView.setItems(autoCompleteListUpdater.getOListSuggestedWords());
+        autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
-    public void setCurrentList(ObservableList<AutoCompleteWord> list) {
-        autoCompleteWordHandler.setList(list);
-        autoCompleteWordListView.setItems(autoCompleteWordHandler.getOListSuggestedWords());
-        autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
+    // segments[0] -> object-command
+    // segments[1] -> either prefix or index
+    // segments[2] onwards -> prefix
+    public void updateMatchedWords(String currentPhraseInCommandBox) {
+        String[] segments = userinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
+        matchedAutoCompleteWords.clear();
+
+        boolean isCorrectFirstSegment = matchFirstSegment(segments[0]);
+
+        if (segments.length >= 2) {
+            boolean isCorrectSecondSegment = false;
+            if (isCorrectFirstSegment) {
+                isCorrectSecondSegment = matchSecondSegment(segments[1]);
+            }
+            if (segments.length >= 3) {
+                if (isCorrectFirstSegment && isCorrectSecondSegment) {
+                    matchRestOfSegment(segments);
+                }
+            }
+        }
+    }
+
+    public boolean matchFirstSegment(String firstSegment) {
+        boolean isCorrectObjectWord = false;
+        boolean isCorrectCommandWord = false;
+
+        LinkedList<String> firstSegmentParts = userinputParserUtil.parseFirstSegment(firstSegment);
+        if (firstSegmentParts.size() >= 1) {
+            // First object word
+            for (AutoCompleteWord currentACWord : autoCompleteWordStorage.getOListAllObjectWord()) {
+                if (firstSegmentParts.get(0).matches(currentACWord.getSuggestedWord())) {
+                    matchedAutoCompleteWords.add(currentACWord);
+                    isCorrectObjectWord = true;
+                }
+            }
+            // Second command word
+            if (firstSegmentParts.size() == 2 && isCorrectObjectWord) {
+                for (AutoCompleteWord currentACWord : autoCompleteWordStorage.getOListAllCommandWord()) {
+                    if (firstSegmentParts.get(1).matches(currentACWord.getSuggestedWord())) {
+                        matchedAutoCompleteWords.add(currentACWord);
+                        isCorrectCommandWord = true;
+                    }
+                }
+            }
+        }
+        return isCorrectObjectWord && isCorrectCommandWord;
+    }
+
+    public boolean matchSecondSegment(String secondSegment) {
+        boolean isCorrect = false;
+
+        if (((CommandWord) matchedAutoCompleteWords.get(1)).hasIndex()) {
+            for (AutoCompleteWord currentACWord : autoCompleteWordStorage.generateOListAllIndexWord()) {
+                if (secondSegment.equals(currentACWord.getSuggestedWord())) {
+                    matchedAutoCompleteWords.add(currentACWord);
+                    isCorrect = true;
+                }
+            }
+        } else if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
+            for (AutoCompleteWord currentACWord : autoCompleteListFilter.filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord())) {
+                if (secondSegment.equals(currentACWord.getSuggestedWord())) {
+                    matchedAutoCompleteWords.add(currentACWord);
+                    isCorrect = true;
+                }
+            }
+        }
+        return isCorrect;
+    }
+
+    public void matchRestOfSegment(String[] segments) {
+        for (int i = 3; i <= segments.length; i++) {
+            if (matchedAutoCompleteWords.size() == i) {
+                for (AutoCompleteWord currentACWord : autoCompleteListFilter.filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord())) {
+                    if (segments[i - 1].equals(currentACWord.getSuggestedWord())) {
+                        matchedAutoCompleteWords.add(currentACWord);
+                    }
+                }
+            }
+        }
+    }
+
+    public LinkedList<AutoCompleteWord> getMatchedWordsList() {
+        return matchedAutoCompleteWords;
     }
 }

@@ -13,4 +13,8 @@ public class AutoCompleteWord {
     public String getSuggestedWord() {
         return suggestedWord;
     }
+
+    public String getConnectorChar() {
+        return " ";
+    }
 }

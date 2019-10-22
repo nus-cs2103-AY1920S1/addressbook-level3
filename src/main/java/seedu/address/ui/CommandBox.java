@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.address.autocomplete.AutoCompleteWord;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -101,21 +102,25 @@ public class CommandBox extends UiPart<Region> {
                 break;
             case RIGHT:
                 try {
-                    /*String newText = commandTextField.getText() + " " + autoCompletePanel.getSelected().getSuggestedWord();
-                    commandTextField.setText(newText);
+                    String textInTextField = "";
+                    for (AutoCompleteWord autoCompleteWord : autoCompletePanel.getMatchedWordsList()) {
+                        textInTextField += autoCompleteWord.getSuggestedWord() + autoCompleteWord.getConnectorChar();
+                    }
+                    textInTextField += autoCompletePanel.getSelected().getSuggestedWord();
+                    commandTextField.setText(textInTextField);
                     commandTextField.positionCaret(commandTextField.getText().length());
 
                     // Update listview to change current list
-                    autoCompletePanel.updateListView(newText);*/
+                    autoCompletePanel.updateListView(textInTextField);
 
                 } catch (NullPointerException e) {
-                    logger.info("Nothing is selected thus shift key does not work");
+                    logger.info("Nothing is selected thus left key does not work");
                 }
                 break;
             default:
-                String newText = commandTextField.getText() + event.getText();
+                String textInTextField = commandTextField.getText() + event.getText();
                 // Update listview to update current list
-                autoCompletePanel.updateListView(newText);
+                autoCompletePanel.updateListView(textInTextField);
             }
         });
     }

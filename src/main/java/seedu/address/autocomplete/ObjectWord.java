@@ -7,4 +7,9 @@ public class ObjectWord extends AutoCompleteWord {
     public ObjectWord(String suggestionWord) {
         super(suggestionWord);
     }
+
+    @Override
+    public String getConnectorChar() {
+        return "-";
+    }
 }

@@ -1,17 +1,24 @@
 package seedu.address.autocomplete;
 
+import java.util.LinkedList;
+
 /**
  * Represents a prefix word(eg: n/, t/) in application
  */
-public class PrefixWord extends AutoCompleteWord {
-    private String associatedCommandWord;
+public class PrefixWord extends AutoCompleteWord implements AssociableWord {
+    private String associatedWord1;
+    private String associatedWord2;
 
-    public PrefixWord(String associatedCommandWord, String suggestionWord) {
+    public PrefixWord(String associatedWord1, String associatedWord2, String suggestionWord) {
         super(suggestionWord);
-        this.associatedCommandWord = associatedCommandWord;
+        this.associatedWord1 = associatedWord1;
+        this.associatedWord2 = associatedWord2;
     }
 
-    public String getAssociatedCommandWord() {
-        return associatedCommandWord;
+    public LinkedList<String> getAssociatedWordList() {
+        LinkedList<String> associatedWordList = new LinkedList<>();
+        associatedWordList.add(associatedWord1);
+        associatedWordList.add(associatedWord2);
+        return associatedWordList;
     }
 }

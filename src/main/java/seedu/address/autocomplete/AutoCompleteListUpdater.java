@@ -9,16 +9,11 @@ import seedu.address.commons.core.LogsCenter;
 /**
  * A handler that initialises autocomplete word bank and updates list of autocomplete words to be shown
  */
-public class AutoCompleteWordHandler {
-    private static final Logger logger = LogsCenter.getLogger(AutoCompleteWordHandler.class);
+public class AutoCompleteListUpdater {
+    private static final Logger logger = LogsCenter.getLogger(AutoCompleteListUpdater.class);
 
     private ObservableList<AutoCompleteWord> oListSuggestedWords;
     private ObservableList<AutoCompleteWord> oListAllWords;
-
-    public AutoCompleteWordHandler(ObservableList<AutoCompleteWord> oListAllWords) {
-        // Init list suggestible words
-        setList(oListAllWords);
-    }
 
     public void setList(ObservableList<AutoCompleteWord> oListAllWords) {
         this.oListAllWords = oListAllWords;
