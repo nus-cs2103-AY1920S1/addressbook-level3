@@ -8,6 +8,7 @@ import java.util.SortedMap;
 import javafx.collections.ObservableList;
 
 import calofit.model.CalorieBudget;
+import calofit.model.dish.Dish;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
 
@@ -20,7 +21,7 @@ public class Statistics {
     private final int minimum;
     private final double average;
     private final int calorieExceedCount;
-    private final Meal mostConsumedMeal;
+    private final Dish mostConsumedDish;
 
     /**
      * Constructor for the wrapper Statistics class that cannot be called by other classes.
@@ -30,12 +31,12 @@ public class Statistics {
      * @param calorieExceedCount is the number of days of the month where the calorie budget exceeded.
      * @param mostConsumed is the Meal that was most consumed in the month.
      */
-    private Statistics(int maximum, int minimum, double average, int calorieExceedCount, Meal mostConsumed) {
+    private Statistics(int maximum, int minimum, double average, int calorieExceedCount, Dish mostConsumed) {
         this.maximum = maximum;
         this.minimum = minimum;
         this.average = average;
         this.calorieExceedCount = calorieExceedCount;
-        this.mostConsumedMeal = mostConsumed;
+        this.mostConsumedDish = mostConsumed;
     }
 
     /**
@@ -46,7 +47,7 @@ public class Statistics {
      */
     public static Statistics generateStatistics(MealLog mealLog, CalorieBudget budget) {
         ObservableList<Meal> currentMonthMeals = mealLog.getCurrentMonthMeals();
-        Meal mostConsumed = Statistics.getMostConsumedMeal(currentMonthMeals);
+        Dish mostConsumed = Statistics.getMostConsumedDish(currentMonthMeals);
         int calorieExceedCount = Statistics.getCalorieExceedCount(budget, currentMonthMeals);
         int maximum = 0;
         int minimum = 0;
@@ -114,28 +115,28 @@ public class Statistics {
     }
 
     /**
-     * Returns the most consumed meal of the Month.
-     * @return a Meal.
+     * Returns the most consumed Dish of the Month.
+     * @return a Dish.
      */
-    public Meal getMostConsumedMeal() {
-        return this.mostConsumedMeal;
+    public Dish getMostConsumedDish() {
+        return this.mostConsumedDish;
     }
 
     /**
-     * Method to obtain the most consumed meal in a list of meals
-     * Obtained by storing meals in a hashmap to check for duplicates and increment how many times they are eaten.
+     * Method to obtain the most consumed Dish in a list of meals
+     * Obtained by storing Dishes in a hashmap to check for duplicates and increment how many times they are eaten.
      * @param meals is the list of meals that we want to know the information from.
-     * @return the most consumed meal in the list.
+     * @return the most consumed Dish in the list.
      */
-    public static Meal getMostConsumedMeal(ObservableList<Meal> meals) {
-        HashMap<Meal, Integer> map = new HashMap<>();
+    public static Dish getMostConsumedDish(ObservableList<Meal> meals) {
+        HashMap<Dish, Integer> map = new HashMap<>();
         for (int i = 0; i < meals.size(); i++) {
-            Meal currentMeal = meals.get(i);
-            Integer value = map.get(currentMeal);
-            map.put(currentMeal, value == null ? 1 : value + 1);
+            Dish currentDish = meals.get(i).getDish();
+            Integer value = map.get(currentDish);
+            map.put(currentDish, value == null ? 1 : value + 1);
         }
-        Entry<Meal, Integer> max = null;
-        for (Entry<Meal, Integer> e : map.entrySet()) {
+        Entry<Dish, Integer> max = null;
+        for (Entry<Dish, Integer> e : map.entrySet()) {
             if (max == null || e.getValue() > max.getValue()) {
                 max = e;
             }
