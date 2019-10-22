@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.distinctDate.DistinctDate;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.storage.Storage;
@@ -72,6 +74,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Event> getFilteredScheduledEventList() {
         return model.getFilteredScheduledEventList();
+    }
+
+    @Override
+    public ObservableList<DistinctDate> getDistinctDateList() {
+        return model.getDistinctDatesList();
     }
 
     @Override

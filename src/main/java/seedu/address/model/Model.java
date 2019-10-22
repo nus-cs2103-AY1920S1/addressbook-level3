@@ -1,10 +1,12 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.distinctDate.DistinctDate;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
@@ -148,5 +150,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredScheduledEventList(Predicate<Event> predicate);
+
+    /** Returns an unmodifiable view of the filtered event list */
+    ObservableList<DistinctDate> getDistinctDatesList();
+
+    /**
+     * Updates the filter of the filtered Event list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateDistinctDatesList(List<DistinctDate> list);
 
 }

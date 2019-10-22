@@ -4,13 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Filter;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.processor.DistinctDatesProcessor;
+import seedu.address.model.distinctDate.DistinctDate;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
@@ -26,6 +32,7 @@ public class ModelManager implements Model {
     private final EventBook eventBook;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Event> filteredScheduledEvents;
+    private ObservableList<DistinctDate> distinctDatesList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,6 +50,7 @@ public class ModelManager implements Model {
         filteredEmployees = new FilteredList<>(this.addressBook.getEmployeeList());
         filteredEvents = new FilteredList<>(this.eventBook.getEventList());
         filteredScheduledEvents = new FilteredList<>(this.eventBook.getEventList());
+        distinctDatesList = FXCollections.observableList(DistinctDatesProcessor.generateDistinctDateList(this));
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
@@ -206,6 +214,7 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
+    //=========== Filtered Scheduled Event List Accessors =============================================================
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
      * {@code versionedEventBook}
@@ -219,6 +228,20 @@ public class ModelManager implements Model {
     public void updateFilteredScheduledEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredScheduledEvents.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
+     * {@code versionedEventBook}
+     */
+    @Override
+    public ObservableList<DistinctDate> getDistinctDatesList() {
+        return distinctDatesList;
+    }
+
+    @Override
+    public void updateDistinctDatesList(List<DistinctDate> distinctDates) {
+        distinctDatesList = FXCollections.observableList(distinctDates);
     }
 
     @Override

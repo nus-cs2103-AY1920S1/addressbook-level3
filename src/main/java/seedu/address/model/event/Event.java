@@ -1,11 +1,9 @@
 package seedu.address.model.event;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.model.employee.Employee;
 import seedu.address.model.tag.Tag;
@@ -66,6 +64,16 @@ public class Event {
 
     public EventDateTimeMap getEventDateTimeMap() {
         return eventDateTimeMap;
+    }
+
+    public List<LocalDate> getListOfEventDates() {
+        List<LocalDate> listOfDate = new ArrayList<>();
+        LocalDate dateCount = startDate.date;
+        while (!dateCount.isAfter(endDate.date)) {
+            listOfDate.add(dateCount);
+            dateCount = dateCount.plusDays(1);
+        }
+        return listOfDate;
     }
 
     /**
