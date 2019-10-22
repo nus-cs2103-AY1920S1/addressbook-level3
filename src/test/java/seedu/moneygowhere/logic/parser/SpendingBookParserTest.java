@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalIndexes.INDEX_FIRST_SPENDING;
 
@@ -136,8 +137,9 @@ public class SpendingBookParserTest {
 
     @Test
     public void parseCommand_import() throws Exception {
-        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD) instanceof ImportCommand);
-        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD + " 3") instanceof ImportCommand);
+        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
+                + " " + PREFIX_PATH + "src/test/data/invalidDateSpending.csv")
+                instanceof ImportCommand);
     }
 
     @Test

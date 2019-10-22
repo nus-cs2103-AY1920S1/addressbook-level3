@@ -107,14 +107,18 @@ public class Spending {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Date: ")
-                .append(getDate())
-                .append(" Remark: ")
-                .append(getRemark())
-                .append(" Cost: ")
-                .append(getCost())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getDate());
+
+        if (!(getRemark().toString().equals(""))) {
+            builder.append(" Remark: ")
+                    .append(getRemark());
+        }
+        builder.append(" Cost: ")
+                .append(getCost());
+        if (getTags().size() > 0) {
+            builder.append(" Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
-
 }

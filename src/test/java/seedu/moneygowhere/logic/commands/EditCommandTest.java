@@ -99,27 +99,6 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicateSpendingUnfilteredList_failure() {
-        Spending firstSpending = model.getFilteredSpendingList().get(INDEX_FIRST_SPENDING.getZeroBased());
-        EditSpendingDescriptor descriptor = new EditSpendingDescriptorBuilder(firstSpending).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_SPENDING, descriptor);
-
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_SPENDING);
-    }
-
-    @Test
-    public void execute_duplicateSpendingFilteredList_failure() {
-        showSpendingAtIndex(model, INDEX_FIRST_SPENDING);
-
-        // edit Spending in filtered list into a duplicate in the MoneyGoWhere list
-        Spending spendingInList = model.getSpendingBook().getSpendingList().get(INDEX_SECOND_SPENDING.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_SPENDING,
-                new EditSpendingDescriptorBuilder(spendingInList).build());
-
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_SPENDING);
-    }
-
-    @Test
     public void execute_invalidSpendingIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSpendingList().size() + 1);
         EditSpendingDescriptor descriptor = new EditSpendingDescriptorBuilder().withName(VALID_NAME_BOB).build();

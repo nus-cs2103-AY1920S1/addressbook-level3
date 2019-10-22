@@ -17,7 +17,6 @@ public class JsonSerializableSpendingBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableSpendingBookTest");
     private static final Path TYPICAL_SPENDINGS_FILE = TEST_DATA_FOLDER.resolve("typicalSpendingBook.json");
-    private static final Path DUPLICATE_SPENDING_FILE = TEST_DATA_FOLDER.resolve("duplicateSpendingBook.json");
     private static final Path INVALID_SPENDING_FILE = TEST_DATA_FOLDER.resolve("invalidSpendingBook.json");
 
 
@@ -38,13 +37,4 @@ public class JsonSerializableSpendingBookTest {
                 JsonSerializableSpendingBook.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
-
-    @Test
-    public void toModelType_duplicateSpendings_throwsIllegalValueException() throws Exception {
-        JsonSerializableSpendingBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_SPENDING_FILE,
-                JsonSerializableSpendingBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableSpendingBook.MESSAGE_DUPLICATE_SPENDING,
-                dataFromFile::toModelType);
-    }
-
 }

@@ -11,7 +11,6 @@ import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +22,6 @@ import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
-import seedu.moneygowhere.model.spending.exceptions.DuplicateSpendingException;
 import seedu.moneygowhere.testutil.SpendingBuilder;
 
 public class AddressBookTest {
@@ -47,17 +45,6 @@ public class AddressBookTest {
         SpendingBook newData = getTypicalSpendingBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
-    }
-
-    @Test
-    public void resetData_withDuplicateSpendings_throwsDuplicateSpendingException() {
-        // Two persons with the same identity fields
-        Spending editedAlice = new SpendingBuilder(APPLE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Spending> newSpendings = Arrays.asList(APPLE, editedAlice);
-        SpendingBookStub newData = new SpendingBookStub(newSpendings);
-
-        assertThrows(DuplicateSpendingException.class, () -> addressBook.resetData(newData));
     }
 
     @Test

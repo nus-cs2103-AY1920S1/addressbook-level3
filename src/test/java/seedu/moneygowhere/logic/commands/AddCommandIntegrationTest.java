@@ -1,6 +1,5 @@
 package seedu.moneygowhere.logic.commands;
 
-import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
@@ -35,11 +34,4 @@ public class AddCommandIntegrationTest {
         assertCommandSuccess(new AddCommand(validSpending), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validSpending), expectedModel);
     }
-
-    @Test
-    public void execute_duplicateSpending_throwsCommandException() {
-        Spending spendingInList = model.getSpendingBook().getSpendingList().get(0);
-        assertCommandFailure(new AddCommand(spendingInList), model, AddCommand.MESSAGE_DUPLICATE_SPENDING);
-    }
-
 }
