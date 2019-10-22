@@ -2,7 +2,7 @@ package seedu.address.stubs;
 
 import java.util.ArrayList;
 
-import seedu.address.cashier.logic.exception.NoCashierFoundException;
+import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;

@@ -2,14 +2,16 @@ package seedu.address.cashier.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.cashier.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADD_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.logic.exception.NoCashierFoundException;
+import seedu.address.cashier.logic.commands.CommandResult;
+import seedu.address.cashier.logic.commands.SetCashierCommand;
+import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.person.logic.commands.exceptions.CommandException;
@@ -67,21 +69,17 @@ public class SetCashierCommandTest {
 
     }
 
-    // Not working
     @Test
-    public void execute_invalidCashier_failure() throws NoSuchPersonException, NoSuchIndexException, CommandException {
-        //Person nonExistingPerson = new PersonBuilder().withName("Bob Li").build();
+    public void execute_invalidCashier_failure() {
         Person nonExistingPerson = TypicalPersons.AMY;
 
         PersonModelStubAcceptingPersonAdded personModelStub2 = new PersonModelStubAcceptingPersonAdded();
         SetCashierCommand setCashierCommand = new SetCashierCommand(nonExistingPerson);
-        CommandResult commandResult = setCashierCommand.execute(model,
-                personModelStub2, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
 
-        System.out.println(commandResult.getFeedbackToUser());
         String expectedMessage = String.format(NO_SUCH_PERSON);
 
-        assertTrue(expectedMessage.equals(commandResult.getFeedbackToUser()));
+        assertCommandFailure(setCashierCommand, model, expectedMessage,
+                personModelStub2, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
 
     }
 

@@ -1,13 +1,11 @@
 package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
-
-import java.util.logging.Logger;
+import static seedu.address.person.commons.core.LogsCenter.logger;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
-import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 
 /**®
@@ -16,7 +14,7 @@ import seedu.address.person.model.person.Person;
 public class CheckoutCommand extends Command {
 
     public static final String COMMAND_WORD = "checkout";
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    //private final Logger logger = LogsCenter.getLogger(getClass());
     private final double totalAmount;
     private final double change;
 

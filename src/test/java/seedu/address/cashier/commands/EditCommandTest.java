@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.cashier.logic.commands.EditCommand;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;

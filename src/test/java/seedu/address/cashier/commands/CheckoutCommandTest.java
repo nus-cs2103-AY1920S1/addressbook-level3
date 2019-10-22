@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.cashier.logic.commands.CheckoutCommand;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.model.Model;

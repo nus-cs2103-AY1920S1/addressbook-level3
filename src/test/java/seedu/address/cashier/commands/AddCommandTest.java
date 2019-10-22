@@ -12,7 +12,9 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.logic.exception.InsufficientAmountException;
+import seedu.address.cashier.logic.commands.AddCommand;
+import seedu.address.cashier.logic.commands.CommandResult;
+import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;

@@ -253,6 +253,7 @@ public class ModelManager implements Model {
      * Returns the cashier-in-charge.
      * @return the cashier-in-charge
      * @throws NoCashierFoundException if no cashier has been set
+     *
      */
     @Override
     public Person getCashier() throws NoCashierFoundException {

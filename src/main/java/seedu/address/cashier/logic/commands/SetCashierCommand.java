@@ -1,6 +1,7 @@
 package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADD_CASHIER;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_PERSON;
 import static seedu.address.person.commons.core.LogsCenter.logger;
 
 import seedu.address.cashier.model.exception.NoSuchIndexException;
@@ -31,6 +32,9 @@ public class SetCashierCommand extends Command {
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {
+        if (!personModel.hasPerson(cashier)) {
+            throw new NoSuchPersonException(NO_SUCH_PERSON);
+        }
         modelManager.setCashier(cashier);
         logger.info("Cashier: " + cashier.getName().toString());
         return new CommandResult(String.format(MESSAGE_ADD_CASHIER, cashier.getName()));
