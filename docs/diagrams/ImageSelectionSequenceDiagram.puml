@@ -1,0 +1,40 @@
+@startuml
+!include style.puml
+
+participant ":EditNoteCommandParser" as ENCP LOGIC_COLOR
+participant ":EditNoteDescriptor" as END LOGIC_COLOR
+participant ":NoteImageSelector" as NIS LOGIC_COLOR
+Actor User as U USER_COLOR
+
+[-> ENCP: parse()
+activate ENCP
+create END
+ENCP -> END: new
+activate END
+END --> ENCP
+deactivate END
+opt t/ present
+    ENCP -> END: setTitle()
+end
+opt c/ present
+    ENCP -> END: setContent()
+end
+opt i/ present
+    alt i/none
+        ENCP -> END: setImageRemoved(true)
+    else else
+        ENCP -> NIS: selectImage()
+        activate NIS
+        NIS -> U: open file dialog
+        NIS <-- U: image
+        NIS --> ENCP: image
+        deactivate NIS
+        ENCP -> END: setImage(image)
+    end
+end
+[<-- ENCP: editNoteCommand
+deactivate ENCP
+ENCP -[hidden]-> END
+destroy ENCP
+||10||
+@enduml

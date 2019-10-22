@@ -2,6 +2,7 @@ package seedu.address.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.Command;
@@ -16,13 +17,15 @@ import seedu.address.model.note.Note;
 public class AddNoteCommand extends Command {
     public static final String COMMAND_WORD = "addnote";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lecture note to NUStudy. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lecture note to NUStudy.\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
-            + PREFIX_CONTENT + "CONTENT "
+            + PREFIX_CONTENT + "CONTENT ["
+            + PREFIX_IMAGE + "]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Lecture 1 "
-            + PREFIX_CONTENT + "Write once debug everywhere ";
+            + PREFIX_CONTENT + "Write once debug everywhere\n"
+            + "Using /i will open up a file dialog to select the image";
 
     public static final String MESSAGE_SUCCESS = "Lecture note added: %1$s";
     public static final String MESSAGE_DUPLICATE_TITLE = "This title already exists";
@@ -30,7 +33,7 @@ public class AddNoteCommand extends Command {
     private final Note toAdd;
 
     /**
-     * Creates an AddNoteCommand to add the specified {@code Note}
+     * Creates an AddNoteCommand to add the specified {@code Note}.
      */
     public AddNoteCommand(Note note) {
         requireNonNull(note);

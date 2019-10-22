@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.note.EditNoteCommand;
 import seedu.address.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
+import seedu.address.logic.parser.note.EditNoteCommandParser;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Title;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
@@ -56,7 +57,7 @@ public class EditNoteCommandParserTest {
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 j/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
