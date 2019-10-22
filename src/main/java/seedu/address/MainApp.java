@@ -115,7 +115,7 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             if (!studentRecordOptional.isPresent()) {
-                //handle logger.info();
+                logger.info("Student file not found. Will be starting with a student record with a sample student.");
             }
             if (!questionsOptional.isPresent()) {
                 logger.info("Question file not found. Will create an empty one.");
@@ -125,7 +125,7 @@ public class MainApp extends Application {
             }
             initialAddressBook = addressBookOptional
                 .orElseGet(SampleDataUtil::getSampleAddressBook);
-            initialStudentRecord = studentRecordOptional.orElseGet(null); //get samplestudentrecord
+            initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudents);
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
             initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
 
