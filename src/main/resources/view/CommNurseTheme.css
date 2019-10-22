@@ -8,6 +8,11 @@
     -fx-font-size: 13px;
 }
 
+.cell_smallest_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11px;
+}
+
 .list-cell:filled:even {
     -fx-background-color: #DEF2F1;
 }
