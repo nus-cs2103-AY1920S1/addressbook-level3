@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FinSecParser" as FinSecParser LOGIC_COLOR
+participant ":AddIncomeCommandParser" as AddIncomeCommandParser LOGIC_COLOR
+participant "cmd:AddIncomeCommand" as AddIncomeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add_income d/....")
+activate LogicManager
+
+LogicManager -> FinSecParser : parseCommand("add_income d/....")
+activate FinSecParser
+
+create AddIncomeCommandParser
+FinSecParser -> AddIncomeCommandParser
+activate AddIncomeCommandParser
+
+AddIncomeCommandParser --> FinSecParser
+deactivate AddIncomeCommandParser
+
+FinSecParser -> AddIncomeCommandParser : parse("d/...")
+activate AddIncomeCommandParser
+
+
+
+
+create AddIncomeCommand
+AddIncomeCommandParser -> AddIncomeCommand
+activate AddIncomeCommand
+
+AddIncomeCommand --> AddIncomeCommandParser : cmd
+deactivate AddIncomeCommand
+
+AddIncomeCommandParser --> FinSecParser : cmd
+deactivate AddIncomeCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddIncomeCommandParser -[hidden]-> FinSecParser
+destroy AddIncomeCommandParser
+
+FinSecParser --> LogicManager : cmd
+deactivate FinSecParser
+
+LogicManager -> AddIncomeCommand : execute()
+activate AddIncomeCommand
+
+
+AddIncomeCommand -> Model : has_income(income)
+activate Model
+
+Model --> AddIncomeCommand
+deactivate Model
+
+AddIncomeCommand -> Model : add_income(income)
+activate Model
+
+Model --> AddIncomeCommand
+deactivate Model
+
+create CommandResult
+AddIncomeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddIncomeCommand
+deactivate CommandResult
+
+AddIncomeCommand --> LogicManager : result
+deactivate AddIncomeCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml
