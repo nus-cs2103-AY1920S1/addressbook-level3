@@ -332,6 +332,57 @@ The following sequence diagram shows how the undo operation works:
 
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
 
+=== Note feature
+
+Notes are used in the creation of CheatSheet objects as well as in general use of StudyBuddyPro.
+
+==== Current Implementation
+
+Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
+
+image::samDiagrams/NoteModelClassDiagram.png[]
+
+==== Usages of Notes
+
+Notes can be used to:
+
+** Store information under a title
+** Categorize information via the use of Tags
+** Provide information to CheatSheets for collation
+
+Notes can currently be:
+
+** Added to StudyBuddyBook
+** Deleted from StudyBuddyBook
+** Viewed from StudyBuddyBook
+** Viewed with filter from StudyBuddyBook
+
+The sequence diagram below describes the calls within the Model component upon the addition of a Note object:
+
+image::samDiagrams/AddNoteSequenceDiagram.png[]
+
+The two main steps of the process are:
+
+** The parsing of a Command from the input String
+** The execution of the Command which alters Model
+
+==== [Proposed] Note content tagging feature
+
+The proposed feature involves the application of tags within the Note content.
+
+===== Proposed Implementation
+
+This feature can be achieved by:
+
+** Including a user-inputted tag within portions of the Note content
+** Parsing for this content tag when filtering by tag
+** Listing these content fragments upon filtering by tag
+
+===== Usages of feature
+
+** More precise inclusion of tags when creating CheatSheet objects
+** Ability to nest tags inside each other
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
