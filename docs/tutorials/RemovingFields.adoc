@@ -103,8 +103,8 @@ In `src/test/data/`, data meant for testing purposes are stored.
 While keeping the `address` field in the json files does not cause the tests to fail, it is not good practice to let cruft from old features accumulate.
 
 .invalidPersonAddressBook.json
-[source, json]
-```
+[source, JSON]
+----
 {
   "persons": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
@@ -113,5 +113,5 @@ While keeping the `address` field in the json files does not cause the tests to 
     "address": "4th street"
   } ]
 }
-```
+----
 You can go through each individual `json` file and manually remove the `address` field.

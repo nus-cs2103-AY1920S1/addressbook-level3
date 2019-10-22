@@ -3,6 +3,7 @@ package thrift.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import thrift.commons.util.StringUtil;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Description;
 import thrift.model.transaction.Expense;
@@ -10,7 +11,6 @@ import thrift.model.transaction.Remark;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
-import thrift.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Transaction objects.
@@ -59,7 +59,7 @@ public class ExpenseBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expense} that we are building.
      */
     public ExpenseBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = StringUtil.getTagSet(tags);
         return this;
     }
 

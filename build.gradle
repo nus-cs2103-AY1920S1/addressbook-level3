@@ -151,4 +151,20 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
+task deployOfflineDocs(type: Copy) {
+    dependsOn('asciidoctor')
+
+    into('src/main/resources/docs')
+
+    from ("${asciidoctor.outputDir}/html5") {
+        include 'stylesheets/*'
+        include 'images/*'
+        include 'HelpWindow.html'
+    }
+}
+
+task buildJar(type: GradleBuild) {
+    tasks = ['clean', 'deployOfflineDocs', 'shadowJar']
+}
+
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
