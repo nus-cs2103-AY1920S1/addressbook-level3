@@ -20,7 +20,6 @@ import seedu.ichifund.logic.Logic;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
-import seedu.ichifund.model.analytics.TrendReport;
 
 /**
  * The Main Window. Provides the basic application layout containing

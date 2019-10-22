@@ -28,7 +28,8 @@ public class ExpenditureTrendCommandParser implements Parser<ExpenditureTrendCom
                 ArgumentTokenizer.tokenize(args, PREFIX_YEAR);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpenditureTrendCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ExpenditureTrendCommand.MESSAGE_USAGE));
         }
         Year year = null;
 

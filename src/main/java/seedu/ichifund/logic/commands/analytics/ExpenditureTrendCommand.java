@@ -9,8 +9,8 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.ichifund.logic.commands.CommandResult;
-import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.Model;
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.analytics.TrendReport;
 import seedu.ichifund.model.date.Month;
@@ -24,7 +24,8 @@ public class ExpenditureTrendCommand extends TrendCommand {
 
     public static final String COMMAND_WORD = "expenditure";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays monthly expenditure trend for the year specified, or current year if year is unspecified."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays monthly expenditure trend for the year " +
+            "specified, or current year if year is unspecified."
             + "Parameters: "
             + "[" + PREFIX_YEAR + "YEAR] "
             + "Example: " + COMMAND_WORD + " "
@@ -34,10 +35,21 @@ public class ExpenditureTrendCommand extends TrendCommand {
 
     public static final String REPORT_DESCRIPTION = "Total expenditure for this month";
 
+    /**
+     * Constructs a {@code ExpenditureTrendCommand}.
+     *
+     * @param year A year.
+     */
     public ExpenditureTrendCommand(Optional<Year> year) {
         super(year);
     }
 
+    /**
+     * Fills a {@code TrendReport} using data from a {@code Model}.
+     *
+     * @param model Model to be referenced.
+     * @param report Report to be filled.
+     */
     private void fillExpenditureTrendReport(Model model, TrendReport report) {
         requireNonNull(model);
         requireNonNull(report);
@@ -53,7 +65,9 @@ public class ExpenditureTrendCommand extends TrendCommand {
                 }
             }
             Amount currentMonthExpenditure = Amount.addAll(currentMonthExpenditureList);
-            Data currentData = new Data(REPORT_DESCRIPTION, currentMonthExpenditure, Optional.of(currentYear), Optional.of(currentMonth), Optional.empty(), Optional.empty());            monthlyExpenditureList.add(currentData);
+            Data currentData = new Data(REPORT_DESCRIPTION, currentMonthExpenditure, Optional.of(currentYear),
+                    Optional.of(currentMonth), Optional.empty(), Optional.empty());
+            monthlyExpenditureList.add(currentData);
         }
         report.fillReport(monthlyExpenditureList);
     }
@@ -61,7 +75,7 @@ public class ExpenditureTrendCommand extends TrendCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        TrendReport report = createExpenditureTrendReport(year);
+        TrendReport report = createTrendReport(year);
         fillExpenditureTrendReport(model, report);
         model.updateDataList(report.getTrendList());
         return new CommandResult(String.format(MESSAGE_SUCCESS, year));

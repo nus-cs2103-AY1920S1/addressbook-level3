@@ -79,8 +79,8 @@ public class TrendReport {
         builder.append(" Year: ")
                 .append(getYear());
 
-        String[] months = new String[] { "January", "February", "March",
-                "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        String[] months = new String[] { "January", "February", "March", "April", "May", "June", "July", "August",
+            "September", "October", "November", "December" };
         for (int i = 0; i < 12; i++) {
             builder.append(months[i])
                     .append(": ")

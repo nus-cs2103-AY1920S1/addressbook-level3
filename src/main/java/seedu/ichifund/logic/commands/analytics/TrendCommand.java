@@ -27,7 +27,7 @@ public abstract class TrendCommand extends Command {
         this.year = year.orElseGet(Year::getCurrent);
     }
 
-    protected TrendReport createExpenditureTrendReport(Year year) {
+    protected TrendReport createTrendReport(Year year) {
         requireNonNull(year);
         return new TrendReport(year);
     }

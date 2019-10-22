@@ -49,16 +49,24 @@ public class DataCard extends UiPart<Region> {
         amount.setText(data.getAmount().toString());
         try {
             year.setText(data.getYear().toString());
-        } catch (DateFieldNotFoundException ignored) {}
+        } catch (DateFieldNotFoundException ignored) {
+            ;
+        }
         try {
             month.setText(data.getMonth().wordString());
-        } catch (DateFieldNotFoundException ignored) {}
+        } catch (DateFieldNotFoundException ignored) {
+            ;
+        }
         try {
             day.setText(data.getDay().toString());
-        } catch (DateFieldNotFoundException ignored) {}
+        } catch (DateFieldNotFoundException ignored) {
+            ;
+        }
         try {
             category.setText(data.getCategory().toString());
-        } catch (DateFieldNotFoundException ignored) {}
+        } catch (DateFieldNotFoundException ignored) {
+            ;
+        }
     }
 
     @Override

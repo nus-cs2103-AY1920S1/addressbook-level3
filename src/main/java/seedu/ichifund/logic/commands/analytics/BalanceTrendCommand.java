@@ -9,9 +9,8 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.ichifund.logic.commands.CommandResult;
-import seedu.ichifund.model.Description;
-import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.Model;
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.analytics.TrendReport;
 import seedu.ichifund.model.date.Month;
@@ -25,7 +24,8 @@ public class BalanceTrendCommand extends TrendCommand {
 
     public static final String COMMAND_WORD = "balance";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays monthly balance trend for the year specified, or current year if year is unspecified."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays monthly balance trend for the year " +
+            "specified, or current year if year is unspecified."
             + "Parameters: "
             + "[" + PREFIX_YEAR + "YEAR] "
             + "Example: " + COMMAND_WORD + " "
@@ -35,11 +35,22 @@ public class BalanceTrendCommand extends TrendCommand {
 
     public static final String REPORT_DESCRIPTION = "Total balance for this month";
 
+    /**
+     * Constructs a {@code BalanceTrendCommand}.
+     *
+     * @param year A year.
+     */
     public BalanceTrendCommand(Optional<Year> year) {
         super(year);
     }
 
-    private void fillExpenditureTrendReport(Model model, TrendReport report) {
+    /**
+     * Fills a {@code TrendReport} using data from a {@code Model}.
+     *
+     * @param model Model to be referenced.
+     * @param report Report to be filled.
+     */
+    private void fillBalanceTrendReport(Model model, TrendReport report) {
         requireNonNull(model);
         requireNonNull(report);
         ObservableList<Transaction> transactionList = model.getFundBook().getTransactionList();
@@ -61,7 +72,8 @@ public class BalanceTrendCommand extends TrendCommand {
             Amount currentMonthExpenditure = Amount.addAll(currentMonthExpenditureList);
             Amount currentMonthIncome = Amount.addAll(currentMonthIncomeList);
             Amount currentMonthBalance = Amount.subtract(currentMonthIncome, currentMonthExpenditure);
-            Data currentData = new Data(REPORT_DESCRIPTION, currentMonthBalance, Optional.of(currentYear), Optional.of(currentMonth), Optional.empty(), Optional.empty());
+            Data currentData = new Data(REPORT_DESCRIPTION, currentMonthBalance, Optional.of(currentYear),
+                    Optional.of(currentMonth), Optional.empty(), Optional.empty());
             monthlyBalanceList.add(currentData);
         }
         report.fillReport(monthlyBalanceList);
@@ -70,8 +82,8 @@ public class BalanceTrendCommand extends TrendCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        TrendReport report = createExpenditureTrendReport(year);
-        fillExpenditureTrendReport(model, report);
+        TrendReport report = createTrendReport(year);
+        fillBalanceTrendReport(model, report);
         model.updateDataList(report.getTrendList());
         return new CommandResult(String.format(MESSAGE_SUCCESS, year));
     }

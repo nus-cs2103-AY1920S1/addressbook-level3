@@ -28,7 +28,8 @@ public class Data {
     /**
      * Constructs a {@code Data}.
      */
-    public Data(String description, Amount amount, Optional<Year> year, Optional<Month> month, Optional<Day> day, Optional<Category> category) {
+    public Data(String description, Amount amount, Optional<Year> year, Optional<Month> month, Optional<Day> day,
+                Optional<Category> category) {
         requireNonNull(amount);
         this.description = description;
         this.amount = amount;
