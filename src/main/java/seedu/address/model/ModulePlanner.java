@@ -24,6 +24,7 @@ import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
 import seedu.address.model.versiontracking.StudyPlanCommitManagerList;
 import seedu.address.model.versiontracking.VersionTrackingManager;
+import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
@@ -73,7 +74,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         this.versionTrackingManager = versionTrackingManager;
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations ================================================================
 
     /**
      * Replaces the contents of the person list with {@code studyPlans}.
@@ -92,7 +93,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         setStudyPlans(newData.getStudyPlanList());
     }
 
-    //// studyplan-level operations
+    //=========== Study Plan-level Operations ===============================================================
 
     /**
      * Returns true if a study plan with the same identity as {@code study plan} exists in the module planner.
@@ -292,7 +293,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         activeStudyPlan.setTitle(new Title(title));
     }
 
-    //// commit methods
+    //=========== Version Tracking ============================================================================
 
     /**
      * Commits the current active study plan.
@@ -320,7 +321,36 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         versionTrackingManager.deleteStudyPlanCommitManagerByIndex(index);
     }
 
-    //// tagging methods
+    /**
+     * Reverts the current active study plan to the commit specified by the given index. Make this version
+     * of the study plan active.
+     */
+    public void revertToCommit(int studyPlanIndex, int commitNumber) {
+        requireNonNull(activeStudyPlan);
+        assert studyPlanIndex == activeStudyPlan.getIndex() : "The index needs to be same as the active one's";
+
+        StudyPlanCommitManager manager = versionTrackingManager.getStudyPlanCommitManagerByStudyPlan(activeStudyPlan);
+        StudyPlan newActiveStudyPlan = manager.revertToCommit(commitNumber);
+
+        studyPlans.setStudyPlan(activeStudyPlan, newActiveStudyPlan);
+        activateStudyPlan(newActiveStudyPlan.getIndex());
+    }
+
+    /**
+     * Deletes the commit specified by the given study plan index and commit number.
+     */
+    public void deleteCommit(int studyPlanIndex, int commitNumber) throws CommitNotFoundException {
+        requireNonNull(activeStudyPlan);
+
+        if (studyPlanIndex != activeStudyPlan.getIndex()) {
+            throw new StudyPlanNotFoundException();
+        }
+
+        StudyPlanCommitManager manager = versionTrackingManager.getStudyPlanCommitManagerByStudyPlan(activeStudyPlan);
+        manager.deleteCommit(commitNumber);
+    }
+
+    //=========== Tagging =================================================================================
 
     public boolean addTagToActiveSp(UserTag tag, String moduleCode) {
         return activeStudyPlan.addTag(tag, moduleCode);
@@ -358,11 +388,10 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         activeStudyPlan.updateAllCompletedTags();
     }
 
+    //=========== Util Methods =================================================================================
     public HashMap<String, Module> getModulesFromActiveSp() {
         return activeStudyPlan.getModules();
     }
-
-    //// util methods
 
     @Override
     public String toString() {

@@ -15,6 +15,13 @@ public class Title implements Cloneable {
         return value;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Title // instanceof handles nulls
+                && value.equals(((Title) other).value)); // state check
+    }
+
     public Title clone() throws CloneNotSupportedException {
         return (Title) super.clone();
     }

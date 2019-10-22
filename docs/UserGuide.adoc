@@ -58,6 +58,7 @@ Creates a new study plan with an optional title. +
 Format: `newplan [TITLE]` +
 Examples:
 
+* `newplan`
 * `newplan noc half year`
 * `newplan minor in maths`
 
@@ -90,13 +91,21 @@ Example:
 * `This allows the user to view commit 1 of study plan 1.`
 
 ==== Reverting to a commit: `revert`
-Reverts to the version of the current study plan for a particular commit. This discards all the commits after the
-specified commit. +
+Reverts to the version of the current study plan for a particular commit. This creates a new "revert" commit and
+returns the current active study plan back to the state in the specified commit. +
 Format: `revert COMMIT_NUMBER` +
 Example:
 
 * `revert 1.1` +
-This allows the user to revert to commit 1 of study plan 1, discarding all commits after 1.1 (e.g. 1.2 and 1.3).
+Suppose there are commits `1.0`, `1.1`, `1.2`, and `1.3`. This allows the user to revert to commit 1 of study plan 1,
+creating a new commit called `1.4: Revert "COMMIT_MESSAGE_OF_1.1"`.
+
+==== Deleting a commit: `deletecommit`
+Deletes a commit in the current active study plan specified by the commit number. +
+Format: `deletecommit COMMIT_NUMBER` +
+Example:
+
+* `deletecommit 2.2`
 
 ==== Viewing another study plan: `viewplan`
 Shows the study plan with a given index. +
@@ -155,6 +164,10 @@ Example:
 ==== Setting default study plan: `default`
 Generates a study plan with pre-populated modules according to the recommended study plan for a year one student. +
 Format: `default`
+
+==== Listing all study plans: `list`
+Lists all the study plans that the user has created and has not deleted. +
+Format: `list`
 
 === Help and handling the GUI
 

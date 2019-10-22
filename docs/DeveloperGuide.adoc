@@ -758,6 +758,13 @@ Students from either partner university pay fees only at their home institution 
 A study plan is an academic plan detailing all modules that a student plans to take in all the semesters in their
 candidature in NUS. One study plan comprises 8 semesters of modules. The user may have multiple alternative study plans.
 
+[[SU]] S/U::
+Abbreviation for Satisfactory / Unsatisfactory Options. Sometimes abbreviated as SU.
+In general, students may exercise the S/U option for up to 32 MCs in the first two regular semesters;
+if this is not fully utilised, the S/U option may still be exercised in subsequent semesters, for up to 12 MCs.
+Modules with grades as S/U are not factored into the calculation of students' Cumulative Average Points (CAP).
+Modules on which the S/U option can be exercised are described as _SU-able_.
+
 [[tag]] Tag::
 A module can be added a tag or multiple tags, which include the following:
 ** core module

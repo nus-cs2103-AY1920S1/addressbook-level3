@@ -128,6 +128,21 @@ public class StudyPlan implements Cloneable {
         isActivated = activated;
     }
 
+    // for testing
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    // for testing
+    public void setModules(HashMap<String, Module> modules) {
+        this.modules = modules;
+    }
+
+    // for testing
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+
     public boolean isActivated() {
         return isActivated;
     }
@@ -163,7 +178,6 @@ public class StudyPlan implements Cloneable {
      * Given a {@code ModuleInfo} object, convert it to a {@code Module}.
      */
     private Module convertModuleInfoToModule(ModuleInfo moduleInfo) {
-        // TODO: Yi Wai: assign default tags to the result (Module).
         UniqueTagList moduleTagList = assignDefaultTags(moduleInfo);
         Name name = new Name(moduleInfo.getName());
         ModuleCode moduleCode = new ModuleCode(moduleInfo.getCode());
@@ -392,7 +406,11 @@ public class StudyPlan implements Cloneable {
      * This defines a weaker notion of equality between two study plans.
      */
     public boolean isSameStudyPlan(StudyPlan other) {
-        return this.index == other.index;
+        if (other == null) {
+            return false;
+        } else {
+            return this.index == other.index && this.modules == other.modules;
+        }
     }
 
     /**

@@ -264,6 +264,15 @@ public class CreateTagCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
+        @Override
+        public void revertToCommit(int studyPlanIndex, int commitNumber) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void deleteCommit(int studyPlanIndex, int commitNumber) {
+            throw new AssertionError("This method should not be called");
+        }
 
         @Override
         public CommitList getCommitListByStudyPlanIndex(int index) {
