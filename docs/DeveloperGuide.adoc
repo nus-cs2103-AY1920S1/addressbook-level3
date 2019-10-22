@@ -344,7 +344,7 @@ Upon setting the budget and prior to the deadline, the user's `OutTransaction` w
 The `set` command is an extension of parent `Command` class, facilitated by the _Logic_ and _Model_ components of the application, _PalPay_ +
 Given an *amount* and *date*, a new Budget is set for the user. +
 Upon setting a new budget, a `BudgetCard` is created and displayed in a list in the application window
-till the date set by the user.
+till the date set by the user. +
 
 // TODO: add PUML figure for Sequence diagram
 
