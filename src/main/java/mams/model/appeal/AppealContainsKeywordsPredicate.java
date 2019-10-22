@@ -29,7 +29,8 @@ public class AppealContainsKeywordsPredicate implements Predicate<Appeal> {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(appeal.getAppealType(), keyword)
                         || StringUtil.containsWordIgnoreCase(appeal.getModule_to_add(), keyword)
-                        || StringUtil.containsWordIgnoreCase(appeal.getStatus(), keyword));
+                        || StringUtil.containsWordIgnoreCase(appeal.getStatus(), keyword)
+                        || StringUtil.containsWordIgnoreCase(appeal.getAppealId(), keyword));
     }
 
     @Override
