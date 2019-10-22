@@ -28,5 +28,5 @@ public abstract class ScrollCommand extends Command {
     public CommandResult execute(ItemModel model) throws CommandException {
         return new CommandResult("Scrolling");
     }
-    public abstract String getCommandWord();
+
 }

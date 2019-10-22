@@ -9,4 +9,5 @@ import seedu.address.model.ItemModel;
 
 public abstract class UndoableCommand extends Command {
     public abstract void reverse(ItemModel model) throws CommandException;
+    public abstract String getCommandWord();
 }
