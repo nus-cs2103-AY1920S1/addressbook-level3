@@ -33,13 +33,10 @@ public class EarningsListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Earnings earnings, boolean empty) {
             super.updateItem(earnings, empty);
-            System.out.println(earnings);
             if (empty || earnings == null) {
                 setGraphic(null);
                 setText(null);
-                System.out.println("1");
             } else {
-                System.out.println("2");
                 setGraphic(new EarningsCard(earnings, getIndex() + 1).getRoot());
             }
         }

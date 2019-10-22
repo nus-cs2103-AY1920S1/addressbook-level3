@@ -28,9 +28,9 @@ public class Marking {
 
     private void setStatus() {
         if (isMarked) {
-            status = "marked";
+            status = "Y";
         } else {
-            status = "unmarked";
+            status = "N";
         }
     }
 
@@ -48,9 +48,9 @@ public class Marking {
     @Override
     public String toString() {
         if (isMarked) {
-            return "marked\n";
+            return "Y\n";
         } else {
-            return "unmarked\n";
+            return "N\n";
         }
     }
 

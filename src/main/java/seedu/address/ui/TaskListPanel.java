@@ -33,13 +33,10 @@ public class TaskListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
-            System.out.println(task);
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
-                System.out.println("1");
             } else {
-                System.out.println("2");
                 setGraphic(new TaskCard(task, getIndex() + 1).getRoot());
             }
         }
