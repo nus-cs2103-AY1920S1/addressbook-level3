@@ -307,24 +307,11 @@ person's name and creates a `DeadlineCommand` with person and deadline informati
 This `DeadlineCommand` is returned back to `LogicManager` and is executed by calling `addDeadline` method in
 `ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and saves it.
 
-==== Deadline Command feature
-The deadline command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
-person package which the `AddressBook` implementation is contained in.
-Deadline field should be provided in a valid date format. The
-person's name inputted has to match a name already existing in the `Reimbursement` which is shown in our Reimbursement
-Tab.
+==== Done Command feature
 
-The following sequence diagram shows how the deadline command works:
+==== Find Command feature
 
-.Sequence Diagram of Deadline Command in Reimbursement Tab (deadline package)
-
-image::ReimbursementTabDeadlineCommandSequenceDiagram.png[]
-
-As shown, when a user wants to add a deadline to a reimbursement by specifying
-the person's name. The `DeadlineCommandParser` gets the person from `PersonModel` based on
-person's name and creates a `DeadlineCommand` with person and deadline information.
-This `DeadlineCommand` is returned back to `LogicManager` and is executed by calling `addDeadline` method in
-`ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and saves it.
+==== Sort Command feature
 
 
 === Inventory Tab
