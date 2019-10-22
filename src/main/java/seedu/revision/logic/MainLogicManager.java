@@ -8,30 +8,27 @@ import javafx.collections.ObservableList;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.commands.Command;
-import seedu.revision.logic.commands.QuizCommand;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.main.AddressBookParser;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.logic.parser.quiz.QuizParser;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.Storage;
 
 /**
- * The main LogicManager of the app.
+ * The main MainLogicManager of the app.
  */
-public class LogicManager implements Logic {
+public class MainLogicManager implements MainLogic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private final Logger logger = LogsCenter.getLogger(MainLogicManager.class);
 
-    private final Model model;
+    protected final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
-    private QuizParser quizParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public MainLogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
@@ -59,20 +56,6 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-
-    public CommandResult execute(String commandText, Answerable currentAnswerable)
-            throws ParseException, CommandException {
-        //Logging, safe to ignore
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-
-        CommandResult commandResult;
-        QuizParser quizParser = new QuizParser(currentAnswerable);
-        //Parse user input from String to a Command
-        QuizCommand command = quizParser.parseCommand(commandText);
-        commandResult = command.execute(model, currentAnswerable);
-
-        return commandResult;
-    }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {

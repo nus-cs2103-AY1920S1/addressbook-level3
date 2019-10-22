@@ -12,7 +12,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.Logic;
+import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -28,7 +29,8 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    private MainLogic mainLogic;
+    private QuizLogic quizLogic;
     private StartQuizWindow startQuizWindow;
 
     // Independent Ui parts residing in this Ui container
@@ -51,15 +53,16 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        this.mainLogic = mainLogic;
+        this.quizLogic = quizLogic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(mainLogic.getGuiSettings());
 
         setAccelerators();
 
@@ -70,9 +73,6 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public Logic getLogic() {
-        return logic;
-    }
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
@@ -112,13 +112,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
+        answerableListPanel = new AnswerableListPanel(mainLogic.getFilteredAnswerableList());
         answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -151,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     public void handleStart() {
-        startQuizWindow = new StartQuizWindow(getPrimaryStage(), getLogic());
+        startQuizWindow = new StartQuizWindow(getPrimaryStage(), mainLogic, quizLogic);
         startQuizWindow.show();
         startQuizWindow.fillInnerParts();
 
@@ -168,7 +168,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        mainLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -180,13 +180,13 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.revision.logic.Logic#execute(String)
+     * @see MainLogic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
 
 
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = mainLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

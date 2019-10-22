@@ -15,7 +15,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.logic.Logic;
+import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -54,7 +55,8 @@ public class StartQuizWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    private MainLogic mainLogic;
+    private QuizLogic quizLogic;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -79,15 +81,16 @@ public class StartQuizWindow extends UiPart<Stage> {
 
 
 
-    public StartQuizWindow(Stage primaryStage, Logic logic) {
+    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        this.mainLogic = mainLogic;
+        this.quizLogic = quizLogic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(mainLogic.getGuiSettings());
 
         setAccelerators();
 
@@ -97,8 +100,6 @@ public class StartQuizWindow extends UiPart<Stage> {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
-    public Logic getLogic() { return logic; }
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
@@ -146,7 +147,7 @@ public class StartQuizWindow extends UiPart<Stage> {
         resultDisplay.setFeedbackToUser(DEFAULT_QUESTION.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -186,7 +187,7 @@ public class StartQuizWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        mainWindow = new MainWindow(getPrimaryStage(), getLogic());
+        mainWindow = new MainWindow(getPrimaryStage(), mainLogic, quizLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
     }
@@ -194,13 +195,14 @@ public class StartQuizWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.revision.logic.Logic#execute(String)
+     * @see MainLogic#execute(String)
      */
-    private CommandResult executeCommand(
-            String commandText, Answerable currentAnswerable) throws CommandException, ParseException {
+    private CommandResult executeCommand (
+                String commandText, Answerable currentAnswerable) throws CommandException, ParseException {
+
 
         try {
-            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
+            CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
