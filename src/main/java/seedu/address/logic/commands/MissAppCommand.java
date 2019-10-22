@@ -13,21 +13,28 @@ import seedu.address.model.Model;
 public class MissAppCommand extends NonActionableCommand {
     public static final String COMMAND_WORD = "missappt";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all the missed appointment before today "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all the missed appointment "
+            + "and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD;
 
     public MissAppCommand() {
-
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateToMissedEventList();
+        int size = model.getFilteredEventList().size();
+        String displayMess = "";
+
+        if (size <= 1) {
+            displayMess = Messages.MESSAGE_MISSED_EVENT_LISTED_OVERVIEW;
+        } else {
+            displayMess = Messages.MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW;
+        }
         return new CommandResult(
-                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
+                String.format(displayMess, size));
     }
 
 }

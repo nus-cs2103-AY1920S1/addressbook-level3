@@ -37,7 +37,6 @@ public class CancelAppCommand extends ReversibleCommand {
             throw new CommandException(String.format(Messages.MESSAGE_EVENT_NOT_FOUND, toDelete));
         }
 
-
         model.deleteEvent(toDelete);
         model.updateFilteredEventList(toDelete.getPersonId());
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));

@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ChangeAppCommand;
 import seedu.address.logic.commands.SettleAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,6 +30,7 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
         this.lastShownList = model.getFilteredEventList();
         this.model = model;
     }
+
     /**
      * Parses the given {@code String} of arguments in the context of the ReversibleActionPairCommand
      * and returns a ReversibleActionPairCommand object for execution.
@@ -45,21 +47,27 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
         }
 
         try {
+            if (lastShownList.size() == 0) {
+                throw new ParseException(Messages.MESSAGE_NOTHING_SETTLE + "\n"
+                        + "No need: " + "settleappt " + args);
+            }
+
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             int idx = index.getZeroBased();
+
             if (idx >= lastShownList.size()) {
                 throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
             }
-            Event source = lastShownList.get(idx);
-            Event dest = new Appointment(source.getPersonId(), source.getEventTiming(),
+
+            Event eventToEdit = lastShownList.get(idx);
+            Event editedEvent = new Appointment(eventToEdit.getPersonId(), eventToEdit.getEventTiming(),
                     new Status(Status.AppointmentStatuses.SETTLED));
 
-            return new ReversibleActionPairCommand(new SettleAppCommand(source, dest),
-                    new SettleAppCommand(dest, source));
+            return new ReversibleActionPairCommand(new SettleAppCommand(eventToEdit, editedEvent),
+                    new SettleAppCommand(editedEvent, eventToEdit));
 
         } catch (ParseException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SettleAppCommand.MESSAGE_USAGE), e);
+            throw new ParseException(e.getMessage());
         }
     }
 }
