@@ -208,6 +208,11 @@ public interface Model {
     Question deleteQuestion(Index index);
 
     /**
+     * Returns the list of questions stored.
+     */
+    ObservableList<Question> getAllQuestions();
+
+    /**
      * Returns the question based on its Index.
      */
     Question getQuestion(Index index);

@@ -20,7 +20,9 @@ import seedu.address.model.question.Question;
  */
 public class SlideshowWindow extends UiPart<Stage> {
 
-    public static final String TIP = "Press 'Esc' to quit slideshow\nPress 'Space' to show the answer";
+    public static final String TIP = "Press 'Esc' to quit slideshow\n"
+        + "Press 'Space' to show the answer\n"
+        + "Use the 'Left/Right' arrow keys to navigate";
 
     private static final Logger logger = LogsCenter.getLogger(SlideshowWindow.class);
     private static final String FXML = "SlideshowWindow.fxml";

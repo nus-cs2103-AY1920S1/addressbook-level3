@@ -122,6 +122,8 @@ public class QuestionAddCommand extends QuestionCommand {
 
         // state check
         QuestionAddCommand e = (QuestionAddCommand) other;
-        return question.equals(e.question);
+        return question.equals(e.question)
+            && answer.equals(e.answer)
+            && type.equals(e.type);
     }
 }

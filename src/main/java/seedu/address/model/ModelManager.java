@@ -312,6 +312,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getAllQuestions() {
+        return savedQuestions.getAllQuestions();
+    }
+
+    @Override
     public Question getQuestion(Index index) {
         return savedQuestions.getQuestion(index);
     }

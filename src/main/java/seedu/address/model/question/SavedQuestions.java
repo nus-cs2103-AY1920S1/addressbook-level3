@@ -49,6 +49,14 @@ public class SavedQuestions implements ReadOnlyQuestions {
     }
 
     /**
+     * Returns all questions currently stored.
+     * @return The question list.
+     */
+    public ObservableList<Question> getAllQuestions() {
+        return questions.getAllQuestions();
+    }
+
+    /**
      * Replaces the contents of the Question list with {@code Questions}. {@code Questions} must not
      * contain duplicate Questions.
      */

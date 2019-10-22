@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.question;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,6 +28,9 @@ public class QuestionDeleteCommand extends QuestionCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (index.getZeroBased() >= model.getAllQuestions().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
+        }
         return new CommandResult(generateSuccessMessage(model.deleteQuestion(index)));
     }
 
