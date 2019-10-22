@@ -17,8 +17,6 @@ import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
-import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.LikeManager;
 import seedu.weme.statistics.StatsEngine;
 import seedu.weme.statistics.StatsManager;
 
@@ -80,16 +78,7 @@ public class SampleDataUtil {
 
     public static StatsEngine getSampleStatsData(ReadOnlyUserPrefs userPrefs) {
         StatsEngine statsEngine = new StatsManager();
-        statsEngine.setLikeData(getSampleLikeData(userPrefs));
         return statsEngine;
-    }
-
-    public static LikeData getSampleLikeData(ReadOnlyUserPrefs userPrefs) {
-        LikeData sampleLikeData = new LikeManager();
-        for (Meme sampleMeme : getSampleMemes(userPrefs)) {
-            sampleLikeData.getLikesByMeme(sampleMeme);
-        }
-        return sampleLikeData;
     }
 
     /**
