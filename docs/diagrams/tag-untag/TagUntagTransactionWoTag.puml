@@ -1,0 +1,32 @@
+@startuml
+
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor MODEL_COLOR
+
+package "TransactionsList" {
+    class transaction as "__:Expense__" {
+        Description: "Laksa"
+        Value: 3.50
+        Date: 21/03/2019
+        Remarks: Penang Laksa
+    }
+
+    class blank as "hidden" {
+        PLACEHOLDER TEXT
+    }
+
+    class blank1 as "hidden2" {
+        PLACEHOLDER TEXT
+    }
+}
+
+transaction -right- blank
+blank -right- blank1
+
+show members
+hide blank
+hide blank1
+
+@enduml

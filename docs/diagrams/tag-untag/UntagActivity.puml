@@ -1,0 +1,28 @@
+@startuml
+start
+:User executes untag command;
+
+if () then ([Invalid, throws ParseException])
+else ([Valid])
+    :Initialise UntagCommand;
+    if () then ([Some Tag(s) exist])
+        while ()
+            -> [Some Tag(s) unchecked];
+            if () then ([Tag exist])
+                :            Remove specified Tag from Tag set            ;
+            else ([Tag doesn't exist])
+
+            endif
+        endwhile
+        -> [All tags checked];
+        if () then ([Transaction is an Expense])
+            :Initialise Expense with updated Tag set;
+        else ([Transaction is an Income])
+            :Initialise Income with updated Tag set;
+        endif
+        :Replace original in transaction list;
+    else ([All Tag(s) don't exist])
+    endif
+endif
+stop
+@enduml

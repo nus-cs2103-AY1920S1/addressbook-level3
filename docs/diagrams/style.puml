@@ -37,18 +37,23 @@ skinparam BackgroundColor #FFFFFFF
 
 skinparam Shadowing false
 
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam DefaultTextAlignment center
+skinparam packageStyle Rectangle
+
+skinparam defaultFontName Segoe UI
+
 skinparam Class {
     FontColor #FFFFFF
     BorderThickness 1
     BorderColor #FFFFFF
     StereotypeFontColor #FFFFFF
-    FontName Arial
 }
 
 skinparam Actor {
     BorderColor USER_COLOR
     Color USER_COLOR
-    FontName Arial
 }
 
 skinparam Sequence {
@@ -56,7 +61,6 @@ skinparam Sequence {
     BoxFontSize 15
     BoxPadding 0
     BoxFontColor #FFFFFF
-    FontName Arial
 }
 
 skinparam Participant {
@@ -64,11 +68,6 @@ skinparam Participant {
     Padding 20
 }
 
-skinparam MinClassWidth 50
-skinparam ParticipantPadding 10
-skinparam Shadowing false
-skinparam DefaultTextAlignment center
-skinparam packageStyle Rectangle
 
 hide footbox
 hide members

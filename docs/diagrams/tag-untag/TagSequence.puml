@@ -1,0 +1,28 @@
+@startuml
+
+!include ../style.puml
+
+box
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ThriftParser" as ThriftParser LOGIC_COLOR
+participant ":TagCommandParser" as TagCommandParser MODEL_COLOR
+end box
+
+[-> LogicManager : execute("tag")
+activate LogicManager
+
+LogicManager -> ThriftParser : execute("tag")
+activate ThriftParser
+
+ThriftParser -> TagCommandParser: parse(args)
+activate TagCommandParser
+
+ThriftParser <-- TagCommandParser
+destroy TagCommandParser
+LogicManager <-- ThriftParser
+deactivate ThriftParser
+[<-- LogicManager
+deactivate LogicManager
+
+
+@enduml

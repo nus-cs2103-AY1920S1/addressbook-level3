@@ -149,21 +149,29 @@ NOTE: Assume 2nd command occurs after 1st
 [[TagTag]]
 === Tagging a transaction: `tag`
 
-Format: `tag i/INDEX t/TAG_NAME...`
+==== Command Syntax:
 
-****
-* Tags the transaction at the specified `INDEX` with `TAG_NAME`.
+`tag i/INDEX t/TAG_NAME...`
+
+* Tags the transaction at the specified `INDEX` with `TAG_NAME` (can be more than one).
 * `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
-****
 
-Example:
 
-*   `tag i/8 t/Debt`
+==== Example:
+
+1. You want to tag the entry displayed at index 8 with the tag _Debt_.
+2. You run `tag i/8 t/Debt`.
 
 Expected output:
 
-*   `Entry tagged: 8. Student Loan ($12000.00) [Debt]`
+NOTE: Assume entry at index 8 of the list displayed on the GUI is +
+`[-] Student Loan ($12,000.00) Date: 10/10/2019 Remarks:  Tags:`
+....
+Updated Transaction: [-] Student Loan ($12,000.00) Date: 10/10/2019 Remarks:  Tags: [Debt]
+
+Original: [-] Student Loan ($12,000.00) Date: 10/10/2019 Remarks:  Tags:
+....
 
 // end::tag[]
 
@@ -171,48 +179,55 @@ Expected output:
 [[UntagTag]]
 === Untagging a transaction: `untag`
 
-Format: `untag i/INDEX t/TAG_NAME...`
+==== Command Syntax:
 
-****
-* Untags `TAG_NAME` from the transaction at the specified `INDEX`.
+`untag i/INDEX t/TAG_NAME...`
+
+
+* Untags `TAG_NAME` (can be more than one) from the transaction at the specified `INDEX`.
 * `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
-****
 
-Example:
 
-*   `untag i/7 t/Important`
+==== Example:
 
-Expected output:
+1. You want to untag the tag _Important_ from the entry displayed at index 7.
+2. You run `untag i/7 t/Important`.
 
-*   `Entry untagged: 7. DoTA Arcanas ($49.00) [Game]`
+**Expected output:**
 
+NOTE: Assume entry at index 7 of the list displayed on the GUI is +
+`[-]  DoTA Arcanas ($49.00) Date: 10/10/2019 Remarks:  Tags: [Game][Important]`
+....
+Updated Transaction: [-]  DoTA Arcanas ($49.00) Date: 10/10/2019 Remarks:  Tags: [Game]
+
+Original: [-]  DoTA Arcanas ($49.00) Date: 10/10/2019 Remarks:  Tags: [Game][Important]
+....
 // end::untag[]
 
 // tag::convert[]
 [[ConvertTag]]
 === Converting currency: `convert`
 
-Format: `convert to/TARGET_CURRENCY (v/VALUE|i/INDEX)`
+====  Command Syntax
 
-****
-* Converts the a fixed value or `Transaction` entry
-* Only one of either `VALUE` or `INDEX` is allowed per command
+`convert [v/VALUE] c/CURRENCY...`
+
+* Converts the `VALUE` to `CURRENCY` if one of each is specified.
+* If no `VALUE` is specified, the value of 1.00 with be used.
+* If more than one `CURRENCY` is present, the first one will be used as a base and the rest as target currencies
 * `VALUE` must be positive.
-* `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
-****
 
-Examples:
+==== Example
 
-*   `convert to/USD v/1000`
-*   `convert to/JPY i/8`
+1. You want to convert SGD1000 to USD.
+2. You run `convert v/1000 c/USD`.
 
-Expected output:
-
-*   `Value converted: SGD1000 = USD725.82`
-
-*   `Entry converted: 8. Student Loan (¥934,566.00) [Debt]`
+**Expected output:**
+....
+Converting from SGD1,000.00
+To USD: USD726.28
+....
 // end::convert[]
 
 // tag::clone[]

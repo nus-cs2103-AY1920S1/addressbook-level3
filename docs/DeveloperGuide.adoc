@@ -278,7 +278,95 @@ are applied when restoring `**THRIFT**` data from the data file.
 ** Pros: Calculations become trivial: to get balance, sum up the entire `**List<Transaction>**`.
 ** Cons: Overhead to parse user input to allow only a single negative symbol and no other symbols.
 
-=== Tagging/Untagging transactions
+// tag::taguntag[]
+=== Tag/Untag feature
+==== Implementation
+
+The **tag**/**untag** command performs modifications on existing `**Transaction**` entries. Due to polymorphism, both **Expense**` and `**Income**` objects extends the abstract class `**Transaction**`, and are treated the same way in the context of the **tag**/**untag** command.
+
+.A Class Diagram illustrating the implementation of Tags inside a Transaction
+image::tag-untag/Polymorphism.png[]
+
+Due to the usage of  polymorphism, many of the driver functions in `THRIFT` uses `Transaction` for both `Expense`
+and `Income` objects. For example, when tagging a new `Expense`/`Income`, the `TagCommandParser` will treat them as the same object:
+
+.An Sequence Diagram showing how the TagCommandParser is called
+image::tag-untag/TagSequence.png[]
+
+When a user enters a **tag**/**untag** command, it is parsed by the respective `TagCommandParser#parse(String args)` and `UntagCommandParser#parse(String args)` parsers and returns a `**TagCommand**` command object or a `**UntagCommand**` command object  respectively, which will be executed. For both commands, the following conditions will cause a `**ParseException**` to be thrown by their respective parsers:
+
+. Missing parameters
+. Incorrect syntax (i.e. missing prefix, if it is required)
+. Illegal values in parameters (i.e. special characters and symbols entered for an integer-only field)
+. Multiple occurrences of parameters which only expects a single entry
+
+[NOTE]
+If the user input is incorrect due to any of the reasons above, the corresponding usage syntax will be shown.
+
+The following is an example on how a `**Tag**` is added and removed from a `**Transaction**`, with details on the processes in the backend.
+
+Step 1. The user launches the application with data from previous sessions. THRIFT contains only one `**Transaction**` containing no tags and the user is going to perform tagging and un-tagging operations on it.
+
+image::tag-untag/TagUntagTransactionWoTag.png[]
+
+Step 2. The user executes the command **tag i/1 t/Delicious** to tag the `**Transaction**` at `**Index**` 1 with the `**Tag**` "Delicious". The input is checked with a `**TagCommandParser**` parser and an attempt to parse each parameter occurs:
+
+* `**Index**` is parsed by `ParserUtil#parseIndex(String)`
+* `**Tag**` strings are parsed by `ParserUtil#parseTags(Collection<String>)` which calls `ParserUtil#parseTag(String)` iteratively for every string in the collection
+
+TIP: `**ParserUtil**` is a class that contains useful functions for parsing the inputs from the user.
+
+[NOTE]
+Tags that already exist inside the specified `**Transaction**` will be ignored, and if that results in no tags being updated, an error will be shown to the user.
+
+Since the user input is valid, a `**TagCommand**` command object is created and executed. As a result, a copy of the `**Transaction**` object with the specified `**Tag**` inside replaces the original in the `**TransactionList**` at the same position.
+
+image::tag-untag/TagUntagTransactionWTag.png[]
+
+Step 3. The user realises that the `**Tag**` added was not appropriate. The user then executes the command **untag i/1 t/Delicious** to untag the `**Tag**` "Delicious" from the `**Transaction**` at `**Index**` 1. The input is now checked with a `**UntagCommandParser**` parser and similarly, an attempt to parse each parameter occurs.
+
+* `**Index**` is parsed by `ParserUtil#parseIndex(String)`
+* `**Tag**` strings are parsed by `ParserUtil#parseTags(Collection<String>)` which calls `ParserUtil#parseTag(String)` iteratively for every string in the collection
+
+[NOTE]
+Tags that do not exist inside the specified `**Transaction**` will be ignored, and if that results in no tags being updated, an error will be shown to the user.
+
+Again, since the user input is valid, a `**UntagCommand**` command object is created and executed. As a result, a copy of the `**Transaction**` object without the specified `**Tag**` replaces the original in the `**TransactionList**` at the same position.
+
+image::tag-untag/TagUntagTransactionWoTag.png[]
+
+The following activity diagrams summarises what happens when the user executes a command to **tag** or **untag** a `**Transaction**`.
+
+.Activity Diagram of the Tagging process
+image::tag-untag/TagActivity.png[]
+
+.Activity Diagram of the Un-tagging process
+image::tag-untag/UntagActivity.png[]
+
+
+==== Design Considerations
+
+===== Aspect: Mutability of `**Transaction**` objects
+
+* **Alternative 1: (current choice)**: Create a copy of the `**Transaction**` object with modified tags and replace the original in the `**TransactionList**`
+** Pros: Adheres to the Open-Closed principle of the SOLID design principles, guarantees the resultant `**Transaction**` to be as expected and not modified incorrectly during the **tag**/**untag** process.
+** Cons: Creates a copy of the `**Transaction**` during the **tag**/**untag** process and increases the space complexity of the process.
+* **Alternative 2**: Modify the `**Transaction**` object directly to modify tags.
+** Pros: Modifies the `**Transaction**` object in place, thus the space complexity of the process is constant.
+** Cons: Violates the Open-Closed principle of the SOLID design principles, the `**Transaction**` object can be modified incorrectly during the **tag**/**untag** process.
+
+Alternative 1 was chosen as we want to ensure the correctness of the **tag**/**untag** process.
+
+===== Aspect: Uniqueness of `**Tag**` objects within a `**Transaction**`
+
+* **Alternative 1:** Do not check if the `**Tag**` objects exist(s) within a `**Transaction**` when adding `**Tag**` objects and implicitly allow duplicates.
+** Pros: Results in a simpler implementation of **tag** command, as there is no need to check for potential duplicates.
+** Cons: Makes each tag less meaningful as they are not longer unique.
+
+* **Alternative 2: (current choice)** Check if the `**Tag**` objects exist(s) within a `**Transaction**` when adding `**Tag**` objects, explicitly prevent duplicates.
+** Pros: Makes each tag more meaningful as they are unique.
+** Cons: Results in a more complex implementation of the **tag** command, as there is a need to check for potential duplicates.
+// end:taguntag[]
 
 === Updating transactions
 
