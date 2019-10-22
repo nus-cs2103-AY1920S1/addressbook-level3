@@ -1,74 +1,82 @@
-[[Visits]]
+[[Visit]]
 == Visit Management
 ====
 *Visit Management*
 
-As a community nurse, you will often make home visits to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. You can use the application to mark the items you have done in a visit and add further details and notes about a visit (e.g. about a patient's symptoms). This section describes the features that will allow you to keep track of what you have to do during a visit and manage previous visits.
+As a community nurse, you will often make home visits to your patients. When you are visiting a patient, there is often a todo list that you will have to do as well as information that you will have to record. This can now be done using the app. This section describes the features that will allow you to start a visit, keep track of your tasks during a visit, finish a visit and view information recorded during previous visits.
 
 ====
 
-=== Mark a Todo Item of current Visit as done: `visit now todo done`[INCOMPLETE UG]
-//By index
+=== Starting a Visit `visit-start`
 
-=== Updating the current Visit: `visit now add note`
+You can begin a visit by using `visit-start`. When you visit a patient and you want to record in the application that you are visiting said patient, you can use this feature to begin the visit for that patient (which will unlock the `visit-now-update` and `visit-now-finish` commands that will be applied to that visit). You can only have one ongoing visit at any point in time. This ongoing visit can be viewed in the "Ongoing Visit" tab.
 
-=== Finishing a Visit: `visit finish`
+`visit-start` uses the patient's Visit Todos to populate a checklist of Visit Tasks for you to use (these Visit Tasks are simply referred to as "tasks"). Visit Todos are described in further detail under <<VisitHowTo>>.
 
-If you have just finished your home visit to a patient, you can mark the visit as finished using `visit finish`.
-
-Format: `visit finish`.
-
-=== How to Listing All Visits
-You can see a list of all visits in the app by typing `visit list`.
-
-In the list displayed, each visit will have an *index* number which can then be used for other features that require you to select a visit by *index* e.g. `visit delete`. Take note that a visit will be given the same *index* regardless of other display commands such as `visit find`.
-
-Format: `visit list`
-
-=== Finding Visit(s): `visit find`
-
-You can find visits that fit the parameters given using `visit find`.
-
-In the list displayed, each visit will have an *index* number which can then be used for other features that require you to select a visit by *index* e.g. `visit delete`. Take note that a visit will be given the same *index* regardless of other display commands such as `visit list` or if different parameters are used.
-
-
-Format: `visit find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `visit-start INDEX`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
-****
-
-Examples:
-
-* `visit find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
-Finds all visits with this patient
-
-=== Viewing a Visit: `visit view`
-
-You can see a visit's full details using `visit view`. The visit is selected by their *index*.
-
-Format: `visit view INDEX`
-
-****
-* View the visit at the specified `INDEX`.
-* The index refers to the index number shown in the list of visits displayed by `visit list` or `visit find`.
+* Begins a visit for the patient specified at `INDEX`.
+* The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
 * The index *must be a positive integer* 1, 2, 3, ...
+* There can only be one ongoing visit at any point in time; if there is already an ongoing visit this command does nothing.
 ****
 
 Examples:
 
-* `visit list` +
-`visit view 1`
-View the item with index number 1. This index can be found from the full list of visits.
+* `visit-start 1` + 
+Starts a visit for the 1st patient in the patient list.
 
-* `visit view 2`
-View the item with the index number 2.
+=== Updating the ongoing Visit `visit-now-update`
 
-=== Viewing the current Visit: `visit now`
+Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can then update the details of this ongoing visit using `visit-now-update`.
 
-If you are currently visiting a patient, you can see the current visit's full details using `visit now`.
 
-Format: `visit now`
+Format: `visit-now-update [t/TASK_INDEX DETAIL]… [f/TASK_INDEX]… [uf/TASK_INDEX]… [r/REMARK]`
+
+****
+Each argument (e.g. `t/`, `f/`, `uf/`, `r/`) triggers their own change to the visit:
+
+* `d/` Represents "detail". Each task in the visit checklist can be assigned some information if it is useful for you. For example, if task of index 1 is "Check Body Temp", you can use `t/1 37.0degc` to record that detail to that task (`TASK_INDEX` followed by a space followed by the details you want to store).
+* `f/` Represents "finish". Each task begins as unfinished and to mark a task as finished, you can use this prefix. For example, to mark task of index 1 as finished, you can use `f/1` (`TASK_INDEX of the task you want to mark as finished).
+* `uf/` Represents "un-finish". If you have marked a task as finished prior using `f/` and you want to undo that, you can use `uf/` (e.g. for task index 1 use `uf/1`).
+* `r/` Represents "remark". You can use this to update the remarks section of the visit.
+****
+
+****
+When you are on the "Ongoing Visit" tab, you will see information of the patient you are currently visiting, a checklist of tasks and a remarks section. `TASK_INDEX` refers to the index number of the task (shown in the displayed checklist of tasks).
+
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* `TASK_INDEX` refers to the index number of the task (shown in the displayed checklist of tasks).
+* The index *must be a positive integer* 1, 2, 3, ...
+* Each argument can target different `TASK_INDEX` es. This allows you to use this command to update multiple tasks at once.
+****
+
+****
+Other notes:
+
+* If you use both `f/` and `uf/` on the same task in a single `visit-now-update` command, `uf/` will take priority (i.e. the task will be marked as unfinished).
+
+* A task does not need to be marked as finished in order to finish the visit. It is simply for your reference and to help you keep track of which tasks have / have not been finished.
+****
+
+Example:
+
+Assume that you have an ongoing visit and 2 tasks (task 1 is "Check Blood Pressure", task 2 is "Check for bed bugs") in your visit checklist. After you're done, you can update the application using:
+
+* `visit-now-update d/1 140/90mmHg f/1 f/2 r/Patient is healthy`
+
+This sets the details for task 1 in the checklist to "140/90mmHg" and marks tasks 1 and 2 as finished. It also sets the remarks to "Patient is healthy".
+
+Assuming then in the above scenario you discovered bed bugs after checking again before you leave. You decide to help the patient change the bedsheets and you want to update that information. You can run:
+
+* `visit-now-update uf/2 r/Patient must be reminded to wash bedsheets regularly`
+
+This would set task 2 to unfinished and change the remarks. Once you have finished changing the bedsheets, you can then verify there are no bed bugs and use `visit-now-update f/2` to mark task 2 as finished.
+
+=== Finishing the ongoing Visit `visit-now-finish`
+
+Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can then mark that visit as finished using `visit-now-finish`, which will archive that visit. The ongoing visit will be removed from the Ongoing Visit tab.
+
+Format: `visit-now-finish`

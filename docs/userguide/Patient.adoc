@@ -44,7 +44,7 @@ Format: `pat-add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ [vt/VISIT
  * A patient can have any number of visit todos.
 ****
 
-Note: Visit Todos are described in further detail under <<Visits>>.
+Note: Visit Todos are described in further detail under <<VisitHowTo>>.
 
 Examples:
 
@@ -71,6 +71,8 @@ Format: `pat-edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… [vt/
 * When editing visit todos, the existing visit todos of the person will be removed i.e adding of visit todos is not cumulative.
 * You can remove all the person's visit todos by typing `vt/` without specifying any visit todos after it.
 ****
+
+Note: Visit Todos are described in further detail under <<VisitHowTo>>.
 
 Examples:
 

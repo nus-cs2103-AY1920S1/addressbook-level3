@@ -71,7 +71,7 @@ include::./userguide/ImportExport.adoc[]
 
 include::./userguide/Exiting.adoc[]
 
-= How-To Guide(s) (as of v1.4)
+= Tutorials / How-To Guide(s) (as of v1.4)
 
 include::./userguide/VisitHowTo.adoc[]
 
