@@ -15,7 +15,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="650.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="650.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
   <scene>
     <Scene>
       <stylesheets>
@@ -42,7 +43,7 @@
                 <padding>
                     <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
-                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                <StackPane fx:id="bookListPanelPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
         </center>
             <top>
