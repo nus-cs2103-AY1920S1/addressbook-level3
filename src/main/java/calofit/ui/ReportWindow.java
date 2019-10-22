@@ -114,9 +114,9 @@ public class ReportWindow extends UiPart<Stage> {
         calorieCountExceededValue.setStyle("-fx-font-size: 35px");
         countCalorieExceeded.getChildren().addAll(calorieCountExceededHeader, calorieCountExceededValue);
 
-        Text mostConsumedFoodHeader = new Text("Most consumed food of the month is: \n");
+        Text mostConsumedFoodHeader = new Text("Most consumed dish of the month is: \n");
         mostConsumedFoodHeader.setStyle("-fx-font-size: 20px");
-        Text mostConsumedFoodValue = new Text(statistics.getMostConsumedMeal().getDish().getName().toString());
+        Text mostConsumedFoodValue = new Text(statistics.getMostConsumedDish().getName().toString());
         mostConsumedFoodValue.setStyle("-fx-font-size: 35px");
         mostConsumedMeal.getChildren().addAll(mostConsumedFoodHeader, mostConsumedFoodValue);
     }

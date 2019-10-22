@@ -1,5 +1,10 @@
 package calofit.ui;
 
+import static calofit.commons.util.ObservableListUtil.map;
+import static calofit.commons.util.ObservableUtil.liftA3;
+import static calofit.commons.util.ObservableUtil.map;
+import static calofit.commons.util.ObservableUtil.mapToObject;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -12,21 +17,26 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ObservableDoubleValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.skin.ProgressBarSkin;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
+import org.controlsfx.control.SegmentedBar;
+
+import calofit.commons.util.ObservableListUtil;
 import calofit.model.meal.Meal;
 
 /**
@@ -34,31 +44,24 @@ import calofit.model.meal.Meal;
  */
 public class BudgetBar extends StackPane {
     private static final String FXML = "BudgetBar.fxml";
+    private static final Color COLOR_ZERO = Color.GREEN;
+    private static final Color COLOR_MAX = Color.ORANGERED;
 
     private ListProperty<Meal> todayMeals = new SimpleListProperty<>();
-
-    private DoubleBinding totalConsumed = Bindings.createDoubleBinding(() -> {
-        double total = 0;
-        if (todayMeals.get() != null) {
-            for (Meal m : todayMeals.get()) {
-                total += m.getDish().getCalories().getValue();
-            }
-        }
-        return total;
-    }, todayMeals);
     private DoubleProperty budget = new SimpleDoubleProperty(Double.POSITIVE_INFINITY);
-    private DoubleExpression budgetPercent = Bindings.createDoubleBinding(() -> {
-        if (budget.getValue() < 0) {
-            return ProgressBar.INDETERMINATE_PROGRESS;
-        }
-        return totalConsumed.get() / budget.get();
-    }, totalConsumed, budget);
+    private DoubleProperty bufferFraction = new SimpleDoubleProperty(1.2);
 
-    private ObjectExpression<Color> barColor = Bindings.createObjectBinding(() -> {
-        double percent = budgetPercent.get();
+    private DoubleBinding totalConsumed = ObservableListUtil.sum(
+        ObservableListUtil.lazyMap(todayMeals, meal -> (double) meal.getDish().getCalories().getValue())
+    );
+
+    private DoubleExpression budgetPercent = totalConsumed.divide(budget);
+
+    private ObjectExpression<Color> barColor = mapToObject(budgetPercent, percent -> {
         percent = Math.max(0, Math.min(1, percent));
-        return Color.GREEN.interpolate(Color.RED, percent);
-    }, budgetPercent);
+        Color base = COLOR_ZERO.interpolate(COLOR_MAX, percent);
+        return Color.hsb(base.getHue(), base.getSaturation(), 1);
+    });
 
     private StringExpression infoText = Bindings.createStringBinding(() -> {
         if (budget.get() == Double.POSITIVE_INFINITY) {
@@ -67,11 +70,45 @@ public class BudgetBar extends StackPane {
         return String.format("%.1f / %.1f", totalConsumed.get(), budget.get());
     }, totalConsumed, budget);
 
+    private ObservableList<MealSegment> mealBars = map(todayMeals, MealSegment::new);
+
+    /**
+     * Represents the remaining budget available.
+     * Auto-expands to the width remaining.
+     */
+    private class BufferSegment extends SegmentedBar.Segment {
+        private BufferSegment() {
+            super(0, "buffer");
+            valueProperty().bind(liftA3(budget, totalConsumed, bufferFraction, (budgetVal, totalVal, bufferFrac) ->
+                budgetVal == Double.POSITIVE_INFINITY
+                ? 0
+                : Math.max(0, (budgetVal * bufferFrac) - totalVal)
+                ));
+        }
+    }
+
+    /**
+     * Represents a meal eaten today.
+     */
+    private class MealSegment extends SegmentedBar.Segment {
+        private final Meal meal;
+        private MealSegment(Meal meal) {
+            super(meal.getDish().getCalories().getValue(), meal.getDish().getName().fullName);
+            this.meal = meal;
+        }
+    }
+
     @FXML
-    private ProgressBar bar;
+    private SegmentedBar<SegmentedBar.Segment> mealSegments;
 
     @FXML
     private Text infoNode;
+
+    @FXML
+    private Line budgetMark;
+
+    @FXML
+    private Line budgetExtraMark;
 
     public BudgetBar() {
         URL x = BudgetBar.class.getResource(UiPart.FXML_FILE_FOLDER + FXML);
@@ -85,36 +122,65 @@ public class BudgetBar extends StackPane {
         }
 
         infoNode.textProperty().bind(infoText);
+        infoNode.fillProperty().bind(barColor);
 
-        bar.progressProperty().bind(budgetPercent);
-        bar.skinProperty().addListener((observable, oldVal, newVal) -> {
-            ProgressBarSkin skin = (ProgressBarSkin) newVal;
-            for (Node c : skin.getChildren()) {
-                if (c.getStyleClass().contains("bar")) {
-                    Region bar = (Region) c;
-                    bar.backgroundProperty().bind(
-                        Bindings.createObjectBinding(BudgetBar.this::makeBarBg, barColor));
-                }
+        mealSegments.setSegments(ObservableListUtil.concat(mealBars, FXCollections.observableArrayList(
+            new BufferSegment()
+        )));
+
+        Callback<SegmentedBar.Segment, Node> orig = mealSegments.getSegmentViewFactory();
+        Background white = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
+        mealSegments.setSegmentViewFactory(segment -> {
+            SegmentedBar.SegmentView view = (SegmentedBar.SegmentView) orig.call(segment);
+            if (segment instanceof BufferSegment) {
+                view.getStyleClass().addAll("buffer-segment", "bar-segment");
+            } else {
+                view.getStyleClass().addAll("meal-segment", "bar-segment");
             }
+            return view;
         });
+
+        DoubleExpression budgetXPos = markPosition(new SimpleDoubleProperty(1));
+        budgetMark.startXProperty().bind(budgetXPos);
+        budgetMark.endXProperty().bind(budgetXPos);
+        budgetMark.visibleProperty().bind(map(budget, val -> Double.isFinite((double) val)));
+
+        DoubleExpression budgetExtraXPos = markPosition(bufferFraction);
+        budgetExtraMark.startXProperty().bind(budgetExtraXPos);
+        budgetExtraMark.endXProperty().bind(budgetExtraXPos);
+        budgetExtraMark.visibleProperty().bind(map(budget, val -> Double.isFinite((double) val)));
     }
 
-    private Background makeBarBg() {
-        return new Background(new BackgroundFill(barColor.get(), CornerRadii.EMPTY, Insets.EMPTY));
+    /**
+     * Computes the position of the mark, given the fraction it should be relative to the whole bar.
+     * @param frac Fractional position relative to the bar
+     * @return Computed position of the mark
+     */
+    private DoubleExpression markPosition(ObservableDoubleValue frac) {
+        return Bindings.createDoubleBinding(() -> {
+            Bounds bounds = mealSegments.boundsInParentProperty().get();
+            double totalVal = totalConsumed.get();
+            double budgetVal = budget.get();
+            double bufferFrac = bufferFraction.get();
+            double markerFrac = frac.get();
+            if (totalVal < budgetVal * bufferFrac) {
+                return bounds.getMinX() + bounds.getWidth() * markerFrac / bufferFrac;
+            } else {
+                return bounds.getMinX() + bounds.getWidth() * (budgetVal / totalVal) * (markerFrac / bufferFrac);
+            }
+        }, mealSegments.boundsInParentProperty(), totalConsumed, budget, bufferFraction, frac);
     }
 
-
-    public ObservableList<Meal> getMeals() {
-        return todayMeals.get();
-    }
-
-    public void setMeals(ObservableList<Meal> meals) {
-        todayMeals.set(meals);
+    public ListProperty<Meal> mealsProperty() {
+        return todayMeals;
     }
 
     public DoubleProperty budgetProperty() {
         return budget;
     }
 
-
+    @Override
+    protected void layoutChildren() {
+        super.layoutChildren();
+    }
 }

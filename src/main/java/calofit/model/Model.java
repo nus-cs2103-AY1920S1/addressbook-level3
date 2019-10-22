@@ -103,11 +103,6 @@ public interface Model {
     MealLog getMealLog();
 
     /**
-     * Updates the statistics of CaloFit based on the current state of it.
-     */
-    void updateStatistics();
-
-    /**
      * Returns the current Statistics object that wraps around the statistics of CaloFit.
      */
     Statistics getStatistics();
