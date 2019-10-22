@@ -30,7 +30,7 @@ public class CacheCommand extends Command {
             + "Parameters: INDEX";
 
     public static final String MESSAGE_SUCCESS = "Bookmark's contents successfully cached!";
-    private static final String MESSAGE_FAILURE =
+    public static final String MESSAGE_FAILURE =
             "Unable to cache bookmark's content. Check the URL and your internet connection and try again!";
 
     private Index index;
@@ -78,6 +78,7 @@ public class CacheCommand extends Command {
                 updatedCachedCopies);
 
         model.setBookmark(bookmarkToCache, cachedBookmark);
+        model.updateCurrentDisplayedCache(cachedBookmark);
         model.saveMark();
         return new CommandResult(MESSAGE_SUCCESS);
     }

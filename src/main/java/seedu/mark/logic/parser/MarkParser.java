@@ -104,17 +104,17 @@ public class MarkParser {
         case AddReminderCommand.COMMAND_WORD:
             return new AddReminderCommandParser().parse(arguments);
 
-        case CacheCommand.COMMAND_WORD:
-            return new CacheCommandParser().parse(arguments);
-
-        case OfflineCommand.COMMAND_WORD:
-            return new OfflineCommandParser().parse(arguments);
-
         case AddAnnotationCommand.COMMAND_WORD:
             return new AddAnnotationCommandParser().parse(arguments);
 
         case AutotagCommand.COMMAND_WORD:
             return new AutotagCommandParser().parse(arguments);
+
+        case CacheCommand.COMMAND_WORD:
+            return new CacheCommandParser().parse(arguments);
+
+        case OfflineCommand.COMMAND_WORD:
+            return new OfflineCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

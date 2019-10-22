@@ -37,6 +37,7 @@ public class ModelManager implements Model {
     private final FilteredList<Bookmark> filteredBookmarks;
     private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
     private final ObservableList<Paragraph> annotatedDocument;
+    private final SimpleObjectProperty<Bookmark> bookmarkToDisplayCache = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given mark and userPrefs.
@@ -342,5 +343,17 @@ public class ModelManager implements Model {
      */
     public ObservableList<Reminder> getReminders() {
         return versionedMark.getReminders();
+    }
+
+
+    //=========== Cache =================================================================================
+    @Override
+    public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {
+        this.bookmarkToDisplayCache.set(bookmarkToDisplayCache);
+    }
+
+    @Override
+    public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
+        return bookmarkToDisplayCache;
     }
 }

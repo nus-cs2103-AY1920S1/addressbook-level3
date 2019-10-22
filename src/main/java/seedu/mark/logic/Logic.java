@@ -87,4 +87,6 @@ public interface Logic {
      * @see seedu.mark.model.Model#updateDocument(OfflineDocument)
      */
     void updateDocument(OfflineDocument doc);
+
+    SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 }

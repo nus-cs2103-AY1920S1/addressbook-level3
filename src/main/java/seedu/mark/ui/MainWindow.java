@@ -129,7 +129,8 @@ public class MainWindow extends UiPart<Stage> {
         mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList(),
-                logic.getCurrentUrlProperty(), logic::setCurrentUrl, this);
+                logic.getCurrentUrlProperty(), logic.getBookmarkDisplayingCacheProperty(),
+                logic::setCurrentUrl, this);
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
