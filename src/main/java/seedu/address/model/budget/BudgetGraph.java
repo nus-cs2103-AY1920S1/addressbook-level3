@@ -2,29 +2,41 @@ package seedu.address.model.budget;
 
 import java.awt.Color;
 import java.awt.BasicStroke;
+import java.util.List;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
-import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 
-public class BudgetGraph extends ApplicationFrame {
+import javax.swing.*;
 
-    public BudgetGraph( String applicationTitle, String chartTitle ) {
+public class BudgetGraph extends JFrame {
+
+    private List<Claim> claimList;
+    private List<Income> incomeList;
+
+    public BudgetGraph(List<Claim> claimList,List<Income> incomeList) {
+        this.claimList = claimList;
+        this.incomeList = incomeList;
+    }
+
+    private BudgetGraph(String applicationTitle, String chartTitle, List<Claim> claimList,List<Income> incomeList) {
         super(applicationTitle);
         JFreeChart xyLineChart = ChartFactory.createXYLineChart(
                 chartTitle ,
                 "Time (Days)" ,
                 "Money ($)" ,
-                createDataSet() ,
+                createDataSet(claimList, incomeList) ,
                 PlotOrientation.VERTICAL ,
                 true , true , false);
 
@@ -54,11 +66,9 @@ public class BudgetGraph extends ApplicationFrame {
         renderer.setBaseToolTipGenerator(xyToolTipGenerator);
     }
 
-    private XYDataset createDataSet( ) {
+    private XYDataset createDataSet(List<Claim> claimList,List<Income> incomeList) {
         final XYSeries claim = new XYSeries( "Claim" );
-        claim.add( 1.0 , 745 );
-        claim.add( 2.0 , 132.9);
-        claim.add( 3.0 , 1111.1 );
+        ClaimPlotter claimPlotter = new ClaimPlotter(claimList, claim);
 
         final XYSeries income = new XYSeries( "Income" );
         income.add( 1.0 , 133 );
@@ -71,19 +81,19 @@ public class BudgetGraph extends ApplicationFrame {
         budget.add( 5.0 , 4.0 );
 
         final XYSeriesCollection dataSet = new XYSeriesCollection( );
-        dataSet.addSeries( claim );
+        dataSet.addSeries(claimPlotter.plotClaims());
         dataSet.addSeries( income );
         dataSet.addSeries( budget );
         return dataSet;
     }
 
-
-    public static void main( String[ ] args ) {
+    public void displayBudgetGraph(){
         BudgetGraph chart = new BudgetGraph("Budget Statistics",
-                "Statistics for past Month");
+                "Statistics for current Month", claimList, incomeList);
         chart.pack( );
         RefineryUtilities.centerFrameOnScreen( chart );
         chart.setVisible( true );
+        chart.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
 }
