@@ -24,8 +24,8 @@ public class IncomeTrendCommand extends TrendCommand {
 
     public static final String COMMAND_WORD = "income";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays monthly income trend for the year " +
-            "specified, or current year if year is unspecified."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays monthly income trend for the year "
+            + "specified, or current year if year is unspecified."
             + "Parameters: "
             + "[" + PREFIX_YEAR + "YEAR] "
             + "Example: " + COMMAND_WORD + " "
