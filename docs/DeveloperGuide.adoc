@@ -284,6 +284,8 @@ Given below is an example usage scenario of how `add_income` mechanisam behaves 
 
 *Step 6:* `AddIncomeCommand` would return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
 
+.Add Income Command Sequence Diagram
+image::AddIncomeSequenceDiagram.png[]
 
 ==== Deleting an Income
 
