@@ -32,6 +32,7 @@ Package Claim {
 Class UniqueClaimList
 Class Claim
 Class Id
+Class Date
 Class Hidden #FFFFFF
 }
 }
@@ -58,11 +59,10 @@ Contact *--> "*" Id
 
 FinSec *--> "1" UniqueClaimList
 UniqueClaimList o--> "*" Claim
-Claim *-right-> Id
+Claim *-left-> Id
 Claim *-down-> Hidden
 Claim *-down-> Hidden
 Claim *-down-> Hidden
-
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
