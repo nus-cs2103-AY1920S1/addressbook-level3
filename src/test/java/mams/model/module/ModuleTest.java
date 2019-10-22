@@ -3,12 +3,9 @@ package mams.model.module;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import mams.testutil.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import mams.model.student.Name;
-import mams.testutil.TypicalModules;
 
 class ModuleTest {
 
