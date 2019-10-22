@@ -2,8 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
@@ -14,9 +12,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyFeedList;
-import seedu.address.model.feed.Feed;
-import seedu.address.model.feed.FeedPost;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -82,12 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         eateryListPanel = new EateryListPanel(logic.getFilteredEateryList());
         eateryListPanelPlaceholder.getChildren().add(eateryListPanel.getRoot());
 
-        ReadOnlyFeedList feedList = logic.getFeedList();
-        ObservableList<FeedPost> feedPostList = FXCollections.observableArrayList();
-        for (Feed feed : feedList.getFeedList()) {
-            feedPostList.addAll(feed.fetchPosts());
-        }
-        feedPostListPanel = new FeedPostListPanel(feedPostList);
+        feedPostListPanel = new FeedPostListPanel(logic.getFeedList());
         feedPostListPanelPlaceholder.getChildren().add(feedPostListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
