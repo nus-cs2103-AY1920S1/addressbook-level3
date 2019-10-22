@@ -74,6 +74,24 @@
     -fx-border-width: 1 1 1 1;
 }
 
+.account-balance {
+    -fx-text-fill: white;
+    -fx-font-family: Monospaced;
+    -fx-font-size: 51px;
+}
+
+.purchase-history-text {
+    -fx-text-fill: white;
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 40px;
+}
+
+.account-days-left {
+    -fx-text-fill: white;
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 27px;
+}
+
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
     -fx-border-color: transparent;
 }
@@ -256,7 +274,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent, #2a2a2a, transparent, #2a2a2a;
     -fx-background-radius: 0;
 }
 
@@ -275,14 +293,12 @@
     -fx-font-size: 11;
 }
 
-/* From extension */
-
 .error {
     -fx-text-fill: #d06651 !important;
 }
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #181818;
+    -fx-background: #2a2a2a;
 }
 
