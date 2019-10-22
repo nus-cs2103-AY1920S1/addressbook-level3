@@ -68,7 +68,7 @@ public class CheckCommand extends Command {
             Contact contactToShow = contactList.get(index.getZeroBased());
             return new CommandResult(MESSAGE_SUCCESS_CONTACT, false, false, false, true, contactToShow);
         } else {
-            return new CommandResult(MESSAGE_FAILURE);
+            throw new CommandException(MESSAGE_FAILURE);
         }
     }
 }
