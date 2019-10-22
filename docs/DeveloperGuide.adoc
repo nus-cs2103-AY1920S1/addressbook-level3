@@ -323,20 +323,80 @@ _Figure 3. Sequence Diagram for the Execution of `find` Command_
 //@@author tiuweehan
 // tag::switchTab[]
 
-=== Switch Tab Feature
+=== GUI Enhancements
+
+An intuitive GUI facilitates the overall user friendliness of the application. The user should be able to navigate around the application easily to facilitate a smooth experience using AlgoBase. Additionally, multitasking is important as a user may be tackling multiple algorithmic questions at a single time. One of the main enhancements that we introduced to the GUI is tabbing, which fulfils these 2 requirements.
+
+==== Current Implementation
+
+The state of the GUI is stored in a `GuiState` object. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
+
+The information is linked to the `UI` through listeners. When the attributes of the `TabManager` object is updated, it triggers callback functions in the UI controllers that update the state of the UI displayed.
+
+The following commands facilitate the management of tabs:
+
+* `AlgoBase#switchTab()` - Switch between tabs within a specified Tab pane.
+* `AlgoBase#openTab()` - Opens a new tab containing details of a model.
+* `AlgoBase#closeTab()` - Closes an existing tab.
+
+These operations are exposed in the `TabManager` class respectively as:
+
+* `SwitchTab()`: `TabManager#setDisplayTabIndex` and `TabManager#setDetailsTabIndex`
+* `OpenTab()`: `TabManager#addTab`
+* `CloseTab()`: `TabManager#removeTab`
+
+The following Activity Diagrams illustrate what happens when the user executes a `SwitchTabCommand` or `OpenTabCommand`
 
 image::gui/SwitchTabCommandActivityDiagram.png[]
-_Figure 1. Activity Diagram for the Execution of `switchtab` Command_
+_Figure 1.1 Activity Diagram for the Execution of `switchtab` Command_
+
+image::gui/OpenTabCommandActivityDiagram.png[]
+_Figure 1.2 Activity Diagram for the Execution of `opentab` Command_
+
+Given below is an example usage scenario and how the tag mechanism behaves at each step.
 
 image::gui/SwitchTabsSequenceDiagram0.png[]
-_Figure 2. Activity Diagram for the Execution of `switchtab` Command_
+_Figure 2.1 Sequence Diagram for instantiating a `SwitchCommand` object_
+
+Step 1: The user executes `switchtab t/display i/1` to switch to the first tab in the `display` tabpane.
+
+Step 2: `SwitchTabCommandParser` processes the user input, retrieving the tab type (`display`) and the index (`1`).
+
+Step 3: These two attributes are passed into the constructor of a `SwitchTabCommand` and a corresponding `SwitchTabCommand` object is returned to the LogicManager
+
 
 image::gui/SwitchTabsSequenceDiagram1.png[]
-_Figure 3. Activity Diagram for the Execution of `switchtab` Command_
+_Figure 2.2 Sequence Diagram for updating the tab index in the TabManager_
+
+Step 4: `LogicManager` invokes `execute()` method of the returned `SwitchTabCommand`, which retrieves the TabManager from the `Model` object. The `setDisplayTabPaneIndex(1)` method is invoked with the index 1 that the `SwitchTabCommand` was instantiated with.
+
+Step 5: Invoking this method updates the integer value in the `displayTabIndex` field (type `ObservableIntegerValue`) of the `TabManager`.
+
 
 image::gui/SwitchTabsSequenceDiagram2.png[]
-_Figure 4. Activity Diagram for the Execution of `switchtab` Command_
+_Figure 3.3 Sequence Diagram for reflecting the tab changes_
 
+Step 6: A listener was added to the `displayTabIndex` field when the application was initialized. When a change in the value is detected, it triggers the `selectTab(1)` method with the value of the new index passed as an argument. This updates the selected tab in the UI.
+
+==== Design Considerations
+
+Aspect: Implementation of Tab Logic
+
+* Alternative 1 (current choice): Implement Tab Logic separately within model and UI.
+** Pros: Modularizes the logic and reduces the need for tighter coupling between model and UI
+** Cons: Multiple sources of truth and more modules to be implemented
+* Alternative 2: Implement Tab Logic as a singular module
+** Pros: Single source of truth for state of tabs
+** Cons: Increasing coupling between Model and UI, which in turn reduces testability
+
+Aspect: How to update the tab in the UI
+
+* Alternative 1 (current choice): Using a listener to detect changes to state of tab
+** Pros: Reduces coupling between the `TabManager` class and the UI
+** Cons: As callback functions are utilized, it is not immediately obvious how changes in state of TabManager leads to a change in the UI
+* Alternative 2:
+** Pros: Execution is sequential and it is easier to keep track of the flow of the program.
+** Cons: Increases coupling between the `TabManager` class and the UI and reduces testability.
 
 // end::switchTab[]
 //@@author tiuweehan
