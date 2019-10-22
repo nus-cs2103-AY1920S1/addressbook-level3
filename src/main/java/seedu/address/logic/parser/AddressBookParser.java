@@ -114,7 +114,7 @@ public class AddressBookParser {
 
         case DownCommand.COMMAND_WORD:
             return new DownCommand(description);
-            
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
