@@ -7,10 +7,12 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import javafx.util.Callback;
 
 
 /**
@@ -36,7 +38,9 @@ public class BioTable extends UiPart<Region> {
     public BioTable() {
         super(FXML);
         field.setCellValueFactory(new PropertyValueFactory<String, String>("field"));
+        //        setFontColourToColumn(field, "yellow");
         data.setCellValueFactory(new PropertyValueFactory<String, String>("data"));
+        //        setFontColourToColumn(data, "red");
         tableView.setSelectionModel(null);
         list = FXCollections.observableArrayList();
         FIELD_LABELS.forEach(fieldLabel -> list.add(new BioTableFieldDataPair(fieldLabel, "")));
@@ -57,6 +61,25 @@ public class BioTable extends UiPart<Region> {
         list = FXCollections.observableArrayList();
         FIELD_LABELS.forEach(fieldLabel -> list.add(new BioTableFieldDataPair(fieldLabel, dataIterator.next())));
         tableView.setItems(list);
+
+    }
+
+    public void setFontColourToColumn(TableColumn<String, String> column, String colour) {
+        column.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+            @Override
+            public TableCell<String, String> call(TableColumn<String, String> param) {
+                return new TableCell<String, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (!isEmpty()) {
+                            setStyle("-fx-text-fill: " + colour + " !important;");
+                            setText(item);
+                        }
+                    }
+                };
+            }
+        });
     }
 
 }
