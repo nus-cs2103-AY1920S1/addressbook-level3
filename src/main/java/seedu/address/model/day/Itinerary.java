@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class Itinerary implements Iterable<Day> {
     public void add(int numDays) {
         requireNonNull(numDays);
         for (int i = 0; i < numDays; i++) {
-            Day toAdd = new Day(new ArrayList<>());
+            Day toAdd = new Day();
             internalList.add(toAdd);
         }
     }
@@ -78,9 +77,9 @@ public class Itinerary implements Iterable<Day> {
      */
     public void setDays(List<Day> days) {
         requireAllNonNull(days);
-        if (!daysAreUnique(days)) {
-            throw new DuplicateDayException();
-        }
+        //if (!daysAreUnique(days)) {
+        //    throw new DuplicateDayException();
+        //}
 
         internalList.setAll(days);
     }

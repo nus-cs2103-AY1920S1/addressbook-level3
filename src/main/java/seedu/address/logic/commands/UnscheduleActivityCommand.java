@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ACTIVITY_NOT_PRESENT_IN_DAY;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
@@ -25,10 +27,13 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
             + ": Unschedules all instances of an activity on a certain day. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_DAY + "DAY";
+            + PREFIX_DAY + "DAY\n"
+            + "Example: " + COMMAND_WORD
+            + " " + SECOND_COMMAND_WORD
+            + " 2 "
+            + PREFIX_DAY + "3";
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity %d unscheduled from Day %d";
-    public static final String MESSAGE_DUPLICATE_DAY = "This day already exists in the planner.";
 
     private final Index activityIndexToUnschedule;
     private final Index dayIndex;
@@ -38,8 +43,7 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
      * @param dayIndex      of the contacts in the filtered contacts list to edit
      */
     public UnscheduleActivityCommand(Index activityIndex, Index dayIndex) {
-        requireNonNull(activityIndex);
-        requireNonNull(dayIndex);
+        requireAllNonNull(activityIndex, dayIndex);
         this.activityIndexToUnschedule = activityIndex;
         this.dayIndex = dayIndex;
     }
@@ -59,10 +63,6 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
         Day editedDay = createUnscheduledActivityDay(dayToEdit, activityToUnschedule);
         List<Day> editedDays = new ArrayList<>(lastShownDays);
         editedDays.set(dayIndex.getZeroBased(), editedDay);
-
-        if (!dayToEdit.isSameDay(editedDay) && model.hasDay(editedDay)) {
-            throw new CommandException(MESSAGE_DUPLICATE_DAY);
-        }
 
         model.setDays(editedDays);
         model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
@@ -85,14 +85,20 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
      * @param dayToEdit            of the contacts in the filtered contacts list to edit
      * @param activityToUnschedule of the contacts in the filtered contacts list to edit
      */
-    private Day createUnscheduledActivityDay(Day dayToEdit, Activity activityToUnschedule) {
-        List<ActivityWithTime> activitiesWithTime = dayToEdit.getActivitiesWithTime();
-        List<ActivityWithTime> editedActivitiesWithTime = new ArrayList<>();
-        for (ActivityWithTime a : activitiesWithTime) {
-            if (!a.getActivity().equals(activityToUnschedule)) {
-                editedActivitiesWithTime.add(a);
+    private Day createUnscheduledActivityDay(Day dayToEdit, Activity activityToUnschedule) throws CommandException {
+        List<ActivityWithTime> activitiesWithTime = dayToEdit.getListOfActivityWithTime();
+        List<ActivityWithTime> copiedActivitiesWithTime = new ArrayList<>(activitiesWithTime);
+        boolean removedAtLeastOne = false;
+        for (ActivityWithTime a: activitiesWithTime) {
+            if (a.getActivity().equals(activityToUnschedule)) {
+                copiedActivitiesWithTime.remove(a);
+                removedAtLeastOne = true;
             }
         }
-        return new Day(editedActivitiesWithTime);
+        if (removedAtLeastOne) {
+            return new Day(copiedActivitiesWithTime);
+        } else {
+            throw new CommandException(MESSAGE_ACTIVITY_NOT_PRESENT_IN_DAY);
+        }
     }
 }

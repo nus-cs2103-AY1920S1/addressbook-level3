@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
@@ -16,8 +17,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
-import seedu.address.model.day.time.DurationInHalfHour;
-import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
@@ -30,8 +29,10 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final String DATE_FORMAT_1 = "d-M-yyyy";
     private static final String DATE_FORMAT_2 = "d-M-yy";
+    private static final String TIME_FORMAT = "HHmm";
     public static final DateTimeFormatter DATE_FORMATTER_1 = DateTimeFormatter.ofPattern(DATE_FORMAT_1);
     public static final DateTimeFormatter DATE_FORMATTER_2 = DateTimeFormatter.ofPattern(DATE_FORMAT_2);
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -150,21 +151,21 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String days} into an {@code Integer}.
+     * Parses a {@code String time} into an {@code LocalTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException
      */
-    public static TimeInHalfHour parseTimeInHalfHour(String time) throws ParseException {
+    public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        if (!TimeInHalfHour.isValidTime(trimmedTime)) {
-            throw new ParseException(TimeInHalfHour.MESSAGE_CONSTRAINTS);
+        LocalTime parsedTime = null;
+        try {
+            parsedTime = LocalTime.parse(trimmedTime, TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Time format is: " + TIME_FORMAT);
         }
-        int hour = Integer.parseInt(trimmedTime.substring(0, 2));
-        int min = Integer.parseInt(trimmedTime.substring(2));
-
-        return new TimeInHalfHour(hour, min);
+        return parsedTime;
     }
 
     /**
@@ -213,21 +214,4 @@ public class ParserUtil {
             .append(DATE_FORMAT_2);
         return sb.toString();
     }
-
-    /**
-     * Parses a {@code String duration} into an {@code Integer}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException
-     */
-    public static DurationInHalfHour parseDurationInHalfHour(String duration) throws ParseException {
-        requireNonNull(duration);
-        String trimmedDuration = duration.trim();
-        if (!DurationInHalfHour.isValidDuration(trimmedDuration)) {
-            throw new ParseException(DurationInHalfHour.MESSAGE_CONSTRAINTS);
-        }
-        int numberOfHalfHour = Integer.parseInt(trimmedDuration) / 30;
-        return new DurationInHalfHour(numberOfHalfHour);
-    }
-
 }
