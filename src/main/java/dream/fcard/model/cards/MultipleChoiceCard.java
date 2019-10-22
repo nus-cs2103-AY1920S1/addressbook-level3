@@ -1,6 +1,5 @@
 package dream.fcard.model.cards;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,7 +55,6 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     *
      * @param frontString
      * @param backString
      * @param choicesArg
@@ -87,7 +85,6 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     *
      * @return
      */
     @Override
@@ -109,7 +106,6 @@ public class MultipleChoiceCard extends FrontBackCard {
     }
 
     /**
-     *
      * @return
      */
     //@@author huiminlim
@@ -123,7 +119,6 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     *
      * @param in input
      * @return
      * @throws IndexNotFoundException
@@ -257,15 +252,13 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     *
-     *
      * @return
      */
     //@@author huiminlim
-    private ArrayList<String> generateCopyOfChoices(){
+    private ArrayList<String> generateCopyOfChoices() {
         ArrayList<String> newList = new ArrayList<>();
-        for(int i = 0; i < choices.size(); i++){
-            String newStringObject = new String(choices.get(i));
+        for (int i = 0; i < choices.size(); i++) {
+            String newStringObject = choices.get(i);
             newList.add(newStringObject);
         }
         return newList;
