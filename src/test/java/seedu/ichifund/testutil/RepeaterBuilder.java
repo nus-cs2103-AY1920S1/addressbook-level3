@@ -8,6 +8,7 @@ import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.repeater.MonthOffset;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.TransactionType;
 
@@ -16,6 +17,7 @@ import seedu.ichifund.model.transaction.TransactionType;
  */
 public class RepeaterBuilder {
 
+    public static final String DEFAULT_UNIQUE_ID = "0";
     public static final String DEFAULT_DESCRIPTION = "Phone bills";
     public static final String DEFAULT_AMOUNT = "42.06";
     public static final String DEFAULT_CATEGORY = "utilities";
@@ -29,6 +31,7 @@ public class RepeaterBuilder {
     public static final String DEFAULT_END_MONTH = "12";
     public static final String DEFAULT_END_YEAR = "2019";
 
+    private RepeaterUniqueId uniqueId;
     private Description description;
     private Amount amount;
     private Category category;
@@ -39,6 +42,7 @@ public class RepeaterBuilder {
     private Date endDate;
 
     public RepeaterBuilder() {
+        uniqueId = new RepeaterUniqueId(DEFAULT_UNIQUE_ID);
         description = new Description(DEFAULT_DESCRIPTION);
         amount = new Amount(DEFAULT_AMOUNT);
         category = new Category(DEFAULT_CATEGORY);
@@ -59,6 +63,7 @@ public class RepeaterBuilder {
      * Initializes the RepeaterBuilder with the data of {@code repeaterToCopy}.
      */
     public RepeaterBuilder(Repeater repeaterToCopy) {
+        uniqueId = repeaterToCopy.getUniqueId();
         description = repeaterToCopy.getDescription();
         amount = repeaterToCopy.getAmount();
         category = repeaterToCopy.getCategory();
@@ -86,7 +91,7 @@ public class RepeaterBuilder {
      * Builds the repeater.
      */
     public Repeater build() {
-        return new Repeater(description, amount, category, transactionType,
+        return new Repeater(uniqueId, description, amount, category, transactionType,
                 monthStartOffset, monthEndOffset, startDate, endDate);
     }
 

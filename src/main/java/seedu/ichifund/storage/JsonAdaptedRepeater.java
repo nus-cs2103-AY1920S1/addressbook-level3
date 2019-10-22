@@ -9,6 +9,7 @@ import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.repeater.MonthOffset;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.TransactionType;
 
@@ -19,6 +20,7 @@ class JsonAdaptedRepeater {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Repeater's %s field is missing!";
 
+    private final String uniqueId;
     private final String description;
     private final String amount;
     private final String category;
@@ -32,7 +34,8 @@ class JsonAdaptedRepeater {
      * Constructs a {@code JsonAdaptedRepeater} with the given repeater details.
      */
     @JsonCreator
-    public JsonAdaptedRepeater(@JsonProperty("description") String description,
+    public JsonAdaptedRepeater(@JsonProperty("uniqueId") String uniqueId,
+            @JsonProperty("description") String description,
             @JsonProperty("amount") String amount,
             @JsonProperty("category") String category,
             @JsonProperty("transactionType") String transactionType,
@@ -40,6 +43,7 @@ class JsonAdaptedRepeater {
             @JsonProperty("monthEndOffset") String monthEndOffset,
             @JsonProperty("startDate") JsonAdaptedDate startDate,
             @JsonProperty("endDate") JsonAdaptedDate endDate) {
+        this.uniqueId = uniqueId;
         this.description = description;
         this.amount = amount;
         this.category = category;
@@ -54,6 +58,7 @@ class JsonAdaptedRepeater {
      * Converts a given {@code Repeater} into this class for Jackson use.
      */
     public JsonAdaptedRepeater(Repeater source) {
+        this.uniqueId = source.getUniqueId().toString();
         this.description = source.getDescription().toString();
         this.amount = source.getAmount().toString();
         this.category = source.getDescription().toString();
@@ -70,6 +75,15 @@ class JsonAdaptedRepeater {
      * @throws IllegalValueException if there were any data constraints violated in the adapted repeater.
      */
     public Repeater toModelType() throws IllegalValueException {
+        if (this.uniqueId == null) {
+            throw new IllegalValueException(String.format(
+                        MISSING_FIELD_MESSAGE_FORMAT, RepeaterUniqueId.class.getSimpleName()));
+        }
+        if (!RepeaterUniqueId.isValidRepeaterUniqueId(this.uniqueId)) {
+            throw new IllegalValueException(RepeaterUniqueId.MESSAGE_CONSTRAINTS);
+        }
+        final RepeaterUniqueId modelUniqueId = new RepeaterUniqueId(this.uniqueId);
+
         if (this.description == null) {
             throw new IllegalValueException(String.format(
                         MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
@@ -130,7 +144,7 @@ class JsonAdaptedRepeater {
 
         final Date modelEndDate = this.endDate.toModelType();
 
-        return new Repeater(modelDescription, modelAmount, modelCategory, modelTransactionType,
+        return new Repeater(modelUniqueId, modelDescription, modelAmount, modelCategory, modelTransactionType,
                 modelMonthStartOffset, modelMonthEndOffset, modelStartDate, modelEndDate);
     }
 
