@@ -269,13 +269,9 @@ public class ModelManager implements Model {
         RecommendationSystem.getInstance().updateDaysToExpire(getDaysToExpire());
         RecommendationSystem.getInstance().updateBudget(getRemainingBudget().getRemainingBudgetAmount());
 
-        if (RecommendationSystem.getInstance().isInUse()) {
-            return filteredFoods
-                    .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
-                    .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
-        } else {
-            return filteredFoods;
-        }
+        return filteredFoods
+                .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
+                .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
     }
 
 

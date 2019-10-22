@@ -20,6 +20,9 @@ import seedu.savenus.model.purchase.Purchase;
  * Represents the Recommendation System of the menu.
  */
 public class RecommendationSystem {
+    private static final Comparator<Food> DEFAULT_COMPARATOR = (x, y) -> 0;
+    private static final Predicate<Food> DEFAULT_PREDICATE = x -> true;
+
     private static RecommendationSystem recommendationSystem;
     private static Comparator<Food> comparator =
             Comparator.comparingDouble(getInstance()::calculateRecommendation).reversed()
@@ -223,7 +226,11 @@ public class RecommendationSystem {
     }
 
     public Comparator<Food> getRecommendationComparator() {
-        return comparator;
+        if (isInUse()) {
+            return comparator;
+        } else {
+            return DEFAULT_COMPARATOR;
+        }
     }
 
     public void setRecommendationComparator(Comparator<Food> recommendationComparator) {
@@ -231,7 +238,11 @@ public class RecommendationSystem {
     }
 
     public Predicate<Food> getRecommendationPredicate() {
-        return predicate;
+        if (isInUse()) {
+            return predicate;
+        } else {
+            return DEFAULT_PREDICATE;
+        }
     }
 
     public void setRecommendationPredicate(Predicate<Food> recommendationPredicate) {

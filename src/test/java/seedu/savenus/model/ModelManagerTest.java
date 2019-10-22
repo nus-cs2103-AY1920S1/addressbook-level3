@@ -139,7 +139,7 @@ public class ModelManagerTest {
         modelManager.updateRecommendationPredicate(recommendationPredicate);
         modelManager.setRecommendationSystemInUse(false);
 
-        assertEquals(recommendationPredicate, modelManager.getRecommendationSystem().getRecommendationPredicate());
+        assertNotEquals(recommendationPredicate, modelManager.getRecommendationSystem().getRecommendationPredicate());
     }
 
     @Test
@@ -157,7 +157,7 @@ public class ModelManagerTest {
         modelManager.updateRecommendationComparator(recommendationComparator);
         modelManager.setRecommendationSystemInUse(false);
 
-        assertEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
+        assertNotEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
     }
 
     @Test
