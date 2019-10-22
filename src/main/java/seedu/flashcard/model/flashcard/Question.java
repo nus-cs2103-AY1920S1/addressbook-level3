@@ -7,41 +7,41 @@ import static seedu.flashcard.commons.util.AppUtil.checkArgument;
  * The word itself of the flashcard.
  * TODO: Can be replaced by the flashcard question.
  */
-public class Word {
+public class Question {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Words should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Questions should only contain alphanumeric characters and spaces, and it should not be blank";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String word;
+    public final String question;
 
-    public Word(String word) {
-        requireNonNull(word);
-        checkArgument(isValidWord(word), MESSAGE_CONSTRAINTS);
-        this.word = word;
+    public Question(String question) {
+        requireNonNull(question);
+        checkArgument(isValidQuestion(question), MESSAGE_CONSTRAINTS);
+        this.question = question;
     }
 
     /**
      * Returns true if a giving string is a valid word.
      */
-    public static boolean isValidWord(String test) {
+    public static boolean isValidQuestion(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return word;
+        return question;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof Word)
-                && word.equals(((Word) other).word);
+                || (other instanceof Question)
+                && question.equals(((Question) other).question);
     }
 
     @Override
     public int hashCode() {
-        return word.hashCode();
+        return question.hashCode();
     }
 }

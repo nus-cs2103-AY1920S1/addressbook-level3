@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
@@ -19,12 +19,12 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashcard to a flashcard list. "
             + "Parameters: "
-            + "[" + PREFIX_WORD + "WORD]"
+            + "[" + PREFIX_QUESTION + "WORD]"
             + "[" + PREFIX_CHOICE + "CHOICE]"
             + "[" + PREFIX_DEFINITION + "DEFINITION]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_WORD + "Refactor "
+            + PREFIX_QUESTION + "Refactor "
             + PREFIX_CHOICE + "Make the codes be in a neater style without changing its functions. "
             + PREFIX_CHOICE + "Test for for bugs in the system "
             + PREFIX_CHOICE + "Change a mathematical formula"

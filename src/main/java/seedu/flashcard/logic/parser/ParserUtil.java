@@ -12,7 +12,7 @@ import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
-import seedu.flashcard.model.flashcard.Word;
+import seedu.flashcard.model.flashcard.Question;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -36,17 +36,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String word} into a {@code Word}.
+     * Parses a {@code String word} into a {@code Question}.
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the given {@code word} is invalid.
      */
-    public static Word parseWord(String word) throws ParseException {
-        requireNonNull(word);
-        String trimmedWord = word.trim();
-        if (!Word.isValidWord(trimmedWord)) {
-            throw new ParseException(Word.MESSAGE_CONSTRAINTS);
+    public static Question parseWord(String question) throws ParseException {
+        requireNonNull(question);
+        String trimmedQuestion = question.trim();
+        if (!Question.isValidQuestion(trimmedQuestion)) {
+            throw new ParseException(Question.MESSAGE_CONSTRAINTS);
         }
-        return new Word(trimmedWord);
+        return new Question(trimmedQuestion);
     }
 
     /**

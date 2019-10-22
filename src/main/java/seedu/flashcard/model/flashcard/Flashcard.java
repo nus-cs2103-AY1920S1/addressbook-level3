@@ -16,7 +16,7 @@ import seedu.flashcard.model.tag.Tag;
 public class Flashcard {
 
     // Identity fields
-    private final Word word;
+    private final Question question;
 
     // Data fields
     private final Definition definition;
@@ -25,9 +25,9 @@ public class Flashcard {
     private final Answer answer;
     private final Score score;
 
-    public Flashcard(Word word, Set<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
-        requireAllNonNull(word, definitions, tags);
-        this.word = word;
+    public Flashcard(Question question, Set<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
+        requireAllNonNull(question, definitions, tags);
+        this.question = question;
         this.choices.addAll(choices);
         this.definition = definitions;
         this.tags.addAll(tags);
@@ -35,8 +35,8 @@ public class Flashcard {
         this.score = new Score();
     }
 
-    public Word getWord() {
-        return word;
+    public Question getQuestion() {
+        return question;
     }
 
     /**
@@ -118,14 +118,14 @@ public class Flashcard {
     }
 
     /**
-     * Defines that if and only if two flashcards containing the same word can be considered as the same.
+     * Defines that if and only if two flashcards containing the same question can be considered as the same.
      */
     public boolean isSameFlashcard(Flashcard otherFlashcard) {
         if (otherFlashcard == this) {
             return true;
         }
         return otherFlashcard != null
-                && otherFlashcard.getWord().equals(getWord());
+                && otherFlashcard.getQuestion().equals(getQuestion());
     }
 
     /**
@@ -136,7 +136,7 @@ public class Flashcard {
     }
 
     /**
-     * Returns true if both the word and the definitions and the tags are the same.
+     * Returns true if both the question and the definitions and the tags are the same.
      * This is stronger than {@code isSameFlashCard}
      */
     @Override
@@ -148,7 +148,7 @@ public class Flashcard {
             return false;
         }
         Flashcard otherFlashcard = (Flashcard) other;
-        return otherFlashcard.getWord().equals(getWord())
+        return otherFlashcard.getQuestion().equals(getQuestion())
                 && otherFlashcard.getDefinition().equals(getDefinition())
                 && otherFlashcard.getTags().equals(getTags());
     }
@@ -156,7 +156,7 @@ public class Flashcard {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getWord()).append("\n")
+        builder.append(getQuestion()).append("\n")
                 .append("\nDefinitions:").append("\n")
                 .append(getDefinition()).append("\n");
         if (!tags.isEmpty()) {
@@ -176,6 +176,6 @@ public class Flashcard {
 
     @Override
     public int hashCode() {
-        return Objects.hash(word, definition, tags);
+        return Objects.hash(question, definition, tags);
     }
 }

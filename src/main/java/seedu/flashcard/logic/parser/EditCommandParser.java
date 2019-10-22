@@ -6,7 +6,7 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_CHOICE, PREFIX_DEFINITION, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_CHOICE, PREFIX_DEFINITION, PREFIX_TAG);
 
         Index index;
 
@@ -45,8 +45,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditFlashcardDescriptor editFlashcardDescriptor = new EditFlashcardDescriptor();
-        if (argMultimap.getValue(PREFIX_WORD).isPresent()) {
-            editFlashcardDescriptor.setWord(ParserUtil.parseWord(argMultimap.getValue(PREFIX_WORD).get()));
+        if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
+            editFlashcardDescriptor.setQuestion(ParserUtil.parseWord(argMultimap.getValue(PREFIX_QUESTION).get()));
         }
 
         if (argMultimap.getValue(PREFIX_DEFINITION).isPresent()) {

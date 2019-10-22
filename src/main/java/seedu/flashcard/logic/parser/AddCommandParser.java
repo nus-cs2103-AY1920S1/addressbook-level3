@@ -5,7 +5,7 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -16,7 +16,7 @@ import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
-import seedu.flashcard.model.flashcard.Word;
+import seedu.flashcard.model.flashcard.Question;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -33,20 +33,20 @@ public class AddCommandParser implements Parser<AddCommand> {
     @Override
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-            PREFIX_WORD, PREFIX_CHOICE, PREFIX_DEFINITION, PREFIX_TAG, PREFIX_ANSWER);
+            PREFIX_QUESTION, PREFIX_CHOICE, PREFIX_DEFINITION, PREFIX_TAG, PREFIX_ANSWER);
         if (!arePrefixesPresent(argMultimap,
-            PREFIX_WORD, PREFIX_DEFINITION, PREFIX_ANSWER)
+            PREFIX_QUESTION, PREFIX_DEFINITION, PREFIX_ANSWER)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Word word = ParserUtil.parseWord(argMultimap.getValue(PREFIX_WORD).get());
+        Question question = ParserUtil.parseWord(argMultimap.getValue(PREFIX_QUESTION).get());
         Set<Choice> choices = ParserUtil.parseChoices(argMultimap.getAllValues(PREFIX_CHOICE));
         Definition definition = ParserUtil.parseDefinition(argMultimap.getValue(PREFIX_DEFINITION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
 
-        Flashcard flashcard = new Flashcard(word, choices, definition, tagList, answer);
+        Flashcard flashcard = new Flashcard(question, choices, definition, tagList, answer);
 
         return new AddCommand(flashcard);
     }
