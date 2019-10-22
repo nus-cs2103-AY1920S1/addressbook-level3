@@ -304,11 +304,33 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 ** Supporting deletion of Tags
 *** Allow the user to delete a specified Tag.
 *** All StudyBuddyItems must be updated in response to the deletion.
-*** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure,
-such that each StudyBuddyItem is able to update their Tags in an optimised manner.
+*** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
+*** As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
 
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
+
+=== Auto-generated cheatsheet feature
+
+The auto-generation mechanism is used in the `AddCheatSheetCommand` during creation of the cheatsheet.
+After creation, the cheatsheet is then stored in the `studyBuddy` storage.
+
+It is involved in the following operations:
+
+- `AddCheatSheetCommand#execute()` -- Creates the cheatsheet
+
+- `AddCheatSheetCommand#getRelevantContents()` -- Gets all the contents from _flashcard_ and _notes_ according to the _tags_ specified
+
+The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
+
+Given below is an example usage scenario and how the auto-generation mechanism behaves at each step.
+
+[NOTE]
+Assuming that user is already in the _cheatsheet_ mode.
+
+The following sequence diagram shows how the undo operation works:
+
+image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
 
 == Documentation
 
