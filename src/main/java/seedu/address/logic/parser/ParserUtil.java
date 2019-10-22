@@ -78,8 +78,8 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      * String grades will be split by whitespace, converted to Integer and stored in List.
      *
+     * @return output The grades string to be used in updating assignment.
      * @throws ParseException if the given {@code name} is invalid.
-     * @return
      */
     public static List<String> parseAssignmentGrades(String grades) throws ParseException {
         requireNonNull(grades);

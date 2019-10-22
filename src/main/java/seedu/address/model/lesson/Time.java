@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Represents a class time in the AddressBook.
+ * Represents a class time in the Classroom.
  */
 public class Time {
     private final Calendar lessonTime;

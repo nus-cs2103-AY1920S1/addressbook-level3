@@ -43,20 +43,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getClassroomFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setClassroomFilePath(Path classroomFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code classroom}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setClassroom(ReadOnlyClassroom classroom);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Classroom */
+    ReadOnlyClassroom getClassroom();
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the address book.
@@ -102,17 +102,17 @@ public interface Model {
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
     /**
-     * Returns the boolean AddressBook.isDisplayStudents to determine if students should be displayed.
+     * Returns the boolean Classroom.isDisplayStudents to determine if students should be displayed.
      */
     boolean isDisplayStudents();
 
     /**
-     * Sets the boolean AddressBook.isDisplayStudents to true, to display student list.
+     * Sets the boolean Classroom.isDisplayStudents to true, to display student list.
      */
     void displayStudents();
 
     /**
-     * Sets the boolean AddressBook.isDisplayStudents to false, to display assignment list.
+     * Sets the boolean Classroom.isDisplayStudents to false, to display assignment list.
      */
     void displayAssignments();
 

@@ -8,9 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.scheduler.exceptions.ReminderNotFoundException;
 import seedu.address.model.scheduler.exceptions.DuplicateReminderException;
-
+import seedu.address.model.scheduler.exceptions.ReminderNotFoundException;
 
 /**
  * List of unique reminders to be displayed in UI
