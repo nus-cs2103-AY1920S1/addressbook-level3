@@ -142,10 +142,10 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Mark data in json format and read it back.
+* saves `UserPref` objects in json format and reads them back.
+* saves the Mark data in json format and reads it back.
 
 [[Design-Commons]]
 === Common classes
@@ -246,7 +246,7 @@ A bookmark can be in a folder, and a folder can be nested within other folders f
 
 This mechanism is facilitated mainly by `Folder` and `FolderStructure`.
 
-`Folder` is simply another field on `Bookmark`, just like `Url` or `Name`, and has a single `String` property that contains the folder the bookmark is located.
+`Folder` is simply another field in `Bookmark`, just like `Url` or `Name`, and has a single `String` property that contains the folder in which the bookmark is located.
 
 `FolderStructure` represents the hierarchy of folders, containing the folder it represents and its subfolders
 
@@ -286,7 +286,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 ** Cons: Easy for model to get into invalid state (e.g. bookmark has a folder that is not in the hierarchy)
 * **Alternative 2:** Change the bookmarks from being stored in a list to being stored as a hierarchy
 ** Pros: Single source of truth, its folder is simply where it's located
-** Cons: The whole `BookmarkList` abstraction will have to be rerwritten
+** Cons: The whole `BookmarkList` abstraction will have to be rewritten
 // end::folders[]
 
 // tag::dataencryption[]
