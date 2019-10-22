@@ -227,7 +227,72 @@ image::CommitActivityDiagram.png[]
 
 === Income feature
 
-_{Explain here how the data encryption feature will be implemented}_
+The `add_income` command allows for users to register new `Income` objects into FinSec.
+
+The format for the `add_income` command is as follows:
+
+`add_income d/<description> c/<cash amount> date/<date> n/<name> p/<phone number>`
+
+==== Adding an Income
+
+*Overview*
+
+The add income `add_income` mechanism is facilitated by `AddIncomeCommand` and `AddIncomeCommandParser`. It takes in the following input from the user:
+`description`, `cash amount`, `name` and `phone number`, which will construct individual objects that construct an `Income` object.
+
+The `AddIncomeCommandParser` implements `Parser` with the following operation:
+
+
+* `AddIncomeCommandParser#parse()` - This operation will take in a `String` input from the user that will create individual objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 'p/'. The `String` value after the individual prefixes will create
+the respective object: d/ `description`, c/ `cash amount`, date/`date`,  n/ `name` and p/ `phone`. A validation check will be imposed upon the creation of each object. Any checks that fails the validation would prompt the user on the failed component.
+For example:
+
+** `cash amount` would use `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of 2 decimal places.
+
+** `phone` would use `ParserUtil#parsePhone()` to ensure that the phone number entered would only contain numbers that are at least 3 numbers long.
+
+** `date` would use `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY.
+
+* After validation checks are completed with no errors, an `Income` object is then constructed with `description`, `cash`, `date`, `name` and `phone` as the parameters.
+
+* `AddIncomeCommandParser` would then return a `AddIncomeCommand` object with `Income` as the parameter.
+
+*Example*
+
+Given below is an example usage scenario of how `add_income` mechanisam behaves at each step.
+
+*Step 1:* The user executes `add_income d/shirt sales c/100.05 date/11-11-2019 n/John Doe p/91111111` to add an income of $100.05 of shirt sales received from John Doe who is contactable at 91111111.
+
+*Step 2:* `LogicManager` would use `FinSecParser#parse()` to parse input from the user.
+
+*Step 3:* `FinSecParser` would determine which command is being used and creates the respective parser. In this case, `AddIncomeCommandParser` is being created and the user's input would be passed in as a parameter.
+
+*Step 4:* `AddIncomeCommandParser` would do a validation check on the user's input before creating and returning a `AddIncomeCommand` object with `Income` as the parameter.
+
+*Step 5:* `LogicManager` would use `AddIncomeCommand#execute()` to add the `Income` into the `Model` which is handled by the `ModelManager`.
+
+*Step 6:* `AddIncomeCommand` would return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
+
+
+==== Deleting an Income
+
+This feature allows the user to delete an income entry from the Unique Incomes List through its index.
+
+The delete income feature is facilitated by the `DeleteIncomeCommandParser` and the `DeleteIncomeCommand`.
+
+The delete income command is part of the logic component of our application. It interacts with the model and storage components of our application.
+
+==== Editing an Income
+
+This feature allows the user to edit any attribute of the income entries. There are a total of five attributes for each entry, the description of the income, the amount of money received, the date it was received, the name of the person / organisation the user
+received the money from and the contact number. The user can edit at least one and up to all attributes.
+
+The edit income feature is facilitated by the `EditIncomeCommandParser` and the `EditIncomeCommand`.
+
+The edit command is part of the logic component of our application. It interacts with the model component of our software architecture.
+
+
+
 
 // end::dataencryption[]
 
