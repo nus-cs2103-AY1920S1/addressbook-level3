@@ -104,7 +104,7 @@ public class AddCommand extends UndoableCommand {
 
         if (toAdd instanceof Body) {
             Body body = (Body) toAdd;
-            NotifCommand notifCommand = new NotifCommand(new Notif(body), 5, TimeUnit.SECONDS);
+            NotifCommand notifCommand = new NotifCommand(new Notif(body), 10, TimeUnit.SECONDS);
             notifCommand.execute(model);
             Optional<IdentificationNumber> fridgeId = body.getFridgeId();
             if (!fridgeId.equals(Optional.empty())) {
