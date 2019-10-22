@@ -1,5 +1,7 @@
 package seedu.address.model.incident;
 
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
+
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,6 +15,7 @@ import seedu.address.model.person.Username;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
+
 
 /**
  * Represents an incident report in the IMS.
@@ -83,19 +86,20 @@ public class Incident {
         this.description = new Description("Fluff description for search testing arson fire fires");
         this.location = location;
         this.callerNumber = new CallerNumber("98989898");
-        //this.vehicle = TODO
     }
 
     // constructor used by edit command.
     // TODO change to accommodate 'Status'. i.e. only 'FINAL' reports can be edited.
-    public Incident(District district, IncidentDateTime incidentDateTime, CallerNumber callerNumber, Description desc) {
+    public Incident(IncidentId id, District district, IncidentDateTime incidentDateTime,
+                    CallerNumber callerNumber, Description desc) {
+
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
         this.location = district;
         this.callerNumber = callerNumber;
         this.description = desc;
-        this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
+        this.id = id;
         // this.vehicle = TODO
     }
 
@@ -212,7 +216,10 @@ public class Incident {
         }
 
         return otherIncident != null
-                && otherIncident.getIncidentId().equals(getIncidentId());
+                && otherIncident.getDateTime().equals(getDateTime())
+                && otherIncident.getCallerNumber().equals(getCallerNumber())
+                && otherIncident.getDesc().equals(getDesc())
+                && otherIncident.getDistrict().equals(getDistrict());
     }
 
     /**
@@ -230,11 +237,17 @@ public class Incident {
         }
 
         Incident otherIncident = (Incident) other;
-        return otherIncident.getDateTime().equals(getDateTime());
-        /* TODO: Fix equality check
-        return otherIncident.getIncidentId().equals(getIncidentId())
-                && otherIncident.getDesc().equals(getDesc());
-         */
+
+        return otherIncident.getDateTime().equals(getDateTime())
+                && otherIncident.getCallerNumber().equals(getCallerNumber())
+                && otherIncident.getDesc().equals(getDesc())
+                && otherIncident.getDistrict().equals(getDistrict());
     }
 
+    // TODO: more refined toString method
+    @Override
+    public String toString() {
+        return /*"Incident datetime:" + incidentDateTime.toString() +
+                "\n + */"Incident Description: " + description.toString();
+    }
 }
