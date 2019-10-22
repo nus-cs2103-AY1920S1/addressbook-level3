@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.UniqueAssignmentList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.scheduler.Reminder;
@@ -19,6 +21,7 @@ import seedu.address.model.student.UniqueStudentList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueStudentList students;
+    private final UniqueAssignmentList assignments;
     private final UniqueLessonList lessons;
     private final UniqueReminderList reminders;
 
@@ -31,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         students = new UniqueStudentList();
+        assignments = new UniqueAssignmentList();
         lessons = new UniqueLessonList();
         reminders = new UniqueReminderList();
     }
@@ -55,13 +59,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.students.setStudents(students);
     }
 
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments.setAssignments(assignments);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setStudents(newData.getStudentList());
+        setAssignments(newData.getAssignmentList());
     }
 
     //// student-level operations
@@ -75,11 +83,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if an assignment with the same identity as {@code assignment} exists in the classroom.
+     */
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return assignments.contains(assignment);
+    }
+
+    /**
      * Adds a student to the address book.
      * The student must not already exist in the address book.
      */
     public void addStudent(Student p) {
         students.add(p);
+    }
+
+    /**
+     * Adds an assignment to the address book.
+     * The assignment must not already exist in the address book.
+     */
+    public void addAssignment(Assignment p) {
+        assignments.add(p);
     }
 
     /**
@@ -95,11 +119,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given assignment {@code target} in the list with {@code editedAssignment}.
+     * {@code target} must exist in the address book.
+     * The student identity of {@code editedAssignment} must not be the same as another existing student in the address
+     * book.
+     */
+    public void setAssignment(Assignment target, Assignment editedAssignment) {
+        requireNonNull(editedAssignment);
+
+        assignments.setAssignment(target, editedAssignment);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removeStudent(Student key) {
         students.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAssignment(Assignment key) {
+        assignments.remove(key);
     }
 
     /**
@@ -134,6 +178,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Reminder> getReminderList() {
         return reminders.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Assignment> getAssignmentList() {
+        return assignments.asUnmodifiableObservableList();
     }
 
     @Override

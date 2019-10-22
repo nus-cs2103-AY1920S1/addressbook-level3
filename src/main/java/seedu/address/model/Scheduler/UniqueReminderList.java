@@ -8,8 +8,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.student.exceptions.DuplicateStudentException;
-import seedu.address.model.student.exceptions.StudentNotFoundException;
+import seedu.address.model.student.exceptions.AssignmentNotFoundException;
+import seedu.address.model.student.exceptions.DuplicateAssignmentException;
+
 
 /**
  * List of unique reminders to be displayed in UI
@@ -35,7 +36,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
     public void add(Reminder toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateStudentException();
+            throw new DuplicateAssignmentException();
         }
         internalList.add(toAdd);
     }
@@ -50,11 +51,11 @@ public class UniqueReminderList implements Iterable<Reminder> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new StudentNotFoundException();
+            throw new AssignmentNotFoundException();
         }
 
         if (!target.isSameReminder(editedReminder) && contains(editedReminder)) {
-            throw new DuplicateStudentException();
+            throw new DuplicateAssignmentException();
         }
 
         internalList.set(index, editedReminder);
@@ -67,7 +68,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
     public void remove(Reminder toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new StudentNotFoundException();
+            throw new AssignmentNotFoundException();
         }
     }
 
@@ -83,7 +84,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
     public void setReminders(List<Reminder> reminders) {
         requireAllNonNull(reminders);
         if (!remindersAreUnique(reminders)) {
-            throw new DuplicateStudentException();
+            throw new DuplicateAssignmentException();
         }
 
         internalList.setAll(reminders);

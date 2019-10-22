@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private FilteredList<Reminder> filteredReminders;
+    private final FilteredList<Assignment> filteredAssignments;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredReminders = new FilteredList<>(this.addressBook.getReminderList());
+        filteredAssignments = new FilteredList<>(this.addressBook.getAssignmentList());
     }
 
     public ModelManager() {
@@ -99,14 +102,31 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return addressBook.hasAssignment(assignment);
+    }
+
+    @Override
     public void deleteStudent(Student target) {
         addressBook.removeStudent(target);
+    }
+
+    @Override
+    public void deleteAssignment(Assignment target) {
+        addressBook.removeAssignment(target);
     }
 
     @Override
     public void addStudent(Student student) {
         addressBook.addStudent(student);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+    }
+
+    @Override
+    public void addAssignment(Assignment assignment) {
+        addressBook.addAssignment(assignment);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override
@@ -117,6 +137,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setAssignment(Assignment target, Assignment editedAssignment) {
+        requireAllNonNull(target, editedAssignment);
+
+        addressBook.setAssignment(target, editedAssignment);
+    }
+
     public void addLesson(Lesson lesson) {
         addressBook.addLesson(lesson);
     }
@@ -143,9 +169,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return filteredAssignments;
+    }
+
+    @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+        requireNonNull(predicate);
+        filteredAssignments.setPredicate(predicate);
     }
 
     @Override
