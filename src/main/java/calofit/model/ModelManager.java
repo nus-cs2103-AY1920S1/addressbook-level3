@@ -27,8 +27,6 @@ import calofit.model.util.Statistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static Statistics statistics;
-
     private final DishDatabase dishDatabase;
     private final MealLog mealLog;
     private final UserPrefs userPrefs;
@@ -52,7 +50,6 @@ public class ModelManager implements Model {
         this.filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
         this.filteredMeals = new FilteredList<>(this.mealLog.getMeals());
         this.sortedMeals = new SortedList<>(filteredMeals, Comparator.naturalOrder());
-        this.statistics = null;
         this.budget = new CalorieBudget();
     }
 
@@ -169,13 +166,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateStatistics() {
-        this.statistics = Statistics.generateStatistics(this.mealLog, this.getCalorieBudget());
-    }
-
-    @Override
     public Statistics getStatistics() {
-        return this.statistics;
+        return Statistics.generateStatistics(this.mealLog, this.getCalorieBudget());
     }
 
     @Override
