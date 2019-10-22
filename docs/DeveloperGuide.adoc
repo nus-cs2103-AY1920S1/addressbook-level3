@@ -321,6 +321,7 @@ However, this is not feasible as it will break the standard formatting of the an
 questions will have 2 different answer formats and may cause confusion to the user.
 
 // tag::undoredo[]
+////
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
@@ -408,7 +409,7 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
-
+////
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
