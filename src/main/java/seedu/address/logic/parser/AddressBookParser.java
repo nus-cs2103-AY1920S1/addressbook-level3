@@ -5,23 +5,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.HashMap;
 
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddEarningsCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.NewCommand;
-import seedu.address.logic.commands.UnknownCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
 
@@ -36,40 +26,40 @@ public class AddressBookParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private HashMap<String, String> commandList;
+    private static TreeMap<String, String> commandList;
 
     public AddressBookParser(ObservableList<CommandObject> commands) {
-        this.commandList = new HashMap<>();
-        this.initialiseBasicCommands();
+        AddressBookParser.commandList = new TreeMap<>();
+        initialiseBasicCommands();
         for (int i = 0; i < commands.size(); i++) {
-            this.commandList.put(commands.get(i).getCommandWord().word, commands.get(i).getCommandAction().action);
+            AddressBookParser.commandList.put(commands.get(i).getCommandWord().word, commands.get(i).getCommandAction().action);
         }
     }
 
-    public HashMap<String, String> getCommandList() {
-        return commandList;
+    //add a delete command to delete custom command
+
+    public static TreeMap<String, String> getCommandList() {
+        return AddressBookParser.commandList;
     }
 
-    public void setCommandList(HashMap<String, String> commandList) {
-        this.commandList = commandList;
-    }
 
     private void initialiseBasicCommands() {
-        this.commandList.put("add", "add");
-        this.commandList.put("edit", "edit");
-        this.commandList.put("clear", "clear");
-        this.commandList.put("delete", "delete");
-        this.commandList.put("list", "list");
-        this.commandList.put("find", "find");
-        this.commandList.put("help", "help");
-        this.commandList.put("exit", "exit");
-        this.commandList.put("addEarnings", "addEarnings");
+        AddressBookParser.commandList.put("add", "add");
+        AddressBookParser.commandList.put("edit", "edit");
+        AddressBookParser.commandList.put("clear", "clear");
+        AddressBookParser.commandList.put("delete", "delete");
+        AddressBookParser.commandList.put("list", "list");
+        AddressBookParser.commandList.put("find", "find");
+        AddressBookParser.commandList.put("help", "help");
+        AddressBookParser.commandList.put("exit", "exit");
+        AddressBookParser.commandList.put("addEarnings", "addEarnings");
+        AddressBookParser.commandList.put("deleteCustomCommand", "deleteCustomCommand");
     }
 
     public Command checkCommand(String userInput, String prevUnknownCommand) {
-        if (this.commandList.containsKey(userInput)) {
-            this.commandList.put(prevUnknownCommand, this.commandList.get(userInput));
-            return new NewCommand(this.commandList.get(userInput), prevUnknownCommand);
+        if (AddressBookParser.commandList.containsKey(userInput)) {
+            AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
+            return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
         } else {
             return new UnknownCommand(userInput);
         }
@@ -103,8 +93,8 @@ public class AddressBookParser {
                 return new DeleteCommandParser().parse(arguments);
 
             case ClearCommand.COMMAND_WORD:
-                this.commandList.clear();
-                this.initialiseBasicCommands();
+                AddressBookParser.commandList.clear();
+                initialiseBasicCommands();
                 return new ClearCommand();
 
             case FindCommand.COMMAND_WORD:
@@ -121,6 +111,9 @@ public class AddressBookParser {
 
             case AddEarningsCommand.COMMAND_WORD:
                 return new AddEarningsCommandParser().parse(arguments);
+
+            case DeleteCustomCommand.COMMAND_WORD:
+                return new DeleteCustomCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

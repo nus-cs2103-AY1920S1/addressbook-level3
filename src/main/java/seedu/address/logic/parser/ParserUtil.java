@@ -5,11 +5,15 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.classid.ClassId;
+import seedu.address.model.commands.CommandAction;
+import seedu.address.model.commands.CommandObject;
+import seedu.address.model.commands.CommandWord;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Module;
@@ -31,6 +35,7 @@ import seedu.address.model.task.TaskTime;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_COMMAND = "No such command to be deleted!";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -43,6 +48,16 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    public static CommandObject parseCommand(String commandToCheck) throws ParseException {
+        String trimmedCommand = commandToCheck.trim();
+        TreeMap<String, String> commandList = AddressBookParser.getCommandList();
+        if (!commandList.containsKey(trimmedCommand)) {
+            throw new ParseException((MESSAGE_INVALID_COMMAND));
+        } else {
+            return new CommandObject(new CommandWord(trimmedCommand), new CommandAction(commandList.get(trimmedCommand)));
+        }
     }
 
     /**
