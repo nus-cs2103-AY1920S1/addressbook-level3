@@ -3,6 +3,7 @@ package seedu.address.ui.calendar;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.ListCell;
@@ -38,52 +39,36 @@ public class PersonListPanel extends UiPart<Region> {
     public PersonListPanel(ObservableList<Task> taskList) {
         super(FXML);
 
-//        for (Task task : taskList) {
-//            switch (task.getTaskDay().toString()) {
-//            case "monday":
-//                mondayListView.getItems().add(task);
-//                break;
-//            case "tuesday":
-//                tuesdayListView.getItems().add(task);
-//                break;
-//            case "wednesday":
-//                wednesdayListView.getItems().add(task);
-//                break;
-//            case "thursday":
-//                thursdayListView.getItems().add(task);
-//                break;
-//            case "friday":
-//                fridayListView.getItems().add(task);
-//                break;
-//            case "saturday":
-//                saturdayListView.getItems().add(task);
-//                break;
-//            case "sunday":
-//            default:
-//                sundayListView.getItems().add(task);
-//                break;
-//
-//            }
-//        }
+         FilteredList<Task> mondayTaskList =
+                 taskList.filtered(task -> task.getTaskDay().toString().equals("monday"));
+         FilteredList<Task> tuesdayTaskList =
+                 taskList.filtered(task -> task.getTaskDay().toString().equals("tuesday"));
+         FilteredList<Task> wednesdayTaskList =
+                 taskList.filtered(task -> task.getTaskDay().toString().equals("wednesday"));
+         FilteredList<Task> thursdayTaskList =
+                 taskList.filtered(task -> task.getTaskDay().toString().equals("thursday"));
+         FilteredList<Task> fridayTaskList =
+                 taskList.filtered(task -> task.getTaskDay().toString().equals("friday"));
+         FilteredList<Task> saturdayTaskList =
+                 taskList.filtered(task -> task.getTaskDay().toString().equals("saturday"));
+         FilteredList<Task> sundayTaskList =
+                 taskList.filtered(task -> task.getTaskDay().toString().equals("sunday"));
 
+        mondayListView.setItems(mondayTaskList);
+        tuesdayListView.setItems(tuesdayTaskList);
+        wednesdayListView.setItems(wednesdayTaskList);
+        thursdayListView.setItems(thursdayTaskList);
+        fridayListView.setItems(fridayTaskList);
+        saturdayListView.setItems(saturdayTaskList);
+        sundayListView.setItems(sundayTaskList);
 
-
-        mondayListView.setItems(taskList);
-        tuesdayListView.setItems(taskList);
-        wednesdayListView.setItems(taskList);
-        thursdayListView.setItems(taskList);
-        fridayListView.setItems(taskList);
-        saturdayListView.setItems(taskList);
-        sundayListView.setItems(taskList);
-
-
-        mondayListView.setCellFactory(listView -> new MondayListViewCell());
-        tuesdayListView.setCellFactory(listView -> new TuesdayListViewCell());
-        wednesdayListView.setCellFactory(listView -> new WednesdayListViewCell());
-        thursdayListView.setCellFactory(listView -> new ThursdayListViewCell());
-        fridayListView.setCellFactory(listView -> new FridayListViewCell());
-        saturdayListView.setCellFactory(listView -> new SaturdayListViewCell());
-        sundayListView.setCellFactory(listView -> new SundayListViewCell());
+        mondayListView.setCellFactory(listView -> new PersonListViewCell());
+        tuesdayListView.setCellFactory(listView -> new PersonListViewCell());
+        wednesdayListView.setCellFactory(listView -> new PersonListViewCell());
+        thursdayListView.setCellFactory(listView -> new PersonListViewCell());
+        fridayListView.setCellFactory(listView -> new PersonListViewCell());
+        saturdayListView.setCellFactory(listView -> new PersonListViewCell());
+        sundayListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
@@ -95,104 +80,6 @@ public class PersonListPanel extends UiPart<Region> {
             super.updateItem(task, empty);
 
             if (empty || task == null ) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    class MondayListViewCell extends ListCell<Task> {
-        @Override
-        protected void updateItem(Task task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null || !task.getTaskDay().toString().equals("monday")) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    class TuesdayListViewCell extends ListCell<Task> {
-        @Override
-        protected void updateItem(Task task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null || !task.getTaskDay().toString().equals("tuesday")) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    class WednesdayListViewCell extends ListCell<Task> {
-        @Override
-        protected void updateItem(Task task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null || !task.getTaskDay().toString().equals("wednesday")) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    class ThursdayListViewCell extends ListCell<Task> {
-        @Override
-        protected void updateItem(Task task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null || !task.getTaskDay().toString().equals("thursday")) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    class FridayListViewCell extends ListCell<Task> {
-        @Override
-        protected void updateItem(Task task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null || !task.getTaskDay().toString().equals("friday")) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    class SaturdayListViewCell extends ListCell<Task> {
-        @Override
-        protected void updateItem(Task task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null || !task.getTaskDay().toString().equals("saturday")) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    class SundayListViewCell extends ListCell<Task> {
-        @Override
-        protected void updateItem(Task task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null || !task.getTaskDay().toString().equals("sunday")) {
                 setGraphic(null);
                 setText(null);
             } else {
