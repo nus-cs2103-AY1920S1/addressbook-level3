@@ -9,8 +9,13 @@ import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.UniqueEarningsList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+<<<<<<< HEAD
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
+=======
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.reminder.UniqueReminderList;
+>>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
 
 /**
  * Wraps all data at the address-book level
@@ -20,8 +25,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEarningsList earning;
+<<<<<<< HEAD
     private final TaskList tasks;
 
+=======
+    private final UniqueReminderList reminder;
+>>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -32,7 +41,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         earning = new UniqueEarningsList();
+<<<<<<< HEAD
         tasks = new TaskList();
+=======
+        reminder = new UniqueReminderList();
+>>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
     }
 
     public AddressBook() {}
@@ -216,8 +229,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+<<<<<<< HEAD
     public ObservableList<Task> getTaskList() {
         return tasks.asUnmodifiableObservableList();
+=======
+    public ObservableList<Reminder> getReminderList() {
+        return reminder.asUnmodifiableObservableList();
+>>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
     }
 
     @Override

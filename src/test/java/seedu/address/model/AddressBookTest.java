@@ -19,7 +19,11 @@ import javafx.collections.ObservableList;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+<<<<<<< HEAD
 import seedu.address.model.task.Task;
+=======
+import seedu.address.model.reminder.Reminder;
+>>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -90,6 +94,7 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Earnings> earnings = FXCollections.observableArrayList();
+        private final ObservableList<Reminder> reminder = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -106,8 +111,13 @@ public class AddressBookTest {
         }
 
         @Override
+<<<<<<< HEAD
         public ObservableList<Task> getTaskList() {
             return null;
+=======
+        public ObservableList<Reminder> getReminderList() {
+            return reminder;
+>>>>>>> 0987fd265f1ca3b1710eab3356b13daf274876a7
         }
     }
 
