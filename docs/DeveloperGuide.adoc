@@ -149,7 +149,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-== Implementation
+== Implementation==== Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -354,12 +354,102 @@ executed commands and inversely executed commands. Move commands from one deque 
 
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== CcaTracker Feature
+==== Overview
+The application is able to track Ccas. Each user can have multiple Ccas and each Cca can have multiple equipments
+needed. In addition, the application is able to track the progress of each person in their Ccas. Hence, there is a
+need to represent the CcaTracker as a list of Ccas on which the application can perform create, read, update and delete
+operations on each Cca.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Implementation
+The `CcaTracker` mechanism is facilitated by `CcaTrackerModel`.
 
-// end::dataencryption[]
+`Model` supports operations to facilitate
+cca tracking capabilities by extending the `CcaTrackerModel` which has the following operations:
+
+* `Model#containsCca(Cca cca)` -- Checks if the `CcaTracker` contains the given cca.
+* `Model#addCca(Cca cca)` -- Adds a `Cca` to the `CcaTracker`.
+* `Model#removeCca(Cca cca)` -- Removes a `Cca` from the `CcaTracker`.
+* `Model#updateCca(Cca toBeUpdatedCca, Cca updatedCca)` -- Updates a `Cca` in the `CcaTracker`.
+* `Model#getCcaTracker()` -- Gets the `CcaTracker` instance.
+* `Model#getNumberOfCcas()` -- Returns the number of `Ccas` currently in the `CcaTracker`.
+* `Model#getCca(Index index)` -- Gets the `Cca` instance by its index in the `CcaTracker`.
+* `Model#updateFilteredCcaList(Predicate<Cca> predicate)` -- Updates the `FilteredCcaList` by passing it a predicate.
+* `Model#getFilteredCcaList()` -- Returns an instance of the `FilteredCcaList`
+
+CcaTracker has 7 specific commands that support the given operations to mutate the state of the `Model`. Each command is
+represented as seperate class:
+
+* `AddCcaCommand` -- Adds a `Cca` to the `CcaTracker`.
+* `DeleteCcaCommand` -- Deletes a `Cca` from the `CcaTracker`.
+* `EditCcaCommand` -- Edits the selected `Cca` in the `CcaTracker`.
+* `FindCcaCommand` -- Finds a `Cca` from the `CcaTracker` based on the keywords specified .
+* `ListCcaCommand` -- Lists all the `Cca` from the `CcaTracker`.
+* `AddProgressCommand` -- Adds a progress tracker to a cca.
+* `IncreaseProgressCommand` -- Increments the progress level of a cca.
+
+
+For brevity's sake, we will illustrate only 1 specific command and its execution on mode.
+The following activity diagram illustrates how a `Cca`'s progress is incremented when a user types in a
+`increase-progress` command:
+
+Given below is an example usage scenario of how increase-progress mechanism behaves.
+
+Step 1. The user launches the application for the first time. The `CcaTracker` is initialized. Assume that a `Cca` has
+already been added to the Cca and that a progress tracker has already been set for that `Cca`.
+
+Step 2. The user executes `increase-progress 1` command to increment the progress of the 1st `Cca` in the CcaTracker.
+A `IncreaseProgressCommandParser` object is created and its `#parse` method is called. The parse method returns a new
+`IncreaseProgressCommand` object. This
+
+Step 3. The user executes `add n/David ...` to add a new person.
+A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
+Since `AddAddressCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
+
+[NOTE]
+If a invertible command execution fails, `HistoryManager` will not remember it, therefore it will not be stored for undo/redo capabilities.
+
+Step 4. The user now decides that the last two commands entered was a mistake, and decides to undo those commands by executing the `undo` command by typing in the command `undo r/2`.
+An `UndoCommand` is created and executed in `LogicManager#execute(String)` to undo the latest two commands.
+The command will call `Model#rollback()` two times. During each `Model#rollback()` call, the `Model` will call `HistoryManager` to take the latest command
+from `HistoryManager#executedCommands` and call `Command#executeInverse(Model)` on the `Model`, undoing the changes made to `Model` by the command, before adding it to
+`HistoryManager#inverselyExecutedCommands`. After the `undo` command execution is complete, the `Model` state is reverted to what it was before the two undone commands were executed.
+
+[NOTE]
+`undo`/`redo` commands can undo/redo one or more commands. To undo/redo one command, entering `undo`/`redo` is equivalent to entering  `undo 1`/`redo 1`.
+
+[NOTE]
+If an `undo`/`redo` command is given to undo/redo more commands than available, the operation will fail and no `undo`/`redo` is applied at all.
+This check is enforced by `Model#getAvailableNumberOfExecutedCommands()`, `Model#getAvailableNumberOfInverselyExecutedCommands()`, `Model#canRollback()` and `Model#canCommit()`.
+
+Step 5. The user then decides to execute the command `list`. `list` command is a *non-invertible command*. Therefore, it will not be stored by `HistoryManager` after its execution.
+
+Step 6. The user decides to redo the last command that was undone by executing a `redo` command by typing in the command `redo`.
+A `RedoCommand` is created and executed in `LogicManager#execute(String)` to redo the latest undo.
+The command will call `Model#commit()` once. `Model` will call `HistoryManager` to take the latest command from `HistoryManager#inverselyExecutedCommands`
+and call `Command#execute(Model)` on the `Model`, reapplying the changes that were made by the command, before adding it to `HistoryManager#executedCommands`.
+After the `redo` command execution is complete, the `Model` has the changes made by the latest the command that was redone.
+
+Step 7. The user executes `add n/John ...` to add a new person.
+A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
+The `HistoryManager` clears all commands stored in `HistoryManager#inverselyExecutedCommands`.
+Similar to `Step 3`, `HistoryManager` remembers this command.
+
+[NOTE]
+Whenever a new invertible command is executed that is not currently in `HistoryManager`, it will clear all the commands that are stored in `HistoryManager#inverselyExecutedCommands`.
+This means that all potential redo actions are cleared.
+
+==== Design Considerations
+===== Aspect: Whether to have subclasses for each type of cca.
+* *Alternative 1 (Current choice):* Instantiate a generic `CcaProgress` for each `Cca`  .
+** Pros: Less code needed.
+** Cons: Less extensible as CcaProgress is now limited to a list of strings.
+
+* *Alternative 2:* Implement `CcaProgress` as a parent class. Create classes such as SportProgress/PerformingArtsProgress
+that extend from CcaProgress for each type of `Cca`
+** Pros: Easier to extend functionality for each type of cca.
+** Cons: Does not significantly extend functionality for this version of Jarvis.
+
 
 === Logging
 
