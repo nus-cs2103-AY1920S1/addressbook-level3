@@ -60,6 +60,7 @@ public class LineChartPanel extends UiPart<Region> {
         yAxis.setLabel("Number");
 
         // y axis shows only integers
+
         yAxis.setTickUnit(1);
         yAxis.setMinorTickCount(0);
         yAxis.setMinorTickVisible(false);
