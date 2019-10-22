@@ -330,7 +330,9 @@ class ReminderCommandTest {
 
         @Override
         public AverageType getAverageType() {
-
+            throw new AssertionError("This method should not be called.");
+        }
+            
         //=========== Aesthetics =============================================================
 
         @Override
