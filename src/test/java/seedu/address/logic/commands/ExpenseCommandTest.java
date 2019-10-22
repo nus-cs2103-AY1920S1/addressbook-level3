@@ -29,10 +29,10 @@ public class ExpenseCommandTest {
 
     @BeforeAll
     public static void setLists() {
-        persons.add("Pauline");
-        persons.add("Benson");
-        expenses.add(new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount, emptyString));
+        persons.add("Pauline"); // alice actually
+        persons.add("Benson"); // yes he is benson
         command = new ExpenseCommand(persons, amount, emptyString);
+        expenses.clear();
     }
 
     @Test
@@ -70,7 +70,45 @@ public class ExpenseCommandTest {
                         emptyString)
                 ),
                 commandResult.getFeedbackToUser());
+        expenses.clear(); // for some odd reason @BeforeAll doesn't do this properly?
+        expenses.add(new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount, emptyString));
+        assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
+    }
 
+    @Test
+    public void execute_specifyPeopleInvolved_success() throws Exception {
+        Activity validActivity = new ActivityBuilder()
+                .addPerson(TypicalPersons.ALICE)
+                .addPerson(TypicalPersons.BENSON)
+                .addPerson(TypicalPersons.GEORGE)
+                .addPerson(TypicalPersons.BOB)
+                .build();
+
+        Model model = new ModelManager();
+        model.addPerson(TypicalPersons.ALICE);
+        model.addPerson(TypicalPersons.BENSON);
+        model.addPerson(TypicalPersons.GEORGE);
+        model.addPerson(TypicalPersons.BOB);
+        model.addPerson(TypicalPersons.HOON); // what a name
+        model.addActivity(validActivity);
+        model.setContext(new Context(validActivity));
+
+        CommandResult commandResult = command.execute(model);
+
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS, persons.size(),
+                String.format(ExpenseCommand.MESSAGE_EXPENSE,
+                        TypicalPersons.ALICE.getName(),
+                        amount,
+                        emptyString)
+                + String.format(ExpenseCommand.MESSAGE_EXPENSE,
+                        TypicalPersons.BENSON.getName(),
+                        amount,
+                        emptyString)
+                ),
+                commandResult.getFeedbackToUser());
+
+        expenses.add(new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount,
+                    emptyString, TypicalPersons.BENSON.getPrimaryKey()));
         assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
     }
 

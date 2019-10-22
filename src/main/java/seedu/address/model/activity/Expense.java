@@ -21,7 +21,7 @@ public class Expense {
      * @param description Description of the expense (can be an empty string).
      */
     public Expense(int personId, Amount amount, String description) {
-        requireAllNonNull(amount, description);
+        requireAllNonNull(personId, amount, description);
         this.personId = personId;
         this.amount = amount;
         this.description = description;
@@ -31,6 +31,7 @@ public class Expense {
 
     public Expense(int personId, Amount amount, String description, int ... ids) {
         this(personId, amount, description);
+        requireAllNonNull(ids);
         this.involvedIds = ids;
     }
 
