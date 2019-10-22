@@ -227,12 +227,6 @@ public class AddCommandTest {
 
         }
 
-        @Override
-        public ReadOnlyCalendar getCalendar() {
-
-            throw new AssertionError("This method should not be called.");
-        }
-
         public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
             throw new AssertionError("This method should not be called.");
         }

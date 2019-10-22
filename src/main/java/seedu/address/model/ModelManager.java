@@ -210,11 +210,6 @@ public class ModelManager implements Model {
 
     }
 
-    @Override
-    public ReadOnlyCalendar getCalendar() {
-        return null;
-    }
-
     public ObservableList<Earnings> getFilteredEarningsList() {
         return filteredEarnings;
     }

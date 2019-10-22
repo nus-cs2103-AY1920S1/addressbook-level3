@@ -120,8 +120,4 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-    @Override
-    public ReadOnlyCalendar getCalendar() {
-        return model.getCalendar();
-    }
 }

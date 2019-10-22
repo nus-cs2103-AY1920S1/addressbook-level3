@@ -62,10 +62,4 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getCalendar()
-     */
-    ReadOnlyCalendar getCalendar();
 }
