@@ -14,7 +14,7 @@ import seedu.address.model.ItemModel;
 /**
  * Add an Item to the item list.
  */
-public abstract class AddCommand extends Command {
+public abstract class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Task to the Task List. "
@@ -45,6 +45,12 @@ public abstract class AddCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd));
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.removeItem(toAdd);
+        model.getItemStorage().remove(toAdd);
     }
 }
 
