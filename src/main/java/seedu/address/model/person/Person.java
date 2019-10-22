@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visit.exceptions.VisitNotFoundException;
@@ -193,6 +194,26 @@ public class Person {
             //This should not happen under normal circumstances (code error)
             throw new VisitNotFoundException();
         }
+    }
+
+    /**
+     * Remove a visit object. Model is passed in to ensure visit is not ongoing.
+     * Throws IllegalArgumentException if index is not within visit range.
+     * Throws IllegalStateException if visit is ongoing.
+     */
+    public void removeVisit(Visit visit, Model model) {
+        requireNonNull(model);
+        if (!visits.contains(visit)) {
+            throw new IllegalArgumentException();
+        }
+        //Verify Visit is not ongoing
+        Optional<Visit> optionalVisit = model.getOngoingVisit();
+        if (optionalVisit.isPresent()) {
+            if (optionalVisit.get().equals(visit)) {
+                model.unsetOngoingVisit();
+            }
+        }
+        visits.remove(visit);
     }
 
     /**
