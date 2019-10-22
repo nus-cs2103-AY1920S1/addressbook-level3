@@ -1,22 +1,20 @@
 package seedu.ezwatchlist.model.show;
 
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
-import seedu.ezwatchlist.api.ImageRetrieval;
+import java.io.File;
 
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+
+import seedu.ezwatchlist.api.ImageRetrieval;
 
 /**
  * Represents a Show's poster in the watchlist.
  */
 public class Poster {
     private static final String PLACEHOLDER_IMAGE = "/images/poster-placeholder.png";
-    private String IMAGE_CACHE_LOCATION;
     private Image image;
     private String imagePath;
 
@@ -27,6 +25,10 @@ public class Poster {
         imagePath = PLACEHOLDER_IMAGE;
     }
 
+    /**
+     * Constructs a {@code Poster} with a path given.
+     * @param path the path of the image in the save location.
+     */
     public Poster(String path) {
         imagePath = path;
     }
@@ -36,11 +38,9 @@ public class Poster {
      */
     public Image getImage() {
         try {
-//            URL url = getClass().getResource(imagePath);
-//            String s = url.toExternalForm();
             String ss = ImageRetrieval.IMAGE_CACHE_LOCATION + File.separator + imagePath;
-            File file = new File(ss.toString());
-            System.out.println("File path in Poster is :" + ss.toString());
+            File file = new File(ss);
+            System.out.println("File path in Poster is :" + ss);
             image = SwingFXUtils.toFXImage(ImageIO.read(file), null);
 
             if (image == null) {
@@ -52,7 +52,7 @@ public class Poster {
             return new Image(PLACEHOLDER_IMAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Cause: " + e.getCause() + "Message: " +e.getMessage() + " from Poster and imagePath ");
+            System.out.println("Cause: " + e.getCause() + "Message: " + e.getMessage() + " from Poster and imagePath ");
             return new Image(PLACEHOLDER_IMAGE);
         }
     }
