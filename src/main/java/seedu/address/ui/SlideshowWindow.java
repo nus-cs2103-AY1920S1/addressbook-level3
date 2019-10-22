@@ -120,16 +120,13 @@ public class SlideshowWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the previous question to be displayed and closes the window if there's no more
-     * questions.
+     * Sets the previous question to be displayed.
      */
     private void prevQuestion() {
-        currQuestionIndex--;
-        updateQuestionNoLabel();
+        if (currQuestionIndex > 0) {
+            currQuestionIndex--;
+            updateQuestionNoLabel();
 
-        if (currQuestionIndex < 0) {
-            hide();
-        } else {
             questionPanels.get(currQuestionIndex + 1).setVisible(false);
             questionPanels.get(currQuestionIndex).setVisible(true);
         }
