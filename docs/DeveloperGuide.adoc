@@ -372,6 +372,8 @@ I submit a book title query
 [appendix]
 == Use Cases
 
+The use case diagram below illustrates the main use cases of LiBerry.
+
 image::UseCases.png[]
 
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
