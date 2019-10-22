@@ -201,4 +201,9 @@ public class DefaultModelStub implements Model {
     public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public ObservableList<ProblemSearchRule> getFilteredFindRuleList() {
+        throw new AssertionError("This method should not be called.");
+    }
 }

@@ -236,4 +236,9 @@ public interface Model {
      * @param editedRule
      */
     void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule);
+
+    /**
+     * Returns an unmodifiable view of the filtered list of AlgoBase's find rules.
+     */
+    ObservableList<ProblemSearchRule> getFilteredFindRuleList();
 }

@@ -30,10 +30,11 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final GuiState guiState;
     private final FilteredList<Problem> filteredProblems;
-    private final FilteredList<Tag> filteredTags;
     private final SortedList<Problem> sortedProblems;
+    private final FilteredList<Tag> filteredTags;
     private final FilteredList<Plan> filteredPlans;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<ProblemSearchRule> filteredFindRules;
 
     /**
      * Initializes a ModelManager with the given algoBase and userPrefs.
@@ -52,6 +53,7 @@ public class ModelManager implements Model {
         sortedProblems = new SortedList<>(filteredProblems);
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
         filteredTasks = new FilteredList<>(this.algoBase.getCurrentTaskList());
+        filteredFindRules = new FilteredList<>(this.algoBase.getFindRules());
     }
 
     public ModelManager() {
@@ -312,6 +314,11 @@ public class ModelManager implements Model {
     public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
         requireAllNonNull(target, editedRule);
         algoBase.setFindRule(target, editedRule);
+    }
+
+    @Override
+    public ObservableList<ProblemSearchRule> getFilteredFindRuleList() {
+        return filteredFindRules;
     }
 
     //========== Util ===================================================================
