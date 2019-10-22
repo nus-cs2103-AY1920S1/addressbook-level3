@@ -57,6 +57,14 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    /**
+     * Returns the model tagged to this logic
+     * @return a model
+     */
+    public Model getModel() {
+        return this.model;
+    }
+
     @Override
     public ReadOnlyFinSec getFinSec() {
         return null;

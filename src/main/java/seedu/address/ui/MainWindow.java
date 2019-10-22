@@ -18,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModelManager;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 
@@ -38,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ClaimListPanel claimListPanel;
     private IncomeListPanel incomeListPanel;
-    private IndividualClaimWindow individualClaimWindow;
+
     private IndividualContactWindow individualContactWindow;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -142,20 +143,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    /**
-     * Opens the claim window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleClaim(Claim claim) {
-        individualClaimWindow = new IndividualClaimWindow(claim);
-
-        if (!individualClaimWindow.isShowing()) {
-            individualClaimWindow.show();
-        } else {
-            individualClaimWindow.focus();
-        }
     }
 
     /**
@@ -270,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isClaim()) {
                 Claim claim = commandResult.giveClaim();
-                handleClaim(claim);
+                ModelManager.handleClaim(claim);
             }
 
             if (commandResult.isContact()) {

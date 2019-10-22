@@ -1,9 +1,11 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import seedu.address.commons.core.LogsCenter;
@@ -27,13 +29,11 @@ public class IndividualContactWindow extends UiPart<Stage> {
     private Label number;
 
     @FXML
-    private Label date;
+    private FlowPane claims;
 
     @FXML
-    private Label amount;
+    private FlowPane tags;
 
-    @FXML
-    private Label description;
 
     /**
      * Creates a new Window.
@@ -44,6 +44,12 @@ public class IndividualContactWindow extends UiPart<Stage> {
         super(FXML, root);
         name.setText("Name: " + contact.getName().toString());
         number.setText("Contact: " + contact.getPhone().toString());
+        contact.getClaims().stream()
+                .forEach(id -> claims.getChildren().add(
+                        new Label(String.valueOf(Integer.parseInt(id.value) - 1) + " ")));
+        contact.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     /**
