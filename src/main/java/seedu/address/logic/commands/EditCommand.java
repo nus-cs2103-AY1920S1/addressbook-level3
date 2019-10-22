@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -43,12 +43,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_LOCATION + "DISTRICT] "
-            + "[" + PREFIX_CALLER + "CALLER NUMBER] "
+            + "[" + PREFIX_CALLER_NUMBER + "CALLER NUMBER] "
             + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATETIME + "01/10/2019 20:22 "
-            + PREFIX_CALLER + "91302402";
+            + PREFIX_CALLER_NUMBER + "91302402";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
