@@ -13,8 +13,8 @@ public class Budget extends Entry {
 
     private Amount spent;
 
-    public Budget(Description desc, Time time, Amount amount, Set<Tag> tags) {
-        super(desc, time, amount, tags);
+    public Budget(Description desc, Date date, Amount amount, Set<Tag> tags) {
+        super(desc, date, amount, tags);
         spent = new Amount(0);
     }
 
@@ -53,7 +53,7 @@ public class Budget extends Entry {
         return otherBudget.getDesc().equals(getDesc())
                 && otherBudget.getAmount().equals(getAmount())
                 && otherBudget.getTags().equals(getTags())
-                && otherBudget.getTime().equals(getTime());
+                && otherBudget.getDate().equals(getDate());
     }
 
     @Override
@@ -65,7 +65,7 @@ public class Budget extends Entry {
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + getTime() + ")");
+        builder.append("(" + getDate() + ")");
         return builder.toString();
     }
 }
