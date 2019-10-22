@@ -4,15 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a date of earnings.
+ * Represents the action a command word should execute.
  * Guarantees: immutable; is valid as declared in {@link #isValidAction(String)}
  */
 public class CommandAction {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date should only contain the date numbers that are valid (i.e. 03/05/2020), and it should not be blank.";
+            "Not a valid action!";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
@@ -21,9 +21,9 @@ public class CommandAction {
     public final String action;
 
     /**
-     * Constructs a {@code Date}.
+     * Constructs a {@code CommandAction}.
      *
-     * @param action A valid date number.
+     * @param action A valid action.
      */
     public CommandAction(String action) {
         requireNonNull(action);
@@ -32,7 +32,7 @@ public class CommandAction {
     }
 
     /**
-     * Returns true if a given string is a valid week number.
+     * Returns true if a given string is a valid action.
      */
     public static boolean isValidAction(String test) {
         return test.matches(VALIDATION_REGEX);

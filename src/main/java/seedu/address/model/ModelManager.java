@@ -178,7 +178,7 @@ public class ModelManager implements Model {
         return this.savedCommand.peek();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of

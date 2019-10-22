@@ -13,18 +13,18 @@ import seedu.address.model.earnings.earningsexception.DuplicateEarningsException
 import seedu.address.model.earnings.earningsexception.EarningsNotFoundException;
 
 /**
- * A list of earnings that enforces uniqueness between its elements and does not allow nulls.
- * An earnings is considered unique by comparing using
- * {@code Earnings#isSameEarnings(Earnings)}. As such, adding and updating of
- * earnings uses Earnings#isSameEarnings(Earnings) for equality
- * so as to ensure that the earnings being added or updated is
- * unique in terms of identity in the UniqueEarningsList. However,
- * the removal of a person uses Earnings#equals(Object) so
+ * A list of CommandObjects that enforces uniqueness between its elements and does not allow nulls.
+ * An CommandObject is considered unique by comparing using
+ * {@code CommandObject#isSameCommand(CommandObject)}. As such, adding and updating of
+ * CommandObject uses CommandObject#isSameCommand(CommandObject) for equality
+ * so as to ensure that the CommandObject being added or updated is
+ * unique in terms of identity in the UniqueCommandsList. However,
+ * the removal of a CommandObject uses CommandObjects#equals(Object) so
  * as to ensure that the earning with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Earnings#isSameEarnings(CommandObject)
+ * @see CommandObject#isSameCommand(CommandObject)
  */
 public class UniqueCommandsList implements Iterable<CommandObject> {
 
@@ -33,7 +33,7 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent CommandObject as the given argument.
      */
     public boolean contains(CommandObject toCheck) {
         requireNonNull(toCheck);
@@ -41,8 +41,8 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a CommandObject to the list.
+     * The CommandObject must not already exist in the list.
      */
     public void add(CommandObject toAdd) {
         requireNonNull(toAdd);
@@ -53,9 +53,10 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the CommandObject {@code target} in the list with {@code editedCommand}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The CommandObject identity of {@code editCommand} must not be the same as another
+     * existing CommandObject in the list.
      */
     public void setCommands(CommandObject target, CommandObject editedCommand) {
         requireAllNonNull(target, editedCommand);
@@ -78,8 +79,8 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code commands}.
+     * {@code commands} must not contain duplicate CommandObjects.
      */
     public void setCommands(List<CommandObject> commands) {
         requireAllNonNull(commands);
@@ -91,8 +92,8 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent CommandObject from the list.
+     * The CommandObject must exist in the list.
      */
     public void remove(CommandObject toRemove) {
         requireNonNull(toRemove);
@@ -126,7 +127,7 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code commands} contains only unique CommandObjects.
      */
     private boolean commandsAreUnique(List<CommandObject> commands) {
         for (int i = 0; i < commands.size() - 1; i++) {

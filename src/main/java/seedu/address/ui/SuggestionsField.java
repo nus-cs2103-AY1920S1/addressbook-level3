@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.Stack;
+import java.util.TreeMap;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +16,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import seedu.address.logic.parser.AddressBookParser;
 
+/**
+ * Replaces original TextField. SuggestionsField instead displays available commands for the user based on their input.
+ * */
 public class SuggestionsField extends TextField {
 
     private TreeMap<String, String> commandList;
@@ -28,19 +34,21 @@ public class SuggestionsField extends TextField {
         textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> obs, String str1, String str2) {
-                switch (getText().length()) {
-                case 0:
+                if (getText().isBlank()) {
                     resultBox.hide();
-                default:
+                } else {
                     findMatchingCommands();
                 }
             }
         });
     }
 
+    /**
+     * Used to iterate through current set of commands and add matching commands to an arraylist.
+     * */
     private void findMatchingCommands() {
         ArrayList<String> matchingCommands = new ArrayList<>();
-       Set<String> commandWords = commandList.keySet();
+        Set<String> commandWords = commandList.keySet();
         for (String command : commandWords) {
             if (command.contains(getText()) && command.startsWith(getText())) {
                 matchingCommands.add(command);
@@ -49,13 +57,16 @@ public class SuggestionsField extends TextField {
         if (!matchingCommands.isEmpty()) {
             fillResultBox(matchingCommands);
             if (!resultBox.isShowing()) {
-                resultBox.show(SuggestionsField.this, Side.BOTTOM,0, 0);
+                resultBox.show(SuggestionsField.this, Side.BOTTOM, 0, 0);
             }
         } else {
             resultBox.hide();
         }
     }
 
+    /**
+     * Populates {@code ContextMenu} with all found commands.
+     * */
     private void fillResultBox(ArrayList<String> matchingCommands) {
         Stack<CustomMenuItem> itemsToDisplay = new Stack<>();
         int count = 0;
@@ -79,6 +90,7 @@ public class SuggestionsField extends TextField {
             count++;
 
         }
+
         resultBox.getItems().clear();
         resultBox.getItems().addAll(itemsToDisplay);
 

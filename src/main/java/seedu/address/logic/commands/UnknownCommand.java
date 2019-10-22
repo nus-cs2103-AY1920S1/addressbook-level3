@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
 
+/**
+ * To handle when a user supplies a command the application does not understand.
+ */
 public class UnknownCommand extends Command {
 
     public static final String SHOWING_UNKNOWN_MESSAGE = ": We don't know what that means. "

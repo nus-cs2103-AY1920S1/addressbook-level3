@@ -3,15 +3,25 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.HashMap;
-
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEarningsCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteCustomCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NewCommand;
+import seedu.address.logic.commands.UnknownCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
 
@@ -32,17 +42,18 @@ public class AddressBookParser {
         AddressBookParser.commandList = new TreeMap<>();
         initialiseBasicCommands();
         for (int i = 0; i < commands.size(); i++) {
-            AddressBookParser.commandList.put(commands.get(i).getCommandWord().word, commands.get(i).getCommandAction().action);
+            AddressBookParser.commandList.put(commands.get(i).getCommandWord().word,
+                    commands.get(i).getCommandAction().action);
         }
     }
-
-    //add a delete command to delete custom command
 
     public static TreeMap<String, String> getCommandList() {
         return AddressBookParser.commandList;
     }
 
-
+    /**
+     * Used to map basic commands to {@code TreeMap} when the AddressBookParser object is initialised.
+     */
     private void initialiseBasicCommands() {
         AddressBookParser.commandList.put("add", "add");
         AddressBookParser.commandList.put("edit", "edit");
@@ -56,6 +67,10 @@ public class AddressBookParser {
         AddressBookParser.commandList.put("deleteCustomCommand", "deleteCustomCommand");
     }
 
+    /**
+     * Used to check if the command a user wants to map an unknown command to exists.
+     * Returns a {@code NewCommand} if the command exists or an {@code UnknownCommand} if it does not.
+     */
     public Command checkCommand(String userInput, String prevUnknownCommand) {
         if (AddressBookParser.commandList.containsKey(userInput)) {
             AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));

@@ -14,7 +14,6 @@ import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -37,7 +36,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Persons, Earnings and Commands in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -54,6 +53,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    /**
+     * Replaces the contents of the earnings list with {@code earnings}.
+     * {@code earnings} must not contain duplicate earnings.
+     */
     public void setEarnings(List<Earnings> earnings) {
         this.earning.setEarnings(earnings);
     }
@@ -69,14 +72,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         earning.setEarnings(target, editedEarnings);
     }
 
+    /**
+     * Replaces the contents of the commands list with {@code commands}.
+     * {@code commands} must not contain duplicate commands.
+     */
     public void setCommands(List<CommandObject> commands) {
         this.commands.setCommands(commands);
     }
 
     /**
-     * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
+     * Replaces the given commands {@code target} in the list with {@code editedCommands}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The command identity of {@code editedCommands} must not be the same as
+     * another existing command in the address book.
      */
     public void setCommands(CommandObject target, CommandObject editedCommands) {
         requireNonNull(editedCommands);
@@ -133,7 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a command with the same identity as {@code command} exists in the address book.
      */
     public boolean hasCommand(CommandObject command) {
         requireNonNull(command);
@@ -141,8 +149,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a command to the address book.
+     * The command must not already exist in the address book.
      */
     public void addCommand(CommandObject e) {
         commands.add(e);

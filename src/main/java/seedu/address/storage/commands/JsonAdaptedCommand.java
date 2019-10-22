@@ -13,17 +13,17 @@ import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.Module;
 
 /**
- * Jackson-friendly version of {@link Earnings}.
+ * Jackson-friendly version of {@link CommandObject}.
  */
 public class JsonAdaptedCommand {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "CommandObject's %s field is missing!";
 
     private final String commandWord;
     private final String commandAction;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedCommand} with the given CommandObject details.
      */
     @JsonCreator
     public JsonAdaptedCommand(@JsonProperty("commandWord") String commandWord,
@@ -33,7 +33,7 @@ public class JsonAdaptedCommand {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code CommandObject} into this class for Jackson use.
      */
     public JsonAdaptedCommand(CommandObject source) {
         commandAction = source.getCommandAction().action;
@@ -41,14 +41,14 @@ public class JsonAdaptedCommand {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted CommandObject object into the model's {@code CommandObject} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public CommandObject toModelType() throws IllegalValueException {
 
         if (commandAction == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
         }
         if (!CommandAction.isValidAction(commandAction)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
@@ -56,7 +56,7 @@ public class JsonAdaptedCommand {
         final CommandAction modelAction = new CommandAction(commandAction);
 
         if (commandWord == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Module.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
         }
         if (!Module.isValidModuleName(commandWord)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS);

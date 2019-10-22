@@ -70,15 +70,6 @@ public class Person {
     public void setClassId(String value) {
         classId = new ClassId(value);
     }
-    /**
-     * Increases attendance of the person by 1.
-     */
-    public void increaseAttendance() {
-        String currentAttendance = attendance.value;
-        int attendanceVal = Integer.parseInt(currentAttendance);
-        attendanceVal++;
-        attendance = new Attendance(Integer.toString(attendanceVal));
-    }
 
     public void setAttendance(int value) {
         attendance = new Attendance(Integer.toString(value));
@@ -91,6 +82,7 @@ public class Person {
     public void setParticipation(String value) {
         participation = new Participation(value);
     }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.

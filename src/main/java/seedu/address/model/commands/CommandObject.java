@@ -4,6 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+/**
+ * Represents a command with its command word and the action which it executes.
+ */
 public class CommandObject {
 
     private CommandWord commandWord;
@@ -32,8 +35,8 @@ public class CommandObject {
     }
 
     /**
-     * Returns true if both earnings of the same date and module have an identity field that is the same.
-     * This defines a weaker notion of equality between two earnings.
+     * Returns true if both commands have the same commandAction and commandWord.
+     * This defines a weaker notion of equality between two CommandObjects.
      */
     public boolean isSameCommand(CommandObject otherCommand) {
         if (otherCommand == this) {
@@ -46,8 +49,8 @@ public class CommandObject {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both commands have the same commandAction and commandWord.
+     * This defines a stronger notion of equality between two CommandObjects.
      */
     @Override
     public boolean equals(Object other) {
@@ -66,7 +69,6 @@ public class CommandObject {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(commandAction, commandWord);
     }
 

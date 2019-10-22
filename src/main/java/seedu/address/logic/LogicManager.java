@@ -59,13 +59,15 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    public CommandResult executeUnknown(String commandText) throws CommandException, ParseException {
+    /**
+     * Execution method for unknown inputs from user.
+     */
+    public CommandResult executeUnknown(String commandText) throws CommandException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         if (commandText.equals("cancel")) {
             commandResult = new CancelCommand().execute(model);
-            //cancel command -> set unknown to false, display bye
         } else {
             Command command = addressBookParser.checkCommand(commandText, model.getSavedCommand());
             commandResult = command.execute(model);

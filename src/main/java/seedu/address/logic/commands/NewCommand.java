@@ -5,6 +5,9 @@ import seedu.address.model.commands.CommandAction;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
 
+/**
+ * Adds a new command to the AddressBook's commands list.
+ */
 public class NewCommand extends Command {
 
     public static final String SHOWING_NEW_COMMAND_MESSAGE = "Got it! We've now mapped ";

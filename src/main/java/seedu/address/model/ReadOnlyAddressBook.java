@@ -11,8 +11,8 @@ import seedu.address.model.person.Person;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the persons, earnings and commands list.
+     * This list will not contain any duplicate persons, earnings or commands.
      */
     ObservableList<Person> getPersonList();
     ObservableList<Earnings> getEarningsList();
