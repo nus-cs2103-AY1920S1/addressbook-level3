@@ -22,6 +22,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindWishCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.WishListCommand;
@@ -108,6 +109,8 @@ public class AddressBookParser {
         case DeleteExpenseReminderCommand.COMMAND_WORD:
             return new DeleteExpenseReminderCommandParser().parse(arguments);
 
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

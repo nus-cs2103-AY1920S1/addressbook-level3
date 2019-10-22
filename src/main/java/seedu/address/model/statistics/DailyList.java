@@ -55,7 +55,6 @@ public class DailyList {
         return listOfIncomes;
     }
 
-    public int getTotal
     public double getTotalExpense() {
         return totalExpense;
     }

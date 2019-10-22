@@ -34,4 +34,8 @@ public class StatisticsManager {
         }
     }
 
+    public void getTagsForTimePeriod() {
+
+    }
+
 }

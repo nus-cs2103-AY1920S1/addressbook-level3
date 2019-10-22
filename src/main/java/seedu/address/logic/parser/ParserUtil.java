@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -72,6 +73,20 @@ public class ParserUtil {
         return new Date(time);
     }
 
+    public static ArrayList<Date> parsePeriod(String period) {
+        requireNonNull(period);
+        String[] splitStartAndEnd = period.split(",");
+        ArrayList<Date> listOfPeriods = new ArrayList<Date>();
+        if (splitStartAndEnd.length == 1) {
+            listOfPeriods.add(new Date(period));
+        } else if (splitStartAndEnd.length == 2){
+            listOfPeriods.add(new Date(splitStartAndEnd[0]));
+            listOfPeriods.add(new Date(splitStartAndEnd[1]));
+        } else {
+            //TODO
+        }
+        return listOfPeriods;
+    }
     /**
      * Parses a type of sorting in String to SortType.
      * @param type the time as a String.

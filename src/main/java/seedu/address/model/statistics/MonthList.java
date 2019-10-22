@@ -20,6 +20,7 @@ public class MonthList {
     private SortSequence sortByDesc = new SortSequence("Descending");
     private Month month;
     private int year;
+    private double monthExpenseTotal;
 
     public MonthList(FilteredList<Entry> filteredList, Month month, int year) {
         this.filteredListForMonth = filteredList;
@@ -42,10 +43,11 @@ public class MonthList {
             }
             FilteredList<Entry> filteredListByDay = filteredListForMonth.filtered(EntryContainsDayPredicate(i));
             DailyList dailyList = new DailyList(filteredListByDay, LocalDate.of(year, month.getValue(), i));
+            monthExpenseTotal = monthExpenseTotal + dailyList.getTotalExpense()
             dailyRecord.put(i,dailyList);
         }
     }
 
-    private void calculate
+
 
 }
