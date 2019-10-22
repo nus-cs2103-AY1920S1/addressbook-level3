@@ -29,11 +29,14 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final MamsParser mamsParser;
+    private final CommandHistory commandHistory;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        mamsParser = new MamsParser();
+        this.mamsParser = new MamsParser();
+        this.commandHistory = new CommandHistory();
+
     }
 
     @Override
@@ -41,8 +44,13 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = mamsParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+
+        try {
+            Command command = mamsParser.parseCommand(commandText);
+            commandResult = command.execute(model);
+        } finally {
+            commandHistory.add(commandText);
+        }
 
         try {
             storage.saveMams(model.getMams());
@@ -71,6 +79,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Appeal> getFilteredAppealList() {
         return model.getFilteredAppealList();
+    }
+
+    @Override
+    public ObservableList<String> getCommandHistory() {
+        return commandHistory.getInputHistory();
     }
 
     @Override
