@@ -214,6 +214,13 @@
     -fx-text-fill: white !important;
 }
 
+.data-column {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-text-fill: white !important;
+}
+
+
 .field-column .label {
     -fx-font-family: "Arial" !important;
     -fx-font-size: 10pt !important;

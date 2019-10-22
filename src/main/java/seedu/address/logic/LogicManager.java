@@ -17,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
@@ -60,6 +61,7 @@ public class LogicManager implements Logic {
             storage.saveUserList(model.getUserList());
             storage.saveFoodList(model.getUniqueFoodListObject());
             storage.saveRecordList(model.getUniqueRecordListObject());
+            storage.saveCalendar(model.getCalendar());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -155,4 +157,11 @@ public class LogicManager implements Logic {
     public ObservableMap<LocalDate, Double> getAverageMap() {
         return model.getAverageMap();
     }
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public Colour getFontColour() {
+        return model.getFontColour();
+    }
+
 }

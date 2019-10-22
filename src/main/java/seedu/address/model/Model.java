@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
@@ -301,4 +302,17 @@ public interface Model {
      * Returns an unmodifiable view of the filtered calendar entry list
      */
     ObservableList<CalendarEntry> getFilteredCalendarEntryList();
+
+    //=========== Aesthetics =============================================================
+
+    /**
+     * Sets the font colour of this application and saves it to the user preferences file.
+     */
+    void setFontColour(Colour fontColour);
+
+    /**
+     * Returns the font colour to be set for this app.
+     */
+    Colour getFontColour();
+
 }
