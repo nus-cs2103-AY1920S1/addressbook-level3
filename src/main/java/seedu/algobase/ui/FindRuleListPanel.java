@@ -2,15 +2,17 @@ package seedu.algobase.ui;
 
 import java.util.logging.Logger;
 
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 
+/**
+ * Panel containing the list of find rules.
+ */
 public class FindRuleListPanel extends UiPart<Region> {
 
     private static final String FXML = "FindRuleListPanel.fxml";
@@ -24,6 +26,10 @@ public class FindRuleListPanel extends UiPart<Region> {
         findRuleListView.setCellFactory(listView -> new FindRuleListViewCell());
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code ProblemSearchRule}
+     * using a {@code FindRuleCard}.
+     */
     class FindRuleListViewCell extends ListCell<ProblemSearchRule> {
         @Override
         protected void updateItem(ProblemSearchRule item, boolean empty) {

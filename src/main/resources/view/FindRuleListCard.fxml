@@ -27,11 +27,36 @@
                 </Label>
                 <Label fx:id="ruleName" styleClass="cell_big_label" text="\$ruleName" />
             </HBox>
-         <Label fx:id="problemName" layoutX="25.0" layoutY="32.0" styleClass="cell_small_label" text="\$problemName" />
-            <Label fx:id="author" styleClass="cell_small_label" text="\$author" />
-            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-            <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
-            <Label fx:id="source" styleClass="cell_small_label" text="\$source" />
+         <HBox>
+            <children>
+               <Label text="Name: " />
+               <Label fx:id="problemName" styleClass="cell_small_label" text="\$problemName" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Author: " />
+                  <Label fx:id="author" styleClass="cell_small_label" text="\$author" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Description: " />
+                  <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Difficulty: " />
+                  <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Source: " />
+                  <Label fx:id="source" styleClass="cell_small_label" text="\$source" />
+            </children>
+         </HBox>
         </VBox>
       <rowConstraints>
          <RowConstraints />

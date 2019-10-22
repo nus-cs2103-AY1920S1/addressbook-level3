@@ -1,6 +1,5 @@
 package seedu.algobase.ui;
 
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,9 +13,10 @@ import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 /**
  * An UI component that displays information of a {@code FindRule}.
  */
-public class FindRuleCard extends UiPart<Region>  {
+public class FindRuleCard extends UiPart<Region> {
 
     private static final String FXML = "FindRuleListCard.fxml";
+    private static final String DEFAULT_PREDICATE = "No restriction.";
 
     public final ProblemSearchRule findRule;
 
@@ -40,32 +40,70 @@ public class FindRuleCard extends UiPart<Region>  {
     private Label difficulty;
     @FXML
     private Label source;
-    @FXML
-    void initialize() {
-        assert cardPane != null : "fx:id=\"cardPane\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
-        assert id != null : "fx:id=\"id\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
-        assert ruleName != null : "fx:id=\"ruleName\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
-        assert problemName != null : "fx:id=\"problemName\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
-        assert author != null : "fx:id=\"author\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
-        assert description != null : "fx:id=\"description\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
-        assert difficulty != null : "fx:id=\"difficulty\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
-        assert source != null : "fx:id=\"source\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
-    }
 
     public FindRuleCard(ProblemSearchRule findRule, int displayedIndex) {
         super(FXML);
         this.findRule = findRule;
         id.setText(displayedIndex + ". ");
         ruleName.setText(findRule.getName().name);
-        problemName.setText(findRule.getNamePredicate().getKeywords().toString());
-        author.setText(findRule.getAuthorPredicate().getKeyword().keyword);
-        description.setText(findRule.getDescriptionPredicate().getKeywords().toString());
-        DifficultyIsInRangePredicate difficultyPredicate = findRule.getDifficultyPredicate();
-        double lowerBound = difficultyPredicate.getLowerBound();
-        double upperBound = difficultyPredicate.getUpperBound();
-        String difficultyString = String.format("%f - %f", lowerBound, upperBound);
-        difficulty.setText(difficultyString);
-        source.setText(findRule.getSourcePredicate().getKeyword().keyword);
+
+        if (findRule.hasDefaultNamePredicate()) {
+            problemName.setText(DEFAULT_PREDICATE);
+        } else {
+            problemName.setText(findRule.getNamePredicate().getKeywords().toString());
+        }
+
+        if (findRule.hasDefaultAuthorPredicate()) {
+            author.setText(DEFAULT_PREDICATE);
+        } else {
+            author.setText(findRule.getAuthorPredicate().getKeyword().keyword);
+        }
+
+        if (findRule.hasDefaultDescriptionPredicate()) {
+            description.setText(DEFAULT_PREDICATE);
+        } else {
+            description.setText(findRule.getDescriptionPredicate().getKeywords().toString());
+        }
+
+        if (findRule.hasDefaultDifficultyPredicate()) {
+            difficulty.setText(DEFAULT_PREDICATE);
+        } else {
+            DifficultyIsInRangePredicate difficultyPredicate = findRule.getDifficultyPredicate();
+            double lowerBound = difficultyPredicate.getLowerBound();
+            double upperBound = difficultyPredicate.getUpperBound();
+            String difficultyString = String.format("%f - %f", lowerBound, upperBound);
+            difficulty.setText(difficultyString);
+        }
+
+        if (findRule.hasDefaultSourcePredicate()) {
+            source.setText(DEFAULT_PREDICATE);
+        } else {
+            source.setText(findRule.getSourcePredicate().getKeyword().keyword);
+        }
+
+    }
+
+    /**
+     * Initialize the GUI and make sure that all expected components are present.
+     */
+    @FXML
+    void initialize() {
+        assert cardPane != null
+                : "fx:id=\"cardPane\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
+        assert id != null
+                : "fx:id=\"id\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
+        assert ruleName != null
+                : "fx:id=\"ruleName\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
+        assert problemName != null
+                : "fx:id=\"problemName\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
+        assert author != null
+                : "fx:id=\"author\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
+        assert description != null
+                : "fx:id=\"description\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
+        assert difficulty != null
+                : "fx:id=\"difficulty\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
+        assert source != null
+                : "fx:id=\"source\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
     }
 
     @Override
