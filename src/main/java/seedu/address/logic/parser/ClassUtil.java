@@ -17,7 +17,7 @@ public class ClassUtil {
 
 
 
-    public static List<String> getAttribute(List<ClassPair> classes, String attr) {
+    public List<String> getAttribute(List<ClassPair> classes, String attr) {
         List<String> result = new ArrayList<>();
         for (ClassPair clsPair : classes) {
             try {
@@ -32,7 +32,7 @@ public class ClassUtil {
         return result;
     }
 
-    public static Command getCommandInstance(List<ClassPair> classes, String commandWord, String arguments)
+    public Command getCommandInstance(List<ClassPair> classes, String commandWord, String arguments)
             throws ParseException {
         for (ClassPair clsPair : classes) {
             try {

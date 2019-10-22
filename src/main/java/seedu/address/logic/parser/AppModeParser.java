@@ -30,10 +30,12 @@ public class AppModeParser extends ModeParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private List<ClassPair> commandParserClassPairs;
+    private ClassUtil classUtil;
 
     public AppModeParser() {
         //Class temp = AddCommandParser.class;
         this.commandParserClassPairs = new ArrayList<>();
+        this.classUtil = new ClassUtil();
         commandParserClassPairs.add(new ClassPair(AddCommand.class, AddCommandParser.class));
         commandParserClassPairs.add(new ClassPair(EditCommand.class, EditCommandParser.class));
         commandParserClassPairs.add(new ClassPair(DeleteCommand.class, DeleteCommandParser.class));
@@ -60,7 +62,7 @@ public class AppModeParser extends ModeParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        Command temp = ClassUtil.getCommandInstance(commandParserClassPairs, commandWord, arguments);
+        Command temp = classUtil.getCommandInstance(commandParserClassPairs, commandWord, arguments);
         if (temp == null) {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         } else {
@@ -70,7 +72,7 @@ public class AppModeParser extends ModeParser {
 
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
-        for (String txt : ClassUtil.getAttribute(commandParserClassPairs, "COMMAND_WORD")) {
+        for (String txt : classUtil.getAttribute(commandParserClassPairs, "COMMAND_WORD")) {
             if (txt.contains(input)) {
                 temp.add(new AutoFillAction(txt));
             }

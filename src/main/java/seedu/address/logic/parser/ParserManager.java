@@ -36,12 +36,14 @@ public class ParserManager {
     private ModeEnum mode;
     private ModeEnum tempMode;
     private List<ClassPair> commandParserClassPairs;
+    private ClassUtil classUtil;
 
     public ParserManager () {
         this.mode = ModeEnum.LOAD;
         this.modeParser = setModeParser();
         this.tempMode = null;
         this.commandParserClassPairs = new ArrayList<>();
+        this.classUtil = new ClassUtil();
         commandParserClassPairs.add(new ClassPair(BankCommand.class, BankCommandParser.class));
         commandParserClassPairs.add(new ClassPair(HomeCommand.class, null));
         commandParserClassPairs.add(new ClassPair(LoadScreenCommand.class, null));
@@ -85,7 +87,7 @@ public class ParserManager {
 
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
-        for (String txt : ClassUtil.getAttribute(commandParserClassPairs, "COMMAND_WORD")) {
+        for (String txt : classUtil.getAttribute(commandParserClassPairs, "COMMAND_WORD")) {
             if (txt.contains(input)) {
                 temp.add(new AutoFillAction(txt));
             }
@@ -132,7 +134,7 @@ public class ParserManager {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        return (SwitchCommand) ClassUtil.getCommandInstance(commandParserClassPairs, commandWord, arguments);
+        return (SwitchCommand) classUtil.getCommandInstance(commandParserClassPairs, commandWord, arguments);
     }
 
 }
