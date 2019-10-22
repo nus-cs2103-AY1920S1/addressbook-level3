@@ -391,6 +391,10 @@ public class Item {
         ItemDescription id = ItemDescription.fromJson(itemDescriptionString);
         temp.setItemDescription(id);
 
+        String priorityString = node.get("priority").toString();
+        Priority newPriority = Priority.fromJson(priorityString);
+        temp.setItemPriority(newPriority);
+
         if (node.hasNonNull("task")) {
             String taskString = node.get("task").toString();
             Task t = Task.fromJson(taskString);

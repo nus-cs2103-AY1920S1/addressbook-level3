@@ -1,28 +1,17 @@
 package seedu.address.commons.core.item;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
-import seedu.address.commons.util.JsonUtil;
-
 /**
  * Available priority levels for tasks and events.
  */
 public enum Priority {
     HIGH, MEDIUM, LOW;
     /**
-     * Creates a Priority object from a JSON string.
-     * @param jsonString the JSON string that represents the Priority
-     * @return the reminder object that is created
-     * @throws IOException when the jsonString is not in JSON format
+     * Creates a Priority object from a string.
+     * @param priorityString the string that represents the Priority
+     * @return the Priority object that is created
      */
-    public static Reminder fromJson(String jsonString) throws IOException {
-        JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
-        String dateTimeString = node.get("dateTime").asText();
-        LocalDateTime dateTime = LocalDateTime.parse(dateTimeString);
+    public static Priority fromJson(String priorityString) {
 
-        return new Reminder(dateTime);
+        return Priority.valueOf(priorityString);
     }
 }
