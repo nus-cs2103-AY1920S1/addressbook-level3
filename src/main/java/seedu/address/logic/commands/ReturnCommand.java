@@ -80,7 +80,7 @@ public class ReturnCommand extends Command {
         // update Book in model to have Loan removed
         model.setBook(bookToBeReturned, returnedBook);
         // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
-        servingBorrower.returnLoan(returningLoan);
+        model.servingBorrowerReturnLoan(returningLoan);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower));
     }

@@ -11,12 +11,12 @@ import seedu.address.model.loan.LoanList;
  */
 public class Borrower {
 
-    private Name name;
-    private Phone phone;
-    private Email email;
+    private final Name name;
+    private final Phone phone;
+    private final Email email;
     private final BorrowerId borrowerId;
-    private LoanList currentLoanList;
-    private LoanList returnedLoanList;
+    private final LoanList currentLoanList;
+    private final LoanList returnedLoanList;
 
     public Borrower(Name name, Phone phone, Email email) {
         this(name, phone, email, BorrowerIdGenerator.generateBorrowerId());
@@ -68,10 +68,33 @@ public class Borrower {
     }
 
     /**
-     * Adds a new Loan object representing a book loaned by the Borrower.
+     * Adds a new Loan object to a new copy of the currentLoanList.
+     *
+     * @param newLoan New {@code Loan} object to be added to currentLoanList.
+     * @return A new copy of currentLoanList with new Loan object added in to it.
      */
-    public void addNewLoan(Loan loan) {
-        currentLoanList.add(loan);
+    public LoanList getAddedCurrentLoanList(Loan newLoan) {
+        return currentLoanList.addToNewCopy(newLoan);
+    }
+
+    /**
+     * Removes a Loan object from a new copy of the currentLoanList.
+     *
+     * @param returnedLoan {@code Loan} object to be removed from the currentLoanList.
+     * @return A new copy of the currentLoanList with the returned Loan object removed from it.
+     */
+    public LoanList getRemovedCurrentLoanList(Loan returnedLoan) {
+        return currentLoanList.removeFromNewCopy(returnedLoan);
+    }
+
+    /**
+     * Adds a returned Loan object to a new copy of the returnedLoanList.
+     *
+     * @param returnedLoan {@code Loan} object to be added to returnedLoanList.
+     * @return A new copy of currentLoanList with returned Loan object added in to it.
+     */
+    public LoanList getAddedReturnedLoanList(Loan returnedLoan) {
+        return returnedLoanList.addToNewCopy(returnedLoan);
     }
 
     /**
@@ -79,18 +102,6 @@ public class Borrower {
      */
     public boolean hasCurrentLoan(Loan loan) {
         return currentLoanList.contains(loan);
-    }
-
-    /**
-     * Returns a Book that is borrowed by the Borrower.
-     *
-     * @param loan Loan object that is being returned.
-     */
-    public void returnLoan(Loan loan) {
-        assert hasCurrentLoan(loan) : "Borrower does not have the loan to be returned.";
-
-        currentLoanList.remove(loan);
-        returnedLoanList.add(loan);
     }
 
     /**

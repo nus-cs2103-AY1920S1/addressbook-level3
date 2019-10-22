@@ -22,6 +22,7 @@ import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.BorrowerIdGenerator;
+import seedu.address.model.exceptions.NotInServeModeException;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanIdGenerator;
 
@@ -36,6 +37,7 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
+
     private Optional<Borrower> servingBorrower;
 
     /**
@@ -251,7 +253,7 @@ public class ModelManager implements Model {
     @Override
     public Borrower getServingBorrower() {
         if (!isServeMode()) {
-            throw new AssertionError("Not in Serve mode!");
+            throw new NotInServeModeException();
         }
         return servingBorrower.get();
     }
@@ -302,6 +304,43 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setServingBorrower(Borrower borrower) {
+        this.servingBorrower = Optional.of(borrower);
+    }
+
+    @Override
+    public void servingBorrowerNewLoan(Loan newLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+        Borrower loanAddedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getAddedCurrentLoanList(newLoan), serving.getReturnedLoanList());
+        borrowerRecords.setBorrower(serving, loanAddedBorrower);
+
+        setServingBorrower(loanAddedBorrower);
+    }
+
+    @Override
+    public void servingBorrowerReturnLoan(Loan returnedLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+
+        assert serving.hasCurrentLoan(returnedLoan) : "Borrower does not have the loan to be returned.";
+
+        Borrower loanReturnedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(returnedLoan),
+                serving.getAddedReturnedLoanList(returnedLoan));
+        borrowerRecords.setBorrower(serving, loanReturnedBorrower);
+
+        setServingBorrower(loanReturnedBorrower);
+    }
+
+    @Override
     public boolean hasBorrowerId(BorrowerId borrowerId) {
         return borrowerRecords.checkIfBorrowerIdExists(borrowerId);
     }
@@ -313,7 +352,9 @@ public class ModelManager implements Model {
 
     @Override
     public List<Book> getBorrowerBooks() {
-        assert(isServeMode());
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
 
         ArrayList<Loan> loans = new ArrayList<>();
         servingBorrower.get()
