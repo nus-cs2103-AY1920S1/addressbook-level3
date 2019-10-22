@@ -25,11 +25,11 @@ public class AddTaskToMemberCommand extends Command {
             + "by the index number used in the displayed task list, to the member indicated "
             + "by the member ID. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TASK_INDEX + "TASK_INDEX"
+            + PREFIX_TASK_INDEX + "TASK_INDEX "
             + PREFIX_MEMBER_ID + "MEMBER_ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_INDEX + " 2 "
-            + PREFIX_MEMBER_ID + " JD";
+            + PREFIX_TASK_INDEX + "2 "
+            + PREFIX_MEMBER_ID + "JD";
 
     public static final String MESSAGE_SUCCESS = "New mapping added: %1$s";
     public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
@@ -65,7 +65,7 @@ public class AddTaskToMemberCommand extends Command {
         Member involvedMember = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
-            if (lastShownMemberList.get(i).getId() == memberId) {
+            if (lastShownMemberList.get(i).getId().equals(memberId)) {
                 contains = true;
                 involvedMember = lastShownMemberList.get(i);
                 break;

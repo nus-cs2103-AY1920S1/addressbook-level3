@@ -58,7 +58,7 @@ public class AddMemberToTaskCommand extends Command {
         Member memberToAdd = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
-            if (lastShownMemberList.get(i).getId() == memberId) {
+            if (lastShownMemberList.get(i).getId().equals(memberId)) {
                 contains = true;
                 memberToAdd = lastShownMemberList.get(i);
                 break;
