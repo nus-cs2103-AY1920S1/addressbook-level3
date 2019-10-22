@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import seedu.address.model.activity.exceptions.PersonNotInActivityException;
@@ -52,25 +53,12 @@ public class Activity {
         }
     }
     /**
-     * Constructor for Activity.
+      Constructor for Activity. Sets primary key automatically.
      * @param title Title of the activity.
      * @param ids The people participating in the activity.
      */
     public Activity(Title title, Integer ... ids) {
-        requireAllNonNull(title);
-        participantIds = new ArrayList<>();
-        expenses = new ArrayList<>();
-        participantBalances = new ArrayList<>();
-        transferMatrix = new ArrayList<>();
-        debtMatrix = new ArrayList<>();
-        this.primaryKey = primaryKeyCounter++;
-        this.title = title;
-        for (Integer id : ids) {
-            participantIds.add(id);
-            participantBalances.add(0.0);
-            transferMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
-            debtMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
-        }
+        this(primaryKeyCounter++, title, ids);
     }
 
     public int getPrimaryKey() {
@@ -171,37 +159,61 @@ public class Activity {
     }
 
     /**
-     * Add expense to the activity
-     * @param expenditures The expense(s) to be added.
-     * @throws PersonNotInActivityException if any person is not found
+     * Convenient function to allow adding many expenses at one go.
+     * @param expenditures The Expenses you wish to add to this activity.
      */
     public void addExpense(Expense ... expenditures) throws PersonNotInActivityException {
-        boolean allPresent = Stream.of(expenditures)
-                .map(x -> x.getPersonId())
-                .allMatch(x -> participantIds.contains(x));
-        if (!allPresent) {
+        Stream.of(expenditures)
+            .forEach(e -> addExpense(e));
+    }
+
+    /**
+     * Add expense to the activity
+     * @param expense The expense to be added.
+     * @throws PersonNotInActivityException if any person is not found
+     */
+    public void addExpense(Expense expense) throws PersonNotInActivityException {
+
+        int payer = expense.getPersonId();
+        int payerPos = participantIds.indexOf(payer);
+        int[] involved = expense.getInvolved();
+        int[] positionMask;
+        double amount = expense.getAmount().getValue();
+
+        if (!hasPerson(expense.getPersonId())) {
             throw new PersonNotInActivityException();
         }
-        for (Expense expense : expenditures) {
-            expenses.add(expense);
 
-            // We update the balance sheet
-            int payer = expense.getPersonId();
-            double amount = expense.getAmount().getValue();
-            double splitAmount = amount / participantIds.size();
-            int i = 0;
-            for (; i < participantIds.size(); i++) {
-                if (participantIds.get(i) == payer) {
-                    break;
-                }
+        if (involved != null) {
+            positionMask = IntStream.of(involved)
+                .map(x -> participantIds.indexOf(x))
+                .toArray();
+            if (!IntStream.of(positionMask).allMatch(x -> x >= 0)) {
+                throw new PersonNotInActivityException();
             }
 
-            for (int j = 0; j < debtMatrix.size(); j++) {
-                if (j != i) {
-                    debtMatrix.get(j).set(i, debtMatrix.get(j).get(i) + splitAmount);
-                }
-            }
+        } else {
+            involved = participantIds.stream()
+                    .mapToInt(x -> x)
+                    .filter(x -> x != payer)
+                    .toArray();
+            positionMask = IntStream.of(involved)
+                .map(x -> participantIds.indexOf(x))
+                .toArray();
+            expense.setInvolved(involved);
         }
+
+        expenses.add(expense);
+
+        // We update the balance sheet
+        double splitAmount = amount / (involved.length + 1);
+
+        // all this does is to just add splitAmount to the (x, payerpos) entry.
+        // This signifies "x owes payerpos" $splitAmount more.
+        IntStream.of(positionMask)
+                .forEach(x -> debtMatrix
+                        .get(x).set(payerPos,
+                                debtMatrix.get(x).get(payerPos) + splitAmount));
     }
 
     /**

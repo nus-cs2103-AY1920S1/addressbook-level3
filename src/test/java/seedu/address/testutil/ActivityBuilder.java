@@ -52,8 +52,8 @@ public class ActivityBuilder {
 
     /**
      * Adds an {@code Expense} into the {@code Activity} that we are building.
-     * This should not be used. Use the addExpense function on the Activity
-     * class directly after creating an Activity.
+     * This is slow and should not be used. Use the addExpense function on the
+     * Activity class directly after creating an Activity.
      */
     public ActivityBuilder addExpense(Expense expense) {
         Activity temp = this.build();

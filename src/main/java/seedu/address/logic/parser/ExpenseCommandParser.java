@@ -34,8 +34,11 @@ public class ExpenseCommandParser implements Parser<ExpenseCommand> {
 
         List<String> persons = argMultimap.getAllValues(PREFIX_PARTICIPANT);
         List<Amount> amounts = ParserUtil.parseAmounts(argMultimap.getAllValues(PREFIX_EXPENSE));
+        if (amounts.size() != 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpenseCommand.MESSAGE_USAGE));
+        }
         String description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse(""));
-        return new ExpenseCommand(persons, amounts, description);
+        return new ExpenseCommand(persons, amounts.get(0), description);
     }
 
     /**
