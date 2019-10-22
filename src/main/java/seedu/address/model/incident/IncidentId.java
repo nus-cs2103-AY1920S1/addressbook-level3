@@ -25,6 +25,7 @@ public class IncidentId {
         }
     }
 
+
     public IncidentId(String id) {
         this.id = id;
     }
