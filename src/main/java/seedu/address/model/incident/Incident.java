@@ -35,16 +35,13 @@ public class Incident {
     private final District location;
     private final CallerNumber callerNumber;
 
-    // changed by Mandy - to support NewCommand
-    public Incident (District location) {
-        this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends"), new Username("user1"), new Password("pass123"));
+    // TODO: pull from login data
+    public Incident (Person operator, District location) {
+        this.operator = operator;
         this.incidentDateTime = new IncidentDateTime();
         this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
-        // TODO: fix dummy variable
         this.incidentDesc = new Description("dummy description");
         this.location = location;
-        // TODO: fix dummy variable
         this.callerNumber = new CallerNumber("12345678");
     }
     /**

@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.incident.Incident;
 import seedu.address.model.vehicle.District;
 
 /**
@@ -33,10 +32,7 @@ public class NewCommandParser implements Parser<NewCommand> {
         District location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         boolean isAuto = ParserUtil.parseAuto(argMultimap.getValue(PREFIX_AUTO).get());
 
-        // create new incident
-        Incident incident = new Incident(location);
-
-        return new NewCommand(incident, isAuto);
+        return new NewCommand(location, isAuto);
     }
 
     /**
