@@ -1,5 +1,6 @@
 package seedu.address.model.member;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,6 +21,7 @@ public class MemberId {
      *
      * @param displayId an alternate name for the member ID
      */
+    @JsonCreator
     public MemberId(String displayId) {
         this.displayId = displayId;
     }

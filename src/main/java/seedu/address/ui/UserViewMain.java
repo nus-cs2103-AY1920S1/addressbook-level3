@@ -56,6 +56,16 @@ public class UserViewMain {
     }
 
     /**
+     * Shows the user the list of members.
+     *
+     * @return the task list pane
+     */
+    public Pane loadMembers() {
+        userViewNavigator.loadMemberListView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    /**
      * Shows the user the list of inventories.
      *
      * @return the task list pane

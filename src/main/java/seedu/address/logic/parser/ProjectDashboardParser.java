@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
@@ -72,7 +73,7 @@ public class ProjectDashboardParser {
             return new DoingTaskCommandParser().parse(arguments);
 
         case SetDeadlineCommand.COMMAND_WORD:
-            return new SetDeadlineCommandParserStub().parse(arguments);
+            return new SetDeadlineCommandParser().parse(arguments);
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParserStub().parse(arguments);
@@ -109,6 +110,9 @@ public class ProjectDashboardParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case HomeCommand.COMMAND_WORD:
+            return new HomeCommand();
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

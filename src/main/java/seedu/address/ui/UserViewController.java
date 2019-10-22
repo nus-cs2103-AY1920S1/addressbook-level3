@@ -14,7 +14,7 @@ public class UserViewController {
 
     /** Holder of a switchable user view. */
     @FXML
-    private StackPane userViewHolder;
+    private Pane userViewHolder;
 
     public Pane getCurrentView() {
         return userViewHolder;

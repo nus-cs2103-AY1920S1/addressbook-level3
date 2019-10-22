@@ -40,8 +40,8 @@ public class UniqueMemberList implements Iterable<Member> {
      */
     public boolean containsId(MemberId memId) {
         requireAllNonNull(memId);
-        for(Member mem: internalList) {
-            if(mem.getId().equals(memId)) {
+        for (Member mem: internalList) {
+            if (mem.getId().equals(memId)) {
                 return true;
             }
         }

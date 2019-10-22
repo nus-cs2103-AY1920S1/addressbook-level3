@@ -176,6 +176,11 @@ public class AddInventoryCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getFilteredTaskListByDeadline() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTaskListNotStarted() {
             throw new AssertionError("This method should not be called.");
         }
