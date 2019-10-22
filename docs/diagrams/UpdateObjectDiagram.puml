@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+
+package Logic LOGIC_COLOR_T1 {
+skinparam arrowColor LOGIC_COLOR
+
+package Parser {
+Class "<u>thriftParser:ThriftParser" as ThriftParser LOGIC_COLOR
+Class "<u>:UpdateCommandParser" as UpdateCommandParser LOGIC_COLOR
+Class "<u>:CliSyntax" as CliSyntax LOGIC_COLOR
+Class "<u>:ParserUtil" as ParserUtil LOGIC_COLOR
+Class "<u>argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+Class "<u>:ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+Class "<u>Prefix" as Prefix LOGIC_COLOR
+}
+
+package Command {
+Class "<u>command:UpdateCommand" as UpdateCommand LOGIC_COLOR
+Class "<u>commandResult:CommandResult" as CommandResult LOGIC_COLOR
+}
+
+Class "<u>:LogicManager" as LogicManager LOGIC_COLOR
+}
+
+package Model MODEL_COLOR_T1 {
+Class "<u>model:ModelManager" as ModelManager MODEL_COLOR
+Class "<u>thrift:Thrift" as Thrift MODEL_COLOR
+Class "<u>transactionList:TransactionList" as TransactionList MODEL_COLOR
+Class "<u>:Income" as Income MODEL_COLOR
+Class "<u>:Description" as Description MODEL_COLOR
+Class "<u>:TransactionDate" as TransactionDate MODEL_COLOR
+Class "<u>:Value" as Value MODEL_COLOR
+Class "<u>:Remark" as Remark MODEL_COLOR
+}
+
+package Storage STORAGE_COLOR_T1 {
+Class "<u>:StorageManager" as StorageManager STORAGE_COLOR
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> LogicManager
+
+LogicManager --> ThriftParser
+ThriftParser .down.> UpdateCommandParser: creates >
+
+UpdateCommandParser .right.> ArgumentMultimap
+UpdateCommandParser ..> ArgumentTokenizer
+UpdateCommandParser ..> CliSyntax
+CliSyntax ..> Prefix
+ArgumentTokenizer .down.> Prefix
+UpdateCommandParser ..> ParserUtil
+UpdateCommandParser .left.> UpdateCommand : creates >
+
+UpdateCommand .up[MODEL_COLOR].> ModelManager
+UpdateCommand .[MODEL_COLOR].> Income
+Income *-[MODEL_COLOR]-> Description
+Income *-right[MODEL_COLOR]-> TransactionDate
+Income *-[MODEL_COLOR]-> Value
+Income *-[MODEL_COLOR]-> Remark
+
+ModelManager .[MODEL_COLOR].> Income
+ModelManager -[MODEL_COLOR]-> Thrift
+Thrift -[MODEL_COLOR]-> TransactionList
+UpdateCommand .up.> CommandResult : > creates
+TransactionList -[hidden]-> Income
+
+LogicManager -up[MODEL_COLOR]-> ModelManager
+LogicManager -up[STORAGE_COLOR]-> StorageManager
+
+LogicManager ..> CommandResult
+@enduml

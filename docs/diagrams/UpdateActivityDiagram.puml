@@ -1,0 +1,22 @@
+@startuml
+start
+:User inputs Update command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then (
+
+[command has
+  valid syntax]
+)
+    :Update details of the transaction in Model and UI;
+    :Scroll to the updated transaction in UI's displayed list;
+    :Display feedback status message;
+else(             [else]
+)
+    :Return and display
+    Exception message;
+endif
+stop
+@enduml
