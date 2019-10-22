@@ -8,9 +8,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.StatsEngine;
-import seedu.weme.model.template.Template;
 
 /**
  * The API of the Model component.

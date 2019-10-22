@@ -12,8 +12,8 @@ import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.statistics.LikeData;
 import seedu.weme.model.template.Template;
+import seedu.weme.statistics.LikeData;
 
 /**
  * API of the Logic component
