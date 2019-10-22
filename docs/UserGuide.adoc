@@ -144,23 +144,23 @@ Clears all existing tags of the 2nd show in the list.
 
 ==== Search for a show by name: `search`
 
-Finds shows whose names contain any of the given keywords. +
-Format: `search KEYWORD [MORE_KEYWORDS]`
+Finds shows whose names contain any of the given keywords from the watchlist, watched list and online. +
+Format: `search n/KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Shows matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `search Angry` +
+* `search n/Angry` +
 Returns `The Angry Birds Movie 2`
-* `search John Angry` +
-Returns any person having names `John` or `Angry`
+* `search n/John Angry` +
+Returns any actor having names `John` or `Angry`
 
 // tag::delete[]
 ==== Deleting a show : `delete`

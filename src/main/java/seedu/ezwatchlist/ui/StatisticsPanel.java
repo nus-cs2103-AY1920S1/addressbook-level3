@@ -1,6 +1,5 @@
 package seedu.ezwatchlist.ui;
 
-import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 
 public class StatisticsPanel extends UiPart<Region> {

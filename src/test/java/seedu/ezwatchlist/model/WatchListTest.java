@@ -3,7 +3,6 @@ package seedu.ezwatchlist.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
-import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.show.Show;

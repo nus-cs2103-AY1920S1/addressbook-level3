@@ -2,8 +2,8 @@ package seedu.ezwatchlist.model.show;
 
 import seedu.ezwatchlist.commons.util.AppUtil;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Show's date of release in the watchlist.
@@ -21,14 +21,22 @@ public class Date {
 
     public final String value;
 
+    public Date() {
+        value = "";
+    }
+
     /**
      * Constructs an {@code Date}.
      *
      * @param date A valid date.
      */
     public Date(String date) {
-        requireNonNull(date);
-        AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        //instead of having constraints perhaps could check if the object is null in the creation
+        if (isNull(date)) {
+            date = "";
+        }
+        //requireNonNull(date);
+        //AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
     }
 

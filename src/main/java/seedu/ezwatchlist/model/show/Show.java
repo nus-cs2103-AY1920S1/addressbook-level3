@@ -1,12 +1,11 @@
 package seedu.ezwatchlist.model.show;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 
@@ -17,7 +16,6 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
 public class Show {
 
     public String type;
-    private static final String POSTER_PLACEHOLDER_PNG_URL = "/images/poster-placeholder.png";
 
     //identity fields
     private final Name name;
@@ -28,11 +26,11 @@ public class Show {
     private final Description description;
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
-    private final String imageOfShow;
+    private Poster poster;
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
-        this.imageOfShow = POSTER_PLACEHOLDER_PNG_URL;
+        this.poster = new Poster();
         CollectionUtil.requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
         this.description = description;
@@ -40,6 +38,14 @@ public class Show {
         this.dateOfRelease = dateOfRelease;
         this.runningTime = runningTime;
         this.actors.addAll(actors);
+    }
+
+    public void setPoster(Poster poster) {
+        this.poster = poster;
+    }
+
+    public Poster getPoster() {
+        return poster;
     }
 
     public Name getName() {
@@ -89,6 +95,13 @@ public class Show {
                 && (otherShow.getDateOfRelease().equals(getDateOfRelease()) || otherShow.isWatched() == (isWatched()));
     }
 
+    public boolean isSameName(Show otherShow) {
+        if (otherShow == this) {
+            return true;
+        }
+        return otherShow != null && otherShow.getName().equals(getName());
+    }
+
     /**
      * Returns true if both shows have the same identity and data fields.
      * This defines a stronger notion of equality between two shows.
@@ -99,12 +112,13 @@ public class Show {
             return true;
         }
 
-        if (!(other instanceof Show)) {
+        if (!(other instanceof TvShow || other instanceof Movie || other instanceof Show)) {
             return false;
         }
 
         Show otherShow = (Show) other;
         return otherShow.getName().equals(getName())
+                && otherShow.getType() == getType()
                 && otherShow.getDateOfRelease().equals(getDateOfRelease())
                 && (otherShow.isWatched() == isWatched())
                 && otherShow.getDescription().equals(getDescription())
@@ -115,7 +129,7 @@ public class Show {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dateOfRelease, isWatched, description, runningTime, actors);
+        return Objects.hash(name, type, dateOfRelease, isWatched, description, runningTime, actors);
     }
 
     @Override

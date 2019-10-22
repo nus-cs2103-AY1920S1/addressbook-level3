@@ -3,7 +3,6 @@ package seedu.ezwatchlist.model.show;
 import seedu.ezwatchlist.commons.util.AppUtil;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Show's name in the watchlist.
@@ -28,9 +27,13 @@ public class Name {
      * @param name A valid name.
      */
     public Name(String name) {
-        requireNonNull(name);
-        AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        //requireNonNull(name);
+        //AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         showName = name;
+    }
+
+    public String getName() {
+        return showName;
     }
 
     /**

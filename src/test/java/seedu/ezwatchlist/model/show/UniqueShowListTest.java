@@ -146,7 +146,7 @@ public class UniqueShowListTest {
 
     @Test
     public void setShows_listWithDuplicateShows_throwsDuplicateShowException() {
-        List<Show> listWithDuplicateShows = Arrays.asList(AVENGERSENDGAME, FIGHTCLUB);
+        List<Show> listWithDuplicateShows = Arrays.asList(AVENGERSENDGAME, AVENGERSENDGAME);
         assertThrows(DuplicateShowException.class, () -> uniqueShowList.setShows(listWithDuplicateShows));
     }
 

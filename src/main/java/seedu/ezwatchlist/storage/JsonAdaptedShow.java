@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.Name;
@@ -34,6 +33,9 @@ class JsonAdaptedShow {
     private final int runningTime;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
 
+    public String type() {
+        return type;
+    }
     /**
      * Constructs a {@code JsonAdaptedShow} with the given show details.
      */
@@ -80,6 +82,10 @@ class JsonAdaptedShow {
         final List<Actor> showActors = new ArrayList<>();
         for (JsonAdaptedActor actor : actors) {
             showActors.add(actor.toModelType());
+        }
+
+        if (runningTime <0) {
+            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
         }
 
         if (name == null) {

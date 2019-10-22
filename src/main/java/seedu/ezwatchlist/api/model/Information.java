@@ -7,10 +7,10 @@ import java.util.Optional;
  * Interface to contain information retrieved from API.
  */
 public abstract class Information {
-    public Optional<String> name;
-    public Optional<String> description;
-    public Optional<List<String>> actors;
-    public Optional<String> date;
+    private Optional<String> name;
+    private Optional<String> description;
+    private Optional<List<String>> actors;
+    private Optional<String> date;
 
     public void addName(String name) {
         this.name = Optional.ofNullable(name);
@@ -26,5 +26,21 @@ public abstract class Information {
 
     public void addDate(String date) {
         this.date = Optional.ofNullable(date);
+    }
+
+    public Optional<String> getName() {
+        return name;
+    }
+
+    public Optional<String> getDate() {
+        return date;
+    }
+
+    public Optional<List<String>> getActors() {
+        return actors;
+    }
+
+    public Optional<String> getDescription() {
+        return description;
     }
 }

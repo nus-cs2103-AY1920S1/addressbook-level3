@@ -1,6 +1,5 @@
 package seedu.ezwatchlist.ui;
 
-import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 
 public class NavigationBar extends UiPart<Region> {

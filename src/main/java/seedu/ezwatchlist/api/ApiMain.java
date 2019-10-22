@@ -1,20 +1,17 @@
 package seedu.ezwatchlist.api;
 
-
 import java.io.IOException;
-import java.util.List;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Scanner;
+import java.util.List;
+import java.util.Set;
 
-import info.movito.themoviedbapi.TmdbApi;
-import info.movito.themoviedbapi.TvResultsPage;
-import info.movito.themoviedbapi.model.Artwork;
+import info.movito.themoviedbapi.*;
 import info.movito.themoviedbapi.model.Credits;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import info.movito.themoviedbapi.model.people.PersonCast;
-
 import info.movito.themoviedbapi.model.tv.TvEpisode;
 import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
@@ -23,14 +20,7 @@ import info.movito.themoviedbapi.tools.MovieDbException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.model.ApiInterface;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.Episode;
-import seedu.ezwatchlist.model.show.IsWatched;
-import seedu.ezwatchlist.model.show.Movie;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.RunningTime;
-import seedu.ezwatchlist.model.show.TvShow;
+import seedu.ezwatchlist.model.show.*;
 
 /**
  * Main class for the API to connect to the server
@@ -42,6 +32,10 @@ public class ApiMain implements ApiInterface {
     private TmdbApi apiCall;
     private boolean isConnected = false;
 
+    /**
+     * Constructor for ApiMain object used to interact with the API.
+     * @throws OnlineConnectionException when not connected to the internet.
+     */
     public ApiMain() throws OnlineConnectionException {
         try {
             apiCall = new TmdbApi(API_KEY);
@@ -53,8 +47,9 @@ public class ApiMain implements ApiInterface {
     }
 
     /**
-     * Checks whether the API is connected
-     * @return boolean value indicating the connection of API
+     * Checks if the API is connected to the internet.
+     *
+     * @return true if connected to the API.
      */
     public boolean isApiConnected() {
         try {
@@ -68,29 +63,34 @@ public class ApiMain implements ApiInterface {
     }
 
     /**
-     * sets the isConnected flag to false.
+     * Helper function to call when not connected to the API.
+     *
      * @throws OnlineConnectionException
      */
-    public void notConnected() throws OnlineConnectionException {
-        isConnected = false;
+    private void notConnected() throws OnlineConnectionException {
         throw new OnlineConnectionException(CONNECTION_ERROR_MESSAGE);
     }
 
-    // can add upcoming movie methods
-    public List<Movie> getMovieByName(String name) throws OnlineConnectionException {
+    public List<Movie> getUpcomingMovies() throws OnlineConnectionException {
         try {
-            MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
+            MovieResultsPage upcoming = apiCall.getMovies().getUpcoming(null, null, null);
             ArrayList<Movie> movies = new ArrayList<>();
 
-            for (MovieDb m : page.getResults()) {
-                movies.add(new Movie(new Name(m.getTitle()), new Description("placeholder")/*m.getTagline())*/,
-                        new IsWatched(false), new Date(m.getReleaseDate()),
-                        new RunningTime(m.getRuntime()), new HashSet<Actor>()));
-                m.getPosterPath();
-                List<Artwork> artworkTypes = m.getImages();
-                artworkTypes.get(0);
+            for (MovieDb m : upcoming.getResults()) {
+                String movieName = m.getTitle();
+                RunningTime runtime = new RunningTime(m.getRuntime());
+                String overview = m.getOverview();
+                String releaseDate = m.getReleaseDate();
+
+                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false), new Date(releaseDate),
+                        runtime , new HashSet<Actor>());
+
+                //retrieve image
+                ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
+                toAdd.setPoster(new Poster(instance.retrieveImage(movieName)));
+
+                movies.add(toAdd);
             }
-            isConnected = true;
             return movies;
         } catch (MovieDbException e) {
             notConnected();
@@ -98,37 +98,100 @@ public class ApiMain implements ApiInterface {
         }
     }
 
+    /**
+     * Retrieves the movies from the API by the string given.
+     *
+     * @param name the name of the movie that the user wants to search.
+     * @return a list of movies that are returned from the API search call.
+     * @throws OnlineConnectionException when not connected to the internet.
+     */
+    public List<Movie> getMovieByName(String name) throws OnlineConnectionException {
+        try {
+            MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
+            ArrayList<Movie> movies = new ArrayList<>();
+
+            for (MovieDb m : page.getResults()) {
+                String movieName = m.getTitle();
+                final int movieId = m.getId();
+                TmdbMovies apiMovie = apiCall.getMovies();
+                MovieDb movie = apiMovie.getMovie(movieId, null, TmdbMovies.MovieMethod.credits);
+
+                RunningTime runtime = new RunningTime(movie.getRuntime());
+                String overview = m.getOverview();
+                String releaseDate = m.getReleaseDate();
+
+                //actors
+                Set<Actor> actors = getActors(movie.getCast());
+
+                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false), new Date(releaseDate),
+                        runtime , actors);
+
+                //retrieve image
+                ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
+                toAdd.setPoster(new Poster(instance.retrieveImage(movieName)));
+
+                movies.add(toAdd);
+            }
+            return movies;
+        } catch (MovieDbException e) {
+            notConnected();
+            return new ArrayList<Movie>();
+        }
+    }
+
+    /**
+     * Retrieves the tv shows from the API by the string given.
+     *
+     * @param name the name of the tv show that the user wants to search.
+     * @return a list of tv shows that are returned from the API search call.
+     * @throws OnlineConnectionException when not connected to the internet.
+     */
     public List<TvShow> getTvShowByName(String name) throws OnlineConnectionException {
         try {
             TvResultsPage page = apiCall.getSearch().searchTv(name, null, null);
             ArrayList<TvShow> tvShows = new ArrayList<>();
 
             for (TvSeries tv : page.getResults()) {
+                final int tvId = tv.getId();
                 List<TvSeason> seasons = tv.getSeasons();
                 ArrayList<seedu.ezwatchlist.model.show.TvSeason> seasonsList = new ArrayList<>();
-                Credits credits = tv.getCredits();
-                List<PersonCast> cast = credits.getCast();
-                PersonCast personCast = cast.get(0);
-                personCast.getName();
-                for (TvSeason tvSeason : seasons) {
+                TmdbTvSeasons tvSeasons = apiCall.getTvSeasons();
+                final int numberOfSeasons = tv.getNumberOfSeasons();
+
+                //seasons
+                for (int seasonNo = 1; seasonNo < numberOfSeasons; seasonNo++) {
+                    TvSeason tvSeason = tvSeasons.getSeason(tvId, seasonNo, null, TmdbTvSeasons.SeasonMethod.values());
+
                     List<TvEpisode> episodes = tvSeason.getEpisodes();
                     ArrayList<Episode> episodeList = new ArrayList<>();
+
                     for (TvEpisode episode : episodes) {
-                        episodeList.add(new seedu.ezwatchlist.model.show.Episode(new Name(episode.getName()),
-                                episode.getEpisodeNumber()));
+                        episodeList.add(new seedu.ezwatchlist.model.show.Episode(new Name(episode.getName()), episode.getEpisodeNumber()));
                     }
+
                     seedu.ezwatchlist.model.show.TvSeason tvS =
                             new seedu.ezwatchlist.model.show.TvSeason(tvSeason.getSeasonNumber(), episodes.size(),
                                     episodeList);
                     seasonsList.add(tvS);
                 }
 
-                tvShows.add(new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), new IsWatched(false),
-                        new Date(tv.getFirstAirDate()),
-                        new RunningTime(tv.getEpisodeRuntime().get(0)), null, 0,
-                        tv.getNumberOfEpisodes(), seasonsList));
+                Credits credits = apiCall.getTvSeries().getCredits(tvId, null);
+                Date date = new Date(apiCall.getTvSeries().getSeries(tvId, null,
+                        TmdbTV.TvMethod.external_ids).getFirstAirDate());
+                //actors
+                Set<Actor> actors = getActors(credits.getCast());
+
+                TvShow tvShowToAdd = new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), new IsWatched(false),
+                         date ,
+                        new RunningTime(20), actors, 0,
+                        tv.getNumberOfEpisodes(), seasonsList);
+
+                //image
+                ImageRetrieval instance = new ImageRetrieval(apiCall, tv.getPosterPath());
+                tvShowToAdd.setPoster(new Poster(instance.retrieveImage(tv.getName())));
+
+                tvShows.add(tvShowToAdd);
             }
-            isConnected = true;
             return tvShows;
         } catch (MovieDbException e) {
             notConnected();
@@ -136,10 +199,16 @@ public class ApiMain implements ApiInterface {
         }
     }
 
-    /**
-     * Somehow tests the image haha wtf am I writing
-     * @param name
-     */
+    private Set<Actor> getActors(List<PersonCast> cast) {
+        Set<Actor> actors = new HashSet<>();
+        for (PersonCast personCast: cast) {
+            Actor actor = new Actor(personCast.getName());
+            actors.add(actor);
+        }
+        return actors;
+    }
+
+/**
     public void testImage(String name) {
         MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
         List<MovieDb> movies = page.getResults();
@@ -154,7 +223,7 @@ public class ApiMain implements ApiInterface {
      * test function
      * @param args
      * @throws IOException
-    */
+     * /
 
     public static void main(String[] args) throws IOException, OnlineConnectionException {
         ApiMain apiMain = new ApiMain();
@@ -162,50 +231,43 @@ public class ApiMain implements ApiInterface {
         Scanner sc = new Scanner(System.in);
         String input = sc.next();
         apiMain.testImage(input);
-//        TmdbMovies movies = tmdbApi.getMovies();
-//        MovieDb movie = movies.getMovie(5353, null, TmdbMovies.MovieMethod.similar, TmdbMovies.MovieMethod.keywords,
-//                TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
-//        System.out.println(movie.getOriginalTitle());
-//        p2( movie.getSimilarMovies());
-//        List<Artwork> artworks = movie.getImages();
-//        String filePath = artworks.get(0).getFilePath();
-//        TmdbConfiguration configuration = tmdbApi.getConfiguration();
-//        final String baseUrl = configuration.getBaseUrl() + "w500";
-//        BufferedImage img = ImageIO.read(new URL(baseUrl + filePath));
-//        Graphics g = img.getGraphics();
-//        g.drawImage(img, 0, 0, null);
-//
-//        //keywords
-//        List<Keyword> keywordList = movie.getKeywords();
-//        p(keywordList);
-//        List<Genre> genres = movie.getGenres();
-//        System.out.println("genres");
-//        p(genres);
-//        System.out.println("casts");
-//        List<PersonCast> cast = movie.getCast();
-//        p(cast);
-//        System.out.println("crew");
-//        p(movie.getCrew());
+        TmdbMovies movies = tmdbApi.getMovies();
+        MovieDb movie = movies.getMovie(5353, null, TmdbMovies.MovieMethod.similar,
+        TmdbMovies.MovieMethod.keywords, TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
+        System.out.println(movie.getOriginalTitle());
+        p2( movie.getSimilarMovies());
+        List<Artwork> artworks = movie.getImages();
+        String filePath = artworks.get(0).getFilePath();
+        TmdbConfiguration configuration = tmdbApi.getConfiguration();
+        final String baseUrl = configuration.getBaseUrl() + "w500";
+        URL url = new URL(baseUrl + filePath);
+        url.openStream();
+        BufferedImage img = ImageIO.read();
+        Graphics g = img.getGraphics();
+        g.drawImage(img, 0, 0, null);
+
+        //keywords
+        List<Keyword> keywordList = movie.getKeywords();
+        p(keywordList);
+        List<Genre> genres = movie.getGenres();
+        System.out.println("genres");
+        p(genres);
+        System.out.println("casts");
+        List<PersonCast> cast = movie.getCast();
+        p(cast);
+        System.out.println("crew");
+        p(movie.getCrew());
     }
 
-    /**
-     * p method
-     * @param s
-     * @param <T>
-     */
     public static <T> void p (List<T> s) {
-        for (T t : s) {
+        for (T t : s)
             System.out.println(t);
-        }
     }
 
-    /**
-     * p2 method
-     * @param l
-     */
     public static void p2 (List<MovieDb> l) {
         for (MovieDb m : l) {
             System.out.println(m.getOriginalTitle());
         }
     }
+*/
 }

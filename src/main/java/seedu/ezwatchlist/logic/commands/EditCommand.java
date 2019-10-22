@@ -78,7 +78,6 @@ public class EditCommand extends Command {
         if (!showToEdit.isSameShow(editedShow) && model.hasShow(editedShow)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }
-
         model.setShow(showToEdit, editedShow);
         model.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
         return new CommandResult(String.format(MESSAGE_EDIT_SHOW_SUCCESS, editedShow));
@@ -134,6 +133,7 @@ public class EditCommand extends Command {
      */
     public static class EditShowDescriptor {
         private Name name;
+        private String type;
         private Date dateOfRelease;
         private IsWatched isWatched;
         private Description description;
@@ -148,6 +148,7 @@ public class EditCommand extends Command {
          */
         public EditShowDescriptor(EditShowDescriptor toCopy) {
             setName(toCopy.name);
+            setType(toCopy.type);
             setDateOfRelease(toCopy.dateOfRelease);
             setIsWatched(toCopy.isWatched);
             setDescription(toCopy.description);
@@ -168,6 +169,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public Optional<String> getType() {
+            return Optional.ofNullable(type);
         }
 
         public void setDateOfRelease(Date dateOfRelease) {
@@ -235,6 +244,7 @@ public class EditCommand extends Command {
             EditShowDescriptor e = (EditShowDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getType().equals(e.getType())
                     && getDateOfRelease().equals(e.getDateOfRelease())
                     && getIsWatched().equals(e.getIsWatched())
                     && getDescription().equals(e.getDescription())

@@ -2,7 +2,6 @@ package seedu.ezwatchlist.ui;
 
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -113,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         showListPanel = new ShowListPanel(logic.getFilteredShowList());
         watchedPanel = new WatchedPanel(logic.getWatchedList());
-        searchPanel = new SearchPanel(/*logic.getWatchedList()*/);
+        searchPanel = new SearchPanel(logic.getSearchResultList());
         statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 

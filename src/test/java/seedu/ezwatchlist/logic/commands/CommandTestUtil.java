@@ -23,52 +23,54 @@ import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy";
-    public static final String VALID_NAME_BOB = "Bob the Builder";
-    public static final String VALID_DATE_AMY = "11/11/11";
-    public static final String VALID_DATE_BOB = "22/2/2222";
-    public static final boolean VALID_WATCHED_AMY = true;
-    public static final boolean VALID_WATCHED_BOB = false;
-    public static final String VALID_DESCRIPTION_AMY = "Horror film";
-    public static final String VALID_DESCRIPTION_BOB = "Cartoon about building things";
-    public static final int VALID_RUNNING_TIME_AMY = 122;
-    public static final int VALID_RUNNING_TIME_BOB = 30;
-    public static final String VALID_ACTOR_AMY = "Horror";
-    public static final String VALID_ACTOR_BOB = "Kid-friendly";
+    public static final String VALID_NAME_ANNABELLE = "Annabelle";
+    public static final String VALID_NAME_BOB_THE_BUILDER = "Bob the Builder";
+    public static final String VALID_TYPE_ANNABELLE = "movie";
+    public static final String VALID_TYPE_BOB_THE_BUILDER = "tv";
+    public static final String VALID_DATE_ANNABELLE = "10/10/2014";
+    public static final String VALID_DATE_BOB_THE_BUILDER = "1998";
+    public static final boolean VALID_WATCHED_ANNABELLE = true;
+    public static final boolean VALID_WATCHED_BOB_THE_BUILDER = false;
+    public static final String VALID_DESCRIPTION_ANNABELLE = "Horror film";
+    public static final String VALID_DESCRIPTION_BOB_THE_BUILDER = "Cartoon about building things";
+    public static final int VALID_RUNNING_TIME_ANNABELLE = 99;
+    public static final int VALID_RUNNING_TIME_BOB_THE_BUILDER = 10;
+    public static final String VALID_ACTOR_ANNABELLE = "Annabelle Wallis";
+    public static final String VALID_ACTOR_BOB_THE_BUILDER = "Rob Rackstraw";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String DATE_DESC_AMY = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_AMY;
-    public static final String DATE_DESC_BOB = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_BOB;
-    public static final String WATCHED_DESC_AMY = " " + PREFIX_IS_WATCHED + VALID_WATCHED_AMY;
-    public static final String WATCHED_DESC_BOB = " " + PREFIX_IS_WATCHED + VALID_WATCHED_BOB;
-    public static final String RUNNING_TIME_DESC_AMY = " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_AMY;
-    public static final String RUNNING_TIME_DESC_BOB = " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_BOB;
-    public static final String DESCRIPTION_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_AMY;
-    public static final String DESCRIPTION_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB;
-    public static final String ACTOR_DESC_AMY = " " + PREFIX_TYPE + VALID_ACTOR_AMY;
-    public static final String ACTOR_DESC_BOB = " " + PREFIX_TYPE + VALID_ACTOR_BOB;
+    public static final String NAME_DESC_ANNABELLE = " " + PREFIX_NAME + VALID_NAME_ANNABELLE;
+    public static final String NAME_DESC_BOB_THE_BUILDER = " " + PREFIX_NAME + VALID_NAME_BOB_THE_BUILDER;
+    public static final String TYPE_DESC_ANNABELLE = " " + PREFIX_TYPE + VALID_TYPE_ANNABELLE;
+    public static final String TYPE_DESC_BOB_THE_BUILDER =  " " + PREFIX_TYPE + VALID_TYPE_BOB_THE_BUILDER;
+    public static final String DATE_DESC_ANNABELLE = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_ANNABELLE;
+    public static final String DATE_DESC_BOB_THE_BUILDER = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_BOB_THE_BUILDER;
+    public static final String WATCHED_DESC_ANNABELLE = " " + PREFIX_IS_WATCHED + VALID_WATCHED_ANNABELLE;
+    public static final String WATCHED_DESC_BOB_THE_BUILDER = " " + PREFIX_IS_WATCHED + VALID_WATCHED_BOB_THE_BUILDER;
+    public static final String RUNNING_TIME_DESC_ANNABELLE = " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_ANNABELLE;
+    public static final String RUNNING_TIME_DESC_BOB_THE_BUILDER = " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_BOB_THE_BUILDER;
+    public static final String DESCRIPTION_DESC_ANNABELLE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_ANNABELLE;
+    public static final String DESCRIPTION_DESC_BOB_THE_BUILDER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB_THE_BUILDER;
+    public static final String ACTOR_DESC_ANNABELLE = " " + PREFIX_TYPE + VALID_ACTOR_ANNABELLE;
+    public static final String ACTOR_DESC_BOB_THE_BUILDER = " " + PREFIX_TYPE + VALID_ACTOR_BOB_THE_BUILDER;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE_OF_RELEASE + "911a"; // 'a' not allowed in date
+    public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "TV show"; // types can only be "movie" or "tv"
     public static final String INVALID_IS_WATCHED_DESC = " " + PREFIX_IS_WATCHED + null; //null not allowed
     public static final String INVALID_RUNNING_TIME_DESC = " " + PREFIX_RUNNING_TIME; // empty string not allowed for running time
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // empty string not allowed for description
-    public static final String INVALID_ACTOR_DESC = " " + PREFIX_ACTOR + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditShowDescriptor DESC_AMY;
-    public static final EditCommand.EditShowDescriptor DESC_BOB;
+    public static final EditCommand.EditShowDescriptor DESC_ANNABELLE;
+    public static final EditCommand.EditShowDescriptor DESC_BOB_THE_BUILDER;
 
     static {
-        DESC_AMY = new EditShowDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withDescription(VALID_DESCRIPTION_AMY).withIsWatched(VALID_WATCHED_AMY).withDateOfRelease(VALID_DATE_AMY)
-                .withRunningTime(VALID_RUNNING_TIME_AMY).withActors(VALID_ACTOR_AMY).build();
-        DESC_BOB = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDescription(VALID_DESCRIPTION_BOB).withIsWatched(VALID_WATCHED_BOB).withDateOfRelease(VALID_DATE_BOB)
-                .withRunningTime(VALID_RUNNING_TIME_BOB).withActors(VALID_ACTOR_BOB).build();
+        DESC_ANNABELLE = new EditShowDescriptorBuilder().withName(VALID_NAME_ANNABELLE).withType(VALID_TYPE_ANNABELLE)
+                .withDescription(VALID_DESCRIPTION_ANNABELLE).withIsWatched(VALID_WATCHED_ANNABELLE).withDateOfRelease(VALID_DATE_ANNABELLE)
+                .withRunningTime(VALID_RUNNING_TIME_ANNABELLE).withActors(VALID_ACTOR_ANNABELLE).build();
+        DESC_BOB_THE_BUILDER = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER).withType(VALID_TYPE_BOB_THE_BUILDER)
+                .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withIsWatched(VALID_WATCHED_BOB_THE_BUILDER).withDateOfRelease(VALID_DATE_BOB_THE_BUILDER)
+                .withRunningTime(VALID_RUNNING_TIME_BOB_THE_BUILDER).withActors(VALID_ACTOR_BOB_THE_BUILDER).build();
     }
 
     /**

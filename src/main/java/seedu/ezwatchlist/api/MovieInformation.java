@@ -1,8 +1,8 @@
 package seedu.ezwatchlist.api;
 
-import seedu.ezwatchlist.api.model.Information;
-
 import java.util.Optional;
+
+import seedu.ezwatchlist.api.model.Information;
 
 public class MovieInformation extends Information {
     public Optional<Integer> runningTime;

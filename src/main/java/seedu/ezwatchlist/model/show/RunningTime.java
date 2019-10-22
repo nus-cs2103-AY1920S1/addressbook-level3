@@ -1,8 +1,7 @@
 package seedu.ezwatchlist.model.show;
 
-import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
-
 import static java.util.Objects.requireNonNull;
+import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Show's Running Time in the watchlist.
@@ -12,8 +11,14 @@ public class RunningTime {
     // For now the running time will be an integer, since that is what the API returns it as.
     public static final String MESSAGE_CONSTRAINTS =
             "Running time can take any integer values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS2 =
+            "Running time can take only positive values or zero.";
 
     public final int value;
+
+    public RunningTime() {
+        value = 0;
+    }
 
     /**
      * Constructs an {@code RunningTime}.
@@ -22,6 +27,7 @@ public class RunningTime {
      */
     public RunningTime(int runningTime) {
         requireNonNull(runningTime);
+        checkArgument(isValidRunningTime(runningTime), MESSAGE_CONSTRAINTS2);
         value = runningTime;
     }
 
@@ -29,7 +35,7 @@ public class RunningTime {
      * Returns true if a given integer is a valid running time.
      */
     public static boolean isValidRunningTime(int test) {
-        return test > 0;
+        return test >= 0;
     }
 
     @Override

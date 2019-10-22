@@ -3,7 +3,6 @@ package seedu.ezwatchlist.model.tag;
 import seedu.ezwatchlist.commons.util.AppUtil;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tag in the address book.

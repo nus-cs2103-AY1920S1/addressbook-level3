@@ -3,7 +3,6 @@ package seedu.ezwatchlist.model.show;
 import seedu.ezwatchlist.commons.util.AppUtil;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Show's description in the watchlist.
@@ -21,6 +20,10 @@ public class Description {
 
     public final String fullDescription;
 
+    public Description() {
+        fullDescription = "";
+    }
+
     /**
      * Constructs a {@code Name}.
      *
@@ -28,7 +31,7 @@ public class Description {
      */
     public Description(String description) {
         requireNonNull(description);
-        AppUtil.checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
+        //AppUtil.checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         fullDescription = description;
     }
 

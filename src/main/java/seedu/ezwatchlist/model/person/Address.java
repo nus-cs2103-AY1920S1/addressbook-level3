@@ -3,7 +3,6 @@ package seedu.ezwatchlist.model.person;
 import seedu.ezwatchlist.commons.util.AppUtil;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's address in the address book.
