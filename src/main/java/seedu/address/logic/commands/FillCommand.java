@@ -23,11 +23,10 @@ public class FillCommand extends Command {
 
     public static final String COMMAND_WORD = "fill";
 
-    // TODO - add params description, district, callerNumber if we are going with single-step fill instead of prompts
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Fills incident report drafts.\n"
-            + "Use " + COMMAND_WORD + "to list all drafts.\n"
-            + "Use " + COMMAND_WORD + "Parameters: "
-            + "i/INDEX (positive integer) " + PREFIX_CALLER_NUMBER + "CALLER NUMBER "
+            + "Use " + COMMAND_WORD + " without parameters to list all drafts.\n"
+            + "Use " + COMMAND_WORD + " with parameters: "
+            + COMMAND_WORD + " i/INDEX (positive integer) " + PREFIX_CALLER_NUMBER + "CALLER NUMBER "
             + PREFIX_DESCRIPTION + "DESCRIPTION " + "to fill a given draft.\n"
             + "Existing completed reports will be overwritten. Submitted reports can be edited using 'edit' command.";
 
@@ -69,13 +68,15 @@ public class FillCommand extends Command {
         // show filtered drafts
         model.updateFilteredIncidentList(predicate);
 
+        // get filtered list
+        FilteredList<Incident> temp = model.getFilteredIncidentList().filtered(predicate);
+
+        if (temp.isEmpty()) {
+            return new CommandResult(MESSAGE_NO_DRAFTS_TO_FILL);
+        }
+
         // fill chosen draft
         if (this.targetIndex != null && this.callerNumber != null && this.description != null) {
-            FilteredList<Incident> temp = model.getFilteredIncidentList().filtered(predicate);
-
-            if (temp.isEmpty()) {
-                return new CommandResult(MESSAGE_NO_DRAFTS_TO_FILL);
-            }
 
             if (targetIndex.getZeroBased() >= temp.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_INCIDENT_INDEX);

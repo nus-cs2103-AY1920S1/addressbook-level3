@@ -35,7 +35,7 @@ public class UniqueIncidentList implements Iterable<Incident> {
      */
     public boolean contains(Incident toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameIncident);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -63,7 +63,7 @@ public class UniqueIncidentList implements Iterable<Incident> {
             throw new IncidentNotFoundException();
         }
 
-        if (!target.isSameIncident(editedIncident) && contains(editedIncident)) {
+        if (!target.equals(editedIncident) && contains(editedIncident)) {
             throw new DuplicateIncidentException();
         }
 
@@ -129,7 +129,7 @@ public class UniqueIncidentList implements Iterable<Incident> {
     private boolean incidentsAreUnique(List<Incident> incidents) {
         for (int i = 0; i < incidents.size() - 1; i++) {
             for (int j = i + 1; j < incidents.size(); j++) {
-                if (incidents.get(i).isSameIncident(incidents.get(j))) {
+                if (incidents.get(i).equals(incidents.get(j))) {
                     return false;
                 }
             }

@@ -84,6 +84,10 @@ public class TypicalEntities {
                 new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
         ab.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
+
+        ab.addIncident(new Incident(new IncidentId(2, 2019), new District(2),
+                new IncidentDateTime("2019-02-09T11:04:22"), "Alex Teo"));
+
         return ab;
     }
 
