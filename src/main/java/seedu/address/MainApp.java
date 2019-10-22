@@ -50,7 +50,7 @@ public class MainApp extends Application {
     protected ItemModel model;
     protected Config config;
     protected ElisaCommandHistory commandHistory;
-  
+
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");

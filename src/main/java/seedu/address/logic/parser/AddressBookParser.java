@@ -37,8 +37,8 @@ public class AddressBookParser {
 
     private ElisaCommandHistory elisaCommandHistory;
     private JokeList jokeList;
-  
-    public AddressBookParser(ElisaCommandHistory elisaCommandHistory) {
+
+    public AddressBookParser(ElisaCommandHistory elisaCommandHistory, JokeList jokeList) {
         this.elisaCommandHistory = elisaCommandHistory;
         this.jokeList = jokeList;
     }

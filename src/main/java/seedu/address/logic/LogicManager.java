@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.model = model;
         addressBookParser = new AddressBookParser(model.getElisaCommandHistory(), model.getJokeList());
-      
+
         //Create new thread class to check
         /*
         class CheckerThread extends Thread {
@@ -60,7 +60,7 @@ public class LogicManager implements Logic {
                 System.out.println("running checkTask");
                 Reminder reminder;
                 ArrayList<Item> reminders = model.getFutureRemindersList();
-                ArrayList<Item> activeReminders = new ArrayList<Item> (0);
+                ArrayList<Item> activeReminders = new ArrayList<Item>(0);
                 if (reminders.size() > 0) {
                     System.out.println("There are pending reminders: " + reminders.toString());
                     //TODO: Check if Optional is present before .get()

@@ -22,4 +22,9 @@ public class JokeCommand extends Command {
     public CommandResult execute(ItemModel model) throws CommandException {
         return new CommandResult(jokeList.getJoke());
     }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }
