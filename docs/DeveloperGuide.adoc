@@ -188,9 +188,6 @@ To facilitate the manipulation of `Loan` objects, `LoansManager` implements the 
 * `LoansManager#updateLoanStatus(Loan toUpdate, Status newStatus)` -- Updates the `Status` of `Loan toUpdate` to `newStatus`.
 * `LoansManager#deleteLoan(Loan toDelete)` -- Deletes `Loan toDelete` from `loans`.
 
-Finally, `LoansManager` also maintains a `persons` list, to keep track of the persons referenced by each `loan`.
-The `persons` list contains no duplicates persons.
-
 The state of `loans` is saved between sessions.
 This data is stored separately in the file `loans.json` on the local hard disk.
 
@@ -203,10 +200,6 @@ Otherwise, `loans.json` is created and the `LoansManager` initializes with an em
 Step 2. The user executes the command `loan out p/John x/4.20` to add a new loan.
 This creates a new loan `toAdd` of `amount` 4.20 `out` to the `person` John, with the current `date` being used as the user did not provide one.
 `LoansManager#addLoan(Loan toAdd)` is then called and `toAdd` is added to `loans`.
-
-[NOTE]
-If the `person` of the loan `toAdd` already exists in `persons`, then it is set to reference the existing `person`.
-Otherwise, the `person` referenced by the loan `toAdd` is added to `persons`.
 
 Step 3. The user executes the command `loan list` to see their current list of loans.
 `LoansManager#getLoans()` is called.
@@ -236,10 +229,6 @@ Step 6. The user executes the command `loan delete 1` to delete the first loan i
 `LoansManager#deleteLoan(Loan toDelete)` is called,
 where `toDelete` is the first loan in `loans`,
 and `toDelete` is removed from `loans`.
-
-[NOTE]
-If the `person` that `toDelete` references no longer has any `loan` that references it after the deletion of `toDelete`,
-then the `person` will be deleted from `persons`.
 
 [NOTE]
 If `toDelete` cannot be found by the `LoansManager` in `loans`, an error message will be displayed to notify the user.
