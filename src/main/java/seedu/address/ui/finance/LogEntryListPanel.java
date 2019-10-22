@@ -8,30 +8,30 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.finance.logentry.IncomeLogEntry;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.model.finance.logentry.SpendLogEntry;
-
 
 /**
  * Panel containing the list of log entries.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class LogEntryListPanel extends UiPart<Region> {
+    private static final String FXML = "LogEntryListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(LogEntryListPanel.class);
 
     @FXML
-    private ListView<LogEntry> personListView;
+    private ListView<LogEntry> logEntryListView;
 
-    public PersonListPanel(ObservableList<LogEntry> logEntryList) {
+    public LogEntryListPanel(ObservableList<LogEntry> logEntryList) {
         super(FXML);
-        personListView.setItems(logEntryList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        logEntryListView.setItems(logEntryList);
+        logEntryListView.setCellFactory(listView -> new LogEntryListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code LogEntry} using a {@code LogEntryCard}.
      */
-    class PersonListViewCell extends ListCell<LogEntry> {
+    class LogEntryListViewCell extends ListCell<LogEntry> {
         @Override
         protected void updateItem(LogEntry logEntry, boolean empty) {
             super.updateItem(logEntry, empty);
@@ -42,10 +42,16 @@ public class PersonListPanel extends UiPart<Region> {
             } else {
                 String logEntryType = logEntry.getLogEntryType();
                 switch (logEntryType) {
+
                 case SpendLogEntry.LOG_ENTRY_TYPE:
-                    SpendLogEntry currLogEntry = (SpendLogEntry) logEntry;
-                    setGraphic(new SpendLogEntryCard(currLogEntry, getIndex() + 1).getRoot());
+                    SpendLogEntry spendLogEntry = (SpendLogEntry) logEntry;
+                    setGraphic(new SpendLogEntryCard(spendLogEntry, getIndex() + 1).getRoot());
                     break;
+                case IncomeLogEntry.LOG_ENTRY_TYPE:
+                    IncomeLogEntry incomeLogEntry = (IncomeLogEntry) logEntry;
+                    setGraphic(new IncomeLogEntryCard(incomeLogEntry, getIndex() + 1).getRoot());
+                    break;
+
                 default:
                     setGraphic(new LogEntryCard(logEntry, getIndex() + 1).getRoot());
                 }

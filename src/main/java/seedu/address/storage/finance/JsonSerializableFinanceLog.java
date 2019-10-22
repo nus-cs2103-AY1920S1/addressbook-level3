@@ -27,7 +27,7 @@ class JsonSerializableFinanceLog {
      * Constructs a {@code JsonSerializableFinanceLog} with the given log entries.
      */
     @JsonCreator
-    public JsonSerializableFinanceLog(@JsonProperty("logEntries") List<JsonAdaptedSpendLogEntry> logEntries) {
+    public JsonSerializableFinanceLog(@JsonProperty("logEntries") List<JsonAdaptedLogEntry> logEntries) {
         this.logEntries.addAll(logEntries);
     }
 
@@ -56,23 +56,24 @@ class JsonSerializableFinanceLog {
                 .stream()
                 .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
+
         String logEntryType = log.getLogEntryType();
 
         switch (logEntryType) {
 
         case SpendLogEntry.LOG_ENTRY_TYPE:
-            SpendLogEntry sLog = (SpendLogEntry) log;
-            String place = sLog.getPlace().toString();
+            SpendLogEntry spendLogEntry = (SpendLogEntry) log;
+            String place = spendLogEntry.getPlace().toString();
             return new JsonAdaptedSpendLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, place);
 
         case IncomeLogEntry.LOG_ENTRY_TYPE:
-            IncomeLogEntry iLog = (IncomeLogEntry) log;
-            String from = iLog.getFrom().name;
+            IncomeLogEntry incomeLogEntry = (IncomeLogEntry) log;
+            String from = incomeLogEntry.getFrom().name;
             return new JsonAdaptedIncomeLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, from);
 
         default:
-            iLog = (IncomeLogEntry) log;
-            from = iLog.getFrom().name;
+            incomeLogEntry = (IncomeLogEntry) log;
+            from = incomeLogEntry.getFrom().name;
             return new JsonAdaptedIncomeLogEntry(amount, tDate, desc, tMethod, categories, logEntryType, from);
         }
     }
