@@ -1,4 +1,4 @@
-package seedu.revision.logic.parser;
+package seedu.revision.logic.parser.main;
 
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -11,7 +11,13 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.revision.logic.commands.AddCommand;
+import seedu.revision.logic.commands.main.AddCommand;
+import seedu.revision.logic.parser.ArgumentMultimap;
+import seedu.revision.logic.parser.ArgumentTokenizer;
+import seedu.revision.logic.parser.Parser;
+import seedu.revision.logic.parser.ParserUtil;
+import seedu.revision.logic.parser.Prefix;
+import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;

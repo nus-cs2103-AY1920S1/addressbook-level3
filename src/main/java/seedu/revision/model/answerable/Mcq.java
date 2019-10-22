@@ -1,16 +1,10 @@
 package seedu.revision.model.answerable;
 
-import seedu.revision.logic.commands.AddCommand;
-import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 
-import java.util.Arrays;
 import java.util.Set;
 
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 /**
  * Represents a Answerable in the Test Bank.

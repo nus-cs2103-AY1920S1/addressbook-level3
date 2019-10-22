@@ -1,4 +1,4 @@
-package seedu.revision.logic.parser;
+package seedu.revision.logic.parser.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -14,7 +14,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.revision.commons.core.index.Index;
-import seedu.revision.logic.commands.EditCommand;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.parser.ArgumentMultimap;
+import seedu.revision.logic.parser.ArgumentTokenizer;
+import seedu.revision.logic.parser.Parser;
+import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.category.Category;
 

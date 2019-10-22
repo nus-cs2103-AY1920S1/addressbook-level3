@@ -28,8 +28,9 @@ import static seedu.revision.testutil.TypicalIndexes.INDEX_THIRD_ANSWERABLE;
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.index.Index;
-import seedu.revision.logic.commands.EditCommand;
-import seedu.revision.logic.commands.EditCommand.EditAnswerableDescriptor;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
+import seedu.revision.logic.parser.main.EditCommandParser;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.category.Category;

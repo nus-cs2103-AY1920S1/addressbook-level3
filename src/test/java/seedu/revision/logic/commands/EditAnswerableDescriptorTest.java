@@ -10,7 +10,8 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREEN
 
 import org.junit.jupiter.api.Test;
 
-import seedu.revision.logic.commands.EditCommand.EditAnswerableDescriptor;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
 public class EditAnswerableDescriptorTest {

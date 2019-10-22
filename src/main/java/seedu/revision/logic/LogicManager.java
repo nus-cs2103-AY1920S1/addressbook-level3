@@ -8,10 +8,12 @@ import javafx.collections.ObservableList;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.commands.Command;
-import seedu.revision.logic.commands.CommandResult;
+import seedu.revision.logic.commands.QuizCommand;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
-import seedu.revision.logic.parser.AddressBookParser;
+import seedu.revision.logic.parser.main.AddressBookParser;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.logic.parser.quiz.QuizParser;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
@@ -27,6 +29,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private QuizParser quizParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -52,6 +55,21 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+
+        return commandResult;
+    }
+
+
+    public CommandResult execute(String commandText, Answerable currentAnswerable)
+            throws ParseException, CommandException {
+        //Logging, safe to ignore
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        CommandResult commandResult;
+        QuizParser quizParser = new QuizParser(currentAnswerable);
+        //Parse user input from String to a Command
+        QuizCommand command = quizParser.parseCommand(commandText);
+        commandResult = command.execute(model, currentAnswerable);
 
         return commandResult;
     }

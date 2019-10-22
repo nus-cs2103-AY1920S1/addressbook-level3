@@ -1,4 +1,4 @@
-package seedu.revision.logic.commands;
+package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.revision.commons.core.Messages;
+import seedu.revision.logic.commands.Command;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.CategoryPredicate;

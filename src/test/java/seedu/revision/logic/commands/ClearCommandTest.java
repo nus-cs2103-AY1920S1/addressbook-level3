@@ -5,6 +5,7 @@ import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.revision.logic.commands.main.ClearCommand;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;

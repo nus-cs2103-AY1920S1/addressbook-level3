@@ -1,7 +1,8 @@
-package seedu.revision.logic.commands;
+package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.revision.logic.commands.Command;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 

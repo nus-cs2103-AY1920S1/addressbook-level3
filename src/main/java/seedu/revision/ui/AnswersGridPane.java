@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answer;
@@ -52,7 +51,6 @@ public class AnswersGridPane extends UiPart<Region> {
         if (!(other instanceof AnswersGridPane)) {
             return false;
         }
-
         // state check
         AnswersGridPane answersGrid = (AnswersGridPane) other;
         return answerable.equals(answersGrid.answerable);

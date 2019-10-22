@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.Logic;
-import seedu.revision.logic.commands.CommandResult;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
@@ -183,6 +183,8 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.revision.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+
+
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

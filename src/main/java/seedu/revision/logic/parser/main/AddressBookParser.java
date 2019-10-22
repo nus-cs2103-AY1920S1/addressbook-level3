@@ -1,4 +1,4 @@
-package seedu.revision.logic.parser;
+package seedu.revision.logic.parser.main;
 
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -6,16 +6,16 @@ import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.revision.logic.commands.AddCommand;
-import seedu.revision.logic.commands.ClearCommand;
+import seedu.revision.logic.commands.main.AddCommand;
+import seedu.revision.logic.commands.main.ClearCommand;
 import seedu.revision.logic.commands.Command;
-import seedu.revision.logic.commands.DeleteCommand;
-import seedu.revision.logic.commands.EditCommand;
-import seedu.revision.logic.commands.ExitCommand;
-import seedu.revision.logic.commands.FindCommand;
-import seedu.revision.logic.commands.HelpCommand;
-import seedu.revision.logic.commands.ListCommand;
-import seedu.revision.logic.commands.StartQuizCommand;
+import seedu.revision.logic.commands.main.DeleteCommand;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.commands.main.ExitCommand;
+import seedu.revision.logic.commands.main.FindCommand;
+import seedu.revision.logic.commands.main.HelpCommand;
+import seedu.revision.logic.commands.main.ListCommand;
+import seedu.revision.logic.commands.main.StartQuizCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
 /**

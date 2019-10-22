@@ -16,10 +16,11 @@ import javafx.stage.Stage;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.Logic;
-import seedu.revision.logic.commands.CommandResult;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
@@ -34,8 +35,11 @@ public class StartQuizWindow extends UiPart<Stage> {
 
     Answer correctAnswerStub = new Answer("CORRECT");
     Set<Answer> correctAnswerSetStub = new HashSet<>(Arrays.asList(correctAnswerStub));
-    Answer wrongAnswerStub = new Answer("WRONG");
-    Set<Answer> wrongAnswerSetStub = new HashSet<>(Arrays.asList(wrongAnswerStub));
+    Answer wrongAnswerStub1 = new Answer("WRONG");
+    Answer wrongAnswerStub2 = new Answer("10");
+    Answer wrongAnswerStub3 = new Answer("100");
+
+    Set<Answer> wrongAnswerSetStub = new HashSet<>(Arrays.asList(wrongAnswerStub1, wrongAnswerStub2, wrongAnswerStub3));
     Category categoryStub = new Category("math");
     Set<Category> categoriesStub = new HashSet<>(Arrays.asList(categoryStub));
 
@@ -53,7 +57,6 @@ public class StartQuizWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private AnswerableListPanel answerableListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -136,13 +139,11 @@ public class StartQuizWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-//        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
-//        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
-
         answersGridPane = new AnswersGridPane(DEFAULT_QUESTION);
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         resultDisplay = new ResultDisplay();
+        resultDisplay.setFeedbackToUser(DEFAULT_QUESTION.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
@@ -190,18 +191,16 @@ public class StartQuizWindow extends UiPart<Stage> {
         mainWindow.fillInnerParts();
     }
 
-    public AnswerableListPanel getAnswerableListPanel() {
-        return answerableListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.revision.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(
+            String commandText, Answerable currentAnswerable) throws CommandException, ParseException {
+
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

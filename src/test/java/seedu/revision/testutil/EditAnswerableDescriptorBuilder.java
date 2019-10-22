@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.revision.logic.commands.EditCommand;
-import seedu.revision.logic.commands.EditCommand.EditAnswerableDescriptor;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.category.Category;
