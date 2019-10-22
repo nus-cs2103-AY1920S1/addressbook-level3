@@ -24,8 +24,13 @@ import seedu.address.model.record.BmiBuilder;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.tag.Tag;
+import seedu.sgm.model.food.Calorie;
+import seedu.sgm.model.food.Fat;
 import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodBuilder;
+import seedu.sgm.model.food.FoodName;
+import seedu.sgm.model.food.FoodType;
+import seedu.sgm.model.food.Gi;
+import seedu.sgm.model.food.Sugar;
 import seedu.sgm.model.food.UniqueFoodList;
 
 /**
@@ -55,27 +60,58 @@ public class SampleDataUtil {
         };
     }
 
+    private static Food buildNewFood(String foodName, String calorie, String gi, String sugar, String fat,
+                                     FoodType foodType) {
+        return new Food(new FoodName(foodName), new Calorie(calorie), new Gi(gi), new Sugar(sugar), new Fat(fat),
+            foodType);
+    }
+
     public static Food[] getSampleFoods() {
         return new Food[]{
-        new FoodBuilder().build(),
-        new FoodBuilder().withFoodName("Potatodfafadfafadf").withFoodType("sv").build(),
-        new FoodBuilder().withFoodName("Banana").withFoodType("f").build(),
-        new FoodBuilder().withFoodName("Chicken").withFoodType("p").build(),
-        new FoodBuilder().withFoodName("Potato chips").withFoodType("s").build(),
-        new FoodBuilder().withFoodName("Chicken Rice").withFoodType("m").build(),
-        new FoodBuilder().withFoodName("Broccoli2").build(),
-        new FoodBuilder().withFoodName("Potato2").withFoodType("sv").build(),
-        new FoodBuilder().withFoodName("Banana2").withFoodType("f").build(),
-        new FoodBuilder().withFoodName("Chicken2").withFoodType("p").build(),
-        new FoodBuilder().withFoodName("Potato chips2").withFoodType("s").build(),
-        new FoodBuilder().withFoodName("Chicken Rice2").withFoodType("m").build(),
-        new FoodBuilder().withFoodName("Broccoli3").build(),
-        new FoodBuilder().withFoodName("Potato3").withFoodType("sv").build(),
-        new FoodBuilder().withFoodName("Banana3").withFoodType("f").build(),
-        new FoodBuilder().withFoodName("Chicken3").withFoodType("p").build(),
-        new FoodBuilder().withFoodName("Potato chips3").withFoodType("s").build(),
-        new FoodBuilder().withFoodName("Chicken Rice3").withFoodType("m").build()
-        };
+            buildNewFood("Asparagus", "20", "8", "2", "0", FoodType.NON_STARCHY_VEGETABLE),
+            buildNewFood("Broccoli", "45", "6", "2", "1", FoodType.NON_STARCHY_VEGETABLE),
+            buildNewFood("Carrot", "30", "47", "5", "0", FoodType.NON_STARCHY_VEGETABLE),
+            buildNewFood("Cabbage", "25", "6", "3", "0", FoodType.NON_STARCHY_VEGETABLE),
+            buildNewFood("Tomatoes", "25", "6", "3", "0", FoodType.NON_STARCHY_VEGETABLE),
+            buildNewFood("Mushroom", "20", "10", "0", "0", FoodType.NON_STARCHY_VEGETABLE),
+
+            buildNewFood("Sweet Corn", "90", "52", "5", "4", FoodType.STARCHY_VEGETABLE),
+            buildNewFood("Brown Rice", "216", "68", "0.4", "1,8", FoodType.STARCHY_VEGETABLE),
+            buildNewFood("Buckwheat", "343", "34", "0", "3.4", FoodType.STARCHY_VEGETABLE),
+            buildNewFood("Millet", "378", "44", "1.6", "4.3", FoodType.STARCHY_VEGETABLE),
+            buildNewFood("Butternut Squash", "82", "51", "4", "0.2", FoodType.STARCHY_VEGETABLE),
+            buildNewFood("Pumpkin", "30", "64", "3.2", "0.1", FoodType.STARCHY_VEGETABLE),
+
+            buildNewFood("Apple", "90", "36", "12", "0", FoodType.FRUIT),
+            buildNewFood("Cherry", "100", "22", "16", "0", FoodType.FRUIT),
+            buildNewFood("Orange", "80", "43", "14", "0", FoodType.FRUIT),
+            buildNewFood("Grapefruit", "60", "25", "11", "0", FoodType.FRUIT),
+            buildNewFood("Peach", "60", "42", "13", "0.5", FoodType.FRUIT),
+            buildNewFood("Pear", "100", "38", "16", "0", FoodType.FRUIT),
+            buildNewFood("Plum", "70", "39", "16", "0", FoodType.FRUIT),
+
+            buildNewFood("Kidney beans", "127", "24", "0.3", "0.5", FoodType.PROTEIN),
+            buildNewFood("Lentils", "230", "30", "1.8", "0.8", FoodType.PROTEIN),
+            buildNewFood("Egg", "75", "0", "0", "5", FoodType.PROTEIN),
+            buildNewFood("Cheese", "106", "0", "0", "8.9", FoodType.PROTEIN),
+            buildNewFood("Chicken", "143", "0", "0", "8.1", FoodType.PROTEIN),
+            buildNewFood("Turkey", "149", "0", "0", "8.3", FoodType.PROTEIN),
+            buildNewFood("Duck", "132", "0", "0", "5.9", FoodType.PROTEIN),
+            buildNewFood("Lean Pork", "263", "0", "0", "21", FoodType.PROTEIN),
+            buildNewFood("Lean Beef", "254 ", "0", "0", "20", FoodType.PROTEIN),
+            buildNewFood("Lean Lamb", "282", "0", "0", "23.4", FoodType.PROTEIN),
+
+            buildNewFood("Diet Yogurt", "154", "41", "17", "3.8", FoodType.SNACK),
+            buildNewFood("Fat-free Yogurt", "137", "41", "19", "0.5", FoodType.SNACK),
+            buildNewFood("Oat Crispbread", "130", "49", "2", "9", FoodType.SNACK),
+            buildNewFood("Ginger Nut Biscuit", "55", "37", "5", "2", FoodType.SNACK),
+            buildNewFood("Fig Roll", "65", "53", "5.9", "1.5", FoodType.SNACK),
+
+            buildNewFood("Spanish Omelet", "260", "40", "3", "10", FoodType.MEAL),
+            buildNewFood("Beef Stew", "320", "40", "9", "7", FoodType.MEAL),
+            buildNewFood("Two Cheese Pizza", "420", "40", "4", "10", FoodType.MEAL),
+            buildNewFood("Rice with Chicken", "400", "40", "5", "7", FoodType.MEAL),
+            buildNewFood("Avocado Tacos", "270", "40", "4", "8", FoodType.MEAL)};
     }
 
     public static Record[] getSampleRecords() {
@@ -89,18 +125,18 @@ public class SampleDataUtil {
 
     public static CalendarEntry[] getSampleCalendarEntry() {
         Event appointmentEvent = new Event(new Description("Appointment"),
-                new DateTime(LocalDateTime.of(2019, 11, 30, 14, 0)));
+            new DateTime(LocalDateTime.of(2019, 11, 30, 14, 0)));
         appointmentEvent.setEndingDateTime(new DateTime(LocalDateTime.of(2019, 11, 30, 15, 40)));
 
         Event dinnerEvent = new Event(new Description("Dinner"), new DateTime(LocalDateTime.of(2020, 1, 1, 18, 0)));
 
         return new CalendarEntry[]{
             new Reminder(new Description("Insulin injection"), new DateTime(LocalDateTime.of(2020, 2, 1, 11, 30)),
-                    Repetition.Daily),
+                Repetition.Daily),
             new Reminder(new Description("Medicine"), new DateTime(LocalDateTime.of(2020, 1, 2, 19, 10)),
-                    Repetition.Daily),
+                Repetition.Daily),
             new Reminder(new Description("Buy medicine"), new DateTime(LocalDateTime.of(2019, 12, 2, 15, 0)),
-                    Repetition.Once),
+                Repetition.Once),
             appointmentEvent,
             dinnerEvent
         };
@@ -132,7 +168,7 @@ public class SampleDataUtil {
 
     public static Calendar getSampleCalendar() {
         Calendar sampleCalendar = new Calendar();
-        for (CalendarEntry calendarEntry: getSampleCalendarEntry()) {
+        for (CalendarEntry calendarEntry : getSampleCalendarEntry()) {
             sampleCalendar.addCalendarEntry(calendarEntry);
         }
         return sampleCalendar;

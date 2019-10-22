@@ -110,7 +110,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyCalendar> calendarOptional;
         ReadOnlyCalendar initialCalendar;
 
-        // Todo Following can eventually be abstracted in later versions if there's time.
+        //TODO: Following can eventually be abstracted in later versions if there's time.
         try {
             addressBookOptional = storage.readAddressBook();
             recordListOptional = storage.readRecordList();
