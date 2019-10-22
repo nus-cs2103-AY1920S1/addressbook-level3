@@ -1,6 +1,5 @@
 package seedu.algobase.storage;
 
-<<<<<<< HEAD
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -24,31 +23,11 @@ class JsonAdaptedTask {
     private final String problemId;
     private final String dateTime;
     private final String isSolved;
-=======
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.model.problem.Problem;
-import seedu.algobase.model.task.Task;
-
-
-/**
- * Jackson-friendly version of {@link Task}.
- */
-public class JsonAdaptedTask {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
-
-    private final String problem;
-    private final String isSolved;
-    private final String dateTime;
->>>>>>> Hard-code json task for fields in json plan
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given Task details.
      */
     @JsonCreator
-<<<<<<< HEAD
     public JsonAdaptedTask(@JsonProperty("id") String id,
                            @JsonProperty("problemId") String problemId,
                            @JsonProperty("dateTime") String dateTime,
@@ -67,23 +46,6 @@ public class JsonAdaptedTask {
         problemId = Long.toString(task.getProblem().getId());
         dateTime = task.getTargetDate().format(ParserUtil.FORMATTER);
         isSolved = Boolean.toString(task.getIsSolved());
-=======
-    public JsonAdaptedTask(@JsonProperty("problem") String problem,
-                           @JsonProperty("isSolved") String isSolved,
-                           @JsonProperty("dateTime") String dateTime) {
-        this.problem = problem;
-        this.isSolved = isSolved;
-        this.dateTime = dateTime;
-    }
-
-    /**
-     * Converts a given {@code Problem} into this class for Jackson use.
-     */
-    public JsonAdaptedTask(Task task) {
-        problem = task.getProblem().toString();
-        isSolved = task.getIsSolved().toString();
-        dateTime = task.getDateTime().toString();
->>>>>>> Hard-code json task for fields in json plan
     }
 
     /**
@@ -91,7 +53,6 @@ public class JsonAdaptedTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Task.
      */
-<<<<<<< HEAD
     public Task toModelType(AlgoBase algoBase) throws IllegalValueException {
         final long modelId = retrieveId(id);
         final Problem modelProblem = algoBase.findProblemById(retrieveId(problemId));
@@ -157,13 +118,3 @@ public class JsonAdaptedTask {
         return Boolean.parseBoolean(isSolved);
     }
 }
-=======
-    public Task toModelType() throws IllegalValueException {
-        final Problem problem = null;
-        final boolean isSolved = true;
-        // TODO: This is currently hard-coded.
-
-        return new Task(problem, isSolved);
-    }
-}
->>>>>>> Hard-code json task for fields in json plan
