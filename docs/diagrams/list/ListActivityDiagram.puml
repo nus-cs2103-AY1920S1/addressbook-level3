@@ -1,0 +1,12 @@
+@startuml
+start
+:User executes command;
+:ListCommandParser parses the arguments;
+if () then ([Syntax error] )
+    :Show UsageSyntax;
+else ( [correct input])
+    :Create new ListCommand object;
+    :Show filtered list of Transactions;
+    endif
+stop
+@enduml

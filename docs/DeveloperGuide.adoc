@@ -456,6 +456,54 @@ image::UndoAndRedo/RunCommandActivityDiagrams.png[]
 ** Pros: Easy to implement.
 ** Cons: Need to carefully manage the pointer. For example, you need to ensure that the pointer stays within the size of an arraylist.
 
+// tag::Filtering transactions[]
+=== Filtering Transactions
+
+The *List* command allows the user to bring up a list of `**Transactions**`, and filter it by month or by its tags.
+This feature is implemented by using a `**Predicate<Transaction>**` to filter the `**Transactions**` by month or tags.
+
+==== Implementation
+`**ListCommand**` is instantiated by `ListCommandParser#parse(String args)`,
+which attempts to parse the various parameters supplied in `args` and return a `**ListCommand**` object.
+
+The following conditions will cause a `**ParseException**` to be thrown by the parser:
+
+. Incorrect syntax (i.e. having a prefix that does not refer to month nor tag)
+. Illegal values in parameters (i.e. special characters and symbols entered for a integer-only field)
+
+[NOTE]
+If the user input is incorrect due to any of the reasons above, the usage syntax will be shown.
+
+The scenario below shows an example of how the feature works:
+
+Step 1. The user executes *list m/jan* to filter the list to bring up transactions of January.
+
+Step 2. The `**ListCommandParser**` will parse the arguments using the method `ListCommandParser#parse(String args)`.
+
+Step 3. Since user input is correct and the arguments have been parsed, a new `**ListCommand**` object will be created by the
+`**ListCommandParser**`.
+
+Step 4. This `**ListCommand**` object will contain a `**Predicate**` which is used to filter through each `**Transaction**`.
+
+Step 5. The final list of filtered transactions will be brought up.
+
+The activity diagram below will give an overview of what is happening when the command is executed.
+
+.Activity diagram of the command execution.
+image::list/ListActivityDiagram.PNG[]
+
+==== Design Considerations
+
+===== Aspect: Using `**Predicate**` to improve extendability of the feature in the future
+
+* **Alternative 1 (current choice):** Create a new `**Predicate**` based on the arguments each time.
+** Pros: The filter feature could be easily improved in the future to further accommodate new arguments other than month and tag.
+** Cons: Not as easy to implement.
+* **Alternative 2:** Use a fixed `**Predicate**` written beforehand to filter the list for each argument.
+** Pros: Straightforward to implement, a specific `**Predicate**` can be used for the specific argument.
+** Cons: Not easily extendable as in the future if we want to filter by new arguments, we will have to write a new `**Predicate**` for each argument.
+// end::Filtering transactions[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
