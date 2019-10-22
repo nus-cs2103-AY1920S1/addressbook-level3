@@ -23,7 +23,6 @@ public class ClashCommandParser implements Parser<ClashCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE, PREFIX_APPEAL);
-
         if (argMultimap.getValueSize(PREFIX_MODULE) == 2) {
             List<String> moduleCodes = argMultimap.getAllValues(PREFIX_MODULE);
             return new ClashModCommand(moduleCodes.get(0), moduleCodes.get(1));

@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import mams.commons.core.Messages;
-import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 
@@ -25,23 +24,43 @@ public class RemoveModCommand extends ModCommand {
 
     private final String matricId;
     private final String moduleCode;
-    private final Index index;
+    private final String index;
+    private boolean usingIndex;
 
-    public RemoveModCommand(Index index, String moduleCode) {
-        requireNonNull(index);
+    /**
+     * Builder class for RemoveModCommand.
+     */
+    public static class RemoveModCommandBuilder {
+        private String matricId; //either
+        private final String moduleCode; //required
+        private String index; //or
+        private boolean usingIndex; //required
 
-        this.matricId = null;
-        this.index = index;
-        this.moduleCode = moduleCode;
+        public RemoveModCommandBuilder (String moduleCode, boolean usingIndex) {
+            this.moduleCode = moduleCode;
+            this.usingIndex = usingIndex;
+        }
+
+        public RemoveModCommandBuilder setMatricId (String matricId) {
+            this.matricId = matricId;
+            return this;
+        }
+
+        public RemoveModCommandBuilder setIndex (String index) {
+            this.index = index;
+            return this;
+        }
+
+        public RemoveModCommand build() {
+            return new RemoveModCommand(this);
+        }
     }
 
-    public RemoveModCommand(String matricId, String moduleCode) {
-        requireNonNull(matricId);
-        requireNonNull(moduleCode);
-
-        this.matricId = matricId;
-        this.index = null;
-        this.moduleCode = moduleCode;
+    private RemoveModCommand(RemoveModCommandBuilder builder) {
+        this.moduleCode = builder.moduleCode;
+        this.matricId = builder.matricId;
+        this.index = builder.index;
+        this.usingIndex = builder.usingIndex;
     }
 
     /**
@@ -64,15 +83,20 @@ public class RemoveModCommand extends ModCommand {
         List<Module> moduleToCheckList = lastShownModuleList.stream()
                 .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
         if (moduleToCheckList.isEmpty()) {
-            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
+            throw new CommandException(MESSAGE_INVALID_MODULE);
         }
 
         //check if student exist
-        if (index != null) { //by index
-            if (index.getZeroBased() >= lastShownStudentList.size()) {
+        if (usingIndex) { //by index
+            int tempIndex = Integer.parseInt(index);
+            if (tempIndex < 1) {
+                throw new CommandException(ModCommand.MESSAGE_USAGE_REMOVE_MOD);
+            }
+            int tempIndexZeroBased = tempIndex - 1;
+            if (tempIndexZeroBased >= lastShownStudentList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
             }
-            studentToEdit = lastShownStudentList.get(index.getZeroBased());
+            studentToEdit = lastShownStudentList.get(tempIndexZeroBased);
         } else { //by matricId
             List<Student> studentToCheckList = lastShownStudentList.stream()
                     .filter(p -> p.getMatricId().toString().equals(matricId)).collect(Collectors.toList());
@@ -91,7 +115,7 @@ public class RemoveModCommand extends ModCommand {
             }
         }
         if (hasModule == false) {
-            throw new CommandException(MESSAGE_MISSING_MODULE_CODE);
+            throw new CommandException(MESSAGE_MISSING_MODULE);
         }
 
         //create a tag list without the module
@@ -122,12 +146,12 @@ public class RemoveModCommand extends ModCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddModCommand)) {
+        if (!(other instanceof RemoveModCommand)) {
             return false;
         }
 
         // state check
-        AddModCommand e = (AddModCommand) other;
+        RemoveModCommand e = (RemoveModCommand) other;
         return false;
     }
 }
