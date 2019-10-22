@@ -3,29 +3,26 @@ package seedu.address.ui;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.item.Item;
-import seedu.address.model.item.VisualizeList;
 
+/**
+ * The calendar panel for Elisa
+ */
 public class CalendarPanel extends UiPart<Region> {
-    private static String FXML = "CalendarPanel.fxml";
+    private static final String FXML = "CalendarPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
     private int year;
     private int month;
@@ -36,7 +33,10 @@ public class CalendarPanel extends UiPart<Region> {
     @FXML
     private GridPane calendarGrid;
 
-
+    /**
+     * Creates a calendar panel base on the current date.
+     * @param visualList
+     */
     public CalendarPanel(ObservableList<Item> visualList) {
         super(FXML);
         monthAndYear.setAlignment(Pos.CENTER);
@@ -53,6 +53,10 @@ public class CalendarPanel extends UiPart<Region> {
         generateDate();
     }
 
+    /**
+     * Load the events from the visualization list to the calendar.
+     * @param visualList the list containing all the data to be loaded from.
+     */
     private void loadData(ObservableList<Item> visualList) {
         ObservableList<Item> eventList = visualList.filtered(x -> x.hasEvent());
         ObservableList<Item> monthEvent = eventList.filtered(x -> x.getEvent()
@@ -70,6 +74,9 @@ public class CalendarPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Generates the header of the calendar
+     */
     private void generateHeader() {
         for (int i = 0; i < 7; i++) {
             VBox vPane = new VBox();
@@ -83,6 +90,9 @@ public class CalendarPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Generates the date on the calendar base on the current month.
+     */
     private void generateDate() {
         LocalDateTime startOfMonth = LocalDateTime.of(year, month, 1, 0, 0);
         int firstDay = startOfMonth.getDayOfWeek().getValue();
@@ -92,7 +102,7 @@ public class CalendarPanel extends UiPart<Region> {
         }
 
         double height = calendarGrid.getHeight();
-        double maxHeight = height/7;
+        double maxHeight = height / 7;
 
         int offset = firstDay;
         int lblCount = 1;
