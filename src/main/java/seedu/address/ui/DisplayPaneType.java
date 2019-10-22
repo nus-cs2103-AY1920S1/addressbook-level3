@@ -9,7 +9,7 @@ public enum DisplayPaneType {
     ACHVM,
     RECM_FOOD,
     ADD,
-    AVERAGE
+    AVERAGE,
     LIST,
     DELETE,
     COLOUR;
