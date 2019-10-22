@@ -135,6 +135,7 @@ public class ModelManager implements Model {
         return addressBook.hasDeadline(deadline);
     }
 
+    //@@author LeonardTay748
     @Override
     public void editStats(int type) {
         if (type == 0) {
