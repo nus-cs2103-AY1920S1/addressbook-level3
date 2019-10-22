@@ -30,9 +30,9 @@ public class FlashCardTestModelTest {
     }
 
     @Test
-    public void getQuestion_validTestList_success() {
+    public void getQuestion_validTestList_success(Model model) {
         flashCardTestModel = new FlashCardTestModel(testList);
         String expectedOutput = "0 + 10";
-        assertEquals(expectedOutput, flashCardTestModel.getQuestion(new Model()));
+        assertEquals(expectedOutput, flashCardTestModel.getQuestion(model));
     }
 }
