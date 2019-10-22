@@ -57,6 +57,8 @@ public class MainDisplayPane {
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()),
                     newPaneIsToBeCreated);
         case ADD:
+        case LIST:
+        case DELETE:
             return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()),
                     newPaneIsToBeCreated);
         default:
