@@ -8,14 +8,14 @@ skinparam classBackgroundColor MODEL_COLOR
 
 package "Transactions List" {
     class transaction1 as "__:Income__" {
-        Description: "Bursary"
-        Value: 500
-        Remark: "Awarded for doing well in school"
+        <color:#white>Description: "Bursary"
+        <color:#white>Value: 500
+        <color:#white>Remark: "Awarded for doing well in school"
     }
     class transaction2 as "__:Expense__" {
-        Description: "Laksa"
-        Value: 3.50
-        Date: dd/mm/yyyy
+        <color:#white>Description: "Laksa"
+        <color:#white>Value: 3.50
+        <color:#white>Date: dd/mm/yyyy
     }
 }
 

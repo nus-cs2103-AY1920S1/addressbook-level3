@@ -11,24 +11,41 @@ end box
 [-> LogicManager : execute("add_expense")
 activate LogicManager
 
-LogicManager -> ThriftParser : execute("add_expense")
+LogicManager -> ThriftParser : parseCommand("add_expense")
 activate ThriftParser
 
+create AddTransactionCommandParser
 ThriftParser -> AddTransactionCommandParser
 activate AddTransactionCommandParser
 
 ThriftParser <-- AddTransactionCommandParser
-LogicManager <-- ThriftParser
-[<-- LogicManager
-[-> LogicManager : execute("add_income")
+deactivate AddTransactionCommandParser
+destroy AddTransactionCommandParser
 
-LogicManager -> ThriftParser : execute("add_income")
+LogicManager <-- ThriftParser
+deactivate ThriftParser
+
+[<-- LogicManager
+deactivate LogicManager
+
+[-> LogicManager : execute("add_income")
+activate LogicManager
+
+LogicManager -> ThriftParser : parseCommand("add_income")
+activate ThriftParser
+
+create AddTransactionCommandParser
 ThriftParser -> AddTransactionCommandParser
+activate AddTransactionCommandParser
 
 ThriftParser <-- AddTransactionCommandParser
 deactivate AddTransactionCommandParser
+destroy AddTransactionCommandParser
+
 LogicManager <-- ThriftParser
 deactivate ThriftParser
+
 [<-- LogicManager
+deactivate LogicManager
 
 @enduml

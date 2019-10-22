@@ -5,11 +5,11 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 show members
 abstract class Transaction {
-    Description
-    TransactionDate
-    Value
-    Remark
-    Set<Tag>
+    <color:#white>Description
+    <color:#white>TransactionDate
+    <color:#white>Value
+    <color:#white>Remark
+    <color:#white>Set<Tag>
 }
 Transaction <|-- Income
 Transaction <|-- Expense

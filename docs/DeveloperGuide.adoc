@@ -250,6 +250,7 @@ image::add-transaction/AddTransaction2.png[]
 
 The following activity diagram summarizes what happens when the user executes a command to add a new `**Transaction**`:
 
+.Activity diagram of adding a transaction into the transaction list
 image::add-transaction/AddTransactionSequence.png[]
 
 ==== Design considerations
