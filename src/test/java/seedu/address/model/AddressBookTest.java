@@ -105,6 +105,12 @@ public class AddressBookTest {
         assertFalse(addressBook.hasPerson(ALICE));
     }
 
+    @Test
+    public void hashCode_noError() {
+        AddressBook typicalAddressBook = getTypicalAddressBook();
+        typicalAddressBook.hashCode();
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */

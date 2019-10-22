@@ -64,7 +64,7 @@ public class HistoryManager {
      */
     public List<HistoryRecord> popRecordsTo(HistoryRecord record) throws NoSuchElementException {
         int index = history.indexOf(record);
-        if (index == -1) {
+        if (index == -1) { // record not found in history
             throw new NoSuchElementException("Cannot pop to specified record: record not found in history");
         }
 
