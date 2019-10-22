@@ -8,6 +8,7 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -33,8 +34,8 @@ import seedu.revision.model.category.Category;
 public class AddCommandParser implements Parser<AddCommand> {
 
     private Question question;
-    private Set<Answer> correctAnswerSet;
-    private Set<Answer> wrongAnswerSet;
+    private ArrayList<Answer> correctAnswerList;
+    private ArrayList<Answer> wrongAnswerList;
     private Difficulty difficulty;
     private Set<Category> categories;
 
@@ -59,7 +60,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         validifyQuestionType(questionType, argMultimap);
 
         this.question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
-        this.correctAnswerSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
+        this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
         this.difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
         this.categories = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
@@ -67,10 +68,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         switch (questionType.getType()) {
         case "mcq":
-            answerable = new Mcq(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
+            answerable = new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
             return new AddCommand(answerable);
         case "saq":
-            answerable = new Saq(question, correctAnswerSet, difficulty, categories);
+            answerable = new Saq(question, correctAnswerList, difficulty, categories);
             return new AddCommand(answerable);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -89,7 +90,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 int numWrong = argMultimap.getAllValues(PREFIX_WRONG).size();
 
                 if (numCorrect == 1 && numWrong == 3) {
-                    this.wrongAnswerSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
+                    this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
                     return true;
                 } else {
                     throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);

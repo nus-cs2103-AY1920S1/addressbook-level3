@@ -2,10 +2,13 @@ package seedu.revision.model.answerable;
 
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,23 +22,25 @@ public abstract class Answerable {
     protected final Question question;
     protected final Difficulty difficulty;
 
-    protected final Set<Answer> correctAnswerSet;
-    protected final Set<Answer> wrongAnswerSet;
-    protected final Set<Answer> combinedAnswerSet;
+    protected final ArrayList<Answer> correctAnswerList;
+    protected final ArrayList<Answer> wrongAnswerList;
+    protected final ArrayList<Answer> combinedAnswerList;
     protected final Set<Category> categories = new HashSet<>();
+
+    private final static Logger logger = Logger.getLogger(Answerable.class.getName());
 
     /**
      * Every field must be present and not null.
      */
-    public Answerable(Question question, Set<Answer> correctAnswerSet,
-              Set<Answer> wrongAnswerSet, Difficulty difficulty, Set<Category> categories) {
+    public Answerable(Question question, ArrayList<Answer> correctAnswerList,
+                      ArrayList<Answer> wrongAnswerList, Difficulty difficulty, Set<Category> categories) {
         requireAllNonNull(question, difficulty, categories);
         this.question = question;
-        this.correctAnswerSet = correctAnswerSet;
-        this.wrongAnswerSet = wrongAnswerSet;
-        this.combinedAnswerSet = Stream.concat(
-                correctAnswerSet.stream(), wrongAnswerSet.stream())
-                .collect(Collectors.toSet());
+        this.correctAnswerList = correctAnswerList;
+        this.wrongAnswerList = wrongAnswerList;
+        this.combinedAnswerList = Stream.concat(
+                correctAnswerList.stream(), wrongAnswerList.stream())
+                .collect(Collectors.toCollection(ArrayList::new));
         this.difficulty = difficulty;
         this.categories.addAll(categories);
     }
@@ -44,16 +49,16 @@ public abstract class Answerable {
         return question;
     }
 
-    public Set<Answer> getCorrectAnswerSet() {
-        return correctAnswerSet;
+    public ArrayList<Answer> getCorrectAnswerList() {
+        return correctAnswerList;
     }
 
-    public Set<Answer> getWrongAnswerSet() {
-        return wrongAnswerSet;
+    public ArrayList<Answer> getWrongAnswerList() {
+        return wrongAnswerList;
     }
 
-    public Set<Answer> getCombinedAnswerSet() {
-        return combinedAnswerSet;
+    public ArrayList<Answer> getCombinedAnswerList() {
+        return combinedAnswerList;
     }
 
     public Difficulty getDifficulty() {
@@ -64,10 +69,12 @@ public abstract class Answerable {
         return Collections.unmodifiableSet(categories);
     }
 
-    public boolean isCorrect(String answer) {
-        if (correctAnswerSet.contains(answer)) {
+    public boolean isCorrect(Answer selectedAnswer) {
+        if (correctAnswerList.contains(selectedAnswer)) {
+            logger.info("correct answer selected");
             return true;
         }
+        logger.info("WRONG answer selected");
         return false;
     }
 
@@ -86,12 +93,12 @@ public abstract class Answerable {
 
         boolean isSameMCq = true;
         if (this instanceof Mcq) {
-            isSameMCq = otherAnswerable.getWrongAnswerSet().equals(getWrongAnswerSet());
+            isSameMCq = otherAnswerable.getWrongAnswerList().equals(getWrongAnswerList());
         }
 
         return otherAnswerable != null
             && otherAnswerable.getQuestion().equals(getQuestion())
-            && otherAnswerable.getCorrectAnswerSet().equals(getCorrectAnswerSet())
+            && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList())
             && otherAnswerable.getDifficulty().equals(getDifficulty())
             && isSameMCq;
     }
@@ -112,8 +119,8 @@ public abstract class Answerable {
 
         Answerable otherAnswerable = (Answerable) other;
         return otherAnswerable.getQuestion().equals(getQuestion())
-                && otherAnswerable.getCorrectAnswerSet().equals(getCorrectAnswerSet())
-                && otherAnswerable.getWrongAnswerSet().equals(getWrongAnswerSet())
+                && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList())
+                && otherAnswerable.getWrongAnswerList().equals(getWrongAnswerList())
                 && otherAnswerable.getDifficulty().equals(getDifficulty())
                 && otherAnswerable.getCategories().equals(getCategories());
     }
@@ -121,7 +128,7 @@ public abstract class Answerable {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
+        return Objects.hash(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
 
     @Override
@@ -130,8 +137,8 @@ public abstract class Answerable {
         builder.append("Question: ")
                 .append(getQuestion())
                 .append(" Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerSet())
-                .append(" Wrong Answers: " + getWrongAnswerSet())
+                .append(" Correct Answers: " + getCorrectAnswerList())
+                .append(" Wrong Answers: " + getWrongAnswerList())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
                 .append(" Categories: ");

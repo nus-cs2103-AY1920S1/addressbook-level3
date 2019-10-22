@@ -1,8 +1,10 @@
 package seedu.revision.ui;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -11,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
@@ -34,9 +35,9 @@ import seedu.revision.model.answerable.Question;
 public class StartQuizWindow extends Window {
 
     Answer correctAnswerStub = new Answer("CORRECT");
-    Set<Answer> correctAnswerSetStub = new HashSet<>(Arrays.asList(correctAnswerStub));
+    ArrayList<Answer> correctAnswerSetStub = new ArrayList<>(Arrays.asList(correctAnswerStub));
     Answer[] wrongAnswerStub = {new Answer("WRONG A"), new Answer("WRONG B"), new Answer("WRONG C")};
-    Set<Answer> wrongAnswerSetStub = new HashSet<>(Arrays.asList(wrongAnswerStub));
+    ArrayList<Answer> wrongAnswerSetStub = new ArrayList<>(Arrays.asList(wrongAnswerStub));
     Category categoryStub = new Category("math");
     Set<Category> categoriesStub = new HashSet<>(Arrays.asList(categoryStub));
 
@@ -51,16 +52,13 @@ public class StartQuizWindow extends Window {
     private AnswerableListPanel answerableListPanel;
     private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
+    private CommandBox commandBox;
+
     private int currentAnswerableIndex = 0;
+    private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
 //    private ObservableList<Answerable> filteredAnswerableList;
-
-    @FXML
-    private StackPane answerableListPanelPlaceholder;
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-    @FXML
-    private StackPane statusbarPlaceholder;
+    private int score = 0;
 
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(primaryStage, mainLogic, quizLogic);
@@ -72,21 +70,19 @@ public class StartQuizWindow extends Window {
     void fillInnerParts() {
 
         answerableIterator = this.mainLogic.getFilteredAnswerableList().iterator();
-//        filteredAnswerableList = logic.getFilteredAnswerableList().sorted();
-        Answerable firstAnswerable = answerableIterator.next();
-//            Answerable firstAnswerable = filteredAnswerableList.get(currentAnswerableIndex);
+        currentAnswerable = answerableIterator.next();
 
-        answersGridPane = new AnswersGridPane(firstAnswerable);
+        answersGridPane = new AnswersGridPane(currentAnswerable);
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         questionDisplay = new ResultDisplay();
-        questionDisplay.setFeedbackToUser(firstAnswerable.getQuestion().toString());
+        questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -100,7 +96,8 @@ public class StartQuizWindow extends Window {
         alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("Quiz has ended! Try again?\n" +
+        alert.setContentText("Quiz has ended! Your score is " + score + "\n" +
+                "Try again?\n" +
                 "Press [ENTER] to try again.\n" +
                 "Press [ESC] to return to main screen.");
 
@@ -126,9 +123,7 @@ public class StartQuizWindow extends Window {
 
     private void restartQuiz() {
         fillInnerParts();
-//        answerableIterator = logic.getFilteredAnswerableList().iterator();
-//        CommandBox commandBox = new CommandBox(this::executeCommand);
-//        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        commandBox.getCommandTextField().requestFocus();
     }
 
     /**
@@ -136,6 +131,7 @@ public class StartQuizWindow extends Window {
      */
     @FXML
     protected void handleExit() {
+        //TODO: Need to restore the list to normal state. List gets filtered when quiz starts.
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic, quizLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
@@ -153,15 +149,13 @@ public class StartQuizWindow extends Window {
     @Override
     protected CommandResult executeCommand ( String commandText) throws CommandException, ParseException {
         try {
-            Answerable currentAnswerable = answerableIterator.next();
-            logger.info(currentAnswerable.toString());
-            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
-            answersGridPane.updateAnswers(currentAnswerable);
-            currentAnswerableIndex++;
-
+            if (!answerableIterator.hasNext()) {
+                handleEnd();
+                return new CommandResult("Quiz ended");
+            }
             CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            questionDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            logger.info("Question result: " + commandResult.getFeedbackToUser());
+            score = commandResult.getFeedbackToUser() == "correct" ? score + 1 : score;
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -171,9 +165,11 @@ public class StartQuizWindow extends Window {
                 handleExit();
             }
 
-            if (!answerableIterator.hasNext()) {
-                handleEnd();
-            }
+            currentAnswerable = answerableIterator.next();
+            currentAnswerableIndex++;
+            logger.info(currentAnswerable.toString());
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
+            answersGridPane.updateAnswers(currentAnswerable);
 
             return commandResult;
         } catch (CommandException | ParseException e) {

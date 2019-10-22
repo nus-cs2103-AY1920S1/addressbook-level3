@@ -21,12 +21,6 @@ public class MainWindow extends Window {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    @FXML
-    private StackPane answerableListPanelPlaceholder;
-
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-
     public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(primaryStage, mainLogic, quizLogic);
     }

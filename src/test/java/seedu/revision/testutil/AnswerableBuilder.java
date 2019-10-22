@@ -48,8 +48,8 @@ public class AnswerableBuilder {
     public AnswerableBuilder(Answerable answerableToCopy) {
         question = answerableToCopy.getQuestion();
         //TODO: Implement Answerable
-        correctAnswerSet = new HashSet<>(answerableToCopy.getCorrectAnswerSet());
-        wrongAnswerSet = new HashSet<>(answerableToCopy.getWrongAnswerSet());
+        correctAnswerSet = new HashSet<>(answerableToCopy.getCorrectAnswerList());
+        wrongAnswerSet = new HashSet<>(answerableToCopy.getWrongAnswerList());
         difficulty = answerableToCopy.getDifficulty();
         categories = new HashSet<>(answerableToCopy.getCategories());
     }

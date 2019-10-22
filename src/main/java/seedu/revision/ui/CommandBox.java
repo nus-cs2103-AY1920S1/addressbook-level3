@@ -63,6 +63,10 @@ public class CommandBox extends UiPart<Region> {
         styleClass.add(ERROR_STYLE_CLASS);
     }
 
+    public TextField getCommandTextField() {
+        return commandTextField;
+    }
+
     /**
      * Represents a function that can execute commands.
      */

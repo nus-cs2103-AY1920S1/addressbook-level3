@@ -41,6 +41,12 @@ public abstract class Window extends UiPart<Stage> {
     @FXML
     protected StackPane statusbarPlaceholder;
 
+    @FXML
+    protected StackPane answerableListPanelPlaceholder;
+
+    @FXML
+    protected StackPane resultDisplayPlaceholder;
+
     public Window(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(FXML, primaryStage);
         this.primaryStage = primaryStage;

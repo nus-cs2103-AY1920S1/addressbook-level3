@@ -1,5 +1,6 @@
 package seedu.revision.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,9 +23,9 @@ import seedu.revision.model.category.Category;
 public class SampleDataUtil {
     public static Answerable[] getSampleAnswerables() {
         Answer defaultCorrectAnswer = new Answer("CORRECT");
-        Set<Answer> defaultCorrectAnswerSet = new HashSet<>(Arrays.asList(defaultCorrectAnswer));
+        ArrayList<Answer> defaultCorrectAnswerSet = new ArrayList<>(Arrays.asList(defaultCorrectAnswer));
         Answer defaultWrongAnswer = new Answer("WRONG");
-        Set<Answer> defaultWrongAnswerSet = new HashSet<>(Arrays.asList(defaultWrongAnswer));
+        ArrayList<Answer> defaultWrongAnswerSet = new ArrayList<>(Arrays.asList(defaultWrongAnswer));
 
         //TODO: Implement actual answerable
         return new Answerable[] {
