@@ -29,12 +29,15 @@ public class DashboardCard extends UiPart<Region> {
     private Label dashboardName;
     @FXML
     private Label id;
+    @FXML
+    private Label taskDate;
 
     public DashboardCard(Dashboard dashboard, int displayedIndex) {
         super(FXML);
         this.dashboard = dashboard;
         id.setText(displayedIndex + ". ");
         dashboardName.setText(dashboard.getDashboardName().fullName);
+        taskDate.setText(dashboard.getTaskDate().taskDate);
     }
 
     @Override

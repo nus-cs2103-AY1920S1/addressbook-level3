@@ -16,7 +16,7 @@ import seedu.address.model.dashboard.components.Dashboard;
 /**
  * An Immutable Dashboard Catalogue that is serializable to JSON format.
  */
-@JsonRootName(value = "dashboard")
+@JsonRootName(value = "dashboards")
 class JsonSerializableDashboard {
 
     public static final String MESSAGE_DUPLICATE_DASHBOARD = "Dashboard list contains duplicate dashboard(s).";
@@ -27,7 +27,7 @@ class JsonSerializableDashboard {
      * Constructs a {@code JsonSerializableDashboard} with the given dashboards.
      */
     @JsonCreator
-    public JsonSerializableDashboard(@JsonProperty("dashboard") List<JsonAdaptedDashboard> dashboards) {
+    public JsonSerializableDashboard(@JsonProperty("dashboards") List<JsonAdaptedDashboard> dashboards) {
         this.dashboards.addAll(dashboards);
     }
 

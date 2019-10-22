@@ -124,7 +124,7 @@ public class DashboardWindow extends UiPart<Stage> {
 
     /**
      * Fills up all the placeholders of this window.
-     * with health records tab view.
+     * with dashboard tab view.
      */
     void fillInnerParts() {
         dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());

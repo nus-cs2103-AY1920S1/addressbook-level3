@@ -15,7 +15,7 @@ import seedu.address.model.dashboard.components.Dashboard;
  */
 public class DashboardListPanel extends UiPart<Region> {
     private static final String FXML = "DashboardListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(DiaryListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(DashboardListPanel.class);
 
     @FXML
     private ListView<Dashboard> dashboardListView;
