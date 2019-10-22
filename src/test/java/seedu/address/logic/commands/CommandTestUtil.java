@@ -3,13 +3,19 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COVERAGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CRITERIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -120,9 +126,25 @@ public class CommandTestUtil {
     public static final String VALID_TAG_LIFE_INSURANCE = "term insurance";
     public static final String VALID_TAG_FIRE_INSURANCE = "home insurance";
 
-    public static final String VALID_SUGGESTION_OFF_COMMAND = "suggestion OFF/";
-    public static final String VALID_SUGGESTION_ON_COMMAND = "suggestion ON/";
+    public static final String POLICY_NAME_DESC_HEALTH = " " + PREFIX_NAME + VALID_NAME_HEALTH_INSURANCE;
+    public static final String POLICY_NAME_DESC_FIRE = " " + PREFIX_NAME + VALID_NAME_FIRE_INSURANCE;
+    public static final String DESCRIPTION_DESC_HEALTH = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_HEALTH_INSURANCE;
+    public static final String DESCRIPTION_DESC_FIRE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FIRE_INSURANCE;
+    public static final String COVERAGE_DESC_HEALTH = " " + PREFIX_COVERAGE + VALID_COVERAGE_HEALTH_INSURANCE;
+    public static final String COVERAGE_DESC_FIRE = " " + PREFIX_COVERAGE + VALID_COVERAGE_FIRE_INSURANCE;
+    public static final String PRICE_DESC_HEALTH = " " + PREFIX_PRICE + VALID_PRICE_HEALTH_INSURANCE;
+    public static final String PRICE_DESC_FIRE = " " + PREFIX_PRICE + VALID_PRICE_FIRE_INSURANCE;
+    public static final String START_AGE_DESC_HEALTH = " " + PREFIX_START_AGE + VALID_START_AGE_HEALTH_INSURANCE;
+    public static final String START_AGE_DESC_FIRE = " " + PREFIX_START_AGE + VALID_START_AGE_FIRE_INSURANCE;
+    public static final String END_AGE_DESC_HEALTH = " " + PREFIX_END_AGE + VALID_END_AGE_HEALTH_INSURANCE;
+    public static final String END_AGE_DESC_FIRE = " " + PREFIX_END_AGE + VALID_END_AGE_FIRE_INSURANCE;
+    public static final String CRITERIA_DESC_HEALTH = " " + PREFIX_CRITERIA + VALID_CRITERIA_HEALTH_INSURANCE;
 
+    public static final String INVALID_POLICY_NAME_DESC = " " + PREFIX_NAME + "Insurance&"; // '&' not allowed in names
+    public static final String INVALID_COVERAGE_DESC = " " + PREFIX_COVERAGE + "10 months"; // should be months/10
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "40000"; // missing '$' symbol
+    public static final String INVALID_START_AGE = " " + PREFIX_START_AGE + "twenty"; // only numbers are allowed
+    public static final String INVALID_END_AGE = " " + PREFIX_END_AGE + "20-30"; // only numbers are allowed
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).withNric(VALID_NRIC_AMY)
