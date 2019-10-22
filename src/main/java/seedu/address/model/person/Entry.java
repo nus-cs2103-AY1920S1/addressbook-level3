@@ -113,7 +113,9 @@ public class Entry {
             return false;
         } else if (this instanceof Wish && !(other instanceof Wish)) {
             return false;
-        } else return !(this instanceof Budget) || other instanceof Budget;
+        } else {
+            return !(this instanceof Budget) || other instanceof Budget;
+        }
     }
 
     @Override

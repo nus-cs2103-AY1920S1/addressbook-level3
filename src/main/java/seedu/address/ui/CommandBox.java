@@ -66,7 +66,7 @@ public class CommandBox extends UiPart<Region> {
 
         styleClass.add(ERROR_STYLE_CLASS);
     }
-/*
+    /*
      //Update the text field with the previous input in {@code historySnapshot},
      //if there exists a previous input in {@code historySnapshot}
     private void navigateToPreviousInput() {
@@ -101,7 +101,7 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setText(text);
         commandTextField.positionCaret(commandTextField.getText().length());
     }
-*/
+    */
 
     /**
      * Represents a function that can execute commands.
