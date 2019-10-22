@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -31,28 +33,33 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private OngoingVisitListPanel ongoingVisitListPanel;
     private AutoCompletePanel autoCompletePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
+    private DataPanelsTabPaneManager dataPanelsTabPaneManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
-
     @FXML
     private MenuItem helpMenuItem;
-
     @FXML
     private StackPane personListPanelPlaceholder;
-
     @FXML
     private StackPane autoCompletePanelPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
+    @FXML
+    private TabPane dataPanelsTabPane;
+    @FXML
+    private Tab patientTabPage;
+    @FXML
+    private Tab ongoingVisitTabPage;
+    @FXML
+    private StackPane ongoingVisitPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -115,6 +122,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
+        ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -126,6 +136,10 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(this::executeCommand, autoCompletePanel);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
+                patientTabPage,
+                ongoingVisitTabPage);
     }
 
     /**
@@ -170,6 +184,18 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public OngoingVisitListPanel getOngoingVisitListPanel() {
+        return ongoingVisitListPanel;
+    }
+
+    public AutoCompletePanel getAutoCompletePanel() {
+        return autoCompletePanel;
+    }
+
+    public DataPanelsTabPaneManager getDataPanelsTabPaneManager() {
+        return dataPanelsTabPaneManager;
     }
 
     /**

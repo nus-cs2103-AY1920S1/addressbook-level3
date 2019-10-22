@@ -1,12 +1,17 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 
 /**
  * The API of the Model component.
@@ -48,10 +53,46 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setStagedAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /**
+     * Replaces all persons in address book with new persons from the list.
+     */
+    void replaceStagedAddressBook(List<Person> persons);
+    /** Returns the current AddressBook */
+    ReadOnlyAddressBook getStagedAddressBook();
+
+    /**
+     * Record a new ongoing visit of person in the model.
+     * This will be saved until the visit is finished.
+     * Ongoing visit must be from a Patient unmodified for this to work without throwing an exception,
+     * so only use this to begin visits.
+     */
+    void setNewOngoingVisit(Visit visit);
+
+    /**
+     * Update an ongoing visit in the model. This will update the ongoing visit
+     * AND update the visit in the patient.
+     * Use this to update an ongoing visit when there is already a visit.
+     */
+    void updateOngoingVisit(Visit updatedVisit);
+
+    /**
+     * Set the ongoing visit of person in the model to null.
+     */
+    void unsetOngoingVisit();
+
+    /**
+     * Get optional pair of current person and visit if there is an ongoing visit.
+     */
+    Optional<Visit> getOngoingVisit();
+
+    /**
+     * Return true if the person has an ongoing visit.
+     * Note: The current implementation only checks if this person is the one being tracked using the
+     * currentPersonAndVisit.
+     */
+    boolean patientHasOngoingVisit(Person personToDelete);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -78,7 +119,7 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /** Returns an unmodifiable view of the entire person list */
-    ObservableList<Person> getPersonList();
+    ObservableList<Person> getStagedPersonList();
 
     /** Returns an unmodifiable view of the filtered person list */
     FilteredList<Person> getFilteredPersonList();
@@ -88,4 +129,38 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns an unmodifiable view of the list of ongoing visits.
+     * The current constraint is only one ongoing visit at one time.
+     */
+    ObservableList<Visit> getObservableOngoingVisitList();
+
+    /**
+     * Returns true if there are changes to the address book that have not been {@code commit()}ed.
+     * @return true if there are uncommitted changes
+     */
+    boolean hasStagedChanges();
+
+    /**
+     * Commits the changes made to the address book since the last call to this method, making them permanent and
+     * updating the UI data. The committing {@code MutatorCommand} is stored for history record purposes.
+     * @param command the {@code MutatorCommand} making this commit
+     */
+    void commit(MutatorCommand command);
+
+    /** Discards staged but uncommitted changes */
+    void discardStagedChanges();
+
+    /**
+     * Reverts current model state to the {@link AddressBook} contained in the specified {@link HistoryRecord}
+     * (i.e. the state before the {@link MutatorCommand} was executed).
+     *
+     * @param record record to revert to
+     * @return list of reverted records with the first reversion at index 0
+     */
+    List<HistoryRecord> revertTo(HistoryRecord record);
+
+    /** Returns an unmodifiable view of the history */
+    ObservableList<HistoryRecord> getHistory();
 }

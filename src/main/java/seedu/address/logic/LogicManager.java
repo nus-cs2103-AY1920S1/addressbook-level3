@@ -4,17 +4,20 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 import seedu.address.storage.Storage;
 
 /**
@@ -22,6 +25,8 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String STAGED_BUT_NOT_MUTATOR_ERROR_MESSAGE = "Command attempted to make changes but is not a "
+            + "MutatorCommand";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -42,8 +47,23 @@ public class LogicManager implements Logic {
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
+        if (command instanceof MutatorCommand) {
+            if (!model.hasStagedChanges()) {
+                logger.info("Command " + command + " is a MutatorCommand but did not stage changes");
+            } else {
+                model.commit((MutatorCommand) command);
+            }
+        } else {
+            if (model.hasStagedChanges()) {
+                model.discardStagedChanges();
+                logger.severe("Command " + command + " staged changes but is not a MutatorCommand."
+                        + " Changes discarded.");
+                throw new CommandException(STAGED_BUT_NOT_MUTATOR_ERROR_MESSAGE);
+            }
+        }
+
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getStagedAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,7 +73,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+        return model.getStagedAddressBook();
     }
 
     @Override
@@ -74,5 +94,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<Visit> getObservableOngoingVisitList() {
+        return model.getObservableOngoingVisitList();
     }
 }

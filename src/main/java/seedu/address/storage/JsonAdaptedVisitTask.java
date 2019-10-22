@@ -11,7 +11,7 @@ import seedu.address.model.visittodo.VisitTodo;
 /**
  * Jackson-friendly version of {@link VisitTask}.
  */
-class JsonAdaptedVisitTask {
+public class JsonAdaptedVisitTask {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "VisitTask's %s field is missing!";
 

@@ -12,12 +12,21 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.ExportAllCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ImportReplaceCommand;
 import seedu.address.logic.commands.ListCommand;
 
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.visit.BeginVisitCommand;
+import seedu.address.logic.commands.visit.FinishOngoingVisitCommand;
+import seedu.address.logic.commands.visit.ShowOngoingVisitCommand;
+import seedu.address.logic.commands.visit.UpdateOngoingVisitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.visit.BeginVisitCommandParser;
+import seedu.address.logic.parser.visit.UpdateOngoingVisitCommandParser;
 
 /**
  * Parses user input.
@@ -70,8 +79,29 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case ExportCommand.COMMAND_WORD:
-            return new ExportCommand();
+        case ExportAllCommand.COMMAND_WORD:
+            return new ExportAllCommand();
+
+        case ImportReplaceCommand.COMMAND_WORD:
+            return new ImportReplaceCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommandParser().parse(arguments);
+
+        case BeginVisitCommand.COMMAND_WORD:
+            return new BeginVisitCommandParser().parse(arguments);
+
+        case FinishOngoingVisitCommand.COMMAND_WORD:
+            return new FinishOngoingVisitCommand();
+
+        case ShowOngoingVisitCommand.COMMAND_WORD:
+            return new ShowOngoingVisitCommand();
+
+        case UpdateOngoingVisitCommand.COMMAND_WORD:
+            return new UpdateOngoingVisitCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
