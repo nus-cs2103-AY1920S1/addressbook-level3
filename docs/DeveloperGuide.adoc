@@ -147,87 +147,163 @@ This section describes some important details on how the features are implemente
 
 === Claim feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The `add_claim` command allows for admins to register Claims into FinSec.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The format for the `add_claim` command is as follows:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+ add_claim d/<DESCRIPTION> c/<CASH AMOUNT> date/<DATE> n/<NAME> p/<PHONE NUMBER>
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+==== Adding a Claim
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+*Overview*
 
-image::UndoRedoState0.png[]
+The add claim `add_claim` mechanism is facilitated by `AddClaimCommand` and `AddClaimCommandParser`, taking in the
+following input from the user:`Description`, `Amount`, `Date`, `Name` and `Phone`, which will construct `Claim` objects.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+.Add Claim Command Sequence Diagram
+image::AddClaimSequenceDiagram.png[]
 
-image::UndoRedoState1.png[]
+.Add Claim Command Sequence Diagram (extension)
+image::AddClaimSequenceDiagram_Model.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+The `AddClaimCommandParser` implements `Parser` with the following operation:
 
-image::UndoRedoState2.png[]
+* `AddClaimCommandParser#parse()` - This operation will take in a String input from the user that will create `Claim`
+objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 'p/'. The String value after the individual prefixes will
+create the respective object: d/`description`, c/`amount`, date/`date`,  n/`name` and p/`phone`. A regex validation
+check will be imposed upon the creation of each argument. Any checks that fails the validation would prompt the user on
+the failed component.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+For example:
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+** `date` would use `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY.
 
-image::UndoRedoState3.png[]
+** `amount` would use `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of
+2 decimal places.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+** `phone` would use `ParserUtil#parsePhone()` to ensure that the phone number entered would only contain numbers that
+are at least 3 numbers long.
 
-The following sequence diagram shows how the undo operation works:
+* After validation checks are completed with no errors, a `Claim` object will be constructed with `Id`, `Description`,
+`Amount`, `Date`, `Name` and `Phone` as the parameters.
 
-image::UndoSequenceDiagram.png[]
+* `AddClaimCommandParser` would then return an `AddClaimCommand` object with `Claim` as its attribute.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* `AddClaimCommand#execute` checks against all existing contacts against the inputs `name` and `phone` to make sure
+the contact exists.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+*Example*
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Given below is an example usage scenario of how `add_claim` mechanism behaves at each step.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+*Step 1:* The user executes:
+....
+add_claim d/Logistics for Sports Day c/150.60 date/21-12-2019 n/Melissa p/99875432`
+....
+This adds a `Claim` of $150.60 for Logistics for Sports Day by Melissa, with a phone identity of 99875432.
 
-image::UndoRedoState4.png[]
+*Step 2:* `LogicManager` would use `FinSecParser#parse()` to parse input from the user.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+*Step 3:* `FinSecParser` would determine which command is being used and creates the respective parser. In this case,
+`AddClaimCommandParser` is being created and the user's input would be passed in as a parameter.
 
-image::UndoRedoState5.png[]
+*Step 4:* `AddClaimCommandParser` would do a validation check on the user's input before creating and returning a
+`AddClaimCommand` object with `Claim` as its attribute.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+*Step 5:* `LogicManager` would execute `AddClaimCommand#execute()`, checking whether there is an existing Claim and also
+whether there is an existing contact for the claim, then adding the `PendingClaim` into the `Model` which is handled by the
+`ModelManager`.
 
-image::CommitActivityDiagram.png[]
+*Step 6:* `AddClaimCommand` would return a `CommandResult` to the `LogicManager` which would then be returned back to
+the user.
 
-==== Design Considerations
 
-===== Aspect: How undo & redo executes
+==== Approving a Claim
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+This feature allows the user to approve a `PendingClaim` from the `UniqueClaimList` through its index.
 
-===== Aspect: Data structure to support the undo/redo commands
+The approve claim feature is facilitated by the `ApproveClaimCommandParser` and the `ApproveClaimCommand`.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+The `ApproveClaimCommand` is part of the logic component of our application. It interacts with the model and storage
+components of our application.
+
+==== Rejecting a Claim
+
+This feature allows the user to reject a `PendingClaim` from the `UniqueClaimList` through its index.
+
+The approve claim feature is facilitated by the `RejectClaimCommandParser` and the `RejectClaimCommand`.
+
+The `RejectClaimCommand` is part of the logic component of our application. It interacts with the model and storage
+components of our application.
 
 === Income feature
 
-_{Explain here how the data encryption feature will be implemented}_
+The `add_income` command allows for users to register new `Income` objects into FinSec.
+
+The format for the `add_income` command is as follows:
+
+`add_income d/<description> c/<cash amount> date/<date> n/<name> p/<phone number>`
+
+==== Adding an Income
+
+*Overview*
+
+The add income `add_income` mechanism is facilitated by `AddIncomeCommand` and `AddIncomeCommandParser`. It takes in the following input from the user:
+`description`, `cash amount`, `name` and `phone number`, which will construct individual objects that construct an `Income` object.
+
+The `AddIncomeCommandParser` implements `Parser` with the following operation:
+
+
+* `AddIncomeCommandParser#parse()` - This operation will take in a `String` input from the user that will create individual objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 'p/'. The `String` value after the individual prefixes will create
+the respective object: d/ `description`, c/ `cash amount`, date/`date`,  n/ `name` and p/ `phone`. A validation check will be imposed upon the creation of each object. Any checks that fails the validation would prompt the user on the failed component.
+For example:
+
+** `cash amount` would use `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of 2 decimal places.
+
+** `phone` would use `ParserUtil#parsePhone()` to ensure that the phone number entered would only contain numbers that are at least 3 numbers long.
+
+** `date` would use `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY.
+
+* After validation checks are completed with no errors, an `Income` object is then constructed with `description`, `cash`, `date`, `name` and `phone` as the parameters.
+
+* `AddIncomeCommandParser` would then return a `AddIncomeCommand` object with `Income` as the parameter.
+
+*Example*
+
+Given below is an example usage scenario of how `add_income` mechanisam behaves at each step.
+
+*Step 1:* The user executes `add_income d/shirt sales c/100.05 date/11-11-2019 n/John Doe p/91111111` to add an income of $100.05 of shirt sales received from John Doe who is contactable at 91111111.
+
+*Step 2:* `LogicManager` would use `FinSecParser#parse()` to parse input from the user.
+
+*Step 3:* `FinSecParser` would determine which command is being used and creates the respective parser. In this case, `AddIncomeCommandParser` is being created and the user's input would be passed in as a parameter.
+
+*Step 4:* `AddIncomeCommandParser` would do a validation check on the user's input before creating and returning a `AddIncomeCommand` object with `Income` as the parameter.
+
+*Step 5:* `LogicManager` would use `AddIncomeCommand#execute()` to add the `Income` into the `Model` which is handled by the `ModelManager`.
+
+*Step 6:* `AddIncomeCommand` would return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
+
+.Add Income Command Sequence Diagram
+image::AddIncomeSequenceDiagram.png[]
+
+==== Deleting an Income
+
+This feature allows the user to delete an income entry from the Unique Incomes List through its index.
+
+The delete income feature is facilitated by the `DeleteIncomeCommandParser` and the `DeleteIncomeCommand`.
+
+The delete income command is part of the logic component of our application. It interacts with the model and storage components of our application.
+
+==== Editing an Income
+
+This feature allows the user to edit any attribute of the income entries. There are a total of five attributes for each entry, the description of the income, the amount of money received, the date it was received, the name of the person / organisation the user
+received the money from and the contact number. The user can edit at least one and up to all attributes.
+
+The edit income feature is facilitated by the `EditIncomeCommandParser` and the `EditIncomeCommand`.
+
+The edit command is part of the logic component of our application. It interacts with the model component of our software architecture.
+
 
 // end::dataencryption[]
 
