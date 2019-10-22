@@ -235,13 +235,26 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 
 === Undo/Redo Feature
-The undo/redo feature mechanism is facilitated by `HistoryManager`. `HistoryManager` remembers commands that mutate the
-state of the `Model` in its execution which we define as *invertible commands*. These commands are stored internally in
+
+==== Overview
+The application should be able to undo and redo changes made by commands to give the user more flexibility in their inputs.
+Undo and redo operations should also be undo or redo multiple commands in a command.
+
+Therefore there is a need to remember commands that change the state of the `Model`. Commands that just render a view without
+actually changing the application should not be stored as it does not make sense to undo or redo them.
+We will distinguish these types of commands into two categories, *invertible commands* and *non-invertible commands*.
+
+* *Invertible commands* -- commands that mutate the state of the `Model` and should be stored for undo/redo functions.
+* *Non-invertible commands* -- commands that do not mutate the state of the `Model` and should not be stored for undo/redo functions.
+
+[NOTE]
+Undo and redo commands will be considered non-invertible commands even though they technically change the state of the `Model`.
+The reason is that they are commands facilitating the undo and redo operation, thus they should not be stored.
+
+==== Implementation
+The undo/redo feature mechanism is facilitated by `HistoryManager`. `HistoryManager` remembers *invertible commands*. These commands are stored internally in
 two `CommandDeque` objects, `executedCommands` and `inverselyExecutedCommands`. `CommandDeque` serve as custom `Deque`
 data structure, which stores the latest added command to the top.
-
-All commands that mutate the state of `Model` are considered *invertible commands*. There are only two *exceptions*, which
-are undo and redo commands. Therefore undo and redo commands are not remembered by `HistoryManager`.
 
 An undo operation would comprise of taking the latest executed command from `executedCommands`, inversely executing it, and adding it to
 `inverselyExecutedCommands`. A redo operation would comprise of a taking the latest inversely executed command from
@@ -261,7 +274,7 @@ undo and redo capabilities by extending the `HistoryModel` which has the followi
 * `Model#rollback()` -- Inversely executes the latest command stored in `executedCommands` to revert the changes of the latest executed command made onto `Model`.
 * `Model#commit()` -- Executes the latest undone command stored in `inverselyExecutedCommands` to reapply the changes that were made onto `Model` by the latest undone command.
 
-Commands support the given operations:
+Commands support the given operations to mutate the state of the `Model` and to check if they should be stored for undo/redo function:
 
 * `Command#hasInverseExecution()` -- Checks if the command's execution mutates the state of the `Model`, which is used to determine if the command should be remembered by `HistoryManager`.
 * `Command#execute(Model)` -- Executes the command on the given `Model`.
@@ -276,16 +289,49 @@ represented by `UndoCommand#numberOfTimes` and `RedoCommand#numberOfTimes`.
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
-Step 1. The user launches the application for the first time. The `HistoryManager` is initialized. `HistoryManager#executedCommands` and `HistoryManager#inverselyExecutedCommands`
-are empty.
+Step 1. The user launches the application for the first time. The `HistoryManager` is initialized.
+`HistoryManager#executedCommands` and `HistoryManager#inverselyExecutedCommands` are empty.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. A `DeleteAddressCommand` is created and executed in `LogicManager#execute(String)`. Since `DeleteCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book.
+A `DeleteAddressCommand` is created and executed in `LogicManager#execute(String)`.
+Since `DeleteCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
 
-Step 3. The user executes `add n/David ...` to add a new person. A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`. Since `AddAddressCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
+Step 3. The user executes `add n/David ...` to add a new person.
+A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
+Since `AddAddressCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
 
 [NOTE]
 If a invertible command execution fails, `HistoryManager` will not remember it, therefore it will not be stored for undo/redo capabilities.
 
+Step 4. The user now decides that the last two commands entered was a mistake, and decides to undo those commands by executing the `undo` command by typing in the command `undo r/2`.
+An `UndoCommand` is created and executed in `LogicManager#execute(String)` to undo the latest two commands.
+The command will call `Model#rollback()` two times. During each `Model#rollback()` call, the `Model` will call `HistoryManager` to take the latest command
+from `HistoryManager#executedCommands` and call `Command#executeInverse(Model)` on the `Model`, undoing the changes made to `Model` by the command, before adding it to
+`HistoryManager#inverselyExecutedCommands`. After the `undo` command execution is complete, the `Model` state is reverted to what it was before the two undone commands were executed.
+
+[NOTE]
+`undo`/`redo` commands can undo/redo one or more commands. To undo/redo one command, entering `undo`/`redo` is equivalent to entering  `undo 1`/`redo 1`.
+
+[NOTE]
+If an `undo`/`redo` command is given to undo/redo more commands than available, the operation will fail and no `undo`/`redo` is applied at all.
+This check is enforced by `Model#getAvailableNumberOfExecutedCommands()`, `Model#getAvailableNumberOfInverselyExecutedCommands()`, `Model#canRollback()` and `Model#canCommit()`.
+
+Step 5. The user then decides to execute the command `list`. `list` command is a *non-invertible command*. Therefore, it will not be stored by `HistoryManager` after its execution.
+
+Step 6. The user decides to redo the last command that was undone by executing a `redo` command by typing in the command `redo`.
+A `RedoCommand` is created and executed in `LogicManager#execute(String)` to redo the latest undo.
+The command will call `Model#commit()` once. `Model` will call `HistoryManager` to take the latest command from `HistoryManager#inverselyExecutedCommands`
+and call `Command#execute(Model)` on the `Model`, reapplying the changes that were made by the command, before adding it to `HistoryManager#executedCommands`.
+After the `redo` command execution is complete, the `Model` has the changes made by the latest the command that was redone.
+
+Step 7. The user executes `add n/John ...` to add a new person.
+A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
+The `HistoryManager` clears all commands stored in `HistoryManager#inverselyExecutedCommands`.
+Similar to `Step 3`, `HistoryManager` does remembers this command.
+
+[NOTE]
+Whenever a new invertible command is executed that is not currently in `HistoryManager`, it will clear all the commands that are stored in `HistoryManager#inverselyExecutedCommands`.
+This means that all potential redo actions are cleared.
 
 // end::undoredo[]
 
