@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ProblemListPanel problemListPanel;
     private PlanListPanel planListPanel;
     private TaskListPanel taskListPanel;
+    private FindRuleListPanel findRuleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -114,14 +115,17 @@ public class MainWindow extends UiPart<Stage> {
         problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
         planListPanel = new PlanListPanel(logic.getProcessedPlanList());
         taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
+        findRuleListPanel = new FindRuleListPanel(logic.getProcessedFindRuleList());
         DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
         DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
         DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName(), planListPanel);
         DisplayTab taskListPanelTab = new DisplayTab(ModelEnum.TASK.getTabName(), taskListPanel);
+        DisplayTab findRuleListPaneTab = new DisplayTab(ModelEnum.FINDRULE.getTabName(), findRuleListPanel);
 
         displayTabPane =
             new DisplayTabPane(
-                logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab);
+                logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab,
+                    findRuleListPaneTab);
         displayTabPanePlaceholder.getChildren().add(displayTabPane.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -184,6 +188,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public TaskListPanel getTaskListPanel() {
         return taskListPanel;
+    }
+
+    public FindRuleListPanel getFindRuleListPanel() {
+        return findRuleListPanel;
     }
 
     /**
