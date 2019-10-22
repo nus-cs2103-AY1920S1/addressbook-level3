@@ -19,8 +19,8 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.SavingsAccount;
@@ -28,12 +28,13 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.util.SampleDataUtil;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.storage.Storage;
 import seedu.savenus.storage.StorageManager;
 import seedu.savenus.storage.menu.JsonMenuStorage;
 import seedu.savenus.storage.menu.MenuStorage;
-import seedu.savenus.storage.purchasehistory.JsonPurchaseHistoryStorage;
-import seedu.savenus.storage.purchasehistory.PurchaseHistoryStorage;
+import seedu.savenus.storage.purchase.JsonPurchaseHistoryStorage;
+import seedu.savenus.storage.purchase.PurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.JsonRecsStorage;
 import seedu.savenus.storage.recommend.RecsStorage;
 import seedu.savenus.storage.savings.JsonSavingsStorage;
@@ -42,6 +43,8 @@ import seedu.savenus.storage.sort.CustomSortStorage;
 import seedu.savenus.storage.sort.JsonCustomSortStorage;
 import seedu.savenus.storage.userprefs.JsonUserPrefsStorage;
 import seedu.savenus.storage.userprefs.UserPrefsStorage;
+import seedu.savenus.storage.wallet.JsonWalletStorage;
+import seedu.savenus.storage.wallet.WalletStorage;
 import seedu.savenus.ui.Ui;
 import seedu.savenus.ui.UiManager;
 
@@ -76,12 +79,13 @@ public class MainApp extends Application {
         PurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(userPrefs
                 .getPurchaseHistoryFilePath());
         CustomSortStorage sort = new JsonCustomSortStorage(userPrefs.getSortFilePath());
+        WalletStorage walletStorage = new JsonWalletStorage(userPrefs.getWalletFilePath());
         storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations,
-                purchaseHistoryStorage, sort, savingsAccountStorage);
+                purchaseHistoryStorage, walletStorage, sort, savingsAccountStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage,
+        model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage, walletStorage,
                 sort, savingsAccountStorage);
 
         logic = new LogicManager(model, storage);
@@ -95,7 +99,7 @@ public class MainApp extends Application {
      * or an empty menu will be used instead if errors occur when reading {@code storage}'s menu.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs,
-                                   PurchaseHistoryStorage purchaseHistoryStorage,
+                                   PurchaseHistoryStorage purchaseHistoryStorage, WalletStorage walletStorage,
                                    CustomSortStorage userSortFields, SavingsStorage savingsAccountStorage) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
@@ -105,6 +109,9 @@ public class MainApp extends Application {
 
         Optional<ReadOnlyPurchaseHistory> purchaseHistoryOptional;
         ReadOnlyPurchaseHistory initialPurchaseHistory;
+
+        Optional<Wallet> walletOptional;
+        Wallet initialWallet;
 
         Optional<UserRecommendations> recsOptional;
         UserRecommendations initialRecs;
@@ -136,6 +143,12 @@ public class MainApp extends Application {
             }
             initialPurchaseHistory = purchaseHistoryOptional.orElse(new PurchaseHistory());
 
+            walletOptional = storage.readWallet();
+            if (!walletOptional.isPresent()) {
+                logger.info("Wallet file not found. Will be starting with a blank Wallet");
+            }
+            initialWallet = walletOptional.orElse(new Wallet());
+
             sorterOptional = userSortFields.readFields();
             if (!sorterOptional.isPresent()) {
                 logger.info("CustomSorter file not found. Will be starting with a blank CustomSorter");
@@ -147,6 +160,7 @@ public class MainApp extends Application {
             initialSavingsAccount = new SavingsAccount();
             initialRecs = new UserRecommendations();
             initialPurchaseHistory = new PurchaseHistory();
+            initialWallet = new Wallet();
             initialSorter = new CustomSorter();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty application");
@@ -154,10 +168,11 @@ public class MainApp extends Application {
             initialSavingsAccount = new SavingsAccount();
             initialRecs = new UserRecommendations();
             initialPurchaseHistory = new PurchaseHistory();
+            initialWallet = new Wallet();
             initialSorter = new CustomSorter();
         }
         return new ModelManager(initialData, userPrefs, initialRecs, initialPurchaseHistory,
-                initialSorter, initialSavingsAccount);
+                initialWallet, initialSorter, initialSavingsAccount);
     }
 
     private void initLogging(Config config) {

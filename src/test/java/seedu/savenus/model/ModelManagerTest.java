@@ -23,7 +23,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.menu.Menu;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
@@ -221,11 +221,13 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         UserRecommendations userRecs = new UserRecommendations();
         PurchaseHistory purchaseHistory = new PurchaseHistory();
+        Wallet wallet = new Wallet();
         CustomSorter customSorter = new CustomSorter();
 
         // same values -> returns true
-        modelManager = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, customSorter, savingsAccount);
-        ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs, purchaseHistory,
+        modelManager = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
+                customSorter, savingsAccount);
+        ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
                 customSorter, savingsAccount);
         assertTrue(modelManager.equals(modelManagerCopy));
 
@@ -239,13 +241,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs, userRecs, purchaseHistory,
+        assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs, userRecs, purchaseHistory, wallet,
                 customSorter, savingsAccount)));
 
         // different filteredList -> returns false
         String[] keywords = CARBONARA.getName().fullName.split("\\s+");
         modelManager.updateFilteredFoodList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs, purchaseHistory,
+        assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
                 customSorter, savingsAccount)));
 
         // resets modelManager to initial state for upcoming tests
@@ -254,7 +256,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMenuFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs, userRecs, purchaseHistory,
+        assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs, userRecs, purchaseHistory, wallet,
                 customSorter, savingsAccount)));
     }
 }

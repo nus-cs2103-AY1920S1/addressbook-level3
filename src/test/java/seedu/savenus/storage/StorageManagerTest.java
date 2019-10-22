@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 import static seedu.savenus.testutil.TypicalPurchaseHistory.getTypicalPurchaseHistory;
 import static seedu.savenus.testutil.TypicalRecs.getTypicalRecs;
+import static seedu.savenus.testutil.TypicalWallet.getTypicalWallet;
 
 import java.nio.file.Path;
 
@@ -15,17 +16,19 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
-import seedu.savenus.model.purchasehistory.PurchaseHistory;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.PurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
+import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.storage.menu.JsonMenuStorage;
-import seedu.savenus.storage.purchasehistory.JsonPurchaseHistoryStorage;
+import seedu.savenus.storage.purchase.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.JsonRecsStorage;
 import seedu.savenus.storage.savings.JsonSavingsStorage;
 import seedu.savenus.storage.sort.JsonCustomSortStorage;
 import seedu.savenus.storage.userprefs.JsonUserPrefsStorage;
+import seedu.savenus.storage.wallet.JsonWalletStorage;
 
 public class StorageManagerTest {
 
@@ -42,9 +45,11 @@ public class StorageManagerTest {
         JsonRecsStorage userRecsStorage = new JsonRecsStorage(getTempFilePath("recs"));
         JsonPurchaseHistoryStorage purchaseHistoryStorage = new JsonPurchaseHistoryStorage(
                 getTempFilePath("purchases"));
+        JsonWalletStorage walletStorage = new JsonWalletStorage(
+                getTempFilePath("wallet"));
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(getTempFilePath("sort"));
         storageManager = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage, customSortStorage, savingsStorage);
+                purchaseHistoryStorage, walletStorage, customSortStorage, savingsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -89,6 +94,19 @@ public class StorageManagerTest {
         storageManager.savePurchaseHistory(original);
         ReadOnlyPurchaseHistory retrieved = storageManager.readPurchaseHistory().get();
         assertEquals(original, new PurchaseHistory(retrieved));
+    }
+
+    @Test
+    public void walletReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonWalletStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonWalletStorage} class.
+         */
+        Wallet original = getTypicalWallet();
+        storageManager.saveWallet(original);
+        Wallet retrieved = storageManager.readWallet().get();
+        assertEquals(original, retrieved);
     }
 
     @Test

@@ -13,7 +13,6 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.storage.food.JsonAdaptedFood;
-import seedu.savenus.storage.wallet.JsonAdaptedWallet;
 
 /**
  * An Immutable Menu that is serializable to JSON format.
@@ -24,16 +23,13 @@ public class JsonSerializableMenu {
     public static final String MESSAGE_DUPLICATE_FOOD = "foods list contains duplicate food(s).";
 
     private final List<JsonAdaptedFood> foods = new ArrayList<>();
-    private JsonAdaptedWallet wallet;
 
     /**
      * Constructs a {@code JsonSerializableMenu} with the given foods.
      */
     @JsonCreator
-    public JsonSerializableMenu(@JsonProperty("foods") List<JsonAdaptedFood> foods,
-                                @JsonProperty("wallet") JsonAdaptedWallet wallet) {
+    public JsonSerializableMenu(@JsonProperty("foods") List<JsonAdaptedFood> foods) {
         this.foods.addAll(foods);
-        this.wallet = wallet;
     }
 
     /**
@@ -43,7 +39,6 @@ public class JsonSerializableMenu {
      */
     public JsonSerializableMenu(ReadOnlyMenu source) {
         foods.addAll(source.getFoodList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
-        wallet = new JsonAdaptedWallet(source.getWallet());
     }
 
     /**
@@ -60,7 +55,6 @@ public class JsonSerializableMenu {
             }
             menu.addFood(food);
         }
-        menu.setWallet(wallet.toModelType());
         return menu;
     }
 

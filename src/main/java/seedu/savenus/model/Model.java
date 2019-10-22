@@ -15,7 +15,7 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
-import seedu.savenus.model.purchasehistory.ReadOnlyPurchaseHistory;
+import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.Savings;
@@ -23,6 +23,7 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
+import seedu.savenus.model.wallet.Wallet;
 
 /**
  * The API of the Model component.
@@ -130,6 +131,21 @@ public interface Model {
      * Sets the user prefs' purchase history file path.
      */
     void setPurchaseHistoryFilePath(Path menuFilePath);
+
+    /**
+     * Returns user's wallet
+     */
+    Wallet getWallet();
+
+    /**
+     * Returns the user prefs' wallet file path.
+     */
+    Path getWalletFilePath();
+
+    /**
+     * Sets the user prefs' wallet file path.
+     */
+    void setWalletFilePath(Path walletFilePath);
 
     /** Returns the $aveNUS purchase history */
     ReadOnlyPurchaseHistory getPurchaseHistory();

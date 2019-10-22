@@ -1,4 +1,4 @@
-package seedu.savenus.model.purchasehistory;
+package seedu.savenus.model.purchase;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.savenus.model.purchase.Purchase;
 
 /**
  * Wraps all purchase history data

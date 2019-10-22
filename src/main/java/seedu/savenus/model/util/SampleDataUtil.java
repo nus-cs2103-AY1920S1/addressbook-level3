@@ -55,7 +55,6 @@ public class SampleDataUtil {
         for (Food sampleFood : getSampleFood()) {
             sampleMenu.addFood(sampleFood);
         }
-        sampleMenu.setWallet(getSampleWallet());
         return sampleMenu;
     }
 
