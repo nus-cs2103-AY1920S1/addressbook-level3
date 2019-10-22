@@ -62,6 +62,7 @@ activate EditCommand
 EditCommand --> MergePersonConfirmedCommand
 deactivate EditCommand
 MergePersonConfirmedCommand -> EditCommand: executeForMerge(Person, EditPersonDescriptor, Model)
+MergePersonConfirmedCommand -> MergePersonCommand: updateOriginalPerson(Person)
 MergePersonConfirmedCommand --> MergePersonCommand: removeFirstDifferentField()
 MergePersonConfirmedCommand --> LogicManager: CommandResult(String)
 deactivate MergePersonConfirmedCommand

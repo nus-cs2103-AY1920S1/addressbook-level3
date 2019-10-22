@@ -4,7 +4,7 @@ start
 :Prompt user for merge;
 :User executes command;
 
-while (has different fields)
+while (has unprompted different fields)
     :prompt next merge;
     if () then (["yes" or ""])
 

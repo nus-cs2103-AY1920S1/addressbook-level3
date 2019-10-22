@@ -235,6 +235,73 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::merging[]
+=== Merging Feature
+==== Implementation
+
+The merging mechanism is facilitated by abstract classes `MergeCommand`, `DoNotMergeCommand`, `MergeConfirmedCommand` and `MergeRejectedCommand` and their child classes, which implement the merging of profiles and policies respectively.
+These classes extend `Command`. The child classes of `MergeCommand` are `MergePersonCommand` and `MergePolicyCommand`. A `MergePersonCommand` object will store the `Person` created by the input and the corresponding `Person` that is stored in the model.
+Additionally, the main crucial operations implemented by this class are:
+
+* `MergeCommand#getDifferences()` -- Finds all the different fields between the input person and the original person.
+* `MergeCommand#removeFirstDifferentField()` -- Removes the first different field in the list of differences. This method is called after a merge decision has been input by the user and executed.
+* `MergeCommand#getNextMergeFieldType()` -- Returns the type of the field for the next merge.
+* `MergeCommand#onlyOneMergeLeft()` -- Checks whether there is only one merge left.
+
+The implementation of `MergePolicyCommand` is similar.
+
+The child classes of `MergeConfirmedCommand` are `MergePersonConfirmedCommand` and `MergePolicyConfirmedCommand`, while the child classes of `MergeRejectedCommand` are `MergePersonRejectedCommand` and `MergePolicyRejectedCommand`.
+They all implement `#execute(Model)`. Additionally, these classes implement an `#isLastMerge()` command to indicate if this is the last possible merge for the entity being merged.
+
+AddressBookParser stores a boolean flag to indicate whether a merge is currently taking place. When it is set as true, all other commands will not be parsed and will be treated as invalid commands.
+The AddressBookParser object also stores the MergeCommand object during a merge process. This object is then used by `MergeConfirmedCommand` objects and `MergeRejectedCommand` objects in their execution.
+
+image::MergeClassDiagram.png[]
+
+Given below is an example usage scenario and how the merge mechanism behaves at each step.
+
+Step 1. The user adds a duplicate profile. The `AddCommand` will throw a `DuplicatePersonWithMergeException` during its execution.
+This exception is thrown if there is at least one different field between the input person and the original person stored in the model. Else, a `DuplicatePersonWithoutMergeException` will be thrown.
+The `DuplicatePersonWithMergeException` will finally be caught in the `CommandBox`. UI outputs the error message and a prompt to start a merge. `CommandBox` then constructs two command strings: one to proceed with the merge and one to reject the merge.
+This is done via `#standByForMerge(String, String)`. This string is then stored.
+
+Step 2. The user inputs yes or presses enter to proceed with the merge. `CommandBox` then calls `CommandExecutor#execute()` to execute the merge command it constructed previously.
+When the command is being parsed in the `AddressBookParser` object, a new `MergeCommand` object is created and stored. The `isMerging` flag is also set to true.
+The execution of this command then returns a CommandResult that prompts the next merge.
+
+Step 3. The user inputs yes or presses enter to update the field that was displayed in the prompt. The `AddressBookParser` parses the input and creates a new `MergePersonConfirmedCommand` object.
+The `MergePersonConfirmedCommand` object obtains information for the merge from the `MergeCommand` object that was passed in as a parameter in the constructor.
+In the execution, a new `EditCommand` is created and `EditCommand#executeForMerge()` is used to update the person in the model. If the
+`MergePersonConfirmedCommand#isLastMerge` returns false, `MergeCommand#removeFirstDifferentField` is called and the command result then shows a success message and the next prompt.
+
+This process is shown in the sequence diagram below.
+
+image::MergeSequenceDiagram.png[]
+
+[NOTE]
+If the user inputs an invalid command, the prompt will be displayed again along with an error message.
+
+Step 4. The user inputs no to reject the update of the field that was displayed in the prompt. The input gets parsed in the `AddressBookParser` object and creates a new MergePersonRejectedCommand.
+If it is not the last merge, `MergeCommand#removeFirstDifferentField` is called. The command result then shows the next prompt. Else, it will show a success message of successfully updating the profile.
+
+This is repeated until all merges have been prompted.
+
+image::MergeActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How merge command executes
+
+* **Alternative 1 (current choice):** Stores the `MergeCommand` object in the `AddressBookParser` to be accessed by `MergeConfirmedCommand` and `MergeRejectedCommand` objects.
+** Pros: Finding of different fields is only executed once and can be used by future commands.
+** Cons: More coupling between `MergeCommand` and other classes.
+* **Alternative 2:** Update the field in the command string and pass it on in the command result.
+** Pros: Less coupling between `MergeCommand` and other classes.
+** Cons:
+*** User has to see the updated command (information that user does not need to see is displayed).
+*** Command still has to be stored somewhere to be accessed by other future merge commands.
+// end::merging[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
