@@ -4,7 +4,6 @@ import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import budgetbuddy.logic.commands.FindCommand;
 import budgetbuddy.logic.commands.accountcommands.AccountFindCommand;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
@@ -16,7 +15,7 @@ import budgetbuddy.model.account.NameHasKeywordsPredicate;
 public class AccountFindCommandParser implements CommandParser<AccountFindCommand> {
     @Override
     public String name() {
-        return FindCommand.COMMAND_WORD;
+        return AccountFindCommand.COMMAND_WORD;
     }
 
     /**
