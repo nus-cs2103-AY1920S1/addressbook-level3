@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ElisaStateHistory;
+import seedu.address.model.ElisaCommandHistory;
 import seedu.address.model.ItemModel;
 
 /**
@@ -11,19 +11,25 @@ import seedu.address.model.ItemModel;
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
-    private ElisaStateHistory elisaStateHistory;
+    private ElisaCommandHistory elisaCommandHistory;
 
-    public UndoCommand(ElisaStateHistory elisaStateHistory) {
-        this.elisaStateHistory = elisaStateHistory;
+    public UndoCommand(ElisaCommandHistory elisaCommandHistory) {
+        this.elisaCommandHistory = elisaCommandHistory;
     }
 
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
-        if (elisaStateHistory.size() <= 1) {
+        if (elisaCommandHistory.size() == 0) {
             throw new CommandException(Messages.MESSAGE_NOTHING_TO_UNDO);
         } else {
-            elisaStateHistory.popCommand();
-            return new CommandResult("Undo successful!", true);
+            UndoableCommand lastDone = elisaCommandHistory.popCommand();
+            lastDone.reverse(model);
+            return new CommandResult("Undo [" + lastDone.getCommandWord() + "] command successful!");
         }
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

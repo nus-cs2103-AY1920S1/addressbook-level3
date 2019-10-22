@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.VisualizeList;
@@ -55,9 +56,13 @@ public interface ItemModel {
 
     public void addItem(Item item);
 
+    public void addItem(ItemIndexWrapper wrapper);
+
     public void replaceItem(Item item, Item newItem);
 
     public Item removeItem(int index);
+
+    public Item removeItem(Item item);
 
     public Item deleteItem(int index);
 
@@ -79,21 +84,19 @@ public interface ItemModel {
 
     public void addToSeparateList(Item item);
 
-    public void setState(ElisaState state);
+    public void addToSeparateList(ItemIndexWrapper wrapper);
 
-    public void setToCurrState();
+    public ItemIndexWrapper getIndices(int index);
 
-    public ElisaState getState();
+    public void updateLists();
 
-    public ElisaStateHistory getElisaStateHistory();
-
-    public void updateModelLists();
+    public ElisaCommandHistory getElisaCommandHistory();
 
     public boolean togglePriorityMode() throws IllegalListException;
 
     public Item markComplete(int index) throws IllegalListException;
 
-    public void updateState();
+    public Item markIncomplete(int index) throws IllegalListException;
 
     public JokeList getJokeList();
 
@@ -101,4 +104,6 @@ public interface ItemModel {
     ActiveRemindersList getActiveReminderListProperty();
 
     ArrayList<Item> getFutureRemindersList();
+
+    void updateCommandHistory(Command command);
 }

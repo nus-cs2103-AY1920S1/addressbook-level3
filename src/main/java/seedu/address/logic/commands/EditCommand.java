@@ -31,7 +31,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing item in the item list.
  */
-public class EditCommand extends Command {
+public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -53,6 +53,9 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;
+
+    private Item oldItem;
+    private Item editedItem;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -76,10 +79,17 @@ public class EditCommand extends Command {
         }
 
         Item oldItem = lastShownList.get(index.getZeroBased());
+        this.oldItem = oldItem;
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
+        this.editedItem = editedItem;
 
         model.replaceItem(oldItem, editedItem);
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.replaceItem(editedItem, oldItem);
     }
 
     /**
@@ -285,5 +295,10 @@ public class EditCommand extends Command {
         public boolean getHasDeleteReminder() {
             return this.hasDeleteReminder;
         }
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

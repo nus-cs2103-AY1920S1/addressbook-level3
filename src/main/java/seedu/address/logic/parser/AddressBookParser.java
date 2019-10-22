@@ -20,7 +20,8 @@ import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ElisaStateHistory;
+
+import seedu.address.model.ElisaCommandHistory;
 import seedu.address.model.JokeList;
 
 /**
@@ -34,11 +35,11 @@ public class AddressBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<description>[^-]*)(?<flags>.*)");
 
-    private ElisaStateHistory elisaStateHistory;
+    private ElisaCommandHistory elisaCommandHistory;
     private JokeList jokeList;
-
-    public AddressBookParser(ElisaStateHistory elisaStateHistory, JokeList jokeList) {
-        this.elisaStateHistory = elisaStateHistory;
+  
+    public AddressBookParser(ElisaCommandHistory elisaCommandHistory) {
+        this.elisaCommandHistory = elisaCommandHistory;
         this.jokeList = jokeList;
     }
 
@@ -83,7 +84,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(description, flags);
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand(elisaStateHistory);
+            return new UndoCommand(elisaCommandHistory);
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(description, flags);
