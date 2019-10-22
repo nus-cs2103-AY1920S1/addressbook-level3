@@ -20,7 +20,7 @@ public class AccountAddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an account.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_DESCRIPTION + "DESCRIPTION"
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Japan trip "
             + PREFIX_DESCRIPTION + "Expense spent in Japan.";
