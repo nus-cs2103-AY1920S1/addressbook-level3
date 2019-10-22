@@ -47,7 +47,7 @@ public class Tutorial {
     public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
             Set<Week> weeks, Duration duration,
             List<Student> students, ModCode modCode) {
-        requireAllNonNull(tutName, day, startTime, weeks, students, modCode);
+        requireAllNonNull(tutName, day, startTime, weeks, duration, students, modCode);
         this.tutName = tutName;
         this.timeTable = new TimeTable(day, startTime, weeks, duration);
         this.students = students;
@@ -63,11 +63,7 @@ public class Tutorial {
     public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
                     Set<Week> weeks, Duration duration,
                     List<Student> students, ModCode modCode, Attendance attendance) {
-        requireAllNonNull(tutName, day, startTime, weeks, students, modCode);
-        this.tutName = tutName;
-        this.timeTable = new TimeTable(day, startTime, weeks, duration);
-        this.students = students;
-        this.modCode = modCode;
+        this(tutName, day, startTime, weeks, duration, students, modCode);
         this.attendance = attendance;
     }
 

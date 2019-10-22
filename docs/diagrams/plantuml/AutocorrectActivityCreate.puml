@@ -1,0 +1,17 @@
+@startuml
+start
+:Search for data values in application;
+if () then ([All data values found])
+  :Execute command;
+  :Feedback to user: success;
+else ([else])
+  if () then ([Similar data values found])
+    :Create new commands with similar values;
+    :Store suggested commands;
+    :Prompt user to make selection;
+  else ([else])
+    :Throw CommandException;
+  endif
+endif
+stop
+@enduml

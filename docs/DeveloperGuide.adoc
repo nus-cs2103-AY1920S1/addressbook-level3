@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/Ellieyee/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T14-2`
 
 == Setting up
 
@@ -152,6 +152,31 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::autocorrect[]
+=== Autocorrect feature
+
+Autocorrect lets T.A.rence find similar commands to the user's input, allowing it to catch minor typing mistakes.
+
+==== Implementation
+
+Autocorrect is implemented at the `Command` level: when `Command` objects are executed, they attempt to find their data values from the application's storage. If these values are not found, they search for lexically similar alternatives, and construct new `Command`s with these suggested values. The user is then prompted to choose one of these suggestions via a single numerical input.
+
+A new `SelectSuggestionCommand` is used to represent the user's selection. Unlike other commands it has no keyword, and can only be triggered when there are existing suggested commands being temporarily cached. Should the user choose not to pick any of the options, the cached commands are deleted and can no longer be triggered subsequently.
+
+Autocorrect is restricted to input fields that are not strictly numerical, since it makes no sense to correct, for example, index or time inputs.
+
+Below is an activity diagram showing the creation of suggested autocorrect commands when a command is executed.
+
+image::AutocorrectActivityCreate.png[]
+
+The suggested commands are presented to the user, each tagged with an index number. The user is prompted to select one option by entering its corresponding number.
+
+image::AutocorrectActivityExecute.png[]
+
+When a valid option is selected, the `execute()` method in `SelectSuggestionCommand` retrieves the specified command, then calls its `execute()` method. The sequence diagram below illustrates a sample run of the program where `AddStudentCommand`s are being autocorrected.
+
+image::AutocorrectSequence.png[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature

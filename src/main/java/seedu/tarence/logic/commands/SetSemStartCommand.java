@@ -6,10 +6,12 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_START_DATE;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -38,6 +40,15 @@ public class SetSemStartCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Tutorial> lastShownList = model.getFilteredTutorialList();
+
+        // Removes outdated events when semStart changes
+        for (Tutorial tutorial : lastShownList) {
+            List<Event> tutEvents = tutorial.getTutorialasEvents();
+            for (Event tutEvent : tutEvents) {
+                tutorial.deleteEvent(tutEvent);
+            }
+        }
 
         Module.setSemStart(semStart);
 

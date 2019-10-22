@@ -1,0 +1,16 @@
+@startuml
+start
+:User enters number;
+if () then ([No saved commands])
+  :Throw ParseException;
+else ([else])
+  if () then ([User input within range])
+    :Load saved command;
+    :Purge cached commands;
+    :Execute selected command;
+  else ([else])
+    :Prompt user again for valid input;
+  endif
+endif
+stop
+@enduml
