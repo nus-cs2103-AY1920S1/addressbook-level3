@@ -34,7 +34,7 @@ public class AppealTest {
 
     }
 
-    @Test void isValidAppeealType() {
+    @Test void isValidAppealType() {
         //invalid code
         assertFalse(Appeal.isValidAppealType("")); // empty string
         assertFalse(Appeal.isValidAppealType("addmodule")); // no spaces

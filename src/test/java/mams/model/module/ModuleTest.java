@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import mams.model.student.Name;
 
-
 class ModuleTest {
 
     @Test
@@ -65,6 +64,10 @@ class ModuleTest {
     @Test
     void isSameModule() {
         // same object -> returns true
+        //Assertions.assertTrue(TypicalModules.CS1010.isSameModule(TypicalModules.CS1010));
+
+        //null -> return false
+        //Assertions.assertFalse(TypicalModules.CS1020.isSameModule(null));
     }
 
     @Test
