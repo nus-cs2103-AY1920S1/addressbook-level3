@@ -24,7 +24,7 @@
                  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" prefHeight="40.0" prefWidth="1017.0" promptText="Enter command here..." text="" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <MenuBar fx:id="commandMenuField" prefHeight="3.0" prefWidth="1077.0">
+            <MenuBar fx:id="commandMenuField" minHeight="-Infinity" prefHeight="30.0" prefWidth="1077.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Help" />
               </menus>
