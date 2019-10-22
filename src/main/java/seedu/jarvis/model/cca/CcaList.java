@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 import seedu.jarvis.model.cca.exceptions.CcaNotFoundException;
 import seedu.jarvis.model.cca.exceptions.DuplicateCcaException;
 
@@ -122,6 +123,12 @@ public class CcaList {
         }
 
         internalCcaList.set(toBeUpdatedCcaIndex, updatedCca);
+    }
+
+    public void addProgress(Cca toBeUpdatedCca, CcaProgressList ccaProgressList) {
+        requireAllNonNull(toBeUpdatedCca, ccaProgressList);
+
+        toBeUpdatedCca.addProgress(ccaProgressList);
     }
 
     /**

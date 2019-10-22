@@ -26,4 +26,23 @@ public class CcaProgress {
         ccaProgressList.setMilestones(milestones);
         ccaCurrentProgress.setMaxProgress(milestones.size());
     }
+
+    /**
+     * Replaces the contents of the progress list with {@code milestones}.
+     * {@code milestones} must not contain duplicate milestones.
+     */
+    public void setMilestones(CcaProgressList ccaProgressList) {
+        requireAllNonNull(ccaProgressList);
+
+        this.ccaProgressList.setMilestones(ccaProgressList);
+        ccaCurrentProgress.setMaxProgress(ccaProgressList.size());
+    }
+
+    public boolean ccaProgressListIsEmpty() {
+        if (ccaProgressList.size() == 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

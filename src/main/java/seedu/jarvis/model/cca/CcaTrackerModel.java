@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 
 
 /**
@@ -62,4 +63,6 @@ public interface CcaTrackerModel {
     public void updateFilteredCcaList(Predicate<Cca> predicate);
 
     public ObservableList<Cca> getFilteredCcaList();
+
+    public void addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList);
 }

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 
 /**
  * Main class for the CcaTracker. Used to store all the lists related to CcaTracker
@@ -138,6 +139,21 @@ public class CcaTracker {
      */
     public int getNumberOfCcas() {
         return ccaList.size();
+    }
+
+    /**
+     * Adds a progress tracker to a cca.
+     *
+     * @param toBeUpdatedCca to be updated.
+     * @param ccaProgressList to be added to the selected Cca.
+     */
+    public void addProgress(Cca toBeUpdatedCca, CcaProgressList ccaProgressList) {
+        requireAllNonNull(toBeUpdatedCca, ccaProgressList);
+        ccaList.addProgress(toBeUpdatedCca, ccaProgressList);
+    }
+
+    public void increaseProgress() {
+
     }
 
     /**

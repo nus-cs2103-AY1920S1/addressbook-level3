@@ -19,6 +19,7 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
@@ -395,7 +396,8 @@ public class ModelManager implements Model {
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
                 && userPrefs.equals(other.userPrefs)
-                && coursePlanner.equals(other.coursePlanner);
+                && coursePlanner.equals(other.coursePlanner)
+                && ccaTracker.equals(other.ccaTracker);
     }
 
 
@@ -450,6 +452,10 @@ public class ModelManager implements Model {
         return ccaTracker.getFilteredCcaList();
     }
 
+    @Override
+    public void addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList) {
+        ccaTracker.addProgress(targetCca, toAddCcaProgressList);
+    }
 
     //=========== Planner =============================================================
 

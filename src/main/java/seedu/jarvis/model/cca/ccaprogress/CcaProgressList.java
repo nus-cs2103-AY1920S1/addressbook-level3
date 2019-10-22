@@ -24,7 +24,12 @@ public class CcaProgressList implements Iterable<CcaMilestone> {
     private final ObservableList<CcaMilestone> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    private int currentProgress = 0;
+    /**
+     * Return the number of milestones in the CcaProgressList as an int.
+     */
+    public int size() {
+        return internalList.size();
+    }
 
     /**
      * Returns true if the list contains an equivalent milestone as the given argument.
