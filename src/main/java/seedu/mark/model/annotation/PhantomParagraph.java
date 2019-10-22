@@ -46,6 +46,12 @@ public class PhantomParagraph extends Paragraph {
     }
 
     @Override
+    public Annotation getAnnotation() {
+        assert false : "Phantom getAnnotation() shouldn't be called.";
+        return null;
+    }
+
+    @Override
     public Highlight getHighlight() {
         return null;
     }

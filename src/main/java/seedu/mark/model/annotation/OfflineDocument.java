@@ -188,6 +188,14 @@ public class OfflineDocument {
     }
 
     /**
+     * Returns number of stray notes this paragraph has since Mark started up.
+     * Removing/relocating stray annotations will not modify the count.
+     */
+    public int getNumStrayNotes() {
+        return numStray;
+    }
+
+    /**
      * Temporary test driver as proof of concept.
      * @param args
      */

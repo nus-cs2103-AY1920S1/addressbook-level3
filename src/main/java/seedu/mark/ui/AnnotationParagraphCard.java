@@ -26,6 +26,7 @@ public class AnnotationParagraphCard extends UiPart<Region> {
 
     public AnnotationParagraphCard(Paragraph paragraph) {
         super(FXML);
+        //cardPane.setStyle("-fx-background-color: grey");
         this.paragraph = paragraph;
 
         id.setText(paragraph.getId().toString());

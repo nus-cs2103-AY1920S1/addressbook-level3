@@ -53,6 +53,11 @@ public class TrueParagraph extends Paragraph {
     }
 
     @Override
+    public Annotation getAnnotation() {
+        return annotation;
+    }
+
+    @Override
     public Highlight getHighlight() {
         return annotation.getHighlight();
     }

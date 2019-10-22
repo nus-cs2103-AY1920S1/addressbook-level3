@@ -11,6 +11,7 @@ public abstract class Paragraph {
     public abstract ParagraphContent getParagraphContent();
 
     public abstract boolean hasAnnotation();
+    public abstract Annotation getAnnotation();
     public abstract Highlight getHighlight();
 
     public abstract boolean hasNote();
