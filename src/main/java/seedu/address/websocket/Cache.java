@@ -125,6 +125,38 @@ public class Cache {
     }
 
     /**
+     * Load json from file in resources
+     * @param path file name to load from
+     * @return an Optional containing a JSONObject or empty.
+     */
+    private static Object loadFullPath(String path) {
+        requireNonNull(path);
+        Object response = null;
+        JSONParser parser;
+        parser = new JSONParser();
+        try (Reader reader = new FileReader(path)) {
+            response = parser.parse(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    /**
+     * Save json to file in resources
+     * @param path file name to load from
+     */
+    private static void saveFullPathJsonArray(String path, JSONArray jsonObject) {
+        try (FileWriter file = new FileWriter(path)) {
+            file.write(jsonObject.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Load json from file in cache folder
      * @param fileName file name to load from
      * @return an Optional containing a JSONObject or empty.
@@ -231,5 +263,24 @@ public class Cache {
 
         logger.severe("Failed to get module from API! Unable to add mod to schedules.");
         return Optional.empty();
+    }
+
+    /**
+     * Load a module from cache, if failed, call api, then save results to cache folder.
+     * If api fails too, return empty.
+     * @return an Optional containing a Module object or empty.
+     */
+    public static JSONArray loadVenues() {
+        JSONArray venues = (JSONArray) loadFullPath(CacheFileNames.VENUES_FULL_PATH);
+
+        if (venues != null) {
+            return venues;
+        } else {
+            logger.info("Module not found in cache, getting from API...");
+            venues = api.getVenues("/1").orElse(new JSONArray());
+            saveFullPathJsonArray(CacheFileNames.VENUES_FULL_PATH, venues);
+        }
+
+        return venues;
     }
 }

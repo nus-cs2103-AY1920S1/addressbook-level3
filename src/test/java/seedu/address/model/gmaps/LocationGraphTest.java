@@ -1,5 +1,6 @@
 package seedu.address.model.gmaps;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -12,56 +13,64 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.TimeBookInvalidState;
-import seedu.address.stubs.ProcessVenuesStub;
+import seedu.address.logic.internal.gmaps.ProcessVenues;
 
 
 class LocationGraphTest {
+    private ProcessVenues processVenues;
     private LocationGraph locationGraph;
+
     @BeforeEach
     void init() throws ConnectException, TimeBookInvalidState {
-        locationGraph = new LocationGraph(new ProcessVenuesStub());
+        processVenues = new ProcessVenues().process();
+        locationGraph = new LocationGraph(processVenues.getLocations(), processVenues.getValidLocationList());
     }
+
     @Test
-    void getGmapsRecognisedLocationList() {
-        ArrayList<String> expectedLocationList = new ArrayList<>(Arrays.asList("NUS_FOO", "NUS_BAR", "NUS_FOOBAR"));
-        assertEquals(locationGraph.getGmapsRecognisedLocationList(), expectedLocationList);
+    void getValidLocationList() {
+        assertEquals(locationGraph.getValidLocationList(), processVenues.getValidLocationList());
     }
 
     @Test
     void getLocations() {
-        Location location1 = new Location("Foo");
-        location1.setValidLocation("NUS_FOO");
-        Location location2 = new Location("Foo-1234");
-        location2.setValidLocation("NUS_FOO");
-        Location location3 = new Location("Foo_1234");
-        location3.setValidLocation("NUS_FOO");
-        ArrayList<Location> expectedLocations = new ArrayList<Location>(Arrays.asList(location1, location2, location3));
-        assertEquals(locationGraph.getLocations(), expectedLocations);
+        assertEquals(locationGraph.getLocations(), locationGraph.getLocations());
     }
 
     @Test
     void getLocationIndex() {
-        assertEquals(locationGraph.getLocationIndex("Foo"), 0);
+        assertEquals(locationGraph.getLocationIndex("NUS_LT17"), -1);
+        assertEquals(locationGraph.getLocationIndex("LT17"), 142);
     }
 
     @Test
     void getLocationRow() {
-        assertThrows(IllegalValueException.class, () -> locationGraph.getLocationRow(3));
+        assertThrows(IllegalValueException.class, () -> locationGraph.getLocationRow(1000));
+        assertDoesNotThrow(() -> locationGraph.getLocationRow(3));
     }
 
     @Test
     void getDistanceMatrix() {
         ArrayList<ArrayList<Long>> expectedDistanceMatrix =
-                new ArrayList<>(Arrays.asList(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+                new ArrayList<>();
+        for (int i = 0; i < locationGraph.getValidLocationList().size(); i++) {
+            expectedDistanceMatrix.add(new ArrayList<>());
+        }
         assertEquals(locationGraph.getDistanceMatrix(), expectedDistanceMatrix);
     }
 
     @Test
-    void setMatrixRow() throws TimeBookInvalidState, ConnectException {
+    void setMatrixRow() {
+        ArrayList<ArrayList<Long>> expectedDistanceMatrix =
+                new ArrayList<>();
+        for (int i = 0; i < locationGraph.getValidLocationList().size(); i++) {
+            expectedDistanceMatrix.add(new ArrayList<>());
+        }
+        expectedDistanceMatrix.get(0).add((long) 1);
+        expectedDistanceMatrix.get(0).add((long) 2);
+        expectedDistanceMatrix.get(0).add((long) 3);
         ArrayList<Long> row1 = new ArrayList<>(Arrays.asList((long) 1, (long) 2, (long) 3));
         ArrayList<ArrayList<Long>> actualMatrix = locationGraph.setMatrixRow(0, row1).getDistanceMatrix();
-        ArrayList<ArrayList<Long>> expectedGraph =
-                new ArrayList<>(Arrays.asList(row1, new ArrayList<>(), new ArrayList<>()));
-        assertEquals(expectedGraph, actualMatrix);
+
+        assertEquals(expectedDistanceMatrix, actualMatrix);
     }
 }
