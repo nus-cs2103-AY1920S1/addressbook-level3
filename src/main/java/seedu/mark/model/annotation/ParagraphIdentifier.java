@@ -21,6 +21,17 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
         this.type = type;
     }
 
+    /**
+     * Returns true if this identifier identifies a phantom paragraph.
+     */
+    public boolean isStray() {
+        return type == ParagraphType.STRAY;
+    }
+
+    public Index getIndex() {
+        return index;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this

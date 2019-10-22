@@ -31,6 +31,7 @@ public class JsonAdaptedOfflineDocument {
      * Converts a given {@code OfflineDocument} into this class for Jackson use.
      */
     public JsonAdaptedOfflineDocument(OfflineDocument doc) {
+        doc.updateStrayIndex();
         this.numStray = doc.getNumStrayNotes();
         this.paragraphs.addAll(doc.getCollection().stream()
                 .map(JsonAdaptedParagraph::new)
@@ -42,7 +43,10 @@ public class JsonAdaptedOfflineDocument {
      * @throws IllegalValueException if there were any data constraints violated in the adapted offline document.
      */
     public OfflineDocument toModelType() throws IllegalValueException {
-        //TODO
-        return null;
+        List<Paragraph> ps = new ArrayList<>();
+        for (JsonAdaptedParagraph jap : paragraphs) {
+            ps.add(jap.toModelType());
+        }
+        return new OfflineDocument(ps, numStray);
     }
 }

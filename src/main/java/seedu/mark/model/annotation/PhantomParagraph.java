@@ -13,9 +13,9 @@ public class PhantomParagraph extends Paragraph {
     /** Paragraph identifier.*/
     private ParagraphIdentifier id;
     /** Paragraph notes, if any.*/
-    private AnnotationNote note;
+    private Annotation note;
 
-    public PhantomParagraph(Index id, AnnotationNote note) {
+    public PhantomParagraph(Index id, Annotation note) {
         requireNonNull(id);
 
         ParagraphIdentifier pi = new ParagraphIdentifier(id, ParagraphIdentifier.ParagraphType.STRAY);
@@ -38,11 +38,11 @@ public class PhantomParagraph extends Paragraph {
     }
 
     /**
-     * Returns false. Phantom paragraphs can never have highlights. The only possible annotation is a note.
+     * Returns true. The only key part of annotation is a note. (Highlight is ignored)
      */
     @Override
     public boolean hasAnnotation() {
-        return false;
+        return true;
     }
 
     @Override
@@ -58,12 +58,18 @@ public class PhantomParagraph extends Paragraph {
 
     @Override
     public boolean hasNote() {
-        return note != null;
+        return true;
     }
 
     @Override
     public AnnotationNote getNote() {
-        return this.note;
+        return this.note.getNote();
+    }
+
+    @Override
+    public void updateId(ParagraphIdentifier newId) {
+        assert newId.isStray() : "PhantomParagraph should never have EXIST id.";
+        this.id = newId;
     }
 
     @Override

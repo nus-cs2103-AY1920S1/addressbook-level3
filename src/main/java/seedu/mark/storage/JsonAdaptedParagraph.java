@@ -4,7 +4,15 @@ package seedu.mark.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.mark.commons.exceptions.IllegalValueException;
+import seedu.mark.logic.parser.ParserUtil;
+import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.annotation.Annotation;
+import seedu.mark.model.annotation.AnnotationNote;
 import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.annotation.ParagraphContent;
+import seedu.mark.model.annotation.ParagraphIdentifier;
+import seedu.mark.model.annotation.PhantomParagraph;
+import seedu.mark.model.annotation.TrueParagraph;
 
 public class JsonAdaptedParagraph {
 
@@ -20,7 +28,11 @@ public class JsonAdaptedParagraph {
                                 @JsonProperty("content") String content,
                                 @JsonProperty("annotation") JsonAdaptedAnnotation annotation) {
         this.pid = pid;
-        this.content = content;
+        if (content == null) {
+            this.content = "";
+        } else {
+            this.content = content;
+        }
         this.annotation = annotation;
     }
 
@@ -38,8 +50,25 @@ public class JsonAdaptedParagraph {
      * @throws IllegalValueException if there were any data constraints violated in the adapted paragraph.
      */
     public Paragraph toModelType() throws IllegalValueException {
-        //TODO
-        return null;
+        ParagraphIdentifier id;
+        try {
+            id = ParserUtil.parseParagraphIdentifier(pid);
+        } catch (ParseException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
+
+        Paragraph p;
+        Annotation an = annotation.toModelType();
+        if (id.isStray()) {
+            //TODO: guard against null note (assert -- this should never happen)
+            p = new PhantomParagraph(id.getIndex(), an);
+        } else {
+            p = new TrueParagraph(id.getIndex(), new ParagraphContent(content));
+            if (an != null) {
+                p.addAnnotation(an);
+            }
+        }
+        return p;
     }
 
 }

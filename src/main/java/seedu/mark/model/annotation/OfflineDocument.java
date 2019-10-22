@@ -121,6 +121,17 @@ public class OfflineDocument {
     }
 
     /**
+     * Constructs an {@code OfflineDocument} with a list of paragraphs and number of stray notes.
+     */
+    public OfflineDocument(List<Paragraph> paragraphs, int numStray) {
+        this.numStray = numStray;
+        this.paragraphs = new HashMap<>();
+        for (Paragraph p : paragraphs) {
+            this.paragraphs.put(p.getId(), p);
+        }
+    }
+
+    /**
      * Loads Readability4J-parsed html document into their respective paragraphs.
      * Document is fresh from saved cache; no annotations are present.
      * @param doc JSoup document parsed from Readability4J html output
@@ -154,12 +165,28 @@ public class OfflineDocument {
             Paragraph p = paragraphs.get(annotations.get(a));
             if (p == null) {
                 logger.log(Level.SEVERE, "Annotation was referring to wrong paragraph. Note now stray.");
-                Paragraph newPhantom = new PhantomParagraph(Index.fromOneBased(++numStray), a.getNote());
+                Paragraph newPhantom = new PhantomParagraph(Index.fromOneBased(++numStray), a);
                 paragraphs.put(newPhantom.getId(), newPhantom);
                 continue;
             }
             p.addAnnotation(a);
         }
+    }
+
+    public void updateStrayIndex() {
+        int emptyCount = 0;
+        for (int i = 0; i < numStray; i++) {
+            ParagraphIdentifier id = new ParagraphIdentifier(Index.fromZeroBased(i),
+                    ParagraphIdentifier.ParagraphType.STRAY);
+            Paragraph p = paragraphs.get(id);
+            if (p != null) {
+                p.updateId(new ParagraphIdentifier(Index.fromZeroBased(i + 1 - emptyCount),
+                        ParagraphIdentifier.ParagraphType.STRAY));
+            } else {
+                emptyCount++;
+            }
+        }
+        numStray -= emptyCount;
     }
 
     /**

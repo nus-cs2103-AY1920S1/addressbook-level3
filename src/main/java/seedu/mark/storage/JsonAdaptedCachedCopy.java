@@ -13,7 +13,6 @@ import seedu.mark.model.bookmark.CachedCopy;
 public class JsonAdaptedCachedCopy {
 
     private final String html;
-    //private final List<JsonAdaptedParagraph> offlineDocParagraphs;
     private final JsonAdaptedOfflineDocument offlineDoc;
 
     /**
@@ -40,7 +39,12 @@ public class JsonAdaptedCachedCopy {
      * @throws IllegalValueException if there were any data constraints violated in the adapted cache.
      */
     public CachedCopy toModelType() throws IllegalValueException {
-        //TODO
-        return null;
+        if (html == null) {
+            throw new IllegalValueException("Html for cache absent in storage!");
+        }
+        if (offlineDoc == null) {
+            throw new IllegalValueException("Offline document details absent in storage!");
+        }
+        return new CachedCopy(html, offlineDoc.toModelType());
     }
 }

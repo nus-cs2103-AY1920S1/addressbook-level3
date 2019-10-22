@@ -19,4 +19,6 @@ public abstract class Paragraph {
 
     public abstract void addAnnotation(Annotation annotation);
 
+    public abstract void updateId(ParagraphIdentifier newId);
+
 }

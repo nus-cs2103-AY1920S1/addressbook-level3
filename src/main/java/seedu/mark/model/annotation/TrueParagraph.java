@@ -73,6 +73,12 @@ public class TrueParagraph extends Paragraph {
     }
 
     @Override
+    public void updateId(ParagraphIdentifier newId) {
+        assert false : "TrueParagraph id should never be updated";
+        this.id = newId;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;

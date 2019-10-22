@@ -33,10 +33,16 @@ public class CachedCopy {
      * Instantiates an existing CachedCopy that has annotations.
      * @param html the html of the website
      * @param annotations the saved annotations
+     * TODO: check if this constructor is still needed
      */
     public CachedCopy(String html, HashMap<Annotation, ParagraphIdentifier> annotations) {
         this(html);
         this.annotations.loadAnnotations(annotations);
+    }
+
+    public CachedCopy(String html, OfflineDocument doc) {
+        this.html = html;
+        this.annotations = doc;
     }
 
     public OfflineDocument getAnnotations() {
