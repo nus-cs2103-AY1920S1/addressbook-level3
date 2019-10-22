@@ -15,6 +15,7 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 
 public class StorageManagerTest {
@@ -28,7 +29,8 @@ public class StorageManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonHistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(getTempFilePath("hm"));
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage);
     }
 
     private Path getTempFilePath(String fileName) {

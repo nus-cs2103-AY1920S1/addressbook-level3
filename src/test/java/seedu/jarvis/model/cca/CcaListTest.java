@@ -20,26 +20,26 @@ public class CcaListTest {
 
     @Test
     public void contains_nullCca_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ccaList.contains(null));
+        assertThrows(NullPointerException.class, () -> ccaList.containsCca(null));
     }
 
     @Test
     public void contains_ccaNotInList_returnsFalse() {
-        assertFalse(ccaList.contains(CANOEING));
+        assertFalse(ccaList.containsCca(CANOEING));
     }
 
 
     @Test
     public void contains_ccaInList_returnsTrue() {
         ccaList.addCca(CANOEING);
-        assertTrue(ccaList.contains(CANOEING));
+        assertTrue(ccaList.containsCca(CANOEING));
     }
 
     @Test
     public void contains_ccaWithSameIdentityFieldsInList_returnsTrue() {
         ccaList.addCca(CANOEING);
         Cca editedCanoeing = new CcaBuilder(CANOEING).withEquipmentList(CANOEING_EQUIPMENT_LIST).build();
-        assertTrue(ccaList.contains(editedCanoeing));
+        assertTrue(ccaList.containsCca(editedCanoeing));
     }
 
     @Test
@@ -96,10 +96,28 @@ public class CcaListTest {
         assertEquals(expectedCcaList, ccaList);
     }
 
-    //    @Test
-    //    public void setCca_editedCcaHasNonUniqueIdentity_throwsDuplicateCcaException() {
-    //        ccaList.addCca(CANOEING);
-    //        ccaList.addCca(GUITAR_ENSEMBLE);
-    //        assertThrows(DuplicateCcaException.class, () -> ccaList.updateCca(CANOEING, GUITAR_ENSEMBLE));
-    //    }
+    @Test
+    public void setCca_editedCcaHasNonUniqueIdentity_throwsDuplicateCcaException() {
+        ccaList.addCca(CANOEING);
+        ccaList.addCca(GUITAR_ENSEMBLE);
+        assertThrows(DuplicateCcaException.class, () -> ccaList.updateCca(CANOEING, GUITAR_ENSEMBLE));
+    }
+
+    @Test
+    public void remove_nullCca_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ccaList.removeCca(null));
+    }
+
+    @Test
+    public void remove_ccaDoesNotExist_throwsCcaNotFoundException() {
+        assertThrows(CcaNotFoundException.class, () -> ccaList.removeCca(CANOEING));
+    }
+
+    @Test
+    public void remove_existingCca_removesCca() {
+        ccaList.addCca(CANOEING);
+        ccaList.removeCca(CANOEING);
+        CcaList expectedCcaList = new CcaList();
+        assertEquals(expectedCcaList, ccaList);
+    }
 }

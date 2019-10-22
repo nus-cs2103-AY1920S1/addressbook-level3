@@ -45,10 +45,10 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
 
         EditCcaDescriptor editCcaDescriptor = new EditCcaDescriptor();
         if (argMultimap.getValue(PREFIX_CCA_NAME).isPresent()) {
-            editCcaDescriptor.setCcaName(ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get()));
+            editCcaDescriptor.setCcaName(CcaParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_CCA_TYPE).isPresent()) {
-            editCcaDescriptor.setCcaType(ParserUtil.parseCcaType(argMultimap.getValue(PREFIX_CCA_TYPE).get()));
+            editCcaDescriptor.setCcaType(CcaParserUtil.parseCcaType(argMultimap.getValue(PREFIX_CCA_TYPE).get()));
         }
 
         parseEquipmentListForEdit(argMultimap.getAllValues(PREFIX_EQUIPMENT_NAME))
@@ -77,7 +77,7 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
             return Optional.of(new EquipmentList());
         }
 
-        return Optional.of(ParserUtil.parseEquipments(equipments));
+        return Optional.of(CcaParserUtil.parseEquipments(equipments));
     }
 
 }

@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -9,6 +11,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.Cca;
+
 
 /**
  * Deletes a cca from Jarvis.
@@ -25,7 +28,7 @@ public class DeleteCcaCommand extends Command {
     public static final String MESSAGE_DELETE_CCA_SUCCESS = "Deleted Cca: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New Cca added: %1$s";
-    public static final String MESSAGE_INVERSE_PERSON_TO_ADD_ALREADY_EXIST = "Cca already added: %1$s";
+    public static final String MESSAGE_INVERSE_CCA_TO_ADD_ALREADY_EXIST = "Cca already added: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -77,5 +80,19 @@ public class DeleteCcaCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Short circuit if it is the same object.
+        if (obj == this) {
+            return true;
+        }
+        // instanceof handles nulls.
+        if (!(obj instanceof DeleteCcaCommand)) {
+            return false;
+        }
+        DeleteCcaCommand other = (DeleteCcaCommand) obj;
+        return targetIndex.equals(other.targetIndex) && Objects.equals(deletedCca, other.deletedCca);
     }
 }

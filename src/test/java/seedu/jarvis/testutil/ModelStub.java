@@ -226,7 +226,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void contains(Cca cca) {
+    public boolean containsCca(Cca cca) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -261,11 +261,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasCca(Cca cca) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public CcaTracker getCcaTracker() {
         throw new AssertionError("This method should not be called.");
     }
@@ -277,6 +272,16 @@ public class ModelStub implements Model {
 
     @Override
     public Cca getCca(Index index) throws CommandException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredCcaList(Predicate<Cca> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Cca> getFilteredCcaList() {
         throw new AssertionError("This method should not be called.");
     }
 
