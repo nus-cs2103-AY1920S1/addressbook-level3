@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path thriftFilePath = Paths.get("data" , "thrift.json");
+    private Path currencyMappingsFilePath = Paths.get("data" , "currency.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -54,6 +55,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setThriftFilePath(Path thriftFilePath) {
         requireNonNull(thriftFilePath);
         this.thriftFilePath = thriftFilePath;
+    }
+
+    public Path getCurrencyMappingsFilePath() {
+        return currencyMappingsFilePath;
     }
 
     @Override

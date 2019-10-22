@@ -26,7 +26,9 @@ public class StorageManagerTest {
     public void setUp() {
         JsonThriftStorage thriftStorage = new JsonThriftStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(thriftStorage, userPrefsStorage);
+        JsonCurrencyMappingsStorage currencyMappingsStorage =
+                new JsonCurrencyMappingsStorage((getTempFilePath("currMap")));
+        storageManager = new StorageManager(thriftStorage, userPrefsStorage, currencyMappingsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

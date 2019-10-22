@@ -11,6 +11,7 @@ import thrift.logic.commands.AddIncomeCommand;
 import thrift.logic.commands.BudgetCommand;
 import thrift.logic.commands.CloneCommand;
 import thrift.logic.commands.Command;
+import thrift.logic.commands.ConvertCommand;
 import thrift.logic.commands.DeleteCommand;
 import thrift.logic.commands.ExitCommand;
 import thrift.logic.commands.FindCommand;
@@ -97,6 +98,12 @@ public class ThriftParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        /*
+         * Info related commands.
+         */
+        case ConvertCommand.COMMAND_WORD:
+            return new ConvertCommandParser().parse(arguments);
 
         /*
          * System related commands.

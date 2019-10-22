@@ -12,7 +12,7 @@ import thrift.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends ThriftStorage, UserPrefsStorage {
+public interface Storage extends ThriftStorage, UserPrefsStorage, CurrencyMappingsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

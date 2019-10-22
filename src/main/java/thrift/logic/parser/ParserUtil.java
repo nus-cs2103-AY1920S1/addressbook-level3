@@ -3,9 +3,11 @@ package thrift.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static thrift.model.transaction.Budget.BUDGET_DATE_FORMAT;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import thrift.commons.core.index.Index;
@@ -17,6 +19,7 @@ import thrift.model.transaction.BudgetValue;
 import thrift.model.transaction.Description;
 import thrift.model.transaction.Remark;
 import thrift.model.transaction.Value;
+import thrift.model.util.CurrencyUtil;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -24,6 +27,7 @@ import thrift.model.transaction.Value;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_CURRENCY = "Currency entered is not valid. (Must exist)";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -136,5 +140,28 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Checks if the currencies are valid
+     *
+     * @param currencies The currencies
+     * @return the same currencies (without modification)
+     * @throws ParseException
+     */
+    public static List<String> parseCurrencies(Collection<String> currencies) throws ParseException {
+        requireNonNull(currencies);
+        final List<String> currencyList = new ArrayList<String>();
+        for (String currency : currencies) {
+            if (!currency.matches("[A-Za-z]+")) {
+                throw new ParseException(MESSAGE_INVALID_CURRENCY);
+            }
+            if (!CurrencyUtil.getCurrencyMap().containsKey(currency.toUpperCase())) {
+                throw new ParseException(MESSAGE_INVALID_CURRENCY);
+            }
+
+            currencyList.add(currency.split(" ")[0]);
+        }
+        return currencyList;
     }
 }

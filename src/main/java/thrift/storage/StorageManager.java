@@ -2,6 +2,7 @@ package thrift.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -19,12 +20,15 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ThriftStorage thriftStorage;
     private UserPrefsStorage userPrefsStorage;
+    private CurrencyMappingsStorage currencyMappingsStorage;
 
 
-    public StorageManager(ThriftStorage thriftStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ThriftStorage thriftStorage, UserPrefsStorage userPrefsStorage,
+            CurrencyMappingsStorage currencyMappingsStorage) {
         super();
         this.thriftStorage = thriftStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.currencyMappingsStorage = currencyMappingsStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -74,4 +78,15 @@ public class StorageManager implements Storage {
         thriftStorage.saveThrift(thrift, filePath);
     }
 
+    // ================ Currency Mappings methods ==============================
+
+    @Override
+    public Path getCurrencyMappingsFilePath() {
+        return currencyMappingsStorage.getCurrencyMappingsFilePath();
+    }
+
+    @Override
+    public Optional<HashMap<String, Double>> readCurrencyMappings() throws DataConversionException, IOException {
+        return currencyMappingsStorage.readCurrencyMappings();
+    }
 }

@@ -21,6 +21,7 @@ import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.UserPrefs;
+import thrift.storage.JsonCurrencyMappingsStorage;
 import thrift.storage.JsonThriftStorage;
 import thrift.storage.JsonUserPrefsStorage;
 import thrift.storage.StorageManager;
@@ -39,7 +40,9 @@ public class LogicManagerTest {
         JsonThriftStorage thriftStorage =
                 new JsonThriftStorage(temporaryFolder.resolve("thrift.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(thriftStorage, userPrefsStorage);
+        JsonCurrencyMappingsStorage currencyMappingsStorage =
+                new JsonCurrencyMappingsStorage(temporaryFolder.resolve("currency.json"));
+        StorageManager storage = new StorageManager(thriftStorage, userPrefsStorage, currencyMappingsStorage);
         logic = new LogicManager(model, storage);
     }
 
