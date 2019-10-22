@@ -17,7 +17,6 @@ import seedu.address.model.ElisaStateHistoryManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemModelManager;
 import seedu.address.model.ItemStorage;
-import seedu.address.model.JokeList;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonItemStorage;
@@ -43,8 +42,7 @@ public class LogicManagerTest {
         ElisaStateHistory historyManager = new ElisaStateHistoryManager();
         model = new ItemModelManager(storage.toModelType(), userPrefsStorage.readUserPrefs().get(), historyManager);
         historyManager.pushCommand(logic.getModel().getState().deepCopy());
-        JokeList jokeList = new JokeList();
-        logic = new LogicManager(model, storage, jokeList);
+        logic = new LogicManager(model, storage);
     }
 
     /*

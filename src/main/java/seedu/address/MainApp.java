@@ -51,8 +51,6 @@ public class MainApp extends Application {
     protected ItemModel model;
     protected Config config;
     protected ElisaStateHistory stateHistory;
-    protected JokeList jokeList;
-
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
@@ -72,9 +70,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs, stateHistory);
 
-        jokeList = new JokeList();
-
-        logic = new LogicManager(model, storage, jokeList);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
     }

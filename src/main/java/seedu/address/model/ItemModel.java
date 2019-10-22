@@ -95,6 +95,8 @@ public interface ItemModel {
 
     public void updateState();
 
+    public JokeList getJokeList();
+
     //Bryan Reminder
     ActiveRemindersList getActiveReminderListProperty();
 
