@@ -130,7 +130,7 @@ public class Module implements Cloneable {
         if (!hasTag(userTag)) {
             return false;
         }
-        tags.remove(userTag);
+        tags.removeTag(userTag);
         return true;
     }
 

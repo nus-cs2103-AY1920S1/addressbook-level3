@@ -522,7 +522,7 @@ public class StudyPlan implements Cloneable {
      * Also removes it from all modules in this study plan that has the tag.
      */
     public void deleteTag(UserTag toDelete) {
-        tags.remove(toDelete);
+        tags.removeTag(toDelete);
         Set<String> moduleCodes = modules.keySet();
         for (String moduleCode : moduleCodes) {
             Module currentModule = modules.get(moduleCode);
