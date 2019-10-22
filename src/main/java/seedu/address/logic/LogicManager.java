@@ -11,6 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.IncidentManagerParser;
@@ -51,7 +52,8 @@ public class LogicManager implements Logic {
         Command command = incidentManagerParser.parseCommand(commandText);
 
         // Guard Statement for available commands prior to login.
-        if (!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand)) {
+        if (!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand
+                || command instanceof ExitCommand)) {
             throw new CommandException(ACCESS_CONTROL_MESSAGE);
         }
         commandResult = command.execute(model);

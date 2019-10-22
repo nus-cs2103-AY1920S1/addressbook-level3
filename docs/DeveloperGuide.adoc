@@ -132,13 +132,14 @@ As a more OOP model, we can store a `Tag` list in `Incident Manager`, which `Per
 image:BetterModelClassDiagram.png[]
 
 [[Design-Person]]
-==== Incident component
+==== Person Model component
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Person.java[`Person.java`]
 
 The `Person`,
 
-...
+* represents a user account on the incident manager
+* Contains the account `Username`, `Password`, `Name`, `Phone`, `Email`
 
 [[Design-Incident]]
 ==== Incident component
@@ -180,14 +181,91 @@ Classes used by multiple components are in the `seedu.incidentManager.commons` p
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::loginlogout[]
-=== [Proposed] Login/Logout feature
+// tag::accessControl[]
+=== [Proposed] Access Control feature
 ==== Proposed Implementation
 
-The login/logout mechanism is facilitated by ...
+The access control feature is centered around three core concepts:
+
+* (1) Command Restrictions: Restriction of access to commands until after identity is verified
+* (2) Identity Verification: Verification of identity via unique credentials and a confidential password
+* (3) Account Management Restrictions: Access level restrictions for commands affecting other accounts
+
+===== Command Restrictions
+
+Prior to login, the user is only granted access to the `Login` and `Add` commands. This is achieved via a guard statement in the `LogicManager` checking whether the command created is an instance of `Login` or `Add` command:
+
+`if (!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand)) {
+    throw new CommandException(ACCESS_CONTROL_MESSAGE);
+}`
+
+Activity Diagram for illustration:
+
+image::AccessActivityDiagram.png[]
+
+===== Identity Verification
+
+Users are required to login via the `Login` command with a `Username` and `Password`. See user guide for more details on the command syntax for `Login`. Users are also allowed to `Logout` and thus end their `Session`.
+
+[NOTE]
+Session details are displayed on the status bar in the GUI to reflect whether a user is logged in, and the username as well as time logged in if a user is logged in.
+
+Uniqueness of username is ensured by preventing duplicates during the account creation (`AddCommand`) and account update (`UpdateCommand`) processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
+
+===== Account Management Restrictions
+
+To prevent abuse (e.g. adding a dummy account and editing/deleting other accounts), all new accounts are differentiated from `Admin` accounts. This restriction based on access level is implemented via account `Tags`:
+
+* Only a `Person` with an admin `Tag` can access account management features. Such a person will henceforth be referred to as an Admin.
+* Users who are not admins are not allowed to add tags (via both AddCommand and UpdateCommand).
+* Only Admins are allowed to edit or add tags (via both AddCommand and UpdateCommand).
+
+[NOTE]
+Non-admins can still edit their own account details via the `Update` command. Refer to user guide for more info.
+
+The checks described above all function in the command execution stage. The `Add` command, `Update` command, and `Delete` retrieve the `LoggedInPerson` from the `Model` via utilisation of the `Session` object.
+
+Sequence Diagram for illustration:
+
+image::AccessSequenceDiagram.png[]
 
 ==== Design Considerations
 
+===== Aspect: How Command Restrictions are Managed
+
+* **Alternative 1 (current choice):** Guard statement in LogicManager prior to Command Execution.
+** Pros: Single control point, easy to maintain and debug.
+** Cons: Command still gets instantiated, memory allocated to command creation.
+* **Alternative 2:** Guard statement in IncidentManagerParser
+** Pros: Early catching of restriction, command doesn't get instantiated unnecessarily.
+** Cons: Need to expose model to parser, increasing coupling.
+
+===== Aspect: How Identity Verification is Managed
+
+* **Alternative 1 (current choice):** Unique username and password.
+** Pros: Easy to implement.
+** Cons: Sufficiently advanced users can access the data file directly to retrieve user passwords.
+* **Alternative 2:** Physical security USB dongle.
+** Pros: Secure individually identifiable apparatus.
+** Cons: Prone to loss and potential duplication.
+
+===== Aspect: How Account Management Restrictions are Managed
+
+* **Alternative 1 (current choice):** Utilisation of Account Tags
+** Pros: Easy to implement.
+** Cons: Users cannot add tags to themselves.
+* **Alternative 2:** Addition of an Admin account attribute.
+** Pros: Distinct object class, improves cohesiveness.
+** Cons: Hard to implement.
+// end::accessControl[]
+
+// tag::accountManagement[]
+=== [Proposed] Account Management feature
+==== Proposed Implementation
+
+The account management feature ...
+
+==== Design Considerations
 ===== Aspect: How login & logout executes
 
 * **Alternative 1 (current choice):** ...
@@ -196,7 +274,7 @@ The login/logout mechanism is facilitated by ...
 * **Alternative 2:** ...
 ** Pros: ...
 ** Cons: ...
-// end::loginlogout[]
+// end::accountManagement[]
 
 // tag::incidentdraftcreation[]
 === [Proposed] Incident Draft Creation feature
