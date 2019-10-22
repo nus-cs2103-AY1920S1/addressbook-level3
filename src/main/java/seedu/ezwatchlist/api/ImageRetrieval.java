@@ -35,6 +35,7 @@ public class ImageRetrieval {
         }
     }
 
+    //adapted from https://stackoverflow.com/questions/6561172/find-directory-for-application-data-on-linux-and-macintosh
     static String defaultDirectory() {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("win"))
@@ -62,6 +63,7 @@ public class ImageRetrieval {
     public void downloadImage(String fileName) throws OnlineConnectionException {
         try (InputStream in = new URL(imageUrl).openStream()) {
             File parent = new File(IMAGE_CACHE_LOCATION);
+
             if (!parent.exists()) {
                 parent.mkdirs();
             }
