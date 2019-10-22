@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateCommand.UpdatePersonDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.IncidentManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -42,7 +42,7 @@ public class UpdateCommandTest {
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), updatedPerson);
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class UpdateCommandTest {
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         expectedModel.setPerson(lastPerson, updatedPerson);
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class UpdateCommandTest {
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class UpdateCommandTest {
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), updatedPerson);
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
@@ -112,7 +112,7 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_ENTITY);
 
         // update person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_ENTITY.getZeroBased());
+        Person personInList = model.getIncidentManager().getPersonList().get(INDEX_SECOND_ENTITY.getZeroBased());
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_ENTITY,
                 new UpdatePersonDescriptorBuilder(personInList).build());
 
@@ -137,7 +137,7 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_ENTITY);
         Index outOfBoundIndex = INDEX_SECOND_ENTITY;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getIncidentManager().getPersonList().size());
 
         UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex,
                 new UpdatePersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

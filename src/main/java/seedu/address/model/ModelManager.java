@@ -23,31 +23,31 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private Session session;
-    private final AddressBook addressBook;
+    private final IncidentManager incidentManager;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Incident> filteredIncidents;
     private final FilteredList<Vehicle> filteredVehicles;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given incidentManager and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyIncidentManager addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.incidentManager = new IncidentManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         session = new Session(null);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredIncidents = new FilteredList<>(this.addressBook.getIncidentList());
-        filteredVehicles = new FilteredList<>(this.addressBook.getVehicleList());
+        filteredPersons = new FilteredList<>(this.incidentManager.getPersonList());
+        filteredIncidents = new FilteredList<>(this.incidentManager.getIncidentList());
+        filteredVehicles = new FilteredList<>(this.incidentManager.getVehicleList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new IncidentManager(), new UserPrefs());
     }
 
     @Override
@@ -105,32 +105,32 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== IncidentManager ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setIncidentManager(ReadOnlyIncidentManager incidentManager) {
+        this.incidentManager.resetData(incidentManager);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyIncidentManager getIncidentManager() {
+        return incidentManager;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return incidentManager.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        incidentManager.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        incidentManager.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -138,7 +138,7 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        incidentManager.setPerson(target, editedPerson);
     }
 
 
@@ -171,18 +171,18 @@ public class ModelManager implements Model {
     @Override
     public boolean hasIncident(Incident incident) {
         requireNonNull(incident);
-        return addressBook.hasIncident(incident);
+        return incidentManager.hasIncident(incident);
     }
     @Override
     public void setIncident(Incident target, Incident editedIncident) {
         requireAllNonNull(target, editedIncident);
-        addressBook.setIncident(target, editedIncident);
+        incidentManager.setIncident(target, editedIncident);
 
     }
 
     @Override
     public void addIncident(Incident incident) {
-        addressBook.addIncident(incident);
+        incidentManager.addIncident(incident);
         updateFilteredIncidentList(PREDICATE_SHOW_ALL_INCIDENTS);
     }
 
@@ -229,7 +229,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return incidentManager.equals(other.incidentManager)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

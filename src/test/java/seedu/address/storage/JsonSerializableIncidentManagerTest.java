@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.IncidentManager;
 import seedu.address.testutil.TypicalEntities;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableIncidentManagerTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableIncidentManagerTest");
     private static final Path TYPICAL_ENTITIES_FILE = TEST_DATA_FOLDER.resolve("typicalEntitiesAddressBook.json");
     private static final Path INVALID_ENTITY_FILE = TEST_DATA_FOLDER.resolve("invalidEntityAddressBook.json");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
@@ -26,9 +26,9 @@ public class JsonSerializableAddressBookTest {
     public void toModelType_typicalEntitiesFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_ENTITIES_FILE,
                 JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalEntities.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        IncidentManager incidentManagerFromFile = dataFromFile.toModelType();
+        IncidentManager typicalPersonsIncidentManager = TypicalEntities.getTypicalAddressBook();
+        assertEquals(incidentManagerFromFile, typicalPersonsIncidentManager);
     }
 
     @Test

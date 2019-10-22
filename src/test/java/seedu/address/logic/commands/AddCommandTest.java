@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.IncidentManager;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyIncidentManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
@@ -137,12 +137,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setIncidentManager(ReadOnlyIncidentManager newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyIncidentManager getIncidentManager() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -244,8 +244,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyIncidentManager getIncidentManager() {
+            return new IncidentManager();
         }
     }
 
