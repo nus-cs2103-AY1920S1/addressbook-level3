@@ -20,6 +20,14 @@
 }
 
 .option-label {
+    -fx-max-height: 300;
+    -fx-max-width: 600;
+    /*-fx-pref-height: 300;*/
+    /*-fx-pref-width: 600;*/
+    /*-fx-min-height: 300;*/
+    /*-fx-min-width: 600;*/
+    -fx-font-family: "Lucida Bright",  "Times New Roman";
+    -fx-font-style: normal;
     -fx-font-size: 30;
     -fx-background-color: #2a3b74;
     -fx-background-radius: 10;
@@ -27,4 +35,5 @@
     -fx-border-radius: 10;
     -fx-border-color: #fbf3f3;
     -fx-border-width: 3;
+    /*-fx-effect: DropShadow;*/
 }

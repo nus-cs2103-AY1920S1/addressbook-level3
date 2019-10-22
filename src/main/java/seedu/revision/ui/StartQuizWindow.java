@@ -2,10 +2,10 @@ package seedu.revision.ui;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -44,23 +44,20 @@ public class StartQuizWindow extends Window {
 
     // Independent Ui parts residing in this Ui container
     private AnswerableListPanel answerableListPanel;
-    private ResultDisplay resultDisplay;
-
+    private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
+    private Iterator<Answerable> answerableIterator;
 
     @FXML
     private StackPane answerableListPanelPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
 
     public StartQuizWindow(Stage primaryStage, Logic logic) {
         super(primaryStage, logic);
     }
-
 
     /**
      * Fills up all the placeholders of this window.
@@ -69,15 +66,17 @@ public class StartQuizWindow extends Window {
 
 //        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
 //        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
-        ObservableList<Answerable> filteredList = logic.getFilteredAnswerableList();
-        Answerable firstAnswerable = filteredList.get(0);
+        answerableIterator = logic.getFilteredAnswerableList().iterator();
+//        if (answerableIterator.hasNext()) {
+            Answerable firstAnswerable = answerableIterator.next();
+//        }
 
         answersGridPane = new AnswersGridPane(firstAnswerable);
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
-        resultDisplay = new ResultDisplay();
-        resultDisplay.setFeedbackToUser(firstAnswerable.getQuestion().toString());
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        questionDisplay = new ResultDisplay();
+        questionDisplay.setFeedbackToUser(firstAnswerable.getQuestion().toString());
+        resultDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -110,10 +109,21 @@ public class StartQuizWindow extends Window {
      * @see seedu.revision.logic.Logic#execute(String)
      */
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        if (commandText.equals("next")) {
+            if (answerableIterator.hasNext()) {
+                Answerable nextAnswerable = answerableIterator.next();
+                questionDisplay.setFeedbackToUser(nextAnswerable.getQuestion().toString());
+                answersGridPane.updateAnswers(nextAnswerable);
+                return new CommandResult("go to next question", false, false);
+            } else {
+                EndWindow endWindow = new EndWindow(this, mainWindow);
+                endWindow.show();
+            }
+        }
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            questionDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -126,7 +136,7 @@ public class StartQuizWindow extends Window {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            questionDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
