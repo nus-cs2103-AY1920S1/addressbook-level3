@@ -13,7 +13,7 @@ import seedu.flashcard.model.tag.Tag;
  * Represents a Flashcard in the flashcard list.
  * Guarantees: details are present and not null, field values are validated, immutable
  */
-public class Flashcard {
+public abstract class Flashcard {
 
     // Identity fields
     protected final Question question;
@@ -105,6 +105,21 @@ public class Flashcard {
         }
         return otherFlashcard != null
                 && otherFlashcard.getQuestion().equals(getQuestion());
+    }
+
+    /**
+     * Checks that an input answer is the same as the correct answer.
+     * @param inputAnswer The answer that the user input.
+     * @return Returns true if the answer is correct.
+     */
+    public boolean checkAnswer(Answer inputAnswer) {
+        if (inputAnswer.equals(answer)) {
+            score.incrementCorrectAnswer();
+            return true;
+        } else {
+            score.incrementWrongAnswer();
+            return false;
+        }
     }
 
     /**

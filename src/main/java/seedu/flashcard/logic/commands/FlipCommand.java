@@ -34,14 +34,12 @@ public class FlipCommand extends Command {
         if (lastViewedFlashcard == null) {
             throw new CommandException(MESSAGE_NULL_VIEW_FLASHCARD);
         }
-        Answer correctAnswer = lastViewedFlashcard.getAnswer();
-        if (answer.equals(correctAnswer)) {
-            lastViewedFlashcard.getScore().incrementCorrectAnswer();
+        boolean isCorrect = lastViewedFlashcard.checkAnswer(answer);
+        if (isCorrect) {
             return new CommandResult("Your answer: " + answer.toString() + " is correct.\n");
         } else {
-            lastViewedFlashcard.getScore().incrementWrongAnswer();
             return new CommandResult("Your answer: " + answer.toString() + " is incorrect.\n"
-                + "The correct answer is: " + correctAnswer.toString());
+                + "The correct answer is: " + lastViewedFlashcard.getAnswer().toString());
         }
     }
 }
