@@ -327,11 +327,30 @@ After the `redo` command execution is complete, the `Model` has the changes made
 Step 7. The user executes `add n/John ...` to add a new person.
 A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
 The `HistoryManager` clears all commands stored in `HistoryManager#inverselyExecutedCommands`.
-Similar to `Step 3`, `HistoryManager` does remembers this command.
+Similar to `Step 3`, `HistoryManager` remembers this command.
 
 [NOTE]
 Whenever a new invertible command is executed that is not currently in `HistoryManager`, it will clear all the commands that are stored in `HistoryManager#inverselyExecutedCommands`.
 This means that all potential redo actions are cleared.
+
+==== Design Considerations
+===== Aspect: How undo & redo executes
+* *Alternative 1:* Saves the entire `Model`.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* *Alternative 2:* Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+* *Alternative 1:* Use a list to store the history of `Model` states.
+Maintain a pointer to point to the current version of `Model`, and shift the pointer along the list to facilitate undo/redo operations.
+** Pros: Simple implementation.
+** Cons: Expensive on storage as multiple copies of `Model` is stored.
+* *Alternative 2:* Implement invertible commands whereby they support their inverse execution. Use two `Deque` data structures to store the history of commands, to represent
+executed commands and inversely executed commands. Move commands from one deque to another and executing/inversely executing them to facilitate undo/redo operations.
+** Pros: Storage efficient, as application only needs to keep track of invertible commands, and do not need to store multiple copies of `Model`.
+** Cons: Need to ensure that invertible commands implement their inverse execution correctly.
 
 // end::undoredo[]
 
