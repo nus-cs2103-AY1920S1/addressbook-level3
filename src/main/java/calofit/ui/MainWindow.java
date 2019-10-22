@@ -73,7 +73,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
 
-        budgetBar.setMeals(logic.getModel().getMealLog().getTodayMeals());
+        budgetBar.mealsProperty().set(logic.getModel().getMealLog().getTodayMeals());
         budgetBar.budgetProperty().bind(logic.getModel().getCalorieBudget().currentBudget());
     }
 
