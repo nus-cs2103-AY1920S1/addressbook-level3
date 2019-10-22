@@ -16,6 +16,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
@@ -334,22 +335,12 @@ public class AddCommandTest {
         //=========== Statistics List =============================================================
 
         @Override
-        public AverageType getAverageType() {
+        public SimpleStringProperty getAverageType() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public RecordType getRecordType() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAverageType(AverageType averageType) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRecordType(RecordType recordType) {
+        public SimpleStringProperty getRecordType() {
             throw new AssertionError("This method should not be called.");
         }
 

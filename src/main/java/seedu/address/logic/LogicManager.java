@@ -21,8 +21,6 @@ import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.bio.User;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.RecordType;
-import seedu.address.model.statistics.AverageType;
 import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
