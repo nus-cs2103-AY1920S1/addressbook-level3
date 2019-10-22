@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalActivities.getTypicalActivityBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -40,10 +41,14 @@ public class ListCommandTest {
     }
 
     @Test
+    public void constructor_nullListCommandSubType_throwsCommandException() {
+        assertThrows(NullPointerException.class, () -> new ListCommand(null));
+    }
+
+    @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListCommand(CommandSubType.CONTACT),
                 model, expectedResult, expectedModel);
-        System.out.println(expectedModel.getContext().getType());
     }
 
     @Test

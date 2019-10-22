@@ -18,12 +18,14 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.activity.Title;
 import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.ActivityBookBuilder;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalActivities;
 
 public class ModelManagerTest {
 
@@ -176,6 +178,23 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityList().remove(0));
+    }
+
+    @Test
+    public void updateFilteredActivityList_subsequentMatchingFilter_success() {
+        modelManager.addActivity(TypicalActivities.BREAKFAST);
+        modelManager.addActivity(TypicalActivities.BREAKFAST_SECOND);
+        modelManager.addActivity(TypicalActivities.LUNCH);
+        modelManager.updateFilteredActivityList((activity) ->
+            activity.getTitle().equals(new Title("Lunch")));
+
+        assertEquals(modelManager.getFilteredActivityList().size(), 1);
+        assertTrue(modelManager.getFilteredActivityList().contains(TypicalActivities.LUNCH));
+    }
+
+    @Test
     public void setActivityBookFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setActivityBookFilePath(null));
     }
@@ -192,7 +211,6 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         ActivityBook activityBook = new ActivityBookBuilder().withActivity(BREAKFAST).build();
-        ActivityBook differentActivityBook = new ActivityBook();
         UserPrefs userPrefs = new UserPrefs();
         InternalState state = new InternalState();
 

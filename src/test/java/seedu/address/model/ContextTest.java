@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
@@ -37,5 +39,25 @@ public class ContextTest {
         assertEquals(new Context(TypicalActivities.BREAKFAST).getType(), ContextType.VIEW_ACTIVITY);
         assertEquals(Context.newListActivityContext().getType(), ContextType.LIST_ACTIVITY);
         assertEquals(Context.newListContactContext().getType(), ContextType.LIST_CONTACT);
+    }
+
+    @Test
+    public void equals() {
+        Context listContext = Context.newListActivityContext();
+        Context viewActivityContext = new Context(TypicalActivities.BREAKFAST);
+        Context viewPersonContext = new Context(TypicalPersons.ALICE);
+
+        // identity -> returns true
+        assertTrue(listContext.equals(listContext));
+        assertTrue(viewPersonContext.equals(viewPersonContext));
+
+        // different ContextType -> returns false
+        assertFalse(listContext.equals(Context.newListContactContext()));
+
+        // same ContextType but different Activity -> returns false
+        assertFalse(viewActivityContext.equals(new Context(TypicalActivities.LUNCH)));
+
+        // same ContextType but different Person -> returns false
+        assertFalse(viewPersonContext.equals(new Context(TypicalPersons.BENSON)));
     }
 }
