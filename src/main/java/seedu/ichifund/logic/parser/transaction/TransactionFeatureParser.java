@@ -5,13 +5,13 @@ import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
 import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
-import seedu.ichifund.logic.parser.ParserManager;
+import seedu.ichifund.logic.parser.FeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
  * Passes user input to the appropriate Parser for commands related to the transaction feature.
  */
-public class TransactionParserManager implements ParserManager {
+public class TransactionFeatureParser implements FeatureParser {
 
     private final int tabIndex = 0;
 

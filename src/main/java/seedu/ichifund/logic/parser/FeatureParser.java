@@ -4,9 +4,9 @@ import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
- * Represents a ParserManager that passes user input to the appropriate Parser.
+ * Represents a FeatureParser that passes user input to the appropriate Parser.
  */
-public interface ParserManager {
+public interface FeatureParser {
 
     String getTabSwitchCommandWord();
 

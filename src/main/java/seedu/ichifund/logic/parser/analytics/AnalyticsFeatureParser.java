@@ -3,13 +3,13 @@ package seedu.ichifund.logic.parser.analytics;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import seedu.ichifund.logic.commands.Command;
-import seedu.ichifund.logic.parser.ParserManager;
+import seedu.ichifund.logic.parser.FeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
  * Passes user input to the appropriate Parser for commands related to the analytics feature.
  */
-public class AnalyticsParserManager implements ParserManager {
+public class AnalyticsFeatureParser implements FeatureParser {
 
     private final int tabIndex = 4;
 
