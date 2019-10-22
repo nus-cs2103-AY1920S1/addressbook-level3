@@ -90,7 +90,7 @@ public class AddressBookParser {
             return new ExitCommand();
 
         case PriorityCommand.COMMAND_WORD:
-            return new PriorityCommand();
+            return new PriorityCommandParser().parse(description, flags);
 
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(description, flags);
