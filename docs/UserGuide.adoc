@@ -413,8 +413,8 @@ While `COURSE-CODE` may be the code of any {nusmods-modules}[NUS course].
 
 Format: `add-course c/COURSE-CODE [g/GRADE]`
 
+===== Example
 ----
-Example:
 add-course c/AB1234
 add-course c/AB1234 g/A+
 ----
@@ -427,8 +427,8 @@ Deletes the specified course from your list.
 
 Format: `delete-course c/COURSECODE`
 
+===== Example
 ----
-Example:
 delete-course c/AB1234
 ----
 
@@ -439,8 +439,8 @@ number of credits and its prerequisites - and displays it on the screen.
 
 Format: `lookup c/COURSECODE`
 
+===== Example
 ----
-Example:
 lookup c/AB1234
 ----
 
@@ -452,8 +452,8 @@ not been taken.
 
 Format: `check c/COURSECODE`
 
+===== Example
 ----
-Example:
 check c/AB1234
 ----
 
@@ -491,8 +491,8 @@ The list of focus areas are given below. This is taken from
 
 Format: `focus f/FOCUS-AREA`
 
+===== Example
 ----
-Example:
 focus f/algo
 focus f/computer graphics
 ----
@@ -516,8 +516,8 @@ type of CCA. The types of the CCA will be limited to the following:
 
 Format: `add-cca n/NAME t/TYPE`
 
+===== Example
 ----
-Example:
 add-cca n/Canoeing t/Sports
 add-cca n/Guitar Ensemble t/PerformingArts
 ----
@@ -530,7 +530,7 @@ Format: `delete-cca n/[NAME]`
 
 ===== Example
 ----
-`delete-cca n/Canoeing`
+delete-cca n/Canoeing
 ----
 
 
@@ -604,8 +604,8 @@ currently **20** actions.
 
 Format: `undo [r/NUMBER]`
 
+===== Example
 ----
-Example:
 undo        (undoes the latest action)
 undo r/3    (undoes the last three actions)
 ----
@@ -629,8 +629,8 @@ a single tab.
 
 Format: `redo [r/NUMBER]`
 
+===== Example
 ----
-Example:
 redo        (redoes the latest undo)
 redo r/3    (redoes the last three undos)
 ----
