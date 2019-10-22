@@ -7,16 +7,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.commons.util.DateTimeUtil;
-import seedu.address.model.task.Task;
+import javafx.scene.layout.VBox;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Task}.
+ * An UI component that displays information of a {@code Inventory}.
  */
-public class TaskCard extends UiPart<Region> {
-
-    private static final String FXML = "TaskListCard.fxml";
+public class InventoryCard extends UiPart<Region> {
+    private static final String FXML = "InventoryListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -26,33 +25,27 @@ public class TaskCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on ProjectDashboard level 4</a>
      */
 
-    public final Task task;
+    public final Inventory inventory;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label InvName;
     @FXML
     private Label id;
-
     @FXML
-    private Label deadline;
+    private Label Price;
+    /*
     @FXML
-    private FlowPane tags;
+    private Label MemberName;
+    */
 
-    public TaskCard(Task task, int displayedIndex) {
+    public InventoryCard(Inventory inventory, int displayedIndex) {
         super(FXML);
-        this.task = task;
+        this.inventory = inventory;
         id.setText(displayedIndex + ". ");
-        name.setText(task.getName().fullName);
-        task.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        if (task.hasDeadline()) {
-            deadline.setText("Due on: " + DateTimeUtil.displayDateTime(task.getDeadline()));
-        } else {
-            deadline.setText("No deadline set");
-        }
+        InvName.setText(inventory.getName().fullName);
+        Price.setText(inventory.getPrice().toString());
     }
 
     @Override
@@ -68,8 +61,8 @@ public class TaskCard extends UiPart<Region> {
         }
 
         // state check
-        TaskCard card = (TaskCard) other;
+        InventoryCard card = (InventoryCard) other;
         return id.getText().equals(card.id.getText())
-                && task.equals(card.task);
+                && inventory.equals(card.inventory);
     }
 }

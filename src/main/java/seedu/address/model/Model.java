@@ -63,6 +63,8 @@ public interface Model {
     /** Returns the ProjectDashboard */
     ReadOnlyProjectDashboard getProjectDashboard();
 
+    /// Task
+
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.
      */
@@ -87,10 +89,16 @@ public interface Model {
      */
     void setTask(Task target, Task editedTask);
 
+    /** Returns an unmodifiable view of the filtered task list */
+    ObservableList<Task> getFilteredTaskListByDeadline();
+
+    /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTaskListNotStarted();
 
+    /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTaskListDoing();
 
+    /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTaskListDone();
 
     /** Returns an unmodifiable view of the filtered task list */
@@ -102,7 +110,7 @@ public interface Model {
      */
     void updateFilteredTasksList(Predicate<Task> predicate);
 
-    // MEMBER//
+    /// Member
     /**
      * Returns true if a member with the same identity as {@code member} exists in the address book.
      */
@@ -151,7 +159,7 @@ public interface Model {
      */
     int getTasksLength();
 
-    ////Inventory-related commands
+    /// Inventory
 
     /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Inventory> getFilteredInventoriesList();
@@ -159,7 +167,6 @@ public interface Model {
     /**
      * Updates the filter of the filtered inventories list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
-     * @param predicate
      */
     void updateFilteredInventoriesList(Predicate<Inventory> predicate);
 
@@ -180,6 +187,15 @@ public interface Model {
      * The inventory must exist in the address book.
      */
     void deleteInventory(Inventory target);
+
+    // Mapping
+
+    /**
+     * Replaces the given task {@code target} with {@code editedInventory}.
+     * {@code target} must exist in the address book.
+     * The task identity of {@code editedInventory} must not be the same as another existing inventory in the dashboard.
+     */
+    void setInventory(Inventory target, Inventory editedInventory);
 
     void addMapping(Mapping mapping);
 

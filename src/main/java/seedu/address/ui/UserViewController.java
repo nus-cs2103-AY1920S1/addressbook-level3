@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -13,7 +14,7 @@ public class UserViewController {
 
     /** Holder of a switchable user view. */
     @FXML
-    private StackPane userViewHolder;
+    private Pane userViewHolder;
 
     public Pane getCurrentView() {
         return userViewHolder;

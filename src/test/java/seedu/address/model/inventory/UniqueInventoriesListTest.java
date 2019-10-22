@@ -39,14 +39,6 @@ public class UniqueInventoriesListTest {
     }
 
     @Test
-    public void contains_inventoryWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueInventoryList.add(SHIRTS);
-        Inventory editedShirtInventory = new InventoryBuilder(SHIRTS).withName(VALID_INVENTORY_NAME_SPORTS)
-                .build();
-        assertTrue(uniqueInventoryList.contains(editedShirtInventory));
-    }
-
-    @Test
     public void add_nullInventory_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueInventoryList.add(null));
     }

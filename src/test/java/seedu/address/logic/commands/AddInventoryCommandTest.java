@@ -45,7 +45,7 @@ public class AddInventoryCommandTest {
                                                                                 .ModelStubAcceptingInventoryAdded();
         Inventory validInventory = new InventoryBuilder().build();
 
-        CommandResult commandResult = new AddInventoryCommand(new Index(1),
+        CommandResult commandResult = new AddInventoryCommand(new Index(0),
                 validInventory.getName(), validInventory.getPrice(), new MemberId("rak")).execute(modelStub);
 
         assertEquals(String.format(AddInventoryCommand.MESSAGE_SUCCESS, validInventory),
@@ -56,7 +56,7 @@ public class AddInventoryCommandTest {
     @Test
     public void execute_duplicateInventory_throwsCommandException() {
         Inventory validInventory = new InventoryBuilder().build();
-        AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(1),
+        AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
                                     validInventory.getName(), validInventory.getPrice(), new MemberId("rak"));
         ModelStub modelStub = new ModelStubWithInventory(validInventory);
         assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_DUPLICATE_INVENTORY, () ->
@@ -65,7 +65,7 @@ public class AddInventoryCommandTest {
 
     @Test
     public void execute_inValidMemberId_throwsCommandException() {
-        AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(1),
+        AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
                 new InvName("Toy"), new Price(1), new MemberId("invalidId"));
         AddInventoryCommandTest.ModelStub modelStub = new AddInventoryCommandTest.ModelStub();
 
@@ -176,6 +176,11 @@ public class AddInventoryCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getFilteredTaskListByDeadline() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTaskListNotStarted() {
             throw new AssertionError("This method should not be called.");
         }
@@ -268,6 +273,11 @@ public class AddInventoryCommandTest {
 
         @Override
         public void deleteInventory(Inventory target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInventory(Inventory target, Inventory editedInventory) {
             throw new AssertionError("This method should not be called.");
         }
 

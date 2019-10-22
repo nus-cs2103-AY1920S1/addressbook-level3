@@ -45,6 +45,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Task> getFilteredTaskListDone();
 
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Task> getFilteredTaskListByDeadline();
+
     /** Returns an unmodifiable view of the filtered list of inventories */
     ObservableList<Inventory> getFilteredInventoryList();
 

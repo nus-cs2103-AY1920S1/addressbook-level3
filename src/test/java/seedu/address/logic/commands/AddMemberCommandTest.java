@@ -143,6 +143,11 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getFilteredTaskListByDeadline() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTaskListNotStarted() {
             throw new AssertionError("This method should not be called");
         }
@@ -234,6 +239,11 @@ public class AddMemberCommandTest {
 
         @Override
         public void deleteInventory(Inventory target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInventory(Inventory target, Inventory editedInventory) {
             throw new AssertionError("This method should not be called.");
         }
 
