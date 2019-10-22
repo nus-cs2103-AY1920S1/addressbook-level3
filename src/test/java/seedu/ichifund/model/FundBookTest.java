@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.person.exceptions.DuplicatePersonException;
@@ -106,6 +107,7 @@ public class FundBookTest {
         private final ObservableList<Repeater> repeaters = FXCollections.observableArrayList();
         private final ObservableList<Budget> budgets = FXCollections.observableArrayList();
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
+        private final ObservableList<Data> datas = FXCollections.observableArrayList();
 
         FundBookStub(RepeaterUniqueId currentRepeaterUniqueId, Collection<Person> persons,
                 Collection<Repeater> repeaters, Collection<Budget> budgets, Collection<Transaction> transactions) {
@@ -139,6 +141,11 @@ public class FundBookTest {
         @Override
         public ObservableList<Transaction> getTransactionList() {
             return transactions;
+        }
+
+        @Override
+        public ObservableList<Data> getDataList() {
+            return datas;
         }
     }
 

@@ -16,6 +16,7 @@ import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.logic.tasks.TaskManager;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ReadOnlyFundBook;
+import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
@@ -103,6 +104,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Budget> getFilteredBudgetList() {
         return model.getFilteredBudgetList();
+    }
+
+    @Override
+    public ObservableList<Data> getDataList() {
+        return model.getDataList();
     }
 
     @Override

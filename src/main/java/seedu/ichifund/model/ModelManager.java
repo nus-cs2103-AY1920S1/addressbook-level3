@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.commons.core.LogsCenter;
+import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
@@ -32,6 +34,7 @@ public class ModelManager implements Model {
     private final FilteredList<Transaction> filteredTransactions;
     private final FilteredList<Repeater> filteredRepeaters;
     private final FilteredList<Budget> filteredBudgets;
+    private final FilteredList<Data> datas;
 
     private SimpleObjectProperty<TransactionContext> transactionContext;
 
@@ -53,6 +56,8 @@ public class ModelManager implements Model {
         TransactionContext transactionContext = new TransactionContext(this.fundBook.getLatestTransaction());
         updateFilteredTransactionList(transactionContext.getPredicate());
         this.transactionContext = new SimpleObjectProperty<>(transactionContext);
+        datas = new FilteredList<>(this.fundBook.getDataList());
+        setTransactionContext(new TransactionContext(this.fundBook.getLatestTransaction()));
     }
 
     public ModelManager() {
@@ -282,6 +287,18 @@ public class ModelManager implements Model {
     public void updateFilteredBudgetList(Predicate<Budget> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
+    }
+
+    //=========== Analytics Accessors =============================================================
+    @Override
+    public ObservableList<Data> getDataList() {
+        return datas;
+    }
+
+    @Override
+    public void updateDataList(List<Data> datas) {
+        requireNonNull(datas);
+        fundBook.setData(datas);
     }
 
     @Override
