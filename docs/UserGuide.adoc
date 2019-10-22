@@ -144,6 +144,26 @@ e.g. `/question open “Which year did Singapore gain independence?” “1965�
 . *MCQs* ​- `/question mcq “[topic]” “[answer]” “[option1]” “[option2]” “[option3]” “[option 4]”` +
 e.g `​/question mcq “Which year did Singapore gain independence?” “1965” “1963” “2019” “1926” “1965”`
 
+=== Quizzes ​-​ `/quiz`
+
+Create and store quizzes using questions specified. Users are also able to edit the quizzes after creation.
+
+. *Creating quizzes manually* ​- `/quiz manual/ quizID/[quizName] questionNumbers/[questionNumbers]` +
+e.g. `/quiz manual/ quizID/CS2103T_Quiz questionNumbers/1 2 3`
+This creates a quiz named "CS2103T_Quiz" and adds question numbers 1, 2 and 3 from the question bank to the quiz.
+. *Creating quizzes automatically* ​- `/quiz auto/ quizID/[quizName] numQuestions/[numberOfQuestions] type/[typeOfQuestion]` +
+e.g. `/quiz auto/ quizID/CS2103T_Quiz numQuestions/3 type/open`
+This creates a quiz named "CS2103T_Quiz" and adds 3 questions fromm the question bank to the quiz, ensuring there are no duplicates.
+. *Adding questions to quizzes* ​- `/quiz add quizID/[quizName] questionNumber/[questionNumber] quizQuestionNumber/[quizQuestionNumber]` +
+e.g. `/quiz add quizID/CS2103T_Quiz questionNumber/1 quizQuestionNumber/3`
+This adds the question number 1 from the question bank to the quiz "CS2103T_Quiz"'s question number 3, shifting questions previously at or after question 3, down by 1 question. I.e question 3 becomes question 4, question 4 becomes question 5 to accomodate for the added question.
+. *Removing questions from quizzes* ​- `/quiz remove quizID/[quizName] quizQuestionNumber/[quizQuestionNumber]` +
+e.g. `/quiz remove quizID/CS2103T_Quiz quizQuestionNumber/3`
+This removes the question number 3 from the quiz "CS2103T_Quiz", shifting questions previously after question 3, up by 1 question. I.e question 4 becomes question 3, question 5 becomes question 4 to acoomodate for the removed question.
+. *List all questions and answers in a readable format* ​- `/quiz list quizID/[quizName]` +
+e.g. `/quiz list quizID/CS2103T_Quiz`
+This fetches the quiz named "CS2103T_Quiz" and displays all the questions followed by answers of the quiz. 
+
 === Help ​-​ `/help`
 
 Show all available commands usable in the application.
