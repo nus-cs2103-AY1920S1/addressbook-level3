@@ -153,6 +153,64 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::invitedisinvite[]
+=== [Proposed] Invite/Disinvite feature
+==== Proposed Implementation
+
+The invite/disinvite mechanism is facilitated by `Activity`.
+It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`
+Additionally, it implements the following operations:
+
+* `Activity#invite()` -- Invites a person to the activity.
+* `Activity#disinvite()` -- Disinvites a person from the activity.
+
+These operations are exposed in the `Activity` class as `Activity#invite()` and `Activity#disinvite()` respectively.
+
+Given below is an example usage scenario and how the invite/disinvite mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast in the activity book.
+
+Step 3. The user executes `invite p/Louis ...` to invite more people into the current activity. The `invite` command calls `Activity#invite()`, inviting more participants into the activity. The activityList will then be modified which is stored in the ActivityBook.
+
+The following sequence diagram shows how the invite operation works:
+
+image:: InviteSequenceDiagram.png[]
+
+NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity and decides to remove that person by executing the `disinvite` command.
+
+Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()`, removing participants from the activity. The activityList will then be modified due to a change in participants which is stored in the ActivityBook.
+
+The following sequence diagram shows how the disinvite operation works:
+
+image:: DisinviteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DisinviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+==== Design Considerations
+
+===== Aspect: How invite & disinvite executes
+
+* **Alternative 1 (current choice):** Contextual based invite/disinvite based on current viewed activity.
+** Pros: User friendlier
+** Cons: Harder to implement.
+* **Alternative 2:** Invite/disinvite based on user specifying the activity number.
+** Pros: Easy to implement.
+** Cons: Have to keep retyping activity number if multiple invites/disinvites are needed.
+
+===== Aspect: Data structure to support the invite/disinvite commands
+
+* **Alternative 1 (current choice):** Use a list to store the participants ID in the activity instead of participants.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Have to find particular participant that matches the ID specified.
+* **Alternative 2:** Use list to store participants.
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Harder to implement, might form same person object from the json file if not implemented properly.
+// end::invitedisinvite[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -234,63 +292,6 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-=== [Proposed] Invite/Disinvite feature
-==== Proposed Implementation
-
-The invite/disinvite mechanism is facilitated by `Activity`.
-It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`
-Additionally, it implements the following operations:
-
-* `Activity#invite()` -- Invites a person to the activity.
-* `Activity#disinvite()` -- Disinvites a person from the activity.
-
-These operations are exposed in the `Activity` class as `Activity#invite()` and `Activity#disinvite()` respectively.
-
-Given below is an example usage scenario and how the invite/disinvite mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
-
-Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast in the activity book.
-
-Step 3. The user executes `invite p/Louis ...` to invite more people into the current activity. The `invite` command calls `Activity#invite()`, inviting more participants into the activity. The activityList will then be modified which is stored in the ActivityBook.
-
-The following sequence diagram shows how the invite operation works:
-
-image:: InviteSequenceDiagram.png[]
-
-NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity and decides to remove that person by executing the `disinvite` command.
-
-Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()`, removing participants from the activity. The activityList will then be modified due to a change in participants which is stored in the ActivityBook.
-
-The following sequence diagram shows how the disinvite operation works:
-
-image:: DisinviteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DisinviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-==== Design Considerations
-
-===== Aspect: How invite & disinvite executes
-
-* **Alternative 1 (current choice):** Contextual based invite/disinvite based on current viewed activity.
-** Pros: User friendlier
-** Cons: Harder to implement.
-* **Alternative 2:** Invite/disinvite based on user specifying the activity number.
-** Pros: Easy to implement.
-** Cons: Have to keep retyping activity number if multiple invites/disinvites are needed.
-
-===== Aspect: Data structure to support the invite/disinvite commands
-
-* **Alternative 1 (current choice):** Use a list to store the participants ID in the activity instead of participants.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Have to find particular participant that matches the ID specified.
-* **Alternative 2:** Use list to store participants.
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Harder to implement, might form same person object from the json file if not implemented properly.
-// end::invitedisinvite[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
