@@ -7,7 +7,7 @@ import static seedu.moneygowhere.commons.util.AppUtil.checkArgument;
  * Represents a Spending's name in the MoneyGoWhere list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class Name implements Comparable<Name> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -56,4 +56,8 @@ public class Name {
         return fullName.hashCode();
     }
 
+    @Override
+    public int compareTo(Name o) {
+        return fullName.compareTo(o.fullName);
+    }
 }
