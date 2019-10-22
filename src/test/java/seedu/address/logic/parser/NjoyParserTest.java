@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_FOUND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -14,12 +16,11 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.question.QuestionAddCommand;
-import seedu.address.logic.commands.question.QuestionDeleteCommand;
 import seedu.address.logic.commands.question.QuestionEditCommand;
 import seedu.address.logic.commands.statistics.StatisticsAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -33,16 +34,23 @@ public class NjoyParserTest {
     private final NjoyParser parser = new NjoyParser();
 
     @Test
+    public void parseCommand_statistics_addValidFile() throws Exception {
+        Command command = parser.parseCommand(
+                "statistics file/src/test/data/SampleStatisticsData/ValidSampleStatistics.xlsx");
+        assertTrue(command instanceof StatisticsAddCommand);
+    }
+
+    @Test
     public void parseCommand_statistics_addEmptyFile() throws Exception {
-        assertThrows(ParseException.class, MESSAGE_FILE_NOT_FOUND, ()
-                -> parser.parseCommand("statistics file/e"));
+        assertThrows(ParseException.class, MESSAGE_FILE_NOT_FOUND, () ->
+            parser.parseCommand("statistics file/e"));
     }
 
     @Test
     public void parseCommand_statistics_invalidSyntax() {
         assertThrows(ParseException.class, String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE),
-                () -> parser.parseCommand("statistics"));
+            MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE), () ->
+            parser.parseCommand("statistics"));
     }
 
     @Test
