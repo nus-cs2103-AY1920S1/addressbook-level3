@@ -10,13 +10,16 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 import java.util.Set;
 import java.util.stream.Stream;
 
+
 import seedu.flashcard.logic.commands.AddCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.McqFlashcard;
 import seedu.flashcard.model.flashcard.Question;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -46,17 +49,21 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
 
-        if (arePrefixesPresent(argMultimap, PREFIX_CHOICE)
-            && !choices.contains(new Choice(answer.getAnswer()))) {
-            throw new ParseException("The answer must be the same as a given choice");
+        Flashcard flashcard;
+        if (arePrefixesPresent(argMultimap, PREFIX_CHOICE)) {
+            if (!choices.contains(new Choice(answer.getAnswer()))) {
+                throw new ParseException("The answer must be the same as a given choice");
+            } else {
+                flashcard = new McqFlashcard(question, choices, definition, tagList, answer);
+            }
+        } else {
+            flashcard = new ShortAnswerFlashcard(question, definition, tagList, answer);
         }
-
-        Flashcard flashcard = new Flashcard(question, choices, definition, tagList, answer);
 
         return new AddCommand(flashcard);
     }
-
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
 }

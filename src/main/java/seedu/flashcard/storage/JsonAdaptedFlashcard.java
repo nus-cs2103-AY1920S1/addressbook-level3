@@ -24,25 +24,20 @@ public class JsonAdaptedFlashcard {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Flashcard's %s field is missing.";
 
-    private final String question;
-    private final List<JsonAdaptedChoice> choices = new ArrayList<>();
-    private final String definition;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-    private final String answer;
+    protected final String question;
+    protected final String definition;
+    protected final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    protected final String answer;
 
     /**
      * Constructs a {@code JsonAdaptedFlashcard} with the given flashcard details.
      */
     @JsonCreator
     public JsonAdaptedFlashcard(@JsonProperty("question") String question,
-                                @JsonProperty("choices") List<JsonAdaptedChoice> choices,
                                 @JsonProperty("definition") String definition,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                                 @JsonProperty("answer") String answer) {
         this.question = question;
-        if (choices != null) {
-            this.choices.addAll(choices);
-        }
         this.definition = definition;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -55,7 +50,6 @@ public class JsonAdaptedFlashcard {
      */
     public JsonAdaptedFlashcard(Flashcard source) {
         question = source.getQuestion().question;
-        choices.addAll(source.getChoices().stream().map(JsonAdaptedChoice::new).collect(Collectors.toList()));
         definition = source.getDefinition().definition;
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
         answer = source.getAnswer().answer;
@@ -73,9 +67,6 @@ public class JsonAdaptedFlashcard {
         }
 
         final List<Choice> flashcardChoices = new ArrayList<>();
-        for (JsonAdaptedChoice choice : choices) {
-            flashcardChoices.add(choice.toModelType());
-        }
 
         if (question == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Question.class.getSimpleName()));
@@ -99,10 +90,8 @@ public class JsonAdaptedFlashcard {
         }
         final Answer modelAnswer = new Answer(answer);
 
-        final Set<Choice> modelChoices = new HashSet<>(flashcardChoices);
-
         final Set<Tag> modelTags = new HashSet<>(flashcardTags);
 
-        return new Flashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer);
+        return new Flashcard(modelQuestion, modelDefinition, modelTags, modelAnswer);
     }
 }

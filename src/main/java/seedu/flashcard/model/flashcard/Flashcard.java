@@ -16,19 +16,18 @@ import seedu.flashcard.model.tag.Tag;
 public class Flashcard {
 
     // Identity fields
-    private final Question question;
+    protected final Question question;
 
     // Data fields
-    private final Definition definition;
-    private final Set<Choice> choices = new HashSet<>();
-    private final Set<Tag> tags = new HashSet<>();
-    private final Answer answer;
-    private final Score score;
+    protected final Definition definition;
 
-    public Flashcard(Question question, Set<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
+    protected final Set<Tag> tags = new HashSet<>();
+    protected final Answer answer;
+    protected final Score score;
+
+    public Flashcard(Question question, Definition definitions, Set<Tag> tags, Answer answer) {
         requireAllNonNull(question, definitions, tags);
         this.question = question;
-        this.choices.addAll(choices);
         this.definition = definitions;
         this.tags.addAll(tags);
         this.answer = answer;
@@ -79,14 +78,6 @@ public class Flashcard {
     }
 
     /**
-     * Returns an immutable choice set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted
-     */
-    public Set<Choice> getChoices() {
-        return Collections.unmodifiableSet(choices);
-    }
-
-    /**
      * Returns true if this flashcard has any one of the tags in the given tag sets.
      */
     public boolean hasAnyTag(Set<Tag> tags) {
@@ -103,18 +94,6 @@ public class Flashcard {
      */
     public void removeTag(Tag tag) {
         tags.remove(tag);
-    }
-
-    /**
-     * Returns true if any choices is from the choice list
-     */
-    public boolean hasAnyChoice(Set<Choice> choices) {
-        for (Choice choice : choices) {
-            if (getChoices().contains(choice)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -163,14 +142,7 @@ public class Flashcard {
             builder.append("\nTags:").append("\n");
             getTags().forEach(builder::append);
         }
-        if (!choices.isEmpty()) {
-            builder.append("\nChoices:\n");
-            int index = 1;
-            for (Choice choice : getChoices()) {
-                builder.append(Integer.toString(index) + ". " + choice);
-                index++;
-            }
-        }
+
         return builder.toString();
     }
 

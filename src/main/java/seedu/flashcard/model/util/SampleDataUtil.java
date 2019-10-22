@@ -10,7 +10,9 @@ import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.McqFlashcard;
 import seedu.flashcard.model.flashcard.Question;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -20,7 +22,7 @@ public class SampleDataUtil {
 
     public static Flashcard[] getSampleFlashcards() {
         return new Flashcard[]{
-            new Flashcard(new Question("Compactness"),
+            new McqFlashcard(new Question("Which of the following is true about compactness"),
                 getChoiceSet("The real number space is a compact space",
                     "The complex plane is a compact space",
                     "A compact subspace of a compact metric space must be closed",
@@ -28,7 +30,7 @@ public class SampleDataUtil {
                 new Definition("For any open covering of a metric space, there is a finite subcover."),
                      getTagSet("mathematics", "metric space"),
                 new Answer("A compact subspace of a compact metric space must be closed")),
-            new Flashcard(new Question("Completeness"),
+            new McqFlashcard(new Question("Which of the following is true about completeness"),
                 getChoiceSet("The rational number space is a complete space",
                     "Compact spaces are always complete",
                     "A complete subspace of a complete space myst be totally bounded",
@@ -36,19 +38,10 @@ public class SampleDataUtil {
                 new Definition("Any Cauchy sequence converges in this metric space"),
                 getTagSet("mathematics", "metric space"),
                 new Answer("Closed subspaces in a complete metric space is also complete")),
-            new Flashcard(new Question("Mount Blanc Tunnel"),
-                getChoiceSet("An 11611 meters tunnel on the boarder of France and Italy.",
-                    "An 9000 meters tunnel on the boarder of France and Italy.",
-                    "An 300 meters tunnel on the boarder of France and Italy."),
+            new ShortAnswerFlashcard(new Question("What is the 11611 meters tunnel on the boarder of France and Italy"),
                 new Definition("An amazing tunnel in Europe."),
                 getTagSet("geography", "favorite"),
-                new Answer("An 11611 meters tunnel on the boarder of France and Italy.")),
-            new Flashcard(new Question("Kenetsu Tunnel"),
-                getChoiceSet("A tunnel in Russia", "A tunnel in Korea",
-                    "A tunnel in Japan", "A tunnel in China"),
-                new Definition("An 10933 meters tunnel"),
-                getTagSet("geography"),
-                new Answer("A tunnel in Japan")),
+                new Answer("Mount Blanc Tunnel")),
         };
     }
 

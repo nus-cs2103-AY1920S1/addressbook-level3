@@ -22,7 +22,9 @@ import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.McqFlashcard;
 import seedu.flashcard.model.flashcard.Question;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -71,7 +73,12 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_ID_NUMBER);
         }
         Flashcard flashcardToEdit = lastShownList.get(index.getZeroBased());
-        Flashcard editedFlashcard = createEditedFlashcard(flashcardToEdit, editFlashcardDescriptor);
+        Flashcard editedFlashcard;
+        if (flashcardToEdit instanceof ShortAnswerFlashcard) {
+            editedFlashcard = createEditedShortAnswerFlashcard(flashcardToEdit, editFlashcardDescriptor);
+        } else {
+            editedFlashcard = createEditedMcqFlashcard((McqFlashcard)flashcardToEdit, editFlashcardDescriptor);
+        }
         if (!flashcardToEdit.isSameFlashcard(editedFlashcard) && model.hasFlashcard(editedFlashcard)) {
             throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);
         }
@@ -84,15 +91,25 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Flashcard} with the details of {@code flashcardToEdit}
      * edited with {@code editFlashcardDescriptor}.
      */
-    private static Flashcard createEditedFlashcard(Flashcard flashcardToEdit,
-                                                   EditFlashcardDescriptor editFlashcardDescriptor) {
+    private static Flashcard createEditedMcqFlashcard(McqFlashcard flashcardToEdit,
+                                                      EditFlashcardDescriptor editFlashcardDescriptor) {
         assert flashcardToEdit != null;
         Question updatedQuestion = editFlashcardDescriptor.getQuestion().orElse(flashcardToEdit.getQuestion());
         Set<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
         Definition updatedDefinition = editFlashcardDescriptor.getDefinition().orElse(flashcardToEdit.getDefinition());
         Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
         Answer updatedAnswer = editFlashcardDescriptor.getAnswer().orElse(flashcardToEdit.getAnswer());
-        return new Flashcard(updatedQuestion, updatedChoices, updatedDefinition, updatedTags, updatedAnswer);
+        return new McqFlashcard(updatedQuestion, updatedChoices, updatedDefinition, updatedTags, updatedAnswer);
+    }
+
+    private static Flashcard createEditedShortAnswerFlashcard(Flashcard flashcardToEdit,
+                                                   EditFlashcardDescriptor editFlashcardDescriptor) {
+        assert flashcardToEdit != null;
+        Question updatedQuestion = editFlashcardDescriptor.getQuestion().orElse(flashcardToEdit.getQuestion());
+        Definition updatedDefinition = editFlashcardDescriptor.getDefinition().orElse(flashcardToEdit.getDefinition());
+        Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
+        Answer updatedAnswer = editFlashcardDescriptor.getAnswer().orElse(flashcardToEdit.getAnswer());
+        return new ShortAnswerFlashcard(updatedQuestion, updatedDefinition, updatedTags, updatedAnswer);
     }
 
     @Override
