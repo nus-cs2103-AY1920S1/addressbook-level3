@@ -1,7 +1,7 @@
 package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
@@ -25,11 +25,11 @@ public class AddModCommandParser implements Parser<AddModCommand> {
     public AddModCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE_CODE);
+                ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE);
 
         Index index;
 
-        if (argMultimap.getValue(PREFIX_MODULE_CODE).isEmpty()) {
+        if (argMultimap.getValue(PREFIX_MODULE).isEmpty()) {
             throw new ParseException(ModCommand.MESSAGE_INVALID_MODULE_CODE);
         }
 
@@ -37,14 +37,14 @@ public class AddModCommandParser implements Parser<AddModCommand> {
         if (argMultimap.getValue(PREFIX_STUDENT).isEmpty()) {
             try {
                 index = ParserUtil.parseIndex(argMultimap.getPreamble());
-                return new AddModCommand(index, argMultimap.getAllValues(PREFIX_MODULE_CODE).get(0));
+                return new AddModCommand(index, argMultimap.getAllValues(PREFIX_MODULE).get(0));
             } catch (ParseException pe) {
                 throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                         AddModCommand.MESSAGE_USAGE_ADD_MOD), pe);
             }
         } else if (argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
             return new AddModCommand(argMultimap.getAllValues(PREFIX_STUDENT).get(0),
-                    argMultimap.getAllValues(PREFIX_MODULE_CODE).get(0));
+                    argMultimap.getAllValues(PREFIX_MODULE).get(0));
         } else {
             throw new ParseException(ModCommand.MESSAGE_USAGE_ADD_MOD);
         }

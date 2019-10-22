@@ -57,10 +57,14 @@ public class LogicManagerTest {
         // delete command removed. New tests to be implemented later.
     }
 
-    @Test
+    @Test //TODO YongKuan clean up this test to make it less hard-codey
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        assertCommandSuccess(listCommand, String.format(ListCommand.MESSAGE_SUCCESS,
+                " " + ListCommand.APPEALS
+                + " " + ListCommand.MODULES
+                + " " + ListCommand.STUDENTS), model);
+
         assertHistorySuccess(ListCommand.COMMAND_WORD);
     }
 

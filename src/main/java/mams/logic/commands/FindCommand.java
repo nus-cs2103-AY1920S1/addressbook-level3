@@ -1,8 +1,8 @@
 package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.PREFIX_APPEALID;
-import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
+import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.List;
@@ -26,9 +26,9 @@ public class FindCommand extends Command {
             + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]..."
             + "\nExample: " + COMMAND_WORD + " "
-            + PREFIX_APPEALID + "add"
+            + PREFIX_APPEAL + "add"
             + "\nor " + COMMAND_WORD + " "
-            + PREFIX_MODULE_CODE + "algorithm"
+            + PREFIX_MODULE + "algorithm"
             + "\nor " + COMMAND_WORD + " "
             + PREFIX_STUDENT + "bob alice";
 
