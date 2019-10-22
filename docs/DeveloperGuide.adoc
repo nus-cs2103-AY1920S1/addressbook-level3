@@ -62,8 +62,20 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[]
 
 [discrete]
+==== How the application modes works?
+
+The _StudyBuddy Pro_ application has 3 modes for all the features: Flashcard, Cheatsheet and Notes.
+The users use `switch` command to switch between the modes.
+In each mode, the users will interact with only the modes' commands, unless it is a _global_ command.
+
+- `switch fc` - switches to flashcard mode
+- `switch cs` - switches to cheatsheet mode
+- `switch notes` - switches to notes mode
+
+[discrete]
 ==== How the architecture components interact with each other
 
+Assuming that the user is currently in the _flashcard_ mode.
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
@@ -98,18 +110,19 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `StudyBuddyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a cheatsheet).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+Assuming that the user is in _flashcard_ mode.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteFlashcardCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
