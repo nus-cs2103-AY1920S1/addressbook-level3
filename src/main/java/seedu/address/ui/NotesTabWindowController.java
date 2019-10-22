@@ -1,8 +1,7 @@
 package seedu.address.ui;
 
-import java.awt.TextField;
-
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import seedu.address.model.note.Note;
 
 /**
@@ -11,17 +10,17 @@ import seedu.address.model.note.Note;
 public class NotesTabWindowController {
 
     @FXML
-    private TextField noteCardTitleTextField;
+    private TextArea titleTextArea;
 
     @FXML
-    private TextField noteCardContentTextField;
+    private TextArea contentTextArea;
 
     /**
-     * Displays the question of the note specified in the notes tab window.
+     * Displays the question of the note specified in the note tab window.
      * @param note note to be displayed
      */
-    public void displayNoteCard(Note note) {
-        noteCardTitleTextField.setText(note.getTitle().toString());
-        noteCardContentTextField.setText(note.getContent().toString());
+    public void loadNote(Note note) {
+        titleTextArea.setText(note.getTitle().toString());
+        contentTextArea.setText(note.getContent().toString());
     }
 }

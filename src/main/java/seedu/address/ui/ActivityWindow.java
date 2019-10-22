@@ -6,6 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import seedu.address.logic.FunctionMode;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.note.Note;
 
 /**
  * The UI Component responsible for displaying the windows of different features as tabs.
@@ -14,8 +15,8 @@ public class ActivityWindow extends UiPart<Region> {
 
     private static final String FXML = "ActivityWindow.fxml";
     private static final int FLASHCARD_TAB_INDEX = 1;
-    private static final int CHEATSHEET_TAB_INDEX = 2;
-    private static final int NOTES_TAB_INDEX = 3;
+    private static final int NOTES_TAB_INDEX = 2;
+    private static final int CHEATSHEET_TAB_INDEX = 3;
 
     @FXML
     private TabPane activityWindow;
@@ -51,11 +52,11 @@ public class ActivityWindow extends UiPart<Region> {
         case FLASHCARD:
             activityWindow.getSelectionModel().select(FLASHCARD_TAB_INDEX);
             break;
-        case CHEATSHEET:
-            activityWindow.getSelectionModel().select(CHEATSHEET_TAB_INDEX);
-            break;
         case NOTE:
             activityWindow.getSelectionModel().select(NOTES_TAB_INDEX);
+            break;
+        case CHEATSHEET:
+            activityWindow.getSelectionModel().select(CHEATSHEET_TAB_INDEX);
             break;
         default:
             assert false : "Invalid target mode";
@@ -64,6 +65,10 @@ public class ActivityWindow extends UiPart<Region> {
 
     public void displayFlashcard(Flashcard flashcard) {
         flashcardTabWindowController.loadFlashcard(flashcard);
+    }
+
+    public void displayNote(Note note) {
+        notesTabWindowController.loadNote(note);
     }
 
 }
