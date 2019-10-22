@@ -50,7 +50,6 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     private CalendarPanel calendarPanel;
     private LogPanel logPanel;
     private CommandBox commandBox;
-    private HelpWindow helpWindow;
 
     @FXML
     private StackPane popUpPanel;
@@ -79,8 +78,6 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         this.uiParser = new UiParser();
 
         setWindowDefaultSize(new GuiSettings());
-
-        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -138,34 +135,6 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
-    }
-
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
-    public void show() {
-        primaryStage.show();
-    }
-
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        // logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
     }
 
     /**

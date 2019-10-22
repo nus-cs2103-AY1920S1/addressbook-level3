@@ -20,7 +20,6 @@ public class TimelineDayView extends TimelineView {
     private Integer month;
     private Integer year;
 
-
     /**
      * Constructor for TimelineDayView for a particular day.
      *

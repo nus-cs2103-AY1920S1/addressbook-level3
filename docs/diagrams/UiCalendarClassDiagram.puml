@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+'==== Packages ====
+package Ui <<Rectangle>> {
+Class "{abstract}\nUiPart" as UiPart
+Class MainWindow
+    package Calendar <<Rectangle>> {
+    Class "{abstract}\nTimelineView" as TimelineView
+    Class CalendarPanel
+    Class TimelineDayView
+    Class TimelineWeekView
+    Class TimelineMonthView
+    Class CalendarScreen
+    Class CalendarGridDay
+    Class EventCardHolder
+    Class EventCard
+    }
+}
+
+package Model <<Rectangle>> {
+    Class EventListListener
+}
+
+Class HiddenOutside #FFFFFF
+MainWindow ..> CalendarPanel
+
+'==== CalendarPanel ====
+CalendarPanel .right..|> EventListListener
+CalendarPanel *-down--|> UiPart
+CalendarPanel *-down--> TimelineView
+CalendarPanel *-down--> CalendarScreen
+
+'==== EventCardHolder ====
+EventCardHolder -down|> UiPart
+EventCardHolder *-down-> EventCard
+
+'==== EventCard ====
+EventCard -down|> UiPart
+EventCard -down..> Model
+
+'==== TimelineView ====
+TimelineView -down--|> UiPart
+
+'==== TimelineDayView ====
+TimelineDayView -up--|> TimelineView
+
+'==== TimelineWeekView ====
+TimelineWeekView -up--|> TimelineView
+
+'==== TimelineMonthView ====
+TimelineMonthView -up--|> TimelineView
+
+'==== CalendarScreen ===='
+CalendarScreen -down--|> UiPart
+CalendarScreen *-down-> CalendarGridDay
+
+'==== CalendarGridDay ===='
+CalendarGridDay -down--|> UiPart
+
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+'==== Packages ====
+package UI <<Rectangle>> {
+Class "{abstract}\nUiPart" as UiPart
+Class MainWindow
+    package Calendar <<Rectangle>> {
+    Class "{abstract}\nUiPart" as UiPart
+    Class LogPanel
+    Class LogBox
+    }
+}
+
+
+Class HiddenOutside #FFFFFF
+MainWindow ..> LogPanel
+
+'==== LogPanel ====
+LogPanel -down--|> UiPart
+LogPanel *-down--> LogBox
+
+'==== LogBox ====
+LogBox -down--|> UiPart
+
+
+@enduml
