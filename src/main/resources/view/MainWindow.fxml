@@ -18,11 +18,7 @@
     <Image url="@/images/address_book_32.png" />
   </icons>
   <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
+    <Scene fx:id="scene">
 
       <VBox>
             <HBox VBox.vgrow="NEVER">
@@ -35,7 +31,7 @@
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                 </Menu>
               </MenuBar>
-                    <AnchorPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" styleClass="pane-with-border" HBox.hgrow="NEVER">
+                    <AnchorPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" HBox.hgrow="NEVER">
 
                     </AnchorPane>
                </children>
@@ -53,13 +49,17 @@
           </padding>
         </StackPane>
             <StackPane fx:id="modularDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
-            <HBox fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="status-bar" stylesheets="@DarkTheme.css" VBox.vgrow="NEVER">
+            <HBox fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="status-bar" VBox.vgrow="NEVER">
                <children>
               <StackPane fx:id="statusbarPlaceholder" HBox.hgrow="ALWAYS" />
                   <StackPane fx:id="currentModePlaceholder" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
       </VBox>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
     </Scene>
   </scene>
 </fx:root>

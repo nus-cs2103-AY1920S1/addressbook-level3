@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -49,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
     private CommandBox commandBox;
 
     @FXML
+    private Scene scene;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -82,8 +86,6 @@ public class MainWindow extends UiPart<Stage> {
         this.modularDisplay = new ModularDisplay(appManager);
 
         this.uiLogicHelper = appManager.getLogic();
-
-        this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
 
         // Configure the UI
         setWindowDefaultSize(appManager.getGuiSettings());
@@ -165,7 +167,10 @@ public class MainWindow extends UiPart<Stage> {
 
         //Assigns only after initialisation.
         this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
+        updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
     }
+
+
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -235,8 +240,9 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             //Updates the Ui.
-            updateUi.updateMode(commandText);
-            updateUi.updateModularDisplay(commandText, modularDisplayPlaceholder);
+            updateUi.updateModularDisplay(commandText, uiLogicHelper.getMode(), modularDisplayPlaceholder);
+
+            updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
