@@ -131,10 +131,10 @@ public interface Model {
     /**
      * Replaces order book data with the data in {@code OrderBook}.
      */
-    void setOrderBook(ReadOnlyOrderBook orderBook);
+    void setOrderDatabase(ReadOnlyOrderBook orderDatabase);
 
     /** Returns the OrderBook */
-    ReadOnlyOrderBook getOrderBook();
+    ReadOnlyOrderBook getOrderDatabase();
 
     //=========== Person methods =============================================================
 

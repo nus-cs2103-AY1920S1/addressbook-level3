@@ -13,13 +13,13 @@ import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
-import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 
 class UndoCommandTest {
     private static final String UNDONE_COMMAND_TEXT = "delete 1";
     private Model model = new ModelManager(getTypicalAddressBook(), new CustomerDatabase(),
-            new DeliverymenDatabase(), new RestaurantDatabase(), new OrderBook(), new UserPrefs());
+            new DeliverymenDatabase(), new RestaurantDatabase(), new OrderDatabase(), new UserPrefs());
 
     @Test
     void execute_hasUndo_success() {
@@ -28,7 +28,7 @@ class UndoCommandTest {
         String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, UNDONE_COMMAND_TEXT);
 
         Model updatedModel = new ModelManager(getTypicalAddressBook(), new CustomerDatabase(),
-                new DeliverymenDatabase(), new RestaurantDatabase(), new OrderBook(), new UserPrefs());
+                new DeliverymenDatabase(), new RestaurantDatabase(), new OrderDatabase(), new UserPrefs());
         updatedModel.deletePerson(personToDelete);
         updatedModel.notifyChange(UNDONE_COMMAND_TEXT);
 

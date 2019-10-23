@@ -21,7 +21,7 @@ import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
-import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
@@ -38,7 +38,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final OrderBook orderBook;
+    private final OrderDatabase orderDatabase;
     private final CustomerDatabase customerDatabase;
     private final DeliverymenDatabase deliverymenDatabase;
     private final RestaurantDatabase restaurantDatabase;
@@ -73,15 +73,15 @@ public class ModelManager implements Model {
         this.customerDatabase = new CustomerDatabase(customerDatabase);
         this.deliverymenDatabase = new DeliverymenDatabase(deliverymenDatabase);
         this.restaurantDatabase = new RestaurantDatabase(restaurantDatabase);
-        this.orderBook = new OrderBook(orderBook);
+        this.orderDatabase = new OrderDatabase(orderBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
+        filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
-        filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
         undoHistory = new UndoHistory<>(new Data(this));
 
         context = Context.GLOBAL;
@@ -89,7 +89,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new CustomerDatabase(), new DeliverymenDatabase(),
-                new RestaurantDatabase(), new OrderBook(), new UserPrefs());
+                new RestaurantDatabase(), new OrderDatabase(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -330,29 +330,29 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setOrderBook(ReadOnlyOrderBook orderBook) {
-        this.orderBook.resetData(orderBook);
+    public void setOrderDatabase(ReadOnlyOrderBook orderDatabase) {
+        this.orderDatabase.resetData(orderDatabase);
     }
 
     @Override
-    public ReadOnlyOrderBook getOrderBook() {
-        return orderBook;
+    public ReadOnlyOrderBook getOrderDatabase() {
+        return orderDatabase;
     }
 
     @Override
     public boolean hasOrder(Order order) {
         requireNonNull(order);
-        return orderBook.hasOrder(order);
+        return orderDatabase.hasOrder(order);
     }
 
     @Override
     public void deleteOrder(Order order) {
-        orderBook.removeOrder(order);
+        orderDatabase.removeOrder(order);
     }
 
     @Override
     public void addOrder(Order order) {
-        orderBook.addOrder(order);
+        orderDatabase.addOrder(order);
         updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
     }
 
@@ -360,7 +360,7 @@ public class ModelManager implements Model {
     public void setOrder(Order target, Order editedOrder) {
         requireAllNonNull(target, editedOrder);
 
-        orderBook.setOrder(target, editedOrder);
+        orderDatabase.setOrder(target, editedOrder);
     }
 
     //=========== Undo ================================================================================
@@ -398,7 +398,7 @@ public class ModelManager implements Model {
         setAddressBook(data.addressBook);
         setDeliverymenDatabase(data.deliverymenDatabase);
         setRestaurantDatabase(data.restaurantDatabase);
-        setOrderBook(data.orderBook);
+        setOrderDatabase(data.orderDatabase);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -503,13 +503,13 @@ public class ModelManager implements Model {
         private final AddressBook addressBook;
         private final DeliverymenDatabase deliverymenDatabase;
         private final RestaurantDatabase restaurantDatabase;
-        private final OrderBook orderBook;
+        private final OrderDatabase orderDatabase;
 
         public Data(Model model) {
             addressBook = new AddressBook(model.getAddressBook());
             deliverymenDatabase = new DeliverymenDatabase(model.getDeliverymenDatabase());
             restaurantDatabase = new RestaurantDatabase(model.getRestaurantDatabase());
-            orderBook = new OrderBook(model.getOrderBook());
+            orderDatabase = new OrderDatabase(model.getOrderDatabase());
         }
 
         @Override
@@ -529,7 +529,7 @@ public class ModelManager implements Model {
             return addressBook.equals(other.addressBook)
                     && deliverymenDatabase.equals(other.deliverymenDatabase)
                     && restaurantDatabase.equals(other.restaurantDatabase)
-                    && orderBook.equals(other.orderBook);
+                    && orderDatabase.equals(other.orderDatabase);
         }
     }
 }
