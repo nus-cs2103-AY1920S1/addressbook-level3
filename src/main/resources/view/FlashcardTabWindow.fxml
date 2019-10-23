@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 
 <BorderPane fx:id="flashcardTabWindow" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FlashcardTabWindowController">
    <center>
@@ -19,7 +20,11 @@
                </HBox.margin>
             </TextArea>
             <Separator fx:id="flashcardSeparator" orientation="VERTICAL" />
-            <TextArea fx:id="ansTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" />
+            <StackPane fx:id="rightPane">
+               <children>
+                  <TextArea fx:id="ansTextArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" />
+               </children>
+            </StackPane>
          </children>
       </HBox>
    </center>

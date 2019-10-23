@@ -19,7 +19,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.FunctionMode;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.notecommands.AddNoteCommand;
+import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
