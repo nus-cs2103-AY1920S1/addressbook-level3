@@ -186,6 +186,48 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Recommendation feature
+
+The recommendation feature allows users to generate a list of personalized recommendations using the `recommend` command.
+The recommendations are tailored to each user based on their current likes, dislikes and purchase history.
+
+Users are able to add their liked and disliked categories, tags and locations into the app using the `like` and `dislike`
+command. The recommendation system will then take into account these preferences to generate a more accurate
+list of recommendations. Users will then able to find the food that they are likely to enjoy more accurately.
+
+==== Adding likes and dislikes
+
+The feature of adding the user's liked and disliked categories, tags and locations was introduced to support the
+recommendation system.
+
+The _UserRecommendations_ class stores the list of user likes and dislikes.
+
+The sequence diagram below shows how a sample `like` command is executed:
+
+.Sequence Diagram for a sample like command
+image::LikeSequenceDiagram.png[]
+
+The following activity diagram below summarizes how the `like` command works: *TODO*
+
+==== Displaying recommendations
+
+After customizing the user's likes and dislikes, users can obtain a personalized list of recommendations
+using the `recommend` command.
+
+The sequence diagram below shows how a sample `recommend` command is executed: *TODO*
+
+The following activity diagram below summarizes how the `recommend` command works: *TODO*
+
+===== Design Considerations
+|===
+|Aspect |Alternative 1 |Alternative 2
+
+|TODO
+|TODO
+|TODO
+|===
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
