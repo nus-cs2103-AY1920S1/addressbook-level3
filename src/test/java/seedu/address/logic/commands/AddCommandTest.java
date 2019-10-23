@@ -250,14 +250,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getTestAnswer() {
+            throw new AssertionError("This method should not be called.");
+        }
+        
+        @Override
         public String getTestQuestion() {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public String getTestAnswer() {
-            throw new AssertionError("This method should not be called.");
-        }
+
 
         @Override
         public ObservableList<FlashCard> getFlashCardList() {
