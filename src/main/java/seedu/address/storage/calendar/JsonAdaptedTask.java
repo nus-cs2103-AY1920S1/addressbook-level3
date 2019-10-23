@@ -79,7 +79,7 @@ class JsonAdaptedTask {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskTitle.class.getSimpleName()));
         }
-        if (!TaskTitle.isValidName(title)) {
+        if (!TaskTitle.isValidTitle(title)) {
             throw new IllegalValueException(TaskTitle.MESSAGE_CONSTRAINTS);
         }
         final TaskTitle modelTaskTitle = new TaskTitle(title);
@@ -97,7 +97,7 @@ class JsonAdaptedTask {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskDescription.class.getSimpleName()));
         }
-        if (!TaskDescription.isValidEmail(description)) {
+        if (!TaskDescription.isValidDescription(description)) {
             throw new IllegalValueException(TaskDescription.MESSAGE_CONSTRAINTS);
         }
         final TaskDescription modelTaskDescription = new TaskDescription(description);
@@ -106,7 +106,7 @@ class JsonAdaptedTask {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskDeadline.class.getSimpleName()));
         }
-        if (!TaskDeadline.isValidDate(deadline)) {
+        if (!TaskDeadline.isValidDeadline(deadline)) {
             throw new IllegalValueException(TaskDeadline.MESSAGE_CONSTRAINTS);
         }
         final TaskDeadline modelTaskDeadline = new TaskDeadline(deadline);

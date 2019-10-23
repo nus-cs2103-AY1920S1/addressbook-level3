@@ -21,7 +21,7 @@ public class TaskDeadline {
      * @param date A valid phone number.
      */
     public TaskDeadline(String date) {
-        boolean isValidDate = isValidDate(date);
+        boolean isValidDate = isValidDeadline(date);
         checkArgument(isValidDate, MESSAGE_CONSTRAINTS);
         value = date;
     }
@@ -37,7 +37,7 @@ public class TaskDeadline {
     /**
      * Returns true if a given string is a valid phone number.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValidDeadline(String test) {
         DateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
         try {
             parser.parse(test);

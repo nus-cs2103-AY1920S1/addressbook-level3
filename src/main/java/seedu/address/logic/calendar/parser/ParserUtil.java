@@ -45,7 +45,7 @@ public class ParserUtil {
     public static TaskTitle parseTitle(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!TaskTitle.isValidName(trimmedName)) {
+        if (!TaskTitle.isValidTitle(trimmedName)) {
             throw new ParseException(TaskTitle.MESSAGE_CONSTRAINTS);
         }
         return new TaskTitle(trimmedName);
@@ -90,7 +90,7 @@ public class ParserUtil {
     public static TaskDescription parseDescription(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!TaskDescription.isValidEmail(trimmedEmail)) {
+        if (!TaskDescription.isValidDescription(trimmedEmail)) {
             throw new ParseException(TaskDescription.MESSAGE_CONSTRAINTS);
         }
         return new TaskDescription(trimmedEmail);
@@ -105,7 +105,7 @@ public class ParserUtil {
     public static TaskDeadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
-        if (!TaskDeadline.isValidDate(trimmedDeadline)) {
+        if (!TaskDeadline.isValidDeadline(trimmedDeadline)) {
             throw new ParseException(TaskDeadline.MESSAGE_CONSTRAINTS);
         }
         return new TaskDeadline(trimmedDeadline);

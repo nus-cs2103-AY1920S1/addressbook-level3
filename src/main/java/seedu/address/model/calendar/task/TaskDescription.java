@@ -4,7 +4,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Task's email in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class TaskDescription {
 
@@ -35,14 +35,14 @@ public class TaskDescription {
      */
     public TaskDescription(String description) {
         // requireNonNull(description);
-        checkArgument(isValidEmail(description), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
     }
 
     /**
      * Returns if a given string is a valid email.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidDescription(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
