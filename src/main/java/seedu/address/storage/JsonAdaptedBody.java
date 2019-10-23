@@ -120,7 +120,7 @@ class JsonAdaptedBody {
         }
 
         if (!(source.getOrgansForDonation().isEmpty())) {
-            organsForDonation.addAll(source.getOrgansForDonation().get());
+            organsForDonation.addAll(source.getOrgansForDonation());
         }
     }
 

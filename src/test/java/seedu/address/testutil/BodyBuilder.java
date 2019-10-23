@@ -93,7 +93,7 @@ public class BodyBuilder {
         nric = bodyToCopy.getNric().orElse(null);
         religion = bodyToCopy.getReligion().orElse(null);
         causeOfDeath = bodyToCopy.getCauseOfDeath().orElse(null);
-        organsForDonation = bodyToCopy.getOrgansForDonation().orElse(null);
+        organsForDonation = bodyToCopy.getOrgansForDonation();
         bodyStatus = bodyToCopy.getBodyStatus().orElse(null);
         fridgeId = bodyToCopy.getFridgeId().orElse(null);
         nextOfKin = bodyToCopy.getNextOfKin().orElse(null);
@@ -263,7 +263,7 @@ public class BodyBuilder {
      * @return
      */
     public Body build() {
-        return new Body(true, 1, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
+        return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
                 kinPhoneNumber);
     }
@@ -273,7 +273,7 @@ public class BodyBuilder {
      * @return
      */
     public Body build(int id) {
-        return new Body(true, id, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
+        return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
                 kinPhoneNumber);
     }

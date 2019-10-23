@@ -15,6 +15,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.testutil.FridgeBuilder;
 
 //@@author arjavibahety
@@ -37,20 +38,29 @@ public class FridgeTest {
 
     @Test
     public void equals() {
-        ALICE_FRIDGE.setBody(ALICE);
-        BOB_FRIDGE.setBody(BOB);
+        // dummy required since ALICE_FRIDGE will be processed first and `aliceFridge` will not have ID = F01
+        Fridge dummy = new FridgeBuilder(ALICE_FRIDGE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+
+        Fridge aliceFridge = new FridgeBuilder(ALICE_FRIDGE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Fridge aliceFridgeCopy = new FridgeBuilder(ALICE_FRIDGE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Fridge emptyFridge = new FridgeBuilder(EMPTY_FRIDGE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Fridge emptyFridgeCopy = new FridgeBuilder(EMPTY_FRIDGE).build();
+
+        aliceFridge.setBody(ALICE);
         EMPTY_FRIDGE.setBody(null);
 
-        Fridge emptyFridgeCopy = new FridgeBuilder(EMPTY_FRIDGE).build();
-        Fridge aliceFridgeCopy = new FridgeBuilder(ALICE_FRIDGE).build();
+        assertTrue(aliceFridge.equals(aliceFridge));
 
-        assertTrue(ALICE_FRIDGE.equals(ALICE_FRIDGE));
-        assertEquals(ALICE_FRIDGE.hashCode(), aliceFridgeCopy.hashCode());
-        assertTrue(ALICE_FRIDGE.equals(aliceFridgeCopy));
+        assertEquals(aliceFridge.hashCode(), aliceFridgeCopy.hashCode());
+        assertTrue(aliceFridge.equals(aliceFridgeCopy));
 
-        assertTrue(EMPTY_FRIDGE.equals(EMPTY_FRIDGE));
-        assertEquals(EMPTY_FRIDGE.hashCode(), emptyFridgeCopy.hashCode());
-        assertTrue(EMPTY_FRIDGE.equals(emptyFridgeCopy));
+        assertTrue(emptyFridge.equals(emptyFridge));
+        assertEquals(emptyFridge.hashCode(), emptyFridgeCopy.hashCode());
+        assertTrue(emptyFridge.equals(emptyFridgeCopy));
 
         assertFalse(ALICE_FRIDGE.equals(null));
         assertFalse(EMPTY_FRIDGE.equals(null));
@@ -67,8 +77,10 @@ public class FridgeTest {
 
     @Test
     void getFridgeIdNum() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Fridge emptyFridge = new FridgeBuilder(EMPTY_FRIDGE).build();
         assertEquals(IdentificationNumber.customGenerateId("F", 1),
-                EMPTY_FRIDGE.getIdNum());
+                emptyFridge.getIdNum());
     }
 
     @Test
@@ -108,14 +120,17 @@ public class FridgeTest {
 
     @Test
     void toString_occupiedFridge() {
-        Fridge occupiedFridge = new Fridge(true);
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Fridge occupiedFridge = new Fridge();
         occupiedFridge.setBody(JOHN);
         assertEquals(" Fridge ID: F01 Status: OCCUPIED Body: Optional[" + JOHN + "]", occupiedFridge.toString());
     }
 
     @Test
     void toString_emptyFridge() {
-        assertEquals(" Fridge ID: F01 Status: UNOCCUPIED Body: Optional.empty", EMPTY_FRIDGE.toString());
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Fridge emptyFridge = new FridgeBuilder(EMPTY_FRIDGE).build();
+        assertEquals(" Fridge ID: F01 Status: UNOCCUPIED Body: Optional.empty", emptyFridge.toString());
     }
 }
 //@@author

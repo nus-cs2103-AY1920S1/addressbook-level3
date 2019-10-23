@@ -13,6 +13,14 @@ import static seedu.address.testutil.TypicalWorkers.ZACH;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model
+    .entity.worker.Worker;
+import seedu.address.testutil.BodyBuilder;
+import seedu.address.testutil.FridgeBuilder;
+import seedu.address.testutil.WorkerBuilder;
+
 class IdentificationNumberTest {
 
     private static UniqueIdentificationNumberMaps uniqueIds = new UniqueIdentificationNumberMaps();
@@ -94,12 +102,15 @@ class IdentificationNumberTest {
 
     @Test
     void getMapping_correctEntityReturned() {
-        UniqueIdentificationNumberMaps.addEntity(JOHN);
-        UniqueIdentificationNumberMaps.addEntity(ZACH);
-        UniqueIdentificationNumberMaps.addEntity(EMPTY_FRIDGE);
-        assertEquals(JOHN, JOHN.getIdNum().getMapping());
-        assertEquals(ZACH, ZACH.getIdNum().getMapping());
-        assertEquals(EMPTY_FRIDGE, EMPTY_FRIDGE.getIdNum().getMapping());
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Worker worker = new WorkerBuilder().build();
+        Body body = new BodyBuilder().build();
+        Fridge fridge = new FridgeBuilder().build();
+        UniqueIdentificationNumberMaps.addEntity(worker);
+        UniqueIdentificationNumberMaps.addEntity(body);
+        assertEquals(worker, worker.getIdNum().getMapping());
+        assertEquals(body, body.getIdNum().getMapping());
+        assertEquals(fridge, fridge.getIdNum().getMapping());
     }
 
 }

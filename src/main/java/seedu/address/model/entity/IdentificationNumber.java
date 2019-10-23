@@ -28,7 +28,6 @@ public class IdentificationNumber {
     private int idNum;
 
     private String typeOfEntity;
-    private boolean isTestId = false;
 
     protected IdentificationNumber(Entity entity) {
         requireNonNull(entity);
@@ -57,10 +56,9 @@ public class IdentificationNumber {
     }
     //@@author
 
-    private IdentificationNumber(String typeOfEntity, int idNum, boolean isTestId) {
+    private IdentificationNumber(String typeOfEntity, int idNum) {
         this.typeOfEntity = typeOfEntity;
         this.idNum = idNum;
-        this.isTestId = isTestId;
     }
 
     public static IdentificationNumber generateNewBodyId(Body body) {
@@ -88,11 +86,7 @@ public class IdentificationNumber {
     }
 
     public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
-        return new IdentificationNumber(typeOfEntity, idNum, false);
-    }
-
-    public static IdentificationNumber customGenerateTestId(String typeOfEntity, int idNum) {
-        return new IdentificationNumber(typeOfEntity, idNum, true);
+        return new IdentificationNumber(typeOfEntity, idNum);
     }
 
     private static boolean isValidIdPrefix (String prefix) {
@@ -141,6 +135,13 @@ public class IdentificationNumber {
         default:
             return false;
         }
+    }
+
+    /**
+     * Checks if given {@code IdentificationNumber id} already exists in Mortago.
+     */
+    public static boolean isExistingIdentificationNumber(IdentificationNumber id) {
+        return isExistingIdentificationNumber(id.toString());
     }
 
     public String getTypeOfEntity() {
