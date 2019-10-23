@@ -2,7 +2,6 @@ package seedu.savenus.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX;
 import static seedu.savenus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHICKEN_RICE;
@@ -27,6 +26,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.logic.commands.CommandResult;
+import seedu.savenus.logic.commands.DeleteCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
@@ -90,7 +90,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, DeleteCommand.NO_FOOD_TO_DELETE_ERROR);
     }
 
     @Test

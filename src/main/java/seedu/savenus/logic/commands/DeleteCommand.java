@@ -24,6 +24,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_FOOD_SUCCESS = "Deletion Successful!";
+    public static final String NO_FOOD_TO_DELETE_ERROR = "There is no food to delete!";
     private final List<Index> targetIndexes;
 
     public DeleteCommand(List<Index> targetIndexes) {
@@ -35,6 +36,10 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Food> lastShownList = model.getFilteredFoodList();
+
+        if (model.getFilteredFoodList().size() == 0) {
+            throw new CommandException(NO_FOOD_TO_DELETE_ERROR);
+        }
 
         for (int i = targetIndexes.size() - 1; i >= 0; i--) {
             Index targetIndex = targetIndexes.get(i);
