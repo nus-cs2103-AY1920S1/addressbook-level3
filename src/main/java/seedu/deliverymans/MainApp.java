@@ -64,7 +64,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing DeliveryMANS ]===========================");
+        logger.info("=============================[ Initializing DeliveryMANS... ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());

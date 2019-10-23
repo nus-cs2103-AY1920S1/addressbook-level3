@@ -1,7 +1,6 @@
 package seedu.deliverymans.model.deliveryman;
 
-import java.util.List;
-
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 // import javafx.collections.transformation.SortedList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
@@ -16,16 +15,60 @@ public class StatusManager {
 
     //private ObservableList<Deliveryman> statusList = SortedList<Deliveryman>(null);
 
-    private final UniqueDeliverymanList deliverymen;
+    private final UniqueDeliverymanList deliverymen; // used for sorting later
     private final UniqueStatusList statuses;
 
-    private ObservableList<Deliveryman> availableMen;
-    private ObservableList<Deliveryman> unavailableMen;
-    private ObservableList<Deliveryman> deliveringMen;
+    private ObservableList<Deliveryman> availableMen = FXCollections.observableArrayList();
+    private ObservableList<Deliveryman> unavailableMen = FXCollections.observableArrayList();
+    private ObservableList<Deliveryman> deliveringMen = FXCollections.observableArrayList();
 
     public StatusManager(UniqueDeliverymanList deliverymenList) {
-        this.deliverymen = deliverymenList;
-        this.statuses = new UniqueStatusList();
+        deliverymen = deliverymenList;
+        statuses = new UniqueStatusList();
+        initDeliverymenList(deliverymenList);
+        initStatusLists();
+    }
+
+    /**
+     *
+     * @param deliverymenList
+     */
+    public void initDeliverymenList(UniqueDeliverymanList deliverymenList) {
+        for (Deliveryman man: deliverymenList) {
+            deliverymen.add(man);
+        }
+    }
+
+    /**
+     *
+     */
+    public void initStatusLists() {
+        for (Deliveryman man: deliverymen) {
+            switch (man.getStatus().getDescription()) {
+            case "AVAILABLE":
+                availableMen.add(man);
+                break;
+            case "UNAVAILABLE":
+                availableMen.add(man);
+                break;
+            case "DELIVERING":
+                deliveringMen.add(man);
+                break;
+            default:
+                return;
+            }
+        }
+    }
+    public void addAvailableMan(Deliveryman deliveryman) {
+        availableMen.add(deliveryman);
+    }
+
+    public void addUnavailableMan(Deliveryman deliveryman) {
+        unavailableMen.add(deliveryman);
+    }
+
+    public void addDeliveringMan(Deliveryman deliveryman) {
+        deliveringMen.add(deliveryman);
     }
 
     /**
@@ -85,21 +128,21 @@ public class StatusManager {
     /**
      * Returns a list of all available deliverymen.
      */
-    public List<Deliveryman> listAvailableMen() {
+    public ObservableList<Deliveryman> listAvailableMen() {
         return availableMen;
     }
 
     /**
      * Returns a list of all unavailable deliverymen.
      */
-    public List<Deliveryman> listUnavailableMen() {
+    public ObservableList<Deliveryman> listUnavailableMen() {
         return unavailableMen;
     }
 
     /**
      * Returns a list of all delivering deliverymen.
      */
-    public List<Deliveryman> listDeliveringMen() {
+    public ObservableList<Deliveryman> listDeliveringMen() {
         return deliveringMen;
     }
 

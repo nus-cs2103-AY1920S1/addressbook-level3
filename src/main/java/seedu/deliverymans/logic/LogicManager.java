@@ -99,6 +99,26 @@ public class LogicManager implements Logic {
         return model.getDeliverymenDatabaseFilePath();
     }
 
+    @Override
+    public ObservableList<Deliveryman> getFilteredStatusList() {
+        return model.getStatusSortedList();
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getAvailableDeliverymenList() {
+        return model.getAvailableMenList();
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getUnavailableDeliverymenList() {
+        return model.getUnavailableMenList();
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getDeliveringDeliverymenList() {
+        return model.getDeliveringMenList();
+    }
+
     //=========== Restaurant =============================================================
     @Override
     public ReadOnlyRestaurantDatabase getRestaurantDatabase() {
