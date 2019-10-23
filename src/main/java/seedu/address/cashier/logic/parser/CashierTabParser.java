@@ -45,22 +45,22 @@ public class CashierTabParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments, model);
+            return new AddCommandParser().parse(arguments, model, personModel);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments, model, personModel);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments, model);
+            return new EditCommandParser().parse(arguments, model, personModel);
 
         case SetCashierCommand.COMMAND_WORD:
             return new SetCashierCommandParser().parse(arguments, model, personModel);
 
         case CheckoutCommand.COMMAND_WORD:
-            return new CheckoutCommandParser().parse(arguments, model);
+            return new CheckoutCommandParser().parse(arguments, model, personModel);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommandParser().parse();
+            return new ClearCommandParser().parse(arguments, model, personModel);
 
         default:
             throw new ParseException(CashierMessages.NO_SUCH_COMMAND);

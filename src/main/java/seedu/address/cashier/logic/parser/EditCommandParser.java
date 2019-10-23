@@ -21,7 +21,7 @@ import seedu.address.util.ArgumentTokenizer;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser {
+public class EditCommandParser implements Parser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -29,7 +29,7 @@ public class EditCommandParser {
      * @throws NotANumberException if the user input is not a number
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args, Model modelManager)
+    public EditCommand parse(String args, Model modelManager, seedu.address.person.model.Model personModel)
             throws NotANumberException, ParseException, NoSuchItemException,
             InsufficientAmountException, NegativeQuantityException, NoSuchIndexException {
         int index;

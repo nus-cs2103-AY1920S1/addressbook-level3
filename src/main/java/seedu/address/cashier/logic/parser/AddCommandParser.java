@@ -28,7 +28,7 @@ import seedu.address.util.Prefix;
 /**
  * Parses input arguments and creates a new AddCommand object.
  */
-public class AddCommandParser {
+public class AddCommandParser implements Parser {
 
     private static ArgumentMultimap argMultimap;
 
@@ -37,9 +37,11 @@ public class AddCommandParser {
      * and returns an AddCommand object for execution.
      * @param args to be passed in
      * @param modelManager which the command operates on
+     * @param personModel to set a valid cashier
      * @throws Exception if the user input does not conform the expected format
      */
-    public static AddCommand parse(String args, Model modelManager) throws Exception {
+    public AddCommand parse(String args, Model modelManager,
+                                   seedu.address.person.model.Model personModel) throws Exception {
         if (!args.contains(" c/")) {
             argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);

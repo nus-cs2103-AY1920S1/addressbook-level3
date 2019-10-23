@@ -19,7 +19,8 @@ public class CheckoutCommandParser {
      * @throws InsufficientAmountException if the input is less than the total amount
      * @throws NotANumberException if the input is not a number
      */
-    public static CheckoutCommand parse(String userInput, Model modelManager) throws InsufficientAmountException,
+    public static CheckoutCommand parse(String userInput, Model modelManager,
+                                        seedu.address.person.model.Model personModel) throws InsufficientAmountException,
             NotANumberException {
 
         double totalAmount = modelManager.getTotalAmount();
