@@ -1,4 +1,4 @@
-package seedu.address.overview.logic.exception;
+package seedu.address.overview.logic.commands.exception;
 
 /**
  * Signals that the user input is incorrectly given in general.

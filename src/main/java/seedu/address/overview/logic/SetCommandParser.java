@@ -10,7 +10,7 @@ import seedu.address.overview.logic.commands.SetBudgetCommand;
 import seedu.address.overview.logic.commands.SetCommand;
 import seedu.address.overview.logic.commands.SetExpenseCommand;
 import seedu.address.overview.logic.commands.SetSalesCommand;
-import seedu.address.overview.logic.exception.ParseException;
+import seedu.address.overview.logic.commands.exception.ParseException;
 import seedu.address.overview.ui.OverviewMessages;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
@@ -26,8 +26,7 @@ public class SetCommandParser {
      * and returns an SetCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static SetCommand parse(String args)
-            throws ParseException {
+    public static SetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_BUDGET, PREFIX_EXPENSE, PREFIX_SALES);
 
@@ -36,15 +35,21 @@ public class SetCommandParser {
             throw new ParseException(OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
-            return new SetBudgetCommand(Double.parseDouble(argMultimap.getValue(PREFIX_BUDGET).get()));
-        } else if (argMultimap.getValue(PREFIX_EXPENSE).isPresent()) {
-            return new SetExpenseCommand(Double.parseDouble(argMultimap.getValue(PREFIX_EXPENSE).get()));
-        } else if (argMultimap.getValue(PREFIX_SALES).isPresent()) {
-            return new SetSalesCommand(Double.parseDouble(argMultimap.getValue(PREFIX_SALES).get()));
-        } else {
-            throw new ParseException(OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT);
+        try {
+            if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
+                return new SetBudgetCommand(Double.parseDouble(argMultimap.getValue(PREFIX_BUDGET).get()));
+            } else if (argMultimap.getValue(PREFIX_EXPENSE).isPresent()) {
+                return new SetExpenseCommand(Double.parseDouble(argMultimap.getValue(PREFIX_EXPENSE).get()));
+            } else if (argMultimap.getValue(PREFIX_SALES).isPresent()) {
+                return new SetSalesCommand(Double.parseDouble(argMultimap.getValue(PREFIX_SALES).get()));
+            } else {
+                throw new ParseException(OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT);
+            }
+        } catch (NumberFormatException e) {
+            throw new ParseException("Please check that your input contains only numbers.");
         }
+
+
     }
 
     /**
