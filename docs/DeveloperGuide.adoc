@@ -22,6 +22,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+
 [[Design-Architecture]]
 === Architecture
 
