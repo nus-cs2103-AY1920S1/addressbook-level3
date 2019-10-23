@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.Statistics;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -123,4 +124,16 @@ public interface Model {
      * @return Last viewed flashcard.
      */
     Flashcard getLastViewedFlashcard();
+
+    /**
+     * Calculates the desired statistics based on the filtered list.
+     */
+    String generateStatistics();
+
+    /**
+     * Retrieves the desired statistics.
+     */
+    Statistics getStatistics();
+
+
 }

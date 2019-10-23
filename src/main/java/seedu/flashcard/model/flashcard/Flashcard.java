@@ -13,30 +13,29 @@ import seedu.flashcard.model.tag.Tag;
  * Represents a Flashcard in the flashcard list.
  * Guarantees: details are present and not null, field values are validated, immutable
  */
-public class Flashcard {
+public abstract class Flashcard {
 
     // Identity fields
-    private final Word word;
+    protected final Question question;
 
     // Data fields
-    private final Definition definition;
-    private final Set<Choice> choices = new HashSet<>();
-    private final Set<Tag> tags = new HashSet<>();
-    private final Answer answer;
-    private final Score score;
+    protected final Definition definition;
 
-    public Flashcard(Word word, Set<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
-        requireAllNonNull(word, definitions, tags);
-        this.word = word;
-        this.choices.addAll(choices);
+    protected final Set<Tag> tags = new HashSet<>();
+    protected final Answer answer;
+    protected final Score score;
+
+    public Flashcard(Question question, Definition definitions, Set<Tag> tags, Answer answer) {
+        requireAllNonNull(question, definitions, tags);
+        this.question = question;
         this.definition = definitions;
         this.tags.addAll(tags);
         this.answer = answer;
         this.score = new Score();
     }
 
-    public Word getWord() {
-        return word;
+    public Question getQuestion() {
+        return question;
     }
 
     /**
@@ -79,14 +78,6 @@ public class Flashcard {
     }
 
     /**
-     * Returns an immutable choice set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted
-     */
-    public Set<Choice> getChoices() {
-        return Collections.unmodifiableSet(choices);
-    }
-
-    /**
      * Returns true if this flashcard has any one of the tags in the given tag sets.
      */
     public boolean hasAnyTag(Set<Tag> tags) {
@@ -106,30 +97,45 @@ public class Flashcard {
     }
 
     /**
-     * Returns true if any choices is from the choice list
-     */
-    public boolean hasAnyChoice(Set<Choice> choices) {
-        for (Choice choice : choices) {
-            if (getChoices().contains(choice)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Defines that if and only if two flashcards containing the same word can be considered as the same.
+     * Defines that if and only if two flashcards containing the same question can be considered as the same.
      */
     public boolean isSameFlashcard(Flashcard otherFlashcard) {
         if (otherFlashcard == this) {
             return true;
         }
         return otherFlashcard != null
-                && otherFlashcard.getWord().equals(getWord());
+                && otherFlashcard.getQuestion().equals(getQuestion());
     }
 
     /**
-     * Returns true if both the word and the definitions and the tags are the same.
+     * Checks that an input answer is the same as the correct answer.
+     * @param inputAnswer The answer that the user input.
+     * @return Returns true if the answer is correct.
+     */
+    public boolean checkAnswer(Answer inputAnswer) {
+        if (inputAnswer.equals(answer)) {
+            score.incrementCorrectAnswer();
+            return true;
+        } else {
+            score.incrementWrongAnswer();
+            return false;
+        }
+    }
+
+    /**
+     * Checks whether the card is a MCQ Flashcard.
+     * @return Returns true if the card is a McqFlashcard.
+     */
+    public abstract boolean isMcq();
+    /**
+     * Get the representation of this flashcard containing the answer.
+     */
+    public String fullString() {
+        return toString() + "\nAnswer:\n" + answer;
+    }
+
+    /**
+     * Returns true if both the question and the definitions and the tags are the same.
      * This is stronger than {@code isSameFlashCard}
      */
     @Override
@@ -141,7 +147,7 @@ public class Flashcard {
             return false;
         }
         Flashcard otherFlashcard = (Flashcard) other;
-        return otherFlashcard.getWord().equals(getWord())
+        return otherFlashcard.getQuestion().equals(getQuestion())
                 && otherFlashcard.getDefinition().equals(getDefinition())
                 && otherFlashcard.getTags().equals(getTags());
     }
@@ -149,18 +155,19 @@ public class Flashcard {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getWord())
-                .append(" Definitions: ")
-                .append(getDefinition())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        builder.append(" Choices: \n");
-        getChoices().forEach(builder::append);
+        builder.append(getQuestion()).append("\n")
+                .append("\nDefinitions:").append("\n")
+                .append(getDefinition()).append("\n");
+        if (!tags.isEmpty()) {
+            builder.append("\nTags:").append("\n");
+            getTags().forEach(builder::append);
+        }
+
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(word, definition, tags);
+        return Objects.hash(question, definition, tags);
     }
 }

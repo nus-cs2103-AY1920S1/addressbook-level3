@@ -26,6 +26,14 @@ public class Choice {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the content of the choice.
+     * @return String representing the contents of the choice.
+     */
+    public String getChoice() {
+        return choice;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this
@@ -40,7 +48,7 @@ public class Choice {
 
     @Override
     public String toString() {
-        return '[' + choice + ']' + '\n';
+        return choice + '\n';
     }
 
 }

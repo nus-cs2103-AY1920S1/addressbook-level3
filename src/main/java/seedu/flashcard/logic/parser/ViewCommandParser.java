@@ -12,9 +12,9 @@ import seedu.flashcard.logic.parser.exceptions.ParseException;
 public class ViewCommandParser implements Parser<ViewCommand> {
 
     /**
-     * Parses the given context into a view command
+     * Parses the given context into a full view command
      * @param args the input from the user
-     * @return new view command
+     * @return new full view command
      */
     @Override
     public ViewCommand parse(String args) throws ParseException {
