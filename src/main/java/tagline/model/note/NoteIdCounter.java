@@ -26,7 +26,10 @@ public class NoteIdCounter {
     // for storage purposes
     public static void setCountFromStorage(String newCount) {
         checkArgument(isValidNoteIdCount(newCount), MESSAGE_CONSTRAINTS);
-        counter = Long.valueOf(newCount); //Long.valueOf(0);
+        // prevents data corruption
+        if (counter < Long.valueOf(newCount)) {
+            counter = Long.valueOf(newCount); //Long.valueOf(0);
+        }
     }
 
     public static String getStorageString() {
@@ -36,8 +39,6 @@ public class NoteIdCounter {
     public static void setZero() {
         counter = 0; //Long.valueOf(0);
     }
-
-    // increment then getValue
 
     /**
      * Increment the current counter value in NoteIdCounter and returns the new value, this is due to

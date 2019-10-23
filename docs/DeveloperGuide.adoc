@@ -1,4 +1,7 @@
 = TagLine - Developer Guide
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -144,18 +147,51 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterModelClassDiagram.png[]
 
+
+
+
+[[Design-NoteModel]]
+==== Note Model component
+
+.Structure of the Note Model Component
+image::NoteModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/model/note/NoteModel.java[`NoteModel.java`]
+
+The `NoteModel`,
+
+* stores the Note Book data.
+* exposes an unmodifiable `ObservableList<Note>` which can be accessed from `Model` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As an additional feature to be implemented in the future, we can store a `Tag` list in `Note`. This would allow `Note` to be able to be better categorized.
+
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageArchitectureDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+
+[[Design-NoteStorage]]
+==== Note Storage component
+
+.Structure of the Note Storage Component
+image::NoteStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/storage/note/NoteBookStorage.java[`NoteBookStorage.java`]
+
+The `NoteStorage` component,
+
+* can save `Note` objects in json format and read it back.
+* can save `NoteIdCounter` state in json format and read it back.
+* can save the Note Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
