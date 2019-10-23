@@ -279,6 +279,8 @@ public class Body implements Entity {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+            .append(" Body ID: ")
+            .append(getIdNum())
             .append(" Sex: ")
             .append(getSex())
             .append(" NRIC: ")

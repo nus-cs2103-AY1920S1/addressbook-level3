@@ -45,6 +45,8 @@ public class AddCommandIntegrationTest {
     //@@author ambervoong
     @Test
     public void undo_previouslyExecuted_success() throws CommandException {
+        ClearCommand clearCommand = new ClearCommand();
+        clearCommand.execute(model);
         UndoableCommand addCommand = TYPICAL_ADD_COMMAND;
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 

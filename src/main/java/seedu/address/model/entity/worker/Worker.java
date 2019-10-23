@@ -35,11 +35,11 @@ public class Worker implements Entity {
                   String designation) {
         this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
         this.name = name;
-        this.phone = Optional.ofNullable(phone);
         this.sex = sex;
+        this.dateJoined = dateJoined;
+        this.phone = Optional.ofNullable(phone);
         this.employmentStatus = Optional.ofNullable(employmentStatus);
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
-        this.dateJoined = dateJoined;
         this.designation = Optional.ofNullable(designation);
     }
 
@@ -47,6 +47,10 @@ public class Worker implements Entity {
         this.name = name;
         this.sex = sex;
         this.dateJoined = dateJoined;
+        this.employmentStatus = Optional.empty();
+        this.designation = Optional.empty();
+        this.phone = Optional.empty();
+        this.dateOfBirth = Optional.empty();
     }
 
     /**

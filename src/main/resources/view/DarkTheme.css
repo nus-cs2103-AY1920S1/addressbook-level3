@@ -364,7 +364,6 @@
 #commandBoxPlaceholder {
     -fx-background-color: #121212;
     -fx-border-color: #121212;
-    -fx-effect: 0;
 }
 
 #filterField, #personListPanel {

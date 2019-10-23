@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
 import static seedu.address.storage.JsonAdaptedBody.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBodies.ALICE;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +29,10 @@ public class JsonAdaptedBodyTest<priavte> {
     @Test
     public void toModelType_validBodyDetails_returnsBody() throws Exception {
         UniqueIdentificationNumberMaps.clearAllEntries();
-        Body alice = new BodyBuilder(ALICE).build();
+        Body body = new BodyBuilder().build();
         UniqueIdentificationNumberMaps.clearAllEntries();
-        JsonAdaptedBody body = new JsonAdaptedBody(alice);
-        assertEquals(alice, body.toModelType());
+        JsonAdaptedBody jsonBody = new JsonAdaptedBody(body);
+        assertEquals(body, jsonBody.toModelType());
     }
 
     @Test

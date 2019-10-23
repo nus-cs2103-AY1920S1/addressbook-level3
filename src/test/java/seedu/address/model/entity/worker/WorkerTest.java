@@ -16,6 +16,7 @@ import static seedu.address.testutil.WorkerBuilder.DEFAULT_PHONE;
 import static seedu.address.testutil.WorkerBuilder.DEFAULT_SEX;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -65,7 +66,7 @@ class WorkerTest {
         Worker actual = Worker.generateNewStoredWorker(name, Sex.MALE, dateJoined, 5);
         assertEquals(IdentificationNumber.customGenerateId("W", 5), actual.getIdNum());
         assertEquals(name, actual.getName());
-        assertEquals(null, actual.getPhone());
+        assertEquals(Optional.empty(), actual.getPhone());
     }
 
     @Test
