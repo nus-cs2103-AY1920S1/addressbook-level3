@@ -252,11 +252,12 @@ before sorting them.
 ** Sorting by recommendation value may be less efficient as the recommendation system has to calculate the
 recommendation value of each `Food` item when the comparator is called
 
-We chose this design because adding a `recommendationValue` field for each `Food` might not make sense in
-the design of our application. A `Food` object by itself has no sense of `recommendationValue` and thus it
-might not be reasonable to force a connection between the two for the sake of efficiency.
+We chose this design because of its simplicity of implementation. Additionally, adding a hidden `recommendationValue`
+field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
+not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
+two for the sake of efficiency.
 
-Furthermore, we do not have to update the recommendation of each `Food` item after every command with this design.
+Furthermore, we do not have to manually update the recommendation of each `Food` item after every command with this design.
 
 a|Have a field (e.g. `recommendationValue`) for each `Food` item
 
@@ -265,7 +266,7 @@ a|Have a field (e.g. `recommendationValue`) for each `Food` item
 be stored in each item
 
 * Cons:
-** The recommendation value of each `Food` must be updated after every command to ensure validity of
+** The recommendation value of each `Food` must be updated before and after every command to ensure validity of
 the recommendation value
 ** An extra field `recommendationValue` has to be added to each `Food`
 |===
