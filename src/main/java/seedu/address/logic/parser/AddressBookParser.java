@@ -22,6 +22,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.commands.calendar.DeleteTaskCommand;
+import seedu.address.logic.commands.calendar.FindTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -99,6 +100,9 @@ public class AddressBookParser {
 
         case FindEarningsCommand.COMMAND_WORD:
             return new FindEarningsCommandParser().parse(arguments);
+
+        case FindTaskCommand.COMMAND_WORD:
+            return new FindTaskCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
