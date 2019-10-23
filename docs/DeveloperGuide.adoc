@@ -170,6 +170,51 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== [Proposed] Calendar feature
+==== Proposed Implementation
+
+The commands introduced by this feature include; `generate-timings`, `ics` import and commands.
+The commands are facilitated by `ProjectCalendar`. The various `ics` files of the members are parsed in this component.
+
+* `ProjectCalendar#generateTimings()` -- Generates the free times after on syncing `ics` calendars of members.
+* `ProjectCalendar#getAvailableTimings()` -- Retrieves the available timings of members.
+* `ProjectCalendar#importCalendar()` -- Import the member's calendar.
+
+These operations are exposed in the `Model` interface as `Model#generateTimings()`, `Model#getAvailableTimings()` and
+`Model#importCalendar()`.
+
+Given below is an example usage scenario and how the various commands work.
+
+Step 1. The user launches the application. The `ProjectCalendar` will be initialised based on the
+saved `ProjectCalendar`.
+
+Step 2. The user imports members' calendars by executing `impport-calendar`.
+
+Step 3. The user executes `generate-timings` command.
+
+Step 4. +Work displays available meeting times for the project members.
+
+==== Design Considerations
+===== Aspect: Importing and storing calendars of users
+
+* **Alternative 1 (current choice):** User specifies file path of `ics` file in command line.
+** Pros: Easier to implement, files can be stored in application.
+** Cons: User must enter file path, which is error prone.
+* **Alternative 2:** Upon execution of `import-calendar` a file chooser pops up to allow user to browse and upload file.
+** Pros: User can use UI to upload instead.
+** Cons: Due to constraints of application, a ui based upload may not be feasible (Possibly in v2.0)
+
+===== Aspect: Flexibility in syncing calendars
+
+* **Alternative 1 (current choice):** +Work syncs all calendars uploaded when `generate-timings` is executed
+** Pros: Easier to implement.
+** Cons: User may be finding a suitable time for an event where only specific members are required, in which case timings
+may not help as much.
+* **Alternative 2:** User can specify which members calendars to sync
+** Pros: User can find more suitable timings for events which involve only specific members.
+** Cons: Association between members and their respective calendars must be rigorously tested to ensure accuracy of timings.
+May introduce complexity into storage and dependencies among components.
+
 === [Proposed] Settings feature
 ==== Proposed Implementation
 
