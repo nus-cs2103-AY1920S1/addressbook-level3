@@ -41,30 +41,30 @@ Nothing to see here.
 * `...` indicates a variable number (at least 1) of the specified parameter.
 ====
 
-=== Viewing help : `help`
+=== Viewing help: `help`
 
 Displays help. If `command` is specified, view detailed help for that command.
 
-Format: `help [<command]>`
+Format: `help [<command>]`
 
-=== Managing defaults : `default`
+=== Managing defaults: `default`
 
-==== Set default account : `default account`
+==== Set default account: `default account`
 
 Sets the default account.
 
 Format: `default account <id>`
 
-=== Managing the main transaction view : `view`
+=== Managing the main transaction view: `view`
 
-==== Filter transactions : `view filter`
+==== Filter transactions: `view filter`
 
 Filters the main transaction view. If no arguments are provided, all transactions are shown.
 Otherwise, only transactions meeting all the criteria are shown.
 
 Format: `view filter [a/<account>] [c/<category>] [f/<from date>] [t/<to date>]`
 
-==== Sort transactions : `view sort`
+==== Sort transactions: `view sort`
 
 Sorts transactions by (a)ccount, (c)ategory, (d)ate or (x)amount.
 Specify `o/a` to sort in ascending order, or `o/d` to sort in descending order.
@@ -72,9 +72,9 @@ If omitted, sort in ascending order.
 
 Format: `view sort s/<a|c|d|x> [o/<a|d>]`
 
-=== Managing transactions : `transaction`
+=== Managing transactions: `transaction`
 
-==== Add a transaction : `transaction out|in`
+==== Add a transaction: `transaction out|in`
 
 Adds a new transaction of the specified amount and with the given description.
 
@@ -87,69 +87,69 @@ Format: `transaction out|in x/<amount> d/<description> [a/<account>] [c/<categor
 identical entries will be added either daily, weekly, monthly, or yearly.
 ****
 
-==== Edit a transaction : `transaction edit`
+==== Edit a transaction: `transaction edit`
 
 Edits the specified transaction, setting the specified fields.
 If the ‘recurring’ field is modified, the app will ask if all previous recurring entries should be deleted.
 
 Format: `transaction edit <id> out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 
-==== Delete transaction(s) : `transaction delete`
+==== Delete transaction(s): `transaction delete`
 
 Deletes the transactions with the specified IDs.
 
 Format: `transaction delete <id ...>`
 
-=== Managing accounts : `account`
+=== Managing accounts: `account`
 
-==== Add an account : `account add`
+==== Add an account: `account add`
 
 Creates a new account with the given name. If the currency symbol is not specified, “$” is used.
 
 Format: `account add n/<name> [c/<currency symbol>]`
 
-==== List accounts : `account list`
+==== List accounts: `account list`
 
 Lists all accounts.
 
-==== Edit an account : `account edit`
+==== Edit an account: `account edit`
 
 Edits the specified account, setting the specified fields.
 
 Format: `account edit <id> [n/<name>] [c/<currency symbol>]`
 
-==== Delete account(s) : `account delete`
+==== Delete account(s): `account delete`
 
 Deletes the accounts with the specified IDs, as in `account list`.
 Note: you cannot delete an account if there are transactions associated with the account.
 
 Format: `account delete <id ...>`
 
-=== Managing categories : `category`
+=== Managing categories: `category`
 
 ==== Add a category
 
 Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
 
-==== List categories : `category list`
+==== List categories: `category list`
 
 Lists all categories.
 
-==== Rename a category : `category rename`
+==== Rename a category: `category rename`
 
 Renames the specified category.
 Note that this is the same as setting the category of all transactions of category `old name` to `new name`.
 
 Format: `category rename o/<old name> n/<new name>`
 
-==== Delete a category : `category delete`
+==== Delete a category: `category delete`
 
 Deletes the specified category.
 Note that this is the same as un-categorising all transactions under the specified category.
 
 Format: `category delete n/<name>`
 
-=== Viewing reports : `report`
+=== Viewing reports: `report`
 
 Displays a report.
 
@@ -163,7 +163,7 @@ If the type is omitted, it defaults to a total report.
 * Your goal progress will also be shown in both reports.
 ****
 
-=== Managing budgets : `budget`
+=== Managing budgets: `budget`
 
 Displays or sets the budget for the specified period.
 If the period is omitted, it defaults to the entire current month.
@@ -183,9 +183,9 @@ To set a budget, specify the `[<amount>]`. Note that budgets cannot overlap.
 
 To unset a budget, specify `[unset]`.
 
-=== Goal setting : `goal`
+=== Goal setting: `goal`
 
-==== Add a goal : `goal add`
+==== Add a goal: `goal add`
 
 Adds a goal on the specified account to reach the specified amount by the target date or at the end of the specified period.
 
@@ -196,19 +196,19 @@ Format: `goal add [a/<account>] [[d/<target date>] | [p/<this week|this month|ne
 * If + is specified before amount, then the target amount is set as amount more than the current balance in the target account.
 ****
 
-==== View goals : `goal list`
+==== View goals: `goal list`
 
 List all goals.
 
-==== Delete goal(s) : `goal delete`
+==== Delete goal(s): `goal delete`
 
 Deletes the goals with the specified goal IDs. Goal IDs can be retrieved from `goal list`.
 
 Format: `goal delete <id ...>`
 
-=== Tracking loans : `loan`
+=== Tracking loans: `loan`
 
-==== Add a new loan : `loan out|in`
+==== Add a new loan: `loan out|in`
 
 Adds a new loan out/in entry.
 Each loan has a unique ID (across both out and in entries).
@@ -216,7 +216,7 @@ If date is not given, it is set to the current date.
 
 Format: `loan out|in p/<person's name> x/<amount> [w/<date>] [d/<description>]`
 
-==== List loans : `loan list`
+==== List loans: `loan list`
 
 Displays a list of all loans, sorted alphabetically by person first, then by newest for each person's loans.
 
@@ -228,34 +228,34 @@ Format: `loan list [p/<person ...>] [o|i] [s/<a|p>]`
 * Add `s/a` to sort the list by amount, or `s/p` to sort by person.
 ****
 
-==== Edit loan : `loan edit`
+==== Edit loan: `loan edit`
 
 Edits the specified field of the loan entry with the specified ID.
 
 Format: `loan edit <loan ID> [<p/person>] [x/<amount>] [d/<description>] [w/<date>]`
 
-==== Mark loan(s) as paid : `loan paid`
+==== Mark loan(s) as paid: `loan paid`
 
 Marks the specified loan(s) as paid.
 If a person's name is specified, all their loans are marked as paid.
 
 Format: `loan paid <loan ID ...> [<p/person ...>]`
 
-==== Mark loan(s) as unpaid : `loan unpaid`
+==== Mark loan(s) as unpaid: `loan unpaid`
 
 Marks the specified loan(s) as unpaid.
 If a person's name is specified, all their loans are marked as unpaid.
 
 Format: `loan unpaid <loan ID ...> <p/person ...>`
 
-==== Delete loan(s) : `loan delete`
+==== Delete loan(s): `loan delete`
 
 Deletes the loan(s) with the specified loan ID(s).
 If a person's name is specified, all of that person's loans are deleted.
 
 Format: `loan delete <loan ID ...> <p/person ...>`
 
-==== Calculate loans : `loan split`
+==== Calculate loans: `loan split`
 
 Splits and calculates a group payment, then prints a list of who owes who.
 
@@ -288,7 +288,7 @@ Format: `rule list`
 Edits the specified fields in the rule with the specified ID.
 Both predicate and action can be modified.
 
-Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | script>]
+Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | script>]`
 
 ==== Delete a rule: `rule delete`
 
@@ -296,9 +296,9 @@ Deletes a rule with the specified rule ID.
 
 Format: `rule delete <rule ID>`
 
-=== Import and export : `import, export`
+=== Import and export: `import, export`
 
-==== Import a file : `import`
+==== Import a file: `import`
 
 Imports transactions from the file at the given path.
 
@@ -310,7 +310,7 @@ If the path is omitted, a file browser is opened for you to select the file.
 If the format is omitted, automatic detection is attempted.
 ****
 
-==== Export transactions : `export`
+==== Export transactions: `export`
 
 Exports all transactions to the given path.
 
