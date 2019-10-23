@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
@@ -65,7 +64,7 @@ class JsonAdaptedExpense {
                 .collect(Collectors.toList()));
         uniqueIdentifier = source.getUniqueIdentifier().value;
         rawTimestamp = source.getTimestamp().toString();
-        budgetName = source.getBudgetName();
+        budgetName = source.getBudgetName().fullDescription;
     }
 
     /**
@@ -122,10 +121,14 @@ class JsonAdaptedExpense {
 
         if (budgetName == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Budget.class.getSimpleName()));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "Budget Name"));
         }
+        if (!Description.isValidDescription(budgetName)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+        final Description modelBudgetName = new Description(budgetName);
 
-        return new Expense(modelDescription, modelPrice, modelTags, modelTimestamp, budgetName, modelUniqueIdentifier);
+        return new Expense(modelDescription, modelPrice, modelTags, modelTimestamp, modelBudgetName, modelUniqueIdentifier);
     }
 
 }

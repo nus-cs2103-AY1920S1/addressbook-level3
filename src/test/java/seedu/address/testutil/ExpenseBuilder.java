@@ -22,12 +22,14 @@ public class ExpenseBuilder {
     public static final String DEFAULT_UNIQUE_IDENTIFIER = "Expense@00000000-0000-0000-0000-000000000001";
     public static final String DEFAULT_TAGS = "AnniversaryAndHoliday";
     public static final String DEFAULT_TIMESTAMP = "01-12-2019";
+    public static final String DEFAULT_BUDGET = "Default Budget";
 
     private Description description;
     private Price price;
     private Set<Tag> tags;
     private UniqueIdentifier uniqueIdentifier;
     private Timestamp timestamp;
+    private Description budgetName;
 
     public ExpenseBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
@@ -35,6 +37,7 @@ public class ExpenseBuilder {
         tags = new HashSet<>(Arrays.asList(new Tag(DEFAULT_TAGS)));
         uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
         timestamp = Timestamp.createTimestampIfValid(DEFAULT_TIMESTAMP).get();
+        budgetName = new Description(DEFAULT_BUDGET);
     }
 
     /**
@@ -46,6 +49,7 @@ public class ExpenseBuilder {
         tags = new HashSet<>(expenseToCopy.getTags());
         uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
         timestamp = expenseToCopy.getTimestamp();
+        budgetName = expenseToCopy.getBudgetName();
     }
 
     /**
@@ -88,8 +92,16 @@ public class ExpenseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Timestamp} of the {@code Expense} that we are building.
+     */
+    public ExpenseBuilder withBudgetName(String budgetName) {
+        this.budgetName = new Description(budgetName);
+        return this;
+    }
+
     public Expense build() {
-        return new Expense(description, price, tags, timestamp, uniqueIdentifier);
+        return new Expense(description, price, tags, timestamp, budgetName, uniqueIdentifier);
     }
 
 }

@@ -22,7 +22,7 @@ public class Expense {
     private final Description description;
     private final Price price;
     private final Timestamp timestamp;
-    private String budgetName;
+    private Description budgetName;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -38,9 +38,9 @@ public class Expense {
         this.budgetName = null;
     }
 
-    public Expense(Description description, Price price, Set<Tag> tags, Timestamp timestamp, String budgetName,
+    public Expense(Description description, Price price, Set<Tag> tags, Timestamp timestamp, Description budgetName,
                    UniqueIdentifier uniqueIdentifier) {
-        requireAllNonNull(description, price, tags, uniqueIdentifier);
+        requireAllNonNull(description, price, tags, timestamp, budgetName, uniqueIdentifier);
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
@@ -65,12 +65,12 @@ public class Expense {
         return uniqueIdentifier;
     }
 
-    public String getBudgetName() {
+    public Description getBudgetName() {
         return budgetName;
     }
 
     public void setBudget(Budget budget) {
-        this.budgetName = budget.getDescription().fullDescription;
+        this.budgetName = budget.getDescription();
     }
 
     /**
