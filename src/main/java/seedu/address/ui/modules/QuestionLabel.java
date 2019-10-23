@@ -16,6 +16,7 @@ public class QuestionLabel extends UiPart<Region> {
 
     public QuestionLabel() {
         super(FXML);
+        questionLabel.setWrapText(true);
     }
 
     public void updateQuestionLabel(String string) {

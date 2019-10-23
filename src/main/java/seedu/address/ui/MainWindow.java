@@ -240,6 +240,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             //Updates the Ui.
+            System.out.println(uiLogicHelper.getMode() + "<---------------MODE FROM MAINWINDOW");
             updateUi.updateModularDisplay(commandText, uiLogicHelper.getMode(), modularDisplayPlaceholder);
 
             updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
@@ -294,7 +295,6 @@ public class MainWindow extends UiPart<Stage> {
      * Updates the HintDisplay section of the UI with the {@code resultDisplayMessage} string.
      */
     private void updateHintDisplay(String hintString) {
-        // Todo: implement HintDisplay window and show hints there instead
         modularDisplay.updateHint(hintString, modularDisplayPlaceholder);
     }
 
