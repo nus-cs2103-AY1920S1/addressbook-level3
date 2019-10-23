@@ -1,33 +1,78 @@
 package seedu.address.transaction.logic;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_COMMAND;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
+
+import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.person.model.ModelManager;
+import seedu.address.person.model.UserPrefs;
+import seedu.address.testutil.TypicalTransactions;
+import seedu.address.transaction.logic.commands.BackCommand;
+import seedu.address.transaction.logic.commands.CommandResult;
 import seedu.address.transaction.model.Model;
+import seedu.address.transaction.storage.Storage;
+import seedu.address.transaction.storage.StorageManager;
 
 class LogicManagerTest {
-    private Logic logic = new LogicManager();
+    private File file;
+    private File rFile;
+    private Model model;
+    private seedu.address.person.model.Model personModel;
+    private Storage storage;
+    private seedu.address.reimbursement.storage.Storage reimbursementStorage;
+    private seedu.address.reimbursement.model.Model reimbursementModel;
+    private Logic logic;
+
+    LogicManagerTest() throws Exception {
+        try {
+
+            model =
+                    new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+            personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+            file = new File("tempTransaction.txt");
+            file.deleteOnExit();
+            storage = new StorageManager(file, personModel);
+            rFile = new File("tempReimbursement.txt");
+            rFile.deleteOnExit();
+            model.getTransactionList();
+            reimbursementStorage =
+                    new seedu.address.reimbursement.storage.StorageManager(rFile);
+            reimbursementModel =
+                    new seedu.address.reimbursement.model.ModelManager(
+                            reimbursementStorage.getReimbursementFromFile(model.getTransactionList()));
+            logic =
+                    new LogicManager(model, storage, personModel, reimbursementModel,
+                            reimbursementStorage);
+        } catch (Exception e) {
+            throw new AssertionError("This method should not throw an exception.");
+        }
+    }
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
-        assertParseException(invalidCommand, );
+        assertParseException(invalidCommand, MESSAGE_NO_SUCH_COMMAND);
     }
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        String deleteCommand = "delete 20";
+        assertCommandException(deleteCommand, MESSAGE_NO_SUCH_TRANSACTION);
     }
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = BackCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, "", model);
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredList().delete(0));
     }
     /**
      * Executes the command and confirms that
@@ -37,10 +82,14 @@ class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-                                      Model expectedModel) throws CommandException, ParseException, IOException {
-        CommandResult result = logic.execute(inputCommand);
-        assertEquals(expectedMessage, result.getFeedbackToUser());
-        assertEquals(expectedModel, model);
+                                     Model expectedModel)  {
+        try {
+            CommandResult result = logic.execute(inputCommand);
+            assertEquals(expectedMessage, result.getFeedbackToUser());
+            assertEquals(expectedModel, model);
+        } catch (Exception e) {
+            throw new AssertionError("There should not be an error");
+        }
 
     }
 
@@ -56,7 +105,7 @@ class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, seedu.address.transaction.model.Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
-        assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
+        assertCommandFailure(inputCommand, Exception.class, expectedMessage);
     }
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
@@ -64,7 +113,7 @@ class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new seedu.address.transaction.model.ModelManager(model.getTransactionList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
     /**
@@ -78,17 +127,5 @@ class LogicManagerTest {
                                       String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
-    }
-    /**
-     * A stub class to throw an {@code IOException} when the save method is called.
-     */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-        @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-            throw DUMMY_IO_EXCEPTION;
-        }
     }
 }

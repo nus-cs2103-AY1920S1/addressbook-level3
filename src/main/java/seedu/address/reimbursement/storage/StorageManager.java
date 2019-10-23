@@ -20,10 +20,10 @@ import seedu.address.transaction.util.TransactionList;
 public class StorageManager implements Storage {
     private static final String VBSPLIT = " [|] ";
     private static final String DOTSPLIT = "[.] ";
-    private final String filepathReimbursement;
+    private final File fileReimbursement;
 
-    public StorageManager(String filepathReimbursement) {
-        this.filepathReimbursement = filepathReimbursement;
+    public StorageManager(File fileReimbursement) {
+        this.fileReimbursement = fileReimbursement;
     }
 
     /**
@@ -54,10 +54,9 @@ public class StorageManager implements Storage {
     private HashMap<String, LocalDate> readReimbursementFile() {
         try {
             HashMap<String, LocalDate> map = new HashMap<>();
-            File f = new File(filepathReimbursement);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
-            BufferedReader bfr = new BufferedReader(new FileReader(f));
+            fileReimbursement.getAbsoluteFile().getParentFile().mkdirs();//theres an error here
+            fileReimbursement.createNewFile();
+            BufferedReader bfr = new BufferedReader(new FileReader(fileReimbursement));
             String line = null;
             while ((line = bfr.readLine()) != null) {
                 this.readInFileLine(map, line);
@@ -98,7 +97,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void writeFile(ReimbursementList reimbursementList) throws IOException {
-        FileWriter fw = new FileWriter(this.filepathReimbursement);
+        FileWriter fw = new FileWriter(this.fileReimbursement);
         String textFileMsg = "";
         for (int i = 0; i < reimbursementList.size(); i++) {
             if (i == 0) {

@@ -128,7 +128,7 @@ public class EditCommand extends Command {
 
         if (editPersonDescriptor.getName().isPresent()) {
             editPersonInTransactionList(editedPerson, personToEdit, transactionLogic);
-            reimbursementLogic.updateReimbursementFromPerson(editedPerson, personToEdit);
+            reimbursementLogic.updateReimbursementFromPerson(editedPerson, personToEdit);//check this if its still taking in my list...
         }
 
         model.setPerson(personToEdit, editedPerson);
