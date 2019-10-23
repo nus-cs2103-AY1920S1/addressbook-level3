@@ -249,11 +249,8 @@ image::CommitActivityDiagram.png[]
 The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
 Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. As each annotation is targeted to an entire paragraph,
 we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
-
-The following class diagram shows the structure of the `OfflineDocument` which supports annotations:
-//TODO: draw object diagram of this possible state
-.Structure of `OfflineDocument` designed to support annotations.
-//image::AnnotationOfflineDocumentClassDiagram.png[]
+You can view the class structure of the annotation feature in the Figure above.
+//TODO: link to annotation class diagram
 
 
 There are three parts to the annotation feature:
@@ -265,16 +262,28 @@ These executions are triggered by `annotation` command inputs entered into the `
 Subsequently, the appropriate `Paragraph`(s) is retrieved and the annotation is handled according to the command.
 
 The following sequence diagram illustrates how the adding annotation operation works:
-//TODO: draw sequence diagram for (add) annotate
 
-For the delete operation, it is simpler ...
-//TODO: del op change from adding to paragraph to delete from paragraph
+image::AddAnnotationSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+//TODO: after adding delete cmd, (highlight, note, both --> stray paragrph)
+For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.
+If the user requested to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
+If the user requested to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
+Otherwise, if the user requested to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
+
+NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. `PhantomParagraph` is a temporary holding place for a `stray note` and does not contain content from the `cache`.
 
 //TODO: edit -- add the other parts of the command (eg shift from one p to another); atm only edit note and highlight
-//TODO: object diagram showing only paragraph and annotation for all three above
+//TODO: <may not do> object diagram showing only paragraph and annotation for all three above?
+The edit operation can modify the content of the `AnnotationNote`, colour of `Highlight` and re-link a `stray note` to a `TrueParagraph`.
+The former two is simply done by changing the fields in `Annotation` of the `Paragraph` in query.
+To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` is replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
 
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
+
 
 ==== Design Considerations
 //TODO: alternatives 1 2 3 (current choice); rmb to rename aspect properly
