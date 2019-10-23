@@ -97,7 +97,7 @@
                   <Insets />
                </GridPane.margin>
             </GridPane>
-             <ScrollPane fx:id="ExpendituresContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="150.0" vvalue="1.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0">
+             <ScrollPane fx:id="expendituresContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="150.0" vvalue="1.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></ScrollPane>
