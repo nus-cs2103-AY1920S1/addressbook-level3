@@ -49,6 +49,7 @@ public class PageManager {
         } else if (requestedPage.isEmpty()) {
             assert false : "Every get page command should have a page class implemented for it";
         }
+        //@@author bjhoohaha-reused
         //Credits to : Asfal, Genuine Coder
         //https://www.genuinecoder.com/javafx-scene-switch-change-animation/
         Scene requestedScene = requestedPage.get();
