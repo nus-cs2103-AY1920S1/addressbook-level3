@@ -1,11 +1,12 @@
 @startuml
+scale 1.5
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":MemeParser" as MemeParser LOGIC_COLOR
+participant ":MemeDeleteCommandParser" as MemeDeleteCommandParser LOGIC_COLOR
+participant "d:MemeDeleteCommand" as MemeDeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -16,53 +17,53 @@ end box
 [-> LogicManager : execute("delete 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> MemeParser : parseCommand("delete 1")
+activate MemeParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create MemeDeleteCommandParser
+MemeParser -> MemeDeleteCommandParser
+activate MemeDeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+MemeDeleteCommandParser --> MemeParser
+deactivate MemeDeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+MemeParser -> MemeDeleteCommandParser : parse("1")
+activate MemeDeleteCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create MemeDeleteCommand
+MemeDeleteCommandParser -> MemeDeleteCommand
+activate MemeDeleteCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+MemeDeleteCommand --> MemeDeleteCommandParser : d
+deactivate MemeDeleteCommand
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+MemeDeleteCommandParser --> MemeParser : d
+deactivate MemeDeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+MemeDeleteCommandParser -[hidden]-> MemeParser
+destroy MemeDeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+MemeParser --> LogicManager : d
+deactivate MemeParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> MemeDeleteCommand : execute()
+activate MemeDeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+MemeDeleteCommand -> Model : deleteMeme(1)
 activate Model
 
-Model --> DeleteCommand
+Model --> MemeDeleteCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+MemeDeleteCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> MemeDeleteCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+MemeDeleteCommand --> LogicManager : result
+deactivate MemeDeleteCommand
 
 [<--LogicManager
 deactivate LogicManager
