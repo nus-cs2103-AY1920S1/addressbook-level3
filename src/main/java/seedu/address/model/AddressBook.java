@@ -133,6 +133,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    public Person getPersonByIndex(Index index) {
+        requireNonNull(index);
+        int integerIndex = index.getZeroBased();
+        assert integerIndex <= persons.size();
+
+        return persons.getByIndex(integerIndex).get();
+    }
+
     //// util methods
     @Override
     public AddressBook deepCopy() {
@@ -154,14 +162,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
-    /** Returns a list of persons at the provided indexes */
-    public ObservableList<Person> getPersonListByIndex(Set<Index> indexes) {
+    /** Returns an unmodifiable view of persons at the provided indexes */
+    public ObservableList<Person> getPersonListByIndexes(Set<Index> indexes) {
         ObservableList<Person> personList = FXCollections.observableArrayList();
         for (Index index : indexes) {
-            int indexAsInt = index.getZeroBased();
-            personList.add(persons.getByIndex(indexAsInt).get());
+            int integerIndex = index.getZeroBased();
+            assert integerIndex <= persons.size();
+            personList.add(getPersonByIndex(index));
         }
-        return personList;
+        return FXCollections.unmodifiableObservableList(personList);
     }
 
     @Override

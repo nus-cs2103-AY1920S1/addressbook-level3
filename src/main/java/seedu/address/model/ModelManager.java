@@ -214,10 +214,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person getPersonByIndex(Index index) {
+        requireNonNull(index);
+        assert index.getZeroBased() <= stagedPersons.size();
+
+        return stagedAddressBook.getPersonByIndex(index);
+    }
+
+    @Override
     public ObservableList<Person> getPersonsByIndexes(Set<Index> indexes) {
         requireNonNull(indexes);
 
-        return stagedAddressBook.getPersonListByIndex(indexes);
+        return stagedAddressBook.getPersonListByIndexes(indexes);
     }
 
     /**

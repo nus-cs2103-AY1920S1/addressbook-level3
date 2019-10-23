@@ -125,6 +125,9 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /** Returns the person at the specified index */
+    Person getPersonByIndex(Index index);
+
     /** Returns a list of persons at the provided indexes */
     ObservableList<Person> getPersonsByIndexes(Set<Index> indexes);
 

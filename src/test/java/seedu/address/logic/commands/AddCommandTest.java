@@ -155,6 +155,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Person getPersonByIndex(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getPersonsByIndexes(Set<Index> indexes) {
             throw new AssertionError("This method should not be called.");
         }
