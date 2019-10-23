@@ -41,7 +41,6 @@ public class DoneTaskCommand extends Command {
 
     /**
      * @param index of the task in the filtered task list to edit
-     * @param editTaskDescriptor details to edit the task with
      */
     public DoneTaskCommand(Index index) {
         requireNonNull(index);

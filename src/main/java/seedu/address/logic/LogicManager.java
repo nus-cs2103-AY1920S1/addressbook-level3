@@ -14,6 +14,7 @@ import seedu.address.logic.parser.ProjectDashboardParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -56,13 +57,15 @@ public class LogicManager implements Logic {
         return model.getProjectDashboard();
     }
 
+    // Task
+
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return model.getFilteredTasksList();
     }
 
     @Override
-   public ObservableList<Task> getFilteredTaskListNotStarted() {
+    public ObservableList<Task> getFilteredTaskListNotStarted() {
         return model.getFilteredTaskListNotStarted();
     }
 
@@ -74,6 +77,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskListDone() {
         return model.getFilteredTaskListDone();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskListByDeadline() {
+        return model.getFilteredTaskListByDeadline();
+    }
+
+    @Override
+    public ObservableList<Inventory> getFilteredInventoryList() {
+        return model.getFilteredInventoriesList();
     }
 
     @Override

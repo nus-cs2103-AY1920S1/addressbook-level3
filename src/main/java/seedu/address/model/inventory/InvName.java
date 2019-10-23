@@ -28,7 +28,7 @@ public class InvName {
      */
     public InvName(String name) {
         requireNonNull(name);
-        checkArgument(isValidMemberName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
@@ -39,7 +39,7 @@ public class InvName {
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidMemberName(String test) {
+    public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

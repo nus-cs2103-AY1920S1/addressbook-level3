@@ -23,7 +23,8 @@ class JsonAdaptedMember {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Member's %s field is missing!";
 
     private final String name;
-    private final MemberId id;
+    //private final MemberId id;
+    private final String id;
 
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -31,7 +32,7 @@ class JsonAdaptedMember {
      * Constructs a {@code JsonAdaptedMember} with the given member details.
      */
     @JsonCreator
-    public JsonAdaptedMember(@JsonProperty("name") String name, @JsonProperty("id") MemberId id,
+    public JsonAdaptedMember(@JsonProperty("name") String name, @JsonProperty("id") String id,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.id = id;
@@ -45,7 +46,7 @@ class JsonAdaptedMember {
      */
     public JsonAdaptedMember(Member source) {
         name = source.getName().fullName;
-        id = source.getId();
+        id = source.getId().getDisplayId();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -74,7 +75,7 @@ class JsonAdaptedMember {
             throw new IllegalValueException(MemberName.MESSAGE_CONSTRAINTS);
         }
         final MemberName modelName = new MemberName(name);
-        final MemberId modelId = new MemberId(id.getDisplayId());
+        final MemberId modelId = new MemberId(id);
         final Set<Tag> modelTags = new HashSet<>(memberTags);
         return new Member(modelName, modelId, modelTags);
     }

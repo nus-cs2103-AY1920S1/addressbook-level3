@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
@@ -143,6 +144,11 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getFilteredTaskListByDeadline() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTaskListNotStarted() {
             throw new AssertionError("This method should not be called");
         }
@@ -178,6 +184,11 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public boolean hasMemberId(MemberId memId) {
+            return false;
+        }
+
+        @Override
         public void deleteMember(Member target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -185,6 +196,11 @@ public class AddTaskCommandTest {
         @Override
         public void setMember(Member target, Member editedMember) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getMembersLength() {
+            return 0;
         }
 
         @Override
@@ -227,6 +243,11 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public void setInventory(Inventory target, Inventory editedInventory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addMapping(Mapping mapping) {
             throw new AssertionError("This method should not be called.");
         }
@@ -246,6 +267,16 @@ public class AddTaskCommandTest {
 
         @Override
         public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -5,15 +5,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
-import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
+import seedu.address.model.task.Task;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -54,6 +53,9 @@ public class UniqueMappingList implements Iterable<Mapping> {
         return result;
     }
 
+    /**
+     *returns a hashMap of members by tasks
+     */
     public HashMap<Task, ObservableList<Member>> listMemberByTask() {
         HashMap<Task, ObservableList<Member>> result = new HashMap<>();
         for (Mapping mapping : internalList) {
@@ -172,4 +174,5 @@ public class UniqueMappingList implements Iterable<Mapping> {
         }
         return true;
     }
+
 }

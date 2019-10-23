@@ -7,8 +7,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
-import seedu.address.model.member.Member;
 import seedu.address.model.mapping.Mapping;
 
 /**
@@ -22,7 +22,7 @@ public interface Model {
     Predicate<Member> PREDICATE_SHOW_ALL_MEMBERS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Task> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
+    Predicate<Inventory> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
 
 
     /**
@@ -63,6 +63,8 @@ public interface Model {
     /** Returns the ProjectDashboard */
     ReadOnlyProjectDashboard getProjectDashboard();
 
+    /// Task
+
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.
      */
@@ -87,10 +89,16 @@ public interface Model {
      */
     void setTask(Task target, Task editedTask);
 
+    /** Returns an unmodifiable view of the filtered task list */
+    ObservableList<Task> getFilteredTaskListByDeadline();
+
+    /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTaskListNotStarted();
 
+    /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTaskListDoing();
 
+    /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTaskListDone();
 
     /** Returns an unmodifiable view of the filtered task list */
@@ -102,11 +110,16 @@ public interface Model {
      */
     void updateFilteredTasksList(Predicate<Task> predicate);
 
-    // MEMBER//
+    /// Member
     /**
      * Returns true if a member with the same identity as {@code member} exists in the address book.
      */
     boolean hasMember(Member member);
+
+    /**
+     * Returns true if a member with the same identity as {@code memberId} exists in the dashboard.
+     */
+    boolean hasMemberId(MemberId memId);
 
     /**
      * Deletes the given member.
@@ -127,6 +140,11 @@ public interface Model {
      */
     void setMember(Member target, Member editedMember);
 
+    /**
+     * returns length of filteredMembers
+     */
+    int getMembersLength();
+
     /** Returns an unmodifiable view of the filtered member list */
     ObservableList<Member> getFilteredMembersList();
 
@@ -141,7 +159,7 @@ public interface Model {
      */
     int getTasksLength();
 
-    ////Inventory-related commands
+    /// Inventory
 
     /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Inventory> getFilteredInventoriesList();
@@ -170,6 +188,15 @@ public interface Model {
      */
     void deleteInventory(Inventory target);
 
+    // Mapping
+
+    /**
+     * Replaces the given task {@code target} with {@code editedInventory}.
+     * {@code target} must exist in the address book.
+     * The task identity of {@code editedInventory} must not be the same as another existing inventory in the dashboard.
+     */
+    void setInventory(Inventory target, Inventory editedInventory);
+
     void addMapping(Mapping mapping);
 
     void deleteMapping(Mapping mapping);
@@ -179,4 +206,9 @@ public interface Model {
     ObservableList<Mapping> getFilteredMappingsList();
 
     void updateFilteredMappingsList(Predicate<Mapping> predicate);
+
+    void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember);
+
+    void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask);
+
 }

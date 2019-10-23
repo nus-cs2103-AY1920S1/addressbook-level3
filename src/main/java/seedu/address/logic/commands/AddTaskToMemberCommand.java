@@ -3,26 +3,23 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
-import seedu.address.model.member.MemberName;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 
 /**
  * Adds a task to member to be responsible for
  */
 public class AddTaskToMemberCommand extends Command {
-    public static final String COMMAND_WORD = "assign";
+    public static final String COMMAND_WORD = "assign-task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task indicated "
             + "by the index number used in the displayed task list, to the member indicated "
@@ -35,7 +32,6 @@ public class AddTaskToMemberCommand extends Command {
             + PREFIX_MEMBER_ID + " JD";
 
     public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists under member.";
 
     private final Index taskId;
     private final MemberId memberId;
@@ -57,7 +53,7 @@ public class AddTaskToMemberCommand extends Command {
         requireNonNull(model);
         List<Task> lastShownTaskList = model.getFilteredTasksList();
         List<Member> lastShownMemberList = model.getFilteredMembersList();
-
+        List<Mapping> lastShownMappingList = model.getFilteredMappingsList();
 
         if (taskId.getZeroBased() >= lastShownTaskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -73,39 +69,27 @@ public class AddTaskToMemberCommand extends Command {
                 break;
             }
         }
+
         if (!contains) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
         }
 
         Task taskToAdd = lastShownTaskList.get(taskId.getZeroBased());
-        Member updatedMember = createUpdatedMember(involvedMember, taskToAdd);
+        Mapping mappingToAdd = createMapping(involvedMember, taskToAdd);
+        model.addMapping(mappingToAdd);
 
-        for (int i = 0; i < involvedMember.getMemberTasks().size(); i++) {
-            if (involvedMember.getMemberTasks().get(i).isSameTask(taskToAdd)) {
-                throw new CommandException(MESSAGE_DUPLICATE_TASK);
-            }
-        }
-
-        model.setMember(involvedMember, updatedMember);
-        model.updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
-
-        return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, updatedMember));
+        return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedMember));
     }
 
     /**
      * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
      * where TaskStatus is updated to 'In Progress".
      */
-    private static Member createUpdatedMember(Member involvedMember, Task taskToAdd) throws CommandException {
+    private static Mapping createMapping(Member involvedMember, Task taskToAdd) {
         assert taskToAdd != null;
         assert involvedMember != null;
 
-        MemberName name = involvedMember.getName();
-        MemberId id = involvedMember.getId();
-        Set<Tag> tags = involvedMember.getTags();
-        Member updatedMember = new Member(name, id, tags);
-        updatedMember.setTask(taskToAdd);
-        return updatedMember;
+        return new Mapping(involvedMember, taskToAdd);
     }
 
     @Override

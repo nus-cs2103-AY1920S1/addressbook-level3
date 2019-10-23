@@ -15,11 +15,15 @@ public class UserViewUpdate {
     public UserViewUpdate(Pane paneToRender, UserViewMain userViewMain) {
         this.paneToRender = paneToRender;
         this.userViewMain = userViewMain;
+        paneToRender.getChildren().add(userViewMain.loadDashboard());
     }
 
+    // TODO update when inventory commands are added.
     /**
      * Retrieves user command's preamble and retrieves the respective pane.
      * Clears the current view first and switches to the desired view.
+     * If a command that does not require a view to be switched is entered,
+     * the view persists.
      *
      * @param commandText raw command of user
      */
@@ -28,13 +32,46 @@ public class UserViewUpdate {
 
         assert !(preamble.isEmpty());
 
+        paneToRender.getChildren().clear();
+
         switch(preamble) {
+
         case "list":
-            paneToRender = userViewMain.loadTasks();
+
+        case "delete-task":
+
+        case "edit":
+
+        case "set-deadline":
+
+        case "find":
+            paneToRender.getChildren().add(userViewMain.loadTasks());
+            break;
+
+        case "add-member":
+
+        case "find-member":
+
+        case "remove-member":
+
+        case "list-members":
+            paneToRender.getChildren().add(userViewMain.loadMembers());
+            break;
+
+        case "home":
+            paneToRender.getChildren().add(userViewMain.loadDashboard());
+            break;
+
+        case "delete-inv":
+
+        case "add-inv":
+
+        case "list-inv":
+            paneToRender.getChildren().add(userViewMain.loadInventories());
             break;
 
         default:
-            paneToRender = userViewMain.loadDashboard();
+            // show nothing (only exit has no case)
         }
     }
 }

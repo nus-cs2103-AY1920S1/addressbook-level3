@@ -51,18 +51,14 @@ public class JsonAdaptedInventory {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "InvName"));
         }
-        if (!InvName.isValidMemberName(name.toString())) {
+        if (!InvName.isValidName(name.toString())) {
             throw new IllegalValueException(InvName.MESSAGE_CONSTRAINTS);
         }
-        //if (task == null) {
-        //    throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-        //            "task"));
-        //}
         if (price == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "price"));
         }
-        if (!Price.isValidMemberName(price.getPrice())) {
+        if (!Price.isValidName(price.getPrice())) {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
 
