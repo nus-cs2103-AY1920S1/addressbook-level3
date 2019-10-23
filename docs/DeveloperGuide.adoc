@@ -284,13 +284,18 @@ Back Command that calls `resetPredicate()`.
 === Inventory Tab
 
 === Cashier Tab
-This tab will act as a shopping cart to show sales item added from the inventory that will contribute to sales made.
+This tab will act as a shopping cart to record sales item from the inventory that will contribute
+to the sales made.
 
-To add the sales item into the cart, it will require an input of a description and its quantity.
-An optional input of category is provided to guide the cashier to find the desired item.
+Only sales items can be added to the cart. If the price of the item is zero, it is not available for sale. The
+system will prohibit the addition of such an item to the cart.
+
+Adding of a sales item to the cart will require an input of its description and quantity. An optional field for
+category is provided to guide the cashier to find the desired item.
+Before every checkout, an existing person on the `Members Tab` must be set as the cashier-in-charge.
 
 Revenue from every checkout will also be automatically inputted as
-a positive transaction in Home tab with the cashier being the person-in-charge. For every sales made,
+a positive transaction in `Home tab` with the cashier being the person-in-charge. For every sales made,
 the quantity of each item will be updated accordingly in the `Inventory Tab`.
 
 This is the overall Class Diagram of this tab:
@@ -300,29 +305,26 @@ This is the overall Class Diagram of this tab:
 image::UMLCashierTab.png[]
 
 ==== Add Sales Item Feature
-The add command is facilitated by the `VersionedtreasurerPro`. This feature allows the adding of sales items to the cart.
+This feature allows the adding of sales items to the cart.
 
-Only description and quantity fields are compulsory to be inputted by the user. If the category field
-is input with other incomplete description and quantity fields, suggestions will be shown by Leo,
-the assistant according to that category.
-
-The quantity of the item inputted must not exceed the quantity of stock available in the inventory.
-
-Whenever the addition of sales item is successful, a response message will be shown by Leo.
-
-The following sequence diagram shows how an add command works with the description and quantity fields present:
-
-.Sequence Diagram of Add Command (cashier package)
-
-image::addCommandCashierSeqDiag.png[]
+Only description and quantity fields are required to be inputted by the user. If the category field
+is input with other incomplete description and quantity fields, suggestions according to the specified category
+would be shown by Leo, the assistant.
 
 For the description field to be valid, it must match the description of an item in the inventory that is listed for
 sale. For quantity field, the quantity specified must be positive and checks will be made to ensure that there is
 sufficient stock in the inventory.
 
-When the user input an invalid description or quantity field without any category field, an appropriate response
-message will be shown accordingly. If the category field is specified, suggestions according to the category specified
-will be shown.
+The following sequence diagram shows how an add command works with the description and quantity fields present:
+
+.Sequence Diagram of Add Command (cashier package)
+
+image::AddCommandCashierSeqDiag.png[]
+
+As shown, when the user input an invalid description or quantity field without any category field, an appropriate response
+message will be shown accordingly. If the category field is specified, suggestions according to that category
+would be shown.
+Checks will be done by the `Cashier Model` to ensure that the item specified is available for sale.
 
 If description and quantity field are both valid, a response message will be shown, informing the user of the successful
 addition of the sales item.
@@ -334,27 +336,30 @@ The following activity diagram shows the steps proceeding after the user input a
 image::AddCommandCashierActivityDiag.png[]
 
 ==== Edit Feature
-The edit command is facilitated by the `VersionedtreasurerPro`. This feature allows the editing of the quantity of
-sales item that are already added to the cart. There are two ways to edit - by index or by description.
+This feature allows the editing of the quantity of sales item that are already added to the cart.
+There are two ways to edit - by index or by description.
 
-To edit by index, it will require an input consisting of the index and quantity field. The specified index
-is based on the table shown on the Cashier tab.
+To edit by index, it will require an input consisting of the index and quantity fields. The specified index
+should be row index of the item in the table shown on the Cashier tab.
 
-To edit by description, it will require an input consisting of the description and quantity field. The specified
-description should match the description of an item in the table shown on the Cashier tab.
-
-The following sequence diagram shows how an edit command works with the required fields present:
-
-.Sequence Diagram of Edit Command (cashier package)
-
-image::EditCommandCashierSeqDiag.png[]
+To edit by description, it will require an input consisting of the description and quantity fields. The specified
+description should match the description of an item in the table.
 
 For the index field to be valid, it must be a positive integer and be within the size of the
 table shown on the Cashier tab. For the quantity field to be valid, it must not exceed the stock
 available in the inventory.
 
+The following sequence diagram shows how an edit command works:
+
+.Sequence Diagram of Edit Command (cashier package)
+
+image::EditCommandCashierSeqDiag.png[]
+
 If the inputted field are valid, a response message will be shown, informing the user of the successful
 updating of the sales item.
+
+As shown below, if the description of the item has been input, the model will return the index of that item
+according to the specified description.
 
 The following activity diagram shows the process after the user input an edit command:
 
@@ -363,10 +368,9 @@ The following activity diagram shows the process after the user input an edit co
 image::EditCommandCashierActivityDiag.png[]
 
 ==== Delete Feature
-The delete command is facilitated by the `VersionedtreasurerPro`. This feature allows the deleting of the items in
-the cart shown on the Cashier tab.
+This feature allows the deleting of the items in the table shown on the Cashier tab.
 
-To edit a specific item in the cart, the only field required is the index of the item based on the table shown.
+To edit a specific item in the table, the only field required is the row index of the item in the table.
 
 The following sequence diagram shows how a delete command works:
 
@@ -384,10 +388,10 @@ The following activity diagram shows the steps after the user input a delete com
 image::DeleteCommandCashierActivityDiag.png[]
 
 ==== Setting the Cashier Feature
-The command to set the cashier is facilitated by the `VersionedtreasurerPro`. This feature allows
-an existing person in the `Address Book` to be set as a cashier. The only field required is the name of an
-existing person.
+ This feature allows an existing person in the `Address Book` to be set as a cashier. The only field required is
+ the name of an existing person.
 
+`Members Tab` shows a list of existing members of the organisation.
 To set a cashier, the specified person must be found on the `Members Tab`.
 
 The following sequence diagram shows how the command works:
@@ -411,12 +415,12 @@ The following activity diagram shows the steps after the user input a set cashie
 image::SetCashierCommandCashierActivityDiag.png[]
 
 ==== Checkout Feature
-The checkout command is facilitated by the `VersionedtreasurerPro`. This feature confirms
-all the sales items in the table as sold and records the whole cart as a transaction under the `Sales` category.
+This feature confirms all the sales items in the table as sold and records the whole cart as a
+transaction under the `Sales` category.
 
 The `Transaction Tab` will be updated with the new transaction labelled as `Sales Items`.
 
-The quantity of every items will be updated in the `Inventory Tab`.
+The remaining stock of the sales items sold will be updated on the `Inventory Tab`.
 
 The following sequence diagram shows how the checkout command works:
 
@@ -424,12 +428,12 @@ The following sequence diagram shows how the checkout command works:
 
 image::CheckoutCommandCashierSeqDiag.png[]
 
-As shown below, if the amount inputted is valid and the cashier has been set, the `cashier model` will create a new
+As shown below, if the amount inputted is valid and the cashier has been set, the `Cashier Model` will create a new
 transaction of the sales made. The remaining stock in the inventory will also be updated accordingly.
 A clear command will then be called to clear all the sales items on the tab.
 
-The `cashier logic` will write the updated inventory list and transaction to the relevant data files. To update the
-view on the `Inventory Tab` and `Transaction Tab`, transaction will be added to the transaction model and
+The `Cashier Logic` will write the updated inventory list and newly-generated transaction to the relevant data files.
+To update the view on the `Inventory Tab` and `Transaction Tab`, transaction will be added to the transaction model and
 `readInUpdatedList()` method of inventory model will called to read in the entire inventory data file.
 
 The following activity diagram shows the steps after the user input a checkout command:
@@ -439,8 +443,8 @@ The following activity diagram shows the steps after the user input a checkout c
 image::CheckoutCommandCashierActivityDiag.png[]
 
 ==== Clear Feature
-The clear command is facilitated by the `VersionedtreasurerPro`. This feature clears all the sales items in the table.
-This command is called after the list of items has been checkout. It can also be called by the user.
+This feature clears all the sales items in the table. This command is called after the cart has been checkout.
+It can also be called by the user.
 
 There is no required fields.
 
