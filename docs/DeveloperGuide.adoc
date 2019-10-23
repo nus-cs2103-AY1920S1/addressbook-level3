@@ -406,9 +406,9 @@ of the command. It is taken in as the parameter and the index of this View deter
 Figure 2.4.2.1 is a sequence of steps that illustrates the interaction between various classes when the `goto` command is entered.
 `goto claims`
 
-<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `goto contacts`
+<<gotoSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `goto contacts`
 command is entered.
-[[addSeqDiagram]]
+[[gotoSeqDiagram]]
 [reftext="Figure 2.4.2.1"]
 [caption="Figure 2.4.2.1: "]
 .Execution sequence of the `goto contacts` command
@@ -438,24 +438,15 @@ message that asks for the proper usage of the goto Command.
 
 * The method takes in a `Model` object to access the application’s data context, the general storage of data for the application
 
-* The code snippet below shows the `GotoCommand::execute` method +
+* The activity diagram below shows the `GotoCommand::execute` method +
 
-[source, java]
-public CommandResult execute(Model model) throws CommandException {
-    requireNonNull(model);
-    if (gotoView.getIndex() == 1) { //case of contacts
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS_CONTACTS);
-    } else if (gotoView.getIndex() == 2) { //case of claims
-        model.updateFilteredClaimList(PREDICATE_SHOW_ALL_CLAIMS);
-        return new CommandResult(MESSAGE_SUCCESS_CLAIMS);
-    } else if (gotoView.getIndex() == 3) { //case of income
-        model.updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
-        return new CommandResult(MESSAGE_SUCCESS_INCOMES);
-    } else {
-        throw new CommandException(MESSAGE_FAILURE);
-    }
-}
+<<gotoActDiagram>> is the activity diagram of the goto command
+[[gotoActDiagram]]
+[reftext="Figure 2.5.2.2"]
+[caption="Figure 2.5.2.2: "]
+.ActivityDiagram
+image::GotoActivityDiagram.png[width="800"]
+
 
 * The model parameter passed into the `GotoCommand::execute` method is checked to be not null is made before the rest of the method continues.
 
@@ -511,9 +502,9 @@ The check command takes in a single parameter that is the `Index`.
 
 Figure 2.5.2.1 is a sequence of steps that illustrates the interaction between various classes when the `check` command is entered.
 
-<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `check 1`
+<<checkSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `check 1`
 command is entered.
-[[addSeqDiagram]]
+[[checkSeqDiagram]]
 [reftext="Figure 2.5.2.1"]
 [caption="Figure 2.5.2.1: "]
 .Execution sequence of the `check 1` command
@@ -543,33 +534,16 @@ message that asks for the proper usage of the check Command.
 
 * The method takes in a `Model` object to access the application’s data context, the general storage of data for the application
 
-* The code snippet below shows the `CheckCommand::execute` method +
+* The Activity Diagram below shows the `CheckCommand::execute` method +
 
-[source, java]
+Figure 2.5.2.2 is the activity diagram of the check command
 
-public CommandResult execute(Model model) throws CommandException {
-    requireNonNull(model);
-    //if the current state is not claims or contacts, the check command will be invalid
-    if (UiManager.getState().equals("claims")) {
-        List<Claim> lastShownList = model.getFilteredClaimList();
-        //throw error if index not valid
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CLAIM_DISPLAYED_INDEX);
-        }
-        Claim claimToShow = lastShownList.get(index.getZeroBased());
-        return new CommandResult(MESSAGE_SUCCESS_CLAIM, false, false, true, claimToShow);
-    } else if (UiManager.getState().equals("contacts")) {
-        List<Contact> contactList = model.getFilteredContactList();
-        //throw error if index not valid
-        if (index.getZeroBased() >= contactList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-        Contact contactToShow = contactList.get(index.getZeroBased());
-        return new CommandResult(MESSAGE_SUCCESS_CONTACT, false, false, false, true, contactToShow);
-    } else {
-        return new CommandException(MESSAGE_FAILURE);
-    }
-}
+<<checkActDiagram>> is the activity diagram of the check command
+[[checkActDiagram]]
+[reftext="Figure 2.5.2.2"]
+[caption="Figure 2.5.2.2: "]
+.ActivityDiagram
+image::CheckActivityDiagram.png[width="800"]
 
 * The model parameter in the `CheckCommand::execute` method is checked to be not null is made before the rest of the method continues.
 
