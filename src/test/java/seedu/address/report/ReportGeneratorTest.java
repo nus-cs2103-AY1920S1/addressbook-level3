@@ -2,9 +2,9 @@ package seedu.address.report;
 
 import org.junit.jupiter.api.Test;
 
-import static seedu.address.testutil.TypicalBodies.ALICE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import seedu.address.model.Model;
