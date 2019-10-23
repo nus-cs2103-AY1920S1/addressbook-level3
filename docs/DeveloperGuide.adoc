@@ -101,10 +101,11 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/mark/logic/Logic.java[`Logic.java`]
 
-`Logic` uses the `MarkParser` class to parse the user command. This results in a `Command` object which is executed by
-the `LogicManager`. The command execution can affect the `Model` (e.g. adding a bookmark) and/or `Storage`
-(e.g. import bookmarks). The result of the command execution is encapsulated as a `CommandResult` object which is
-passed back to the `Ui`. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions,
+`Logic` uses the `MarkParser` class to parse the user command.
+This results in a `Command` object which is executed by the `LogicManager`.
+The command execution can affect the `Model` (e.g. adding a bookmark) and/or `Storage` (e.g. import bookmarks).
+The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions,
 such as displaying help to the user, switching the tab view, or exiting the application.
 
 As an example of how the `Logic` component works, the following sequence diagram shows the interactions
@@ -115,7 +116,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `Logic` component:
+The `Logic` component does the following:
 
 * Parses and executes user commands
 * Modifies `Model` and/or `Storage` according to user commands
