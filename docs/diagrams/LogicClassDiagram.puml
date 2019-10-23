@@ -73,6 +73,7 @@ LogicManager .left.> Actionable : performs >
 ActionableExpression -[hidden]-> TestableExpression
 
 LogicManager -up--> ScriptManager
+Command .up.> ScriptManager
 
 LogicManager -left-> Model
 Command .left.> Model
