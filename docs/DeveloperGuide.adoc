@@ -319,7 +319,7 @@ Below is another diagram to show you how `find-c n/Alice e/alex` runs in the pro
 
 image::FindCustomerCommandSequenceDiagram2.png[]
 
-Notice that chaining takes place by instantializing instances of XYZContainsKeywordsPredicates.
+Notice that chaining takes place by creating new instances of XYZContainsKeywordsPredicates.
 
 
 ==== Design Considerations / Alternative designs considered
