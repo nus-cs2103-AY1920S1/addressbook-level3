@@ -149,14 +149,23 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* manages Address Book data through `ContactModel` sub-component.
+* manages Note Book data through `NoteMode` sub-component.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+[[Design-ContactModel]]
+==== Contact Model component
+
+.Structure of the Contact Model Component
+image::ContactModelClassDiagram.png[Contact Model Diagram, 625, 500]
+
+*API* : link:{repoURL}/src/main/java/tagline/model/contact/ContactModel.java[`ContactModel.java`]
+
+The `ContactModel`,
+
+* stores the Address Book data.
+* exposes an unmodifiable `ObservableList<Contact>` which can be accessed from `Model` that can be 'observed' e.g. the
+UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
 
 [[Design-NoteModel]]
 ==== Note Model component
@@ -186,6 +195,18 @@ image::StorageArchitectureDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
+
+[[Design-ContactStorage]]
+==== Contact Storage component
+
+.Structure of the Contact Storage Component
+image::ContactStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/storage/note/ContactBookStorage.java[`ContactBookStorage.java`]
+
+The `ContactStorage` component,
+
+* can save the Address Book data in json format and read it back.
 
 [[Design-NoteStorage]]
 ==== Note Storage component
