@@ -157,19 +157,21 @@ This section describes some noteworthy details on how certain features are imple
 === Exporting of FlashCards
 ==== Implementation
 
-The FlashCard exporting mechanism is primarily facilitated by the following classes:
-* `ExportUtil` -- Handles the actual exporting of FlashCards
-* `ExportCommand` -- Embodies an `export` command by the user; carries information about which FlashCards are to be exported, and to where
+The `FlashCard` exporting mechanism is primarily facilitated by the following classes:
+
+* `ExportUtil` -- Handles the actual exporting of `FlashCard` s
+* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCard` s are to be exported, and to where
 * `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
 
 The mechanism is also supported by the package `seedu.address.model.export`, consisting of the following classes:
+
 * `DocumentPath` -- Represents the path to a specific document - either absolute or relative to the application directory
 * `DocumentFilePath` -- Represents the path to a specific document, relative to its immediate parent directory
 * `DirectoryPath` -- Represents the path to a specific directory - either absolute or relative to the application directory
 
 Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work. 
 Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
-It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCard`s to a `.docx`
+It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCard` s to a `.docx`
 document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
 `org.apache.poi.xwpf.usermodel`).
 
@@ -183,12 +185,12 @@ image::ExportActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: Method of obtaining desired `FlashCard`s for exporting
+===== Aspect: Method of obtaining desired `FlashCard` s for exporting
 
-* **Alternative 1:** Update the `Model` to show all desired `FlashCard`s, then export all of said `FlashCard`s
-** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCard`s were exported
-** Cons: May cause confusion - `export` command does not imply that the selected `FlashCard`s will also be shown to the user
-* **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCard`s, without updating the on-screen list
+* **Alternative 1:** Update the `Model` to show all desired `FlashCard` s, then export all of said `FlashCard` s
+** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCard` s were exported
+** Cons: May cause confusion - `export` command does not imply that the selected `FlashCard` s will also be shown to the user
+* **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCard` s, without updating the on-screen list
 ** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
 ** Cons: Is harder to implement and might result in duplication of logic
 
@@ -196,7 +198,7 @@ image::ExportActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Export to a `.docx` file
 ** Pros: Is easy and convenient to print for use as a cheat sheet
-** Cons: Requires an external library to the nature of the file format
+** Cons: Requires an external library due to the nature of the file format
 * **Alternative 2:** Export to a `.txt` file
 ** Pros: Is easier to implement; the Java standard libraries already have the ability to write to text files
 ** Cons: Might give rise to inconvenience in printing, as most text editors (e.g. Notepad, Vim, Gedit) do not have built-in printing functionality
