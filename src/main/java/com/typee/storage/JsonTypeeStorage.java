@@ -1,6 +1,5 @@
 package com.typee.storage;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;

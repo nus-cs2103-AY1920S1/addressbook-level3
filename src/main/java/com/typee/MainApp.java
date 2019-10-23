@@ -28,12 +28,10 @@ import com.typee.storage.Storage;
 import com.typee.storage.StorageManager;
 import com.typee.storage.TypeeStorage;
 import com.typee.storage.UserPrefsStorage;
-import com.typee.ui.Tab;
 import com.typee.ui.Ui;
 import com.typee.ui.UiManager;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 /**
