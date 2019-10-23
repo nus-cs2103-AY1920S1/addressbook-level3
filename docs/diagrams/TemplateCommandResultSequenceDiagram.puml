@@ -16,6 +16,7 @@ box UI UI_COLOR_T1
 participant ":MemeCreationPanel" as MemeCreationPanel UI_COLOR
 end box
 
+activate MainWindow
 MainWindow -> LogicManager : execute(add text)
 activate LogicManager
 
