@@ -23,6 +23,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final Caretaker caretaker;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private FilteredList<Reminder> filteredReminders;
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.caretaker = new Caretaker(new Memento(addressBook), this.addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredReminders = new FilteredList<>(this.addressBook.getReminderList());
@@ -184,6 +186,45 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);
     }
+    //=========== Undo and Redo Operations =============================================================
+
+    @Override
+    public ReadOnlyAddressBook undo() {
+        return caretaker.undo();
+    }
+
+    @Override
+    public boolean canUndo() {
+        return caretaker.canUndo();
+    }
+
+    @Override
+    public ReadOnlyAddressBook redo() {
+        return caretaker.redo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return caretaker.canRedo();
+    }
+
+    @Override
+    public void saveState() {
+        caretaker.saveState();
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+    }
+
+    //=========== Event Listeners =============================================================
+    /*
+    @Override
+    public void checkListeners(Observable observable) {
+        ArrayList<InvalidationListener> listeners = new ArrayList<>(observable);
+        for (InvalidationListener listener : listeners) {
+            listener.invalidated()
+        }
+    }
+    */
 
     @Override
     public boolean equals(Object obj) {

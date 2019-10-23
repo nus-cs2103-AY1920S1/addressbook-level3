@@ -92,6 +92,16 @@ public interface Model {
 
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
+    ReadOnlyAddressBook undo();
+
+    boolean canUndo();
+
+    ReadOnlyAddressBook redo();
+
+    boolean canRedo();
+
+    void saveState();
+
     /**
      * Adds the given lesson.
      * @param lesson Lesson object.
