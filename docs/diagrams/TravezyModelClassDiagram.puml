@@ -12,8 +12,7 @@ Interface Model <<Interface>>{
 Class ModelManager
 Interface UserPrefsModel <<Interface>>
 Class UserPrefsModelManager
-Class ReadOnlyUserPrefs
-Class UserPrefs
+Class HiddenOutside #FFFFFF
 }
 
 namespace Address {
@@ -49,51 +48,34 @@ namespace Model {
 }
 }
 
+Interface ObservableList <<Interface>>
 HiddenOutside ..> Model.Model
 
-Interface ObservableList <<Interface>>
-Interface Supplier <<Interface>>
-''''''''''LAYOUT''''''''''
-Model.UserPrefsModelManager .[hidden]down.|> Achievements
-Model.UserPrefsModelManager .[hidden]down.|> Address
-''''''''''''''''''''''''''
-
-
 ''''''''''MODEL''''''''''
-
-
 ''''''''''Model
 Model.ModelManager .up.|> Model.Model
-
 ''''''''''Model Interface
-Model.Model .down.> Address.Model.AddressBookModel :gets >
-Model.Model .down.> Achievements.Model.StatisticsModel :supplies >
-Model.Model .down.> Model.UserPrefsModel :gets >
-Model.Model .right.>Supplier
-
+Model.Model .down.> Address.Model.AddressBookModel
+Model.Model .down.> Achievements.Model.StatisticsModel
 ''''''''''ModelManager Constructor
 ''' composition or aggregation?
-Model.ModelManager o--> "1" Address.Model.AddressBookModel
-Model.ModelManager o--> "1" Model.UserPrefsModel
-Model.ModelManager ..> "1" Achievements.Model.StatisticsModel
+Model.ModelManager ..> "1" Address.Model.AddressBookModel :gets >
+Model.ModelManager ..> "1" Model.UserPrefsModel :gets >
+Model.ModelManager --> "1" Achievements.Model.StatisticsModel :supplies >
 
-
+''''''''''UserPrefsModel Interface
+Model.Model .down.> Model.UserPrefsModel
 ''''''''''UserPrefsModelManager
 Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
 
-''''''''''UserPrefs
-Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
-
-''''''''''''''''''''
-
-''''''''''ADDRESS''''''''''
-Address.Model.AddressBookModel .right.> ObservableList
-
-''''''''''STATISTICS''''''''''
-Achievements.Model.StatisticsModel .right.> ObservableList
+''''''''''
 
 ''''''''''LAYOUT''''''''''
 Model.ModelManager -[hidden]down-> Model.UserPrefsModel
+Achievements -[hidden]right->Calendar
+Achievements -[hidden]right->diaryFeature
+Achievements -[hidden]right->FinancialTracker
+Achievements -[hidden]right->Itinerary
 Model.UserPrefsModelManager -[hidden]down->Address
 Model.UserPrefsModelManager -[hidden]down->Achievements
 Model.UserPrefsModelManager -[hidden]down->Calendar
@@ -102,4 +84,6 @@ Model.UserPrefsModelManager -[hidden]down->FinancialTracker
 Model.UserPrefsModelManager -[hidden]down->Itinerary
 Address -down[hidden]-> Achievements
 ''''''''''''''''''''''''''
+
+
 @enduml
