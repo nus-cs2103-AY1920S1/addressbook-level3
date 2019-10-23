@@ -199,20 +199,21 @@ public class UpdateCommand extends UndoableCommand {
                 if (fridge.getIdNum().equals(updateBodyDescriptor.getFridgeId().get())) {
                     updatedFridge = fridge;
                 }
-            if (Optional.ofNullable(fridge.getIdNum()).equals(updateBodyDescriptor.getFridgeId())) {
-                updatedFridge = fridge;
+                if (Optional.ofNullable(fridge.getIdNum()).equals(updateBodyDescriptor.getFridgeId())) {
+                    updatedFridge = fridge;
+                }
             }
-        }
 
-        if ((originalFridge != null && updatedFridge != null)) {
-            originalFridge.setBody(null);
-            updatedFridge.setBody((Body) entity);
-            model.setEntity(entity, updateEntityDescriptor.apply(entity));
-        } else if (initallyNoFridge) {
-            updatedFridge.setBody((Body) entity);
-            model.setEntity(entity, updateEntityDescriptor.apply(entity));
-        } else if (updatedFridge == null) {
-            throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
+            if ((originalFridge != null && updatedFridge != null)) {
+                originalFridge.setBody(null);
+                updatedFridge.setBody((Body) entity);
+                model.setEntity(entity, updateEntityDescriptor.apply(entity));
+            } else if (initallyNoFridge) {
+                updatedFridge.setBody((Body) entity);
+                model.setEntity(entity, updateEntityDescriptor.apply(entity));
+            } else if (updatedFridge == null) {
+                throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
+            }
         }
     }
     //@@author

@@ -66,7 +66,7 @@ public class JsonAdaptedBodyTest<priavte> {
                 null, null, null, null, null,
                 null);
 
-         expectedMessage = "Invalid Body Status: " + INVALID_BODY_STATUS.toLowerCase();
+        expectedMessage = "Invalid Body Status: " + INVALID_BODY_STATUS.toLowerCase();
         assertThrows(ParseException.class, expectedMessage, bodyWrongStatus::toModelType);
     }
 
