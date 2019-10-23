@@ -263,6 +263,13 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Timed/Untimed Test
+==== Proposed Implementation
+
+The timed/untimed test is a exam mechanism facilitated by the `ExamRunner` class which extends from the `Exam` interface.
+
+Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
