@@ -418,7 +418,7 @@ to distinguish between staged meme, imported meme and ordinary meme.
 ** Pros: Lesser methods defined to retrieve 3 different UniqueMemeList, and a minimalist design.
 ** Cons: More coupling involved and the list can get very large, hence iterating through it may cause lagging.
 
-// end::templates[]
+// end::export/import[]
 
 
 // tag::dataencryption[]
