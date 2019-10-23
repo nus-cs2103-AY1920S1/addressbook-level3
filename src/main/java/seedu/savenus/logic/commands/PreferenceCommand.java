@@ -16,6 +16,7 @@ import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
 
+//@@author jon-chua
 /**
  * Creates a PreferenceCommand that either adds likes or dislikes to the $aveNUS recommendation system.
  */
@@ -74,9 +75,9 @@ public class PreferenceCommand extends Command {
 
         if (isLike && !isList) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (userRecommendations.getDislikedCategories().stream().parallel().anyMatch(categoryList::contains)
-                    || userRecommendations.getDislikedLocations().stream().parallel().anyMatch(locationList::contains)
-                    || userRecommendations.getDislikedTags().stream().parallel().anyMatch(tagList::contains)) {
+            if (userRecommendations.getDislikedCategories().stream().anyMatch(categoryList::contains)
+                    || userRecommendations.getDislikedLocations().stream().anyMatch(locationList::contains)
+                    || userRecommendations.getDislikedTags().stream().anyMatch(tagList::contains)) {
                 throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
             }
 
@@ -84,9 +85,9 @@ public class PreferenceCommand extends Command {
             result.append("Liked: ");
         } else if (!isLike && !isList) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (userRecommendations.getLikedCategories().stream().parallel().anyMatch(categoryList::contains)
-                    || userRecommendations.getLikedLocations().stream().parallel().anyMatch(locationList::contains)
-                    || userRecommendations.getLikedTags().stream().parallel().anyMatch(tagList::contains)) {
+            if (userRecommendations.getLikedCategories().stream().anyMatch(categoryList::contains)
+                    || userRecommendations.getLikedLocations().stream().anyMatch(locationList::contains)
+                    || userRecommendations.getLikedTags().stream().anyMatch(tagList::contains)) {
                 throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
             }
 
@@ -95,11 +96,11 @@ public class PreferenceCommand extends Command {
         }
 
         if (!isList) {
-            String addedItems = "Categories: " + categoryList.stream().parallel()
+            String addedItems = "Categories: " + categoryList.stream()
                     .map(c -> c.category).collect(Collectors.joining(", "))
-                    + " | Tags: " + tagList.stream().parallel()
+                    + " | Tags: " + tagList.stream()
                     .map(t -> t.tagName).collect(Collectors.joining(", "))
-                    + " | Locations: " + locationList.stream().parallel()
+                    + " | Locations: " + locationList.stream()
                     .map(l -> l.location).collect(Collectors.joining(", ")) + "\n";
 
             result.append(addedItems);

@@ -26,6 +26,10 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.recommend.UserRecommendations;
 
+//@@author jon-chua
+/**
+ * Contains tests for JsonAdaptedRecs
+ */
 public class JsonAdaptedRecsTest {
 
     @Test

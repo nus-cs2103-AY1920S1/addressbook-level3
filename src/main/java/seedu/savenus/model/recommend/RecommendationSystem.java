@@ -310,20 +310,12 @@ public class RecommendationSystem {
         }
     }
 
-    public void setRecommendationComparator(Comparator<Food> recommendationComparator) {
-        comparator = recommendationComparator;
-    }
-
     public Predicate<Food> getRecommendationPredicate() {
         if (isInUse()) {
             return predicate;
         } else {
             return DEFAULT_PREDICATE;
         }
-    }
-
-    public void setRecommendationPredicate(Predicate<Food> recommendationPredicate) {
-        predicate = recommendationPredicate;
     }
 
     public boolean isInUse() {

@@ -24,6 +24,7 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author jon-chua
 /**
  * Contains tests for both LikeCommand and DislikeCommand
  */

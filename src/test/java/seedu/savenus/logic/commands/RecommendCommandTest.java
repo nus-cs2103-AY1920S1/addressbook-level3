@@ -22,6 +22,7 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author jon-chua
 /**
  * Contains integration tests and unit tests for RecommendCommand.
  */
