@@ -42,6 +42,10 @@ Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
+* `Item` : Used by classes to represent a task, event, reminder or any combination of the three.
+* `Task` : Used by classes to store, access and modify details regarding tasks.
+* `Events` : Used by classes to store, access and modify details regarding events.
+* `Reminders` : Used by classes to store, access and modify details regarding reminders.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
