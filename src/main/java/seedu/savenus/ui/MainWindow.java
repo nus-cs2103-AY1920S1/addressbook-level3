@@ -25,6 +25,16 @@ import seedu.savenus.model.food.Food;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    /**
+     * The path for Dark Theme.
+     */
+    public static final String DARK_THEME_CSS = "view/DarkTheme.css";
+
+    /**
+     * The path for Light Theme.
+     */
+    public static final String LIGHT_THEME_CSS = "view/LightTheme.css";
+
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -175,6 +185,41 @@ public class MainWindow extends UiPart<Stage> {
     void show() {
         primaryStage.show();
         primaryStage.centerOnScreen();
+    }
+
+    /**
+     * Changes the theme of the app to Dark Theme.
+     */
+    @FXML
+    public void changeThemeToDark() {
+        primaryStage.getScene().getStylesheets().clear();
+        primaryStage.getScene().setUserAgentStylesheet(null);
+        primaryStage.getScene().getStylesheets()
+                .add(DARK_THEME_CSS);
+
+        // For help window
+        helpWindow.setToDarkTheme();
+
+        // For info window
+        infoWindow.setToDarkTheme();
+    }
+
+    /**
+     * Changes the theme of the app to Light Theme.
+     */
+    @FXML
+    public void changeThemeToLight() {
+        // For the primary stage
+        primaryStage.getScene().getStylesheets().clear();
+        primaryStage.getScene().setUserAgentStylesheet(null);
+        primaryStage.getScene().getStylesheets()
+                .add(LIGHT_THEME_CSS);
+
+        // For help window
+        helpWindow.setToLightTheme();
+
+        // For info window
+        infoWindow.setToLightTheme();
     }
 
     /**
