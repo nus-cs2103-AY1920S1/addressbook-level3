@@ -13,6 +13,7 @@ import seedu.address.logic.commands.OutCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
@@ -35,12 +36,13 @@ public class OutCommandParser implements Parser<OutCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Person person = new Person(name);
         Amount amount = ParserUtil.parseAmount("-" + argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        BankAccountOperation transaction = new OutTransaction(amount, date);
+        BankAccountOperation transaction = new OutTransaction(amount, date, tagList, person);
 
         return new OutCommand(transaction);
 
