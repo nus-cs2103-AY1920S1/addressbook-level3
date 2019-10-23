@@ -92,14 +92,6 @@ is provided in the command descriptions.
 
 === General Commands
 
-==== Alias
-Adds a custom ALIAS to a COMMAND. All future occurrences of that alias
-will be executing that COMMAND. +
-
-Format: `alias ALIAS_COMMAND`
-
-Example: `alias roby exit`
-
 ==== Help
 
 Display the help screen that contains helpful information on how to use the application. +
@@ -111,43 +103,60 @@ Format: `help`
 Display within the grey box right below the command line box, a list of
 commands that were recently typed in order of which was most recent.
 
-Format: `history` or `h`
+****
+*Format*: `history` or `h` +
+****
+
+[NOTE]
+A message stating that "You have not entered any commands." is displayed if you have not input any commands prior to the call to history.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a list of commands that you have previously typed in the grey box right below the Command Line.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a list of commands that you have previously typed in the grey box right below the Command Line.]
+|===
 
 ==== Info
 
 Displays the information of the command specified.
 
-Format: `info COMMAND`
+****
+*Format*: `info COMMAND` +
+*Example*: `info edit`
+****
 
-Example: `info edit`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a window pop-up specifying the details of the command you wanted more information about.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a window pop-up specifying the details of the command you wanted more information about.]
+|===
 
 ==== Collapse
 
 Makes the Food Card more or less compact, depending on the user's preference.
 
-Format `collapse`
+****
+*Format*: `collapse`
+****
 
-Example: `collapse`
-
-==== Undo
-Undoes a command a specific number of TIMES. Note: TIMES must be a positive integer. +
-
-Format: `undo TIMES`
-
-Example: `undo 1`
-
-==== Redo
-Redoes a command a specific number of TIMES. TIMES must be a positive integer. +
-
-Format: `redo TIMES`
-
-Example: `redo 1`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a compacted box for the food items displayed in the food menu.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a compacted box for the food items displayed in the food menu.]
+|===
 
 ==== Exit
 Exits the app. +
 
-Format: `exit`
+****
+*Format*: `exit`
+****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| Application closes.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.]
+|===
 ==== Tutorial
 Displays the tutorial on how to use the app.
 
