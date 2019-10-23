@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -16,6 +17,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+    Predicate<Lesson> PREDICATE_SHOW_ALL_LESSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -83,6 +85,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered student list */
     ObservableList<Student> getFilteredStudentList();
     ObservableList<Assignment> getFilteredAssignmentList();
+    ObservableList<Lesson> getFilteredLessonList();
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -90,6 +93,18 @@ public interface Model {
     void updateFilteredStudentList(Predicate<Student> predicate);
 
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    void updateFilteredLessonList(Predicate<Lesson> predicate);
+
+    ReadOnlyAddressBook undo();
+
+    boolean canUndo();
+
+    ReadOnlyAddressBook redo();
+
+    boolean canRedo();
+
+    void saveState();
 
     /**
      * Adds the given lesson.
@@ -102,4 +117,25 @@ public interface Model {
      * @param lesson lesson object.
      */
     boolean hasLesson(Lesson lesson);
+
+    /**
+<<<<<<< HEAD
+     * Deletes the given lesson.
+     * The lesson must exist in the address book.
+     */
+    void deleteLesson(Lesson target);
+
+    /**
+     * Replaces the given lesson {@code target} with {@code editedLesson}.
+     * {@code target} must exist in the address book.
+     * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
+     * book.
+     */
+    void setLesson(Lesson target, Lesson editedLesson);
+
+    /**
+     * returns an unmodifiable view of the filtered reminder list.
+     * @return Ob
+     */
+    ObservableList<Reminder> getFilteredReminderList();
 }

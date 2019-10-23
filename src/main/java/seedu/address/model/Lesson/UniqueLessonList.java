@@ -1,20 +1,21 @@
 package seedu.address.model.lesson;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.model.lesson.exceptions.DuplicateLessonException;
+import seedu.address.model.lesson.exceptions.LessonNotFoundException;
 
 /**
- * A list of students that enforces uniqueness between its elements and does not allow nulls.
+ * A list of lessons that enforces uniqueness between its elements and does not allow nulls.
  * A lesson is considered unique by comparing using {@code lesson#isSameLesson(lesson)}. As such, adding and
  * updating of lessons uses lesson#isSameLesson(lesson) for equality so as to ensure that the lesson being added
- * or updated is unique in terms of identity in the UniqueLessonLIst. However, the removal of a lesson uses
+ * or updated is unique in terms of identity in the UniqueLessonList. However, the removal of a lesson uses
  * lesson#equals(Object) so as to ensure that the lesson with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -44,6 +45,55 @@ public class UniqueLessonList implements Iterable<Lesson> {
             throw new DuplicateLessonException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Replaces the lesson {@code target} in the list with {@code editedLesson}.
+     * {@code target} must exist in the list.
+     * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the list.
+     */
+    public void setLesson(Lesson target, Lesson editedLesson) {
+        requireAllNonNull(target, editedLesson);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new LessonNotFoundException();
+        }
+
+        if (!target.isSameLesson(editedLesson) && contains(editedLesson)) {
+            throw new DuplicateLessonException();
+        }
+
+        internalList.set(index, editedLesson);
+    }
+
+    /**
+     * Removes the equivalent lesson from the list.
+     * The lesson must exist in the list.
+     */
+    public void remove(Lesson toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new LessonNotFoundException();
+        }
+    }
+
+    public void setLessons(UniqueLessonList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code lessons}.
+     * {@code lessons} must not contain duplicate lessons.
+     */
+    public void setLessons(List<Lesson> lessons) {
+        requireAllNonNull(lessons);
+        if (!lessonsAreUnique(lessons)) {
+            throw new DuplicateLessonException();
+        }
+
+        internalList.setAll(lessons);
     }
 
     /**

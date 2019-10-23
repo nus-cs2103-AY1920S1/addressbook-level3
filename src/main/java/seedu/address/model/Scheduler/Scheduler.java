@@ -9,7 +9,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.Time;
 
 /**
- * Scheduler class which handles scheduling of lessons.
+ * scheduler class which handles scheduling of lessons.
  */
 public class Scheduler {
     private final Lesson lesson;
@@ -24,8 +24,8 @@ public class Scheduler {
      */
     public void scheduleLesson() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        Time time = lesson.getTime();
-        Calendar lessonTime = time.getLessonTime();
+        Time time = lesson.getStartTime();
+        Calendar lessonTime = time.getTime();
         long initialDelay = lessonTime.getTimeInMillis() - System.currentTimeMillis();
         Reminder reminder = new Reminder(lesson);
         if (lesson.getIsRepeat()) {

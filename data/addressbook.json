@@ -1,41 +1,4 @@
 {
-  "students" : [ {
-    "name" : "test5",
-    "phone" : "222222",
-    "email" : "test5@gmail.com",
-    "parentPhone" : "333333",
-    "address" : "test5",
-    "medicalCondition" : "NIL",
-    "tagged" : [ ]
-  }, {
-    "name" : "test8",
-    "phone" : "234234234",
-    "email" : "test8@gmail.com",
-    "parentPhone" : "2342342342",
-    "address" : "test8",
-    "medicalCondition" : "sinus",
-    "tagged" : [ ]
-  } ],
-  "assignments" : [ {
-    "assignmentName" : "math",
-    "grades" : [ ]
-  }, {
-    "assignmentName" : "math test 2",
-    "grades" : [ ]
-  }, {
-    "assignmentName" : "homework 3",
-    "grades" : [ ]
-  }, {
-    "assignmentName" : "english homework",
-    "grades" : [ ]
-  }, {
-    "assignmentName" : "math homework 1",
-    "grades" : [ ]
-  }, {
-    "assignmentName" : "english homework 2",
-    "grades" : [ ]
-  }, {
-    "assignmentName" : "math test1",
-    "grades" : [ "20", "50" ]
-  } ]
+  "students" : [ ],
+  "assignments" : [ ]
 }

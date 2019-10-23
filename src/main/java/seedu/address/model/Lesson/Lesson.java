@@ -6,18 +6,24 @@ import java.util.Objects;
  * Represents a lesson in the AddressBook.
  */
 public class Lesson {
-    private final Time time;
+    private final Time startTime;
+    private final Time endTime;
     private final ClassName name;
     private boolean isRepeat;
 
-    public Lesson(Time time, ClassName name) {
-        this.time = time;
+    public Lesson(Time startTime, Time endTime, ClassName name) {
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.name = name;
         this.isRepeat = false;
     }
 
-    public Time getTime() {
-        return time;
+    public Time getStartTime() {
+        return startTime;
+    }
+
+    public Time getEndTime() {
+        return endTime;
     }
 
     public ClassName getName() {
@@ -26,6 +32,10 @@ public class Lesson {
 
     public boolean getIsRepeat() {
         return isRepeat;
+    }
+
+    public void setRepeat() {
+        this.isRepeat = true;
     }
 
     /**
@@ -37,7 +47,8 @@ public class Lesson {
         }
 
         return otherLesson != null
-                && otherLesson.getTime().equals(this.getTime())
+                && otherLesson.getStartTime().equals(this.getStartTime())
+                && otherLesson.getEndTime().equals(this.getEndTime())
                 && otherLesson.getName().equals(this.getName());
     }
 
@@ -52,7 +63,8 @@ public class Lesson {
         }
 
         Lesson otherLesson = (Lesson) other;
-        return otherLesson.getTime().equals(this.getTime())
+        return otherLesson.getStartTime().equals(this.getStartTime())
+                && otherLesson.getEndTime().equals(this.getEndTime())
                 && otherLesson.getName().equals(this.getName())
                 && otherLesson.getIsRepeat() == this.getIsRepeat();
 
@@ -60,15 +72,18 @@ public class Lesson {
 
     @Override
     public int hashCode() {
-        return Objects.hash(time, name, isRepeat);
+        return Objects.hash(startTime, endTime, name, isRepeat);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" \nTime: ")
-                .append(getTime());
+                .append(" \nFrom: ")
+                .append(getStartTime())
+                .append(" To: ")
+                .append(getEndTime())
+                .append(" " + getIsRepeat());
         return builder.toString();
     }
 }

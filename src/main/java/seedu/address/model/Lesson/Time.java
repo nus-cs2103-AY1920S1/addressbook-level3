@@ -9,32 +9,32 @@ import java.util.Calendar;
  * Represents a class time in the AddressBook.
  */
 public class Time {
-    private final Calendar lessonTime;
+    private final Calendar time;
 
-    public Time(Calendar lessonTime) {
-        requireNonNull(lessonTime);
-        this.lessonTime = lessonTime;
+    public Time(Calendar time) {
+        requireNonNull(time);
+        this.time = time;
     }
 
-    public Calendar getLessonTime() {
-        return this.lessonTime;
+    public Calendar getTime() {
+        return this.time;
     }
 
     @Override
     public String toString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy h:mm a");
-        return formatter.format(lessonTime.getTime());
+        return formatter.format(time.getTime());
     }
 
     @Override
     public int hashCode() {
-        return lessonTime.hashCode();
+        return time.hashCode();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Time // instanceof handles nulls
-                && lessonTime.equals(((Time) other).lessonTime)); // state check
+                && time.equals(((Time) other).time)); // state check
     }
 }

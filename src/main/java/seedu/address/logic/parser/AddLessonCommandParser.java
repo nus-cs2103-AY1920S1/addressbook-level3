@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 
 import java.util.stream.Stream;
 
@@ -23,17 +25,22 @@ public class AddLessonCommandParser implements Parser<AddLessonCommand> {
      */
     public AddLessonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_LESSONNAME, PREFIX_TIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_REPEAT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_LESSONNAME, PREFIX_TIME) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
         }
 
         ClassName className = ParserUtil.parseClassName(argMultimap.getValue(PREFIX_LESSONNAME).get());
-        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        Time startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME).get());
+        Time endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME).get());
 
-        Lesson lesson = new Lesson(time, className);
+        Lesson lesson = new Lesson(startTime, endTime, className);
 
+        if (arePrefixesPresent(argMultimap, PREFIX_REPEAT)) { //if indicated repeat then set isRepeat in lesson to true
+            lesson.setRepeat();
+        }
         return new AddLessonCommand(lesson);
     }
 
