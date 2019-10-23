@@ -27,7 +27,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
     private static final ObservableList<Customer> TYPICAL_CUSTOMERS =
             FXCollections.observableList(getTypicalCustomers());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 5000;
 
     private final SimpleObjectProperty<Customer> selectedCustomer = new SimpleObjectProperty<>();
     private CustomerListPanelHandle customerListPanelHandle;
