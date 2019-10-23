@@ -11,21 +11,25 @@ import seedu.address.ui.systemtray.SystemTrayCommunicator;
  */
 public class NotificationManager {
     private NotificationCheckingThread notificationCheckingThread;
+    private SystemTrayCommunicator systemTrayCommunicator;
 
     public NotificationManager(ModelManager modelManager) {
         NotificationChecker notificationChecker = new NotificationChecker(modelManager);
 
         notificationCheckingThread = new NotificationCheckingThread(notificationChecker);
-        notificationCheckingThread.addPopupListener(new PopupListener(new SystemTrayCommunicator()));
+        systemTrayCommunicator = new SystemTrayCommunicator();
+        notificationCheckingThread.addPopupListener(new PopupListener(systemTrayCommunicator));
         notificationCheckingThread.setDaemon(true);
         notificationCheckingThread.start();
     }
 
     public void switchOffNotifications() {
         notificationCheckingThread.switchOffNotifications();
+        systemTrayCommunicator.switchOffNotifications();
     }
 
     public void switchOnNotifications() {
         notificationCheckingThread.switchOnNotifications();
+        systemTrayCommunicator.switchOnNotifications();
     }
 }
