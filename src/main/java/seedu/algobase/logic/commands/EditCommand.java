@@ -105,6 +105,7 @@ public class EditCommand extends Command {
     private static Problem createEditedProblem(Problem problemToEdit, EditProblemDescriptor editProblemDescriptor) {
         assert problemToEdit != null;
 
+        long id = problemToEdit.getId();
         Name updatedName = editProblemDescriptor.getName().orElse(problemToEdit.getName());
         Author updatedAuthor = editProblemDescriptor.getAuthor().orElse(problemToEdit.getAuthor());
         WebLink updatedWebLink = editProblemDescriptor.getWebLink().orElse(problemToEdit.getWebLink());
@@ -114,7 +115,7 @@ public class EditCommand extends Command {
         Remark updatedRemark = editProblemDescriptor.getRemark().orElse(problemToEdit.getRemark());
         Source updatedSource = editProblemDescriptor.getSource().orElse(problemToEdit.getSource());
 
-        return new Problem(updatedName, updatedAuthor, updatedWebLink, updatedDescription, updatedTags,
+        return new Problem(id, updatedName, updatedAuthor, updatedWebLink, updatedDescription, updatedTags,
                 updatedDifficulty, updatedRemark, updatedSource);
     }
 

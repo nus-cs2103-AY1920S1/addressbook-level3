@@ -30,8 +30,8 @@ public class AddPlanCommand extends Command {
             + COMMAND_WORD + " "
             + PREFIX_NAME + "CS2040 "
             + PREFIX_DESCRIPTION + "past year questions of CS2040 "
-            + PREFIX_START_DATE + "2019/01/01"
-            + PREFIX_END_DATE + "3019/12/12";
+            + PREFIX_START_DATE + "2019-01-01"
+            + PREFIX_END_DATE + "3019-12-12";
 
     public static final String MESSAGE_SUCCESS = "New Plan added: %1$s";
     public static final String MESSAGE_DUPLICATE_PLAN = "A plan of this name already exists in the algobase.";

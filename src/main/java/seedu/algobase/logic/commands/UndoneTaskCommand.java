@@ -3,6 +3,7 @@ package seedu.algobase.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,7 +34,7 @@ public class UndoneTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_UNDONE_TASK_SUCCESS = "Marked Task as undone: %1$s";
+    public static final String MESSAGE_UNDONE_TASK_SUCCESS = "Task [%1$s] marked as undone in Plan [%2$s]";
 
     private final UndoneTaskDescriptor undoneTaskDescriptor;
 
@@ -57,13 +58,15 @@ public class UndoneTaskCommand extends Command {
 
         Plan planToUpdate = lastShownPlanList.get(undoneTaskDescriptor.planIndex.getZeroBased());
         List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
-        Task task = taskList.get(undoneTaskDescriptor.taskIndex.getZeroBased());
+        Task taskToUpdate = taskList.get(undoneTaskDescriptor.taskIndex.getZeroBased());
         taskList.remove(undoneTaskDescriptor.taskIndex.getZeroBased());
         Set<Task> taskSet = new HashSet<>(taskList);
-        taskSet.add(new Task(task.getProblem(), false));
-        Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
+        taskSet.add(Task.updateStatus(taskToUpdate, false));
+        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
-        return new CommandResult(String.format(MESSAGE_UNDONE_TASK_SUCCESS, task));
+        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        return new CommandResult(
+            String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override

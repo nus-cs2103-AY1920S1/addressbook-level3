@@ -3,6 +3,7 @@ package seedu.algobase.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,7 +34,7 @@ public class DeleteTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task [%1$s] deleted from Plan [%2$s]";
 
     private final DeleteTaskDescriptor deleteTaskDescriptor;
 
@@ -60,9 +61,11 @@ public class DeleteTaskCommand extends Command {
         Task task = taskList.get(deleteTaskDescriptor.taskIndex.getZeroBased());
         taskList.remove(deleteTaskDescriptor.taskIndex.getZeroBased());
         Set<Task> taskSet = new HashSet<>(taskList);
-        Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
+        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task));
+        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        return new CommandResult(
+            String.format(MESSAGE_DELETE_TASK_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override

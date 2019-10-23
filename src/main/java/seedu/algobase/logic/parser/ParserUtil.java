@@ -1,9 +1,11 @@
 package seedu.algobase.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,9 +13,12 @@ import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.StringUtil;
+import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SortCommand;
+import seedu.algobase.logic.commands.SwitchTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.plan.Plan;
+import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.TabType;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
 import seedu.algobase.model.problem.Author;
@@ -31,6 +36,8 @@ import seedu.algobase.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String DATE_CONSTRAINTS = "DateTime format should be 'yyyy-MM-dd'.";
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -252,12 +259,60 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static LocalDateTime parseDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         try {
-            return LocalDateTime.parse(date, Plan.FORMATTER);
+            return LocalDate.parse(date, FORMATTER);
         } catch (DateTimeException ex) {
-            throw new ParseException(Plan.DATE_TIME_CONSTRAINTS);
+            throw new ParseException(DATE_CONSTRAINTS);
         }
     }
 
+    /** Parses a {@code String tabType} into an {@code TabType}.
+     *
+     * @throws ParseException if the given {@code string tabType} is invalid.
+     */
+    public static TabType parseTabType(String tabType) throws ParseException {
+        try {
+            return TabType.valueOf(tabType.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.toString());
+        }
+    }
+
+    /** Parses a {@code String tabIndex} into an {@code Index}.
+     *
+     * @throws ParseException if the given {@code string tabIndex} is invalid.
+     */
+    public static Index parseTabIndex(String tabIndex) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(tabIndex);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+
+    /** Parses a {@code String modelType} into an {@code ModelType}.
+     *
+     * @throws ParseException if the given {@code string modelType} is invalid.
+     */
+    public static ModelType parseModelType(String modelType) throws ParseException {
+        try {
+            return ModelType.valueOf(modelType.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.toString());
+        }
+    }
+
+    /** Parses a {@code String modelIndex} into an {@code ModelIndex}.
+     *
+     * @throws ParseException if the given {@code string modelIndex} is invalid.
+     */
+    public static Index parseModelIndex(String modelIndex) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(modelIndex);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenTabCommand.MESSAGE_USAGE), pe);
+        }
+    }
 }

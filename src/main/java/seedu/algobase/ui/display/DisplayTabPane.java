@@ -1,4 +1,4 @@
-package seedu.algobase.ui;
+package seedu.algobase.ui.display;
 
 import java.util.function.Consumer;
 
@@ -8,9 +8,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.model.GuiState;
+import seedu.algobase.model.gui.GuiState;
+import seedu.algobase.ui.UiPart;
 
 /**
  * Pane containing the different tabs.
@@ -22,14 +22,11 @@ public class DisplayTabPane extends UiPart<Region> {
     @FXML
     private TabPane tabsPlaceholder;
 
-    @FXML
-    private StackPane problemListPanelPlaceholder;
-
     public DisplayTabPane(GuiState guiState, DisplayTab... displayTabs) {
         super(FXML);
         addTabsToTabPane(displayTabs);
-        addListenerForIndex(guiState.getDisplayTabPaneIndex());
-        addListenerToTabPane(guiState::setDisplayTabPaneIndex);
+        addListenerForIndexChange(guiState.getTabManager().getDisplayTabPaneIndex());
+        addListenerToTabPaneIndexChange(guiState.getTabManager()::setDisplayTabPaneIndex);
     }
 
     /**
@@ -48,7 +45,7 @@ public class DisplayTabPane extends UiPart<Region> {
      *
      * @param displayTabPaneIndex The observable index.
      */
-    private void addListenerForIndex(ObservableIntegerValue displayTabPaneIndex) {
+    private void addListenerForIndexChange(ObservableIntegerValue displayTabPaneIndex) {
         displayTabPaneIndex.addListener((observable, oldValue, newValue) -> {
             selectTab((newValue.intValue()));
         });
@@ -59,7 +56,7 @@ public class DisplayTabPane extends UiPart<Region> {
      *
      * @param indexChangeHandler A callback function for when the index of the tabPane changes.
      */
-    private void addListenerToTabPane(Consumer<Index> indexChangeHandler) {
+    private void addListenerToTabPaneIndexChange(Consumer<Index> indexChangeHandler) {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

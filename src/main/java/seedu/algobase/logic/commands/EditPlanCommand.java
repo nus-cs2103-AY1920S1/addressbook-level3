@@ -8,7 +8,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -95,14 +95,15 @@ public class EditPlanCommand extends Command {
     private static Plan createEditedPlan(Plan planToEdit, EditPlanDescriptor editPlanDescriptor) {
         assert planToEdit != null;
 
+        long id = planToEdit.getId();
         PlanName updatedName = editPlanDescriptor.getPlanName().orElse(planToEdit.getPlanName());
         PlanDescription updatedDescription = editPlanDescriptor.getPlanDescription().orElse(
                 planToEdit.getPlanDescription());
-        LocalDateTime startDate = editPlanDescriptor.getStartDate().orElse(planToEdit.getStartDate());
-        LocalDateTime endDate = editPlanDescriptor.getEndDate().orElse(planToEdit.getEndDate());
+        LocalDate startDate = editPlanDescriptor.getStartDate().orElse(planToEdit.getStartDate());
+        LocalDate endDate = editPlanDescriptor.getEndDate().orElse(planToEdit.getEndDate());
         Set<Task> tasks = editPlanDescriptor.getTasks().orElse(planToEdit.getTasks());
 
-        return new Plan(updatedName, updatedDescription, startDate, endDate, tasks);
+        return new Plan(id, updatedName, updatedDescription, startDate, endDate, tasks);
     }
 
     @Override
@@ -130,8 +131,8 @@ public class EditPlanCommand extends Command {
     public static class EditPlanDescriptor {
         private PlanName name;
         private PlanDescription description;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
+        private LocalDate startDate;
+        private LocalDate endDate;
         private Set<Task> tasks;
 
 
@@ -172,19 +173,19 @@ public class EditPlanCommand extends Command {
             return Optional.ofNullable(description);
         }
 
-        public void setStartDate(LocalDateTime startDate) {
+        public void setStartDate(LocalDate startDate) {
             this.startDate = startDate;
         }
 
-        public Optional<LocalDateTime> getStartDate() {
+        public Optional<LocalDate> getStartDate() {
             return Optional.ofNullable(startDate);
         }
 
-        public void setEndDate(LocalDateTime endDate) {
+        public void setEndDate(LocalDate endDate) {
             this.endDate = endDate;
         }
 
-        public Optional<LocalDateTime> getEndDate() {
+        public Optional<LocalDate> getEndDate() {
             return Optional.ofNullable(endDate);
         }
 

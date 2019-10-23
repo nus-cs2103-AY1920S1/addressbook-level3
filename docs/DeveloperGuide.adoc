@@ -77,7 +77,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/algobase/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -96,11 +96,11 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/algobase/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `AlgoBaseParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a problem).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -111,156 +111,369 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+//@@author le0tan
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::design/model/ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/algobase/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the AlgoBase data.
+* exposes unmodifiable `ObservableList<Problem>`, `ObservableList<Tag>`, `ObservableList<Plan>`, `ObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+We organize different data classes into packages (e.g. `Problem`), inside which we provide a collection class of that data object (e.g. `UniqueProblemList`) so that `AlgoBase` can manage these data objects without knowing the details of each data class.
 
+.Structure of the Problem Package
+image::design/model/ProblemPackageDiagram.png[]
+
+.Structure of the Plan Package
+image::design/model/PlanPackageDiagram.png[]
+
+.Structure of the Tag Package
+image::design/model/TagPackageDiagram.png[]
+
+.Structure of the Task Package
+image::design/model/TaskPackageDiagram.png[]
+
+//@@author
+
+//@@author jiayushe
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/algobase/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can store `UserPref` objects in json format.
+* can retrieve `UserPref` objects from json format.
+* can store the AlgoBase app data including `Plan`, `Problem`, `Tag`, `Task` objects in relational manner in json format.
+* can retrieve `Plan`, `Problem`, `Tag`, `Task` objects from json format.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.algobase.commons` package.
+
+It contains utility files for configuration `ConfigUtil`, file handling `FileUtil`, ID generation `IdUtil`,
+JSON storage `JsonUtil`, string manipulation `StringUtil` and others.
+//@@author
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+//@@author jiayushe
+// tag::task[]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+=== Task Management Feature
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+As a algorithmic problem management tool, one of the most important features will be manage tasks that have been done
+and are to be done.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+This section will describe in details the current implementation and design considerations of
+the task management feature.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+==== Current Implementation
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+The task management feature mainly involves four main behaviours:
 
-image::UndoRedoState0.png[]
+* `AlgoBase#addTask()` - create a new task for a problem and add it to a specified plan.
+* `AlgoBase#deleteTask()` - delete an existing task from a specified plan.
+* `AlgoBase#doneTask()` - mark a task as done in a specified plan.
+* `AlgoBase#undoneTask()` - mark a task as undone in a specified plan.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Given below is an example usage scenario and how the mechanism for adding tasks behaves at each step.
 
-image::UndoRedoState1.png[]
+The following activity diagram summarizes what happens when a user executes the `AddTask` command:
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+.Activity Diagram for the Execution of `AddTask` Command
+image::task/AddTaskCommandActivityDiagram.png[]
 
-image::UndoRedoState2.png[]
+Step 1. The user launches the application.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Step 2. AlgoBase displays a list of existing problems and plans in the UI.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 3. The user executes `addtask plan/1 prob/1` to add the problem with index 1 in the list to the plan with index 1.
+The `AddTask` command calls `Plan#updateTasks` to create a new plan from the original plan with this additional task.
+After that, `Model#setPlan()` is called to replace the original plan with the updated plan in the `PlanList`.
 
-image::UndoRedoState3.png[]
+The following sequence diagram shows how the `addtask` operation works:
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+.Sequence Diagram for the Execution of `AddTask` Command
+image::task/AddTaskSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Data structure to support the task commands.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* Alternative 1 (current choice): Use a `HashSet` in current AlgoBase to save all tasks in a plan.
+** Pros: Users can manage the tasks conveniently.
+** Cons: Harder to implement for relational storage.
+* Alternative 2: Simply keep tasks as a part of a plan.
+** Pros: No need to save the task separately in the storage, all tasks are under plans.
+** Cons: Does not keep track of relations between tasks and plans.
 
-===== Aspect: Data structure to support the undo/redo commands
+// end::task[]
+//@@author
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+//@@author LuWenQ
+=== Tag feature
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+==== Implementation
+The tag mechanism is facilitated by UniqueTagList. It creates a list of Tag, stored internally as an uniqueTagList. Additionally, it implements the following operations:
 
-_{Explain here how the data encryption feature will be implemented}_
+* `AlgoBase#addTag()` - create a new tag in AlgoBase's uniqueTagList in the algobase history.
+* `AlgoBase#deleteTag()` - delete a current tag which have already in the uniqueTagList.
+* `AlgoBase#listTag()` - show the tags in the uniqueTagList in the algobase GUI for users
+* `AlgoBase#editTag()` - edit the current tag which have already been in the uniqueTagList
 
-// end::dataencryption[]
+These operations are exposed in the Model interface as `Model#addTag()`, `Model#deleteTag()`, `Model#listTag()` and `Model#editTag()` respectively.
 
-=== Logging
+Given below is an example usage scenario and how the tag mechanism behaves at each step.
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+Step1. The user launches the application for the first time. The UniqueTagList will be initialized with the initial algobase state
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+Step 2. The user executes `addtag t/easy` to add a tag named [easy] which have not applied in any problems. The addtag command calls Model#addtag(), causing the taglist added a tag after the ‘addtag t/easy’ command executes to be saved in the uniqueTagList.
 
-*Logging Levels*
+The following sequence diagram shows how the `deletetag` operation works:
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+image::AddTagSequenceDiagram.png[]
 
-[[Implementation-Configuration]]
-=== Configuration
+Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Step 4.The user executes `edittag 1 t/hard` to edit the current tag [easy] to [hard] in the `uniqueTagList`. The `edittag 1 t/hard`
+Command executes `edittag`, causing the taglist find the first tag in the list and change tag [easy] into [hard] and change all [easy] tag into [hard] in all problems.
+
+Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in the uniqueTagList. The `deletetag t/hard` command executes `deletetag`, causing the taglist delete the [hard] tag in uniqueTagList and [hard] tag in all problems.
+(diagram)
+
+The following activity diagram summarizes what happens when a user executes a new tag modifying command
+
+image::TagActivityDiagram.png[]
+
+==== Design considerations
+
+===== Aspect: Data structure to support the tag commands.
+
+* Alternative 1 (current choice): Use a list in current AlgoBase to save the content of different tags which used in tagging different problems. While problems create new tags for problems, it will also add into tag-list in AlgoBase. While the tag in problems changes, the tag in tag-list will not change and add a new tag into the tag-list in AlgoBase. While modifying tag in tag-list will change the tag for all related problem.
+** Pros: Users can manage the tags conveniently.
+** Cons: May lead to many tags do not combine with problems.
+* Alternative 2: Simply keep tags as a part of problems. While execute the tag command will search for all tags in problems for every times it execute.
+** Pros: No need to save the tag separately in the storage, all tags are under problems.
+** Cons: Difficult to manage tags in different problems. Waste time for computer to execute.
+//@@author
+
+//@@author le0tan
+// tag::find[]
+
+=== Find Problem Feature
+
+Since AlgoBase is a management tool for algorithmic questions, the search functionality is crucial to the user’s experience with AlgoBase. For instance, the planning feature heavily relies on `find` command to determine the exact set of problems the user wants to include in a training plan.
+
+This section will describe in detail the current implementation and design considerations of the find problem feature (i.e. search feature) of AlgoBase.
+
+The following activity diagram summarizes what happens when a user executes the find command:
+
+.Activity Diagram for the Execution of `find` Command
+image::find/FindCommandActivityDiagram.png[]
+
+==== Current Implementation
+
+The find problem feature mainly involves three parts:
+
+1. validating and parsing user input
+2. creating a filtering predicate from user’s search restrictions
+3. update the displayed problem list with the filtering predicate.
+
+The find problem feature is facilitated by the following classes:
+
+* `FindProblemDescriptor`
++
+It stores predicates that are needed to describe a `FindCommand`
++
+Additionally, it implements the following operation(s):
++
+** `FindProblemDescriptor#isAnyFieldProvided()` - Determines if there is at least one search restriction included in this instance of `FindProblemDescriptor`.
+** `FindProblemDescriptor#equals(...)` - Two instances of `FindProblemDescriptor` are equal if and only if all of their predicates are equal.
+* `FindCommandParser`
+It validates and parses user input to an instance of `FindCommand`.
+
+[NOTE]
+If the user provides difficulty range as one of the search restrictions, `FindCommandParser` expects the format `LOWER_BOUND \<= difficulty \<= UPPER_BOUND` while `LOWER_BOUND` and `UPPER_BOUND` are valid strings for doubles (i.e. parsable by `Double.parseDouble(...)`).
+
+* `FindCommand`
++
+It creates and stores the `predicate` from an instance of `FindProblemDescriptor`. `predicate` is used to perform the filtering of the displayed problem list when the command is executed.
++
+`predicate` returns true only when the provided problem fulfills all restrictions described by the provided instance of `FindProblemDescriptor`.
++
+Additionally, it implements the following operation(s):
++
+** `FindCommand#execute(...)` - This method overrides `Command#execute(...)`. It filters problems in `filteredProblemList` in `model` with `predicate`.
+** `FindCommand#equals(...)` - Two instances of `FindCommand` are equal if and only if their `predicate` are equal.
+
+.Class Diagram of the Find Feature
+image::find/FindCommandClassDiagram.png[]
+
+* Predicates that implements interface `Predicate<Problem>`
++
+These are classes that describes whether an instance of `Problem` is considered a match under a certain field with provided keyword(s).
++
+** `NameContainsKeywordsPredicate`
+*** It ignores case.
+*** It returns true as long as one of the keywords appear in the name as a word. (“As a word” means the matching is done word by word. For instance, `hello` doesn’t match `helloworld`.)
+** `AuthorMatchesKeywordPredicate`
+*** It is case sensitive and matches the entire author string (i.e. requires an exact match).
+** `DescriptionContainsKeywordsPredicate`
+*** It ignores case.
+*** It returns true only when all of the keywords appear in the description as a word.
+** `SourceMatchesKeywordPredicate`
+*** It requires an exact match.
+** `DifficultyIsInRangePredicate`
+*** It matches problems with LOWER_BOUND \<= difficulty \<= UPPER_BOUND
+** `TagIncludesKeywordsPredicate`
+*** Each keyword will be considered as a tag, and two tags are considered equal only when their names are exactly the same.
+*** It returns true when the provided tags are a subset of the tags of the provided problem.
+
+.Class Diagram for Predicates in the Find Feature
+image::find/PredicateClassDiagram.png[]
+
+Given below is an example usage scenario and how the find problem mechanism behaves at each step.
+
+Step 1. The user executes `find t/recursion diff/2.0-4.0` to find a problem with a tag “recursion” and difficulty between 2.0 and 4.0.
+
+Step 2. `FindCommandParser` processes the user input and returns a `FindCommand` instance with the information of user’s search restrictions.
+
+[NOTE]
+If no valid search restriction is provided by the user, `FindCommandParser` will throw a parsing exception, which is handled and displayed to the user.
+
+Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search restrictions.
+
+.Sequence Diagram for the Execution of `find` Command
+image::find/FindCommandSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to update the displayed problem list in the UI
+
+* **Alternative 1 (current choice):** Let UI display problems in a `FilteredList<Problem>` and update the displayed problem by calling `setPredicate` on the `FilteredList`.
+** Pros: Provides good protection over unexpected changes on the displayed problem list.
+** Cons: Need to write a complex logic to generate one predicate out of multiple search constraints.
+* **Alternative 2:** Let UI displays problems in an `ObservableList<Problem>` and update the list directly.
+** Pros: The implementation would be more straightforward as the logic can update the displayed list directly.
+** Cons: Leaves room for potential unexpected changes on the displayed problem list as the observable list is open to any kind of operation.
+
+===== Aspect: How to deal with the case where no search restriction is provided (i.e. user types in `find` with no arguments given)
+
+* **Alternative 1 (current choice):** Treat it as an exception and notify the user to provide at least one constraint.
+** Pros: Makes the meaning of `find` command clear - you can’t search for problems without giving any conditions.
+** Cons: Has to check there is at least one predicate provided, making the implementation a bit more complicated.
+* **Alternative 2:** Treat it as no restriction (i.e. `find` is equivalent to `list` in this case)
+** Pros: Easier implementation (if all predicates are always-true predicates, using `.and` method to chain them together would naturally result in an always-true predicate).
+** Cons: Confusing definition of a search function.
+
+===== Aspect: How to make predicates optional (i.e. user doesn’t have to provide restrictions for all searchable fields)
+
+* **Alternative 1 (current choice):** Use `FindProblemDescriptor` in which the getter for the predicate returns `Optional<Predicate>`.
+** Pros: If the parser doesn’t receive keyword(s) for a specific field, it simply doesn’t call the descriptor’s setter for that field. It doesn’t need to deal with `null`, and `null` is dealt gracefully using `Optional.ofNullable(...)`
+** Cons: Rather troublesome implementation of the descriptor.
+* **Altermative 2:** Store predicates in `FindProblemCommand` and check for not-provided predicates by comparing it with `null`.
+** Pros: More straightforward implementation.
+** Cons: If we are to add more predicates, it’s more likely that we forget to check `null` value of the new predicate.
+
+// end::find[]
+//@@author
+
+//@@author tiuweehan
+// tag::switchTab[]
+
+=== GUI Enhancements
+
+An intuitive GUI facilitates the overall user friendliness of the application. The user should be able to navigate around the application easily to facilitate a smooth experience using AlgoBase. Additionally, multitasking is important as a user may be tackling multiple algorithmic questions at a single time. One of the main enhancements that we introduced to the GUI is tabbing, which fulfils these 2 requirements.
+
+==== Current Implementation
+
+The state of the GUI is stored in a `GuiState` object. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
+
+The information is linked to the `UI` through listeners. When the attributes of the `TabManager` object is updated, it triggers callback functions in the UI controllers that update the state of the UI displayed.
+
+The following commands facilitate the management of tabs:
+
+* `AlgoBase#switchTab()` - Switch between tabs within a specified Tab pane.
+* `AlgoBase#openTab()` - Opens a new tab containing details of a model.
+* `AlgoBase#closeTab()` - Closes an existing tab.
+
+These operations are exposed in the `TabManager` class respectively as:
+
+* `SwitchTab()`: `TabManager#setDisplayTabIndex` and `TabManager#setDetailsTabIndex`
+* `OpenTab()`: `TabManager#addTab`
+* `CloseTab()`: `TabManager#removeTab`
+
+The following Activity Diagrams illustrate what happens when the user executes a `SwitchTabCommand` or `OpenTabCommand`
+
+image::gui/SwitchTabCommandActivityDiagram.png[]
+_Figure 1.1 Activity Diagram for the Execution of `switchtab` Command_
+
+image::gui/OpenTabCommandActivityDiagram.png[]
+_Figure 1.2 Activity Diagram for the Execution of `opentab` Command_
+
+Given below is an example usage scenario and how the tag mechanism behaves at each step.
+
+image::gui/SwitchTabsSequenceDiagram0.png[]
+_Figure 2.1 Sequence Diagram for instantiating a `SwitchCommand` object_
+
+Step 1: The user executes `switchtab t/display i/1` to switch to the first tab in the `display` tabpane.
+
+Step 2: `SwitchTabCommandParser` processes the user input, retrieving the tab type (`display`) and the index (`1`).
+
+Step 3: These two attributes are passed into the constructor of a `SwitchTabCommand` and a corresponding `SwitchTabCommand` object is returned to the LogicManager
+
+
+image::gui/SwitchTabsSequenceDiagram1.png[]
+_Figure 2.2 Sequence Diagram for updating the tab index in the TabManager_
+
+Step 4: `LogicManager` invokes `execute()` method of the returned `SwitchTabCommand`, which retrieves the TabManager from the `Model` object. The `setDisplayTabPaneIndex(1)` method is invoked with the index 1 that the `SwitchTabCommand` was instantiated with.
+
+Step 5: Invoking this method updates the integer value in the `displayTabIndex` field (type `ObservableIntegerValue`) of the `TabManager`.
+
+
+image::gui/SwitchTabsSequenceDiagram2.png[]
+_Figure 3.3 Sequence Diagram for reflecting the tab changes_
+
+Step 6: A listener was added to the `displayTabIndex` field when the application was initialized. When a change in the value is detected, it triggers the `selectTab(1)` method with the value of the new index passed as an argument. This updates the selected tab in the UI.
+
+==== Design Considerations
+
+Aspect: Implementation of Tab Logic
+
+* Alternative 1 (current choice): Implement Tab Logic separately within model and UI.
+** Pros: Modularizes the logic and reduces the need for tighter coupling between model and UI
+** Cons: Multiple sources of truth and more modules to be implemented
+* Alternative 2: Implement Tab Logic as a singular module
+** Pros: Single source of truth for state of tabs
+** Cons: Increasing coupling between Model and UI, which in turn reduces testability
+
+Aspect: How to update the tab in the UI
+
+* Alternative 1 (current choice): Using a listener to detect changes to state of tab
+** Pros: Reduces coupling between the `TabManager` class and the UI
+** Cons: As callback functions are utilized, it is not immediately obvious how changes in state of TabManager leads to a change in the UI
+* Alternative 2:
+** Pros: Execution is sequential and it is easier to keep track of the flow of the program.
+** Cons: Increases coupling between the `TabManager` class and the UI and reduces testability.
+
+// end::switchTab[]
+//@@author
 
 == Documentation
 
@@ -620,6 +833,16 @@ Use case ends.
 +
 [none]
 ** 2a1. AlgoBase informs user that the specified view of items does not exist.
++
+Use case ends.
+
+[discrete]
+=== Use Case 12: See details of an item
+
+*MSS*
+
+1.  User requests to see the details of a specified item from the list of items.
+2.  AlgoBase displays the details of that item.
 +
 Use case ends.
 

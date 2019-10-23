@@ -103,15 +103,15 @@ Edits the author of the 1st problem to be `John Doe` respectively.
 * `edit 2 n/permutations t/` +
 Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
 
-==== Locating problems by name: `find`
+==== Locating problems: `find`
 
-Finds problems whose names contain any of the given keywords. +
+Finds problems fulfilling all provided constraints. +
 Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
 
 * Name
-** is case-insensitive and is matched by words. e.g. `henz` will match `Henz`
+** is case-insensitive. e.g. `henz` will match `Henz`
+** is considered a match as long as one word matches. (e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`)
 ** is matched word by word. e.g. `hello` will match `hello world` but not `helloworld`
-** is considered a match as long as one word matches. e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`
 * Author requires an exact match.
 * Description
 ** is case-insensitive
@@ -123,15 +123,17 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND
 ** Constraint tag set is a subset of matching problems. (e.g. `find t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
 ** Tags are considered equal only when the tag strings are exactly matched.
 * Difficulty
-** matches problems with `LOWER_BOUND <= difficulty <= UPPER_BOUND`
+** matches problems with `LOWER_BOUND \<= difficulty \<= UPPER_BOUND`
 ** Note that you should provide both bounds. If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
 
 Examples:
 
-* `find factorial` +
-Returns `factorial` and `Factorialize`
-* `find factorial permutations` +
-Returns any problem having names `factorial`, or `permutations`
+* `find n/Sequence` +
+Returns any problem with word `sequence` (case-insensitive) in its name.
+* `find t/algorithm diff/2.0-4.0` +
+Returns any problem with `algorithm` as one of its tags AND with a difficulty between 2.0 and 4.0 (inclusive).
+* `find a/Hentin Marz src/Kattis` +
+Returns any problem from `Kattis` that's authored by `Hentin Marz`.
 
 ==== Listing all problems : `list`
 
@@ -220,11 +222,11 @@ Format: `listplan`
 ==== Adding a new task to a plan: `addtask`
 
 Adds a task to a specified plan. +
-Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX`
+Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/TARGET_DATE]`
 
 Examples:
 
-* `addtask plan/1 prob/1`
+* `addtask plan/1 prob/1 due/2019-12-12`
 
 ==== Deleting a task from a plan: `deletetask`
 
@@ -247,11 +249,49 @@ Examples:
 ==== Marking a task as undone: `undonetask`
 
 Marks a specified task in a specified plan as undone. +
-Format: `undone plan/PLAN_INDEX prob/TASK_INDEX`
+Format: `undonetask plan/PLAN_INDEX task/TASK_INDEX`
 
 Examples:
 
 * `undonetask plan/1 task/1`
+
+=== Tabs
+
+==== Switching Tabs: `switchtab`
+Switches between tabs in the GUI +
+Format: `switchtab t/TAB_TYPE i/TAB_INDEX`
+
+* Tab Type
+** can be `display` or `details`
+
+Examples:
+
+* `switchtab t/display i/1`
+* `switchtab t/details i/2`
+
+==== Open Tabs: `opentab`
+Opens a new tab in the GUI +
+Format: `opentab m/MODEL_TYPE i/MODEL_INDEX`
+
+* Model Type
+** can be `problem`, `tag` or `plan`
+
+Examples:
+
+* `opentab m/problem i/1`
+* `opentab m/plan i/2`
+
+==== Close Tabs: `closetab`
+Closes a tab in the GUI +
+Format: `closetab t/TAB_TYPE i/TAB_INDEX`
+
+* Tab Type
+** can be `display` or `details`
+
+Examples:
+
+* `closetab t/display i/1`
+* `closetab t/details i/2`
 
 === Importing and Exporting data
 
@@ -284,16 +324,6 @@ Examples:
 ==== Encrypting data files `[coming in v2.0]`
 
 === Miscellaneous
-
-==== Switching tabs : `switch`
-
-Switches to a tab display in the application. +
-Format: `switch INDEX`
-
-Examples:
-
-* `switch 1`
-Switches to the tab at index 1.
 
 ==== Viewing help : `help`
 
@@ -339,9 +369,9 @@ e.g. `delete 3`
 * *Sort* : `sort m/METHOD [d/DIRECTION]` +
 e.g. `sort m/alphabetical d/ASC`
 
-* *New Tag* : `newtag n/NAME` +
-e.g. `newtag n/sssp`
-* *List Tags* : `lstag`
+* *New Tag* : `addtag n/NAME` +
+e.g. `addtag n/sssp`
+* *List Tags* : `listtag`
 * *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
 
@@ -352,10 +382,14 @@ e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 * *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
 e.g. `find training set`
 * *List Training Plans* : `listplan`
-* *Mark Training Plan as done* : `done PLAN_INDEX PROBLEM_INDEX` +
-e.g. `done 1 2`
-* *Mark Training Plan as undone* : `undone PLAN_INDEX PROBLEM_INDEX` +
-e.g. `undone 1 2`
+* *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
+e.g. `addtask plan/1 prob/2`
+* *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `deletetask plan/1 task/2`
+* *Mark Task as done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `donetask plan/1 task/2`
+* *Mark Task as undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
+e.g. `undonetask plan/1 task/2`
 
 * *Importing data* : `import f/FORMAT p/PATH` +
 e.g. `import t/plan p/./steven_halim_secret.json`

@@ -1,0 +1,33 @@
+@startuml
+!include ../../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show <<enumeration>> fields
+
+Package Problem {
+    Class Author
+    Class Description
+    Class Difficulty
+    Class Name
+    Class Problem
+    Class Remark
+    Class Source
+    Class UniqueProblemList
+    Class WebLink
+}
+
+'Problem
+UniqueProblemList o--> "*" Problem
+Problem *--> Author
+Problem *--> Description
+Problem *--> Difficulty
+Problem *--> Name
+Problem *--> Remark
+Problem *--> Source
+Problem *--> WebLink
+Problem *--> "*" Tag
+
+
+@enduml

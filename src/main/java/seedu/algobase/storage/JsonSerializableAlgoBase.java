@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
@@ -28,6 +29,7 @@ class JsonSerializableAlgoBase {
     private final List<JsonAdaptedProblem> problems = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedProblemSearchRule> findRules = new ArrayList<>();
+    private final List<JsonAdaptedPlan> plans = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAlgoBase} with the given problems.
@@ -35,9 +37,11 @@ class JsonSerializableAlgoBase {
     @JsonCreator
     public JsonSerializableAlgoBase(@JsonProperty("problems") List<JsonAdaptedProblem> problems,
                                     @JsonProperty("tags") List<JsonAdaptedTag> tags,
-                                    @JsonProperty("findRules") List<JsonAdaptedProblemSearchRule> findRules) {
+                                    @JsonProperty("findRules") List<JsonAdaptedProblemSearchRule> findRules,
+                                    @JsonProperty("plans") List<JsonAdaptedPlan> plans) {
         this.problems.addAll(problems);
         this.tags.addAll(tags);
+        this.plans.addAll(plans);
         this.findRules.addAll(findRules);
     }
 
@@ -51,6 +55,7 @@ class JsonSerializableAlgoBase {
         tags.addAll(source.getTagList().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
         findRules.addAll(
             source.getFindRules().stream().map(JsonAdaptedProblemSearchRule::new).collect(Collectors.toList()));
+        plans.addAll(source.getPlanList().stream().map(JsonAdaptedPlan::new).collect(Collectors.toList()));
     }
 
     /**
@@ -60,6 +65,13 @@ class JsonSerializableAlgoBase {
      */
     public AlgoBase toModelType() throws IllegalValueException {
         AlgoBase algoBase = new AlgoBase();
+        for (JsonAdaptedTag jsonAdaptedTag : tags) {
+            Tag tag = jsonAdaptedTag.toModelType();
+            if (algoBase.hasTag(tag)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
+            }
+            algoBase.addTag(tag);
+        }
         for (JsonAdaptedProblem jsonAdaptedProblem : problems) {
             Problem problem = jsonAdaptedProblem.toModelType();
             if (algoBase.hasProblem(problem)) {
@@ -67,12 +79,9 @@ class JsonSerializableAlgoBase {
             }
             algoBase.addProblem(problem);
         }
-        for (JsonAdaptedTag jsonAdaptedTag : tags) {
-            Tag tag = jsonAdaptedTag.toModelType();
-            if (algoBase.hasTag(tag)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
-            }
-            algoBase.addTag(tag);
+        for (JsonAdaptedPlan jsonAdaptedPlan : plans) {
+            Plan plan = jsonAdaptedPlan.toModelType(algoBase);
+            algoBase.addPlan(plan);
         }
         for (JsonAdaptedProblemSearchRule jsonAdaptedProblemSearchRule: findRules) {
             ProblemSearchRule rule = jsonAdaptedProblemSearchRule.toModelType();

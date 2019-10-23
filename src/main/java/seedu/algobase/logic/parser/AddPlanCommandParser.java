@@ -6,7 +6,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -47,22 +47,21 @@ public class AddPlanCommandParser implements Parser<AddPlanCommand> {
             description = PlanDescription.DEFAULT_PLAN_DESCRIPTION;
         }
 
-        LocalDateTime startDate;
+        LocalDate startDate;
         if (arePrefixesPresent(argMultimap, PREFIX_START_DATE)) {
             startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         } else {
-            startDate = LocalDateTime.now();
+            startDate = LocalDate.now();
         }
 
-        LocalDateTime endDate;
+        LocalDate endDate;
         if (arePrefixesPresent(argMultimap, PREFIX_END_DATE)) {
             endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
         } else {
-            endDate = LocalDateTime.now();
+            endDate = LocalDate.now().plusMonths(1);
         }
 
         Set<Task> tasks = new HashSet<>();
-        // TODO: implementation
 
         Plan plan = new Plan(name, description, startDate, endDate, tasks);
 

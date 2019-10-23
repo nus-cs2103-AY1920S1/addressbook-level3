@@ -1,0 +1,19 @@
+@startuml
+
+start
+
+:User executes a switch tab command;
+
+if () then ([command is valid])
+	:Instantiate a SwitchTabCommand with the tab type and index;
+	:Execute SwitchTabCommand;
+	:Update TabManager with new index for given tab type;
+	:Listener is activated and tab change is reflected in UI;
+else ([else])
+	:Throw an exception;
+	:Update UI to notify the user;
+endif
+
+stop
+
+@enduml

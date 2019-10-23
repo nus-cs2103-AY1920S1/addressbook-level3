@@ -3,6 +3,8 @@ package seedu.algobase.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.index.Index;
@@ -24,7 +26,7 @@ class AddTaskCommandTest {
         Index planIndex = Index.fromOneBased(model.getFilteredProblemList().size());
         Index outOfBoundProblemIndex = Index.fromOneBased(model.getFilteredProblemList().size() + 1);
         AddTaskCommand.AddTaskDescriptor descriptor =
-            new AddTaskCommand.AddTaskDescriptor(planIndex, outOfBoundProblemIndex);
+            new AddTaskCommand.AddTaskDescriptor(planIndex, outOfBoundProblemIndex, LocalDate.now());
         AddTaskCommand addTaskCommand = new AddTaskCommand(descriptor);
         assertThrows(CommandException.class, () -> addTaskCommand.execute(model));
     }
