@@ -152,4 +152,10 @@ public interface Model {
      */
     ObservableList<Budget> getFilteredBudgetList();
 
+    /**
+     * Deletes the given budget.
+     * The budget must exist in the bank account.
+     * @param Budget
+     */
+    void deleteBudget(Budget budgetToDelete);
 }

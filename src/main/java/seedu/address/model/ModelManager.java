@@ -106,6 +106,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteBudget(Budget budget) {
+        versionedBankAccount.removeBudget(budget);
+    }
+
+    @Override
     public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 

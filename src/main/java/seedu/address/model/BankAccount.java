@@ -96,6 +96,14 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Removes {@code key} from this {@code BankAccount}.
+     * {@code key} must exist in the bank account.
+     */
+    public void removeBudget(Budget key) {
+        budgets.remove(key);
+    }
+
+    /**
      * Checks if transaction exists in bank account.
      *
      * @param transaction Transaction to be checked.
