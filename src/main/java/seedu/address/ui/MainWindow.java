@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private MainTabPanel mainTabPanel;
     private TransactionListPanel transactionListPanel;
     private BudgetListPanel budgetListPanel;
     private ResultDisplay resultDisplay;
@@ -45,6 +46,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane mainTabPanelPlaceholder;
 
     @FXML
     private MenuItem transactionMenuItem;
@@ -128,12 +132,12 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         ObservableList<BankAccountOperation> list = logic.getTransactionList();
         transactionListPanel = new TransactionListPanel(list);
-        transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
         ObservableList<Budget> budgetList = logic.getBudgetList();
         budgetListPanel = new BudgetListPanel(budgetList);
-        budgetListPanelPlaceholder.setPrefSize(180, 180);
-        budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
+
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel);
+        mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -156,6 +160,7 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
+
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -215,4 +220,19 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Switch to transaction tab.
+     */
+    private void showTransactionTab() {
+        mainTabPanel.switchToTransactionTab();
+    }
+
+    /**
+     * Switch to budget tab.
+     */
+    private void showBudgetTab() {
+        mainTabPanel.switchToBudgetTab();
+    }
+
 }
