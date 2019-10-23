@@ -281,7 +281,8 @@ Like a `Meme`, a `Template` also has an associated image that is stored on the h
 Each `Template` object has 2 fields, `Name` and `ImagePath`, where `Name` serves as the identifier and `ImagePath` holds the path to the image of this template.
 A user can add, edit, delete, or find a template.
 
-image::ModelClassDiagram.png[]
+.Partial class diagram showing only classes in `Model` that concern `Template`
+image::TemplateClassDiagram.png[]
 
 Templates are stored alongside `Memes` in `MemeBook` in a `UniqueTemplateList`.
 The `ModelManager` will store a `FilteredList<Template>` that only holds the `Templates` that satisfy the current filter predicate.
