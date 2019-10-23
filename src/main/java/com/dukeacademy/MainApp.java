@@ -252,7 +252,7 @@ public class MainApp extends Application {
         logger.info("============================ [ Initializing program submission logic ] "
                 + "=============================");
         try {
-            String outputPath = userPrefs.getTestExecutorOutputPath().toUri().getPath();
+            String outputPath = userPrefs.getTestExecutorOutputPath().toString();
             return new ProgramSubmissionLogicManager(outputPath);
         } catch (LogicCreationException e) {
             return null;
