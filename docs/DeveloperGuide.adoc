@@ -264,12 +264,75 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::autotag[]
+=== Autotag feature
+==== Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The autotag mechanism is facilitated by `AutotagController`. It stores and manages a list of `SelectiveBookmarkTaggers` which apply tags to
+bookmarks if they match specific criteria. It also implements the following operations:
 
-// end::dataencryption[]
+* `AutotagController#hasTagger(SelectiveBookmarkTagger)` -- Checks whether the controller contains the given tagger.
+* `AutotagController#addTagger(SelectiveBookmarkTagger)` -- Starts managing the given tagger.
+* `AutotagController#applyTaggersToList(List<Bookmark>)` -- Tags the bookmarks in the list using all relevant taggers.
+* `AutotagController#applyTaggers(Bookmark)` -- Tags the bookmark using all relevant taggers.
+
+The first three operations are exposed in the `Model` interface as `Model#hasTagger(SelectiveBookmarkTagger)`, `Model#addTagger(SelectiveBookmarkTagger)`,
+and `Model#applyAllTaggers()` respectively.
+
+Given below is an example usage scenario and how the autotag mechanism behaves at each step.
+
+Step 1. The user opens the application with an existing list of bookmarks and no autotags.
+
+image::AutotagState0.png[]
+
+Step 2. The user executes the command `autotag Help u/stackoverflow.com/questions` to add an autotag that tags all bookmarks
+from StackOverflow with the tag ProgrammingHelp. A `SelectiveBookmarkTagger` is created with a `UrlContainsKeywordsPredicate` and the tag
+`Help`. `b2`, which matches the `UrlContainsKeywordsPredicate`, is replaced by a copy of itself that also contains the tag
+`Help`.
+
+image::AutotagState1.png[]
+
+The following sequence diagram shows how the `autotag` command works.
+
+// TODO: make sequence diagram
+image::AutotagSequenceDiagram.png[]
+
+Now, autotags will be applied whenever a bookmark is added or modified.
+
+Step 3. The user then executes the command `add n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/` to bookmark
+a question on StackOverflow. This bookmark matches the conditions for the autotag `Help`, so it is tagged.
+
+image::AutotagState2.png[]
+
+The following activity diagram summarizes what happens when a user executes a `*autotag*` command:
+
+// TODO: make activity diagram
+image::AutotagActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How autotags are applied
+
+* **Alternative 1 (current choice):** Iterate through each autotag and bookmark, then apply tags to all bookmarks that match.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of runtime, as bookmarks may be checked multiple times.
+* **Alternative 2:** Check for changes in the bookmark list then edit tags accordingly.
+** Pros: Will be faster if most bookmarks are unchanged.
+** Cons: More complicated to implement.
+
+===== Aspect: How to apply taggers to a bookmark list in Mark
+
+* **Alternative 1:** Modify individual bookmarks when adding tags.
+** Pros: Eliminates the need to reset Mark's bookmark list whenever taggers are applied.
+** Cons: Can cause unanticipated changes in other parts of the Model.
+* **Alternative 2 (current choice):** Replace the whole bookmark list with a new list of bookmarks, some of which have been tagged.
+** Pros: Simple to implement, ensures immutability of bookmarks.
+** Cons: Inefficient to construct a new list each time a single bookmark is tagged.
+* **Alternative 3:** Replace only those bookmarks that were tagged.
+** Pros: Minimises performance issues from creating a new bookmark list.
+** Cons: More complicated to implement.
+
+// end::autotag[]
 
 === Logging
 
