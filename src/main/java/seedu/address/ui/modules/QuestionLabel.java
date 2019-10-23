@@ -9,7 +9,7 @@ import seedu.address.ui.UiPart;
  * UI Class that represents the region for the question to be displayed on.
  */
 public class QuestionLabel extends UiPart<Region> {
-    private static final String FXML = "questionLabel.fxml";
+    private static final String FXML = "QuestionLabel.fxml";
 
     @FXML
     private Label questionLabel;

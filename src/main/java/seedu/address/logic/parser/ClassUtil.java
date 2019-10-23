@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
+@SuppressWarnings("unchecked")
 public class ClassUtil {
 
     private Model model;
