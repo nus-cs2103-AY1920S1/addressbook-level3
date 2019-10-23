@@ -5,10 +5,10 @@ import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
+import seedu.ezwatchlist.model.WatchList;
 
 public class ClearCommandTest {
 

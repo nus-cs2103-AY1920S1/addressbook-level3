@@ -1,22 +1,22 @@
 package seedu.ezwatchlist.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.ezwatchlist.commons.core.GuiSettings;
-import seedu.ezwatchlist.model.WatchList;
-import seedu.ezwatchlist.model.ModelManager;
-import seedu.ezwatchlist.model.UserPrefs;
-import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
-import seedu.ezwatchlist.testutil.WatchListBuilder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
+import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
+import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
-import static seedu.ezwatchlist.testutil.Assert.assertThrows;
-import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
-import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
+import org.junit.jupiter.api.Test;
+
+import seedu.ezwatchlist.commons.core.GuiSettings;
+import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
+import seedu.ezwatchlist.testutil.WatchListBuilder;
 
 public class ModelManagerTest {
 

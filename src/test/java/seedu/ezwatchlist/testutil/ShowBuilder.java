@@ -4,7 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvShow;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 
 /**
@@ -70,8 +77,8 @@ public class ShowBuilder {
     /**
      * Parses the {@code Actors} into a {@code Set<Actors>} and set it to the {@code Actors} that we are building.
      */
-    public ShowBuilder withActors(String ... Actors) {
-        this.actors = SampleDataUtil.getActorSet(Actors);
+    public ShowBuilder withActors(String ... actors) {
+        this.actors = SampleDataUtil.getActorSet(actors);
         return this;
     }
 
@@ -94,8 +101,8 @@ public class ShowBuilder {
     /**
      * Sets the {@code Date} of the {@code Show} that we are building.
      */
-    public ShowBuilder withDateOfRelease(String Date) {
-        this.dateOfRelease = new Date(Date);
+    public ShowBuilder withDateOfRelease(String date) {
+        this.dateOfRelease = new Date(date);
         return this;
     }
 
@@ -107,13 +114,16 @@ public class ShowBuilder {
         return this;
     }
 
-
+    /**
+     * Builds the show.
+     * @return show.
+     */
     public Show build() {
         if (type.equals("movie")) {
             return new Movie(name, description, isWatched, dateOfRelease, runningTime, actors);
         } else {
             return new TvShow(name, description, isWatched, dateOfRelease, runningTime, actors,
-                    0 ,0, null);
+                    0 , 0, null);
         }
     }
 

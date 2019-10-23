@@ -4,13 +4,11 @@ import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FO
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.commands.SearchCommand;
-import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
 
 public class SearchCommandParserTest {
 
