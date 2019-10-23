@@ -8,7 +8,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.studyplan.Title;
 import seedu.address.model.util.DefaultStudyPlanUtil;
 
 /**
