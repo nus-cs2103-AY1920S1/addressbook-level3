@@ -79,6 +79,21 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * To change tab to tasks tab.
+     */
+    public static void startTasks() {
+        logger.info("Changing to Tasks...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillTasks();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }

@@ -84,7 +84,7 @@ public class Task {
         builder.append(" Description: ")
                 .append(getDescription())
                 .append(" Time: ")
-                .append(getTime())
+                .append(getTime() + "\n")
                 .append(" Status: ")
                 .append(getMarking());
         return builder.toString();
