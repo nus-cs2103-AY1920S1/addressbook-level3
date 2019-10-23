@@ -306,7 +306,7 @@ the borrower brings the physical book forward to reserve it as he/she does not w
 This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
 just after a book is loaned out can be seen below.
 
-image::LoanObjectDiagram.png[]
+image::LoanObjectDiagram.png[width="880"]
 
 In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
 The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
@@ -323,7 +323,7 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 
 The following activity diagram summarizes what happens when a user enters a loan command:
 
-image::LoaningActivityDiagram.png[]
+image::LoaningActivityDiagram.png[width="650"]
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
 they are not shown.
@@ -344,7 +344,7 @@ Similarly, the new book object also replaces the old book object in the `Catalog
 
 The following activity diagram summarizes what happens when a user enters a return command:
 
-image::ReturningActivityDiagram.png[]
+image::ReturningActivityDiagram.png[width="820"]
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
 they are not shown.
