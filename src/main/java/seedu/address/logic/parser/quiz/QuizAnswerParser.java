@@ -31,7 +31,7 @@ public class QuizAnswerParser implements Parser<QuizCheckAnswer> {
         }
 
         final String index = matcher.group("index");
-        final String stringAnswer = matcher.group("answer");
+        final String stringAnswer = matcher.group("answer").trim();
         final int intIndex = Integer.parseInt(index) - 1;
         final Answer answer = new Answer(stringAnswer);
 
