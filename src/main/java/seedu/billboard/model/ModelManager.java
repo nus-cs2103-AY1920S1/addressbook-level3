@@ -47,7 +47,7 @@ public class ModelManager implements Model {
         this.billboard = new Billboard(noArchiveExpensesBillboard);
         this.userPrefs = new UserPrefs(userPrefs);
         this.statsType = new ObservableData<>();
-        this.statsType.setValue(StatisticsFormat.TIMELINE); // default stats type
+        this.statsType.setValue(StatisticsFormat.BREAKDOWN); // default stats type
 
         logger.fine("Initializing with billboard: " + billboard
                 + " and archives: " + archives

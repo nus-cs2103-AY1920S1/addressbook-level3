@@ -24,7 +24,7 @@ import seedu.billboard.model.statistics.formats.ExpenseTimeline;
 import seedu.billboard.model.statistics.generators.TimelineGenerator;
 
 /**
- * Represents a chart showing the timeline for expenses.
+ * A chart showing the timeline for the currently displayed expenses.
  */
 public class ExpenseTimelineChart extends ExpenseChart {
 
@@ -42,10 +42,15 @@ public class ExpenseTimelineChart extends ExpenseChart {
     private final EnumMap<DateInterval, DateTimeFormatter> dateIntervalFormats;
     private final ObservableData<DateInterval> interval;
     private final TimelineGenerator timelineGenerator;
+    private final XYChart.Series<String, BigDecimal> series;
 
-    private XYChart.Series<String, BigDecimal> series;
 
-
+    /**
+     * Returns a new {@code ExpenseTimelineChart} with the specified parameters.
+     * @param expenses An observable wrapper of the currently displayed expenses.
+     * @param interval An observable wrapper of the selected date interval to display.
+     * @param timelineGenerator Instance of a class that generates the timeline to be viewed.
+     */
     public ExpenseTimelineChart(ObservableList<? extends Expense> expenses, ObservableData<DateInterval> interval,
                                 TimelineGenerator timelineGenerator) {
 
@@ -61,6 +66,10 @@ public class ExpenseTimelineChart extends ExpenseChart {
         initChart();
     }
 
+    /**
+     * Helper method to setup an enum map of date intervals to a formatter to format the date ranges for displaying
+     * on the chart.
+     */
     private void setupDateIntervalFormats(EnumMap<DateInterval, DateTimeFormatter> dateIntervalFormats) {
         dateIntervalFormats.put(DateInterval.DAY, DateTimeFormatter.ofPattern("dd/MM/yy"));
         dateIntervalFormats.put(DateInterval.WEEK, DateTimeFormatter.ofPattern("dd/MM/yy"));
@@ -79,10 +88,13 @@ public class ExpenseTimelineChart extends ExpenseChart {
         timelineChart.getData().add(series);
 
         expenses.addListener((ListChangeListener<Expense>) c ->
-                onDataChange(timelineGenerator.generate(expenses, interval.getValue())));
+                onDataChange(timelineGenerator.generate(c.getList(), interval.getValue())));
     }
 
 
+    /**
+     * Helper method called when the displayed list of expenses change.
+     */
     private void onDataChange(ExpenseTimeline newData) {
         List<Pair<DateRange, Amount>> timeline = newData.getTimelineValues();
         List<XYChart.Data<String, BigDecimal>> data = mapToData(timeline, newData.getDateInterval());
@@ -90,8 +102,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
     }
 
     /**
-     * Transforms a list of pairs date range and amount from the expense timeline into a list of formatted data
-     * ready to be displayed.
+     * Maps a list of pairs of date range and amount into a list of formatted data ready to be displayed.
      */
     private List<XYChart.Data<String, BigDecimal>> mapToData(List<Pair<DateRange, Amount>> timeline,
                                                              DateInterval interval) {

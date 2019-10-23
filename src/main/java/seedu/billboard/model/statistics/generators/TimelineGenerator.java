@@ -15,8 +15,8 @@ import seedu.billboard.model.statistics.formats.ExpenseTimeline;
 import seedu.billboard.model.statistics.formats.FilledExpenseTimeline;
 
 /**
- * Stateless class to generate statistics. Every method is a pure function, taking in a list of expenses and other
- * specified options and returning an object representing the desired statistic, with no side effects.
+ * Stateless class to generate a timeline of aggregate expenses. Methods here are guaranteed to have no side effects,
+ * or depend on external state.
  */
 public class TimelineGenerator implements StatisticsGenerator<ExpenseTimeline> {
 
@@ -34,7 +34,6 @@ public class TimelineGenerator implements StatisticsGenerator<ExpenseTimeline> {
      * @param interval Specified date interval.
      * @return A representation of the expenses as a timeline
      */
-    @Override
     public ExpenseTimeline generate(List<? extends Expense> expenses, DateInterval interval) {
         if (!CollectionUtil.checkNonEmpty(expenses)) {
             return new EmptyExpenseTimeline();

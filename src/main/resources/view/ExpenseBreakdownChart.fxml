@@ -6,7 +6,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
-    <PieChart fx:id="breakdownChart"
+    <PieChart fx:id="pieChart"
               AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0"

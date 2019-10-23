@@ -2,7 +2,6 @@ package seedu.billboard.model.statistics.generators;
 
 import java.util.List;
 
-import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.model.expense.Expense;
 
 /**
@@ -17,13 +16,4 @@ public interface StatisticsGenerator<T> {
      * @return A statistic representation T.
      */
     T generate(List<? extends Expense> expenses);
-
-    /**
-     * Generates statistics based on the given list of expenses, and the specified date interval.
-     *
-     * @param expenses Input expenses.
-     * @param interval Specified date interval.
-     * @return A statistic representation T.
-     */
-    T generate(List<? extends Expense> expenses, DateInterval interval);
 }

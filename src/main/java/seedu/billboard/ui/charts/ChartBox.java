@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.generators.BreakdownGenerator;
 import seedu.billboard.model.statistics.generators.TimelineGenerator;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.ui.UiPart;
@@ -50,7 +51,7 @@ public class ChartBox extends UiPart<Region> {
             currentChart = new ExpenseTimelineChart(expenses, dateInterval, new TimelineGenerator());
             break;
         case BREAKDOWN:
-            currentChart = null; // TODO
+            currentChart = new ExpenseBreakdownChart(expenses, new BreakdownGenerator());
             break;
         default:
             throw new UnsupportedOperationException("Chart not implemented for selected statistic");
