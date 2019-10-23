@@ -198,7 +198,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean patientHasOngoingVisit(Person personToDelete) {
+        public boolean patientHasOngoingVisit(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 

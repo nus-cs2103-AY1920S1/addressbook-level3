@@ -65,7 +65,7 @@ public interface Model {
     /**
      * Record a new ongoing visit of person in the model.
      * This will be saved until the visit is finished.
-     * Ongoing visit must be from a Patient unmodified for this to work without throwing an exception,
+     * Ongoing visit must be from a Patient unmodified or an IllegalArgumentException will be thrown,
      * so only use this to begin visits.
      */
     void setNewOngoingVisit(Visit visit);
@@ -97,7 +97,7 @@ public interface Model {
      * Note: The current implementation only checks if this person is the one being tracked using the
      * currentPersonAndVisit.
      */
-    boolean patientHasOngoingVisit(Person personToDelete);
+    boolean patientHasOngoingVisit(Person person);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

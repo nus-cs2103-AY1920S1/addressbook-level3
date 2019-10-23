@@ -138,8 +138,8 @@ public class ModelManager implements Model {
     public void setNewOngoingVisit(Visit visit) {
         requireNonNull(visit);
         ongoingVisitList.clear();
-        ongoingVisitList.add(visit);
         stagedAddressBook.setOngoingVisit(visit);
+        ongoingVisitList.add(visit);
     }
 
     @Override
@@ -177,11 +177,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean patientHasOngoingVisit(Person patientToDelete) {
-        requireNonNull(patientToDelete);
+    public boolean patientHasOngoingVisit(Person person) {
+        requireNonNull(person);
         Optional<Visit> optionalVisit = getOngoingVisit();
         return optionalVisit.isPresent()
-                && patientToDelete.equals(optionalVisit.get().getPatient());
+                && person.equals(optionalVisit.get().getPatient());
     }
 
     @Override
