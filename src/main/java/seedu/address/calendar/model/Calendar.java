@@ -47,7 +47,7 @@ public class Calendar {
     }
 
     /**
-     * Adds an event to the calendar
+     * Adds an event to the calendar.
      */
     public void addEvent(Event event) {
         events.add(event);
