@@ -17,6 +17,7 @@ public class Quantity {
     public static final String DEFAULT_QUANTITY = "1";
     public static final String MESSAGE_CONSTRAINTS =
             "Quantity added should be a positive integer and should not be blank";
+    public static final int MAX_VALUE = 100000;
     private static final String INTERNAL_MESSAGE_CONSTRAINTS =
             "Quantity added should be a non-negative integer and should not be blank";
     private int quantity;
@@ -56,13 +57,16 @@ public class Quantity {
     }
 
     public static boolean isValidQuantity(String test) {
-        return StringUtil.isNonNegativeInteger(test);
+        return StringUtil.isNonNegativeInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
     }
     /**
      * Returns true if a given input string is a valid quantity.
      */
+    /**
+     * Returns true if a given input string is a valid quantity and lies below the maximum value.
+     */
     public static boolean isValidInputQuantity(String test) {
-        return StringUtil.isNonZeroUnsignedInteger(test);
+        return StringUtil.isNonZeroUnsignedInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
     }
 
     /**
