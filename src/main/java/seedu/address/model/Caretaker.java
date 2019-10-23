@@ -1,80 +1,71 @@
 package seedu.address.model;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
-import seedu.address.model.student.Student;
-
 import java.util.ArrayList;
 
+/**
+ * Manages a list of all the previous Address Books.
+ */
 public class Caretaker extends AddressBook {
 
     private ArrayList<Memento> mementos = new ArrayList<>();
     private int statePointer;
     private final AddressBook addressBook;
-    //private final ArrayList<InvalidationListener> invalidationListeners;
 
+    /**
+     * Initializes the list of mementos.
+     * @param start the first state of the address book.
+     * @param addressBook the address book where changes are updated in
+     */
     public Caretaker(Memento start, AddressBook addressBook) {
         statePointer = 0;
         mementos.add(start);
         this.addressBook = addressBook;
-        //invalidationListeners = new ArrayList<>();
     }
 
-    /*
-    public ArrayList<InvalidationListener> getInvalidationListenersList() {
-        return this.invalidationListenersList;
-    }
+    /**
+     * Saves the current state of address book into the list of mementos.
      */
-
     public void saveState() {
         mementos = new ArrayList<>(mementos.subList(0, statePointer + 1));
-        //mementos = new ArrayList<>(mementos.subList(0, statePointer + 1));
-        System.out.println("DURING SAVING: " + addressBook);
         Memento mementoToAdd = new Memento(new AddressBook(this.addressBook));
         mementos.add(mementoToAdd);
         statePointer++;
-        System.out.println("State pointer: " + statePointer);
-        mementoToAdd.getState().getStudentList().forEach((Student student) -> {
-            System.out.println(student.getName());
-        });
-        System.out.println("Save complete");
-        /*invalidationListeners.add(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                System.out.println("added");
-            }
-        });*/
     }
 
-    public void undo() {
-        ReadOnlyAddressBook currentCopy = mementos.get(statePointer).getState();
+    /**
+     * Undoes the previous command.
+     * @return ReadOnlyAddressBook that is the previous state of the address book.
+     */
+    public ReadOnlyAddressBook undo() {
         statePointer--;
         ReadOnlyAddressBook previousCopy = mementos.get(statePointer).getState();
-        //ArrayList<InvalidationListener> copy = new ArrayList<>(invalidationListeners);
         resetData(previousCopy);
-        /*or (InvalidationListener l : copy) {
-            l.invalidated(currentCopy.getStudentList());
-            l.invalidated(previousCopy.getStudentList());
-        }*/
-        System.out.println("Undo complete");
-
-        /*for (Student s : mementos.get(statePointer).getState().getStudentList()) {
-            System.out.println("AMIEVENHERE");
-            System.out.println(s.getName());
-        }*/
+        return previousCopy;
     }
 
-    public void redo() {
-        System.out.println("Before Redo: " + statePointer);
+    /**
+     * Redoes the previously undone command.
+     * @return ReadOnlyAddressBook that is the previous state of the address book.
+     */
+    public ReadOnlyAddressBook redo() {
         statePointer++;
-        resetData(mementos.get(statePointer).getState());
+        ReadOnlyAddressBook previousCopy = mementos.get(statePointer).getState();
+        resetData(previousCopy);
+        return previousCopy;
     }
 
+    /**
+     * Checks if there is anything to undo.
+     * @return true if there are commands to undo.
+     */
     public boolean canUndo() {
         return statePointer > 0;
     }
 
+    /**
+     * Checks if there is anything to redo.
+     * @return true if there are commands to redo.
+     */
     public boolean canRedo() {
         return statePointer < (mementos.size() - 1);
     }

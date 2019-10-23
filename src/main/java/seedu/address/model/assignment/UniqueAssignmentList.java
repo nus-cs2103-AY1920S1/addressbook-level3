@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.student.exceptions.DuplicateStudentException;
 import seedu.address.model.student.exceptions.StudentNotFoundException;
-import seedu.address.model.student.exceptions.DuplicateAssignmentException;
 
 /**
  * A list of students that enforces uniqueness between its elements and does not allow nulls.
@@ -43,7 +43,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     public void add(Assignment toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateAssignmentException();
+            throw new DuplicateStudentException();
         }
         internalList.add(toAdd);
     }
@@ -62,7 +62,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
         }
 
         if (!target.isSameAssignment(editedAssignment) && contains(editedAssignment)) {
-            throw new DuplicateAssignmentException();
+            throw new DuplicateStudentException();
         }
 
         internalList.set(index, editedAssignment);
@@ -91,7 +91,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     public void setAssignments(List<Assignment> students) {
         requireAllNonNull(students);
         if (!assignmentsAreUnique(students)) {
-            throw new DuplicateAssignmentException();
+            throw new DuplicateStudentException();
         }
 
         internalList.setAll(students);

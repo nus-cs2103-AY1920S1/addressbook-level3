@@ -2,10 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
@@ -13,8 +11,6 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
-
-import javax.swing.event.ChangeListener;
 
 /**
  * Wraps all data at the address-book level
@@ -69,12 +65,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
-        System.out.println("RESETING DATA");
         requireNonNull(newData);
         setStudents(newData.getStudentList());
-        for (Student s : newData.getStudentList()) {
-            System.out.println(s.getName());
-        }
         setAssignments(newData.getAssignmentList());
     }
 
@@ -102,7 +94,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addStudent(Student p) {
         students.add(p);
-        System.out.println("At addressbook: " + this);
     }
 
     /**

@@ -4,18 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
@@ -186,8 +182,8 @@ public class ModelManager implements Model {
     //=========== Undo and Redo Operations =============================================================
 
     @Override
-    public void undo() {
-        caretaker.undo();
+    public ReadOnlyAddressBook undo() {
+        return caretaker.undo();
     }
 
     @Override
@@ -196,8 +192,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void redo() {
-        caretaker.redo();
+    public ReadOnlyAddressBook redo() {
+        return caretaker.redo();
     }
 
     @Override

@@ -1,11 +1,15 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
+
+/**
+ * Redoes a previously undone command.
+ */
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
@@ -19,9 +23,10 @@ public class RedoCommand extends Command {
         if (!model.canRedo()) {
             throw new CommandException(MESSAGE_REDO_FAILURE);
         }
-        model.redo();
+        ReadOnlyAddressBook previousCopy = model.redo();
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+        model.setAddressBook(previousCopy);
         return new CommandResult(MESSAGE_REDO_SUCCESS);
     }
 }
