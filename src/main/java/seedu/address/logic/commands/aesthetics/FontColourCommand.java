@@ -16,6 +16,7 @@ public class FontColourCommand extends Command {
 
     public static final String COMMAND_WORD = "fontcolour";
     public static final String MESSAGE_SUCCESS = "Font colour has been set!";
+    public static final String MESSAGE_CURRENT_FONT_COLOUR = "Your current font colour is: ";
     public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Sets the font colour of this application "
             + "using either CSS colour names or hexadecimal alphanumeric characters representing rgb colours.\n\n"
             + "Parameter: COLOUR\n\n"
@@ -26,6 +27,9 @@ public class FontColourCommand extends Command {
 
     private Colour fontColour;
 
+    public FontColourCommand() {
+    }
+
     public FontColourCommand(Colour fontColour) {
         this.fontColour = fontColour;
     }
@@ -34,6 +38,11 @@ public class FontColourCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Colour previousColour = model.getFontColour();
+
+        if (this.fontColour == null) {
+            return new CommandResult(MESSAGE_CURRENT_FONT_COLOUR + previousColour.toString());
+        }
+
         Colour newColour = fontColour;
         if (previousColour.equals(newColour)) {
             throw new CommandException(MESSAGE_NO_CHANGE);

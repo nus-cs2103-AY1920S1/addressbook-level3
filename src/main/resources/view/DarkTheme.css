@@ -182,6 +182,7 @@
 
 .result-display .label {
     -fx-text-fill: black !important;
+    -fx-background-color: transparent;
 }
 
 .profile-name {
@@ -205,6 +206,11 @@
 .bio-table .table-row-cell {
     -fx-background-color: transparent;
 }
+
+.bio-table .table-cell .table-cell-text {
+    -fx-fill: white ;
+}
+
 
 .field-column {
     -fx-font-family: "Arial" !important;

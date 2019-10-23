@@ -17,6 +17,7 @@ public class BackgroundCommand extends Command {
 
     public static final String COMMAND_WORD = "bg";
     public static final String MESSAGE_SUCCESS = "Background has been set!";
+    public static final String MESSAGE_CURRENT_BACKGROUND = "Your current background is: ";
     public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Sets the background of this application "
             + "using either CSS colour names, hexadecimal alphanumeric characters representing rgb colours or " 
             + "a file path specifying the image to be used.\n\n"
@@ -30,6 +31,9 @@ public class BackgroundCommand extends Command {
 
     private Background background;
 
+    public BackgroundCommand() {
+    }
+
     public BackgroundCommand(Background background) {
         this.background = background;
     }
@@ -37,7 +41,25 @@ public class BackgroundCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         Background previousBackground = model.getBackground();
+
+        if (this.background == null) {
+
+            StringBuilder sb = new StringBuilder();
+
+            if (previousBackground != null) {
+                sb.append(previousBackground.toString());
+            }
+
+            if (!previousBackground.isBackgroundColour()) {
+                sb.append("\nBackground-size: ").append(previousBackground.getBgSize());
+                sb.append("\nBackground-repeat: ").append(previousBackground.getBgRepeat());
+            }
+
+            return new CommandResult(MESSAGE_CURRENT_BACKGROUND + sb.toString());
+        }
+
         Background newBackground = background;
 
         StringBuilder updateMessage = new StringBuilder();

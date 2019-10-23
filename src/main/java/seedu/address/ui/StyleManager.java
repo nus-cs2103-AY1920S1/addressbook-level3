@@ -141,8 +141,12 @@ public class StyleManager {
             String lineToWriteViaWriter = "";
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             while ((lineReadFromReader = br.readLine()) != null) {
-                lineToWriteViaWriter += getLineAfterReplacement(lineReadFromReader, "fx-text-fill",
-                        fontColour) + "\n";
+                String changedTextFill = getLineAfterReplacement(lineReadFromReader, "fx-text-fill",
+                        fontColour);
+                String changedFill = getLineAfterReplacement(changedTextFill,
+                        "fx-fill",
+                        fontColour);
+                lineToWriteViaWriter += changedFill + "\n";
             }
             FileWriter fw = new FileWriter(outputCss);
             fw.write(lineToWriteViaWriter);
@@ -218,8 +222,12 @@ public class StyleManager {
             String lineReadFromReader;
             String lineToWriteViaWriter = "";
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            
-            String backgroundColour = background.isBackgroundColour() ? background.toString() :"rgba(255, 255, 255, .35)";
+
+            //            String backgroundColourForImages = "rgba(255, 255, 255, .2);"
+            String backgroundColourForImages = "transparent";
+            String backgroundColour = background.isBackgroundColour()
+                    ? background.toString()
+                    : backgroundColourForImages;
             while ((lineReadFromReader = br.readLine()) != null) {
                 for (String fieldToIgnore : fieldsToIgnore) {
                     if (lineReadFromReader.startsWith(fieldToIgnore)) {
@@ -233,7 +241,7 @@ public class StyleManager {
                         backgroundColour);
                 lineToWriteViaWriter += changedBackgroundColourFields + "\n";
             }
-            
+
             if (!background.isBackgroundColour()) {
                 setBackgroundImage(background);
             }

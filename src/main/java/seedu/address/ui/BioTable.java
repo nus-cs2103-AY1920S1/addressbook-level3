@@ -7,11 +7,13 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 
@@ -41,6 +43,8 @@ public class BioTable extends UiPart<Region> {
         //        setFontColourToColumn(field, "yellow");
         data.setCellValueFactory(new PropertyValueFactory<String, String>("data"));
         //        setFontColourToColumn(data, "red");
+        setTextWrapping(field);
+        setTextWrapping(data);
         tableView.setSelectionModel(null);
         list = FXCollections.observableArrayList();
         FIELD_LABELS.forEach(fieldLabel -> list.add(new BioTableFieldDataPair(fieldLabel, "")));
@@ -84,6 +88,20 @@ public class BioTable extends UiPart<Region> {
                     }
                 };
             }
+        });
+    }
+
+    public void setTextWrapping(TableColumn<String, String> column) {
+        column.setCellFactory(tc -> {
+            TableCell<String, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setText(text.toString());
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(column.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            text.getStyleClass().add("table-cell-text");
+            return cell ;
         });
     }
 

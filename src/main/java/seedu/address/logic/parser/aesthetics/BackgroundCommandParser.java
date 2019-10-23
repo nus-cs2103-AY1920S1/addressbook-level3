@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BACKGROUND_REPEAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BACKGROUND_SIZE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BG_REPEAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BG_SIZE;
 import static seedu.address.logic.parser.ParserUtil.parseBackground;
@@ -32,7 +31,7 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
     public BackgroundCommand parse(String args) throws ParseException {
         requireNonNull(args);
         if (args.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BackgroundCommand.MESSAGE_USAGE));
+            return new BackgroundCommand();
         }
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_BG_SIZE, PREFIX_BG_REPEAT);
