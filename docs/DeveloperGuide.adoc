@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::BetterModelClassDiagram.png[]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/exercise/model/Model.java[`Model.java`]
 
@@ -438,6 +438,51 @@ and it also allows the property value to be stored together.
 Ultimately, Alternative 1 is selected as we believe it is more important to distinguish the custom properties
 from the default ones. This separation ensures that methods meant to operate on custom properties are unable
 to operate on default properties.
+
+=== Suggest
+==== Implementation
+The suggest feature is used to recommend exercises to both beginners and experienced users.
+The user is allowed to specify what type of suggestions to see.
+
+The following activity diagram summarizes what happens when a user enters a suggest command:
+
+image::SuggestActivityDiagram.png[]
+
+The following sequence diagram shows the sequence flow from the when a user enters a valid `SuggestPossibleCommand`:
+
+image::SuggestSequenceDiagram.png[]
+
+From the sequence diagram:
+
+1. When the `LogicManager` receive the `execute` command, it calls the `parseCommand` method of `ExerciseBookParser`.
+
+2. `ExerciseBookParser` will receive `suggest` as the command type and instantiate `SuggestCommandParser` to further parse the command.
+
+3. `SuggestCommandParser` will receive `s/possible` as the suggest type and instantiate `SuggestPossibleCommand` with `muscles` and `customProperties` as constructor parameters.
+
+4. The `SuggestPossibleCommand` object is then returned to `SuggestCommandParser`, `ExerciseBookParser` and lastly back to `LogicManager` to execute.
+
+5. `LogicManager` will proceed to call execute `SuggestPossibleCommand`.
+
+6. When `SuggestPossibleCommand` is executed, it calls a self invocated method, `getPredicate`, which is created based on the `targetMuscles` and `targetCustomProperties`.
+
+7. `SuggestPossibleCommand` then calls the `updateSuggestedExerciseList` method in `ModelManager`, passing in the predicate to filter the list of suggest exercises.
+
+8. `SuggestPossibleCommand` creates a new `CommandResult` to be returned.
+
+==== Design Considerations
+===== Aspect: Implementation of predicate creation
+* **Alternative 1(current choice): ** `SuggestPossibleCommand` to handle the predicates.
+** Pros:
+*** Easy to implement and understand. The class `SuggestPossibleCommand` contains the parsing and creation of the predicate all in one place.
+** Cons:
+*** Violation of SRP as `SuggestPossibleCommand`, in addition to updating the model, has to create the predicate.
+* **Alternative 2: ** Predicate Factory class to handles all predicates.
+** Pros:
+*** Adheres to SRP and Separation of Concern (SoC).
+** Cons:
+*** May increase coupling because classes that use predicates have to depend on this class.
+
 
 === Statistics
 

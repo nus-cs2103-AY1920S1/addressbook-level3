@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
+participant ":SuggestCommandParser" as SuggestCommandParser LOGIC_COLOR
+participant "s:SuggestPossibleCommand" as SuggestPossibleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("suggest s/possible m/Leg")
+activate LogicManager
+
+LogicManager -> ExerciseBookParser : parseCommand("suggest s/possible m/Leg")
+activate ExerciseBookParser
+
+create SuggestCommandParser
+ExerciseBookParser -> SuggestCommandParser
+activate SuggestCommandParser
+
+SuggestCommandParser --> ExerciseBookParser
+deactivate SuggestCommandParser
+
+ExerciseBookParser -> SuggestCommandParser : parse("s/possible m/Leg")
+activate SuggestCommandParser
+
+create SuggestPossibleCommand
+SuggestCommandParser -> SuggestPossibleCommand : (muscles, customProperties)
+activate SuggestPossibleCommand
+
+SuggestPossibleCommand --> SuggestCommandParser : s
+deactivate SuggestPossibleCommand
+
+SuggestCommandParser --> ExerciseBookParser : s
+deactivate SuggestCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SuggestCommandParser -[hidden]-> ExerciseBookParser
+destroy SuggestCommandParser
+
+ExerciseBookParser --> LogicManager : s
+deactivate ExerciseBookParser
+
+LogicManager -> SuggestPossibleCommand : execute()
+activate SuggestPossibleCommand
+
+SuggestPossibleCommand --> SuggestPossibleCommand : getPredicate()
+activate SuggestPossibleCommand
+
+SuggestPossibleCommand --> SuggestPossibleCommand :p
+deactivate SuggestPossibleCommand
+
+SuggestPossibleCommand -> Model : updateSuggestedExerciseList(p)
+activate Model
+
+Model --> SuggestPossibleCommand
+deactivate Model
+
+create CommandResult
+SuggestPossibleCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SuggestPossibleCommand : result
+deactivate CommandResult
+
+SuggestPossibleCommand --> LogicManager : result
+deactivate SuggestPossibleCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml
