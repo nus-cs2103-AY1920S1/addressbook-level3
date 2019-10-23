@@ -31,6 +31,7 @@ public class MainWindow {
 
     public MainWindow(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        this.gui = new Gui(this);
         onStartup();
         testUiComponents();
     }
@@ -57,7 +58,7 @@ public class MainWindow {
 
     // temporary method for testing display of various UI components
     private void testUiComponents() {
-        setTitle("New title!");
+        this.gui.renderCard("lorem ipsum dolor sit amet.");
     }
 
     private void initializeStage() {
@@ -134,9 +135,13 @@ public class MainWindow {
 
         // remove any existing title in titleBar
         titleBar.getChildren().clear();
-        
+
         // add label to titleBar
         titleBar.getChildren().add(title);
+    }
+
+    VBox getWindowContents() {
+        return this.windowContents;
     }
 
     // private void setAccelerators()
