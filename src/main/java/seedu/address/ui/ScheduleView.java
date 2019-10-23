@@ -74,12 +74,6 @@ public class ScheduleView extends UiPart<Region> {
         showIndividualSchedule(scheduleMap, ColorGenerator.generateColorList(1).get(0));
         scheduleContents.setContent(scheduleView);
         scheduleHeaderWrapper.setContent(scheduleHeader);
-        scheduleHeaderWrapper.setMinHeight(50);
-        scheduleHeaderWrapper.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleHeaderWrapper.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
     }
 
     public ScheduleView(ArrayList<WeekSchedule> weekSchedules, List<String> colors, GroupName groupName,
@@ -97,12 +91,6 @@ public class ScheduleView extends UiPart<Region> {
         showFreeTime(freeSchedule);
         scheduleContents.setContent(scheduleView);
         scheduleHeaderWrapper.setContent(scheduleHeader);
-        scheduleHeaderWrapper.setMinHeight(50);
-        scheduleHeaderWrapper.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleHeaderWrapper.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
     }
 
     /**
@@ -114,6 +102,12 @@ public class ScheduleView extends UiPart<Region> {
         scheduleView.setStyle("-fx-border-width: 2; -fx-pref-width: 950;");
         scheduleHeader = new GridPane();
         scheduleHeader.setStyle("-fx-pref-width: 950;");
+        scheduleHeaderWrapper.setMinHeight(50);
+        scheduleHeaderWrapper.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scheduleHeaderWrapper.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scheduleContents.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scheduleContents.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
         return this;
     }
 
@@ -218,6 +212,12 @@ public class ScheduleView extends UiPart<Region> {
         return hours * 60 + minutes;
     }
 
+    /**
+     * Method to create a block that represents the occupied/busy time slots of an individual for a particular day.
+     * @param daySchedule List that contains all occupied time slots of the individual on a particular day.
+     * @param color Color that the block should be.
+     * @return VBox that represents the individual's busy time slots for this particular day.
+     */
     private VBox getDayVBoxOfIndividualSchedule(ArrayList<DayTimeslot> daySchedule, String color) {
         VBox timeslotContainer = new VBox();
         timeslotContainer.setStyle("-fx-padding: 0 2 0 2; -fx-border-width: 2;");
@@ -239,6 +239,12 @@ public class ScheduleView extends UiPart<Region> {
         return timeslotContainer;
     }
 
+    /**
+     * Method to create a block that represents free time in groups on a particular day.
+     * Only called for group schedules. Free time is shown by a translucent green rectangle on the UI.
+     * @param freeSchedule The common free time among groups for a particular day.
+     * @return VBox that represents the free time block.
+     */
     private VBox getDayVBoxOfFreeSchedule(ArrayList<FreeTimeslot> freeSchedule) {
         VBox timeslotContainer = new VBox();
         timeslotContainer.getChildren().add(new Block(30).makeEmptyTimeslot());
