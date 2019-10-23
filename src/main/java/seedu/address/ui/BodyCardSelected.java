@@ -63,26 +63,47 @@ public class BodyCardSelected extends UiPart<Region> {
         // Load body card when selected card changes.
         selectedBody.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
+                setUnselectedDetails();
                 return;
             }
-            selectedBodyName.setText(newValue.getName().fullName);
-            selectedBodyId.setText(newValue.getIdNum().toString());
-            selectedBodySex.setText(newValue.getSex().toString());
-            selectedBodyDateOfAdmission.setText(newValue.getDateOfAdmission().toString());
-            selectedBodyDateOfDeath.setText(newValue.getDateOfDeath().toString());
-            selectedBodyDateOfBirth.setText(toStringNullable(newValue.getDateOfBirth().orElse(null)));
-            selectedBodyNric.setText(toStringNullable(newValue.getNric().orElse(null)));
-            selectedBodyReligion.setText(toStringNullable(newValue.getReligion().orElse(null)));
-            selectedBodyNokName.setText(toStringNullable(newValue.getNextOfKin().orElse(null)));
-            selectedBodyNokRelationship.setText(toStringNullable(newValue.getRelationship().orElse(null)));
-            selectedBodyNokPhone.setText(toStringNullable(newValue.getKinPhoneNumber().orElse(null)));
-            selectedBodyCauseOfDeath.setText(toStringNullable(newValue.getCauseOfDeath().orElse(null)));
-
-            organs.getChildren().clear();
-            newValue.getOrgansForDonation().stream()
-                .sorted(Comparator.comparing(String::toString))
-                .forEach(organ -> organs.getChildren().add(new Label(organ)));
+            setSelectedBodyDetails(newValue);
         });
+    }
+
+    private void setUnselectedDetails() {
+        selectedBodyName.setText("Name");
+        selectedBodyId.setText("Body ID");
+        selectedBodySex.setText("Sex");
+        selectedBodyDateOfAdmission.setText("Date of Admission:");
+        selectedBodyDateOfDeath.setText("Date of Death:");
+        selectedBodyDateOfBirth.setText("Date of Birth");
+        selectedBodyNric.setText("NRIC");
+        selectedBodyReligion.setText("Religion");
+        selectedBodyNokName.setText("NOK Name");
+        selectedBodyNokRelationship.setText("NOK Relationship");
+        selectedBodyNokPhone.setText("NOK Phone");
+        selectedBodyCauseOfDeath.setText("COD");
+        organs.getChildren().clear();
+    }
+
+    private void setSelectedBodyDetails(Body newValue) {
+        selectedBodyName.setText(newValue.getName().fullName);
+        selectedBodyId.setText(newValue.getIdNum().toString());
+        selectedBodySex.setText(newValue.getSex().toString());
+        selectedBodyDateOfAdmission.setText(newValue.getDateOfAdmission().toString());
+        selectedBodyDateOfDeath.setText(toStringNullable(newValue.getDateOfDeath().orElse(null)));
+        selectedBodyDateOfBirth.setText(toStringNullable(newValue.getDateOfBirth().orElse(null)));
+        selectedBodyNric.setText(toStringNullable(newValue.getNric().orElse(null)));
+        selectedBodyReligion.setText(toStringNullable(newValue.getReligion().orElse(null)));
+        selectedBodyNokName.setText(toStringNullable(newValue.getNextOfKin().orElse(null)));
+        selectedBodyNokRelationship.setText(toStringNullable(newValue.getRelationship().orElse(null)));
+        selectedBodyNokPhone.setText(toStringNullable(newValue.getKinPhoneNumber().orElse(null)));
+        selectedBodyCauseOfDeath.setText(toStringNullable(newValue.getCauseOfDeath().orElse(null)));
+
+        organs.getChildren().clear();
+        newValue.getOrgansForDonation().stream()
+            .sorted(Comparator.comparing(String::toString))
+            .forEach(organ -> organs.getChildren().add(new Label(organ)));
     }
 
     /**

@@ -160,7 +160,7 @@ public class MainWindow extends UiPart<Stage> {
 
         bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
                 logic.selectedBodyProperty(), logic::setSelectedBody),
-                        new BodyCardSelected(logic.selectedBodyProperty()));
+                new BodyCardSelected(logic.selectedBodyProperty()));
         bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
 
         notificationButton = NotificationButton.getInstanceOfNotifButton();

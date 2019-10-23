@@ -36,12 +36,14 @@ public class SelectCommand extends Command {
         IdentificationNumber targetIdNum = IdentificationNumber.customGenerateId("B",
             targetId);
         if (!IdentificationNumber.isExistingIdentificationNumber(targetIdNum)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+            model.setSelectedBody(null);
+            if (targetId != Integer.MAX_VALUE) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+            }
         }
         Body selectedBody = (Body) targetIdNum.getMapping();
         model.setSelectedBody(selectedBody);
         return new CommandResult(String.format(MESSAGE_SELECT_BODY_SUCCESS, targetId));
-
     }
 
     @Override

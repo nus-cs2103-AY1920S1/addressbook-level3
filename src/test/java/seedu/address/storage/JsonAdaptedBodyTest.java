@@ -6,8 +6,6 @@ import static seedu.address.storage.JsonAdaptedBody.MISSING_FIELD_MESSAGE_FORMAT
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 
-import java.sql.SQLOutput;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
