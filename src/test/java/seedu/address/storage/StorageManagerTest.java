@@ -25,8 +25,9 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonExpenseListStorage expenseListStorage = new JsonExpenseListStorage(getTempFilePath("ab"));
+        JsonBudgetListStorage budgetListStorage = new JsonBudgetListStorage(getTempFilePath("bl"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(expenseListStorage, userPrefsStorage);
+        storageManager = new StorageManager(expenseListStorage, budgetListStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

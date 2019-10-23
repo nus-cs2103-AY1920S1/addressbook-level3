@@ -74,6 +74,7 @@ public class JsonUserPrefsStorageTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
         userPrefs.setExpenseListFilePath(Paths.get("expenselist.json"));
+        userPrefs.setBudgetListFilePath(Paths.get("budgetlist.json"));
         return userPrefs;
     }
 

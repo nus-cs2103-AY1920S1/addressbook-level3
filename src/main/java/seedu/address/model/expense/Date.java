@@ -33,6 +33,7 @@ public class Date {
 
     public final String value;
     public final String rawValue;
+    public final LocalDate localDate;
 
     /**
      * Constructs an {@code Date}.
@@ -40,6 +41,7 @@ public class Date {
     public Date() {
         rawValue = null;
         value = null;
+        localDate = null;
     }
 
     /**
@@ -52,6 +54,9 @@ public class Date {
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         rawValue = date;
         value = convertDate(date);
+        localDate = value.length() > 11
+                ? LocalDate.parse(value, DateTimeFormatter.ofPattern("dd MMM yyyy, H:mma"))
+                : LocalDate.parse(value, DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
 
     /**
@@ -65,6 +70,10 @@ public class Date {
         checkArgument(isValidDate(rawDate), MESSAGE_CONSTRAINTS);
         rawValue = rawDate;
         value = ifConverted ? convertDate(rawDate) : rawDate;
+        localDate = ifConverted ? value.length() > 11
+                ? LocalDate.parse(value, DateTimeFormatter.ofPattern("dd MMM yyyy, H:mma"))
+                : LocalDate.parse(value, DateTimeFormatter.ofPattern("dd MMM yyyy"))
+                : LocalDate.parse(value, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**
