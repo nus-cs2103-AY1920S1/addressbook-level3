@@ -242,6 +242,67 @@ The `clock twelve` and `clock twenty_four` have a similar operation to `theme da
 ** Cons: We must ensure that all UI components switch themes consistently. This may take a long time to test, due to large number of views
 offered by +Work. Furthermore the compatibility of the theme with JavaFx must be regarded as well.
 
+=== Statistics feature
+==== Implementation
+
+The commands introduced by this statistics feature includes: `get-task-stats` and `get-member-stats`. These commands are faciliatated by the class 'Statistics' that resides within model. The 'Statistics' class implements the following operations:
+
+* `Statistics#doCalculations()` -- Calculates the statistics needed using existing list of tasks, members and mappings.
+* `Statistics#getPortionMembersByTasks()` -- Retrives statistics of all the members and number of tasks completed by the each individual member.
+* `Statistics#getPortionMembersByItems()` -- Retrives statistics of all the members and number of items purchased by the each individual member.
+* `Statistics#getPortionTasksByStatus()` -- Retrives statistics of all existing tasks and number of tasks of each status.
+
+These operations are exposed in the `Model` interface as `Model#doCalculations`, and 'Model#getStatistics'.
+
+[NOTE]
+
+To allow the `UI` to be responsive, one of the operations is similarly exposed in the `Logic` interface as `Logic#getStatistics()'
+
+Given below is an example usage scenario and how the Statistics mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The 'Statistics' will be initialised based on the data previously saved.
+
+[NOTE]
+
+Data previously saved refers to the statistics calculation done based on list of members, tasks and mappings saved.
+
+Step 2. The user executes `get-task-stats` command to retrieve statistics related to the tasks in the application.
+
+The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` after updating all the lists to show all tasks/members/mappings, to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard. 
+
+The following sequence diagram shows how the 'get-member-stats' operation works. 
+
+image::UndoRedoState1.png[]
+Figure 10. Operational flow of 'GetStatisticsCommand'
+
+[NOTE]
+The 'get-member-stats' operation is similar to the one shown in figure 10.
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to implement Statistics class
+
+* **Alternative 1 (current choice):** One statistics object for the entire ProjectDashboard
+** Pros: Easy to implement, centralised class for all statistics
+** Cons: May have performance issues due to calculations involving large amounts of tasks and members.
+* **Alternative 2:** Individual statistic objects for members and tasks.
+** Pros: Will ensure faster performance, 
+** Cons: Design of statistics object has to be very well-implemented, might not have enough time to implement it by v1.3
+
+===== Aspect: Display of Statistics for Project Dashboard
+
+* **Alternative 1 (current choice):** Use a pie chart to represent information
+** Pros: Easy for workload comparison
+** Cons: Less details of individual taks and members exposed in the statistiscs page. 
+* **Alternative 2:** Use a list to represent information
+** Pros: Includes more details for individual elements
+** Cons: Decreases the ease of comparison between tasks and members 
+// end::statistics[]
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
