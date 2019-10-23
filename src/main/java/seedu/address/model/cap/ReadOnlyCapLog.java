@@ -1,10 +1,7 @@
 package seedu.address.model.cap;
 
-import java.util.*;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.cap.person.Semester;
-import seedu.address.storage.cap.*;
 import seedu.address.model.common.Module;
 
 /**

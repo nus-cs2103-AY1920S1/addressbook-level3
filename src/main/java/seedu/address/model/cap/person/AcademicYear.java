@@ -2,6 +2,10 @@ package seedu.address.model.cap.person;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents an Academic year of a NUS student.
+ * Guarantees: immutable.
+ */
 public class AcademicYear {
 
     private final String academicYear;

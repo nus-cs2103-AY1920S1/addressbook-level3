@@ -18,7 +18,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Semester> {
     @Override
     public boolean test(Semester semester) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(semester.getAcademicYear().getAcademicYear(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(semester.getAcademicYear().getAcademicYear(),
+                        keyword));
     }
 
     @Override

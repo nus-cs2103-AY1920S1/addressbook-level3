@@ -13,7 +13,13 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.cap.commands.AddCommand;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.person.*;
+import seedu.address.model.cap.person.Credit;
+import seedu.address.model.cap.person.Description;
+import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Grade;
+import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.person.Title;
 import seedu.address.model.common.Module;
 
 

@@ -147,19 +147,4 @@ public class UniqueModuleList implements Iterable<Module> {
         }
         return true;
     }
-
-//    public boolean isSameUniqueModuleList(UniqueModuleList list) {
-//        if (list == this) {
-//            return true;
-//        } else {
-//            for (int i = 0; i < list.size() - 1; i++) {
-//                for (int j = 0; j < this.size(); j++) {
-//                    if (list.get(i).isSameModule(this.get(j))) {
-//                        return false;
-//                    }
-//                }
-//            }
-//        }
-//        return true;
-//    }
 }

@@ -2,6 +2,9 @@ package seedu.address.model.cap.person;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * It encapsulates the Semester period, either semester 1 or 2, of a typical school term.
+ */
 public class SemesterPeriod {
 
     private final int semesterPeriod;

@@ -36,7 +36,8 @@ public class Module {
      * @param faculty The faculty the module is held at.
      * @param isSu Satisfactory and unsatisfactory option for grade
      */
-    public Module(ModuleCode moduleCode, Title title, Semester semester, Description description, Credit credit, Faculty faculty,
+    public Module(ModuleCode moduleCode, Title title, Semester semester, Description description,
+                  Credit credit, Faculty faculty,
                   boolean isSu, String preclusion, String prerequisite, Grade grade) {
         requireNonNull(moduleCode);
         requireNonNull(title);

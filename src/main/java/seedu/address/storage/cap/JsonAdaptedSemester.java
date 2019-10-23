@@ -23,7 +23,8 @@ class JsonAdaptedSemester {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedSemester(@JsonProperty("semester") int semester, @JsonProperty("academic year") String academicYear) {
+    public JsonAdaptedSemester(@JsonProperty("semester") int semester,
+                               @JsonProperty("academic year") String academicYear) {
         this.semesterPeriod = semester;
         this.academicYear = academicYear;
     }
@@ -48,9 +49,6 @@ class JsonAdaptedSemester {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, AcademicYear.class.getSimpleName()));
         }
-//        if (!AcademicYear.isValidName(academicYear)) {
-//            throw new IllegalValueException(AcademicYear.MESSAGE_CONSTRAINTS);
-//        }
 
         final SemesterPeriod modelSemesterPeriod = new SemesterPeriod(semesterPeriod);
         final AcademicYear modelAcademicYear = new AcademicYear(academicYear);

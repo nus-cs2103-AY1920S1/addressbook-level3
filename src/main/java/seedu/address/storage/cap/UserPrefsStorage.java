@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.cap.ReadOnlyUserPrefs;
 import seedu.address.model.cap.CapUserPrefs;
+import seedu.address.model.cap.ReadOnlyUserPrefs;
 
 
 /**

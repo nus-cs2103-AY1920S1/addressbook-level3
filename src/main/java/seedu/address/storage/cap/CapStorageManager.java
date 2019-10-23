@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.ReadOnlyUserPrefs;
-import seedu.address.model.cap.CapUserPrefs;
 
 /**
  * Manages storage of AddressBook data in local storage.

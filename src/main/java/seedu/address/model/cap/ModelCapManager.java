@@ -114,12 +114,6 @@ public class ModelCapManager implements Model {
         capLog.setSemester(target, editedModule);
     }
 
-//    @Override
-//    public void setSemester(Module target) {
-//        requireAllNonNull(target);
-//        capLog.setSemester(target);
-//    }
-
     @Override
     public ObservableList<Semester> getFilteredSemesterList() {
         return filteredSemesters;
@@ -146,9 +140,7 @@ public class ModelCapManager implements Model {
     @Override
     public void addModule (Module module) {
         capLog.addModule(module);
-//        capLog.addSemester(module.getSemester());
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-//        updateFilteredSemesterList(PREDICATE_SHOW_ALL_SEMESTERS);
     }
 
     @Override

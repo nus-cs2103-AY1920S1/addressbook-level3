@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SemesterListPanel semesterListPanel;
+    //  private SemesterListPanel semesterListPanel1;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -48,6 +49,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane gradeListPanelPlaceholder;
+
+    //    @FXML
+    //    private StackPane semesterListPanelPlaceholder1;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -117,6 +121,9 @@ public class MainWindow extends UiPart<Stage> {
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         gradeListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
+        //        semesterListPanel1 = new SemesterListPanel(logic.getFilteredSemesterList());
+        //        semesterListPanelPlaceholder1.getChildren().add(semesterListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

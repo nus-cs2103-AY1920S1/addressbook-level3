@@ -1,11 +1,15 @@
 package seedu.address.ui.cap;
 
-import javafx.fxml.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import seedu.address.model.common.Module;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+
 import seedu.address.model.cap.person.Semester;
 
+/**
+ * An UI component that displays information of a {@code Person}.
+ */
 public class SemesterCard extends UiPart<Region> {
 
     private static final String FXML = "SemesterListCard.fxml";

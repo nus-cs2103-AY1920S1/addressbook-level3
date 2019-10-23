@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.ReadOnlyCapLog;
-import seedu.address.model.cap.person.*;
+import seedu.address.model.cap.person.Semester;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

@@ -2,7 +2,7 @@ package seedu.address.model.cap.person;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
 
 import seedu.address.model.common.Module;
 
@@ -50,6 +50,10 @@ public class Semester {
         return semesterPeriod;
     }
 
+    /**
+     * Add modules to the module array.
+     * @param modules
+     */
     public void addModules(Module[] modules) {
         for (Module module : modules) {
             this.modules.add(module);
