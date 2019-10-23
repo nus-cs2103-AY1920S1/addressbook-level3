@@ -22,13 +22,13 @@ import seedu.address.logic.commands.gamecommands.GuessCommand;
 import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.gamecommands.StopCommand;
 import seedu.address.logic.commands.loadcommands.CreateCommand;
+import seedu.address.logic.commands.loadcommands.BankCommand;
 import seedu.address.logic.commands.loadcommands.ExportCommand;
 import seedu.address.logic.commands.loadcommands.ImportCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.commands.settingcommands.HintsCommand;
 import seedu.address.logic.commands.settingcommands.ThemeCommand;
-import seedu.address.logic.commands.switches.BankCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.LoadScreenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
@@ -38,6 +38,7 @@ import seedu.address.logic.parser.app.EditCommandParser;
 import seedu.address.logic.parser.app.FindCommandParser;
 import seedu.address.logic.parser.app.DeleteCommandParser;
 import seedu.address.logic.parser.game.GuessCommandParser;
+import seedu.address.logic.parser.load.BankCommandParser;
 import seedu.address.logic.parser.load.ImportCommandParser;
 import seedu.address.logic.parser.load.ExportCommandParser;
 import seedu.address.logic.parser.load.CreateCommandParser;
@@ -72,7 +73,6 @@ public class ParserManager {
         this.mode = ModeEnum.LOAD;
         this.gameIsOver = true;
         this.switchParser = new SpecificModeParser();
-        switchParser.add(BankCommand.class, BankCommandParser.class);
         switchParser.add(HomeCommand.class, null);
         switchParser.add(LoadScreenCommand.class, null);
         switchParser.add(StartCommand.class, StartCommandParser.class);
@@ -99,6 +99,7 @@ public class ParserManager {
                 temp.add(HelpCommand.class, null);
                 return temp;
             case LOAD:
+                temp.add(BankCommand.class, BankCommandParser.class);
                 temp.add(ImportCommand.class, ImportCommandParser.class);
                 temp.add(ExportCommand.class, ExportCommandParser.class);
                 temp.add(CreateCommand.class, CreateCommandParser.class);

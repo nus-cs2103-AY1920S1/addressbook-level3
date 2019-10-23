@@ -1,7 +1,7 @@
-package seedu.address.logic.commands.switches;
+package seedu.address.logic.commands.loadcommands;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.SwitchCommand;
+import seedu.address.logic.commands.LoadCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.util.ModeEnum;
@@ -13,7 +13,7 @@ import seedu.address.statistics.WordBankStatistics;
 /**
  * Selects Bank and switches to APP mode if successful
  */
-public class BankCommand extends SwitchCommand {
+public class BankCommand extends LoadCommand {
 
     public static final String COMMAND_WORD = "bank";
 
@@ -53,8 +53,5 @@ public class BankCommand extends SwitchCommand {
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT, false, false);
     }
 
-    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
-        return ModeEnum.APP;
-    }
 
 }
