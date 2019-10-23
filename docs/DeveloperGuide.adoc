@@ -234,6 +234,59 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+// tag::autocomplete commands[]
+
+=== [Proposed] Autocomplete commands feature
+
+This is a feature which allows you to view all available commands matching the input keyword or letters, eliminating the need to memorize the commands or leave a browser tab open with the UG/DG of this application.
+
+==== Proposed Implementation
+
+The autocomplete mechanism is facilitated by the ‘KeyListener’, which will pass the current character that is being pressed on the keyboard to the trie, a tree-like abstract data type (ADT). The list of matching commands will then be passed back to the ‘Ui’ and displayed via a dropdown box below the user input command box.
+
+For implementation of the trie, please consult ‘google’ or ‘stackoverflow’.
+
+Given below is an example usage scenario and how the autocomplete mechanism behaves at each step.
+
+Step 1: The user launches the application. The current user input command box will be empty.
+
+*insert picture of the ui at startup*
+
+Step 2: The user wants to switch to the customer context for customer-focused commands with the command ‘customer’, however is unsure how to spell the command and types in ‘cus’. The ‘KeyListener’ will pass the characters that have been typed to the trie. The trie will then search for relevant commands and pass them as a list to the ‘Ui’, which will display the relevant results in a dropdown box below the user input command box.
+
+*insert picture of cus being typed in/ class diagram???*
+
+Step 3: The user can now complete the command he/she wants by entering the relevant command shown in the dropdown box. 
+
+*insert picture of the ui with the dropdown box*
+
+The following activity diagram summarizes what happens when a user types in letters into the user input command box:
+
+*insert picture of activity diagram*
+
+==== Design Considerations
+
+Below are a few design considerations of the autocomplete commands feature.
+
+===== Aspect: How autocomplete executes
+
+* **Alternative 1 (current choice):** Use a ‘KeyListener’ to record and handle user inputs in the user input command box before they are entered.
+** Pros: Looks nice, allows for on-the-fly display of results.
+** Cons: Laborious to implement, especially in terms of debugging and troubleshooting. May also break OOP principles.
+* **Alternative 2:** Handle user input only when the command is entered, utilizing the ‘Parser’ to  handle user inputs and pass it to the trie to be evaluated.
+** Pros: Adheres to current flow of command executions, will not break any OOP principles.
+** Cons: Tedious for the user, as the user will have to retype the whole command again. Also does not look as nice.
+
+===== Aspect: Data structure to support the autocomplete commands feature
+
+* **Alternative 1 (current choice):** Use a trie to store substrings of commands as keys.
+** Pros: Efficient and rapid searching, retrieving and displaying of results due to the tree-like ADT.
+** Cons: Tedious to implement, tries are not currently implemented in Java, hence requires self-implementation of the ADT.
+* **Alternative 2:** Use a list to store all current commands .
+** Pros: Easy to implement as lists are already available in Java.
+** Cons: Inefficient and slow searching, because of the need to iterate through the entire list of commands, while calling ‘.substring()’ and ‘.contains()’ methods.
+
+// end::autocomplete commands[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
