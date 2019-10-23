@@ -2,20 +2,18 @@ package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
 
-import java.util.logging.Logger;
-
-import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
-import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 
-/**
+/**®
  * Checkout a list of item to be sold.
  */
 public class CheckoutCommand extends Command {
 
     public static final String COMMAND_WORD = "checkout";
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    //private final Logger logger = LogsCenter.getLogger(getClass());
     private final double totalAmount;
     private final double change;
 
@@ -25,25 +23,33 @@ public class CheckoutCommand extends Command {
      * @param change to be returned to the customer
      */
     public CheckoutCommand(double totalAmount, double change) {
+        assert totalAmount >= 0 : "Total amount cannot be negative.";
+        assert change >= 0 : "Change cannot be negative.";
+
+        //logger.info("Total Amount: " + totalAmount);
+        //logger.info("Change: " + change);
+
         this.totalAmount = totalAmount;
         this.change = change;
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel,
-                                 seedu.address.transaction.model.Model transactionModel,
-                                 seedu.address.inventory.model.Model inventoryModel)
+    public CommandResult execute(seedu.address.cashier.model.Model modelManager,
+                                 seedu.address.person.model.Model personModel)
             throws Exception {
-        Person p = modelManager.getCashier();
-        modelManager.checkoutAsTransaction(totalAmount, p, transactionModel);
-        logger.info(p.toString());
+        Person p;
+        try {
+            p = modelManager.getCashier();
+        } catch (NoCashierFoundException e) {
+            throw new NoCashierFoundException(CashierMessages.NO_CASHIER);
+        }
+        modelManager.checkoutAsTransaction(totalAmount, p);
+        //logger.info("Cashier set to: " + p.toString());
         modelManager.updateInventoryList();
-        modelManager.writeInInventoryFile();
-        inventoryModel.readInUpdatedList();
         ClearCommand clearCommand = new ClearCommand();
-        clearCommand.execute(modelManager, personModel, transactionModel, inventoryModel);
+        clearCommand.execute(modelManager, personModel);
         return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, Item.DECIMAL_FORMAT.format(totalAmount),
-                change));
+                Item.DECIMAL_FORMAT.format(change)));
 
     }
 }

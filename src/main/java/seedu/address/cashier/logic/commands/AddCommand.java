@@ -1,8 +1,12 @@
 package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADDED_ITEM;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_CASHIER;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
 
-import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
+import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.inventory.model.Item;
 
@@ -21,16 +25,36 @@ public class AddCommand extends Command {
      * @param quantity of the item to be sold
      */
     public AddCommand(String description, int quantity) {
+        assert description != null : "Description cannot be null.";
+        assert quantity >= 0 : "Quantity must be a positive integer.";
+
+        //logger.info("description of item added: " + description);
+        //logger.info("quantity of item added: " + quantity);
+
         this.description = description;
         this.quantity = quantity;
     }
 
     @Override
-    public CommandResult execute(ModelManager modelManager, seedu.address.person.model.Model personModel,
-                                 seedu.address.transaction.model.Model transactionModel,
-                                 seedu.address.inventory.model.Model inventoryModel)
-            throws NoSuchItemException {
-        Item i = modelManager.addItem(description, quantity);
+    public CommandResult execute(Model modelManager, seedu.address.person.model.Model personModel)
+            throws NoSuchItemException, InsufficientAmountException {
+
+        Item i;
+        // if the item with the specified description is not available for sale
+        if (!modelManager.isSellable(description)) {
+            throw new NoSuchItemException(NO_SUCH_ITEM_FOR_SALE_CASHIER);
+        }
+        if (!modelManager.hasSufficientQuantityToAdd(description, quantity)) {
+            int quantityLeft = modelManager.getStockLeft(description);
+            throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
+        }
+
+        try {
+            i = modelManager.addItem(description, quantity);
+        } catch (NoSuchItemException e) {
+            throw new NoSuchItemException(NO_SUCH_ITEM_CASHIER);
+        }
+        //logger.info("Item added: " + i.toString());
         return new CommandResult(String.format(MESSAGE_ADDED_ITEM, i.getDescription()));
     }
 }
