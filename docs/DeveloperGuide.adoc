@@ -135,16 +135,17 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+The following diagram illustrates the structure of the Storage component:
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component does the following:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* Saves `UserPref` objects in json format and reads them back.
+* Saves the Mark data in json format and reads it back.
 
 [[Design-Commons]]
 === Common classes
@@ -236,6 +237,55 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::folders[]
+=== Folders feature
+==== Implementation
+
+A bookmark can be in a folder, and a folder can be nested within other folders for traditional directory organization.
+
+This mechanism is facilitated mainly by `Folder` and `FolderStructure`.
+
+`Folder` is simply another field in `Bookmark`, just like `Url` or `Name`, and has a single `String` property that contains the folder in which the bookmark is located.
+
+`FolderStructure` represents the hierarchy of folders, containing the folder it represents and its subfolders
+
+.Class Diagram of the Folders component
+image::FolderStructureClassDiagram.png[]
+
+
+Given below is an example usage scenario and how the folder structure behaves at each step.
+
+Step 1. The user launches the application for the first time. The root `FolderStructure` will be initialized with the initial hierarchy in the stored data.
+
+image::FolderStructureState0.png[]
+
+Step 2. The user enters a `folder GER1000 p/Work` command to create a new `FolderStructure` in the subfolders of `work`. Starting from the `root`, a depth first search will be performed to locate `work`. When found, `ger1000` will be added to its subfolders.
+
+image::FolderStructureState1.png[]
+
+[NOTE]
+If the parent folder is not provided, the parent folder will default to `root`.
+
+The following sequence diagram shows in more detail how the execution of `folder GER1000 p/Work` works:
+
+image::FolderSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Finally, the user sees his folder added successfully in the folder hierarchy.
+
+==== Design Considerations
+The following are a few design considerations made in deciding how to implement the folders feature:
+===== Aspect: How the folder hierarchy is saved into storage.
+
+* **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
+** Pros: Easy to implement
+** Cons: Easy for model to get into invalid state (e.g. bookmark has a folder that is not in the hierarchy)
+* **Alternative 2:** Change the bookmarks from being stored in a list to being stored as a hierarchy
+** Pros: Single source of truth, its folder is simply where it's located
+** Cons: The whole `BookmarkList` abstraction will have to be rewritten
+// end::folders[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
