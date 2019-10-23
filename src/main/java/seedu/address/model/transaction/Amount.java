@@ -80,6 +80,21 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
+     * Make amount negative.
+     *
+     * @param
+     * @return negative amount
+     */
+    public Amount makeNegative() {
+        final int newAmount = this.amount * -1;
+        return new Amount(newAmount);
+    }
+
+    public boolean isNegative() {
+        return this.amount < 0;
+    }
+
+    /**
      * Create new Amount of 0
      * @return Amount of 0
      */

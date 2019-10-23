@@ -44,9 +44,6 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
      */
     public void add(BankAccountOperation toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicatePersonException();
-        }
         internalList.add(toAdd);
     }
 

@@ -34,11 +34,12 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
         + "by the index number used in the displayed person list. "
         + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) "
+        + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', "
+        + "Budget entries preced by 'b' \n"
         + "[" + PREFIX_AMOUNT + "AMOUNT] "
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-        + "Example: " + COMMAND_WORD + " 1 "
+        + "Example: " + COMMAND_WORD + " t1 "
         + PREFIX_AMOUNT + "123 "
         + PREFIX_DATE + "12022019";
 
@@ -112,8 +113,27 @@ public class UpdateCommand extends Command {
         if (transactionToEdit instanceof InTransaction) {
             return new InTransaction(updatedAmount, updatedDate, updatedCategories);
         } else {
+            /* transactionToEdit instanceof OutTransaction. Add in more conditionals. */
             return new OutTransaction(updatedAmount, updatedDate, updatedCategories);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof UpdateCommand)) {
+            return false;
+        }
+
+        // state check
+        UpdateCommand u = (UpdateCommand) other;
+        return targetIndex.equals(u.targetIndex)
+                && updateTransactionDescriptor.equals(u.updateTransactionDescriptor);
     }
 
     /**
@@ -149,7 +169,7 @@ public class UpdateCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code categories} is used internally.
          */
-        public UpdateTransactionDescriptor(UpdateCommand.UpdateTransactionDescriptor toCopy) {
+        public UpdateTransactionDescriptor(UpdateTransactionDescriptor toCopy) {
             setAmount(toCopy.amount);
             setDate(toCopy.date);
             setCategories(toCopy.categories);
