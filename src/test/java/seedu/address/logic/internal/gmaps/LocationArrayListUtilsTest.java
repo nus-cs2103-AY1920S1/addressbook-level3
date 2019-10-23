@@ -1,9 +1,7 @@
 package seedu.address.logic.internal.gmaps;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -31,11 +29,6 @@ class LocationArrayListUtilsTest {
 
     @Test
     void getIndexExceptionFlow() {
-        InvalidParameterException e =
-                assertThrows(InvalidParameterException.class, () -> LocationArrayListUtils.getIndex(locationArrayList,
-                        "BarFooBarFoo"));
-        assertEquals(e.getMessage(), "Cannot find location BarFooBarFoo in arrayList");
-
+        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "BarFooBarFoo"), -1);
     }
-
 }

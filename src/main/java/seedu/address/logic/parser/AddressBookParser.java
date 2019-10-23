@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,40 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses user input.
  */
 public class AddressBookParser {
+    /**
+     * Represents the two parts of a command: its {@code commandWord} and {@code arguments}.
+     */
+    public static class CommandTokens {
+        public final String commandWord;
+        public final String arguments;
+
+        public CommandTokens(String commandWord, String arguments) {
+            this.commandWord = commandWord;
+            this.arguments = arguments;
+        }
+
+        public int getCommandWordLength() {
+            return commandWord.length();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            CommandTokens that = (CommandTokens) o;
+            return commandWord.equals(that.commandWord)
+                    && arguments.equals(that.arguments);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(commandWord, arguments);
+        }
+    }
 
     /**
      * Used for initial separation of command word and args.
@@ -50,13 +85,9 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final CommandTokens commandTokens = tokenizeCommand(userInput);
+        final String commandWord = commandTokens.commandWord;
+        final String arguments = commandTokens.arguments;
         switch (commandWord) {
 
         case AddPersonCommand.COMMAND_WORD:
@@ -133,4 +164,22 @@ public class AddressBookParser {
         }
     }
 
+    /**
+     * Tokenize user input into two parts: {@code commandWord} and {@code arguments}.
+     *
+     * @param userInput Full user input string.
+     * @return The {@code userInput} split into the two {@code commandWord} and {@code arguments} parts.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public static CommandTokens tokenizeCommand(final String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        return new CommandTokens(
+                matcher.group("commandWord"),
+                matcher.group("arguments")
+        );
+    }
 }

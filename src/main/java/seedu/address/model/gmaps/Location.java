@@ -11,23 +11,23 @@ import java.io.Serializable;
 public class Location implements Serializable {
     private static final long serialVersionUID = 6529685098267757691L;
     private final String locationName;
-    private String googleRecognisedLocation = null;
+    private String validLocation = null;
 
     public Location(String locationName) {
         requireNonNull(locationName);
         this.locationName = locationName;
     }
 
-    public void setGoogleRecognisedLocation(String googleRecognisedLocation) {
-        this.googleRecognisedLocation = googleRecognisedLocation;
+    public void setValidLocation(String googleRecognisedLocation) {
+        this.validLocation = googleRecognisedLocation;
     }
 
     public String getLocationName() {
         return locationName;
     }
 
-    public String getGoogleRecognisedLocation() {
-        return googleRecognisedLocation;
+    public String getValidLocation() {
+        return validLocation;
     }
 
     @Override
@@ -35,11 +35,11 @@ public class Location implements Serializable {
     public boolean equals(Object other) {
         return other == this || other instanceof Location
                 && ((Location) other).getLocationName().equals(locationName)
-                && ((Location) other).getGoogleRecognisedLocation().equals(googleRecognisedLocation);
+                && ((Location) other).getValidLocation().equals(validLocation);
     }
 
     @Override
     public String toString() {
-        return "Location: " + locationName + ", Google recognised location: " + googleRecognisedLocation;
+        return "Location: " + locationName + ", Google recognised location: " + validLocation;
     }
 }
