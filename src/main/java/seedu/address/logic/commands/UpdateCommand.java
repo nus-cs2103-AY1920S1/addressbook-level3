@@ -89,9 +89,26 @@ public class UpdateCommand extends Command {
         if (transactionToEdit instanceof InTransaction) {
             return new InTransaction(updatedAmount, updatedDate, updatedTags);
         } else {
-            System.out.println("out trans");
             return new OutTransaction(updatedAmount, updatedDate, updatedTags);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof UpdateCommand)) {
+            return false;
+        }
+
+        // state check
+        UpdateCommand u = (UpdateCommand) other;
+        return targetIndex.equals(u.targetIndex)
+                && updateTransactionDescriptor.equals(u.updateTransactionDescriptor);
     }
 
     /**
