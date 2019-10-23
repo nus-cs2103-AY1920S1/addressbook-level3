@@ -44,13 +44,9 @@ public class PercentageTest {
     }
 
     @Test
-    public void calculate_numLargerThanDen_exceptionThrown() {
-        try {
-            Percentage percentage = Percentage.calculate(300, 200);
-            fail(); // the test should not reach this line
-        } catch (IllegalArgumentException e) {
-            assertEquals("Numerator cannot be larger than denominator", e.getMessage());
-        }
+    public void calculate_numLargerThanDen_ReturnsFullPercentage() {
+        Percentage percentage = Percentage.calculate(300, 200);
+        assertEquals(new Percentage(100), percentage);
     }
 
     @Test
