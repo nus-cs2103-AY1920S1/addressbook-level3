@@ -110,23 +110,22 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The expense must not already exist in the address book.
      */
     public void addExpense(Expense p) {
-        expenses.add(p);
         if (budgets.isEmpty()) {
             Budget defaultBudget = Budget.createDefaultBudget();
             defaultBudget.setPrimary();
             budgets.add(defaultBudget);
         }
         Budget primaryBudget = budgets.getPrimaryBudget();
-        if (primaryBudget != null) {
-            //    return;
-            //} else {
-            boolean expenseDateWithinBudget = p.getTimestamp().isBefore(primaryBudget.getEndDate())
-                    && (p.getTimestamp().isAfter(primaryBudget.getStartDate())
-                    || p.getTimestamp().isEqual(primaryBudget.getStartDate()));
-            if (expenseDateWithinBudget) {
-                primaryBudget.addExpense(p);
-            }
+        if (p.getBudgetName() == null) {
+            p.setBudget(primaryBudget);
+            primaryBudget.addExpense(p);
+            primaryBudget.updateProportionUsed();
+        } else {
+            Budget budget = budgets.getBudgetWithName(new Description(p.getBudgetName()));
+            budget.addExpense(p);
+            budget.updateProportionUsed();
         }
+        expenses.add(p);
     }
 
     /**
