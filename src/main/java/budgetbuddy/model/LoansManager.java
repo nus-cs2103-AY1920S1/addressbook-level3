@@ -91,7 +91,7 @@ public class LoansManager {
      * @param toAdd The loan to add.
      */
     public void addLoan(Loan toAdd) {
-        internalList.add(toAdd);
+        internalList.add(0, toAdd);
     }
 
     /**
