@@ -3,7 +3,6 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
-'skinparam linetype polyline
 
 Package Model <<Rectangle>>{
 Interface ReadOnlyPlanner <<Interface>>
@@ -105,9 +104,5 @@ Day *--> Timetable
 Timetable o--> " *" ActivityWithTime
 
 Name -[hidden]right-> H1
-'HiddenClass1 -[hidden]right-> Address
-'Phone -[hidden]right-> Address
 
-
-'ModelManager -->"1" Person : filtered list
 @enduml
