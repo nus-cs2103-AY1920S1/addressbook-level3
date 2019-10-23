@@ -36,6 +36,11 @@ Class Price
 Class UniqueInventoryList
 }
 
+Package Mapping {
+Class Mapping
+Class UniqueMappingList
+}
+
 Package Tag {
 Class Tag
 }
@@ -70,8 +75,11 @@ UniqueInventoryList o--> "*" Inventory
 Inventory *--> InvName
 Inventory *--> Price
 
+ProjectDashboard *--> "1" UniqueMappingList
+UniqueMappingList o--> "*" Mapping
 
 ModelManager -->"1" Task : filtered list
 ModelManager -->"1" Member : filtered list
 ModelManager -->"1" Inventory : filtered list
+ModelManager -->"1" Mapping : filtered list
 @enduml
