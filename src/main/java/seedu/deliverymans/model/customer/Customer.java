@@ -93,8 +93,7 @@ public class Customer {
 
         Customer otherCustomer = (Customer) other;
         return otherCustomer.getName().equals(getName())
-                && otherCustomer.getPhone().equals(getPhone())
-                && otherCustomer.getTags().equals(getTags());
+                && otherCustomer.getPhone().equals(getPhone());
     }
 
     @Override
