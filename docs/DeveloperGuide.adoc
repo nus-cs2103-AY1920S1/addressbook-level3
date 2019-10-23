@@ -262,6 +262,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Financial Tracker
+==== Expense Statistics
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -480,7 +484,24 @@ Extensions
 
 
 [discrete]
-=== Use case: Finance Tracker
+=== Use case: Financial Tracker
+----
+Software System : TravEzy Travelling Financial Tracker
+Use Case: UCFT01 - Add an expense into financial tracker page
+Actor: User
+
+Guarantees:
+    . A new expense will be added to the financial tracker page upon successful command
+
+MSS:
+    1. User type in the expense to be added to the financial tracker
+    2. TravEzy add the expense in order by date and time
+
+Extensions
+    1a. Command format is incorrect.
+        1a1. TravEzy shows an error message, prompt user with proper command format.
+        Use case resumes at step 1.
+----
 
 _{More to be added}_
 
