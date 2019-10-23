@@ -60,7 +60,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         this.game = game //get from constructor
          */
 
-        parserManager = new ParserManager(model);
+        parserManager = new ParserManager();
     }
 
     @Override
@@ -85,12 +85,9 @@ public class LogicManager implements Logic, UiLogicHelper {
          */
         //commandResult = command.execute(model);
 
-        /* Checks if command entered in wrong mode */
-        command.precondition(model);
         commandResult = command.execute(model);
-        command.postcondition();
 
-        parserManager.updateState(command);
+        parserManager.updateState(model.gameIsOver());
 
         // todo need to save wordbankstatistics after deletion.
         // todo possible solution -> just save on every command like how the word bank is saved.

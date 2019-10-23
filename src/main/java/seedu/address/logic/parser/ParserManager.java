@@ -1,26 +1,51 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.SwitchCommand;
+import seedu.address.logic.commands.appcommands.AddCommand;
+import seedu.address.logic.commands.appcommands.ClearCommand;
+import seedu.address.logic.commands.appcommands.DeleteCommand;
+import seedu.address.logic.commands.appcommands.EditCommand;
+import seedu.address.logic.commands.appcommands.ExitCommand;
+import seedu.address.logic.commands.appcommands.FindCommand;
 import seedu.address.logic.commands.appcommands.HelpCommand;
+import seedu.address.logic.commands.appcommands.ListCommand;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
-import seedu.address.logic.commands.switches.BankCommand;
+import seedu.address.logic.commands.gamecommands.GuessCommand;
+import seedu.address.logic.commands.gamecommands.SkipCommand;
+import seedu.address.logic.commands.gamecommands.StopCommand;
+import seedu.address.logic.commands.loadcommands.BankCommand;
+import seedu.address.logic.commands.loadcommands.CreateCommand;
+import seedu.address.logic.commands.loadcommands.ExportCommand;
+import seedu.address.logic.commands.loadcommands.ImportCommand;
+import seedu.address.logic.commands.loadcommands.RemoveCommand;
+import seedu.address.logic.commands.settingcommands.DifficultyCommand;
+import seedu.address.logic.commands.settingcommands.HintsCommand;
+import seedu.address.logic.commands.settingcommands.ThemeCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.LoadScreenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
+import seedu.address.logic.parser.app.AddCommandParser;
+import seedu.address.logic.parser.app.DeleteCommandParser;
+import seedu.address.logic.parser.app.EditCommandParser;
+import seedu.address.logic.parser.app.FindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.game.GuessCommandParser;
+import seedu.address.logic.parser.load.BankCommandParser;
+import seedu.address.logic.parser.load.CreateCommandParser;
+import seedu.address.logic.parser.load.ExportCommandParser;
+import seedu.address.logic.parser.load.ImportCommandParser;
+import seedu.address.logic.parser.load.RemoveCommandParser;
+import seedu.address.logic.parser.settings.DifficultyCommandParser;
+import seedu.address.logic.parser.settings.HintsCommandParser;
+import seedu.address.logic.parser.settings.ThemeCommandParser;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
-import seedu.address.model.Model;
-
 
 
 /**
@@ -33,40 +58,58 @@ public class ParserManager {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private ModeParser modeParser;
     private ModeEnum mode;
-    private ModeEnum tempMode;
+    private boolean gameIsOver;
 
-    private ClassUtil classUtil;
-    private Model model;
+    private SpecificModeParser switchParser;
+    private SpecificModeParser currentParser;
 
-    public ParserManager (Model model) {
+    public ParserManager () {
         this.mode = ModeEnum.LOAD;
-        this.modeParser = setModeParser();
-        this.tempMode = null;
-        this.classUtil = new ClassUtil(model);
-        this.model = model;
-        classUtil.add(new ClassPair(BankCommand.class, BankCommandParser.class));
-        classUtil.add(new ClassPair(HomeCommand.class, null));
-        classUtil.add(new ClassPair(LoadScreenCommand.class, null));
-        classUtil.add(new ClassPair(StartCommand.class, StartCommandParser.class));
-        classUtil.add(new ClassPair(SwitchToSettingsCommand.class, null));
+        this.gameIsOver = true;
+        this.switchParser = new SpecificModeParser();
+        switchParser.add(HomeCommand.class, null);
+        switchParser.add(LoadScreenCommand.class, null);
+        switchParser.add(StartCommand.class, StartCommandParser.class);
+        switchParser.add(SwitchToSettingsCommand.class, null);
+        this.currentParser = setCurrentParser(this.mode);
     }
 
     public ModeEnum getMode() {
         return mode;
     }
 
-    private ModeParser setModeParser() {
+    private SpecificModeParser setCurrentParser(ModeEnum mode) {
+
+        SpecificModeParser temp = new SpecificModeParser();
         switch (this.mode) {
         case APP:
-            return new AppModeParser(model);
+            temp.add(AddCommand.class, AddCommandParser.class);
+            temp.add(EditCommand.class, EditCommandParser.class);
+            temp.add(DeleteCommand.class, DeleteCommandParser.class);
+            temp.add(FindCommand.class, FindCommandParser.class);
+            temp.add(ClearCommand.class, null);
+            temp.add(ListCommand.class, null);
+            temp.add(ExitCommand.class, null);
+            temp.add(HelpCommand.class, null);
+            return temp;
         case LOAD:
-            return new LoadModeParser();
+            temp.add(BankCommand.class, BankCommandParser.class);
+            temp.add(ImportCommand.class, ImportCommandParser.class);
+            temp.add(ExportCommand.class, ExportCommandParser.class);
+            temp.add(CreateCommand.class, CreateCommandParser.class);
+            temp.add(RemoveCommand.class, RemoveCommandParser.class);
+            return temp;
         case SETTINGS:
-            return new SettingsModeParser();
+            temp.add(DifficultyCommand.class, DifficultyCommandParser.class);
+            temp.add(HintsCommand.class, HintsCommandParser.class);
+            temp.add(ThemeCommand.class, ThemeCommandParser.class);
+            return temp;
         case GAME:
-            return new GameModeParser();
+            temp.add(GuessCommand.class, GuessCommandParser.class);
+            temp.add(SkipCommand.class, null);
+            temp.add(StopCommand.class, null);
+            return temp;
         default:
             return null;
         }
@@ -77,24 +120,18 @@ public class ParserManager {
      * Sets new state within parsermanager if command was successful.
      * @param command
      */
-    public void updateState(Command command) {
-        if (command.postcondition() && tempMode != null) {
-            mode = tempMode;
-            tempMode = null;
-            this.modeParser = setModeParser();
-        } else {
-            tempMode = null;
-        }
+    public void updateState(boolean gameIsOver) {
+        this.gameIsOver = gameIsOver;
     }
 
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
-        for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
-            if (txt.contains(input) || input.contains(txt)) {
-                temp.add(new AutoFillAction(txt));
+        if (gameIsOver) {
+            for (AutoFillAction action : switchParser.getAutoFill(input)) {
+                temp.add(action);
             }
         }
-        for (AutoFillAction action : modeParser.getAutoFill(input)) {
+        for (AutoFillAction action : currentParser.getAutoFill(input)) {
             temp.add(action);
         }
         return temp;
@@ -109,43 +146,31 @@ public class ParserManager {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException, ModeSwitchException {
-        SwitchCommand switchCommand = null;
-
-        switchCommand = checkSwitchMode(userInput);
-
-        if (switchCommand != null) {
-            this.tempMode = switchCommand.getNewMode(mode);
-            return switchCommand;
+        Command temp = null;
+        if (gameIsOver) {
+            temp = switchParser.parseCommand(userInput);
+        }
+        if (temp != null) {
+            SwitchCommand switchCommand = (SwitchCommand) temp;
+            mode = switchCommand.getNewMode(mode);
+            currentParser = setCurrentParser(mode);
         } else {
-            return this.modeParser.parseCommand(userInput);
+            temp = currentParser.parseCommand(userInput);
         }
-    }
-
-    /**
-     * Checks if current input is requesting a switch mode command.
-     * @param userInput
-     * @return
-     * @throws ParseException
-     */
-    private SwitchCommand checkSwitchMode(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        if (temp != null) {
+            return temp;
         }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-
-        return (SwitchCommand) classUtil.getCommandInstance(commandWord, arguments);
+        throw new ParseException("Don't know COMMAND!!");
     }
 
     public List<ModeEnum> getModes() {
         List<ModeEnum> temp = new ArrayList<>();
-        // TODO make it dynamic to switch command;
-        temp.add(ModeEnum.APP);
-        temp.add(ModeEnum.LOAD);
+        if (gameIsOver) {
+            temp.add(ModeEnum.APP);
+            temp.add(ModeEnum.LOAD);
+            temp.add(ModeEnum.SETTINGS);
+        }
         temp.add(ModeEnum.GAME);
-        temp.add(ModeEnum.SETTINGS);
         return temp;
     }
 

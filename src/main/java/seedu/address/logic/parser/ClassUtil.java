@@ -18,43 +18,18 @@ public class ClassUtil {
 
     private Model model;
     private List<ClassPair> classPairs;
-    private List<ClassPair> filteredList;
 
-    public ClassUtil (Model model) {
-        this.model = model;
+    public ClassUtil () {
         this.classPairs = new ArrayList<>();
-        this.filteredList = new ArrayList<>();
     }
 
     public void add(ClassPair classPair) {
         classPairs.add(classPair);
     }
 
-    /**
-     *  Filters list of classes to only include valid ones in processing
-     */
-    private void filterList() {
-        filteredList.clear();
-        for (ClassPair clsPair : classPairs) {
-            try {
-                Class cls = clsPair.getCommand();
-                Constructor cons = cls.getConstructor();
-                Command test = (Command) cons.newInstance();
-                boolean temp = test.precondition(model);
-                if (temp) {
-                    filteredList.add(clsPair);
-                }
-            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
-                    | InvocationTargetException e) {
-                System.err.println("Erorrorror");
-            }
-        }
-    }
-
     public List<String> getAttribute(String attr) {
-        filterList();
         List<String> result = new ArrayList<>();
-        for (ClassPair clsPair : filteredList) {
+        for (ClassPair clsPair : classPairs) {
             try {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField(attr);
@@ -69,14 +44,11 @@ public class ClassUtil {
 
     public Command getCommandInstance(String commandWord, String arguments)
             throws ParseException {
-        filterList();
-
-        for (ClassPair clsPair : filteredList) {
+        for (ClassPair clsPair : classPairs) {
             try {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField("COMMAND_WORD");
                 String strValue = (String) f.get(null);
-
                 if (strValue.equals(commandWord)) {
                     Class parser = clsPair.getParser();
                     if (parser == null) {
