@@ -262,10 +262,13 @@ public class ReportGenerator {
 
     }
 
+    /**
+     * Returns true when an object is an instance of ReportGenerator
+     *
+     * @param other object
+     * @return true when object is an instance of ReportGenerator
+     */
     public boolean isSameReportGenerator(Object other) {
-        if (!(other instanceof ReportGenerator)) {
-            return false;
-        }
-        return true;
+        return other instanceof ReportGenerator;
     }
 }
