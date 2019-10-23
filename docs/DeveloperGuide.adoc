@@ -405,6 +405,71 @@ Also, it looks somewhat out of place in `Model` as alternative 1 seems to be abl
 
 // end::stats[]
 
+// tag::export/import
+
+===  Export/Import feature
+==== Export
+The user may not want to export everything in the Meme storage to a directory. The Stage command
+functionality introduces flexibility for the user to stage and shortlist which memes he wants to export,
+which will be in the staging area under the export tab. When the user accidentally stages a meme, he can
+either use the undo command or the Unstage command. When the user finally confirms the memes to be export
+in the staging area, the user can execute the ExportCommand with a provided directory path. The
+following sequence diagram illustrates the execution of the `Stage Command` and `Emport Command`:
+
+image::StageSequenceDiagram.png[]
+image::ExportSequenceDiagram.png[]
+
+==== Import
+The user can use the `Load Command` to batch load all memes in the correct picture format into the import
+context. However, the memes are not immediately imported to storage because there may be memes in the directory
+that the user does not wish to import. Furthermore, the user may want to set descriptions and tag them before
+it gets populated into the meme storage. Hence, the user is allowed to use Edit Command and Delete Command
+in the import context to finalise the memes in the import context before executing the import command.
+The import command will then populate all of the memes in the staging area to the memes storage, followed
+by clearing the memes in the import context.
+
+==== Current Implementation
+Export and Import do not share the same UniqueMemeList as that in the Meme context.
+
+While the user is selecting which meme to stage, the user should have a visual reference all the existing memes.
+Hence, the `Stage Command` works in the Meme Context, and the user is able to stage by the Meme Index.
+On the contrary, the unstage command is only available in the export tab, where the user can reference which
+memes to delete using the index in the export tab.
+
+ Step 1. The user enters the import tab
+
+Step 2. The user executes LoadCommand and provide a directory path.
+Weme will find files which are in valid format (e.g. png) and create a new memes
+based on the given file path. The memes will be added into the import tab which is visible to the user.
+
+Step 3. The user executes edit 1 d/Description t/newly added meme to edit the
+description and tag of the newly added meme based on its index in the import area.
+This change will also be reflected visually.
+
+Step 4. User executes import, and weme will transfer the memes from the import list into
+the memeList, which is now viewable in the meme tab. The memes in the import tab are cleared
+so that the user can continue importing the memes in a new directory.
+
+The following activity diagram summaries the load and import process:
+
+image::ImportActivityDiagram.png[]
+
+==== Design Consideration
+
+===== Aspect: Storage of the imported and exported meme
+
+* **Alternative 1 (current choice):** Use 3 separate UniqueMemeList to store memes in the meme,
+export and import tab separately.
+** Pros: Straightforward Implementation. Lesser dependency among the 3 different context.
+** Cons: Repetitive method involved in retrieving the 3 different list using model.
+* **Alternative 2:** Use a single UniqueMemeList to store the memes, and introduce a flag attribute
+to distinguish between staged meme, imported meme and ordinary meme.
+** Pros: Lesser methods defined to retrieve 3 different UniqueMemeList, and a minimalist design.
+** Cons: More coupling involved and the list can get very large, hence iterating through it may cause lagging.
+
+// end::export/import[]
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
