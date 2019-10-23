@@ -89,9 +89,6 @@ public class Task {
         final Priority p;
         final boolean complete;
 
-        String priorityString = node.get("priority").asText();
-        p = Priority.valueOf(priorityString);
-
         complete = node.get("complete").asBoolean();
         return new Task(complete);
     }

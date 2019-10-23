@@ -391,7 +391,7 @@ public class Item {
         ItemDescription id = ItemDescription.fromJson(itemDescriptionString);
         temp.setItemDescription(id);
 
-        String priorityString = node.get("priority").toString();
+        String priorityString = node.get("priority").asText();
         Priority newPriority = Priority.fromJson(priorityString);
         temp.setItemPriority(newPriority);
 
