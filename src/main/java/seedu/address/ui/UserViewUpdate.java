@@ -74,10 +74,8 @@ public class UserViewUpdate {
 
         case "list-inv":
             paneToRender.getChildren().add(userViewMain.loadInventories());
-
-        case "list-tasks":
-            paneToRender = userViewMain.loadTasks();
             break;
+
         case "get-member-stats":
            paneToRender = userViewMain.loadMemberStats();
            break;
