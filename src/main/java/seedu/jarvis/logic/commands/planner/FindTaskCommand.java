@@ -6,6 +6,8 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Finds and lists all tasks in the planner whose description contains any of the argument
  * keywords.
@@ -22,6 +24,8 @@ public class FindTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " homework cs urgent";
 
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be undone.";
+
+    public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
 
     public static final boolean HAS_INVERSE = false;
 
@@ -60,10 +64,14 @@ public class FindTaskCommand extends Command {
      * @return {@code Model} of the number of {@code Task} matching the {@code Predicate}.
      * @throws CommandException
      */
-    //TODO execute method
+    //TODO test
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        model.find(predicate);
+
+        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.find(predicate).size()));
     }
 
     /**
