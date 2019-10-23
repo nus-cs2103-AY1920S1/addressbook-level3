@@ -480,7 +480,18 @@ Use case ends.
 
 '''
 [discrete]
-=== UC05 Set a monthly budget
+=== UC05 Sort displayed spending
+
+*MSS*
+
+1.  User requests to sort based on optionally provided fields such as spending name, cost range, date range or remark, in ascending or descending order.
+2.  MoneyGoWhere returns spending entries using the given order.
++
+Use case ends.
+
+'''
+[discrete]
+=== UC06 Set a monthly budget
 
 *MSS*
 
@@ -502,7 +513,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC06 Generate statistics
+=== UC07 Generate statistics
 
 *MSS*
 
@@ -514,7 +525,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC07 List all tags
+=== UC08 List all tags
 
 *MSS*
 
@@ -526,7 +537,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC08 Import external data from a CSV file
+=== UC09 Import external data from a CSV file
 
 *MSS*
 
@@ -548,7 +559,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC09 Export data to a CSV file
+=== UC10 Export data to a CSV file
 
 *MSS*
 
@@ -570,7 +581,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC10 Undo a command
+=== UC11 Undo a command
 
 *MSS*
 
@@ -592,7 +603,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC11 Redo a command
+=== UC12 Redo a command
 
 *MSS*
 
@@ -614,7 +625,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC12 Graphing the data
+=== UC13 Graphing the data
 
 *MSS*
 
@@ -626,7 +637,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC13 Clear all spending
+=== UC14 Clear all spending
 
 *MSS*
 
