@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.ui.tab.Tab;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -189,9 +190,24 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Handles the switching of tab depending on {@code tab}.
+     */
     @FXML
-    private void handleSwitchTab() {
-        showTransactionTab();
+    private void handleSwitchTab(Tab tab) {
+        System.out.println(tab);
+        switch (tab) {
+
+        case TRANSACTION:
+            showTransactionTab();
+            break;
+        case BUDGET:
+            showBudgetTab();
+            break;
+        default:
+            break;
+
+        }
     }
 
     public TransactionListPanel getTransactionListPanel() {
@@ -217,8 +233,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitchTab()) {
-                handleSwitchTab();
+            if (commandResult.isSwitchTab() != null) {
+                handleSwitchTab(commandResult.isSwitchTab());
             }
 
             return commandResult;

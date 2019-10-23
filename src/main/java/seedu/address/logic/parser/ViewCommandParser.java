@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Parses input arguments and creates a new ViewCommand object.
@@ -23,6 +24,13 @@ public class ViewCommandParser implements Parser<ViewCommand> {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
 
-        return new ViewCommand();
+        if (trimmedArgs.equals("transaction")) {
+            return new ViewCommand(Tab.TRANSACTION);
+        } else if (trimmedArgs.equals("budget")) {
+            return new ViewCommand(Tab.BUDGET);
+        } else {
+            throw new ParseException(
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+        }
     }
 }

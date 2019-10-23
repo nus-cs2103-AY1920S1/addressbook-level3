@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.ui.tab.Tab;
+
 /**
  * Represents the result of a command execution.
  */
@@ -24,12 +26,12 @@ public class CommandResult {
     /**
      * The application should switch tab.
      */
-    private final boolean switchTab;
+    private final Tab switchTab;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean switchTab) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Tab switchTab) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -41,7 +43,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, null);
     }
 
     public String getFeedbackToUser() {
@@ -56,7 +58,7 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isSwitchTab() {
+    public Tab isSwitchTab() {
         return switchTab;
     }
 
