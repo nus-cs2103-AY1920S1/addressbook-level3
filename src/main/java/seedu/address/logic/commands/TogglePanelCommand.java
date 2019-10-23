@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.PanelName;
 
@@ -25,7 +26,7 @@ public class TogglePanelCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory commandHistory) {
         requireNonNull(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, panelName), panelName, true);

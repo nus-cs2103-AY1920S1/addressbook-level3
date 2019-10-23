@@ -11,7 +11,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -82,22 +81,10 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-           /*Arial,
-            Calibri,
-              Cambria,
-              Candara,
-              Garamond,
-              Georgia,
-               Rockwell,
-                Segoe UI,
-             Segoe UI Light,
-             Segoe UI Semibold,
-             Segoe UI Semilight,
-              Serif,
-              Verdana*/
-       String style = "-fx-font-family: ";
-       style += "Verdana";
-        window.setStyle(style);
+
+        /*String style = "-fx-font-family: ";
+        style += "Verdana";
+        window.setStyle(style);*/
     }
 
     public Stage getPrimaryStage() {
