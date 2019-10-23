@@ -202,7 +202,7 @@ public class Person {
      * Throws IllegalStateException if visit is ongoing.
      */
     public void removeVisit(Visit visit, Model model) {
-        requireNonNull(model);
+        requireAllNonNull(visit, model);
         if (!visits.contains(visit)) {
             throw new IllegalArgumentException();
         }
