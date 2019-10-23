@@ -355,6 +355,17 @@
     -fx-background-radius: 10 10 10 10;
 }
 
+#defaultTag {
+    -fx-text-fill: #1f1f1f;
+    -fx-background-color: white;
+}
+
+#userTag {
+    -fx-text-fill: white;
+    -fx-background-color: #1f1f1f;
+}
+
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -407,9 +418,12 @@
 }
 
 #tags .label {
+    /*
     -fx-text-fill: white;
     -fx-background-color: #1f1f1f;
+    */
     -fx-padding: 1 5 1 5;
+    -fx-border-color: black;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-font-size: 11;

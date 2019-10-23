@@ -293,18 +293,6 @@ _E_ modules are modules that count towards Focus Area Electives for _FOCUS_AREA_
 Shows all tag types. +
 Format: `viewalltags`
 
-==== Creating new tags : `newtag`
-Creates a new tag type that can be used to keep track of other types of modules. +
-Format: `newtag TAG_NAME`
-
-[NOTE]
-If a tag with the specified `TAG_NAME` already exists, no new tag will be created.
-
-Example:
-
-* `newtag exchange` +
-Adds a tag called _exchange_ that can be used to tag modules that are to be taken during an overseas exchange.
-
 ==== Renaming an existing tag : `renametag`
 Renames a tag. +
 Format: `renametag ORIGINAL_TAG_NAME NEW_TAG_NAME`
@@ -317,7 +305,7 @@ Example:
 * `renametag exchange sep` +
 Renames the tag name from _exchange_ to _sep_.
 
-==== Tagging modules : `tag`
+==== Tagging modules : `addtag`
 Attaches a tag to a module. +
 Format: `tag MODULE_CODE TAG_NAME`
 
@@ -374,6 +362,10 @@ Format `viewtags MODULE_CODE`
 Examples:
 
 * `viewtags cs2030`
+
+==== Removing all tags from the study plan : `removealltags`
+Removes all user-created tags in the entire study plan. +
+Format `removealltags`
 
 ==== Finding modules using the module code : `findmod`
 Shows which semester the specified module is located at. +
