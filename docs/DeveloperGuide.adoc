@@ -127,7 +127,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Moneygowhere`, which `Spending` can reference. This would allow `Spending Book` to only require one `Tag` object per unique `Tag`, instead of each `Spending` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Spending Book`, which `Spending` can reference. This would allow `Spending Book` to only require one `Tag` object per unique `Tag`, instead of each `Spending` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -153,43 +153,93 @@ Classes used by multiple components are in the `seedu.moneygowhere.commons` pack
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::reminder[]
+=== Reminder feature
+
+With this reminder feature, users can set the reminders of their tasks with deadlines and delete them when completed.
+
+==== Implementation
+
+A reminder is constructed with
+
+* Deadline `d/DATE`
+* Reminder Message `m/MESSAGE`
+
+The recorded reminders sorted with deadline in descending order, are displayed on the User Interface(UI) for notification.
+
+This feature is implemented with the following operations:
+
+* Adding a reminder `reminder d/DATE m/MESSAGE` +
+e.g. `reminder d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
+
+* Deleting a reminder `dreminder INDEX` +
+e.g. `dreminder 1` - delete the first reminder in the reminder list shown in UI.
+
+Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
+
+image::AddReminderActivityDiagram.png[]
+
+[NOTE]
+In the above diagram, it can be seen that respective error messages will be shown for invalid inputs.
+
+Shown below is the sequence diagram containing the interactions between respective components in MoneyGoWHere when user inputs `AddReminderCommand`.
+
+image::AddReminderSequenceDiagram.png[]
+
+[NOTE]
+The above sequence diagram demonstrates how a new reminder is constructed from valid user input.
+
+Following is the activity diagram including the series of actions performed by MoneyGOWhere when it receives `DeleteReminderCommand`
+
+image::DeleteReminderActivityDiagram.png[]
+
+[NOTE]
+The negative index from user input will leads to invalid command format error.
+
+The below sequence diagram summarize the interactions between different components when user enter `DeleteReminderCommand`.
+
+image::DeleteReminderSequenceDiagram.png[]
+
+[NOTE]
+The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedMoneygowhere`.
-It extends `Moneygowhere` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedSpendingBook`.
+It extends `SpendingBook` with an undo/redo history, stored internally as an `spendingBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `Versionedmoneygowhere#commit()` -- Saves the current address book state in its history.
-* `Versionedmoneygowhere#undo()` -- Restores the previous address book state from its history.
-* `Versionedmoneygowhere#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedSpendingBook#commit()` -- Saves the current spending book state in its history.
+* `VersionedSpendingBook#undo()` -- Restores the previous spending book state from its history.
+* `VersionedSpendingBook#redo()` -- Restores a previously undone spending book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitmoneygowhere()`, `Model#undomoneygowhere()` and `Model#redomoneygowhere()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitSpendingBook()`, `Model#undoSpendingBook()` and `Model#redoSpendingBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `Versionedmoneygowhere` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSpendingBook` will be initialized with the initial spending book state, and the `currentStatePointer` pointing to that single spending book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th Spending in the address book. The `delete` command calls `Model#commitmoneygowhere()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `moneygowhereStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th Spending in the spending book. The `delete` command calls `Model#commitSpendingBook()`, causing the modified state of the spending book after the `delete 5` command executes to be saved in the `spendingBookStateList`, and the `currentStatePointer` is shifted to the newly inserted spending book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new Spending. The `add` command also calls `Model#commitmoneygowhere()`, causing another modified address book state to be saved into the `moneygowhereStateList`.
+Step 3. The user executes `add n/David ...` to add a new Spending. The `add` command also calls `Model#commitSpendingBook()`, causing another modified spending book state to be saved into the `spendingBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitmoneygowhere()`, so the address book state will not be saved into the `moneygowhereStateList`.
+If a command fails its execution, it will not call `Model#commitSpendingBook()`, so the spending book state will not be saved into the `spendingBookStateList`.
 
-Step 4. The user now decides that adding the Spending was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undomoneygowhere()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the Spending was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#spendingBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous spending book state, and restores the spending book to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndomoneygowhere()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial spending book state, then there are no previous spending book states to restore. The `undo` command uses `Model#canUndoSpendingBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +247,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redomoneygowhere()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoSpendingBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the spending book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `moneygowhereStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedomoneygowhere()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `spendingBookStateList.size() - 1`, pointing to the latest spending book state, then there are no undone spending book states to restore. The `redo` command uses `Model#canRedoSpendingBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitMoneygowhere()`, `Model#undoMoneygowhere()` or `Model#redoMoneygowhere()`. Thus, the `MoneygowhereStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the spending book, such as `list`, will usually not call `Model#commitSpendingBook()`, `Model#undoSpendingBook()` or `Model#redoSpendingBook()`. Thus, the `SpendingBookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitMoneygowhere()`. Since the `currentStatePointer` is not pointing at the end of the `MoneygowhereStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSpendingBook()`. Since the `currentStatePointer` is not pointing at the end of the `SpendingBookStateList`, all spending book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -218,7 +268,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire spending book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -227,9 +277,9 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of spending book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedMoneygowhere`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedSpendingBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.

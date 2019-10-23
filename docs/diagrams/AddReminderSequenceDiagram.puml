@@ -5,21 +5,21 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":MoneyGoWhereParser" as MoneyGoWhereParser LOGIC_COLOR
 participant ":AddReminderCommandParser" as AddReminderCommandParser LOGIC_COLOR
-participant "d:AddReminderCommand" as AddReminderCommand LOGIC_COLOR
-participant "d:Reminder" as Reminder LOGIC_COLOR
-participant "d:Date" as Date LOGIC_COLOR
-participant "d:ReminderMessage" as ReminderMessage LOGIC_COLOR
+participant "a:AddReminderCommand" as AddReminderCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
+participant "r:Reminder" as Reminder LOGIC_COLOR
+participant "m:ReminderMessage" as ReminderMessage LOGIC_COLOR
+participant "deadline:Date" as Date LOGIC_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("reminder d/30/08/2020 m/Pay school fee")
+[-> LogicManager : execute("reminder d/today m/Pay bill")
 activate LogicManager
 
-LogicManager -> MoneyGoWhereParser : parseCommand("reminder d/30/08/2020 m/Pay school fee")
+LogicManager -> MoneyGoWhereParser : parseCommand("reminder d/today m/Pay bill")
 activate MoneyGoWhereParser
 
 create AddReminderCommandParser
@@ -29,5 +29,65 @@ activate AddReminderCommandParser
 AddReminderCommandParser --> MoneyGoWhereParser
 deactivate AddReminderCommandParser
 
+MoneyGoWhereParser -> AddReminderCommandParser : parse("d/today m/Pay bill")
+activate AddReminderCommandParser
 
+create Reminder
+AddReminderCommandParser -> Reminder
+activate Reminder
+
+create ReminderMessage
+Reminder -> ReminderMessage
+activate ReminderMessage
+
+ReminderMessage --> Reminder : m
+deactivate ReminderMessage
+
+create Date
+Reminder -> Date
+activate Date
+
+Date --> Reminder : deadline
+deactivate Date
+
+Reminder --> AddReminderCommandParser : r
+deactivate Reminder
+
+create AddReminderCommand
+AddReminderCommandParser -> AddReminderCommand : r
+activate AddReminderCommand
+
+AddReminderCommand --> AddReminderCommandParser : a
+deactivate AddReminderCommand
+
+AddReminderCommandParser --> MoneyGoWhereParser : a
+deactivate AddReminderCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddReminderCommandParser -[hidden]-> AddReminderCommandParser
+destroy AddReminderCommandParser
+
+MoneyGoWhereParser --> LogicManager : a
+deactivate MoneyGoWhereParser
+
+LogicManager -> AddReminderCommand : execute()
+activate AddReminderCommand
+
+AddReminderCommand -> Model : addReminder(r)
+activate Model
+
+Model --> AddReminderCommand
+deactivate Model
+
+Create CommandResult
+AddReminderCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddReminderCommand
+deactivate CommandResult
+
+AddReminderCommand --> LogicManager : result
+deactivate AddReminderCommand
+
+[<--LogicManager
+deactivate LogicManager
 @enduml

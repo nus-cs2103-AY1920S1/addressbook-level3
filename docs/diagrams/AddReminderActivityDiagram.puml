@@ -1,0 +1,20 @@
+@startuml
+start
+:User executes AddReminderCommand;
+
+if() then ([All parameters present])
+    if() then ([Valid Date Format])
+        : Add a new reminder to
+        the current reminder list;
+        : Update the list display
+        with the new reminder;
+    else ([Invalid Date Format])
+        : Show Invalid date
+        format error message;
+    endif
+else([Missing date and/or message field(s)])
+    : Show Invalid command
+      format error message;
+endif
+stop
+@enduml
