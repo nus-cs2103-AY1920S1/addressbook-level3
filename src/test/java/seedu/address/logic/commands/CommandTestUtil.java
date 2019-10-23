@@ -17,6 +17,8 @@ import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.deadline.TaskContainsAllKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.QuestionContainsAllKeywordsPredicate;
 import seedu.address.testutil.EditFlashCardDescriptorBuilder;
@@ -149,6 +151,21 @@ public class CommandTestUtil {
         model.updateFilteredFlashCardList(new QuestionContainsAllKeywordsPredicate(Arrays.asList(question)));
 
         assertEquals(1, model.getFilteredFlashCardList().size());
+    }
+
+    //@@author dalsontws
+    /**
+     * Updates {@code model}'s filtered list to show only the deadline at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showDeadlineAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDeadlineList().size());
+
+        Deadline deadline = model.getFilteredDeadlineList().get(targetIndex.getZeroBased());
+        final String[] task = deadline.getTask().fullTask.split("\\s+");
+        model.updateFilteredDeadlineList(new TaskContainsAllKeywordsPredicate(Arrays.asList(task)));
+
+        assertEquals(1, model.getFilteredDeadlineList().size());
     }
 
 }

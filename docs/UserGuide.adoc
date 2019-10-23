@@ -80,13 +80,39 @@ Lists all the flashcards under the specific topic folder.
 ****
 
 
-Set a reminder for a specific category of flashcards.
-`remind Math 04/11 1030`
- 
+
 === List function topics and flashcards: `list [category]`
 
 Lists all the flashcards under the specific topic folder. Each flashcard is color-coded to represent your familiarity with the content.
 `list Math`
+
+=== Set a reminder for a specific category of flashcards. [coming in v1.3]
+
+`remind Math 04/11 1030`
+
+
+=== Add general deadlines reminders: `deadline t/[TASK] d[DUE DATE]`
+
+Adds a general deadline into the deadline list. The list will be display on the right-side pane.
+Note: [DUE DATE] has to be in dd/MM/yyyy format.
+
+`deadline t/CS2103 Exam d/10/11/2019`
+
+=== Remove deadline from list: `remove [index]`
+
+Removes a specific deadline into the deadline list. The list on the right-side pane will no longer have the deadline.
+
+`remove 2`
+
+****
+* Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+=== Show monthly calendar with all deadlines: `calendar`
+
+Shows the calendar filled with all dealines in the month. The calendar will be shown as a new window pop-up.
+
+`calendar`
 
 === Get the full list of commands: `help`
 
