@@ -19,8 +19,8 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the engagement list displayed in customised order.\n"
-            + "Parameters: [ordering method]\n"
-            + "Example: " + COMMAND_WORD + "starttime";
+            + "Parameters: [property] + [A]: ascending or [D]: descending\n"
+            + "Example: " + COMMAND_WORD + " starta";
 
     private Comparator<Engagement> comparator;
 
