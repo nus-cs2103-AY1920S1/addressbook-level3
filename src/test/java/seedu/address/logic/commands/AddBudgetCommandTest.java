@@ -233,11 +233,6 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public void setPrimary(Budget budget) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Budget> getFilteredBudgetList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -366,12 +361,6 @@ public class AddBudgetCommandTest {
         public void addBudget(Budget budget) {
             requireNonNull(budget);
             budgetsAdded.add(budget);
-        }
-
-        @Override
-        public void setPrimary(Budget budget) {
-            requireNonNull(budget);
-            budget.setPrimary();
         }
 
         @Override

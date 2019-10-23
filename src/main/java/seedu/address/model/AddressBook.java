@@ -70,11 +70,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.budgets.setBudgets(budgets);
     }
 
-    public void setPrimary(Budget budget) {
-        requireNonNull(budget);
-        budgets.setPrimary(budget);
-    }
-
     /**
      * Replaces the contents of the expense list with {@code expenses}.
      * {@code expenses} must not contain duplicate expenses.

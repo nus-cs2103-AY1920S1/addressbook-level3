@@ -231,11 +231,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPrimary(Budget budget) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasBudgetWithName(Description targetDescription) {
             throw new AssertionError("This method should not be called.");
         }

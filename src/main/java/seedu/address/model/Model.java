@@ -174,8 +174,6 @@ public interface Model {
 
     void switchBudgetTo(Description description);
 
-    void setPrimary(Budget budget);
-
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Budget> getFilteredBudgetList();
 

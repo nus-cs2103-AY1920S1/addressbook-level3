@@ -262,11 +262,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPrimary(Budget budget) {
-        addressBook.setPrimary(budget);
-    }
-
-    @Override
     public boolean hasBudgetWithName(Description targetDescription) {
         return addressBook.hasBudgetWithName(targetDescription);
     }
