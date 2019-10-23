@@ -33,7 +33,7 @@ public class EntryCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label time;
+    private Label date;
     @FXML
     private Label amt;
     @FXML
@@ -48,7 +48,7 @@ public class EntryCard extends UiPart<Region> {
         String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;
         desc.setText(descWithType);
 
-        time.setText("13:00");
+        date.setText(entry.getDate().toString());
         amt.setText("$" + entry.getAmount().value);
 
         entry.getTags().stream()

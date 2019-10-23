@@ -37,11 +37,10 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         //checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
-        String[] stringDate = date.toString().split(" ");
+        String[] stringDate = date.split(" ");
         this.date = LocalDate.of(Integer.parseInt(stringDate[0]), Integer.parseInt(stringDate[1]),
                 Integer.parseInt(stringDate[2]));
         parseDate();
-
     }
 
     public Date(LocalDate date) {
@@ -50,10 +49,12 @@ public class Date {
         this.date = date;
         parseDate();
     }
+
     private void parseDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
         fullTime = date.format(formatter);
     }
+
     /**
      * Returns true if a given string is a valid name.
      */
@@ -68,7 +69,7 @@ public class Date {
 
     @Override
     public String toString() {
-        return fullTime;
+        return date.toString();
     }
 
     @Override

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,13 +27,13 @@ public class AddCommand extends Command {
             + PREFIX_TYPE + "TYPE "
             + PREFIX_DESC + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_TIME + "TIME "
+            + PREFIX_DATE + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "Expense "
             + PREFIX_DESC + "Mala "
             + PREFIX_AMOUNT + "5.50 "
-            + PREFIX_TIME + "2019-09-09 "
+            + PREFIX_DATE + "2019 09 09 "
             + PREFIX_TAG + "food "
             + PREFIX_TAG + "indulgence";
 

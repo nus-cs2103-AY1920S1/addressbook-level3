@@ -19,6 +19,7 @@ public class Entry {
     private final Description desc;
     private final Amount amt;
     private final Date date;
+
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -43,7 +44,7 @@ public class Entry {
     }
 
     public String getType() {
-        return "Not like this";
+        return "entry";
     }
 
     public Date getDate() {

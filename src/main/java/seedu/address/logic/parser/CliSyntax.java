@@ -9,7 +9,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TYPE = new Prefix("typ/");
     public static final Prefix PREFIX_DESC = new Prefix("n/");
     public static final Prefix PREFIX_AMOUNT = new Prefix("amt/");
-    public static final Prefix PREFIX_TIME = new Prefix("d/");
+    public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_SEQUENCE = new Prefix("s/");
     public static final Prefix PREFIX_TAG = new Prefix("tg/");
 

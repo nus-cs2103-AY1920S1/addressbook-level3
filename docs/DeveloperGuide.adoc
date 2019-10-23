@@ -62,6 +62,7 @@ For all use cases:
 . User requests to edit a specific expense in the list.
 . guiltTrip() edits the expense.
 Use case ends.
+
 ===== Extensions
 
 . 2a. The history is empty.
@@ -127,8 +128,8 @@ Examples:
 
 * addBudget --desc food budget --period day --amt 200 --tag food
 * addBudget --desc entertainment budget --amt 300
-==== Use Case 09: List existing budgets
 
+==== Use Case 09: List existing budgets
 
 listBudget: lists all the current budgets the user has. +
 Format: listBudget
@@ -146,6 +147,7 @@ Format: deleteBudget <index> +
 Example:
 
 * deleteBudget 2
+
 === Non Functional Requirements
 
 . Brownfield
@@ -171,6 +173,7 @@ Example:
 . Quality Requirements
 ** The software should be able to be used by a user who has never used an expenditure tracking app before
 ** The software should be able to work on different computers if distributed
+
 === Glossary
 
 Category - Income, Expense, Wishlist, Budget +
