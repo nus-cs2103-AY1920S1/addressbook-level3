@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":IncidentManagerParser" as IncidentManagerParser LOGIC_COLOR
+participant "u:DeleteCommand" as DeleteCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Session" as Session MODEL_COLOR
+end box
+[-> LogicManager : execute(delete)
+activate LogicManager
+
+LogicManager -> IncidentManagerParser : parseCommand(delete)
+activate IncidentManagerParser
+
+create DeleteCommand
+IncidentManagerParser -> DeleteCommand
+activate DeleteCommand
+
+DeleteCommand --> IncidentManagerParser
+deactivate DeleteCommand
+
+IncidentManagerParser --> LogicManager : u
+deactivate IncidentManagerParser
+
+LogicManager -> DeleteCommand : execute()
+activate DeleteCommand
+
+DeleteCommand -> Model : getLoggedInPerson()
+activate Model
+
+Model -> Session : getLoggedInPerson()
+activate Session
+
+Session --> Model :
+deactivate Session
+
+Model --> DeleteCommand
+
+alt LoggedInPerson is Admin
+DeleteCommand --> Model : deletePerson()
+Model --> Model : deletePerson()
+else  else
+DeleteCommand --> DeleteCommand : throw Exception
+end
+deactivate Model
+
+DeleteCommand --> LogicManager : result
+deactivate DeleteCommand
+DeleteCommand -[hidden]-> LogicManager : result
+destroy DeleteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
