@@ -8,7 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.module.Module;
-import seedu.address.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -46,8 +45,16 @@ public class ModuleCard extends UiPart<Region> {
         prereqs.setText("NEEDS: " + module.getPrereqString());
         prereqs.setVisible(!module.getPrereqsSatisfied());
         module.getTags().asUnmodifiableObservableList().stream()
-                .sorted(Comparator.comparing(Tag::getTagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
+                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.getTagName());
+                    if (tag.isDefault()) {
+                        tagLabel.setId("defaultTag");
+                    } else {
+                        tagLabel.setId("userTag");
+                    }
+                    tags.getChildren().add(tagLabel);
+                });
     }
 
     @Override

@@ -105,7 +105,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     /**
      * Gets a specific tag that has the given tag name.
-     *
      * @param tagName Name of the tag
      * @return Tag
      */
@@ -178,6 +177,10 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
      */
     public ObservableList<Tag> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    public List<String> asListOfStrings() {
+        return asUnmodifiableObservableList().stream().map(tag -> tag.toString()).collect(Collectors.toList());
     }
 
     @Override
