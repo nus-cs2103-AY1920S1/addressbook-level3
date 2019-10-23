@@ -16,14 +16,68 @@ endif::[]
 
 By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
 
-== Target User Profile
+== Setting up
+
+Refer to the guide <<SettingUp#, here>>.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+[[Design-Ui]]
+=== UI component
+
+.UI Diagram
+image::UiClassDiagram.png[]
+
+[[Design-Logic]]
+=== Logic component
+
+.LogicDiagram
+image::LogicClassDiagram.png[]
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+== Implementation
+
+== Documentation
+
+Refer to the guide <<Documentation#, here>>.
+
+== Testing
+
+Refer to the guide <<Testing#, here>>.
+
+== Dev Ops
+
+Refer to the guide <<DevOps#, here>>.
+
+[appendix]
+== Product Scope
+
+=== Target User Profile
 
 Youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending.
 
-== Value Proposition
+=== Value Proposition
 
 A convenient financial tracker targeted at users who prefer typing over other inputs.
 
+[appendix]
 == User Stories
 
 |===
@@ -62,6 +116,7 @@ A convenient financial tracker targeted at users who prefer typing over other in
 |Low|As a lazy/busy student|I do not want to be required to write a description for my expense or income records every single time |so that I can save time and record quickly.
 |===
 
+[appendix]
 == Use Cases
 
 For all use cases:
@@ -165,6 +220,7 @@ Example:
 
 * deleteBudget 2
 
+[appendix]
 == Non Functional Requirements
 
 . Brownfield
@@ -191,9 +247,10 @@ Example:
 ** The software should be able to be used by a user who has never used an expenditure tracking app before
 ** The software should be able to work on different computers if distributed
 
+[appendix]
 == Glossary
 
-Category - Income, Expense, Wishlist, Budget +
-Entry - any item in a category +
-Tag - label(s) attached to an entry
+* Category - Income, Expense, Wishlist, Budget +
+* Entry - any item in a category +
+* Tag - label(s) attached to an entry
 
