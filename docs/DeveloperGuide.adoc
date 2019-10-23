@@ -39,6 +39,7 @@ Do refer to signs below that will be used across the documents for references. T
 | Signs/Syntax | Explanations
 
 | [WARNING], Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+|===
 
 [IMPORTANT]
 ====
