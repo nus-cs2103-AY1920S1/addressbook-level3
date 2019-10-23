@@ -86,7 +86,7 @@ These commands are recognised regardless of which tab you are currently using.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addtx de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `addtx de/AirPods a/299.0`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addtx de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `addtx de/AirPods a/299.00`.
 * Items in square brackets are optional e.g `badd de/DESCRIPTION a/AMOUNT [c/CATEGORY] ` can be used as `badd de/Saving for iPhone 11 Pro Max a/271.80 c/Gadgets` or as `badd de/Saving for iPhone 11 Pro Max a/271.80`.
 * Items with `…​` after them can be used multiple times including zero times e.g. `[s/KEYWORD]…​` can be used as ` ` (i.e. 0 times), `s/Macbook`, `s/Macbook s/iPad` etc.
 * Parameters can be in any order e.g. if the command specifies `addtx de/DESCRIPTION a/AMOUNT`, `addtx a/AMOUNT de/DESCRIPTION` is also acceptable.
@@ -275,7 +275,7 @@ Format: `badd de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
 
 Examples:
 
-* `badd de/Saving for future a/1000` +
+* `badd de/Saving for future a/1000.00` +
 Sets monthly expenditure budget to $1000.
 
 ==== Delete a monthly budget: `bdelete`
