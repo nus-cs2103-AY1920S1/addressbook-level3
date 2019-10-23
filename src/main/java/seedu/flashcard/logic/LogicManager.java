@@ -16,7 +16,7 @@ import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
 import seedu.flashcard.model.flashcard.Flashcard;
-import seedu.flashcard.model.flashcard.Statistics;
+import seedu.flashcard.model.Statistics;
 import seedu.flashcard.storage.Storage;
 
 /**

@@ -9,7 +9,7 @@ import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
 import seedu.flashcard.model.flashcard.Flashcard;
-import seedu.flashcard.model.flashcard.Statistics;
+import seedu.flashcard.model.Statistics;
 
 
 /**

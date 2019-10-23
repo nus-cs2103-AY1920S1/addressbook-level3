@@ -13,7 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.flashcard.commons.core.LogsCenter;
-import seedu.flashcard.model.flashcard.Statistics;
+import seedu.flashcard.model.Statistics;
 
 /**
  * Creates a scrollabe display for a graphical summary of the stats
