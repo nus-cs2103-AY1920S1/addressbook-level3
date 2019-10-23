@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
-import seedu.tarence.model.module.Module;
 import seedu.tarence.model.student.StudentsInTutorialPredicate;
 import seedu.tarence.model.tutorial.Tutorial;
 
@@ -75,13 +74,9 @@ public class ListCommand extends Command {
     private void setTutorialAndModule(Model model) throws CommandException {
         try {
             ObservableList<Tutorial> tutorialList = model.getFilteredTutorialList();
-            ObservableList<Module> modList = model.getFilteredModuleList();
             Tutorial tutorial = tutorialList.get(predicate.getIndex());
             predicate.setTutName(tutorial.getTutName());
-            boolean match = modList.stream().anyMatch(mod -> mod.getTutorials().contains(tutorial));
-            if (match) {
-                predicate.setModCode(modList.get(predicate.getIndex()).getModCode());
-            }
+            predicate.setModCode(tutorial.getModCode());
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
         }

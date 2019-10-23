@@ -153,6 +153,65 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::Add Student Feature[]
+=== Add Student feature
+
+The `AddStudent` command lets T.A.rence add a student into the specified module and tutorial.
+
+==== Implementation
+
+The `AddStudent` command must include the name, email, tutorial and module. The tutorial and module can be indicated by the index of the tutorial. Optionally, the user
+can also choose to indicate the student's matric number and nusnetid.
+
+[NOTE]
+If the user uses both the indexing and full input format, the command will throw an error due to ambiguity.
+
+* The `AddStudent` command will also automatically be updated within the application's storage system and the new student will be reflected in the application's GUI.
+
+Below is an activity diagram shows the process of invoking the `AddStudent` command.
+
+image::AddStudentCommandActivityDiagram.png[]
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::AddStudentCommandSequenceDiagram.png[]
+
+// tag::Edit Feature[]
+=== Edit feature
+
+The `edit` feature aims to help users update student details in our application.
+When there are changes to be made for a student (e.g. updating their email or adding a matric number),
+users will want to be able to update their student's details easily without going through the hassle of deleting and adding new student information.
+
+==== Implementation
+
+The `edit` command must include one of the following:
+
+* Name
+* Email
+* Matric number
+* NusnetID
+
+[NOTE]
+The user is not allowed to change the tutorial or module that the student is in.
+
+* The `edit` command will also automatically be updated within the application's storage system and the new student's details will be reflected in the application's GUI.
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::EditCommandSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How edit executes
+
+* **Alternative 1 (current choice):** Deletes old copy of and adds new modified copy
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of time complexity.
+* **Alternative 2:** Modify the existing version of the student directly.
+** Pros: Will use less memory
+** Cons: Will have to go through each of the student/tutorial/module lists and update them. Which involves many layers of looping (higher chance of regressions).
+
 // tag::autocorrect[]
 === Autocorrect feature
 
@@ -178,7 +237,6 @@ When a valid option is selected, the `execute()` method in `SelectSuggestionComm
 
 image::AutocorrectSequence.png[]
 
-=======
 NOTE: The lifelines for `SelectSuggestionCommand` and `AddStudentCommand` should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
 
 // tag::autocomplete[]
@@ -195,6 +253,27 @@ Autocomplete is implemented at the `Parser` level. When the user presses the "TA
 `AutocompleteHandler#handle` is responsible for determining the correct autofilled string. If the user presses "TAB" multiple times successively, it cycles through the available autofill options; otherwise, it gets the list of options from `PartialInputParser` and returns the first one. The activity flow is summarised below:
 
 image::AutocompleteActivity.png[]
+
+// tag::list[]
+=== list feature
+
+The `list` command lets T.A.rence display all students or students from a specific tutorial.
+
+==== Implementation
+
+The `list` command can include no additional input, or the index of the tutorial. When the user executes the `list` command, the following steps are taken by the application:
+
+* The CommandParser determines the format of user input. If not input is provided, all students are displayed.
+* When the `list` class is invoked, it will perform the following actions before displaying the output to the user:
+* Obtains a list of tutorials from the model and filters through the students which belong to the indicated tutorial of choice.
+
+Below is an activity diagram shows the process of invoking the `list` command.
+
+image::ListCommandActivityDiagram.png[]
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::ListCommandSequenceDiagram.png[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
