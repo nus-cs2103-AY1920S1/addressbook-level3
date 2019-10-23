@@ -204,9 +204,17 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
-=== Auto-generated cheatsheet feature
+=== Auto-generated cheatsheet with customizable contents feature
+
+[NOTE]
+All the operations assume the user is in the _cheatsheet_ mode.
 
 ==== Implementation
+
+This feature has a two-step implementation.
+The first step is to auto-generate cheatsheet, and the second step is to enable removal of contents in the generated cheatsheet.
+
+===== Step 1: Auto-generation
 
 The auto-generation mechanism is used in the `AddCheatSheetCommand` during creation of the cheatsheet.
 After creation, the cheatsheet is then stored in the `studyBuddy` storage.
@@ -219,12 +227,17 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following sequence diagram shows how the undo operation works:
-
-[NOTE]
-Assuming that user is already in the _cheatsheet_ mode.
+The following sequence diagram shows how the auto-generation operation works:
 
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
+
+===== Step 2: Customizing contents
+
+The customization is based on the contents that the user wants to remove.
+
+The auto-generation mechanism is used in
+the AddCheatSheetCommand during creation of the cheatsheet.
+After creation, the cheatsheet is then stored in the studyBuddy storage
 
 ==== Design Considerations
 ===== Aspect:
