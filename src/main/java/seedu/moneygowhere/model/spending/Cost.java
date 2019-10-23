@@ -7,7 +7,7 @@ import static seedu.moneygowhere.commons.util.AppUtil.checkArgument;
  * Represents a Spending's cost in the MoneyGoWhere list.
  * Guarantees: immutable; is valid as declared in {@link #isValidCost(String)}
  */
-public class Cost {
+public class Cost implements Comparable<Cost> {
 
     public static final String MESSAGE_CONSTRAINTS = "Cost must be a number with at most 2 decimal places, "
         + "and it should not be blank.";
@@ -54,6 +54,14 @@ public class Cost {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Cost other) {
+        return Double.compare(
+                Double.parseDouble(value),
+                Double.parseDouble(other.value)
+        );
     }
 
 }
