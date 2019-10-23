@@ -104,16 +104,23 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("cancelappt 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("cancelappt 1")` API call.
+
+.Interactions Inside the Logic Component for the `cancelappt 1` Command
+image::CancelAppointmentSequenceDiagram.png[]
+
+NOTE: The lifeline for `CancelAppCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 [[Design-Model]]
 === Model component
-
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
@@ -236,11 +243,56 @@ image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
 
-// end::dataencryption[]
+=== Appointment feature
+The Appointment feature provides users the ability to manage appointments for patients. It can help patients to add, change, delete appointments. It also help user to find the missed appointments and settle each missing appointment.
+
+* e.g. `addappt i/001A rec/m num/2 str/01/11/19 1800 end/01/11/19 1830` - allows the user to create two monthly appointments to patient whose referenceId is 001A.
+* e.g. `changeappt 1 str/02/11/19 1800 end/02/11/19 1830` - allows the user to change a patient's first appointment timing to be the input timing if there is no conflict.
+
+==== Current Implementation
+The Appointment feature contains multiple operations to indirectly manipulate the UniqueAppointmentList. The implemented operations include:
+
+`addappt` Command - Adds appointments to the appointment schedule.
+
+`appointments` Command - Lists all upcoming appointment schedule or lists a patient's upcoming appointments.
+
+`changeappt` Command - change a current appointment to a different timing.
+
+`cancelappt` Command - delete a current appointment from the appointment list.
+
+`missappt` Command - Lists all missing appointment.
+
+`settleappt` Command - settle a missing appointment when user contact with patient.
+
+`ackappt` Command - acknowledge a appointment once the patient reaches.
+
+
+//todo put class diagram for the appointment
+Figure 10. Appointment class diagram.
+Each Appointment object consists of a Date, Time, Patient and Optional<Staff>.Patient contains an Optional<Staff>#preferredDoctor and is assigned to the Appointment object. The UniqueAppointmentList contains 0 or more Appointment s.
+
+The current implementation of Appointment has the Patient object as a separate entity from the Patient s in UniquePatientList. This means that the Patient object only exists within the context of the Appointment object, or according to the diagram, would be destroyed if the Appointment object is destroyed (composition). Likewise, the Optional<Staff> would be destroyed if the Appointment object is destroyed too.
+
+In future implementations, i.e. v2.0, the Patient object will be checked if it exists within the Model#UniquePatientList before constructing the Appointment object. This ensures that the Patient is registered before making an appointment.
+
+cancelappt Command - Cancels appointments found within the appointment schedule.
+
+The following activity diagram summarizes what happens when a user executes a AddAppointment command:
+
+.Interactions Inside the Logic Component when a user executes a `addappt` command
+image::AddAppointmentActivityDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
+
+.Interactions Inside the Logic Component when a user executes a `changeappt` command
+image::changeAppointmentActivityDiagram.png[]
+
+==== `addappt` Command
+The addappt command behaves similarly to the add command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
+
+_{TBC}_
 
 === Logging
 
