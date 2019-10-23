@@ -45,7 +45,7 @@ public class FinanceTrackerTest {
     }
 
     @Test
-    public void addPayment_normalInput_addedCorrectly() {
+    public void addPurchase_normalInput_addedCorrectly() {
         financeTracker.addSinglePurchase(new PurchaseStub());
         Purchase addedPurchase = financeTracker.getPurchase(4);
         assertEquals(new PurchaseStub().getDescription(), addedPurchase.getDescription());
@@ -54,7 +54,7 @@ public class FinanceTrackerTest {
     }
 
     @Test
-    public void deletePayment_normalInput_deletedCorrectly() {
+    public void deletePurchase_normalInput_deletedCorrectly() {
         Purchase deletedPurchase = financeTracker.deleteSinglePurchase(2);
         assertEquals(new PurchaseStub().getDescription(), deletedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), deletedPurchase.getMoneySpent());
@@ -62,9 +62,19 @@ public class FinanceTrackerTest {
     }
 
     @Test
-    public void deletePayment_indexNonexistent_throwsError() {
+    public void deletePurchase_indexNonexistent_throwsError() {
         assertThrows(RuntimeException.class, () -> financeTracker.deleteSinglePurchase(4));
         assertEquals(3, financeTracker.getTotalPurchases());
+    }
+
+    @Test
+    public void getPurchase_normalInput_retrievedCorrectly() {
+        assertEquals(financeTracker.getPurchase(2), new PurchaseStub());
+    }
+
+    @Test
+    public void getPurchase_indexNonexistent_throwsError() {
+        assertThrows(RuntimeException.class, () -> financeTracker.getPurchase(5));
     }
 
     @Test
@@ -111,6 +121,16 @@ public class FinanceTrackerTest {
         assertThrows(RuntimeException.class, (
 
         ) -> financeTracker.setInstallment(installment, new InstallmentStub()));
+    }
+
+    @Test
+    public void getInstallment_normalInput_retrievedCorrectly() {
+        assertEquals(financeTracker.getInstallment(2), new InstallmentStub());
+    }
+
+    @Test
+    public void getInstallment_indexNonexistent_throwsError() {
+        assertThrows(RuntimeException.class, () -> financeTracker.getInstallment(5));
     }
 
     @Test
