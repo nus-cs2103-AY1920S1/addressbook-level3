@@ -237,10 +237,12 @@ is executed. Food with similar recommendation values are sorted based on their p
 
 ===== Design Considerations
 
+[cols="20,40,40"]
 |===
 |Aspect |Alternative 1 |Alternative 2
 
-|Design of calculateRecommendation()
+|Design of +
+calculateRecommendation()
 a|Declare a static method `calculateRecommendation` to calculate the recommendation value of each `Food`
 before sorting them.
 
