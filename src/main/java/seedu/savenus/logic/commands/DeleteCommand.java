@@ -2,6 +2,7 @@ package seedu.savenus.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import seedu.savenus.commons.core.Messages;
@@ -19,15 +20,15 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the food identified by the index number used in the displayed food list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX [OPTIONAL INDEXES] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_FOOD_SUCCESS = "Deleted Food: %1$s";
+    public static final String MESSAGE_DELETE_FOOD_SUCCESS = "Deletion Successful!";
+    private final List<Index> targetIndexes;
 
-    private final Index targetIndex;
-
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(List<Index> targetIndexes) {
+        Collections.sort(targetIndexes);
+        this.targetIndexes = targetIndexes;
     }
 
     @Override
@@ -35,19 +36,22 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         List<Food> lastShownList = model.getFilteredFoodList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
-        }
+        for (int i = targetIndexes.size() - 1; i >= 0; i--) {
+            Index targetIndex = targetIndexes.get(i);
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
+            }
 
-        Food foodToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteFood(foodToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete));
+            Food foodToDelete = lastShownList.get(targetIndex.getZeroBased());
+            model.deleteFood(foodToDelete);
+        }
+        return new CommandResult(String.format(MESSAGE_DELETE_FOOD_SUCCESS));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && targetIndexes.equals(((DeleteCommand) other).targetIndexes)); // state check
     }
 }

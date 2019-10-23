@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.savenus.commons.core.index.Index;
@@ -45,6 +47,25 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseIndexes(String oneBasedIndex) throws ParseException {
+        String trimmedIndexes = oneBasedIndex.trim();
+        String[] indexes = trimmedIndexes.split("\\s+");
+        List<Index> outputIndexes = new ArrayList<Index>();
+        for (int i = 0; i < indexes.length; i++) {
+            String trimmedIndex = indexes[i];
+            if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            outputIndexes.add(Index.fromOneBased(Integer.parseInt(trimmedIndex)));
+        }
+        return outputIndexes;
     }
 
     /**

@@ -5,8 +5,13 @@ import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.savenus.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.commands.DeleteCommand;
 
 /**
@@ -19,10 +24,17 @@ import seedu.savenus.logic.commands.DeleteCommand;
 public class DeleteCommandParserTest {
 
     private DeleteCommandParser parser = new DeleteCommandParser();
+    private List<Index> indexes;
+
+    @BeforeEach
+    public void setUp() {
+        indexes = new ArrayList<>();
+        indexes.add(INDEX_FIRST_FOOD);
+    }
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_FOOD));
+        assertParseSuccess(parser, "1", new DeleteCommand(indexes));
     }
 
     @Test
