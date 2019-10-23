@@ -20,6 +20,7 @@ import seedu.address.model.queue.Room;
  */
 public class NextCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_INVALID_INDEX = "Invalid index given";
+    public static final String MESSAGE_NO_PATIENT = "There are no patients in the queue";
 
     private Model model;
     private ObservableList<Room> filteredRoomList;
@@ -48,6 +49,8 @@ public class NextCommandParser implements Parser<ReversibleActionPairCommand> {
         filteredRoomList = model.getConsultationRoomList();
         if (filteredRoomList.size() < index.getOneBased()) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
+        } else if (queueList.size() == 0) {
+            throw new ParseException(MESSAGE_NO_PATIENT);
         }
         ReferenceId patientBeingServed = queueList.get(0);
         Room roomToEdit = filteredRoomList.get(index.getZeroBased());
