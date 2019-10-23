@@ -56,4 +56,26 @@ public class ModuleCode {
         return moduleCode.hashCode();
     }
 
+    /**
+     * Returns true if a given string is a valid phone number.
+     */
+    public static boolean isValidModuleCode(String test) {
+        try {
+            String code = test.substring(0, 2).toLowerCase();
+            switch (code) {
+            case "cs":
+            case "ec":
+            case "ac":
+            case "fn":
+            case "fi":
+            case "ar":
+            case "me":
+                return true;
+            default:
+                return false;
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            return false;
+        }
+    }
 }
