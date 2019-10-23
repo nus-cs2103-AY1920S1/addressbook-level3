@@ -42,8 +42,6 @@ public interface Storage extends UserPrefsStorage,
 
     void storeNewLoanSlip() throws LoanSlipException;
 
-    void openNewLoanSlip() throws LoanSlipException;
-
     // CatalogStorage methods
 
     @Override
