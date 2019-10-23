@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -100,6 +101,10 @@ public interface Logic {
      * Returns the user prefs' notes record file path.
      */
     Path getNotesRecordFilePath();
+    //endregion
+
+    //region VEvents
+    ObservableList<VEvent> getVEventList();
     //endregion
 
     /**

@@ -11,9 +11,12 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
@@ -45,6 +48,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
     private final SavedQuestions savedQuestions;
+    private final EventRecord eventRecord;
     private final SavedQuizzes savedQuizzes;
     private final NotesRecord notesRecord;
     private final StatisticsRecord statisticsRecord;
@@ -60,6 +64,7 @@ public class ModelManager implements Model {
                         ReadOnlyQuestions savedQuestions,
                         ReadOnlyQuizzes savedQuizzes,
                         ReadOnlyNotesRecord notesRecord,
+                        ReadOnlyEvents readEvents,
                         ReadOnlyStatisticsRecord statisticsRecord,
                         ReadOnlyUserPrefs userPrefs) {
         super();
@@ -74,6 +79,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
         this.savedQuestions = new SavedQuestions(savedQuestions);
+        this.eventRecord = new EventRecord(readEvents);
         this.savedQuizzes = new SavedQuizzes(savedQuizzes);
         this.notesRecord = new NotesRecord(notesRecord);
         this.statisticsRecord = new StatisticsRecord(statisticsRecord);
@@ -84,7 +90,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new SavedQuizzes(),
-                new NotesRecord(), new StatisticsRecord(), new UserPrefs());
+                new NotesRecord(), new EventRecord(), new StatisticsRecord(), new UserPrefs());
     }
 
     //region PREFERENCES & SETTINGS
@@ -502,6 +508,64 @@ public class ModelManager implements Model {
     public void setNote(Note target, Note editedNote) {
         requireAllNonNull(target, editedNote);
         notesRecord.setNote(target, editedNote);
+    }
+    //endregion
+
+    //region EventRecord
+    @Override
+    public void setEventRecord(Path eventRecordFilePath) {
+        requireNonNull(eventRecordFilePath);
+        userPrefs.setEventRecordFilePath(eventRecordFilePath);
+    }
+
+    @Override
+    public void setEventRecord(ReadOnlyEvents events) {
+        this.eventRecord.resetData(events);
+    }
+
+    @Override
+    public Path getEventRecordFilePath() {
+        return userPrefs.getEventRecordFilePath();
+    }
+
+    @Override
+    public ReadOnlyEvents getEventRecord() {
+        return eventRecord;
+    }
+
+    //endregion
+
+    //region Events
+    @Override
+    public boolean hasVEvent(VEvent vEvent) {
+        requireNonNull(vEvent);
+        return eventRecord.contains(vEvent);
+    }
+
+    @Override
+    public void deleteVEvent(VEvent vEvent) {
+        eventRecord.deleteVEvent(vEvent);
+    }
+
+    @Override
+    public void addVEvent(VEvent vEvent) {
+        eventRecord.addVEvent(vEvent);
+    }
+
+    @Override
+    public void setVEvent(VEvent target, VEvent editedVEvent) {
+        requireAllNonNull(target, editedVEvent);
+        eventRecord.setVEvent(target, editedVEvent);
+    }
+
+    @Override
+    public String getVEventSummary() {
+        return eventRecord.getVEventSummary();
+    }
+
+    @Override
+    public ObservableList<VEvent> getVEventList() {
+        return eventRecord.getVEventList();
     }
     //endregion
 
