@@ -45,7 +45,7 @@ public class Question {
         this.difficulty = difficulty;
         this.topics.addAll(topics);
         this.testCases.addAll(testCases);
-        this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCodeAsString());
+        this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCode());
     }
 
     public String getTitle() {
@@ -65,11 +65,19 @@ public class Question {
     }
 
     public UserProgram getUserProgram() {
-        return new UserProgram(this.userProgram.getClassName(), this.userProgram.getSourceCodeAsString());
+        return new UserProgram(this.userProgram.getClassName(), this.userProgram.getSourceCode());
     }
 
     public List<TestCase> getTestCases() {
         return new ArrayList<>(this.testCases);
+    }
+
+    public Question withNewStatus(Status status) {
+        return new Question(this.title, status, this.difficulty, this.topics, this.testCases, this.userProgram);
+    }
+
+    public Question withNewUserProgram(UserProgram userProgram) {
+        return new Question(this.title, this.status, this.difficulty, this.topics, this.testCases, userProgram);
     }
 
     @Override

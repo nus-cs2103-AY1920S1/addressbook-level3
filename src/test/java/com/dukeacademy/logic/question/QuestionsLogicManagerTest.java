@@ -243,6 +243,25 @@ class QuestionsLogicManagerTest {
         assertEquals(0, storageQuestions.size());
     }
 
+
+    @Test
+    void replaceQuestion() {
+        // Load typical questions
+        QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
+        ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
+        List<Question> typicalQuestions = TypicalQuestions.getTypicalQuestions();
+        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
+
+        // Check that question replaced in both the logic manager and in the question bank
+        Question oldQuestion = questionsLogicManager.getQuestion(1);
+        Question newQuestion = this.getMockQuestion("abc");
+        questionsLogicManager.replaceQuestion(oldQuestion, newQuestion);
+        typicalQuestions.remove(1);
+        typicalQuestions.add(1, newQuestion);
+        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
+    }
+
     /**
      * Helper method to compare an observable list to a list for equality.
      * @param observableList the observable list to be compared.
@@ -295,5 +314,4 @@ class QuestionsLogicManagerTest {
             return new Question(name, Status.ATTEMPTED, Difficulty.EASY, topics, testCases, userProgram);
         }
     }
-
 }

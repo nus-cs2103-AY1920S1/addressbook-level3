@@ -24,6 +24,14 @@ public class CommandLogicManager implements CommandLogic {
         this.commandParser.registerCommand(commandWord, commandSupplier);
     }
 
+    /**
+     * Registers a command through its factory.
+     * @param commandFactory the factory used to generate the command.
+     */
+    public void registerCommand(CommandFactory commandFactory) {
+        this.commandParser.registerCommand(commandFactory.getCommandWord(), commandFactory::getCommand);
+    }
+
     @Override
     public CommandResult executeCommand(String commandText) throws ParseException, CommandException {
         Command command = this.commandParser.parseCommandText(commandText);

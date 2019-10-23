@@ -3,6 +3,7 @@ package com.dukeacademy.logic.program;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
@@ -96,6 +97,11 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
+    public Optional<Question> getCurrentQuestion() {
+        return this.currentQuestionObservable.getValue();
+    }
+
+    @Override
     public void setCurrentQuestion(Question question) {
         this.verifyNotClosed();
         this.currentQuestionObservable.setValue(question);
@@ -132,6 +138,15 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
 
         UserProgram program = this.submissionChannel.getProgram();
         return this.submitUserProgram(program);
+    }
+
+    @Override
+    public UserProgram getUserProgramFromSubmissionChannel() {
+        if (this.submissionChannel == null) {
+            throw new SubmissionChannelNotSetException();
+        }
+
+        return this.submissionChannel.getProgram();
     }
 
     private void verifyNotClosed() {

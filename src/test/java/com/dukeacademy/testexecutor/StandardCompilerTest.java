@@ -104,7 +104,7 @@ class StandardCompilerTest {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             Writer fileWriter = new OutputStreamWriter(fileOutputStream);
 
-            fileWriter.write(program.getSourceCodeAsString());
+            fileWriter.write(program.getSourceCode());
 
             fileWriter.close();
         } catch (IOException e) {

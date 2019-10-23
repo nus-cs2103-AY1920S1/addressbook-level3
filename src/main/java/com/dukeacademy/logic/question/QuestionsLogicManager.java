@@ -92,6 +92,12 @@ public class QuestionsLogicManager implements QuestionsLogic {
     }
 
     @Override
+    public void replaceQuestion(Question oldQuestion, Question newQuestion) {
+        this.questionBank.replaceQuestion(oldQuestion, newQuestion);
+        this.saveQuestionBankToStorage(this.questionBank);
+    }
+
+    @Override
     public void deleteQuestion(int index) {
         this.questionBank.removeQuestion(index);
         this.saveQuestionBankToStorage(this.questionBank);

@@ -25,7 +25,7 @@ public class UserProgram {
         return this.className;
     }
 
-    public String getSourceCodeAsString() {
+    public String getSourceCode() {
         return this.sourceCode;
     }
 

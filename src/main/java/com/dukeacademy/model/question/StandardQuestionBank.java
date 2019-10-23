@@ -65,7 +65,7 @@ public class StandardQuestionBank implements QuestionBank {
                 .orElseThrow(QuestionNotFoundException::new);
 
         questionList.remove(oldQuestionIndex);
-        questionList.add(newQuestion);
+        questionList.add(oldQuestionIndex, newQuestion);
     }
 
     @Override

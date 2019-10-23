@@ -59,7 +59,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
         File file = this.createEmptyJavaFileInEnvironment(canonicalName);
 
         // Write program contents to the Java file
-        String sourCode = program.getSourceCodeAsString();
+        String sourCode = program.getSourceCode();
         this.writeProgramToJavaFile(file, sourCode);
 
         // Returns the newly created file as application's JavaFile model after adding it to the list of created files

@@ -68,4 +68,21 @@ public class QuestionTest {
         assertFalse(Question.checkValidTitle(""));
         assertFalse(Question.checkValidTitle("    "));
     }
+
+    @Test
+    void withNewStatus() {
+        Question question = new Question(validTitle, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram);
+        Question newQuestion = question.withNewStatus(Status.PASSED);
+        assertEquals(newQuestion.getStatus(), Status.PASSED);
+        assertThrows(NullPointerException.class, () -> question.withNewStatus(null));
+    }
+
+    @Test
+    void withNewUserProgram() {
+        Question question = new Question(validTitle, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram);
+        UserProgram program = new UserProgram("Test", "Test test test test test");
+        Question newQuestion = question.withNewUserProgram(program);
+        assertEquals(newQuestion.getUserProgram(), program);
+        assertThrows(NullPointerException.class, () -> question.withNewUserProgram(null));
+    }
 }

@@ -17,6 +17,7 @@ import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
 import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandLogicManager;
+import com.dukeacademy.logic.commands.exit.ExitCommandFactory;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
@@ -44,6 +45,7 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
+    private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogicManager programSubmissionLogic;
 
     @Override
@@ -67,9 +69,9 @@ public class MainApp extends Application {
             return;
         }
 
-        CommandLogicManager commandLogic = this.initCommandLogic();
-        QuestionsLogicManager questionsLogic = this.initQuestionsLogic(userPrefs);
+        questionsLogic = this.initQuestionsLogic(userPrefs);
         programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
+        CommandLogicManager commandLogic = this.initCommandLogic();
 
         if (this.programSubmissionLogic == null) {
             logger.info("Fatal: Failed to create program submission logic.");
@@ -226,8 +228,16 @@ public class MainApp extends Application {
      */
     private CommandLogicManager initCommandLogic() {
         logger.info("============================ [ Initializing command logic ] =============================");
+
+        if (this.questionsLogic == null || this.programSubmissionLogic == null) {
+            logger.warning("Command logic should be initialized after Question and Program Submission logic.");
+            this.stop();
+        }
+
         CommandLogicManager commandLogicManager = new CommandLogicManager();
-        // TODO: create and register commands
+        ExitCommandFactory exitCommandFactory = new ExitCommandFactory(this.questionsLogic, this.programSubmissionLogic);
+        commandLogicManager.registerCommand(exitCommandFactory);
+
         return commandLogicManager;
     }
 

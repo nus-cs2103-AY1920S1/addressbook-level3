@@ -118,7 +118,7 @@ public class StandardQuestionBankTest {
         this.standardQuestionBank.replaceQuestion(oldQuestion, newQuestion);
 
         mockQuestions.remove(1);
-        mockQuestions.add(newQuestion);
+        mockQuestions.add(1, newQuestion);
         assertTrue(this.matchListData(questionObservableList, mockQuestions));
 
         Question testQuestion = this.getMockQuestion("abc");
@@ -167,7 +167,7 @@ public class StandardQuestionBankTest {
                 .mapToObj(i -> observableList.get(i).equals(questionList.get(i)))
                 .reduce((x, y) -> x && y).get();
     }
-
+    
     private List<Question> getMockQuestionData() {
         List<Question> questions = new ArrayList<>();
         questions.add(this.getMockQuestion("Test1"));

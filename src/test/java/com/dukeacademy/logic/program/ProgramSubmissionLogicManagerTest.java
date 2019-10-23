@@ -167,10 +167,13 @@ class ProgramSubmissionLogicManagerTest {
         currentQuestionObservable.addListener(testListener);
 
         assertNull(testListener.getLatestValue());
+        assertFalse(this.programSubmissionLogicManager.getCurrentQuestion().isPresent());
 
         this.programSubmissionLogicManager.setCurrentQuestion(this.createMockQuestion("abc123",
                 new ArrayList<>()));
         assertEquals("abc123", testListener.getLatestValue().getTitle());
+        assertTrue(this.programSubmissionLogicManager.getCurrentQuestion().isPresent());
+        assertEquals("abc123", this.programSubmissionLogicManager.getCurrentQuestion().get().getTitle());
     }
 
 
@@ -243,15 +246,20 @@ class ProgramSubmissionLogicManagerTest {
     }
 
     @Test
-    void setAndSubmitUserProgramSubmissionChannel() throws IOException {
+    void setAndSubmitUserProgramSubmissionChannelAndGetProgram() throws IOException {
         TestListener<TestResult> resultListener = new TestListener<>();
         this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
         FibMockUserProgramChannel channel = new FibMockUserProgramChannel();
         this.programSubmissionLogicManager.setUserProgramSubmissionChannel(channel);
 
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
-        List<TestCase> testCases = this.loadTestCases(rootFolder);
 
+        Path program = rootFolder.resolve("fib.txt");
+        String sourceCode = Files.readString(program);
+        assertEquals(new UserProgram("Fib", sourceCode),
+                this.programSubmissionLogicManager.getUserProgramFromSubmissionChannel());
+
+        List<TestCase> testCases = this.loadTestCases(rootFolder);
         Question question = this.createMockQuestion("Fib", testCases);
         this.programSubmissionLogicManager.setCurrentQuestion(question);
 

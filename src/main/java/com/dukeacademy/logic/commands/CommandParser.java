@@ -39,18 +39,16 @@ public class CommandParser {
             String commandWord = StringUtil.getFirstWord(commandText);
             String commandArguments = StringUtil.removeFirstWord(commandText);
 
-            return Optional.ofNullable(this.commandFactoryMap.get(commandWord))
-                    .map(supplier -> {
-                        try {
-                            return supplier.getCommand(commandArguments);
-                        } catch (InvalidCommandArgumentsException e) {
-                            return null;
-                        }
-                    })
-                    .orElseThrow(() -> new ParseException("Invalid command entered."));
+            CommandSupplier supplier = this.commandFactoryMap.get(commandWord);
+            if (supplier == null) {
+                throw new ParseException("Command word not recognized.");
+            }
 
-        } catch (IllegalValueException e) {
+            return supplier.getCommand(commandArguments);
+        } catch (InvalidCommandArgumentsException e) {
             throw new ParseException("Invalid command entered.");
+        } catch (IllegalValueException e) {
+            throw new ParseException(e.getMessage());
         }
     }
 }

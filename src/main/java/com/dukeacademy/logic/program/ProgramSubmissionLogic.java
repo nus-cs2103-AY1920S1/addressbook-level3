@@ -5,6 +5,8 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.observable.Observable;
 
+import java.util.Optional;
+
 /**
  * Logic interface to handle the submission and evaluation of user program submissions.
  */
@@ -23,6 +25,12 @@ public interface ProgramSubmissionLogic {
      * @return An observable of the current question.
      */
     public Observable<Question> getCurrentQuestionObservable();
+
+    /**
+     * Returns the current question instance that the logic is handling.
+     * @return the current question being attempted.
+     */
+    public Optional<Question> getCurrentQuestion();
 
     /**
      * Sets the logic instance to handle another question. Subsequent user program submissions will be tested against
@@ -45,9 +53,15 @@ public interface ProgramSubmissionLogic {
     public void setUserProgramSubmissionChannel(UserProgramChannel channel);
 
     /**
-     * Retrieves a user program from the submission channel and tests it against the current question being handled
+     * Retrieves the user program from the submission channel and tests it against the current question being handled
      * by the logic instance.
      * @return True if the program was successfully tested.
      */
     public boolean submitUserProgramFromSubmissionChannel();
+
+    /**
+     * Returns the user program retrieved from the submission channel.
+     * @return the user program from the submission channel.
+     */
+    public UserProgram getUserProgramFromSubmissionChannel();
 }
