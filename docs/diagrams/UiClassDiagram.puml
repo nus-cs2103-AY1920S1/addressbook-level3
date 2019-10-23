@@ -14,6 +14,8 @@ Class ResultDisplay
 Class FoodListPanel
 Class FoodCard
 Class PurchaseListPanel
+Class SavingsHistoryPanel
+Class SavingsHistoryCard
 Class PurchaseCard
 Class StatusBarFooter
 Class CommandBox
@@ -42,6 +44,7 @@ MainWindow *-down-> InfoWindow
 MainWindow *-down-> PurchaseHistory
 MainWindow *-down-> FoodListPanel
 MainWindow *-down-> PurchaseListPanel
+MainWindow *-down-> SavingsHistoryPanel
 
 MainWindow -left-|> UiPart
 
@@ -55,9 +58,11 @@ InfoWindow --|> UiPart
 HelpWindow -down-|> UiPart
 FoodListPanel --> FoodCard
 PurchaseListPanel --> PurchaseCard
+SavingsHistoryPanel --> SavingsHistoryCard
 
 FoodCard ..> Model
 PurchaseCard ..> Model
+SavingsHistoryCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 

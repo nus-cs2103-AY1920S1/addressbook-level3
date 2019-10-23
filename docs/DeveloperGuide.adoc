@@ -124,9 +124,11 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Menu data.
 * stores the Wallet data.
+* stores the SavingsAccount data.
 * stores the PurchaseHistory data.
 * exposes the `RemainingBudget` and `DaysToExpire` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `Wallet` change.
-* exposes an unmodifiable `ObservableList<Food>` and `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in either of the lists change.
+* exposes the `CurrentSavings` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `SavingsAccount` changes.
+* exposes an unmodifiable `ObservableList<Food>`, `ObservableList<Savings>` and `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in either of the lists change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -304,10 +306,8 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. User requests to list food items.
-2. $aveNUS shows a list of food items.
-3. User requests to delete a specific food item in the list.
-4. $aveNUS deletes the food item.
+1. User requests to delete a specific food item in the observable food list.
+2. $aveNUS deletes the food item.
 +
 Use case ends.
 
@@ -428,9 +428,14 @@ Windows, Linux, Unix, OS-X
 [appendix]
 == Product Survey
 
-*Product Name*
+*$aveNUS*
 
-Author: ...
+Author:
+Sean Low
+Jon Chua
+Choo Ze Yuan
+Roby Tanama
+Clarence Koh
 
 Pros:
 
@@ -456,7 +461,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample food items. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -470,11 +475,12 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: There has to be a food item in the menu for the user to delete.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First food item is deleted from the food list. Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No food item is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
