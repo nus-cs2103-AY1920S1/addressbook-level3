@@ -1,0 +1,21 @@
+@startuml
+start
+:User executes export command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([file path is valid])
+    :Obtain the desired FlashCards;
+    :Create a new document;
+    repeat
+        :Write FlashCard to document;
+    repeat while () is ([more FlashCards])
+    ->[all FlashCards written];
+    :Save document to given file path;
+    :Display success message;
+else ([else])
+    :Display error message;
+endif
+stop
+@enduml
