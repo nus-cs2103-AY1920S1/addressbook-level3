@@ -5,7 +5,9 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":EnqueueCommandParser" as EnqueueCommandParser LOGIC_COLOR
-participant "e:EnqueueCommand" as EnqueueCommand LOGIC_COLOR
+participant ":ReversibleActionPair" as ReversibleActionPair LOGIC_COLOR
+participant "EnqueueCommand" as EnqueueCommand LOGIC_COLOR
+participant "DequeueCommand" as DequeueCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -29,14 +31,25 @@ deactivate EnqueueCommandParser
 AddressBookParser -> EnqueueCommandParser : parse("001A")
 activate EnqueueCommandParser
 
-create EnqueueCommand
-EnqueueCommandParser -> EnqueueCommand
+EnqueueCommandParser -> ReversibleActionPair
+activate ReversibleActionPair
+
+ReversibleActionPair -> EnqueueCommand : EnqueueCommand("001A")
 activate EnqueueCommand
 
-EnqueueCommand --> EnqueueCommandParser : e
+EnqueueCommand --> ReversibleActionPair
 deactivate EnqueueCommand
 
-EnqueueCommandParser --> AddressBookParser : e
+ReversibleActionPair -> DequeueCommand : DequeueCommand("001A")
+activate DequeueCommand
+
+DequeueCommand --> ReversibleActionPair
+deactivate DequeueCommand
+
+ReversibleActionPair --> EnqueueCommandParser : ReversibleActionPair(EnqueueCommand, DequeueCommand)
+deactivate ReversibleActionPair
+
+EnqueueCommandParser --> AddressBookParser
 deactivate EnqueueCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 EnqueueCommandParser -[hidden]-> AddressBookParser
@@ -48,7 +61,7 @@ deactivate AddressBookParser
 LogicManager -> EnqueueCommand : execute()
 activate EnqueueCommand
 
-EnqueueCommand -> Model : enqueuePatient(001A)
+EnqueueCommand -> Model : enqueuePatient("001A")
 activate Model
 
 Model --> EnqueueCommand
