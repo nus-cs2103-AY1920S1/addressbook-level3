@@ -142,12 +142,27 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `T.A.rence` application data in json format and read it back.
+
+==== Implementation
+When the application is being saved, a list of modules will be serialized into a Json object and written to the file.
+
+==== Design Considerations
+Although the application has 3 core components (modules, tutorials and students), to prevent redundant data being written
+and save on storage space, only the modules will be serialized and saved.
+
+This is as the information encapsulated in modules can be used to instantiate tutorial and student objects.
+
+A key assumption here is that during the operational usage of the application, data stored in the tutorials and students objects
+correspond to the module object. Ie there are no tutorials or student objects which exist without a corresponding
+module object.
+
+Future versions of storage will support saving of Assignment objects.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.tarence.commons` package.
 
 == Implementation
 
