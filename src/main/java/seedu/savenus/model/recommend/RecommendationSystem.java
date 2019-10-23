@@ -23,6 +23,47 @@ import seedu.savenus.model.purchase.Purchase;
  * Represents the Recommendation System of the menu.
  */
 public class RecommendationSystem implements Recommender {
+
+    // Recommendation system weights
+    public static final double LIKED_TAG_WEIGHT = 0.03;
+    public static final double LIKED_LOCATION_WEIGHT = 0.10;
+    public static final double LIKED_CATEGORY_WEIGHT = 0.15;
+
+    public static final double LIKED_TAG_BONUS_LOW = 0.05;
+    public static final double LIKED_TAG_BONUS_MED = 0.10;
+    public static final double LIKED_TAG_BONUS_HIGH = 0.25;
+
+    public static final int LIKED_TAG_BONUS_LOW_NUM = 1;
+    public static final int LIKED_TAG_BONUS_MED_NUM = 3;
+    public static final int LIKED_TAG_BONUS_HIGH_NUM = 5;
+
+    public static final double IDENTICAL_FOOD_BONUS_LOW = 0.10;
+    public static final double IDENTICAL_FOOD_BONUS_MED = 0.30;
+    public static final double IDENTICAL_FOOD_BONUS_HIGH = 0.50;
+
+    public static final int IDENTICAL_FOOD_BONUS_LOW_NUM = 2;
+    public static final int IDENTICAL_FOOD_BONUS_MED_NUM = 5;
+    public static final int IDENTICAL_FOOD_BONUS_HIGH_NUM = 10;
+
+    public static final double HISTORY_TAG_WEIGHT = 0.01;
+    public static final double HISTORY_LOCATION_WEIGHT = 0.03;
+    public static final double HISTORY_CATEGORY_WEIGHT = 0.02;
+
+    public static final double DISLIKED_TAG_WEIGHT = -0.10;
+    public static final double DISLIKED_LOCATION_WEIGHT = -0.30;
+    public static final double DISLIKED_CATEGORY_WEIGHT = -0.40;
+
+    public static final double DISLIKED_TAG_PENALTY_LOW = -0.10;
+    public static final double DISLIKED_TAG_PENALTY_MED = -0.30;
+    public static final double DISLIKED_TAG_PENALTY_HIGH = -0.50;
+
+    public static final int DISLIKED_TAG_PENALTY_LOW_NUM = 1;
+    public static final int DISLIKED_TAG_PENALTY_MED_NUM = 2;
+    public static final int DISLIKED_TAG_PENALTY_HIGH_NUM = 3;
+
+    // Negative multiplier starting from -10 to 0, valid for 2 days (172800000ms)
+    public static final int JUST_BOUGHT_FOOD_VALIDITY = 172800000;
+
     private static final Comparator<Food> DEFAULT_COMPARATOR = (x, y) -> 0;
     private static final Predicate<Food> DEFAULT_PREDICATE = x -> true;
 
@@ -30,46 +71,6 @@ public class RecommendationSystem implements Recommender {
     private static Comparator<Food> comparator =
             Comparator.comparingDouble(getInstance()::calculateRecommendation).reversed()
                     .thenComparingDouble(x -> Double.parseDouble(x.getPrice().value));
-
-    // Recommendation system weights
-    private static final double LIKED_TAG_WEIGHT = 0.03;
-    private static final double LIKED_LOCATION_WEIGHT = 0.10;
-    private static final double LIKED_CATEGORY_WEIGHT = 0.15;
-
-    private static final double LIKED_TAG_BONUS_LOW = 0.05;
-    private static final double LIKED_TAG_BONUS_MED = 0.10;
-    private static final double LIKED_TAG_BONUS_HIGH = 0.25;
-
-    private static final int LIKED_TAG_BONUS_LOW_NUM = 1;
-    private static final int LIKED_TAG_BONUS_MED_NUM = 3;
-    private static final int LIKED_TAG_BONUS_HIGH_NUM = 5;
-
-    private static final double IDENTICAL_FOOD_BONUS_LOW = 0.10;
-    private static final double IDENTICAL_FOOD_BONUS_MED = 0.30;
-    private static final double IDENTICAL_FOOD_BONUS_HIGH = 0.50;
-
-    private static final int IDENTICAL_FOOD_BONUS_LOW_NUM = 2;
-    private static final int IDENTICAL_FOOD_BONUS_MED_NUM = 5;
-    private static final int IDENTICAL_FOOD_BONUS_HIGH_NUM = 10;
-
-    private static final double HISTORY_TAG_WEIGHT = 0.01;
-    private static final double HISTORY_LOCATION_WEIGHT = 0.03;
-    private static final double HISTORY_CATEGORY_WEIGHT = 0.02;
-
-    private static final double DISLIKED_TAG_WEIGHT = -0.10;
-    private static final double DISLIKED_LOCATION_WEIGHT = -0.30;
-    private static final double DISLIKED_CATEGORY_WEIGHT = -0.40;
-
-    private static final double DISLIKED_TAG_PENALTY_LOW = -0.10;
-    private static final double DISLIKED_TAG_PENALTY_MED = -0.30;
-    private static final double DISLIKED_TAG_PENALTY_HIGH = -0.50;
-
-    private static final int DISLIKED_TAG_PENALTY_LOW_NUM = 1;
-    private static final int DISLIKED_TAG_PENALTY_MED_NUM = 2;
-    private static final int DISLIKED_TAG_PENALTY_HIGH_NUM = 3;
-
-    // Negative multiplier starting from -10 to 0, valid for 2 days (172800000ms)
-    private static final int JUST_BOUGHT_FOOD_VALIDITY = 172800000;
 
     private UserRecommendations userRecommendations;
     private ObservableList<Purchase> purchaseHistory;

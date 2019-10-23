@@ -21,8 +21,9 @@ public interface Recommender {
     /**
      * Calculate the recommendation value of a given {@code Food}.
      *
-     * @param food the food
-     * @return the double
+     * @param food The food
+     * @return The recommendation value of the food
+     * @throws NullPointerException if {@code food} is null.
      */
     double calculateRecommendation(Food food);
 
@@ -103,6 +104,7 @@ public interface Recommender {
      * Sets the current user recommendations.
      *
      * @param userRecommendations The user's recommendations
+     * @throws NullPointerException if {@code userRecommendations} is null.
      */
     void setUserRecommendations(UserRecommendations userRecommendations);
 
@@ -110,6 +112,7 @@ public interface Recommender {
      * Updates the purchase history.
      *
      * @param purchaseHistory The user's purchase history
+     * @throws NullPointerException if {@code purchaseHistory} is null.
      */
     void updatePurchaseHistory(ObservableList<Purchase> purchaseHistory);
 
@@ -117,6 +120,7 @@ public interface Recommender {
      * Update the user's budget.
      *
      * @param budget The user's budget
+     * @throws NullPointerException if {@code budget} is null.
      */
     void updateBudget(BigDecimal budget);
 

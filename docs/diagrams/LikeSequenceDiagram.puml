@@ -1,6 +1,9 @@
 @startuml
 !include style.puml
 
+skinparam MinClassWidth 0
+skinparam ParticipantPadding 0
+
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
@@ -17,21 +20,23 @@ end box
 box Storage STORAGE_COLOR_T1
 participant ":Storage" as Storage STORAGE_COLOR
 participant ":JsonRecsStorage" as JsonRecsStorage STORAGE_COLOR
-participant ":JsonSerializableRecs" as JsonSerializableRecs STORAGE_COLOR
-participant ":JsonAdaptedRecs" as JsonAdaptedRecs STORAGE_COLOR
+participant ":JsonSR" as JsonSR STORAGE_COLOR
+participant ":JsonAR" as JsonAR STORAGE_COLOR
 end box
 
-legend top right
+legend top
 Legend:
 * CS: categorySet
 * TS: tagSet
 * LS: locationSet
+* JsonSR: JsonSerializableRecs
+* JsonAR: JsonAdaptedRecs
 end legend
 
-[-> LogicManager : execute("like c/Western")
+[-> LogicManager : execute("like c/Thai")
 activate LogicManager
 
-LogicManager -> SaveNusParser : parseCommand("like c/Western")
+LogicManager -> SaveNusParser : parseCommand("like c/Thai")
 activate SaveNusParser
 
 create PreferenceCommandParser
@@ -41,7 +46,7 @@ activate PreferenceCommandParser
 PreferenceCommandParser --> SaveNusParser
 deactivate PreferenceCommandParser
 
-SaveNusParser -> PreferenceCommandParser : parse("c/Western", true)
+SaveNusParser -> PreferenceCommandParser : parse("c/Thai", true)
 activate PreferenceCommandParser
 
 create LikeCommand
@@ -91,19 +96,19 @@ activate Storage
 Storage -> JsonRecsStorage : saveRecs(recs)
 activate JsonRecsStorage
 
-create JsonSerializableRecs
-JsonRecsStorage -> JsonSerializableRecs
-activate JsonSerializableRecs
+create JsonSR
+JsonRecsStorage -> JsonSR
+activate JsonSR
 
-create JsonAdaptedRecs
-JsonSerializableRecs -> JsonAdaptedRecs
-activate JsonAdaptedRecs
+create JsonAR
+JsonSR -> JsonAR
+activate JsonAR
 
-JsonAdaptedRecs --> JsonSerializableRecs
-deactivate JsonAdaptedRecs
+JsonAR --> JsonSR
+deactivate JsonAR
 
-JsonSerializableRecs --> JsonRecsStorage
-deactivate JsonSerializableRecs
+JsonSR --> JsonRecsStorage
+deactivate JsonSR
 
 JsonRecsStorage --> Storage
 deactivate JsonRecsStorage
