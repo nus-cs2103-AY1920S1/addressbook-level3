@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":ExportCommand" as ExportCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Commons COMMONS_COLOR_T1
+participant "<<class>>\nExportUtil" as ExportUtil COMMONS_COLOR
+end box
+
+box org.apache.poi.xwpf.usermodel EXTERNAL_LIBRARY_COLOR_T1
+participant ":XWPFDocument" as XWPFDocument EXTERNAL_LIBRARY_COLOR
+end box
+
+[-> ExportCommand : execute(model)
+activate ExportCommand
+
+ExportCommand -> ExportCommand : categoryToPredicate(category)
+activate ExportCommand
+ExportCommand <-- ExportCommand : predicate
+deactivate ExportCommand
+
+ExportCommand -> Model : getFilteredFlashCardListNoCommit(predicate)
+activate Model
+ExportCommand <-- Model : list
+deactivate Model
+
+ExportCommand -> ExportUtil : exportFlashCards(list, documentPath)
+activate ExportUtil
+
+create XWPFDocument
+ExportUtil -> XWPFDocument : XWPFDocument()
+activate XWPFDocument
+
+ExportUtil <-- XWPFDocument : document
+deactivate XWPFDocument
+
+loop for each FlashCard in list
+    ExportUtil -> XWPFDocument : createParagraph()
+    activate XWPFDocument
+
+    ExportUtil <-- XWPFDocument
+    deactivate XWPFDocument
+end
+
+ExportUtil -> ExportUtil : writeDocumentToFile(document, documentPath)
+activate ExportUtil
+
+ExportUtil <-- ExportUtil
+deactivate ExportUtil
+
+ExportCommand <-- ExportUtil
+deactivate ExportUtil
+
+[<--ExportCommand
+deactivate ExportCommand
+@enduml

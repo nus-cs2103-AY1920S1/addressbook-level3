@@ -153,6 +153,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
 === Add feature
 ==== Implementation
 
@@ -195,87 +196,57 @@ prefixes like `q>`, `a>`, `r>` and `c>`
 ** cons: Harder to implement.
 
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::flashcardexport[]
+=== Exporting of FlashCards
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The `FlashCard` exporting mechanism is primarily facilitated by the following classes:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `ExportUtil` -- Handles the actual exporting of `FlashCard` s
+* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCard` s are to be exported, and to where
+* `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The mechanism is also supported by the package `seedu.address.model.export`, consisting of the following classes:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+* `DocumentPath` -- Represents the path to a specific document - either absolute or relative to the application directory
+* `DocumentFilePath` -- Represents the path to a specific document, relative to its immediate parent directory
+* `DirectoryPath` -- Represents the path to a specific directory - either absolute or relative to the application directory
 
-image::UndoRedoState0.png[]
+Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work. 
+Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
+It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCard` s to a `.docx`
+document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
+`org.apache.poi.xwpf.usermodel`).
 
-Step 2. The user executes `delete 5` command to delete the 5th flashCard in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+The following sequence diagram shows how the export operation works:
 
-image::UndoRedoState1.png[]
+image::ExportSequenceDiagram.png[]
 
-Step 3. The user executes `add n/David ...` to add a new flashCard. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+The following activity diagram summarizes what happens when a user executes an export command:
 
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the flashCard was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::ExportActivityDiagram.png[width=320,height=480]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Method of obtaining desired `FlashCard` s for exporting
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the flashCard being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1:** Update the `Model` to show all desired `FlashCard` s, then export all of said `FlashCard` s
+** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCard` s were exported
+** Cons: May cause confusion - `export` command does not imply that the selected `FlashCard` s will also be shown to the user
+* **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCard` s, without updating the on-screen list
+** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
+** Cons: Is harder to implement and might result in duplication of logic
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Aspect: Export file format
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* **Alternative 1 (current choice):** Export to a `.docx` file
+** Pros: Is easy and convenient to print for use as a cheat sheet
+** Cons: Requires an external library due to the nature of the file format
+* **Alternative 2:** Export to a `.txt` file
+** Pros: Is easier to implement; the Java standard libraries already have the ability to write to text files
+** Cons: Might give rise to inconvenience in printing, as most text editors (e.g. Notepad, Vim, Gedit) do not have built-in printing functionality
+// end::flashcardexport[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
