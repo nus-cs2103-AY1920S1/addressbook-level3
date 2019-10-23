@@ -14,7 +14,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 public class CommandHistory {
 
     private final ObservableList<String> historyList = FXCollections.observableArrayList();
-    private final ObservableList<String> unmodifiableHistoryList = FXCollections.unmodifiableObservableList(historyList);
+    private final ObservableList<String> unmodifiableHistoryList =
+            FXCollections.unmodifiableObservableList(historyList);
 
     /**
      * Adds an {code commandString} string to the list.
@@ -29,7 +30,7 @@ public class CommandHistory {
      * Removes the equivalent string from the list.
      * The string must exist in the list.
      */
-    public void remove(String commandString) throws CommandException{
+    public void remove(String commandString) throws CommandException {
         requireNonNull(commandString);
         if (!historyList.remove(commandString)) {
             throw new CommandException(Messages.MESSAGE_COMMAND_DOES_NOT_EXIST);
