@@ -250,12 +250,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public String getTestAnswer() {
+        public String getTestQuestion() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public String getTestQuestion() {
+        public String getTestAnswer() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -263,7 +263,8 @@ public class AddCommandTest {
         public ObservableList<FlashCard> getFlashCardList() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
+
         //@@author LeowWB
         public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");
