@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
-
+import dream.fcard.model.exceptions.IndexNotFoundException;
 
 
 /**
@@ -12,9 +12,9 @@ import dream.fcard.model.cards.FlashCard;
  */
 public class ExamRunner implements Exam {
 
-    private Deck deck;
     private final int deckSize;
     private final Scanner scanner;
+    private Deck deck;
     private int score;
 
     public ExamRunner(Deck deck) {
@@ -28,7 +28,7 @@ public class ExamRunner implements Exam {
      * Exam driver method.
      */
     @Override
-    public void runExam() {
+    public void runExam() throws IndexNotFoundException {
         System.out.println("Beginning test:");
         iterateThroughDeck();
         System.out.println("Score:" + score + "/" + deckSize);
@@ -37,14 +37,26 @@ public class ExamRunner implements Exam {
     /**
      * Method that cycles through the deck and asks each question.
      */
-    private void iterateThroughDeck() {
+    private void iterateThroughDeck() throws IndexNotFoundException {
         for (FlashCard card : deck.getCards()) {
             //Load front of card
             System.out.println(card.getFront());
             // Ask user for input
-            String ans = promptUserInput();
+            String answer = promptUserInput();
             // Check if the answer is correct
-            if (card.evaluate(ans)) {
+
+            boolean isAnswerCorrect;
+            try {
+                isAnswerCorrect = card.evaluate(answer);
+            } catch (IndexNotFoundException i) {
+                // for mcq test, if input is invalid index
+
+                // do something
+                // decide when to handle
+                throw new IndexNotFoundException(i.getMessage());
+            }
+
+            if (isAnswerCorrect) {
                 score++;
             }
             //Display the correct answer

@@ -19,6 +19,7 @@ import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
@@ -156,6 +157,7 @@ public class StorageManager {
                                 cardJson.get(Schema.FRONT_FIELD).getString(),
                                 cardJson.get(Schema.BACK_FIELD).getString(),
                                 choices);
+
                         break;
                     default:
                         System.out.println("Unexpected card type, but silently continues");
@@ -166,6 +168,8 @@ public class StorageManager {
                 return new Deck(cards, deckJson.get(Schema.DECK_NAME).getString());
             } catch (JsonWrongValueException e1) {
                 System.out.println("JSON file wrong schema");
+            } catch (DuplicateInChoicesException d) {
+                System.out.println("Duplicated choices detected in Multiple Choice Card.");
             }
         } catch (JsonFormatException e2) {
             System.out.println("JSON file has errors\n" + e2.getMessage());
