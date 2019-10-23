@@ -25,6 +25,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Inventory> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Mapping> PREDICATE_SHOW_ALL_MAPPINGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

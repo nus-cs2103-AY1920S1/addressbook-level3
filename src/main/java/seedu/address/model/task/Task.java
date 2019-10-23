@@ -2,6 +2,8 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -12,6 +14,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,7 +27,8 @@ public class Task {
     private final Name name;
     private final TaskStatus taskStatus;
     private LocalDateTime deadline = null;
-
+    private Instant timeStart = null;
+    private Instant timeEnd = null;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -67,6 +71,33 @@ public class Task {
         return name;
     }
 
+    public Instant getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(Instant timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public Instant getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(Instant timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public String getTimeSpent() {
+        String timeTaken = " ";
+        if (timeEnd == null) {
+            timeTaken = " Task has yet to be completed ";
+        } else {
+            Duration timeElasped = Duration.between(timeStart, timeEnd);
+            timeTaken = timeElasped.toHours() + " hours";
+        }
+
+        return timeTaken;
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

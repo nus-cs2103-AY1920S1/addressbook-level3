@@ -131,9 +131,11 @@ public class ProjectDashboardParser {
         case RemoveMemberFromTaskCommand.COMMAND_WORD:
             return new RemoveMemberFromTaskParser().parse(arguments);
 
-        case GetStatisticsCommand.COMMAND_WORD:
+        case GetStatisticsCommand.COMMAND_WORD_MEMBER:
             return new GetStatisticsCommand();
 
+        case GetStatisticsCommand.COMMAND_WORD_TASK:
+            return new GetStatisticsCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

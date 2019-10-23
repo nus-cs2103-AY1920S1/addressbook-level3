@@ -64,7 +64,7 @@ public class Statistics {
         for(Member member: members) {
             int numTasks = 0;
             for(Mapping mapping : mappings) {
-                if(mapping.getMember().equals(member)) {
+                if(mapping.hasMember(member)) {
                     numTasks++;
                 }
             }
@@ -79,10 +79,13 @@ public class Statistics {
             switch (task.getTaskStatus()) {
                 case UNBEGUN:
                     unbegun++;
+                    break;
                 case DOING:
                     doing++;
+                    break;
                 case DONE:
                     done++;
+                    break;
                 default:
                     assert(false);
             }

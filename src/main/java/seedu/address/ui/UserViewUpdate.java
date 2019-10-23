@@ -32,9 +32,12 @@ public class UserViewUpdate {
         case "list-tasks":
             paneToRender = userViewMain.loadTasks();
             break;
-        case "get-stats":
-           paneToRender = userViewMain.loadStats();
+        case "get-member-stats":
+           paneToRender = userViewMain.loadMemberStats();
            break;
+        case "get-task-stats":
+            paneToRender = userViewMain.loadTaskStats();
+            break;
         default:
             paneToRender = userViewMain.loadDashboard();
         }

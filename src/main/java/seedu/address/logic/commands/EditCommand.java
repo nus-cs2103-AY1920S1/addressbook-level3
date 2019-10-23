@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +31,7 @@ import seedu.address.model.task.TaskStatus;
  */
 public class EditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit-task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
@@ -90,10 +92,28 @@ public class EditCommand extends Command {
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
         TaskStatus updatedTaskStatus = editTaskDescriptor.getTaskStatus().orElse(taskToEdit.getTaskStatus());
+        Instant timeStart;
+
+        if (taskToEdit.getTaskStatus().equals(TaskStatus.UNBEGUN) && updatedTaskStatus.equals(TaskStatus.DOING)) {
+            timeStart = Instant.now();
+        } else {
+            timeStart = editTaskDescriptor.getTimeStart().orElse(taskToEdit.getTimeStart());
+        }
+
+        Instant timeEnd;
+        if (taskToEdit.getTaskStatus().equals(TaskStatus.DOING) && updatedTaskStatus.equals(TaskStatus.DONE)) {
+            timeEnd = Instant.now();
+        } else {
+            timeEnd = editTaskDescriptor.getTimeEnd().orElse(taskToEdit.getTimeEnd());
+        }
+
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
+        Task newTask = new Task(updatedName, updatedTaskStatus, updatedTags);
+        newTask.setTimeStart(timeStart);
+        newTask.setTimeEnd(timeEnd);
 
-        return new Task(updatedName, updatedTaskStatus, updatedTags);
+        return newTask;
 
     }
 
@@ -123,6 +143,8 @@ public class EditCommand extends Command {
         private Name name;
         private TaskStatus taskStatus;
         private Set<Tag> tags;
+        private Instant timeStart;
+        private Instant timeEnd;
 
         public EditTaskDescriptor() {}
 
@@ -134,6 +156,8 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setTaskStatus(toCopy.taskStatus);
             setTags(toCopy.tags);
+            setTimeStart(toCopy.timeStart);
+            setTimeEnd(toCopy.timeEnd);
         }
 
         /**
@@ -150,12 +174,29 @@ public class EditCommand extends Command {
         public Optional<TaskStatus> getTaskStatus() {
             return Optional.ofNullable(taskStatus);
         }
+
         public void setName(Name name) {
             this.name = name;
         }
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setTimeStart(Instant start) {
+            this.timeStart = start;
+        }
+
+        public Optional<Instant> getTimeStart() {
+            return Optional.ofNullable(timeStart);
+        }
+
+        public void setTimeEnd(Instant end) {
+            this.timeEnd = end;
+        }
+
+        public Optional<Instant> getTimeEnd() {
+            return Optional.ofNullable(timeEnd);
         }
 
         /**
