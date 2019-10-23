@@ -208,7 +208,8 @@ Step 2. AlgoBase displays a list of existing problems and plans in the UI.
 
 Step 3. The user executes `addtask plan/1 prob/1` to add the problem with index 1 in the list to the plan with index 1.
 The `AddTask` command calls `Plan#updateTasks` to create a new plan from the original plan with this additional task.
-After that, `Model#setPlan()` is called to replace the original plan with the updated plan in the `PlanList`.
+After that, `Model#setPlan` is called to replace the original plan with the updated plan in the `PlanList`
+stored in `AlgoBase`.
 
 The following sequence diagram shows how the `addtask` operation works:
 
@@ -250,6 +251,7 @@ Step 2. The user executes `addtag t/easy` to add a tag named [easy] which have n
 
 The following sequence diagram shows how the `deletetag` operation works:
 
+.Sequence Diagram for `AddTag` command
 image::AddTagSequenceDiagram.png[]
 
 Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
@@ -262,6 +264,7 @@ Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in
 
 The following activity diagram summarizes what happens when a user executes a new tag modifying command
 
+.Activity Diagram for `AddTag` command
 image::TagActivityDiagram.png[]
 
 ==== Design considerations
