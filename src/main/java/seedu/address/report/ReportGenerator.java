@@ -129,7 +129,7 @@ public class ReportGenerator {
                     new PdfPCell(new Paragraph("N.A.")));
         } else {
             otherDetails.addCell(
-                    new PdfPCell(new Paragraph(String.format("%s", body.getCauseOfDeath()))));
+                    new PdfPCell(new Paragraph(String.format("%s", body.getCauseOfDeath().get()))));
         }
         List organList = new List();
         for (String organ : body.getOrgansForDonation()) {
@@ -154,7 +154,7 @@ public class ReportGenerator {
             otherDetails.addCell(new PdfPCell(new Paragraph("N.A.")));
         } else {
             otherDetails.addCell(
-                    new PdfPCell(new Paragraph(String.format("%s", body.getFridgeId()))));
+                    new PdfPCell(new Paragraph(String.format("%s", body.getFridgeId().get()))));
         }
 
         document.add(otherDetails);
@@ -191,21 +191,21 @@ public class ReportGenerator {
             nokDetails.addCell(new PdfPCell(new Paragraph("N.A.")));
         } else {
             nokDetails.addCell(
-                    new PdfPCell(new Paragraph(String.format("%s", body.getNextOfKin()))));
+                    new PdfPCell(new Paragraph(String.format("%s", body.getNextOfKin().get()))));
         }
         nokDetails.addCell(new PdfPCell(new Paragraph("Relationship:")));
         if (body.getRelationship().isEmpty()) {
             nokDetails.addCell(new PdfPCell(new Paragraph("N.A.")));
         } else {
             nokDetails.addCell(
-                    new PdfPCell(new Paragraph(String.format("%s", body.getRelationship()))));
+                    new PdfPCell(new Paragraph(String.format("%s", body.getRelationship().get()))));
         }
         nokDetails.addCell(new PdfPCell(new Paragraph("Contact Number:")));
         if (body.getKinPhoneNumber().isEmpty()) {
             nokDetails.addCell(new PdfPCell(new Paragraph("N.A.")));
         } else {
             nokDetails.addCell(
-                    new PdfPCell(new Paragraph(String.format("%s", body.getKinPhoneNumber()))));
+                    new PdfPCell(new Paragraph(String.format("%s", body.getKinPhoneNumber().get()))));
         }
 
         document.add(nokDetails);
@@ -235,7 +235,7 @@ public class ReportGenerator {
                     new PdfPCell(new Paragraph("N.A.")));
         } else {
             personalDetails.addCell(
-                    new PdfPCell(new Paragraph(String.format("%s", body.getDateOfBirth()))));
+                    new PdfPCell(new Paragraph(String.format("%s", body.getDateOfBirth().get()))));
         }
         personalDetails.addCell(new PdfPCell(new Paragraph("Date of Death:")));
         personalDetails.addCell(new PdfPCell(new Paragraph(body.getDateOfDeath().toString())));
@@ -245,7 +245,7 @@ public class ReportGenerator {
                     new PdfPCell(new Paragraph("N.A.")));
         } else {
             personalDetails.addCell(
-                    new PdfPCell(new Paragraph(String.format("%s", body.getNric()))));
+                    new PdfPCell(new Paragraph(String.format("%s", body.getNric().get()))));
         }
         personalDetails.addCell(new PdfPCell(new Paragraph("Religion:")));
         if (body.getReligion().isEmpty()) {
@@ -253,7 +253,7 @@ public class ReportGenerator {
                     new PdfPCell(new Paragraph("N.A.")));
         } else {
             personalDetails.addCell(
-                    new PdfPCell(new Paragraph(String.format("%s", body.getReligion()))));
+                    new PdfPCell(new Paragraph(String.format("%s", body.getReligion().get()))));
         }
 
         document.add(personalDetails);
