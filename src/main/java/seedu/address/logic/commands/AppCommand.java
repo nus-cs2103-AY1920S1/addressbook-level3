@@ -8,8 +8,4 @@ import seedu.address.model.Model;
  */
 public abstract class AppCommand extends Command {
 
-    @Override
-    public boolean check(Model model) throws CommandException {
-        return true;
-    }
 }

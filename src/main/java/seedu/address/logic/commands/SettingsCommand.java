@@ -10,12 +10,4 @@ import seedu.address.model.Model;
  */
 public abstract class SettingsCommand extends Command {
 
-    @Override
-    public boolean check(Model model) throws CommandException {
-        return true;
-    }
-
-    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
-        return ModeEnum.SETTINGS;
-    }
 }

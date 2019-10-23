@@ -24,7 +24,7 @@ import seedu.address.model.Model;
 /**
  * Parses user input.
  */
-public class SpecificModeParser extends ModeParser {
+public class SpecificModeParser {
 
     /**
      * Used for initial separation of command word and args.

@@ -9,8 +9,4 @@ import seedu.address.model.Model;
 public abstract class GameCommand extends Command {
     protected static final String MESSAGE_NO_ACTIVE_GAME = "There is no active game!";
 
-    @Override
-    public boolean check(Model model) throws CommandException {
-        return true;
-    }
 }
