@@ -333,8 +333,8 @@ and test whether Customer contains the relevant keywords.
 
 However, we did not do this as `CustomerContainsKeywordsPredicate` violated the Single-Responsibility Principle.
 It had to do further parsing of the keywords instead of simply testing whether the Customer contains the keywords.
-Also, if there was a change to the data field of Customer, it would be less intuitive as one would need to understand the parsing
-in order to modify CustomerContainsKeywordsPredicate.
+Also, if there was a change to the `Customer` class, it would be less intuitive to modify `CustomerContainsKeywordsPredicate`
+as one would need to understand the parsing.
 
 
 
