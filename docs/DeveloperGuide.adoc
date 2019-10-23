@@ -268,7 +268,8 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 [[Features-Calendar]]
 
-TravEzy has several features (listed below) which have their own designs and implementation logic.
+TravEzy has several features which are listed below.
+Each of these features have their own design and implementation logic.
 
 === Calendar
 
