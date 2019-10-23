@@ -42,9 +42,9 @@ Teacher’s Notebook is for teachers who prefer to make use of an application to
 ====
 
 // tag::add[]
-== Adding: add
+=== Adding: add
 
-=== Classes
+==== Classes
 
 Adds a class to the class list. +
 Format: addclass c/CLASS
@@ -53,7 +53,7 @@ Examples:
 * addclass c/4C
 * addclass c/3E5
 
-=== Students
+==== Students
 
 Adds a student to the student list. +
 Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG]...
@@ -62,7 +62,7 @@ Examples: +
 * add n/John Doe p/91234567 e/john.doe@gmail.com a/John Street, Block 123, #01-01 pp/92222222 +
 * add n/Jane Doe p/98765432 e/jane.doe@gmail.com a/Jane Street, Block 123, #10-10 pp/93333333
 
-=== Assignments
+==== Assignments
 
 Adds an assignment to the assignment list +
 Format: addassign as/ASSIGNMENT d/DEADLINE
@@ -74,9 +74,9 @@ Examples:
 // end::add[]
 
 // tag::edit[]
-== Editing: edit
+=== Editing: edit
 
-=== Students’ information
+==== Students’ information
 
 Edits an existing student in the student list. +
 Format: edit c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
@@ -89,9 +89,9 @@ Examples:
 // end::edit[]
 
 // tag::update[]
-== Updating: update
+=== Updating: update
 
-=== Students’ grades for individual assignments
+==== Students’ grades for individual assignments
 
 Edits the grades for students of the specified assignment index. Additional arguments will be dropped and too few
 arguments will be prompted to the user. +
@@ -103,14 +103,14 @@ Examples:
 //end::update[]
 
 //tag::list[]
-== Listing: list
+=== Listing: list
 
-=== Class list
+==== Class list
 
 Shows a list of all classes taken by the user. +
 Format: list class
 
-=== Student list
+==== Student list
 
 Shows a list of all students in a particular class of the user. +
 Format: list [c/CLASS] students
@@ -118,7 +118,7 @@ Format: list [c/CLASS] students
 Examples:
 * list c/4E3 students
 
-=== Assignment list
+==== Assignment list
 
 Shows a list of all assignments of classes of the user. +
 Format: listassign c/CLASS
@@ -129,7 +129,7 @@ Examples:
 //end::list[]
 
 //tag::reminder[]
-== Sending reminders to teachers
+=== Sending reminders to teachers
 
 Sends system notification to user 10 minutes before event (assumes user keeps program running continuously). +
 Format: none, reminder should come automatically
@@ -137,9 +137,9 @@ Format: none, reminder should come automatically
 //end::reminder[]
 
 //tag::find[]
-== Locating: find
+=== Locating: find
 
-=== Students by name
+==== Students by name
 
 Find students whose name matches a given keyword. +
 Format: find s/STUDENT_NAME
@@ -148,7 +148,7 @@ Examples:
 * find s/John Doe
 * find s/Jane Doe
 
-== Assignments by name
+=== Assignments by name
 
 Find assignments which name matches given keyword. +
 Format: find [c/CLASS] as/ASSIGNMENT
@@ -160,16 +160,16 @@ Examples:
 //end::find[]
 
 //tag::delete[]
-== Deleting: delete
+=== Deleting: delete
 
-=== Deleting student
+==== Deleting student
 Deletes the student in the index from the specified class list.
 Format: delete c/CLASS s/INDEX
 
 Examples:
 * delete c/4E3 s/3
 
-=== Deleting assignment
+==== Deleting assignment
 Deletes the assignment in the index from the specified class list.
 Format: delete c/CLASS as/INDEX
 
@@ -179,7 +179,7 @@ Examples:
 //end::delete[]
 
 //tag::undo[]
-== Undo: undo
+=== Undo: undo
 
 Restores application to the state before previous command was executed.
 Format: undo
@@ -187,7 +187,7 @@ Format: undo
 //end::undo[]
 
 //tag::redo[]
-== Redo: redo
+=== Redo: redo
 
 Restores application to the state before previous undo command was executed.
 Format: redo
