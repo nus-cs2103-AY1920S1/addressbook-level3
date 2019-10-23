@@ -317,8 +317,43 @@ take some time.
 ==== Proposed Implementation
 ==== Design Considerations
 
-=== Exercise feature
-==== Proposed Implementation
+=== Workout Planner feature
+==== Implementation
+===== Exercise Management
+
+Every workout comprises of varying number of exercises. Users can use existing exercises or create their own custom
+exercises. Every exercise contains the following information:
+
+* `ExerciseName` representing the name of the exercise
+* `MusclesTrained` comprising of the primary `MuscleType` as well as an ArrayList of secondary `MuscleType` trained
+* `Intensity` or how demanding the exercise is
+* A set of `ExerciseDetails` which are optional additional information of the exercise such as `ExerciseWeight`,
+`Distance`, `Sets` and `Repetitions`.
+
+The Exercise class is represented by the following class diagram below.
+
+.Exercise Class Diagram
+//insert UML here
+
+===== Implementation of Exercise Commands
+
+The `Exercise` class is managed by the following commands :
+
+* `AddExerciseCommand` - Adds a new `Exercise` into `WorkoutPlanner`
+* `ClearExerciseCommand` - Clears all the `Exercise` objects in `WorkoutPlanner`
+* `DeleteExerciseCommand` - Deletes an `Exercise` specified by an `Index` from `WorkoutPlanner`
+* `EditExerciseCommand` - Edits the specified `Exercise` with newly specified information
+* `FindExerciseByIntensityCommand` - Lists all `Exercise` objects with the `Intensity` specified
+* `FindExerciseByMuscleCommand` - Lists all `Exercise` objects which trains the `MuscleType` specified
+* 'FindExerciseCommand' - Lists all `Exercise` objects with `ExerciseName` that contains the string specified
+* 'ListExercise' - Lists all 'Exercise' objects in `WorkoutPlanner`
+
+All the commands listed above are parsed in `DukeCooksParser`, invoking the respective Command Parsers
+(Add, Delete, Edit etc.). The `Exercise` variant of the parser will then be instantiated
+(i.e `AddExerciseCommandParser`,`DeleteExerciseCommandParser` etc) to create the actual command objects
+(i.e AddDiaryCommand, DeleteDiaryCommand etc). These Command Objects will then execute the necessary steps
+to fulfill their functionality.
+
 ==== Design Considerations
 
 === Health feature
