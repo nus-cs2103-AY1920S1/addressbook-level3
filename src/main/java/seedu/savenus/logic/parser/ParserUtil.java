@@ -94,24 +94,24 @@ public class ParserUtil {
     public static Wallet parseWallet(String walletString) throws ParseException {
         String trimmedWalletString = walletString.trim();
         String[] splitWalletString = trimmedWalletString.split("\\s+");
-        if (splitWalletString.length != 2
-                || !RemainingBudget.isValidRemainingBudget(splitWalletString[0])
-                || !DaysToExpire.isValidDaysToExpire(splitWalletString[1])) {
+        String budgetAmountString;
+        String budgetDurationString;
+        if (splitWalletString.length == 1 && RemainingBudget.isValidRemainingBudget(splitWalletString[0])) {
+            budgetAmountString = splitWalletString[0].contains(".")
+                ? splitWalletString[0]
+                : String.format("%s.00", splitWalletString[0]);
+            budgetDurationString = "0";
+        } else if (splitWalletString.length == 2
+                    && RemainingBudget.isValidRemainingBudget(splitWalletString[0])
+                    && DaysToExpire.isValidDaysToExpire(splitWalletString[1])) {
+            budgetAmountString = splitWalletString[0].contains(".")
+                    ? splitWalletString[0]
+                    : String.format("%s.00", splitWalletString[0]);
+            budgetDurationString = splitWalletString[1];
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         }
-        BigDecimal budgetAmount = new BigDecimal(splitWalletString[0].contains(".")
-                ? splitWalletString[0]
-                : String.format("%s.00", splitWalletString[0]));
-
-        int parsedDaysToExpire;
-        try {
-            parsedDaysToExpire = Integer.parseInt(splitWalletString[1]);
-        } catch (NumberFormatException e) {
-            throw new ParseException(DaysToExpire.INTEGER_CONSTRAINTS);
-        }
-
-        return new Wallet(new RemainingBudget(budgetAmount.toString()),
-                new DaysToExpire(splitWalletString[1]));
+        return new Wallet(budgetAmountString, budgetDurationString);
     }
 
     /**

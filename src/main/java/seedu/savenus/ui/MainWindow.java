@@ -2,6 +2,8 @@ package seedu.savenus.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -108,8 +110,12 @@ public class MainWindow extends UiPart<Stage> {
         logic.getWallet().updateDaysToExpire();
 
         // Bind number of days to budget expiration to displayed value
-        daysToExpirePlaceholder.textProperty().bind(logic
-                .getWallet().getDaysToExpireProperty().asString("%d days"));
+        StringBinding daysToExpireBinding = Bindings.createStringBinding(() -> logic.getWallet()
+                        .getDaysToExpireProperty().get() == 0
+                        ? ""
+                        : String.format("%d days left", logic.getWallet().getDaysToExpireProperty().get()),
+                logic.getWallet().getDaysToExpireProperty());
+        daysToExpirePlaceholder.textProperty().bind(daysToExpireBinding);
     }
 
     /**
@@ -126,6 +132,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Method that allows the mouse to click on the window to be moved.
+     *
      * @param event The event that the user clicks on the window.
      */
     public void handleWindowPress(MouseEvent event) {
@@ -135,6 +142,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Method that allows the window to be moved.
+     *
      * @param event The event that the user drags the window.
      */
     public void handleWindowDrag(MouseEvent event) {
@@ -240,19 +248,19 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFeedbackToUser().equals(InfoCommand.ADD_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.BUDGET_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.BUY_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.CLEAR_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.DEFAULT_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.EXIT_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.FIND_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.HELP_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.INFO_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.RECOMMEND_INFO)
-                || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)) {
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.BUDGET_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.BUY_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.CLEAR_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.DEFAULT_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.EXIT_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.FIND_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.HELP_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.INFO_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.RECOMMEND_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)) {
                 if (infoWindow.isShowing()) {
                     infoWindow.closeWindow();
                 }
@@ -260,12 +268,10 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             // Update foodListPanel after every command
-            ObservableList<Food> list = logic.getFilteredFoodList();
-            foodListPanel = new FoodListPanel(list);
-            foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+            foodListPanel.updateFoodList(logic.getFilteredFoodList());
 
             if (logic.getAutoSortFlag()) {
-                ObservableList<Food> foodList = logic.getFilteredFoodList();
+                ObservableList<Food> foodList = logic.getFoods();
                 SortedList<Food> sortedList = foodList.sorted(logic.getCustomSorter().getComparator());
                 logic.setFoods(sortedList);
             }
@@ -274,9 +280,8 @@ public class MainWindow extends UiPart<Stage> {
                 foodListPanel.showLastItem();
             }
 
-            // Update purchaseListPanel after every command
-            purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistoryList());
-            purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
+            // Update purchaseListPanel after every
+            purchaseListPanel.updatePurchaseList(logic.getPurchaseHistoryList());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

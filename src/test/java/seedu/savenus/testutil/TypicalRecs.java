@@ -8,6 +8,7 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.recommend.UserRecommendations;
 
+//@@author jon-chua
 /**
  * A utility class containing a list of sets to be used in recommendation tests.
  */
@@ -137,7 +138,15 @@ public class TypicalRecs {
         }
     };
 
-    public static final UserRecommendations getTypicalRecs() {
+    public static final Set<Category> DUPLICATE_LIKED_CATEGORY_SET = new HashSet<>(LIKED_CATEGORY_SET);
+    public static final Set<Tag> DUPLICATE_LIKED_TAG_SET = new HashSet<>(LIKED_TAG_SET);
+    public static final Set<Location> DUPLICATE_LIKED_LOCATION_SET = new HashSet<>(LIKED_LOCATION_SET);
+
+    public static final Set<Category> DUPLICATE_DISLIKED_CATEGORY_SET = new HashSet<>(DISLIKED_CATEGORY_SET);
+    public static final Set<Tag> DUPLICATE_DISLIKED_TAG_SET = new HashSet<>(DISLIKED_TAG_SET);
+    public static final Set<Location> DUPLICATE_DISLIKED_LOCATION_SET = new HashSet<>(DISLIKED_LOCATION_SET);
+
+    public static UserRecommendations getTypicalRecs() {
         return new UserRecommendations(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET,
                 DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET);
     }

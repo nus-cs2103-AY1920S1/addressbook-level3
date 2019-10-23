@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.recommend.UserRecommendations;
 
+//@@author jon-chua
 /**
  * An Immutable Recommendation Set that is serializable to JSON format.
  */

@@ -21,7 +21,7 @@ public class TopUpCommand extends Command {
             + "Restriction: " + RemainingBudget.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 100";
 
-    public static final String MESSAGE_TOPUP_BUDGET_SUCCESS = "Top Up Successful! New Budget: %1$s";
+    public static final String MESSAGE_TOPUP_BUDGET_SUCCESS = "Top Up Successful! New budget: %1$s";
 
     private final BigDecimal topUpAmount;
 

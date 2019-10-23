@@ -5,19 +5,24 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyMenu <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class Menu
-Class ReadOnlyMenu
+
 Class Model
 Class ModelManager
+
+Package UserPrefs {
 Class UserPrefs
 Class ReadOnlyUserPrefs
-Class PurchaseHistory
+}
 
-Package Sorter {
-Class CustomSorter
+Package Menu {
+Class Menu
+Interface ReadOnlyMenu <<Interface>>
+}
+
+Package Sort {
+Class CustomSort
 Class FoodComparator
 }
 
@@ -33,7 +38,24 @@ Class Restrictions
 }
 
 Package Savings {
+Interface ReadOnlySavingsAccount <<Interface>>
 Class SavingsAccount
+Class SavingsHistory
+Class Savings
+}
+
+Package Purchase {
+Interface ReadOnlyPurchaseHistory <<Interface>>
+Class Purchase
+Class TimeOfPurchase
+Class PurchaseHistory
+Class PurchaseHistoryList
+}
+
+Package Wallet {
+Class Wallet
+Class DaysToExpire
+Class RemainingBudget
 }
 
 Package Tag {
@@ -50,12 +72,27 @@ ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" Menu
 ModelManager o--> "1" PurchaseHistory
+ModelManager o--> "1" Wallet
 ModelManager o--> "1" CustomSorter
 ModelManager o--> "1" SavingsAccount
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 CustomSorter *--> "1" FoodComparator
+
+PurchaseHistory .up.|> ReadOnlyPurchaseHistory
+PurchaseHistory *--> "1" PurchaseHistoryList
+PurchaseHistoryList o--> "*" Purchase
+Purchase *--> Food
+Purchase *--> TimeOfPurchase
+
+Wallet *--> DaysToExpire
+Wallet *--> RemainingBudget
+
+
+SavingsAccount .up.|> ReadOnlySavingsAccount
+SavingsAccount *--> "1" SavingsHistory
+SavingsHistory o--> "0..*" Savings
 
 Menu *--> "1" UniqueFoodList
 UniqueFoodList o--> "*" Food

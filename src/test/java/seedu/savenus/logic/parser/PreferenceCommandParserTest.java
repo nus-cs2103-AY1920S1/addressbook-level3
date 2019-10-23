@@ -35,6 +35,10 @@ import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
 
+//@@author jon-chua
+/**
+ * Contains tests for PreferenceCommandParser
+ */
 public class PreferenceCommandParserTest {
     private PreferenceCommandParser parser = new PreferenceCommandParser();
 

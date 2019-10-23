@@ -1,7 +1,6 @@
 package seedu.savenus.model;
 
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -102,6 +101,11 @@ public interface Model {
      * Replace the original list with a new list.
      */
     void setFoods(List<Food> list);
+
+    /**
+     * Gets back the original list.
+     */
+    ObservableList<Food> getFoods();
 
     /**
      * Simply sets the auto-sort flag.
@@ -213,20 +217,6 @@ public interface Model {
      * Gets the current recommendation system.
      */
     RecommendationSystem getRecommendationSystem();
-
-    /**
-     * Updates the comparator of the food list to filter by the given {@code comparator}.
-     *
-     * @throws NullPointerException if {@code comparator} is null.
-     */
-    void updateRecommendationComparator(Comparator<Food> recommendationComparator);
-
-    /**
-     * Updates the filter of the recommendation system's food list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateRecommendationPredicate(Predicate<Food> recommendationPredicate);
 
     /**
      * Updates if the recommendation system is currently in use.

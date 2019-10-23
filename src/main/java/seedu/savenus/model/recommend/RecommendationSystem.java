@@ -1,15 +1,22 @@
 package seedu.savenus.model.recommend;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
+import seedu.savenus.model.purchase.Purchase;
 
+//@@author jon-chua
 /**
  * Represents the Recommendation System of the menu.
  */
@@ -18,28 +25,57 @@ public class RecommendationSystem {
     private static final Predicate<Food> DEFAULT_PREDICATE = x -> true;
 
     private static RecommendationSystem recommendationSystem;
-
-    private static double budget = 50.00;
-
     private static Comparator<Food> comparator =
             Comparator.comparingDouble(getInstance()::calculateRecommendation).reversed()
-            .thenComparingDouble(x -> Double.parseDouble(x.getPrice().value));;
-    private static Predicate<Food> predicate = f -> Double.parseDouble(f.getPrice().value) < budget;
+                    .thenComparingDouble(x -> Double.parseDouble(x.getPrice().value));
 
-    // TODO
-    private static final double LIKED_TAG_WEIGHT = 0.1;
-    private static final double LIKED_LOCATION_WEIGHT = 0.2;
-    private static final double LIKED_CATEGORY_WEIGHT = 0.3;
+    // Recommendation system weights
+    private static final double LIKED_TAG_WEIGHT = 0.03;
+    private static final double LIKED_LOCATION_WEIGHT = 0.10;
+    private static final double LIKED_CATEGORY_WEIGHT = 0.15;
 
-    private static final double DISLIKED_TAG_WEIGHT = 0.3;
-    private static final double DISLIKED_LOCATION_WEIGHT = 0.4;
-    private static final double DISLIKED_CATEGORY_WEIGHT = 0.5;
+    private static final double LIKED_TAG_BONUS_LOW = 0.05;
+    private static final double LIKED_TAG_BONUS_MED = 0.10;
+    private static final double LIKED_TAG_BONUS_HIGH = 0.25;
 
-    private static final double CHOSEN_TAG_WEIGHT = 0.01;
-    private static final double CHOSEN_LOCATION_WEIGHT = 0.01;
-    private static final double CHOSEN_CATEGORY_WEIGHT = 0.01;
+    private static final int LIKED_TAG_BONUS_LOW_NUM = 1;
+    private static final int LIKED_TAG_BONUS_MED_NUM = 3;
+    private static final int LIKED_TAG_BONUS_HIGH_NUM = 5;
+
+    private static final double IDENTICAL_FOOD_BONUS_LOW = 0.10;
+    private static final double IDENTICAL_FOOD_BONUS_MED = 0.30;
+    private static final double IDENTICAL_FOOD_BONUS_HIGH = 0.50;
+
+    private static final int IDENTICAL_FOOD_BONUS_LOW_NUM = 2;
+    private static final int IDENTICAL_FOOD_BONUS_MED_NUM = 5;
+    private static final int IDENTICAL_FOOD_BONUS_HIGH_NUM = 10;
+
+    private static final double HISTORY_TAG_WEIGHT = 0.01;
+    private static final double HISTORY_LOCATION_WEIGHT = 0.03;
+    private static final double HISTORY_CATEGORY_WEIGHT = 0.02;
+
+    private static final double DISLIKED_TAG_WEIGHT = -0.10;
+    private static final double DISLIKED_LOCATION_WEIGHT = -0.30;
+    private static final double DISLIKED_CATEGORY_WEIGHT = -0.40;
+
+    private static final double DISLIKED_TAG_PENALTY_LOW = -0.10;
+    private static final double DISLIKED_TAG_PENALTY_MED = -0.30;
+    private static final double DISLIKED_TAG_PENALTY_HIGH = -0.50;
+
+    private static final int DISLIKED_TAG_PENALTY_LOW_NUM = 1;
+    private static final int DISLIKED_TAG_PENALTY_MED_NUM = 2;
+    private static final int DISLIKED_TAG_PENALTY_HIGH_NUM = 3;
+
+    // Negative multiplier starting from -10 to 0, valid for 2 days (172800000ms)
+    private static final int JUST_BOUGHT_FOOD_VALIDITY = 172800000;
 
     private UserRecommendations userRecommendations;
+    private ObservableList<Purchase> purchaseHistory;
+    private BigDecimal budget = new BigDecimal("10000");
+    private BigDecimal dailyBudget = new BigDecimal("10000");
+    private Predicate<Food> predicate = f -> dailyBudget.compareTo(new BigDecimal(f.getPrice().value)) >= 0;
+    private int daysToExpire = 100;
+
     private boolean inUse;
 
     private RecommendationSystem() {
@@ -58,54 +94,228 @@ public class RecommendationSystem {
     public double calculateRecommendation(Food food) {
         double weight = 0;
 
-        weight += LIKED_TAG_WEIGHT * userRecommendations.getLikedTags().stream()
-                .filter(food.getTags().stream()
-                        .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
-                .count();
-        weight -= DISLIKED_TAG_WEIGHT * userRecommendations.getDislikedTags().stream()
-                .filter(food.getTags().stream()
-                        .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
-                .count();
+        // Bonuses for liked tags, categories and locations
+        weight += getLikedTagBonus(food);
+        weight += getLikedCategoryBonus(food);
+        weight += getLikedLocationBonus(food);
 
-        weight += LIKED_CATEGORY_WEIGHT * userRecommendations.getLikedCategories().stream()
-                .filter(new Category(food.getCategory().category.toLowerCase())::equals)
-                .count();
-        weight -= DISLIKED_CATEGORY_WEIGHT * userRecommendations.getDislikedCategories().stream()
-                .filter(new Category(food.getCategory().category.toLowerCase())::equals)
-                .count();
+        // Penalties for disliked tags, categories and locations
+        weight += getDislikedTagPenalty(food);
+        weight += getDislikedCategoryPenalty(food);
+        weight += getDislikedLocationPenalty(food);
 
-        weight += LIKED_LOCATION_WEIGHT * userRecommendations.getLikedLocations().stream()
-                .filter(new Location(food.getLocation().location.toLowerCase())::equals)
-                .count();
-        weight -= DISLIKED_LOCATION_WEIGHT * userRecommendations.getDislikedLocations().stream()
-                .filter(new Location(food.getLocation().location.toLowerCase())::equals)
-                .count();
+        // Bonuses for matching tags, categories and locations in purchase history
+        weight += getPurchaseHistoryTagBonus(food);
+        weight += getPurchaseHistoryLocationBonus(food);
+        weight += getPurchaseHistoryCategoryBonus(food);
+
+        // Bonus for purchase of the same food in purchase history
+        weight += getPurchaseHistorySameFoodBonus(food);
+
+        // Penalty for recent (<2 days) purchase of the same food in purchase history
+        weight += getPurchaseHistorySameFoodTimePenalty(food);
 
         return weight;
     }
 
+    /**
+     * Calculates the bonus for matching tags in the user's liked tag set
+     */
+    private double getLikedTagBonus(Food food) {
+        double weight = 0;
+
+        long numOfLikedTags = userRecommendations.getLikedTags().stream().parallel()
+                .filter(food.getTags().stream()
+                        .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
+                .count();
+
+        if (numOfLikedTags >= LIKED_TAG_BONUS_HIGH_NUM) {
+            weight = LIKED_TAG_BONUS_HIGH;
+        } else if (numOfLikedTags >= LIKED_TAG_BONUS_MED_NUM) {
+            weight = LIKED_TAG_BONUS_MED;
+        } else if (numOfLikedTags >= LIKED_TAG_BONUS_LOW_NUM) {
+            weight = LIKED_TAG_BONUS_LOW;
+        }
+
+        return weight + LIKED_TAG_WEIGHT * numOfLikedTags;
+    }
+
+    /**
+     * Calculates the bonus for matching categories in the user's liked category set
+     */
+    private double getLikedCategoryBonus(Food food) {
+        long numOfLikedCategories = userRecommendations.getLikedCategories().stream().parallel()
+                .filter(new Category(food.getCategory().category.toLowerCase())::equals)
+                .count();
+
+        if (numOfLikedCategories > 0) {
+            return LIKED_CATEGORY_WEIGHT;
+        }
+        return 0;
+    }
+
+    /**
+     * Calculates the bonus for matching locations in the user's liked location set
+     */
+    private double getLikedLocationBonus(Food food) {
+        long numOfLikedLocations = userRecommendations.getLikedLocations().stream().parallel()
+                .filter(new Location(food.getLocation().location.toLowerCase())::equals)
+                .count();
+
+        if (numOfLikedLocations > 0) {
+            return LIKED_LOCATION_WEIGHT;
+        }
+        return 0;
+    }
+
+    /**
+     * Calculates the penalty for matching tags in the user's disliked tag set
+     */
+    private double getDislikedTagPenalty(Food food) {
+        double weight = 0;
+
+        long numOfDislikedTags = userRecommendations.getDislikedTags().stream().parallel()
+                .filter(food.getTags().stream()
+                        .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
+                .count();
+
+        if (numOfDislikedTags >= DISLIKED_TAG_PENALTY_HIGH_NUM) {
+            weight = DISLIKED_TAG_PENALTY_HIGH;
+        } else if (numOfDislikedTags >= DISLIKED_TAG_PENALTY_MED_NUM) {
+            weight = DISLIKED_TAG_PENALTY_MED;
+        } else if (numOfDislikedTags >= DISLIKED_TAG_PENALTY_LOW_NUM) {
+            weight = DISLIKED_TAG_PENALTY_LOW;
+        }
+
+        return weight + DISLIKED_TAG_WEIGHT * numOfDislikedTags;
+    }
+
+    /**
+     * Calculates the penalty for matching categories in the user's disliked category set
+     */
+    private double getDislikedCategoryPenalty(Food food) {
+        long numOfDislikedCategories = userRecommendations.getDislikedCategories().stream().parallel()
+                .filter(new Category(food.getCategory().category.toLowerCase())::equals)
+                .count();
+
+        if (numOfDislikedCategories > 0) {
+            return DISLIKED_CATEGORY_WEIGHT;
+        }
+        return 0;
+    }
+
+    /**
+     * Calculates the penalty for matching locations in the user's disliked location set
+     */
+    private double getDislikedLocationPenalty(Food food) {
+        long numOfDislikedLocations = userRecommendations.getDislikedLocations().stream().parallel()
+                .filter(new Location(food.getLocation().location.toLowerCase())::equals)
+                .count();
+
+        if (numOfDislikedLocations > 0) {
+            return DISLIKED_LOCATION_WEIGHT;
+        }
+        return 0;
+    }
+
+    /**
+     * Calculates the bonus for matching tags in the user's purchase history
+     */
+    private double getPurchaseHistoryTagBonus(Food food) {
+        long numberOfMatchedTags = purchaseHistory.stream().parallel()
+                .map(purchase -> purchase.getPurchasedFood().getTags())
+                .map(tagSet -> tagSet.stream()
+                        .map(tag -> new Tag(tag.tagName.toLowerCase()))
+                        .filter(tag -> food.getTags().stream()
+                                .map(foodTag -> new Tag(foodTag.tagName.toLowerCase()))
+                                .collect(Collectors.toSet())
+                                .contains(tag)))
+                .map(Stream::count)
+                .mapToLong(Long::longValue).sum();
+
+        return numberOfMatchedTags * HISTORY_TAG_WEIGHT;
+    }
+
+    /**
+     * Calculates the bonus for matching locations in the user's purchase history
+     */
+    private double getPurchaseHistoryLocationBonus(Food food) {
+        long numberOfMatchedLocations = purchaseHistory.stream().parallel()
+                .map(purchase -> purchase.getPurchasedFood().getLocation())
+                .map(location -> new Location(location.location.toLowerCase()))
+                .filter(location -> new Location(food.getLocation().location.toLowerCase()).equals(location))
+                .count();
+
+        return numberOfMatchedLocations * HISTORY_LOCATION_WEIGHT;
+    }
+
+    /**
+     * Calculates the bonus for matching categories in the user's purchase history
+     */
+    private double getPurchaseHistoryCategoryBonus(Food food) {
+        long numberOfMatchedCategories = purchaseHistory.stream().parallel()
+                .map(purchase -> purchase.getPurchasedFood().getCategory())
+                .map(category -> new Category(category.category.toLowerCase()))
+                .filter(category -> new Category(food.getCategory().category.toLowerCase()).equals(category))
+                .count();
+
+        return numberOfMatchedCategories * HISTORY_CATEGORY_WEIGHT;
+    }
+
+    /**
+     * Calculates the bonus for purchases of the same food in the user's purchase history
+     */
+    private double getPurchaseHistorySameFoodBonus(Food food) {
+        long numOfIdenticalFoodPurchase = purchaseHistory.stream().parallel()
+                .map(Purchase::getPurchasedFood).filter(food::equals).count();
+
+        if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_HIGH_NUM) {
+            return IDENTICAL_FOOD_BONUS_HIGH;
+        } else if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_MED_NUM) {
+            return IDENTICAL_FOOD_BONUS_MED;
+        } else if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_LOW_NUM) {
+            return IDENTICAL_FOOD_BONUS_LOW;
+        }
+        return 0;
+    }
+
+    /**
+     * Calculates the penalty for recent purchases of the same food in the user's purchase history
+     * A function that increases from -10 (0ms since last purchase) to 0 (172800000ms = 2 days since last purchase)
+     */
+    private double getPurchaseHistorySameFoodTimePenalty(Food food) {
+        long latestTimePurchased = purchaseHistory.stream().parallel()
+                .filter(purchase -> purchase.getPurchasedFood().equals(food))
+                .map(Purchase::getTimeOfPurchaseInMillisSinceEpoch).max(Comparator.naturalOrder()).orElse(-1L);
+
+        long millisSinceLastPurchase = System.currentTimeMillis() - latestTimePurchased;
+
+        if (millisSinceLastPurchase > 0 && millisSinceLastPurchase < JUST_BOUGHT_FOOD_VALIDITY) {
+            return calculateSameFoodTimePenalty(millisSinceLastPurchase).doubleValue();
+        }
+        return 0;
+    }
+
+    private static BigDecimal calculateSameFoodTimePenalty(long timeInMillis) {
+        BigDecimal scale = BigDecimal.ONE.divide(new BigDecimal(1728000), 10, RoundingMode.HALF_DOWN);
+        BigDecimal intercept = BigDecimal.TEN;
+        return new BigDecimal(timeInMillis).multiply(scale).sqrt(new MathContext(10)).subtract(intercept);
+    }
+
     public Comparator<Food> getRecommendationComparator() {
-        if (inUse) {
+        if (isInUse()) {
             return comparator;
         } else {
             return DEFAULT_COMPARATOR;
         }
     }
 
-    public void setRecommendationComparator(Comparator<Food> recommendationComparator) {
-        comparator = recommendationComparator;
-    }
-
     public Predicate<Food> getRecommendationPredicate() {
-        if (inUse) {
+        if (isInUse()) {
             return predicate;
         } else {
             return DEFAULT_PREDICATE;
         }
-    }
-
-    public void setRecommendationPredicate(Predicate<Food> recommendationPredicate) {
-        predicate = recommendationPredicate;
     }
 
     public boolean isInUse() {
@@ -147,4 +357,35 @@ public class RecommendationSystem {
     public void setUserRecommendations(UserRecommendations userRecommendations) {
         this.userRecommendations = userRecommendations;
     }
+
+    public void updatePurchaseHistory(ObservableList<Purchase> purchaseHistory) {
+        this.purchaseHistory = purchaseHistory;
+    }
+
+    /**
+     * Update budget.
+     *
+     * @param budget The specified budget
+     */
+    public void updateBudget(BigDecimal budget) {
+        this.budget = budget;
+        if (budget.equals(BigDecimal.ZERO) || daysToExpire == 0) {
+            this.dailyBudget = BigDecimal.ZERO;
+        } else {
+            this.dailyBudget = budget.divide(new BigDecimal(daysToExpire * 2), 2, RoundingMode.HALF_DOWN);
+        }
+    }
+
+    public BigDecimal getBudget() {
+        return budget;
+    }
+
+    public BigDecimal getDailyBudget() {
+        return dailyBudget;
+    }
+
+    public void updateDaysToExpire(int daysToExpire) {
+        this.daysToExpire = daysToExpire;
+    }
+
 }

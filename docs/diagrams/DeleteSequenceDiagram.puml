@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":SaveNUSParser" as SaveNUSParser LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("delete 1")
 activate LogicManager
 
-LogicManager -> SaveNUSParser : parseCommand("delete 1")
-activate SaveNUSParser
+LogicManager -> SaveNusParser : parseCommand("delete 1")
+activate SaveNusParser
 
 create DeleteCommandParser
-SaveNUSParser -> DeleteCommandParser
+SaveNusParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> SaveNUSParser
+DeleteCommandParser --> SaveNusParser
 deactivate DeleteCommandParser
 
-SaveNUSParser -> DeleteCommandParser : parse("1")
+SaveNusParser -> DeleteCommandParser : parse("1")
 activate DeleteCommandParser
 
 create DeleteCommand
@@ -36,14 +36,14 @@ activate DeleteCommand
 DeleteCommand --> DeleteCommandParser : d
 deactivate DeleteCommand
 
-DeleteCommandParser --> SaveNUSParser : d
+DeleteCommandParser --> SaveNusParser : d
 deactivate DeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> SaveNUSParser
+DeleteCommandParser -[hidden]-> SaveNusParser
 destroy DeleteCommandParser
 
-SaveNUSParser --> LogicManager : d
-deactivate SaveNUSParser
+SaveNusParser --> LogicManager : d
+deactivate SaveNusParser
 
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand

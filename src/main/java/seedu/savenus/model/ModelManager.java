@@ -5,7 +5,6 @@ import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -180,6 +179,11 @@ public class ModelManager implements Model {
         menu.setFoods(list);
     }
 
+    @Override
+    public ObservableList<Food> getFoods() {
+        return menu.getFoodList();
+    }
+
     //=========== PurchaseHistory Methods =========================================================================
 
     @Override
@@ -264,6 +268,11 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Food> getFilteredFoodList() {
+        // Update the Recommendation System's purchase history and budget
+        RecommendationSystem.getInstance().updatePurchaseHistory(purchaseHistory.getPurchaseHistoryList());
+        RecommendationSystem.getInstance().updateDaysToExpire(getDaysToExpire());
+        RecommendationSystem.getInstance().updateBudget(getRemainingBudget().getRemainingBudgetAmount());
+
         return filteredFoods
                 .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
                 .sorted(RecommendationSystem.getInstance().getRecommendationComparator());
@@ -308,18 +317,6 @@ public class ModelManager implements Model {
     @Override
     public RecommendationSystem getRecommendationSystem() {
         return RecommendationSystem.getInstance();
-    }
-
-    @Override
-    public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
-        requireNonNull(recommendationComparator);
-        RecommendationSystem.getInstance().setRecommendationComparator(recommendationComparator);
-    }
-
-    @Override
-    public void updateRecommendationPredicate(Predicate<Food> recommendationPredicate) {
-        requireNonNull(recommendationPredicate);
-        RecommendationSystem.getInstance().setRecommendationPredicate(recommendationPredicate);
     }
 
     @Override

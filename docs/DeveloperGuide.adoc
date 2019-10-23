@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/savenus/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/savenus/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +77,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/savenus/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/savenus/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,9 +96,9 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/savenus/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SaveNusParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -117,17 +117,22 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/savenus/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Menu data.
+* stores the Wallet data.
+* stores the SavingsAccount data.
+* stores the PurchaseHistory data.
+* exposes the `RemainingBudget` and `DaysToExpire` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `Wallet` change.
+* exposes the `CurrentSavings` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `SavingsAccount` changes.
+* exposes an unmodifiable `ObservableList<Food>`, `ObservableList<Savings>` and `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in either of the lists change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference. This would allow `Menu` to only require one `Tag` object per unique `Tag`, instead of each `Food` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -137,17 +142,19 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/savenus/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `Menu` data in json format and read it back.
+* can save the `Wallet` data in json format and read it back.
+* can save the `PurchaseHistory` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.savenus.commons` package.
 
 == Implementation
 
@@ -178,6 +185,48 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Recommendation feature
+
+The recommendation feature allows users to generate a list of personalized recommendations using the `recommend` command.
+The recommendations are tailored to each user based on their current likes, dislikes and purchase history.
+
+Users are able to add their liked and disliked categories, tags and locations into the app using the `like` and `dislike`
+command. The recommendation system will then take into account these preferences to generate a more accurate
+list of recommendations. Users will then able to find the food that they are likely to enjoy more accurately.
+
+==== Adding likes and dislikes
+
+The feature of adding the user's liked and disliked categories, tags and locations was introduced to support the
+recommendation system.
+
+The _UserRecommendations_ class stores the list of user likes and dislikes.
+
+The sequence diagram below shows how a sample `like` command is executed:
+
+.Sequence Diagram for a sample like command
+image::LikeSequenceDiagram.png[]
+
+The following activity diagram below summarizes how the `like` command works: *TODO*
+
+==== Displaying recommendations
+
+After customizing the user's likes and dislikes, users can obtain a personalized list of recommendations
+using the `recommend` command.
+
+The sequence diagram below shows how a sample `recommend` command is executed: *TODO*
+
+The following activity diagram below summarizes how the `recommend` command works: *TODO*
+
+===== Design Considerations
+|===
+|Aspect |Alternative 1 |Alternative 2
+
+|TODO
+|TODO
+|TODO
+|===
+
 
 == Documentation
 
@@ -273,7 +322,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Menu` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add food item
@@ -299,10 +348,8 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. User requests to list food items.
-2. $aveNUS shows a list of food items.
-3. User requests to delete a specific food item in the list.
-4. $aveNUS deletes the food item.
+1. User requests to delete a specific food item in the observable food list.
+2. $aveNUS deletes the food item.
 +
 Use case ends.
 
@@ -423,9 +470,14 @@ Windows, Linux, Unix, OS-X
 [appendix]
 == Product Survey
 
-*Product Name*
+*$aveNUS*
 
-Author: ...
+Author:
+Sean Low
+Jon Chua
+Choo Ze Yuan
+Roby Tanama
+Clarence Koh
 
 Pros:
 
@@ -451,7 +503,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample food items. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -465,11 +517,12 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: There has to be a food item in the menu for the user to delete.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First food item is deleted from the food list. Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No food item is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

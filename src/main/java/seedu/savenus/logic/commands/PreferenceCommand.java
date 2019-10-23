@@ -16,6 +16,7 @@ import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
 
+//@@author jon-chua
 /**
  * Creates a PreferenceCommand that either adds likes or dislikes to the $aveNUS recommendation system.
  */
@@ -44,11 +45,11 @@ public class PreferenceCommand extends Command {
         requireAllNonNull(categoryList, tagList, locationList, isList);
 
         // Convert all to lowercase
-        this.categoryList = categoryList.stream()
+        this.categoryList = categoryList.stream().parallel()
                 .map(c -> new Category(c.category.toLowerCase())).collect(Collectors.toSet());
-        this.tagList = tagList.stream()
+        this.tagList = tagList.stream().parallel()
                 .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet());
-        this.locationList = locationList.stream()
+        this.locationList = locationList.stream().parallel()
                 .map(l -> new Location(l.location.toLowerCase())).collect(Collectors.toSet());
 
         this.isList = isList;

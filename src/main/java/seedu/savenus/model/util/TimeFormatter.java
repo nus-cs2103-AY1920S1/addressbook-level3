@@ -29,11 +29,11 @@ public class TimeFormatter {
     }
 
     /**
-     * Format to KK:mm a.
+     * Format to hh:mm a.
      * @param inputTimeInLocalDateTime
      */
     public static String format12HourClock(LocalDateTime inputTimeInLocalDateTime) {
-        return inputTimeInLocalDateTime.format(DateTimeFormatter.ofPattern("KK:mm a"));
+        return inputTimeInLocalDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
     }
 
     /**

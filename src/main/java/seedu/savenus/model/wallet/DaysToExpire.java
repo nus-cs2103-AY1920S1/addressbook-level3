@@ -39,7 +39,9 @@ public class DaysToExpire {
      * Update number of days left with respect to current time.
      */
     public void updateDaysToExpire() {
-        daysToExpireProperty.set((int) LocalDateTime.now().until(expirationDateTime, ChronoUnit.DAYS) + 1);
+        if (getDaysToExpire() != 0) {
+            daysToExpireProperty.set((int) LocalDateTime.now().until(expirationDateTime, ChronoUnit.DAYS) + 1);
+        }
     }
 
     /**
@@ -80,7 +82,7 @@ public class DaysToExpire {
 
     @Override
     public String toString() {
-        return (getDaysToExpire() == 1) ? "today" : String.format("%d days", getDaysToExpire());
+        return (getDaysToExpire() == 1) ? "1 day" : String.format("%d days", getDaysToExpire());
     }
 
     @Override

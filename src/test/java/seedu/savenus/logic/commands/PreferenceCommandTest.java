@@ -4,9 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
+import static seedu.savenus.testutil.TypicalRecs.DISLIKED_CATEGORY_SET;
+import static seedu.savenus.testutil.TypicalRecs.DISLIKED_LOCATION_SET;
+import static seedu.savenus.testutil.TypicalRecs.DISLIKED_TAG_SET;
+import static seedu.savenus.testutil.TypicalRecs.DUPLICATE_DISLIKED_CATEGORY_SET;
+import static seedu.savenus.testutil.TypicalRecs.DUPLICATE_DISLIKED_LOCATION_SET;
+import static seedu.savenus.testutil.TypicalRecs.DUPLICATE_DISLIKED_TAG_SET;
+import static seedu.savenus.testutil.TypicalRecs.DUPLICATE_LIKED_CATEGORY_SET;
+import static seedu.savenus.testutil.TypicalRecs.DUPLICATE_LIKED_LOCATION_SET;
+import static seedu.savenus.testutil.TypicalRecs.DUPLICATE_LIKED_TAG_SET;
+import static seedu.savenus.testutil.TypicalRecs.LIKED_CATEGORY_SET;
+import static seedu.savenus.testutil.TypicalRecs.LIKED_LOCATION_SET;
+import static seedu.savenus.testutil.TypicalRecs.LIKED_TAG_SET;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,40 +35,15 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author jon-chua
 /**
  * Contains tests for both LikeCommand and DislikeCommand
  */
 public class PreferenceCommandTest {
-
-    private static final Category FIRST_CATEGORY = new Category("category 123");
-    private static final Category SECOND_CATEGORY = new Category("another category 456");
-
-    private static final Tag FIRST_TAG = new Tag("dnfbkdngbkjsnb");
-    private static final Tag SECOND_TAG = new Tag("qwrbqirbqirb");
-
-    private static final Location FIRST_LOCATION = new Location("location 123");
-    private static final Location SECOND_LOCATION = new Location("another test location 456");
-
-    private Set<Category> testCategory;
-    private Set<Tag> testTag;
-    private Set<Location> testLocation;
     private Model model;
 
     @BeforeEach
     public void setUp() {
-        testCategory = new HashSet<>();
-        testTag = new HashSet<>();
-        testLocation = new HashSet<>();
-
-        testCategory.add(FIRST_CATEGORY);
-        testCategory.add(SECOND_CATEGORY);
-
-        testTag.add(FIRST_TAG);
-        testTag.add(SECOND_TAG);
-
-        testLocation.add(FIRST_LOCATION);
-        testLocation.add(SECOND_LOCATION);
-
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
                 new Wallet(), new CustomSorter(), new SavingsAccount());
         model.clearDislikes();
@@ -86,11 +72,11 @@ public class PreferenceCommandTest {
 
     @Test
     public void likeCommand_equals() {
-        LikeCommand first = new LikeCommand(testCategory, testTag, testLocation, false);
-        LikeCommand second = new LikeCommand(testCategory, testTag, testLocation, false);
-        LikeCommand third = new LikeCommand(new HashSet<>(), testTag, testLocation, false);
-        LikeCommand fourth = new LikeCommand(testCategory, new HashSet<>(), testLocation, false);
-        LikeCommand fifth = new LikeCommand(testCategory, testTag, new HashSet<>(), false);
+        LikeCommand first = new LikeCommand(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET, false);
+        LikeCommand second = new LikeCommand(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET, false);
+        LikeCommand third = new LikeCommand(new HashSet<>(), LIKED_TAG_SET, LIKED_LOCATION_SET, false);
+        LikeCommand fourth = new LikeCommand(LIKED_CATEGORY_SET, new HashSet<>(), LIKED_LOCATION_SET, false);
+        LikeCommand fifth = new LikeCommand(LIKED_CATEGORY_SET, LIKED_TAG_SET, new HashSet<>(), false);
 
         assertTrue(first.equals(first));
         assertTrue(first.equals(second));
@@ -101,11 +87,16 @@ public class PreferenceCommandTest {
 
     @Test
     public void dislikeCommand_equals() {
-        DislikeCommand first = new DislikeCommand(testCategory, testTag, testLocation, false);
-        DislikeCommand second = new DislikeCommand(testCategory, testTag, testLocation, false);
-        DislikeCommand third = new DislikeCommand(new HashSet<>(), testTag, testLocation, false);
-        DislikeCommand fourth = new DislikeCommand(testCategory, new HashSet<>(), testLocation, false);
-        DislikeCommand fifth = new DislikeCommand(testCategory, testTag, new HashSet<>(), false);
+        DislikeCommand first =
+                new DislikeCommand(DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET, false);
+        DislikeCommand second =
+                new DislikeCommand(DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET, false);
+        DislikeCommand third =
+                new DislikeCommand(new HashSet<>(), DISLIKED_TAG_SET, DISLIKED_LOCATION_SET, false);
+        DislikeCommand fourth =
+                new DislikeCommand(DISLIKED_CATEGORY_SET, new HashSet<>(), DISLIKED_LOCATION_SET, false);
+        DislikeCommand fifth =
+                new DislikeCommand(DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, new HashSet<>(), false);
 
         assertTrue(first.equals(first));
         assertTrue(first.equals(second));
@@ -115,146 +106,97 @@ public class PreferenceCommandTest {
     }
 
     @Test
-    public void likeCommand_executeSuccess() throws CommandException {
-        CommandResult result = new LikeCommand(testCategory, testTag, testLocation, false).execute(model);
+    public void likeCommand_executeSuccess_contains() throws CommandException {
+        CommandResult result =
+                new LikeCommand(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET, false).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
-    }
 
-    @Test
-    public void dislikeCommand_executeSuccess() throws CommandException {
-        CommandResult result = new DislikeCommand(testCategory, testTag, testLocation, false).execute(model);
-
-        assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
-    }
-
-    @Test
-    public void likeCommand_addCategory_contains() throws CommandException {
-        CommandResult result = new LikeCommand(testCategory, new HashSet<>(), new HashSet<>(), false).execute(model);
-
-        assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
-        for (Category c : testCategory) {
+        for (Category c : LIKED_CATEGORY_SET) {
             assertTrue(result.getFeedbackToUser().contains(c.category));
         }
-    }
-
-    @Test
-    public void dislikeCommand_addCategory_contains() throws CommandException {
-        CommandResult result = new DislikeCommand(testCategory, new HashSet<>(), new HashSet<>(), false).execute(model);
-
-        assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
-        for (Category c : testCategory) {
-            assertTrue(result.getFeedbackToUser().contains(c.category));
-        }
-    }
-
-    @Test
-    public void likeCommand_addTags_contains() throws CommandException {
-        CommandResult result = new LikeCommand(new HashSet<>(), testTag, new HashSet<>(), false).execute(model);
-
-        assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
-        for (Tag t : testTag) {
+        for (Tag t : LIKED_TAG_SET) {
             assertTrue(result.getFeedbackToUser().contains(t.tagName));
         }
-    }
-
-    @Test
-    public void dislikeCommand_addTags_contains() throws CommandException {
-        CommandResult result = new DislikeCommand(new HashSet<>(), testTag, new HashSet<>(), false).execute(model);
-
-        assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
-        for (Tag t : testTag) {
-            assertTrue(result.getFeedbackToUser().contains(t.tagName));
-        }
-    }
-
-    @Test
-    public void likeCommand_addLocation_contains() throws CommandException {
-        CommandResult result = new LikeCommand(new HashSet<>(), new HashSet<>(), testLocation, false).execute(model);
-
-        assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
-        for (Location l : testLocation) {
+        for (Location l : LIKED_LOCATION_SET) {
             assertTrue(result.getFeedbackToUser().contains(l.location));
         }
     }
 
     @Test
-    public void dislikeCommand_addLocation_contains() throws CommandException {
-        CommandResult result = new DislikeCommand(new HashSet<>(), new HashSet<>(), testLocation, false).execute(model);
+    public void dislikeCommand_executeSuccess_contains() throws CommandException {
+        CommandResult result =
+                new DislikeCommand(DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET, false)
+                        .execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
-        for (Location l : testLocation) {
+
+        for (Category c : DISLIKED_CATEGORY_SET) {
+            assertTrue(result.getFeedbackToUser().contains(c.category));
+        }
+        for (Tag t : DISLIKED_TAG_SET) {
+            assertTrue(result.getFeedbackToUser().contains(t.tagName));
+        }
+        for (Location l : DISLIKED_LOCATION_SET) {
             assertTrue(result.getFeedbackToUser().contains(l.location));
         }
     }
 
     @Test
     public void likeCommand_categoryFoundInOppositeList_executeFailure() {
-        model.addDislikes(testCategory, new HashSet<>(), new HashSet<>());
+        model.addDislikes(LIKED_CATEGORY_SET, new HashSet<>(), new HashSet<>());
 
-        Set<Category> addCategory = new HashSet<>();
-        addCategory.add(SECOND_CATEGORY);
-
-        LikeCommand likeCommand = new LikeCommand(addCategory, new HashSet<>(), new HashSet<>(), false);
+        LikeCommand likeCommand =
+                new LikeCommand(DUPLICATE_LIKED_CATEGORY_SET, new HashSet<>(), new HashSet<>(), false);
         assertThrows(CommandException.class, LikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 likeCommand.execute(model));
     }
     @Test
     public void dislikeCommand_categoryFoundInOppositeList_executeFailure() {
-        model.addLikes(testCategory, new HashSet<>(), new HashSet<>());
+        model.addLikes(DISLIKED_CATEGORY_SET, new HashSet<>(), new HashSet<>());
 
-        Set<Category> addCategory = new HashSet<>();
-        addCategory.add(SECOND_CATEGORY);
-
-        DislikeCommand dislikeCommand = new DislikeCommand(addCategory, new HashSet<>(), new HashSet<>(), false);
+        DislikeCommand dislikeCommand =
+                new DislikeCommand(DUPLICATE_DISLIKED_CATEGORY_SET, new HashSet<>(), new HashSet<>(), false);
         assertThrows(CommandException.class, DislikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 dislikeCommand.execute(model));
     }
 
     @Test
     public void likeCommand_tagFoundInOppositeList_executeFailure() {
-        model.addDislikes(new HashSet<>(), testTag, new HashSet<>());
+        model.addDislikes(new HashSet<>(), LIKED_TAG_SET, new HashSet<>());
 
-        Set<Tag> addTag = new HashSet<>();
-        addTag.add(FIRST_TAG);
-
-        LikeCommand likeCommand = new LikeCommand(new HashSet<>(), addTag, new HashSet<>(), false);
+        LikeCommand likeCommand =
+                new LikeCommand(new HashSet<>(), DUPLICATE_LIKED_TAG_SET, new HashSet<>(), false);
         assertThrows(CommandException.class, LikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 likeCommand.execute(model));
     }
 
     @Test
     public void dislikeCommand_tagFoundInOppositeList_executeFailure() {
-        model.addLikes(new HashSet<>(), testTag, new HashSet<>());
+        model.addLikes(new HashSet<>(), DISLIKED_TAG_SET, new HashSet<>());
 
-        Set<Tag> addTag = new HashSet<>();
-        addTag.add(FIRST_TAG);
-
-        DislikeCommand dislikeCommand = new DislikeCommand(new HashSet<>(), addTag, new HashSet<>(), false);
+        DislikeCommand dislikeCommand =
+                new DislikeCommand(new HashSet<>(), DUPLICATE_DISLIKED_TAG_SET, new HashSet<>(), false);
         assertThrows(CommandException.class, DislikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 dislikeCommand.execute(model));
     }
 
     @Test
     public void likeCommand_locationFoundInOppositeList_executeFailure() {
-        model.addDislikes(new HashSet<>(), new HashSet<>(), testLocation);
+        model.addDislikes(new HashSet<>(), new HashSet<>(), LIKED_LOCATION_SET);
 
-        Set<Location> addLocation = new HashSet<>();
-        addLocation.add(SECOND_LOCATION);
-
-        LikeCommand likeCommand = new LikeCommand(new HashSet<>(), new HashSet<>(), addLocation, false);
+        LikeCommand likeCommand =
+                new LikeCommand(new HashSet<>(), new HashSet<>(), DUPLICATE_LIKED_LOCATION_SET, false);
         assertThrows(CommandException.class, LikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 likeCommand.execute(model));
     }
 
     @Test
     public void dislikeCommand_locationFoundInOppositeList_executeFailure() {
-        model.addLikes(new HashSet<>(), new HashSet<>(), testLocation);
+        model.addLikes(new HashSet<>(), new HashSet<>(), DISLIKED_LOCATION_SET);
 
-        Set<Location> addLocation = new HashSet<>();
-        addLocation.add(SECOND_LOCATION);
-
-        DislikeCommand dislikeCommand = new DislikeCommand(new HashSet<>(), new HashSet<>(), addLocation, false);
+        DislikeCommand dislikeCommand =
+                new DislikeCommand(new HashSet<>(), new HashSet<>(), DUPLICATE_DISLIKED_LOCATION_SET, false);
         assertThrows(CommandException.class, DislikeCommand.DUPLICATE_FOUND_IN_OPPOSITE_LIST, () ->
                 dislikeCommand.execute(model));
     }
@@ -262,7 +204,9 @@ public class PreferenceCommandTest {
     @Test
     public void wrong_execute_error() {
         assertThrows(
-            AssertionError.class, () -> new PreferenceCommand(testCategory, testTag, testLocation, false).execute(model)
+            AssertionError.class, () ->
+                        new PreferenceCommand(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET, false)
+                                .execute(model)
         );
     }
 }
