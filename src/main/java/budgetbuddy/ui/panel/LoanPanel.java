@@ -25,6 +25,7 @@ public class LoanPanel extends ListPanel {
         super(FXML);
         loanListView.setItems(sortedLoanList);
         loanListView.setCellFactory(loanListView -> new LoanListViewCell());
+
     }
 
     /**
@@ -40,6 +41,7 @@ public class LoanPanel extends ListPanel {
                 setText(null);
             } else {
                 setGraphic(new LoanCard(loan, getIndex() + 1).getRoot());
+                loanListView.refresh();
             }
         }
     }
