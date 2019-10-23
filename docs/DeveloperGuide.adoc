@@ -275,6 +275,34 @@ The sequence diagram below shows the interaction with the Logic components as de
 
 image::ListCommandSequenceDiagram.png[]
 
+// tag::Mark Attendance Feature[]
+=== Mark Attendance feature
+
+The `MarkAttendance` command lets T.A.rence mark the attendance of a specified student in a tutorial.
+
+==== Implementation
+
+The `MarkAttendance` command must include the following:
+
+* The week of the tutorial
+* Tutorial name
+* Module code
+
+Alternatively, the index of the tutorial can be used in place of the tutorial name and module code.
+Optionally, the user can also choose to indicate the student's name.
+
+[NOTE]
+If the user uses both the indexing and full input format, the command will throw an error due to ambiguity.
+
+* The `MarkAttendance` command will also automatically be updated within the application's storage system and the updated attendance will be reflected in the application's GUI.
+
+Below is an activity diagram showing the process of invoking the `MarkAttendance` command.
+
+image::MarkAttendanceActivityDiagram.png[]
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::AddStudentCommandSequenceDiagram.png[]
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
