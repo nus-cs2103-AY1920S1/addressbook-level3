@@ -12,6 +12,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.EventRecord;
 import seedu.address.model.note.NotesRecord;
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.OpenEndedQuestion;
@@ -23,7 +24,7 @@ import seedu.address.model.student.StudentRecord;
 public class QuestionAddCommandIntegrationTest {
 
     private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new StatisticsRecord(),
+        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(),  new EventRecord(), new StatisticsRecord(),
         new UserPrefs());
 
     @Test
