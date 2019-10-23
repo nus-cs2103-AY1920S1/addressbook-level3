@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.student.exceptions.AssignmentNotFoundException;
-import seedu.address.model.student.exceptions.DuplicateAssignmentException;
+import seedu.address.model.student.exceptions.DuplicateStudentException;
+import seedu.address.model.student.exceptions.StudentNotFoundException;
 
 
 /**
@@ -36,7 +36,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
     public void add(Reminder toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateAssignmentException();
+            throw new DuplicateStudentException();
         }
         internalList.add(toAdd);
     }
@@ -51,11 +51,11 @@ public class UniqueReminderList implements Iterable<Reminder> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new AssignmentNotFoundException();
+            throw new StudentNotFoundException();
         }
 
         if (!target.isSameReminder(editedReminder) && contains(editedReminder)) {
-            throw new DuplicateAssignmentException();
+            throw new DuplicateStudentException();
         }
 
         internalList.set(index, editedReminder);
@@ -68,7 +68,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
     public void remove(Reminder toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new AssignmentNotFoundException();
+            throw new StudentNotFoundException();
         }
     }
 
@@ -84,7 +84,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
     public void setReminders(List<Reminder> reminders) {
         requireAllNonNull(reminders);
         if (!remindersAreUnique(reminders)) {
-            throw new DuplicateAssignmentException();
+            throw new DuplicateStudentException();
         }
 
         internalList.setAll(reminders);
