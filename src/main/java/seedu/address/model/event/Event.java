@@ -99,6 +99,16 @@ public class Event {
     }
 
     /**
+     * Assigns the EventDate-EventDayTime mapping to the EventDateTimeMap object.
+     *
+     * @param eventDate       Target Date to be assigned.
+     * @param eventTimePeriod Time Period Event is being held.
+     */
+    public void assignDateTime(EventDate eventDate, EventDayTime eventTimePeriod) {
+        this.eventDateTimeMap.mapDateTime(eventDate, eventTimePeriod);
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
