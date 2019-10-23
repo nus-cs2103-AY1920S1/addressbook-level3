@@ -396,7 +396,7 @@ The key difference is the utility of the `SearchIncidentsCommandParser` to parse
 // end::incidentsearch[]
 
 // tag::incidentedit[]
-=== [Proposed] Incident Edit feature
+=== Incident Edit feature
 ==== Proposed Implementation
 
 The incident edit mechanism is facilitated by `EditCommand` class. Validity of user input is checked when `execute()` is called and an exception is thrown if invalid.
