@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes find command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([valid fields present])
+    :Use field data in predicates and save to Predicate List;
+    :Combine Predicate List to form a single predicate;
+    :Update Model based on predicate;
+else ([else])
+    :Display error message;
+endif
+stop
+@enduml

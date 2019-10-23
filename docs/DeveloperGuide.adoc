@@ -262,6 +262,43 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+
+[[Implementation-Find]]
+=== Find feature
+The find feature allows the user to search for a spending based on specified field. If search results are too broad, fields may be combined to increase specificity.
+
+For example, `find n/Apple c/2.50-3.00` will find an `Apple` of cost range `2.00` to `3.00`.
+
+==== Implementation
+Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user.
+
+The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
+
+The sequence diagram below demonstrates how the `find` command is executed:
+
+.Sequence diagram for a find command
+image::FindSequenceDiagram.png[Find Sequence Diagram]
+
+The following activity diagram summarises what happens when the user uses the `find` command:
+
+.Activity diagram for a find command
+image::FindActivityDiagram.png[Find Activity Diagram]
+
+==== Design Considerations
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 |Alternative 2
+
+|How find is executed
+|Save all predicates to a list +
+Pros: Easy to implement +
+Cons: All fields require a predicate
+|Search the underlying list directly without using a predicate +
+Pros: Able to manipulate object easily +
+Cons: Poor abstraction
+
+|===
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
