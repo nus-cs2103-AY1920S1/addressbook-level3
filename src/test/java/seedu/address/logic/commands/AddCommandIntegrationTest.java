@@ -47,17 +47,17 @@ public class AddCommandIntegrationTest {
         assertCommandFailure(new AddCommand(expenseInList), model, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
     }
 
-    @Test
-    public void execute_newBudget_success() {
-        Budget validBudget = new BudgetBuilder().build();
-
-        Model expectedModel = new ModelManager(getTypicalExpenseList(), model.getBudgetList(),
-            model.getExchangeData(), new UserPrefs());
-        expectedModel.addBudget(validBudget);
-
-        assertCommandSuccess(new AddBudgetCommand(validBudget), model,
-            String.format(AddBudgetCommand.MESSAGE_SUCCESS, validBudget), expectedModel);
-    }
+    //    @Test
+    //    public void execute_newBudget_success() {
+    //        Budget validBudget = new BudgetBuilder().build();
+    //
+    //        Model expectedModel = new ModelManager(getTypicalExpenseList(), model.getBudgetList(),
+    //            model.getExchangeData(), new UserPrefs());
+    //        expectedModel.addBudget(validBudget);
+    //
+    //        assertCommandSuccess(new AddBudgetCommand(validBudget), model,
+    //            String.format(AddBudgetCommand.MESSAGE_SUCCESS, validBudget), expectedModel);
+    //    }
 
     @Test
     public void execute_clashBudget_throwsCommandException() {
