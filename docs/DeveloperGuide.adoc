@@ -34,12 +34,16 @@ If you wish to know more details about StudyBuddy Pro, please do not hesitate to
 
 Do refer to signs below that will be used across the documents for references. These will prove to be useful when you are reading this document.
 
-.Table title
+[%header, cols=2]
 |===
-| Signs/Syntax | Explanations
+| Signs/Syntax
+| Explanations
 
-| [WARNING], Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+| [WARNING]
+| Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
 |===
+.Table title
+
 
 [IMPORTANT]
 ====
