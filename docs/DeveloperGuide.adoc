@@ -186,8 +186,10 @@ image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 
 ==== Usage of Tags
 
-** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `list tag/cs2100`).
-** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro.
+** Inside each feature
+*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `list tag/cs2100`).
+** Using Tags globally
+*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro.
 ** Currently, the user is able to specify multiple tags in his/her query.
 ** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
 
