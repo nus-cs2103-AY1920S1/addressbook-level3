@@ -32,6 +32,7 @@ public class MainWindow {
     public MainWindow(Stage primaryStage) {
         this.primaryStage = primaryStage;
         onStartup();
+        testUiComponents();
     }
 
     private void onStartup() {
@@ -52,6 +53,11 @@ public class MainWindow {
 
         // finally, display main window
         primaryStage.show();
+    }
+
+    // temporary method for testing display of various UI components
+    private void testUiComponents() {
+        setTitle("New title!");
     }
 
     private void initializeStage() {
@@ -126,6 +132,9 @@ public class MainWindow {
         title.setFont(GuiSettings.getTitleTextStyle());
         title.setFill(Color.web(GuiSettings.getPrimaryTextColour()));
 
+        // remove any existing title in titleBar
+        titleBar.getChildren().clear();
+        
         // add label to titleBar
         titleBar.getChildren().add(title);
     }
