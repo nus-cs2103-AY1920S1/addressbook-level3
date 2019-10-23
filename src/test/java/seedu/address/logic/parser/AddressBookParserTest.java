@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
+import static seedu.address.testutil.TypicalTypes.TYPE_TRANSACTION;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,7 +51,7 @@ public class AddressBookParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_TRANSACTION), command);
+        assertEquals(new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION), command);
     }
 
     @Test
