@@ -41,6 +41,7 @@ import seedu.address.model.entity.worker.Worker;
 
 
 //@@author ambervoong
+
 /**
  * Updates the details of an existing body, worker, or fridge in Mortago.
  */
@@ -100,7 +101,8 @@ public class UpdateCommand extends UndoableCommand {
     /**
      * Creates an UpdateCommand to update one or more fields in the specified {@code Body},
      * {@code Worker} or {@code Fridge}.
-     * @param id the identification number of the entity to update
+     *
+     * @param id                     the identification number of the entity to update
      * @param updateEntityDescriptor details to edit the entity with
      */
     public UpdateCommand(IdentificationNumber id, UpdateEntityDescriptor updateEntityDescriptor) {
@@ -115,6 +117,7 @@ public class UpdateCommand extends UndoableCommand {
 
     /**
      * Saves the original fields of the given {@code Entity} into an UpdateEntityDescriptor.
+     *
      * @param entity the entity to save
      * @return an UpdateEntityDescriptor with the entity's current fields
      * @throws CommandException if the Entity is not a Body, Worker, or Fridge.
@@ -177,16 +180,18 @@ public class UpdateCommand extends UndoableCommand {
     }
 
     //@@author arjavibahety
+
     /**
      * Assigns body to the new fridge when fridgeId is updated and removes it from the old fridge.
-     * @param model refers to the AddressBook model.
+     *
+     * @param model                  refers to the AddressBook model.
      * @param originalBodyDescriptor refers to the original description of the body.
-     * @param updateBodyDescriptor refers to the updated description of the body.
+     * @param updateBodyDescriptor   refers to the updated description of the body.
      * @throws CommandException when a fridge for the new fridgeId does not exist.
      */
     private void handleUpdatingFridgeAndEntity(Model model, UpdateBodyDescriptor originalBodyDescriptor,
                                                UpdateBodyDescriptor updateBodyDescriptor) throws CommandException {
-        List <Fridge> fridgeList = model.getFilteredFridgeList();
+        List<Fridge> fridgeList = model.getFilteredFridgeList();
         Fridge originalFridge = null;
         Fridge updatedFridge = null;
         boolean initallyNoFridge = true;
@@ -195,9 +200,13 @@ public class UpdateCommand extends UndoableCommand {
                 originalFridge = fridge;
                 initallyNoFridge = false;
             }
-
-            if (Optional.ofNullable(fridge.getIdNum()).equals(updateBodyDescriptor.getFridgeId())) {
-                updatedFridge = fridge;
+            if (!(updateBodyDescriptor.getFridgeId() == null)) {
+                if (fridge.getIdNum().equals(updateBodyDescriptor.getFridgeId().get())) {
+                    updatedFridge = fridge;
+                }
+                if (Optional.ofNullable(fridge.getIdNum()).equals(updateBodyDescriptor.getFridgeId())) {
+                    updatedFridge = fridge;
+                }
             }
         }
 
@@ -211,11 +220,13 @@ public class UpdateCommand extends UndoableCommand {
         } else if (updatedFridge == null) {
             throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
         }
+
     }
     //@@author
 
     /**
      * Undoes the effects of the UpdateCommand. Only can be executed if this command was previously executed before.
+     *
      * @return result of undoing the command.
      */
     @Override
@@ -264,8 +275,9 @@ public class UpdateCommand extends UndoableCommand {
     /**
      * Gets a Body in Mortago according to a given Identification Number and add it to the UpdateFridgeDescriptor, if
      * present.
-     * @param model the current model of the program.
-     * @param id an identification number.
+     *
+     * @param model      the current model of the program.
+     * @param id         an identification number.
      * @param descriptor an UpdateFridgeDescriptor containing changes to a Fridge object.
      * @return an UpdateFridgeDescriptor
      * @throws CommandException if there is no Body object with the given identification number.

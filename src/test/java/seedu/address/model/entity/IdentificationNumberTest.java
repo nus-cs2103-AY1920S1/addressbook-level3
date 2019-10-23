@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.JANE;
 import static seedu.address.testutil.TypicalBodies.JOHN;
 import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
@@ -29,9 +30,23 @@ class IdentificationNumberTest {
     }
 
     @Test
+    void generateNewBodyId_customId_true() {
+        uniqueIds.clearAllEntries();
+        IdentificationNumber testId = IdentificationNumber.generateNewBodyId(ALICE, 5);
+        assertEquals("B00000005", testId.toString());
+    }
+
+    @Test
     void generateNewWorkerId_true() {
         uniqueIds.clearAllEntries();
         IdentificationNumber testId = IdentificationNumber.generateNewWorkerId(ZACH);
+        assertEquals("W00001", testId.toString());
+    }
+
+    @Test
+    void generateNewWorkerId_customId_true() {
+        uniqueIds.clearAllEntries();
+        IdentificationNumber testId = IdentificationNumber.generateNewWorkerId(ZACH, 1);
         assertEquals("W00001", testId.toString());
     }
 

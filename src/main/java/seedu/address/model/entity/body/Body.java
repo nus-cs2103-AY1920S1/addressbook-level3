@@ -18,8 +18,8 @@ import seedu.address.model.person.Name;
  * Guarantees: dateofAdmission and bodyIdNum is guaranteed to be present.
  */
 public class Body implements Entity {
-    private final IdentificationNumber bodyIdNum;
     private final Date dateOfAdmission;
+    private IdentificationNumber bodyIdNum;
 
     // Identity fields.
     private Name name;
@@ -32,7 +32,7 @@ public class Body implements Entity {
     private Optional<BodyStatus> bodyStatus;
     private Optional<IdentificationNumber> fridgeId;
     private Optional<Date> dateOfBirth;
-    private Date dateOfDeath;
+    private Optional<Date> dateOfDeath;
 
     // Next of kin details
     private Optional<Name> nextOfKin;
@@ -40,7 +40,6 @@ public class Body implements Entity {
     private Optional<PhoneNumber> kinPhoneNumber;
 
     public Body(Date dateOfAdmission) {
-        this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
         this.dateOfAdmission = dateOfAdmission;
     }
 
@@ -64,7 +63,7 @@ public class Body implements Entity {
         this.bodyStatus = Optional.ofNullable(bodyStatus);
         this.fridgeId = Optional.ofNullable(fridgeId);
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
-        this.dateOfDeath = dateOfDeath;
+        this.dateOfDeath = Optional.ofNullable(dateOfDeath);
         this.nextOfKin = Optional.ofNullable(nextOfKin);
         this.relationship = Optional.ofNullable(relationship);
         this.kinPhoneNumber = Optional.ofNullable(kinPhoneNumber);
@@ -73,6 +72,21 @@ public class Body implements Entity {
             Fridge fridge = (Fridge) fridgeId.getMapping();
             fridge.setBody(this);
         }
+    }
+
+    /**
+     * Generates a new Body with bare-minimum attributes and a custom ID. Only used for creating a Body from storage.
+     * @param id ID of the stored body.
+     * @param dateOfAdmission of the stored body.
+     * @return Body
+     */
+    public static Body generateNewStoredBody(int id, Date dateOfAdmission) {
+        if (id <= 0 || dateOfAdmission == null) {
+            throw new IllegalArgumentException();
+        }
+        Body body = new Body(dateOfAdmission);
+        body.bodyIdNum = IdentificationNumber.generateNewBodyId(body, id);
+        return body;
     }
 
     // Getters and Setters
@@ -108,12 +122,12 @@ public class Body implements Entity {
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
     }
 
-    public Date getDateOfDeath() {
+    public Optional<Date> getDateOfDeath() {
         return dateOfDeath;
     }
 
     public void setDateOfDeath(Date dateOfDeath) {
-        this.dateOfDeath = dateOfDeath;
+        this.dateOfDeath = Optional.ofNullable(dateOfDeath);
     }
 
     public Optional<Nric> getNric() {

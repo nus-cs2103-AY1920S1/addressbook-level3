@@ -2,6 +2,7 @@ package seedu.address.model.entity.body;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.BodyBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.TypicalBodies.ALICE;
@@ -9,6 +10,7 @@ import static seedu.address.testutil.TypicalBodies.BOB;
 import static seedu.address.testutil.TypicalWorkers.CLARA;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
@@ -81,6 +83,21 @@ class BodyTest {
 
     }
 
+    // Test factory method
+    @Test
+    void generateNewStoredBody_correctParameters_success() throws ParseException {
+        Date dateOfAdmission = ParserUtil.parseDate("01/11/2019");
+        Body actual = Body.generateNewStoredBody(5, dateOfAdmission);
+        assertEquals(IdentificationNumber.customGenerateId("B", 5), actual.getIdNum());
+        assertEquals(dateOfAdmission, actual.getDateOfAdmission());
+        assertEquals(null, actual.getKinPhoneNumber());
+    }
+
+    @Test
+    void generateNewStoredBody_wrongParameters_failure() throws ParseException {
+        Date dateOfAdmission = ParserUtil.parseDate("01/11/2019");
+        assertThrows(IllegalArgumentException.class, () -> Body.generateNewStoredBody(-1, dateOfAdmission));
+    }
 
     @Test
     void getBodyIdNum() {
@@ -114,7 +131,7 @@ class BodyTest {
     @Test
     void getSetDateOfDeath() throws ParseException {
         ALICE.setDateOfDeath(ParserUtil.parseDate("01/01/1991"));
-        assertEquals(ParserUtil.parseDate("01/01/1991"), ALICE.getDateOfDeath());
+        assertEquals(ParserUtil.parseDate("01/01/1991"), ALICE.getDateOfDeath().get());
     }
 
     @Test

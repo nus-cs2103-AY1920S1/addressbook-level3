@@ -15,11 +15,15 @@ import seedu.address.model.entity.body.Body;
 public class Fridge implements Entity {
 
     // Identity field
-    private final IdentificationNumber fridgeIdNum;
+    private IdentificationNumber fridgeIdNum;
 
     // Data field
     private Optional<Body> body;
     private FridgeStatus fridgeStatus;
+
+    //@@author ambervoong
+    private int bodyId;
+    //@@author
 
     public Fridge() {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
@@ -61,6 +65,29 @@ public class Fridge implements Entity {
         }
     }
 
+    //@@author ambervoong
+    private Fridge(boolean isTest, boolean wasStored) {
+        if (isTest && !wasStored) {
+            fridgeIdNum = IdentificationNumber.customGenerateTestId("F", 1);
+        }
+    }
+    //@@author
+
+    /**
+     * Generates a new Fridge with a custom ID. Only used for creating a Fridge from storage.
+     * @param id ID of the stored Fridge.
+     * @return Fridge
+     */
+    public static Fridge generateNewStoredFridge(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException();
+        }
+        Fridge fridge = new Fridge(false, true);
+        fridge.fridgeIdNum = IdentificationNumber.generateNewFridgeId(fridge, id);
+        return fridge;
+    }
+    //@@author
+
     public IdentificationNumber getIdNum() {
         return fridgeIdNum;
     }
@@ -85,6 +112,16 @@ public class Fridge implements Entity {
             setFridgeStatus(FridgeStatus.OCCUPIED);
         }
     }
+
+    //@@author ambervoong
+    public int getBodyId() {
+        return bodyId;
+    }
+
+    public void setBodyId(int bodyId) {
+        this.bodyId = bodyId;
+    }
+    //@@author
 
     /**
      * Returns true if both fridge have the same identity fields.
