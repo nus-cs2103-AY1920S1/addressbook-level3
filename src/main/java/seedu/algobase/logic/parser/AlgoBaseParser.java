@@ -15,6 +15,7 @@ import seedu.algobase.logic.commands.ApplyCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
+import seedu.algobase.logic.commands.DeleteFindRuleCommand;
 import seedu.algobase.logic.commands.DeletePlanCommand;
 import seedu.algobase.logic.commands.DeleteTagCommand;
 import seedu.algobase.logic.commands.DeleteTaskCommand;
@@ -115,6 +116,9 @@ public class AlgoBaseParser {
 
         case ApplyCommand.COMMAND_WORD:
             return new ApplyCommandParser().parse(arguments);
+
+        case DeleteFindRuleCommand.COMMAND_WORD:
+            return new DeleteFindRuleParser().parse(arguments);
 
         // Util
         case ClearCommand.COMMAND_WORD:

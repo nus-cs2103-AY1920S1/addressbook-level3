@@ -11,7 +11,7 @@ import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Problem;
 
 /**
- * Deletes a Problem identified using it's displayed index from the algobase.
+ * Deletes a Problem identified using its displayed index from the algobase.
  */
 public class DeleteCommand extends Command {
 

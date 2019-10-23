@@ -3,28 +3,26 @@ package seedu.algobase.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 
 /**
- * Applies a find rule by specifying the index.
+ * Deletes a Find Rule using its displayed index in the AlgoBase UI.
  */
-public class ApplyCommand extends Command {
+public class DeleteFindRuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "apply";
-    // TODO: write message usage string for apply command
-    public static final String MESSAGE_USAGE = "apply usage";
-    public static final String MESSAGE_SUCCESS = "Applied find rule [%1$s].";
+    public static final String COMMAND_WORD = "deletefindrule";
+    // TODO: write message usage for delete find rule command
+    public static final String MESSAGE_USAGE = "to be finished";
+    public static final String MESSAGE_SUCCESS = "Deleted Find Rule: %1$s";
 
     private final Index targetIndex;
 
-    public ApplyCommand(Index targetIndex) {
+    public DeleteFindRuleCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -37,17 +35,15 @@ public class ApplyCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_FIND_RULE_DISPLAYED_INDEX);
         }
 
-        ProblemSearchRule findRuleToApply = lastShownList.get(targetIndex.getZeroBased());
-        Predicate<Problem> findProblemPredicate = findRuleToApply.getFindProblemPredicate();
-        model.updateFilteredProblemList(findProblemPredicate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, findRuleToApply));
+        ProblemSearchRule ruleToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteFindRule(ruleToDelete);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, ruleToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ApplyCommand // instanceof handles nulls
-                && targetIndex.equals(((ApplyCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteFindRuleCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteFindRuleCommand) other).targetIndex)); // state check
     }
-
 }
