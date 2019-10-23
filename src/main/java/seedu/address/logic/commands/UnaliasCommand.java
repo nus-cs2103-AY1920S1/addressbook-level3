@@ -33,7 +33,7 @@ public class UnaliasCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.getUserPrefs().getAliasTable().removeAlias(alias)) {
+        if (model.removeAlias(alias)) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, alias));
         } else {
             throw new CommandException(String.format(MESSAGE_ALIAS_FAILED, alias));

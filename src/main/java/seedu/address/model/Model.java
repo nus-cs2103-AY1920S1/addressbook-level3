@@ -89,4 +89,18 @@ public interface Model {
      * Adds the given reminder.
      */
     void addReminder(Reminder reminder);
+
+    /**
+     * Adds a given alias into the alias table.
+     * @param alias Alias name
+     * @param aliasTo Alias value
+     */
+    void addAlias(String alias, String aliasTo);
+
+    /**
+     * Removes a given alias from the alias table.
+     * @param alias Alias name
+     * @return Returns true if alias exists in alias table and removed successfully, returns false otherwise.
+     */
+    boolean removeAlias(String alias);
 }

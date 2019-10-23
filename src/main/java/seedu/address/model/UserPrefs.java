@@ -99,4 +99,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return sb.toString();
     }
 
+    public boolean removeAlias(String alias) {
+        return aliasTable.removeAlias(alias);
+    }
+
+    public void addAlias(String alias, String aliasTo) {
+        aliasTable.addAlias(alias, aliasTo);
+    }
 }
