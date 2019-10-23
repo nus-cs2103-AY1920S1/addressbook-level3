@@ -134,7 +134,7 @@ The `Model` component:
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/model/Model.java[`Model.java`]
 
 The `Model` consists of the following:
 
