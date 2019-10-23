@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.userprefs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,12 +15,11 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.userprefs.UserPrefs;
-import seedu.address.storage.event.JsonUserPrefsStorage;
-import seedu.address.storage.userprefs.JsonUserPrefsStorage;
 
 public class JsonUserPrefsStorageTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src",
+        "test", "data", "JsonUserPrefsStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -75,7 +74,11 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
+        userPrefs.setPatientAddressBookFilePath(Paths.get("data/patientDetails.json"));
+        userPrefs.setStaffAddressBookFilePath(Paths.get("data/staffDetails.json"));
+        userPrefs.setPatientAppointmentBookFilePath(Paths.get("data/appointments.json"));
+        userPrefs.setDutyRosterBookFilePath(Paths.get("data/dutyRoster.json"));
+
         return userPrefs;
     }
 

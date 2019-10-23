@@ -33,10 +33,6 @@ public class Room implements Identical<Room> {
         return patientCurrentlyBeingServed;
     }
 
-    public void removeCurrentPatient() {
-        patientCurrentlyBeingServed = Optional.empty();
-    }
-
     /**
      * Returns true if both rooms are occupied by the same staff.
      * This defines a weaker notion of equality between two consultation rooms.
@@ -50,14 +46,6 @@ public class Room implements Identical<Room> {
     @Override
     public int compareTo(Room room) {
         return room.getDoctor().compareTo(getDoctor());
-    }
-
-    public void serve(ReferenceId id) {
-        patientCurrentlyBeingServed = Optional.of(id);
-    }
-
-    public void rest() {
-        patientCurrentlyBeingServed = Optional.empty();
     }
 
     /**

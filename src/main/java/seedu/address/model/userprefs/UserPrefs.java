@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.userprefs;
 
 import static java.util.Objects.requireNonNull;
@@ -41,7 +42,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setPatientAddressBookFilePath(newUserPrefs.getPatientAddressBookFilePath());
         setStaffAddressBookFilePath(newUserPrefs.getStaffAddressBookFilePath());
         setPatientAppointmentBookFilePath(newUserPrefs.getPatientAppointmentBookFilePath());
-        setDutyRosterBookFilePath(newUserPrefs.getStaffAddressBookFilePath());
+        setDutyRosterBookFilePath(newUserPrefs.getDutyRosterBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {

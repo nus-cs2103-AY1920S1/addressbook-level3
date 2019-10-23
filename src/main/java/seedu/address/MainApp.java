@@ -34,7 +34,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 2, 1, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -46,15 +46,15 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing ClerkPro ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
-        storage = new StorageManager(config.getUserPrefsFilePath());
 
         initLogging(config);
 
+        storage = new StorageManager(config.getUserPrefsFilePath());
         model = initModelManager(storage, storage.getUserPrefs());
         logic = new LogicManager(model, storage);
         ui = new UiManager(logic);
@@ -85,14 +85,14 @@ public class MainApp extends Application {
         try {
             Optional<ReadOnlyAddressBook> addressBookOptional = storage.readStaffAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample StaffRegistry");
             }
             initialStaffAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty StaffRegistry");
             initialStaffAddressData = new AddressBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty StaffRegistry");
             initialStaffAddressData = new AddressBook();
         }
 
@@ -113,16 +113,16 @@ public class MainApp extends Application {
 
         ReadOnlyAppointmentBook initialDutyRosterData;
         try {
-            Optional<ReadOnlyAppointmentBook> appointmentBookOptional = storage.readPatientAppointmentBook();
-            if (!appointmentBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AppointmentBook");
+            Optional<ReadOnlyAppointmentBook> staffDutyRosterBookOptional = storage.readStaffDutyRosterBook();
+            if (!staffDutyRosterBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample DutyRosterBook");
             }
-            initialDutyRosterData = appointmentBookOptional.orElseGet(SampleDataUtil::getSampleAppointmentBook);
+            initialDutyRosterData = staffDutyRosterBookOptional.orElseGet(SampleDataUtil::getSampleAppointmentBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty DutyRosterBook");
             initialDutyRosterData = new AppointmentBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty DutyRosterBook");
             initialDutyRosterData = new AppointmentBook();
         }
 

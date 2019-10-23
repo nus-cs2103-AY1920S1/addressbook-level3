@@ -1,9 +1,9 @@
+//@@author SakuraBlossom
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.nio.file.Path;
 import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -46,7 +46,12 @@ public class ModelManager implements Model {
                         ReadOnlyAppointmentBook patientSchedule) {
         super();
         requireAllNonNull(patientAddressBook, userPrefs);
-        logger.fine("Initializing with address book: " + patientAddressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with"
+            + "\nLocal patient address book data file location : " + patientAddressBook
+            + "\nLocal staff details data file location : " + staffAddressBook
+            + "\nLocal appointment data file location : " + patientSchedule
+            + "\nLocal duty roster data file location : " + staffAddressBook
+            + "\nUser prefs: " + userPrefs);
 
         this.queueManager = new QueueManager(queueManager);
         this.appointmentBook = new AppointmentBook(patientSchedule);
@@ -101,8 +106,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addRoom(ReferenceId id) {
-        queueManager.addRoom(id);
+    public void addRoom(Room room) {
+        queueManager.addRoom(room);
     }
 
     @Override
@@ -111,13 +116,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeRoom(ReferenceId target) {
-        //queueManager.removeRoom(target);
+    public void removeRoom(Room room) {
+        queueManager.removeRoom(room);
     }
 
     @Override
-    public boolean hasRoom(ReferenceId doctorReferenceId) {
-        return queueManager.hasRoom(doctorReferenceId);
+    public boolean hasRoom(Room room) {
+        return queueManager.hasRoom(room);
     }
 
     //=========== UserPrefs ==================================================================================

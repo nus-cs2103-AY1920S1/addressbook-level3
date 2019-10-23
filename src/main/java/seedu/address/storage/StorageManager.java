@@ -33,7 +33,7 @@ public class StorageManager implements Storage {
     private final AppointmentBookStorage patientAppointmentBookStorage;
     private final AppointmentBookStorage staffDutyRosterBookStorage;
     private final UserPrefsStorage userPrefsStorage;
-    private final UserPrefs userPrefs;
+    private UserPrefs userPrefs;
 
     public StorageManager(Path userPrefsFilePath) {
         requireNonNull(userPrefsFilePath);
@@ -76,12 +76,14 @@ public class StorageManager implements Storage {
 
     @Override
     public UserPrefs getUserPrefs() {
-        return userPrefs;
+        return new UserPrefs(userPrefs);
     }
 
     @Override
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
+        requireNonNull(userPrefs);
         userPrefsStorage.saveUserPrefs(userPrefs);
+        this.userPrefs = loadUserPrefs();
     }
 
     @Override

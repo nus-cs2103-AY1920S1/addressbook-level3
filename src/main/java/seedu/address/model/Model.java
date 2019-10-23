@@ -1,6 +1,5 @@
+//@@author SakuraBlossom
 package seedu.address.model;
-
-import java.nio.file.Path;
 
 import java.util.function.Predicate;
 
@@ -170,7 +169,7 @@ public interface Model extends ReferenceIdResolver {
 
     void enqueuePatientToIndex(ReferenceId id, int index);
 
-    public boolean isPatientInQueue(ReferenceId id);
+    boolean isPatientInQueue(ReferenceId id);
 
     ObservableList<ReferenceId> getQueueList();
 
@@ -178,13 +177,13 @@ public interface Model extends ReferenceIdResolver {
 
     void undoServeNextPatient(int index);
 
-    void addRoom(ReferenceId id);
+    void addRoom(Room room);
 
     void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom);
 
-    void removeRoom(ReferenceId target);
+    void removeRoom(Room room);
 
-    public boolean hasRoom(ReferenceId doctorReferenceId);
+    boolean hasRoom(Room room);
 
     ObservableList<Room> getConsultationRoomList();
 
@@ -252,7 +251,7 @@ public interface Model extends ReferenceIdResolver {
 
     void displayApprovedAndAckedPatientEvent(ReferenceId referenceId);
 
-    public Boolean isPatientList();
+    Boolean isPatientList();
 
-    public Boolean isMissedList();
+    Boolean isMissedList();
 }

@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
 import seedu.address.model.common.ReferenceId;
+import seedu.address.model.queue.Room;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -39,10 +40,11 @@ public class RemoveRoomCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasRoom(doctorReferenceId)) {
+        Room roomToRemove = new Room(doctorReferenceId);
+        if (!model.hasRoom(roomToRemove)) {
             throw new CommandException(String.format(MESSAGE_PERSON_NOT_IN_QUEUE, doctorReferenceId));
         }
-        model.removeRoom(doctorReferenceId);
+        model.removeRoom(roomToRemove);
 
         if (!model.hasStaff(doctorReferenceId)) {
             throw new CommandException(String.format(MESSAGE_DEQUEUE_PERSON_NOT_FOUND, doctorReferenceId));

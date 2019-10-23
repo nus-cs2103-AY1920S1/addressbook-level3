@@ -37,7 +37,7 @@ public class UnregisterStaffCommandParser implements Parser<ReversibleActionPair
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnregisterStaffCommand.MESSAGE_USAGE), pe);
+                    String.format(pe.getMessage(), UnregisterStaffCommand.MESSAGE_USAGE), pe);
         }
 
         Person personToDelete = ParserUtil.getEntryFromList(lastShownList, index);

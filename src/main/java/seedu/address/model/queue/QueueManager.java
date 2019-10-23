@@ -80,21 +80,20 @@ public class QueueManager {
         queueList.removePatient(0);
     }
 
-    public void addRoom(ReferenceId id) {
-        roomList.add(new Room(id));
+    public void addRoom(Room room) {
+        roomList.add(room);
     }
 
     public boolean hasId(ReferenceId id) {
         return queueList.hasId(id);
     }
 
-    public void removeRoom(int index) {
-        //roomList.remove(index);
+    public void removeRoom(Room room) {
+        roomList.remove(room);
     }
 
-    public boolean hasRoom(ReferenceId doctorReferenceId) {
-        return false;
-        //return roomList.contains(doctorReferenceId);
+    public boolean hasRoom(Room room) {
+        return roomList.contains(room);
     }
 
     public ReferenceId getCurrentlyServed(int index) {

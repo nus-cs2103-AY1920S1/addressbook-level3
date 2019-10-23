@@ -8,7 +8,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
@@ -29,6 +28,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getPatientAddressBook()));
+        assertEquals(new AddressBook(), new AddressBook(modelManager.getStaffAddressBook()));
     }
 
     @Test
@@ -39,14 +39,23 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setPatientAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setStaffAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setPatientAppointmentBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setDutyRosterBookFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setPatientAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
+        userPrefs.setStaffAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
+        userPrefs.setPatientAppointmentBookFilePath(Paths.get("new/address/book/file/path"));
+        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
+        userPrefs.setDutyRosterBookFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -63,15 +72,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setAppointmentBookFilePath_nullPath_throwsNullPointerException() {
+        //assertThrows(NullPointerException.class, () -> modelManager.set
+        //assertThrows(NullPointerException.class, () -> modelManager.setPatientAddressBook(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setPatientAddressBook(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setStaffAddressBook(null));
     }
 
     @Test
@@ -136,7 +145,10 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setPatientAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setStaffAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setPatientAppointmentBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setDutyRosterBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(patientAddressBook, staffAddressBook,
             differentUserPrefs, queueManager, appointmentBook)));
     }

@@ -8,6 +8,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.common.ReferenceId;
+import seedu.address.model.queue.Room;
 
 /**
  * Lists all persons in the address book to the user.
@@ -38,13 +39,14 @@ public class AddConsultationRoomCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasRoom(doctorReferenceId)) {
+        Room roomToAdd = new Room(doctorReferenceId);
+        if (model.hasRoom(roomToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         } else if (!model.hasStaff(doctorReferenceId)) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, doctorReferenceId));
         }
 
-        model.addRoom(doctorReferenceId);
+        model.addRoom(roomToAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, doctorReferenceId));
     }
 

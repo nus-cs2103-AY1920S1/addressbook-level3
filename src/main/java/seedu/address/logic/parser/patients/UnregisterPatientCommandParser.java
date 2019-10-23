@@ -37,7 +37,7 @@ public class UnregisterPatientCommandParser implements Parser<ReversibleActionPa
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnregisterPatientCommand.MESSAGE_USAGE), pe);
+                    String.format(pe.getMessage(), UnregisterPatientCommand.MESSAGE_USAGE), pe);
         }
 
         Person personToDelete = ParserUtil.getEntryFromList(lastShownList, index);

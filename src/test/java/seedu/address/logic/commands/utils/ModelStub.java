@@ -41,26 +41,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public Path getAppointmentBookFilePath() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void addPerson(Person person) {
         throw new AssertionError("This method should not be called.");
     }
@@ -196,7 +176,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addRoom(ReferenceId id) {
+    public void addRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -206,12 +186,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void removeRoom(ReferenceId target) {
+    public void removeRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean hasRoom(ReferenceId id) {
+    public boolean hasRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
