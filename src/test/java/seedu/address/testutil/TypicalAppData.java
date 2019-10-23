@@ -37,10 +37,6 @@ public class TypicalAppData {
     public static final Note GEORGE = new NoteBuilder().withTitle("George Best")
             .withContent("4th street").build();
 
-    public static final Task ALICE_TASK = new TaskForNote(ALICE,
-            LocalDate.parse("06/08/2019", Task.FORMAT_USER_INPUT_DATE),
-            LocalTime.parse("1600", Task.FORMAT_USER_INPUT_TIME));
-
     public static final Question ALICE_QUESTION = new QuestionBuilder().withQuestionBody("(  ) is a measure of the "
             + "degree of dependence between components, classes, methods, etc.").withAnswer("Coupling")
             .withSubject("CS2103T").withDifficulty("easy").build();
@@ -62,6 +58,25 @@ public class TypicalAppData {
             .withContent(VALID_CONTENT_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
+    public static final Note CONAN = new NoteBuilder()
+            .withTitle("Edogawa Conan")
+            .withContent("There is always only one truth")
+            .build();
+
+    public static final Question CONAN_QUESTION = new QuestionBuilder()
+            .withQuestionBody("Who is your favourite female character in Detective Conan?")
+            .withAnswer("Haibara Ai")
+            .withSubject("Anime")
+            .withDifficulty("easy")
+            .build();
+
+    public static final Task CONAN_TASK_DEFAULT = new TaskBuilder().build();
+    public static final Task CONAN_TASK_FOR_NOTE = new TaskBuilder().withNote(CONAN).build();
+    public static final Task CONAN_TASK_FOR_QUESTION = new TaskBuilder().withQuestion(CONAN_QUESTION).build();
+    public static final Task CONAN_TASK_MODIFIED_DATE = new TaskBuilder().withDate("06/08/2019").build();
+    public static final Task CONAN_TASK_MODIFIED_TIME = new TaskBuilder().withTime("1400").build();
+    public static final Task CONAN_TASK_DONE = new TaskBuilder().withStatus(true).build();
 
     private TypicalAppData() {} // prevents instantiation
 
@@ -89,7 +104,8 @@ public class TypicalAppData {
     }
 
     public static List<Task> getTypicalTasks() {
-        return new ArrayList<>(Arrays.asList(ALICE_TASK));
+        return new ArrayList<>(Arrays.asList(CONAN_TASK_DEFAULT, CONAN_TASK_FOR_NOTE, CONAN_TASK_FOR_QUESTION,
+                CONAN_TASK_MODIFIED_DATE, CONAN_TASK_MODIFIED_TIME, CONAN_TASK_DONE));
     }
 
     public static List<Question> getTypicalQuestions() {
