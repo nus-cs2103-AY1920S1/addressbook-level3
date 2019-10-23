@@ -52,7 +52,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
 
     public void addDobToBodyMap(Body body) {
         try {
-            if (body.getDateOfBirth() == null) {
+            if (body.getDateOfBirth().isEmpty()) {
                 bodyMap.put(PREFIX_DATE_OF_BIRTH, "");
             } else {
                 bodyMap.put(PREFIX_DATE_OF_BIRTH, formatter.format(body.getDateOfBirth()));
