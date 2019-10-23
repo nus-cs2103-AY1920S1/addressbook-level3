@@ -98,6 +98,15 @@ These commands are recognised regardless of which tab you are currently using.
 
 Format: `help`
 
+If you ever need to quickly refer to this user guide, entering the `help` command causes the
+following popup to appear:
+
+image::Help.png[]
+
+You can simply click on the button "Copy URL" to copy the URL to your
+clipboard. Then, paste and enter the URL into any browser to access this user guide.
+
+
 ==== Exiting the program : `exit`
 
 Exits the program. +
