@@ -4,12 +4,12 @@ import java.util.Set;
 
 import seedu.address.logic.commands.exercise.EditExerciseCommand;
 import seedu.address.logic.commands.exercise.EditExerciseCommand.EditExerciseDescriptor;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.workout.exercise.components.Exercise;
 import seedu.address.model.workout.exercise.components.ExerciseName;
 import seedu.address.model.workout.exercise.details.ExerciseDetail;
 import seedu.address.model.workout.exercise.details.unit.DistanceUnit;
 import seedu.address.model.workout.exercise.details.unit.WeightUnit;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.

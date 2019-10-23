@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.workout.exercise.components.Exercise;
 import seedu.address.model.workout.exercise.components.ExerciseName;
 import seedu.address.model.workout.exercise.components.Intensity;
@@ -12,7 +13,6 @@ import seedu.address.model.workout.exercise.components.MusclesTrained;
 import seedu.address.model.workout.exercise.details.ExerciseDetail;
 import seedu.address.model.workout.exercise.details.unit.DistanceUnit;
 import seedu.address.model.workout.exercise.details.unit.WeightUnit;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
