@@ -256,17 +256,14 @@ Creates a new note.
 
 Format:
 
-`note create --c CONTENT`
+`note create [--T TITLE] --c CONTENT`
 
 Example:
 
-* `note create --c Today I don’t feel like doing anything`
+* `note create --c Today I don’t feel like doing anything` +
 Adds a note with content “Today I don’t feel like doing anything”.
-+
-Executing this command will trigger a confirmation in the chatbot:
- `Are you sure that you want to clear all data in your contact list? (Y/N)`
-+
-Then, if you answer "Y", the chatbot will clear all data in your contact list.
+* `note create --T Relax --c Today I don’t feel like doing anything` +
+Adds a note with title "Relax" and content “Today I don’t feel like doing anything”.
 
 NOTE: Upload of image will be supported in v2.0
 
@@ -329,7 +326,7 @@ Example:
 +
 Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
 
-==== Filter notes: `list`
+==== List notes: `list`
 
 Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
 
@@ -367,6 +364,18 @@ Example:
 |===
 
 NOTE: Filtering by multiple tags will be supported in v2.0
+
+==== Clear all notes: `clear`
+Clears all notes.
+
+Format:
+
+`note clear`
+
+Executing this command will trigger a confirmation in the chatbot: +
+ `Are you sure that you want to clear all data in your contact list? (Y/N)`
+
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
 ==== Sort your notes: `sort` `[coming in v2.0]`
 Sort notes in different orders (i.e last updated date, alphabetically).

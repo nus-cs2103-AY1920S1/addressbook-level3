@@ -114,18 +114,29 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/tagline/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TaglineParser` class to parse the user command.
+.  The user command is passed to different command parser based on the command type. E.g. __"note delete 1"__ will be passed to `NoteCommandParser`
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a note).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+==== Note Logic component
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+[[fig-NoteLogicClassDiagram]]
+.Structure of the Note Logic Component
+image::NoteLogicClassDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+.  `Note Logic` is a sub-component of `Logic`
+.  It obtains the user command parsed by `TaglineParser` through the `NoteCommandParser` class.
+.  The user command is passed to the respective command parser. E.g. __"note delete 1"__ will be passed to `DeleteNoteParser`
+.  This results in a `NoteCommand` object which is returned to the `LogicManager`.
+.  The command execution can affect the `NoteModel` (e.g. adding a note).
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("note delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `note delete 1` Command
+image::NoteDeleteSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -146,9 +157,6 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
-
-
-
 
 [[Design-NoteModel]]
 ==== Note Model component
