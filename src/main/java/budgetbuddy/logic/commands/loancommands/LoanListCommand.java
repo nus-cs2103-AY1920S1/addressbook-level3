@@ -6,12 +6,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_SORT;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
-import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.loan.Loan;
-
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 
 /**
  * Lists loans.

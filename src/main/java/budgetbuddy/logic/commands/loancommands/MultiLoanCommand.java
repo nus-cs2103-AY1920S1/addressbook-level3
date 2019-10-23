@@ -30,11 +30,11 @@ public abstract class MultiLoanCommand extends Command {
     private static final String MESSAGE_NO_TARGETS_HIT =
             "None of the targeted loans could be found.";
 
-    private List<Index> loanIndices;
-    private List<Person> persons;
-
     protected List<Index> hitLoanIndices;
     protected List<Index> missingLoanIndices;
+
+    private List<Index> loanIndices;
+    private List<Person> persons;
 
     /**
      * Constructs a command capable of targeting multiple loans to act upon.

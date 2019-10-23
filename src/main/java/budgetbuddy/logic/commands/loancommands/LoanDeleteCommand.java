@@ -48,6 +48,11 @@ public class LoanDeleteCommand extends MultiLoanCommand {
         return new CommandResult(resultMessage, CommandCategory.LOAN);
     }
 
+    /**
+     * The indices of loans in the list will (potentially) change after each deletion.
+     * This version of multi-loan targeting takes this into account
+     * when passing the target indices to the given operation.
+     */
     @Override
     public void actOnTargetLoans(List<Index> targetLoanIndices, Consumer<Index> operation) {
         int indicesProcessed = 0;
