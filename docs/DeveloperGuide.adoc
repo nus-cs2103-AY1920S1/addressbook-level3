@@ -365,7 +365,6 @@ The figure below shows the sequence diagram on what happens from a simple execut
 image::AddTaskEventSequenceDiagram.png[]
 
 
-
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
