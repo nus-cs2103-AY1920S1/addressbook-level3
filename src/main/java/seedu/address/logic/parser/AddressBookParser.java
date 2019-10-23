@@ -8,11 +8,13 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AllCommands;
+import seedu.address.logic.commands.AssignDateCommand;
 import seedu.address.logic.commands.AutoAllocateCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DisplayScheduleCommand;
 import seedu.address.logic.commands.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditEventCommand;
@@ -44,7 +46,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AllCommands parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -81,6 +83,9 @@ public class AddressBookParser {
         case DisplayScheduleForDateCommand.COMMAND_WORD:
             return new DisplayScheduleForDateParser().parse(arguments);
 
+        case DisplayScheduleCommand.COMMAND_WORD:
+            return new DisplayScheduleCommand();
+
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
@@ -107,6 +112,9 @@ public class AddressBookParser {
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommand();
+
+        case AssignDateCommand.COMMAND_WORD:
+            return new AssignDateCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

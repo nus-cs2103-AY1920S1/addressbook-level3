@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents the time period of an EventDate. Contains a start time and an end time.
  */
 public class EventDayTime {
-    public static final String MESSAGE_CONSTRAINTS = "Time should be in the following format HHMM";
+    public static final String MESSAGE_CONSTRAINTS = "Time Period should be in the following format: HHMM-HHMM";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HHmm");
     private final LocalTime startTime;
     private final LocalTime endTime;

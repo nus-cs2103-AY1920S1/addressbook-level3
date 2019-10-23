@@ -23,6 +23,8 @@ public class CommandResult {
 
     private final Integer fetch;
 
+    private final String type;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -31,6 +33,18 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.fetch = null;
+        type = null;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, String inputType) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.type = inputType;
+        this.fetch = null;
+        this.exit = false;
+        this.showHelp = false;
     }
 
     /**
@@ -41,6 +55,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.fetch = fetch;
         this.exit = exit;
+        type = null;
     }
 
     /**
@@ -65,6 +80,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Override

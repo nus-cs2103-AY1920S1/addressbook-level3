@@ -13,10 +13,16 @@ public class EventContainsKeyDatePredicate implements Predicate<Event> {
         this.date = date;
     }
 
+    /**
+     * Checks if a date is currently within the range of the Event's start and end date.
+     *
+     * @param event Event object that is referenced
+     * @return Boolean
+     */
     @Override
     public boolean test(Event event) {
-        return (event.getStartDate().date.isBefore(date) || event.getStartDate().date.equals(date))
-                && (event.getEndDate().date.isAfter(date) || event.getEndDate().date.equals(date));
+        return (event.getStartDate().getDate().isBefore(date) || event.getStartDate().getDate().equals(date))
+                && (event.getEndDate().getDate().isAfter(date) || event.getEndDate().getDate().equals(date));
     }
 
     @Override
