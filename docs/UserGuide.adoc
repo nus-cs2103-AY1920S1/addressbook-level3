@@ -59,16 +59,6 @@ Format: `help`
 ====
 
 
-=== Taging flashcards to form a set
-Tags existing flashcards with a particular keyword. +
-Format: `tag ID TAGNAME`
-
-****
-* Adds the tag to the flashcard with the specified ID
-* TAGNAME can be an existing tag or a new tag
-* To use existing tags the TAGNAME entered must match the exiting tag exactly
-****
-
 Examples:
 
 * `Tag 1 Biology` +
@@ -144,12 +134,12 @@ Examples:
 
 === Display current progress
 Shows the current progress of a set of flashcards. +
-Format: `progress TAGNAME`
+Format: `stats [t/TAG]`
 
 ****
 * Statistics shown include number of completed cards and accuracy
-* TAGNAME indicates the tag to be reviewed
-* If no TAGNAME is provided statistics of all the cards will be shown
+* Multiple TAG's can be added to combine statistics of multiple sets
+* If no TAG is provided statistics of all the cards will be shown
 ****
 
 Examples:
