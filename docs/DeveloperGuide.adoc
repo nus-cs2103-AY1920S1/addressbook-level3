@@ -301,7 +301,8 @@ The find feature allows the user to find the order according to its data field o
 
 In order to implement the find function, we decided to create a predicate for each field.
 
-=======
+
+======
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
