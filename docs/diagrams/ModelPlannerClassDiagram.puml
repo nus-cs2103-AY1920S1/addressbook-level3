@@ -8,9 +8,22 @@ Package Planner <<Rectangle>> {
     Class Planner
     Class TaskList
     abstract Class Task
+    Class Event
+    Class Deadline
+    Class Todo
+    Class Priority
+    Class Frequency
+    Class Tag
 }
 
 Planner *--> "1" TaskList
 TaskList o--> "*" Task
+Event o-up-|> Task
+Deadline o-up-|> Task
+Todo o-up-|> Task
+Task *-left-> "*" Tag
+Task *-right-> "0...1" Priority
+Task *-up-> "0...1" Frequency
+
 
 @enduml
