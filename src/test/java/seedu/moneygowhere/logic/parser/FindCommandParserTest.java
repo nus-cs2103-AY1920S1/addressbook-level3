@@ -64,6 +64,12 @@ public class FindCommandParserTest {
         predicates = new ArrayList<>();
         predicates.add(new CostInRangePredicate(new Cost(VALID_COST_BOB), new Cost(VALID_COST_AMY)));
         expectedFindCommand = new FindCommand(predicates);
+
+        // c/COST1 c/COST2
+        assertParseSuccess(parser, " " + PREFIX_COST + VALID_COST_BOB + " "
+                + PREFIX_COST + VALID_COST_AMY, expectedFindCommand);
+
+        // c/COST1-COST2
         assertParseSuccess(parser, " " + PREFIX_COST + VALID_COST_BOB + "-"
                 + VALID_COST_AMY, expectedFindCommand);
 
@@ -87,6 +93,9 @@ public class FindCommandParserTest {
 
         // one Date only
         assertParseFailure(parser, " " + PREFIX_DATE + "1/1/2019", Date.MESSAGE_CONSTRAINTS);
+
+        // one Cost only
+        assertParseFailure(parser, " " + PREFIX_COST + "1.00", Cost.MESSAGE_CONSTRAINTS);
 
         // Cost max > min
         assertParseFailure(parser, " " + PREFIX_COST + "2.00-1.00", Cost.MESSAGE_CONSTRAINTS);
