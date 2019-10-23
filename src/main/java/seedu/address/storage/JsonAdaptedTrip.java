@@ -54,7 +54,6 @@ public class JsonAdaptedTrip {
             @JsonProperty("expenditureList")List<JsonAdaptedExpenditure> expenditureList,
             @JsonProperty("diary") JsonAdaptedDiary diary,
             @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) {
-        
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
