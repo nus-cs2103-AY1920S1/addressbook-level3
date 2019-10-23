@@ -308,7 +308,9 @@ NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) b
 Finally, the user sees his folder added successfully in the folder hierarchy.
 
 ==== Design Considerations
+
 The following are a few design considerations made in deciding how to implement the folders feature:
+
 ===== Aspect: How the folder hierarchy is saved into storage.
 
 * **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
