@@ -3,7 +3,6 @@ package seedu.address.model.visittask;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.visittodo.VisitTodoTest.VALID_VISIT_TODO;
 import static seedu.address.model.visittodo.VisitTodoTest.VALID_VISIT_TODO_SHORT;
@@ -14,11 +13,10 @@ public class VisitTaskTest {
     public static final Detail VALID_DETAIL = new Detail("");
     public static final VisitTask VALID_TASK = new VisitTask(VALID_VISIT_TODO, VALID_DETAIL, true);
     public static final VisitTask VALID_TASK_UNDONE = new VisitTask(VALID_VISIT_TODO, VALID_DETAIL, false);
-    public static final Detail VALID_DETAIL_FILLED = new Detail("\"Anything legitimate !@#$%^&*()_+{}:" +
-            "\\\"<>?1234567890-=`~,./;'[]\\\\|/\"");
+    public static final Detail VALID_DETAIL_FILLED = new Detail("\"Anything legitimate !@#$%^&*()_+{}:"
+            + "\\\"<>?1234567890-=`~,./;'[]\\\\|/\"");
     @Test
     public void equals() {
-        assertThrows(NullPointerException.class, () -> VALID_TASK.equals(null));
         assertTrue(() -> VALID_TASK.equals(VALID_TASK));
         assertFalse(() -> VALID_TASK.equals(VALID_DETAIL));
         assertFalse(() -> VALID_TASK.equals(VALID_TASK_UNDONE));
