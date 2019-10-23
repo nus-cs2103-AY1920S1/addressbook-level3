@@ -25,6 +25,14 @@ public class ModulesInfo {
         return this.mapModulesInfo;
     }
 
+    public List<String> getModuleCodeStrings() {
+        ArrayList<String> result = new ArrayList<>();
+        for (String moduleCode: mapModulesInfo.keySet()) {
+            result.add(moduleCode);
+        }
+        return result;
+    }
+
     /**
      * Initialises by reading {@code modulesInfo} into #{@code mapModulesInfo}.
      * Parses the prerequisite tree for all modules with information.
