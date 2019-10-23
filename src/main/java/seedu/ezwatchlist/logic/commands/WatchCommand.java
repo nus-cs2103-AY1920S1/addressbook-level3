@@ -80,14 +80,17 @@ public class WatchCommand extends Command {
         Description description = showToEdit.getDescription();
         RunningTime runningTime = showToEdit.getRunningTime();
         Set<Actor> actors = showToEdit.getActors();
+        Poster poster = showToEdit.getPoster();
 
-        if (showToEdit.type.equals("Movie")) {
+        if (showToEdit.getType().equals("Movie")) {
             Movie editedShow = new Movie(name, description, updatedIsWatched,
                     dateOfRelease, runningTime, actors);
+            editedShow.setPoster(poster);
             return editedShow;
-        } else { //showToEdit.type.equals("Tv show")
+        } else {
             TvShow editedShow = new TvShow(name, description, updatedIsWatched,
                     dateOfRelease, runningTime, actors, 0,0,null);
+            editedShow.setPoster(poster);
             return editedShow;
         }
     }
