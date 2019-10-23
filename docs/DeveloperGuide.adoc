@@ -329,7 +329,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |student concerned with my CAP |find out what grades I should get in the current semester |pull my CAP up to the next degree classification
 
-|`* * ` |student |view details of modules I have taken in previous semesters |see my progress
+|`* *` |student |view details of modules I have taken in previous semesters |see my progress
 
 |`* *` |graduating student |see what remaining modules I need to take in order to fulfill my graduation requirements |plan my semester
 
