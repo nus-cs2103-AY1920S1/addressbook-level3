@@ -11,20 +11,20 @@ import seedu.address.model.util.Date;
  */
 public class OutTransaction extends Transaction implements BankAccountOperation {
     public OutTransaction(Amount amount, Date date) {
-        super(amount, date);
+        super(amount.makeNegative(), date);
     }
 
     public OutTransaction(Amount amount, Date date, Set<Tag> tags) {
-        super(amount, date, tags);
+        super(amount.makeNegative(), date, tags);
     }
 
     public OutTransaction(Amount amount, Date date, Set<Tag> tags, Person personInvolved) {
-        super(amount, date, tags, personInvolved);
+        super(amount.makeNegative(), date, tags, personInvolved);
     }
 
     @Override
     public Amount handleBalance(Amount balance) {
-        Amount newBalance = balance.subtractAmount(super.amount);
+        Amount newBalance = balance.addAmount(super.amount);
         return newBalance;
     }
 
