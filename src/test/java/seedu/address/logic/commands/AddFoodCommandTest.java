@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
@@ -307,12 +308,32 @@ class AddFoodCommandTest {
         }
 
         @Override
+        public void addPastReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<CalendarEntry> getPastReminderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void schedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void stopAllReminders() {
             throw new AssertionError("This method should not be called.");
         }
 

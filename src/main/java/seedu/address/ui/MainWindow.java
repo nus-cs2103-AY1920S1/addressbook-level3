@@ -85,7 +85,6 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         styleManager = new StyleManager(scene);
         setFontColour(logic.getGuiSettings());
-
     }
 
     public Stage getPrimaryStage() {
@@ -159,8 +158,9 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        reminderListPanel = new ReminderListPanel(logic.getFilteredCalendarEntryList());
+        reminderListPanel = new ReminderListPanel(logic.getPastReminderList());
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        logic.schedule();
     }
 
     /**

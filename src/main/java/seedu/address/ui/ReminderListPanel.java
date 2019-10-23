@@ -1,12 +1,7 @@
 package seedu.address.ui;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -24,45 +19,28 @@ public class ReminderListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     @FXML
-    private ListView<Reminder> reminderListView;
+    private ListView<CalendarEntry> reminderListView;
 
-    public ReminderListPanel(ObservableList<CalendarEntry> calendarEntries) {
+    public ReminderListPanel(ObservableList<CalendarEntry> reminders) {
         super(FXML);
-        updateReminderListView(calendarEntries);
-        calendarEntries.addListener(new ListChangeListener<CalendarEntry>() {
-            @Override
-            public void onChanged(Change<? extends CalendarEntry> c) {
-                updateReminderListView(calendarEntries);
-            }
-        });
 
-    }
-
-    /**
-     * Update reminder list view.
-     */
-    private void updateReminderListView(ObservableList<CalendarEntry> calendarEntries) {
-        ObservableList<Reminder> reminderList = calendarEntries.stream()
-                .filter(calendarEntry -> calendarEntry instanceof Reminder)
-                .map(calendarEntry -> (Reminder) calendarEntry)
-                .collect(Collectors.collectingAndThen(toList(), l -> FXCollections.observableArrayList(l)));
-        reminderListView.setItems(reminderList);
+        reminderListView.setItems(reminders);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Reminder} using a {@code ReminderCard}.
      */
-    class ReminderListViewCell extends ListCell<Reminder> {
+    class ReminderListViewCell extends ListCell<CalendarEntry> {
         @Override
-        protected void updateItem(Reminder reminder, boolean empty) {
-            super.updateItem(reminder, empty);
+        protected void updateItem(CalendarEntry calendarEntry, boolean empty) {
+            super.updateItem(calendarEntry, empty);
 
-            if (empty || reminder == null) {
+            if (empty || calendarEntry == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ReminderCard(reminder).getRoot());
+                setGraphic(new ReminderCard((Reminder) calendarEntry).getRoot());
             }
         }
     }

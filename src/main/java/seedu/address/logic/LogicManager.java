@@ -152,6 +152,21 @@ public class LogicManager implements Logic {
     public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
         return model.getFilteredCalendarEntryList();
     }
+
+    @Override
+    public ObservableList<CalendarEntry> getPastReminderList() {
+        return model.getPastReminderList();
+    }
+
+    @Override
+    public void schedule() {
+        model.schedule();
+    }
+
+    @Override
+    public void stopAllReminders() {
+        model.stopAllReminders();
+    }
     //=========== Statistics List =============================================================
 
     @Override

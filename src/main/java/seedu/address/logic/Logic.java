@@ -122,6 +122,22 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of calendar entries
      */
     ObservableList<CalendarEntry> getFilteredCalendarEntryList();
+
+    /**
+     * Returns an unmodifiable view of past reminders.
+     */
+    ObservableList<CalendarEntry> getPastReminderList();
+
+    /**
+     * Reschedule upcoming reminders.
+     */
+    void schedule();
+
+    /**
+     * Stop all upcoming reminders;
+     */
+    void stopAllReminders();
+
     //=========== Statistics List =============================================================
 
     /**
