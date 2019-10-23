@@ -10,12 +10,14 @@ import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_EQUALS_TO;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
@@ -64,9 +66,11 @@ public class SaveNusParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
+        List<Index> indexes = new ArrayList<Index>();
+        indexes.add(INDEX_FIRST_FOOD);
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_FOOD.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_FOOD), command);
+        assertEquals(new DeleteCommand(indexes), command);
     }
 
     @Test
