@@ -76,4 +76,8 @@ public class PdfUtil {
         String startTime = engagement.getStartTime().format(DateTimeFormatter.ofPattern("dd-MM-YY_HH:mm"));
         return startTime + "_" + engagement.getDescription() + ".pdf";
     }
+
+    private boolean checkIfDocumentExists(String fileName) {
+        return false;
+    }
 }
