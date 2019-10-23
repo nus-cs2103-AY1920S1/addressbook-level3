@@ -476,6 +476,10 @@ public class ItemModelManager implements ItemModel {
         return priorityMode;
     }
 
+    /**
+     * Schedule a timer to off the priority mode.
+     * @param localDateTime the time at which the priority mode should be turned off.
+     */
     public void scheduleOffPriorityMode(LocalDateTime localDateTime) {
         this.timer = new Timer();
         ZonedDateTime zdt = localDateTime.atZone(ZoneId.systemDefault());
@@ -486,6 +490,16 @@ public class ItemModelManager implements ItemModel {
                 toggleOffPriorityMode();
             }
         }, date);
+    }
+
+    /**
+     * Handles the turning off of priority mode when exiting the application.
+     */
+    public void forceOffPriorityMode() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 
     private VisualizeList getNextTask() {
