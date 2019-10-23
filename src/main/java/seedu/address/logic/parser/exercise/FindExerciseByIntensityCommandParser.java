@@ -8,7 +8,7 @@ import seedu.address.logic.commands.exercise.FindExerciseByIntensityCommand;
 import seedu.address.logic.commands.exercise.FindExerciseCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.exercise.components.IntensityContainsKeywordsPredicate;
+import seedu.address.model.workout.exercise.components.IntensityContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindExerciseByIntensityCommand object

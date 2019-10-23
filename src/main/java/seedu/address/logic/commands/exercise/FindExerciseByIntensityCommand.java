@@ -6,7 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.components.IntensityContainsKeywordsPredicate;
+import seedu.address.model.workout.exercise.components.IntensityContainsKeywordsPredicate;
 
 /**
  * Finds and lists all Exercises in Duke Workout Planner whose Intensity contains any of the argument keywords.

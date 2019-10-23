@@ -24,10 +24,10 @@ import static seedu.address.testutil.exercise.TypicalExercises.SITUP;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exercise.AddExerciseCommand;
-import seedu.address.model.exercise.components.Exercise;
-import seedu.address.model.exercise.components.ExerciseName;
-import seedu.address.model.exercise.components.Intensity;
-import seedu.address.model.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.components.ExerciseName;
+import seedu.address.model.workout.exercise.components.Intensity;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
 import seedu.address.testutil.exercise.ExerciseBuilder;
 
 public class AddExerciseCommandParserTest {

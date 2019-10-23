@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
 import seedu.address.testutil.exercise.TypicalExercises;
 
 public class JsonSerializableExerciseCatalogueTest {

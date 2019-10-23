@@ -5,16 +5,16 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.exercise.components.ExerciseName;
-import seedu.address.model.exercise.components.Intensity;
-import seedu.address.model.exercise.components.MuscleType;
-import seedu.address.model.exercise.details.Distance;
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.ExerciseWeight;
-import seedu.address.model.exercise.details.Repetitions;
-import seedu.address.model.exercise.details.Sets;
-import seedu.address.model.exercise.details.unit.DistanceUnit;
-import seedu.address.model.exercise.details.unit.WeightUnit;
+import seedu.address.model.workout.exercise.components.ExerciseName;
+import seedu.address.model.workout.exercise.components.Intensity;
+import seedu.address.model.workout.exercise.components.MuscleType;
+import seedu.address.model.workout.exercise.details.Distance;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.ExerciseWeight;
+import seedu.address.model.workout.exercise.details.Repetitions;
+import seedu.address.model.workout.exercise.details.Sets;
+import seedu.address.model.workout.exercise.details.unit.DistanceUnit;
+import seedu.address.model.workout.exercise.details.unit.WeightUnit;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

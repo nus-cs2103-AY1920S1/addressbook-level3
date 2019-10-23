@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
-import seedu.address.model.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
 
 public class JsonWorkoutPlannerStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

@@ -1,7 +1,7 @@
 package seedu.address.testutil.exercise;
 
-import seedu.address.model.exercise.WorkoutPlanner;
-import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.components.Exercise;
 
 /**
  * A utility class to help with building DukeCooks objects.

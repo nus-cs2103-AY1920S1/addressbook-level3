@@ -23,12 +23,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.components.Exercise;
-import seedu.address.model.exercise.components.ExerciseName;
-import seedu.address.model.exercise.components.Intensity;
-import seedu.address.model.exercise.components.MuscleType;
-import seedu.address.model.exercise.components.MusclesTrained;
-import seedu.address.model.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.components.ExerciseName;
+import seedu.address.model.workout.exercise.components.Intensity;
+import seedu.address.model.workout.exercise.components.MuscleType;
+import seedu.address.model.workout.exercise.components.MusclesTrained;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
 
 /**
  * Edits the details of an existing exercise in Duke Cooks.

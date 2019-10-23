@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.exercise.components.MuscleType;
+import seedu.address.model.workout.exercise.components.MuscleType;
 
 /**
  * Jackson-friendly version of {@link MuscleType}.

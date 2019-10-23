@@ -1,0 +1,110 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+
+Class Exercise {
+ - exerciseName : ExerciseName
+ - musclesTrained : MusclesTrained
+ - intensity : Intensity
+ - exerciseDetails : ExerciseDetails
+ + getExerciseName()
+ + getMusclesTrained()
+ + getIntensity()
+ + getExerciseDetails()
+}
+
+Class ExerciseName {
+ - exerciseName : String
+ + isValidExerciseName()
+}
+
+Class MusclesTrained {
+ - primaryMuscles : MuscleType
+ - secondaryMuscles : ArrayList<MuscleType>
+ + getPrimaryMuscle()
+ + getSecondaryMuscles()
+}
+
+Class MuscleType {
+ - muscleType : String
+ + isValidMuscleType()
+}
+
+Class ExerciseDetails {
+ - weight : ExerciseWeight
+ - distance : Distance
+ - sets : Sets
+ - reps : Repetitions
+ + getWeight()
+ + getDistance()
+ + getSets()
+ + getReps()
+}
+
+Enum Intensity {
+ HIGH
+ MEDIUM
+ LOW
+}
+
+Class ExerciseWeight{
+ - magnitude : Float
+ - unit : WeightUnit
+ + isValidMagnitude()
+}
+
+Enum WeightUnit{
+ GRAMS
+ KILOGRAMS
+ POUNDS
+}
+
+Class Distance {
+ - magnitude : Float
+ - unit : DistanceUnit
+ + isValidMagnitude()
+}
+
+Enum DistanceUnit{
+ METER
+ KILOMETER
+}
+
+Class Sets {
+ - magnitude : Integer
+ + isValidMagnitude()
+}
+
+Class Repetitions {
+ - magnitude : Integer
+ + isValidMagnitude()
+}
+
+
+
+
+
+
+Exercise *-left-> "1" ExerciseName
+Exercise *-right-> "1" MusclesTrained
+Exercise *-down-> "1" Intensity
+Exercise *-down-> "1" ExerciseDetails
+
+MusclesTrained *-down-> "1..*" MuscleType
+
+ExerciseDetails *-down-> "0..1" ExerciseWeight
+ExerciseDetails *-down-> "0..1" Distance
+ExerciseDetails *-down-> "0..1" Sets
+ExerciseDetails *-down-> "0..1" Repetitions
+
+ExerciseWeight *-down-> "1" WeightUnit
+Distance *-down-> "1" DistanceUnit
+
+
+show members
+@enduml
