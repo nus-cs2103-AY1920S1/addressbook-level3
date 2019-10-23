@@ -83,6 +83,7 @@ public class ModuleInfo {
     public String getInformation() {
         return this.code + ": " + this.name + (this.isCore ? " (Core module)" : "") + "\n"
                 + this.mc + " MCs, " + (this.su ? "" : "not ") + "S/U-able" + "\n"
+                + "Prerequisites: " + (this.prereqTree == null ? "none" : this.prereqTree) + "\n"
                 + this.description;
     }
 

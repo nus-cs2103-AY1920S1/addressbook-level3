@@ -1,11 +1,15 @@
 package seedu.address.model.versiontracking;
 
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 
 /**
  * Represents a manager that manages the commits for one study plan with a particular index.
  */
 public class StudyPlanCommitManager {
+
+    private static final String MESSAGE_REVERT_COMMIT = "Revert: %1$s";
+
     private int studyPlanIndex;
     private CommitList commitList;
 
@@ -45,5 +49,24 @@ public class StudyPlanCommitManager {
             e.printStackTrace();
         }
         commitList.commitStudyPlan(planToCommit, commitMessage);
+    }
+
+    /**
+     * Deletes a commit specified by the index.
+     */
+    public void deleteCommit(int index) throws CommitNotFoundException {
+        commitList.deleteCommitByIndex(index);
+    }
+
+    /**
+     * Reverts to the commit specified by the given commit number. This creates a new revert commit.
+     */
+    public StudyPlan revertToCommit(int commitNumber) {
+        StudyPlan newActiveStudyPlan = commitList.getStudyPlanByCommitNumber(commitNumber);
+        String commitMessage = commitList.getCommitMessageByCommitNumber(commitNumber);
+        // Changed from original implementation: originally, discard all later commits. Now, add a new revert commit.
+        // commitList.deleteAllLaterCommits(commitNumber);
+        commit(newActiveStudyPlan, String.format(MESSAGE_REVERT_COMMIT, commitMessage));
+        return newActiveStudyPlan;
     }
 }

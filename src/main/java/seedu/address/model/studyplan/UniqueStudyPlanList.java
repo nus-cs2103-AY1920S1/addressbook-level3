@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.studyplan.exceptions.DuplicateStudyPlanException;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 
 
@@ -43,9 +44,7 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     public void add(StudyPlan toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            // TODO: implement DuplicateStudyPlanException
-
-            // throw new DuplicateStudyPlanException();
+            throw new DuplicateStudyPlanException();
         }
         internalList.add(toAdd);
     }
@@ -61,14 +60,11 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            // TODO: implement StudyPlanNotFoundException
-            // throw new StudyPlanNotFoundException();
+            throw new StudyPlanNotFoundException();
         }
 
         if (!target.isSameStudyPlan(editedStudyPlan) && contains(editedStudyPlan)) {
-            // TODO: implement DuplicateStudyPlanException
-
-            // throw new DuplicateStudyPlanException();
+            throw new DuplicateStudyPlanException();
         }
 
         internalList.set(index, editedStudyPlan);
@@ -81,9 +77,7 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     public void remove(StudyPlan toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-
-            // TODO: implement StudyPlanNotFoundException
-            //throw new StudyPlanNotFoundException();
+            throw new StudyPlanNotFoundException();
         }
     }
 
@@ -99,9 +93,7 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         requireAllNonNull(studyPlans);
         if (!studyPlansAreUnique(studyPlans)) {
-
-            // TODO: implement DuplicateStudyPlanException
-            // throw new DuplicateStudyPlanException();
+            throw new DuplicateStudyPlanException();
         }
 
         internalList.setAll(studyPlans);

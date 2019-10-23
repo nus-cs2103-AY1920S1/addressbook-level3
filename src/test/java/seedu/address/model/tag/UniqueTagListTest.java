@@ -65,8 +65,10 @@ public class UniqueTagListTest {
     public void containsTagWithName_tagInList_returnsTrue() {
         uniqueTagList.addTag(new TagBuilder().buildDefaultCoreTag());
         assertTrue(uniqueTagList.containsTagWithName("Core"));
+        assertTrue(uniqueTagList.containsTagWithName("core"));
         uniqueTagList.addTag(new TagBuilder().buildTestUserTag());
         assertTrue(uniqueTagList.containsTagWithName("testUserTag"));
+        assertTrue(uniqueTagList.containsTagWithName("testusertag"));
     }
 
     @Test
@@ -133,26 +135,26 @@ public class UniqueTagListTest {
 
     @Test
     public void remove_nullTag_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueTagList.remove(null));
+        assertThrows(NullPointerException.class, () -> uniqueTagList.removeTag(null));
     }
 
     @Test
     public void remove_userTagDoesNotExist_throwsTagNotFoundException() {
-        assertThrows(TagNotFoundException.class, () -> uniqueTagList.remove(new TagBuilder().buildTestUserTag()));
+        assertThrows(TagNotFoundException.class, () -> uniqueTagList.removeTag(new TagBuilder().buildTestUserTag()));
     }
 
     @Test
     public void remove_defaultTag_throwsInvalidTagModificationException() {
         DefaultTag defaultTag = new TagBuilder().buildDefaultCoreTag();
         uniqueTagList.addTag(defaultTag);
-        assertThrows(InvalidTagModificationException.class, () -> uniqueTagList.remove(defaultTag));
+        assertThrows(InvalidTagModificationException.class, () -> uniqueTagList.removeTag(defaultTag));
     }
 
     @Test
     public void remove_existingUserTag_removesUserTag() {
         UserTag userTag = new TagBuilder().buildTestUserTag();
         uniqueTagList.addTag(userTag);
-        uniqueTagList.remove(userTag);
+        uniqueTagList.removeTag(userTag);
         UniqueTagList expectedUniqueTagList = new UniqueTagList();
         assertEquals(expectedUniqueTagList, uniqueTagList);
     }

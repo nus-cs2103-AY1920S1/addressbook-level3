@@ -48,7 +48,7 @@ public enum DefaultTagType {
      */
     public static boolean contains(String name) {
         for (DefaultTagType defaultTagType : DefaultTagType.values()) {
-            if (defaultTagType.getDefaultTagTypeName().equals(name)) {
+            if (defaultTagType.getDefaultTagTypeName().compareToIgnoreCase(name) == 0) {
                 return true;
             }
         }

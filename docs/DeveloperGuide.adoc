@@ -264,6 +264,96 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Module Tagging Feature
+
+==== Implementation
+The module tagging mechanism is facilitated by `UserTag`, `DefaultTag` and `UniqueTagList`.
+
+`UserTag` and `DefaultTag` implement the `Tag` interface. The former represents user-created tags while the latter
+represents default tags of one of the types in `DefaultTagType`. The key difference between `UserTag` and `DefaultTag`
+is that the first is user-modifiable while the second is not and is essentially immutable. The operation
+`Tag#isDefault()` is implemented to differentiate between the two classes of `Tag`.
+
+Each `Tag` is stored in a `UniqueTagList`, which implements `Iterable<Tag>` and is stored internally in `Module` and
+`StudyPlan` as `tags`.  It represents a list of tags that can be of type `UserTag` or `DefaultTag` and enforces the
+uniqueness between the tags. Additionally, it implements the following operations:
+
+- `UniqueTagList#addTag(Tag toAdd)` -- Adds the given `Tag` to the list.
+- `UniqueTagList#removeTag(Tag toRemove)` -- Removes the given `Tag` from the list.
+- `UniqueTagList#containsTagWithName(String tagName)` -- Checks if the list contains a `Tag` with the given `tagName`.
+- `UniqueTagList#getTag(String tagName)` -- Returns the `Tag` with the given `tagName`.
+
+Given below is an example usage scenario of the `UniqueTagList#addTag(Tag toAdd)` operation and how the module tagging
+mechanism behaves at each step.
+
+Step 1. The user executes the `addtag MODULE_CODE TAG_NAME`. command to add a tag with the name _TAG_NAME_ to the
+module with the module code _MODULE_CODE_.  A `toAdd` variable of type `Tag` and a boolean value `newTagCreated` is
+maintained during the execution of the command to represent the tag that is to be added and whether or not a new tag
+has been created respectively. The `addtag` command calls `Model#activeSpContainsTag(String tagName)` to check if the
+active study plan contains a tag with the given `tagName`. This method accesses the active study plan in the module
+planner and checks if such a tag exists in its `UniqueTagList`. There are two possible scenarios that are described
+in steps 2 and 3.
+
+Step 2. If such a tag does not exist, a new `UserTag` is created and is assigned to `toAdd`.
+
+image::TagModuleCommandDiagram1.png[]
+
+Step 3. If such a tag exists, `Model#getTagFromActiveSp(String tagName)` is called. The `Tag` in the `UniqueTagList`
+of the active study plan is returned and assigned to `toAdd`. `Tag#isDefault()` is called to check if the returned `Tag`
+is a `DefaultTag`. If so, a `CommandException` is thrown as default tags cannot be added by users.
+
+image::TagModuleCommandDiagram2.png[]
+
+[NOTE]
+We only have to handle the case of adding default tags in this step and not in the previous step as default tags are
+already initialised into the study plan and hence `Model#activeSpContainsTag(String tagName)` will always return true
+if the given name is a default tag name.
+
+Step 4. `Model#addTagToActiveSp(UserTag toAdd, String moduleCode)` is called to add `toAdd` to the module with the
+given module code. This method accesses the module with the given `moduleCode`, which will call `Module#addTag(Tag tag)`
+to add `toAdd` to its `UniqueTagList`. In the case that `toAdd` already exists in the `UniqueTagList`, it will not be
+added, and the method will return `false`. (Step 5)
+
+[NOTE]
+The above scenario should not occur if a new tag had been created as described in Step 2.
+
+Otherwise, the `toAdd` will be added and the method will return `true`. (Step 6)
+
+image::TagModuleCommandDiagram3.png[]
+
+image::TagModuleCommandDiagram4.png[]
+
+Step 5. If the tag had not been added, it would indicate that an essentially identical tag had already been attached to
+the target module. Hence, a `CommandException` will be thrown.
+
+[NOTE]
+`Tag` has a method `Tag#isSameTag` to identify essentially identical tags by comparing the tag names for `UserTag`
+(this is case-insensitive) and the `DefaultTagType` for `DefaultTag`.
+
+Step 6: If the tag had been added, a `CommandResult` with a success message is returned.
+
+The following sequence diagram and activity diagram show how the `addtag` command works:
+
+image::TagModuleCommandSequenceDiagram.png[]
+
+image::TagModuleCommandActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How tags are assigned to modules
+
+* **Alternative 1 (current choice):** A tag with a given name is only created once. Adding a tag to a module simply
+creates a reference from the module to the existing tag.
+** Pros: Reduces memory usage and makes duplication checking easier (simply check the `UniqueTagList` of the `StudyPlan`
+instead of checking the list in every `Module`).
+** Cons: More difficult to implement and requires searching and reassignment of pointers every time the command is
+executed.
+* **Alternative 2:** A new tag is created every time a tag is added even if there is already an existing tag with the
+same name.
+** Pros: Easier to implement as no searching of previous tags need to be done.
+** Cons: Increases memory usage and duplication checking might be more difficult (have to check the `UniqueTagList` of
+every `Module` instead of just the one in the `StudyPlan`.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -667,6 +757,13 @@ Students from either partner university pay fees only at their home institution 
 [[study-plan]] Study plan::
 A study plan is an academic plan detailing all modules that a student plans to take in all the semesters in their
 candidature in NUS. One study plan comprises 8 semesters of modules. The user may have multiple alternative study plans.
+
+[[SU]] S/U::
+Abbreviation for Satisfactory / Unsatisfactory Options. Sometimes abbreviated as SU.
+In general, students may exercise the S/U option for up to 32 MCs in the first two regular semesters;
+if this is not fully utilised, the S/U option may still be exercised in subsequent semesters, for up to 12 MCs.
+Modules with grades as S/U are not factored into the calculation of students' Cumulative Average Points (CAP).
+Modules on which the S/U option can be exercised are described as _SU-able_.
 
 [[tag]] Tag::
 A module can be added a tag or multiple tags, which include the following:

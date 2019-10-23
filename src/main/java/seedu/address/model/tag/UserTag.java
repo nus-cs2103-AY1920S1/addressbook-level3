@@ -74,14 +74,14 @@ public class UserTag implements Tag {
         if (other.isDefault()) {
             return false;
         }
-        return tagName.equals(other.getTagName());
+        return tagName.compareToIgnoreCase(other.getTagName()) == 0;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UserTag // instanceof handles nulls
-                && tagName.equals(((UserTag) other).getTagName())); // state check
+                && (tagName.compareToIgnoreCase(((UserTag) other).getTagName()) == 0)); // state check
     }
 
     @Override

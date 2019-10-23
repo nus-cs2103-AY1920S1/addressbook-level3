@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -18,10 +19,12 @@ import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
 import seedu.address.model.versiontracking.StudyPlanCommitManagerList;
 import seedu.address.model.versiontracking.VersionTrackingManager;
+import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
@@ -71,7 +74,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         this.versionTrackingManager = versionTrackingManager;
     }
 
-    //// list overwrite operations
+    //=========== List Overwrite Operations ================================================================
 
     /**
      * Replaces the contents of the person list with {@code studyPlans}.
@@ -90,7 +93,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         setStudyPlans(newData.getStudyPlanList());
     }
 
-    //// studyplan-level operations
+    //=========== Study Plan-level Operations ===============================================================
 
     /**
      * Returns true if a study plan with the same identity as {@code study plan} exists in the module planner.
@@ -157,6 +160,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             ModuleInfo moduleInfo = modulesInfo.find(module.getModuleCode().toString());
             module.setName(new Name(moduleInfo.getName()));
             module.setMcCount(moduleInfo.getMc());
+            module.setPrereqTree(moduleInfo.getPrereqTree());
 
             // adds default tags to each module
             UniqueTagList defaultTags = activeStudyPlan.assignDefaultTags(moduleInfo);
@@ -232,6 +236,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public void setCurrentSemester(SemesterName semesterName) {
         currentSemester = semesterName;
+        activeStudyPlan.setCurrentSemester(semesterName);
     }
 
     /**
@@ -259,24 +264,36 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return moduleInfo == null ? null : moduleInfo.getInformation();
     }
 
+    //=========== Module Information and Verification =============================================================
+
     /**
      * Returns this module planner's ModulesInfo object.
-     *
-     * @return This module planner's ModulesInfo object.
      */
     public ModulesInfo getModulesInfo() {
         return modulesInfo;
     }
 
+    /**
+     * Updates prerequisites of the active study plan, if it exists.
+     */
     public void updatePrereqs() {
-        this.activeStudyPlan.updatePrereqs();
+        if (this.activeStudyPlan != null) {
+            this.activeStudyPlan.updatePrereqs();
+        }
+    }
+
+    public List<String> getValidMods(SemesterName semName) {
+        if (this.activeStudyPlan == null) {
+            return new ArrayList<>(); // TODO: might want to change it to an assertion, this should not be called maybe?
+        }
+        return this.activeStudyPlan.getValidMods(semName);
     }
 
     public void changeActiveStudyPlanTitle(String title) {
         activeStudyPlan.setTitle(new Title(title));
     }
 
-    //// commit methods
+    //=========== Version Tracking ============================================================================
 
     /**
      * Commits the current active study plan.
@@ -304,7 +321,77 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         versionTrackingManager.deleteStudyPlanCommitManagerByIndex(index);
     }
 
-    //// util methods
+    /**
+     * Reverts the current active study plan to the commit specified by the given index. Make this version
+     * of the study plan active.
+     */
+    public void revertToCommit(int studyPlanIndex, int commitNumber) {
+        requireNonNull(activeStudyPlan);
+        assert studyPlanIndex == activeStudyPlan.getIndex() : "The index needs to be same as the active one's";
+
+        StudyPlanCommitManager manager = versionTrackingManager.getStudyPlanCommitManagerByStudyPlan(activeStudyPlan);
+        StudyPlan newActiveStudyPlan = manager.revertToCommit(commitNumber);
+
+        studyPlans.setStudyPlan(activeStudyPlan, newActiveStudyPlan);
+        activateStudyPlan(newActiveStudyPlan.getIndex());
+    }
+
+    /**
+     * Deletes the commit specified by the given study plan index and commit number.
+     */
+    public void deleteCommit(int studyPlanIndex, int commitNumber) throws CommitNotFoundException {
+        requireNonNull(activeStudyPlan);
+
+        if (studyPlanIndex != activeStudyPlan.getIndex()) {
+            throw new StudyPlanNotFoundException();
+        }
+
+        StudyPlanCommitManager manager = versionTrackingManager.getStudyPlanCommitManagerByStudyPlan(activeStudyPlan);
+        manager.deleteCommit(commitNumber);
+    }
+
+    //=========== Tagging =================================================================================
+
+    public boolean addTagToActiveSp(UserTag tag, String moduleCode) {
+        return activeStudyPlan.addTag(tag, moduleCode);
+    }
+
+    public boolean activeSpContainsTag(String tagName) {
+        return activeStudyPlan.containsTag(tagName);
+    }
+
+    public Tag getTagFromActiveSp(String tagName) {
+        return activeStudyPlan.getTag(tagName);
+    }
+
+    public UniqueTagList getTagsFromActiveSp() {
+        return activeStudyPlan.getTags();
+    }
+
+    public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
+        return activeStudyPlan.getModuleTags(moduleCode);
+    }
+
+    public void deleteTagFromActiveSp(UserTag toDelete) {
+        activeStudyPlan.deleteTag(toDelete);
+    }
+
+    public void removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+        activeStudyPlan.removeTagFromAllModules(toRemove);
+    }
+
+    public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {
+        return activeStudyPlan.removeTagFromModule(toRemove, moduleCode);
+    }
+
+    public void updateAllCompletedTags() {
+        activeStudyPlan.updateAllCompletedTags();
+    }
+
+    //=========== Util Methods =================================================================================
+    public HashMap<String, Module> getModulesFromActiveSp() {
+        return activeStudyPlan.getModules();
+    }
 
     @Override
     public String toString() {

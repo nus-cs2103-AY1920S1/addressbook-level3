@@ -1,13 +1,19 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 
 /**
@@ -136,7 +142,18 @@ public interface Model {
      */
     void deleteStudyPlanCommitManagerByIndex(int index);
 
-    // ===================== MODULE INFORMATION ==========================
+    /**
+     * Reverts the current active study plan to the commit specified by the given index. Make this version
+     * of the study plan active.
+     */
+    void revertToCommit(int studyPlanIndex, int commitNumber);
+
+    /**
+     * Deletes the commit specified by the given study plan index and commit number.
+     */
+    void deleteCommit(int studyPlanIndex, int commitNumber);
+
+    // ===================== MODULE INFORMATION AND VERIFICATION ==========================
 
     /**
      * Returns true if the module code is a valid, false otherwise.
@@ -153,6 +170,10 @@ public interface Model {
      */
     String getModuleInformation(String moduleCode);
 
+    /**
+     * Returns a list of valid modules that can be taken in a given semester.
+     */
+    List<String> getValidMods(SemesterName semName);
 
     /**
      * Returns true if a Semester contains a module with same identity as {@code module}.
@@ -189,5 +210,27 @@ public interface Model {
     void setSemester(SemesterName semester);
 
     Semester getSemester(SemesterName semesterName);
+
+    // ===================== TAGGING ==========================
+
+    boolean addTagToActiveSp(UserTag tag, String moduleCode);
+
+    boolean activeSpContainsTag(String tagName);
+
+    void deleteTagFromActiveSp(UserTag toDelete);
+
+    void removeTagFromAllModulesInActiveSp(UserTag toRemove);
+
+    boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode);
+
+    void updateAllCompletedTags();
+
+    Tag getTagFromActiveSp(String tagName);
+
+    UniqueTagList getTagsFromActiveSp();
+
+    UniqueTagList getModuleTagsFromActiveSp(String moduleCode);
+
+    HashMap<String, Module> getModulesFromActiveSp();
 
 }

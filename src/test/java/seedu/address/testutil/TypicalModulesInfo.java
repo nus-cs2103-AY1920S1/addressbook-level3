@@ -16,7 +16,7 @@ public class TypicalModulesInfo {
             "CS1101S",
             "Programming Methodology",
             4,
-            false,
+            true,
             true,
             new ArrayList<>(),
             new ArrayList<>(),

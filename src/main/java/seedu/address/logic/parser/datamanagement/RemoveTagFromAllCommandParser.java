@@ -1,8 +1,9 @@
 package seedu.address.logic.parser.datamanagement;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.TAG_PATTERN;
 
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
@@ -10,7 +11,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -22,8 +22,8 @@ public class RemoveTagFromAllCommandParser implements Parser<RemoveTagFromAllCom
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Pattern... patterns) {
+        return Stream.of(patterns).allMatch(pattern -> argumentMultimap.getValue(pattern).isPresent());
     }
 
     /**
@@ -34,14 +34,14 @@ public class RemoveTagFromAllCommandParser implements Parser<RemoveTagFromAllCom
      */
     public RemoveTagFromAllCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, TAG_PATTERN);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)
+        if (!arePrefixesPresent(argMultimap, TAG_PATTERN)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RemoveTagFromAllCommand.MESSAGE_USAGE));
         }
-        String tagName = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+        String tagName = ParserUtil.parseTag(argMultimap.getValue(TAG_PATTERN).get());
         return new RemoveTagFromAllCommand(tagName);
     }
 }

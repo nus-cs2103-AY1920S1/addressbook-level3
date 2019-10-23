@@ -14,7 +14,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Semester}.
  */
 public class SemesterCard extends UiPart<Region> {
 
@@ -48,7 +48,7 @@ public class SemesterCard extends UiPart<Region> {
         super(FXML);
         this.semester = semester;
         name.setText(semester.getSemesterName().name());
-        totalMcCount.setText("(" + Integer.toString(semester.getMcCount()) + ")");
+        totalMcCount.setText("(" + semester.getMcCount() + ")");
 
         ObservableList<Module> modules = semester.getModules().asUnmodifiableObservableList();
 

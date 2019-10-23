@@ -52,7 +52,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
      */
     public boolean containsTagWithName(String tagName) {
         requireNonNull(tagName);
-        return mapTags.containsKey(tagName);
+        return mapTags.containsKey(tagName.toUpperCase());
     }
 
     /**
@@ -68,7 +68,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
-        mapTags.put(toAdd.getTagName(), toAdd);
+        mapTags.put(toAdd.getTagName().toUpperCase(), toAdd);
     }
 
     /**
@@ -91,11 +91,11 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
         internalList.set(index, editedTag);
         mapTags.remove(target.getTagName());
-        mapTags.put(editedTag.getTagName(), editedTag);
+        mapTags.put(editedTag.getTagName().toUpperCase(), editedTag);
     }
 
     public DefaultTag getDefaultTag(String defaultTagName) throws TagNotFoundException {
-        Tag correspondingTag = mapTags.get(defaultTagName);
+        Tag correspondingTag = mapTags.get(defaultTagName.toUpperCase());
         if (correspondingTag == null || !correspondingTag.isDefault()) {
             throw new TagNotFoundException();
         }
@@ -104,21 +104,35 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     /**
      * Gets a specific tag that has the given tag name.
+     *
      * @param tagName Name of the tag
      * @return Tag
      */
     public Tag getTag(String tagName) throws TagNotFoundException {
-        if (!mapTags.containsKey(tagName)) {
+        if (!mapTags.containsKey(tagName.toUpperCase())) {
             throw new TagNotFoundException();
         }
-        return mapTags.get(tagName);
+        return mapTags.get(tagName.toUpperCase());
+    }
+
+    /**
+     * Removes completed tags. Should only be used when updating current semesters.
+     */
+    public void removeCompletedTag(DefaultTag toRemove) {
+        if (!toRemove.getDefaultTagType().equals(DefaultTagType.COMPLETED)) {
+            throw new InvalidTagModificationException();
+        }
+        if (!internalList.remove(toRemove)) {
+            throw new TagNotFoundException();
+        }
+        mapTags.remove(toRemove.getTagName());
     }
 
     /**
      * Removes the equivalent UserTag from the list.
      * The UserTag must exist in the list.
      */
-    public void remove(Tag toRemove) throws TagNotFoundException, InvalidTagModificationException {
+    public void removeTag(Tag toRemove) throws TagNotFoundException, InvalidTagModificationException {
         requireNonNull(toRemove);
         if (toRemove.isDefault()) {
             throw new InvalidTagModificationException();
@@ -136,7 +150,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         HashMap<String, Tag> newMap = replacement.getMapTags();
         Set<String> newKeys = newMap.keySet();
         for (String newKey : newKeys) {
-            mapTags.put(newKey, newMap.get(newKey));
+            mapTags.put(newKey.toUpperCase(), newMap.get(newKey));
         }
     }
 
@@ -153,8 +167,8 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
         internalList.setAll(tags);
         mapTags.clear();
-        for (Tag newTag: tags) {
-            mapTags.put(newTag.getTagName(), newTag);
+        for (Tag newTag : tags) {
+            mapTags.put(newTag.getTagName().toUpperCase(), newTag);
         }
     }
 
