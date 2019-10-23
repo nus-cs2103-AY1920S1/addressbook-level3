@@ -26,7 +26,7 @@ public class OrderBuilder {
     private static final Customer DEFAULT_CUSTOMER = CUSTOMERONE;
     private static final Phone DEFAULT_PHONE = IPHONEONE;
     private static final String DEFAULT_PRICE = "$1212";
-    private static final Status DEFAULT_STATUS = Status.COMPLETED;
+    private static final Status DEFAULT_STATUS = Status.UNSCHEDULED;
     private static final Optional<Schedule> DEFAULT_SCHEDULE = Optional.empty();
 
     private UUID id;
