@@ -12,11 +12,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="900.0" maximized="true" minWidth="1400.0" onCloseRequest="#handleExit" title="\$aveNUS" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maximized="true" minHeight="900.0" minWidth="1400.0" onCloseRequest="#handleExit" title="\$aveNUS" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/savenus_logo.png" />
     </icons>
@@ -83,75 +85,96 @@
                                         </VBox>
                                         <StackPane fx:id="statusbarPlaceholder" />
                                     </VBox>
-                           <TabPane styleClass="tab-pane-with-border" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE">
-                             <tabs>
-                               <Tab text="History">
-                                 <content>
-                                       <VBox maxHeight="1.7976931348623157E308" prefHeight="655.0" prefWidth="670.0" spacing="10.0" styleClass="vbox-tab-pane-with-border" stylesheets="@DarkTheme.css">
-                                          <children>
-                                             <AnchorPane prefHeight="148.0" prefWidth="670.0" VBox.vgrow="NEVER">
+                           <VBox styleClass="vbox-tab-pane-with-border" stylesheets="@DarkTheme.css">
+                              <children>
+                                 <AnchorPane VBox.vgrow="NEVER">
+                                    <children>
+                                       <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="54.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/Wallet.png" />
+                                          </image>
+                                       </ImageView>
+                                                  <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="204.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="money" wrappingWidth="386.0">
+                                                      <font>
+                                                          <Font name="Monospaced Regular" size="51.0" />
+                                                      </font>
+                                                  </Text>
+                                                  <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="205.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="days" wrappingWidth="174.0">
+                                                      <font>
+                                                          <Font name="Franklin Gothic Demi Cond" size="27.0" />
+                                                      </font>
+                                                  </Text>
+                                    </children>
+                                    <VBox.margin>
+                                       <Insets bottom="20.0" />
+                                    </VBox.margin>
+                                 </AnchorPane>
+                                 <TabPane styleClass="tab-pane-with-border" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE">
+                                   <tabs>
+                                     <Tab text="History">
+                                       <content>
+                                             <VBox maxHeight="1.7976931348623157E308" prefHeight="655.0" prefWidth="670.0" spacing="10.0" styleClass="vbox-tab-pane-with-border" stylesheets="@DarkTheme.css">
                                                 <children>
-                                                   <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="54.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                                                      <image>
-                                                         <Image url="@../images/Wallet.png" />
-                                                      </image>
-                                                   </ImageView>
-                                                              <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="204.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="money" wrappingWidth="386.0">
-                                                                  <font>
-                                                                      <Font name="Monospaced Regular" size="51.0" />
-                                                                  </font>
-                                                              </Text>
-                                                              <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="205.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="days" wrappingWidth="174.0">
-                                                                  <font>
-                                                                      <Font name="Franklin Gothic Demi Cond" size="27.0" />
-                                                                  </font>
-                                                              </Text>
+                                                               <Text fill="white" text="Purchase History" textAlignment="CENTER" wrappingWidth="630.0" VBox.vgrow="NEVER">
+                                                                   <font>
+                                                                       <Font name="Franklin Gothic Demi Cond" size="40.0" />
+                                                                   </font>
+                                                      <VBox.margin>
+                                                         <Insets bottom="20.0" />
+                                                      </VBox.margin>
+                                                               </Text>
+                                                              <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                                                  <VBox fx:id="purchaseList" maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                                                                      <padding>
+                                                                          <Insets bottom="10" left="10" right="10" top="10" />
+                                                                      </padding>
+                                                                      <StackPane fx:id="purchaseListPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                                                          <VBox.margin>
+                                                                              <Insets />
+                                                                          </VBox.margin>
+                                                                      </StackPane>
+                                                                  </VBox>
+                                                              </VBox>
                                                 </children>
-                                             </AnchorPane>
-                                                         <Text fill="white" text="Purchase History" textAlignment="CENTER" wrappingWidth="630.0" VBox.vgrow="NEVER">
-                                                             <font>
-                                                                 <Font name="Franklin Gothic Demi Cond" size="40.0" />
-                                                             </font>
-                                                         </Text>
-                                                        <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                                                            <VBox fx:id="purchaseList" maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                                                                <padding>
-                                                                    <Insets bottom="10" left="10" right="10" top="10" />
-                                                                </padding>
-                                                                <StackPane fx:id="purchaseListPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                                                                    <VBox.margin>
-                                                                        <Insets />
-                                                                    </VBox.margin>
-                                                                </StackPane>
-                                                            </VBox>
-                                                        </VBox>
-                                          </children>
-                                          <padding>
-                                             <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                                          </padding>
-                                       </VBox>
-                                 </content>
-                               </Tab>
-                               <Tab closable="false" text="Savings">
-                                 <content>
-                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="vbox-tab-pane-with-border" stylesheets="@DarkTheme.css">
-                                          <children>
-                                             <Text fill="WHITE" layoutX="39.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MADE YOU LOOK GOTEEM" textAlignment="CENTER" wrappingWidth="594.13671875">
-                                                <font>
-                                                   <Font name="Franklin Gothic Demi Cond" size="43.0" />
-                                                </font>
-                                             </Text>
-                                             <Text fill="WHITE" layoutX="39.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="More to be added!" textAlignment="CENTER" wrappingWidth="594.13671875">
-                                                <font>
-                                                   <Font name="Franklin Gothic Demi Cond" size="43.0" />
-                                                </font>
-                                             </Text>
-                                          </children>
-                                       </AnchorPane>
-                                 </content>
-                               </Tab>
-                             </tabs>
-                           </TabPane>
+                                                <padding>
+                                                   <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                                                </padding>
+                                             </VBox>
+                                       </content>
+                                     </Tab>
+                                     <Tab closable="false" text="Savings">
+                                          <content>
+                                             <VBox prefHeight="200.0" prefWidth="100.0">
+                                                <children>
+                                                   <Text strokeWidth="0.0" text="Savings History" textAlignment="CENTER" wrappingWidth="630.0" VBox.vgrow="NEVER">
+                                                      <font>
+                                                         <Font name="Franklin Gothic Demi Cond" size="40.0" />
+                                                      </font>
+                                                      <fill>
+                                                         <LinearGradient endX="1.0" endY="1.0">
+                                                            <stops>
+                                                               <Stop color="WHITE" />
+                                                               <Stop color="WHITE" offset="1.0" />
+                                                            </stops>
+                                                         </LinearGradient>
+                                                      </fill></Text>
+                                                   <VBox maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                                      <children>
+                                                         <VBox VBox.vgrow="ALWAYS">
+                                                            <children>
+                                                               <StackPane fx:id="savingsHistoryPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                                            </children>
+                                                         </VBox>
+                                                      </children>
+                                                   </VBox>
+                                                </children>
+                                             </VBox>
+                                          </content>
+                                     </Tab>
+                                   </tabs>
+                                 </TabPane>
+                              </children>
+                           </VBox>
                                 </children>
                             </HBox>
                         </children>

@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private InfoWindow infoWindow;
+    private SavingsHistoryPanel savingsHistoryPanel;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -47,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane purchaseListPanelPlaceholder;
+
+    @FXML
+    private StackPane savingsHistoryPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -88,6 +92,9 @@ public class MainWindow extends UiPart<Stage> {
 
         purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistoryList());
         purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
+
+        savingsHistoryPanel = new SavingsHistoryPanel(logic.getSavingsHistory().getSavingsHistory());
+        savingsHistoryPanelPlaceholder.getChildren().add(savingsHistoryPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -243,8 +250,11 @@ public class MainWindow extends UiPart<Stage> {
                 foodListPanel.showLastItem();
             }
 
-            // Update purchaseListPanel after every
+            // Update purchaseListPanel after every command.
             purchaseListPanel.updatePurchaseList(logic.getPurchaseHistoryList());
+
+            // Update savingsHistoryPanel after every command.
+            savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getSavingsHistory());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
