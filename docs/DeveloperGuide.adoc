@@ -271,6 +271,12 @@ of the activity diagram shows a filtered list by the Find Command's keywords.
 To view the full transaction list, the user would have to input the
 Back Command that calls `resetPredicate()`.
 
+==== [Proposed] Clear Command
+
+==== [Proposed] Auto-complete feature
+
+
+
 === Members Tab
 // tag::undoredo[]
 ==== [Proposed] Undo/Redo feature
@@ -600,59 +606,109 @@ The user keys in a negative amount
 +
 Use case resumes from step 4
 
-=== Transaction Tab
+=== Home Tab
 
 [discrete]
 === Use Case 3: Add a transaction
 
+*Preconditions*
+
+* User inputs spending as a negative amount and sales revenue is inputted as a positive amount
+for the transaction.
+
 *MSS*
 
-1. User type in command field
+1. User type in command field with add command
 2. Lion replies with success message
+3. Table shows list of transactions
 
 *Extension*
 
 [none]
 * 2a.
-Lion replies with wrong input message
+Lion replies with wrong input message if input is invalid
 
 [discrete]
-=== Use Case 4: Delete a transaction
+=== Use Case 4: Delete a transaction by index
+
+*Preconditions*
+
+* There is transactions shown in the table
 
 *MSS*
 
-1. User type command in command field
-2. Lion replies with a confirmation message
-3. User types confirmation
-4. Lion replies with success message and info on all transactions
+1. User type command in command field with the index
+2. Lion replies with success message and info on all transactions
+3. Table shows list of transactions
 
 
 *Extension*
 
 [none]
+* 2a.
+Lion replies with wrong input if invalid index inputted
+
 * 3a.
-Lion replies with wrong input message
+User input back command for table to show all transactions if find command was prior to the
+delete command
+
+[discrete]
+=== Use Case 4: Delete a transaction by the person's name
+
+*Preconditions*
+
+* There is transactions shown in the table
+
+*MSS*
+
+1. User type command in command field with the person's name
+2. Lion replies with success message and info on all transactions
+3. Table shows list of transactions
+
+
+*Extension*
+
+[none]
+* 2a.
+Lion replies with wrong input if invalid index inputted
+
+* 3a.
+User input back command for table to show all transactions if find command was prior to the
+delete command
 
 [discrete]
 === Use Case 5: Edit a transaction
+
+*Preconditions*
+
+* User inputs spending as a negative amount and sales revenue is inputted as a positive amount
+for the transaction.
+
+* There is transactions shown in the table
+
 
 *MSS*
 
 1. Type in command field
 2. Lion replies with message
+3. Table shows transactions
 
 *Extension*
 
 [none]
 * 2a.
-Lion replies with wrong input message
+Lion replies with wrong input message if there is invalid index or person given
+
+* 3a.
+User input back command for table to show all transactions if find command was prior to the
+delete command
 
 [discrete]
 === Use Case 6: Sort transactions
 
 *MSS*
 
-1. Type in command field
+1. Type in command field with sort command
 2. Lion replies with success message
 3. List is sorted
 
@@ -661,7 +717,7 @@ Lion replies with wrong input message
 
 [none]
 * 2a.
-Lion replies with wrong input message
+Lion replies with wrong input message if there invalid input
 
 === Reimbursement Tab
 
