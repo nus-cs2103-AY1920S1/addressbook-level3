@@ -273,12 +273,42 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::add-ad.PNG[]
 // end ::add[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::revieweatery[]
+=== [Proposed] Review eatery
 
-_{Explain here how the data encryption feature will be implemented}_
+The review mechanism is facilitated by the existing `AddressBook`.
+It extends `AddressBook` with a review field, stored internally as an array list of reviews along with other
+attributes of an eatery.
+Additionally, it implements the following operations:
 
-// end::dataencryption[]
+* `AddressBook#review()` -- Adds a review to the eatery identified by the user  input.
+* `AddressBook#editReview()` -- Edits a previously written review.
+
+
+Given below is an example usage scenario and how the review mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The user adds an eatery to through an `add command`.
+
+Step 2. The user executes `review 1 ...` command to add a review to the 1st eatery in the address book. The `review` command calls `Eatery#addReview()`, causing the application to add a review field correspondingly to the specified eatery.
+
+Step 3. The user executes `open 1` to get the complete details of the 1st eatery.
+
+Ste] 4. The user now decides to execute `edit review 1 ...` to edit the 1st review of the eatery shown on using the `open 1` command in the previous step. This calls the `EatMe#editcommand()`.
+
+===== Aspect: How review and edit review execute
+
+* **Alternative 1 (current choice):** Review field under eatery is not nested further. It adds and modifies review of eateries without created new eatery objects as in the case of edit command.
+** Pros: Easy to implement and is faster.
+** Cons: May have less OOP structure as compared to other commands.
+* **Alternative 2:** Review field is nested further and each addition of review or edit to a review creates a new eatery object with all the reviews.
+** Pros: Is structured in a more OOP manner.
+** Cons: May decrease performance and difficult to implement.
+
+* **Alternative 1 (current choice):** Use a list to store and edit the reviews of an eatery.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: List is not immutable.
+
+// end::revieweatery[]
 
 === Logging
 
@@ -526,3 +556,6 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+
