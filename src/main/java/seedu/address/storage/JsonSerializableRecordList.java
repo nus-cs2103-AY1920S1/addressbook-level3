@@ -23,7 +23,7 @@ public class JsonSerializableRecordList implements JsonSerializableContent<Uniqu
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given foods.
+     * Constructs a {@code JsonSerializableRecordList} with the given records.
      */
     @JsonCreator
     public JsonSerializableRecordList(@JsonProperty("records") List<JsonAdaptedRecord> records) {
@@ -31,9 +31,9 @@ public class JsonSerializableRecordList implements JsonSerializableContent<Uniqu
     }
 
     /**
-     * Converts a given {@code UniqueFoodList} into this class for Jackson use.
+     * Converts a given {@code UniqueRecordList} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableFoodList}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableRecordList}.
      */
     public JsonSerializableRecordList(UniqueRecordList source) {
         records.addAll(source.asUnmodifiableObservableList().stream().map(JsonAdaptedRecord::new)
@@ -41,7 +41,7 @@ public class JsonSerializableRecordList implements JsonSerializableContent<Uniqu
     }
 
     /**
-     * Converts this food list into the model's {@code UniqueFoodList} object.
+     * Converts this record list into the model's {@code UniqueRecordList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

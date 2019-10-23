@@ -10,8 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Concentration {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Concentration should only contain numeric characters and at most a single decimal,"
-            + " and it should not be blank";
+        "Concentration should only contain a positive real number";
     public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
     private final double concentration;
 
@@ -21,6 +20,10 @@ public class Concentration {
         this.concentration = Double.parseDouble(concentration);
     }
 
+    public double getConcentration() {
+        return concentration;
+    }
+
     public static boolean isValidConcentration(String test) {
         return test.matches(VALIDATION_REGEX);
     }
@@ -28,7 +31,7 @@ public class Concentration {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Weight // instanceof handles nulls
+            || (other instanceof Concentration // instanceof handles nulls
             && concentration == ((Concentration) other).concentration); // state check
     }
 

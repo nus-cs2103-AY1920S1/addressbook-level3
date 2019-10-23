@@ -8,7 +8,7 @@ import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Record;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code BmiRecord}.
  */
 public class BmiRecordCard extends UiPart<Region> {
 
@@ -43,9 +43,9 @@ public class BmiRecordCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         String recordType = record.getClass().getSimpleName();
         this.recordType.setText(recordType);
-        dateTime.setText(record.getDateTime().toString());
-        height.setText(record.getHeight().toString());
-        weight.setText(record.getWeight().toString());
+        dateTime.setText("DateTime: " + record.getDateTime().toString());
+        height.setText("Height: " + record.getHeight().toString());
+        weight.setText("Weight: " + record.getWeight().toString());
 
     }
 
