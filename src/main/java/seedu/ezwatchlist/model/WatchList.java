@@ -79,9 +79,9 @@ public class WatchList implements ReadOnlyWatchList {
     /**
      * Returns the list of shows that has the same name as the given argument as the current watch list.
      */
-    public List<Show> getShowIfSameNameAs(Name showName) {
+    public List<Show> getShowIfHasName(Name showName) {
         requireNonNull(showName);
-        return shows.getShowIfSameNameAs(showName);
+        return shows.getShowIfHasName(showName);
     }
 
     /**

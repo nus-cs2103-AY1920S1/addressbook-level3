@@ -69,7 +69,7 @@ public interface Model {
     /**
      * Returns the list of shows that has the same name as the given argument as the current watch list.
      */
-    List<Show> getShowIfSameNameAs(Name showName);
+    List<Show> getShowIfHasName(Name showName);
 
     /**
      * Deletes the given show.

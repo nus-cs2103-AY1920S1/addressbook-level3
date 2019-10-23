@@ -136,7 +136,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public List<Show> getShowIfSameNameAs(Name showName) {
+        public List<Show> getShowIfHasName(Name showName) {
             throw new AssertionError("This method should not be called.");
         }
 

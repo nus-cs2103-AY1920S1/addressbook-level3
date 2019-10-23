@@ -108,9 +108,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Show> getShowIfSameNameAs(Name showName) {
+    public List<Show> getShowIfHasName(Name showName) {
         requireNonNull(showName);
-        return watchList.getShowIfSameNameAs(showName);
+        return watchList.getShowIfHasName(showName);
     }
 
     @Override

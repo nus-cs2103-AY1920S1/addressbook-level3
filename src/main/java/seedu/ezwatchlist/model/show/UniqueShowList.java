@@ -50,11 +50,11 @@ public class UniqueShowList implements Iterable<Show> {
     /**
      * Returns the list of shows that has the same name as the given argument as the current watch list.
      */
-    public List<Show> getShowIfSameNameAs(Name showName) {
+    public List<Show> getShowIfHasName(Name showName) {
         requireNonNull(showName);
         Show currentShow = new Show(showName, new Description(), new IsWatched(false), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
-        return internalList.stream().filter(show -> show.isSameName(currentShow)).collect(Collectors.toList());
+        return internalList.stream().filter(show -> show.hasNameWithWord(currentShow)).collect(Collectors.toList());
     }
 
     /**

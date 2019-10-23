@@ -16,6 +16,11 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.*;
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
     HashMap<String, List<String>> searchShowsHashMap = new HashMap<>();
+    public static final String KEY_NAME = "name";
+    public static final String KEY_TYPE = "type";
+    public static final String KEY_ACTOR = "actor";
+    public static final String KEY_IS_WATCHED = "is_watched";
+    public static final String KEY_IS_INTERNAL = "is_internal";
 
     /**
      * Parses the given {@code String} of arguments in the context of the SearchCommand
@@ -42,44 +47,38 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     }
 
     private void parseNameToBeSearched(List<String> name_optional) {
-        searchShowsHashMap.put("name", name_optional);
+        searchShowsHashMap.put(KEY_NAME, name_optional);
     }
 
     private void parseTypeToBeSearched(Optional<String> type_optional) {
-        ArrayList<String> listOfType = new ArrayList<String>();
+        ArrayList<String> listOfType = new ArrayList<String>(); // Empty if can be of any type
         if (type_optional.isPresent()) {
             String type = type_optional.get().trim();
             listOfType.add(type);
-        } else {
-            listOfType.add("movie");
-            listOfType.add("tv");
         }
-        searchShowsHashMap.put("type", listOfType);
+        searchShowsHashMap.put(KEY_TYPE, listOfType);
     }
 
     private void parseActorToBeSearched(List<String> actor_optional) {
-        searchShowsHashMap.put("actor", actor_optional);
+        searchShowsHashMap.put(KEY_ACTOR, actor_optional);
     }
 
     private void parseIsWatchedToBeSearched(Optional<String> is_watched_optional) {
-        ArrayList<String> listOfIsWatched = new ArrayList<String>();
-        if (is_watched_optional.isPresent()) {
+        ArrayList<String> listOfIsWatched = new ArrayList<String>(); // Empty if can be any
+        if (is_watched_optional.isPresent()) { // true or yes || false or no
             String is_watched = is_watched_optional.get().trim();
             listOfIsWatched.add(is_watched);
-        } else {
-            listOfIsWatched.add("false");
-            listOfIsWatched.add("true");
         }
-        searchShowsHashMap.put("is_watched", listOfIsWatched);
+        searchShowsHashMap.put(KEY_IS_WATCHED, listOfIsWatched);
     }
 
     private void parseIsInternalToBeSearched(Optional<String> is_internal_optional) {
-        ArrayList<String> listOfIsInternal = new ArrayList<String>();
-        if (is_internal_optional.isPresent()) {
-            String is_internal = is_internal_optional.get().trim(); // true or yes || false or no
+        ArrayList<String> listOfIsInternal = new ArrayList<String>(); // Empty if can be any
+        if (is_internal_optional.isPresent()) { // true or yes || false or no
+            String is_internal = is_internal_optional.get().trim();
             listOfIsInternal.add(is_internal);
         }
-        searchShowsHashMap.put("is_internal", listOfIsInternal);
+        searchShowsHashMap.put(KEY_IS_INTERNAL, listOfIsInternal);
     }
 
 }

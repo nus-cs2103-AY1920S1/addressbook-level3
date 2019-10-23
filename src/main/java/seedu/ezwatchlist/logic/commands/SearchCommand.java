@@ -50,7 +50,7 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            if (!is_internal_list.isEmpty()) { // set to be must internal (if true or yes)
+            if (!is_internal_list.isEmpty()) {
                 if (is_internal_list.get(0).equals("true") || is_internal_list.get(0).equals("yes")) {
                     for (String showName : name_list) {
                         addShowFromWatchListIfSameNameAs(showName, model);
@@ -62,7 +62,7 @@ public class SearchCommand extends Command {
                 } else {
                     throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
                 }
-            } else {
+            } else { // there's no restriction on where to search from
                 for (String showName : name_list) {
                     addShowFromWatchListIfSameNameAs(showName, model);
                     addShowFromOnlineIfSameNameAs(showName);
@@ -80,7 +80,7 @@ public class SearchCommand extends Command {
 
     private void addShowFromWatchListIfSameNameAs(String showName, Model model) {
         if (!showName.equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
-            List<Show> filteredShowList = model.getShowIfSameNameAs(new Name(showName));
+            List<Show> filteredShowList = model.getShowIfHasName(new Name(showName));
             for (Show show : filteredShowList) {
                 searchResult.add(show);
             }

@@ -95,6 +95,14 @@ public class Show {
                 && (otherShow.getDateOfRelease().equals(getDateOfRelease()) || otherShow.isWatched() == (isWatched()));
     }
 
+    public boolean hasNameWithWord(Show otherShow) {
+        if (isSameName(otherShow)) {
+            return true;
+        } else {
+            return this.getName().getName().toLowerCase().contains(otherShow.getName().getName().toLowerCase());
+        }
+    }
+
     public boolean isSameName(Show otherShow) {
         if (otherShow == this) {
             return true;
