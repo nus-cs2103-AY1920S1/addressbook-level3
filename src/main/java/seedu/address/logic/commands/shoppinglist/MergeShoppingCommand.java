@@ -28,6 +28,12 @@ public class MergeShoppingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Merged all bought shopping items into grocery list.";
 
+    /**
+     * Creates an updated grocery item with the sum of its amount and boughtItem's quantity as quantity
+     * @param boughtItem boughtItem with same name as the groceryItem
+     * @param groceryItem
+     * @return
+     */
     private GroceryItem createUpdatedGroceryItem(GroceryItem boughtItem, GroceryItem groceryItem) {
         Name name = boughtItem.getName();
         ExpiryDate expiryDate = boughtItem.getExpiryDate();
@@ -57,7 +63,7 @@ public class MergeShoppingCommand extends Command {
         }
     }
 
-    private boolean modifyGroceryListAccordingToBoughtItem(GroceryItem boughtItem, Model model) {
+    private void modifyGroceryListAccordingToBoughtItem(GroceryItem boughtItem, Model model) {
         boolean toAdd = true;
         List<GroceryItem> groceryList = model.getFilteredGroceryItemList();
         for (int j = 0; j < groceryList.size(); j++) {
@@ -72,14 +78,12 @@ public class MergeShoppingCommand extends Command {
         if (toAdd) {
             model.addGroceryItem(boughtItem);
         }
-        return toAdd;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         List<GroceryItem> lastShownBoughtList = model.getFilteredBoughtItemList();
-        List<GroceryItem> groceryList = model.getFilteredGroceryItemList();
         for (int i = 0; i < lastShownBoughtList.size(); i++) {
             GroceryItem boughtItem = lastShownBoughtList.get(i);
             modifyGroceryListAccordingToBoughtItem(boughtItem, model);
