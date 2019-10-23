@@ -235,6 +235,57 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
+
+// tag::genpdf[]
+=== Generate PDF feature
+==== Implementation
+
+The generate PDF feature is facilitated by `ReportGenerator`.
+It extends `Mortago` with the ability to create a report, supported by iText external library.
+Additionally, it implements the following operations:
+
+* `ReportGenerator#generate(body)` -- Creates report in a PDF file for the specific body.
+* `ReportGenerator#generateAll()` -- Creates report in a PDF file for all bodies registered in Mortago.
+
+The following sequence diagram shows how the execute operation works:
+
+image::GenReportSequenceDiagram.png[]
+
+NOTE: The lifeline for `GenReportCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creates the document.
+
+The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID>` command:
+
+image::GenReportActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How generate report executes
+
+* **Alternative 1 (current choice):** Creates a PDF file.
+** Pros: Implementation is easy.
+** Cons: Implementation must ensure that each individual body attribute is correct.
+* **Alternative 2:** Creates a Word Document file.
+** Pros: Implementation allows user to edit the contents of the report.
+** Cons: Implementation defeats the purpose of being automated.
+
+===== Aspect: How report is formatted
+
+* **Alternative 1 (current choice):** Uses tables to organise related details in the report.
+** Pros: Implementation allows report to be organised, increases readability for user.
+** Cons: Implementation is tedious.
+* **Alternative 2:** Lists all attributes in the report without any formatting.
+** Pros: Implementation is easy.
+** Cons: Implementation decreases readability for user.
+// end::genpdf[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
