@@ -4,6 +4,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.util.FileUtil.isFileExists;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_1;
@@ -75,8 +76,9 @@ public class ExportCommandTest {
     }
 
     private boolean isFilePresent(DocumentPath documentPath) {
-        File file = new File(documentPath.toString());
-        return file.exists();
+        return isFileExists(
+                documentPath.getPath()
+        );
     }
 
     private void deleteFile(DocumentPath documentPath) {

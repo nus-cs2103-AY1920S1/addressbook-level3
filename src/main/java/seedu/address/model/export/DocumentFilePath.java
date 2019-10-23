@@ -41,6 +41,9 @@ public class DocumentFilePath {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public Path getPath() {
+        return path;
+    }
 
     @Override
     public String toString() {

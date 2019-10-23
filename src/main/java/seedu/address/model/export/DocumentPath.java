@@ -88,6 +88,13 @@ public class DocumentPath {
         );
     }
 
+    public Path getPath() {
+        Path dirPath = directoryPath.getPath();
+        Path docFilePath = documentFilePath.getPath();
+
+        return dirPath.resolve(docFilePath);
+    }
+
     @Override
     public String toString() {
         return directoryPath.toString() + File.separator + documentFilePath.toString();
@@ -99,11 +106,8 @@ public class DocumentPath {
      * @return String representing the absolute path of this DocumentPath
      */
     public String toAbsolutePathString() {
-        Path dirPath = Paths.get(directoryPath.toString());
-        Path docFilePath = Paths.get(documentFilePath.toString());
-
-        return dirPath
-                .resolve(docFilePath)
+        return this
+                .getPath()
                 .toAbsolutePath()
                 .normalize()
                 .toString();
