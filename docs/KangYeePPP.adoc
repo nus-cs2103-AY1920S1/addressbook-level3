@@ -24,7 +24,7 @@ Computer Science students and the other is a year 4 Computer Engineering student
 === About the project
 
 This project is part of the module Software Engineering Project, CS2103T where we were tasked to develop a basic
-command line interface footnote:[Command line interface applications allow users to use all the features in the app by typing and without a need to click on anything]
+command line interface <<CLI>>
 desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
@@ -56,7 +56,7 @@ This is what our application looks like when it is first opened. (graphical user
 image:Ui.png[]
 
 == Summary of contributions
-My role was to design and write the codes for the Home Tab features. The following sections illustrate these
+My role was to design and write the codes for the features of the `Home Tab`. The following sections illustrate these
 enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in
 relation to these enhancements.
 
@@ -64,20 +64,20 @@ relation to these enhancements.
 I added the enhancements of the different commands for the Home Tab.
 
 ==== Add, Delete and Edit Commands
-The basic create, read, update and delete (CRUD) commands were added. The user can [blue]`*add*`, [blue]`*delete*` and
-[blue]`*edit*` transactions.
+The basic create, read, update and delete (CRUD) commands were added such that the user can [blue]`*add*`, [blue]`*delete*` and
+[blue]`*edit*` transactions to keep track of them.
 
 * What it does:
 It allows the user to create, delete and update transactions. It also allows the application to restore data from
-previous usage of the application by reading a data text file.
+previous usage of the application by reading and saving data in a background text file.
 
 * Justification:
 It forms the fundamental features required for the `Home Tab` to be useful for users to keep track of transactions.
 
 * Highlights:
 These commands help to store and keep track of transactions in the `Home Tab` but also help keep track of sales
-transactions from the `Cashier Tab`. The transactions are also tabulated by members that require reimbursement in the
-`Reimbursement Tab`.
+transactions from the `Cashier Tab`. The transactions for each member's spending in this tab are also tabulated in the
+`Reimbursement Tab` to help the treasurer keep track of pending reimbursements.
 
 ==== Sort Command
 
@@ -85,11 +85,11 @@ A [blue]`*sort*` command was also implemented for the transactions in the table 
 
 * What it does:
 The addition of transactions requires the user to input the date, description, category, amount of money and
-person accountable for each transaction. Thus, the command helps to sort the transactions by the alphabetical order of
+person accountable for each transaction. Thus, this command helps to sort the transactions by the alphabetical order of
 the person's name, by the date (from oldest to most recent) or amount (from largest to smallest).
 
 * Justification:
-It is useful for users to keep track of transactions and look at the transaction records according to different
+It is useful for users to keep track of transactions and view the transaction records according to different
 priority.
 
 * Highlights:
@@ -133,12 +133,12 @@ The links lead to our team's GitHub repository
 
 
 === Other contributions
+The following section leads to the GitHub pull requests <<PR>> related to the contribution.
 
 * Integration of `Transaction Tab` with other newly implemented tabs
 
 ** Integrated `Transaction Tab` with `Reimbursement Tab`:
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[pull request #49]
-footnote:[Making a pull request is a way of submitting contributions to an open development project.]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[pull request #49] <<PR>>
 
 [NOTE]
 Our workflow requires us to push to our own forked repository before making a pull request to our group repository
@@ -146,8 +146,7 @@ which allows our members to review the new code before it can be merged with the
 
 * Integration of existing `AddressBook` into our application
 
-** Integrated the original `AddressBook` into the `Members Tab` in GUI footnote:[GUI stands for graphical user interface. It refers to the visual means of interacting with the application, such
-as windows, buttons and menus.]:
+** Integrated the original `AddressBook` into the `Members Tab` in graphical user interface <<GUI>>:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[pull request #42]
 
 ** Integrated the Edit and Delete command of `AddressBook` with the logic of `Transaction Tab`:
@@ -156,12 +155,11 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/85/commits/3aebcd9053985fcc0
 
 * Tools
 
-** Added Travis CI for the repository. footnote:[Travis CI will automatically detect when a commit has been made and pushed to the GitHub repository,
-and each time this happens, it will try to build the project and run tests according to the standards set.]
+** Added Travis CI <<TravisCI>> for the repository.
 
 [NOTE]
 By version 1.2, our team ensures that we only merge pull requests that pass all the tests to ensure
-we can meet the milestones with higher quality code.
+we can meet the milestones with higher code quality.
 
 * Documentation
 
@@ -228,9 +226,8 @@ due to prior the inputted Find Command.
 Since the reimbursement tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
 amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
 
-The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
+[[update-reimbursement-ppp]]The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
 
-[[update reimbursement]]
 image::TransactionUpdatingReimbursement.png[]
 [italic small red]*Figure 12. Sequence Diagram of updating Reimbursement Tab (reimbursement package)*
 
@@ -247,7 +244,7 @@ The following sequence diagram shows how the delete by name command works:
 image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
 [italic small red]*Figure 13. Sequence Diagram of Delete Command in Home Tab (transaction package)*
 
-After this, the reimbursement tab is updated as shown in <<update reimbursement, Figure 12>>.
+After this, the reimbursement tab is updated as shown in <<update-reimbursement-ppp, Figure 12>>.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
 
@@ -293,3 +290,18 @@ Back Command that calls `resetPredicate()`.
 (end of extract)
 
 === Proposed enhancement for v2.0
+
+
+[bibliography]
+=== Glossary
+
+[[CLI]] Command line interface (CLI): Command line interface applications allow users to use all the features in the app by typing and without a need to click on anything
+
+[[PR]] Pull request (PR): Making a pull request is a way of submitting contributions to an open development project. It allows the developers to approve code before
+it is added or merged with the current code in the project.
+
+[[GUI]] Graphical user interface (GUI): Refers to the visual means of interacting with the application, such
+as windows, buttons and menus.
+
+[[TravisCI]] Travis CI: Travis will automatically detect when a commit has been made and pushed to the GitHub repository that allows it access,
+and each time this happens, it will try to build the project and run tests according to the standards set by the developers.
