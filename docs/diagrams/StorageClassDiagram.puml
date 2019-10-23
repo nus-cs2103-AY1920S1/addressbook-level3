@@ -18,7 +18,8 @@ StorageManager o--> AddressBookStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonAddressBookStorage .right.> JsonSerializableAddressBookStorage
+JsonSerializableAddressBookStorage .right.> JsonAdaptedFlashcard
+JsonSerializableAddressBookStorage ..> JsonAdaptedDeadline
+JsonAdaptedFlashcard .right.> JsonAdaptedCategory
 @enduml
