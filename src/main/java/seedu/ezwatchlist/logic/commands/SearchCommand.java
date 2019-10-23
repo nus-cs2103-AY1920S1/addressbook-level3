@@ -1,27 +1,19 @@
 package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.ezwatchlist.api.ApiMain;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
-import seedu.ezwatchlist.logic.parser.ParserUtil;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.show.*;
-import seedu.ezwatchlist.api.ApiMain;
-import seedu.ezwatchlist.ui.SearchPanel;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Show;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-
-
 
 /**
  * Finds and lists all shows in watchlist whose name contains any of the argument keywords.
@@ -118,6 +110,4 @@ public class SearchCommand extends Command {
                 && is_watched_list.equals(((SearchCommand) other).is_watched_list)
                 && is_internal_list.equals(((SearchCommand) other).is_internal_list));
     }
-
-
 }

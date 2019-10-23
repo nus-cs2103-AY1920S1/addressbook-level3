@@ -1,19 +1,15 @@
 package seedu.ezwatchlist.logic.parser;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 import seedu.ezwatchlist.logic.commands.SearchCommand;
-import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.commons.core.Messages;
 
 import seedu.ezwatchlist.model.show.*;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.Date;
 
 import static seedu.ezwatchlist.logic.parser.CliSyntax.*;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 
 /**
  * Parses input arguments and creates a new SearchCommand object
