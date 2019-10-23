@@ -26,6 +26,13 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.ExchangeDataStorage;
 import seedu.address.storage.ExpenseListStorage;
 import seedu.address.storage.JsonExchangeDataStorage;
+import seedu.address.model.budget.BudgetList;
+import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.util.SampleDataUtil;
+
+import seedu.address.storage.BudgetListStorage;
+import seedu.address.storage.ExpenseListStorage;
+import seedu.address.storage.JsonBudgetListStorage;
 import seedu.address.storage.JsonExpenseListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -39,8 +46,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
-
+    public static final Version VERSION = new Version(1, 2, 1, false);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -60,8 +66,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ExpenseListStorage expenseListStorage = new JsonExpenseListStorage(userPrefs.getExpenseListFilePath());
+        BudgetListStorage budgetListStorage = new JsonBudgetListStorage(userPrefs.getBudgetListFilePath());        
         ExchangeDataStorage exchangeDataStorage = new JsonExchangeDataStorage(userPrefs.getExchangeDataFilePath());
-        storage = new StorageManager(expenseListStorage, exchangeDataStorage, userPrefsStorage);
+        storage = new StorageManager(expenseListStorage, budgetListStorage, exchangeDataStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -79,8 +86,10 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExpenseList> expenseListOptional;
+        Optional<ReadOnlyBudgetList> budgetListOptional;
         ReadOnlyExpenseList initialData;
         ExchangeData exchangeData = new ExchangeData();
+        ReadOnlyBudgetList initialBudgets;
         try {
             expenseListOptional = storage.readExpenseList();
             if (!expenseListOptional.isPresent()) {
@@ -96,7 +105,21 @@ public class MainApp extends Application {
             initialData = new ExpenseList();
         }
 
-        return new ModelManager(initialData, exchangeData, userPrefs);
+        try {
+            budgetListOptional = storage.readBudgetList();
+            if (!budgetListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample BudgetList");
+            }
+            initialBudgets = budgetListOptional.orElseGet(SampleDataUtil::getSampleBudgetList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty BudgetList");
+            initialBudgets = new BudgetList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty BudgetList");
+            initialBudgets = new BudgetList();
+        }
+
+        return new ModelManager(initialData, initialBudgets, exchangeData, userPrefs);
     }
 
     private void initLogging(Config config) {

@@ -80,7 +80,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -99,9 +99,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `MymParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding an expense).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -124,8 +124,8 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores an `ExchangeData` object that represents the foreign exchange rates for conversion of currencies.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the MYMorise data.
+* exposes an unmodifiable `ObservableList<Expense>` and an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to either list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -144,7 +144,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the MYMorise data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -237,7 +237,41 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// end::dataencryption[]
+=== AutoComplete Feature
+==== Implementation
+Autocomplete is facilitated by several parts.
+The logic part is implemented through `java.seedu.address.logic.search` package which contains `AutoComplete` and
+`BinarySearch`.
+
+The model is constructed through `java.seedu.address.model.autocomplete` which contains `AutoCompleteModel` and `Word`.
+
+The Ui part is implemented through `java.seedu.address.ui.QueryCard`on top of `CommandBox`.
+
+Given below is an example usage scenario and how the autocomplete mechanism behaves at each step. (p.s. details are
+omitted)
+
+Step 1. The user launch MYMorise and the user will be prompted to enter a command as shown in the command box.
+
+Step 2. User enter `a` and the listener is triggered. Then `AutoComplete#initAc()` and
+`AutoComplete#getSuggestions()` is invoked.
+
+Step 3. `initAc()` calls `AutoComplete#readWordsFromFile()` which reads the vocabulary from our local dictionary to get
+the "database and then construct an `AutocompleteModel` with the vocabulary read"
+
+Step 4. `getSuggestions(input)` calls `AutocompleteModel#allMatches()` which utilises the improved version of binary
+search algorithm `BinarySearch`. The algorithm will return the first and last index of potential matched results.
+Since the result is based on a pre-order for sorting, all the words inside this range will be the qualify ones.
+
+Step 5. The listview of `QueryCard` will be updated based on the words and weights given and attached to the
+`TextField`.
+
+The following sequence diagram shows how autocomplete operation works:
+
+image::AutocompleteSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user enter something new.
+
+image::AutocompleteActivityDiagram.png[]
 
 === Logging
 
@@ -284,8 +318,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*:
 
 * manage expenses faster than a typical mouse/GUI driven app.
-* easily view metrics of spending.
-* easily identify spending behaviour and tweak to meet budgeting goals.
+* easily view spending metrics.
 
 [appendix]
 == User Stories
@@ -298,23 +331,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 4.+| *Basic Functionality*
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |create a plain old expense |
+|`* * *` |user |create an expense |
 
-|`* * *` |user |create an expense with a tag |
+|`* * *` |user |create an expense with a tag |identify my expenses by tags
 
-|`* * *` |user |create a recurring expense |
-
-|`* * *` |user |retrieve all expenses |review all my spending
+|`* * *` |user |retrieve all expenses |review my spending
 
 |`* * *` |user |retrieve all expenses for today |review my spending for the day
-
-|`* * *` |user |retrieve list of all recurring expenses |
-
-|`* *` |user |retrieve all expenses for the week |review my spending for the week
-
-|`* *` |user |retrieve all expenses for the month |review my spending for the month
-
-|`* *` |user |retrieve all expenses for the year |review my spending for the year
 
 |`* * *` |user |find an expense name |locate a specific expense without having to go through the entire list
 
@@ -324,35 +347,45 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |terminate a recurring expense |
 
+|`* * ` |user |create a recurring expense |don't have to input recurring expenses every time
+
+|`* *` |user |retrieve list of all recurring expenses |view all my recurring expenses
+
+|`* *` |user |retrieve all expenses for the week |review my spending for the week
+
+|`* *` |user |retrieve all expenses for the month |review my spending for the month
+
+|`* *` |user |retrieve all expenses for the year |review my spending for the year
+
 4.+| *Budgeting*
 
-|`* * *` |user |set a budget for the month |
+|`* * *` |user |set a budget for a period |track my expenses according to the budget amount
 
-|`* * *` |user |check how much of my budget is left |know how much I can spend
+|`* * *` |user |view a budget |know my expenses and how much I have left to spend in the budget
 
-|`* * *` |user |notified every time I add an expense if I have less than 50% of my budget left  |know how much I can spend
+|`* *` |user |be notified every time I add an expense if I have less than 50% of my budget left  |notify myself that i may be spending too much according to my budget
 
 4.+| *UI*
 
-|`* * *` |user |view in a pie chart expenditure breakdown by tag  |
+|`* * *` |user |view in a pie chart expenditure breakdown by tag |view my expenses easily with visual aid
 
-|`* * *` |user |view in a pie chart how much of my budget is spent/available for the current month | manage my spending
+|`* * *` |user |view in a pie chart how much of my budget is spent/available for the current month |view how much of my budget is left
 
 |`* *` |user |view in a bar chart my expenditure | visualise my spending habits
 
 4.+| *Inputs*
 
-|`*` |user | command autocomplete suggestions| improve my productivity
-
 |`* *` |user | recall commands previously used in session | improve my productivity
+
+|`*` |user | command autocomplete suggestions| improve my productivity
 
 4.+| *Multi-Currency*
 
-|`* *` |user | set my default currency for tracking |
+|`* * *` |user | set my default currency for tracking |
 
-|`* *` |user | store expenses in a specific currency | track expenses when I travel
+|`* *` |user | store expenses in a specific currency | track expenses in a different currency
 
-|`* *` |user | automatically convert the expense to my local currency | track expenses in one currency
+|`* *` |user | automatically convert the expense to my default currency | track expenses of different currency in terms of my default currency
 
 |=======================================================================
 
@@ -363,7 +396,7 @@ _{More may be added}_
 
 
 Note: For all use cases below, the *System* is `MYMorise(MYM)`, the *Actor* is the `user` and the *Precondition* is
-`MyMorise is running`, unless specified otherwise).
+`MYMorise is running`, unless specified otherwise).
 
 Inputs specified in a square bracket i.e [input] are optional inputs from the user.
 
@@ -650,16 +683,16 @@ Use case resumes at step 2.
 
 [none]
 [#_UC10]
-=== UC10 - Set a budget for the current month +
+=== UC10 - Set a budget for a specific period +
 Guarantees:
 
-* The budget will be set to the specified amount.
+* The budget will be set to a specified amount for a specific period.
 
 [none]
 *MSS*
 
-. User requests to set the budget, specifying the amount for the month.
-. MYM sets the budget of the month.
+. User requests to set the budget, specifying the amount, the start date and the end date of the period.
+. MYM sets the budget for the amount and period specified.
 +
 Use case ends.
 
@@ -667,11 +700,20 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. An existing budget has already been set.
+* 1a. MYM detects an error in the entered data.
 [none]
-** 1a1. MYM sets the budget for the month to the newly specified amount.
-+
-Use case ends.
+** 1a1. MYM requests for the correct data.
+** 1a2. User enters new data.
+** Steps 1a1-1a2 are repeated until the data are correct.
+** Use case resumes from step 2.
+[none]
+* 1b. MYM detects a budget period clash.
+[none]
+** 1b1. MYM requests for different period dates.
+** 1b2. User enters new data.
+** Steps 1b1-1b2 are repeated until the dates do not clash with existing budget periods.
+** Use case resumes from step 2.
+
 
 [none]
 [#_UC11]
@@ -1012,15 +1054,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting an expense
 
-. Deleting a person while all persons are listed
+. Deleting an expense while all expenses are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First expense is deleted from the list. Details of the deleted expense shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

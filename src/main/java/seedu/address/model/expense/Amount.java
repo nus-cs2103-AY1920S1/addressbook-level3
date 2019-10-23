@@ -33,6 +33,10 @@ public class Amount {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public double getValue() {
+        return Double.parseDouble(value.replaceAll("[^\\d.]", ""));
+    }
+
     @Override
     public String toString() {
         return value;

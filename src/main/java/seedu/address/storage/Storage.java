@@ -9,11 +9,12 @@ import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exchangedata.ExchangeData;
+import seedu.address.model.budget.ReadOnlyBudgetList;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends ExpenseListStorage, ExchangeDataStorage, UserPrefsStorage {
+public interface Storage extends ExpenseListStorage, BudgetListStorage, ExchangeDataStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -30,7 +31,14 @@ public interface Storage extends ExpenseListStorage, ExchangeDataStorage, UserPr
     @Override
     Optional<ExchangeData> readExchangeData() throws DataConversionException, IOException;
 
-    @Override
-    void saveExpenseList(ReadOnlyExpenseList addressBook) throws IOException;
+    void saveExpenseList(ReadOnlyExpenseList expenseList) throws IOException;
 
+    @Override
+    Path getBudgetListFilePath();
+
+    @Override
+    Optional<ReadOnlyBudgetList> readBudgetList() throws DataConversionException, IOException;
+
+    @Override
+    void saveBudgetList(ReadOnlyBudgetList budgetList) throws IOException;
 }

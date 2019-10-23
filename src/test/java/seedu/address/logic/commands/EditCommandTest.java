@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exchangedata.ExchangeData;
+import seedu.address.model.budget.BudgetList;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
@@ -34,7 +35,7 @@ import seedu.address.testutil.ExpenseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseList(), getTypicalExchangeData(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(), getTypicalExchangeData(), new UserPrefs());
 
     //    @Test
     //    public void execute_allFieldsSpecifiedUnfilteredList_success() {

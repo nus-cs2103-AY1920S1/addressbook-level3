@@ -17,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.BudgetList;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -34,7 +35,7 @@ public class DeleteCommandTest {
     //
     //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
     //
-    //        ModelManager expectedModel = new ModelManager(model.getExpenseList(), model.getExchangeData(), new UserPrefs());
+    //        ModelManager expectedModel = new ModelManager(model.getExpenseList(), new BudgetList(), model.getExchangeData(), new UserPrefs());
     //        expectedModel.deleteExpense(expenseToDelete);
     //
     //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -57,7 +58,7 @@ public class DeleteCommandTest {
     //
     //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
     //
-    //        Model expectedModel = new ModelManager(model.getExpenseList(), model.getExchangeData(), new UserPrefs());
+    //        Model expectedModel = new ModelManager(model.getExpenseList(), new BudgetList(), model.getExchangeData(), new UserPrefs());
     //        expectedModel.deleteExpense(expenseToDelete);
     //        showNoExpense(expectedModel);
     //

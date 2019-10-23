@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path expenseListFilePath = Paths.get("data", "expenselist.json");
     private Path exchangeDataFilePath = Paths.get("data", "exchangedata.json");
+    private Path budgetListFilePath = Paths.get("data", "budgetlist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -67,6 +68,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.exchangeDataFilePath = exchangeDataFilePath;
     }
 
+    public Path getBudgetListFilePath() {
+        return budgetListFilePath;
+    }
+
+    public void setBudgetListFilePath(Path budgetListFilePath) {
+        requireNonNull(budgetListFilePath);
+        this.budgetListFilePath = budgetListFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -80,12 +90,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
             && expenseListFilePath.equals(o.expenseListFilePath)
-            && exchangeDataFilePath.equals(o.exchangeDataFilePath);
+            && exchangeDataFilePath.equals(o.exchangeDataFilePath)
+            && budgetListFilePath.equals(o.budgetListFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, expenseListFilePath, exchangeDataFilePath);
+        return Objects.hash(guiSettings, expenseListFilePath, budgetListFilePath, exchangeDataFilePath);
     }
 
     @Override
@@ -94,6 +105,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + expenseListFilePath);
         sb.append("\nExchange data file location : " + exchangeDataFilePath);
+        sb.append("\n                           " + budgetListFilePath);
         return sb.toString();
     }
 }

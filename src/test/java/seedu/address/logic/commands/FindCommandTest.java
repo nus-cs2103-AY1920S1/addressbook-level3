@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.BudgetList;
 import seedu.address.model.expense.NameContainsKeywordsPredicate;
 
 /**
@@ -27,8 +28,8 @@ import seedu.address.model.expense.NameContainsKeywordsPredicate;
  */
 public class FindCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseList(), getTypicalExchangeData(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExpenseList(), getTypicalExchangeData(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(), getTypicalExchangeData(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalExpenseList(), new BudgetList(), getTypicalExchangeData(), new UserPrefs());
 
     @Test
     public void equals() {

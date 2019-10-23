@@ -38,7 +38,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all expenses
-* **`add`**`add /n Textbook /a 23.50 /t education /t school` : adds an expense named `Textbook` to MYMorise with the tags `education` and `school`.
+* **`add`**`n/Textbook a/23.50 t/education t/school` : adds an expense named `Textbook` to MYMorise with the tags `education` and `school`.
 * **`delete`**`3` : deletes the 3rd expense shown in the current list
 * *`exit`* : exits the app
 
@@ -51,8 +51,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
-* Items in square brackets are optional e.g `/a NAME [/t TAG]` can be used as `/a Bread /t Food` or as `/a Bread`.
-* Items post-fixed with `…`​ can be used zero or more times e.g. `[/t TAG]…`​ can be excluded or include 1 or more tags `/t food /t drinks`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Bread t/Food` or as `n/Bread`.
+* Items post-fixed with `…`​ can be used zero or more times e.g. `[t/TAG]…`​ can be excluded or include 1 or more tags `t/food t/drinks`.
 ====
 
 === Viewing help : `help`
@@ -62,15 +62,15 @@ Format: `help`
 === Adding an expense: `add`
 
 Adds an expense to track. +
-Format: `add /n NAME /a AMOUNT [/t TAG]…​`
+Format: `add n/NAME a/AMOUNT [t/TAG]…​`
 
 [TIP]
 An expense can have any number of tags (including no tags)
 
 Examples:
 
-* `add /n Coffee /a 1.80 /t food`
-* `add /n Textbook /a 23.50 /t education /t school`
+* `add n/Coffee a/1.80 t/food`
+* `add n/Textbook a/23.50 t/education t/school`
 
 === Listing all expenses : `list`
 
@@ -85,28 +85,28 @@ Format: `view`
 === Editing an expense : `edit`
 
 Edits an existing expense in the expense list. +
-Format: `edit INDEX [/n NAME] [/a AMOUNT] [/t TAG]…`
+Format: `edit INDEX [n/NAME] [a/AMOUNT] [t/TAG]…`
 
 ****
 * Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense list. The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather than the actual index of the expense in MYMorise.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the expense will be removed i.e adding of tags is not cumulative.
-* You can remove all the expense’s tags by typing `/t`  without specifying any tags after it.
+* You can remove all the expense’s tags by typing `t/`  without specifying any tags after it.
 
 ****
 
 Examples:
 
-* `edit 1 /a 20.10` +
+* `edit 1 a/20.10` +
 Edits the amount of the 1st expense to be `$20.10`.
-* `edit 2 /n Poets Coffee /t` +
+* `edit 2 n/Poets Coffee t/` +
 Replaces the name of the 2nd expense to `Poets Coffee` and clears all existing tags.
 
 === Locating expenses by name: `find`
 
 Finds all expenses by name, date, tag. +
-Format: `find [/n NAME] [/d DATE] [/t TAG]`
+Format: `find [n/NAME] [d/DATE] [t/TAG]`
 
 ****
 * Search by name and tag is case insensitive. e.g hans will match Hans
@@ -118,9 +118,9 @@ Format: `find [/n NAME] [/d DATE] [/t TAG]`
 
 Examples:
 
-* find Coffee +
+* `find n/Coffee` +
 Returns `coffee` and `Starbucks Coffee`.
-* find Cheesecake +
+* `find n/Cheesecake` +
 Returns any expense having names `Cheesecake`, eg: `Strawberry Cheesecake`, `Blueberry Cheesecake`.
 
 // tag::delete[]
@@ -141,7 +141,7 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd expense in MYMorise.
-* `find Coffee` +
+* `find n/Coffee` +
 `delete 1` +
 Deletes the 1st expense in the results of the find command.
 
@@ -163,23 +163,24 @@ There is no need to save manually.
 // tag::budget[]
 === Set a budget for a period : `budget`
 
-Specifies a budget for a specific period. +
-Format: `budget /d PERIOD /a AMOUNT`
+Specifies a budget for a period beginning from the specified start date to an end date. +
+Format: `budget n/NAME a/AMOUNT d/STARTDATE ed/ENDDATE `
 
 ****
-* Sets a budget for the specified PERIOD. All expenses made in the month will deduct its amount from the budget to indicate how much funds are available to spend
-* The Period refers to a specific date, month or period between two dates.
-* The Amount refers to amount set for specified period.
+* Sets a budget for a period beginning from STARTDATE to ENDDATE (inclusive). All expenses made during
+  that period will be included into the budget and the budget will deduct the expense
+  to indicate how much funds are left available to spend.
+* The NAME refers to a name description to be given to the budget.
+* The STARTDATE and ENDDATE refers to a specific date.
+* The AMOUNT refers to the amount set for the budget.
 ****
 
 Examples:
 
-* `budget /d 9-10-19 /a SGD400` +
-Sets a budget of SGD400 for Wed, 9th Oct 19.
-* `budget /d Jan-19 /a SGD200` +
-Sets a budget of SGD200 for the month of January 19.
-* `budget /d 14-10-19 - 13-11-19 /a SGD500` +
-Sets a budget of SGD500 for the period from Mon, 14th Oct 19 to Wed, 13th Nov 19.
+* `budget n/Japan Travel a/SGD4000 d/9/10/19 ed/19/10/19` +
+Sets a budget of SGD4000 for the period from Wed, 9th Oct 19 to Sat, 19th Oct 19.
+* `budget n/January 2019 Budget a/SGD800 d/1/1/19 ed/31/1/19` +
+Sets a budget of SGD800 for the period from Tue, 1st Jan 19 to Thu, 31st Jan 19.
 
 // end::budget[]
 
@@ -209,14 +210,16 @@ Sets a budget of SGD500 for the period from Mon, 14th Oct 19 to Wed, 13th Nov 19
 == Command Summary
 
 * *Help* : `help`
-* *Add* `add /n NAME /a AMOUNT [/t TAG]…` +
-e.g. `add /n Coffee /a 2.00 /t nourishment /t school`
+* *Add* `add n/NAME a/AMOUNT [t/TAG]…` +
+e.g. `add n/Coffee a/2.00 t/nourishment t/school`
 * *List* : `list`
 * *View* : `view`
-* *Edit* : `edit INDEX [/n NAME] [/a AMOUNT] [/t TAG]…​` +
-e.g. `edit 2 /n Starbucks Coffee /t nourishment`
-* *Find* : `find [/n NAME] [/d DATE] [/t TAG]` +
-e.g. `find /n Coffee /d 20190412 /t nourishment` +
-e.g. `find /t nourishment`
+* *Edit* : `edit INDEX [n/NAME] [a/AMOUNT] [t/TAG]…​` +
+e.g. `edit 2 n/Starbucks Coffee t/nourishment`
+* *Find* : `find [n/NAME] [d/DATE] [t/TAG]` +
+e.g. `find n/Coffee d/13/12/2019 t/nourishment` +
+e.g. `find t/nourishment`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
+* *Budget* : `budget n/NAME a/AMOUNT d/STARTDATE ed/ENDDATE` +
+e.g. `budget n/Japan Travel a/SGD4000 d/9/10/19 ed/19/10/19`
