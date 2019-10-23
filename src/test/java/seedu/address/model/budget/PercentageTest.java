@@ -44,7 +44,7 @@ public class PercentageTest {
     }
 
     @Test
-    public void calculate_numLargerThanDen_ReturnsFullPercentage() {
+    public void calculate_numLargerThanDen_returnsFullPercentage() {
         Percentage percentage = Percentage.calculate(300, 200);
         assertEquals(new Percentage(100), percentage);
     }
