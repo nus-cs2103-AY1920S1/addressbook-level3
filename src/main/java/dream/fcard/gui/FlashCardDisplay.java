@@ -1,3 +1,4 @@
+//@@author nattanyz
 package dream.fcard.gui;
 
 import javafx.geometry.Insets;
@@ -13,8 +14,9 @@ public class FlashCardDisplay extends HBox {
         super();
 
         // set up dimensions
-        this.setPrefSize(380,200);
-        this.setPadding(new Insets(10));
+        this.setPrefSize(GuiSettings.getMinWidth() - 2*GuiSettings.getPadding(),
+            200);
+        this.setPadding(new Insets(GuiSettings.getPadding()));
 
         // set up background colour and radius
         this.setStyle("-fx-background-color:" + GuiSettings.getPrimaryUIColour() +";");

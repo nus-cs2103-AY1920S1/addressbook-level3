@@ -1,6 +1,7 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import dream.fcard.logic.respond.Responder;
 import dream.fcard.model.Deck;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -102,6 +103,7 @@ public class MainWindow {
 
         // add prompt text
         commandTextField.setPromptText("Enter command here...");
+        // todo: find out why prompt text does not work
 
         // setup styles of commandTextField
         // todo: fix text field background colour :(
@@ -110,6 +112,17 @@ public class MainWindow {
 //        commandTextField.setStyle("-fx-text-fill:#FFFFFF;");
         commandTextField.setStyle("-fx-text-fill:" + GuiSettings.getPrimaryTextColour() +";");
         commandTextField.setFont(GuiSettings.getCommandTextStyle());
+
+        // todo: set on action
+//        commandTextField.setOnAction(() -> {
+//            try {
+////                Responder.takeInput(commandTextField.getText());
+//                // reset text field
+//                commandTextField.setText("");
+//            } catch (Exception e) {
+//                // todo: temporary haxx, don't know what exceptions yet
+//            }
+//        });
 
         commandBoxPlaceholder.getChildren().add(commandTextField);
     }

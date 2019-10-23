@@ -1,3 +1,4 @@
+//@@author nattanyz
 package dream.fcard.gui;
 
 import dream.fcard.model.cards.FlashCard;
@@ -7,6 +8,7 @@ import javafx.scene.layout.GridPane;
 public class Gui {
     // the instance of the main window of the application, containing all UI components
     final MainWindow mainWindow;
+    // todo: store windowContents here instead of mainWindow?
 
     public Gui(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -17,8 +19,21 @@ public class Gui {
     }
 
     void renderFront(FlashCard flashCard) {
+        // todo: use functional interfaces, from renderCard?
         // get text to be rendered
         String cardText = flashCard.getFront();
+
+        // generate Node representing flashCard's contents
+        FlashCardDisplay node = new FlashCardDisplay(cardText);
+
+        // display the Node in the Gui
+        this.display(node);
+    }
+
+    void renderBack(FlashCard flashCard) {
+        // todo: use functional interfaces, from renderCard?
+        // get text to be rendered
+        String cardText = flashCard.getBack();
 
         // generate Node representing flashCard's contents
         FlashCardDisplay node = new FlashCardDisplay(cardText);
