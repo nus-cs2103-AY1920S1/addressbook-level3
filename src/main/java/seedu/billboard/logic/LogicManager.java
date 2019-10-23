@@ -66,7 +66,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableData<StatisticsFormat> getStatisticsType() {
-        return model.getStatisticsType();
+        return model.getStatisticsFormat();
     }
 
     @Override

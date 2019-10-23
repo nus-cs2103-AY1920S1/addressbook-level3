@@ -121,17 +121,17 @@ public interface Model {
      */
     void updateFilteredExpenses(Predicate<Expense> predicate);
 
-    // ================ StatisticsGenerator Chart methods ======================
+    // ================ Statistics methods ======================
 
     /**
      * Returns the statistics type wrapped in an observable wrapper.
      */
-    ObservableData<StatisticsFormat> getStatisticsType();
+    ObservableData<StatisticsFormat> getStatisticsFormat();
 
     /**
      * Sets the observable wrapper to the new statistics type, updating all observers in the process.
      */
-    void setStatisticsType(StatisticsFormat type);
+    void setStatisticsFormat(StatisticsFormat type);
 
     // ================ Archive methods ===============================
 

@@ -176,12 +176,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableData<StatisticsFormat> getStatisticsType() {
+        public ObservableData<StatisticsFormat> getStatisticsFormat() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setStatisticsType(StatisticsFormat type) {
+        public void setStatisticsFormat(StatisticsFormat type) {
             throw new AssertionError("This method should not be called.");
         }
 
