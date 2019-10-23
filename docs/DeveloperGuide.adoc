@@ -58,85 +58,8 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
+
 image::DeleteSequenceDiagram.png[]
-
-== Statistics component
-
-.Structure of the Statistics Component
-image::StatisticsClass.png[]
-
-.  `Statistics` contains an ObservableMap of `MonthlyList` class.
-.  `MonthlyList` contains an ObservableMap of `DailyList` class.
-.  `DailyList` contains an ObservableMap of `CategoryList` class.
-.  These lists are populated when the guiltTrip() is started up and the content is retrieved from Storage.
-.  Any added entries are updated in the `CategoryList` and `DailyList` classes.
-
-=== Features
-==== Data Presentation
-===== Sort Command
-====== Implementation
-The sort command extends the Command class. It works on the SortedList by adding a Comparator to the List. By default, the EntryList is sorted by date.
-
-. The user executes the command `sort typ/Expense s/ascending`
-.  `Logic` uses the `guiltTripParser` class to parse the user command.
-.  This results in a `SortCommand` object which is executed by the `LogicManager`.
-.  The `SortCommand` calls the `Model` 's sortFilteredEntryList to sort the list of entries.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  `Logic` returns the `CommandResult` object.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("sort typ/Expense s/ascending")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::SortSequence.png[]
-
-===== ViewHistory Command
-====== Implementation
-The viewHistory command extends the Command class. It calls methods from the Statistics Manager which handles the calculation of the statistics and returns it to the user.
-
-. The user executes the command `viewHistory typ/Expense`
-.  `Logic` uses the `guiltTripParser` class to parse the user command.
-.  This results in a `viewHistoryCommand` object which is executed by the `LogicManager`.
-.  The `viewHistoryCommand` calls the `Model` 's generateHistory method which calls on the `StatisticsManager` generateHistory method to calculate the statistics for that type.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  `Logic` returns the `CommandResult` object.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewHistory typ/Expense")` API call.
-
-.Interactions Inside the Logic Component for the `viewHistory typ/Expense` Command
-image::viewHistorySequenceDiagram.png[]
-=======
-:experimental:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103-T16-4/main
-
-By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
-
-== Setting up
-
-Refer to the guide <<SettingUp#, here>>.
-
-== Design
-
-[[Design-Architecture]]
-=== Architecture
-
-.Architecture Diagram
-image::ArchitectureDiagram.png[]
-
-[[Design-Ui]]
-=== UI component
-
-.UI Diagram
-image::UiClassDiagram.png[]
-
-[[Design-Logic]]
-=== Logic component
-
-.LogicDiagram
-image::LogicClassDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -167,7 +90,77 @@ The `Storage`
 * can save the Address Book data in json format and read it back.
 * This includes instances of Entry subclasses(Expense, Income, Wish, AutoExpenditure, Budget, TrackerReminder, etc.)
 * DateReminder data are stored in Entry data.
+
+[[Design-Statistics]]
+== Statistics component
+
+.Structure of the Statistics Component
+image::StatisticsClass.png[]
+
+.  `Statistics` contains an ObservableMap of `MonthlyList` class.
+.  `MonthlyList` contains an ObservableMap of `DailyList` class.
+.  `DailyList` contains an ObservableMap of `CategoryList` class.
+.  These lists are populated when the guiltTrip() is started up and the content is retrieved from Storage.
+.  Any added entries are updated in the `CategoryList` and `DailyList` classes.
+
 == Implementation
+This section describes some details on how certain features are implemented.
+
+=== Data Presentation: Sort Command
+
+==== Implementation
+
+The sort command extends the Command class. It works on the SortedList by adding a Comparator to the List. By default, the EntryList is sorted by date.
+
+. The user executes the command `sort typ/Expense s/ascending`
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `SortCommand` object which is executed by the `LogicManager`.
+.  The `SortCommand` calls the `Model` 's sortFilteredEntryList to sort the list of entries.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  `Logic` returns the `CommandResult` object.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("sort typ/Expense s/ascending")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::SortSequence.png[]
+
+===== ViewHistory Command
+
+====== Implementation
+
+The viewHistory command extends the Command class. It calls methods from the Statistics Manager which handles the calculation of the statistics and returns it to the user.
+
+. The user executes the command `viewHistory typ/Expense`
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `viewHistoryCommand` object which is executed by the `LogicManager`.
+.  The `viewHistoryCommand` calls the `Model` 's generateHistory method which calls on the `StatisticsManager` generateHistory method to calculate the statistics for that type.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  `Logic` returns the `CommandResult` object.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewHistory typ/Expense")` API call.
+
+.Interactions Inside the Logic Component for the `viewHistory typ/Expense` Command
+image::viewHistorySequenceDiagram.png[]
+
+=== Toggle Panel Command
+
+==== Implementation
+
+The following sequence diagram shows how the toggle panel command works:
+
+image::ToggleSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::ToggleActivityDiagram.png[]
+
+==== Design Considerations
+
+*Current method:* Toggle the panels from within MainWindow class.
+
+Pros: Easy to implement.
+
+Cons: Might not be as OOP as other designs.
 
 == Documentation
 
