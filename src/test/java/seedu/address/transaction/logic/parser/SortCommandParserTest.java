@@ -1,7 +1,7 @@
-package seedu.address.transaction.logic;
+package seedu.address.transaction.logic.parser;
 
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseFailure;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseSuccess;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseFailure;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseSuccess;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_SORT_COMMAND;
 
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import seedu.address.transaction.logic.commands.SortAmountCommand;
 import seedu.address.transaction.logic.commands.SortDateCommand;
 import seedu.address.transaction.logic.commands.SortNameCommand;
 import seedu.address.transaction.logic.commands.SortResetCommand;
-import seedu.address.transaction.logic.parser.SortCommandParser;
 
 class SortCommandParserTest {
     private SortCommandParser parser = new SortCommandParser();

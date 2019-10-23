@@ -1,10 +1,10 @@
-package seedu.address.transaction.logic;
+package seedu.address.transaction.logic.parser;
 
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_ALICE;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_NAME_AMY;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,6 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.logic.commands.DeleteIndexCommand;
 import seedu.address.transaction.logic.commands.DeleteNameCommand;
-import seedu.address.transaction.logic.parser.DeleteCommandParser;
 import seedu.address.transaction.ui.TransactionMessages;
 
 class DeleteCommandParserTest {

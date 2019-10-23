@@ -180,7 +180,7 @@ This is the overall Class Diagram of this tab:
 image::HomeTabClassDiagram.png[]
 
 ==== Add Command feature
-The add command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
+The Add command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
 has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
@@ -209,7 +209,7 @@ Since the reimbursement tab tabulates the amount to be reimbursed to a person, i
 amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
 
 The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
-
+[[update-reimbursement]]
 .Sequence Diagram of updating Reimbursement Tab (reimbursement package)
 
 image::TransactionUpdatingReimbursement.png[]
@@ -217,7 +217,7 @@ image::TransactionUpdatingReimbursement.png[]
 This is done for every feature in the `LogicManager`.
 
 ==== Delete Feature
-The add command is facilitated by the `VersionedtreasurerPro`. The delete feature allows for 2 types of deletion, by
+The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
 
@@ -227,7 +227,7 @@ The following sequence diagram shows how the delete by name command works:
 
 image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
 
-After this, the reimbursement tab is updated as shown in Figure 12.
+After this, the reimbursement tab is updated as shown in <<update-reimbursement,Figure 12>>.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
 
@@ -253,7 +253,7 @@ The following sequence diagram shows how the back command works:
 image::HomeTabBackCommandSequenceDiagram.png[]
 
 ==== Sort Feature
-The add command is facilitated by the `VersionedtreasurerPro`. The sort feature allows for 3 types of sort, by name in
+The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
 alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
 
 The following sequence diagram shows how the sort command works:
@@ -451,10 +451,10 @@ image::ClearCommandCashierActivityDiag.png[]
 
 === Overview Tab
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=======
 
-==== Proposed Implementation
+// tag::undoredo[]
+==== [Proposed] Undo/Redo feature
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
@@ -525,6 +525,15 @@ image::UndoRedoState5.png[]
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
+
+=== Reimbursement Tab
+
+=== Inventory Tab
+
+=== Cashier Tab
+
+=== Overview Tab
+
 
 ==== Design Considerations
 

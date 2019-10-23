@@ -1,5 +1,6 @@
 package seedu.address.overview.logic;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -119,6 +120,23 @@ public class LogicManager implements Logic {
         return itemStream
                 .filter(item -> item.getCategory().equals(category))
                 .flatMapToDouble(item -> DoubleStream.of(item.getTotalCost()))
+                .sum();
+    }
+
+    public double getSalesTotalByMonth(LocalDate currentDate) {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+                .filter(transaction -> transaction.getDateObject().getMonth() == currentDate.getMonth())
+                .filter(transaction -> transaction.getCategory().equals("Sales"))
+                .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+                .sum();
+    }
+
+    public double getBudgetLeftByMonth(LocalDate currentDate) {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return getRemainingBudget() - transactionStream
+                .filter(transaction -> transaction.getDateObject().getMonth() == currentDate.getMonth())
+                .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
                 .sum();
     }
 }
