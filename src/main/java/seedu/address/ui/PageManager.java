@@ -1,15 +1,14 @@
 package seedu.address.ui;
 
-import javafx.animation.FadeTransition;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import seedu.address.logic.commands.CommandResult;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javafx.animation.FadeTransition;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * A singleton task that handles all UI for page navigation. It must be initialised using {@code getInstance} before
