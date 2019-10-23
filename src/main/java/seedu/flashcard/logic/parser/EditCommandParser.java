@@ -5,11 +5,12 @@ import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_CHOICE, PREFIX_DEFINITION, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_CHOICE, PREFIX_DEFINITION, PREFIX_TAG);
 
         Index index;
 
@@ -45,8 +46,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditFlashcardDescriptor editFlashcardDescriptor = new EditFlashcardDescriptor();
-        if (argMultimap.getValue(PREFIX_WORD).isPresent()) {
-            editFlashcardDescriptor.setWord(ParserUtil.parseWord(argMultimap.getValue(PREFIX_WORD).get()));
+        if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
+            editFlashcardDescriptor.setQuestion(ParserUtil.parseWord(argMultimap.getValue(PREFIX_QUESTION).get()));
         }
 
         if (argMultimap.getValue(PREFIX_DEFINITION).isPresent()) {
@@ -74,14 +75,14 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code choices} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero choices.
      */
-    private Optional<Set<Choice>> parseChoicesForEdit(Collection<String> choices) throws ParseException {
+    private Optional<List<Choice>> parseChoicesForEdit(Collection<String> choices) throws ParseException {
         assert choices != null;
 
         if (choices.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> choiceSet = choices.size() == 1 && choices.contains("") ? Collections.emptySet() : choices;
-        return Optional.of(ParserUtil.parseChoices(choiceSet));
+        Collection<String> choiceList = choices.size() == 1 && choices.contains("") ? Collections.emptyList() : choices;
+        return Optional.of(ParserUtil.parseChoices(choiceList));
     }
 
     /**

@@ -29,7 +29,7 @@ public class FlashcardCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label word;
+    private Label question;
     @FXML
     private Label id;
     @FXML
@@ -41,7 +41,7 @@ public class FlashcardCard extends UiPart<Region> {
         super(FXML);
         this.flashcard = flashcard;
         id.setText(displayedIndex + ". ");
-        word.setText(flashcard.getWord().word);
+        question.setText(flashcard.getQuestion().question);
         definition.setText(flashcard.getDefinition().definition);
         flashcard.getTags().stream()
                    .sorted(Comparator.comparing(tag -> tag.tagName))
