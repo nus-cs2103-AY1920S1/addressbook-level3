@@ -114,7 +114,7 @@ public class MainApp extends Application {
         initialUserData = (ReadOnlyUserList) getInitialData(LABEL_BIO_DATA_TYPE,
                 SampleUserDataUtil::getSampleUserList, UserList::new);
         foodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
-                SampleDataUtil::getSampleFoodList, UniqueFoodList::new);
+                SampleFoodDataUtil::getSampleFoodList, UniqueFoodList::new);
         initialRecordListData = (UniqueRecordList) getInitialData(LABEL_RECORD_DATA_TYPE,
                 SampleDataUtil::getSampleRecordList, UniqueRecordList::new);
         initialCalendar = (ReadOnlyCalendar) getInitialData(LABEL_CALENDAR_DATA_TYPE,
