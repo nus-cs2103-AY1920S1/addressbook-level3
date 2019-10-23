@@ -63,7 +63,5 @@ public class ApproveCommandParser implements Parser<Approve> {
         } else {
             throw new ParseException(Approve.MESSAGE_USAGE_APPROVE);
         }
-
-
     }
 }

@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import mams.commons.core.Messages;
-import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 
@@ -25,24 +24,44 @@ public class AddModCommand extends ModCommand {
 
     private final String matricId;
     private final String moduleCode;
-    private final Index index;
+    private final String index;
+    private boolean usingIndex;
 
-    public AddModCommand(Index index, String moduleCode) {
-        requireNonNull(index);
-        requireNonNull(moduleCode);
+    /**
+     * Builder class for AddModCommand.
+     */
+    public static class AddModCommandBuilder {
 
-        this.matricId = null;
-        this.index = index;
-        this.moduleCode = moduleCode;
+        private String matricId; //either
+        private final String moduleCode; //required
+        private String index; //or
+        private boolean usingIndex; //required
+
+        public AddModCommandBuilder (String moduleCode, boolean usingIndex) {
+            this.moduleCode = moduleCode;
+            this.usingIndex = usingIndex;
+        }
+
+        public AddModCommandBuilder setMatricId (String matricId) {
+            this.matricId = matricId;
+            return this;
+        }
+
+        public AddModCommandBuilder setIndex (String index) {
+            this.index = index;
+            return this;
+        }
+
+        public AddModCommand build() {
+            return new AddModCommand(this);
+        }
     }
 
-    public AddModCommand(String matricId, String moduleCode) {
-        requireNonNull(matricId);
-        requireNonNull(moduleCode);
-
-        this.matricId = matricId;
-        this.index = null;
-        this.moduleCode = moduleCode;
+    private AddModCommand(AddModCommandBuilder builder) {
+        this.moduleCode = builder.moduleCode;
+        this.matricId = builder.matricId;
+        this.index = builder.index;
+        this.usingIndex = builder.usingIndex;
     }
 
     /**
@@ -65,15 +84,20 @@ public class AddModCommand extends ModCommand {
         List<Module> moduleToCheckList = lastShownModuleList.stream()
                 .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
         if (moduleToCheckList.isEmpty()) {
-            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
+            throw new CommandException(MESSAGE_INVALID_MODULE);
         }
 
         //check if student exist
-        if (index != null) { //by index
-            if (index.getZeroBased() >= lastShownStudentList.size()) {
+        if (usingIndex) { //by index
+            int tempIndex = Integer.parseInt(index);
+            if (tempIndex < 1) {
+                throw new CommandException(ModCommand.MESSAGE_USAGE_ADD_MOD);
+            }
+            int tempIndexZeroBased = tempIndex - 1;
+            if (tempIndexZeroBased >= lastShownStudentList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
             }
-            studentToEdit = lastShownStudentList.get(index.getZeroBased());
+            studentToEdit = lastShownStudentList.get(tempIndexZeroBased);
         } else { //by matricId
             List<Student> studentToCheckList = lastShownStudentList.stream()
                     .filter(p -> p.getMatricId().toString().equals(matricId)).collect(Collectors.toList());
@@ -87,7 +111,7 @@ public class AddModCommand extends ModCommand {
         Set<Tag> studentModules = studentToEdit.getCurrentModules();
         for (Tag tag: studentModules) {
             if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
-                throw new CommandException(MESSAGE_DUPLICATE_MODULE_CODE);
+                throw new CommandException(MESSAGE_DUPLICATE_MODULE);
             }
         }
 

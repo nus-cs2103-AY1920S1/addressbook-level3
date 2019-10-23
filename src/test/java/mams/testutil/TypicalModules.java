@@ -1,5 +1,7 @@
 package mams.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import mams.model.Mams;
@@ -37,6 +39,6 @@ public class TypicalModules {
     }
 
     private static List<Module> getTypicalModule() {
-        return null;
+        return new ArrayList<>(Arrays.asList(CS1010, CS1231, CS1020));
     }
 }
