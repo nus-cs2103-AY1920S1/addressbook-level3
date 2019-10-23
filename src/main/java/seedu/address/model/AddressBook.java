@@ -180,7 +180,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Get optional pair of current person and visit if there is an ongoing visit.
      */
     public Optional<Visit> getOngoingVisit() {
-        if (pairOfOngoingPatAndVisitIndexes.getKey() == -1 || pairOfOngoingPatAndVisitIndexes.getValue() != -1) {
+        if (pairOfOngoingPatAndVisitIndexes.getKey() == -1 || pairOfOngoingPatAndVisitIndexes.getValue() == -1) {
             return Optional.empty();
         }
         Optional<Person> patient = persons.getByIndex(pairOfOngoingPatAndVisitIndexes.getKey());
