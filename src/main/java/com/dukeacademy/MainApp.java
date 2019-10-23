@@ -1,5 +1,6 @@
 package com.dukeacademy;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -11,15 +12,15 @@ import com.dukeacademy.commons.core.Version;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
-import com.dukeacademy.logic.Logic;
-import com.dukeacademy.logic.LogicManager;
-import com.dukeacademy.model.Model;
-import com.dukeacademy.model.ModelManager;
+import com.dukeacademy.logic.commands.CommandLogic;
+import com.dukeacademy.logic.commands.CommandLogicManager;
+import com.dukeacademy.logic.program.ProgramSubmissionLogic;
+import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
+import com.dukeacademy.logic.program.exceptions.LogicCreationException;
+import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.logic.question.QuestionsLogicManager;
 import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
-import com.dukeacademy.model.question.QuestionBank;
-import com.dukeacademy.model.question.StandardQuestionBank;
-import com.dukeacademy.model.util.SampleDataUtil;
 import com.dukeacademy.storage.Storage;
 import com.dukeacademy.storage.StorageManager;
 import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
@@ -42,10 +43,11 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    protected Logic logic;
     protected Storage storage;
-    protected Model model;
     protected Config config;
+    protected CommandLogicManager commandLogic;
+    protected QuestionsLogicManager questionsLogic;
+    protected ProgramSubmissionLogicManager programSubmissionLogic;
 
     @Override
     public void init() throws Exception {
@@ -64,36 +66,57 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
-
-        logic = new LogicManager(model, storage);
-
-        ui = new UiManager(logic);
+        commandLogic = this.initCommandLogic();
+        questionsLogic = this.initQuestionsLogic(userPrefs);
+        programSubmissionLogic = this.initProgramSubmissionLogic();
+        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic, userPrefs);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s question bank and {@code userPrefs}. <br>
-     * The data from the sample question bank will be used instead if {@code storage}'s question bank is not found,
-     * or an empty question bank will be used instead if errors occur when reading {@code storage}'s question bank.
+     * Returns a new QuestionLogicManager based on the UserPrefs passed into the function.
+     * @param userPrefs a UserPrefs instance.
+     * @return a QuestionsLogicManager instance.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<QuestionBank> addressBookOptional;
-        QuestionBank initialData;
-        try {
-            addressBookOptional = storage.readQuestionBank();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample QuestionBank");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleQuestionBank);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty QuestionBank");
-            initialData = new StandardQuestionBank();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
-            initialData = new StandardQuestionBank();
+    private QuestionsLogicManager initQuestionsLogic(ReadOnlyUserPrefs userPrefs) {
+        QuestionBankStorage storage = new JsonQuestionBankStorage(userPrefs.getQuestionBankFilePath());
+        return new QuestionsLogicManager(storage);
+    }
+
+    /**
+     * Returns a new ProgramSubmissionLogicManager based on the UserPrefs passed into the function.
+     * @return a ProgramSubmissionLogicManager instance.
+     */
+    private ProgramSubmissionLogicManager initProgramSubmissionLogic() {
+        // TODO: eventually store program execution path in user prefs
+        String outputPath = System.getProperty("user.home") + File.separator + "DukeAcademy";
+        File file = new File(outputPath);
+        if (!file.exists()) {
+            file.mkdir();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            return new ProgramSubmissionLogicManager(outputPath);
+        } catch (LogicCreationException e) {
+            logger.info("Fatal: failed to create program submission logic. Exiting app.");
+            this.stop();
+            return null;
+        }
+    }
+
+    /**
+     * Returns a new CommandLogicManager based on the UserPrefs passed into the function. Any commands to be registered
+     * in the CommandLogicManager is done in this method.
+     * @return a CommandLogicManger instance.
+     */
+    private CommandLogicManager initCommandLogic() {
+        CommandLogicManager commandLogicManager = new CommandLogicManager();
+        // TODO: create and register commands
+        return commandLogicManager;
+    }
+
+    private Ui initUi(CommandLogic commandLogic, QuestionsLogic questionsLogic,
+                      ProgramSubmissionLogic programSubmissionLogic, ReadOnlyUserPrefs userPrefs) {
+        return new UiManager(commandLogic, questionsLogic, programSubmissionLogic, userPrefs.getGuiSettings());
     }
 
     private void initLogging(Config config) {
@@ -177,10 +200,6 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Difficulty Book ] =============================");
-        try {
-            storage.saveUserPrefs(model.getUserPrefs());
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        }
+        this.programSubmissionLogic.closeProgramSubmissionLogicManager();
     }
 }

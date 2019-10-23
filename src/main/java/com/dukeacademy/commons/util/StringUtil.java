@@ -1,17 +1,19 @@
 package com.dukeacademy.commons.util;
 
 import static com.dukeacademy.commons.util.AppUtil.checkArgument;
-
 import static java.util.Objects.requireNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 
+import com.dukeacademy.commons.exceptions.IllegalValueException;
+
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    public static final String VALID_WORD_REGEX = "[^\\s].*";
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
@@ -64,6 +66,41 @@ public class StringUtil {
             return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
+        }
+    }
+
+    /**
+     * Returns the first word of a string.
+     * @param s the string to be processed.
+     * @return the first word of the string.
+     * @throws IllegalValueException if the string does not contain a valid word.
+     */
+    public static String getFirstWord(String s) throws IllegalValueException {
+        String stripped = s.stripLeading();
+
+        if (!stripped.matches(VALID_WORD_REGEX)) {
+            throw new IllegalValueException("String is not a valid word.");
+        }
+        return stripped.split("[\\s]+", 2)[0].trim();
+    }
+
+    /**
+     * Returns the a new string with the first word removed.
+     * @param s the string to be processed.
+     * @return the remainder of the string after the first word is removed.
+     * @throws IllegalValueException if the string does not contain a valid word.
+     */
+    public static String removeFirstWord(String s) throws IllegalValueException {
+        String stripped = s.stripLeading();
+
+        if (!stripped.matches(VALID_WORD_REGEX)) {
+            throw new IllegalValueException("String is not a valid word.");
+        }
+
+        if (stripped.split("[\\s]+", 2).length == 1) {
+            return "";
+        } else {
+            return stripped.split("[\\s]+", 2)[1].stripLeading();
         }
     }
 }
