@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_FRIDGE_DOES_NOT_EXIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
@@ -78,11 +79,11 @@ public class UpdateCommand extends UndoableCommand {
             + PREFIX_DATE_JOINED + "DATE JOINED "
             + PREFIX_DESIGNATION + "DESIGNATION "
             + PREFIX_EMPLOYMENT_STATUS + "EMPLOYMENT STATUS"
-            + "\nUpdate fields for a Fridge object: \n" // Todo: update when fridge class is merged in.
+            + "\nUpdate fields for a Fridge object: \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FLAG + "b "
             + PREFIX_IDENTIFICATION_NUMBER + " 1 "
-            + PREFIX_NAME + " Jane Cthulhu";
+            + PREFIX_BODY + " 2";
 
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

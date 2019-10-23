@@ -21,6 +21,7 @@ import static seedu.address.testutil.TypicalIdentificationNumbers.THIRD_FRIDGE_I
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMMAND;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +35,14 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
+import seedu.address.testutil.BodyBuilder;
+import seedu.address.testutil.FridgeBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 //@@author arjavibahety
@@ -107,9 +111,11 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws CommandException {
 
         // Delete Body
+        ClearCommand clearCommand = new ClearCommand();
+        clearCommand.execute(model);
         IdentificationNumber outOfBoundBodyIndex = IdentificationNumber.customGenerateId("B",
                 model.getFilteredEntityList("B").size() + 1);
         DeleteCommand deleteBodyCommand = new DeleteCommand(
@@ -137,9 +143,13 @@ public class DeleteCommandTest {
                 "f");
 
         // Delete Fridge when it is occupied
-        IdentificationNumber aliceFridgeId = ALICE_FRIDGE.getIdNum();
+        clearCommand.execute(model);
+        Fridge fridge = new Fridge();
+        model.addEntity(fridge);
+        Body body = new BodyBuilder().build();
+        fridge.setBody(body);
 
-        deleteFridgeCommand = new DeleteCommand(Index.fromZeroBased(aliceFridgeId.getIdNum()), "f");
+        deleteFridgeCommand = new DeleteCommand(Index.fromZeroBased(fridge.getIdNum().getIdNum()), "f");
 
         assertDeleteCommandFailure(deleteFridgeCommand, model, Messages.MESSAGE_OCCUPIED_FRIDGE_CANNOT_BE_DELETED,
                 "f");
@@ -170,8 +180,6 @@ public class DeleteCommandTest {
         Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         assertThrows(CommandException.class, MESSAGE_NOT_EXECUTED_BEFORE, () -> deleteCommand.undo(model));
     }
-
-
     //@@author
 
     @Test

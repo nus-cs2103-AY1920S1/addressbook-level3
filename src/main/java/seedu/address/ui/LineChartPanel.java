@@ -27,7 +27,7 @@ public class LineChartPanel extends UiPart<Region> {
     private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
     private static final int WINDOW_SIZE = 10;
     // this is used to display time in HH:mm:ss format
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d");
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
     final NumberAxis yAxis = new NumberAxis();
     final AreaChart<String, Number> lineChart = new AreaChart<>(xAxis, yAxis);

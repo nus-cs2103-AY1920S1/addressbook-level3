@@ -290,61 +290,59 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |mortuary manager |keep track of all bodies and fridges in a single dashboard using the dashboard command |look out for any outstanding work and keep myself up to speed
 
-|`* * *` |mortuary manager |have a dynamically updated dashboard |reduce errors as compared to updating manually
+|`* * *` |mortuary manager |have a dynamically updated dashboard |reduce errors as compared to manually updating a whiteboard
 
-|`* * *` |mortuary manager |sort the bodies by certain characteristics using the `sort` command |view bodies of a speciic category and generate statistics easily
+|`* * *` |mortuary manager |key new bodies into the system |keep track of them
 
-|`* * *` |mortuary manager |filter the bodies by certain characteristics using `filter` command |view bodies of a certain category and generate statistics easily
+|`* * *` |mortuary manager |sort the bodies by certain characteristics |view bodies of a speciic category and generate statistics easily
 
-|`* * *` |mortuary manager |update the status of each and every worker, body and fridge with the `update <body/worker/fridge ID> <attribute>:<status>` command |know when (date & time) was each step of the process completed and the findings of each process (eg. cause of death)
+|`* * *` |mortuary manager |filter the bodies by certain characteristics |view bodies of a certain category and generate statistics easily
 
-|`* * *` |mortuary manager |delete a worker, body and fridge with the `delete <body/worker/fridge ID>` command |remove a worker when he quits, remove a wrong entry of the body, or remove a fridge
+|`* * *` |mortuary manager |update the status of each and every worker, body and fridge |know when (date & time) was each step of the process completed and the findings of each process (eg. cause of death)
 
-|`* * *` |mortuary manager |key new bodies into the system with the `add` command |keep track of them
+|`* * *` |mortuary manager |delete a worker, body and fridge |remove a worker when he quits, remove a wrong entry of the body, or remove a fridge
 
-|`* * *` |mortuary manager |switch between the dashboard and the detail views with the `tab __` command |view information in an appropriate format
+|`* * *` |mortuary manager |switch between the dashboard and the detail views |view information in an appropriate format
 
-|`* * *` |mortuary manager |view all free and vacant fridges with the `fridges` command |keep track of the overall vacancy of the morgue
+|`* * *` |mortuary manager |view all free and vacant fridges |keep track of the overall vacancy of the morgue
 
-|`* * *` |mortuary manager |view all registered bodies with the `bodies` command |view all bodies in the morgue
+|`* * *` |mortuary manager |view all registered bodies |view all bodies in the morgue
 
-|`* * *` |mortuary manager |view all registered body parts with the `bodyparts` command |view all body parts in the morgue
+|`* * *` |mortuary manager |view all registered body parts |view all body parts in the morgue
 
-|`* * *` |mortuary manager |view all the commands the app has with the `help` command |look at all the commands in one go
+|`* * *` |mortuary manager |view all the commands the app is capable of |look at all the commands in one go
 
-|`* * *` |mortuary manager |view emergency with the `hotlines` command |be efficient and respond quickly to emergencies
+|`* * *` |mortuary manager |view emergency hotlines |be efficient and respond quickly to emergencies
 
-|`* * *` |mortuary manager |read up on the use of a specific command of the app with the `help <CommandName>` command |understand a specific command which the app offers in more detail
+|`* * *` |mortuary manager |read up on the use of a specific command of the app |understand a specific command which the app offers in more detail
 
-|`* *` |mortuary manager |be alerted to bodies unclaimed after 24hours using the `alerts` command |know when to start the administrative process for donation to medical research
+|`* *` |mortuary manager |be alerted to bodies unclaimed after 24hours |know when to start the administrative process for donation to medical research
 
-|`* *` |mortuary manager |receive routine reports from the app automatically using the `genReport <body ID>` command |need not manually write in each and every single report
+|`* *` |mortuary manager |receive routine reports from the app automatically |need not manually write in each and every single report
 
-|`* *` |mortuary manager |view past reports with the command `reports` and individual reports with `report <body ID>` |easily obtain past reports for my own reference / authorities / other party
+|`* *` |mortuary manager |assign workers to tasks |know who was responsible for a task
 
-|`* *` |mortuary manager |assign workers to tasks using the `tagw` command |know who was responsible for a task
+|`* *` |mortuary manager |can undo my previous tasks |conveniently undo any wrong commands
 
-|`* *` |mortuary manager |can undo my previous tasks with the `undo` command |conveniently undo any wrong commands
+|`* *` |mortuary manager |redo my previous tasks |conveniently redo any undone commands
 
-|`* *` |mortuary manager |redo my previous tasks with the `redo` command |conveniently redo any undone commands
+|`* *` |mortuary manager |add new or existing workers |keep track of all the workers in the mortuary
 
-|`* *` |mortuary manager |add new or existing workers into the system with the flag -w (eg. `add -w`) command |keep track of all the workers in the mortuary
-
-|`* *` |mortuary manager |add new or existing fridge into the system with the flag -f (eg. `add -f`) command |keep track of all the fridges in the mortuary
+|`* *` |mortuary manager |add new or existing fridge |keep track of all the fridges in the mortuary
 
 |`* *` |mortuary manager |be able to see a history of changes |know if anything was inputted wrongly in the past
 
-|`* *` |mortuary manager |create mortuary bills with the app automatically using the `genBill` command |need not manually write in each and every single bill
+|`* *` |mortuary manager |create mortuary bills with the app automatically |need not manually write in each and every single bill
 
-|`* *` |mortuary manager |view past reports with the command `bills` and individual reports with `bill [body ID]` |easily obtain past bills for my own reference / authorities / third party
+|`* *` |mortuary manager |view bills for past reports and individual reports |easily obtain past bills for my own reference / authorities / third party
 
-|`* *` |mortuary manager |archive processed cases on a regular interval with command `archive` |review past cases when such a need arises
+|`* *` |mortuary manager |archive processed cases on a regular interval |review past cases when such a need arises
 
-|`* *` |mortuary manager |add comments and feedback to workplace processes with the `feedback` command |review these feedback and improve on them
+|`* *` |mortuary manager |add comments and feedback to workplace processes |review these feedback and improve on them
 
-|`*` |mortuary manager |feel happy when I see a beautifully designed dashboard |keep my mood up throughout the day
+|`* *` |mortuary manager |feel happy when I see a beautifully designed dashboard |keep my mood up throughout the day
 
-|`*` |mortuary manager |make sure that everything is organised and in order |be praised by my higher ups
+|`* *` |mortuary manager |make sure that everything is organised and in order |be praised by my higher ups
 |=======================================================================
 
 _{More to be added}_
