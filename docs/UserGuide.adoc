@@ -103,15 +103,15 @@ Edits the author of the 1st problem to be `John Doe` respectively.
 * `edit 2 n/permutations t/` +
 Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
 
-==== Locating problems by name: `find`
+==== Locating problems: `find`
 
-Finds problems whose names contain any of the given keywords. +
+Finds problems fulfilling all provided constraints. +
 Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
 
 * Name
-** is case-insensitive and is matched by words. e.g. `henz` will match `Henz`
+** is case-insensitive. e.g. `henz` will match `Henz`
+** is considered a match as long as one word matches. (e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`)
 ** is matched word by word. e.g. `hello` will match `hello world` but not `helloworld`
-** is considered a match as long as one word matches. e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`
 * Author requires an exact match.
 * Description
 ** is case-insensitive
@@ -123,15 +123,17 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND
 ** Constraint tag set is a subset of matching problems. (e.g. `find t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
 ** Tags are considered equal only when the tag strings are exactly matched.
 * Difficulty
-** matches problems with `LOWER_BOUND <= difficulty <= UPPER_BOUND`
+** matches problems with `LOWER_BOUND \<= difficulty \<= UPPER_BOUND`
 ** Note that you should provide both bounds. If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
 
 Examples:
 
-* `find factorial` +
-Returns `factorial` and `Factorialize`
-* `find factorial permutations` +
-Returns any problem having names `factorial`, or `permutations`
+* `find n/Sequence` +
+Returns any problem with word `sequence` (case-insensitive) in its name.
+* `find t/algorithm diff/2.0-4.0` +
+Returns any problem with `algorithm` as one of its tags AND with a difficulty between 2.0 and 4.0 (inclusive).
+* `find a/Hentin Marz src/Kattis` +
+Returns any problem from `Kattis` that's authored by `Hentin Marz`.
 
 ==== Listing all problems : `list`
 
