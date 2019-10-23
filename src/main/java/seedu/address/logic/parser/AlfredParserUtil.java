@@ -29,7 +29,7 @@ import seedu.address.model.tag.Tag;
  */
 public class AlfredParserUtil {
 
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<entity>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<specifier>\\S+)(?<arguments>.*)");
     private static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final Logger logger = LogsCenter.getLogger(AlfredParserUtil.class);
     private static final String ID_SEPARATOR_CHARACTER = "-";
@@ -59,19 +59,37 @@ public class AlfredParserUtil {
         return new Id(prefix, idNumber);
     }
 
-    public static String getEntityFromCommand(String userInput, String errorMessage) throws ParseException {
+    /**
+     * Parses the {@code userInput} to separate the specifier from the user's input, where
+     * the specifier is the entity or entity's ID specifying either which parser to call
+     * or which specific entity to handle.
+     *
+     * @param userInput the user's command input.
+     * @return String representation of the specifier.
+     * @throws ParseException if the user input is invalid.
+     */
+    public static String getSpecifierFromCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, errorMessage));
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
-        String entity = matcher.group("entity");
+        String entity = matcher.group("specifier");
         return entity;
     }
 
-    public static String getArgumentsFromCommand(String userInput, String errorMessage) throws ParseException {
+    /**
+     * Parses the {@code userInput} to separate the arguments from the user's input, where
+     * the arguments are the additional details the user provides as part of the command's
+     * requirements.
+     *
+     * @param userInput the user's command input.
+     * @return String representation of the arguments.
+     * @throws ParseException if the user input is invalid.
+     */
+    public static String getArgumentsFromCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, errorMessage));
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
         String args = matcher.group("arguments");
         return args;

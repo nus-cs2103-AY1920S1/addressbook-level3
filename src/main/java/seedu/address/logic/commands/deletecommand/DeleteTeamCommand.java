@@ -43,4 +43,11 @@ public class DeleteTeamCommand extends DeleteCommand {
                 teamToBeDeleted.toString()), PrefixType.T);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteTeamCommand // instanceof handles nulls
+                && id.equals(((DeleteTeamCommand) other).id));
+    }
+
 }

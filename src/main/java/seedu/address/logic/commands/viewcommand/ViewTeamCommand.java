@@ -44,4 +44,11 @@ public class ViewTeamCommand extends ViewCommand {
         return new CommandResult(MESSAGE_SUCCESS, PrefixType.T);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewTeamCommand // instanceof handles nulls
+                && id.equals(((ViewTeamCommand) other).id));
+    }
+
 }

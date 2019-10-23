@@ -59,4 +59,11 @@ public class DeleteParticipantCommand extends DeleteCommand {
                                                participantToBeDeleted.toString()), PrefixType.P);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteParticipantCommand // instanceof handles nulls
+                && id.equals(((DeleteParticipantCommand) other).id));
+    }
+
 }

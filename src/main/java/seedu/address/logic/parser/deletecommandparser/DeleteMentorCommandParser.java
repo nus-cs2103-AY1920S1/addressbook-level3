@@ -22,10 +22,8 @@ public class DeleteMentorCommandParser implements Parser<DeleteCommand> {
      */
     @Override
     public DeleteMentorCommand parse(String args) throws ParseException {
-
         if (args.equals("")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteMentorCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMentorCommand.MESSAGE_USAGE));
         }
 
         try {

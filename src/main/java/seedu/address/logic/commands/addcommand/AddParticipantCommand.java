@@ -66,4 +66,11 @@ public class AddParticipantCommand extends AddCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.participant.toString()), PrefixType.P);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddParticipantCommand // instanceof handles nulls
+                && participant.equals(((AddParticipantCommand) other).participant));
+    }
+
 }

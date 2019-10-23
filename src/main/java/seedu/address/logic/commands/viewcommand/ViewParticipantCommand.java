@@ -45,4 +45,11 @@ public class ViewParticipantCommand extends ViewCommand {
         return new CommandResult(MESSAGE_SUCCESS, PrefixType.P);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewParticipantCommand // instanceof handles nulls
+                && id.equals(((ViewParticipantCommand) other).id));
+    }
+
 }

@@ -16,9 +16,15 @@ public class ViewCommandAllocator implements CommandAllocator<ViewCommand> {
 
     @Override
     public ViewCommand allocate(String userInput) throws ParseException {
+        String entity;
+        String args;
 
-        String entity = AlfredParserUtil.getEntityFromCommand(userInput, ViewCommand.MESSAGE_USAGE);
-        String args = AlfredParserUtil.getArgumentsFromCommand(userInput, ViewCommand.MESSAGE_USAGE);
+        try {
+            entity = AlfredParserUtil.getSpecifierFromCommand(userInput);
+            args = AlfredParserUtil.getArgumentsFromCommand(userInput);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+        }
 
         switch (entity) {
         case CliSyntax.ENTITY_MENTOR:
@@ -31,8 +37,7 @@ public class ViewCommandAllocator implements CommandAllocator<ViewCommand> {
             return new ViewTeamCommandParser().parse(args);
 
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
 
     }

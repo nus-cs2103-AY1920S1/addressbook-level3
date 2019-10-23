@@ -31,6 +31,7 @@ public class AddMentorCommand extends AddCommand {
             + CliSyntax.PREFIX_EMAIL + "customercare@batmail.com "
             + CliSyntax.PREFIX_SUBJECT_NAME + "Artificial Intelligence "
             + CliSyntax.PREFIX_ORGANISATION + "Wayne Enterprise, Inc";
+
     private Mentor mentor;
     // private Name mentorName;
     // private Name teamName;
@@ -68,6 +69,13 @@ public class AddMentorCommand extends AddCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.mentor.toString()), PrefixType.M);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddMentorCommand // instanceof handles nulls
+                && mentor.equals(((AddMentorCommand) other).mentor));
     }
 
 }
