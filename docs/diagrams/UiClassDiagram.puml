@@ -11,8 +11,14 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class EntryListPanel
+Class BudgetPanel
+Class WishListPanel
+Class ReminderPanel
+Class EntryCard
+Class BudgetCard
+Class WishListCard
+Class ReminderCard
 Class StatusBarFooter
 Class CommandBox
 }
@@ -31,27 +37,47 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *--> CommandBox
+MainWindow *--> ResultDisplay
+MainWindow *--> EntryListPanel
+MainWindow --> WishListPanel
+MainWindow --> BudgetPanel
+MainWindow --> ReminderPanel
+MainWindow *--> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+EntryListPanel -down-> EntryCard
 
-MainWindow -left-|> UiPart
+WishListPanel -down-> WishListCard
+
+BudgetPanel -down-> BudgetCard
+
+ReminderPanel -down-> ReminderCard
+
+MainWindow -right-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+EntryListPanel --|> UiPart
+WishListPanel --|> UiPart
+BudgetPanel --|> UiPart
+ReminderPanel --|> UiPart
+EntryCard --|> UiPart
+WishListCard --|> UiPart
+BudgetCard --|> UiPart
+ReminderCard --|> UiPart
 
-PersonCard ..> Model
+StatusBarFooter -right-|> UiPart
+HelpWindow -right-|> UiPart
+
+EntryCard .down.> Model
+WishListCard .down.> Model
+BudgetCard .down.> Model
+ReminderCard .down.> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+EntryListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

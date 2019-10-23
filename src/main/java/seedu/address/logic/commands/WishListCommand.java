@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
@@ -16,7 +17,7 @@ public class WishListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
         return new CommandResult(MESSAGE_SUCCESS);

@@ -19,6 +19,7 @@ public class Entry {
     private final Description desc;
     private final Amount amt;
     private final Date date;
+
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -43,7 +44,7 @@ public class Entry {
     }
 
     public String getType() {
-        return "Not like this";
+        return "entry";
     }
 
     public Date getDate() {
@@ -93,6 +94,8 @@ public class Entry {
                 return ((Income) this).equals((Income) other);
             } else if (this instanceof Wish) {
                 return ((Wish) this).equals((Wish) other);
+            } else if (this instanceof Budget) {
+                return ((Budget) this).equals((Budget) other);
             } else {
                 return false;
             }
@@ -112,7 +115,7 @@ public class Entry {
         } else if (this instanceof Wish && !(other instanceof Wish)) {
             return false;
         } else {
-            return true;
+            return !(this instanceof Budget) || other instanceof Budget;
         }
     }
 

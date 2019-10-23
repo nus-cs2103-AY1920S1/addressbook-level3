@@ -2,18 +2,19 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-
 
 /**
  * Adds a person to the address book.
@@ -27,13 +28,13 @@ public class AddCommand extends Command {
             + PREFIX_TYPE + "TYPE "
             + PREFIX_DESC + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_TIME + "TIME "
+            + PREFIX_DATE + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "Expense "
             + PREFIX_DESC + "Mala "
             + PREFIX_AMOUNT + "5.50 "
-            + PREFIX_TIME + "2019-09-09 "
+            + PREFIX_DATE + "2019 09 09 "
             + PREFIX_TAG + "food "
             + PREFIX_TAG + "indulgence";
 
@@ -50,7 +51,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         String type = toAdd.getType().toLowerCase();
         switch (type) {
@@ -63,10 +64,14 @@ public class AddCommand extends Command {
         case "wish":
             model.addWish((Wish) toAdd);
             break;
+        case "budget":
+            model.addBudget((Budget) toAdd);
+            break;
         default:
             throw new CommandException("command not found");
         }
 
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

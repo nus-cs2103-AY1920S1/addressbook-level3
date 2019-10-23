@@ -51,7 +51,6 @@ public class Date {
         LocalDate ldt = LocalDate.parse(date, INPUTFORMATTER);
         this.date = ldt;
         parseDate();
-
     }
 
     public Date(LocalDate date) {
@@ -79,7 +78,7 @@ public class Date {
 
     @Override
     public String toString() {
-        return fullTime;
+        return date.toString();
     }
 
     @Override

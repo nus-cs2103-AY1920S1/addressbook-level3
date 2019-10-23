@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -17,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.PanelName;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -53,10 +55,19 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
+    private HBox window;
+
+    @FXML
+    private VBox sidePanelsPlaceHolder;
+
+    @FXML
     private VBox wishesPlaceHolder;
 
     @FXML
     private VBox budgetsPlaceHolder;
+
+    @FXML
+    private VBox remindersPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -71,6 +82,10 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        /*String style = "-fx-font-family: ";
+        style += "Verdana";
+        window.setStyle(style);*/
     }
 
     public Stage getPrimaryStage() {
@@ -115,6 +130,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         entryListPanel = new EntryListPanel(logic.getFilteredEntryList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
 
@@ -127,9 +143,14 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        wishListPanel = new WishListPanel(logic.getFilteredWishList());
+        WishListPanel wishListPanel = new WishListPanel(logic.getFilteredEntryList());
         wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
 
+        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredEntryList());
+        budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
+
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredEntryList());
+        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 
     /**
@@ -172,6 +193,52 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Calls the togglePlaceHolder method with the place holder of the specified panel.
+     * @param panelName name of the specified panel to be toggled.
+     */
+    private void togglePanel(String panelName) {
+        switch (panelName) {
+        case "wishlist":
+            togglePlaceHolder(wishesPlaceHolder);
+            break;
+        case "budget":
+            togglePlaceHolder(budgetsPlaceHolder);
+            break;
+        case "reminder":
+            togglePlaceHolder(remindersPlaceHolder);
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Toggles the isVisible and isManaged properties of the specified place holder.
+     * @param placeHolder specified place holder to be toggled.
+     */
+    private void togglePlaceHolder(VBox placeHolder) {
+        boolean isManaged = placeHolder.isManaged();
+        placeHolder.setManaged(!isManaged);
+        boolean isVisible = placeHolder.isVisible();
+        placeHolder.setVisible(!isVisible);
+    }
+
+    /**
+     * Sets both the isVisible and isManaged properties the side panel place holder to false if none of the side panels
+     * are visible and managed.
+     * Otherwise, both of those properties are set to true.
+     */
+    private void toggleEntireSidePanelIfNecessary() {
+        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()) {
+            sidePanelsPlaceHolder.setManaged(false);
+            sidePanelsPlaceHolder.setVisible(false);
+        } else { // any one of the side panels are managed and visible
+            sidePanelsPlaceHolder.setManaged(true);
+            sidePanelsPlaceHolder.setVisible(true);
+        }
+    }
+
     public EntryListPanel getEntryListPanel() {
         return entryListPanel;
     }
@@ -194,6 +261,13 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isTogglePanel()) {
+                PanelName panelName = commandResult.getPanelName();
+                String panelNameString = panelName.getName();
+                togglePanel(panelNameString);
+                toggleEntireSidePanelIfNecessary();
             }
 
             return commandResult;

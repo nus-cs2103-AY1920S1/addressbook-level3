@@ -12,7 +12,7 @@ import seedu.address.model.person.Date;
 /**
  * Obtains information about the statistics from Model.
  */
-public class HistoryCommand extends Command {
+public class StatisticsCommand extends Command {
 
     public static final String COMMAND_WORD = "ViewHistory";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Looks up your entries history in guiltTrip(). \n"
@@ -27,18 +27,18 @@ public class HistoryCommand extends Command {
     private String type;
     private ArrayList<Date> listOfPeriods;
 
-    public HistoryCommand(String type) {
+    public StatisticsCommand(String type) {
         this.type = type;
         this.listOfPeriods = new ArrayList<Date>();
     }
 
-    public HistoryCommand(String type, ArrayList<Date> period) {
+    public StatisticsCommand(String type, ArrayList<Date> period) {
         this.type = type;
         this.listOfPeriods = period;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         //TODO Call Model's Statistics Method
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));

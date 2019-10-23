@@ -27,12 +27,18 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final CommandHistory history;
     private final AddressBookParser addressBookParser;
+    private boolean addressBookModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+
+        //Set addressBookModified to true whenever the models' addressbook is modified.
+        model.getAddressBook().addListener(observable -> addressBookModified = true);
     }
 
     @Override
@@ -40,12 +46,20 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
         try {
-            storage.saveAddressBook(model.getAddressBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            Command command = addressBookParser.parseCommand(commandText);
+            commandResult = command.execute(model, history);
+        } finally {
+            history.add(commandText);
+        }
+
+        if (addressBookModified) {
+            logger.info("Finance tracker modified, saving to file");
+            try {
+                storage.saveAddressBook(model.getAddressBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         return commandResult;
@@ -64,6 +78,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Wish> getFilteredWishList() {
         return model.getFilteredWishes();
+    }
+
+    @Override
+    public ObservableList<String> getHistory() {
+        return history.getHistory();
     }
 
     @Override
