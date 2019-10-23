@@ -71,8 +71,8 @@ public class InstallmentListTest {
     public void editInstallment_normalInputs_editedCorrectly() {
         Installment installment = installmentList.getInstallment(1);
         Installment editedInstallment = new InstallmentBuilder()
-                .withDescription(new InstallmentDescription("Spotify"))
-                .withMoneySpent(new InstallmentMoneyPaid("9.50"))
+                .withDescription("Spotify")
+                .withMoneySpent("9.50")
                 .build();
         installmentList.setInstallment(installment, editedInstallment);
         assertEquals(installmentList.getInstallment(1), editedInstallment);
@@ -81,7 +81,7 @@ public class InstallmentListTest {
     @Test
     public void editInstallment_nonExistentInstallment_throwsError() {
         Installment installment = new InstallmentBuilder()
-                .withDescription(new InstallmentDescription("something"))
+                .withDescription("something")
                 .build();
 
         assertThrows(RuntimeException.class, (

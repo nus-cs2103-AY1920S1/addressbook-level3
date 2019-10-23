@@ -4,11 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.core.index.Index;
@@ -19,9 +20,11 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.MonthlyLimit;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
@@ -46,7 +49,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final CoursePlanner coursePlanner;
     private final CcaTracker ccaTracker;
-    private final FilteredList<Person> filteredPersons;
     private final Planner planner;
 
 
@@ -65,7 +67,6 @@ public class ModelManager implements Model {
         this.historyManager = new HistoryManager(historyManager);
         this.addressBook = new AddressBook(addressBook);
         this.financeTracker = new FinanceTracker(financeTracker);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
         this.coursePlanner = new CoursePlanner(coursePlanner);
@@ -121,6 +122,26 @@ public class ModelManager implements Model {
     @Override
     public void setHistoryManager(HistoryManager historyManager) {
         this.historyManager.resetData(historyManager);
+    }
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    @Override
+    public ObservableList<Command> getExecutedCommandsList() {
+        return historyManager.getExecutedCommandsList();
+    }
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are inversely executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    @Override
+    public ObservableList<Command> getInverselyExecutedCommandsList() {
+        return historyManager.getInverselyExecutedCommandsList();
     }
 
     /**
@@ -205,16 +226,31 @@ public class ModelManager implements Model {
         return financeTracker;
     }
 
+    /**
+     * Retrieves purchase at a particular index as seen on the list of finance tracker.
+     *
+     * @throws CommandException is thrown if purchase does not exist
+     */
     @Override
     public Purchase getPurchase(int paymentIndex) {
         return financeTracker.getPurchase(paymentIndex);
     }
 
+    /**
+     * Updates the filter of the purchase list to be viewed with the new predicate.
+     *
+     * @param predicate to filter purchases
+     */
     @Override
     public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
         financeTracker.updateFilteredPurchaseList(predicate);
     }
 
+    /**
+     * Retrieves list of all purchases with current predicate applied
+     *
+     * @return ObservableList
+     */
     @Override
     public ObservableList<Purchase> getFilteredPurchaseList() {
         return financeTracker.getFilteredPurchaseList();
@@ -230,26 +266,66 @@ public class ModelManager implements Model {
         financeTracker.addSinglePurchase(purchase);
     }
 
+    @Override
+    public void addPurchase(int zeroBasedIndex, Purchase newPurchase) {
+        financeTracker.addSinglePurchase(zeroBasedIndex, newPurchase);
+    }
+
     /**
      * Deletes single use payment.
      *
-     * @param itemNumber
+     * @param itemNumber to be deleted
      */
     @Override
     public Purchase deletePurchase(int itemNumber) throws PurchaseNotFoundException {
         return financeTracker.deleteSinglePurchase(itemNumber);
     }
 
+    /**
+     * Deletes a single use payment.
+     *
+     * @param purchase to be deleted
+     */
+    @Override
+    public void deletePurchase(Purchase purchase) {
+        financeTracker.deleteSinglePurchase(purchase);
+    }
+
+
+    /**
+     * Checks for the existence of the purchase.
+     *
+     * @param purchase
+     */
+    public boolean hasPurchase(Purchase purchase) {
+        return financeTracker.hasPurchase(purchase);
+    }
+
+    /**
+     * Retrieves installment at a particular index as seen on the list of finance tracker.
+     *
+     * @throws CommandException is thrown if installment does not exist
+     */
     @Override
     public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
         return financeTracker.getInstallment(instalIndex);
     }
 
+    /**
+     * Updates the filter of the installment list to be viewed with the new predicate.
+     *
+     * @param predicate to filter installments
+     */
     @Override
     public void updateFilteredInstallmentList(Predicate<Installment> predicate) {
-
+        financeTracker.updateFilteredInstallmentList(predicate);
     }
 
+    /**
+     * Retrieves list of all installments with current predicate applied
+     *
+     * @return ObservableList
+     */
     @Override
     public ObservableList<Installment> getFilteredInstallmentList() {
         return financeTracker.getFilteredInstallmentList();
@@ -265,6 +341,11 @@ public class ModelManager implements Model {
         financeTracker.addInstallment(installment);
     }
 
+    @Override
+    public void addInstallment(int zeroBasedIndex, Installment installment) {
+        financeTracker.addInstallment(zeroBasedIndex, installment);
+    }
+
     /**
      * Deletes installment.
      *
@@ -275,11 +356,35 @@ public class ModelManager implements Model {
         return financeTracker.deleteInstallment(instalNumber);
     }
 
+    /**
+     * Deletes installment.
+     *
+     * @param installment
+     */
+    @Override
+    public void deleteInstallment(Installment installment) {
+        financeTracker.deleteInstallment(installment);
+    }
+
+    /**
+     * Checks for the existence of the same installment in the finance tracker.
+     *
+     * @param installment to be checked
+     * @return boolean
+     */
     @Override
     public boolean hasInstallment(Installment installment) {
         return financeTracker.hasInstallment(installment);
     }
 
+    /**
+     * Replaces the installment in the list with {@code editedInstallment}.
+     * The identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * list.
+     *
+     * @param target installment to be replaced
+     * @param editedInstallment installment with all fields edited according to command
+     */
     @Override
     public void setInstallment(Installment target, Installment editedInstallment) {
         financeTracker.setInstallment(target, editedInstallment);
@@ -288,11 +393,21 @@ public class ModelManager implements Model {
     /**
      * Sets the monthly limit for spending.
      *
-     * @param value
+     * @param limit
      */
     @Override
-    public void setMonthlyLimit(double value) {
-        financeTracker.setMonthlyLimit(value);
+    public void setMonthlyLimit(MonthlyLimit limit) {
+        financeTracker.setMonthlyLimit(limit);
+    }
+
+    /**
+     * Retrieves monthly limit if it has been set by the user.
+     *
+     * @return Optional containing the monthly limit
+     */
+    @Override
+    public OptionalDouble getMonthlyLimit() {
+        return financeTracker.getMonthlyLimit();
     }
 
     /**
@@ -392,11 +507,14 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return historyManager.equals(other.historyManager)
                 && financeTracker.equals(other.financeTracker)
+                && financeTracker.getFilteredPurchaseList().equals(other.financeTracker.getFilteredPurchaseList())
+                && financeTracker.getFilteredInstallmentList().equals(other.financeTracker.getFilteredInstallmentList())
                 && planner.equals(other.planner)
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
                 && userPrefs.equals(other.userPrefs)
-                && coursePlanner.equals(other.coursePlanner);
+                && coursePlanner.equals(other.coursePlanner)
+                && ccaTracker.equals(other.ccaTracker);
     }
 
 
@@ -451,6 +569,15 @@ public class ModelManager implements Model {
         return ccaTracker.getFilteredCcaList();
     }
 
+    @Override
+    public void addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList) {
+        ccaTracker.addProgress(targetCca, toAddCcaProgressList);
+    }
+
+    @Override
+    public void increaseProgress(Index index) {
+        ccaTracker.increaseProgress(index);
+    }
 
     //=========== Planner =============================================================
 
