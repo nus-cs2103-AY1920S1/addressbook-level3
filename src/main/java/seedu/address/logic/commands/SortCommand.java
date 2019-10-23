@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEQUENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
@@ -33,9 +34,10 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.sortFilteredEntry(type, sequence);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 
