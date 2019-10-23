@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 
-import javafx.scene.chart.PieChart.Data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart.Data;
 
 import calofit.model.CalorieBudget;
 import calofit.model.dish.Dish;

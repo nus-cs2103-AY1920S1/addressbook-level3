@@ -14,7 +14,8 @@ public class ReportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Report has been generated";
 
-    public static final String MESSAGE_FAILURE = "You currently have no meals in CaloFit for this month. Get Started! :)";
+    public static final String MESSAGE_FAILURE =
+            "You currently have no meals in CaloFit for this month. Get Started! :)";
 
     /**
      * Updates the Statistics of CaloFit and returns the Command Result.

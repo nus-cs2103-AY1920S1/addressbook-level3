@@ -113,7 +113,7 @@ public class ReportWindow extends UiPart<Stage> {
         Text mostConsumedFoodHeader = new Text("Most consumed dish(es) of the month is:");
         mostConsumedFoodHeader.setStyle("-fx-font-size: 20px");
         mostConsumedMeal.getChildren().add(mostConsumedFoodHeader);
-        for(int i = 0; i < statistics.getMostConsumedDishes().size(); i++) {
+        for (int i = 0; i < statistics.getMostConsumedDishes().size(); i++) {
             Text mostConsumedFood = new Text("\n" + statistics.getMostConsumedDishes().get(i).getName().toString());
             mostConsumedFood.setStyle("-fx-font-size: 35px");
             mostConsumedMeal.getChildren().add(mostConsumedFood);

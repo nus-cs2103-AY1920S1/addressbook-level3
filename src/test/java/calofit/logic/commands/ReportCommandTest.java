@@ -1,18 +1,20 @@
 package calofit.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
-import calofit.model.ModelManager;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
 
