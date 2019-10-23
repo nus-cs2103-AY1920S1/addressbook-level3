@@ -89,7 +89,7 @@ Employee Format: `list_em`
 
 Event Format: `list_ev`
 
-==== Adding: `add | addev`
+==== Adding: `add | add_ev`
 
 Employee: Adds an employee to the employee list
 
@@ -97,7 +97,7 @@ Event: Adds an event that the company is organizing or hosting to the company’
 
 Employee Format: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
 
-Event Format: `addev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
+Event Format: `add_ev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 
 [TIP]
 A employee can have any number of tags (including 0)
