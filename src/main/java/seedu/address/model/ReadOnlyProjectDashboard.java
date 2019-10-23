@@ -38,7 +38,7 @@ public interface ReadOnlyProjectDashboard {
     ObservableList<Inventory> getInventoryList();
 
     HashMap<Task, ObservableList<Member>> listMemberByTask();
-    
+
     ObservableList<InvMemMapping> getInvMemMappingList();
 
     ObservableList<InvTasMapping> getInvTasMappingList();
