@@ -162,8 +162,6 @@ The finding free timeslot feature is implemented by `ScheduleGenerator`. It gene
 
 These operations are exposed in the `Model` interface as `Model#getFreeTimeslot()`
 
-
-
 Firstly, the `getFreeTimeslot()` method takes in as input an ArrayList of `Person` and updates the ScheduleView of the TimeBook. When the method is executed, it checks the schedule of each `Person` in the TimeBook and generates a new combined `WeekSchedule` of the whole list of `Person`. Also, only `TimeSlots` that are within the week are checked and put into the 'WeekSchedule'. The generated `WeekSchedule` will then contain the individual schedules of each `Person` in the list for the week.
 
 After the `WeekSchedule` has been generated, the method now generates a new schedule of the free timeslots within the `WeekSchedule`. It checks the `WeekSchedule` and generates a new `FreeTimeSchedule` with contains all the timeslots in which there are no clashes with the `weekSchedule`. It also only generates `FreeTimeslots` for the week. 
@@ -171,8 +169,6 @@ After the `WeekSchedule` has been generated, the method now generates a new sche
 Additionally, the generated `FreeTimeSchedule` also contains the information of the last venue the `Person` has been. This information is then used to calculate the closest location for all `Person` to meet.
 
 Finally, after generating the `WeekSchedule` and `FreeTimeSchedule`, it now updates the `ScheduleView` of `TimeBook`. This 'ScheduleView' is then displayed to the user through the UI.
-
-
 
 The following sequence diagram shows how the generateFreeTimeslot operation works:
 
