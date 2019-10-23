@@ -58,10 +58,10 @@ public class BankAccount implements ReadOnlyBankAccount {
      * The transaction identity of {@code editedTransaction} must not be the same as
      * another existing transaction in the bank account.
      */
-    public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
-        requireNonNull(editedTransaction);
+    public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
+        requireNonNull(transactionEdit);
 
-        transactions.setTransaction(target, editedTransaction);
+        transactions.setTransaction(transactionTarget, transactionEdit);
     }
 
     /**

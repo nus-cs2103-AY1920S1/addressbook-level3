@@ -111,10 +111,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
-        requireAllNonNull(target, editedTransaction);
+    public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
+        requireAllNonNull(transactionTarget, transactionEdit);
 
-        versionedBankAccount.setTransaction(target, editedTransaction);
+        versionedBankAccount.setTransaction(transactionTarget, transactionEdit);
     }
 
     @Override

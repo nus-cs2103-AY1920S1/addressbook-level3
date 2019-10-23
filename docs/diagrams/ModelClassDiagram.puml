@@ -5,15 +5,42 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyBankAccount <<Interface>>
 Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface ReadOnlyLedger <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Class BankAccount
+Class ReadOnlyBankAccount
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Class UserPrefs
+Class Ledger
+Class Projection
+Class VersionedBankAccount
+
+
+Package Transaction {
+Class Transaction
+Class InTransaction
+Class OutTransaction
+
+Class Split
+
+Class Budget
+
+Class Amount
+Class LendMoney
+Class Payment
+Class ReceiveMoney
+
+Class UniqueBudgetList
+Class UniqueTransactionList
+
+'Class AmountComparator
+'Class DateComparator
+
+}
 
 Package Person {
 Class Person
@@ -24,29 +51,56 @@ Class Phone
 Class UniquePersonList
 }
 
+Package Util {
+Class Date
+Class Time
+}
+
 Package Tag {
 Class Tag
 }
+
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+BankAccount .up.|> ReadOnlyBankAccount
+Ledger .up.|> ReadOnlyLedger
+VersionedBankAccount .up.|> BankAccount
 
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+' Model .right.> ObservableList
+ModelManager o--> "1" BankAccount
 ModelManager o-left-> "1" UserPrefs
+ModelManager o-right-> "1" Ledger
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
+
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
+
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
+
+BankAccount *--> "1" UniqueTransactionList
+BankAccount *--> "1" UniqueBudgetList
+UniqueTransactionList o--> "*" Transaction
+Transaction *--> Amount
+Transaction *--> Date
+Transaction *--> Person
+Transaction *--> "*" Tag
+InTransaction .up.|> Transaction
+OutTransaction .up.|> Transaction
+
+UniqueBudgetList o--> "*" Budget
+Budget *--> Amount
+Budget *--> Date
+Budget *--> "*" Tag
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address

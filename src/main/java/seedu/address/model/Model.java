@@ -111,7 +111,7 @@ public interface Model {
      * The transaction identity of {@code editedTransaction} must not be
      * the same as another existing transaction in the bank account.
      */
-    void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction);
+    void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
 
     /**
      * Adds the given transaction.
