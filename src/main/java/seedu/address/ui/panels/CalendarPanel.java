@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import jfxtras.scene.control.agenda.Agenda;
+import seedu.address.model.CalendarDate;
 import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.ui.UiPart;
@@ -22,23 +23,30 @@ public class CalendarPanel extends UiPart<Region> {
     private Agenda agenda;
     private ObservableList<Schedule> scheduleList;
     private ObservableList<Order> orderList;
+    private CalendarDate calendarDate;
 
     @FXML
     private VBox calendarBox;
 
-    public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList) {
+    public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList,
+                         CalendarDate calendarDate) {
         super(FXML);
 
         this.scheduleList = scheduleList;
         this.orderList = orderList;
+        this.calendarDate = calendarDate;
 
         agenda = new Agenda();
+        agenda.setAllowDragging(false);
+        agenda.setAllowResize(false);
+
         calendarBox.getChildren().add(agenda);
         populateAgenda();
+        setAgendaView(Calendar.getInstance());
 
         // set up listener
         scheduleList.addListener((ListChangeListener<Schedule>) change -> populateAgenda());
-
+        calendarDate.getProperty().addListener((observableValue, calendar, t1) -> setAgendaView(t1));
     }
 
     /**
@@ -82,6 +90,18 @@ public class CalendarPanel extends UiPart<Region> {
 
     public Agenda getAgenda() {
         return agenda;
+    }
+
+    /**
+     * Switch the agenda view according to the date input by the user
+     */
+    private void setAgendaView(Calendar calendar) {
+        int year = calendar.get(Calendar.YEAR);
+        // offset to 1-based
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        LocalDateTime localDateTime = LocalDateTime.of(year, month, date, 0, 0);
+        agenda.setDisplayedLocalDateTime(localDateTime);
     }
 
 }

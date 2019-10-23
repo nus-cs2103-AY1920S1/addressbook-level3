@@ -156,10 +156,10 @@ public class SampleDataUtil {
             new Order(UUID.randomUUID(),
                    new Customer(new CustomerName("Charlotte Oliveiro"), new ContactNumber("93210283"),
                         new Email("charlotte@example.com"), getTagSet("neighbours")),
-                   new Phone(new IdentityNumber("990003709954321"),
-                        new SerialNumber("28xa9q2ns"), new PhoneName("iPhone 11"), new Brand("Apple"),
-                        Capacity.SIZE_128GB, new Colour("Jet Black"), new Cost("$1100"),
-                        getTagSet("New")),
+                    new Phone(new IdentityNumber("990003709954321"),
+                            new SerialNumber("28xa9q2ns"), new PhoneName("iPhone 11"), new Brand("Apple"),
+                            Capacity.SIZE_128GB, new Colour("Jet Black"), new Cost("$1100"),
+                            getTagSet("New")),
                    new Price("$1000"),
                     Status.COMPLETED,
                     Optional.of(sampleSchedule()),
@@ -172,18 +172,38 @@ public class SampleDataUtil {
                         Capacity.SIZE_64GB, new Colour("White"), new Cost("$400"),
                         getTagSet("Used")),
                   new Price("$1500"),
-                    Status.UNSCHEDULED,
+                    Status.COMPLETED,
                     Optional.of(sampleSchedule()), getTagSet("New")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
                         new Email("lidavid@example.com"), getTagSet("family")),
                   new Phone(new IdentityNumber("352039075644270"),
                         new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
-                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$1000"),
+                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$540"),
                         getTagSet("New")),
                   new Price("$1200"),
-                    Status.UNSCHEDULED,
-                    Optional.of(sampleSchedule()), getTagSet("New"))
+                    Status.COMPLETED,
+                    Optional.of(sampleSchedule()), getTagSet("New")),
+            new Order(UUID.randomUUID(),
+                        new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
+                                new Email("lidavid@example.com"), getTagSet("family")),
+                        new Phone(new IdentityNumber("352039075644270"),
+                                new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
+                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$581"),
+                                getTagSet("New")),
+                        new Price("$1200"),
+                        Status.COMPLETED,
+                        Optional.of(sampleSchedule2()), getTagSet("New")),
+            new Order(UUID.randomUUID(),
+                        new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
+                                new Email("lidavid@example.com"), getTagSet("family")),
+                        new Phone(new IdentityNumber("352039075644270"),
+                                new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
+                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$95"),
+                                getTagSet("New")),
+                        new Price("$1200"),
+                        Status.COMPLETED,
+                        Optional.of(sampleSchedule3()), getTagSet("New"))
 
         };
     }
@@ -194,10 +214,32 @@ public class SampleDataUtil {
     private static Schedule sampleSchedule() {
         return new Schedule(
                 UUID.randomUUID(),
-                new Calendar.Builder().setDate(2018, 10, 02).build(),
+                new Calendar.Builder().setDate(2019, 10, 02).build(),
                 new Venue("test venue"),
                 getTagSet("New"));
     }
+
+    /**
+     *Return sample Schedule object
+     */
+    private static Schedule sampleSchedule2() {
+        return new Schedule(
+                UUID.randomUUID(),
+                new Calendar.Builder().setDate(2019, 1, 31).build(),
+                new Venue("test venue"),
+                getTagSet("New"));
+    }
+    /**
+     *Return sample Schedule object
+     */
+    private static Schedule sampleSchedule3() {
+        return new Schedule(
+                UUID.randomUUID(),
+                new Calendar.Builder().setDate(2019, 4, 31).build(),
+                new Venue("test venue"),
+                getTagSet("New"));
+    }
+
 
 
     public static ReadOnlyDataBook<Order> getSampleOrderBook() {

@@ -53,6 +53,8 @@ public class EditOrderCommand extends Command {
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the seller manager.";
+    public static final String MESSAGE_CANCELLED_CANNOT_EDIT = "This order is cancelled. It cannot be edited.";
+    public static final String MESSAGE_COMPLETED_CANNOT_EDIT = "This order is completed. It cannot be edited.";
 
     private final Index orderIndex;
     private final Optional<Index> customerIndex;
@@ -84,6 +86,14 @@ public class EditOrderCommand extends Command {
         }
 
         Order orderToEdit = lastShownOrderList.get(orderIndex.getZeroBased());
+
+        if (orderToEdit.getStatus().equals(Status.CANCELLED)) {
+            throw new CommandException(MESSAGE_CANCELLED_CANNOT_EDIT);
+        }
+
+        if (orderToEdit.getStatus().equals(Status.COMPLETED)) {
+            throw new CommandException(MESSAGE_COMPLETED_CANNOT_EDIT);
+        }
 
         List<Customer> lastShownCustomerList = model.getFilteredCustomerList();
 

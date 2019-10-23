@@ -3,6 +3,7 @@ package seedu.address.commons.util;
 import java.util.Calendar;
 
 import seedu.address.logic.commands.statisticcommand.StatisticType;
+import seedu.address.statistic.StatsPayload;
 
 /**
  *

@@ -29,12 +29,13 @@ class PhoneTest {
         // null -> returns false
         assertFalse(IPHONEONE.isSameAs(null));
 
-        // different IMEI -> returns false
-        assertFalse(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE)
-                .withIdentityNumber(VALID_IDENTITYNUMBER).build()));
+        // different IMEI and serial number -> returns false
+        assertFalse(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE)
+                .withIdentityNumber(VALID_IDENTITYNUMBER)
+                .withSerialNumber(VALID_SERIALNUMBER).build()));
 
-        // different serial number -> returns false
-        assertFalse(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE).withSerialNumber(VALID_SERIALNUMBER).build()));
+        // different serial number and same IMEI -> returns true
+        assertTrue(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).build()));
 
         // different phone name -> returns true
         assertTrue(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE).withName(VALID_NAME).build()));

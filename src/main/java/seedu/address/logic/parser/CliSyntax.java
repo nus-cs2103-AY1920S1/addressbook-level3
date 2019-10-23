@@ -24,14 +24,16 @@ public class CliSyntax {
 
 
     //// Order
+    public static final Prefix PREFIX_ORDERID = new Prefix("i/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_CUSTOMER = new Prefix("c/");
+    public static final Prefix PREFIX_STATUS = new Prefix("s/");
     public static final Prefix PREFIX_PRICE = new Prefix("$/");
     // price + tags
 
     //// Schedule
-    public static final Prefix PREFIX_ORDER = new Prefix("o/");
-    public static final Prefix PREFIX_CALENDAR = new Prefix("c/");
+    public static final Prefix PREFIX_DATE = new Prefix("cd/");
+    public static final Prefix PREFIX_TIME = new Prefix("ct/");
     public static final Prefix PREFIX_VENUE = new Prefix("v/");
 
     //// Stats

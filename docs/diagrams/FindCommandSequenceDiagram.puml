@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SellerManagerParser" as SellerManagerParser LOGIC_COLOR
+participant ":FindCustomerCommandParser" as FindCustomerCommandParser LOGIC_COLOR
+participant ":CustomerNameContainsKeywordsPredicate" as CustomerNameContainsKeywordsPredicate LOGIC_COLOR
+participant "d:FindCustomerCommand" as FindCustomerCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("find-c 1")
+activate LogicManager
+
+LogicManager -> SellerManagerParser : parseCommand("find-c n/Alice")
+activate SellerManagerParser
+
+create FindCustomerCommandParser
+SellerManagerParser -> FindCustomerCommandParser
+activate FindCustomerCommandParser
+
+FindCustomerCommandParser --> SellerManagerParser
+deactivate FindCustomerCommandParser
+
+SellerManagerParser -> FindCustomerCommandParser : parse("1")
+activate FindCustomerCommandParser
+
+create FindCustomerCommand
+FindCustomerCommandParser -> FindCustomerCommand
+activate FindCustomerCommand
+
+FindCustomerCommand --> FindCustomerCommandParser : d
+deactivate FindCustomerCommand
+
+FindCustomerCommandParser --> SellerManagerParser : d
+deactivate FindCustomerCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCustomerCommandParser -[hidden]-> SellerManagerParser
+destroy FindCustomerCommandParser
+
+SellerManagerParser --> LogicManager : d
+deactivate SellerManagerParser
+
+LogicManager -> FindCustomerCommand : execute()
+activate FindCustomerCommand
+
+FindCustomerCommand -> Model : deletePerson(1)
+activate Model
+
+Model --> FindCustomerCommand
+deactivate Model
+
+create CommandResult
+FindCustomerCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FindCustomerCommand
+deactivate CommandResult
+
+FindCustomerCommand --> LogicManager : result
+deactivate FindCustomerCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

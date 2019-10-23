@@ -57,9 +57,12 @@ public class LogicManagerTest {
                 new JsonScheduleBookStorage(temporaryFolder.resolve("scheduleBook.json"));
         JsonOrderBookStorage orderBookStorage =
                 new JsonOrderBookStorage(temporaryFolder.resolve("orderBook.json"));
+
+        JsonOrderBookStorage archivedOrderBookStorage =
+                new JsonOrderBookStorage(temporaryFolder.resolve("archivedOrderBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage,
-                scheduleBookStorage, orderBookStorage, userPrefsStorage);
+                scheduleBookStorage, orderBookStorage, archivedOrderBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage, statistic);
         logic = new LogicManager(model, storage, new StatisticManager());
     }

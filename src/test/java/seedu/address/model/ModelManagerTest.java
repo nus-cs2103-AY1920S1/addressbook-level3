@@ -19,12 +19,13 @@ import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
@@ -193,6 +194,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setCalendarDate_nullCalendarDate_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setCalendarDate(null));
+    }
+
+    @Test
+    public void setCalendarDate_validCalendarDate_replacesData() {
+        Calendar newCalendar = Calendar.getInstance();
+        modelManager.setCalendarDate(newCalendar);
+        assertEquals(newCalendar, modelManager.getCalendarDate().getCalendar());
+    }
+
+    @Test
     public void equals() {
         //AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         DataBook<Customer> customerBook = new CustomerBookBuilder().withCustomer(DANIEL).withCustomer(FIONA).build();
@@ -201,15 +214,19 @@ public class ModelManagerTest {
         DataBook<Schedule> scheduleBook = new ScheduleBookBuilder().withSchedule(CBD_SCHEDULE)
                 .withSchedule(SCHEDULEONE).build();
 
+        DataBook<Order> archivedOrderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
+
         DataBook<Customer> differentCustomerBook = new DataBook<>();
         DataBook<Phone> differentPhoneBook = new DataBook<>();
         DataBook<Order> differentOrderBook = new DataBook<>();
         DataBook<Schedule> differentScheduleBook = new DataBook<>();
+        DataBook<Order> differentArchivedOrderBook = new DataBook<>();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, userPrefs);
+        modelManager = new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, archivedOrderBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(customerBook, phoneBook, orderBook,
+                scheduleBook, archivedOrderBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -223,25 +240,29 @@ public class ModelManagerTest {
 
         // different customerBook -> returns false
         assertFalse(modelManager.equals(new
-                ModelManager(differentCustomerBook, phoneBook, orderBook, scheduleBook, userPrefs)));
+                ModelManager(differentCustomerBook, phoneBook, orderBook, scheduleBook, archivedOrderBook, userPrefs)));
 
         // different phoneBook -> returns false
         assertFalse(modelManager.equals(new
-                ModelManager(customerBook, differentPhoneBook, orderBook, scheduleBook, userPrefs)));
+                ModelManager(customerBook, differentPhoneBook, orderBook, scheduleBook, archivedOrderBook, userPrefs)));
 
         // different orderBook -> returns false
         assertFalse(modelManager.equals(new
-                ModelManager(customerBook, phoneBook, differentOrderBook, scheduleBook, userPrefs)));
+                ModelManager(customerBook, phoneBook, differentOrderBook, scheduleBook, archivedOrderBook, userPrefs)));
+
+        // different archiveOrderBook -> returns false
+        assertFalse(modelManager.equals(new
+                ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentArchivedOrderBook, userPrefs)));
 
         // different scheduleBook -> returns false
         assertFalse(modelManager.equals(new
-                ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, userPrefs)));
-
+                ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, archivedOrderBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = DANIEL.getCustomerName().fullName.split("\\s+");
-        modelManager.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, userPrefs)));
+        modelManager.updateFilteredCustomerList(new CustomerNameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(customerBook, phoneBook, orderBook, scheduleBook,
+                archivedOrderBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
@@ -250,6 +271,13 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new
-                ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentUserPrefs)));
+                ModelManager(customerBook, phoneBook, orderBook, scheduleBook,
+                archivedOrderBook, differentUserPrefs)));
+
+        // different calendar in calendarDate -> returns true
+        Calendar differentCalendar = Calendar.getInstance();
+        modelManagerCopy.setCalendarDate(differentCalendar);
+        assertTrue(modelManager.equals(modelManagerCopy));
+
     }
 }

@@ -19,6 +19,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path phoneBookFilePath = Paths.get("data" , "phonebook.json");
     private Path scheduleBookFilePath = Paths.get("data" , "schedulebook.json");
     private Path orderBookFilePath = Paths.get("data" , "orderbook.json");
+    private Path archivedOrderBookFilePath = Paths.get("data", "archivedbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -96,6 +97,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.orderBookFilePath = orderBookFilePath;
     }
 
+    public Path getArchivedOrderBookFilePath() {
+        return archivedOrderBookFilePath;
+    }
+
+    public void setArchivedOrderBookFilePath(Path archivedOrderBookFilePath) {
+        requireNonNull(orderBookFilePath);
+        this.archivedOrderBookFilePath = archivedOrderBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -112,7 +122,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
                 && customerBookFilePath.equals(o.customerBookFilePath)
                 && phoneBookFilePath.equals(o.phoneBookFilePath)
                 && scheduleBookFilePath.equals(o.scheduleBookFilePath)
-                && orderBookFilePath.equals(o.orderBookFilePath);
+                && orderBookFilePath.equals(o.orderBookFilePath)
+                && archivedOrderBookFilePath.equals(o.archivedOrderBookFilePath);
     }
 
     @Override
