@@ -1,0 +1,37 @@
+@startuml
+!include style.puml
+show members
+left to right direction
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ObjectAttributeFontSize 12
+
+object "__loanRecords:LoanRecords__" as LoanRecords
+object "__:Loan__" as Loan {
+    renewCount = 0
+    remainingFineAmount = 0
+    paidFineAmount = 0
+}
+object "__loanId:LoanId__" as LoanId {
+    value = "L000123"
+}
+object "__bookSerialNumber:SerialNumber__" as SerialNumber {
+    value = "B00456"
+}
+object "__borrowerId:BorrowerId__" as BorrowerId {
+    value = "K0789"
+}
+object "__startDate:LocalDate__" as startDate
+object "__dueDate:LocalDate__" as dueDate
+object "__returnDate:LocalDate__" as returnDate
+
+LoanRecords -->"*" Loan : stores
+Loan -->"1" LoanId
+Loan -->"1" SerialNumber
+Loan -->"1" BorrowerId
+Loan -->"1" startDate
+Loan -->"1" dueDate
+Loan -->"0..1" returnDate
+
+@enduml
