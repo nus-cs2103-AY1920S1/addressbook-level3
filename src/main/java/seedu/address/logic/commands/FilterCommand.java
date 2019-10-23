@@ -9,6 +9,7 @@ import seedu.address.model.entity.worker.WorkerContainsAttributesKeywordsPredica
 
 import static java.util.Objects.requireNonNull;
 
+//@@author dalisc
 /**
  * Lists all persons in the address book to the user.
  */
