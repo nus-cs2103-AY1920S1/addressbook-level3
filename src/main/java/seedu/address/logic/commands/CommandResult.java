@@ -8,18 +8,18 @@ import java.util.Objects;
  * Represents the result of a command execution.
  */
 public class CommandResult {
-
-    private final String feedbackToUser;
+    protected String pane = "";
+    protected final String feedbackToUser;
 
     /**
      * Help information should be shown to the user.
      */
-    private final boolean showHelp;
+    protected final boolean showHelp;
 
     /**
      * The application should exit.
      */
-    private final boolean exit;
+    protected final boolean exit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -71,5 +71,7 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
-
+    public String getPane() {
+        return this.pane;
+    }
 }
