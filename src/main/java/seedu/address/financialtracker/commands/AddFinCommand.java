@@ -5,13 +5,14 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.model.Model;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * add financial expenses command for Financial Tracker.
  */
-public class AddFinCommand extends Command {
+public class AddFinCommand extends Command<Model> {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the financial tracker.\n"

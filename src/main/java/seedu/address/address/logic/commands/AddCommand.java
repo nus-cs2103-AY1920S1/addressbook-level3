@@ -7,6 +7,7 @@ import static seedu.address.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.address.model.AddressBookModel;
@@ -15,7 +16,7 @@ import seedu.address.address.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command<AddressBookModel> {
 
     public static final String COMMAND_WORD = "add";
 

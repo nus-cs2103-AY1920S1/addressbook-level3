@@ -8,6 +8,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.address.model.AddressBookModel;
@@ -18,7 +19,7 @@ import seedu.address.commons.util.CollectionUtil;
 /**
  * Changes the remark of an existing person in the address book.
  */
-public class RemarkCommand extends Command {
+public class RemarkCommand extends Command<AddressBookModel> {
 
     public static final String COMMAND_WORD = "remark";
 

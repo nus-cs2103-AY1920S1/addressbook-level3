@@ -1,12 +1,13 @@
 package seedu.address.address.logic.commands;
 
 import seedu.address.address.model.AddressBookModel;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends Command {
+public class HelpCommand extends Command<AddressBookModel> {
 
     public static final String COMMAND_WORD = "help";
 

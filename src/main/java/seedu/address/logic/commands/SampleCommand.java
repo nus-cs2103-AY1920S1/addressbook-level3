@@ -1,13 +1,12 @@
 package seedu.address.logic.commands;
 
-import seedu.address.address.logic.commands.Command;
 import seedu.address.address.model.AddressBookModel;
 
 /**
  * Just a sample command.
  */
 // todo: remove this class before v1.3
-public class SampleCommand extends Command {
+public class SampleCommand extends Command<AddressBookModel> {
     public static final String COMMAND_WORD = "sample";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows you your calendar.\n"

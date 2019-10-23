@@ -1,13 +1,13 @@
 package seedu.address.calendar.commands;
 
-import seedu.address.address.logic.commands.Command;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.address.model.AddressBookModel;
 
 /**
  * Shows calendar.
  */
-public class CalendarCommand extends Command {
+public class CalendarCommand extends Command<AddressBookModel> {
     public static final String COMMAND_WORD = "calendar";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows you your calendar.\n"
