@@ -23,6 +23,8 @@ import seedu.address.model.module.LessonType;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleId;
+import seedu.address.model.module.ModuleSummary;
+import seedu.address.model.module.ModuleSummaryList;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.StartTime;
@@ -60,6 +62,38 @@ public class NusModsParser {
         }
 
         return new Module(moduleId, title, description, semesterData);
+    }
+
+    /**
+     * Parse a ModuleSummary from JSONArray.
+     * @param arr JSONArray to parse from.
+     * @return parsed ModuleSummary.
+     */
+    public static ModuleSummaryList parseModuleSummaryList(JSONArray arr, AcadYear defaultAcadYear) {
+        requireNonNull(arr);
+
+        List<ModuleSummary> moduleSummaries = new ArrayList<>();
+
+        for (int i = 0; i < arr.size(); i++) {
+            JSONObject obj = (JSONObject) arr.get(i);
+            AcadYear acadYear = new AcadYear(obj.getOrDefault("acadYear", defaultAcadYear).toString());
+            ModuleCode moduleCode = new ModuleCode(obj.getOrDefault("moduleCode", "").toString());
+            ModuleId moduleId = new ModuleId(acadYear, moduleCode);
+
+            Title title = new Title(obj.getOrDefault("title", "").toString());
+
+            List<Integer> semesters = new ArrayList<>();
+            if (obj.containsKey("semesters")) {
+                JSONArray jsonSemesters = (JSONArray) obj.get("semesters");
+                for (int j = 0; j < jsonSemesters.size(); j++) {
+                    semesters.add(Integer.parseInt(jsonSemesters.get(j).toString()));
+                }
+            }
+
+            moduleSummaries.add(new ModuleSummary(moduleId, title, semesters));
+        }
+
+        return new ModuleSummaryList(moduleSummaries);
     }
 
     /**
@@ -130,7 +164,7 @@ public class NusModsParser {
                 weekNumbers.add(Integer.parseInt(ja.get(i).toString()));
             }
         } else {
-            assert true : obj.toString().startsWith("{");
+            assert obj.toString().startsWith("{");
             JSONObject jo = (JSONObject) obj;
             startDateString = jo.get("start").toString();
             endDateString = jo.get("end").toString();
@@ -142,10 +176,12 @@ public class NusModsParser {
                 for (int i = 0; i < ja.size(); i++) {
                     weekNumbers.add(Integer.parseInt(ja.get(i).toString()));
                 }
-            } else { // start, end and weekInterval format
-                assert true : jo.containsKey("weekInterval");
+            } else { // start, end and weekInterval/default format
                 type = 3;
-                weekInterval = Integer.parseInt(jo.get("weekInterval").toString());
+                weekInterval = 1;
+                if (jo.containsKey("weekInterval")) {
+                    weekInterval = Integer.parseInt(jo.get("weekInterval").toString());
+                }
             }
         }
 
