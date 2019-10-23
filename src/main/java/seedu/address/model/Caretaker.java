@@ -20,10 +20,6 @@ public class Caretaker extends Classroom {
         statePointer = 0;
         mementos.add(start);
         this.classroom = classroom;
-        start.getState().getAssignmentList().forEach(assignment -> {
-            System.out.println("AT THE START: ");
-            System.out.println(assignment.marksStringListFromGrades());
-        });
     }
 
     /**
@@ -33,10 +29,6 @@ public class Caretaker extends Classroom {
         mementos = new ArrayList<>(mementos.subList(0, statePointer + 1));
         Memento mementoToAdd = new Memento(new Classroom(this.classroom));
         mementos.add(mementoToAdd);
-        mementoToAdd.getState().getAssignmentList().forEach(assignment -> {
-            System.out.println("PREVIOUS COMMIT wHEN SAVING: ");
-            System.out.println(assignment.marksStringListFromGrades());
-        });
         statePointer++;
     }
 
@@ -47,10 +39,6 @@ public class Caretaker extends Classroom {
     public ReadOnlyClassroom undo() {
         statePointer--;
         ReadOnlyClassroom previousCopy = mementos.get(statePointer).getState();
-        previousCopy.getAssignmentList().forEach(assignment -> {
-            System.out.println("PREVIOUS COMMIT: ");
-            System.out.println(assignment.marksStringListFromGrades());
-        });
         resetData(previousCopy);
         return previousCopy;
     }

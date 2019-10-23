@@ -84,7 +84,6 @@ public class UpdateGradesCommand extends Command {
         }
 
         model.setAssignment(assignmentToEdit, editedAssignment);
-        System.out.println(editedAssignment.marksStringListFromGrades());
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         model.saveState();
         return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment));
