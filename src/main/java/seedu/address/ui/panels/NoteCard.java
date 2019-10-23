@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.panels;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,7 +10,7 @@ import seedu.address.model.note.Note;
 /**
  * An UI component that displays information of a {@code Note}.
  */
-public class NoteCard extends UiPart<Region> {
+public class NoteCard extends PanelComponent<Region> {
     private static final String FXML = "NoteListCard.fxml";
 
     public final Note note;
