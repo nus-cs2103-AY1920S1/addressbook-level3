@@ -81,7 +81,7 @@ Format: `home`
 Returns to time management page where calendar and meeting times are displayed +
 Format: `calendar`
 
-==== Accessing settings page: `settings` +
+==== Accessing settings page: `settings` (Coming in v1.3) +
 Returns to settings page  +
 Format: `settings`
 
@@ -305,7 +305,7 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 
 '''
 
-=== Settings Commands
+=== Settings Commands (Coming in v1.3)
 
 ==== Switching the theme of +Work: `theme`
 
