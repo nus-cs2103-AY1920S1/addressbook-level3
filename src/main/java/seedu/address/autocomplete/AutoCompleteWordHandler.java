@@ -38,7 +38,7 @@ public class AutoCompleteWordHandler {
         oListAutoCompleteWordBank.add(new CommandWord("delete"));
         oListAutoCompleteWordBank.add(new CommandWord("add"));
         oListAutoCompleteWordBank.add(new CommandWord("import-replace"));
-        oListAutoCompleteWordBank.add(new CommandWord("export-all"));
+        oListAutoCompleteWordBank.add(new CommandWord("export"));
         oListAutoCompleteWordBank.add(new CommandWord("history"));
         oListAutoCompleteWordBank.add(new CommandWord("undo"));
     }
@@ -65,6 +65,6 @@ public class AutoCompleteWordHandler {
                 oListAutoCompleteWords.add(autoCompleteWord);
             }
         }
-        logger.info("Current number of suggested word is " + oListAutoCompleteWords.size());
+        // logger.info("Current number of suggested word is " + oListAutoCompleteWords.size());
     }
 }

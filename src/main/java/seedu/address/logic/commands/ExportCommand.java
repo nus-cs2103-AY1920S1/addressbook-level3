@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.importexport.CsvUtil;
+import seedu.address.importexport.exceptions.ExportingException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -34,22 +35,25 @@ public class ExportCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "patient_data "
             + PREFIX_INDEXES + "2 " + PREFIX_INDEXES + "4 "  + PREFIX_INDEXES +"6";
 
-    public static final String MESSAGE_SUCCESS = "Export success!";
+    public static final String MESSAGE_SUCCESS = "Export success! File written to: ";
     public static final String MESSAGE_FAILURE = "Export failed.";
     public static final String MESSAGE_FILE_EXISTS = "File name already in use. Please delete the existing file or use a new file name";
 
     private final String exportFileName;
     private final Optional<Set<Index>> targetIndexes;
 
+    /**
+     * @param exportFileName of the .csv to create and export to
+     * @param targetIndexes of the persons to selectively export, if any
+     */
     public ExportCommand(String exportFileName, Optional<Set<Index>> targetIndexes) {
         this.exportFileName = exportFileName;
         this.targetIndexes = targetIndexes;
     }
 
     /**
-     * v1.2 implementation: export all persons on the currently shown list
-     * @param model {@code Model} which the command should operate on.
-     * @return
+     * export all persons specified by {@Code targetIndexes}
+     * if no indexes are provided, all persons data are exported.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -68,13 +72,16 @@ public class ExportCommand extends Command {
             lastShownList = model.getPersonsByIndexes(targetIndexes.get());
         }
 
+        String pathString;
         try {
-            CsvUtil.writePersonsToCsv(lastShownList);
+            pathString = CsvUtil.writePersonsToCsv(lastShownList, exportFileName);
+        } catch (ExportingException e) {
+            throw new CommandException(MESSAGE_FILE_EXISTS);
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + pathString);
     }
 
     /**
