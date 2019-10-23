@@ -132,6 +132,15 @@ We organize different data classes into packages (e.g. `Problem`), inside which 
 .Structure of the Problem Package
 image::design/model/ProblemPackageDiagram.png[]
 
+.Structure of the Plan Package
+image::design/model/PlanPackageDiagram.png[]
+
+.Structure of the Tag Package
+image::design/model/TagPackageDiagram.png[]
+
+.Structure of the Task Package
+image::design/model/TaskPackageDiagram.png[]
+
 //@@author
 
 //@@author jiayushe
