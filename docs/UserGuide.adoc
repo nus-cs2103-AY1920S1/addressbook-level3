@@ -55,7 +55,24 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Format: `help`
+Provides 3 different types of help for all commands.
+
+Keyword: `help`
+
+Format:
+`help cmd/COMMAND type/TYPE`
+
+Refer to <<Command Summary>> for all available commands
+
+Types include: + 
+`brief` (gives a brief description) +
+		`guide` (opens a web browser and bring you to our user guide) +
+		`api` (for advanced users who want to know the inner workings of the command) +
+
+Examples: +
+`help cmd/add_income type/brief` +
+`help cmd/goto type/guide` +
+`help cmd/help type/api`
 
 === Changing Views : `goto`
 
@@ -175,7 +192,10 @@ Examples:
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-=== See budget (Pop-up)
+=== Viewing budget
+
+Calculates the projected budget based on all income and approved claim values. +
+Also displays a graph detailing total income, claim and budget values for every day of the current month. +
 
 Format: `budget`
 
@@ -262,7 +282,8 @@ Automatically detects command and comes up with suggestions as a pop-up on what 
 
 == Command Summary
 
-* *Help* : `help`
+* *Help* : `help cmd/COMMAND type/TYPE` +
+e.g. `help cmd/add_income type/brief`
 
 * *Changing of Views* `goto (parameter)`
 e.g. `goto claims`
@@ -309,5 +330,3 @@ e.g. `attach 1`
 e.g. `tag 1 t/FOP t/Sports`
 
 * *Closing application* `exit`
-
-
