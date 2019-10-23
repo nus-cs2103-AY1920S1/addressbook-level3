@@ -85,8 +85,7 @@ public class AutoCompleteTextField extends TextField {
                         .collect(Collectors.toList());
                 if (!filteredEntries.isEmpty()) {
                     populatePopup(filteredEntries, stringToCompare);
-                    entriesPopup.hide(); // This ensures the down key always works
-                    entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+                    refreshDropdown();
                 } else {
                     entriesPopup.hide();
                 }
@@ -113,13 +112,13 @@ public class AutoCompleteTextField extends TextField {
             Label entryLabel = new Label();
             entryLabel.setGraphic(buildTextFlow(result, searchWord));
             entryLabel.setPrefHeight(10);
-            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            CustomMenuItem item = new CustomMenuItem(entryLabel, false);
             menuItems.add(item);
 
             item.setOnAction(actionEvent -> {
-                setText(result);
-                positionCaret(result.length());
-                entriesPopup.hide();
+                setText(getText().substring(0, getText().lastIndexOf(searchWord)) + result);
+                positionCaret(getText().length());
+                refreshDropdown();
             });
         }
 
@@ -158,6 +157,11 @@ public class AutoCompleteTextField extends TextField {
         int firstIndex = firstMatch.indexOf(text);
         int secondIndex = secondMatch.indexOf(text);
         return firstIndex - secondIndex;
+    }
+
+    private void refreshDropdown() {
+        entriesPopup.hide();
+        entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
     }
 
 }
