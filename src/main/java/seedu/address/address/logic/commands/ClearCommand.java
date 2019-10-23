@@ -4,12 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.address.model.AddressBook;
 import seedu.address.address.model.AddressBookModel;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 
 /**
  * Clears the address book.
  */
-public class ClearCommand extends Command {
+public class ClearCommand extends Command<AddressBookModel> {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";

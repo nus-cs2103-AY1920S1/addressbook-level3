@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 import seedu.address.address.logic.commands.AddCommand;
 import seedu.address.address.logic.commands.ClearCommand;
-import seedu.address.address.logic.commands.Command;
 import seedu.address.address.logic.commands.DeleteCommand;
 import seedu.address.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GoToCommand;
