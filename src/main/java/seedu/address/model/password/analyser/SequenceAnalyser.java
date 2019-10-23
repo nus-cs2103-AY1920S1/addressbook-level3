@@ -15,21 +15,21 @@ public class SequenceAnalyser implements Analyser {
 
     private static final String MESSAGE_HEADER = "Analysing passwords for common sequences :\n";
 
-    private ArrayList<SequenceResult> analysisObjects;
+    private ArrayList<SequenceResult> results;
 
     @Override
     public void analyse(List<Password> passwordList) {
-        ArrayList<SequenceResult> analysisObjects = new ArrayList<>();
+        ArrayList<SequenceResult> results = new ArrayList<>();
         for (Password acc : passwordList) {
             String password = acc.getPasswordValue().value;
             List<SequenceMatch> matches = getAllSubseq(password);
             if (matches.isEmpty()) {
-                analysisObjects.add(new SequenceResult(acc, DESC_PASS, matches));
+                results.add(new SequenceResult(acc, DESC_PASS, matches));
             } else {
-                analysisObjects.add(new SequenceResult(acc, DESC_FAIL, matches));
+                results.add(new SequenceResult(acc, DESC_FAIL, matches));
             }
         }
-        this.analysisObjects = analysisObjects;
+        this.results = results;
     }
 
     private List<SequenceMatch> getAllSubseq(String password) {
@@ -120,7 +120,7 @@ public class SequenceAnalyser implements Analyser {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append(MESSAGE_HEADER);
         reportBuilder.append(MESSAGE_COLUMNS);
-        for (SequenceResult o : analysisObjects) {
+        for (SequenceResult o : results) {
             reportBuilder.append(o);
         }
         return reportBuilder.toString();
@@ -131,7 +131,7 @@ public class SequenceAnalyser implements Analyser {
         StringBuilder report = new StringBuilder();
         report.append(MESSAGE_INIT);
         report.append(MESSAGE_HEADER);
-        SequenceResult target = analysisObjects.get(index.getZeroBased());
+        SequenceResult target = results.get(index.getZeroBased());
         report.append(target.getGreaterDetail());
         return report.toString();
     }

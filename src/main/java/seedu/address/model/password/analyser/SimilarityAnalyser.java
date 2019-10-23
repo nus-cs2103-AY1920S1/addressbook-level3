@@ -15,20 +15,20 @@ import seedu.address.model.password.analyser.match.SimilarityMatch;
 public class SimilarityAnalyser implements Analyser {
 
     private static final String MESSAGE_HEADER = "Analyzing password for similarity: \n";
-    private ArrayList<SimilarityResult> analysisObjects;
+    private ArrayList<SimilarityResult> results;
 
     @Override
     public void analyse(List<Password> passwordList) {
-        ArrayList<SimilarityResult> analysisObjects = new ArrayList<>();
+        ArrayList<SimilarityResult> results = new ArrayList<>();
         for (Password acc : passwordList) {
             List<SimilarityMatch> matches = findSimilarPasswords(acc, passwordList);
             if (!matches.isEmpty()) {
-                analysisObjects.add(new SimilarityResult(acc, DESC_FAIL, matches));
+                results.add(new SimilarityResult(acc, DESC_FAIL, matches));
             } else {
-                analysisObjects.add(new SimilarityResult(acc, DESC_PASS, matches));
+                results.add(new SimilarityResult(acc, DESC_PASS, matches));
             }
         }
-        this.analysisObjects = analysisObjects;
+        this.results = results;
     }
 
     /**
@@ -110,7 +110,7 @@ public class SimilarityAnalyser implements Analyser {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append(MESSAGE_HEADER);
         reportBuilder.append(MESSAGE_COLUMNS);
-        for (SimilarityResult o : analysisObjects) {
+        for (SimilarityResult o : results) {
             reportBuilder.append(o);
         }
         return reportBuilder.toString();
@@ -121,7 +121,7 @@ public class SimilarityAnalyser implements Analyser {
         StringBuilder report = new StringBuilder();
         report.append(MESSAGE_INIT);
         report.append(MESSAGE_HEADER);
-        SimilarityResult target = analysisObjects.get(index.getZeroBased());
+        SimilarityResult target = results.get(index.getZeroBased());
         report.append(target.getGreaterDetail());
         return report.toString();
     }
