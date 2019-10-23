@@ -68,11 +68,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a doctor with the same nric as {@code doctorInCharge} exists in the address book.
+     * Returns true if a doctor with the same NRIC as {@code doctorInCharge} exists in the address book.
      */
     public boolean hasDoctor(Nric doctor) {
         requireNonNull(doctor);
         return persons.containsDoctor(doctor);
+    }
+
+    /**
+     * Returns true if a patient with the same NRIC as {@code patient} exists in the address book.
+     */
+    public boolean hasPatient(Nric patient) {
+        requireNonNull(patient);
+        return persons.containsPatient(patient);
+    }
+
+    /**
+     * Returns true if a donor with the same NRIC as {@code donor} exists in the address book.
+     */
+    public boolean hasDonor(Nric donor) {
+        requireNonNull(donor);
+        return persons.containsDonor(donor);
     }
 
     /**

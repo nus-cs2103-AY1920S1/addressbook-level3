@@ -8,8 +8,6 @@ import java.util.Arrays;
 
 import organice.logic.commands.ProcessingCommand;
 import organice.logic.parser.exceptions.ParseException;
-import organice.model.person.NameContainsKeywordsPredicate;
-import organice.model.person.Nric;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -24,8 +22,8 @@ public class ProcessingCommandParser implements Parser<ProcessingCommand> {
     public ProcessingCommand parse(String args) throws ParseException {
         requireNonNull(args);
         String trimmedArgs = args.trim();
-        String firstNRIC;
-        String secondNRIC;
+        String firstNRIC = null;
+        String secondNRIC = null;
         String[] nameKeywords = trimmedArgs.split("\\s+");
         if (nameKeywords[1].startsWith("icP/") && nameKeywords[2].startsWith("icD/")
             || nameKeywords[1].startsWith("icD/") && nameKeywords[2].startsWith("icP/")) {

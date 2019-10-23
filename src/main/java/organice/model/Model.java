@@ -68,9 +68,19 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
-     * Returns true if a doctor in charge with the same nric as {@code doctorInCharge} exists in the address book.
+     * Returns true if a doctor in charge with the same NRIC as {@code doctorInCharge} exists in the address book.
      */
     boolean hasDoctor(Nric doctor);
+
+    /**
+     * Returns true if a patient with the same NRIC as {@code patient} exists in the address book.
+     */
+    boolean hasPatient(Nric patient);
+
+    /**
+     * Returns true if a donor in charge with the same NRIC as {@code donor} exists in the address book.
+     */
+    boolean hasDonor(Nric donor);
 
     /**
      * Deletes the given person.
