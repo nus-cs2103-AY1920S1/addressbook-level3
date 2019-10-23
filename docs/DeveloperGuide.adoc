@@ -193,10 +193,11 @@ The recommendation feature allows users to generate a list of personalized recom
 The recommendations are tailored to each user based on their current likes, dislikes and purchase history.
 
 Users are able to add their liked and disliked categories, tags and locations into the app using the `like` and `dislike`
-command. The recommendation system will then take into account these preferences to generate a more accurate
-list of recommendations. Users will then able to find the food that they are likely to enjoy more accurately.
+command. The recommendation system will then take into account these preferences, in addition to their purchase history,
+to generate a more accurate list of recommendations. Users will then able to find the food that they are likely to enjoy
+more accurately.
 
-==== Classes for Recommendation feature in Model
+==== Classes for recommendation feature in Model
 
 With the recommendation feature, a new set of classes were added. A singleton class `RecommendationSystem` encapsulates
 the methods and classes related to this feature. This `RecommendationSystem` class implements the interface `Recommender`
@@ -204,9 +205,9 @@ which specifies the behaviour of the system, which include the ability to genera
 
 Additionally, the `RecommendationSystem` class also contains a class `UserRecommendations`, which include the likes and
 dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
-encompassing the ability to add and remove likes and dislikes among other features.
+encompassing the ability to add and remove likes and dislikes, among other features.
 
-Each `UserRecommendations` object contain 6 sets, namely:
+The `UserRecommendations` object contain 6 sets, namely:
 
 ****
 1. A set of user's liked categories
@@ -217,7 +218,7 @@ Each `UserRecommendations` object contain 6 sets, namely:
 6. A set of user's disliked locations
 ****
 
-The items stored in the sets are first converted to lowercase before adding them to the sets so that a case-insensitive
+The items stored in the sets are first converted to lowercase before adding them so that a case-insensitive
 comparison can be done more easily.
 
 The class diagram below illustrates the relationship between the classes.
@@ -243,7 +244,7 @@ The following activity diagram below summarizes how the `like` command works:
 .Activity diagram for a sample like command
 image::LikeActivityDiagram.png[width=450]
 
-A similar execution sequence is performed for a dislike command, replacing instances of like with dislike and vice versa.
+A similar execution sequence is performed for a dislike command by replacing instances of like with dislike and vice versa.
 
 ==== Displaying recommendations
 
@@ -283,12 +284,12 @@ before sorting them.
 ** Sorting by recommendation value may be less efficient as the recommendation system has to calculate the
 recommendation value of each `Food` item when the comparator is called
 
-We chose this design because of its simplicity of implementation. Additionally, adding a hidden `recommendationValue`
+We chose this design because of its simplicity of implementation. Adding a hidden `recommendationValue`
 field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
 not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
 two for the sake of efficiency.
 
-Furthermore, we do not have to manually update the recommendation of each `Food` item after every command with this design.
+Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this design.
 
 a|Have a field (e.g. `recommendationValue`) for each `Food` item
 
@@ -297,7 +298,7 @@ a|Have a field (e.g. `recommendationValue`) for each `Food` item
 be stored in each item
 
 * Cons:
-** The recommendation value of each `Food` must be updated before and after every command to ensure validity of
+** The recommendation value of each `Food` must be updated before every command to ensure validity of
 the recommendation value
 ** An extra field `recommendationValue` has to be added to each `Food`
 |===
