@@ -462,7 +462,7 @@ The GUI also collaborate with Model Class directly, which will be changed to onl
 === Address Book
 
 .Model Diagram of the AddressBook feature
-image::AddressModelClass.png[]
+image::AddressModelClassDiagram.png[]
 
 .Logic Diagram of the AddressBook feature
 image::AddressLogicClassDiagram.png[]
