@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDEADLINE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 import static seedu.address.model.calendar.CalendarModel.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -20,16 +20,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
-import seedu.address.model.calendar.person.Task;
-import seedu.address.model.calendar.person.TaskDay;
-import seedu.address.model.calendar.person.TaskDeadline;
-import seedu.address.model.calendar.person.TaskDescription;
-import seedu.address.model.calendar.person.TaskPlace;
-import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
+import seedu.address.model.calendar.task.Task;
+import seedu.address.model.calendar.task.TaskDay;
+import seedu.address.model.calendar.task.TaskDeadline;
+import seedu.address.model.calendar.task.TaskDescription;
+import seedu.address.model.calendar.task.TaskTime;
+import seedu.address.model.calendar.task.TaskTitle;
 
 /**
- * Edits the details of an existing task in the taskPlace book.
+ * Edits the details of an existing task in the taskTime book.
  */
 public class EditCommand extends Command {
 
@@ -40,10 +40,10 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TASKTITLE + "TITLE] "
-            + "[" + PREFIX_TASKDAY + "TIME] "
+            + "[" + PREFIX_TASKDAY + "DAY] "
             + "[" + PREFIX_TASKDESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TASKDEADLINE + "DEADLINE] "
-            + "[" + PREFIX_TASKPLACE + "PLACE] "
+            + "[" + PREFIX_TASKTIME + "TIME] "
             + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TASKDAY + "12/02/2019 "
@@ -80,7 +80,7 @@ public class EditCommand extends Command {
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedPerson(taskToEdit, editPersonDescriptor);
 
-        if (!taskToEdit.isSamePerson(editedTask) && calendarModel.hasTask(editedTask)) {
+        if (!taskToEdit.isSameTask(editedTask) && calendarModel.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -102,11 +102,11 @@ public class EditCommand extends Command {
                 .orElse(taskToEdit.getTaskDescription());
         TaskDeadline updatedTaskDeadline = editPersonDescriptor.getTaskDeadline()
                 .orElse(taskToEdit.getTaskDeadline());
-        TaskPlace updatedTaskPlace = editPersonDescriptor.getTaskPlace().orElse(taskToEdit.getTaskPlace());
+        TaskTime updatedTaskTime = editPersonDescriptor.getTaskTime().orElse(taskToEdit.getTaskTime());
         Set<TaskTag> updatedTaskTags = editPersonDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
 
         return new Task(updatedTaskTitle, updatedTaskDay, updatedTaskDescription, updatedTaskDeadline,
-                updatedTaskPlace, updatedTaskTags);
+            updatedTaskTime, updatedTaskTags);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class EditCommand extends Command {
         private TaskDay taskDay;
         private TaskDescription taskDescription;
         private TaskDeadline taskDeadline;
-        private TaskPlace taskPlace;
+        private TaskTime taskTime;
         private Set<TaskTag> taskTags;
 
         public EditPersonDescriptor() {}
@@ -150,7 +150,7 @@ public class EditCommand extends Command {
             setTaskDay(toCopy.taskDay);
             setTaskDescription(toCopy.taskDescription);
             setTaskDeadline(toCopy.taskDeadline);
-            setTaskPlace(toCopy.taskPlace);
+            setTaskTime(toCopy.taskTime);
             setTaskTags(toCopy.taskTags);
         }
 
@@ -158,7 +158,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(taskTitle, taskDay, taskDescription, taskPlace, taskTags);
+            return CollectionUtil.isAnyNonNull(taskTitle, taskDay, taskDescription, taskTime, taskTags);
         }
 
         public void setTaskTitle(TaskTitle taskTitle) {
@@ -193,12 +193,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(taskDeadline);
         }
 
-        public void setTaskPlace(TaskPlace taskPlace) {
-            this.taskPlace = taskPlace;
+        public void setTaskTime(TaskTime taskTime) {
+            this.taskTime = taskTime;
         }
 
-        public Optional<TaskPlace> getTaskPlace() {
-            return Optional.ofNullable(taskPlace);
+        public Optional<TaskTime> getTaskTime() {
+            return Optional.ofNullable(taskTime);
         }
 
         /**
@@ -237,7 +237,7 @@ public class EditCommand extends Command {
                     && getTaskDay().equals(e.getTaskDay())
                     && getTaskDeadline().equals(e.getTaskDeadline())
                     && getTaskDescription().equals(e.getTaskDescription())
-                    && getTaskPlace().equals(e.getTaskPlace())
+                    && getTaskTime().equals(e.getTaskTime())
                     && getTaskTags().equals(e.getTaskTags());
         }
     }

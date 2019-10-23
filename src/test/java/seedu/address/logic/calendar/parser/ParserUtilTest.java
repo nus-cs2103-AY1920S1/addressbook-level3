@@ -15,7 +15,7 @@
 //
 //import seedu.address.logic.parser.ParserUtil;
 //import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.calendarModel.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskTime;
 //import seedu.address.calendarModel.task.TaskDescription;
 //import seedu.address.calendarModel.task.TaskTitle;
 //import seedu.address.calendarModel.task.TaskDay;
@@ -118,14 +118,14 @@
 //
 //    @Test
 //    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-//        TaskPlace expectedAddress = new TaskPlace(VALID_ADDRESS);
+//        TaskTime expectedAddress = new TaskTime(VALID_ADDRESS);
 //        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
 //    }
 //
 //    @Test
 //    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
 //        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-//        TaskPlace expectedAddress = new TaskPlace(VALID_ADDRESS);
+//        TaskTime expectedAddress = new TaskTime(VALID_ADDRESS);
 //        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
 //    }
 //

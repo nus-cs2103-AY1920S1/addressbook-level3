@@ -1,4 +1,4 @@
-package seedu.address.model.calendar.person;
+package seedu.address.model.calendar.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class TaskDay {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "TaskDay numbers should only contain numbers, and it should be at least 3 digits long";
+            "TaskDay should only contain name of day in lowercase (monday, tuesday, wednesday, ...)";
     public final String value;
 
     /**

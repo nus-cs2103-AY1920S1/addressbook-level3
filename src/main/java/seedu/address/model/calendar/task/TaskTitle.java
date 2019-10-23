@@ -1,4 +1,4 @@
-package seedu.address.model.calendar.person;
+package seedu.address.model.calendar.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

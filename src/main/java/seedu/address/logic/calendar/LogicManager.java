@@ -14,7 +14,7 @@ import seedu.address.logic.calendar.parser.AddressBookParser;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
-import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.task.Task;
 import seedu.address.storage.calendar.Storage;
 
 /**

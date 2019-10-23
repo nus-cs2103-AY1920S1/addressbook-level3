@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.task.Task;
 
 
 
@@ -53,7 +53,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(task.getTaskTitle().fullName);
         phone.setText(task.getTaskDay().value);
         deadline.setText(task.getTaskDeadline().getValue());
-        address.setText(task.getTaskPlace().value);
+        address.setText(task.getTaskTime().value);
         email.setText(task.getTaskDescription().value);
         task.getTaskTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -9,12 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.person.TaskDay;
-import seedu.address.model.calendar.person.TaskDeadline;
-import seedu.address.model.calendar.person.TaskDescription;
-import seedu.address.model.calendar.person.TaskPlace;
-import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
+import seedu.address.model.calendar.task.TaskDay;
+import seedu.address.model.calendar.task.TaskDeadline;
+import seedu.address.model.calendar.task.TaskDescription;
+import seedu.address.model.calendar.task.TaskTime;
+import seedu.address.model.calendar.task.TaskTitle;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -67,18 +67,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code TaskPlace}.
+     * Parses a {@code String address} into an {@code TaskTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static TaskPlace parsePlace(String address) throws ParseException {
+    public static TaskTime parsePlace(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!TaskPlace.isValidAddress(trimmedAddress)) {
-            throw new ParseException(TaskPlace.MESSAGE_CONSTRAINTS);
+        if (!TaskTime.isValidTime(trimmedAddress)) {
+            throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
         }
-        return new TaskPlace(trimmedAddress);
+        return new TaskTime(trimmedAddress);
     }
 
     /**

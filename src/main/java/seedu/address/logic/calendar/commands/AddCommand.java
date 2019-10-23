@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDEADLINE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
-import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.task.Task;
 
 /**
  * Adds a task to the address book.
@@ -25,14 +25,14 @@ public class AddCommand extends Command {
             + PREFIX_TASKDAY + "DAY "
             + PREFIX_TASKDESCRIPTION + "DESCRIPTION "
             + PREFIX_TASKDEADLINE + "DEADLINE "
-            + PREFIX_TASKPLACE + "PLACE "
+            + PREFIX_TASKTIME + "TIME "
             + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASKTITLE + "CS2109 Assignment 7 "
             + PREFIX_TASKDAY + "monday "
             + PREFIX_TASKDESCRIPTION + "Submit to Luminus "
             + PREFIX_TASKDEADLINE + "12-10-2019 "
-            + PREFIX_TASKPLACE + "NUS "
+            + PREFIX_TASKTIME + "19:00 "
             + PREFIX_TASKTAG + "IMPORTANT "
             + PREFIX_TASKTAG + "CS2109";
 

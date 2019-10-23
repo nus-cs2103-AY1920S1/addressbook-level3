@@ -1,4 +1,4 @@
-package seedu.address.model.calendar.person;
+package seedu.address.model.calendar.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.calendar.tag.TaskTag;
 
 /**
- * Represents a Task in the taskPlace book.
+ * Represents a Task in the CalendarAddressbook.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {
@@ -22,7 +22,7 @@ public class Task {
 
     // Data fields
     private final TaskDeadline taskDeadline;
-    private final TaskPlace taskPlace;
+    private final TaskTime taskTime;
     private final Set<TaskTag> taskTags = new HashSet<>();
 
 
@@ -31,13 +31,14 @@ public class Task {
      * Every field must be present and not null.
      */
     public Task(TaskTitle taskTitle, TaskDay taskDay, TaskDescription taskDescription, TaskDeadline taskDeadline,
-                TaskPlace taskPlace, Set<TaskTag> taskTags) {
+                TaskTime taskTime, Set<TaskTag> taskTags) {
         this.taskDeadline = taskDeadline;
-        requireAllNonNull(taskTitle, taskDay, taskDescription, taskPlace, taskTags);
+        requireAllNonNull(taskTitle, taskDay);
+        // requireAllNonNull(taskTitle, taskDay, taskDescription, taskTime, taskTags);
         this.taskTitle = taskTitle;
         this.taskDay = taskDay;
         this.taskDescription = taskDescription;
-        this.taskPlace = taskPlace;
+        this.taskTime = taskTime;
         this.taskTags.addAll(taskTags);
     }
 
@@ -57,8 +58,8 @@ public class Task {
         return taskDeadline;
     }
 
-    public TaskPlace getTaskPlace() {
-        return taskPlace;
+    public TaskTime getTaskTime() {
+        return taskTime;
     }
 
     /**
@@ -70,10 +71,10 @@ public class Task {
     }
 
     /**
-     * Returns true if both persons of the same taskTitle have at least one other identity field that is the same.
+     * Returns true if both task of the same taskTitle have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Task otherTask) {
+    public boolean isSameTask(Task otherTask) {
         if (otherTask == this) {
             return true;
         }
@@ -104,14 +105,14 @@ public class Task {
                 && otherTask.getTaskDay().equals(getTaskDay())
                 && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 && otherTask.getTaskDescription().equals(getTaskDescription())
-                && otherTask.getTaskPlace().equals(getTaskPlace())
+                && otherTask.getTaskTime().equals(getTaskTime())
                 && otherTask.getTaskTags().equals(getTaskTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskTitle, taskDay, taskDescription, taskPlace, taskTags);
+        return Objects.hash(taskTitle, taskDay, taskDescription, taskTime, taskTags);
     }
 
     @Override
@@ -125,7 +126,7 @@ public class Task {
                 .append(" Deadline: ")
                 .append(getTaskDeadline())
                 .append(" Address: ")
-                .append(getTaskPlace())
+                .append(getTaskTime())
                 .append(" Tags: ");
         getTaskTags().forEach(builder::append);
         return builder.toString();

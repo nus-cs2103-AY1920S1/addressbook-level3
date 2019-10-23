@@ -6,7 +6,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.calendarModel.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskTime;
 //
 //
 //
@@ -14,28 +14,28 @@
 //
 //    @Test
 //    public void constructor_null_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> new TaskPlace(null));
+//        assertThrows(NullPointerException.class, () -> new TaskTime(null));
 //    }
 //
 //    @Test
 //    public void constructor_invalidAddress_throwsIllegalArgumentException() {
 //        String invalidAddress = "";
-//        assertThrows(IllegalArgumentException.class, () -> new TaskPlace(invalidAddress));
+//        assertThrows(IllegalArgumentException.class, () -> new TaskTime(invalidAddress));
 //    }
 //
 //    @Test
 //    public void isValidAddress() {
 //        // null address
-//        assertThrows(NullPointerException.class, () -> TaskPlace.isValidAddress(null));
+//        assertThrows(NullPointerException.class, () -> TaskTime.isValidAddress(null));
 //
 //        // invalid addresses
-//        assertFalse(TaskPlace.isValidAddress("")); // empty string
-//        assertFalse(TaskPlace.isValidAddress(" ")); // spaces only
+//        assertFalse(TaskTime.isValidAddress("")); // empty string
+//        assertFalse(TaskTime.isValidAddress(" ")); // spaces only
 //
 //        // valid addresses
-//        assertTrue(TaskPlace.isValidAddress("Blk 456, Den Road, #01-355"));
-//        assertTrue(TaskPlace.isValidAddress("-")); // one character
-//        assertTrue(TaskPlace.isValidAddress(
+//        assertTrue(TaskTime.isValidAddress("Blk 456, Den Road, #01-355"));
+//        assertTrue(TaskTime.isValidAddress("-")); // one character
+//        assertTrue(TaskTime.isValidAddress(
 //                "Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
 //    }
 //}

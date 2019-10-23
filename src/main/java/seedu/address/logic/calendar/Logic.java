@@ -8,7 +8,7 @@ import seedu.address.logic.calendar.commands.CommandResult;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
-import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.task.Task;
 
 /**
  * API of the Logic component

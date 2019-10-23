@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.calendar.CalendarModel;
-import seedu.address.model.calendar.person.TaskTitleContainsKeywordsPredicate;
+import seedu.address.model.calendar.task.TaskTitleContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.

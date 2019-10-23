@@ -1,4 +1,4 @@
-package seedu.address.model.calendar.person.exceptions;
+package seedu.address.model.calendar.task.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Tasks (Tasks are considered duplicates if they have the same

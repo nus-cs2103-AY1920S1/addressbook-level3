@@ -1,4 +1,4 @@
-package seedu.address.model.calendar.person;
+package seedu.address.model.calendar.task;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
  */
 public class TaskDeadline {
 
-    public static final String MESSAGE_CONSTRAINTS = "Deadline should be in the format dd/mm/yyyy";
+    public static final String MESSAGE_CONSTRAINTS = "Deadline should be in the format dd-mm-yyyy";
 
     private String value;
 
