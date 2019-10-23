@@ -18,7 +18,7 @@ import seedu.address.model.schedule.Schedule;
  * API of the Storage component
  */
 public interface Storage extends AddressBookStorage, CustomerBookStorage, PhoneBookStorage, ScheduleBookStorage,
-        OrderBookStorage, UserPrefsStorage {
+        OrderBookStorage, ArchivedOrderBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -71,4 +71,12 @@ public interface Storage extends AddressBookStorage, CustomerBookStorage, PhoneB
     @Override
     void saveOrderBook(ReadOnlyDataBook<Order> orderBook) throws IOException;
 
+    @Override
+    Path getArchivedOrderBookFilePath();
+
+    @Override
+    Optional<ReadOnlyDataBook<Order>> readArchivedOrderBook() throws DataConversionException, IOException;
+
+    @Override
+    void saveArchivedOrderBook(ReadOnlyDataBook<Order> orderBook) throws IOException;
 }

@@ -29,6 +29,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
 import seedu.address.testutil.CustomerBuilder;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 
@@ -38,7 +39,7 @@ import seedu.address.testutil.EditCustomerDescriptorBuilder;
 public class EditCustomerCommandTest {
 
     private Model model = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-            getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+            getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -49,7 +50,7 @@ public class EditCustomerCommandTest {
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
         Model expectedModel = new ModelManager(new DataBook<Customer>(model.getCustomerBook()), getTypicalPhoneBook(),
-                getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         expectedModel.setCustomer(model.getFilteredCustomerList().get(0), editedCustomer);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -71,7 +72,7 @@ public class EditCustomerCommandTest {
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
         Model expectedModel = new ModelManager(new DataBook<Customer>(model.getCustomerBook()), getTypicalPhoneBook(),
-                getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         expectedModel.setCustomer(lastCustomer, editedCustomer);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -85,7 +86,7 @@ public class EditCustomerCommandTest {
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
         Model expectedModel = new ModelManager(new DataBook<Customer>(model.getCustomerBook()), getTypicalPhoneBook(),
-                getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -102,7 +103,7 @@ public class EditCustomerCommandTest {
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 
         Model expectedModel = new ModelManager(new DataBook<Customer>(model.getCustomerBook()), getTypicalPhoneBook(),
-                getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         expectedModel.setCustomer(model.getFilteredCustomerList().get(0), editedCustomer);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

@@ -24,7 +24,7 @@ public class ArchivedOrderCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Order order;
+    public final Order archivedOrder;
 
     @FXML
     private HBox cardPane;
@@ -53,11 +53,13 @@ public class ArchivedOrderCard extends UiPart<Region> {
 
     public ArchivedOrderCard(Order archivedOrder, int displayedIndex) {
         super(FXML);
-        this.order = archivedOrder;
+        this.archivedOrder = archivedOrder;
         id.setText(displayedIndex + ". ");
 
         customerName.setText(archivedOrder.getCustomer().getCustomerName().fullName);
         contactNumber.setText(archivedOrder.getCustomer().getContactNumber().value);
+
+        System.out.println(customerName);
 
         phoneId.setText(archivedOrder.getPhone().getIdentityNumber().value);
         phoneName.setText(archivedOrder.getPhone().getPhoneName().fullName);
@@ -88,6 +90,6 @@ public class ArchivedOrderCard extends UiPart<Region> {
         // state check
         ArchivedOrderCard card = (ArchivedOrderCard) other;
         return id.getText().equals(card.id.getText())
-                && order.equals(card.order);
+                && archivedOrder.equals(card.archivedOrder);
     }
 }

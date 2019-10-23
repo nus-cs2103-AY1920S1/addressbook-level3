@@ -98,9 +98,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SellerManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a customer/phone/order/schedule).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -279,6 +279,7 @@ step 3: After the logic component completes it execution and return a `CommandRe
 This then results in the `statsPayload` class being passed to `Logic` class and subsequently the `statistics` module,
 where the appropriate calculation will take place.
 
+
 step 4: `Statistic Manager` calculates the date
 
 Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
@@ -288,6 +289,20 @@ step 5: with this output from logic, `Statistic Window` will then handle the dip
 form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
 
 image::StatisticsCalculationUI.png[]
+
+=== Find Customer/Phone feature
+
+The find feature allows the user to find the order according to its data field or without any data field.
+
+* e.g. `find-c n/Alice` -- allows the user to find the customer with customer name "Alice".
+* e.g. `find-c Alice` -- would allow the user to find the customer with any data field that matches "Alice".
+
+
+==== Current Implementation
+
+In order to implement the find function, we decided to create a predicate for each field.
+
+=======
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -363,7 +378,7 @@ image::CommitActivityDiagram.png[]
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Pros: Easy to implement.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
