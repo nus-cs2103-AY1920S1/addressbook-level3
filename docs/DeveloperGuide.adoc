@@ -186,7 +186,7 @@ For the UI package to have access to this information, it exposes its functional
 
 * `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
 * `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
-* `List<ModeEnu#getModes()` -- Retrieves the possible modes the user can transition to from current mode 
+* `List<ModeEnu#getModes()` -- Retrieves the possible modes the user can transition to from current mode
 
 These operations are implemented in `SpecificModeParser` aided by `ClassUtil` to handle instantiation of Parser and Command objects.
 
