@@ -13,8 +13,8 @@ import static seedu.address.testutil.TypicalWorkers.ZACH;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.entity.body.Body;
-import seedu.address.model.entity.fridge.Fridge;
-import seedu.address.model.entity.worker.Worker;
+import seedu.address.model
+    .entity.worker.Worker;
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.WorkerBuilder;
 

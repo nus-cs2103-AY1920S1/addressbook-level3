@@ -3,8 +3,6 @@ package seedu.address.model.entity;
 import java.util.HashMap;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
