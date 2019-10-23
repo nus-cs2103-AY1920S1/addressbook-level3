@@ -35,6 +35,14 @@ public class StatusManager {
         availableMen.add(deliveryman);
     }
 
+    public void addUnavailableMan(Deliveryman deliveryman) {
+        unavailableMen.add(deliveryman);
+    }
+
+    public void addDeliveringMan(Deliveryman deliveryman) {
+        deliveringMen.add(deliveryman);
+    }
+
     /**
      *
      */

@@ -59,7 +59,19 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void initStatusManager() {
         for (Deliveryman man: deliverymen) {
-            statusManager.addAvailableMan(man);
+            switch (man.getStatus().getDescription()) {
+                case "AVAILABLE":
+                    statusManager.addAvailableMan(man);
+                    break;
+                case "UNAVAILABLE":
+                    statusManager.addAvailableMan(man);
+                    break;
+                case "DELIVERING":
+                    statusManager.addDeliveringMan(man);
+                    break;
+                default:
+                    return;
+            }
         }
     }
 
