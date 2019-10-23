@@ -32,8 +32,8 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.tag.Tag;
-import seedu.mark.testutil.BookmarkBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -44,37 +44,38 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + URL_DESC_BOB
-                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
+                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark, false));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + URL_DESC_BOB
-                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
+                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark, false));
 
         // multiple urls - last url accepted
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_AMY + URL_DESC_BOB
-                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
+                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark, false));
 
         // multiple remarks - last remark accepted
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_BOB + REMARK_DESC_AMY
-                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
+                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark, false));
 
         // multiple tags - all accepted
         Bookmark expectedBookmarkMultipleTags = new BookmarkBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_BOB + REMARK_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedBookmarkMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedBookmarkMultipleTags, false));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // no remark
         Bookmark expectedBookmark = new BookmarkBuilder(AMY).withRemark(Remark.DEFAULT_VALUE).build();
-        assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
+        assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY + TAG_DESC_FRIEND,
+                new AddCommand(expectedBookmark, false));
 
         // zero tags
         expectedBookmark = new BookmarkBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY + REMARK_DESC_AMY,
-                new AddCommand(expectedBookmark));
+                new AddCommand(expectedBookmark, false));
     }
 
     @Test
@@ -118,7 +119,7 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + URL_DESC_BOB
-                + REMARK_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                        + REMARK_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

@@ -11,6 +11,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.storage.Storage;
 
 /**
@@ -36,19 +37,26 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New bookmark added: %1$s";
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "This bookmark already exists in Mark";
 
-    private final Bookmark toAdd;
+    private Bookmark toAdd;
+    private boolean isMissingUrl;
 
     /**
      * Creates an AddCommand to add the specified {@code Bookmark}
      */
-    public AddCommand(Bookmark bookmark) {
+    public AddCommand(Bookmark bookmark, boolean isMissingUrl) {
         requireNonNull(bookmark);
-        toAdd = bookmark;
+        this.toAdd = bookmark;
+        this.isMissingUrl = isMissingUrl;
     }
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireAllNonNull(model, storage);
+
+        if (isMissingUrl) {
+            Url toAddUrl = model.getCurrentUrl();
+            toAdd = new Bookmark(toAdd.getName(), toAddUrl, toAdd.getRemark(), toAdd.getFolder(), toAdd.getTags());
+        }
 
         if (model.hasBookmark(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_BOOKMARK);

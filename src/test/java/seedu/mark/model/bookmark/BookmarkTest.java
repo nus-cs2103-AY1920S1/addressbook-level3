@@ -13,7 +13,7 @@ import static seedu.mark.testutil.TypicalBookmarks.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.testutil.BookmarkBuilder;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 
 public class BookmarkTest {
 

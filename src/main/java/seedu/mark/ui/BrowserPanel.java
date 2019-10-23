@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
@@ -48,7 +49,7 @@ public class BrowserPanel extends UiPart<Region> {
     private Button homeButton;
 
     private WebEngine webEngine;
-    private String currentPageUrl;
+    private ObservableStringValue currentPageUrl;
 
     public BrowserPanel(SimpleObjectProperty<Url> currentBookmarkUrl) {
         super(FXML);
@@ -63,7 +64,20 @@ public class BrowserPanel extends UiPart<Region> {
                 loadHomepage();
                 return;
             }
+            if (newValue.value.equals(currentPageUrl.getValue())) {
+                return;
+            }
             loadPage(newValue.toString());
+        });
+
+        // Whenever currentPageUrl changes, update the currentBookmarkUrl
+        currentPageUrl.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current page url changed to: " + newValue);
+
+            if (currentBookmarkUrl.getValue() != null && newValue.equals(currentBookmarkUrl.getValue().value)) {
+                return;
+            }
+            currentBookmarkUrl.setValue(new Url(newValue));
         });
     }
 
@@ -78,8 +92,8 @@ public class BrowserPanel extends UiPart<Region> {
                     addressBar.selectAll();
                 } else {
                     logger.info("Address bar out of focus");
-                    if (!currentPageUrl.equals(addressBar.getText())) {
-                        addressBar.setText(currentPageUrl);
+                    if (!currentPageUrl.getValue().equals(addressBar.getText())) {
+                        addressBar.setText(currentPageUrl.getValue());
                     }
                 }
             });
@@ -100,7 +114,7 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void loadGuiBrowser() {
         webEngine = browser.getEngine();
-
+        currentPageUrl = webEngine.locationProperty();
         webEngine.getLoadWorker()
                 .stateProperty()
                 .addListener(
@@ -109,26 +123,17 @@ public class BrowserPanel extends UiPart<Region> {
                             public void changed(ObservableValue<? extends State> observable,
                                                 State oldValue,
                                                 State newValue) {
-                                currentPageUrl = getCurrentPageUrl();
                                 if (newValue == State.FAILED) {
                                     logger.info("browser: unable to connect to internet");
                                     loadDefaultPage();
                                 }
-                                showAddressOnAddressBar(currentPageUrl);
+                                showAddressOnAddressBar(currentPageUrl.getValue());
                             }
                         });
         loadHomepage();
     }
 
     ////////////////////// MAIN METHODS /////////////////////////
-
-    /**
-     * Gets the url of the page the browser currently shows.
-     * @return url of current page.
-     */
-    public String getCurrentPageUrl() {
-        return webEngine.getLocation();
-    }
 
     /**
      * Loads page with url on the webview.

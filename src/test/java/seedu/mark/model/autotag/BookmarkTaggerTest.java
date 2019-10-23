@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.tag.Tag;
-import seedu.mark.testutil.BookmarkBuilder;
 
 class BookmarkTaggerTest {
 

@@ -18,6 +18,7 @@ import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.tag.Tag;
 
 /**
@@ -39,19 +40,25 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        boolean isMissingUrl = false;
         // compulsory fields
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).get());
+        String urlString = argMultimap.getValue(PREFIX_URL).get();
+        Url url;
+        if (!"this".equals(urlString)) {
+            url = ParserUtil.parseUrl(urlString);
+        } else {
+            isMissingUrl = true;
+            url = new Url(BookmarkBuilder.DEFAULT_URL);
+        }
 
         // optional fields
         Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(Remark.DEFAULT_VALUE));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Folder folder = ParserUtil.parseFolder(argMultimap.getValue(PREFIX_FOLDER).orElse(Folder.DEFAULT_FOLDER_NAME));
 
-
         Bookmark bookmark = new Bookmark(name, url, remark, folder, tagList, new ArrayList<>());
-
-        return new AddCommand(bookmark);
+        return new AddCommand(bookmark, isMissingUrl);
     }
 
     /**

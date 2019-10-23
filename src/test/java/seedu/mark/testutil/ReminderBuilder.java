@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
 

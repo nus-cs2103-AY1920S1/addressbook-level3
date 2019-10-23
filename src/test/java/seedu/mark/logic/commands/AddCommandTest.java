@@ -17,14 +17,14 @@ import seedu.mark.model.Mark;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
-import seedu.mark.testutil.BookmarkBuilder;
 
 public class AddCommandTest {
 
     @Test
     public void constructor_nullBookmark_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddCommand(null, false));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class AddCommandTest {
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded();
         Bookmark validBookmark = new BookmarkBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validBookmark)
+        CommandResult commandResult = new AddCommand(validBookmark, false)
                 .execute(modelStub, new StorageStub());
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBookmark),
@@ -43,7 +43,7 @@ public class AddCommandTest {
     @Test
     public void execute_duplicateBookmark_throwsCommandException() {
         Bookmark validBookmark = new BookmarkBuilder().build();
-        AddCommand addCommand = new AddCommand(validBookmark);
+        AddCommand addCommand = new AddCommand(validBookmark, false);
         ModelStub modelStub = new ModelStubWithBookmark(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOKMARK, () ->
@@ -54,14 +54,14 @@ public class AddCommandTest {
     public void equals() {
         Bookmark alice = new BookmarkBuilder().withName("Alice").build();
         Bookmark bob = new BookmarkBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddCommand addAliceCommand = new AddCommand(alice, false);
+        AddCommand addBobCommand = new AddCommand(bob, false);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddCommand addAliceCommandCopy = new AddCommand(alice, false);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

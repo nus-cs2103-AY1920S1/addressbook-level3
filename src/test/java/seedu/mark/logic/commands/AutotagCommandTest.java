@@ -20,11 +20,11 @@ import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageStub;
-import seedu.mark.testutil.BookmarkBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AutotagCommand}.
