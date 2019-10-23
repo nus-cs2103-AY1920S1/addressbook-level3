@@ -80,7 +80,7 @@ The following diagram illustrates the structure of the UI component:
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
 
@@ -89,7 +89,7 @@ The structure of the `TabView` is depicted here:
 .Structure of the TabView Component, which is a part of the UI component
 image::UiTabViewClassDiagram.png[]
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/mark/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
 The `UI` component does the following:
 
@@ -269,9 +269,9 @@ NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` s
 
 //TODO: after adding delete cmd, (highlight, note, both --> stray paragrph)
 For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.
-If the user requested to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
-If the user requested to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
-Otherwise, if the user requested to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
+If the user requests to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
+If the user requests to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
+Otherwise, if the user requests to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
 
 NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. `PhantomParagraph` is a temporary holding place for a `stray note` and does not contain content from the `cache`.
 
@@ -279,7 +279,7 @@ NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted 
 //TODO: <may not do> object diagram showing only paragraph and annotation for all three above?
 The edit operation can modify the content of the `AnnotationNote`, colour of `Highlight` and re-link a `stray note` to a `TrueParagraph`.
 The former two is simply done by changing the fields in `Annotation` of the `Paragraph` in query.
-To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` is replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
+To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
 
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)

@@ -23,7 +23,7 @@ else ([command edits annotation])
     if () then ([edit highlight or note content])
         :Modify annotation;
     else ([else])
-        if () then ([move stray note to another paragraph])
+        if () then ([is stray note])
             :Move stray note to other paragraph;
             :Destroy (phantom) paragraph;
         else ([else])
