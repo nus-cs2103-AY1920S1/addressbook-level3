@@ -10,6 +10,8 @@ import seedu.address.model.person.Person;
  */
 public class Event {
 
+    public static final String MESSAGE_CONSTRAINTS = "Event has not been created.";
+
     private static ArrayList<Event> events = new ArrayList<>();
 
     private String name;
@@ -55,5 +57,22 @@ public class Event {
             }
         }
         return false;
+    }
+
+    /**
+     * Retrieves an event of the specified name from the event list.
+     * @param name of the event to be retrieved.
+     * @return Event of the specified name.
+     */
+    public static Event getEvent(String name) {
+        assert doesExist(name);
+        String queryName = name.toLowerCase();
+        for (Event event : events) {
+            String eventName = event.name.toLowerCase();
+            if (eventName.equals(queryName)) {
+                return event;
+            }
+        }
+        return null;
     }
 }
