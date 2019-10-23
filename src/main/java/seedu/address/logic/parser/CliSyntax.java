@@ -15,6 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_QUESTION = new Prefix("q/");
     public static final Prefix PREFIX_ANSWER = new Prefix("a/");
 
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_DATE = new Prefix("dt/");
     public static final Prefix PREFIX_TIME = new Prefix("tm/");
 }

@@ -5,22 +5,23 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.List;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.Title;
+import seedu.address.model.note.exceptions.NoteNotFoundException;
 import seedu.address.model.task.Task;
 
 /**
  * Adds a revision task for lecture note to the task list.
  */
 public class AddTaskForNoteCommand extends Command {
-    public static final String COMMAND_WORD = "radd";
+    public static final String COMMAND_WORD = "rn";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a revision task to NUStudy. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note revision task to NUStudy. "
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_DATE + "DATE"
@@ -31,7 +32,7 @@ public class AddTaskForNoteCommand extends Command {
             + PREFIX_TIME + "1500";
 
     public static final String MESSAGE_SUCCESS = "Revision task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TITLE = "This task already exists";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists";
 
     private final Task toAdd;
 
@@ -46,24 +47,22 @@ public class AddTaskForNoteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Note> lastShownList = model.getFilteredNoteList();
-        Note note = toAdd.getNote();
-        for (int i = 0; i < lastShownList.size(); i++) {
-            if (note.isSameNote(lastShownList.get(i))) {
-                note = lastShownList.get(i);
-                break;
-            }
+
+        if (!hasValidNoteForTask(model)) {
+            throw new NoteNotFoundException();
         }
 
-        toAdd.setNote(note);
-
         if (model.hasTask(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TITLE);
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
         model.addTask(toAdd);
-        //System.out.println("Task" + toAdd.toString() + "is added");
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    private boolean hasValidNoteForTask(Model model) {
+        Note note = new Note (new Title(toAdd.getHeading().toString()), new Content("Dummy entry"));
+        return model.hasNote(note);
     }
 
     @Override
