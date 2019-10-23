@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Workout <<Rectangle>> {
+    Class UniqueWorkoutPlannerList
+    Class Workout
+    Class WorkoutName
+    Package Exercise <<Rectangle>> {
+        Class UniqueExerciseList
+        Class Exercise
+        Class ExerciseName
+        Class MusclesTrained
+        Class Intensity
+        Interface ExerciseDetails <<Interface>>
+
+        Class MuscleType
+        Class ExerciseWeight
+        Class Distance
+        Class Sets
+        Class Repetitions
+    }
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> UniqueWorkoutPlannerList
+HiddenOutside ..> UniqueExerciseList
+
+UniqueWorkoutPlannerList o--> "*" Workout
+Workout *--> WorkoutName
+Workout o--> "*" Exercise
+
+UniqueExerciseList o--> "*" Exercise
+Exercise *--> ExerciseName
+Exercise *--> MusclesTrained
+Exercise *--> Intensity
+Exercise *--> "0...4" ExerciseDetails
+MusclesTrained *--> "1..*"MuscleType
+ExerciseWeight .up.|> ExerciseDetails
+Distance .up.|> ExerciseDetails
+Sets .up.|> ExerciseDetails
+Repetitions .up.|> ExerciseDetails
+
+
+
+
+@enduml
