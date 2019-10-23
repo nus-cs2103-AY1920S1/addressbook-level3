@@ -204,9 +204,9 @@ components with the same variants of commands (i.e Add, Delete, Edit etc), this 
 reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
 
 // tag::dashboard[]
-=== Add/Delete/Edit/Find/List tasks
+=== Dashboard features
 ==== Implementation
-The functions are found under the Dashboard. +
+The functions add/delete/edit/find/list task, are found under the Dashboard. +
 The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
 by the user. The tasks are sorted accordingly by earliest date.
 Here, a task is represented by a Dashboard object.
@@ -233,8 +233,6 @@ Step 1. The user launches the application for the first time. `DukeCooks v1.3` w
 be initialized with the dashboard state, and the `currentStatePointer` pointing to
 that single dashboard state.
 
-/insert uml here
-
 Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
 task into Duke Cooks. The `add` command calls `Model#addDashboard()`, causing the task to
 be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
@@ -242,8 +240,6 @@ be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
 stage, the list of task is sorted by date. After which, the `add` command also calls
 `Model#saveDashboard()`, causing another modified dashboard state to be saved into the
 `UniqueDashboardList`.
-
-/insert uml here
 
 Step 3. The user executes `delete task 3` command to delete the 3rd task in the
 dashboard. The delete command calls `Model#deleteDashboard()` causing the specified task
@@ -254,8 +250,6 @@ causing the modified state of the dashboard after the `delete task 3` command ex
 to be saved in the `UniqueDashboardList`, and the `currentStatePointer` is shifted to the
 newly inserted dashboard state.
 
-/insert uml here
-
 Step 4. The user executes `edit task...` command to edit a field in a task. The edit
 command calls `Model#setDashboard()` causing the edited task to be updated in
 `UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#setDashboard()`
@@ -264,14 +258,10 @@ sorted by date. Also, it calls `Model#saveDashboard()`, causing the modified sta
 dashboard after the `edit task...` command executes to `UniqueDashboardList`, and the
 `currentStatePointer` is shifted to the newly inserted dashboard state.
 
-/insert uml here
-
 Step 5. The user executes `find task...` command to find a list of task given a keyword.
 The find command calls `Model#hasDashboard()`, which searches through the
 `UniqueDashboardList` for tasks containing the particular keyword. The `currentStatePointer`
 remains at the same location after the step.
-
-/insert uml here
 
 Step 6. The user executes `list task` command to view all the tasks found in `UniqueDashboardList`.
 The list command calls `Model#getDashboardRecords()`, which returns the `ReadOnlyDashboard` that
@@ -280,12 +270,7 @@ homepage. The `currentStatePointer` remains at the same location after the step.
 
 The following sequence diagram shows how the add operation works:
 
-/insert uml here
-
-The following activity diagram summarizes what happens when a user executes a new
-command.
-
-/insert activity diagram here
+image::AddTaskSequenceDiagram.png[]
 
 ===== Aspect: How add/delete/edit/find/list executes
 * **Alternative 1 (current choice):** Sort the list whenever add/delete/edit is called.
