@@ -31,10 +31,10 @@ public enum MonthOfYear {
         return numericalVal;
     }
 
-    int getNumDaysInMonth(int year) {
+    public int getNumDaysInMonth(Year year) {
         if (numericalVal == 2) {
             // if it is February
-            return isLeapYear(year) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
+            return isLeapYear(year.getNumericalValue()) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
         }
         return numDaysInMonth;
     }
@@ -54,7 +54,7 @@ public enum MonthOfYear {
         return NUM_MONTHS_IN_YEAR;
     }
 
-    static MonthOfYear convertJavaMonth(int javaMonth) {
+    public static MonthOfYear convertJavaMonth(int javaMonth) {
         return MonthOfYear.values()[javaMonth];
     }
 

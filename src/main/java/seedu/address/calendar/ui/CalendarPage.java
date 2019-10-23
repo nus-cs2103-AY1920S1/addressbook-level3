@@ -110,10 +110,10 @@ public class CalendarPage extends UiPart<Scene> implements Page {
             Command command = (new CalendarParser()).parseCommand(commandText);
             CommandResult commandResult = command.execute(calendar);
 
-            if (calendar.hasViewUpdates()) {
+            if (calendar.hasVisibleUpdates()) {
                 Month updatedMonth = calendar.getMonth();
                 updateCalendarPage(updatedMonth);
-                calendar.completeUpdate();
+                calendar.completeVisibleUpdates();
             }
 
             resultDisplay.setDisplayText(commandResult.getFeedbackToUser());

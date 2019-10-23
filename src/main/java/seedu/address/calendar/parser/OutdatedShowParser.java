@@ -8,7 +8,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// todo: remove this once everything is confirmed
 class OutdatedShowParser {
+    /*
     private static final String FORMAT_ERROR_MESSAGE = "Incorrect month/year format.";
 
     private static final String MONTH_ONLY_KEY = "monthOnly";
@@ -18,7 +20,7 @@ class OutdatedShowParser {
     private static final String MONTH_AND_YEAR_PATTERN = "(?<" + MONTH_KEY + ">\\S+)\\s(?<" + YEAR_KEY + ">\\d{4}?)";
     /**
      * Used for initial separation of month and year (if any).
-     */
+
     private static final Pattern MONTH_YEAR_FORMAT = Pattern.compile(MONTH_ONLY_PATTERN + "|" + MONTH_AND_YEAR_PATTERN);
 
     ShowCommand parse(String userInput) throws ParseException {
@@ -44,6 +46,5 @@ class OutdatedShowParser {
         MonthOfYear formattedMonth = new MonthParser().parse(month);
         Year formattedYear = new YearParser().parse(year);
 
-        return new ShowCommand(formattedMonth, formattedYear);
+        return new ShowCommand(formattedMonth, formattedYear);*/
     }
-}

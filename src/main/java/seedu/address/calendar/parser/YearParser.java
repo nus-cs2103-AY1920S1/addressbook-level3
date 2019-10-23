@@ -3,6 +3,8 @@ package seedu.address.calendar.parser;
 import seedu.address.calendar.model.Year;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.Optional;
+
 class YearParser {
     private static final String MESSAGE_NEGATIVE_YEAR_ERROR = "Invalid year. Year should be a positive number.";
     private static final String MESSAGE_NON_INT_YEAR_ERROR = "Invalid year. Year should ba represented numerically.";
@@ -15,10 +17,14 @@ class YearParser {
         return new Year(year);
     }
 
-    Year parse(String yearStr) throws ParseException {
+    Optional<Year> parse(Optional<String> yearInput) throws ParseException {
+        if (yearInput.isEmpty()) {
+            return Optional.empty();
+        }
+
         try {
-            int year = Integer.parseInt(yearStr);
-            return parse(year);
+            int year = Integer.parseInt(yearInput.get());
+            return Optional.of(parse(year));
         } catch (NumberFormatException e) {
             throw new ParseException(MESSAGE_NON_INT_YEAR_ERROR);
         }

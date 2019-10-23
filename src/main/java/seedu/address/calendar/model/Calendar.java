@@ -1,9 +1,13 @@
 package seedu.address.calendar.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Calendar {
     private Month monthShown;
     private Year currentYear;
     private boolean hasVisibleUpdates;
+    private List<Event> events;
 
     public Calendar() {
         java.util.Calendar currentDate = java.util.Calendar.getInstance();
@@ -15,6 +19,7 @@ public class Calendar {
 
         monthShown = new Month(currentMonth, currentYear);
         hasVisibleUpdates = false;
+        events = new ArrayList<>(); // todo: update this such that it is linked to storage
     }
 
     public Month getMonth() {
@@ -30,14 +35,21 @@ public class Calendar {
      * Checks whether there are any visible update that has to be shown to user.
      * @return {@code true} if and only if there are visible updates that can be shown to user
      */
-    public boolean hasViewUpdates() {
+    public boolean hasVisibleUpdates() {
         return hasVisibleUpdates;
     }
 
     /**
      * Marks visible update as complete, i.e. latest visible update has been shown to user.
      */
-    public void completeUpdate() {
+    public void completeVisibleUpdates() {
         hasVisibleUpdates = false;
+    }
+
+    /**
+     * Adds an event to the calendar
+     */
+    public void addEvent(Event event) {
+        events.add(event);
     }
 }

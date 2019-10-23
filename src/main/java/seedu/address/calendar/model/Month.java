@@ -15,7 +15,7 @@ public class Month {
     public Month(MonthOfYear monthOfYear, Year year) {
         this.monthOfYear = monthOfYear;
         this.year = year;
-        this.daysInMonth = monthOfYear.getNumDaysInMonth(year.getNumericalValue());
+        this.daysInMonth = monthOfYear.getNumDaysInMonth(year);
         generateDays();
     }
 
@@ -36,6 +36,11 @@ public class Month {
 
     public Day getFirstDayOfMonth() {
         return days.get(0);
+    }
+
+    public Day getDay(int dayOfMonth) {
+        int dayOfMonthZeroBased = dayOfMonth - 1;
+        return days.get(dayOfMonthZeroBased);
     }
 
     public MonthOfYear getMonthOfYear() {

@@ -4,7 +4,11 @@ import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
 import seedu.address.calendar.model.MonthOfYear;
 import seedu.address.calendar.model.Year;
+import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.ui.Page;
+
+import java.util.Optional;
 
 /**
  * Shows user the his/her calendar for the specified month.
@@ -12,23 +16,27 @@ import seedu.address.logic.commands.CommandResult;
 public class ShowCommand extends Command {
     public static final String COMMAND_WORD = "show";
     public static final String MESSAGE_SHOWING_REQUESTED = "Showing month view for %s %s";
-    public static final String MESSAGE_USAGE = ""; //todo add usage message
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a month view of the requested month"
+            + "Parameters: "
+            + CliSyntax.PREFIX_MONTH + " MONTH "
+            + "[" + CliSyntax.PREFIX_YEAR + "YEAR]" + "\n"
+            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_MONTH + " Dec " + CliSyntax.PREFIX_YEAR + " 2019";
 
-    MonthOfYear monthOfYear;
-    Year year;
+    private MonthOfYear monthOfYear;
+    private Year year;
 
-    public ShowCommand(MonthOfYear monthOfYear, Year year) {
+    public ShowCommand(MonthOfYear monthOfYear, Optional<Year> year) {
+        if (year.isEmpty()) {
+            this.monthOfYear = monthOfYear;
+            // get current year
+            java.util.Calendar currentDate = java.util.Calendar.getInstance();
+            int currentYear = currentDate.get(java.util.Calendar.YEAR);
+            this.year = new Year(currentYear);
+        } else {
+            this.year = year.get();
+        }
+
         this.monthOfYear = monthOfYear;
-        this.year = year;
-    }
-
-    public ShowCommand(MonthOfYear monthOfYear) {
-        this.monthOfYear = monthOfYear;
-
-        // get current year
-        java.util.Calendar currentDate = java.util.Calendar.getInstance();
-        int currentYear = currentDate.get(java.util.Calendar.YEAR);
-        this.year = new Year(currentYear);
     }
 
     public CommandResult execute(Calendar calendar) {

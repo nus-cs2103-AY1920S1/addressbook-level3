@@ -1,42 +1,34 @@
 package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.ShowCommand;
+import seedu.address.calendar.model.Month;
 import seedu.address.calendar.model.MonthOfYear;
 import seedu.address.calendar.model.Year;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.stream.Stream;
+import java.util.Optional;
 
 public class ShowParser {
-    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect month/year format.";
+    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect month/year format. %s";
 
     ShowCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_MONTH, CliSyntax.PREFIX_YEAR);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_MONTH)
-                || hasMultiplePrefixes(argMultimap, CliSyntax.PREFIX_MONTH, CliSyntax.PREFIX_YEAR)) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, CliSyntax.PREFIX_MONTH)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+        } else if (ParserUtil.hasMultiplePrefixes(argMultimap, CliSyntax.PREFIX_MONTH, CliSyntax.PREFIX_YEAR)) {
+            throw new ParseException(ParserUtil.MESSAGE_DUPLICATED_ARG);
         }
 
-        MonthOfYear monthOfYear = new MonthParser().parse(argMultimap.getValue(CliSyntax.PREFIX_MONTH).get());
+        Optional<MonthOfYear> monthOfYear = new MonthParser().parse(argMultimap.getValue(CliSyntax.PREFIX_MONTH));
 
-        if (argMultimap.getValue(CliSyntax.PREFIX_YEAR).isEmpty()) {
-            return new ShowCommand(monthOfYear);
-        } else {
-            Year year = new YearParser().parse(argMultimap.getValue(CliSyntax.PREFIX_YEAR).get());
-            return new ShowCommand(monthOfYear, year);
-        }
-    }
+        assert monthOfYear.isEmpty() : "Month of year cannot be empty for a show command";
+        MonthOfYear monthOfYearVal = monthOfYear.get();
 
-    private boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix prefix) {
-        return argumentMultimap.getValue(prefix).isPresent();
-    }
+        Optional<Year> year = new YearParser().parse(argMultimap.getValue(CliSyntax.PREFIX_YEAR));
 
-    private boolean hasMultiplePrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes)
-                .anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
+        return new ShowCommand(monthOfYearVal, year);
     }
 }

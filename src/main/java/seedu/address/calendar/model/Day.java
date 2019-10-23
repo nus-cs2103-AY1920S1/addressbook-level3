@@ -12,7 +12,7 @@ public class Day {
      * @param dayOfWeek day of the week (e.g. Sunday, Monday, ...)
      * @param dayOfMonth day of the month (e.g. 1, 2, ..., 31)
      */
-    private Day(DayOfWeek dayOfWeek, int dayOfMonth) {
+    public Day(DayOfWeek dayOfWeek, int dayOfMonth) {
         // todo add assertion to check validity of dayOfMonth
         this.dayOfWeek = dayOfWeek;
         this.dayOfMonth = dayOfMonth;
@@ -51,4 +51,8 @@ public class Day {
         return dayOfWeek.getNumericalVal() - 1;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s, %d", dayOfWeek, dayOfMonth);
+    }
 }
