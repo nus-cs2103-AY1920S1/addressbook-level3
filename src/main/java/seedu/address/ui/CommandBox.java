@@ -52,13 +52,16 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Handles Command Entered.
      */
-    public void handleCommandEntered() {
+    public String handleCommandEntered() {
+        String commandText = commandTextField.getText();
         try {
-            commandExecutor.execute(commandTextField.getText());
-            commandTextField.setText("");
+            commandExecutor.execute(commandText);
         } catch (CommandException | ParseException e) {
-            setStyleToIndicateCommandFailure();
+            //setStyleToIndicateCommandFailure();
+        } finally {
+            commandTextField.setText("");
         }
+        return commandText;
     }
 
     /**
@@ -90,6 +93,9 @@ public class CommandBox extends UiPart<Region> {
     }
 
     public void setCommandTextField(String suggestion) {
+        if (suggestion == null) {
+            return;
+        }
         commandTextField.setText(suggestion);
         commandTextField.positionCaret(commandTextField.getLength());
         handleTextChanged();
