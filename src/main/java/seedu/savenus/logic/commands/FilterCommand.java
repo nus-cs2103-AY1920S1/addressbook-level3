@@ -13,22 +13,9 @@ import seedu.savenus.model.Model;
 public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
-    public static final String NO_ARGUMENTS_USAGE = "Note you have entered in zero arguments:\n"
-            + "Example Usage: " + COMMAND_WORD + " PRICE LESS_THAN 4.00";
-    public static final String DUPLICATE_FIELD_USAGE = "Note you have entered a duplicate field.";
-    public static final String WRONG_ARGUMENT_NUMBER = "Note that you have key-ed in a wrong number of arguments.\n"
-            + "Please fix the formatting to: FIELD QUANTIFIER VALUE\n"
-            + "Example Usage: " + COMMAND_WORD + " PRICE LESS_THAN 4.00\n"
-            + "Note that VALUE MUST be only one word.";
-    public static final String INVALID_FIELD_USAGE = "Note you have entered an invalid field! \n"
-             + "You are only allowed to enter the following fields:\n"
-             + "NAME, PRICE, CATEGORY, DESCRIPTION, LOCATION, OPENING_HOURS, RESTRICTIONS";
-    public static final String INVALID_QUANTIFIER_USAGE = "Note you have entered an invalid quantifier! \n"
-             + "You are only allowed to enter the following quantifiers:\n"
-             + "LESS_THAN, EQUALS_TO or MORE_THAN";
-    public static final String INVALID_VALUE_USAGE = "Note you have entered an invalid value! \n"
-             + "Please do make sure your value follow the field requirements.";
     public static final String MESSAGE_SUCCESS = "This is the list of items at your disposal: ";
+    public static final String EXAMPLE_USAGE = "Example Usage: " + COMMAND_WORD
+            + " PRICE LESS_THAN 5.00";
 
     private List<String> fields;
 
