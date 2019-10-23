@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -18,27 +19,21 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Login Window. Provides the basic application layout containing
+ * a login bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class LoginWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "LoginWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
-    private LoginWindow loginWindow;
-
-    // Independent Ui parts residing in this Ui container
-    private EarningsListPanel earningsListPanel;
-    private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ReminderBox reminderBox;
+    private ResultDisplay resultDisplay;
 
-    @FXML
+    @javafx.fxml.FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -51,12 +46,15 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane reminderBoxPlaceholder;
-
-    @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    @FXML
+    private StackPane loginCommand;
+
+    @FXML
+    private TextField loginItem;
+
+    public LoginWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -66,9 +64,9 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
-
         helpWindow = new HelpWindow();
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
     }
 
     public Stage getPrimaryStage() {
@@ -110,46 +108,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
-     */
-    void fillStudents() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        reminderBox = new ReminderBox();
-        reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    /**
-     * Fills up all the placeholders with earnings list in the window.
-     */
-    void fillEarnings() {
-        earningsListPanel = new EarningsListPanel(logic.getFilteredEarningsList());
-        personListPanelPlaceholder.getChildren().add(earningsListPanel.getRoot());
-
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        reminderBox = new ReminderBox();
-        reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -158,6 +116,26 @@ public class MainWindow extends UiPart<Stage> {
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleLogin() {
+        try {
+            CommandResult commandResult = logic.execute(loginItem.getText());
+            loginItem.setText("");
+            /*logger.info("Result: " + commandResult.feedbackToUser());
+            CommandBox commandBox = new CommandBox(this::executeCommand);
+            commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+            loginItem.setAlignment(Pos.CENTER);
+            loginCommand.setAlignment(Pos.CENTER);*/
+        } catch (ParseException | CommandException e) {
+            logger.info("Invalid command: " + loginItem.getText());
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            //throw e;
         }
     }
 
@@ -174,6 +152,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 
@@ -187,59 +166,5 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public EarningsListPanel getEarningsListPanel() {
-        return earningsListPanel;
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    /**
-     * Executes the command and returns the result.
-     *
-     * @see seedu.address.logic.Logic#execute(String)
-     */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        try {
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            /*if (commandResult.isEarnings()) {
-                Earnings earnings = commandResult.getEarnings();
-                handleEarnings(earnings);
-            }*/
-
-            return commandResult;
-        } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
-            reminderBox.setFeedbackToUser(e.getMessage());
-            throw e;
-        }
-    }
-
-    public void hide() {
-        primaryStage.hide();
-    }
-
-    /**
-     * Shows the login window.
-     */
-    public void showLogin() {
-        loginWindow = new LoginWindow(new Stage(), logic);
-        loginWindow.show();
     }
 }

@@ -11,6 +11,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * The manager of the UI component.
@@ -25,6 +26,7 @@ public class UiManager implements Ui {
     private static MainWindow mainWindow;
 
     private Logic logic;
+    private boolean loggedInSuccessful = false;
 
     public UiManager(Logic logic) {
         super();
@@ -41,7 +43,14 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillStudents();
+            mainWindow.hide();
+            mainWindow.showLogin();
+            loggedInSuccessful = true;
+            if (loggedInSuccessful) {
+                mainWindow.fillStudents();
+            } else {
+                throw new ParseException("Could not login. Please try again!");
+            }
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

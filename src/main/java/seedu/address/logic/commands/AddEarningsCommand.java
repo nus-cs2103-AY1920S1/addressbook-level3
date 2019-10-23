@@ -66,5 +66,4 @@ public class AddEarningsCommand extends Command {
                 && toAddEarnings.equals(((AddEarningsCommand) other).toAddEarnings));
     }
 
-    // AT PARSE UNIT INPUT!!!!!!!!!!!!!!!!!!!!!!
 }

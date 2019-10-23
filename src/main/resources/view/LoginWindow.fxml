@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.Glow?>
+
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="Login" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+    <icons>
+        <Image url="@/images/address_book_32.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+
+            <VBox>
+
+            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                <Menu mnemonicParsing="false" text="File">
+                    <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                </Menu>
+            </MenuBar>
+
+                <StackPane prefHeight="312.0" prefWidth="600.0" style="-fx-background-color: #ffffff;"
+                           VBox.vgrow="NEVER">
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="112.0" stroke="#f7d2e0"
+                               strokeType="INSIDE" width="587.0" />
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="91.0" stroke="#f7d2e0"
+                               strokeType="INSIDE" width="562.0" />
+                    <ImageView fitHeight="84.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../images/address_book_32.png" />
+                        <effect>
+                            <Glow />
+                        </effect>
+                    </ImageView>
+                </StackPane>
+
+            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                <padding>
+                    <Insets top="5" right="10" bottom="5" left="10" />
+                </padding>
+            </StackPane>
+                <StackPane fx:id="loginCommand" prefHeight="150.0" prefWidth="200.0"  style="-fx-background-color: #383838;" styleClass="pane-with-border">
+                <TextField fx:id="loginItem" onAction="#handleLogin" prefHeight="33.0" minWidth="100"
+                           prefWidth="468.0" maxWidth="600" promptText="Enter your login credentials..."
+                           style="-fx-border-color: #F9F4F4; -fx-background-insets: 50;
+                                               -fx-border-radius: 20; -fx-text-fill: white " focusTraversable="false">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </TextField>
+                <VBox.margin>
+                    <Insets left="30.0" right="30.0" />
+                </VBox.margin>
+            </StackPane>
+                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                           minHeight="100" prefHeight="100" maxHeight="100">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                </StackPane>
+            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

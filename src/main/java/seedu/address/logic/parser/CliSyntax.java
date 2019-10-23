@@ -24,4 +24,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_MARKING = new Prefix("mark/");
     public static final Prefix PREFIX_TASK_TIME = new Prefix("tt/");
     public static final Prefix PREFIX_TAB_CHANGE = new Prefix("tab/");
+    public static final Prefix PREFIX_USERNAME = new Prefix("user/");
+    public static final Prefix PREFIX_PASSWORD = new Prefix("pass/");
 }
