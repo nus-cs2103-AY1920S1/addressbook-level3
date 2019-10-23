@@ -62,3 +62,4 @@ public class AppParameters {
         return configPath.hashCode();
     }
 }
+

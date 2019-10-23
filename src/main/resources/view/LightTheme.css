@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #dfe3ee;
 }
 
 .menu-item {
@@ -13,8 +13,8 @@
 }
 
 .context-menu {
-    -fx-background-color: #1d1d1d;
-    -fx-border-color: white;
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: #3b5998;
 }
 
 .menu-item:focused {
@@ -41,7 +41,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#dfe3ee, 20%);
 }
 
 .list-cell {
@@ -51,8 +51,8 @@
 }
 
 .list-cell:filled {
-    -fx-background-color: #1d1d1d;
-    -fx-border-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: derive(#dfe3ee, 20%);
     -fx-border-width: 0 0 1 0;
 }
 
@@ -75,20 +75,20 @@
 }
 
 .pane-with-border {
-    -fx-background-color: #1d1d1d;
-    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: derive(#dfe3ee, 10%);
     -fx-border-top-width: 1px;
 }
 
 .vbox-tab-pane-with-border {
-    -fx-background-color: #1d1d1d;
-    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: derive(#dfe3ee, 10%);
     -fx-border-style: solid none none none;
 }
 
 .tab-pane-with-border {
-    -fx-background-color: #1d1d1d;
-    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: derive(#dfe3ee, 10%);
     -fx-border-width: 1 1 1 1;
 }
 
@@ -127,7 +127,7 @@
 }
 
 .tab-pane .tab {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #dfe3ee;
 }
 
 .tab-pane .tab:selected {
@@ -154,8 +154,8 @@
 }
 
 .status-bar {
-    -fx-background-color: #1d1d1d;
-    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: derive(#dfe3ee, 10%);
 }
 
 .status-bar .label {
@@ -167,8 +167,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#dfe3ee, 30%);
+    -fx-border-color: derive(#dfe3ee, 25%);
 }
 
 /*
@@ -181,7 +181,7 @@
     -fx-border-color: white;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #dfe3ee;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -190,7 +190,7 @@
 
 .menu-button {
     -fx-border-color: transparent;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #dfe3ee;
 }
 
 .info-header {
@@ -221,12 +221,12 @@
 
 .button:pressed, .button:default:hover:pressed {
     -fx-background-color: white;
-    -fx-text-fill: #1d1d1d;
+    -fx-text-fill: #dfe3ee;
 }
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #dfe3ee;
     -fx-text-fill: white;
 }
 
@@ -246,16 +246,16 @@
 }
 
 .help-window {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #dfe3ee;
     -fx-border-color: white;
 }
 
 .scroll-bar {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #dfe3ee;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#dfe3ee, 50%);
     -fx-background-insets: 3;
 }
 
@@ -282,7 +282,7 @@
 }
 
 #commandTextField {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #dfe3ee;
     -fx-background-insets: 0;
     -fx-border-insets: 0;
     -fx-border-width: 1;
@@ -317,6 +317,6 @@
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #2a2a2a;
+    -fx-background: #c5c5c5;
 }
 
