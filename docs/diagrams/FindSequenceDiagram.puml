@@ -30,7 +30,7 @@ SpendingBookParser -> FindCommandParser : parse(" n/apple")
 activate FindCommandParser
 
 create FindCommand
-FindCommandParser -> FindCommand
+FindCommandParser -> FindCommand : predicates
 activate FindCommand
 
 FindCommand --> FindCommandParser : f
