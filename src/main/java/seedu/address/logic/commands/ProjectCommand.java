@@ -5,10 +5,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.comparator.DateComparator;
 import seedu.address.model.Model;
 import seedu.address.model.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.logic.comparator.DateComparator;
 import seedu.address.model.util.Date;
 
 /**
