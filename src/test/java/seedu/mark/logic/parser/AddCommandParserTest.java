@@ -15,6 +15,7 @@ import static seedu.mark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.mark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_BOB;
+import static seedu.mark.logic.commands.CommandTestUtil.URL_DESC_THIS;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -22,6 +23,7 @@ import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_BOB;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.mark.model.bookmark.util.BookmarkBuilder.DEFAULT_URL;
 import static seedu.mark.testutil.TypicalBookmarks.AMY;
 import static seedu.mark.testutil.TypicalBookmarks.BOB;
 
@@ -76,6 +78,22 @@ public class AddCommandParserTest {
         expectedBookmark = new BookmarkBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY + REMARK_DESC_AMY,
                 new AddCommand(expectedBookmark, false));
+
+        //no remark or tags
+        expectedBookmark = new BookmarkBuilder(AMY).withRemark(Remark.DEFAULT_VALUE).withTags().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY,
+                new AddCommand(expectedBookmark, false));
+    }
+
+    @Test
+    public void parse_thisUrl_success() {
+        Bookmark expectedBookmark = new BookmarkBuilder(BOB)
+                .withUrl(DEFAULT_URL)
+                .withTags(VALID_TAG_FRIEND)
+                .build();
+        assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_THIS
+                        + REMARK_DESC_BOB + TAG_DESC_FRIEND,
+                new AddCommand(expectedBookmark, true));
     }
 
     @Test
