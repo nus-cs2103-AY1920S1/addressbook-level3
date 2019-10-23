@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="105.0" prefWidth="170.0" style="-fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane style="-fx-background-radius: 15;" HBox.hgrow="ALWAYS">
+<HBox fx:id="cardPane" prefHeight="115.0" prefWidth="150.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" prefHeight="105.0" prefWidth="142.0" style="-fx-background-radius: 15;" GridPane.columnIndex="0">
+    <VBox fx:id="box" alignment="CENTER_LEFT" minHeight="105" prefHeight="105.0" style="-fx-background-radius: 15;" styleClass="card" GridPane.columnIndex="0">
       <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
+        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
       </padding>
       <HBox alignment="CENTER_LEFT" spacing="5">
         <Label fx:id="id" styleClass="cell_big_label">
@@ -45,12 +45,11 @@
                      </ImageView>
                   </graphic>
                </Label>
-                <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                <Region prefWidth="0.0" HBox.hgrow="ALWAYS" />
             <Label fx:id="quantity" styleClass="cell_small_label" text="\$quantity">
                   <HBox.margin>
-                     <Insets right="10.0" />
-                  </HBox.margin>
-               </Label>
+                     <Insets bottom="5.0" top="5.0" />
+                  </HBox.margin></Label>
             </children>
             <VBox.margin>
                <Insets bottom="2.0" top="2.0" />
@@ -68,9 +67,15 @@
                <Insets bottom="2.0" top="2.0" />
             </VBox.margin>
          </Label>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
     </VBox>
       <rowConstraints>
          <RowConstraints />
       </rowConstraints>
   </GridPane>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </HBox>

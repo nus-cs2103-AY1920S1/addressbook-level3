@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /**
  * An UI component that displays information of a {@code Item}.
@@ -29,6 +30,8 @@ public class ItemCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+    @FXML
+    private VBox box;
     @FXML
     private Label name;
     @FXML
@@ -58,6 +61,8 @@ public class ItemCard extends UiPart<Region> {
         }
         this.item.getTags()
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
+
+        box.setOnMouseClicked(e -> box.requestFocus());
     }
 
     @Override

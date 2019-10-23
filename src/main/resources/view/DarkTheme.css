@@ -18,9 +18,15 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.list-header {
+    -fx-font-size: 15pt;
+    -fx-text-fill: #eee;
     -fx-opacity: 1;
 }
 
@@ -87,36 +93,30 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.list-view {
+.scroll-pane {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background: derive(#1d1d1d, 20%);
 }
 
-.list-cell {
+#cardPane {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0px, 2px;
 }
 
-.list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+.card {
+    -fx-background-color:  #515658;
 }
 
-.list-cell:filled:odd {
-    -fx-background-color: #515658;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
-.list-cell:filled:selected #cardPane {
+.card:focused {
+    -fx-background-color: #5d9091;
     -fx-border-color: #3e7b91;
+    -fx-border-radius: 15px;
     -fx-border-width: 1;
 }
 
-.list-cell .label {
+#cardPane .label {
     -fx-text-fill: white;
 }
 
@@ -138,8 +138,6 @@
 
 .pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -161,7 +159,8 @@
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-padding: 4px;
-    -fx-pref-height: 30px;
+    -fx-pref-height: 18px;
+    -fx-font-size: 11px;
 }
 
 .status-bar-with-border {
@@ -328,19 +327,19 @@
     -fx-text-fill: white;
 }
 
-#filterField, #itemListPanel, #itemWebpage {
+#filterField, #cardListPanel, #itemWebpage {
     -fx-box-border: transparent;
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-radius: 0;
 }
 
-.text-area {
-    -fx-background-insets: 0;
-    -fx-background-color: transparent, transparent, transparent, transparent;
+#resultDisplayPlaceholder {
+    -fx-border-color: #666 transparent transparent transparent;
+    -fx-border-width: 2px;
 }
 
 #tags {
