@@ -4,12 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
+import java.util.*;
+import java.util.stream.Collectors;
 import io.xpire.commons.core.Messages;
+import io.xpire.model.item.Name;
+import io.xpire.model.tag.Tag;
 
 /**
  * Helper functions for handling strings.
@@ -194,5 +193,31 @@ public class StringUtil {
             return String.format(Messages.MESSAGE_SUGGESTIONS, getSuggestions(word, allWordsToCompare, limit));
         }
         return "";
+    }
+
+    /**
+     * Returns all similar tags to the tag keyword specified.
+     * @param word The tag keyword specified to find similar tags for.
+     * @param allTags The set that contains all tags to compare the word to.
+     * @return The string which contains all similar tags.
+     */
+    public static String findSimilarItemTags(String word, Set<Tag> allTags) {
+        return StringUtil.findSimilar(word, allTags.stream()
+                                                   .map(Tag::toString)
+                                                   .collect(Collectors.toSet()), 3);
+    }
+
+    /**
+     * Returns all similar item names to the search keyword specified.
+     * @param word The keyword specified to find similar items for.
+     * @param allNames The set that contains all names to compare the word to.
+     * @return The string which contains all similar names.
+     */
+    public static String findSimilarItemNames(String word, Set<Name> allNames) {
+        return StringUtil.findSimilar(word, allNames.stream()
+                                                    .map(Name::toString)
+                                                    .map(x -> x.split("\\s+"))
+                                                    .flatMap(Arrays::stream)
+                                                    .collect(Collectors.toSet()), 1);
     }
 }

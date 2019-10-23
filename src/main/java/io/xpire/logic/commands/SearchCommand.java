@@ -2,15 +2,10 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.util.StringUtil;
 import io.xpire.model.Model;
 import io.xpire.model.item.ContainsKeywordsPredicate;
-import io.xpire.model.item.Name;
-import io.xpire.model.tag.Tag;
 
 /**
  * Searches and displays all items whose name contains any of the argument keywords.
@@ -41,15 +36,9 @@ public class SearchCommand extends Command {
         if (model.getFilteredItemList().size() == 0) {
             predicate.getKeywords().forEach(s -> {
                 if (s.startsWith("#")) {
-                    sb.append(StringUtil.findSimilar(s, model.getAllItemTags().stream()
-                                                             .map(Tag::toString)
-                                                             .collect(Collectors.toSet()), 3));
+                    sb.append(StringUtil.findSimilarItemTags(s, model.getAllItemTags()));
                 } else {
-                    sb.append(StringUtil.findSimilar(s, model.getAllItemNames().stream()
-                                                              .map(Name::toString)
-                                                              .map(x -> x.split("\\s+"))
-                                                              .flatMap(Arrays::stream)
-                                                              .collect(Collectors.toSet()), 1));
+                    sb.append(StringUtil.findSimilarItemNames(s, model.getAllItemNames()));
                 }
             });
         }
