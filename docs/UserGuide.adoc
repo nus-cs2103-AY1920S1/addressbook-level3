@@ -18,159 +18,158 @@ By: `Team AY1920S1-CS2103T-W11-3`      Since: `September 2019`      Licence: `MI
 
 == Introduction
 
-EatMe is for students who are trying to find *cheap and good places to eat or hang out*. EatMe will help you manage places you have been to, and keep track of your experience and expenditure. More importantly, EatMe is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, EatMe can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+EatMe is a *food diary app for people who love good food*. It will help you manage places you have been to, keep track of your experience and expenditure, and even keep you up-to-date with the latest food trends and events!
+
+EatMe is optimized for those who like the speed of a Command Line Interface (CLI) while still maintaining the user-friendliness of a Graphical User Interface (GUI). *Interested to keep track of your favorite food places with maximum efficiency? Try EatMe today!* Jump to the <<Quick Start>> to get started.
+
+== About
+
+This user guide shows you how to use the features in EatMe. The commands that can be executed are explained in detail, and sample commands are provided for ease of understanding.
+
+The following are some terms used in this document:
+
+|===
+|Command Line Interface (CLI)|A means of interacting with a computer program where the user issues commands to the program in the form of successive lines of text.
+|Graphical User Interface (GUI)|A means of interacting with a computer program through graphical icons and visual indicators.
+|`add`|Text in this font (called monospaced font) indicates that this is a command that can be typed into the command line and executed by the application.
+|===
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `eatme.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for the EatMe app.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+. Ensure you have Java 11 or above installed on your computer. If not, you can download it link:https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
+. Download the latest release of EatMe link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for EatMe.
+. Double-click the file to start the app. The app should appear in a few seconds.
+
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* **`add`**`\n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` : adds an eatery named Two Chefs Eating Place
-* **`review`**`\n Two Chefs Eating Place \d Nice Condensed Milk Pork Ribs \p 15 \r 4` : adds a review to Two Chefs Eating Place
-* *`random`* : shows a random eatery (if you can't decide what to eat)
-* *`bye`* : exits the app
+. Type a command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing `help` and pressing kbd:[Enter] will open the help window.
+. Some example commands you can try:
 
-.  Refer to <<Features>> for details of each command.
+* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` : Adds an eatery named Two Chefs Eating Place with the specified address and category.
+* `review \n Two Chefs Eating Place \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019` : Adds a review to Two Chefs Eating Place with the specified description, price, rating and date.
+* `random` : Shows a random eatery - Useful if you can't decide what to eat!
+* `exit` : Exits the app.
 
-[[Features]]
+These are just a few of the commands you can execute on EatMe. Refer to <<Features>> for the full list of available commands and their details.
+
 == Features
 
 ====
 *Command Format*
 
-* Items in square brackets are the parameters to be supplied by the user e.g. in `add n\ [name of eatery]`, `[name of eatery]` is a parameter which can be used as `add n\Two Chefs Eating Place`.
-* Parameters can be in any order e.g. if the command specifies `\n [name of eatery] \a [address] \c [category]`, `\a [address] \n [name of eatery] \c [category]` is also acceptable.
+* Items in square brackets are the parameters to be supplied by the user. For example, in `add \n [name of eatery]`, `[name of eatery]` is a parameter which can be used as `add n\ Two Chefs Eating Place`.
+* Items in curly brackets are optional parameters. For example, in `add \n [name of eatery] \a [address] \c [category] {\t [tags, space-delimited]}`, `{\t [tags, space-delimited]}` is an optional parameter that the user can choose to supply if he/she wishes to add certain tags to the eatery.
+* Parameters can be in any order. For example, if the command specifies `\n [name of eatery] \a [address] \c [category]`, `\a [address] \n [name of eatery] \c [category]` is also acceptable.
 ====
 
 === General
-==== Viewing help : `help`
+==== Viewing help: `help`
 
 Format: `help`
 
-==== Exit the app : `bye`
+==== Exit the app: `exit`
 
-Format: `bye`
+Format: `exit`
 
-=== CRUD
-==== Adding an eatery : `add`
+=== Working with eateries
+==== Adding an eatery: `add`
 
-Adds an eatery in the app +
-Format: `add \n [name of eatery] \a [address] \c [category]`
+Adds an eatery to the app. +
+Format: `add \n [name of eatery] \a [address] \c [category] {\t [tags, space-delimited]}`
 
 Examples:
 
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese`
+* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups non-aircon`
 
-==== Searching for an eatery : `search`
+==== Finding an eatery: `find`
 
-Searches for an eatery based on name or tag. +
-Format: `search \n [name of eatery]` or `search \t [tag]`
+Finds an eatery based on name or tag. +
+Format: `find \n [name of eatery]` or `find \t [tag]`
 
 Examples:
 
-* `search \n Two Chefs Eating Place`
-* `search \t Chinese`
+* `find \n Two Chefs Eating Place`
+* `find \t Chinese`
 
-==== Changing address of an eatery : `changeaddress`
+==== Changing address of an eatery: `changeaddress`
 
 Changes the address of an eatery. +
-Format: `changeaddress \n [name of eatery] \a [new address]`
+Format: `changeaddress [id] \a [new address]`
 
 Examples:
 
-* `changeaddress \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-130`
+* `changeaddress 2 \a 116 Commonwealth Cres, #01-130`
 
-==== Marking an eatery as closed : `close`
+==== Marking an eatery as closed: `close`
 
-Marks an eatery as permanently closed, deletes the eatery’s record. +
-Format: `close \n [name of eatery]`
+Closes an eatery if the eatery is no longer there. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
+Format: `close [id]`
 
 Examples:
 
-* `close \n Two Chefs Eating Place`
+* `close 2`
 
-==== Reviewing an eatery : `review`
+==== Reopening a closed eatery: `reopen`
+
+Reopens a previously closed eatery. +
+Format: `reopen [id]`
+
+Examples:
+
+* `reopen 2`
+
+==== Reviewing an eatery: `review`
 
 Leaves a review for an eatery. +
-Format: `review \n [name of eatery] \d [description] \p [price per pax] \r [rating]`
+Format: `review [id] \d [description] \p [price per person] \r [rating] \w [date in DD/MM/YYYY format]`
 
 Examples:
 
-* `review \n Two Chefs Eating Place \d Nice Condensed Milk Pork Ribs \p 15 \r 4`
+* `review 2 \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019`
 
-==== Tagging an eatery : `addtag`
+==== Tagging an eatery: `addtag`
 
 Adds tags to an eatery. +
-Format: `addtag \n [name of eatery] \t [tags, space-delimited]`
+Format: `addtag [id] \t [tags, space-delimited]`
 
 Examples:
 
-* `addtag \n Two Chefs Eating Place \t Hawker`
+* `addtag 2 \t hawker good-for-sharing`
 
-==== Removing tags from an eatery : `removetag`
+==== Removing tags from an eatery: `removetag`
 
 Removes tags from an eatery. +
-Format: `removetag \n [name of eatery] \t [tags, space-delimited]`
+Format: `removetag [id] \t [tags, space-delimited]`
 
 Examples:
 
-* `removetag \n Two Chefs Eating Place \t Hawker`
+* `removetag 2 \t hawker`
 
-==== Viewing an eatery : `view`
+==== Listing all eateries: `list`
 
-Shows an eatery’s entry containing its details, reviews, external reviews and a map of its location. +
-Format: `view \n [name of eatery]`
-
-Examples:
-
-<<<<<<< HEAD
-=== Listing all eateries : `list`
-
-Shows a list of all eateries in the address book. +
+Shows a list of all eateries in the app. +
 Format: `list`
-=======
-* `view \n Two Chefs Eating Place`
 
-==== Getting a random eatery : `random`
->>>>>>> upstream/master
+==== Getting a random eatery: `random`
 
-Shows a completely random restaurant, useful in case you cannot decide what to eat. +
+Shows a completely random restaurant - Useful in case you cannot decide what to eat! +
 Format: `random`
 
-==== Viewing an eatery : `view`
+==== Viewing an eatery: `show`
 
-Shows an eatery’s entry containing its details, reviews, external reviews and a map of its location. +
-Format: `view \n [name of eatery]`
+Shows an eatery with all its details - Address, category, tags, reviews, external reviews and a map of its location. +
+Format: `show [id]`
 
 Examples:
 
-* `view \n Two Chefs Eating Place`
+* `show 2`
 
 === Import/Export
-==== Importing eateries : `import`
+==== Importing eateries: `import`
 
-<<<<<<< HEAD
-=== Locating eateries by name: `find`
-
-Finds eateries whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Eaterys matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-=======
 Imports eateries from a text file. +
 Format: `import \f [filename]`
 
@@ -178,76 +177,105 @@ Examples:
 
 * `import \f /home/user/eatme-backup-john.txt`
 
-==== Exporting eateries : `export`
+==== Exporting eateries: `export`
 
 Exports eateries to a text file. +
 Format: `export \f [filename]`
->>>>>>> upstream/master
 
 Examples:
 
 * `export \f /home/user/eatme-backup-john.txt`
 
 === Visualisation
-==== Showing overall statistics : `stats`
+==== Showing overall statistics: `stats`
 
 Presents a visual overview of the user’s eateries and reviews. +
 Format: `stats`
 
 === Todo
-==== Changing between main and todo modes : `mode`
+==== Toggling between main and todo modes: `mode`
 
-Toggles between normal and todo modes. +
+Toggles between main and todo modes. +
 Format: `mode`
 
-==== Adding a new todo eatery : `add`
+==== Adding a new todo eatery: `addtodo`
 
 Adds a new eatery to the todo list. +
-Format: `add \n [name of eatery] \a [address]`
+Format: `addtodo \n [name of eatery] \a [address] {\t [tags, space-delimited]}`
 
 Examples:
 
-* `add \n Koma \a Marina Bay Sands, 2 Bayfront Ave, #B1-67, 018972`
+* `addtodo \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \t must-try`
 
-==== Deleting a todo eatery : `delete`
+==== Deleting a todo eatery: `deletetodo`
 
-Removes an eatery from the todo list. +
-Format: `delete \n [name of eatery]`
+Deletes an eatery from the todo list. +
+Format: `deletetodo [id]`
 
 Examples:
 
-* `delete \n Koma`
+* `deletetodo 2`
 
 ==== Marking a todo eatery as visited with optional saving : `visited`
 
 Marks a todo eatery as visited and provides a quick way to add it to the main list of eateries. +
-Format: `visited \n [name of eatery]` or `visited \n [name of eatery] \s` (saves the eatery to the main list)
+Format: `visited [id]` or `visited [id] \s` (saves the eatery to the main list)
 
 Examples:
 
-* `visited \n Koma`
-* `visited \n Koma \s`
+* `visited 2`
+* `visited 2 \s`
 
 === News Feed
 ==== Adding a feed : `addfeed`
 
-Adds a new feed to the news feed. Expects the URL of an XML feed. +
-Format: `addfeed \n [name of feed] \u [url]`
+Adds a feed to the news feed. +
+Format: `addfeed \n [name of feed] \a [address of the RSS feed]`
 
 Examples:
 
-* `addfeed \n [Seth Lui] \u https://sethlui.com/feed`
+* `addfeed \n [Eatbook] \a https://eatbook.com/feed`
 
-==== Removing a feed : `removefeed`
+==== Deleting a feed : `deletefeed`
 
-Removes a feed from the news feed. +
-Format: `removefeed \n [name of feed]`
+Deletes a feed from the news feed. +
+Format: `deletefeed \n [name of feed]`
 
 Examples:
 
-* `removefeed \n Seth Lui`
+* `deletefeed \n Eatbook`
+
+== Quick Reference
+
+|===
+|Type this...|For this...
+
+|`help`|Viewing help
+|`exit`|Exiting the app
+|`add`|Adding an eatery
+|`find`|Finding an eatery
+|`changeaddress`|Changing address of an eatery
+|`close`|Marking an eatery as closed
+|`reopen`|Reopening a closed eatery
+|`review`|Reviewing an eatery
+|`addtag`|Tagging an eatery
+|`removetag`|Removing tags from an eatery
+|`list`|Listing all eateries
+|`random`|Getting a random eatery
+|`show`|Viewing an eatery
+|`import`|Importing eateries
+|`export`|Exporting eateries
+|`stats`|Showing overall statistics
+|`mode`|Toggling between main and todo modes
+|`addtodo`|Adding a todo eatery
+|`deletetodo`|Deleting a todo eatery
+|`visited`|Marking a todo eatery as visited with optional saving
+|`addfeed`|Adding a feed
+|`deletefeed`|Deleting a feed
+|===
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EatMe folder.
+
