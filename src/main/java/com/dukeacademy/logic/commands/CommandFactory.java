@@ -1,4 +1,4 @@
-package com.dukeacademy.logic.commands.factory;
+package com.dukeacademy.logic.commands;
 
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;

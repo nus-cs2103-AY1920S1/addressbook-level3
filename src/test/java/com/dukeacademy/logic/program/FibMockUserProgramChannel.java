@@ -10,7 +10,7 @@ import com.dukeacademy.model.question.UserProgram;
 /**
  * Mock implementation of a program submission channel for testing.
  */
-public class FibMockProgramSubmissionChannel implements ProgramSubmissionChannel {
+public class FibMockUserProgramChannel implements UserProgramChannel {
     @Override
     public UserProgram getProgram() {
         Path program = Paths.get("src", "test", "data", "TestPrograms", "fib", "fib.txt");
