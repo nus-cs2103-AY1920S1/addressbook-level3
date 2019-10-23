@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -96,7 +97,9 @@ is provided in the command descriptions.
 
 Display the help screen that contains helpful information on how to use the application. +
 
-Format: `help`
+****
+*Format*: `help`
+****
 
 ==== History
 
@@ -104,7 +107,7 @@ Display within the grey box right below the command line box, a list of
 commands that were recently typed in order of which was most recent.
 
 ****
-*Format*: `history` or `h` +
+*Format*: `history` or `h`
 ****
 
 [NOTE]
@@ -160,7 +163,9 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.
 ==== Tutorial
 Displays the tutorial on how to use the app.
 
-Format: `tutorial`
+****
+*Format*: `tutorial`
+****
 
 === Food Items
 
@@ -169,56 +174,74 @@ Adds a food item to the food list. Note: Price must be in integer or double valu
 Note: Opening Hours must be in HHMM format.
 Note: NAME, PRICE and CATEGORY are mandatory fields.
 
-Format: `add n/NAME d/DESCRIPTION p/PRICE c/CATEGORY l/LOCATION o/OPENING HOURS r/RESTRICTIONS`
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Recommend>>).
 
-Example: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
+****
+*Format*: `add n/NAME d/DESCRIPTION p/PRICE c/CATEGORY l/LOCATION o/OPENING HOURS r/RESTRICTIONS` +
+*Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
+****
 
 ==== List
 List all the food items in the list.
 
-Format: `list`
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Recommend>>).
+
+****
+*Format*: `list`
+****
 
 ==== Edit
 Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be a positive integer. At least one FIELD must be given.
 
-Format: `edit INDEX n/NAME d/DESCRIPTION ...`
-
-Example: `edit 2 n/Fried Rice`
+****
+*Format*: `edit INDEX n/NAME d/DESCRIPTION ...` +
+*Example*: `edit 2 n/Fried Rice`
+****
 
 ==== Find
 Finds a food items based on a specific FIELD or fields. At least one FIELD must be given.
 
-Format: `find n/NAME d/DESCRIPTION ...`
-
-Example: `find n/Chicken d/Rice`
+****
+*Format*: `find n/NAME d/DESCRIPTION ...`
+*Example*: `find n/Chicken d/Rice`
+****
 
 ==== Filter
 Filters the food items based on the criteria specified. Note: You can need to
 have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 
-Format: `filter FIELD QUANTIFIER VALUE`
-
-Example: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
+****
+*Format*: `filter FIELD QUANTIFIER VALUE`
+*Example*: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
+****
 
 ==== Delete
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
 
-Format: `delete INDEX`
-
-Example: `delete 2`
+****
+*Format*: `delete INDEX` +
+*Example*: `delete 2`
+****
 
 ==== Clear
 Clears all the food items in the list.
 
-Format: `clear`
+****
+*Format*: `clear`
+****
 
 ==== Sort
 Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY,
 LOCATION, OPENING_HOURS, RESTRICTIONS.
 
-Format: `sort FIELD`
-
-Example: `sort OPENING_HOURS`
+****
+*Format*: `sort FIELD`
+*Example*: `sort OPENING_HOURS`
+****
 
 === Budgeting
 
@@ -301,7 +324,7 @@ Also the amount withdrawn is added into your wallet.
 
 === Recommendations
 
-==== Recommend
+==== Getting a list of recommended food items: `recommend`
 Users can get a list of recommendations from the application, based on several factors, summarized
 in the tables below.
 
@@ -362,12 +385,13 @@ in the tables below.
 |-0.30
 |Food purchase is found in user's purchase history
 |Within a time period of <2 days
-|Applies a decreasing penalty starting from -10 (just purchased) and diminishes to 0 after 2 days
+|Applies a decreasing penalty from -10 which diminishes to 0 after 2 days
 |===
 
 ****
 Format: `recommend`
 ****
+
 [NOTE]
 To clear the recommendations, use the `list` or `add` command.
 
@@ -377,23 +401,12 @@ ifdef::env-github[| :white_check_mark: a| The list of recommendations will be sh
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown.]
 |===
 
-==== Adding Likes and Dislikes
-Users can specify their liked and disliked categories, tags and/or locations. The
-recommendation system will then be able to generate more accurate recommendations with your preferences.
+==== Listing likes and dislikes in the recommendation system: `like` or `dislike`
 
-[TIP]
-Users can provide multiple categories, tags and/or locations with each command.
 To list the user's likes and dislikes, use the command without providing any arguments.
 
-[NOTE]
-You cannot add what you have already liked into your current dislikes,
-and vice versa. The user's likes and dislikes will be also saved into the hard disk
-for their convenience.
-
-*To list likes/dislikes*:
-
 ****
-*Format*: `like` or `dislike`.
+*Format*: `like` or `dislike`
 ****
 
 [width="100%",cols="5%,95%", grid=none]
@@ -402,7 +415,20 @@ ifdef::env-github[| :white_check_mark: a| The list of liked or disliked categori
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of liked or disliked categories, tags and locations will be shown.]
 |===
 
-*To add likes*:
+==== Adding likes and dislikes to the recommendation system: `like` or `dislike`
+
+Users can specify their liked and disliked categories, tags and/or locations. The recommendation
+system will then be able to generate more accurate recommendations with the user's preferences.
+
+[TIP]
+Users can provide multiple categories, tags and/or locations with each command.
+
+[NOTE]
+Users cannot add what they have already liked into your current dislikes,
+and vice versa. The user's likes and dislikes will be also saved into the hard disk
+for their convenience.
+
+===== To add likes:
 
 ****
 *Format*: `like c/CATEGORY t/TAG l/LOCATION` +
@@ -415,7 +441,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and you
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be added.]
 |===
 
-*To add dislikes*:
+===== To add dislikes:
 
 ****
 *Format*: `dislike c/CATEGORY t/TAG l/LOCATION` +
@@ -428,18 +454,14 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and you
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be added.]
 |===
 
-==== Removing Likes and Dislikes
+==== Removing likes and dislikes from the recommendation system: `removelike` and `removedislike`
 Users are able to remove their previously added likes and dislikes (if they exist)
 from the system.
 
 [NOTE]
 Users can provide multiple categories, tags and/or locations with each command.
 
-[WARNING]
-To remove all likes or dislikes, use the command without providing any arguments.
-Only use this command if you are sure that you want to clear your likes and dislikes!
-
-*To remove likes*:
+===== To remove likes:
 
 ****
 *Format*: `removelike c/CATEGORY t/TAG l/LOCATION` +
@@ -452,7 +474,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and you
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be removed.]
 |===
 
-*To remove dislikes*:
+===== To remove dislikes:
 
 ****
 *Format*: `removedislike c/CATEGORY t/TAG l/LOCATION` +
@@ -465,7 +487,14 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and you
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be removed.]
 |===
 
-*To remove all likes*:
+==== Clearing all likes and dislikes from the recommendation system: `removelike` or `removedislike`
+
+To remove all likes or dislikes, use this command without providing any arguments.
+
+[WARNING]
+Only use this command if you are sure that you want to clear your likes and dislikes!
+
+===== To remove all likes:
 
 ****
 *Format*: `removelike`
@@ -477,7 +506,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and you
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be cleared.]
 |===
 
-*To remove all dislikes*:
+===== To remove all dislikes:
 
 ****
 *Format*: `removedislike`
@@ -533,7 +562,7 @@ of days.
 | Makes the Food Card more or less compact, depending on the user's preference.
 | Delete <<Delete>>
 | Deletes a food items based on the given index.
-| Dislike <<Adding Likes and Dislikes>>
+| Dislike <<Adding likes and dislikes to the recommendation system: `like` or `dislike`>>
 | Specifies the user's disliked categories, tags and locations
 | Edit <<Edit>>
 | Edits a food item at a index based on a specific field or fields.
@@ -549,17 +578,17 @@ of days.
 | Displays the list of commands that has been typed by the user.
 | Info <<Info>>
 | Displays the information of the command specified.
-| Like <<Adding Likes and Dislikes>>
+| Like <<Adding likes and dislikes to the recommendation system: `like` or `dislike`>>
 | Specifies the user's liked categories, tags and locations
 | List <<List>>
 | List all saved food items
-| Recommend <<Recommend>>
+| Recommend <<Getting a list of recommended food items: `recommend`>>
 | Recommend a food item, based on the user's budget.
 | Redo <<Redo>>
 | Redo a command a specified number of times.
-| Removedislike <<Removing Likes and Dislikes>>
+| Removedislike <<Removing likes and dislikes from the recommendation system: `removelike` and `removedislike`>>
 | Remove dislikes from the user's specified dislikes or clears the dislikes list
-| Removelike <<Removing Likes and Dislikes>>
+| Removelike <<Removing likes and dislikes from the recommendation system: `removelike` and `removedislike`>>
 | Remove likes from the user's specified likes or clears the likes list
 | Sort <<Sort>>
 | Sort all the food items by a specified field.
