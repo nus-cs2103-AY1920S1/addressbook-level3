@@ -5,6 +5,7 @@ import seedu.address.commons.core.item.Event;
 import seedu.address.commons.core.item.Item;
 import seedu.address.logic.LogicManager;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.TimerTask;
 import java.util.logging.Logger;
@@ -33,21 +34,19 @@ public class RescheduleTask extends TimerTask {
     }
 
     public void run() {
-        logger.info("Reschedule runs again. Old event: " + event.toString());
+        logger.info( "----------[INFO] " + "Reschedule runs again. Old event: " + event.toString());
         Item oldItem = item;
-        Event newEvent = event.changeStartDateTime(LocalDateTime.now());
+        long period = event.getPeriod().getPeriod();
+        LocalDateTime newStart = LocalDateTime.now().plusNanos(Duration.ofMillis(period).toNanos());
+        Event newEvent = event.changeStartDateTime(newStart);
         Item newItem = item.changeEvent(newEvent);
         model.replaceItem(oldItem, newItem);
-<<<<<<< HEAD
         model.updateLists();
-=======
-        model.updateModelLists();
         model.setVisualizeList(model.getVisualList()); // to refresh the view
->>>>>>> Implement methods for loading reccuring events from storage. Storage not updated yet.
 
         this.item = newItem;
         this.event = newEvent;
 
-        logger.info("End of run. New event: " + newEvent.toString());
+        logger.info("-----------[INFO] " + "End of run. New event: " + newEvent.toString());
     }
 }
