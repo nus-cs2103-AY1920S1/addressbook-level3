@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_UNDO_SUCCESS;
 import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalFridges.ALICE_FRIDGE;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_ID_NUM;
@@ -21,7 +20,6 @@ import static seedu.address.testutil.TypicalIdentificationNumbers.THIRD_FRIDGE_I
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMMAND;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,14 +33,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.IdentificationNumber;
-import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
 import seedu.address.testutil.BodyBuilder;
-import seedu.address.testutil.FridgeBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 //@@author arjavibahety
