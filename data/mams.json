@@ -1,7 +1,7 @@
 {
   "students" : [ {
     "name" : "Paul",
-    "credits" : "20",
+    "credits" : "30",
     "prevMods" : "CS1010, CS5505",
     "matricId" : "A00192034Z",
     "tagged" : [ "CS1020" ]
@@ -10,13 +10,13 @@
     "credits" : "20",
     "prevMods" : "CS2202, CS1111",
     "matricId" : "A220193040F",
-    "tagged" : [ "CS1020", "CS1010" ]
+    "tagged" : [ "CS1020" ]
   }, {
     "name" : "Alex Yeoh",
     "credits" : "20",
     "prevMods" : "CS2030, CS4040",
     "matricId" : "A0180000R",
-    "tagged" : [ "CS1020", "friends" ]
+    "tagged" : [ "CS1020" ]
   }, {
     "name" : "Bernice Yu",
     "credits" : "20",
@@ -40,7 +40,7 @@
     "credits" : "20",
     "prevMods" : "CS2030, CS4040",
     "matricId" : "A12039123S",
-    "tagged" : [ "CS1010", "classmates" ]
+    "tagged" : [ "classmates" ]
   }, {
     "name" : "Roy Balakrishnan",
     "credits" : "20",
@@ -65,7 +65,7 @@
     "lecturerName" : "Terence Sim",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "80",
+    "quota" : "120",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS1020",
     "moduleName" : "Data Structures and Algorithms Is",
@@ -73,7 +73,7 @@
     "lecturerName" : "Tan Sun Teck",
     "timeSlot" : "21,20,57,58,59"
   }, {
-    "quota" : "70",
+    "quota" : "420",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2309",
     "moduleName" : "CS Research Methodology",
@@ -81,7 +81,7 @@
     "lecturerName" : "Wynne Hsu",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "55",
+    "quota" : "840",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2106",
     "moduleName" : "Introduction to Operating Systems",
@@ -89,7 +89,7 @@
     "lecturerName" : "ANG RAY YAN",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "100",
+    "quota" : "240",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2040",
     "moduleName" : "Data Structures and Algorithms",
@@ -97,7 +97,7 @@
     "lecturerName" : "Chong Ket Fah",
     "timeSlot" : "40,41,10,11,12"
   }, {
-    "quota" : "80",
+    "quota" : "120",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2220",
     "moduleName" : "Introduction to Computational Biology",
@@ -105,7 +105,7 @@
     "lecturerName" : "Limsoon Wong",
     "timeSlot" : "30,31,32,33"
   }, {
-    "quota" : "90",
+    "quota" : "666",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2100",
     "moduleName" : "Computer Organisation",
@@ -113,7 +113,7 @@
     "lecturerName" : "LI ZHAOYING",
     "timeSlot" : "32,33,12,13"
   }, {
-    "quota" : "80",
+    "quota" : "720",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2105",
     "moduleName" : "Introduction to Computer Networks",
@@ -121,7 +121,7 @@
     "lecturerName" : "Zhou Lifeng",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "50",
+    "quota" : "120",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2030",
     "moduleName" : "Programming Methodology II",
@@ -129,7 +129,7 @@
     "lecturerName" : "LEE LIAK GHEE",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "60",
+    "quota" : "111",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2101",
     "moduleName" : "Effective Communication for Computing Professionals",
@@ -148,9 +148,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "nothing"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000001",
     "appealType" : "Drop module",
@@ -162,9 +162,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000002",
     "appealType" : "Drop module",
@@ -177,7 +177,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000003",
@@ -191,7 +191,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000004",
@@ -205,7 +205,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000005",
@@ -216,10 +216,10 @@
     "appealDescription" : "I want to graduate earlier",
     "previousModule" : "",
     "newModule" : "",
-    "moduleToAdd" : "CS1010",
+    "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000006",
@@ -233,7 +233,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000007",
@@ -246,8 +246,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   } ]
 }
