@@ -2,17 +2,16 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.scheduler.Reminder;
+import seedu.address.model.assignment.Assignment;
 
 /**
- * An UI component that displays information of a {@code Student}.
+ * An UI component that displays information of a {@code Assignment}.
  */
-public class ReminderCard extends UiPart<Region> {
+public class AssignmentCard extends UiPart<Region> {
 
-    private static final String FXML = "ReminderListCard.fxml";
+    private static final String FXML = "AssignmentListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,26 +21,32 @@ public class ReminderCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Classroom level 4</a>
      */
 
-    public final Reminder reminder;
+    public final Assignment assignment;
 
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
     @FXML
-    private Label title;
-    @FXML
-    private Label details;
+    private Label name;
     @FXML
     private Label id;
     @FXML
-    private FlowPane tags;
+    private Label grades;
+    @FXML
+    private Label completionStatus;
 
-    public ReminderCard(Reminder reminder, int displayedIndex) {
+    public AssignmentCard(Assignment assignment, int displayedIndex) {
         super(FXML);
-        this.reminder = reminder;
+        this.assignment = assignment;
         id.setText(displayedIndex + ". ");
-        title.setText(reminder.getTitle());
-        details.setText(reminder.getDetails());
+        if (assignment.isCompleted()) {
+            completionStatus.setText("Completed");
+        } else {
+            completionStatus.setText("Not Completed");
+        }
+        name.setText(assignment.getAssignmentName().assignmentName);
+        grades.setText(assignment.gradesMapToString());
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -51,13 +56,13 @@ public class ReminderCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ReminderCard)) {
+        if (!(other instanceof StudentCard)) {
             return false;
         }
 
         // state check
-        ReminderCard card = (ReminderCard) other;
+        AssignmentCard card = (AssignmentCard) other;
         return id.getText().equals(card.id.getText())
-                && reminder.equals(card.reminder);
+                       && assignment.equals(card.assignment);
     }
 }

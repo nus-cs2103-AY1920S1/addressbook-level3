@@ -4,7 +4,6 @@ import static seedu.address.storage.JsonAdaptedStudent.MISSING_FIELD_MESSAGE_FOR
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,8 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentName;
-import seedu.address.model.assignment.Grade;
-import seedu.address.model.student.Student;
 
 /**
  * Jackson-friendly version of {@link Assignment}.
@@ -21,29 +18,35 @@ import seedu.address.model.student.Student;
 public class JsonAdaptedAssignment {
 
     private final String assignmentName;
-    private final List<JsonAdaptedGrades> grades = new ArrayList<>();
-    //private final List<JsonAdaptedStudent> students = new ArrayList<>();
+
+    private final List<String> names = new ArrayList<>();
+    private final List<String> marks = new ArrayList<>();
+    private boolean isCompleted;
 
     /**
      * Constructs a {@code JsonAdaptedAssignment} with the given {@code assignmentName}.
      */
     @JsonCreator
     public JsonAdaptedAssignment(@JsonProperty("assignmentName") String assignmentName,
-                                 @JsonProperty("assignmentGrades") List<JsonAdaptedGrades> grades) {
+                                 @JsonProperty("studentNames") List<String> names,
+                                 @JsonProperty("studentMarks") List<String> marks,
+                                 @JsonProperty("completionStatus") boolean isCompleted) {
         this.assignmentName = assignmentName;
-        if (grades != null) {
-            this.grades.addAll(grades);
+        if (names != null && marks != null) {
+            this.names.addAll(names);
+            this.marks.addAll(marks);
         }
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Converts a given {@code Assignment} into this class for Jackson use.
      */
     public JsonAdaptedAssignment(Assignment source) {
-        assignmentName = source.getAssignmentName().value;
-        grades.addAll(source.getGrades().stream()
-                .map(JsonAdaptedGrades::new)
-                .collect(Collectors.toList()));
+        assignmentName = source.getAssignmentName().assignmentName;
+        names.addAll(source.namesStringListFromGrades());
+        marks.addAll(source.marksStringListFromGrades());
+        isCompleted = source.isCompleted();
     }
 
 
@@ -53,27 +56,21 @@ public class JsonAdaptedAssignment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Assignment toModelType() throws IllegalValueException {
-        final List<Grade> assignmentGrades = new ArrayList<>();
-        final List<Student> studentList = new ArrayList<>();
-        for (JsonAdaptedGrades grade : this.grades) {
-            assignmentGrades.add(grade.toModelType());
-        }
-        //for (JsonAdaptedStudent student : this.students) {
-        //    studentList.add(student.toModelType());
-        //}
+
         if (assignmentName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Assignment.class
-                    .getSimpleName()));
+
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Assignment.class.getSimpleName()));
         }
         if (!AssignmentName.isValidAssignmentName(assignmentName)) {
             throw new IllegalValueException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         final AssignmentName modelAssignmentName = new AssignmentName(assignmentName);
-        //final LinkedList<Grade> modelGrades = new LinkedList<>(assignmentGrades);
-        //final LinkedList<Student> modelStudents = new LinkedList<>(studentList);
-        Assignment outputAssignment = new Assignment(modelAssignmentName);
-        //outputAssignment.setGrades(modelStudents, modelGrades);
-        return new Assignment(modelAssignmentName);
+
+        Assignment newAssignment = new Assignment(modelAssignmentName);
+        newAssignment.setGrades(this.names, this.marks);
+        newAssignment.setCompletionStatus(this.isCompleted);
+        return newAssignment;
     }
 
 }
