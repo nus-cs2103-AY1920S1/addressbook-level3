@@ -161,6 +161,8 @@ This section describes some noteworthy details on how certain features are imple
 In IchiFund, we separate the features by tabs. This is illustrated in the image below, which displays the five
 tabs of IchiFund, with the "Transaction" tab selected:
 
+[[fig-FeatureTabs]]
+.Feature Tabs in IchiFund
 image::FeatureTabs.png[]
 
 The parsing of commands for each feature is done separately, tied to their respective tabs.
@@ -168,12 +170,12 @@ In other words, the commands specific to each feature can only be recognised whe
 current tab.
 This allows for the overloading of commands across different features, reducing the complexity of commands for users.
 
+===== Implementation
 There are two aspects to consider in implementing separate parsing:
 
-. Detecting when the user switches tabs and communicating this to the `Logic` component
-. Determining how to parse commands on the end of `Logic` given which tab is selected.
+* Detecting when the user switches tabs and communicating this to the `Logic` component
+* Determining how to parse commands on the end of `Logic` given which tab is selected.
 
-===== Implementation
 In our implementation, we first separate the parsing of commands for different features by delegating them to their
 respective `FeatureParser` parsers. The main parser, `IchiFundParser`, keeps track of all `FeatureParser` objects, as
 well as the `FeatureParser` that is currently in use.
@@ -188,21 +190,75 @@ arguments to the appropriate `Parser`.
 
 What remains is determining when to change `currentParserManager`. Here, we support 3 modes of tab switching:
 
-. Clicking of tabs (GUI)
-. Shortcut keys (GUI)
-. Specific commands (CLI)
+1. Specific commands (CLI)
+
+Users can switch between tabs using specific commands (`tx`, `rep`, `budget`, `loan`, `analytics`).
+
+These commands are global commands that are directly recognised by `IchiFundParser`, which changes
+`currentFeatureParser` and the index stored.
+
+Much like the `Model` data, `MainWindow` listens to changes to the index through `FeatureParserIndexListener`.
+Whenever the value of the index changes, the listener triggers an event to change the tab throw the `invalidated()`
+method shown in the code snippet below:
+
+image::ListenerCodeSnippet.png[]
+
+The `InvalidationListener` constructed from the above code is added to an `ObservableValue` in `MainWindow`
+that tracks the index of the current `FeatureParser` used, and changes to the appropriate tab using
+the value of the index stored.
+
+[start = 2]
+1. Shortcut keys (GUI)
+
+Users can also switch tabs using the shortcut keys `Ctrl + 1` to `Ctrl + 5`. Upon using the shortcut keys,
+the following handler is triggered:
+
+image::MainWindowShortcutKeyCodeSnippet.png[]
+
+When `handleShowTransaction()` is called, `currentFeatureParser` in `IchiFundParser`, is set to
+`TransactionFeatureParser`, which has a `tabIndex` of zero. Other handler methods are similar to
+`handleShowTransaction`, with the only difference being the index passed to `Logic`.
+
+The control flow of `handleShowTransaction()` is illustrated with more details in the sequence diagram below:
+
+image::SetFeatureParserSequenceDiagram.png[]
+
+As the different `FeatureParser` objects have different values for `tabIndex`, a different
+index is passed, and a different `FeatureParser` is set as `currentFeatureParser`.
+
+[NOTE]
+After the handler method is run, the change in `IchiFundParser` is also detected by
+`InvalidationListener`, which results in a tab switch similar to how the specific commands would.
+
+[WARNING]
+For developers who wish to add more features to IchiFund, care has to be taken in ensuring that the indices of the
+`FeatureParser` objects matches that of the tabs, as well as its index in `featureParsers`.
+In our current implementation, we do not use enum for the indices due to the small scale of usage.
+
+[start = 3]
+1. Clicking of tabs (GUI)
+
+Users can switch tabs by clicking on the tabs shown in <<fig-FeatureTabs>>.
+This triggers a handler, shown in the following code snippet:
+
+image::MainWindowMouseCodeSnippet.png[]
+
+The control flow for this handler is similar to that of the shortcut keys.
 
 ===== Design Considerations
 
+In designing the specific commands for tab switching, we considered an alternative implementation for
+passing information about tab switching to `Ui`.
+
 * **Alternative 1 (current choice):** `Ui` detects change through an `InvalidationListener`.
-** Pros: The logic of parsing in `IchiFundParser` is clearer.
+** Pros: `Logic` does not need to be aware of `Ui`.
 ** Cons: Requires greater understanding of JavaFX API to implement.
 * **Alternative 2:** `Logic` directly calls `Ui` whenever the specific command is made.
 ** Pros: Easy to implement.
 ** Cons: Creates a dependency from `Logic` to `Ui`.
 
-While Alternative 2 is much simpler to implement, we decided to choose
-Alternative 1 as it preserves the independence of `Logic` from `Ui`.
+While Alternative 2 is much simpler to implement, we chose Alternative 1
+as we prioritised preserving the independence of `Logic` from `Ui`.
 
 // end::tabswitching[]
 
