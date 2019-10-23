@@ -158,7 +158,7 @@ The format for the `add_claim` command is as follows:
 *Overview*
 
 The add claim `add_claim` mechanism is facilitated by `AddClaimCommand` and `AddClaimCommandParser`, taking in the
-following input from the user:`Description`, `Amount`, `Date`, `Name` and `Phone`, which will construct `Claim` objects.
+following input from the user: `Description`, `Amount`, `Date`, `Name` and `Phone`, which will construct `Claim` objects.
 
 .Add Claim Command Sequence Diagram
 image::AddClaimSequenceDiagram.png[]
