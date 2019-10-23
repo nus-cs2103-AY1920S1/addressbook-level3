@@ -5,14 +5,13 @@ import java.util.List;
 
 public class Calendar {
     private Month monthShown;
-    private Year currentYear;
     private boolean hasVisibleUpdates;
     private List<Event> events;
 
     public Calendar() {
         java.util.Calendar currentDate = java.util.Calendar.getInstance();
 
-        this.currentYear = new Year(currentDate.get(java.util.Calendar.YEAR));
+        Year currentYear = new Year(currentDate.get(java.util.Calendar.YEAR));
 
         int currentUnformattedMonth = currentDate.get(java.util.Calendar.MONTH);
         MonthOfYear currentMonth = MonthOfYear.convertJavaMonth(currentUnformattedMonth);
