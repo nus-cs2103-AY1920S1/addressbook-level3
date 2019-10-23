@@ -2,6 +2,13 @@ language: java
 matrix:
   include:
     - jdk: openjdk11
+services:
+  - xvfb
+
+before_install:
+  - sudo apt install openjfx
+
+install: true
 
 script: >-
     ./config/travis/run-checks.sh &&
