@@ -1,43 +1,3 @@
-<<<<<<< HEAD
-= AddressBook Level 3 - Developer Guide
-:site-section: DeveloperGuide
-:toc:
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-:experimental:
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103-T16-4/main
-
-By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
-
-== Setting up
-
-Refer to the guide <<SettingUp#, here>>.
-
-== Design
-
-[[Design-Architecture]]
-=== Architecture
-
-.Architecture Diagram
-image::ArchitectureDiagram.png[]
-
-[[Design-Ui]]
-=== UI component
-
-.UI Diagram
-=======
-<<<<<<< HEAD
-== Developer Guide
-=======
->>>>>>> 780e96d431b081ae0de4d0a326ccfced3d304b3d
 = guiltTrip() - Developer Guide
 >>>>>>> c02ab6600907c091df79d84666367c8c13d126ef
 :site-section: DeveloperGuide
@@ -197,7 +157,6 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
->>>>>>> c02ab6600907c091df79d84666367c8c13d126ef
 === Target User Profile
 
 Youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending.
@@ -342,7 +301,7 @@ Examples:
 * addBudget --desc food budget --period day --amt 200 --tag food
 * addBudget --desc entertainment budget --amt 300
 
-=== Use Case 09: List existing budgets
+=== Use Case 11: List existing budgets
 
 listBudget: lists all the current budgets the user has. +
 Format: listBudget
@@ -360,6 +319,34 @@ Format: deleteBudget <index> +
 Example:
 
 * deleteBudget 2
+
+=== Use Case 12: Set TrackerReminder
+
+==== MSS
+
+. User adds a TrackerReminder, indicates the quota which if exceeded will activate the reminder, and the tags nad keywords that entries should have to be tracked;
+. guiltTrip() notifies user that Reminder has been added.
+
+Use case ends.
+
+==== Extensions
+
+. 1a. user does not indicate if he wants to track entries with keywords or tags.
+Reminder tracks all entries.
+
+=== Use Case 13: Set DateReminder
+
+==== MSS
+
+. User adds a DateReminder, indicate the index of the entry to track and the period before the event date to activate reminder.
+. guiltTrip() notifies user that Reminder has been added.
+
+Use case ends.
+
+==== Extensions
+
+. 1a. index out of bounds.
+Use case ends
 
 [appendix]
 == Non Functional Requirements
