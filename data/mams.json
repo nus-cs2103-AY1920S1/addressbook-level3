@@ -50,7 +50,7 @@
   } ],
   "modules" : [ {
     "quota" : "100",
-    "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
+    "tagged" : [ "A0180000A", "A0180001A", "A0180003A", "A0180005A", "A01800006A" ],
     "moduleCode" : "CS1010",
     "moduleName" : "Programming Methodology",
     "moduleDescription" : "This module introduces the fundamental concepts of problem solving by computing and programming using an imperative programming language. It is the first and foremost introductory course to computing. Topics covered include computational thinking and computational problem solving, designing and specifying an algorithm, basic problem formulation and problem solving approaches, program development, coding, testing and debugging, fundamental programming constructs (variables, types, expressions, assignments, functions, control structures, etc.), fundamental data structures (arrays, strings, composite data types), basic sorting, and recursion.",
@@ -58,7 +58,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "120",
-    "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
+    "tagged" : [ "A0180010A", "A0180024A", "A0180029A", "A0180022A", "A0180043A" ],
     "moduleCode" : "CS1231",
     "moduleName" : "Discrete Structures",
     "moduleDescription" : "This module introduces mathematical tools required in the study of computer science. Topics include: (1) Logic and proof techniques: propositions, conditionals, quantifications. (2) Relations and Functions: Equivalence relations and partitions. Partially ordered sets. Well-Ordering Principle. Function equality. Boolean/identity/inverse functions. Bijection. (3) Mathematical formulation of data models (linear model, trees, graphs). (4) Counting and Combinatoric: Pigeonhole Principle. Inclusion-Exclusion Principle. Number of relations on a set, number of injections from one finite set to another, Diagonalisation proof: An infinite countable set has an uncountable power set; Algorithmic proof: An infinite set has a countably infinite subset. Subsets of countable sets are countable.",
@@ -148,9 +148,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "nothing"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000001",
     "appealType" : "Drop module",
@@ -235,19 +235,5 @@
     "resolved" : false,
     "result" : null,
     "remark" : ""
-  }, {
-    "appealId" : "C000007",
-    "appealType" : "Add module",
-    "studentId" : "A00192034Z",
-    "academicYear" : "AY2019",
-    "studentWorkload" : 20,
-    "appealDescription" : "I wish to take this module to clear my prerequisite",
-    "previousModule" : "",
-    "newModule" : "",
-    "moduleToAdd" : "CS1010",
-    "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : ""
-  } ]
+  }]
 }
