@@ -2,14 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
-
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.queue.Room;
 
 /**
  * Lists all persons in the address book to the user.
@@ -19,15 +17,15 @@ public class UndoRemoveRoomCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Room added back to the list: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This room already exists in the list";
 
-    private final ReferenceId doctorReferenceId;
+    private final Room roomToAdd;
     private final int indexOfPatientInQueue;
 
     /**
      * Creates an EnqueueCommand to add the specified {@code PatientReferenceId}
      */
-    public UndoRemoveRoomCommand(ReferenceId doctorReferenceId, int index) {
-        requireNonNull(doctorReferenceId);
-        this.doctorReferenceId = doctorReferenceId;
+    public UndoRemoveRoomCommand(Room room, int index) {
+        requireNonNull(room);
+        this.roomToAdd = room;
         this.indexOfPatientInQueue = index;
     }
 
@@ -35,20 +33,18 @@ public class UndoRemoveRoomCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.isPatientInQueue(doctorReferenceId)) {
+        if (model.hasRoom(roomToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (!model.hasStaff(doctorReferenceId)) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, doctorReferenceId));
         }
 
-        model.addRoomToIndex(doctorReferenceId, indexOfPatientInQueue);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, doctorReferenceId));
+        model.addRoomToIndex(roomToAdd, indexOfPatientInQueue);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, roomToAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UndoRemoveRoomCommand // instanceof handles nulls
-                && doctorReferenceId.equals(((UndoRemoveRoomCommand) other).doctorReferenceId));
+                && roomToAdd.equals(((UndoRemoveRoomCommand) other).roomToAdd));
     }
 }

@@ -10,6 +10,7 @@ import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.common.ReferenceId;
+import seedu.address.model.queue.Room;
 
 
 /**
@@ -31,8 +32,9 @@ public class AddConsultationRoomCommandParser implements Parser<ReversibleAction
         }
 
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
-        return new ReversibleActionPairCommand(new AddConsultationRoomCommand(referenceId),
-                new RemoveRoomCommand(referenceId));
+        Room room = new Room(referenceId);
+        return new ReversibleActionPairCommand(new AddConsultationRoomCommand(room),
+                new RemoveRoomCommand(room));
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

@@ -166,12 +166,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void serveNextPatient(int index) {
+    public void addRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void undoServeNextPatient(int index) {
+    public void addRoomToIndex(Room room, int indexOfRoom) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -181,7 +181,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addRoomToIndex(ReferenceId id, int index) {
+    public boolean hasRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 

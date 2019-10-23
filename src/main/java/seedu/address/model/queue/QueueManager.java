@@ -81,23 +81,33 @@ public class QueueManager {
     }
 
     public void addRoom(Room room) {
-        roomList.add(room);
+        roomList.addRoom(room);
+    }
+
+    public void addRoomToIndex(Room room, int indexOfRoom) {
+        roomList.addRoom(room, indexOfRoom);
     }
 
     public boolean hasId(ReferenceId id) {
         return queueList.hasId(id);
     }
 
-    public void removeRoom(Room room) {
-        roomList.remove(room);
+    public void removeRoom(Room target) {
+        roomList.removeRoom(target);
     }
 
     public boolean hasRoom(Room room) {
-        return roomList.contains(room);
+        return roomList.hasRoom(room);
     }
 
     public ReferenceId getCurrentlyServed(int index) {
         return roomList.get(index).getCurrentPatient().get();
+    }
+
+    public void setRoom(Room target, Room editedRoom) {
+        requireNonNull(editedRoom);
+
+        roomList.set(target, editedRoom);
     }
 
     public ObservableList<ReferenceId> getReferenceIdList() {

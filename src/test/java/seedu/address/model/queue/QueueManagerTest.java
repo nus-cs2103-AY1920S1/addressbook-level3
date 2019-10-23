@@ -105,19 +105,17 @@ class QueueManagerTest {
         queueManager = new QueueManager();
         queueManager.addRoom(new Room(doctor.getReferenceId()));
         assertEquals(new StaffReferenceId("002A"), queueManager.getRoomList().get(0).getDoctor());
-        Person doctor2 = new PersonBuilder(AMY).withId("001A").build();
-        //queueManager.addRoomToIndex(doctor2.getReferenceId(), 0);
-        //assertEquals(new StaffReferenceId("001A"), queueManager.getRoomList().get(0).getDoctor());
+        queueManager.addRoomToIndex(new Room(doctor2.getReferenceId()), 0);
+        assertEquals(new StaffReferenceId("001A"), queueManager.getRoomList().get(0).getDoctor());
     }
 
     @Test
     void hasRoom_success() {
         Person doctor = new PersonBuilder(BOB).withId("002A").build();
         queueManager = new QueueManager();
-        Room newRoom = new Room(doctor.getReferenceId());
-        assertFalse(queueManager.hasRoom(newRoom));
-        queueManager.addRoom(newRoom);
-        assertTrue(queueManager.hasRoom(newRoom));
+        assertFalse(queueManager.hasRoom(new Room(doctor.getReferenceId())));
+        queueManager.addRoom(new Room(doctor.getReferenceId()));
+        assertTrue(queueManager.hasRoom(new Room(doctor.getReferenceId())));
     }
 
     @Test

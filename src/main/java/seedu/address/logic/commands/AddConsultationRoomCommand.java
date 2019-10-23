@@ -7,7 +7,6 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
 import seedu.address.model.queue.Room;
 
 /**
@@ -16,7 +15,7 @@ import seedu.address.model.queue.Room;
 public class AddConsultationRoomCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New room added : %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the queue";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This room already exists in the list";
 
     public static final String COMMAND_WORD = "addRoom";
 
@@ -25,35 +24,34 @@ public class AddConsultationRoomCommand extends ReversibleCommand {
             + "REFERENCE_ID \n"
             + "Example: " + COMMAND_WORD + " 001A";
 
-    private final ReferenceId doctorReferenceId;
+    private final Room roomToAdd;
 
     /**
      * Creates an EnqueueCommand to add the specified {@code PatientReferenceId}
      */
-    public AddConsultationRoomCommand(ReferenceId doctorReferenceId) {
-        requireNonNull(doctorReferenceId);
-        this.doctorReferenceId = doctorReferenceId;
+    public AddConsultationRoomCommand(Room roomToAdd) {
+        requireNonNull(roomToAdd);
+        this.roomToAdd = roomToAdd;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Room roomToAdd = new Room(doctorReferenceId);
         if (model.hasRoom(roomToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (!model.hasStaff(doctorReferenceId)) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, doctorReferenceId));
+        } else if (!model.hasPerson(roomToAdd.getDoctor())) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, roomToAdd));
         }
 
         model.addRoom(roomToAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, doctorReferenceId));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, roomToAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddConsultationRoomCommand // instanceof handles nulls
-                && doctorReferenceId.equals(((AddConsultationRoomCommand) other).doctorReferenceId));
+                && roomToAdd.equals(((AddConsultationRoomCommand) other).roomToAdd));
     }
 }

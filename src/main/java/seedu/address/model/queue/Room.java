@@ -15,6 +15,12 @@ public class Room implements Identical<Room> {
     private final ReferenceId doctor;
     private Optional<ReferenceId> patientCurrentlyBeingServed;
 
+    public Room(ReferenceId doctor, Optional<ReferenceId> patient, boolean isResting) {
+        this.doctor = doctor;
+        this.patientCurrentlyBeingServed = patient;
+        this.isResting = isResting;
+    }
+
     public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
@@ -23,6 +29,11 @@ public class Room implements Identical<Room> {
     public Room(ReferenceId doctor) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = Optional.empty();
+        this.isResting = false;
+    }
+
+    public boolean isReadyToServe() {
+        return !isResting;
     }
 
     public ReferenceId getDoctor() {
@@ -65,8 +76,13 @@ public class Room implements Identical<Room> {
         Room o = (Room) other;
         return getDoctor().equals(o.getDoctor())
                 && getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
-                && (getCurrentPatient().isEmpty()
-                    || getCurrentPatient().get().equals(o.getCurrentPatient().get()));
+                && getCurrentPatient().equals(o.getCurrentPatient());
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(doctor);
+        return builder.toString();
+    }
 }
