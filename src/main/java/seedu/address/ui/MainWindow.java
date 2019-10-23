@@ -190,6 +190,11 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleSwitchTab() {
+        showTransactionTab();
+    }
+
     public TransactionListPanel getTransactionListPanel() {
         return transactionListPanel;
     }
@@ -211,6 +216,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSwitchTab()) {
+                handleSwitchTab();
             }
 
             return commandResult;
