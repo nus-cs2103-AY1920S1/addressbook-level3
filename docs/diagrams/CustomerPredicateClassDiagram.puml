@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+
+Package java.util <<Rectangle>> {
+    Interface Predicate
+}
+
+Package Customer <<Rectangle>> {
+
+Class Customer
+
+Class CustomerName
+Class Email
+Class ContactNumber
+Package Predicates <<Rectangle>> {
+
+Class CustomerNameContainsKeywordsPredicate
+Class EmailContainsKeywordsPredicate
+Class ContactNumberContainsKeywordsPredicate
+Class CustomerTagContainsKeywordsPredicate
+
+
+CustomerNameContainsKeywordsPredicate .up.|> Predicate
+EmailContainsKeywordsPredicate .up.|> Predicate
+ContactNumberContainsKeywordsPredicate .up.|> Predicate
+}
+
+Customer *-down-> CustomerName
+Customer *-down-> Email
+Customer *-down-> ContactNumber
+Customer *-down-> Tag
+
+
+}
+
+
+
+Package Tag <<Rectangle>> {
+Class Tag
+}
+
+
+
+
+@enduml

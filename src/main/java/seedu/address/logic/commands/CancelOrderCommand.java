@@ -61,7 +61,7 @@ public class CancelOrderCommand extends Command {
         model.setOrder(orderToCancel, cancelledOrder);
 
         Optional<Schedule> scheduleToCancel = orderToCancel.getSchedule();
-        if (scheduleToCancel.isPresent()) {
+        if (scheduleToCancel.isPresent() && model.hasSchedule((scheduleToCancel.get()))) {
             model.deleteSchedule(scheduleToCancel.get());
         }
 

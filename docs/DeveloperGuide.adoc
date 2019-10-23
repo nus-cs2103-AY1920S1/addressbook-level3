@@ -392,17 +392,60 @@ Hence, we decided to use a listener instead.
 `CalendarDate` is then placed in `Model` so that it can be edited right away when `Model` executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
 
-=== Find Customer/Phone feature
+=== Find Customer/Phone/Order feature
+The find feature allows the user to find the customer/phone/order according to its data field(e.g. CustomerName, ContactNumber)
+or without any data field. We wanted to implement an OR search and so long as the customer/phone/order contained the keyword
+in its data, it would be shown to the user.
+For simplicity's sake, we will only focus on Customer in this section.
 
-The find feature allows the user to find the order according to its data field or without any data field.
+
+The commands that we wanted to implement are:
 
 * e.g. `find-c n/Alice` -- allows the user to find the customer with customer name "Alice".
 * e.g. `find-c Alice` -- would allow the user to find the customer with any data field that matches "Alice".
 
-
 ==== Current Implementation
 
-In order to implement the find function, we decided to create a predicate for each field.
+In order to implement the find function, we decided to create multiple predicates for each data field of Customer.
+By doing this, we could do chaining of predicates by using the static `or()` provided in `java.util.Predicate` package.
+Thus, we would be able to find the customer easily with the keywords given in the input.
+
+image::CustomerPredicateClassDiagram.png[]
+
+Below is a diagram to show you how `find-c n/Alice` runs in the program.
+
+image::FindCustomerCommandSequenceDiagram1.png[]
+
+Below is another diagram to show you how `find-c n/Alice e/alex` runs in the program.
+
+image::FindCustomerCommandSequenceDiagram2.png[]
+
+Notice that chaining takes place by creating new instances of XYZContainsKeywordsPredicates.
+
+
+==== Design Considerations / Alternative designs considered
+
+Alternative 2: The other alternative that we considered in implementing the find feature was using a single predicate.
+First, we create a `FindCustomerDescriptor` that would store all the strings that were to be searched under the various data fields.
+The `FindCustomerCommandParser` would store the relevant keywords in the FindCustomerDescriptor and generate a predicate,
+`CustomerContainsKeywordsPredicate`, using the FindCustomerDescriptor and pass it to `FindCustomerCommand`. `FindCustomerCommand` would then be executed.
+
+The predicate `CustomerContainsKeywordsPredicate` would do the heavy lifting by doing further parsing of the keywords
+and test whether Customer contains the relevant keywords.
+
+However, we did not do this as `CustomerContainsKeywordsPredicate` violated the Single-Responsibility Principle.
+It had to do further parsing of the keywords instead of simply testing whether the Customer contains the keywords.
+Also, if there was a change to the `Customer` class, it would be less intuitive to modify `CustomerContainsKeywordsPredicate`
+as one would need to understand the parsing.
+
+
+
+* **Alternative 1 (current choice):** Multiple predicates.
+** Pros: Easy to implement.
+** Cons: Duplicated code due to multiple predicates.
+* **Alternative 2:** Single predicate.
+** Pros: Less code written in total.
+** Cons: Harder to maintain.
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
