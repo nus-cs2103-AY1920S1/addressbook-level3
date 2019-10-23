@@ -204,6 +204,9 @@ public class MergePersonConfirmedCommandTest {
         public void setPerson(Person target, Person editedPerson) {
             this.person = editedPerson;
         }
+
+        @Override
+        public void saveAddressBookState() {}
     }
 
     /**

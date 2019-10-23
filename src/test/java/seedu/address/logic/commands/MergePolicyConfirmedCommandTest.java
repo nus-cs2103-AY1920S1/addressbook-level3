@@ -211,6 +211,9 @@ public class MergePolicyConfirmedCommandTest {
         public void setPolicy(Policy target, Policy editedPolicy) {
             this.policy = editedPolicy;
         }
+
+        @Override
+        public void saveAddressBookState() {}
     }
 
     /**
