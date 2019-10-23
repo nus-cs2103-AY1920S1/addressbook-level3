@@ -66,8 +66,8 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getExpenseListFilePath());
     }
 
-    @Test
-    public void getExchangeDataFilePath() {
-        assertNotNull(storageManager.getExchangeDataFilePath());
-    }
+    //    @Test
+    //    public void getExchangeDataFilePath() {
+    //        assertNotNull(storageManager.getExchangeDataFilePath());
+    //    }
 }

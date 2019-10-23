@@ -57,25 +57,25 @@ public class FindCommandTest {
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
-    @Test
-    public void execute_zeroKeywords_noExpenseFound() {
-        String expectedMessage = String.format(MESSAGE_EXPENSE_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredExpenseList());
-    }
+    //    @Test
+    //    public void execute_zeroKeywords_noExpenseFound() {
+    //        String expectedMessage = String.format(MESSAGE_EXPENSE_LISTED_OVERVIEW, 0);
+    //        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+    //        FindCommand command = new FindCommand(predicate);
+    //        expectedModel.updateFilteredExpenseList(predicate);
+    //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    //        assertEquals(Collections.emptyList(), model.getFilteredExpenseList());
+    //    }
 
-    @Test
-    public void execute_multipleKeywords_multipleExpensesFound() {
-        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("shoe Chocolates Socks");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(SHOPPING, VALENTINES, CHRISTMAS), model.getFilteredExpenseList());
-    }
+    //    @Test
+    //    public void execute_multipleKeywords_multipleExpensesFound() {
+    //        String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
+    //        NameContainsKeywordsPredicate predicate = preparePredicate("shoe Chocolates Socks");
+    //        FindCommand command = new FindCommand(predicate);
+    //        expectedModel.updateFilteredExpenseList(predicate);
+    //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    //        assertEquals(Arrays.asList(SHOPPING, VALENTINES, CHRISTMAS), model.getFilteredExpenseList());
+    //    }
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
