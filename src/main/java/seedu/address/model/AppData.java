@@ -134,6 +134,13 @@ public class AppData implements ReadOnlyAppData {
         notes.remove(title);
     }
 
+    /**
+     * Clears all lecture notes.
+     */
+    public void clearNotes() {
+        notes.setNotes(new UniqueNoteList());
+    }
+
     //// question operations
 
     /**

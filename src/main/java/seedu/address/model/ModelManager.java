@@ -119,6 +119,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearNotes() {
+        appData.clearNotes();
+    }
+
+    @Override
     public void addNote(Note note) {
         appData.addNote(note);
         updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
