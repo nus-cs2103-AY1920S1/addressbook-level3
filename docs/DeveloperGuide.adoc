@@ -296,6 +296,7 @@ The following sequence diagram shows how the show command eventually lead to cha
 of an individual's or group's schedule.
 
 image::VisualRepresentationSD0.png[]
+image::VisualRepresentationSD1.png[]
 
 ==== Design Considerations
 
