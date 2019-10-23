@@ -93,6 +93,11 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.list-view .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;

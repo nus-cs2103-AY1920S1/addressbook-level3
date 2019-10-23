@@ -8,74 +8,74 @@
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
  <HBox VBox.vgrow="ALWAYS">
-      <VBox alignment="TOP_CENTER">
+      <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
          <children>
-            <Label contentDisplay="CENTER" text="Monday">
+            <Label contentDisplay="CENTER" text="Monday" VBox.vgrow="ALWAYS">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-        <ListView fx:id="mondayListView" />
+        <ListView fx:id="mondayListView" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER">
+      <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
          <children>
-             <Label contentDisplay="CENTER" text="Tuesday">
+             <Label contentDisplay="CENTER" text="Tuesday" VBox.vgrow="ALWAYS">
                  <padding>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                  </padding>
              </Label>
-        <ListView fx:id="tuesdayListView" />
+        <ListView fx:id="tuesdayListView" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
          <children>
-             <Label contentDisplay="CENTER" text="Wednesday">
+             <Label contentDisplay="CENTER" text="Wednesday" VBox.vgrow="ALWAYS">
                  <padding>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                  </padding>
              </Label>
-        <ListView fx:id="wednesdayListView" />
+        <ListView fx:id="wednesdayListView" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="1695.0" layoutY="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="1695.0" layoutY="10.0" HBox.hgrow="ALWAYS">
          <children>
-             <Label contentDisplay="CENTER" text="Thursday">
+             <Label contentDisplay="CENTER" text="Thursday" VBox.vgrow="ALWAYS">
                  <padding>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                  </padding>
              </Label>
-        <ListView fx:id="thursdayListView" />
+        <ListView fx:id="thursdayListView" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="1795.0" layoutY="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="1795.0" layoutY="10.0" HBox.hgrow="ALWAYS">
          <children>
-             <Label contentDisplay="CENTER" text="Friday">
+             <Label contentDisplay="CENTER" text="Friday" VBox.vgrow="ALWAYS">
                  <padding>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                  </padding>
              </Label>
-        <ListView fx:id="fridayListView" />
+        <ListView fx:id="fridayListView" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="1895.0" layoutY="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="1895.0" layoutY="10.0" HBox.hgrow="ALWAYS">
          <children>
-             <Label contentDisplay="CENTER" text="Saturday">
+             <Label contentDisplay="CENTER" text="Saturday" VBox.vgrow="ALWAYS">
                  <padding>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                  </padding>
              </Label>
-        <ListView fx:id="saturdayListView" />
+        <ListView fx:id="saturdayListView" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="1995.0" layoutY="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="1995.0" layoutY="10.0" HBox.hgrow="ALWAYS">
          <children>
-             <Label contentDisplay="CENTER" text="Sunday">
+             <Label contentDisplay="CENTER" text="Sunday" VBox.vgrow="ALWAYS">
                  <padding>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                  </padding>
              </Label>
-        <ListView fx:id="sundayListView" />
+        <ListView fx:id="sundayListView" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
  </HBox>
