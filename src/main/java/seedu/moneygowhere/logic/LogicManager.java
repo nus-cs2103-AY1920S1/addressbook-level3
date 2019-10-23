@@ -41,6 +41,8 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        storage.addCommand(commandText);
+
         CommandResult commandResult;
         Command command = spendingBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
@@ -97,4 +99,13 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public String getPrevCommand() {
+        return storage.getPrevCommand();
+    }
+
+    @Override
+    public String getNextCommand() {
+        return storage.getNextCommand();
+    }
 }

@@ -118,6 +118,33 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredSpendingList().remove(0));
     }
 
+    @Test
+    public void getPrevCommand_emptyStorage_success() {
+        assertEquals("", logic.getPrevCommand());
+    }
+
+    @Test
+    public void getPrevCommand_withInput_success() throws Exception {
+        String listCommand = ListCommand.COMMAND_WORD;
+        logic.execute(listCommand);
+        assertEquals(listCommand, logic.getPrevCommand());
+    }
+
+    @Test
+    public void getNextCommand_emptyStorage_success() {
+        assertEquals("", logic.getPrevCommand());
+    }
+
+    @Test
+    public void getNextCommand_withInput_success() throws Exception {
+        String listCommand = ListCommand.COMMAND_WORD;
+        logic.execute(listCommand);
+        assertEquals("", logic.getNextCommand());
+        logic.getPrevCommand();
+        logic.getPrevCommand();
+        assertEquals(listCommand, logic.getNextCommand());
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>

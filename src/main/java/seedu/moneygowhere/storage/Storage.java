@@ -12,7 +12,7 @@ import seedu.moneygowhere.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends SpendingBookStorage, UserPrefsStorage {
+public interface Storage extends SpendingBookStorage, UserPrefsStorage, CommandStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -28,5 +28,4 @@ public interface Storage extends SpendingBookStorage, UserPrefsStorage {
 
     @Override
     void saveSpendingBook(ReadOnlySpendingBook spendingBook) throws IOException;
-
 }

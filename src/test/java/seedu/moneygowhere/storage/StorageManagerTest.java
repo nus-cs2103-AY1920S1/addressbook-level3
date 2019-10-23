@@ -67,4 +67,23 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getSpendingBookFilePath());
     }
 
+    @Test
+    public void getPrevCommand() {
+        assertEquals("", storageManager.getPrevCommand());
+        storageManager.addCommand("command1");
+        assertEquals("command1", storageManager.getPrevCommand());
+    }
+
+    @Test
+    public void getNextCommand() {
+        assertEquals("", storageManager.getNextCommand());
+        storageManager.addCommand("command1");
+        storageManager.addCommand("command2");
+        storageManager.getPrevCommand();
+        storageManager.getPrevCommand();
+        storageManager.getPrevCommand();
+        assertEquals("command1", storageManager.getNextCommand());
+        assertEquals("command2", storageManager.getNextCommand());
+        assertEquals("", storageManager.getNextCommand());
+    }
 }

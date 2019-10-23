@@ -63,4 +63,15 @@ public interface Logic {
 
     String getStatsMessage(String commandText) throws ParseException;
 
+    /**
+     * Returns the previous user inputted command with respect to the current index.
+     * @return The previous user inputted command.
+     */
+    String getPrevCommand();
+
+    /**
+     * Returns the next user inputted command with respect to the current index.
+     * @return The next user inputted command.
+     */
+    String getNextCommand();
 }

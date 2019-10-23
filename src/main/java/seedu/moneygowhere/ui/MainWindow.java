@@ -69,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
 
         graphWindow = new GraphWindow();
         statsWindow = new StatsWindow();
+
+
     }
 
     public Stage getPrimaryStage() {
@@ -122,7 +124,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getSpendingBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -195,6 +197,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            // store to command storage even though invalid
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -223,4 +226,22 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+    /**
+     * Retrieves the previously stored command.
+     *
+     * @see seedu.moneygowhere.logic.Logic#getPrevCommand()
+     */
+    private String getPrevCommand() {
+        return logic.getPrevCommand();
+    }
+
+    /**
+     * Retrieves the next stored command.
+     *
+     * @see seedu.moneygowhere.logic.Logic#getNextCommand()
+     */
+    private String getNextCommand() {
+        return logic.getNextCommand();
+    }
+
 }

@@ -19,12 +19,14 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private SpendingBookStorage spendingBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private CommandStorageImpl commandStorage;
 
 
     public StorageManager(SpendingBookStorage spendingBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.spendingBookStorage = spendingBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.commandStorage = new CommandStorageImpl();
     }
 
     // ================ UserPrefs methods ==============================
@@ -74,4 +76,20 @@ public class StorageManager implements Storage {
         spendingBookStorage.saveSpendingBook(spendingBook, filePath);
     }
 
+    // ================ commandStorage methods ==============================
+
+    @Override
+    public void addCommand(String command) {
+        this.commandStorage.addCommand(command);
+    }
+
+    @Override
+    public String getPrevCommand() {
+        return this.commandStorage.getPrevCommand();
+    }
+
+    @Override
+    public String getNextCommand() {
+        return this.commandStorage.getNextCommand();
+    }
 }
