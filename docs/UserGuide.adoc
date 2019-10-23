@@ -12,41 +12,50 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-2/main
+:releaseURL: https://github.com/AY1920S1-CS2103T-T11-2/main/releases
 
 By: `SErebros`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-Our project is a game that requires the user to match a keyword to a given description. This game aims to aid students who are trying to revise concepts and definitions in their schoolwork.
+We aim to streamline and gamify the process of learning words or definitions through the use of self-created flash cards.
 
 The general flow of the program is as follows:
 
-1. Select and Edit Dataset
-2. Configure Settings
-3. Start and Play Game
-4. End Game
-5. Display Statistics
+1. Create your word bank.
+2. Add flash cards, each containing a word and a meaning, into your word bank.
+3. Configure settings, or modify word bank as you wish.
+4. Start the game.
+5. The meaning of the card will appear and you will have to key in the answer in a given time.
+6. At the end of the game, statistics of your game session appears, so you can know how well you did.
+7. Revisit the word bank to beat your previous high score.
 
-The user manually stores definitions / vocabulary into a word dataset. He can also pre-load a word dataset given to him from a file. During the game, you will be tasked to type the correct word given the description. Depending on the game mode, there may also be time restrictions. Answer correctly as quickly as possible and to score as much as you can! You can view your statistics afterwards to review your performance!
+You write your own words and meaning into a word bank. You can also import a word bank given to him from a file. +
+During the game, you are prompted with a meaning and you have to answer with a word. Depending on the game mode, there may also be time restrictions and hints given. Answer correctly as quickly as possible and to score as much as you can! +
+You can view your statistics afterwards to review your performance! Revisit word banks which you scored badly.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `dukemon.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+.  Download the latest `Dukemon.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Dukemon.
+.  Double-click the file to start the app. Enjoy learning!
+
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Some example commands you can try to get familiar with the app :
 
-* *`list`* : lists all cards in a word bank.
-* **`start`** : starts the game.
-* **`stop`** : stops the game.
-* *`exit`* : exits the app.
+* *`create WORD_BANK`* : Create an empty word bank.
+* *`bank WORD_BANK`* : Select this particular bank.
+* *`add w/WORD m/MEANING`* : Add a flash card into the word bank.
+* *`list`* : List all cards in the word bank.
+* **`start [DIFFICULTY]`** : Starts the game with a selected difficulty. Default difficulty will be selected if none is keyed in.
+* **`guess ANSWER`** : Input your answer according to the meaning given.
+* **`stop`** : Stops the game.
+* *`exit`* : Exits the app.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -56,71 +65,121 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add w/WORD`, `WORD` is a parameter which can be used as `add w/Charmander m/Fire starter pokemon`.
-* Items in square brackets are optional e.g `w/WORD [t/TAG]` can be used as `w/Squirtle t/Water type` or as `w/Squirtle`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add w/WORD`, `WORD` is a parameter which can be used as +
+`add w/Charmander m/Fire starter pokemon`.
+* Items in square brackets are optional e.g `w/WORD [t/TAG]` can be used as +
+`add w/Squirtle m/Water starter pokemon t/Water type` or as
+ +
+`add w/Squirtle m/Water starter pokemon`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/CS2040`, `t/CS2040 t/GRAPH` etc.
 * Parameters can be in any order e.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Load commands
+==== To enter loading page : `load`
+Changes the app mode to load, so that the user can perform load commands.
 
-Format: `help`
+==== Create new word bank : `create`
+Creates a new word bank with specified name. +
 
-=== Loading a data set : `bank`
-
-Initialise a word bank data set from storage. +
-Format: `bank word_bank_name`
-
-[TIP]
-Use `list` to get all word banks currently in your storage.
-
-Examples:
-
-* `bank List of animals`
-* `bank All gen 1 pokemon`
-
-=== Listing all data sets : `load`
-
-Shows a list of all data sets currently in storage. +
-Format: `load`
-
-=== Viewing a data set's content : `list`
-
-Views the content of a data set. +
-Format: `list`
-
-==== Create new data set : `create`
-
-Creates a new word bank with specified name. Will automatically be set in edit mode for that data set. +
-Format: `create DATASET_NAME`
-
+Format: `create WORD_BANK` +
 Examples:
 
 * `create CS2040`
 * `create Biology`
 
-==== Editing a data set's content : `edit`
+==== Remove a word bank : `remove`
+Removes a new word bank with specified name. +
 
-Enters edit mode for selected data set. +
-Format: `edit DATASET_NAME`
+Format: `remove WORD_BANK` +
+Examples:
+
+* `Remove Gen 3 pokemon`
+* `Remove Vocabulary`
+
+==== Import a word bank : `import`
+Import the word bank from a specified file path on your system. +
+Note that you can use '\' and '\\' for windows.
+
+Format: `import w/WORD_BANK f/FILE_PATH` +
+Examples:
+
+* `import w/cs2040_graph f/~/downloads`
+* `import w/fire pokemons f//Users/chrischenhui/data`
+
+==== Export a word bank : `export`
+Export the word bank to a specified file path on your system. +
+
+Format: `export w/WORD_BANK f/FILE_PATH` +
+Examples:
+
+* `export w/ma1101r theorems f/~`
+* `export w/biology definitions f/~/downloads`
+
+==== Bank a word bank : `bank`
+Choose the word bank you want to work with.
+
+Format: `bank WORD_BANK`
+Examples:
+
+* `bank CS2040`
+* `bank Biology`
+
+=== Flash card commands
+
+==== Help : `help`
+Shows help
+
+Format: `help`
+
+==== Adding a flash card : `add`
+Adds a new word-description pair to the word bank.
+
+Format: `add w/WORD m/MEANING`
+
+NOTE: There can be duplicate words, but duplicate meanings will be rejected.
+
+Examples:
+
+* `add w/Elephant m/Has a long nose`
+* `add w/Newton's third law of motion m/Every action will produce and equal and opposite reaction`
+* `add w/Kopi Luwak m/Coffee produced from the coffee beans found in the faeces of a civet cat`
+
+==== Deleting a flash card : `delete`
+Deletes the specified word from the data set. +
+
+Format: `delete w/card`
+
+****
+* Deletes the word at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete 2` +
+Deletes the 2nd word in the data set.
+* `delete 1` +
+Deletes the 1st word in the results of the `/find` command.
+
+==== Viewing a word bank's content : `list`
+Views the content of a data set. +
+Format: `list`
+
+==== Clear a word bank's content : `clear`
+Views the content of a data set. +
+Format: `clear`
+
+==== Editing a data set's content : `edit`
+Edits a flash card.
+
+Format: `edit flashcardname`
 
 Examples:
 
 * `edit List of animals`
 * `edit Teeth`
-
-===== Adding a word : `add`
-
-Adds a new word-description pair to the data set. +
-Format: `add w/word m/meaning`
-
-NOTE: Word can be more than just 1 word. Can consist of multiple words if term to remember requires it.
-
-Examples:
-
-* `add w/ Elephant m/ Has a long nose`
-* `add w/ Newton's third law of motion m/ Every action will produce and equal and opposite reaction`
-* `add w/ Kopi Luwak m/ Coffee produced from the coffee beans found in the faeces of a civet cat`
 
 ===== Locating a word/description: `find`
 
@@ -142,56 +201,36 @@ Returns entries containing elephant and giraffe.
 * `find mammal fish bird` +
 Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or words.
 
-// tag::delete[]
-===== Deleting a word : `delete`
+==== Exit the game : `exit`
 
-Deletes the specified word from the data set. +
-Format: `delete w/card`
+=== Game commands
+==== Start new game session : `start`
+Starts a game session with the selected word bank. +
+You select your word bank from the load command : `bank WORD_BANK`
 
-****
-* Deletes the word at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `start [difficulty]`
 
-Examples:
+==== Guess the answer : `guess`
+Input your answer for the prompted word, given a meaning.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd word in the data set.
-* `find elephant` +
-`delete 1` +
-Deletes the 1st word in the results of the `/find` command.
-// end::delete[]
+Format: `guess WORD`
 
-=== Start new game session : `start`
+==== Skip a word : `skip`
+Stops current game session (all progress will be lost) and returns to the home page.
 
-Starts a game session with the desired data set. +
-Format: `/start List of animals`
+Format: `stop`
 
-=== Stop game session : `stop`
+==== Stop game session : `stop`
+Stops current game session (all progress will be lost) and returns to the home page.
 
-Stops current game session (all progress will be lost) and returns to the home page. +
-Format: `/stop`
-
-=== Viewing statistics : `stats`
-
-Views and compares statistics. Can be specified to view stats for specific data sets. +
-Format: `/stats [DATASET_NAME]`
-
-Examples:
-
-* `/stats` +
-Returns overall statistics for the whole app.
-* `/stats List of animals` +
-Returns statistics for the data set `List of animals`.
+Format: `stop`
 
 === Changing settings : `settings`
 
 Goes into the settings menu. +
 Format: `/settings`
 
-==== Changing the theme : `/theme`
+==== Changing the theme : `theme`
 
 Changes the theme of the UI. +
 Format: `/theme dark/light`
@@ -203,7 +242,7 @@ Changes the UI theme to dark.
 * `/theme light` +
 Changes the UI theme to light.
 
-==== Turning hints on/off : `/hints`
+==== Turning hints on/off : `hints`
 
 Turns hints on or off. +
 Format: `/hints on/off`
@@ -215,7 +254,7 @@ Turns hints on.
 * `/hints off` +
 Turns hints off.
 
-==== Changing difficulty : `/difficulty`
+==== Changing difficulty : `difficulty`
 
 Changes the difficulty of the game. +
 Format: `/difficulty low/medium/high`
@@ -229,7 +268,7 @@ Changes the difficulty to medium. (Timer = 20 seconds)
 * `/difficulty high` +
 Changes the difficulty to high. (Timer = 10 seconds)
 
-=== Navigating back : `/back`
+=== Navigating back : `back`
 
 At any point in time, if there is a previous screen, navigates back to that screen. add home to navigate back to the home page. +
 Format: `/back [home]`
@@ -239,15 +278,11 @@ Examples:
 * `/back`
 * `/back home`
 
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
 === Saving the data
-
 Dukemon data are saved in the hard disk automatically after any command that changes the data. +
+These commands are generally load commands.
 There is no need to save manually.
+Statistics are also stored automatically.
 
 // tag::dataencryption[]
 === Leaderboard `[coming in v2.0]`
@@ -262,7 +297,7 @@ Have more than one account to monitor statistics on the same computer
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Dukemon folder.
 
 *Q*: How do I pronounce your name? +
 *A*: Think Pokemon.
@@ -276,23 +311,23 @@ e.g. `load List of animals`
 * *View* : `view DATASET_NAME` +
 e.g. `view List of animals`
 * *Editor* : `editor` +
-    ** *New* : `new DATASET_NAME` +
-    e.g. `new Car brands`
-    ** *Edit* : `edit DATASET_NAME` +
+    ** *New* : `new WORD_BANK` +
+    e.g. `new Car WORD_BANK`
+    ** *Edit* : `edit WORD_BANK` +
     e.g. `edit List of animals`
-        *** *Add* : `add w/ WORD m/ MEANING` +
-        e.g. `add w/ Elephant m/ Has a long nose` +
-        e.g. `add w/ Giraffe m/ Has a long neck`
+        *** *Add* : `add w/WORD m/MEANING` +
+        e.g. `add w/Elephant m/Has a long nose` +
+        e.g. `add w/Giraffe m/Has a long neck`
         *** *Find* : `find WORD [WORDS]...` +
         e.g. `find long`
-        *** *Delete* : `delete BANKNAME` +
-        e.g. `delete BANKNAME`
+        *** *Delete* : `delete WORD_BANK` +
+        e.g. `delete WORD_BANK`
 * *Start* : `start [DIFFICULTY]` +
 e.g. `start easy`
 * *Stop* : `stop`
 * *Settings* : `settings`
-    ** *Theme* : `/theme dark/light`
-    ** *Hints* : `/hints on/off`
-    ** *Difficulty* : `/difficulty low/medium/high`
+    ** *Theme* : `theme dark/light`
+    ** *Hints* : `hints on/off`
+    ** *Difficulty* : `difficulty low/medium/high`
 * *Back* : `back [home]`
 * *Exit* : `exit`
