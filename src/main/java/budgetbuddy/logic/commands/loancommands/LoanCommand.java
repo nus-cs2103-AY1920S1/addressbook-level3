@@ -49,7 +49,7 @@ public class LoanCommand extends Command {
         requireAllNonNull(model, model.getLoansManager());
 
         model.getLoansManager().addLoan(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getEssentialInfo()), CommandCategory.LOAN);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.LOAN);
     }
 
     @Override

@@ -79,19 +79,13 @@ public class Loan {
         return status == Status.PAID;
     }
 
-    public String getDirectionWithFunctionWord() {
-        return getDirection() == Direction.OUT
-                ? getDirection().direction.toLowerCase() + " to "
-                : getDirection().direction.toLowerCase() + " from ";
-    }
-
     /**
      * Returns a {@code string} containing the amount, direction and person of the loan.
      */
     public String getEssentialInfo() {
-        return getAmount() + " "
-                + getDirectionWithFunctionWord()
-                + getPerson();
+        return getDirection() == Direction.OUT
+                ? String.format("%s owes you %s", getPerson(), getAmount())
+                : String.format("You owe %s %s", getPerson(), getAmount());
     }
 
     /**
@@ -122,10 +116,16 @@ public class Loan {
 
     @Override
     public String toString() {
+        String directionWithFunctionWord = getDirection() == Direction.OUT
+                ? getDirection().direction.toLowerCase() + " to"
+                : getDirection().direction.toLowerCase() + " from";
+
         final String divider = " | ";
         final StringBuilder builder = new StringBuilder();
         builder.append(getStatus().getStatusIcon()).append(" ")
-                .append(getDirectionWithFunctionWord())
+                .append(getAmount()).append(" ")
+                .append(directionWithFunctionWord).append(" ")
+                .append(getPerson())
                 .append(divider)
                 .append(getDateString());
         if (!description.getDescription().isBlank()) {

@@ -23,11 +23,17 @@ public class LoanListCommand extends Command {
             + "Example: "
             + "loan list 1 2 o a";
 
-    public static final String MESSAGE_SUCCESS = "Loans listed.";
+    public static final String MESSAGE_SUCCESS = "Loans listed by person in alphabetical order.";
+    public static final String MESSAGE_NO_LOANS =
+            "No loans found in your list. Nobody owes anybody money... for now.";
 
     @Override
     public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getLoansManager());
-        return new CommandResult(MESSAGE_SUCCESS, CommandCategory.LOAN);
+        return new CommandResult(
+                model.getLoansManager().getLoans().isEmpty()
+                        ? MESSAGE_NO_LOANS
+                        : MESSAGE_SUCCESS,
+                CommandCategory.LOAN);
     }
 }
