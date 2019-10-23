@@ -38,7 +38,10 @@ Class Restrictions
 }
 
 Package Savings {
+Interface ReadOnlySavingsAccount <<Interface>>
 Class SavingsAccount
+Class SavingsHistory
+Class Savings
 }
 
 Package Purchase {
@@ -85,6 +88,11 @@ Purchase *--> TimeOfPurchase
 
 Wallet *--> DaysToExpire
 Wallet *--> RemainingBudget
+
+
+SavingsAccount .up.|> ReadOnlySavingsAccount
+SavingsAccount *--> "1" SavingsHistory
+SavingsHistory o--> "0..*" Savings
 
 Menu *--> "1" UniqueFoodList
 UniqueFoodList o--> "*" Food
