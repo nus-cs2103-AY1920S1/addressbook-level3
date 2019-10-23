@@ -1,53 +1,350 @@
 {
   "students" : [ {
-    "name" : "Paul",
-    "credits" : "20",
-    "prevMods" : "CS1010, CS5505",
-    "matricId" : "A00192034Z",
-    "tagged" : [ "CS1020" ]
+    "name":"Celina Conyers  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180000"
+    ,"tagged":["CS2040","CS2030","CS1231"]
+    }, {
+    "name":"Madonna Morgado  "
+  ,"credits":"23"
+  ,"prevMods":"CS1010, CS2101"
+  ,"matricId":"A0180001"
+  ,"tagged":["CS2101","CS2106","CS2105"]
   }, {
-    "name" : "Alex",
-    "credits" : "20",
-    "prevMods" : "CS2202, CS1111",
-    "matricId" : "A220193040F",
-    "tagged" : [ "CS1020", "CS1010" ]
+    "name":"Ronna Rousey  "
+  ,"credits":"24"
+  ,"prevMods":"CS1010, CS2105"
+  ,"matricId":"A0180002"
+  ,"tagged":["CS2105","CS2040","CS1231"]
   }, {
-    "name" : "Alex Yeoh",
-    "credits" : "20",
-    "prevMods" : "CS2030, CS4040",
-    "matricId" : "A0180000R",
-    "tagged" : [ "CS1020", "friends" ]
-  }, {
-    "name" : "Bernice Yu",
-    "credits" : "20",
-    "prevMods" : "CS2030, CS4040",
-    "matricId" : "A01455353y",
-    "tagged" : [ "CS1020", "colleagues", "friends" ]
-  }, {
-    "name" : "Charlotte Oliveiro",
-    "credits" : "20",
-    "prevMods" : "CS2030, CS4040",
-    "matricId" : "A0199239U",
-    "tagged" : [ "CS1020", "neighbours" ]
-  }, {
-    "name" : "David Li",
-    "credits" : "20",
-    "prevMods" : "CS2030, CS4040",
-    "matricId" : "A01423223T",
-    "tagged" : [ "family" ]
-  }, {
-    "name" : "Irfan Ibrahim",
-    "credits" : "20",
-    "prevMods" : "CS2030, CS4040",
-    "matricId" : "A12039123S",
-    "tagged" : [ "CS1010", "classmates" ]
-  }, {
-    "name" : "Roy Balakrishnan",
-    "credits" : "20",
-    "prevMods" : "CS2030, CS4202",
-    "matricId" : "A015923848U",
-    "tagged" : [ "colleagues" ]
-  } ],
+      "name":"Williemae Whitworth  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2105"
+    ,"matricId":"A0180003"
+    ,"tagged":["CS2220","CS2030","CS1231"]
+    },
+    {
+      "name":"Tamala Touchette  "
+    ,"credits":"22"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180004"
+    ,"tagged":["CS2220","CS2030","CS2030"]
+    },
+    {
+      "name":"Kourtney Kaminsky  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180005"
+    ,"tagged":["CS2040","CS2101","CS2106"]
+    }, {
+      "name":"Scott Shinkle  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180006"
+    ,"tagged":["CS2101","CS1020"]
+    },
+    {
+      "name":"Staci Snowden  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS1231, CS2309"
+    ,"matricId":"A0180007"
+    ,"tagged":["CS2105","CS2105"]
+    },
+    {
+      "name":"Rosaline Ridgell  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS1231, CS2309"
+    ,"matricId":"A0180008"
+    ,"tagged":["CS1020","CS2220"]
+    },
+    {
+      "name":"Gonzalo Gentry  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS2309"
+    ,"matricId":"A0180009"
+    ,"tagged":["CS2220","CS2030","CS2040"]
+    },
+    {
+      "name":"Lionel Lafontant  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180010"
+    ,"tagged":["CS2030","CS2106","CS1020"]
+    },
+    {
+      "name":"Sherilyn Snelson  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180011"
+    ,"tagged":["CS1231","CS2040","CS2040"]
+    },
+    {
+      "name":"Lucy Lomas  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS2309"
+    ,"matricId":"A0180012"
+    ,"tagged":["CS2040","CS1020","CS1020"]
+    },
+    {
+      "name":"Colleen Choe  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180013"
+    ,"tagged":["CS2040","CS2030","CS1231"]
+    },
+    {
+      "name":"Leanne Letcher  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180014"
+    ,"tagged":["CS2220","CS2101","CS3202"]
+    },
+    {
+      "name":"Isobel Ickes  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180015"
+    ,"tagged":["CS2309","CS2040","CS2309"]
+    },
+    {
+      "name":"Chelsea Chappelle  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180016"
+    ,"tagged":["CS2105","CS2101","CS3202"]
+    },
+    {
+      "name":"Florencio Frailey  "
+    ,"credits":"22"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180017"
+    ,"tagged":["CS2220","CS3202","CS2040"]
+    },
+    {
+      "name":"Rosenda Ruston  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS2030"
+    ,"matricId":"A0180018"
+    ,"tagged":["CS1231","CS1231","CS2040"]
+    },
+    {
+      "name":"Angeles Atienza  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS2105"
+    ,"matricId":"A0180019"
+    ,"tagged":["CS2040","CS1231","CS2101"]
+    },
+    {
+      "name":"Idella Israel  "
+    ,"credits":"20"
+    ,"prevMods":"CS1010, CS2309"
+    ,"matricId":"A0180020"
+    ,"tagged":["CS2105","CS1231","CS1020"]
+    },
+    {
+      "name":"Tanisha Tolle  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS2105"
+    ,"matricId":"A0180021"
+    ,"tagged":["CS2101","CS2105","CS2030"]
+    },
+    {
+      "name":"Roberta Roybal  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180022"
+    ,"tagged":["CS2106","CS1231","CS2220"]
+    },
+    {
+      "name":"Polly Prosser  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180023"
+    ,"tagged":["CS1231","CS1231","CS2030"]
+    },
+    {
+      "name":"Shawna Steveson  "
+    ,"credits":"22"
+    ,"prevMods":"CS1010, CS2015"
+    ,"matricId":"A0180024"
+    ,"tagged":["CS1020","CS2040","CS1020"]
+    },
+    {
+      "name":"Debbie Dyke  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2105"
+    ,"matricId":"A0180025"
+    ,"tagged":["CS2105"]
+    },
+    {
+      "name":"Cameron Charon  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180026"
+    ,"tagged":["CS2101","CS1020","CS2309"]
+    },
+    {
+      "name":"Kermit Kerekes  "
+    ,"credits":"20"
+    ,"prevMods":"CS1010, CS2016"
+    ,"matricId":"A0180027"
+    ,"tagged":["CS2309","CS2105"]
+    },
+    {
+      "name":"Vonnie Vo  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS1231, CS2309"
+    ,"matricId":"A0180028"
+    ,"tagged":["CS2101","CS2030","CS2309"]
+    },
+    {
+      "name":"Ligia Laurent  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS2309"
+    ,"matricId":"A0180029"
+    ,"tagged":["CS3202","CS2106","CS2040"]
+    },
+    {
+      "name":"Daryl Dahlstrom  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2015"
+    ,"matricId":"A0180030"
+    ,"tagged":["CS2220","CS2040","CS2106"]
+    },
+    {
+      "name":"Dwain Dunham  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS1231, CS2309"
+    ,"matricId":"A0180031"
+    ,"tagged":["CS2030","CS2040","CS2105"]
+    },
+    {
+      "name":"Andree Abbe  "
+    ,"credits":"20"
+    ,"prevMods":"CS1010, CS2105"
+    ,"matricId":"A0180032"
+    ,"tagged":["CS1020","CS2030","CS2105"]
+    },
+    {
+      "name":"Shalonda Stormer  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2309"
+    ,"matricId":"A0180033"
+    ,"tagged":["CS2309","CS3202","CS2030"]
+    },   {
+      "name":"Carson Cristobal  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS2105"
+    ,"matricId":"A0180034"
+    ,"tagged":["CS3202","CS3202","CS1231"]
+    },
+    {
+      "name":"Sharell Sauter  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2309"
+    ,"matricId":"A0180035"
+    ,"tagged":["CS2040","CS1020","CS2105"]
+    },
+    {
+      "name":"Assunta Abernethy  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS2309"
+    ,"matricId":"A0180036"
+    ,"tagged":["CS2105","CS2105","CS2030"]
+    },
+    {
+      "name":"Larry Lanser  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180037"
+    ,"tagged":["CS2106","CS3202","CS1231"]
+    },
+    {
+      "name":"Shawnna Schaible  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2106"
+    ,"matricId":"A0180038"
+    ,"tagged":["CS3202","CS3202","CS2105"]
+    },
+    {
+      "name":"Yoshiko Yutzy  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS1231, CS2309"
+    ,"matricId":"A0180039"
+    ,"tagged":["CS2309","CS2101","CS2105"]
+    },
+    {
+      "name":"Christy Chand  "
+    ,"credits":"20"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180040"
+    ,"tagged":["CS1231","CS2220","CS2106"]
+    },
+    {
+      "name":"Dionne Dumlao  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180041"
+    ,"tagged":["CS1231","CS2105","CS2040"]
+    },
+    {
+      "name":"Carrol Capito  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS2105"
+    ,"matricId":"A0180042"
+    ,"tagged":["CS1231","CS2101","CS2106"]
+    },
+    {
+      "name":"Mafalda Mccallion  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS2030"
+    ,"matricId":"A0180043"
+    ,"tagged":["CS2106","CS1020","CS2040"]
+    },
+    {
+      "name":"Kelsie Kravetz  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS1231, CS2309"
+    ,"matricId":"A0180044"
+    ,"tagged":["CS2105","CS3202","CS2101"]
+    },
+    {
+      "name":"Tifany Tibbets  "
+    ,"credits":"23"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180045"
+    ,"tagged":["CS2220","CS1231"]
+    },
+    {
+      "name":"Harlan Hauck  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180046"
+    ,"tagged":["CS1020","CS2101"]
+    },
+    {
+      "name":"Parthenia Paladino  "
+    ,"credits":"24"
+    ,"prevMods":"CS1010, CS1020"
+    ,"matricId":"A0180047"
+    ,"tagged":["CS2030","CS3202","CS2101"]
+    },
+    {
+      "name":"Shin Santacruz  "
+    ,"credits":"21"
+    ,"prevMods":"CS1010, CS2101"
+    ,"matricId":"A0180048"
+    ,"tagged":["CS2220","CS2309","CS2220"]
+    },
+    {
+      "name":"Ayako Attebery  "
+    ,"credits":"20"
+    ,"prevMods":"CS1010, CS1231, CS2030"
+    ,"matricId":"A0180049"
+    ,"tagged":["CS2106","CS2030","CS2309"]
+    }
+  ],
   "modules" : [ {
     "quota" : "100",
     "tagged" : [ "A0180000A", "A0180001A", "A0180003A", "A0180005A", "A01800006A" ],
