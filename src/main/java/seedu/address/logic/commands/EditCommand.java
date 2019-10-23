@@ -93,6 +93,7 @@ public class EditCommand extends Command {
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
         TaskStatus updatedTaskStatus = editTaskDescriptor.getTaskStatus().orElse(taskToEdit.getTaskStatus());
+        LocalDateTime updatedDeadline = editTaskDescriptor.getDeadline().orElse(taskToEdit.getDeadline());
         Instant timeStart;
 
         if (taskToEdit.getTaskStatus().equals(TaskStatus.UNBEGUN) && updatedTaskStatus.equals(TaskStatus.DOING)) {
@@ -110,7 +111,7 @@ public class EditCommand extends Command {
 
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
-        Task newTask = new Task(updatedName, updatedTaskStatus, updatedTags);
+        Task newTask = new Task(updatedName, updatedTaskStatus, updatedTags, updatedDeadline);
         newTask.setTimeStart(timeStart);
         newTask.setTimeEnd(timeEnd);
 
@@ -146,6 +147,7 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private Instant timeStart;
         private Instant timeEnd;
+        private LocalDateTime dateTime;
 
         public EditTaskDescriptor() {}
 
@@ -157,6 +159,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setTaskStatus(toCopy.taskStatus);
             setTags(toCopy.tags);
+            setDeadline(toCopy.dateTime);
             setTimeStart(toCopy.timeStart);
             setTimeEnd(toCopy.timeEnd);
         }
@@ -183,6 +186,15 @@ public class EditCommand extends Command {
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
+
+        public void setDeadline(LocalDateTime dateTime) {
+            this.dateTime = dateTime;
+        }
+
+        public Optional<LocalDateTime> getDeadline() {
+            return Optional.ofNullable(dateTime);
+        }
+
 
         public void setTimeStart(Instant start) {
             this.timeStart = start;
@@ -234,7 +246,8 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && (getTaskStatus().equals(e.getTaskStatus()))
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getDeadline().equals((e.getDeadline()));
         }
     }
 }
