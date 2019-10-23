@@ -17,14 +17,15 @@ public class RegisterCommand extends Command {
 
     public static final String COMMAND_WORD = "register";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Register a new borrower to the library records. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Register a new borrower to the library \n"
+            + "records. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE NUMBER "
+            + PREFIX_PHONE + "PHONE NUMBER \n"
             + PREFIX_EMAIL + "EMAIL\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "matt "
-            + PREFIX_PHONE + "83938249 "
+            + PREFIX_PHONE + "83938249 \n"
             + PREFIX_EMAIL + "matt@damon.com ";
 
     public static final String MESSAGE_SUCCESS = "New borrower added: %1$s";

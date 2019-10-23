@@ -34,12 +34,13 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the book identified "
-            + "by the index number used in the displayed person list. "
+            + "by the \n"
+            + "index number used in the displayed person list. \n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX (must be a positive integer) \n"
             + "[" + PREFIX_TITLE + "TITLE] "
             + "[" + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER] "
-            + "[" + PREFIX_AUTHOR + "AUTHOR] "
+            + "[" + PREFIX_AUTHOR + "AUTHOR] \n"
             + "[" + PREFIX_GENRE + "GENRE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_SERIAL_NUMBER + "0001"
