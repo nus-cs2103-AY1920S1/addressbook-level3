@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collections;
@@ -142,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
                 List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD),
                 "budget d/ <description> p/ <amount> sd/ <start_date> pr/ <period>");
         commandBox.enableSyntaxHightlightingForCommand("event",
-                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_TAG, PREFIX_TIMESTAMP),
+                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP),
                 "event d/ <description> p/ <amount> date/ <date>");
         commandBox.enableSyntaxHightlightingForCommand("stats",
                 List.of(PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_END_DATE),

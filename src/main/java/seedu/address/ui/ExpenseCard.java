@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -35,7 +33,7 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label price;
     @FXML
-    private FlowPane tags;
+    private FlowPane categories;
     @FXML
     private HBox priceColumn;
 
@@ -45,9 +43,7 @@ public class ExpenseCard extends UiPart<Region> {
         index.setText(displayedIndex + ". ");
         description.setText(expense.getDescription().fullDescription);
         price.setText("$" + expense.getPrice().value);
-        expense.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        categories.getChildren().add(new Label(expense.getCategory().getCategoryName()));
     }
 
     @Override

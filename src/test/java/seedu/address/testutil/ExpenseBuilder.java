@@ -1,16 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueIdentifier;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Expense objects.
@@ -26,7 +21,7 @@ public class ExpenseBuilder {
 
     private Description description;
     private Price price;
-    private Set<Tag> tags;
+    private Category category;
     private UniqueIdentifier uniqueIdentifier;
     private Timestamp timestamp;
     private Description budgetName;
@@ -34,7 +29,7 @@ public class ExpenseBuilder {
     public ExpenseBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         price = new Price(DEFAULT_PRICE);
-        tags = new HashSet<>(Arrays.asList(new Tag(DEFAULT_TAGS)));
+        category = new Category(DEFAULT_TAGS);
         uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
         timestamp = Timestamp.createTimestampIfValid(DEFAULT_TIMESTAMP).get();
         budgetName = new Description(DEFAULT_BUDGET);
@@ -46,7 +41,7 @@ public class ExpenseBuilder {
     public ExpenseBuilder(Expense expenseToCopy) {
         description = expenseToCopy.getDescription();
         price = expenseToCopy.getPrice();
-        tags = new HashSet<>(expenseToCopy.getTags());
+        category = expenseToCopy.getCategory();
         uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
         timestamp = expenseToCopy.getTimestamp();
         budgetName = expenseToCopy.getBudgetName();
@@ -61,10 +56,10 @@ public class ExpenseBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expense} that we are building.
+     * Sets the {@code Category} of the {@code Expense} that we are building.
      */
-    public ExpenseBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public ExpenseBuilder withCategory(String category) {
+        this.category = new Category(category);
         return this;
     }
 
@@ -101,7 +96,7 @@ public class ExpenseBuilder {
     }
 
     public Expense build() {
-        return new Expense(description, price, tags, timestamp, budgetName, uniqueIdentifier);
+        return new Expense(description, price, category, timestamp, budgetName, uniqueIdentifier);
     }
 
 }

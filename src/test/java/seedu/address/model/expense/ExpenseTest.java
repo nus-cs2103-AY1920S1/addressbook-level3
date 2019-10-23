@@ -15,15 +15,24 @@ import static seedu.address.testutil.TypicalExpenses.TRANSPORT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.category.Category;
 import seedu.address.testutil.ExpenseBuilder;
 
 public class ExpenseTest {
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Expense expense = new ExpenseBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> expense.getTags().remove(0));
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                new Expense(null, new Price("1"),
+                        new Category("FOOD"), null));
+        assertThrows(NullPointerException.class, () ->
+                new Expense(new Description("meat"), null,
+                        new Category("FOOD"), null));
+        assertThrows(NullPointerException.class, () ->
+                new Expense(new Description("meat"), new Price("1"),
+                        null, null));
     }
+
 
     @Test
     public void isSameExpense() {
@@ -43,16 +52,16 @@ public class ExpenseTest {
                 .withDescription(VALID_DESCRIPTION_TRANSPORT).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
-        // different tag -> return true
+        // different category -> return true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
-                .withTags(VALID_TAG_CLAIMABLE).build();
+                .withCategory(VALID_TAG_CLAIMABLE).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
-        //different price, tag, and description -> returns true
+        //different price, category, and description -> returns true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
                 .withPrice(VALID_PRICE_CHICKEN)
                 .withDescription(VALID_DESCRIPTION_CHICKEN)
-                .withTags(VALID_TAG_DISCOUNTED).build();
+                .withCategory(VALID_TAG_DISCOUNTED).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
         // same everything except different unique identifier -> returns false
@@ -88,7 +97,7 @@ public class ExpenseTest {
         assertFalse(ANNIVERSARY.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new ExpenseBuilder(ANNIVERSARY).withTags(VALID_TAG_CLAIMABLE).build();
+        editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_TAG_CLAIMABLE).build();
         assertFalse(ANNIVERSARY.equals(editedAlice));
     }
 }

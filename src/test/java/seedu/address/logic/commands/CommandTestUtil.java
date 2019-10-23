@@ -3,12 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -46,8 +46,8 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_TRANSPORT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TRANSPORT;
     public static final String PRICE_DESC_CHICKEN = " " + PREFIX_PRICE + VALID_PRICE_CHICKEN;
     public static final String PRICE_DESC_TRANSPORT = " " + PREFIX_PRICE + VALID_PRICE_TRANSPORT;
-    public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_TAG + VALID_TAG_DISCOUNTED;
-    public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_TAG + VALID_TAG_CLAIMABLE;
+    public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_CATEGORY + VALID_TAG_CLAIMABLE;
+    public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_CATEGORY + VALID_TAG_DISCOUNTED;
 
     public static final String DESCRIPTION_DESC_SCHOOL = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_SCHOOL;
     public static final String AMOUNT_DESC_SCHOOL = " " + PREFIX_PRICE + VALID_AMOUNT_SCHOOL;
@@ -59,17 +59,16 @@ public class CommandTestUtil {
     // 'a' not allowed in prices
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a";
     // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*";
+    public static final String INVALID_TAG_DESC = " " + PREFIX_CATEGORY + "hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditExpenseDescriptor DESC_CHICKEN;
-    public static final EditCommand.EditExpenseDescriptor DESC_TRANSPORT;
 
     public static final String STATS_WITHOUT_TAG = " 5";
     public static final String STATS_PREFIX_WITHOUT_INPUT = String.format(" %s ", PREFIX_START_DATE);
-    public static final String STATS_INVALID_PREFIX = String.format(" %s ", PREFIX_TAG);
+    public static final String STATS_INVALID_PREFIX = String.format(" %s ", PREFIX_CATEGORY);
     public static final String STATS_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019",
             PREFIX_START_DATE, PREFIX_END_DATE);
     public static final String STATS_DUPLICATE_TAG = String.format("%s31-10-2019 %s01-10-2019",
@@ -81,10 +80,7 @@ public class CommandTestUtil {
     static {
         DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_CHICKEN)
                 .withPrice(VALID_PRICE_CHICKEN)
-                .withTags(VALID_TAG_DISCOUNTED).build();
-        DESC_TRANSPORT = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TRANSPORT)
-                .withPrice(VALID_PRICE_TRANSPORT)
-                .withTags(VALID_TAG_CLAIMABLE, VALID_TAG_DISCOUNTED).build();
+                .withCategory(VALID_TAG_DISCOUNTED).build();
     }
 
     /**

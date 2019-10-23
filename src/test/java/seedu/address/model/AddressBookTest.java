@@ -47,8 +47,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
         // Two expenses with the same identity fields
-        Expense editedAlice = new ExpenseBuilder(ANNIVERSARY).withTags(VALID_TAG_CLAIMABLE)
-                .build();
+        Expense editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_TAG_CLAIMABLE).build();
         List<Expense> newExpenses = Arrays.asList(ANNIVERSARY, editedAlice);
         AddressBookStub newData = new AddressBookStub(newExpenses);
 
@@ -71,15 +70,6 @@ public class AddressBookTest {
         assertTrue(addressBook.hasExpense(ANNIVERSARY));
     }
 
-    //@Test
-    //public void hasExpense_expenseWithSameIdentityFieldsInAddressBook_returnsTrue() {
-    //    addressBook.addExpense(ANNIVERSARY);
-    //    Expense editedAlice = new ExpenseBuilder(ANNIVERSARY)
-    //            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_CLAIMABLE)
-    //            .build();
-    //    assertTrue(addressBook.hasExpense(editedAlice));
-    //}
-
     @Test
     public void getExpenseList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getExpenseList().remove(0));
@@ -95,7 +85,6 @@ public class AddressBookTest {
 
         AddressBookStub(Collection<Expense> expenses) {
             this.expenses.setAll(expenses);
-            // this.events.setAll(events);
         }
 
         @Override

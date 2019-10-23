@@ -29,7 +29,7 @@
               </Label>
               <Label fx:id="description" text="\$first"/>
             </HBox>
-            <FlowPane fx:id="tags" />
+            <FlowPane fx:id="categories" />
       </VBox>
         <HBox fx:id="priceColumn" id="price-column" GridPane.columnIndex="1" minHeight="105">
 

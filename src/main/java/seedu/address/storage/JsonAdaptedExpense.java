@@ -1,22 +1,18 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueIdentifier;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * Jackson-friendly version of {@link Expense}.
@@ -28,7 +24,7 @@ class JsonAdaptedExpense {
     private final String description;
     private final String price;
     private final String uniqueIdentifier;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String category;
     private final String rawTimestamp;
     private final String budgetName;
 
@@ -38,7 +34,7 @@ class JsonAdaptedExpense {
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("category") String category,
                               @JsonProperty("timestamp") String rawTimestamp,
                               @JsonProperty("budget") String budgetName,
                               @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
@@ -47,10 +43,7 @@ class JsonAdaptedExpense {
         this.rawTimestamp = rawTimestamp;
         this.budgetName = budgetName;
         this.uniqueIdentifier = uniqueIdentifier;
-
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
+        this.category = category;
     }
 
     /**
@@ -59,9 +52,7 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         description = source.getDescription().fullDescription;
         price = source.getPrice().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        category = source.getCategory().getCategoryName();
         uniqueIdentifier = source.getUniqueIdentifier().value;
         rawTimestamp = source.getTimestamp().toString();
         budgetName = source.getBudgetName().fullDescription;
@@ -73,10 +64,13 @@ class JsonAdaptedExpense {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
     public Expense toModelType() throws IllegalValueException {
-        final List<Tag> expenseTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            expenseTags.add(tag.toModelType());
+
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
+
+        Category modelCategory = new Category(category);
 
         if (description == null) {
             throw new IllegalValueException(
@@ -106,8 +100,6 @@ class JsonAdaptedExpense {
         }
         final UniqueIdentifier modelUniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
 
-        final Set<Tag> modelTags = new HashSet<>(expenseTags);
-
         if (rawTimestamp == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
@@ -128,7 +120,7 @@ class JsonAdaptedExpense {
         }
         final Description modelBudgetName = new Description(budgetName);
 
-        return new Expense(modelDescription, modelPrice, modelTags, modelTimestamp, modelBudgetName, modelUniqueIdentifier);
+        return new Expense(modelDescription, modelPrice, modelCategory, modelTimestamp, modelBudgetName, modelUniqueIdentifier);
     }
 
 }
