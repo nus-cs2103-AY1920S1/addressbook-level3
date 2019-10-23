@@ -154,7 +154,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo and Redo feature
 ==== Implementation
 
 The undo/redo mechanism is facilitated by `Caretaker`, with each classroom state saved as a `Memento`.
