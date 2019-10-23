@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EnqueueCommandParser" as EnqueueCommandParser LOGIC_COLOR
+participant "e:EnqueueCommand" as EnqueueCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("enqueue 001A")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("enqueue 001A")
+activate AddressBookParser
+
+create EnqueueCommandParser
+AddressBookParser -> EnqueueCommandParser
+activate EnqueueCommandParser
+
+EnqueueCommandParser --> AddressBookParser
+deactivate EnqueueCommandParser
+
+AddressBookParser -> EnqueueCommandParser : parse("001A")
+activate EnqueueCommandParser
+
+create EnqueueCommand
+EnqueueCommandParser -> EnqueueCommand
+activate EnqueueCommand
+
+EnqueueCommand --> EnqueueCommandParser : e
+deactivate EnqueueCommand
+
+EnqueueCommandParser --> AddressBookParser : e
+deactivate EnqueueCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EnqueueCommandParser -[hidden]-> AddressBookParser
+destroy EnqueueCommandParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EnqueueCommand : execute()
+activate EnqueueCommand
+
+EnqueueCommand -> Model : enqueuePatient(001A)
+activate Model
+
+Model --> EnqueueCommand
+deactivate Model
+
+create CommandResult
+EnqueueCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EnqueueCommand
+deactivate CommandResult
+
+EnqueueCommand --> LogicManager : result
+deactivate EnqueueCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
