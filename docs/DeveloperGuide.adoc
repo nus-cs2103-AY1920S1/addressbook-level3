@@ -257,7 +257,7 @@ The following sequence diagram shows how the execute operation works:
 
 image::GenReportSequenceDiagram.png[]
 
-NOTE: The lifeline for `GenReportCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `GenReportCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creates the document.
 
