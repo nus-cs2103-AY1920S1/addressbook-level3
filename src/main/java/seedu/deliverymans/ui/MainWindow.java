@@ -41,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private DeliverymanListPanel deliverymanListPanel;
     private AvailableDeliverymenListPanel availableDeliverymenListPanel;
     private RestaurantListPanel restaurantListPanel;
+    private OrderListPanel orderListPanel;
     private FoodListPanel foodListPanel;
     private ResultDisplay resultDisplay;
     private StatisticsDisplay statisticsDisplay;
@@ -126,8 +127,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        // orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        // listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -219,7 +220,8 @@ public class MainWindow extends UiPart<Stage> {
             statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS");
             break;
         default:
-            // to be implemented with order list
+            orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
         }
     }
 

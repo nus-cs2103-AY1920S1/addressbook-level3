@@ -3,15 +3,14 @@ package seedu.deliverymans.logic.commands.universal;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_DELIVERYMAN;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_ORDER;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
@@ -20,7 +19,7 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
-import seedu.deliverymans.model.food.Food;
+import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.order.Order;
 
 /**
@@ -32,7 +31,6 @@ public class EditOrderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edit an order already present in the manager. "
             + "Parameters: "
-            + PREFIX_ORDER + "ORDER "
             + "[" + PREFIX_CUSTOMER + "CUSTOMER]\n"
             + "[" + PREFIX_RESTAURANT + "RESTAURANT]\n"
             + "[" + PREFIX_DELIVERYMAN + "DELIVERYMAN]\n"
@@ -44,6 +42,8 @@ public class EditOrderCommand extends Command {
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists.";
+    public static final String MESSAGE_INVALID_ORDER = "The customer/restaurant/deliveryman does not exist!";
+    public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided.";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -71,6 +71,15 @@ public class EditOrderCommand extends Command {
 
         Order orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
+        Name deliveryman = editedOrder.getDeliveryman();
+
+
+        if (!model.getFilteredRestaurantList().contains(editedOrder.getRestaurant())
+                || !model.getFilteredCustomerList().contains(editedOrder.getCustomer())
+                || (!deliveryman.equals(null)
+                && !model.getFilteredDeliverymenList().contains(deliveryman))) {
+            throw new CommandException(MESSAGE_INVALID_ORDER);
+        }
 
         if (!orderToEdit.isSameOrder(editedOrder) && model.hasOrder(editedOrder)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
@@ -88,15 +97,19 @@ public class EditOrderCommand extends Command {
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
 
-        String updatedOrderName = editOrderDescriptor.getOrderName().orElse(orderToEdit.getOrderName());
-        String updatedCustomer = editOrderDescriptor.getCustomer().orElse(orderToEdit.getCustomer());
-        String updatedRestaurant = editOrderDescriptor.getRestaurant().orElse(orderToEdit.getRestaurant());
-        String updatedDeliveryman = editOrderDescriptor.getDeliveryman().orElse(orderToEdit.getDeliveryman());
-        boolean updatedIsCompleted = editOrderDescriptor.getCompleted() || orderToEdit.isCompleted();
-        Set<Food> updatedFood = editOrderDescriptor.getFoods().orElse(orderToEdit.getFood());
+        Name updatedOrderName = editOrderDescriptor.getOrderName().orElse(orderToEdit.getOrderName());
+        Name updatedCustomer = editOrderDescriptor.getCustomer().orElse(orderToEdit.getCustomer());
+        Name updatedRestaurant = editOrderDescriptor.getRestaurant().orElse(orderToEdit.getRestaurant());
+        Name updatedDeliveryman = editOrderDescriptor.getDeliveryman().orElse(orderToEdit.getDeliveryman());
+        boolean updatedIsCompleted = editOrderDescriptor.getCompleted().orElse(orderToEdit.isCompleted());
+        Map<Name, Integer> updatedFood = editOrderDescriptor.getFoods().orElse(orderToEdit.getFood());
 
-        Order order = new Order(updatedOrderName, updatedCustomer, updatedRestaurant, updatedDeliveryman);
+        Order order = new Order(updatedOrderName, updatedCustomer, updatedRestaurant, updatedFood);
+        order.setDeliveryman(updatedDeliveryman);
         order.addFood(updatedFood);
+        if (updatedIsCompleted) {
+            order.completeOrder();
+        }
         return order;
     }
 
@@ -123,12 +136,12 @@ public class EditOrderCommand extends Command {
      * corresponding field value of the order.
      */
     public static class EditOrderDescriptor {
-        private String orderName;
-        private String customer;
-        private String restaurant;
-        private String deliveryman;
-        private boolean isCompleted;
-        private Set<Food> foods;
+        private Name orderName;
+        private Name customer;
+        private Name restaurant;
+        private Name deliveryman;
+        private Boolean isCompleted;
+        private Map<Name, Integer> foods;
 
         public EditOrderDescriptor() {
         }
@@ -153,35 +166,35 @@ public class EditOrderCommand extends Command {
             return CollectionUtil.isAnyNonNull(orderName, customer, restaurant, deliveryman, foods);
         }
 
-        public void setOrderName(String name) {
+        public void setOrderName(Name name) {
             this.orderName = name;
         }
 
-        public Optional<String> getOrderName() {
+        public Optional<Name> getOrderName() {
             return Optional.ofNullable(orderName);
         }
 
-        public void setCustomer(String customer) {
+        public void setCustomer(Name customer) {
             this.customer = customer;
         }
 
-        public Optional<String> getCustomer() {
+        public Optional<Name> getCustomer() {
             return Optional.ofNullable(customer);
         }
 
-        public void setRestaurant(String restaurant) {
+        public void setRestaurant(Name restaurant) {
             this.restaurant = restaurant;
         }
 
-        public Optional<String> getRestaurant() {
+        public Optional<Name> getRestaurant() {
             return Optional.ofNullable(restaurant);
         }
 
-        public void setDeliveryman(String deliveryman) {
+        public void setDeliveryman(Name deliveryman) {
             this.deliveryman = deliveryman;
         }
 
-        public Optional<String> getDeliveryman() {
+        public Optional<Name> getDeliveryman() {
             return Optional.ofNullable(deliveryman);
         }
 
@@ -189,16 +202,16 @@ public class EditOrderCommand extends Command {
             this.isCompleted = isCompleted;
         }
 
-        public boolean getCompleted() {
-            return isCompleted;
+        public Optional<Boolean> getCompleted() {
+            return Optional.ofNullable(isCompleted);
         }
 
         /**
          * Sets {@code tags} to this object's {@code food}.
          * A defensive copy of {@code food} is used internally.
          */
-        public void setFoods(Set<Food> foods) {
-            this.foods = (foods != null) ? new HashSet<>(foods) : null;
+        public void setFoods(Map<Name, Integer> foods) {
+            this.foods = (foods != null) ? new HashMap<>(foods) : null;
         }
 
         /**
@@ -206,8 +219,8 @@ public class EditOrderCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code food} is null.
          */
-        public Optional<Set<Food>> getFoods() {
-            return (foods != null) ? Optional.of(Collections.unmodifiableSet(foods)) : Optional.empty();
+        public Optional<Map<Name, Integer>> getFoods() {
+            return (foods != null) ? Optional.of(Collections.unmodifiableMap(foods)) : Optional.empty();
         }
 
         @Override

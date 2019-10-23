@@ -128,7 +128,7 @@ public class LogicManager implements Logic {
     //=========== Order =============================================================
     @Override
     public ReadOnlyOrderBook getOrderBook() {
-        return model.getOrderBook();
+        return model.getOrderDatabase();
     }
 
     @Override
