@@ -67,16 +67,17 @@ public class JsonAdaptedLoan {
      * @throws IllegalValueException If any data constraints were violated in the adapted loan.
      */
     public Loan toModelType() throws IllegalValueException {
-        Person person = new Person(checkName());
-        return new Loan(person, checkDirection(), checkAmount(),
-                checkDate(), checkDescription(), checkStatus());
+        Person person = new Person(getValidatedName());
+        return new Loan(person, getValidatedDirection(), getValidatedAmount(),
+                getValidatedDate(), getValidatedDescription(), getValidatedStatus());
     }
 
     /**
-     * Checks that adapted name can be converted into model's {@code Name} object.
-     * @throws IllegalValueException If adapted object cannot be converted.
+     * Validates and converts the adapted name into the model's {@code Name} object.
+     * @return The validated and converted name.
+     * @throws IllegalValueException If validation fails.
      */
-    private Name checkName() throws IllegalValueException {
+    private Name getValidatedName() throws IllegalValueException {
         if (personName == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
@@ -88,10 +89,11 @@ public class JsonAdaptedLoan {
     }
 
     /**
-     * Checks that adapted direction can be converted into model's {@code Direction} object.
-     * @throws IllegalValueException If adapted object cannot be converted.
+     * Validates and converts the adapted direction into the model's {@code Direction} object.
+     * @return The validated and converted direction.
+     * @throws IllegalValueException If validation fails.
      */
-    private Direction checkDirection() throws IllegalValueException {
+    private Direction getValidatedDirection() throws IllegalValueException {
         if (direction == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Direction.class.getSimpleName()));
@@ -103,10 +105,11 @@ public class JsonAdaptedLoan {
     }
 
     /**
-     * Checks that adapted amount can be converted into model's {@code Amount} object.
-     * @throws IllegalValueException If adapted object cannot be converted.
+     * Validates and converts the adapted amount into the model's {@code Amount} object.
+     * @return The validated and converted amount.
+     * @throws IllegalValueException If validation fails.
      */
-    private Amount checkAmount() throws IllegalValueException {
+    private Amount getValidatedAmount() throws IllegalValueException {
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
@@ -114,10 +117,11 @@ public class JsonAdaptedLoan {
     }
 
     /**
-     * Checks that adapted date can be converted into model's {@code Date} object.
-     * @throws IllegalValueException If adapted object cannot be converted.
+     * Validates the adapted date as a {@code java.util.Date} object.
+     * @return The validated date.
+     * @throws IllegalValueException If validation fails.
      */
-    private Date checkDate() throws IllegalValueException {
+    private Date getValidatedDate() throws IllegalValueException {
         try {
             String dateStr = getDateFormat().format(date);
             getDateFormat().parse(dateStr);
@@ -128,10 +132,11 @@ public class JsonAdaptedLoan {
     }
 
     /**
-     * Checks that adapted description can be converted into model's {@code Description} object.
-     * @throws IllegalValueException If adapted object cannot be converted.
+     * Validates and converts the adapted description into the model's {@code Description} object.
+     * @return The validated and converted description.
+     * @throws IllegalValueException If validation fails.
      */
-    private Description checkDescription() throws IllegalValueException {
+    private Description getValidatedDescription() throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
@@ -143,10 +148,11 @@ public class JsonAdaptedLoan {
     }
 
     /**
-     * Checks that adapted status can be converted into model's {@code Status} object.
-     * @throws IllegalValueException If adapted object cannot be converted.
+     * Validates and converts the adapted status into the model's {@code Status} object.
+     * @return The validated and converted status.
+     * @throws IllegalValueException If validation fails.
      */
-    private Status checkStatus() throws IllegalValueException {
+    private Status getValidatedStatus() throws IllegalValueException {
         if (status == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
