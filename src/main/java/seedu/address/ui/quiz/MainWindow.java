@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
+    private QuestionDetailPanel questionDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -44,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane questionListPanelPlaceholder;
+
+    @FXML
+    private StackPane questionDetailPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList(), logic.getShowAnswer());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -178,6 +182,17 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowAnswer()) {
+                questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList(), logic.getShowAnswer());
+                questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+            }
+
+            if (commandResult.isShowDetail()) {
+                questionDetailPanel = new QuestionDetailPanel(logic.getFilteredShowQuestionList(),
+                        logic.getQuestionNumber());
+                questionDetailPanelPlaceholder.getChildren().add(questionDetailPanel.getRoot());
             }
 
             if (commandResult.isExit()) {

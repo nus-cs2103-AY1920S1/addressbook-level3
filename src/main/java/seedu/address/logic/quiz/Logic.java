@@ -32,8 +32,21 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /**
+     * Return the Question which I am currently viewing.
+     */
+    int getQuestionNumber();
+
+    /**
+     * Return a boolean whether to show the answer or not from the question list.
+     */
+    boolean getShowAnswer();
+
     /** Returns an unmodifiable view of the filtered list of questions */
     ObservableList<Question> getFilteredQuestionList();
+
+    /** Returns an unmodifiable view of the filtered list to shown of questions */
+    ObservableList<Question> getFilteredShowQuestionList();
 
     /**
      * Returns the user prefs' address book file path.

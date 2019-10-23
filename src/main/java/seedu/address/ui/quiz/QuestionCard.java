@@ -42,12 +42,18 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public QuestionCard(Question question, int displayedIndex) {
+    public QuestionCard(Question question, int displayedIndex, boolean showAnswer) {
         super(FXML);
         this.question = question;
         id.setText(displayedIndex + ". ");
         name.setText(question.getName().fullName);
-        answer.setText(question.getAnswer().value);
+
+        if (showAnswer) {
+            answer.setText(question.getAnswer().value);
+        } else {
+            answer.setText("-- Hidden --");
+        }
+
         type.setText(question.getType().value);
         category.setText(question.getCategory().value);
         question.getTags().stream()

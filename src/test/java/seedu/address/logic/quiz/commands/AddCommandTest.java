@@ -15,37 +15,36 @@
 //
 //import javafx.collections.ObservableList;
 //import seedu.address.commons.core.GuiSettings;
-//import seedu.address.logic.commands.AddCommand;
-//import seedu.address.logic.commands.CommandResult;
-//import seedu.address.logic.commands.exceptions.CommandException;
-//import seedu.address.model.person.Person;
-//import seedu.address.testutil.PersonBuilder;
-//
+//import seedu.address.logic.quiz.commands.exceptions.CommandException;
+//import seedu.address.model.quiz.Model;
+//import seedu.address.model.quiz.ReadOnlyAddressBook;
+//import seedu.address.model.quiz.ReadOnlyUserPrefs;
+//import seedu.address.model.quiz.person.Question;
 //
 //
 //public class AddCommandTest {
 //
 //    @Test
-//    public void constructor_nullPerson_throwsNullPointerException() {
+//    public void constructor_nullQuestion_throwsNullPointerException() {
 //        assertThrows(NullPointerException.class, () -> new AddCommand(null));
 //    }
 //
 //    @Test
 //    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-//        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-//        Person validPerson = new PersonBuilder().build();
+//        ModelStubAcceptingQuestionAdded modelStub = new ModelStubAcceptingQuestionAdded();
+//        Question validQuestion = new QuestionBuilder().build();
 //
-//        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+//        CommandResult commandResult = new AddCommand(validQuestion).execute(modelStub);
 //
-//        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-//        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+//        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validQuestion), commandResult.getFeedbackToUser());
+//        assertEquals(Arrays.asList(validQuestion), modelStub.personsAdded);
 //    }
 //
 //    @Test
-//    public void execute_duplicatePerson_throwsCommandException() {
-//        Person validPerson = new PersonBuilder().build();
-//        AddCommand addCommand = new AddCommand(validPerson);
-//        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+//    public void execute_duplicateQuestion_throwsCommandException() {
+//        Question validQuestion = new QuestionBuilder().build();
+//        AddCommand addCommand = new AddCommand(validQuestion);
+//        ModelStub modelStub = new ModelStubWithQuestion(validQuestion);
 //
 //        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON,
 //                () -> addCommand.execute(modelStub));
@@ -53,8 +52,8 @@
 //
 //    @Test
 //    public void equals() {
-//        Person alice = new PersonBuilder().withName("Alice").build();
-//        Person bob = new PersonBuilder().withName("Bob").build();
+//        Question alice = new QuestionBuilder().withName("Alice").build();
+//        Question bob = new QuestionBuilder().withName("Bob").build();
 //        AddCommand addAliceCommand = new AddCommand(alice);
 //        AddCommand addBobCommand = new AddCommand(bob);
 //
@@ -110,7 +109,7 @@
 //        }
 //
 //        @Override
-//        public void addPerson(Person person) {
+//        public void addQuestion(Question person) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
@@ -125,27 +124,27 @@
 //        }
 //
 //        @Override
-//        public boolean hasPerson(Person person) {
+//        public boolean hasQuestion(Question person) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public void deletePerson(Person target) {
+//        public void deleteQuestion(Question target) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public void setPerson(Person target, Person editedPerson) {
+//        public void setQuestion(Question target, Question editedQuestion) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public ObservableList<Person> getFilteredPersonList() {
+//        public ObservableList<Question> getFilteredQuestionList() {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public void updateFilteredPersonList(Predicate<Person> predicate) {
+//        public void updateFilteredQuestionList(Predicate<Question> predicate) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //    }
@@ -153,35 +152,35 @@
 //    /**
 //     * A Model stub that contains a single person.
 //     */
-//    private class ModelStubWithPerson extends ModelStub {
-//        private final Person person;
+//    private class ModelStubWithQuestion extends ModelStub {
+//        private final Question person;
 //
-//        ModelStubWithPerson(Person person) {
+//        ModelStubWithQuestion(Question person) {
 //            requireNonNull(person);
 //            this.person = person;
 //        }
 //
 //        @Override
-//        public boolean hasPerson(Person person) {
+//        public boolean hasQuestion(Question person) {
 //            requireNonNull(person);
-//            return this.person.isSamePerson(person);
+//            return this.person.isSameQuestion(person);
 //        }
 //    }
 //
 //    /**
 //     * A Model stub that always accept the person being added.
 //     */
-//    private class ModelStubAcceptingPersonAdded extends ModelStub {
-//        final ArrayList<Person> personsAdded = new ArrayList<>();
+//    private class ModelStubAcceptingQuestionAdded extends ModelStub {
+//        final ArrayList<Question> personsAdded = new ArrayList<>();
 //
 //        @Override
-//        public boolean hasPerson(Person person) {
+//        public boolean hasQuestion(Question person) {
 //            requireNonNull(person);
-//            return personsAdded.stream().anyMatch(person::isSamePerson);
+//            return personsAdded.stream().anyMatch(person::isSameQuestion);
 //        }
 //
 //        @Override
-//        public void addPerson(Person person) {
+//        public void addQuestion(Question person) {
 //            requireNonNull(person);
 //            personsAdded.add(person);
 //        }

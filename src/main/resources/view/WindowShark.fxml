@@ -6,9 +6,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -43,13 +46,22 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-
-        <VBox fx:id="questionList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-          <StackPane fx:id="questionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-        </VBox>
+            <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
+               <items>
+                <VBox fx:id="questionList" minWidth="420" prefWidth="400" styleClass="pane-with-border">
+                <padding>
+                  <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+                     <TextField alignment="CENTER" style="-fx-background-color: #ff9999;" text="LISTING ALL QUESTIONS">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </TextField>
+                <StackPane fx:id="questionListPanelPlaceholder" minWidth="420.0" VBox.vgrow="ALWAYS" />
+              </VBox>
+                  <StackPane fx:id="questionDetailPanelPlaceholder" minWidth="420.0" />
+               </items>
+            </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

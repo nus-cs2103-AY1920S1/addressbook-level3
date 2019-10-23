@@ -15,10 +15,10 @@
 //
 //import seedu.address.logic.parser.ParserUtil;
 //import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.calendarModel.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskTime;
 //import seedu.address.calendarModel.task.TaskDescription;
 //import seedu.address.calendarModel.task.TaskTitle;
-//import seedu.address.calendarModel.task.TaskTime;
+//import seedu.address.calendarModel.task.TaskDay;
 //import seedu.address.calendarModel.tag.TaskTag;
 //
 //
@@ -95,14 +95,14 @@
 //
 //    @Test
 //    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-//        TaskTime expectedPhone = new TaskTime(VALID_PHONE);
+//        TaskDay expectedPhone = new TaskDay(VALID_PHONE);
 //        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
 //    }
 //
 //    @Test
 //    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
 //        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-//        TaskTime expectedPhone = new TaskTime(VALID_PHONE);
+//        TaskDay expectedPhone = new TaskDay(VALID_PHONE);
 //        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
 //    }
 //
@@ -118,14 +118,14 @@
 //
 //    @Test
 //    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-//        TaskPlace expectedAddress = new TaskPlace(VALID_ADDRESS);
+//        TaskTime expectedAddress = new TaskTime(VALID_ADDRESS);
 //        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
 //    }
 //
 //    @Test
 //    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
 //        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-//        TaskPlace expectedAddress = new TaskPlace(VALID_ADDRESS);
+//        TaskTime expectedAddress = new TaskTime(VALID_ADDRESS);
 //        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
 //    }
 //

@@ -45,7 +45,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Question question = new Question(name, answer, category, type, tagList);
+        Question question = new Question(name, null, answer, category, type, tagList);
 
         return new AddCommand(question);
     }

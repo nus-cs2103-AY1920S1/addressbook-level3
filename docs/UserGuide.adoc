@@ -77,75 +77,72 @@ Format: `exit`
 
 === Calendar
 
-Calendar consists of `planner` and `timetable`. In `planner`, the user can view and manage tasks while the
-`timetable` is used to view and manage the user's current modules. +
-To enter the Calendar section please enter the command: `switch cal`.
-
-==== Switch type: `switch`
-Change the type into either `planner` or `timetable` view.
-
-Format: `switch VIEW_TYPE` +
-e.g. `switch timetable`
+Calendar displays a weekly list of tasks and modules which the user has added. To enter the Calendar section
+please enter the command: `switch calendar`.
 
 ==== Add a new task: `add`
-Adds a new task. The `TASK_TITLE` should be specified first. Both `TASK_TITLE` and `TIME` are compulsory while the
-other fields are optional. The fields consist of: +
-- `TASK_TITLE` The name of the task. No prefix needed. +
-- `TIME` The time when the user plan to do the task. Prefix: `t\`. +
-- `DEADLINE` When the task is due. Prefix: `d\`. +
-- `PLACE` Where the task took place Prefix: `p\`. +
-- `TAG` Tag that can be used to sort the tasks. Prefix: `#`. More than one `TAG` can be added to each task, e.g. `#High-Priority #Math`
+Adds a new `Task`. `TaskTitle` and `TaskDay` are compulsory while the other fields are optional.
+The fields consist of: +
+- `TaskTitle` The name of the task. Prefix: `<title>` +
+- `TaskDay` The time when the user plan to do the task. Prefix: `<day>`. +
+- `TaskDescription` Additional description of the `Task`. Prefix: `<desc>`. +
+- `TaskDeadline` When the task is due. Prefix: `<deadline>`. +
+- `TaskTime` Where time when the task occurs, in HH:mm 24-hour format. Prefix: `<time>`. +
+- `TAG` Tag that can be used to sort the tasks. Prefix: `<tag>`.
+More than one `TAG` can be added to each task, e.g. `<tag> High-Priority <tag>Math`
 
-Format: `add TASK_TITLE t\TIME d\DEADLINE p\PLACE #TAG` +
-e.g. `add CS2100 Assignment 1 t\21 August 2019 #High-Priority`
+Format: `add <title>TITLE <day>DAY <desc>DESCRIPTION <deadline>DEADLINE <time>TIME [<tag>TAG]` +
+e.g. `add <title>CS2109 Lab 10 <day>tuesday <desc>Submit code through LumiNUS <deadline>21-10-2019
+<time>13:00 <tag>IMPORTANT`
 
 ==== Edit existing task: `edit`
-Edit one or multiple fields of an existing task.
+Edit one or multiple fields of an existing task. `INDEX` should be a positive integer.
 
-Format: `edit TASK_TITLE T\NEW_TASK_TITLE t\NEW_TIME p\NEW_PLACE #NEW_TAG` +
-e.g. `edit CS2100 Assignment T\CS2102 Assignment t\22 August 2019`
+Format: `edit  INDEX [<title>TITLE] [<day>DAY] [<desc>DESCRIPTION] [<deadline>DEADLINE] [<time>TIME] [<tag>TAG]` +
+e.g. `1 <title>CS2108 Assignment <day>friday`
 
 ==== Delete existing task: `delete`
 Delete an exisiting task.
 
-Format: `delete TASK_TITLE` +
-e.g.   `delete CS2102 Assignment`
+Format: `delete INDEX` +
+e.g.   `delete 1`
 
 ==== Sort tasks: `sort`
-Change the order of the tasks; either sorted by `time` or `priority`. The default sorting method is by `time`.
+Change the order of the tasks. Use `sort timeadded` to sort the tasks according to when the Task was added to the
+calendar and use `sort deadline` to sort the task according to `TaskDeadline` with the `Task` with the earliest
+deadline to be listed first. The default sorting method is by time added.
 
 Format: `sort  SORT_TYPE` +
-e.g. `sort time`
+e.g. `sort deadline`
 
 ==== Change week: `next` and `previous`
-Go to either the `next` or `previous` week. This can only be done when the `VIEW_TYPE` is `planner`.
+Go to either the `next` or `previous` week.
 
 Format: `next` or `previous`
 
 
-==== Add module: `add`
+==== Add module: `addmod`
 Add module with the specified `MODULE_CODE` to the timetable. After entering the command, user will be prompted to input
 additional information about its lecture, tutorial, recitation, and lab slots.
 
-Format: `add MODULE_CODE` +
-e.g. `add CS2103`
+Format: `addmod MODULE_CODE` +
+e.g. `addmod CS2103`
 
-==== Edit module: `edit`
+==== Edit module: `editmod`
 Update an existing module. After entering the command, user will be prompted to input additional information depending
 on the `TYPE`. +
 
-Format: `edit  MODULE_CODE TYPE`
-e.g. `edit CS2103 lecture`
+Format: `editmod  MODULE_CODE TYPE`
+e.g. `editmod CS2103 lecture`
 
-==== Delete module from timetable: `delete`
+==== Delete module from timetable: `deletemod`
 Delete an existing module.
 
-Format: `delete MODULE_CODE` +
-e.g. `delete CS2103`
+Format: `deletemod MODULE_CODE` +
+e.g. `deletemod CS2103`
 
-==== Reset planner/timetable: `reset`
-Remove all existing tasks/modules. If the current view is `planner`, this action would not affect the `timetable` and
-vice versa.
+==== Clear data: `clear`
+Delete all information of the tasks and modules of the current week (the week that is currently displayed).
 
 Format: `reset`
 
@@ -223,58 +220,51 @@ Prevent unauthorised access to your grades.
 
 To enter the Quiz section please enter the command: `switch quiz`
 
-==== Sort based on priority:
-Sorting based on priority will help users to identify which questions are deemed to be important
-to them for each category. Default: sort by time.
-
-Format: `sort priority *[PRIORITY_TYPE]*` +
-Usage: *[PRIORITY_TYPE]* accepts keyword `high`, `normal`, `low` only +
-Example: *sort* priority high +
-{empty} +
-
 ==== Add the details of the quiz questions:
 Users can add new quiz questions with the details in it. The details of the question should
-be added before executing `create` command, however, you update or add it later too after the `create` command.
+be added with the following requirements.
 
-The details/instructions of the questions include: +
-- `[qns]` Indicate that the next several phrases will be the question. +
-- `[ans]` Indicate that the next several phrases will be the answer to the question. +
-- `[cat]` Indicate that the next several phrases will be the category of the question. +
-- `[type]` Indicate that the next several phrases will be the priority/importance level of the question. +
+The keyword instructions of the question include: +
+- `<qns>` Indicate that the next several phrases will be the name of the question. +
+- `<ans>` Indicate that the next several phrases will be the answer to the question. +
+- `<cat>` Indicate that the next several phrases will be the category of the question. +
+- `<type>` Indicate that the next several phrases will be the priority/importance level of the question. +
+- `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
-*Note that:* +
-- *`[qns]` and `[ans]` are required to be added before creating the question itself.* +
-- *`[qns]` word limit is 200. `[ans]` word limit is 1500. `[cat]` word limit is 10.* +
-- *`[type]` the command after this format should only be: `high`, `normal`, `low`.* +
-- Try to avoid the above instruction in your questions, answers, category and most importantly your priority +
+*The details instructions after the keyword of the question:* +
+- *`<qns>` are required. The word limit is 200.*
+- *`<ans>` are required. The word limit is 1500.* +
+- *`<cat>` are optional. The word limit is 10.* +
+- *`<type>` are optional. The format after this command should only be: `high`, `normal`, `low`.* +
+- *`<tag>` are optional. To add numerous tags, please include <tag> keyword to differentiate one tag from another.* +
 
-Format: `add *[qns]* _your_question_ *[ans]* _your_answer_ *[cat]* _your_category_ *[type]* _your_priority_` +
+Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
+*<tag>* _your_tag_`
 
-Example 1: +
-*add [qns]* _What is always coming, but never arrives?_ *[ans]* _Tomorrow_ *[type]* _high_ +
+*Example 1:* +
+*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Tomorrow_ *<type>* _high_ *<tag>* _lecture_ *<tag>* _tutorial_
 
-Example 2: +
-*add [qns]* _What can one catch that is not thrown?_ *[type]* _normal_ *[ans]* _A cold_ *[cat]* CS2131
+*Example 2:* +
+*add <qns>* _What can one catch that is not thrown?_ *<type>* _normal_ *<ans>* _A cold_ *<cat>* CS2131
 
-Remark: +
-*add [qns]* _What is [qns]always comi[qns]ng, but never arrives?_ *[ans]* _Tom[ans]orrow_ +
+*Remark (please avoid this):* +
+*add <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
 
-Modulo will detect the question as: _What is [qns]always comi[qns]ng, but never arrives?_ and the answer as: _Tom[ans]orrow_ +
+- *Modulo will detect the question as:* +
+_What is <qns>always comi<qns>ng, but never arrives?_ +
+
+- *Modulo will detect the answer as:* +
+ _Tom<ans>orrow_ +
 {empty} +
 
 ==== Delete module from record:
 Delete a specific quiz question from the group questions.
 
-Format: `delete *[CATEGORY] [NUMBER]*` +
-Usage: +
-- *[CATEGORY]* is the category of the question that you want to delete, case-insensitive. For the question that is uncategorized, put `uncategorized` +
-- *[NUMBER]* is the index/row from that category that you want to delete. +
+Format: `delete *[NUMBER]*` +
+Usage: *[NUMBER]* is the index/row from that category that you want to delete. +
 
 Example 1: +
-*delete* CS2103 1
-
-Example 2: +
-*delete* uncategorized 3 +
+*delete* 1
 {empty} +
 
 ==== Edit details of a module : `edit`
@@ -285,18 +275,21 @@ Usage: +
 - *[NUMBER]* is the index/row from that category that you want to edit. +
 
 The details/instructions of the new questions include: +
-- `[qns]` Indicate that the next several phrases will be the new question. +
-- `[ans]` Indicate that the next several phrases will be the answer to the new question. +
-- `[cat]` Indicate that the next several phrases will be the category of the new question. +
-- `[type]` Indicate that the next several phrases will be the priority/importance level of the new question. +
-- Try to avoid the above instruction in your questions, answers, category and most importantly your priority +
+- `<qns>` Indicate that the next several phrases will be the name of the question. +
+- `<ans>` Indicate that the next several phrases will be the answer to the question. +
+- `<cat>` Indicate that the next several phrases will be the category of the question. +
+- `<type>` Indicate that the next several phrases will be the priority/importance level of the question. +
+- `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
-*Note that:* +
-- Every instruction is optional but at least one of them should be modified. Use `cancel` command to cancel edit.
-- *`[qns]` word limit is 200. `[ans]` word limit is 1500. `[cat]` word limit is 10.* +
-- *`[type]` the command after this format should only be: `high`, `normal`, `low`.* +
+*Note that at least one of the following must be modified and replaced:* +
+- *`<qns>` word limit is 200.*
+- *`<ans>` word limit is 1500.* +
+- *`<cat>` word limit is 10.* +
+- *`<type>` format after this command should only be: `high`, `normal`, `low`.* +
+- *`<tag>` are optional. To add numerous tags, please include <tag> keyword to differentiate one tag from another.* +
 
-Format: `*edit *[CATEGORY] [NUMBER] [qns]* _your_new_question_ *[ans]* _your_new_answer_ *[cat]* _your_new_category_ *[type]* _your_new_priority_` +
+Format: `*edit *[CATEGORY] [NUMBER] [qns]* _your_new_question_ *[ans]* _your_new_answer_ *[cat]* _your_new_category_
+*[type]* _your_new_priority_ *<tag>* _your_tag_` +
 
 Example 1: +
 *edit CS2103 1 [qns]* _How many mammals are there in the universe?_ *[type]* low +
@@ -313,10 +306,14 @@ Find the quiz questions from the list of questions.
 Format: `find [KEYWORDS]` +
 Format: `cancel`
 
-==== Move question:
-Move question from specified category to another category.
+==== Sort based on priority:
+Sorting based on priority will help users to identify which questions are deemed to be important
+to them for each category. Default: sort by time.
 
-Format: move [SPECIFIED_CAT] [NUMBER] [DESTINATION_CAT]
+Format: `sort priority *[PRIORITY_TYPE]*` +
+Usage: *[PRIORITY_TYPE]* accepts keyword `high`, `normal`, `low` only +
+Example: *sort* priority high +
+{empty} +
 
 ==== Undo:
 Undo some of the previous action.

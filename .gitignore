@@ -11,9 +11,13 @@ src/main/resources/docs/
 # Storage/log files
 /data/addressbookquiz.json
 /data/calendardata.json
+/data/capmodulelog.json
 /data/financelog.json
+
 /config.json
 /preferences.json
+/capmodulelog.json
+/financepreferences.json
 /preferencesFinance.json
 /cappreferences.json
 /calendarpreferences.json

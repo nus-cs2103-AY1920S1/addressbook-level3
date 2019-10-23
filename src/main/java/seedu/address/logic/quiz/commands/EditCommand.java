@@ -19,8 +19,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.Model;
+
 import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Category;
+import seedu.address.model.quiz.person.Comment;
 import seedu.address.model.quiz.person.Name;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.model.quiz.person.Type;
@@ -96,12 +98,13 @@ public class EditCommand extends Command {
         assert questionToEdit != null;
 
         Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
+        Comment commentedQuestion = editQuestionDescriptor.getComment().orElse(questionToEdit.getComment());
         Answer updatedAnswer = editQuestionDescriptor.getAnswer().orElse(questionToEdit.getAnswer());
         Category updatedCategory = editQuestionDescriptor.getCategory().orElse(questionToEdit.getCategory());
         Type updatedType = editQuestionDescriptor.getType().orElse(questionToEdit.getType());
         Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
 
-        return new Question(updatedName, updatedAnswer, updatedCategory, updatedType, updatedTags);
+        return new Question(updatedName, commentedQuestion, updatedAnswer, updatedCategory, updatedType, updatedTags);
     }
 
     @Override
@@ -128,6 +131,7 @@ public class EditCommand extends Command {
      */
     public static class EditQuestionDescriptor {
         private Name name;
+        private Comment comment;
         private Answer answer;
         private Category category;
         private Type type;
@@ -145,13 +149,14 @@ public class EditCommand extends Command {
             setCategory(toCopy.category);
             setType(toCopy.type);
             setTags(toCopy.tags);
+            setComment(toCopy.comment);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, answer, category, type, tags);
+            return CollectionUtil.isAnyNonNull(name, comment, answer, category, type, tags);
         }
 
         public void setName(Name name) {
@@ -160,6 +165,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setComment(Comment comment) {
+            this.comment = comment;
+        }
+
+        public Optional<Comment> getComment() {
+            return Optional.ofNullable(comment);
         }
 
         public void setAnswer(Answer answer) {

@@ -15,6 +15,7 @@ import seedu.address.model.quiz.person.UniqueQuestionList;
 public class AddressQuizBook implements ReadOnlyAddressBook {
 
     private final UniqueQuestionList questions;
+    private UniqueQuestionList showQuestion;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +26,7 @@ public class AddressQuizBook implements ReadOnlyAddressBook {
      */
     {
         questions = new UniqueQuestionList();
+        showQuestion = new UniqueQuestionList();
     }
 
     public AddressQuizBook() {}
@@ -86,6 +88,11 @@ public class AddressQuizBook implements ReadOnlyAddressBook {
         questions.setQuestion(target, editedQuestion);
     }
 
+    public void setShowQuestion(Question question) {
+        showQuestion = new UniqueQuestionList();
+        showQuestion.add(question);
+    }
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -95,11 +102,15 @@ public class AddressQuizBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
-
     @Override
     public String toString() {
         return questions.asUnmodifiableObservableList().size() + " questions";
         // TODO: refine later
+    }
+
+    @Override
+    public ObservableList<Question> getShowQuestionList() {
+        return showQuestion.asUnmodifiableObservableList();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package seedu.address.model.calendar.person;
+package seedu.address.model.calendar.task;
 
 import java.util.List;
 import java.util.function.Predicate;

@@ -6,7 +6,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.calendarModel.task.TaskTime;
+//import seedu.address.calendarModel.task.TaskDay;
 //
 //
 //
@@ -14,31 +14,31 @@
 //
 //    @Test
 //    public void constructor_null_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> new TaskTime(null));
+//        assertThrows(NullPointerException.class, () -> new TaskDay(null));
 //    }
 //
 //    @Test
 //    public void constructor_invalidPhone_throwsIllegalArgumentException() {
 //        String invalidPhone = "";
-//        assertThrows(IllegalArgumentException.class, () -> new TaskTime(invalidPhone));
+//        assertThrows(IllegalArgumentException.class, () -> new TaskDay(invalidPhone));
 //    }
 //
 //    @Test
 //    public void isValidPhone() {
 //        // null phone number
-//        assertThrows(NullPointerException.class, () -> TaskTime.isValidPhone(null));
+//        assertThrows(NullPointerException.class, () -> TaskDay.isValidPhone(null));
 //
 //        // invalid phone numbers
-//        assertFalse(TaskTime.isValidPhone("")); // empty string
-//        assertFalse(TaskTime.isValidPhone(" ")); // spaces only
-//        assertFalse(TaskTime.isValidPhone("91")); // less than 3 numbers
-//        assertFalse(TaskTime.isValidPhone("phone")); // non-numeric
-//        assertFalse(TaskTime.isValidPhone("9011p041")); // alphabets within digits
-//        assertFalse(TaskTime.isValidPhone("9312 1534")); // spaces within digits
+//        assertFalse(TaskDay.isValidPhone("")); // empty string
+//        assertFalse(TaskDay.isValidPhone(" ")); // spaces only
+//        assertFalse(TaskDay.isValidPhone("91")); // less than 3 numbers
+//        assertFalse(TaskDay.isValidPhone("phone")); // non-numeric
+//        assertFalse(TaskDay.isValidPhone("9011p041")); // alphabets within digits
+//        assertFalse(TaskDay.isValidPhone("9312 1534")); // spaces within digits
 //
 //        // valid phone numbers
-//        assertTrue(TaskTime.isValidPhone("911")); // exactly 3 numbers
-//        assertTrue(TaskTime.isValidPhone("93121534"));
-//        assertTrue(TaskTime.isValidPhone("124293842033123")); // long phone numbers
+//        assertTrue(TaskDay.isValidPhone("911")); // exactly 3 numbers
+//        assertTrue(TaskDay.isValidPhone("93121534"));
+//        assertTrue(TaskDay.isValidPhone("124293842033123")); // long phone numbers
 //    }
 //}
