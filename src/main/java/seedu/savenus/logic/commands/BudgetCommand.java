@@ -11,7 +11,6 @@ import seedu.savenus.model.wallet.Wallet;
 
 /**
  * Command to add a {@code Wallet} for the user.
- * TODO Make Days to Expire optional
  */
 public class BudgetCommand extends Command {
 
@@ -24,7 +23,7 @@ public class BudgetCommand extends Command {
             + DaysToExpire.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 100 30 or " + COMMAND_WORD + " 150.50 10";
 
-    public static final String MESSAGE_SET_REMAININGBUDGET_SUCCESS = "New Budget: %1$s";
+    public static final String MESSAGE_SET_REMAININGBUDGET_SUCCESS = "New budget: %1$s";
     public static final String MESSAGE_SET_DAYSTOEXPIRE_SUCCESS = "Number of days left: %2$s";
     public static final String MESSAGE_SET_BUDGET_SUCCESS = MESSAGE_SET_REMAININGBUDGET_SUCCESS
             + "\n"
@@ -44,7 +43,10 @@ public class BudgetCommand extends Command {
         model.setRemainingBudget(newRemainingBudget);
         model.setDaysToExpire(newDaysToExpire);
 
-        return new CommandResult(String.format(MESSAGE_SET_BUDGET_SUCCESS,
+        return new CommandResult(newDaysToExpire.getDaysToExpire() == 0
+                ? String.format(MESSAGE_SET_REMAININGBUDGET_SUCCESS,
+                newRemainingBudget.toString())
+                : String.format(MESSAGE_SET_BUDGET_SUCCESS,
                 newRemainingBudget.toString(), newDaysToExpire.toString()));
     }
 

@@ -2,6 +2,8 @@ package seedu.savenus.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -106,8 +108,12 @@ public class MainWindow extends UiPart<Stage> {
         logic.getWallet().updateDaysToExpire();
 
         // Bind number of days to budget expiration to displayed value
-        daysToExpirePlaceholder.textProperty().bind(logic
-                .getWallet().getDaysToExpireProperty().asString("%d days"));
+        StringBinding daysToExpireBinding = Bindings.createStringBinding(() -> logic.getWallet()
+                        .getDaysToExpireProperty().get() == 0
+                        ? ""
+                        : String.format("%d days left", logic.getWallet().getDaysToExpireProperty().get()),
+                logic.getWallet().getDaysToExpireProperty());
+        daysToExpirePlaceholder.textProperty().bind(daysToExpireBinding);
     }
 
     /**
