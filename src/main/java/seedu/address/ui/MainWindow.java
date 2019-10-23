@@ -4,7 +4,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -176,17 +175,17 @@ public class MainWindow extends UiPart<Stage> {
 
         // add supported commands (not all yet)
         commandBox.enableSyntaxHighlightingForCommand("add",
-                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP));
+                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY));
         commandBox.enableSyntaxHighlightingForCommand("alias",
                 List.of(PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT));
         commandBox.enableSyntaxHighlightingForCommand("budget",
                 List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD));
-        commandBox.enableSyntaxHighlightingForCommand("switchbudget",
-                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD));
+        commandBox.enableSyntaxHighlightingForCommand("switch",
+                List.of(PREFIX_DESCRIPTION));
         commandBox.enableSyntaxHighlightingForCommand("event",
                 List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP));
-        commandBox.enableSyntaxHighlightingForCommand("stats",
-                List.of(PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_END_DATE));
+        commandBox.enableSyntaxHighlightingForCommand("statscompare",
+                List.of(PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE, PREFIX_PERIOD));
         commandBox.enableSyntaxHighlightingForCommand("undo",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("redo",

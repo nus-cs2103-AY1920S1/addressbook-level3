@@ -34,7 +34,7 @@ public class CommandResult {
 
     private final String title;
 
-
+    //currently used only by basicStats, to be merged later on
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic,
                          boolean forcePanelChange, PanelName panelName,
                          List<String> names, List<Double> percentages, String title) {
@@ -45,7 +45,11 @@ public class CommandResult {
         this.names = names;
         this.percentages = percentages;
         this.title = title;
+        this.forcePanelChange = forcePanelChange;
+        this.panelName = panelName;
+
     }
+
     /**
      * Constructs a {@code CommandResult} with the specified fields. Meant for statsCommand
      */
@@ -57,6 +61,9 @@ public class CommandResult {
         this.statistic = statistic;
         this.forcePanelChange = forcePanelChange;
         this.panelName = panelName;
+        this.names = null;
+        this.percentages = null;
+        this.title = null;
 
     }
 
