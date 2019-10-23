@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
-import seedu.address.model.student.exceptions.DuplicateAssignmentException;
+import seedu.address.model.student.exceptions.DuplicateStudentException;
 import seedu.address.testutil.StudentBuilder;
 
 public class AddressBookTest {
@@ -53,7 +53,7 @@ public class AddressBookTest {
         List<Student> newStudents = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newStudents);
 
-        assertThrows(DuplicateAssignmentException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateStudentException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
