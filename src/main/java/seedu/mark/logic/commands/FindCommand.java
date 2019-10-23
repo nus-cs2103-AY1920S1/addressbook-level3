@@ -1,6 +1,6 @@
 package seedu.mark.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.logic.commands.results.CommandResult;
@@ -29,7 +29,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
+
         model.updateFilteredBookmarkList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_BOOKMARKS_LISTED_OVERVIEW, model.getFilteredBookmarkList().size()));

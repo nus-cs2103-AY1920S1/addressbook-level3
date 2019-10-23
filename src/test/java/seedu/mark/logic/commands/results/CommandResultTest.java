@@ -8,6 +8,8 @@ import static seedu.mark.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.logic.commands.TabCommand;
+
 public class CommandResultTest {
 
     @Test
@@ -39,6 +41,9 @@ public class CommandResultTest {
 
         // different isExit() value -> returns false
         assertFalse(commandResult.equals(new ExitCommandResult("feedback")));
+
+        // different getTab() value -> returns false
+        assertFalse(commandResult.equals(new TabCommandResult("feedback", TabCommand.Tab.DASHBOARD)));
     }
 
     @Test
@@ -56,5 +61,9 @@ public class CommandResultTest {
 
         // different isExit() value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new ExitCommandResult("feedback").hashCode());
+
+        // different getTab() value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(),
+                new TabCommandResult("feedback", TabCommand.Tab.DASHBOARD).hashCode());
     }
 }

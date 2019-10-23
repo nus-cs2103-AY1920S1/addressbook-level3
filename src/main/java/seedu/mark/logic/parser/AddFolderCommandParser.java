@@ -2,6 +2,7 @@ package seedu.mark.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARENT_FOLDER;
 
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.commands.AddFolderCommand;
@@ -19,7 +20,7 @@ public class AddFolderCommandParser implements Parser<AddFolderCommand> {
      */
     public AddFolderCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_PARENT_FOLDER);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PARENT_FOLDER);
 
         Folder folder;
         try {
@@ -30,7 +31,7 @@ public class AddFolderCommandParser implements Parser<AddFolderCommand> {
         }
 
         String parentFolder =
-                argMultimap.getValue(CliSyntax.PREFIX_PARENT_FOLDER).orElse(Folder.DEFAULT_FOLDER_NAME);
+                argMultimap.getValue(PREFIX_PARENT_FOLDER).orElse(Folder.DEFAULT_FOLDER_NAME);
 
         return new AddFolderCommand(folder, new Folder(parentFolder));
     }

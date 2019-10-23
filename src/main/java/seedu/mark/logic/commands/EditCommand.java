@@ -1,6 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -68,7 +69,8 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
+
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -84,7 +86,7 @@ public class EditCommand extends Command {
 
         model.setBookmark(bookmarkToEdit, editedBookmark);
         model.applyAllTaggers();
-        model.saveMark();
+        model.saveMark(String.format(MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark));
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(String.format(MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark));
     }

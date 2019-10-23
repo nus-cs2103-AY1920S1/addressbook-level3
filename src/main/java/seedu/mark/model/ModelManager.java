@@ -231,18 +231,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoMark() {
-        versionedMark.undo();
+    public String undoMark() {
+        return versionedMark.undo();
     }
 
     @Override
-    public void redoMark() {
-        versionedMark.redo();
+    public String redoMark() {
+        return versionedMark.redo();
     }
 
     @Override
-    public void saveMark() {
-        versionedMark.save();
+    public void saveMark(String record) {
+        versionedMark.save(record);
     }
 
     //=========== Current bookmark ===========================================================================

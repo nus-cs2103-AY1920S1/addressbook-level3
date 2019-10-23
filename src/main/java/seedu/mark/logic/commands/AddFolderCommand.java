@@ -1,6 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARENT_FOLDER;
 
 import seedu.mark.logic.commands.exceptions.CommandException;
@@ -42,6 +43,8 @@ public class AddFolderCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
+        requireAllNonNull(model, storage);
+
         if (model.hasFolder(folder)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOLDER);
         }
@@ -52,7 +55,7 @@ public class AddFolderCommand extends Command {
         }
 
         model.addFolder(folder, parentFolder);
-        model.saveMark();
+        model.saveMark(String.format(MESSAGE_SUCCESS, folder));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, folder));
     }
