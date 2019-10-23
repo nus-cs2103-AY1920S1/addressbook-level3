@@ -21,8 +21,7 @@ import seedu.address.model.calendar.CalendarModelManager;
 import seedu.address.model.calendar.CalendarUserPrefs;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
-import seedu.address.model.cap.CapLog;
-import seedu.address.model.cap.ModelCapManager;
+import seedu.address.model.cap.*;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ModelFinanceManager;
 import seedu.address.model.quiz.AddressQuizBook;
@@ -67,7 +66,7 @@ public class SwitchOperation {
     private seedu.address.logic.finance.Logic financeLogic;
     private seedu.address.ui.finance.Ui financeUi;
 
-    private seedu.address.model.cap.UserPrefs userCapPrefs;
+    private seedu.address.model.cap.CapUserPrefs userCapPrefs;
     private seedu.address.model.cap.Model capModel;
     private seedu.address.logic.cap.Logic capLogic;
     private seedu.address.ui.cap.Ui capUi;
@@ -217,21 +216,21 @@ public class SwitchOperation {
      * @param storage Cap storage
      * @return UserPrefs
      */
-    protected seedu.address.model.cap.UserPrefs initPrefs(seedu.address.storage.cap.UserPrefsStorage storage) {
+    protected CapUserPrefs initPrefs(seedu.address.storage.cap.UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         System.out.println("Using prefs file : " + prefsFilePath);
 
-        seedu.address.model.cap.UserPrefs initializedPrefs;
+        CapUserPrefs initializedPrefs;
         try {
-            Optional<seedu.address.model.cap.UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new seedu.address.model.cap.UserPrefs());
+            Optional<CapUserPrefs> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new CapUserPrefs());
         } catch (DataConversionException e) {
             System.out.println("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");
-            initializedPrefs = new seedu.address.model.cap.UserPrefs();
+            initializedPrefs = new CapUserPrefs();
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initializedPrefs = new seedu.address.model.cap.UserPrefs();
+            initializedPrefs = new CapUserPrefs();
         }
 
         // Update prefs file in case it was missing to begin with or there are new/unused fields
@@ -357,15 +356,15 @@ public class SwitchOperation {
      */
     private seedu.address.model.cap.Model initModelManager(CapStorage storage,
                                                            seedu.address.model.cap.ReadOnlyUserPrefs userPrefs) {
-        Optional<seedu.address.model.cap.ReadOnlyModulo> addressBookOptional;
-        seedu.address.model.cap.ReadOnlyModulo initialData;
+        Optional<ReadOnlyCapLog> addressBookOptional;
+        ReadOnlyCapLog initialData;
         try {
             addressBookOptional = storage.readCapLog();
             if (!addressBookOptional.isPresent()) {
                 System.out.println("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional
-                    .orElseGet(seedu.address.model.cap.util.SampleDataUtil::getSampleAddressBook);
+                    .orElseGet(seedu.address.model.cap.util.SampleDataUtil::getSampleCapLog);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new seedu.address.model.cap.CapLog();

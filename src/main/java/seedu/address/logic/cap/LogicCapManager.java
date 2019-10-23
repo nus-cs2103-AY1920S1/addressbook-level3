@@ -13,7 +13,8 @@ import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.logic.cap.parser.CapLogParser;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.Model;
-import seedu.address.model.cap.ReadOnlyModulo;
+import seedu.address.model.cap.ReadOnlyCapLog;
+import seedu.address.model.cap.person.*;
 import seedu.address.model.common.Module;
 import seedu.address.storage.cap.Storage;
 
@@ -56,13 +57,18 @@ public class LogicCapManager implements Logic {
     }
 
     @Override
-    public ReadOnlyModulo getCapLog() {
+    public ReadOnlyCapLog getCapLog() {
         return model.getCapLog();
     }
 
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return model.getFilteredModuleList();
+    }
+
+    @Override
+    public ObservableList<Semester> getFilteredSemesterList() {
+        return model.getFilteredSemesterList();
     }
 
     @Override

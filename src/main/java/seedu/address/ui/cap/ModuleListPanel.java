@@ -23,13 +23,13 @@ public class ModuleListPanel extends UiPart<Region> {
     public ModuleListPanel(ObservableList<Module> moduleList) {
         super(FXML);
         moduleListView.setItems(moduleList);
-        moduleListView.setCellFactory(listView -> new PersonListViewCell());
+        moduleListView.setCellFactory(listView -> new ModuleListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Module> {
+    class ModuleListViewCell extends ListCell<Module> {
         @Override
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);
@@ -42,5 +42,4 @@ public class ModuleListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

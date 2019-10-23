@@ -5,12 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Description;
-import seedu.address.model.cap.person.Faculty;
-import seedu.address.model.cap.person.Grade;
-import seedu.address.model.cap.person.ModuleCode;
-import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.person.*;
 
 
 /**
@@ -102,5 +97,19 @@ public class ParserUtil {
         requireNonNull(grade);
         String trimmedGrade = grade.trim();
         return new Grade(trimmedGrade);
+    }
+
+    /**
+     * Parses a {@code String phone} into a {@code Phone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     */
+    public static Semester parseSemester(String input) {
+        requireNonNull(input);
+        String trimmedSemester = input.trim().toLowerCase();
+        String[] yearSem = trimmedSemester.split("s");
+
+        return new Semester(new SemesterPeriod(Integer.parseInt(yearSem[1])), new AcademicYear(yearSem[0]));
     }
 }

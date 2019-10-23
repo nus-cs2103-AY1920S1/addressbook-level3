@@ -6,11 +6,11 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.cap.ReadOnlyUserPrefs;
-import seedu.address.model.cap.UserPrefs;
+import seedu.address.model.cap.CapUserPrefs;
 
 
 /**
- * Represents a storage for {@link UserPrefs}.
+ * Represents a storage for {@link CapUserPrefs}.
  */
 public interface UserPrefsStorage {
 
@@ -25,7 +25,7 @@ public interface UserPrefsStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    Optional<CapUserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyUserPrefs} to the storage.

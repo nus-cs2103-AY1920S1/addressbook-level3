@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.cap.ReadOnlyModulo;
+import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.ReadOnlyUserPrefs;
-import seedu.address.model.cap.UserPrefs;
+import seedu.address.model.cap.CapUserPrefs;
 
 
 /**
@@ -16,7 +16,7 @@ import seedu.address.model.cap.UserPrefs;
 public interface Storage extends CapStorage, UserPrefsStorage {
 
     @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    Optional<CapUserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
@@ -25,9 +25,9 @@ public interface Storage extends CapStorage, UserPrefsStorage {
     Path getCapLogFilePath();
 
     @Override
-    Optional<ReadOnlyModulo> readCapLog() throws DataConversionException, IOException;
+    Optional<ReadOnlyCapLog> readCapLog() throws DataConversionException, IOException;
 
     @Override
-    void saveCapLog(ReadOnlyModulo addressBook) throws IOException;
+    void saveCapLog(ReadOnlyCapLog addressBook) throws IOException;
 
 }

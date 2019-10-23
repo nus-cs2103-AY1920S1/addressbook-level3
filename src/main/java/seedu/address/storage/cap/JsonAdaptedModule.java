@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.cap.parser.ParserUtil;
 import seedu.address.model.cap.person.Credit;
 import seedu.address.model.cap.person.Description;
-import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
+import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Semester;
 import seedu.address.model.cap.person.Title;
 import seedu.address.model.common.Module;
 
@@ -22,9 +24,10 @@ class JsonAdaptedModule {
 
     private final String moduleCode;
     private final String title;
-    private final int credit;
-    private final String faculty;
+    private final String semester;
     private final String description;
+    private final String faculty;
+    private final int credit;
     private final String grade;
 
     /**
@@ -32,11 +35,12 @@ class JsonAdaptedModule {
      */
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("module_code") String moduleCode, @JsonProperty("title") String title,
-                             @JsonProperty("description") String description,
+                             @JsonProperty("semester") String semester, @JsonProperty("description") String description,
                              @JsonProperty("credit") int credit, @JsonProperty("faculty") String faculty,
                              @JsonProperty("grade") String grade) {
         this.moduleCode = moduleCode;
         this.title = title;
+        this.semester = semester;
         this.credit = credit;
         this.faculty = faculty;
         this.description = description;
@@ -49,6 +53,7 @@ class JsonAdaptedModule {
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().moduleCode;
         title = source.getTitle().title;
+        semester = source.getSemester().toString();
         credit = source.getCredit().getCredit();
         faculty = source.getFaculty().getFaculty();
         description = source.getDescription().getDescription();
@@ -70,15 +75,18 @@ class JsonAdaptedModule {
         if (!ModuleCode.isValidName(moduleCode)) {
             throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        final ModuleCode modelName = new ModuleCode(moduleCode);
 
+
+        final ModuleCode modelName = new ModuleCode(moduleCode);
         final Title modelTitle = new Title(title);
+        final Semester modelSemester = ParserUtil.parseSemester(semester);
         final Description modelDescription = new Description(description);
         final Credit modelCredit = new Credit(credit);
         final Faculty modelFaculty = new Faculty(faculty);
         final Grade modelGrade = new Grade(grade);
 
-        return new Module(modelName, modelTitle, modelDescription, modelCredit, modelFaculty, modelGrade);
+        return new Module(modelName, modelTitle, modelSemester, modelDescription,
+                modelCredit, modelFaculty, modelGrade);
     }
 
 }

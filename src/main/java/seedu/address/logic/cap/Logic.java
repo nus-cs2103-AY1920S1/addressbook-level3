@@ -7,7 +7,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.ReadOnlyModulo;
+import seedu.address.model.cap.ReadOnlyCapLog;
+import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 
 /**
@@ -28,10 +29,12 @@ public interface Logic {
      *
      * @see seedu.address.model.cap#getCapLog()
      */
-    ReadOnlyModulo getCapLog();
+    ReadOnlyCapLog getCapLog();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Module> getFilteredModuleList();
+
+    ObservableList<Semester> getFilteredSemesterList();
 
     /**
      * Returns the user prefs' address book file path.

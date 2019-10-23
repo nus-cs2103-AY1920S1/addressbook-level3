@@ -23,7 +23,7 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" style="-fx-background-color: #61ad58;" VBox.vgrow="NEVER">
+        <MenuBar fx:id="menuBar" style="-fx-background-color: #666699;" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
@@ -44,10 +44,23 @@
           </padding>
         </StackPane>
 
+<!--        <VBox fx:id="semesterList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">-->
+<!--          <padding>-->
+<!--            <Insets bottom="10" left="10" right="10" top="10" />-->
+<!--          </padding>-->
+<!--          <VBox fx:id="gradeList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">-->
+<!--            <padding>-->
+<!--              <Insets bottom="10" left="10" right="10" top="10" />-->
+<!--            </padding>-->
+<!--            <StackPane fx:id="gradeListPanelPlaceholder" VBox.vgrow="ALWAYS" />-->
+<!--          </VBox>-->
+<!--        </VBox>-->
+
         <VBox fx:id="gradeList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <padding>
             <Insets bottom="10" left="10" right="10" top="10" />
           </padding>
+          <StackPane fx:id="semesterListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           <StackPane fx:id="gradeListPanelPlaceholder" VBox.vgrow="ALWAYS" />
         </VBox>
 

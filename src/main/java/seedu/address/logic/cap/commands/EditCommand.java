@@ -16,12 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.Model;
-import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Description;
-import seedu.address.model.cap.person.Faculty;
-import seedu.address.model.cap.person.Grade;
-import seedu.address.model.cap.person.ModuleCode;
-import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.person.*;
 import seedu.address.model.common.Module;
 
 /**
@@ -91,12 +86,13 @@ public class EditCommand extends Command {
 
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
+        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
         Credit updatedCredit = editModuleDescriptor.getCredit().orElse(moduleToEdit.getCredit());
         Description updatedDescription = editModuleDescriptor.getDescription().orElse(moduleToEdit.getDescription());
         Faculty updatedFaculty = editModuleDescriptor.getFaculty().orElse(moduleToEdit.getFaculty());
         Grade updatedGrade = editModuleDescriptor.getGrade().orElse(moduleToEdit.getGrade());
 
-        return new Module(updatedModuleCode, updatedTitle, updatedDescription,
+        return new Module(updatedModuleCode, updatedTitle, updatedSemester, updatedDescription,
             updatedCredit, updatedFaculty, updatedGrade);
     }
 
@@ -125,6 +121,7 @@ public class EditCommand extends Command {
     public static class EditModuleDescriptor {
         private ModuleCode moduleCode;
         private Title title;
+        private Semester semester;
         private Credit credit;
         private Faculty faculty;
         private Description description;
@@ -199,6 +196,10 @@ public class EditCommand extends Command {
 
         public Optional<Grade> getGrade() {
             return Optional.ofNullable(grade);
+        }
+
+        public Optional<Semester> getSemester() {
+            return Optional.ofNullable(semester);
         }
 
         @Override

@@ -35,12 +35,16 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private SemesterListPanel semesterListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane semesterListPanelPlaceholder;
 
     @FXML
     private StackPane gradeListPanelPlaceholder;
@@ -108,6 +112,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        semesterListPanel = new SemesterListPanel(logic.getFilteredSemesterList());
+        semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         gradeListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 

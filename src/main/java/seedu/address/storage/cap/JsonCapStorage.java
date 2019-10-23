@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.cap.ReadOnlyModulo;
+import seedu.address.model.cap.ReadOnlyCapLog;
 
 
 /**
@@ -33,7 +33,7 @@ public class JsonCapStorage implements CapStorage {
     }
 
     @Override
-    public Optional<ReadOnlyModulo> readCapLog() throws DataConversionException {
+    public Optional<ReadOnlyCapLog> readCapLog() throws DataConversionException {
         return readCapLog(filePath);
     }
 
@@ -43,11 +43,11 @@ public class JsonCapStorage implements CapStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyModulo> readCapLog(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyCapLog> readCapLog(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonCapLog = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializableCapLog> jsonCapLog = JsonUtil.readJsonFile(
+                filePath, JsonSerializableCapLog.class);
         if (!jsonCapLog.isPresent()) {
             return Optional.empty();
         }
@@ -61,21 +61,21 @@ public class JsonCapStorage implements CapStorage {
     }
 
     @Override
-    public void saveCapLog(ReadOnlyModulo addressBook) throws IOException {
-        saveCapLog(addressBook, filePath);
+    public void saveCapLog(ReadOnlyCapLog capLog) throws IOException {
+        saveCapLog(capLog, filePath);
     }
 
     /**
-     * Similar to {@link #saveCapLog(ReadOnlyModulo)}.
+     * Similar to {@link #saveCapLog(ReadOnlyCapLog)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveCapLog(ReadOnlyModulo addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveCapLog(ReadOnlyCapLog capLog, Path filePath) throws IOException {
+        requireNonNull(capLog);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCapLog(capLog), filePath);
     }
 
 }

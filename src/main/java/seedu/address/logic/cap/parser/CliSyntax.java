@@ -11,5 +11,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_FACULTY = new Prefix("<f>");
     public static final Prefix PREFIX_GRADE = new Prefix("<g>");
     public static final Prefix PREFIX_MODULE_CODE = new Prefix("<m>");
+    public static final Prefix PREFIX_SEMESTER = new Prefix("<s>");
     public static final Prefix PREFIX_TITLE = new Prefix("<t>");
 }

@@ -14,7 +14,7 @@ import seedu.address.logic.cap.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
-    private static final String FXML = "BabyShark.fxml";
+    private static final String FXML = "CapCommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
 

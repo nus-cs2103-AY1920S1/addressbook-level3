@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 
 /**
@@ -20,73 +21,116 @@ public class ModelCapManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelCapManager.class);
 
     private final CapLog capLog;
-    private final UserPrefs userPrefs;
+    private final CapUserPrefs capUserPrefs;
+    private final FilteredList<Semester> filteredSemesters;
     private final FilteredList<Module> filteredModules;
 
     /**
      * Initializes a ModelManager with the given CapLog and userPrefs.
      */
-    public ModelCapManager(ReadOnlyModulo capLog, ReadOnlyUserPrefs userPrefs) {
+    public ModelCapManager(ReadOnlyCapLog capLog, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(capLog, userPrefs);
 
         logger.fine("Initializing with cap log: " + capLog + " and user prefs " + userPrefs);
 
         this.capLog = new CapLog(capLog);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredModules = new FilteredList<Module>(this.capLog.getModuleList());
+        this.capUserPrefs = new CapUserPrefs(userPrefs);
+        filteredSemesters = new FilteredList<>(this.capLog.getSemesterList());
+        filteredModules = new FilteredList<>(this.capLog.getModuleList());
     }
 
     public ModelCapManager() {
-        this(new CapLog(), new UserPrefs());
+        this(new CapLog(), new CapUserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public void setCapUserPrefs(ReadOnlyUserPrefs capUserPrefs) {
+        requireNonNull(capUserPrefs);
+        this.capUserPrefs.resetData(capUserPrefs);
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public ReadOnlyUserPrefs getCapUserPrefs() {
+        return capUserPrefs;
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
+        return capUserPrefs.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
+        capUserPrefs.setGuiSettings(guiSettings);
     }
 
     @Override
     public Path getCapLogFilePath() {
-        return userPrefs.getCapLogFilePath();
+        return capUserPrefs.getCapLogFilePath();
     }
 
     @Override
     public void setCapLogFilePath(Path capLogFilePath) {
         requireNonNull(capLogFilePath);
-        userPrefs.setCapLogFilePath(capLogFilePath);
+        capUserPrefs.setCapLogFilePath(capLogFilePath);
     }
 
     //=========== CapLog ================================================================================
 
     @Override
-    public void setCapLog(ReadOnlyModulo capLog) {
+    public void setCapLog(ReadOnlyCapLog capLog) {
         this.capLog.resetData(capLog);
     }
 
     @Override
-    public ReadOnlyModulo getCapLog() {
+    public ReadOnlyCapLog getCapLog() {
         return capLog;
     }
+
+    @Override
+    public boolean hasSemester (Semester semester) {
+        requireNonNull(semester);
+        return capLog.hasSemester(semester);
+    }
+
+    @Override
+    public void deleteSemester(Semester target) {
+        capLog.removeSemester(target);
+    }
+
+    @Override
+    public void addSemester (Semester semester) {
+        capLog.addSemester(semester);
+        updateFilteredSemesterList(PREDICATE_SHOW_ALL_SEMESTERS);
+    }
+
+    @Override
+    public void setSemester(Semester target, Semester editedModule) {
+        requireAllNonNull(target, editedModule);
+        capLog.setSemester(target, editedModule);
+    }
+
+//    @Override
+//    public void setSemester(Module target) {
+//        requireAllNonNull(target);
+//        capLog.setSemester(target);
+//    }
+
+    @Override
+    public ObservableList<Semester> getFilteredSemesterList() {
+        return filteredSemesters;
+    }
+
+    @Override
+    public void updateFilteredSemesterList(Predicate<Semester> predicate) {
+        requireNonNull(predicate);
+        filteredSemesters.setPredicate(predicate);
+    }
+    //=========== Filtered Module List Accessors =============================================================
 
     @Override
     public boolean hasModule (Module module) {
@@ -102,7 +146,9 @@ public class ModelCapManager implements Model {
     @Override
     public void addModule (Module module) {
         capLog.addModule(module);
+//        capLog.addSemester(module.getSemester());
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+//        updateFilteredSemesterList(PREDICATE_SHOW_ALL_SEMESTERS);
     }
 
     @Override
@@ -112,12 +158,6 @@ public class ModelCapManager implements Model {
         capLog.setModule(target, editedModule);
     }
 
-    //=========== Filtered Module List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedCapLog}
-     */
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
@@ -144,7 +184,7 @@ public class ModelCapManager implements Model {
         // state check
         ModelCapManager other = (ModelCapManager) obj;
         return capLog.equals(other.capLog)
-                && userPrefs.equals(other.userPrefs)
+                && capUserPrefs.equals(other.capUserPrefs)
                 && filteredModules.equals(other.filteredModules);
     }
 
