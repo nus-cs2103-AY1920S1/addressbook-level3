@@ -111,9 +111,10 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public void setShows(List<Show> shows) {
         CollectionUtil.requireAllNonNull(shows);
-        if (!showsAreUnique(shows)) {
-            throw new DuplicateShowException();
-        }
+        //currently remove the check if shows are unique
+//        if (!showsAreUnique(shows)) {
+//            throw new DuplicateShowException();
+//        }
 
         internalList.setAll(shows);
     }

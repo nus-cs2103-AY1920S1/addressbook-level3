@@ -1,13 +1,15 @@
 package seedu.ezwatchlist.api;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import info.movito.themoviedbapi.*;
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.TmdbTV;
+import info.movito.themoviedbapi.TmdbTvSeasons;
+import info.movito.themoviedbapi.TvResultsPage;
 import info.movito.themoviedbapi.model.Credits;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -16,11 +18,18 @@ import info.movito.themoviedbapi.model.tv.TvEpisode;
 import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 import info.movito.themoviedbapi.tools.MovieDbException;
-
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.model.ApiInterface;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Episode;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Main class for the API to connect to the server
@@ -82,8 +91,8 @@ public class ApiMain implements ApiInterface {
                 String overview = m.getOverview();
                 String releaseDate = m.getReleaseDate();
 
-                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false), new Date(releaseDate),
-                        runtime , new HashSet<Actor>());
+                Movie toAdd = new Movie(new Name(movieName), new Description(overview),
+                        new IsWatched(false), new Date(releaseDate), runtime , new HashSet<Actor>());
 
                 //retrieve image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
@@ -106,9 +115,10 @@ public class ApiMain implements ApiInterface {
      * @throws OnlineConnectionException when not connected to the internet.
      */
     public List<Movie> getMovieByName(String name) throws OnlineConnectionException {
+        ArrayList<Movie> movies = new ArrayList<>();
         try {
-            MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
-            ArrayList<Movie> movies = new ArrayList<>();
+            MovieResultsPage page = apiCall.getSearch().searchMovie(name,
+                    null, null, true, 1);
 
             for (MovieDb m : page.getResults()) {
                 String movieName = m.getTitle();
@@ -123,19 +133,20 @@ public class ApiMain implements ApiInterface {
                 //actors
                 Set<Actor> actors = getActors(movie.getCast());
 
-                Movie toAdd = new Movie(new Name(movieName), new Description(overview), new IsWatched(false), new Date(releaseDate),
-                        runtime , actors);
+                Movie toAdd = new Movie(new Name(movieName), new Description(overview),
+                        new IsWatched(false), new Date(releaseDate), runtime , actors);
 
                 //retrieve image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, m.getPosterPath());
-                toAdd.setPoster(new Poster(instance.retrieveImage(movieName)));
+                String imagePath = instance.retrieveImage(movieName);
+                toAdd.setPoster(new Poster(imagePath));
 
                 movies.add(toAdd);
             }
             return movies;
         } catch (MovieDbException e) {
             notConnected();
-            return new ArrayList<Movie>();
+            return movies;
         }
     }
 
@@ -147,9 +158,10 @@ public class ApiMain implements ApiInterface {
      * @throws OnlineConnectionException when not connected to the internet.
      */
     public List<TvShow> getTvShowByName(String name) throws OnlineConnectionException {
+        ArrayList<TvShow> tvShows = new ArrayList<>();
+
         try {
-            TvResultsPage page = apiCall.getSearch().searchTv(name, null, null);
-            ArrayList<TvShow> tvShows = new ArrayList<>();
+            TvResultsPage page = apiCall.getSearch().searchTv(name, null, 1);
 
             for (TvSeries tv : page.getResults()) {
                 final int tvId = tv.getId();
@@ -160,13 +172,15 @@ public class ApiMain implements ApiInterface {
 
                 //seasons
                 for (int seasonNo = 1; seasonNo < numberOfSeasons; seasonNo++) {
-                    TvSeason tvSeason = tvSeasons.getSeason(tvId, seasonNo, null, TmdbTvSeasons.SeasonMethod.values());
+                    TvSeason tvSeason = tvSeasons.getSeason(tvId, seasonNo,
+                            null, TmdbTvSeasons.SeasonMethod.values());
 
                     List<TvEpisode> episodes = tvSeason.getEpisodes();
                     ArrayList<Episode> episodeList = new ArrayList<>();
 
                     for (TvEpisode episode : episodes) {
-                        episodeList.add(new seedu.ezwatchlist.model.show.Episode(new Name(episode.getName()), episode.getEpisodeNumber()));
+                        episodeList.add(new seedu.ezwatchlist.model.show.Episode(
+                                new Name(episode.getName()), episode.getEpisodeNumber()));
                     }
 
                     seedu.ezwatchlist.model.show.TvSeason tvS =
@@ -181,8 +195,8 @@ public class ApiMain implements ApiInterface {
                 //actors
                 Set<Actor> actors = getActors(credits.getCast());
 
-                TvShow tvShowToAdd = new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), new IsWatched(false),
-                         date ,
+                TvShow tvShowToAdd = new TvShow(new Name(tv.getName()), new Description(tv.getOverview()),
+                        new IsWatched(false), date ,
                         new RunningTime(20), actors, 0,
                         tv.getNumberOfEpisodes(), seasonsList);
 
@@ -195,7 +209,7 @@ public class ApiMain implements ApiInterface {
             return tvShows;
         } catch (MovieDbException e) {
             notConnected();
-            return new ArrayList<TvShow>();
+            return tvShows;
         }
     }
 
@@ -208,7 +222,7 @@ public class ApiMain implements ApiInterface {
         return actors;
     }
 
-/**
+    /**
     public void testImage(String name) {
         MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
         List<MovieDb> movies = page.getResults();
@@ -269,5 +283,5 @@ public class ApiMain implements ApiInterface {
             System.out.println(m.getOriginalTitle());
         }
     }
-*/
+    */
 }
