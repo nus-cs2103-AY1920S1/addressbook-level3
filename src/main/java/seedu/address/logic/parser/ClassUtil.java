@@ -49,7 +49,7 @@ public class ClassUtil {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField("COMMAND_WORD");
                 String strValue = (String) f.get(null);
-
+                System.out.println("in util: " + strValue);
                 if (strValue.equals(commandWord)) {
                     Class parser = clsPair.getParser();
                     if (parser == null) {
@@ -68,6 +68,7 @@ public class ClassUtil {
                 System.err.println(e);
             }
         }
+        System.out.println("util returning: null");
         return null;
     }
 

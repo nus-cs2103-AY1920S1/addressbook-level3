@@ -118,11 +118,11 @@ public class CommandBox extends UiPart<Region> {
         EventHandler<ActionEvent> event =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) {
-                    try {
-                        commandExecutor.execute(commandComboField.getValue());
-                    } catch (CommandException | ParseException ex) {
-                        setStyleToIndicateCommandFailure();
-                    }
+                    //try {
+                        //commandExecutor.execute(commandComboField.getValue());
+                    //} catch (CommandException | ParseException ex) {
+                      //  setStyleToIndicateCommandFailure();
+                    //}
 
                 }
             };
