@@ -26,32 +26,8 @@ public class Fridge implements Entity {
         this.body = null;
     }
 
-    public Fridge(boolean isTestFridge) {
-        if (isTestFridge) {
-            fridgeIdNum = IdentificationNumber.customGenerateTestId("F", 1);
-        } else {
-            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        }
-        this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        this.body = null;
-    }
-
     public Fridge(Body body) {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        this.body = body;
-        if (body == null) {
-            this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        } else {
-            this.fridgeStatus = FridgeStatus.OCCUPIED;
-        }
-    }
-
-    public Fridge(Body body, boolean isTestFridge) {
-        if (isTestFridge) {
-            this.fridgeIdNum = IdentificationNumber.customGenerateTestId("F", 1);
-        } else {
-            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        }
         this.body = body;
         if (body == null) {
             this.fridgeStatus = FridgeStatus.UNOCCUPIED;
@@ -126,7 +102,7 @@ public class Fridge implements Entity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(fridgeIdNum);
+        return Objects.hash(getIdNum());
     }
 
     @Override

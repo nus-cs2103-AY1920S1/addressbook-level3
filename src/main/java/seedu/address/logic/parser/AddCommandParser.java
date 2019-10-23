@@ -167,7 +167,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
         }
 
-        return new Body(false, 1, dateOfAdmission, name, sex, nric, religion,
+        return new Body(dateOfAdmission, name, sex, nric, religion,
                 causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationship,
                         phoneNok);
     }

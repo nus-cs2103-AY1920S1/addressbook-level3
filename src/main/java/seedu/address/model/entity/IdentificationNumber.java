@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
@@ -29,7 +28,6 @@ public class IdentificationNumber {
     private int idNum;
 
     private String typeOfEntity;
-    private boolean isTestId = false;
 
     protected IdentificationNumber(Entity entity) {
         requireNonNull(entity);
@@ -43,10 +41,9 @@ public class IdentificationNumber {
         }
     }
 
-    private IdentificationNumber(String typeOfEntity, int idNum, boolean isTestId) {
+    private IdentificationNumber(String typeOfEntity, int idNum) {
         this.typeOfEntity = typeOfEntity;
         this.idNum = idNum;
-        this.isTestId = isTestId;
     }
 
     public static IdentificationNumber generateNewBodyId(Body body) {
@@ -62,11 +59,7 @@ public class IdentificationNumber {
     }
 
     public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
-        return new IdentificationNumber(typeOfEntity, idNum, false);
-    }
-
-    public static IdentificationNumber customGenerateTestId(String typeOfEntity, int idNum) {
-        return new IdentificationNumber(typeOfEntity, idNum, true);
+        return new IdentificationNumber(typeOfEntity, idNum);
     }
 
     private static boolean isValidIdPrefix (String prefix) {

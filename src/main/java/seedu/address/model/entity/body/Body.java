@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
@@ -45,16 +44,11 @@ public class Body implements Entity {
         this.dateOfAdmission = dateOfAdmission;
     }
 
-    public Body(boolean isTestUnit, int identificationNumber, Date dateOfAdmission, Name name, Sex sex, Nric nric,
+    public Body(Date dateOfAdmission, Name name, Sex sex, Nric nric,
                 Religion religion, String causeOfDeath, List<String> organsForDonation, BodyStatus bodyStatus,
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
                 String relationship, PhoneNumber kinPhoneNumber) {
-        if (isTestUnit) {
-            this.bodyIdNum = IdentificationNumber.customGenerateTestId("B",
-                    identificationNumber);
-        } else {
-            this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
-        }
+        this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
         this.dateOfAdmission = dateOfAdmission;
         this.name = name;
         this.sex = sex;
@@ -222,7 +216,7 @@ public class Body implements Entity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdNum(), getDateOfAdmission(), getName(), getSex(), getNric(),
+        return Objects.hash(getDateOfAdmission(), getName(), getSex(), getNric(),
                 getReligion(), getCauseOfDeath(), getOrgansForDonation(), getBodyStatus(), getFridgeId(),
                 getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
     }

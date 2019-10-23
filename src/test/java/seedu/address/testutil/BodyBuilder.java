@@ -263,7 +263,7 @@ public class BodyBuilder {
      * @return
      */
     public Body build() {
-        return new Body(true, 1, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
+        return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
                 kinPhoneNumber);
     }
@@ -273,7 +273,7 @@ public class BodyBuilder {
      * @return
      */
     public Body build(int id) {
-        return new Body(true, id, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
+        return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
                 kinPhoneNumber);
     }

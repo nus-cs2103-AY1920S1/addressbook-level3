@@ -17,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
@@ -45,8 +46,6 @@ class BodyTest {
     @Test
     public void isSameBodyIdNum() {
         Body alice = new BodyBuilder(ALICE).build();
-        Body bob = new BodyBuilder(BOB).build(1);
-        assertTrue(alice.isSameBodyIdNum(bob));
 
         Body differentId = new BodyBuilder(BOB).build(2);
         assertFalse(alice.isSameBodyIdNum(differentId));
@@ -175,8 +174,9 @@ class BodyTest {
 
         ALICE.setFridgeId(IdentificationNumber.customGenerateId("F", 1));
         // Check that it works with an actual fridge.
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Fridge fridge = new FridgeBuilder().build();
-        assertEquals(fridge.getIdNum(), ALICE.getFridgeId().get());
+        assertEquals(fridge.getIdNum(), new BodyBuilder(ALICE).build().getFridgeId().get());
         ALICE.setFridgeId(null);
     }
 

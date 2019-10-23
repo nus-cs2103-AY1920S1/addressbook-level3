@@ -41,23 +41,6 @@ public class Worker implements Entity {
         this.designation = Optional.ofNullable(designation);
     }
 
-    public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
-                  String designation, boolean isTestWorker) {
-        if (isTestWorker) {
-            this.workerIdNum = IdentificationNumber.customGenerateTestId("W", 1);
-        } else {
-            this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
-        }
-        this.name = name;
-        this.phone = Optional.ofNullable(phone);
-        this.sex = sex;
-        this.employmentStatus = Optional.ofNullable(employmentStatus);
-        this.dateOfBirth = Optional.ofNullable(dateOfBirth);
-        this.dateJoined = dateJoined;
-        this.designation = Optional.ofNullable(designation);
-    }
-
-
     public IdentificationNumber getIdNum() {
         return workerIdNum;
     }
@@ -162,7 +145,7 @@ public class Worker implements Entity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, sex, workerIdNum, employmentStatus, dateJoined, dateOfBirth, designation);
+        return Objects.hash(name, phone, sex, employmentStatus, dateJoined, dateOfBirth, designation);
     }
 
     @Override

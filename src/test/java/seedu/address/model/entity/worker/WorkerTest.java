@@ -22,6 +22,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.person.Name;
 import seedu.address.testutil.WorkerBuilder;
 
@@ -123,6 +124,7 @@ class WorkerTest {
 
     @Test
     void toString_correct() throws ParseException {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         assertEquals(DEFAULT_NAME + " Worker ID: W00001" + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
                 + " Date of Birth: " + ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH)
                 + " Date Joined: " + ParserUtil.parseDate(DEFAULT_DATE_JOINED)

@@ -2,21 +2,6 @@
     -fx-background-color: derive(#121212, 25%);
 }
 
-#appStage {
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-}
-
-#appScene {
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-}
-
-.appBox {
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-}
-
 .background {
     -fx-background-color: derive(#121212, 25%);
     background-color: #383838; /* Used in the default.html file */
@@ -553,7 +538,7 @@
 }
 
 #dateBox {
-    -fx-background-color: derive(#FF0266, 2%);
+    -fx-background-color: #FF7597;
     -fx-background-radius: 20;
 }
 
@@ -573,7 +558,7 @@
 
 #NOK {
     -fx-text-fill: #444444;
-    -fx-background-color: #75FFDD;
+    -fx-background-color: #FF7597;
     -fx-padding: 22 20 22 40;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
@@ -585,7 +570,6 @@
 
 #exitButton {
     -fx-background-image: url("../images/close.png");
-    -fx-background-size: 35px 35px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-border-radius: 0 10 0 0;
@@ -601,14 +585,12 @@
 
 #restoreButton {
     -fx-background-image: url("../images/restore.png");
-    -fx-background-size: 35px 35px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
 #minimiseButton {
     -fx-background-image: url("../images/minimise.png");
-    -fx-background-size: 35px 35px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }

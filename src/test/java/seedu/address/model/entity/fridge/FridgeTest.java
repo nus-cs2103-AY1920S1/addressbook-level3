@@ -14,6 +14,7 @@ import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.testutil.FridgeBuilder;
 
 //@@author arjavibahety
@@ -36,16 +37,27 @@ public class FridgeTest {
 
     @Test
     public void equals() {
+        // dummy required since ALICE_FRIDGE will be processed first and `aliceFridge` will not have ID = F01
+        Fridge dummy = new FridgeBuilder(ALICE_FRIDGE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+
+        Fridge aliceFridge = new FridgeBuilder(ALICE_FRIDGE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Fridge aliceFridgeCopy = new FridgeBuilder(ALICE_FRIDGE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Fridge emptyFridge = new FridgeBuilder(EMPTY_FRIDGE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Fridge emptyFridgeCopy = new FridgeBuilder(EMPTY_FRIDGE).build();
 
-        assertTrue(ALICE_FRIDGE.equals(ALICE_FRIDGE));
-        assertEquals(ALICE_FRIDGE.hashCode(), aliceFridgeCopy.hashCode());
-        assertTrue(ALICE_FRIDGE.equals(aliceFridgeCopy));
+        assertTrue(aliceFridge.equals(aliceFridge));
 
-        assertTrue(EMPTY_FRIDGE.equals(EMPTY_FRIDGE));
-        assertEquals(EMPTY_FRIDGE.hashCode(), emptyFridgeCopy.hashCode());
-        assertTrue(EMPTY_FRIDGE.equals(emptyFridgeCopy));
+
+        assertEquals(aliceFridge.hashCode(), aliceFridgeCopy.hashCode());
+        assertTrue(aliceFridge.equals(aliceFridgeCopy));
+
+        assertTrue(emptyFridge.equals(emptyFridge));
+        assertEquals(emptyFridge.hashCode(), emptyFridgeCopy.hashCode());
+        assertTrue(emptyFridge.equals(emptyFridgeCopy));
 
         assertFalse(ALICE_FRIDGE.equals(null));
         assertFalse(EMPTY_FRIDGE.equals(null));
@@ -102,7 +114,8 @@ public class FridgeTest {
 
     @Test
     void toString_occupiedFridge() {
-        Fridge occupiedFridge = new Fridge(true);
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Fridge occupiedFridge = new Fridge();
         occupiedFridge.setBody(JOHN);
         assertEquals(" Fridge ID: F01 Status: OCCUPIED Body: " + JOHN, occupiedFridge.toString());
     }
