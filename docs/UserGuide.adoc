@@ -131,7 +131,7 @@ Examples:
 Creates a new activity with title 'Chalet' and the user and John Doe as participants.
 
 * `activity t/Breakfast p/David Li p/Bernice Yu` +
-Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will state that contact named 'Bernice Yu' couldn't be found.
+Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
 
 === Add contacts to an activity: `invite`
 
