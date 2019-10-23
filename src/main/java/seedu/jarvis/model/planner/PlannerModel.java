@@ -21,6 +21,14 @@ public interface PlannerModel {
     void addTask(Task t);
 
     /**
+     * Adds a {@code Task} at a given {@code Index}
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Task} to
+     * @param task {@code Task} to be added
+     */
+    void addTask(int zeroBasedIndex, Task task);
+
+    /**
      * Determines whether the planner contains the given task
      * @param t the task in question
      * @return true if the planner already contains the task, false if
@@ -56,6 +64,12 @@ public interface PlannerModel {
      * @param index index of the task to be deleted
      */
     void deleteTask(Index index);
+
+    /**
+     * Deletes the specified task from the planner
+     * @param t the task to be deleted
+     */
+    void deleteTask(Task t);
 
     /**
      * Retrieves the size of the planner, i.e. the number of tasks in the planner
