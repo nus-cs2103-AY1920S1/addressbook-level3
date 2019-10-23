@@ -47,7 +47,8 @@ public class AliasCommand extends Command {
             Command a = new AddressBookParser().parseCommand(alias);
         } catch (ParseException e) {
             if (e.getMessage().equals(MESSAGE_UNKNOWN_COMMAND)) {
-                model.getUserPrefs().getAliasTable().addAlias(alias, aliasTo);
+                // happy path
+                model.addAlias(alias, aliasTo);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, alias, aliasTo));
             }
         }

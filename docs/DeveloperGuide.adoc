@@ -153,7 +153,43 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// EXAMPLE TO BE REMOVED AFTER DG is finished for v1.3.
+=== Alias feature
+==== Implementation
+The alias mechanism is facilitated by `AliasTable`.
+It is contained within `UserPrefs` and can be serialized together with the rest of the members in `UserPrefs`.
+Additionally, it implements the following operations:
+
+* `AliasTable#applyAlias(commandText)` -- Applies the longest stored aliases to the supplied command.
+* `AliasTable#addAlias(alias, aliasTo)` -- Adds a new alias to the alias table.
+* `AliasTable#removeAlias(alias)` -- Removes a existing alias from the alias table.
+
+These operations are exposed in the `Model` interface as `Model#applyAlias(commandText)`, `Model#addAlias(alias, aliasTo)` and `Model#removeAlias(alias)` respectively.
+
+The following sequence diagram shows how adding an alias works:
+
+image::AddAliasSequenceDiagram.png[]
+
+[NOTE]
+The check for and illegal alias consists of creating a new `AddressBookParser` and parsing the given alias into it, which is not shown in this diagram.
+
+The `unalias` command does the opposite -- it calls `Model#removeAlias(alias)` instead which calls `Model#UserPref(alias)` and `AliasTable#removeAlias(alias)`
+
+The following sequence diagram shows how applying alias works:
+
+image::ApplyAliasSequenceDiagram.png[]
+
+[NOTE]
+This is a generalized diagram which depicts what happens between `execute(commandText)` and `LogicManager#parseCommand(alias)`. This process is not shown in other sequence diagrams.
+
+The following activity diagram shows how applying alias picks which alias to apply:
+
+image::ApplyAliasActivityDiagram.png[]
+
+[NOTE]
+An unfortunate side effect to matching the longest matching macro increases the time complexity of this operation to O(n) from O(1) if we used wholesale matching instead.
+
+// EXAMPLE TO BE REMOVED AFTER DG is finished for v1.3
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -546,13 +582,32 @@ Use case resumes at step 1.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Delete user-defined macros
+
+*MSS*
+
+1.  User requests to remove user-defined macros
+2.  AddressBook removes user-defined macro
+
++
+Use case ends.
+
 *Extensions*
 
 [none]
-* 1a. The command is not defined.
+* 1a. The content of the macro name is empty.
 +
 [none]
 ** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. There exists no such macro.
++
+[none]
+** 1b1. AddressBook shows an error message.
 +
 Use case resumes at step 1.
 

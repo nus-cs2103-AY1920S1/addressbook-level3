@@ -89,4 +89,27 @@ public interface Model {
      * Adds the given reminder.
      */
     void addReminder(Reminder reminder);
+
+    /**
+     * Adds a given alias into the alias table.
+     * @param alias Alias name
+     * @param aliasTo Alias value
+     */
+    void addAlias(String alias, String aliasTo);
+
+    /**
+     * Removes a given alias from the alias table.
+     * @param alias Alias name
+     * @return Returns true if alias exists in alias table and removed successfully, returns false otherwise.
+     */
+    boolean removeAlias(String alias);
+
+    /**
+     * Apply a suitable alias to the input command text. A suitable alias is an alias that matches the regex
+     * "{alias}($|\\s).*".
+     * If multiple matches exists, this method chooses the longest matching alias.
+     * @param commandText Command for alias to be applied to.
+     * @return Command that alias has been applied to.
+     */
+    String applyAlias(String commandText);
 }

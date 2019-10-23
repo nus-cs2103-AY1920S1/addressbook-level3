@@ -120,6 +120,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addAlias(String alias, String aliasTo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean removeAlias(String alias) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String applyAlias(String commandText) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
