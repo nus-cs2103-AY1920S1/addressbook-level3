@@ -129,7 +129,7 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
                 && CollectionUtil.checkEqual(getVisitTodos(), otherPerson.getVisitTodos())
-                && otherPerson.getVisits().equals(getVisits());
+                && CollectionUtil.checkEqual(getVisits(), otherPerson.getVisits());
     }
 
     @Override
