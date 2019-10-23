@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
 
@@ -33,8 +34,7 @@ public class TaskCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label taskStatus;
+
     @FXML
     private Label deadline;
     @FXML
@@ -45,14 +45,13 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
-        taskStatus.setText(task.getTaskStatus().getDisplayName());
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         if (task.hasDeadline()) {
-            deadline.setText(task.getDeadline().toString());
+            deadline.setText("Due on: " + DateTimeUtil.displayDateTime(task.getDeadline()));
         } else {
-            deadline.setText("No Deadline");
+            deadline.setText("No deadline set");
         }
     }
 
