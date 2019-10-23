@@ -76,7 +76,7 @@ public class SampleDataUtil {
             buildNewFood("Mushroom", "20", "10", "0", "0", FoodType.NON_STARCHY_VEGETABLE),
 
             buildNewFood("Sweet Corn", "90", "52", "5", "4", FoodType.STARCHY_VEGETABLE),
-            buildNewFood("Brown Rice", "216", "68", "0.4", "1,8", FoodType.STARCHY_VEGETABLE),
+            buildNewFood("Brown Rice", "216", "68", "0.4", "1.8", FoodType.STARCHY_VEGETABLE),
             buildNewFood("Buckwheat", "343", "34", "0", "3.4", FoodType.STARCHY_VEGETABLE),
             buildNewFood("Millet", "378", "44", "1.6", "4.3", FoodType.STARCHY_VEGETABLE),
             buildNewFood("Butternut Squash", "82", "51", "4", "0.2", FoodType.STARCHY_VEGETABLE),
@@ -98,11 +98,11 @@ public class SampleDataUtil {
             buildNewFood("Turkey", "149", "0", "0", "8.3", FoodType.PROTEIN),
             buildNewFood("Duck", "132", "0", "0", "5.9", FoodType.PROTEIN),
             buildNewFood("Lean Pork", "263", "0", "0", "21", FoodType.PROTEIN),
-            buildNewFood("Lean Beef", "254 ", "0", "0", "20", FoodType.PROTEIN),
+            buildNewFood("Lean Beef", "254", "0", "0", "20", FoodType.PROTEIN),
             buildNewFood("Lean Lamb", "282", "0", "0", "23.4", FoodType.PROTEIN),
 
             buildNewFood("Diet Yogurt", "154", "41", "17", "3.8", FoodType.SNACK),
-            buildNewFood("Fat-free Yogurt", "137", "41", "19", "0.5", FoodType.SNACK),
+            buildNewFood("Fat free Yogurt", "137", "41", "19", "0.5", FoodType.SNACK),
             buildNewFood("Oat Crispbread", "130", "49", "2", "9", FoodType.SNACK),
             buildNewFood("Ginger Nut Biscuit", "55", "37", "5", "2", FoodType.SNACK),
             buildNewFood("Fig Roll", "65", "53", "5.9", "1.5", FoodType.SNACK),
