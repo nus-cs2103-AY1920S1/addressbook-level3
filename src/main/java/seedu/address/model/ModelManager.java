@@ -247,5 +247,4 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
     }
-
 }
