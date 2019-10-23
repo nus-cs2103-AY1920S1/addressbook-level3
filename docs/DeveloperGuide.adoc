@@ -309,6 +309,8 @@ The arguments supported by this feature includes:
 - `Category` (optional)
 - `TransactionType` (optional)
 
+Although all arguments are optional, the user has to input at least one argument for the command
+to be valid.
 
 ===== Implementation
 ===== Design Considerations
