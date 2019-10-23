@@ -7,8 +7,10 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,6 +46,7 @@ public class EditOrderCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists.";
     public static final String MESSAGE_INVALID_ORDER = "The customer/restaurant/deliveryman does not exist!";
+    public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided.";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -102,7 +105,7 @@ public class EditOrderCommand extends Command {
         Name updatedRestaurant = editOrderDescriptor.getRestaurant().orElse(orderToEdit.getRestaurant());
         Name updatedDeliveryman = editOrderDescriptor.getDeliveryman().orElse(orderToEdit.getDeliveryman());
         boolean updatedIsCompleted = editOrderDescriptor.getCompleted().orElse(orderToEdit.isCompleted());
-        Set<Tag> updatedFood = editOrderDescriptor.getFoods().orElse(orderToEdit.getFood());
+        Map<Name, Integer> updatedFood = editOrderDescriptor.getFoods().orElse(orderToEdit.getFood());
 
         Order order = new Order(updatedOrderName, updatedCustomer, updatedRestaurant, updatedFood);
         order.setDeliveryman(updatedDeliveryman);
@@ -141,7 +144,7 @@ public class EditOrderCommand extends Command {
         private Name restaurant;
         private Name deliveryman;
         private Boolean isCompleted;
-        private Set<Tag> foods;
+        private Map<Name, Integer> foods;
 
         public EditOrderDescriptor() {
         }
@@ -210,8 +213,8 @@ public class EditOrderCommand extends Command {
          * Sets {@code tags} to this object's {@code food}.
          * A defensive copy of {@code food} is used internally.
          */
-        public void setFoods(Set<Tag> foods) {
-            this.foods = (foods != null) ? new HashSet<>(foods) : null;
+        public void setFoods(Map<Name, Integer> foods) {
+            this.foods = (foods != null) ? new HashMap<>(foods) : null;
         }
 
         /**
@@ -219,8 +222,8 @@ public class EditOrderCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code food} is null.
          */
-        public Optional<Set<Tag>> getFoods() {
-            return (foods != null) ? Optional.of(Collections.unmodifiableSet(foods)) : Optional.empty();
+        public Optional<Map<Name, Integer>> getFoods() {
+            return (foods != null) ? Optional.of(Collections.unmodifiableMap(foods)) : Optional.empty();
         }
 
         @Override

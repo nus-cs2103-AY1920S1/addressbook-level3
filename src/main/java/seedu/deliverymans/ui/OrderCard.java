@@ -1,12 +1,13 @@
 package seedu.deliverymans.ui;
 
-import java.util.Comparator;
+import java.util.Map;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.order.Order;
 
 /**
@@ -40,9 +41,11 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label deliveryStatus;
     @FXML
-    private FlowPane tags;
-    @FXML
     private Label deliveryman;
+    @FXML
+    private Label food;
+    @FXML
+    private FlowPane tags;
 
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
@@ -53,9 +56,12 @@ public class OrderCard extends UiPart<Region> {
         restaurant.setText(order.getRestaurant().fullName);
         deliveryman.setText(order.getDeliveryman().fullName);
         deliveryStatus.setText(String.valueOf(order.isCompleted()));
-        order.getFood().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        Map<Name, Integer> foodList = order.getFood();
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Name, Integer> entry : foodList.entrySet()) {
+            sb.append(String.format("Food:%s\tQuantity:%d", entry.getKey().fullName, entry.getValue()));
+        }
+        food.setText(sb.toString());
     }
 
     @Override

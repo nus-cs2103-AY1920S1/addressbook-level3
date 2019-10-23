@@ -17,6 +17,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_RESTAURANT = new Prefix("r/");
     public static final Prefix PREFIX_FOOD = new Prefix("f/");
     public static final Prefix PREFIX_BOOLEAN_COMPLETED = new Prefix("completed/");
+    public static final Prefix PREFIX_QUANTITY = new Prefix("q/");
     // Prefix for universal commands
 
 

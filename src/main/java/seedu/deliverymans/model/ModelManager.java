@@ -80,12 +80,8 @@ public class ModelManager implements Model {
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
-<<<<<<< HEAD
         filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
-=======
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
-        filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
->>>>>>> af2a099ef096b81d9c313dd65007963acd33abe5
         undoHistory = new UndoHistory<>(new Data(this));
 
         context = Context.GLOBAL;

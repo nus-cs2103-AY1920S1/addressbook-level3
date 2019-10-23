@@ -126,8 +126,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+        // orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        // listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -191,34 +191,34 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         switch (context) {
-        case CUSTOMER:
-            customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
-            listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
-            break;
-        case DELIVERYMEN:
-            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
-            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            break;
-        case RESTAURANT:
-            restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
-            listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
-            break;
-        case EDITING:
-            Restaurant editing = logic.getEditingRestaurantList().get(0);
-            editingRestaurantPlaceholder.setPrefHeight(125.0);
-            editingRestaurantPlaceholder.setMinHeight(125.0);
-            restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
-            editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
-            foodListPanel = new FoodListPanel(editing.getMenu());
-            listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+            case CUSTOMER:
+                customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+                listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+                break;
+            case DELIVERYMEN:
+                deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
+                listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
+                break;
+            case RESTAURANT:
+                restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+                listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+                break;
+            case EDITING:
+                Restaurant editing = logic.getEditingRestaurantList().get(0);
+                editingRestaurantPlaceholder.setPrefHeight(125.0);
+                editingRestaurantPlaceholder.setMinHeight(125.0);
+                restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
+                editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+                foodListPanel = new FoodListPanel(editing.getMenu());
+                listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-            statisticsDisplay = new StatisticsDisplay();
-            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-            statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS");
-            break;
-        default:
-            orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+                statisticsDisplay = new StatisticsDisplay();
+                statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+                statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS");
+                break;
+            default:
+                orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+                listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
         }
     }
 

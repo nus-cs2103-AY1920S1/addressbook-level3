@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,6 +52,18 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses {@code Collection<String> names} into a {@code Set<Name>}.
+     */
+    public static ArrayList<Name> parseNames(Collection<String> names) throws ParseException {
+        requireNonNull(names);
+        final ArrayList<Name> nameSet = new ArrayList<>();
+        for (String tagName : names) {
+            nameSet.add(parseName(tagName));
+        }
+        return nameSet;
     }
 
     /**
@@ -150,5 +163,14 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException(e.getMessage(), e);
         }
+    }
+
+    public static ArrayList<Integer> parseQuantity(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final ArrayList<Integer> tagSet = new ArrayList<>();
+        for (String tagName : tags) {
+            tagSet.add(Integer.parseInt(tagName));
+        }
+        return tagSet;
     }
 }

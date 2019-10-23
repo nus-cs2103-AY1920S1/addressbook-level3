@@ -4,8 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -17,7 +20,7 @@ import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Tag;
+
 import seedu.deliverymans.model.order.Order;
 
 /**
@@ -33,18 +36,27 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
     public AddOrderCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER,
-                PREFIX_RESTAURANT, PREFIX_FOOD);
+                PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_RESTAURANT, PREFIX_FOOD, PREFIX_QUANTITY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));
         }
 
         Name customerName = ParserUtil.parseName(argMultimap.getValue(PREFIX_CUSTOMER).get());
         Name restaurantName = ParserUtil.parseName(argMultimap.getValue(PREFIX_RESTAURANT).get());
-        Set<Tag> foodList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_FOOD));
 
-        Order order = new Order(customerName, restaurantName, foodList);
+        ArrayList<Name> foodList = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_FOOD));
+        ArrayList<Integer> quantityList = ParserUtil.parseQuantity(argMultimap.getAllValues(PREFIX_QUANTITY));
+        if (foodList.size() != quantityList.size()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));
+        }
+        HashMap<Name, Integer> lst = new HashMap<>();
+        for (int i = 0; i < foodList.size(); ++i) {
+            lst.put(foodList.get(i), quantityList.get(i));
+        }
+
+        Order order = new Order(customerName, restaurantName, lst);
         return new AddOrderCommand(order);
     }
 

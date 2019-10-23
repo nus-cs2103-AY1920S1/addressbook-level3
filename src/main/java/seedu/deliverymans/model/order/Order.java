@@ -3,12 +3,11 @@ package seedu.deliverymans.model.order;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Tag;
 
 /**
  * Represents an Order in the application.
@@ -27,7 +26,7 @@ public class Order {
     private boolean isCompleted;
 
     // Data fields
-    private final Set<Tag> foods = new HashSet<>();
+    private final Map<Name, Integer> foods = new HashMap<>();
 
     /**
      * Constructs a {@code Order}
@@ -35,7 +34,7 @@ public class Order {
      * @param customer   The customer who made the order.
      * @param restaurant The restaurant.
      */
-    public Order(Name customer, Name restaurant, Set<Tag> foodList) {
+    public Order(Name customer, Name restaurant, Map<Name, Integer> foodList) {
         requireNonNull(customer);
         requireNonNull(restaurant);
 
@@ -43,25 +42,25 @@ public class Order {
         ++counter;
         this.customer = customer;
         this.restaurant = restaurant;
-        this.foods.addAll(foodList);
+        this.foods.putAll(foodList);
     }
 
-    public Order(Name orderName, Name customer, Name restaurant, Set<Tag> foodList) {
+    public Order(Name orderName, Name customer, Name restaurant, Map<Name, Integer> foodList) {
         requireNonNull(customer);
         requireNonNull(restaurant);
 
         this.orderName = orderName;
         this.customer = customer;
         this.restaurant = restaurant;
-        this.foods.addAll(foodList);
+        this.foods.putAll(foodList);
     }
 
-    public void addFood(Tag food) {
-        foods.add(food);
+    public void addFood(Name food, int quantity) {
+        foods.put(food, quantity);
     }
 
-    public void addFood(Set<Tag> foods) {
-        this.foods.addAll(foods);
+    public void addFood(Map<Name, Integer> foods) {
+        this.foods.putAll(foods);
     }
 
     public Name getOrderName() {
@@ -81,11 +80,11 @@ public class Order {
     }
 
     /**
-     * Returns an immutable food set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable food map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getFood() {
-        return Collections.unmodifiableSet(foods);
+    public Map<Name, Integer> getFood() {
+        return Collections.unmodifiableMap(foods);
     }
 
     public Name getRestaurant() {
@@ -163,7 +162,13 @@ public class Order {
                 .append(" Deliveryman: ")
                 .append(getDeliveryman())
                 .append(" Food: ");
-        getFood().forEach(builder::append);
+
+        // for (Map.Entry<Name, Integer> entry : getFood().entrySet()) {
+        //    builder.append(String.format("%s x%d", entry.getKey().fullName, entry.getValue()));
+        //}
+        getFood().entrySet().forEach(entry -> {
+            builder.append(String.format("%s x%d", entry.getKey().fullName, entry.getValue()));
+        });
         builder.append(" Delivery status: ").append(isCompleted());
         return builder.toString();
     }

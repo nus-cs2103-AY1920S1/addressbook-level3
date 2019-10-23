@@ -2,7 +2,10 @@ package seedu.deliverymans.model.util;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.AbstractMap;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -103,14 +106,18 @@ public class SampleDataUtil {
 
     public static Order[] getSampleOrders() {
         return new Order[]{
-                new Order(new Name("Alex Yeoh"), new Name("KFC"), getTagSet("3PCChickenMeal")),
-                new Order(new Name("Bernice Yu"), new Name("Prata House"), getTagSet("RotiPrata")),
+                new Order(new Name("Alex Yeoh"), new Name("KFC"),
+                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("3 Piece Chicken"), 1))),
+                new Order(new Name("Bernice Yu"), new Name("Prata House"),
+                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Curry Fountain"), 1))),
                 new Order(new Name("Charlotte Oliveiro"), new Name("SkyBar Bar and Restaurant"),
-                        getTagSet("SushiandBurger")),
+                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Buffalo Wings"), 5))),
                 new Order(new Name("David Li"), new Name("IchiNiSan Ramen"),
-                        getTagSet("a", "b", "c", "d", "e")),
+                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1))),
                 new Order(new Name("Irfan Ibrahim"), new Name("Piggys Self Barbeque"),
-                        getTagSet("chillicrab", "sushi"))
+                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Trotter"), 7),
+                                new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Shank"), 7),
+                                new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Tail"), 7)))
         };
     }
 
@@ -171,6 +178,14 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    public static Map<Name, Integer> getFoodMap(Map.Entry<Name, Integer>... strings) {
+        HashMap<Name, Integer> toReturn = new HashMap<>();
+        for (Map.Entry<Name, Integer> keyValuePair : strings) {
+            toReturn.put(keyValuePair.getKey(), keyValuePair.getValue());
+        }
+        return toReturn;
     }
 
     /**
