@@ -79,9 +79,10 @@ class JsonAdaptedTransaction {
 
         final Set<Category> modelCategories = new HashSet<>(transactionCategories);
 
-        if((Double.parseDouble(amount)) < 0){
+        if ((Double.parseDouble(amount)) < 0) {
             /* if amount is negative */
-            return new OutTransaction(new Amount(Double.parseDouble(amount)).makeNegative(), new Date(date), modelCategories);
+            return new OutTransaction(new Amount(Double.parseDouble(amount))
+                    .makeNegative(), new Date(date), modelCategories);
         } else {
             /* if amount is positive */
             return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);

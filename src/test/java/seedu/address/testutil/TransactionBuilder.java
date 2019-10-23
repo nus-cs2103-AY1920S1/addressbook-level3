@@ -7,6 +7,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.InTransaction;
+import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.SampleDataUtil;
@@ -18,6 +19,7 @@ public class TransactionBuilder {
 
     public static final String DEFAULT_AMOUNT = "1";
     public static final String DEFAULT_DATE = "10102019";
+    public static final String DEFAULT_CATEGORY = "category";
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -32,6 +34,7 @@ public class TransactionBuilder {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
         date = new Date(DEFAULT_DATE);
         categories = new HashSet<>();
+        categories.add(new Category(DEFAULT_CATEGORY));
     }
 
     /**
@@ -68,10 +71,14 @@ public class TransactionBuilder {
         return this;
     }
 
-
-    // TODO: Change constructor
+    /**
+     * Builds BankOperation of InTransaction or OutTransaction
+     */
     public BankAccountOperation build() {
-        return new InTransaction(amount, date, categories);
+        if (amount.isNegative()) {
+            return new OutTransaction(amount, date, categories);
+        } else {
+            return new InTransaction(amount, date, categories);
+        }
     }
-
 }

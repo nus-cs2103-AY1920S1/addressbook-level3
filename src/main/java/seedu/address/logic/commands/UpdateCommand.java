@@ -169,7 +169,7 @@ public class UpdateCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code categories} is used internally.
          */
-        public UpdateTransactionDescriptor(UpdateCommand.UpdateTransactionDescriptor toCopy) {
+        public UpdateTransactionDescriptor(UpdateTransactionDescriptor toCopy) {
             setAmount(toCopy.amount);
             setDate(toCopy.date);
             setCategories(toCopy.categories);

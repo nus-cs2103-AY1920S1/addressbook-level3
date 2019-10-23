@@ -90,6 +90,10 @@ public class Amount implements Comparable<Amount> {
         return new Amount(newAmount);
     }
 
+    public boolean isNegative() {
+        return this.amount < 0;
+    }
+
     /**
      * Create new Amount of 0
      * @return Amount of 0
