@@ -20,7 +20,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data", "addressbook.json");
     private Path timeBookFilePath = Paths.get("data", "timebook.json");
-    private Path cacheFolderPath = Paths.get("data", "cache");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -89,14 +88,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.timeBookFilePath = timeBookFilePath;
     }
 
-    public Path getCacheFolderPath() {
-        return cacheFolderPath;
-    }
-
-    public void setCacheFolderPath(Path cacheFolderPath) {
-        this.cacheFolderPath = cacheFolderPath;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -111,13 +102,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return appSettings.equals(o.appSettings)
                 && guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
-                && timeBookFilePath.equals(o.timeBookFilePath)
-                && cacheFolderPath.equals(o.cacheFolderPath);
+                && timeBookFilePath.equals(o.timeBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appSettings, guiSettings, addressBookFilePath, timeBookFilePath, cacheFolderPath);
+        return Objects.hash(appSettings, guiSettings, addressBookFilePath, timeBookFilePath);
     }
 
     @Override
@@ -127,7 +117,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nGui Settings : " + guiSettings);
         sb.append("\nAddressBook file location: " + addressBookFilePath);
         sb.append("\nTimeBook file location : " + timeBookFilePath);
-        sb.append("\nCache folder location : " + cacheFolderPath);
         return sb.toString();
     }
 

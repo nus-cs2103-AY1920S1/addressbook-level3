@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.websocket.util.ApiQuery;
+import seedu.address.websocket.util.ApiQueryFactory;
 import seedu.address.websocket.util.ParserUtil;
 import seedu.address.websocket.util.QueryResult;
 
@@ -17,11 +17,10 @@ import seedu.address.websocket.util.QueryResult;
  */
 public class GmapsApi {
 
-    private final String apiKey;
+    private static final String API_KEY = "AIzaSyAbbblr33yEEYFNqFgiqfSckdgBANayVms";
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GmapsApi() {
-        this.apiKey = "INSERT API KEY";
     }
 
     /**
@@ -38,7 +37,7 @@ public class GmapsApi {
             throw new InvalidParameterException("GMAPS API Only can make request to 10 locations.");
         }
         String baseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&";
-        String apiKeyQueryParams = "key=" + apiKey;
+        String apiKeyQueryParams = "key=" + API_KEY;
         String originQueryParams = "origins=";
         String destinationQueryParams = "destinations=";
         for (int i = 0; i < locationsRow.size(); i++) {
@@ -50,7 +49,7 @@ public class GmapsApi {
         originQueryParams = originQueryParams + "&";
         destinationQueryParams = destinationQueryParams + "&";
         String fullUrl = baseUrl + originQueryParams + destinationQueryParams + apiKeyQueryParams;
-        ApiQuery query = new ApiQuery(fullUrl);
+        ApiQueryFactory query = new ApiQueryFactory(fullUrl, CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
@@ -61,12 +60,13 @@ public class GmapsApi {
     }
 
     public JSONObject getLocation(String locationName) throws ConnectException {
-        String baseUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?location=.sg&";
-        String apiKeyQueryParams = "key=" + apiKey + "&";
-        String queryParams = "query=" + locationName + "&";
+        String baseUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&"
+                + "inputtype=textquery&fields=name,place_id&";
+        String apiKeyQueryParams = "key=" + API_KEY + "&";
+        String queryParams = "input=" + locationName + "&";
         String fullUrl = baseUrl + queryParams + apiKeyQueryParams;
         System.out.println(fullUrl);
-        ApiQuery query = new ApiQuery(fullUrl);
+        ApiQueryFactory query = new ApiQueryFactory(fullUrl, CacheFileNames.GMAPS_PLACES_PATH);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());

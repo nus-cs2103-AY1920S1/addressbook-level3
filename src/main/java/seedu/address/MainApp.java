@@ -15,8 +15,8 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.logic.internal.gmaps.ClosestLocation;
 import seedu.address.model.AddressBook;
+import seedu.address.model.GmapsModelManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.NusModsData;
@@ -26,7 +26,7 @@ import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
-import seedu.address.model.module.ModuleList;
+import seedu.address.model.module.ModuleSummaryList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -68,8 +68,6 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TimeBookStorage timeBookStorage = new JsonTimeBookStorage(userPrefs.getTimeBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage);
-
-        Cache.setFolderPath(userPrefs.getCacheFolderPath());
 
         initLogging(config);
 
@@ -121,9 +119,9 @@ public class MainApp extends Application {
 
         NusModsData nusModsData = initNusModsData();
 
-        ClosestLocation closestLocation = new ClosestLocation();
+        GmapsModelManager gmapsModelManager = new GmapsModelManager();
 
-        return new ModelManager(initialData, timeBook, nusModsData, userPrefs, closestLocation);
+        return new ModelManager(initialData, timeBook, nusModsData, userPrefs, gmapsModelManager);
     }
 
     /**
@@ -132,19 +130,22 @@ public class MainApp extends Application {
     private NusModsData initNusModsData() {
         NusModsData nusModsData = new NusModsData();
 
-        Optional<ModuleList> moduleListOptional = Cache.loadModuleList();
-        if (moduleListOptional.isPresent()) {
-            nusModsData.setModuleList(moduleListOptional.get());
+        Optional<ModuleSummaryList> moduleSummaryListOptional = Cache.loadModuleSummaryList();
+        if (moduleSummaryListOptional.isPresent()) {
+            nusModsData.setModuleSummaryList(moduleSummaryListOptional.get());
+            logger.info("Loaded module summary list");
         }
 
         Optional<Holidays> holidaysOptional = Cache.loadHolidays();
         if (holidaysOptional.isPresent()) {
             nusModsData.setHolidays(holidaysOptional.get());
+            logger.info("Loaded holidays");
         }
 
         Optional<AcadCalendar> acadCalendarOptional = Cache.loadAcadCalendar();
         if (acadCalendarOptional.isPresent()) {
             nusModsData.setAcadCalendar(acadCalendarOptional.get());
+            logger.info("Loaded academic calendar");
         }
         return nusModsData;
     }

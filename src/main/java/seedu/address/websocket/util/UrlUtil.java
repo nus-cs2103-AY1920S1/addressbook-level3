@@ -31,6 +31,19 @@ public class UrlUtil {
     }
 
     /**
+     * THis method is used to remove the API key from the url
+     * @param url that contains API key
+     * @return url without API key
+     */
+    public static String sanitizeApiKey(String url) {
+        if (url.contains("key=")) {
+            return url.split("key=")[0];
+        } else {
+            return url;
+        }
+    }
+
+    /**
      * Split query string of URL into a map of key-value pairs. It is assumed that keys are unique.
      * @param url URL to split.
      * @return a map of {@code String} key and {@code String} value.

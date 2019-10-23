@@ -5,10 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATIONS;
 
 import java.util.ArrayList;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.internal.gmaps.ClosestLocation;
 import seedu.address.model.Model;
 
 /**
@@ -27,14 +24,6 @@ public class ClosestLocationCommand extends Command {
         this.locationNameList = locationNameList;
     }
 
-    /**
-     * This method is used to find the closes location from the location graph
-     * @return
-     */
-    private String closestLocation() throws IllegalValueException, TimeBookInvalidLocation {
-        return new ClosestLocation().closestLocationString(locationNameList);
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -43,10 +32,14 @@ public class ClosestLocationCommand extends Command {
             userInput = userInput + locationNameList.get(i) + " ";
         }
         try {
-            return new CommandResult(MESSAGE_SUCCESS + closestLocation() + " for " + userInput);
-        } catch (IllegalValueException | TimeBookInvalidLocation e) {
-            throw new CommandException(e.getMessage());
+            return new CommandResult(MESSAGE_SUCCESS
+                    + model.getClosestLocationDataString(locationNameList) + " location you entered: " + userInput);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return new CommandResult(MESSAGE_FAILURE
+                + "\nlocation you entered: " + userInput);
     }
 
     @Override
@@ -54,5 +47,4 @@ public class ClosestLocationCommand extends Command {
         return command == this // short circuit if same object
                 || (command instanceof ClosestLocationCommand); // instanceof handles nulls
     }
-
 }
