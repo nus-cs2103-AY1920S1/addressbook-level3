@@ -4,13 +4,13 @@ import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FO
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import org.junit.jupiter.api.Test;
-
-import seedu.ezwatchlist.logic.commands.SearchCommand;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.ezwatchlist.logic.commands.SearchCommand;
 
 public class SearchCommandParserTest {
 
