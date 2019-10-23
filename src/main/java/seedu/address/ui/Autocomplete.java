@@ -183,7 +183,7 @@ public class Autocomplete extends TextField {
      * Generates the sorted set of required argument keywords.
      */
     private void generateArgumentKeywords() {
-        argumentKeywords = new TreeSet<>();
+        argumentKeywords = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         if (tags != null) {
             argumentKeywords.addAll(tags.toStringList());
         }
