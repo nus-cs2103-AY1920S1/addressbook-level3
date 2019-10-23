@@ -1,8 +1,8 @@
 package seedu.address.ui;
 
-//import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofMillis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalCustomers.getTypicalCustomers;
 import static seedu.address.ui.GuiTestAssert.assertCardDisplaysCustomer;
 
@@ -51,7 +51,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
      * Verifies that creating and deleting large number of customers in {@code CustomerListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
-    /*
+
     @Test
     public void performanceTest() {
         ObservableList<Customer> backingList = createBackingList(10000);
@@ -60,7 +60,7 @@ public class CustomerListPanelTest extends GuiUnitTest {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
         }, "Creation and deletion of person cards exceeded time limit");
-    }*/
+    }
 
     /**
      * Returns a list of persons containing {@code customerCount} persons that is used to populate the
