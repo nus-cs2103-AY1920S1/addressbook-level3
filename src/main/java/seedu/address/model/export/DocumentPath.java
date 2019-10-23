@@ -50,6 +50,12 @@ public class DocumentPath {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Helper method to get the directory path from a given String.
+     *
+     * @param documentPathString String representing the full path of a document
+     * @return DirectoryPath representing the path of the most nested directory within the given String
+     */
     private static DirectoryPath extractDirectoryPath(String documentPathString) {
         Path fullPath = Paths.get(documentPathString);
         int nameCount = fullPath.getNameCount();
@@ -65,6 +71,12 @@ public class DocumentPath {
         );
     }
 
+    /**
+     * Helper method to get the document file path from a given String.
+     *
+     * @param documentFilePathString String representing the full path of a document
+     * @return DocumentFilePath representing the path of the document, relative to its immediate parent directory
+     */
     private static DocumentFilePath extractDocumentFilePath(String documentFilePathString) {
         Path fullPath = Paths.get(documentFilePathString);
         int nameCount = fullPath.getNameCount();
@@ -81,6 +93,11 @@ public class DocumentPath {
         return directoryPath.toString() + File.separator + documentFilePath.toString();
     }
 
+    /**
+     * Converts this DocumentPath into a String representing its absolute path
+     *
+     * @return String representing the absolute path of this DocumentPath
+     */
     public String toAbsolutePathString() {
         Path dirPath = Paths.get(directoryPath.toString());
         Path docFilePath = Paths.get(documentFilePath.toString());

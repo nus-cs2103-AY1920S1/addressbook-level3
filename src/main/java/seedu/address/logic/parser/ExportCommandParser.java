@@ -10,8 +10,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.export.DocumentPath;
 import seedu.address.model.category.Category;
+import seedu.address.model.export.DocumentPath;
 
 /**
  * Parses input arguments and creates a new ExportCommand object

@@ -12,18 +12,18 @@ public class DirectoryPathTest {
     @Test
     public void directoryPath_invalidPath_throwsException() {
         String[] invalidDirectoryPathStrings = {
-                "directory\\?????\\directory2",
-                "directory/?????/directory2",
-                "directory/*****/directory2",
-                "directory\\*****\\directory2"
+            "directory\\?????\\directory2",
+            "directory/?????/directory2",
+            "directory/*****/directory2",
+            "directory\\*****\\directory2"
         };
 
         for (String invalidDirectoryPathString : invalidDirectoryPathStrings) {
             assertThrows(
-                    IllegalArgumentException.class,
-                    () -> new DirectoryPath(
-                            invalidDirectoryPathString
-                    )
+                IllegalArgumentException.class, () ->
+                    new DirectoryPath(
+                    invalidDirectoryPathString
+                )
             );
         }
     }
@@ -31,15 +31,15 @@ public class DirectoryPathTest {
     @Test
     public void directoryPath_validPath_success() {
         String[] validDirectoryPathStrings = {
-                "directory",
-                "/directory/",
-                "\\directory\\",
-                "\\b c\\d",
-                "/b c/d",
-                "C:\\Users\\User\\Desktop\\",
-                "~/Desktop/",
-                "../",
-                "..\\"
+            "directory",
+            "/directory/",
+            "\\directory\\",
+            "\\b c\\d",
+            "/b c/d",
+            "C:\\Users\\User\\Desktop\\",
+            "~/Desktop/",
+            "../",
+            "..\\"
         };
 
         for (String validDirectoryPathString : validDirectoryPathStrings) {

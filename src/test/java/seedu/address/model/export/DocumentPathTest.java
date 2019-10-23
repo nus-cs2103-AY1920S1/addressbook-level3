@@ -12,22 +12,22 @@ public class DocumentPathTest {
     @Test
     public void documentPath_invalidPath_throwsException() {
         String[] invalidDocumentPathStrings = {
-                "C:\\Users\\User\\Documents\\cheatsheet",
-                "cheatsheet.txt",
-                "cheatsheet.docxx",
-                "cheat.sheet.docx",
-                "cheatsheet。docx",
-                "cheatsheetdotdocx",
-                "cheat|sheet.docx",
-                "*cheatsheet*.docx",
-                "https://www.user.com/cheatsheet.docx"
+            "C:\\Users\\User\\Documents\\cheatsheet",
+            "cheatsheet.txt",
+            "cheatsheet.docxx",
+            "cheat.sheet.docx",
+            "cheatsheet。docx",
+            "cheatsheetdotdocx",
+            "cheat|sheet.docx",
+            "*cheatsheet*.docx",
+            "https://www.user.com/cheatsheet.docx"
         };
 
         for (String invalidDocumentPathString : invalidDocumentPathStrings) {
             assertThrows(
-                    IllegalArgumentException.class,
-                    () -> new DocumentPath(
-                            invalidDocumentPathString
+                    IllegalArgumentException.class, ()
+                    -> new DocumentPath(
+                        invalidDocumentPathString
                     )
             );
         }
@@ -36,14 +36,14 @@ public class DocumentPathTest {
     @Test
     public void documentPath_validPath_success() {
         String[] validDocumentPathStrings = {
-                "cheat_sheet.docx",
-                "cheat-sheet.docx",
-                "windows_directory\\cheatsheet.docx",
-                "unix_directory/cheatsheet.docx",
-                "ChEAtShEAT.doCx",
-                "..\\cheatsheet.docx",
-                "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2).docx",
-                "~/Desktop/[CS2105] Midterm Cheat Sheet (v3).docx"
+            "cheat_sheet.docx",
+            "cheat-sheet.docx",
+            "windows_directory\\cheatsheet.docx",
+            "unix_directory/cheatsheet.docx",
+            "ChEAtShEAT.doCx",
+            "..\\cheatsheet.docx",
+            "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2).docx",
+            "~/Desktop/[CS2105] Midterm Cheat Sheet (v3).docx"
         };
 
         for (String validDocumentPathString : validDocumentPathStrings) {

@@ -20,9 +20,9 @@ public class DocumentFilePathTest {
 
         for (String invalidDocumentFilePathString : invalidDocumentFilePathStrings) {
             assertThrows(
-                    IllegalArgumentException.class,
-                    () -> new DocumentFilePath(
-                            invalidDocumentFilePathString
+                    IllegalArgumentException.class, () ->
+                     new DocumentFilePath(
+                        invalidDocumentFilePathString
                     )
             );
         }
@@ -31,11 +31,11 @@ public class DocumentFilePathTest {
     @Test
     public void documentFilePath_validPath_success() {
         String[] validDocumentFilePathStrings = {
-                "cheat_sheet.docx",
-                "cheat-sheet.docx",
-                "ChEAtShEAT.doCx",
-                "() [].docx",
-                "[CS2105] Midterm Cheat Sheet (v2).docx"
+            "cheat_sheet.docx",
+            "cheat-sheet.docx",
+            "ChEAtShEAT.doCx",
+            "() [].docx",
+            "[CS2105] Midterm Cheat Sheet (v2).docx"
         };
 
         for (String validDocumentFilePathString : validDocumentFilePathStrings) {
