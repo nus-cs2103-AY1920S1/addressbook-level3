@@ -10,10 +10,9 @@ import seedu.address.cashier.logic.commands.DeleteCommand;
 import seedu.address.cashier.logic.commands.EditCommand;
 import seedu.address.cashier.logic.commands.SetCashierCommand;
 import seedu.address.cashier.logic.parser.exception.ParseException;
-import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.model.Model;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.logic.commands.AddCommand;
-import seedu.address.person.model.Model;
 
 /**
  * Parses user input in the cashier tab.
@@ -29,13 +28,13 @@ public class CashierTabParser {
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
-     * @param modelManager which the commands operate on
+     * @param model which the commands operate on
      * @param personModel which the commands use to find a person
      * @return the command based on the user input
      * @throws Exception if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, ModelManager modelManager,
-                                Model personModel) throws Exception {
+    public Command parseCommand(String userInput, Model model,
+                                seedu.address.person.model.Model personModel) throws Exception {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
@@ -46,19 +45,19 @@ public class CashierTabParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments, modelManager);
+            return new AddCommandParser().parse(arguments, model);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments, modelManager);
+            return new EditCommandParser().parse(arguments, model);
 
         case SetCashierCommand.COMMAND_WORD:
-            return new SetCashierCommandParser().parse(arguments, modelManager, personModel);
+            return new SetCashierCommandParser().parse(arguments, model, personModel);
 
         case CheckoutCommand.COMMAND_WORD:
-            return new CheckoutCommandParser().parse(arguments, modelManager);
+            return new CheckoutCommandParser().parse(arguments, model);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommandParser().parse();

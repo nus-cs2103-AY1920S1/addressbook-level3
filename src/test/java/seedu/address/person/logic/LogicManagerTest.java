@@ -92,8 +92,7 @@ public class LogicManagerTest {
                         transactionModel, transactionManager, personModel);
         cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        personManager, reimbursementModel, reimbursementManager, transactionModel,
-                        transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
         inventoryLogic =
                 new seedu.address.inventory.logic.LogicManager(cashierModel, cashierManager, inventoryModel,
                         inventoryManager);

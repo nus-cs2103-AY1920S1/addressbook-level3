@@ -1,8 +1,11 @@
 package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_EDIT_SUCCESS;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 
-import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
+import seedu.address.cashier.logic.parser.exception.ParseException;
+import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.Model;
 
@@ -21,15 +24,33 @@ public class EditCommand extends Command {
      * @param quantity of the edited item
      */
     public EditCommand(int index, int quantity) {
+        assert index > 0 : "Index must be a positive integer.";
+        assert quantity >= 0 : "Quantity cannot be negative.";
+
+        //logger.info("index of item edited: " + index);
+        //logger.info("quantity of item edited: " + quantity);
+
         this.index = index;
         this.quantity = quantity;
     }
 
     @Override
-    public CommandResult execute(ModelManager model, Model personModel,
+    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel,
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel) throws Exception {
-        Item i = model.editItem(index, quantity);
+        Item i;
+        try {
+            i = model.findItemByIndex(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException(CashierMessages.NO_SUCH_INDEX_CASHIER);
+        }
+        if (!model.hasSufficientQuantityToEdit(index, quantity)) {
+            String description = model.findItemByIndex(index).getDescription();
+            int quantityLeft = model.getStockLeft(description);
+            throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
+        }
+        i = model.editItem(index, quantity);
+        //logger.info("Edited item: " + i.toString());
         return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, i.getDescription(), i.getQuantity()));
     }
 }
