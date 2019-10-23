@@ -319,16 +319,16 @@ The incident draft creation mechanism is facilitated by ...
 // tag::incidentfill[]
 === [Proposed] Incident Filling and Submission feature
 ==== Proposed Implementation
-The incident filling and submission subroutines are facilitated by the `fill` and `submit` commands respectively. In the IMS, each incident can have one of three statuses - `DRAFT`, `COMPLETE`, and `FINAL`. The `fill` command facilitates a `DRAFT` incident report becoming a `COMPLETE` incident report while the `submit` command facilitates a `COMPLETE` incident report becoming a `FINAL` incident report. 
+The incident filling and submission subroutines are facilitated by the `fill` and `submit` commands respectively. In the IMS, each incident can have one of three statuses - `DRAFT`, `COMPLETE`, and `FINAL`. The `fill` command facilitates a `DRAFT` incident report becoming a `COMPLETE` incident report while the `submit` command facilitates a `COMPLETE` incident report becoming a `FINAL` incident report.
 
 ===== Overview of `Fill` and `Submit`
 
 Each command works in two modes:
 
 1. Without parameters:
-In this mode, the command - `fill` or `submit` - lists the incidents that are ready for Filling (i.e. only all `DRAFTS` incidents) or Submitting (i.e. only all `COMPLETE` incidents). 
+In this mode, the command - `fill` or `submit` - lists the incidents that are ready for Filling (i.e. only all `DRAFTS` incidents) or Submitting (i.e. only all `COMPLETE` incidents).
 2. With parameters:
-In this mode, the command - `fill` or `submit` - actually fills (i.e. changes incident status from `DRAFT` -> `COMPLETE`) or submits (i.e. changes incident status from `COMPLETE` -> `FINAL`) the specified incident. 
+In this mode, the command - `fill` or `submit` - actually fills (i.e. changes incident status from `DRAFT` -> `COMPLETE`) or submits (i.e. changes incident status from `COMPLETE` -> `FINAL`) the specified incident.
 These two commands as well as the two modes they can be used in are summarised in the activity diagrams below:
 
 TODO - ACTIVITY DIAGRAM FOR FILL COMMAND
