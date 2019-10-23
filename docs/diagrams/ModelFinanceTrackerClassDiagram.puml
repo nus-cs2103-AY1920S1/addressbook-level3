@@ -15,6 +15,7 @@ Package FinanceTracker <<Rectangle>> {
     Class Installment
     Class InstallmentDescription
     Class InstallmentMoneyPaid
+    Class MonthlyLimit
 }
 
 FinanceTracker *--> "1" PurchaseList
