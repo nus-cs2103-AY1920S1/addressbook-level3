@@ -1,0 +1,11 @@
+diff a/src/main/java/seedu/address/logic/Logic.java b/src/main/java/seedu/address/logic/Logic.java	(rejected hunks)
+@@ -34,6 +34,9 @@
+     /** Returns an unmodifiable view of the filtered list of persons */
+     ObservableList<Entry> getFilteredEntryList();
+ 
++    /** Returns an unmodifiable view of the filtered list of reminders */
++    ObservableList<TrackerReminder> getFilteredReminderList();
++
+     /**
+      * Returns the user prefs' address book file path.
+      */
