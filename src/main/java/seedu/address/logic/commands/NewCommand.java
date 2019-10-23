@@ -48,7 +48,7 @@ public class NewCommand extends Command {
      * @param model
      */
     public void dispatchVehicle(Incident draft, boolean isAuto, Model model) {
-        SearchVehicleCommand searchVehicle = new SearchVehicleCommand(draft, isAuto);
+        FindVehiclesCommand searchVehicle = new FindVehiclesCommand(draft, isAuto);
         searchVehicle.execute(model);
     }
 
@@ -63,8 +63,6 @@ public class NewCommand extends Command {
         if (model.hasIncident(draft)) {
             throw new CommandException(MESSAGE_DUPLICATE_REPORT);
         }
-
-        // TODO: call vehicle dispatchment command
 
         dispatchVehicle(draft, auto, model);
 

@@ -13,14 +13,16 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FillCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindIncidentsCommand;
+import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.logic.commands.FindVehiclesCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListIncidentsCommand;
+import seedu.address.logic.commands.ListPersonsCommand;
+import seedu.address.logic.commands.ListVehiclesCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.NewCommand;
-import seedu.address.logic.commands.SearchIncidentsCommand;
 import seedu.address.logic.commands.SubmitCommand;
 import seedu.address.logic.commands.SwapCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -64,17 +66,23 @@ public class IncidentManagerParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case FindPersonCommand.COMMAND_WORD:
+            return new FindPersonCommandParser().parse(arguments);
 
-        case SearchIncidentsCommand.COMMAND_WORD:
-            return new SearchIncidentsCommandParser().parse(arguments);
+        case FindIncidentsCommand.COMMAND_WORD:
+            return new FindIncidentsCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case FindVehiclesCommand.COMMAND_WORD:
+            return new FindVehiclesCommandParser().parse(arguments);
+
+        case ListPersonsCommand.COMMAND_WORD:
+            return new ListPersonsCommand();
 
         case ListIncidentsCommand.COMMAND_WORD:
             return new ListIncidentsCommand();
+
+        case ListVehiclesCommand.COMMAND_WORD:
+            return new ListVehiclesCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

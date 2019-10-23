@@ -15,6 +15,7 @@ import seedu.address.model.person.Username;
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.Vehicle;
 
 
 /**
@@ -31,7 +32,7 @@ public class Incident {
     private final IncidentDateTime incidentDateTime;
 
     /** The vehicle assigned to investigate this incident. */
-    //private Vehicle vehicle; TODO add vehicle details to incident report
+    private Vehicle vehicle;
 
     /** The unique id associated with this incident. */
     private final IncidentId id;
@@ -67,7 +68,6 @@ public class Incident {
 
         this.incidentDateTime = new IncidentDateTime();
         this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
-        // this.vehicle = TODO
 
         this.status = Status.DRAFT; // newly created report
 
@@ -204,15 +204,8 @@ public class Incident {
     }
 
     /**
-     * To be uncommented after vehicle assignment is done. Commented now to avoid code quality check failures.
-     * public void addVehicle(Vehicle vehicle) {
-     *    this.vehicle = vehicle;
-     * }
-     */
-
-    /**
-     * Returns true if both Vehicles of the same VehicleType have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two Vehicles.
+     * Returns true if both Incidents have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two Incidents.
      */
     public boolean isSameIncident(Incident otherIncident) {
         if (otherIncident == this) {
@@ -227,8 +220,16 @@ public class Incident {
     }
 
     /**
-     * Returns true if both Vehicles have the same identity and data fields.
-     * This defines a stronger notion of equality between two Vehicles.
+     * Assigns vehicle to incident.
+     * @param vehicle
+     */
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    /**
+     * Returns true if both Incidents have the same identity and data fields.
+     * This defines a stronger notion of equality between two Incidents.
      */
     @Override
     public boolean equals(Object other) {
