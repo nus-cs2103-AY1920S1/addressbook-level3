@@ -17,7 +17,6 @@ import seedu.address.model.expense.Expense;
  * Represents the in-memory model of the expense list data.
  */
 public class ModelManager implements Model {
-
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ExpenseList expenseList;
@@ -145,7 +144,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return expenseList.equals(other.expenseList)
-            && userPrefs.equals(other.userPrefs)
-            && filteredExpenses.equals(other.filteredExpenses);
+                && userPrefs.equals(other.userPrefs)
+                && filteredExpenses.equals(other.filteredExpenses);
     }
 }
