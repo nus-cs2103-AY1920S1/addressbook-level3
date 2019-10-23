@@ -7,12 +7,12 @@ skinparam classBackgroundColor MODEL_COLOR
 Package Model <<Rectangle>>{
 Class AddressBook
 Class ModelManager
+Class UniqueNoteList
 
 Package Note {
 Class Note
 Class Title
 Class Content
-Class UniqueNoteList
 }
 
 Package Tag {
@@ -22,8 +22,8 @@ Class Tag
 
 ModelManager o-left-> "1" AddressBook
 
-AddressBook *-left-> "1" UniqueNoteList
-UniqueNoteList o-right-> "*" Note
+AddressBook *--> "1" UniqueNoteList
+UniqueNoteList o-left-> "*" Note
 Note *--> "1" Title
 Note *--> "1" Content
 Note *--> "*" Tag

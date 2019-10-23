@@ -5,52 +5,61 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyStudyBuddyBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class StudyBuddyBook
+Class ReadOnlyStudyBuddyBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class UniqueFlashcardList
+Class UniqueNoteList
+Class UniqueCheatSheetList
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Flashcard {
+}
+
+Package Note {
+}
+
+Package CheatSheet {
 }
 
 Package Tag {
-Class Tag
 }
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
+HiddenOutside ...> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+StudyBuddyBook .up.|> ReadOnlyStudyBuddyBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
+ModelManager o-left-> "1" StudyBuddyBook
+ModelManager o--> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+StudyBuddyBook *--> "1" UniqueFlashcardList
+StudyBuddyBook *--> "1" UniqueNoteList
+StudyBuddyBook *--> "1" UniqueCheatSheetList
+UniqueFlashcardList o--> "*" Flashcard
+UniqueNoteList o--> "*" Note
+UniqueCheatSheetList o--> "*" CheatSheet
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+CheatSheet *--> "*" Tag
+Note *--> "*" Tag
+Flashcard *--> "*" Tag
 
-ModelManager -->"1" Person : filtered list
+UniqueFlashcardList -[hidden]right-> UniqueNoteList
+UniqueNoteList -[hidden]right-> UniqueCheatSheetList
+
+Flashcard -[hidden]right-> Note
+Note -[hidden]right-> CheatSheet
+
+ModelManager -->"1" Flashcard : filtered list
+ModelManager -->"1" Note : filtered list
+ModelManager -->"1" CheatSheet : filtered list
 @enduml
