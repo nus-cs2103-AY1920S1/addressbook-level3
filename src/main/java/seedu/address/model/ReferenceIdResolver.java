@@ -1,5 +1,6 @@
-package seedu.address.model.common;
+package seedu.address.model;
 
+import seedu.address.model.ReferenceId;
 import seedu.address.model.exceptions.EntryNotFoundException;
 import seedu.address.model.person.Person;
 

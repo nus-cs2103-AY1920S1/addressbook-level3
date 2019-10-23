@@ -1,6 +1,6 @@
 package seedu.address.model.events;
 
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 
 /**
  * new Appoint with timing and status and personId

@@ -14,7 +14,7 @@ import seedu.address.logic.commands.CancelAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;

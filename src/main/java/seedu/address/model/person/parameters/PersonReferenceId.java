@@ -3,7 +3,7 @@ package seedu.address.model.person.parameters;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 
 /**
  * Represents a Reference ID for Person.

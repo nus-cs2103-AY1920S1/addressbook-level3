@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.events;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,8 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.common.UniqueElementList;
-import seedu.address.model.events.Event;
 
 /**
  * Wraps all data at the appointment-book level

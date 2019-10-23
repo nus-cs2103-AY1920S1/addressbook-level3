@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.person.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.events.Event;
 

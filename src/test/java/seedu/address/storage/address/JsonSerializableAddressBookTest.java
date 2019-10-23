@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.storage.address.JsonSerializableAddressBook;
+import seedu.address.model.person.AddressBook;
 import seedu.address.testutil.TypicalPersons;
 
 public class JsonSerializableAddressBookTest {

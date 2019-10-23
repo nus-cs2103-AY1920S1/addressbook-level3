@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.queue;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.person.UniqueReferenceIdList;
 
 

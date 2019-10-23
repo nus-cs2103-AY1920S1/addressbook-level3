@@ -1,4 +1,6 @@
-package seedu.address.model.common;
+package seedu.address.model;
+
+import seedu.address.model.common.Identical;
 
 /**
  * Unmodifiable reference ID for a person.

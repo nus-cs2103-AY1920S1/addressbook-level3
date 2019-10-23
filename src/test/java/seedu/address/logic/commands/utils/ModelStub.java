@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.utils;
 
-import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -8,7 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Event;
 import seedu.address.model.exceptions.EntryNotFoundException;
 import seedu.address.model.person.Person;
