@@ -3,24 +3,24 @@ package seedu.address.model.task;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import seedu.address.model.note.Note;
+import seedu.address.model.question.Question;
 
 /**
- * Represents a task for revision of notes.
+ * Represents a task for revision of questions.
  */
-public class TaskForNote extends Task {
-    private static final String TYPE = "NOTE";
+public class TaskForQuestion extends Task {
+    private static final String TYPE = "QUESTION";
 
     /**
-     * Constructs a new revision task for lecture notes. Date field must be non-null.
+     * Constructs a new revision task for questions. Date field must be non-null.
      *
-     * @param note The lecture notes to be revised.
+     * @param question The question to be revised.
      * @param date The date by when the task should be done.
      * @param time The time in a day by which the task should be done.
      */
-    public TaskForNote(Note note, LocalDate date, LocalTime time) {
+    public TaskForQuestion(Question question, LocalDate date, LocalTime time) {
         super(date, time);
-        super.heading = new Heading(note.getTitle().toString());
+        super.heading = new Heading(question.getQuestionBody().toString());
     }
 
     @Override

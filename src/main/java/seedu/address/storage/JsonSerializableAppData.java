@@ -27,7 +27,7 @@ class JsonSerializableAppData {
     public static final String MESSAGE_DUPLICATE_RESULT = "Quiz result contains duplicate results.";
 
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
-    private final List<JsonAdaptedTaskForNote> tasks = new ArrayList<>();
+    private final List<JsonAdaptedTask> tasks = new ArrayList<>();
     private final List<JsonAdaptedQuestion> questions = new ArrayList<>();
     private final List<JsonAdaptedQuizResult> quizResults = new ArrayList<>();
 
@@ -36,7 +36,7 @@ class JsonSerializableAppData {
      */
     @JsonCreator
     public JsonSerializableAppData(@JsonProperty("notes") List<JsonAdaptedNote> notes,
-                                   @JsonProperty("tasks") List<JsonAdaptedTaskForNote> tasks,
+                                   @JsonProperty("tasks") List<JsonAdaptedTask> tasks,
                                    @JsonProperty("questions") List<JsonAdaptedQuestion> questions,
                                    @JsonProperty("quizResults") List<JsonAdaptedQuizResult> quizResults) {
         this.notes.addAll(notes);
@@ -52,7 +52,7 @@ class JsonSerializableAppData {
      */
     public JsonSerializableAppData(ReadOnlyAppData source) {
         notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
-        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTaskForNote::new).collect(Collectors.toList()));
+        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
         questions.addAll(source.getQuestionList().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
         quizResults.addAll(source.getQuizResultList().stream().map(JsonAdaptedQuizResult::new)
                 .collect(Collectors.toList()));
@@ -73,8 +73,8 @@ class JsonSerializableAppData {
             appData.addNote(note);
         }
 
-        for (JsonAdaptedTaskForNote jsonAdaptedTaskForNote : tasks) {
-            Task task = jsonAdaptedTaskForNote.toModelType();
+        for (JsonAdaptedTask jsonAdaptedTask : tasks) {
+            Task task = jsonAdaptedTask.toModelType();
             if (appData.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }

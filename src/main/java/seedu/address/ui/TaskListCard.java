@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import static seedu.address.model.task.Task.FORMAT_FILE_DATE_STRING;
+import static seedu.address.model.task.Task.FORMAT_FILE_TIME_STRING;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -17,11 +20,9 @@ public class TaskListCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label title;
+    private Label heading;
     @FXML
     private Label id;
-    //@FXML
-    //private Label content;
     @FXML
     private Label status;
     @FXML
@@ -33,11 +34,10 @@ public class TaskListCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-        title.setText(task.getNote().getTitle().title);
-        //content.setText(note.getContent().content);
+        heading.setText(task.getHeading().toString());
         status.setText(task.getStatusIcon());
-        date.setText(task.getDate().toString());
-        time.setText(task.getTime().toString());
+        date.setText(task.getDate().format(FORMAT_FILE_DATE_STRING));
+        time.setText(task.getTime().format(FORMAT_FILE_TIME_STRING));
     }
 
     @Override
