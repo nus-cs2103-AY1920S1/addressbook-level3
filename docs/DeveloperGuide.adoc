@@ -353,7 +353,7 @@ The following sequence diagram shows how the `incidents` command works:
 
 image::ListIncidentsSequenceDiagram.png[]
 
-As incidated in the diagram, the `LogicManager` instantiates a `ListIncidentsCommand` upon running command `execute(incidents)`. It then calls `ListIncidentsCommand#execute()`, which runs `Model#updateFilteredIncidentList` with the predicate `PREDICATE_SHOW_ALL_INCIDENTS`. This `Predicate<Incident>` always evaluates to true. This `Predicate<Incident>` is passed to `FilteredList<Incident> filteredList`, as a parameter to run the method `setPredicate()`. This updates the list of visible incidents. `CommandResult commandResult` is also returned to the `LogicManager` to log the success/failure of the method.
+As indicated in the diagram, the `LogicManager` instantiates a `ListIncidentsCommand` upon running command `execute(incidents)`. It then calls `ListIncidentsCommand#execute()`, which runs `Model#updateFilteredIncidentList` with the predicate `PREDICATE_SHOW_ALL_INCIDENTS`. This `Predicate<Incident>` always evaluates to true. This `Predicate<Incident>` is passed to `FilteredList<Incident> filteredList`, as a parameter to run the method `setPredicate()`. This updates the list of visible incidents. `CommandResult commandResult` is also returned to the `LogicManager` to log the success/failure of the method.
 
 Next, we will look at an example in which the user calls `search` to look for incidents written by an operator whose name contains `Alex`.
 
@@ -361,17 +361,38 @@ The execution of this method is a little more complex.
 
 The following sequence diagram shows how the `search` command identifies the keyword and flag, and returns related incidents:
 
+image::SearchIncidentsSequenceDiagram.png[]
+
+The key difference is the utility of the `SearchIncidentsCommandParser` to parse the keyword after tag `op\` in the command. It creates a `NameKeywordsPredicate` using the String "Alex", which is returned to be used in constructing a new instance of `SearchIncidentsCommand`, stored as a `Predicate<Incident> predicate`. From there, the process is similar, in that `SearchIncidentsCommand#execute()` is run, causing the Model to run `Model#updateFilteredIncidentList(predicate)` using the predicate stored in `SearchIncidentsCommand`. Upon updating the list similar to the `incidents` listing command above, `SearchIncidentsCommand` also calls `Model#getFilteredIncidentList()` to return `ObservableList<Incident>`. It obtains the size of this list, and returns it in `CommandResult commandResult`.
 
 ==== Design Considerations
 
-===== Aspect: How incident search executes
+===== Aspect: How incident search keyword is inputted
 
-* **Alternative 1 (current choice):** ...
-** Pros: ...
-** Cons: ...
-* **Alternative 2:** ...
-** Pros: ...
-** Cons: ...
+* **Alternative 1 (current choice):** Parse user input after flag (eg. `op\` or `desc\`)
+** Pros: Easy to implement.
+** Cons: Have to parse keyword from command and flag, user has to follow style of flag for successful search.
+* **Alternative 2:** Prompt user for search input
+** Pros: Separates command from keyword for ease of reading and parsing.
+** Cons: Difficult to implement multi-command execution.
+
+===== Aspect: How listing all incidents is called
+
+* **Alternative 1 (current choice):** Utilise separate command `incidents`
+** Pros: Intuitive to use.
+** Cons: Similar code under different command.
+* **Alternative 2:** Utilise `search` command (eg. `search unfiltered`)
+** Pros: Less overlap in code.
+** Cons: Unintuitive to the user as no search is being made, even more keywords to remember.
+
+===== Aspect: How predicate is added to `SearchIncidentsCommand`
+
+* **Alternative 1 (current choice):** `SearchIncidentsCommandParser` class calls `Model` to create a new Predicate based on search string.
+** Pros: Abstracts the creation and management of predicates to the `Model`.
+** Cons: Requires greater level of coupling between classes.
+* **Alternative 2:** `SearchIncidentsCommand` or `SearchIncidentsCommandParser` directly create Predicate based on search string.
+** Pros: Less dependencies within the parser class.
+** Cons: Breaks abstraction flow.
 // end::incidentsearch[]
 
 // tag::incidentedit[]

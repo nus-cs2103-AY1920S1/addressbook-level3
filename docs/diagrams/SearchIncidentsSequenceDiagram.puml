@@ -28,10 +28,10 @@ deactivate SearchIncidentsCommandParser
 IncidentManagerParser -> SearchIncidentsCommandParser : parse("Alex")
 activate SearchIncidentsCommandParser
 
+SearchIncidentsCommandParser -> Model : "Alex"
 activate Model
-SearchIncidentsCommandParser -> Model
-deactivate Model
 Model --> SearchIncidentsCommandParser : predicate
+deactivate Model
 
 create SearchIncidentsCommand
 SearchIncidentsCommandParser -> SearchIncidentsCommand : predicate
@@ -66,6 +66,8 @@ activate Model
 
 Model --> SearchIncidentsCommand
 deactivate Model
+
+SearchIncidentsCommand -> SearchIncidentsCommand : size()
 
 SearchIncidentsCommand --> LogicManager : commandResult
 deactivate SearchIncidentsCommand
