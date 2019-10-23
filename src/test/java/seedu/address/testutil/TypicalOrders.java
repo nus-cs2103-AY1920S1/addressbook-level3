@@ -35,7 +35,7 @@ public class TypicalOrders {
     private static final String VALID_PRICE_HIGH = "$3000";
 
     public static final Order ORDERONE = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERONE)
-            .withPhone(IPHONEONE).withPrice(DEFAULT_PRICE_1).withStatus(Status.UNSCHEDULED)
+            .withPhone(IPHONEONE).withPrice(DEFAULT_PRICE_1).withStatus(Status.SCHEDULED)
             .withSchedule(Optional.of(SCHEDULEONE)).withTags(DEFAULT_TAG_1).build();
 
     public static final Order ORDERTWO = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTWO)
