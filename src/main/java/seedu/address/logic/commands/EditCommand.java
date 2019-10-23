@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -123,6 +124,7 @@ public class EditCommand extends Command {
         private Name name;
         private TaskStatus taskStatus;
         private Set<Tag> tags;
+        private LocalDateTime deadline;
 
         public EditTaskDescriptor() {}
 
@@ -134,13 +136,14 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setTaskStatus(toCopy.taskStatus);
             setTags(toCopy.tags);
+            setDeadline(toCopy.deadline);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, taskStatus, tags);
+            return CollectionUtil.isAnyNonNull(name, taskStatus, tags, deadline);
         }
 
         public void setTaskStatus(TaskStatus taskStatus) {
@@ -156,6 +159,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public Optional<LocalDateTime> getDeadline() {
+            return Optional.ofNullable(deadline);
+        }
+
+        public void setDeadline(LocalDateTime deadline) {
+            this.deadline = deadline;
         }
 
         /**
@@ -192,7 +203,8 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && (getTaskStatus().equals(e.getTaskStatus()))
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getDeadline().equals(e.getDeadline());
         }
     }
 }
