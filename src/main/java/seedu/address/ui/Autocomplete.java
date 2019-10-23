@@ -5,28 +5,62 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javafx.collections.ListChangeListener;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import seedu.address.logic.commands.cli.AddModuleCommand;
+import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
+import seedu.address.logic.commands.cli.DeleteModuleCommand;
+import seedu.address.logic.commands.cli.NameUeFromSemesterCommand;
+import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
+import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
+import seedu.address.logic.commands.datamanagement.FindCommand;
+import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
+import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
+import seedu.address.logic.commands.datamanagement.RenameTagCommand;
+import seedu.address.logic.commands.datamanagement.TagModuleCommand;
+import seedu.address.logic.commands.datamanagement.ViewAllTagsCommand;
+import seedu.address.logic.commands.datamanagement.ViewDefaultTagsCommand;
+import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
+import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
+import seedu.address.logic.commands.gui.HelpCommand;
+import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
+import seedu.address.logic.commands.storage.ClearCommand;
+import seedu.address.logic.commands.storage.CommitStudyPlanEditCommand;
+import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
+import seedu.address.logic.commands.storage.DeleteCommand;
+import seedu.address.logic.commands.storage.DeleteCommitCommand;
+import seedu.address.logic.commands.storage.EditTitleCommand;
+import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
+import seedu.address.logic.commands.storage.RevertCommitCommand;
+import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
+import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * A text field that can handle autocompletion.
  */
 public class Autocomplete extends TextField {
-    private static final int MAX_ENTRIES = 10;
-    private final SortedSet<String> commandKeywords;
+    public static final int MAX_ENTRIES = 10;
+    private SortedSet<String> commandKeywords;
+    private SortedSet<String> argumentKeywords;
+    private UniqueTagList tags;
     private ContextMenu keywordMenu;
 
     /**
      * Constructs a textfield that can handle autocompletion.
-     * @param commandKeywords A list of keywords to be autocompleted.
      */
-    public Autocomplete(List<String> commandKeywords) {
+    public Autocomplete(StudyPlan activeStudyPlan) {
         super();
-        this.commandKeywords = new TreeSet<>();
-        this.commandKeywords.addAll(commandKeywords);
+        tags = activeStudyPlan.getTags();
+        tags.asUnmodifiableObservableList().addListener((ListChangeListener<Tag>) change
+            -> generateArgumentKeywords());
+        generateCommandKeywords();
+        generateArgumentKeywords();
         keywordMenu = new ContextMenu();
         focusedProperty().addListener((unused0, unused1, unused2) -> keywordMenu.hide());
         textProperty().addListener((unused0, unused1, unused2) -> keywordMenu.hide());
@@ -44,8 +78,16 @@ public class Autocomplete extends TextField {
             Label entryLabel = new Label(result);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             item.setOnAction(unused -> {
-                setText(result);
-                positionCaret(result.length());
+                int lastIndex = getText().lastIndexOf(" ");
+                String finalText;
+                if (lastIndex < 0) {
+                    finalText = result;
+                } else {
+                    finalText = getText().substring(0, getText().lastIndexOf(" "))
+                            + " " + result;
+                }
+                setText(finalText);
+                positionCaret(finalText.length());
                 keywordMenu.hide();
             });
             menuItems.add(item);
@@ -61,25 +103,89 @@ public class Autocomplete extends TextField {
         if (getText().length() == 0) {
             keywordMenu.hide();
         } else {
-            ArrayList<String> searchResult = new ArrayList<>(commandKeywords.subSet(getText(),
-                    getText() + Character.MAX_VALUE));
-            if (searchResult.size() == 1) {
-                setText(searchResult.get(0));
-                positionCaret(searchResult.get(0).length());
-            } else if (searchResult.size() > 1) {
-                populateMenu(searchResult);
-                if (!keywordMenu.isShowing()) {
-                    keywordMenu.show(Autocomplete.this, Side.BOTTOM, 15, 0);
-                }
-                keywordMenu.getSkin().getNode().lookup(".menu-item").requestFocus();
-
+            String input = getText();
+            String[] inputArray = input.split(" ");
+            if (inputArray.length == 1) {
+                completeInput(inputArray[0], commandKeywords, "");
             } else {
-                keywordMenu.hide();
+                StringBuilder finalText = new StringBuilder();
+                for (int i = 0; i < inputArray.length - 1; i++) {
+                    finalText.append(inputArray[i]);
+                    finalText.append(" ");
+                }
+                completeInput(inputArray[inputArray.length - 1], argumentKeywords, finalText.toString());
             }
+        }
+    }
+
+    /**
+     * Completes the input in the textfield.
+     * @param input The user's input to be autocompleted.
+     * @param keywords The sorted set of keywords for autocompletion.
+     * @param currentText The current text that has been completed.
+     */
+    private void completeInput(String input, SortedSet<String> keywords, String currentText) {
+        ArrayList<String> searchResult = new ArrayList<>(keywords.subSet(input,
+                input + Character.MAX_VALUE));
+        if (searchResult.size() == 1) {
+            String finalText = currentText + searchResult.get(0);
+            setText(finalText);
+            positionCaret(finalText.length());
+        } else if (searchResult.size() > 1) {
+            populateMenu(searchResult);
+            if (!keywordMenu.isShowing()) {
+                keywordMenu.show(Autocomplete.this, Side.BOTTOM, 15, 0);
+            }
+            keywordMenu.getSkin().getNode().lookup(".menu-item").requestFocus();
+        } else {
+            keywordMenu.hide();
         }
     }
 
     public boolean isMenuShowing() {
         return keywordMenu.isShowing();
+    }
+
+    /**
+     * Generates the sorted set of required command keywords.
+     */
+    private void generateCommandKeywords() {
+        commandKeywords = new TreeSet<>();
+        commandKeywords.add(AddModuleCommand.COMMAND_WORD);
+        commandKeywords.add(BlockCurrentSemesterCommand.COMMAND_WORD);
+        commandKeywords.add(DeleteModuleCommand.COMMAND_WORD);
+        commandKeywords.add(NameUeFromSemesterCommand.COMMAND_WORD);
+        commandKeywords.add(SetCurrentSemesterCommand.COMMAND_WORD);
+        commandKeywords.add(FindCommand.COMMAND_WORD);
+        commandKeywords.add(ClearCommand.COMMAND_WORD);
+        commandKeywords.add(CommitStudyPlanEditCommand.COMMAND_WORD);
+        commandKeywords.add(CreateStudyPlanCommand.COMMAND_WORD);
+        commandKeywords.add(DeleteCommand.COMMAND_WORD);
+        commandKeywords.add(DeleteCommitCommand.COMMAND_WORD);
+        commandKeywords.add(RevertCommitCommand.COMMAND_WORD);
+        commandKeywords.add(TagModuleCommand.COMMAND_WORD);
+        commandKeywords.add(ViewCommitHistoryCommand.COMMAND_WORD);
+        commandKeywords.add(RemoveTagFromModuleCommand.COMMAND_WORD);
+        commandKeywords.add(ViewModuleTagsCommand.COMMAND_WORD);
+        commandKeywords.add(DeleteTagCommand.COMMAND_WORD);
+        commandKeywords.add(RemoveTagFromAllCommand.COMMAND_WORD);
+        commandKeywords.add(RenameTagCommand.COMMAND_WORD);
+        commandKeywords.add(ViewAllTagsCommand.COMMAND_WORD);
+        commandKeywords.add(ViewDefaultTagsCommand.COMMAND_WORD);
+        commandKeywords.add(ViewTaggedCommand.COMMAND_WORD);
+        commandKeywords.add(EditTitleCommand.COMMAND_WORD);
+        commandKeywords.add(ActivateStudyPlanCommand.COMMAND_WORD);
+        commandKeywords.add(ListAllStudyPlansCommand.COMMAND_WORD);
+        commandKeywords.add(HelpCommand.COMMAND_WORD);
+    }
+
+    /**
+     * Generates the sorted set of required argument keywords.
+     */
+    private void generateArgumentKeywords() {
+        argumentKeywords = new TreeSet<>();
+        if (tags != null) {
+            argumentKeywords.addAll(tags.toStringList());
+        }
     }
 }

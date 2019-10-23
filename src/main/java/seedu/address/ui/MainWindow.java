@@ -93,7 +93,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, sp);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -143,7 +143,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isChangesActiveStudyPlan()) {
                 StudyPlan sp = logic.getActiveStudyPlan();
-                logger.info("Study Plan: " + sp.toString());
                 if (sp == null) {
                     NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
                     semesterListPanelPlaceholder.getChildren().remove(0);
@@ -155,6 +154,9 @@ public class MainWindow extends UiPart<Stage> {
                     semesterListPanelPlaceholder.getChildren().remove(0);
                     semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
                     title.setText(sp.getTitle().toString());
+                    commandBoxPlaceholder.getChildren().remove(0);
+                    CommandBox commandBox = new CommandBox(this::executeCommand, sp);
+                    commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
                 }
             }
 

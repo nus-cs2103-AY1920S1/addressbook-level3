@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -232,6 +233,10 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         for (DefaultTagType defaultTagType : DefaultTagType.values()) {
             addTag(new DefaultTag(defaultTagType));
         }
+    }
+
+    public List<String> toStringList() {
+        return internalUnmodifiableList.stream().map(Tag::getTagName).collect(Collectors.toList());
     }
 
 }
