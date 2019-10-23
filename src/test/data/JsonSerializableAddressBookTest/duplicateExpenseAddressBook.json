@@ -2,14 +2,14 @@
   "expenses": [ {
     "description" : "Jeans",
     "price" : "50",
-    "tagged" : [ "Uniqlo" ],
+    "category" : "Clothes",
     "timestamp" : "01-12-2019",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
   }, {
     "description" : "TShirt",
     "price" : "10",
-    "tagged" : [ "HnM" ],
+    "category" : "Clothes",
     "timestamp" : "02-12-2019",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"

@@ -69,7 +69,9 @@ class JsonAdaptedExpense {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Category.class.getSimpleName()));
         }
-
+        if (!Category.isValidCategoryName(category)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
+        }
         Category modelCategory = new Category(category);
 
         if (description == null) {
@@ -89,7 +91,6 @@ class JsonAdaptedExpense {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
         final Price modelPrice = new Price(price);
-
 
         if (uniqueIdentifier == null) {
             throw new IllegalValueException(
