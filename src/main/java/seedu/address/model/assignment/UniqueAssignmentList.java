@@ -12,11 +12,12 @@ import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
 
 /**
- * A list of students that enforces uniqueness between its elements and does not allow nulls.
- * A student is considered unique by comparing using {@code Student#isSameStudent(Student)}. As such, adding and
- * updating of students uses Student#isSameStudent(Student) for equality so as to ensure that the student being added
- * or updated is unique in terms of identity in the UniqueStudentList. However, the removal of a student uses
- * Student#equals(Object) so as to ensure that the student with exactly the same fields will be removed.
+ * A list of assignments that enforces uniqueness between its elements and does not allow nulls.
+ * A assignment is considered unique by comparing using {@code Assignment#isSameAssignment(assignment)}. As such, adding
+ * and updating of assignments uses assignment#isSameassignment(assignment) for equality so as to ensure that the
+ * assignment being added or updated is unique in terms of identity in the UniqueAssignmentList. However, the removal of
+ * a assignment uses Assignment#equals(Object) so as to ensure that the assignment with exactly the same fields will be
+ * removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -29,7 +30,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
         FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent student as the given argument.
+     * Returns true if the list contains an equivalent assignment as the given argument.
      */
     public boolean contains(Assignment toCheck) {
         requireNonNull(toCheck);
@@ -37,8 +38,8 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Adds a student to the list.
-     * The student must not already exist in the list.
+     * Adds a assignment to the list.
+     * The assignment must not already exist in the list.
      */
     public void add(Assignment toAdd) {
         requireNonNull(toAdd);
@@ -49,9 +50,10 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Replaces the student {@code target} in the list with {@code editedStudent}.
+     * Replaces the assignment {@code target} in the list with {@code editedassignment}.
      * {@code target} must exist in the list.
-     * The student identity of {@code editedStudent} must not be the same as another existing student in the list.
+     * The assignment identity of {@code editedassignment} must not be the same as another existing assignment in the
+     * list.
      */
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
@@ -69,8 +71,8 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Removes the equivalent student from the list.
-     * The student must exist in the list.
+     * Removes the equivalent assignment from the list.
+     * The assignment must exist in the list.
      */
     public void remove(Assignment toRemove) {
         requireNonNull(toRemove);
@@ -85,16 +87,16 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Replaces the contents of this list with {@code students}.
-     * {@code students} must not contain duplicate students.
+     * Replaces the contents of this list with {@code assignments}.
+     * {@code assignments} must not contain duplicate assignments.
      */
-    public void setAssignments(List<Assignment> students) {
-        requireAllNonNull(students);
-        if (!assignmentsAreUnique(students)) {
+    public void setAssignments(List<Assignment> assignments) {
+        requireAllNonNull(assignments);
+        if (!assignmentsAreUnique(assignments)) {
             throw new DuplicateAssignmentException();
         }
 
-        internalList.setAll(students);
+        internalList.setAll(assignments);
     }
 
     /**
@@ -122,7 +124,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     }
 
     /**
-     * Returns true if {@code students} contains only unique students.
+     * Returns true if {@code assignments} contains only unique assignments.
      */
     private boolean assignmentsAreUnique(List<Assignment> assignments) {
         for (int i = 0; i < assignments.size() - 1; i++) {

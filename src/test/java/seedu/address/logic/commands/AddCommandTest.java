@@ -215,6 +215,31 @@ public class AddCommandTest {
         public boolean isDisplayStudents() {
             throw new AssertionError("This method should not be called");
         }
+
+        @Override
+        public ReadOnlyClassroom undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyClassroom redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveState() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

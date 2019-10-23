@@ -15,7 +15,7 @@ import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the classroom level
  * Duplicates are not allowed (by .isSameStudent comparison)
  */
 public class Classroom implements ReadOnlyClassroom {
@@ -76,7 +76,7 @@ public class Classroom implements ReadOnlyClassroom {
     //// student-level operations
 
     /**
-     * Returns true if a student with the same identity as {@code student} exists in the address book.
+     * Returns true if a student with the same identity as {@code student} exists in the classroom.
      */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
@@ -92,16 +92,16 @@ public class Classroom implements ReadOnlyClassroom {
     }
 
     /**
-     * Adds a student to the address book.
-     * The student must not already exist in the address book.
+     * Adds a student to the classroom.
+     * The student must not already exist in the classroom.
      */
     public void addStudent(Student p) {
         students.add(p);
     }
 
     /**
-     * Adds an assignment to the address book.
-     * The assignment must not already exist in the address book.
+     * Adds an assignment to the classroom.
+     * The assignment must not already exist in the classroom.
      */
     public void addAssignment(Assignment p) {
         assignments.add(p);
@@ -109,9 +109,8 @@ public class Classroom implements ReadOnlyClassroom {
 
     /**
      * Replaces the given student {@code target} in the list with {@code editedStudent}.
-     * {@code target} must exist in the address book.
-     * The student identity of {@code editedStudent} must not be the same as another existing student in the address
-     * book.
+     * {@code target} must exist in the classroom.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the classroom.
      */
     public void setStudent(Student target, Student editedStudent) {
         requireNonNull(editedStudent);
@@ -121,9 +120,9 @@ public class Classroom implements ReadOnlyClassroom {
 
     /**
      * Replaces the given assignment {@code target} in the list with {@code editedAssignment}.
-     * {@code target} must exist in the address book.
-     * The student identity of {@code editedAssignment} must not be the same as another existing student in the address
-     * book.
+     * {@code target} must exist in the classroom.
+     * The assignment identity of {@code editedAssignment} must not be the same as another existing assignment in the
+     * classroom.
      */
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireNonNull(editedAssignment);
@@ -133,7 +132,7 @@ public class Classroom implements ReadOnlyClassroom {
 
     /**
      * Removes {@code key} from this {@code Classroom}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the classroom.
      */
     public void removeStudent(Student key) {
         students.remove(key);
@@ -141,7 +140,7 @@ public class Classroom implements ReadOnlyClassroom {
 
     /**
      * Removes {@code key} from this {@code Classroom}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the classroom.
      */
     public void removeAssignment(Assignment key) {
         assignments.remove(key);
@@ -160,15 +159,15 @@ public class Classroom implements ReadOnlyClassroom {
     }
 
     /**
-     * Adds a lessons to the address book.
-     * The lesson must not already exist in the address book.
+     * Adds a lessons to the classroom.
+     * The lesson must not already exist in the classroom.
      */
     public void addLesson(Lesson p) {
         lessons.add(p);
     }
 
     /**
-     * Returns true if a lesson with the same identity as {@code lesson} exists in the address book.
+     * Returns true if a lesson with the same identity as {@code lesson} exists in the classroom.
      */
     public boolean hasLesson(Lesson lesson) {
         requireNonNull(lesson);
@@ -193,6 +192,7 @@ public class Classroom implements ReadOnlyClassroom {
         return reminders.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Assignment> getAssignmentList() {
         return assignments.asUnmodifiableObservableList();
     }

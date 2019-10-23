@@ -12,11 +12,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.student.Student;
 
 
 /**
- * Updates the grades of an existing assignment in the address book.
+ * Updates the grades of an existing assignment in the classroom.
  */
 public class UpdateGradesCommand extends Command {
 
@@ -32,7 +33,7 @@ public class UpdateGradesCommand extends Command {
 
 
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the classroom.";
 
     private final Index index;
     private final List<String> students;
@@ -96,8 +97,11 @@ public class UpdateGradesCommand extends Command {
                                                      List<String> students, List<String> marks) {
 
         assert assignmentToEdit != null;
-        assignmentToEdit.setGrades(students, marks);
-        return assignmentToEdit;
+
+        AssignmentName assignmentName = assignmentToEdit.getAssignmentName();
+        Assignment editedAssignment = new Assignment(assignmentName);
+        editedAssignment.setGrades(students, marks);
+        return editedAssignment;
     }
 
     @Override

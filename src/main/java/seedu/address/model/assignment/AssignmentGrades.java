@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents a AssignmentGrades in the address book.
+ * Represents a AssignmentGrades in the classroom.
  * Guarantees: immutable; is valid as declared in {@link #isValidGrade(String[])}
  */
 public class AssignmentGrades {

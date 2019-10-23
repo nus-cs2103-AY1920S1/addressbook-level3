@@ -5,8 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-
+import seedu.address.model.ReadOnlyClassroom;
 
 /**
  * Undoes a previous command.
@@ -24,10 +23,10 @@ public class UndoCommand extends Command {
         if (!model.canUndo()) {
             throw new CommandException(MESSAGE_UNDO_FAILURE);
         }
-        ReadOnlyAddressBook previousAddressBook = model.undo();
+        ReadOnlyClassroom previousClassroom = model.undo();
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-        model.setAddressBook(previousAddressBook);
+        model.setClassroom(previousClassroom);
         return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }
 }

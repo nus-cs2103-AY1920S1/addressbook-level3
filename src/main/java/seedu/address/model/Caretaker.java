@@ -3,53 +3,53 @@ package seedu.address.model;
 import java.util.ArrayList;
 
 /**
- * Manages a list of all the previous Address Books.
+ * Manages a list of all the previous Classrooms.
  */
-public class Caretaker extends AddressBook {
+public class Caretaker extends Classroom {
 
     private ArrayList<Memento> mementos = new ArrayList<>();
     private int statePointer;
-    private final AddressBook addressBook;
+    private final Classroom classroom;
 
     /**
      * Initializes the list of mementos.
-     * @param start the first state of the address book.
-     * @param addressBook the address book where changes are updated in
+     * @param start the first state of the classroom.
+     * @param classroom the classroom where changes are updated in
      */
-    public Caretaker(Memento start, AddressBook addressBook) {
+    public Caretaker(Memento start, Classroom classroom) {
         statePointer = 0;
         mementos.add(start);
-        this.addressBook = addressBook;
+        this.classroom = classroom;
     }
 
     /**
-     * Saves the current state of address book into the list of mementos.
+     * Saves the current state of classroom into the list of mementos.
      */
     public void saveState() {
         mementos = new ArrayList<>(mementos.subList(0, statePointer + 1));
-        Memento mementoToAdd = new Memento(new AddressBook(this.addressBook));
+        Memento mementoToAdd = new Memento(new Classroom(this.classroom));
         mementos.add(mementoToAdd);
         statePointer++;
     }
 
     /**
      * Undoes the previous command.
-     * @return ReadOnlyAddressBook that is the previous state of the address book.
+     * @return ReadOnlyClassroom that is the previous state of the classroom.
      */
-    public ReadOnlyAddressBook undo() {
+    public ReadOnlyClassroom undo() {
         statePointer--;
-        ReadOnlyAddressBook previousCopy = mementos.get(statePointer).getState();
+        ReadOnlyClassroom previousCopy = mementos.get(statePointer).getState();
         resetData(previousCopy);
         return previousCopy;
     }
 
     /**
      * Redoes the previously undone command.
-     * @return ReadOnlyAddressBook that is the previous state of the address book.
+     * @return ReadOnlyClassroom that is the previous state of the classroom.
      */
-    public ReadOnlyAddressBook redo() {
+    public ReadOnlyClassroom redo() {
         statePointer++;
-        ReadOnlyAddressBook previousCopy = mementos.get(statePointer).getState();
+        ReadOnlyClassroom previousCopy = mementos.get(statePointer).getState();
         resetData(previousCopy);
         return previousCopy;
     }

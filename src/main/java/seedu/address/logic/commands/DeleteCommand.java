@@ -13,7 +13,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.student.Student;
 
 /**
- * Deletes a student identified using it's displayed index from the address book.
+ * Deletes a student identified using it's displayed index from the classroom.
  */
 public class DeleteCommand extends Command {
 
@@ -49,6 +49,7 @@ public class DeleteCommand extends Command {
         for (Assignment assignment: assignmentList) {
             model.setAssignment(assignment, assignment.deleteOneStudentGrade(studentToDelete.getName().fullName));
         }
+        model.saveState();
         return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
     }
 

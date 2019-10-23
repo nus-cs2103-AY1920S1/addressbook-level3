@@ -18,13 +18,13 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.student.Student;
 
 /**
- * Adds a student to the address book.
+ * Adds a student to the classroom.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the classroom. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -44,7 +44,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the classroom";
 
     private final Student toAdd;
 
@@ -71,6 +71,7 @@ public class AddCommand extends Command {
         for (Assignment assignment: assignmentList) {
             model.setAssignment(assignment, assignment.addOneStudentGrade(toAdd.getName().fullName));
         }
+        model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
