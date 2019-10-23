@@ -739,27 +739,7 @@ Use case ends.
 * Use case ends.
 
 [discrete]
-=== Use case: Editing Information in GUI (U11)
-
-*Actor:* Clerk
-
-*Guarantees:*
-
-1. Information is edited after change is completed in GUI.
-
-*MSS:*
-
-1. Clerk selects the tabs of information (e.g Patients, Appointments) that requires modification.
-2. Clerk selects an item in the list of information.
-3. Clerk selects an attribute of the item.
-4. Clerk modifies the attribute.
-5. Clerk completes the modification.
-6. ClerkPro stores the change and displays the new information.
-
-Use case ends.
-
-[discrete]
-=== Use case: AutoCompleter (UC12)
+=== Use case: AutoCompleter (UC11)
 
 *Actor:* Clerk
 
@@ -778,7 +758,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: History (UC13)
+=== Use case: History (UC12)
 
 *Actor:* Clerk
 
