@@ -372,10 +372,11 @@ Format:
 
 `note clear`
 
-Executing this command will trigger a confirmation in the chatbot: +
- `Are you sure that you want to clear all data in your contact list? (Y/N)`
+```
+Are you sure that you want to clear all data in your note list? (Y/N)
+```
 
-Then, if you answer "Y", the chatbot will clear all data in your contact list.
+Then, if you answer "Y", the chatbot will clear all data in your note list.
 
 ==== Sort your notes: `sort` `[coming in v2.0]`
 Sort notes in different orders (i.e last updated date, alphabetically).
