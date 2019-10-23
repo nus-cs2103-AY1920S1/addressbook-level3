@@ -3,6 +3,7 @@ package seedu.ezwatchlist.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
@@ -22,7 +23,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, OnlineConnectionException;
 
     /**
      * Returns the WatchList.

@@ -6,6 +6,7 @@ import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.logic.commands.*;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
@@ -26,7 +27,7 @@ public class WatchListParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException, OnlineConnectionException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -62,6 +63,9 @@ public class WatchListParser {
 
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
+
+            case SyncCommand.COMMAND_WORD:
+                return new SyncCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

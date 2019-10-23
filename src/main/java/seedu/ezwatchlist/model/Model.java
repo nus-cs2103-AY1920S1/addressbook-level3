@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
+import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -115,4 +116,10 @@ public interface Model {
      * @throws NullPointerException if the {@code searchResult} if null.
      */
     public void updateSearchResultList(List<Show> searchResult);
+
+    /**
+     * Sync a given show.
+     * {@code syncMovie} must already been retrieved from IMDB database.
+     */
+    public void SyncMovie(List<Movie> syncMovie);
 }

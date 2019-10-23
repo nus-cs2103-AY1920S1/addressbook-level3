@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 
@@ -128,6 +129,11 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedShow);
 
         watchList.setShow(target, editedShow);
+    }
+
+    @Override
+    public void SyncMovie(List<Movie> syncMovie) {
+
     }
 
     //=========== Filtered Show List Accessors =============================================================
