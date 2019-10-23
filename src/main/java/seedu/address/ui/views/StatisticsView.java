@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -29,6 +30,8 @@ public class StatisticsView extends UiPart<Region> {
 
     public StatisticsView(Statistics stats, List<Member> members) {
         super(FXML);
+
+        //For PieChart taskByStatus
         ObservableList<PieChart.Data> taskByStatusData = FXCollections.observableArrayList(
         new PieChart.Data("NOT STARTED", stats.getPortionTasksByStatus().get(TaskStatus.UNBEGUN)),
         new PieChart.Data("DOING", stats.getPortionTasksByStatus().get(TaskStatus.DOING)),
@@ -36,13 +39,30 @@ public class StatisticsView extends UiPart<Region> {
 
         taskByStatus.setData(taskByStatusData);
 
-        ObservableList<PieChart.Data> memberByTasksData = FXCollections.observableArrayList();
+        taskByStatusData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", Math.round(data.getPieValue()), " tasks"
+                        )
+                )
+        );
 
+
+        //For PieChart memberByTasks
+        ObservableList<PieChart.Data> memberByTasksData = FXCollections.observableArrayList();
         for (Member mem : members) {
             PieChart.Data toBeAdded = new PieChart.Data(mem.getName().toString(), stats.getPortionMembersByTasks().get(mem));
             memberByTasksData.add(toBeAdded);
         }
 
         memberByTasks.setData(memberByTasksData);
+
+        memberByTasksData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", Math.round(data.getPieValue()), " tasks"
+                        )
+                )
+        );
     }
 }

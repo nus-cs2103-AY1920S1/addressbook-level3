@@ -16,8 +16,8 @@ public class Statistics {
     private final List<Task> tasks;
     //private final SortingMethod sortingMethod;
     private final List<Mapping> mappings;
-    private final HashMap<TaskStatus, Double> portionTasksByStatus = new HashMap<>();
-    private final HashMap<Member, Double> portionMemberByTasks = new HashMap<>();
+    private final HashMap<TaskStatus, Integer> portionTasksByStatus = new HashMap<>();
+    private final HashMap<Member, Integer> portionMemberByTasks = new HashMap<>();
     //private final HashMap<Member, Integer> portionMemberByPrice;
     //NOTE SORTINGMETHOD IS NOT IN USE AS OF NOW
 
@@ -62,7 +62,7 @@ public class Statistics {
     //only do if the statistics object is unique
     public void doCalculations() {
         for(Member member: members) {
-            double numTasks = 0;
+            int numTasks = 0;
             for(Mapping mapping : mappings) {
                 if(mapping.getMember().equals(member)) {
                     numTasks++;
@@ -71,9 +71,9 @@ public class Statistics {
             portionMemberByTasks.put(member, numTasks);
         }
 
-        double unbegun = 0;
-        double doing = 0;
-        double done = 0;
+        int unbegun = 0;
+        int doing = 0;
+        int done = 0;
 
         for(Task task: tasks) {
             switch (task.getTaskStatus()) {
@@ -93,11 +93,11 @@ public class Statistics {
         portionTasksByStatus.put(TaskStatus.DONE, done);
     }
 
-    public HashMap<Member, Double> getPortionMembersByTasks() {
+    public HashMap<Member, Integer> getPortionMembersByTasks() {
         return portionMemberByTasks;
     }
 
-    public HashMap<TaskStatus, Double> getPortionTasksByStatus() {
+    public HashMap<TaskStatus, Integer> getPortionTasksByStatus() {
         return portionTasksByStatus;
     }
 

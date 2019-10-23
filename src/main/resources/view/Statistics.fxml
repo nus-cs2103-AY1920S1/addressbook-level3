@@ -12,13 +12,13 @@
         <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS" minWidth="200">
             <children>
                 <Label id="taskByStatus" contentDisplay="CENTER" text="Tasks by Status" />
-                <PieChart fx:id="taskByStatus" prefWidth="300" prefHeight="300" style="-fx-fill: #ff4f0a"/>
+                <PieChart fx:id="taskByStatus" prefWidth="300" prefHeight="300" legendVisible="false"/>
             </children>
         </VBox>
         <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
             <children>
                 <Label id="memberByTasks" text="Members by tasks allocated" />
-                <PieChart fx:id="memberByTasks" prefWidth="300" prefHeight="300" />
+                <PieChart fx:id="memberByTasks" prefWidth="300" prefHeight="300" legendVisible="false"/>
             </children>
         </VBox>
         <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">

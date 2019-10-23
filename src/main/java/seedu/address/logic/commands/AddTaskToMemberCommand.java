@@ -78,6 +78,11 @@ public class AddTaskToMemberCommand extends Command {
 
         Task taskToAdd = lastShownTaskList.get(taskId.getZeroBased());
         Mapping mappingToAdd = createMapping(involvedMember, taskToAdd);
+
+        if(model.hasMapping(mappingToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MAPPING);
+        }
+
         model.addMapping(mappingToAdd);
 
         return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedMember));
