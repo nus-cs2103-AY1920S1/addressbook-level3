@@ -48,7 +48,7 @@ deactivate AddressBookParser
 LogicManager -> GenReportCommand : execute()
 activate GenReportCommand
 
-GenReportCommand -> Storage : generate()
+GenReportCommand -> Storage : generate(body)
 activate Storage
 
 Storage --> GenReportCommand
