@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.visit;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -42,7 +42,6 @@ public class BeginVisitCommandTest {
 
     @Test
     public void execute_valid_success() {
-        Person personToVisit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         BeginVisitCommand command = new BeginVisitCommand(INDEX_FIRST_PERSON);
 
         Model expectedModel = new ModelManager(model.getStagedAddressBook(), new UserPrefs());
@@ -63,11 +62,40 @@ public class BeginVisitCommandTest {
             expectedModel.setNewOngoingVisit(visit);
             String expectedMessage = String.format(BeginVisitCommand.MESSAGE_START_VISIT_SUCCESS, expectedPerson);
 
-            assertEquals(expectedMessage, result);
+            assertEquals(expectedMessage, result.getFeedbackToUser());
             assertEquals(expectedModel, model);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
+    }
+
+    @Test
+    public void execute_ongoingVisitExists_fail() {
+        //Ensure repeats fail
+        BeginVisitCommand command = new BeginVisitCommand(INDEX_FIRST_PERSON);
+        assertDoesNotThrow(() -> command.execute(model));
+        assertCommandFailure(command, model, BeginVisitCommand.MESSAGE_START_VISIT_FAILURE);
+        BeginVisitCommand commandOnAnother = new BeginVisitCommand(INDEX_SECOND_PERSON);
+        assertCommandFailure(commandOnAnother, model, BeginVisitCommand.MESSAGE_START_VISIT_FAILURE);
+    }
+
+    @Test
+    public void execute_ongoingVisitConstraints_succeedAndFailAccordingly() {
+        //Verify that repeat after cancelling / finishing succeed
+        BeginVisitCommand beginCommand = new BeginVisitCommand(INDEX_FIRST_PERSON);
+        CancelOngoingVisitCommand cancelCommand = new CancelOngoingVisitCommand();
+        FinishOngoingVisitCommand finishCommand = new FinishOngoingVisitCommand();
+        assertCommandFailure(cancelCommand, model, CancelOngoingVisitCommand.MESSAGE_NO_ONGOING_VISIT);
+        assertCommandFailure(finishCommand, model, FinishOngoingVisitCommand.MESSAGE_NO_ONGOING_VISIT);
+        assertDoesNotThrow(() -> beginCommand.execute(model));
+        assertDoesNotThrow(() -> cancelCommand.execute(model));
+        assertCommandFailure(cancelCommand, model, CancelOngoingVisitCommand.MESSAGE_NO_ONGOING_VISIT);
+        assertCommandFailure(finishCommand, model, FinishOngoingVisitCommand.MESSAGE_NO_ONGOING_VISIT);
+        assertDoesNotThrow(() -> beginCommand.execute(model));
+        assertDoesNotThrow(() -> finishCommand.execute(model));
+        assertCommandFailure(cancelCommand, model, CancelOngoingVisitCommand.MESSAGE_NO_ONGOING_VISIT);
+        assertCommandFailure(finishCommand, model, FinishOngoingVisitCommand.MESSAGE_NO_ONGOING_VISIT);
+        assertDoesNotThrow(() -> beginCommand.execute(model));
     }
 
     @Test
@@ -90,14 +118,5 @@ public class BeginVisitCommandTest {
 
         // different person -> returns false
         assertNotEquals(firstCommand, secondCommand);
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
-
-        assertTrue(model.getFilteredPersonList().isEmpty());
     }
 }
