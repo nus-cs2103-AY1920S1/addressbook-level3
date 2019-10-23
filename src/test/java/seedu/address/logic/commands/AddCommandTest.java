@@ -187,10 +187,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteFood(Food food) {
-        }
-
-        @Override
         public UniqueFoodList getUniqueFoodListObject() {
             throw new AssertionError("This method should not be called.");
         }

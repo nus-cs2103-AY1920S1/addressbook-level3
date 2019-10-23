@@ -5,6 +5,8 @@ package seedu.sgm.model.food;
  */
 public class Sugar extends NutritionValue {
 
+    private static final double HIGH_SUGAR = 25;
+
     /**
      * Constructs a {@code Sugar}.
      *
@@ -12,6 +14,16 @@ public class Sugar extends NutritionValue {
      */
     public Sugar(String sugarValue) {
         super(sugarValue);
+    }
+
+    @Override
+    public boolean isInDangerousRange() {
+        return getNumericalValue() >= HIGH_SUGAR;
+    }
+
+    @Override
+    public String getWarningMessage() {
+        return super.getWarningMessage("Sugar", HIGH_SUGAR);
     }
 }
 
