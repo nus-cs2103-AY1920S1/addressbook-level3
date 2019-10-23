@@ -154,87 +154,121 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+// tag::allocate[]
+=== [Proposed] Auto allocation feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The `AutoAllocateCommand` has a auto-allocation mechanism which is facilitated by methods in `Event`.
+The `AutoAllocateCommand` takes in three arguments:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+1.  `eventIndex` - index of event in the displayed event list
+2. `ManpowerCountToAdd` - number of employees to allocate [optional]
+3. `tagList` - a set of tags to filter the employees [optional]
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Additionally, the `AutoAllocateCommand` uses the following operations:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* `Event#isAvailableForEvent()` -- Checks if an employee is available for the event.
+* `Event#allocateEmployee()` -- Checks if an employee is available for the event.
+* `AutoAllocateCommand#createAvailableEmployeeListForEvent()` -- Creates a list of employees available for the event,
+filtered by the tags specified by user.
+* `AutoAllocateCommand#getManpowerNeededByEvent()` -- Calculates the number of employees currently required
+by the event.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is an example usage scenario and how the auto allocation mechanism behaves at each step.
 
-image::UndoRedoState0.png[]
+image::AutoAllocateFlowChart.png[]
+Figure 1.1
 
-Step 2. The user executes `delete 5` command to delete the 5th employee in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 1. The user executes `allocate 1 n/2 t/female` with the intention to allocate 2 employees with tag [female]
+to the 1st event displayed in the event list.
 
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new employee. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+Step 2. The command checks if `eventIndex` is valid and if `ManpowerCountToAdd` is specified.
+[NOTE]
+if `ManpowerCountToAdd` is specified, command assumes it to be the maximum number possible for the event.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Validity of other command arguments e.g. if `ManpowerCountToAdd` is a positive integer is checked
+by `AutoAllocateCommandParser` and not within the command `AutoAllocateCommand`.
 
-Step 4. The user now decides that adding the employee was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
-image::UndoRedoState3.png[]
+Step 3. The command calls its own method `AutoAllocateCommand#getManpowerNeededByEvent()` to get the number of employees
+required by the specified event.
+
+Step 4. The command calls its own method `AutoAllocateCommand#createAvailableEmployeeListForEvent()` to create a
+filtered list of employees based on the `tagList` and if employee satisfies `Event#isAvailableForEvent()`.
+
+Step 5. The command checks if supply (number of employees in filtered list in step 4) exceeds
+demand (number of employees required by event, generated in step 3).
+[NOTE]
+If supply < demand, throws exception to user. If supply > demand, employees will be randomly selected instead.
+
+Step 6. The command calls `Event#allocateEmployee()` to allocate the chosen employees to the event.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+For storage purposes, only the `Employee#EmployeeId` is allocated to the event.
 
-The following sequence diagram shows how the undo operation works:
+Step 7. Done.
 
-image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The following sequence diagram shows how the auto allocation works:
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+image::AutoAllocateSequenceDiagram.png[]
+Figure 1.2
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+NOTE: The lifeline for `AutoAllocateCommand` should end at the destroy marker (X) but due to a limitation of
+PlantUML, the lifeline reaches the end of diagram.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+The following activity diagram summarizes what happens when a user successfully executes a `AutoAllocateCommand`:
 
-image::UndoRedoState4.png[]
+image::AutoAllocateActivityDiagram.png[]
+Figure 1.3
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Storage of employees associated with event after successful command
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves only the `Employee#EmployeeId` associated with the event.
+** Pros: Easy to implement. Will use less memory.
+** Cons: Future accesses require more time.
+* **Alternative 2:** Saves all fields of `Employee` associated with the event..
+** Pros: Easy retrieval in the future.
+** Cons: Changes in `Employee` attributes have to be reflected in the event. This meant that `EditCommand` and
+`DeleteCommand` have to be heavily modified.
+
+===== Aspect: Allocation of manpower when demand exceeds supply.
+
+* **Alternative 1 (current choice):** Throws exception
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the employee being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons:
+* **Alternative 2:** Allocate the current available employees
+** Pros:
+** Cons: Testability issues.
+// end::allocate[]
 
-===== Aspect: Data structure to support the undo/redo commands
+// tag::test[]
+=== [Proposed] feature1
+==== Proposed Implementation
+==== Design Considerations
+// end::test[]
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+// tag::test[]
+=== [Proposed] feature2
+==== Proposed Implementation
+==== Design Considerations
+// end::test[]
+
+// tag::test[]
+=== [Proposed] feature3
+==== Proposed Implementation
+==== Design Considerations
+// end::test[]
+
+// tag::test[]
+=== [Proposed] feature4
+==== Proposed Implementation
+==== Design Considerations
+// end::test[]
 
 // tag::displayschedule[]
 === [Proposed] Display Schedule feature

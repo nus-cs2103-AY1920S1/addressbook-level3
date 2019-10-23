@@ -64,7 +64,7 @@ public class ManualAllocateCommand extends Command {
         if (!eventToEdit.isAvailableForEvent(personToAdd, model.getFilteredEventList())) {
             throw new CommandException(Messages.MESSAGE_UNAVAILABLE_MANPOWER);
         }
-        eventToEdit.getManpowerAllocatedList().allocateEmployee(personToAdd.getEmployeeId().id);
+        eventToEdit.getManpowerAllocatedList().allocateEmployee(personToAdd);
 
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
