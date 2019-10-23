@@ -112,10 +112,10 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 .Interactions inside the Logic Component for the `enqueue 001A` Command
-image::DeleteSequenceDiagram.png[]
+image::EnqueueSequenceDiagram.png[]
 
 .Interactions inside the Logic Component for the `next 1` Command
-image::DeleteSequenceDiagram.png[]
+image::NextSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -259,6 +259,9 @@ _{Explain here how the data encryption feature will be implemented}_
 
 === Queue feature
 The queue feature allows the user to enqueue and dequeue a patient from the queue.
+
+* e.g. `enqueue 003A` - Enqueues the patient with reference id 003A.
+* e.g. `next 1` Serves the next patient in queue and allocates him/her to room 1.
 
 ==== Current Implementation
 The queue will be displayed in a list.
@@ -473,54 +476,53 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  Doctor in room 1 takes a break
-2.  User requests to avoid directing patients to the doctor in room 1
-3.  System sets the doctor to be on break
+1.  User requests to avoid directing patients to the doctor in room 1
+2.  System sets the doctor to be on break
 
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Doctor is already on break
+* 1a. Doctor is already on break
 +
-** 2a1. System shows an error message.
+** 1a1. System shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 2a. The given index is invalid.
 +
 [none]
-** 3a1. System shows an error message.
+** 2a1. System shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Doctor resumes his/her duty (UC5)
+Pre-condition: Doctor is on break
 
 *MSS*
 
-1.  Doctor in room 1 resumes his/her duty
-2.  User requests to start directing patients to the doctor in room 1
-3.  System sets the doctor to be on duty
+1.  User requests to start directing patients to the doctor in room 1
+2.  System sets the doctor to be on duty
 
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Doctor is already on duty
+* 1a. Doctor is already on duty
 +
-** 2a1. System shows an error message.
+** 1a1. System shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 2a. The given index is invalid.
 +
 [none]
-** 3a1. System shows an error message.
+** 2a1. System shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Change appointment date (UC6)
