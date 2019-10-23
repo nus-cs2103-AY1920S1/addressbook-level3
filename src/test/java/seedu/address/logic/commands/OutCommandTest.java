@@ -60,12 +60,12 @@ public class OutCommandTest {
     @Test
     public void equals() {
         BankAccountOperation firstTransaction = new TransactionBuilder()
-                .withTags("Food")
+                .withCategories("Food")
                 .withAmount("100")
                 .withDate("10102019")
                 .build();
         BankAccountOperation secondTransaction = new TransactionBuilder()
-                .withTags("Drinks")
+                .withCategories("Drinks")
                 .withAmount("80")
                 .withDate("10102019")
                 .build();

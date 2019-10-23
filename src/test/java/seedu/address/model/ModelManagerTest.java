@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.transaction.TransactionContainsTagsPredicate;
+import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 import seedu.address.testutil.BankAccountBuilder;
 
 
@@ -94,7 +94,7 @@ public class ModelManagerTest {
     @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager
-                .getFilteredTransactionList().remove(0));
+            .getFilteredTransactionList().remove(0));
     }
 
     @Test
@@ -122,12 +122,12 @@ public class ModelManagerTest {
 
 
         // different filteredList -> returns false
-        final List<String> tags = ALICE
-                .getCategories()
-                .stream()
-                .map(category -> category.getCategoryName())
-                .collect(Collectors.toList());
-        modelManager.updateFilteredTransactionList(new TransactionContainsTagsPredicate(tags));
+        final List<String> categories = ALICE
+            .getCategories()
+            .stream()
+            .map(category -> category.getCategoryName())
+            .collect(Collectors.toList());
+        modelManager.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories));
         assertFalse(modelManager.equals(new ModelManager(bankAccount, userPrefs)));
 
 

@@ -27,14 +27,14 @@ class JsonAdaptedTransaction {
 
     private final String amount;
     private final String date;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
      */
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("amount") String amount, @JsonProperty("date") String date,
-                                  @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                                  @JsonProperty("tagged") List<JsonAdaptedCategory> tagged) {
         this.amount = amount;
         this.date = date;
         if (tagged != null) {
@@ -49,8 +49,8 @@ class JsonAdaptedTransaction {
         amount = source.getAmount().toString();
         date = source.getDate().toString();
         tagged.addAll(source.getCategories().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedCategory::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -60,8 +60,8 @@ class JsonAdaptedTransaction {
      */
     public BankAccountOperation toModelType() throws IllegalValueException {
         final List<Category> transactionCategories = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            transactionCategories.add(tag.toModelType());
+        for (JsonAdaptedCategory category : tagged) {
+            transactionCategories.add(category.toModelType());
         }
 
         if (amount == null) {

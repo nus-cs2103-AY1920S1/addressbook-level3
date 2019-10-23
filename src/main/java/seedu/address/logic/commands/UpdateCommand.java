@@ -30,15 +30,15 @@ public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_AMOUNT + "AMOUNT] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_AMOUNT + "123 "
-            + PREFIX_DATE + "12022019";
+        + "by the index number used in the displayed person list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_AMOUNT + "AMOUNT] "
+        + "[" + PREFIX_DATE + "DATE] "
+        + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_AMOUNT + "123 "
+        + PREFIX_DATE + "12022019";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
     public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
@@ -66,7 +66,7 @@ public class UpdateCommand extends Command {
 
         BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
         BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace,
-                updateTransactionDescriptor);
+            updateTransactionDescriptor);
 
         model.setTransaction(transactionToReplace, updatedTransaction);
         model.commitBankAccount();
@@ -74,18 +74,19 @@ public class UpdateCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
     }
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static BankAccountOperation createUpdatedTransaction(BankAccountOperation transactionToEdit,
-                                                UpdateTransactionDescriptor updateTransactionDescriptor) {
+    private static BankAccountOperation createUpdatedTransaction(
+        BankAccountOperation transactionToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
         assert transactionToEdit != null;
 
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         Set<Category> updatedCategories = updateTransactionDescriptor
-                .getCategories().orElse(transactionToEdit.getCategories());
+            .getCategories().orElse(transactionToEdit.getCategories());
 
         if (transactionToEdit instanceof InTransaction) {
             return new InTransaction(updatedAmount, updatedDate, updatedCategories);
@@ -104,11 +105,12 @@ public class UpdateCommand extends Command {
         private Date date;
         private Set<Category> categories;
 
-        public UpdateTransactionDescriptor() {}
+        public UpdateTransactionDescriptor() {
+        }
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code categories} is used internally.
          */
         public UpdateTransactionDescriptor(UpdateCommand.UpdateTransactionDescriptor toCopy) {
             setAmount(toCopy.amount);
@@ -140,17 +142,17 @@ public class UpdateCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code categories} to this object's {@code categories}.
+         * A defensive copy of {@code categories} is used internally.
          */
         public void setCategories(Set<Category> categories) {
             this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code categories} is null.
          */
         public Optional<Set<Category>> getCategories() {
             return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
@@ -172,8 +174,8 @@ public class UpdateCommand extends Command {
             UpdateCommand.UpdateTransactionDescriptor e = (UpdateCommand.UpdateTransactionDescriptor) other;
 
             return getAmount().equals(e.getAmount())
-                    && getDate().equals(e.getDate())
-                    && getCategories().equals(e.getCategories());
+                && getDate().equals(e.getDate())
+                && getCategories().equals(e.getCategories());
         }
     }
 

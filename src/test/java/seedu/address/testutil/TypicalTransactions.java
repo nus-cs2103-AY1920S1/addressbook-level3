@@ -15,37 +15,37 @@ public class TypicalTransactions {
     public static final BankAccountOperation ALICE = new TransactionBuilder()
             .withAmount("100")
             .withDate("19112019")
-            .withTags("food")
+            .withCategories("food")
             .build();
     public static final BankAccountOperation BENSON = new TransactionBuilder()
             .withAmount("200")
             .withDate("19112019")
-            .withTags("breakfast")
+            .withCategories("breakfast")
             .build();
     public static final BankAccountOperation CARL = new TransactionBuilder()
             .withAmount("300")
             .withDate("19112019")
-            .withTags("dinner")
+            .withCategories("dinner")
             .build();
     public static final BankAccountOperation DANIEL = new TransactionBuilder()
             .withAmount("400")
             .withDate("19112019")
-            .withTags("drink")
+            .withCategories("drink")
             .build();
     public static final BankAccountOperation ELLE = new TransactionBuilder()
             .withAmount("500")
             .withDate("19112019")
-            .withTags("lunch")
+            .withCategories("lunch")
             .build();
     public static final BankAccountOperation FIONA = new TransactionBuilder()
             .withAmount("600")
             .withDate("19112019")
-            .withTags("club")
+            .withCategories("club")
             .build();
     public static final BankAccountOperation GEORGE = new TransactionBuilder()
             .withAmount("700")
             .withDate("19112019")
-            .withTags("grocery")
+            .withCategories("grocery")
             .build();
 
     // Manually added

@@ -18,26 +18,32 @@ By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 
 == Introduction
 
-PalPay is for those who *prefer to use a desktop app for managing personal finances*. More importantly, PalPay is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps. Ready to start your journey to financial freedom? Jump to the <<Quick Start>> to get started. Enjoy!
+PalPay is for those who *prefer to use a desktop app for managing personal finances*.
+More importantly, PalPay is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps.
+Ready to start your journey to financial freedom?
+Jump to the <<Quick Start>> to get started.
+Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `palpay.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your finance manager.
-.  Double-click the file to start the app. The GUI should appear within a few seconds.
+. Ensure you have Java `11` or above installed in your Computer.
+. Download the latest `palpay.jar` link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for your finance manager.
+. Double-click the file to start the app.
+The GUI should appear within a few seconds.
 +
 +
-.  Type your command in the command box and press kbd:[Enter] to execute it. +
+. Type your command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+. Some example commands you can try:
 
 * *`view`* : shows statistics of your current finances
 * **`in`**`100 n/mother c/allowance` : adds an income to your personal finance of *100* dollars under the catergory *mother* and the item type *allowance*.
 * **`out`**`3 n/pie c/food` : adds an expenditure to your personal finance of *3* dollars under the category *food* and the item type *pie*.
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -156,8 +162,7 @@ Updates the specified income or expenditure from the finance manager. +
 Format: `update --TYPE $/AMOUNT1 $/AMOUNT2 n/ITEM [c/CATEGORY]`
 
 ****
-* `TYPE` only accepts `in` or `out`. (e.g. `update --out ...` refers to deleting an *expenditure*)
-*`AMOUNT1` is the new amount you want to update the current in/out with.
+* `TYPE` only accepts `in` or `out`. (e.g. `update --out ...` refers to deleting an *expenditure*) *`AMOUNT1` is the new amount you want to update the current in/out with.
 * Updates the item from the given category with it's given amount.
 * If there is no given category, it will only search for given type with it's corresponding amount.
 * If AMOUNT/ITEM/CATEGORY or a combination of any of the 3 does not match, no operation will be performed
@@ -170,7 +175,7 @@ Examples:
 * `update --out $/100 300 n/transport`
 * `update --in $/60 70 n/dad`
 
-=== Filtering based on tags: `filter`
+=== Filtering based on categories: `filter`
 
 Shows all relevant transactions with given `CATEGORY` +
 Format: `filter CATEGORY`

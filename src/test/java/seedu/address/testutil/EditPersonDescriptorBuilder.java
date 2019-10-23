@@ -72,11 +72,11 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
-        Set<Category> categorySet = Stream.of(tags).map(Category::new).collect(Collectors.toSet());
+    public EditPersonDescriptorBuilder withCategories(String... categories) {
+        Set<Category> categorySet = Stream.of(categories).map(Category::new).collect(Collectors.toSet());
         descriptor.setCategories(categorySet);
         return this;
     }

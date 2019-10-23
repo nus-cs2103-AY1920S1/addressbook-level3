@@ -29,7 +29,7 @@ public class CategoryTest {
 
     @Test
     public void isValidCategoryName() {
-        // null tag name
+        // null category name
         assertThrows(NullPointerException.class, () -> Category.isValidCategoryName(null));
     }
 
@@ -50,7 +50,7 @@ public class CategoryTest {
         // null -> returns false
         assertFalse(firstCategory.equals(null));
 
-        // different Tag -> returns false
+        // different Category -> returns false
         assertFalse(firstCategory.equals(secondCategory));
     }
 

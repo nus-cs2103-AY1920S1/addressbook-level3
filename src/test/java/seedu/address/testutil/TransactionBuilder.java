@@ -30,7 +30,6 @@ public class TransactionBuilder {
 
     public TransactionBuilder() {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
-        // date = new Date(DEFAULT_DATE);
         date = new Date(DEFAULT_DATE);
         categories = new HashSet<>();
     }
@@ -53,10 +52,11 @@ public class TransactionBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Category>} and set it to the {@code Transaction} that we are building.
+     * Parses the {@code categories} into a {@code Set<Category>}
+     * and set it to the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withTags(String... tags) {
-        this.categories = SampleDataUtil.getTagSet(tags);
+    public TransactionBuilder withCategories(String... categories) {
+        this.categories = SampleDataUtil.getCategorySet(categories);
         return this;
     }
 

@@ -9,7 +9,7 @@ import seedu.address.model.category.Category;
 /**
  * Jackson-friendly version of {@link Category}.
  */
-class JsonAdaptedTag {
+class JsonAdaptedCategory {
 
     private final String tagName;
 
@@ -17,14 +17,14 @@ class JsonAdaptedTag {
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
+    public JsonAdaptedCategory(String tagName) {
         this.tagName = tagName;
     }
 
     /**
      * Converts a given {@code Category} into this class for Jackson use.
      */
-    public JsonAdaptedTag(Category source) {
+    public JsonAdaptedCategory(Category source) {
         tagName = source.categoryName;
     }
 

@@ -26,7 +26,7 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private FlowPane tags;
+    private FlowPane categories;
 
     public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
@@ -35,8 +35,8 @@ public class BudgetCard extends UiPart<Region> {
         amount.setText(budget.getBudget().toString());
         date.setText(budget.getDeadline().toString());
         budget.getCategories().stream()
-                .sorted(Comparator.comparing(category -> category.categoryName))
-                .forEach(category -> tags.getChildren().add(new Label(category.categoryName)));
+            .sorted(Comparator.comparing(category -> category.categoryName))
+            .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override
@@ -54,6 +54,6 @@ public class BudgetCard extends UiPart<Region> {
         // state check
         BudgetCard card = (BudgetCard) other;
         return id.getText().equals(card.id.getText())
-                && budget.equals(card.budget);
+            && budget.equals(card.budget);
     }
 }
