@@ -1,5 +1,5 @@
-= ClerkPro - Developer Guide
-:site-section: DeveloperGuide
+= ClerkPro - User Guide
+:site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -7,20 +7,20 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
-:warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main
 
-By: `Team T09-3`      Since: `Sep 2019`      Licence: `MIT`
+By: `T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
-== Setting up
+== Introduction
 
-Refer to the guide <<SettingUp#, here>>.
+This program is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It allows clerks to manage queues, set appointments and manage the inventory. Typing fast allows you to complete your tasks much faster than GUI apps.
 
-== Design
+== Quick Start
 
 [[Design-Architecture]]
 === Architecture
@@ -445,25 +445,31 @@ Use case ends.
 
 ** 2a1. System requests for correct input format. +
 +
-Use case resumes at step 2.
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
 
-[discrete]
-=== Use case: Remove person from queue (UC2)
+* *`list`* : lists all contacts
+* **`add`**`i/001A n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`exit`* : exits the app
 
-*MSS*
+.  Refer to <<Features>> for details of each command.
 
 1.  Patient wants to leave
 2.  User requests to remove patient from the queue
 3.  System removes the person from queue
 
-Use case ends.
+== Features
 
-*Extensions*
+====
+*Command Format*
 
-[none]
-* 2a. Person is not in queue
-+
-Use case ends.
+* Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/<NAME> p/<PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
+====
 
 * 3a. The given index is invalid.
 +
@@ -476,92 +482,100 @@ Use case resumes at step 2.
 === Use case: Add new appointments for a patient (UC3)
 Pre-condition: Patient exists in the system
 
-*MSS*
+==== Add a patient to the queue: `enqueue` ====
 
 1.  Patient wants to have new appointments
 2.  User wants to add appointments for patient
 3.  ClerkPro adds this appointment
 
-Use case ends.
+==== Remove a patient from the queue: `dequeue` ====
 
-*Extensions*
+Removes a patient from the queue based on their queue position +
+Format: `dequeue <QUEUE_NUMBER>`
 
-* 2a. User inputs invalid format
-+
+==== Assign next patient to an available doctor : `next` ====
 
-** 2a1. ClerkPro requests for correct input format +
+Assigns next patient to an available doctor based on the room number. +
+Format: `next <ROOM_NUMBER>`
 
-** 2a2. User inputs correct format +
-+
+==== Doctor takes a break: `break`  ====
 
-Steps 2a1-2a2 are repeated until the appointment has the correct format +
+Avoids directing patients to a given Doctor based on the room number. +
+Format: `break <ROOM_NUMBER>`
 
-Use case resumes at step 2
+==== Doctor resumes his/her duty: `resume` ====
 
-* 2b. User inputs a appointment which is conflicted with other appointments
-+
+Allows patients to be directed to a given Doctor based on the room number. +
+Format: `resume <ROOM_NUMBER>
 
-** 2b1. User ask patient to make provide a new appointment date  +
+==== Add a new room: `addRoom` ====
 
-** 2b2. patient give a new appointment date +
-+
-Steps 2b1-2b2 are repeated until the appointment is not conflicted
+Adds a new room with a doctor to the list. +
+Format: `addRoom <DOCTOR_REFERENCE_ID>`
 
-+
-Use case resumes at step 2.
+==== Removes a room: `removeRoom` ====
+Removes a room in the list. +
+Format: `removeRoom <ROOM_NUMBER>`
 
 [discrete]
 === Use case: Change appointment date (UC4)
 Pre-condition: Patient’s appointment exists and Application is displaying the patient's list of appointments
 
-*MSS*
+=== Patient Management
 
-1.  User checks whether the current appointment can be changed.
-2.  User checks and updates appointment's appointment time slots.
-3.  ClerkPro updates the appointment date of the patient.
+==== Searches patient by arguments: `patient` ====
 
-Use case ends.
+Finds patients whose reference ids, names or phone numbers containing any of the given keywords. +
+If search keywords are empty, all registered patients will be displayed. +
+Note: Requires at least 4 characters to search by a reference id or phone numbers. +
+Format: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
 
-*Extensions*
+==== Registers a new patient: `register` ====
 
-* 3a. Current appointment date is invalid format +
+Registers a new patient +
+Format:  `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
+ [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
 
-** 3a1. ClerkPro requests for correct input format +
+==== Unregisters an existing patient: `unregister` ====
 
-** 3a2. User inputs correct format +
-+
-Steps 2a1-2a2 are repeated until the appointment has the correct format +
+If user is in the patients listing screen,
+Unregisters an existing patient +
+Format:  `unregister <ENTRY_ID>`
+
+==== Updates patients’ profiles: `update` ====
+
+If user is in the patients listing screen,
+Updates any change for patients’ profiles +
+Format: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
+ [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
 
 
-* 3b. Appointment date is conflict with other appointments +
+=== On-Duty Doctors Management ===
 
-** 3b1. User ask patient to make a new appointment  +
+==== Views doctors: `doctors` ====
 
-** 3b2. patient change appointment to another date +
-+
-Steps 3b1-3b2 are repeated until the appointment is not conflicted
-+
-Use case resumes at step 3
+Finds doctors whose names contains any of the given keywords. +
+If search keywords are empty, all registered doctors will be displayed. +
+Format: `doctors [<DOCTOR_NAME>]`
 
-[discrete]
-=== Use case: Find patients appointment (UC5)
+==== Register a new doctor: `newdoctor` ====
 
-*MSS*
+Registers a new doctor. +
+If the Staff reference identifier is not specified, a unique identifier will be assigned by the system.
+Format: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
 
-1.  User requests to find patient's appointment list
-2.  System retrieve and display patient's appointments
+==== Update a doctor's profile: `update` ====
 
-Use case ends.
+If user is in the doctors listing screen, updates any change for doctor’s profiles. +
+Format: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
+[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
 
-*Extensions*
+==== Unregister a doctor's profile: `resign` ====
 
-* 2a. patient is not exist +
+If user is in the doctors listing screen, removes a doctor’s profile. +
+Format: `resigndoctor <ENTRY_ID>`
 
-+
-
-** System displays an error message "No such patient"
-
-Use case ends
+==== Updates a doctor's profiles: `onduty` ====
 
 === Use case: cancel patient's appointment (UC6)
 Pre-condition: Patient’s record exists
@@ -589,167 +603,109 @@ Use case ends
 === Use case: Indicate that a doctor is on-duty and able to tend to patients (UC6)
 Pre-condition: Details of the doctor is already registered in system.
 
-*MSS*
+==== Updates doctor's profiles: `offduty` ====
 
-1.  User finds the doctor using either his/her name or staff id.
-2.  User assigns the on-duty doctor to a consultation room.
-3.  System updates the ui to display the available consultation rooms and doctors.
+Marks the doctor as off-duty. Patients can not be directed to the specified doctor. +
+Format: `offduty <ROOM_NUMBER>`
 
-Use case ends.
+=== Appointment Management
 
-*Extensions*
+==== Adds all appointments: `addappt` ====
 
-[none]
-* 2a. Consultation room has already been taken.
-[none]
-** 2a1. System shows an error message. Informing the user that the room has already been assigned to another doctor.
+Adds a new appointment for a patient +
+If optional field for recursive is empty, then only add the event that is given. Otherwise recursive appointments will be added. +
+Format: `appointments [i/REFERENCE_ID] [rec/recursively] [num/recursiveTimes] str/<START_DATE> end/<END_DATE>`
 
-* Use case ends.
+==== Displays all appointments: `appointments` ====
 
-[none]
-* 2b. Doctor has already been assigned to a consultation room.
-[none]
-** 2b1. System shows an error message. Informing the user that the doctor has already been assigned to a room.
+Displays a sorted list of upcoming appointments whose appointment is within +
+If search keywords are empty, all upcoming appointments will be displayed. +
+Format: `appointments [p/<PATIENT_NAME | PATIENT_IC>] [s/<START_DATE>] [e/<END_DATE>]`
 
-* Use case ends.
 
-[discrete]
-=== Use case: Editing Information in GUI (U7)
+==== Cancels an appointment: `cancel` ====
 
-*Actor:* Clerk
+Cancels the specified appointment. +
+Format: `cancelappt <ENTRY_ID>`
 
-*Guarantees:*
+==== Changes the appointment date: `change` ====
 
-1. Information is edited after change is completed in GUI.
+Changes and updates to a new appointment detail in the appointment listing screen +
+Format: `changeappt <ENTRY_ID> [i/<PATIENT_IC>] [s/<START_DATE_TIME>] [e/<END_DATE_TIME>]`
 
-*MSS:*
+==== Shows the empty slots: `slot` ====
 
-1. Clerk selects the tabs of information (e.g Patients, Appointments) that requires modification.
-2. Clerk selects an item in the list of information.
-3. Clerk selects an attribute of the item.
-4. Clerk modifies the attribute.
-5. Clerk completes the modificatigit on.
-6. ClerkPro stores the change and displays the new information.
+List all the available empty slots for patients to make appointments +
+Format: `slot s/<START_DATE> e/<END_DATE>`
 
-Use case ends.
+==== Displays patients who have missed their appointments and have yet to be notified: `missed` ====
 
-[discrete]
-=== Use case: AutoCompleter (UC8)
+Displays all appointments that are missed and not yet settled. +
+Format: `missappt`
 
-*Actor:* Clerk
+==== Sets missed appointments as settled/notified: `settle` ====
 
-*Guarantees:*
+Settles the missed appointments for respective patients. +
+Format: `settle <ENTRY_ID>`
 
-1. Display suggestions of commands available from whatever has been typed.
-2. Autofill of commands selected from AutoCompleter into Command Box.
+==== Changes the max number of concurrent consultation: `maxconcurrentappt` (v2.0) ====
 
-*MSS:*
+Changes the maximum number of concurrent patient appointments +
+Format: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
 
-1. Clerk types "a" into the Command Box.
-2. ClerkPro shows suggestions of commands available for "a".
-3. Clerk selects a command from AutoCompleter.
-4. ClerkPro auto-fills the selected command into Command Box.
+=== Inventory commands (v2.0) ===
 
-Use case ends.
+==== Views the inventory: `inventory` ====
 
-[discrete]
-=== Use case: History (UC9)
+Displays the medicine inventory +
+Format: `inventory`
 
-*Actor:* Clerk
+==== Views the inventory: `prescription` ====
 
-*Guarantees:*
+Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
+Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
 
-1. Autofill of commands while traversing History.
+=== User Accounts (v2.0) ===
 
-*MSS:*
+==== Login: `login` ====
 
-1. If AutoCompleter is not suggesting, Clerk can traverse history commands.
-2. While traversing, the command box is auto-filled with the history command.
+Login with your username and password. The user will then be prompted to enter their password. +
+Format: `login <USER_NAME>`
 
-Use case ends.
+==== Logout: `logout` ====
 
-_{More to be added}_
+Logout from your account +
+Format: `logout`
 
-[appendix]
-== Non Functional Requirements
+=== General commands ===
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 10000 persons and 10000 events without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  No internet required.
-.  System allows user to undo incorrect or accidental destructive actions
-.  App can be downloaded and run via a jar file
+==== Viewing help: `help` ====
 
-_{More to be added}_
+Lists all the useful commands +
+Format: `help`
 
-[appendix]
-== Glossary
+==== Exits program: `exit` ====
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Exits the program +
+Format: `exit`
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+==== Undo action: `undo` ====
 
-[appendix]
-== Product Survey
+Undo a destructive action +
+Format: `undo`
 
-*Product Name*
+==== Redo action: `redo` ====
 
-Author: ...
+Redo a destructive action +
+Format: `redo`
 
-Pros:
+==== Creates, updates or removes an alias command: `alias` ====
 
-* ...
-* ...
+Tags an alias name to a reserved command. More specifically,
+one of the following will happen depending on the parameters of the function.
+Please note that the user can not remap a reserved command.
+A new alias command is created if the alias does not exist.
+Remaps an existing alias command to a reserved command if the alias exist.
+If the reserved command is not specified, the alias is unregistered if it exists.
 
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+Format: `alias <Alias_Name> [<Reserved_Command>]`
