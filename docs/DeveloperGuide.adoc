@@ -17,6 +17,18 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-W12-4`      Since: `Sep 2019`      Licence: `MIT`
 
+== Introduction
+
+IchiFund is a financial tracking application that manages transactions, loans, as well as budgets.
+
+Shown below is the GUI of IchiFund:
+
+image::Ui.png[]
+
+This document serves to give an introduction to the architecture of IchiFund for developers who wish to
+modify the software, or simply to understand how it works. We describe the high-level architecture, and also delve into
+important details of the implementation of each feature.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
