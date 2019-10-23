@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -19,7 +21,6 @@ import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
-import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
@@ -54,12 +55,23 @@ public class StartQuizWindow extends Window {
     private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
     private CommandBox commandBox;
+    private ProgressIndicatorBar progressIndicatorBar;
 
-    private int currentAnswerableIndex = 0;
+//    private int currentAnswerableIndex = 0;
     private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
 //    private ObservableList<Answerable> filteredAnswerableList;
     private int score = 0;
+
+    ReadOnlyDoubleWrapper currentReadOnlyIndex = new ReadOnlyDoubleWrapper(this, "currenReadOnlyIndex",
+            0);
+
+    public final double getCurrentReadOnlyIndex() {
+        return currentReadOnlyIndex.get();
+    }
+    public final ReadOnlyDoubleProperty currentReadOnlyIndexProperty() {
+        return currentReadOnlyIndex.getReadOnlyProperty();
+    }
 
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(primaryStage, mainLogic, quizLogic);
@@ -70,7 +82,8 @@ public class StartQuizWindow extends Window {
      */
     void fillInnerParts() {
 
-        answerableIterator = this.mainLogic.getFilteredAnswerableList().iterator();
+        ObservableList<Answerable> filteredAnswerableList = this.mainLogic.getFilteredAnswerableList();
+        answerableIterator = filteredAnswerableList.iterator();
         currentAnswerable = answerableIterator.next();
 
         answersGridPane = new AnswersGridPane(currentAnswerable);
@@ -85,6 +98,12 @@ public class StartQuizWindow extends Window {
 
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+//        currentReadOnlyIndex.set(currentAnswerableIndex);
+        progressIndicatorBar = new ProgressIndicatorBar(currentReadOnlyIndex, filteredAnswerableList.size(),
+                "%s");
+//                "%d /" + filteredAnswerableList.size());
+        scoreProgressBar.getChildren().add(progressIndicatorBar.getRoot());
     }
 
     void show() {
@@ -93,6 +112,7 @@ public class StartQuizWindow extends Window {
 
     @FXML
     private void handleEnd() {
+        currentReadOnlyIndex.set(currentReadOnlyIndex.get() + 1);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
@@ -124,6 +144,8 @@ public class StartQuizWindow extends Window {
 
     private void restartQuiz() {
         fillInnerParts();
+        score = 0;
+        currentReadOnlyIndex.set(0);
         commandBox.getCommandTextField().requestFocus();
     }
 
@@ -150,13 +172,16 @@ public class StartQuizWindow extends Window {
     @Override
     protected CommandResult executeCommand ( String commandText) throws CommandException, ParseException {
         try {
+            CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
+            logger.info("Question result: " + commandResult.getFeedbackToUser());
+            if (commandResult.getFeedbackToUser() == "correct") {
+                score++;
+            }
+
             if (!answerableIterator.hasNext()) {
                 handleEnd();
                 return new CommandResult("Quiz ended");
             }
-            CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
-            logger.info("Question result: " + commandResult.getFeedbackToUser());
-            score = commandResult.getFeedbackToUser() == "correct" ? score + 1 : score;
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -167,8 +192,10 @@ public class StartQuizWindow extends Window {
             }
 
             currentAnswerable = answerableIterator.next();
-            currentAnswerableIndex++;
-            logger.info(currentAnswerable.toString());
+            currentReadOnlyIndex.set(currentReadOnlyIndex.get() + 1);
+//            currentAnswerableIndex++;
+//            currentReadOnlyIndex.set(currentAnswerableIndex++);
+//            logger.info(currentAnswerable.toString());
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
             answersGridPane.updateAnswers(currentAnswerable);
 

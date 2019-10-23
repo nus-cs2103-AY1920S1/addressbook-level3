@@ -21,7 +21,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
  */
 public abstract class Window extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    protected static final String FXML = "MainWindow.fxml";
 
     protected Stage primaryStage;
     protected MainLogic mainLogic;
@@ -46,6 +46,9 @@ public abstract class Window extends UiPart<Stage> {
 
     @FXML
     protected StackPane resultDisplayPlaceholder;
+
+    @FXML
+    protected StackPane scoreProgressBar;
 
     public Window(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(FXML, primaryStage);
