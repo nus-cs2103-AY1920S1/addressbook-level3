@@ -286,15 +286,15 @@ The calendar feature in TravEzy allows users to easily find a free period of tim
 
 *Calendar Class Diagram:*+
 
-image::CalendarClassDiagram.png
+image::CalendarClassDiagram.png[]
 
 The above diagram shows that ``Calendar`` stores information about the state of the user's calendar, including information about the user's current view as indicated by ``currentMonth``.
 
-image::ShowSequenceDiagram.png
+image::ShowSequenceDiagram.png[]
 
 The above sequence diagram shows the sequence of events that take place when a user calls ``show`` command. Do note that the above sequence of events are very similar to those for the other commands which extend ``Command`` class.
 
-image::SmartSuggestActivityDiagram.png
+image::SmartSuggestActivityDiagram.png[]
 
 The above activity diagram shows how ``smartSuggest`` command works.
 
