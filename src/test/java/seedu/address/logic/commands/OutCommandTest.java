@@ -28,11 +28,11 @@ import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
 
-public class InCommandTest {
+public class OutCommandTest {
 
     @Test
     public void constructor_nullTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new InCommand(null));
+        assertThrows(NullPointerException.class, () -> new OutCommand(null));
     }
 
     @Test
@@ -40,10 +40,10 @@ public class InCommandTest {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         BankAccountOperation validTransaction = new TransactionBuilder().build();
 
-        InCommand inCommand = new InCommand(validTransaction);
-        CommandResult commandResult = inCommand.execute(modelStub);
+        OutCommand outCommand = new OutCommand(validTransaction);
+        CommandResult commandResult = outCommand.execute(modelStub);
 
-        assertEquals(String.format(InCommand.MESSAGE_SUCCESS, validTransaction), commandResult.getFeedbackToUser());
+        assertEquals(String.format(OutCommand.MESSAGE_SUCCESS, validTransaction), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTransaction), modelStub.transactionsAdded);
     }
     /*
@@ -69,14 +69,14 @@ public class InCommandTest {
                 .withAmount("80")
                 .withDate("10102019")
                 .build();
-        InCommand addFirstCommand = new InCommand(firstTransaction);
-        InCommand addSecondCommand = new InCommand(secondTransaction);
+        OutCommand addFirstCommand = new OutCommand(firstTransaction);
+        OutCommand addSecondCommand = new OutCommand(secondTransaction);
 
         // same object -> returns true
         assertTrue(addFirstCommand.equals(addFirstCommand));
 
         // same values -> returns true
-        InCommand addFirstCommandCopy = new InCommand(firstTransaction);
+        OutCommand addFirstCommandCopy = new OutCommand(firstTransaction);
         assertTrue(addFirstCommand.equals(addFirstCommandCopy));
 
         // different types -> returns false

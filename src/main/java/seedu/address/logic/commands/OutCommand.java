@@ -47,4 +47,16 @@ public class OutCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof OutCommand) {
+            OutCommand outCommand = (OutCommand) obj;
+            return transaction.equals(outCommand.transaction);
+        } else {
+            return false;
+        }
+    }
 }
