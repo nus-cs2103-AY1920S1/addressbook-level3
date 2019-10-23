@@ -209,6 +209,92 @@ time period records are from and value is the average values.
 ** Pros: Higher level of abstraction.
 ** Cons: More codes to write.
 
+// tag::recmf[]
+=== Food Recommendation Feature
+The food recommendation feature externally shows a filtered food list in the form of cards. Internally, it mainly consists of three parts:
+
+* Food Model: holds data for a certain food
+* Predicates: indicates the filters that the user wants to apply on partial presentation of the foods
+* Unique Food List: holds the collection of all foods
+
+==== Model Overview
+The
+image::FoodModelClassDiagram.png[]
+
+==== Implementation
+
+It majorly implements the following operations:
+
+* `SugarMummy#recmf()` -- Recommends a list of foods to the user.
+* `SugarMummy#sortf()` -- Sorts the recommendations in ascending or descending order in terms of food name or calorie, gi, sugar, and fat values.
+
+These operations are exposed in the `Model` interface as `Model#updateFilteredFoodList()`, `Model#sortFilteredFoodList()` respectively.
+
+Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
+
+Step 1. The user launches the application and enter `recmf` Command for the first time and . The `foodlist.json` storage file will be initialized with the pre-loaded food data.
+
+Step 2. The user executes `recmf -f -sv` command.  calls
+
+[NOTE]
+If no flag is specified, `RecmFoodCommandParser#getParsedFlags()` will return all flags to show to full content of foods.
+
+
+Step 4. The user executes `recmf sort/calorie`
+
+Step 5. The user feels the database is insufficient and wants to add a new food by executing `addfood (FOOD INFO)`.
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+
+* The following sequence diagram shows how the food recommendation operation works: `recmf -f fn/Cherry`
+
+image::RecmFoodSequenceDiagram.png[]
+
+NOTE: The lifeline for `RecmFoodCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+* The following activity diagram summarizes what happens when a user executes `recmf` :
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How recommendations are presented to user
+* **Alternative 1 (current choice):** Shows the user a pane of cards. Different types are indicated by the different background colors of the food names.
+** Pros: Easy to implement.
+** Cons:
+* **Alternative 2:** Use several scrollable horizontal list views to hold different food type.
+** Pros:
+*** The content is more organized and the user does not need to specify food types in the filter.
+*** The food card for different food types can be more targeted. For example, for most proteins, the sugar and gi of value 0 can be omitted while protein values can be added.
+** Cons: The operations targeting at the whole list, such as filtering based on food names, need to be applied repeatedly for each food list.
+
+===== Aspect: Data structure to support the recmf command
+
+* **Alternative 1 (current choice):** Use a list to store all the foods
+** Pros: The logic can be easily understood.
+** Cons:
+* **Alternative 2:** Use a map that maps different food types to corresponding food list
+** Pros:
+** Cons:
+
+===== Aspect: New food data input from user
+* **Alternative 1 (current choice):** Require inputs for all fields (e.g. calorie, gi...).
+** Pros: It is easy for data manipulation. Specifically, this prevents some foods from permanently having empty fields. Additionally, this may further hinder the data usage for data analysis.
+** Cons: Some data may not be currently available while the user still to want to record a new food by simply inputting the food name.
+* **Alternative 2: ** Allow temporarily empty fields and use a separate list to hold such incomplete inputs.
+** Pros: This provides the user with more freedom and flexibility of entering data.
+** Cons: Every change or manipulation on food data needs to be applied on two lists. Transferring data from one list to the other may also be error-prone.
+
+==== Future Development Direction
+
+** Larger database for food recommendations
+To increase the usability of food recommendations, it is suggested to have more food data at the beginning instead of depending on user inputs. Ideally, the recommendation data can be connected to online database for dynamic updates while can have local storage for offline operations.
+
+** Diet records and analysis
+The current food models can be utilized to help record daily diets. This would allow the user to have an overview of his food consuming statistics. Therefore, some suggestions can be proposed to help diabetes users regulate and plan their diets.
+// end::recmf[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

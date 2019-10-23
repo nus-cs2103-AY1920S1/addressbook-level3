@@ -208,11 +208,6 @@ class ReminderCommandTest {
         }
 
         @Override
-        public void deleteFood(Food food) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public UniqueFoodList getUniqueFoodListObject() {
             throw new AssertionError("This method should not be called.");
         }
@@ -307,12 +302,32 @@ class ReminderCommandTest {
         }
 
         @Override
+        public void addPastReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<CalendarEntry> getPastReminderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void schedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void stopAllReminders() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -412,6 +427,10 @@ class ReminderCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public void schedule() {
         }
     }
 

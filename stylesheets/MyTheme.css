@@ -358,7 +358,7 @@
     -fx-text-fill: white;
 }
 
-.profile-scroll {
+.profile-scroll, .calendar-scroll{
     -fx-background: transparent !important;
     -fx-background-color: transparent !important;
     -fx-border-color: transparent !important;

@@ -47,7 +47,7 @@ public class ReminderCommand extends Command {
         }
 
         model.addCalendarEntry(toAdd);
-
+        model.schedule();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }
 
