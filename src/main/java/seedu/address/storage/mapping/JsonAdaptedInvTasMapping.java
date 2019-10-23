@@ -1,39 +1,39 @@
-package seedu.address.storage;
+package seedu.address.storage.mapping;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 
 /**
  * Jackson-friendly version of {@link Task}.
  */
-class JsonAdaptedMapping {
+class JsonAdaptedInvTasMapping {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Mapping's %s field is missing!";
 
-    private final JsonAdaptedMember member;
-    private final JsonAdaptedTask task;
+    private final int inventoryIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
-    public JsonAdaptedMapping(@JsonProperty("task") JsonAdaptedTask task,
-                              @JsonProperty("member") JsonAdaptedMember member) {
-        this.task = task;
-        this.member = member;
+    public JsonAdaptedInvTasMapping(@JsonProperty("task") int inventoryIndex,
+                              @JsonProperty("member") int taskIndex) {
+        this.inventoryIndex = inventoryIndex;
+        this.taskIndex = taskIndex;
     }
 
     /**
      * Converts a given {@code Task} into this class for Jackson use.
      */
-    public JsonAdaptedMapping(Mapping source) {
-        task = new JsonAdaptedTask(source.getTask());
-        member = new JsonAdaptedMember(source.getMember());
+    public JsonAdaptedInvTasMapping(Mapping source) {
+        inventoryIndex = source.getInventoryIndex();
+        taskIndex = source.getTaskIndex();
     }
 
     /**
@@ -42,14 +42,7 @@ class JsonAdaptedMapping {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
     public Mapping toModelType() throws IllegalValueException {
-        if (task == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Task.class.getSimpleName()));
-        }
-        if (member == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Member.class.getSimpleName()));
-        }
-        return new Mapping(member.toModelType(), task.toModelType());
+        return new InvTasMapping(inventoryIndex, taskIndex);
     }
 
 }

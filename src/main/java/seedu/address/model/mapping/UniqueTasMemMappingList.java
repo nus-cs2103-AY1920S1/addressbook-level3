@@ -61,7 +61,7 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
             if (result.get(currentTaskIndex) == null) {
                 result.put(currentTaskIndex, FXCollections.observableArrayList());
             }
-            result.get(currentTask).add(mapping.getMemberIndex());
+            result.get(currentTaskIndex).add(mapping.getMemberIndex());
         }
         return result;
     }
@@ -83,6 +83,11 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
         if (!internalList.remove(toRemove)) {
             throw new MappingNotFoundException();
         }
+    }
+
+    public boolean contains(TasMemMapping toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameMapping);
     }
 
     /**
@@ -121,11 +126,6 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
         }
 
         internalList.setAll(mappings);
-    }
-
-    public boolean contains(TasMemMapping toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameMapping);
     }
 
     /**

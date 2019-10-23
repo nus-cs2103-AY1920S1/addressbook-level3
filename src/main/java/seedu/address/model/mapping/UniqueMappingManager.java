@@ -43,7 +43,7 @@ public class UniqueMappingManager {
         invMemMappingList.add(toAdd);
     }
 
-    public void delete(InvMemMapping toRemove) {
+    public void remove(InvMemMapping toRemove) {
         requireNonNull(toRemove);
         invMemMappingList.remove(toRemove);
     }
@@ -77,7 +77,7 @@ public class UniqueMappingManager {
         invTasMappingList.add(toAdd);
     }
 
-    public void delete(InvTasMapping toRemove) {
+    public void remove(InvTasMapping toRemove) {
         requireNonNull(toRemove);
         InvTasMappingList.remove(toRemove);
     }
@@ -128,7 +128,7 @@ public class UniqueMappingManager {
         tasMemMappingList.add(toAdd);
     }
 
-    public void delete(TasMemMapping toRemove) {
+    public void remove(TasMemMapping toRemove) {
         requireNonNull(toRemove);
         tasMemMappingList.remove(toRemove);
     }
