@@ -242,7 +242,7 @@ task deployOfflineDocs(type: Copy) {
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
-defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+defaultTasks 'clean', 'test', 'coverage'
 
 
 
