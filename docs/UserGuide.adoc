@@ -369,6 +369,45 @@ Example: +
 Shows a breakdown of all expenses in text form. +
 {nbsp} +
 
+=== Undo and Redo: `undo/redo`
+
+. _Undo the previous action: undo_ +
+Undo will restore the previous billboard state from state history. Undo will ignore all arguments. +
+{nbsp} +
+Usage:
+
+ undo
++
+{nbsp} +
+. _Redo the previous undo action: redo_ +
+Redo will restore a previously undone billboard state from state history. Redo will ignore all arguments. +
+{nbsp} +
+Usage:
+
+ redo
++
+{nbsp} +
+
+=== Viewing History: `history`
+
+. _View the past command history: history_ +
+History will show all previous command histories. History will ignore all arguments. +
+{nbsp} +
+Usage:
+
+ history
++
+{nbsp} +
+
+=== Up and down key: `&uarr;/&darr;`
+
+. _Get the previous entered command: &uarr;_ +
+Up arrow key(&uarr;) will get the previous command entered in the command history on the text field. +
+{nbsp} +
+. _Get the sequential entered command: &darr;_ +
+Down arrow key(&darr;) will get the sequential command entered in the command history on the text field. +
+{nbsp} +
+
 === Viewing help: `help`
 
 . _Help list of complete set of commands: help_ +

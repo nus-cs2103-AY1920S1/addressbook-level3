@@ -13,7 +13,7 @@ public class VersionedBillboard {
     private static int currentState = 0;
 
     /**
-     * Saves the current address book state in state history.
+     * Saves the current billboard state in state history.
      */
     public static void commit(Model model) {
         if (currentState != 0) {
@@ -27,7 +27,7 @@ public class VersionedBillboard {
     }
 
     /**
-     *  Restores the previous address book state from state history.
+     *  Restores the previous billboard state from state history.
      */
     public static Model undo() {
         currentState++;
@@ -35,7 +35,7 @@ public class VersionedBillboard {
     }
 
     /**
-     *  Restores a previously undone address book state from state history.
+     *  Restores a previously undone billboard state from state history.
      */
     public static Model redo() {
         currentState--;
