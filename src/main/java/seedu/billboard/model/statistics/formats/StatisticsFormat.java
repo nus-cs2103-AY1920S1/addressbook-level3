@@ -1,9 +1,9 @@
 package seedu.billboard.model.statistics.formats;
 
-import seedu.billboard.commons.exceptions.IllegalValueException;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import seedu.billboard.commons.exceptions.IllegalValueException;
 
 /**
  * Enum representing the supported statistics formats.

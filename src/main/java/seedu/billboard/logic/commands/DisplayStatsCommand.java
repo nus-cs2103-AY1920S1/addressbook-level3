@@ -1,13 +1,16 @@
 package seedu.billboard.logic.commands;
 
-import seedu.billboard.model.Model;
-import seedu.billboard.model.statistics.formats.StatisticsFormat;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.requireNonNull;
+import seedu.billboard.model.Model;
+import seedu.billboard.model.statistics.formats.StatisticsFormat;
 
+/**
+ * Changes the displayed statistic of the billboard.
+ */
 public class DisplayStatsCommand extends Command {
 
     public static final String COMMAND_WORD = "display-stats";
@@ -25,6 +28,9 @@ public class DisplayStatsCommand extends Command {
 
     private final StatisticsFormat format;
 
+    /**
+     * @param format Statistics format to be displayed.
+     */
     public DisplayStatsCommand(StatisticsFormat format) {
         this.format = format;
     }

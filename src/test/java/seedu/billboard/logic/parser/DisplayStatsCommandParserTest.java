@@ -5,6 +5,7 @@ import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseFail
 import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.billboard.logic.commands.DisplayStatsCommand;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 
