@@ -83,6 +83,7 @@ public class EditBudgetCommand extends Command {
         model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

@@ -83,6 +83,7 @@ public class EditWishCommand extends Command {
         model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

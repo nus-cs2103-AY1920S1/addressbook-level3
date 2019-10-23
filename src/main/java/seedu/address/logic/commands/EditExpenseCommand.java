@@ -82,6 +82,7 @@ public class EditExpenseCommand extends Command {
         model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

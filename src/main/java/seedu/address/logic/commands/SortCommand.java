@@ -37,6 +37,7 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.sortFilteredEntry(type, sequence);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 

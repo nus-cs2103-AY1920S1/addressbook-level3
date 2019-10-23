@@ -42,6 +42,7 @@ public class DeleteWishCommand extends Command {
 
         Wish entryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteWish(entryToDelete);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
     }
 

@@ -43,6 +43,7 @@ public class DeleteExpenseReminderCommand extends Command {
 
         ExpenseReminder entryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteExpenseReminder(entryToDelete);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
     }
 

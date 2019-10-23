@@ -77,6 +77,7 @@ public class EditExpenseReminderCommand extends Command {
 
         model.setExpenseReminder(entryToEdit, editedEntry);
         model.updateFilteredExpenseReminders(PREDICATE_SHOW_ALL_EXPENSE_REMINDERS);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

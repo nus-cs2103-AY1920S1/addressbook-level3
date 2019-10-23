@@ -82,6 +82,7 @@ public class EditIncomeCommand extends Command {
         model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 
