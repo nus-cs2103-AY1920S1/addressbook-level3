@@ -9,7 +9,7 @@ if () then ([valid fields present])
     :Use field data in predicates and save to Predicate List;
     :Combine Predicate List to form a single predicate;
     :Update Model based on predicate;
-else ([else])
+else ([missing or invalid fields])
     :Display error message;
 endif
 stop
