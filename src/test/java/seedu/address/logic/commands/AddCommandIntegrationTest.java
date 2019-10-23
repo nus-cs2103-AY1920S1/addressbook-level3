@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBudgets.getTypicalBudgetList;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
@@ -14,7 +13,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
-import seedu.address.testutil.BudgetBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -47,17 +45,7 @@ public class AddCommandIntegrationTest {
         assertCommandFailure(new AddCommand(expenseInList), model, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
     }
 
-    //    @Test
-    //    public void execute_newBudget_success() {
-    //        Budget validBudget = new BudgetBuilder().build();
     //
-    //        Model expectedModel = new ModelManager(getTypicalExpenseList(), model.getBudgetList(),
-    //            model.getExchangeData(), new UserPrefs());
-    //        expectedModel.addBudget(validBudget);
-    //
-    //        assertCommandSuccess(new AddBudgetCommand(validBudget), model,
-    //            String.format(AddBudgetCommand.MESSAGE_SUCCESS, validBudget), expectedModel);
-    //    }
 
     @Test
     public void execute_clashBudget_throwsCommandException() {
