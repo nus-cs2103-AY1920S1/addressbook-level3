@@ -3,9 +3,19 @@ package seedu.algobase.model.searchrule.problemsearchrule;
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
+import seedu.algobase.model.problem.Problem;
+
 /**
  * Represents a search rule on finding {@code Problem} in AlgoBase.
  * Guarantees: details are present and not null, field values are immutable.
+ *
+ * Note that although this class's implementation is quite similar to
+ * {@link FindProblemDescriptor}, {@code ProblemSearchRule} is a model that
+ * needs to be stored in the storage, thus it's better we make it immutable.
+ *
+ * This seemingly duplicated implementation is to keep
  */
 public class ProblemSearchRule {
 
@@ -98,6 +108,29 @@ public class ProblemSearchRule {
 
     public boolean hasDefaultTagPredicate() {
         return hasDefaultTagPredicate;
+    }
+
+    public Predicate<Problem> getFindProblemPredicate() {
+        FindProblemDescriptor descriptor = new FindProblemDescriptor();
+        if (!hasDefaultNamePredicate) {
+            descriptor.setNamePredicate(namePredicate);
+        }
+        if (!hasDefaultAuthorPredicate) {
+            descriptor.setAuthorPredicate(authorPredicate);
+        }
+        if (!hasDefaultDescriptionPredicate) {
+            descriptor.setDescriptionPredicate(descriptionPredicate);
+        }
+        if (!hasDefaultSourcePredicate) {
+            descriptor.setSourcePredicate(sourcePredicate);
+        }
+        if (!hasDefaultDifficultyPredicate) {
+            descriptor.setDifficultyPredicate(difficultyPredicate);
+        }
+        if (!hasDefaultTagPredicate) {
+            descriptor.setTagPredicate(tagPredicate);
+        }
+        return descriptor.getFindProblemPredicate();
     }
 
     /**

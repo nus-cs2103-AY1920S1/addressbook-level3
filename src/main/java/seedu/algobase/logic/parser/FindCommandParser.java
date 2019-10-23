@@ -18,6 +18,7 @@ import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.FindProblemDescriptor;
 import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
 import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPredicate;
@@ -51,7 +52,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        FindCommand.FindProblemDescriptor findProblemDescriptor = new FindCommand.FindProblemDescriptor();
+        FindProblemDescriptor findProblemDescriptor = new FindProblemDescriptor();
 
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
             List<String> nameKeywords = getArgumentValueAsList(argumentMultimap.getValue(PREFIX_NAME).get());
