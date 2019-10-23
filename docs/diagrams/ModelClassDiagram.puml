@@ -3,7 +3,7 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
-skinparam linetype polyline
+'skinparam linetype polyline
 
 Package Model <<Rectangle>>{
 Interface ReadOnlyPlanner <<Interface>>
@@ -16,8 +16,9 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Field {
+Package Field\n {
 Class Address
+Class H1 #FFFFFF
 Class Name
 }
 
@@ -63,30 +64,35 @@ ModelManager o--> "1" Planner
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-Planner *--> "1" UniqueAccommodationList
-Planner *--> "1" UniqueContactList
-Planner *--> "1" UniqueActivityList
-Planner *--> "1" Itinerary
+Planner *--> UniqueAccommodationList
+Planner *--> UniqueContactList
+Planner *--> UniqueActivityList
+Planner *--> Itinerary
 
-ItineraryItem *-right-> "1" Name
-ItineraryItem *--> "1" Address
-ItineraryItem *--> "0..1" Contact
+ItineraryItem *-->  Name
+ItineraryItem *-[hidden]-> Name
+ItineraryItem *-[hidden]-> Name
+ItineraryItem *--> Address
+ItineraryItem *--> "0..1  \n" Contact
 ItineraryItem *-[hidden]-> Contact
-ItineraryItem *-up-> "*" Tag
+ItineraryItem *-up-> "\n        *" Tag
 ItineraryItem <|-- Accommodation
 ItineraryItem <|-[hidden]- Accommodation
 
 ItineraryItem <|-- Activity
-ItineraryItem *-[hidden]-> "1" Name
-ItineraryItem *-[hidden]-> "1" Name
-UniqueActivityList o--> "*" Activity
-UniqueAccommodationList o--> "*" Accommodation
+
+UniqueActivityList o--> "         *" Activity
+UniqueAccommodationList o--> "        *" Accommodation
 
 UniqueContactList o--> "*" Contact
-Contact *--> "1" Name
-Contact *--> "1" Phone
+
+Contact *-->  Name
+Contact *-[hidden]->  Phone
+Contact *-[hidden]->  Phone
+Contact *-->  Phone
+Contact *-[hidden]-> "0..1" Email
+Contact *-[hidden]-> "0..1" Email
 Contact *--> "0..1" Email
-Contact *--> "0..1" Address
 Contact *-[hidden]-> "0..1" Address
 Contact *-[hidden]-> "0..1" Address
 Contact *--> "0..1" Address
@@ -94,11 +100,11 @@ Contact *--> "0..1" Address
 Contact *-up-> "*" Tag
 
 
-Itinerary o--> "*" Day
-Day *--> "1" Timetable
-Timetable o--> "*" ActivityWithTime
+Itinerary o--> " *" Day
+Day *--> Timetable
+Timetable o--> " *" ActivityWithTime
 
-'Address -[hidden]right-> Name
+Name -[hidden]right-> H1
 'HiddenClass1 -[hidden]right-> Address
 'Phone -[hidden]right-> Address
 
