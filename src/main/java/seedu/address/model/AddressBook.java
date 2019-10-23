@@ -121,9 +121,11 @@ public class AddressBook implements ReadOnlyAddressBook {
             primaryBudget.addExpense(p);
             primaryBudget.updateProportionUsed();
         } else {
-            Budget budget = budgets.getBudgetWithName(new Description(p.getBudgetName()));
-            budget.addExpense(p);
-            budget.updateProportionUsed();
+            Budget budget = budgets.getBudgetWithName(p.getBudgetName());
+            if (budget != null) {
+                budget.addExpense(p);
+                budget.updateProportionUsed();
+            }
         }
         expenses.add(p);
     }
