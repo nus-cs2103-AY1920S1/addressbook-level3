@@ -8,7 +8,7 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class DukeCooksParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -19,6 +19,7 @@ Class Prefix
 
 package Command {
 Class XYZCommand
+Class XYZCommandVariant
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
@@ -35,10 +36,10 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" DukeCooksParser
+DukeCooksParser .left.> XYZCommandParser: creates >
 
-XYZCommandParser ..> XYZCommand : creates >
+XYZCommandParser ..> XYZCommandVariant : creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
@@ -48,12 +49,14 @@ CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
+XYZCommandVariant -up-|> XYZCommand
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of XYZCommandVariant: XYZCommandVariant = AddRecipeCommand, \nAddExerciseCommand, etc.
+note right of XYZCommand: XYZCommand = AddCommand, DeleteCommand,\nEditCommand etc.
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

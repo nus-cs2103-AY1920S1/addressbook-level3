@@ -3,6 +3,8 @@ package seedu.address.model.dashboard.components;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,6 +32,19 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Sorts the list by date
+     */
+    public void sortDashboard(List<Dashboard> l) {
+        Comparator<Dashboard> comparator = new Comparator<Dashboard>() {
+            @Override
+            public int compare(final Dashboard o1, Dashboard o2) {
+                return o1.getLocalDate().compareTo(o2.getLocalDate());
+            }
+        };
+        Collections.sort(l, comparator);
+    }
+
+    /**
      * Returns true if the list contains an equivalent dashboard as the given argument.
      */
     public boolean contains(Dashboard toCheck) {
@@ -47,6 +62,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
             throw new DuplicateDashboardException();
         }
         internalList.add(toAdd);
+        sortDashboard(internalList);
     }
 
     /**
@@ -67,6 +83,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
         }
 
         internalList.set(index, editedDashboard);
+        sortDashboard(internalList);
     }
 
     /**
@@ -78,6 +95,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
         if (!internalList.remove(toRemove)) {
             throw new DashboardNotFoundException();
         }
+        sortDashboard(internalList);
     }
 
     public void setDashboards(UniqueDashboardList replacement) {
@@ -92,6 +110,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
         }
 
         internalList.setAll(dashboards);
+        sortDashboard(internalList);
     }
 
 
@@ -120,7 +139,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     }
 
     /**
-     * Returns true if {@code diaries} contains only unique diaries.
+     * Returns true if {@code dashboards} contains only unique dashboards.
      */
     private boolean dashboardsAreUnique(List<Dashboard> dashboards) {
         for (int i = 0; i < dashboards.size() - 1; i++) {
