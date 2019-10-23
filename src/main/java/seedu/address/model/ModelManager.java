@@ -81,16 +81,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void serveNextPatient(int index) {
-        queueManager.serveNext(index);
-    }
-
-    @Override
-    public void undoServeNextPatient(int index) {
-        queueManager.undoServeNext(index);
-    }
-
-    @Override
     public boolean isPatientInQueue(ReferenceId id) {
         requireNonNull(id);
         return queueManager.hasId(id);
@@ -109,11 +99,6 @@ public class ModelManager implements Model {
     @Override
     public void removeRoom(Room target) {
         queueManager.removeRoom(target);
-    }
-
-    @Override
-    public void setRoom(Room target, Room editedRoom) {
-        queueManager.setRoom(target, editedRoom);
     }
 
     @Override

@@ -140,16 +140,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void serveNextPatient(int index) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void undoServeNextPatient(int index) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void addRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
@@ -161,11 +151,6 @@ public class ModelStub implements Model {
 
     @Override
     public void removeRoom(Room target) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setRoom(Room target, Room editedRoom) {
         throw new AssertionError("This method should not be called.");
     }
 
