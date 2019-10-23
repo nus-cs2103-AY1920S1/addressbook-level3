@@ -262,6 +262,66 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Calendar feature
+==== Implementation
+
+The calendar feature works along with a scheduler. Calendar stores internally a `calendarEntries` list and a `pastReminders` list.
+Calendar entries consists of reminders and events. Past reminders list is dynamically determined by time and all reminders in this
+list is shown to the user. The scheduler acts as a wrapper for the Java ScheduledExecutorService, which updates past reminder list at specific time.
+It implements the following operations:
+
+* 'Calendar#addCalendarEntry' -- Adds a new calendar entry to the calendar.
+* 'Calendar#addPastReminder' -- Adds a reminder to the past reminders list.
+* 'Calendar#getCalendarEntryList' -- Gets a list of calendar entries.
+* 'Calendar#getPastReminderList' -- Gets a list of past reminders.
+* 'Calendar#schedule' -- Schedules a series of upcoming reminders.
+
+These operations are exposed in the `Model` interface as `Model#addCalendarEntry()`, `Model#addPastReminder()`,
+ `Model#getFilteredCalendarEntryList()`, `Model#getPastReminderList` and `Model#schedule` respectively.
+
+Given below is an example usage scenario and how the calendar behaves at each step.
+
+Step 1. The user launches the application for the first time on Dec 14 2019 09:00(local time). The `Calendar` will be initialized with the initial calendar state, which includes an empty calendar
+entry list and an empty past reminder list.
+
+Step 2. The user executes `reminder d/insulin injection dt/2019-12-14 17:30 r/daily` command to add a new reminder of 'insulin inject' at 17:30 every day. The `reminder` command calls `Model#addCalendarEntry()`,
+causing the modified state of the calendar after the reminder command executes to be saved in the `calendarEntries` list. Subsequently, it calls `Model#schedule()` which forces the scheduler to update the upcoming
+reminders.
+
+Step 3. The user executes `event d/meeting dt/2019-12-14 14:30 tp/00:30` command to add an new event with an auto reminder scheduled 30 minutes
+before the event. It calls `Model#addCalendarEntry()`, causing a new event as well as a new reminder saved in the `calendarEntries` list. Subsequently, it calls `Model#schedule()` which forces the scheduler to
+update the upcoming reminders.
+
+[NOTE]
+If an event or reminder command fails its execution, it will not call `Model#addCalendarEntry()`, so the calendar state will not be saved into the `calendarEntryList`.
+
+Step 4. At 14:00, a scheduled task is executed to call `Model#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
+
+Step 5. At 17:30, a scheduled task is executed to call `Model#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+==== Design Considerations
+
+===== Aspect: How scheduler updates upcoming reminders
+
+* **Alternative 1 (current choice):** Cancels all scheduled reminders and reschedule according to the updated reminder entries.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of time.
+* **Alternative 2:** Updates scheduled reminders according to the newly added reminder.
+** Pros: Will has less repeated work.
+** Cons: More work to do on deciding which tasks to cancel.
+
+===== Aspect: Period of updating scheduler.
+
+* **Alternative 1 (current choice):** Updates scheduler at 23:59(local time) every day.
+** Pros: Easy to implement.
+** Cons: May have a large number of scheduled tasks which will not be executed before the applicaion is closed.
+* **Alternative 2:** Updates scheduler every hour.
+** Pros: More flexible scheduling without concerning date and less scheduled tasks.
+** Cons: May cause overhead due to frequently updating.
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
