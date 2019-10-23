@@ -118,13 +118,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addBudget(Budget budget) {
-        versionedBankAccount.addBudget(budget);
+    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+        requireAllNonNull(budgetTarget, budgetEdit);
+
+        versionedBankAccount.setBudget(budgetTarget, budgetEdit);
     }
 
     @Override
     public void addTransaction(BankAccountOperation transaction) {
         versionedBankAccount.addTransaction(transaction);
+    }
+
+    @Override
+    public void addBudget(Budget budget) {
+        versionedBankAccount.addBudget(budget);
     }
 
     /**

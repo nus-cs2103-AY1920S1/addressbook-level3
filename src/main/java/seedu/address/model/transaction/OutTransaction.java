@@ -2,8 +2,8 @@ package seedu.address.model.transaction;
 
 import java.util.Set;
 
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Date;
 
 /**
@@ -14,12 +14,12 @@ public class OutTransaction extends Transaction implements BankAccountOperation 
         super(amount, date);
     }
 
-    public OutTransaction(Amount amount, Date date, Set<Tag> tags) {
-        super(amount, date, tags);
+    public OutTransaction(Amount amount, Date date, Set<Category> categories) {
+        super(amount, date, categories);
     }
 
-    public OutTransaction(Amount amount, Date date, Set<Tag> tags, Person personInvolved) {
-        super(amount, date, tags, personInvolved);
+    public OutTransaction(Amount amount, Date date, Set<Category> categories, Person personInvolved) {
+        super(amount, date, categories, personInvolved);
     }
 
     @Override

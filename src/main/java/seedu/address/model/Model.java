@@ -113,6 +113,8 @@ public interface Model {
      */
     void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
 
+    void setBudget(Budget budgetTarget, Budget budgetEdit);
+
     /**
      * Adds the given transaction.
      * {@code transaction} must not already exist in the bank account.
