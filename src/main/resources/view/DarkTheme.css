@@ -168,7 +168,7 @@
 }
 
 .result-display {
-    -fx-background-color: transparent;
+    -fx-background-color: #121212;
     -fx-font-family: "Century Gothic";
     -fx-font-size: 10pt;
     -fx-text-fill: white;
@@ -184,6 +184,11 @@
     -fx-arrows-visible: 2;
     -fx-legend-visible: 2;
     -fx-page-information-visible:2
+}
+
+#resultDisplay .content {
+    -fx-background-color: #121212;
+    -fx-background-radius: 0;
 }
 
 .status-bar .label {
@@ -366,11 +371,6 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#resultDisplay .content {
-    -fx-background-color: #121212;
-    -fx-background-radius: 0;
-}
-
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -430,7 +430,7 @@
 }
 
 .fridgeIdCircleEmpty {
-    -fx-fill: #EA4335;
+    -fx-fill: #FF7597;
 }
 
 .fridgeIdCircleFilled {
@@ -539,7 +539,7 @@
 
 #dateBox {
     -fx-background-color: #FF7597;
-    -fx-background-radius: 20;
+    -fx-background-radius: 10;
 }
 
 #organs {
@@ -578,7 +578,6 @@
 
 #maximiseButton {
     -fx-background-image: url("../images/maximise.png");
-    -fx-background-size: 35px 35px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }

@@ -49,14 +49,12 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
         filteredNotifs = new FilteredList<>(this.addressBook.getNotifList());
-
         commandHistory = new CommandHistory();
         undoHistory = new CommandHistory();
         filteredFridges = new FilteredList<>(this.addressBook.getFridgeList());
@@ -176,7 +174,6 @@ public class ModelManager implements Model {
     @Override
     public void setEntity(Entity target, Entity editedEntity) {
         requireAllNonNull(target, editedEntity);
-
         addressBook.setEntity(target, editedEntity);
     }
 

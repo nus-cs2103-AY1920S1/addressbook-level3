@@ -12,6 +12,7 @@ import seedu.address.model.notif.Notif;
 import seedu.address.model.notif.exceptions.DuplicateNotifException;
 import seedu.address.model.notif.exceptions.NotifNotFoundException;
 
+//@@author arjavibahety
 /**
  * Lists of notifs that enforces uniqueness between its elements and does not allow nulls.
  * A notif is considered unique by comparing using {@code Notif#isSameNotif(Notif)}. As such, adding and updating
@@ -140,3 +141,4 @@ public class UniqueNotifsList {
         return true;
     }
 }
+//@@author

@@ -76,7 +76,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.bodyStatus = body.getBodyStatus().orElse(null);
         this.fridgeId = body.getFridgeId().orElse(null);
         this.dateOfBirth = body.getDateOfBirth().orElse(null);
-        this.dateOfDeath = body.getDateOfDeath();
+        this.dateOfDeath = body.getDateOfDeath().orElse(null);
         this.nextOfKin = body.getNextOfKin().orElse(null);
         this.relationship = body.getRelationship().orElse(null);
         this.kinPhoneNumber = body.getKinPhoneNumber().orElse(null);
@@ -108,12 +108,10 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setBodyStatus(this.getBodyStatus().orElse(body.getBodyStatus().orElse(null)));
         body.setFridgeId(this.getFridgeId().orElse(body.getFridgeId().orElse(null)));
         body.setDateOfBirth(this.getDateOfBirth().orElse(body.getDateOfBirth().orElse(null)));
-        body.setDateOfDeath(this.getDateOfDeath().orElse(body.getDateOfDeath()));
-
+        body.setDateOfDeath(this.getDateOfDeath().orElse(body.getDateOfDeath().orElse(null)));
         body.setNextOfKin(this.getNextOfKin().orElse(body.getNextOfKin().orElse(null)));
         body.setRelationship(this.getRelationship().orElse(body.getRelationship().orElse(null)));
         body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber().orElse(null)));
-
         return entity;
     }
 

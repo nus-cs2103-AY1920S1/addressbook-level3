@@ -12,4 +12,5 @@ public class TypicalIdentificationNumbers {
     public static final IdentificationNumber SECOND_WORKER_ID_NUM = IdentificationNumber.customGenerateId("W", 2);
     public static final IdentificationNumber FIRST_FRIDGE_ID_NUM = IdentificationNumber.customGenerateId("F", 1);
     public static final IdentificationNumber SECOND_FRIDGE_ID_NUM = IdentificationNumber.customGenerateId("F", 2);
+    public static final IdentificationNumber THIRD_FRIDGE_ID_NUM = IdentificationNumber.customGenerateId("F", 3);
 }

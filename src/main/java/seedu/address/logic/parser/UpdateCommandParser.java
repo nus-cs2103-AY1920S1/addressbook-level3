@@ -184,8 +184,10 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             bodyDescriptor.setBodyStatus(ParserUtil.parseBodyStatus(argMultimap.getValue(PREFIX_STATUS).get()));
         }
         if (!argMultimap.getValue(PREFIX_FRIDGE_ID).orElse("").isEmpty()) {
-            bodyDescriptor.setFridgeId(ParserUtil.parseIdentificationNumber(
-                    argMultimap.getValue(PREFIX_FRIDGE_ID).get()));
+            String idNum = argMultimap.getValue(PREFIX_FRIDGE_ID).orElse(null);
+            IdentificationNumber identificationNumber = IdentificationNumber
+                    .customGenerateId("F", Integer.parseInt(idNum));
+            bodyDescriptor.setFridgeId(identificationNumber);
         }
         if (!argMultimap.getValue(PREFIX_DATE_OF_BIRTH).orElse("").isEmpty()) {
             bodyDescriptor.setDateOfBirth(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).get()));
