@@ -50,7 +50,7 @@ public class Billboard implements ReadOnlyBillboard {
     public Billboard(ExpenseList expenses, UniqueTagList tags, TagCountManager count) {
         setExpenses(expenses.asUnmodifiableObservableList());
         this.tags.setTagList(tags.getTagList());
-        this.count.setCount(count.getCount());
+        this.count.setCountMap(count.getCountMap());
     }
 
     //// list overwrite operations

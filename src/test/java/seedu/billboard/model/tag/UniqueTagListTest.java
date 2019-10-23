@@ -102,7 +102,7 @@ public class UniqueTagListTest {
 
     @Test
     public void setList_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueTagList.setList(null));
+        assertThrows(NullPointerException.class, () -> uniqueTagList.setTagList(null));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class UniqueTagListTest {
         Map<String, Tag> expected = new HashMap<>();
         expected.put("test", new Tag("test"));
         UniqueTagList actual = new UniqueTagList();
-        actual.setList(expected);
+        actual.setTagList(expected);
         assertEquals(expected, actual.getTagList());
     }
 
