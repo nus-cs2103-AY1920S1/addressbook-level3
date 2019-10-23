@@ -56,9 +56,9 @@ public class QuizCheckAnswer extends Command {
         model.addQuizResult(quizResult);
 
         if (result) {
-            return new CommandResult(ANSWER_CORRECT, false, false, true, false);
+            return new CommandResult(ANSWER_CORRECT, 4);
         } else {
-            return new CommandResult(ANSWER_WRONG, false, false, true, false);
+            return new CommandResult(ANSWER_WRONG, 4);
         }
     }
 }

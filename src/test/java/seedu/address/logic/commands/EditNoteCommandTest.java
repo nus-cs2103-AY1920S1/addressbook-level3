@@ -111,7 +111,7 @@ public class EditNoteCommandTest {
     public void execute_duplicateNoteFilteredList_failure() {
         showNoteAtIndex(model, INDEX_FIRST);
 
-        // edit note in filtered list into a duplicate in address book
+        // edit note in filtered list into a duplicate in notes
         Note noteInList = model.getAppData().getNoteList().get(INDEX_SECOND.getZeroBased());
         EditNoteCommand editNoteCommand = new EditNoteCommand(INDEX_FIRST,
                 new EditNoteDescriptorBuilder(noteInList).build());
@@ -130,13 +130,13 @@ public class EditNoteCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than number of notes
      */
     @Test
     public void execute_invalidNoteIndexFilteredList_failure() {
         showNoteAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of lecture note list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAppData().getNoteList().size());
 
         EditNoteCommand editNoteCommand = new EditNoteCommand(outOfBoundIndex,
