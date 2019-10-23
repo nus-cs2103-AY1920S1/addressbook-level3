@@ -254,6 +254,9 @@ This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
 `ReminderAssociation` represents the association between `Reminder` and `Bookmark`, containing
  the relation from `Reminder` to `Bookmark` and `Reminder` to `Bookmark`.
 
+.Structure of the Reminder
+image::ReminderAssociationDiagram.png[]
+
 ==== Design Consideration
 ===== Aspect: How to represent the relationship between reminder and bookmark.
 * **Alternative 1 (current choice):** Use two hashmap to store both the relationship from reminder to bookmark and bookmark to reminder.
