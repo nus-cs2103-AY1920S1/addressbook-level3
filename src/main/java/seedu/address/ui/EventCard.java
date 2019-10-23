@@ -47,8 +47,8 @@ public class EventCard extends UiPart<Region> {
         venue.setText(event.getVenue().venue);
         manpowerCount.setText("Manpower: " + event.getManpowerAllocatedList().getCurrentManpowerCount() + " / "
                 + event.getManpowerNeeded().value);
-        startDate.setText(event.getStartDate().date + " to "
-                + event.getEndDate().date);
+        startDate.setText(event.getStartDate().getDate() + " to "
+                + event.getEndDate().getDate());
         event.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

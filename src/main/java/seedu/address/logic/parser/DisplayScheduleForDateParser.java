@@ -33,7 +33,7 @@ public class DisplayScheduleForDateParser implements Parser<DisplayScheduleForDa
 
         EventDate start = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
-        return new DisplayScheduleForDateCommand(new EventContainsKeyDatePredicate(start.date));
+        return new DisplayScheduleForDateCommand(new EventContainsKeyDatePredicate(start.getDate()));
     }
 
     /**
