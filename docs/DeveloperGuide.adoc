@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-3/main
 
 By: `AY1920S1-CS2103T-T10-3`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -235,6 +235,39 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag:: priority[]
+=== Priority Mode
+
+==== Implementation
+
+The priority mode is used to aid the user in focusing on the most pressing task that they have especially when they have many tasks in their list.
+
+The priority mode is mainly controlled in the ```ItemModelManager``` and the following are the methods it implements within the ```ItemModelManager```:
+
+* ```ItemModelManager#togglePriorityMode()``` - Toggle the priority mode depending on whether it is on or off.
+* ```ItemModelManager#toggleOnPriorityMode()``` - Helper function to toggle on the priority mode.
+* ```ItemModelManager#toggleOffPriorityMode()``` - Helper function to toggle off the priority mode.
+
+There are two variants to the priority mode, a normal priority mode that is controlled fully by the user and a scheduled priority mode that is triggered by the user but is scheduled to turn off after a specific amount of time. Both implementation uses the same three methods above and their only differences is when they are executed.
+
+==== Design Consideration
+Aspect: How to turn off the priority mode after a fixed time
+
+* Alternative 1: Having two different classes for activating the priority mode, a normal ```PriorityCommand``` and a ```ScheduledPriorityCommand``` that extends from the ```PriorityCommand```. The timer will be activated in the ```ScheduledPriorityCommand```.
+
+** Pros: Adhere to the SLAP principle with each class having it's own implementation of the ```Command#execute(ItemModel)```. This makes it easier to maintain the code and prevents from overloading the ItemModel by keeping the timer there.
+
+** Cons: There is no way to end the ```ScheduledPriorityCommand``` as the timer is kept within the command and so cannot be cancelled prematurely as there is no way to access the command after that.
+
+* Alternative 2 (Current choice): Having a timer within the ```ItemModelManager``` and having a specific method within the ```ItemModelManager``` to handle this creation of the timer.
+
+** Pros: The scheduled priority mode can be controlled within the ```ItemModelManager``` and can then be controlled within the class such that it can be cancelled when it is done.
+
+** Cons: This implementation will clutter the ```ItemModelManager``` further and make it harder for maintaining the code.
+
+Alternative 2 was chosen as we believe that the functionality of the ```ScheduledPriorityMode``` takes priority over the maintainability of the code and should be used first until a better method can be created.
+
+// end:: priority[]
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
