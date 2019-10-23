@@ -13,7 +13,7 @@ import seedu.ezwatchlist.api.ImageRetrieval;
  * Represents a Show's poster in the watchlist.
  */
 public class Poster {
-    private static final String PLACEHOLDER_IMAGE = "poster-placeholder.png";
+    private static final String PLACEHOLDER_IMAGE = "/images/poster-placeholder.png";
     private static final String ROOT_LOCATION = ImageRetrieval.IMAGE_CACHE_LOCATION + File.separator;
     private Image image;
     private String imagePath;
