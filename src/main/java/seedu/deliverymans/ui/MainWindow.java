@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
     private AvailableDeliverymenListPanel availableDeliverymenListPanel;
+    private UnavailableDeliverymenListPanel unavailableDeliverymenListPanel;
     private RestaurantListPanel restaurantListPanel;
     private OrderListPanel orderListPanel;
     private FoodListPanel foodListPanel;
@@ -206,6 +207,13 @@ public class MainWindow extends UiPart<Stage> {
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
+        case DELIVERYMENSTATUS:
+            availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
+            listPanelPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
+            unavailableDeliverymenListPanel = new UnavailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
+            statisticsPlaceholder.getChildren().add(unavailableDeliverymenListPanel.getRoot());
+            break;
+
         case EDITING:
             Restaurant editing = logic.getEditingRestaurantList().get(0);
             editingRestaurantPlaceholder.setPrefHeight(125.0);

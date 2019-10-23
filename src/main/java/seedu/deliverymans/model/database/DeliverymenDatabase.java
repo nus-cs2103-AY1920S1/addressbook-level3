@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.StatusManager;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
+
 
 /**
  * Wraps all Deliverymen data at the deliverymen-database level
@@ -19,7 +19,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
 
     private final UniqueDeliverymanList deliverymen;
     private final StatusManager statusManager;
-    private ObservableList<Deliveryman> statusSortedList = FXCollections.observableArrayList();;
+    private ObservableList<Deliveryman> statusSortedList = FXCollections.observableArrayList();
 
     {
         deliverymen = new UniqueDeliverymanList();
@@ -60,17 +60,17 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     public void initStatusManager() {
         for (Deliveryman man: deliverymen) {
             switch (man.getStatus().getDescription()) {
-                case "AVAILABLE":
-                    statusManager.addAvailableMan(man);
-                    break;
-                case "UNAVAILABLE":
-                    statusManager.addAvailableMan(man);
-                    break;
-                case "DELIVERING":
-                    statusManager.addDeliveringMan(man);
-                    break;
-                default:
-                    return;
+            case "AVAILABLE":
+                statusManager.addAvailableMan(man);
+                break;
+            case "UNAVAILABLE":
+                statusManager.addAvailableMan(man);
+                break;
+            case "DELIVERING":
+                statusManager.addDeliveringMan(man);
+                break;
+            default:
+                return;
             }
         }
     }
@@ -104,6 +104,20 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         return statusManager.listAvailableMen();
     }
 
+    /**
+     * Lists all the delivering deliverymen.
+     */
+    public ObservableList<Deliveryman> getDeliveringDeliverymenList() {
+        return statusManager.listDeliveringMen();
+    }
+
+    /**
+     * Lists all the unavailable deliverymen.
+     */
+    public ObservableList<Deliveryman> getUnavailableDeliverymenList() {
+        return statusManager.listUnavailableMen();
+    }
+
     public void setAsAvailable() {
         //statusSortedList = statusManager.listAvailableMen();
         for (Deliveryman man: statusManager.listAvailableMen()) {
@@ -113,13 +127,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
 
     public ObservableList<Deliveryman> getStatusSortedDeliverymenList() {
         return statusSortedList;
-    }
-
-    /**
-     * Lists all the unavailable deliverymen.
-     */
-    public void listUnavailableMen() {
-        statusManager.listUnavailableMen();
     }
 
     /**

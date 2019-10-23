@@ -1,7 +1,6 @@
 package seedu.deliverymans.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -319,6 +318,12 @@ public interface Model {
     void showAvailableDeliverymen();
 
     void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate);
+
+    ObservableList<Deliveryman> getAvailableMenList();
+
+    ObservableList<Deliveryman> getUnavailableMenList();
+
+    ObservableList<Deliveryman> getDeliveringMenList();
 
     //=========== Order Methods =============================================================
 

@@ -5,11 +5,9 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -51,6 +49,9 @@ public class ModelManager implements Model {
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
     private final FilteredList<Deliveryman> statusSortedDeliverymen;
+    private final FilteredList<Deliveryman> availableDeliverymen;
+    private final FilteredList<Deliveryman> unavailableDeliverymen;
+    private final FilteredList<Deliveryman> deliveringDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Restaurant> editingRestaurant;
     private final UndoHistory<Data> undoHistory;
@@ -82,6 +83,9 @@ public class ModelManager implements Model {
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         statusSortedDeliverymen = new FilteredList<>(this.deliverymenDatabase.getStatusSortedDeliverymenList());
+        availableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getAvailableDeliverymenList());
+        unavailableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getUnavailableDeliverymenList());
+        deliveringDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliveringDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
@@ -313,7 +317,6 @@ public class ModelManager implements Model {
     @Override
     public void showAvailableDeliverymen() {
         deliverymenDatabase.setAsAvailable();
-        //updateStatusFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
     }
 
     //=========== Order Methods =============================================================
@@ -428,6 +431,21 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Deliveryman> getStatusSortedList() {
         return statusSortedDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getAvailableMenList() {
+        return availableDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getUnavailableMenList() {
+        return unavailableDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getDeliveringMenList() {
+        return deliveringDeliverymen;
     }
 
     @Override

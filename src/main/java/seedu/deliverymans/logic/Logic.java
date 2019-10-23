@@ -71,6 +71,12 @@ public interface Logic {
      */
     Path getDeliverymenDatabaseFilePath();
 
+    ObservableList<Deliveryman> getAvailableDeliverymenList();
+
+    ObservableList<Deliveryman> getUnavailableDeliverymenList();
+
+    ObservableList<Deliveryman> getDeliveringDeliverymenList();
+
     //=========== Restaurant =============================================================
     /**
      * Returns the RestaurantDatabase.

@@ -1,12 +1,8 @@
 package seedu.deliverymans.model.deliveryman;
 
-import java.util.List;
-import java.util.Set;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 // import javafx.collections.transformation.SortedList;
-import javafx.collections.transformation.FilteredList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
 
 /**
@@ -33,26 +29,33 @@ public class StatusManager {
         initStatusLists();
     }
 
+    /**
+     *
+     * @param deliverymenList
+     */
     public void initDeliverymenList(UniqueDeliverymanList deliverymenList) {
         for (Deliveryman man: deliverymenList) {
             deliverymen.add(man);
         }
     }
 
+    /**
+     *
+     */
     public void initStatusLists() {
         for (Deliveryman man: deliverymen) {
             switch (man.getStatus().getDescription()) {
-                case "AVAILABLE":
-                    availableMen.add(man);
-                    break;
-                case "UNAVAILABLE":
-                    availableMen.add(man);
-                    break;
-                case "DELIVERING":
-                    deliveringMen.add(man);
-                    break;
-                default:
-                    return;
+            case "AVAILABLE":
+                availableMen.add(man);
+                break;
+            case "UNAVAILABLE":
+                availableMen.add(man);
+                break;
+            case "DELIVERING":
+                deliveringMen.add(man);
+                break;
+            default:
+                return;
             }
         }
     }
@@ -132,14 +135,14 @@ public class StatusManager {
     /**
      * Returns a list of all unavailable deliverymen.
      */
-    public List<Deliveryman> listUnavailableMen() {
+    public ObservableList<Deliveryman> listUnavailableMen() {
         return unavailableMen;
     }
 
     /**
      * Returns a list of all delivering deliverymen.
      */
-    public List<Deliveryman> listDeliveringMen() {
+    public ObservableList<Deliveryman> listDeliveringMen() {
         return deliveringMen;
     }
 
