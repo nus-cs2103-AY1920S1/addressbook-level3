@@ -1,4 +1,4 @@
-package seedu.billboard.model.statistics;
+package seedu.billboard.model.statistics.generators;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface StatisticsGenerator<T> {
     T generate(List<? extends Expense> expenses);
 
     /**
-     * Generates an expense timeline based on the given list of expenses, and the specified date interval.
+     * Generates statistics based on the given list of expenses, and the specified date interval.
      *
      * @param expenses Input expenses.
      * @param interval Specified date interval.

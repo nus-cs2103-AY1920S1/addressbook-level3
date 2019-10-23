@@ -10,7 +10,7 @@ import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.statistics.StatisticsType;
+import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -126,12 +126,12 @@ public interface Model {
     /**
      * Returns the statistics type wrapped in an observable wrapper.
      */
-    ObservableData<StatisticsType> getStatisticsType();
+    ObservableData<StatisticsFormat> getStatisticsType();
 
     /**
      * Sets the observable wrapper to the new statistics type, updating all observers in the process.
      */
-    void setStatisticsType(StatisticsType type);
+    void setStatisticsType(StatisticsFormat type);
 
     // ================ Archive methods ===============================
 

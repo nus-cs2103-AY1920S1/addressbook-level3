@@ -18,7 +18,7 @@ import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.statistics.StatisticsType;
+import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -30,7 +30,7 @@ public class ModelManager implements Model {
     private final Billboard billboard;
     private final ArchiveWrapper archives;
     private final UserPrefs userPrefs;
-    private final ObservableData<StatisticsType> statsType;
+    private final ObservableData<StatisticsFormat> statsType;
     private final FilteredList<Expense> filteredExpense;
     private final HashMap<String, FilteredList<Expense>> filteredArchives;
 
@@ -47,7 +47,7 @@ public class ModelManager implements Model {
         this.billboard = new Billboard(noArchiveExpensesBillboard);
         this.userPrefs = new UserPrefs(userPrefs);
         this.statsType = new ObservableData<>();
-        this.statsType.setValue(StatisticsType.TIMELINE); // default stats type
+        this.statsType.setValue(StatisticsFormat.TIMELINE); // default stats type
 
         logger.fine("Initializing with billboard: " + billboard
                 + " and archives: " + archives
@@ -260,11 +260,11 @@ public class ModelManager implements Model {
     }
 
     //=========== StatisticsGenerator Chart Methods =============================================================
-    public ObservableData<StatisticsType> getStatisticsType() {
+    public ObservableData<StatisticsFormat> getStatisticsType() {
         return statsType;
     }
 
-    public void setStatisticsType(StatisticsType type) {
+    public void setStatisticsType(StatisticsFormat type) {
         statsType.setValue(type);
     }
 

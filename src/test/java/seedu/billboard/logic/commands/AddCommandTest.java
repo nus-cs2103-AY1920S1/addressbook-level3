@@ -26,7 +26,7 @@ import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.statistics.StatisticsType;
+import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.ExpenseBuilder;
 
@@ -176,12 +176,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableData<StatisticsType> getStatisticsType() {
+        public ObservableData<StatisticsFormat> getStatisticsType() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setStatisticsType(StatisticsType type) {
+        public void setStatisticsType(StatisticsFormat type) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -20,8 +20,8 @@ import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.statistics.ExpenseTimeline;
-import seedu.billboard.model.statistics.TimelineGenerator;
+import seedu.billboard.model.statistics.formats.ExpenseTimeline;
+import seedu.billboard.model.statistics.generators.TimelineGenerator;
 
 /**
  * Represents a chart showing the timeline for expenses.

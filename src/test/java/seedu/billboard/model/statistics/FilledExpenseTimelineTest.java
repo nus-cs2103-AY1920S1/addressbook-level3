@@ -25,6 +25,7 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
 
 import javafx.util.Pair;
+import seedu.billboard.model.statistics.formats.FilledExpenseTimeline;
 
 public class FilledExpenseTimelineTest {
 

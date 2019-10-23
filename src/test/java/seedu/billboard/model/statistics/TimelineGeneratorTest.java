@@ -22,6 +22,10 @@ import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.formats.EmptyExpenseTimeline;
+import seedu.billboard.model.statistics.formats.ExpenseTimeline;
+import seedu.billboard.model.statistics.formats.FilledExpenseTimeline;
+import seedu.billboard.model.statistics.generators.TimelineGenerator;
 import seedu.billboard.testutil.TypicalExpenses;
 
 import javafx.util.Pair;

@@ -1,4 +1,4 @@
-package seedu.billboard.model.statistics;
+package seedu.billboard.model.statistics.generators;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +10,9 @@ import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.commons.util.CollectionUtil;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.formats.EmptyExpenseTimeline;
+import seedu.billboard.model.statistics.formats.ExpenseTimeline;
+import seedu.billboard.model.statistics.formats.FilledExpenseTimeline;
 
 /**
  * Stateless class to generate statistics. Every method is a pure function, taking in a list of expenses and other
