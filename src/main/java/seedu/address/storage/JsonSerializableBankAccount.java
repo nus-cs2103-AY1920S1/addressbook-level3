@@ -43,15 +43,15 @@ class JsonSerializableBankAccount {
      */
     public JsonSerializableBankAccount(ReadOnlyBankAccount source) {
         budgets
-                .addAll(source.getBudgetHistory()
-                        .stream()
-                        .map(JsonAdaptedBudget::new)
-                        .collect(Collectors.toList()));
+            .addAll(source.getBudgetHistory()
+                .stream()
+                .map(JsonAdaptedBudget::new)
+                .collect(Collectors.toList()));
         transactions
-                .addAll(source.getTransactionHistory()
-                        .stream()
-                        .map(JsonAdaptedTransaction::new)
-                        .collect(Collectors.toList()));
+            .addAll(source.getTransactionHistory()
+                .stream()
+                .map(JsonAdaptedTransaction::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -68,9 +68,13 @@ class JsonSerializableBankAccount {
             }
             bankAccount.addTransaction(txn);
         }
+
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
-            Budget bud = jsonAdaptedBudget.toModelType();
-            bankAccount.addBudget(bud);
+            Budget budget = jsonAdaptedBudget.toModelType();
+            if (bankAccount.hasBudget(budget)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
+            }
+            bankAccount.addBudget(budget);
         }
         return bankAccount;
     }

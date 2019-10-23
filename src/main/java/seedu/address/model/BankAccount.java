@@ -127,12 +127,21 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Checks if budget exists in bank account.
+     */
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return budgets.contains(budget);
+    }
+
+    /**
      * Updates each budget in {@code budgets} when OutTransaction is made.
+     *
      * @param txn Transaction can be either InTransaction or OutTransaction.
      */
     private void updateBudgets(BankAccountOperation txn) {
         if (txn instanceof OutTransaction) {
-            for (Budget bd: budgets) {
+            for (Budget bd : budgets) {
                 bd.updateBudget(txn.getAmount());
             }
         }
@@ -170,7 +179,7 @@ public class BankAccount implements ReadOnlyBankAccount {
 
         BankAccount otherBankAccount = (BankAccount) other;
         return this.balance.equals(otherBankAccount.balance)
-                && this.transactions.equals(otherBankAccount.transactions);
+            && this.transactions.equals(otherBankAccount.transactions);
     }
 
     // TODO: implement stub
