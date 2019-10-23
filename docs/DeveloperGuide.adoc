@@ -153,6 +153,17 @@ image:BetterModelClassDiagram.png[]
 [[Design-Game]]
 === Game component
 
+
+.Structure of the Game Component
+image::GameClassDiagram.png[]
+
+The `Game`,
+
+* stores a _shuffled_ `List<Card>` that is cloned/copied from a `ReadOnlyWordBank`.
+* maintains an `Index` to keep track of the state of the game.
+* has an associated `DifficultyEnum` that dictates the time allowed for each question.
+* verifies `Guess` that are sent by `Logic` (User's guesses)
+
 [[Design-Storage]]
 === Storage component
 
