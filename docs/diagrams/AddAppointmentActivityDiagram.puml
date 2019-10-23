@@ -17,7 +17,7 @@ if () then ([valid command])
                 endif
 
             else ([Not valid])
-            -Display error message\n to input valid appointment's idx and timing formate
+            -Display error message\n to input valid appointment's idx and timing format
             endif
         else([else])
         -Display duplicate error message\n

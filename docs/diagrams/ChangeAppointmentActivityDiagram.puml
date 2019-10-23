@@ -1,25 +1,20 @@
 @startuml
 
 start
--Entered change appointment command
-if () then ([valid command])
+-Display the list of patient's appointments
+-Enter change appointment command
+        if() then ([Valid index])
+        -find the target appointment
 
-    if () then ([Appointments belong to a patient])
-        if() then ([Valid idx and timing])
-        -Appointment's timing changed
-        -Display patient's all upcoming appointments
+            if() then ([Not conflict with other appointments])
+            -Appointment's timing changed
+            -Display the patient's all upcoming appointments
 
+            else ([else])
+            -Display error message\n to input valid appointment's timing
+            endif
         else ([Not valid])
-        -Display error message\n to put valid appointment's idx and timing
+        -Display error message\n to input valid appointment's index
         endif
-
-    else ([Not belong to a patient])
-    -Display error message\n "not belong to the same patient"
-    endif
-
-else ([Invalid command])
--Invalid command \n message
-endif
-
 stop
 @enduml
