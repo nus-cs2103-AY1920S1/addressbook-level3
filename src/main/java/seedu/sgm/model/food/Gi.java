@@ -1,7 +1,5 @@
 package seedu.sgm.model.food;
 
-import java.awt.event.HierarchyBoundsAdapter;
-
 /**
  * Specifies the nutrition value of glycemic index(GI).
  */

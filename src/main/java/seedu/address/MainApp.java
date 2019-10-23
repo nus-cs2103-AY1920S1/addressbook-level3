@@ -1,14 +1,9 @@
 package seedu.address;
 
-import static seedu.sgm.model.food.TypicalFoods.FOODS;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
-
-import javax.swing.text.html.Option;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -77,7 +72,7 @@ public class MainApp extends Application {
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(userPrefs.getRecordListFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
-                jsonRecordListStorage);
+            jsonRecordListStorage);
 
         initLogging(config);
 
@@ -145,11 +140,11 @@ public class MainApp extends Application {
             initialUserData = userListOptional.orElseGet(SampleUserDataUtil::getSampleUserList);
         } catch (DataConversionException e) {
             logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
-                    + "user list containing no bio data");
+                + "user list containing no bio data");
             initialUserData = new UserList();
         } catch (IOException e) {
             logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
-                    + "user list containing no bio data");
+                + "user list containing no bio data");
             initialUserData = new UserList();
         }
 
@@ -169,28 +164,8 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialData, userPrefs, initialUserData, initialFoodListData, initialRecordListData,
-                initialCalendar);
+            initialCalendar);
     }
-
-    /*
-    private void initData (Object target, Optional dataOptional, Supplier<Optional> getStorageData, Supplier getSampleData,
-                           Supplier getNewInstance, String dataName) {
-        try {
-            dataOptional = getStorageData.get();
-            if (dataOptional.isEmpty()) {
-                logger.info(dataName + " data file not found. Will be starting with sample data");
-            }
-            target = dataOptional.orElseGet(getSampleData);
-        } catch (DataConversionException e) {
-            logger.warning(dataName + "data file not in the correct format. Will be starting with an empty "
-                + "food list containing no food data");
-            target = getNewInstance.get();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty " + dataName);
-            target = getNewInstance.get();
-        }
-    }
-    */
 
     private void initLogging(Config config) {
         LogsCenter.init(config);

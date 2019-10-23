@@ -28,24 +28,24 @@ import seedu.sgm.model.food.exception.FoodNotSuitableException;
 public class AddFoodCommandParser implements Parser<AddFoodCommand> {
 
     /**
-     * Checks whether the input food has suitable calorie, gi, sugar, and fat values for type II diabetes patients.
-     *
-     * @throws FoodNotSuitableException if any of the nutrition value is in dangerous range.
-     */
-    private void checkValueRange(NutritionValue... values) throws FoodNotSuitableException{
-        for (NutritionValue value : values) {
-            if (value.isInDangerousRange()) {
-                throw new FoodNotSuitableException(value.getWarningMessage());
-            }
-        }
-    }
-
-    /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
      * ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Checks whether the input food has suitable calorie, gi, sugar, and fat values for type II diabetes patients.
+     *
+     * @throws FoodNotSuitableException if any of the nutrition value is in dangerous range.
+     */
+    private void checkValueRange(NutritionValue... values) throws FoodNotSuitableException {
+        for (NutritionValue value : values) {
+            if (value.isInDangerousRange()) {
+                throw new FoodNotSuitableException(value.getWarningMessage());
+            }
+        }
     }
 
     /**
