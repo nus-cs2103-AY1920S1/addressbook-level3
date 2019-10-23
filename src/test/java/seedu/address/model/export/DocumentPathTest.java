@@ -19,8 +19,7 @@ public class DocumentPathTest {
             "cheatsheet。docx",
             "cheatsheetdotdocx",
             "cheat|sheet.docx",
-            "*cheatsheet*.docx",
-            "https://www.user.com/cheatsheet.docx"
+            "*cheatsheet*.docx"
         };
 
         for (String invalidDocumentPathString : invalidDocumentPathStrings) {
@@ -38,11 +37,10 @@ public class DocumentPathTest {
         String[] validDocumentPathStrings = {
             "cheat_sheet.docx",
             "cheat-sheet.docx",
-            "windows_directory\\cheatsheet.docx",
-            "unix_directory/cheatsheet.docx",
+            "directory/cheatsheet.docx",
             "ChEAtShEAT.doCx",
-            "..\\cheatsheet.docx",
-            "C:\\Users\\User\\Desktop\\[CS2105] Midterm Cheat Sheet (v2).docx",
+            "../cheatsheet.docx",
+            "C:/Users/User/Desktop/[CS2105] Midterm Cheat Sheet (v2).docx",
             "~/Desktop/[CS2105] Midterm Cheat Sheet (v3).docx"
         };
 
