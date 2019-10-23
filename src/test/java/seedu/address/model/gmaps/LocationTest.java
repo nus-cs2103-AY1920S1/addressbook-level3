@@ -14,10 +14,10 @@ class LocationTest {
     }
 
     @Test
-    void setGoogleRecognisedLocation() {
+    void setAndGetValidLocation() {
 
         location.setValidLocation("NUS_LTFOO");
-        assertEquals(location.getGoogleRecognisedLocation(), "NUS_LTFOO");
+        assertEquals(location.getValidLocation(), "NUS_LTFOO");
     }
 
     @Test

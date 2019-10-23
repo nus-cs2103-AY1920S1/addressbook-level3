@@ -17,6 +17,4 @@ public interface ReadOnlyUserPrefs {
     Path getAddressBookFilePath();
 
     Path getTimeBookFilePath();
-
-    Path getCacheFolderPath();
 }

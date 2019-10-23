@@ -26,7 +26,7 @@ public class ProcessVenuesStub extends ProcessVenues {
     }
 
     @Override
-    public ArrayList<String> getGmapsRecognisedLocationList() {
+    public ArrayList<String> getValidLocationList() {
         return new ArrayList(Arrays.asList("NUS_FOO", "NUS_BAR", "NUS_FOOBAR"));
     }
 }

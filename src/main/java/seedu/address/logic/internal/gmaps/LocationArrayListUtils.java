@@ -1,6 +1,5 @@
 package seedu.address.logic.internal.gmaps;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 import seedu.address.model.gmaps.Location;
@@ -23,10 +22,6 @@ public class LocationArrayListUtils {
                 break;
             }
         }
-        if (index > -1) {
-            return index;
-        } else {
-            throw new InvalidParameterException("Cannot find location " + locationName + " in arrayList");
-        }
+        return index;
     }
 }
