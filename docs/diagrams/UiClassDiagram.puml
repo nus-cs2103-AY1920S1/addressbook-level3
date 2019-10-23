@@ -15,14 +15,15 @@ Class StatusBarFooter
 Class CommandBox
 
 package Panels <<Rectangle>> {
-Class NoteListPanel
-Class NoteCard
-Class QuestionListPanel
-Class QuestionListCard
-Class QuizQuestionListPanel
-Class QuizQuestionListCard
-Class TaskListPanel
-Class TaskListCard
+Class "{abstract}\nPanelComponent" as PanelComponent
+'Class NoteListPanel
+'Class NoteCard
+'Class QuestionListPanel
+'Class QuestionListCard
+'Class QuizQuestionListPanel
+'Class QuizQuestionListCard
+'Class TaskListPanel
+'Class TaskListCard
 }
 }
 
@@ -39,51 +40,51 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-left-> CommandBox
-MainWindow *-left-> ResultDisplay
-MainWindow *-left-> StatusBarFooter
+MainWindow *-down-> HelpWindow
+MainWindow *-down-> CommandBox
+MainWindow *-down-> ResultDisplay
+MainWindow *-down-> StatusBarFooter
+MainWindow *-down--> Panels
 
-MainWindow *-down-> NoteListPanel
-MainWindow *-down-> QuestionListPanel
-MainWindow *-down-> QuizQuestionListPanel
-MainWindow *-down-> TaskListPanel
+'MainWindow *-down-> NoteListPanel
+'MainWindow *-down-> QuestionListPanel
+'MainWindow *-down-> QuizQuestionListPanel
+'MainWindow *-down-> TaskListPanel
 
 
-NoteListPanel -down-> NoteCard
-QuestionListPanel -down-> QuestionListCard
-QuizQuestionListPanel -down-> QuizQuestionListCard
-TaskListPanel -down-> TaskListCard
+'NoteListPanel -down-> NoteCard
+'QuestionListPanel -down-> QuestionListCard
+'QuizQuestionListPanel -down-> QuizQuestionListCard
+'TaskListPanel -down-> TaskListCard
 
-MainWindow -left-|> UiPart
+MainWindow --|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
-NoteListPanel --|> UiPart
-NoteCard --|> UiPart
-QuestionListPanel --|> UiPart
-QuestionListCard --|> UiPart
-QuizQuestionListPanel --|> UiPart
-QuizQuestionListCard --|> UiPart
-TaskListPanel --|> UiPart
-TaskListCard --|> UiPart
 
+PanelComponent --|> UiPart
+'NoteListPanel ---|> PanelComponent
+'NoteCard ---|> PanelComponent
+'QuestionListPanel ---|> PanelComponent
+'QuestionListCard ---|> PanelComponent
+'QuizQuestionListPanel ---|> PanelComponent
+'QuizQuestionListCard ---|> PanelComponent
+'TaskListPanel ---|> PanelComponent
+'TaskListCard ---|> PanelComponent
 
-NoteCard ..> Model
+'NoteCard ...> Model
+'QuestionListCard ...> Model
+'QuizQuestionListCard ...> Model
+'TaskListCard ...> Model
+Panels ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-'NoteListPanel -[hidden]left- HelpWindow
-'HelpWindow -[hidden]left- CommandBox
-'CommandBox -[hidden]left- ResultDisplay
-'ResultDisplay -[hidden]left- StatusBarFooter
-UiPart -[hidden]down- MainWindow
-StatusBarFooter -[hidden]down- ResultDisplay
-ResultDisplay -[hidden]down- CommandBox
-CommandBox -[hidden]down- HelpWindow
+HelpWindow -[hidden]left- CommandBox
+CommandBox -[hidden]left- ResultDisplay
+ResultDisplay -[hidden]left- StatusBarFooter
+StatusBarFooter -[hidden]left- Panels
 
-
-MainWindow -[hidden]-|> UiPart
 @enduml

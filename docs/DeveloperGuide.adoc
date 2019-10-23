@@ -63,6 +63,10 @@ image::ArchitectureSequenceDiagram.png[]
 .Class diagram of the `UI` component
 image::UiClassDiagram.png[]
 
+.Detailed class diagram for Panels package
+
+image::PanelPackageClassDiagram.png[]
+
 _API:_ link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
