@@ -55,7 +55,7 @@ public class GetQnsCommand extends Command {
         } else {
             model.setIncorrectQnsList();
         }
-        CommandResult c = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(QUESTIONS);
         return c;
     }

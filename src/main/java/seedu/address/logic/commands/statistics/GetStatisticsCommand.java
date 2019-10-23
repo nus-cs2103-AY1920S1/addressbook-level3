@@ -40,7 +40,7 @@ public class GetStatisticsCommand extends Command {
         requireNonNull(model);
         //model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
         //model.setStatistics();
-        CommandResult c = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(CHART);
         return c;
     }
