@@ -2,22 +2,21 @@ package seedu.address.ui;
 
 import java.util.EnumSet;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.BooleanExpression;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Popup;
 import javafx.stage.Window;
-import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandHistory;
-import seedu.address.logic.parser.SuggestingCommandUtil;
 
 /**
  * The UI component that is responsible for receiving user command inputs and offering user command suggestions.
@@ -25,19 +24,19 @@ import seedu.address.logic.parser.SuggestingCommandUtil;
 public class SuggestingCommandBox extends CommandBox {
     private final Popup popup = new Popup();
     private final ListView<String> listView = new ListView<>();
-    private final ObservableList<String> commandSuggestions;
-    private final FilteredList<String> filteredCommandSuggestions;
     private final CommandHistory commandHistory = new CommandHistory();
+    private final SuggestionLogic suggestionLogic;
     private SuggestionMode suggestionMode = SuggestionMode.COMMAND_SUGGESTION;
+    private int previousCaretPosition = 0;
 
-    public SuggestingCommandBox(CommandExecutor commandExecutor) {
+    public SuggestingCommandBox(CommandExecutor commandExecutor, SuggestionLogic suggestionLogic) {
         super(commandExecutor);
-        this.commandSuggestions = SuggestingCommandUtil.getCommandWords();
-        filteredCommandSuggestions = new FilteredList<>(this.commandSuggestions);
+        this.suggestionLogic = suggestionLogic;
 
         setupListView();
         setupPopup();
         setupHistoryNavigation();
+        setupCommandTextField();
     }
 
     private void setupPopup() {
@@ -121,46 +120,107 @@ public class SuggestingCommandBox extends CommandBox {
         listView.setId("suggestions-list");
         listView.setMaxHeight(100); // TODO: flexible height
         listView.setFocusTraversable(false);
-        listView.setItems(filteredCommandSuggestions);
         listView.prefWidthProperty().bind(commandTextField.widthProperty());
         UiUtil.redirectKeyCodeEvents(commandTextField, listView, KeyCode.TAB);
+        UiUtil.addKeyCodeListener(listView, KeyCode.TAB, this::onListViewTabKey);
+    }
 
-        final var listSelection = listView.getSelectionModel();
+    /**
+     * Recompute the suggestions based on the command in the {@link #commandTextField} and its caret.
+     */
+    private void recomputeSuggestions() {
+        final String commandText = commandTextField.getText();
+        final int caretPosition = commandTextField.getCaretPosition();
 
-        popup.showingProperty().addListener((unused1, unused2, isShowing) -> {
-            // pre-select the first item in the list when suggestions are being shown
-            if (!isShowing || !listSelection.isEmpty()) {
+        final ObservableList<String> suggestions = suggestionLogic.getSuggestions(commandText, caretPosition);
+        setSuggestionsSource(suggestions);
+    }
+
+    private void setupCommandTextField() {
+        /*
+        JavaFX's events are fired in this order: textProperty invalidation then caretPosition invalidation.
+
+        At the textProperty invalidation, the caretPosition property lags behind. For example, if the user currently
+        has a command like "abc" with the caret after the letter "c" (i.e. "abc|") then types one new character "d",
+        the textProperty listener will fire with the new text "abcd" but checking for the caretPosition at this point
+        will still say the caret is between c and d (i.e. "abc|d"). Only later at the caretPosition invalidation does
+        the caretPosition update itself to be "abcd|".
+
+        For simplicity and since suggestions are sensitive to the position of the caret, we recalculate suggestions
+        when the caretPosition invalidates, as that seems to be the point at which the data state is consistent with the
+        user interface state. This event fires in all the following cases: after the user types in a new character,
+        after the user deletes one character, when the user manually moves the caret by keyboard arrow keys and when
+        the user manually moves the caret by clicking. This recalculation is seen in the ChangeListener for the
+        caretPositionProperty().
+
+        An edge case occurs if somehow the text itself changes but the caretPosition doesn't. This may happen if the
+        user currently has a command of length n and atomically overwrites it with a different command but with the same
+        length n. For example, the user already has "abc" in the command box then highlights all text and pastes "def".
+        Since the caret remains at position 3 throughout, our above caretPosition recalculation doesn't fire, so the new
+        suggestions for command "def" don't appear, which is a problem. The only way to force a recalculation just for
+        this specific case is to compare the length of the old command and the new command (i.e. "abc".length() vs
+        "def".length()) and check if the caret position remains unchanged. This is why the ChangeListener from the
+        caretPositionProperty() updates a previousCaretPosition variable so that the ChangeListener on the
+        textProperty() can force a recalculation since a caretPosition invalidation will never be fired for this case.
+         */
+
+        commandTextField.caretPositionProperty().addListener((unused1, unused2, caretPosition) -> {
+            previousCaretPosition = caretPosition.intValue();
+            recomputeSuggestions();
+        });
+
+        commandTextField.textProperty().addListener((unused, oldText, newText) -> {
+            final int newCaretPosition = commandTextField.getCaretPosition();
+            if (oldText.length() == newText.length()
+                    && !oldText.equals(newText)
+                    && previousCaretPosition == newCaretPosition) {
+                /*
+                We know the text changed but the caret didn't move, user might have copy-pasted a new command with
+                exactly the same length as the old command, so in this edge case, we'll specifically recompute the
+                suggestions since the caretPositionProperty() invalidation listener will not fire.
+                 */
+                recomputeSuggestions();
+            }
+        });
+    }
+
+    /**
+     * Handles what happens when a user selects a suggestion by pressing the Tab key.
+     *
+     * @param keyEvent A {@link KeyEvent} representing the {@link KeyCode#TAB} event.
+     */
+    private void onListViewTabKey(final KeyEvent keyEvent) {
+        assert keyEvent.getCode().equals(KeyCode.TAB);
+
+        final MultipleSelectionModel<String> selectionModel = listView.getSelectionModel();
+        if (selectionModel.isEmpty()) {
+            if (listView.getItems().isEmpty()) {
                 return;
             }
+            selectionModel.selectFirst();
+        }
+        keyEvent.consume();
 
-            listSelection.selectFirst();
-        });
+        final String commandText = commandTextField.getText();
+        final int caretPosition = commandTextField.getCaretPosition();
+        final String selectedItem = selectionModel.getSelectedItem();
 
-        UiUtil.addKeyCodeListener(listView, KeyCode.TAB, keyEvent -> {
-            if (listSelection.isEmpty()) {
-                if (listView.getItems().isEmpty()) {
-                    return;
-                }
-                listSelection.selectFirst();
-            }
-            keyEvent.consume();
+        final var newCommandBoxState = suggestionLogic.selectSuggestion(commandText, caretPosition, selectedItem);
+        setCommandText(newCommandBoxState.commandText);
+        setCaretPosition(newCommandBoxState.caretPosition);
+    }
 
-            final String selectedCommand = listSelection.getSelectedItem();
-            commandTextField.setText(selectedCommand + " ");
-            commandTextField.positionCaret(Integer.MAX_VALUE);
-        });
 
-        commandTextField.textProperty().addListener((unused1, unused2, userCommand) -> {
-            final String userCommandWord = StringUtil.substringBefore(userCommand, " ");
+    private void setCaretPosition(final int position) {
+        commandTextField.positionCaret(position);
+    }
 
-            if (commandSuggestions.contains(userCommandWord)) {
-                // the userCommandWord exactly matches a command, so we stop showing suggestions
-                filteredCommandSuggestions.setPredicate((commandWord) -> false);
-            } else {
-                final Predicate<String> fuzzyMatcher = SuggestingCommandUtil.createFuzzyMatcher(userCommandWord);
-                filteredCommandSuggestions.setPredicate(fuzzyMatcher);
-            }
-        });
+    private void setCommandText(final String commandText) {
+        commandTextField.setText(commandText);
+    }
+
+    private void setSuggestionsSource(final ObservableList<String> suggestionsSource) {
+        listView.setItems(suggestionsSource);
     }
 
     private void setupHistoryNavigation() {
@@ -223,5 +283,55 @@ public class SuggestingCommandBox extends CommandBox {
      */
     enum SuggestionMode {
         COMMAND_SUGGESTION, HISTORY_COMMAND_NAVIGATION
+    }
+
+    /**
+     * Represents a class that can provide command suggestions.
+     */
+    public interface SuggestionLogic {
+        /**
+         * Gets the suggested values of a {@code commandText} at the {@code caretPosition}.
+         *
+         * @param commandText   The full command input.
+         * @param caretPosition The position of the caret within the {@code commandText}.
+         * @return A list of suggested values at the {@code caretPosition}.
+         */
+        ObservableList<String> getSuggestions(final String commandText, final int caretPosition);
+
+        /**
+         * Selects a suggestion at the {@code caretPosition} within the {@code commandText}. Provides the new
+         * {@code commandText} along with the desired caret position within the {@link SelectionResult}.
+         *
+         * @param commandText   The full command input.
+         * @param caretPosition The position of the caret within the {@code commandText}.
+         * @param selectedValue The value that was selected at the {@code caretPosition}.
+         * @return The new {@code commandText} along with the desired caret position within the {@link SelectionResult}.
+         */
+        SelectionResult selectSuggestion(
+                final String commandText, final int caretPosition, final String selectedValue);
+
+        /**
+         * Represents the desired state of the {@link SuggestingCommandBox} in terms of its {@code commandText} and
+         * {@code caretPosition}.
+         */
+        class SelectionResult {
+            public final String commandText;
+            public final int caretPosition;
+
+            SelectionResult(final String commandText, final int position) {
+                CollectionUtil.requireAllNonNull(commandText, position);
+
+                this.commandText = commandText;
+                this.caretPosition = position;
+            }
+
+            public static SelectionResult of(final String commandText) {
+                return new SelectionResult(commandText, commandText.length());
+            }
+
+            public static SelectionResult of(final String commandText, final int position) {
+                return new SelectionResult(commandText, position);
+            }
+        }
     }
 }
