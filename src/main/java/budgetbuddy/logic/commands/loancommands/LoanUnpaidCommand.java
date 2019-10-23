@@ -5,6 +5,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
@@ -38,7 +39,7 @@ public class LoanUnpaidCommand extends UpdateStatusCommand {
         updateStatuses(model.getLoansManager(), Status.UNPAID);
 
         String result = constructMultiLoanResult(MESSAGE_SUCCESS);
-        return new CommandResult(result, null);
+        return new CommandResult(result, CommandCategory.LOAN);
     }
 
     @Override

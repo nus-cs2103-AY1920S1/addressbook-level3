@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
@@ -43,7 +44,7 @@ public class LoanDeleteCommand extends MultiLoanCommand {
         actOnTargetLoans(targetLoanIndices, deleteLoanOp);
 
         String resultMessage = constructMultiLoanResult(MESSAGE_SUCCESS);
-        return new CommandResult(resultMessage, null);
+        return new CommandResult(resultMessage, CommandCategory.LOAN);
     }
 
     @Override
