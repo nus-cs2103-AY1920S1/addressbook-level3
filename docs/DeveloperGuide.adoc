@@ -257,6 +257,27 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== [Proposed] Calendar week change
+==== Proposed implementation
+
+The calendar week change is enabled by creating multiple json files. Each file is used to save the user's task data
+for one particular week. When user asks for the data to be cleared, the json storage file for that particular week would
+be deleted. One additional json file `timetable.json` is created to save the user's module (lecture, tutorials, etc.) info as these are
+persistent data that would be displayed on each week's calendar.
+
+==== Design Considerations
+
+===== Aspect: How next & prev executes
+
+* **Alternative 1 (current choice):** Read and load data from the next/previous week's separate json storage file.
+** Pros: Easy to clear data from a certain week.
+** Cons: Need to switch storage file each time the user go to the next/previous week.
+* **Alternative 2:** Save all data in a single json file.
+** Pros: No need to switch storage file.
+** Cons: Unnecessary reading of data from other weeks. Need to add filter to get only the relevant data.
+
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -451,12 +472,11 @@ Given below are instructions to test the app manually.
 .. User types in `bye` +
    Expected: Closes the app and GUI
 
-
 === Deleting a module
 
-. Deleting a module while timetable is displayed
+. Deleting a module's lecture/tutorial/lab
 //.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete CS2102` +
-   Expected: Module is deleted from the timetable.
-.. Test case: `delete CC2103` , module doesnt exist on the timetable +
+.. Test case: `deletemod CS2105 lecture` +
+   Expected: CS2105 lecture is deleted from the calendar. If there are more than 1 lecture slots, both slots would be deleted.
+.. Test case: `deletemod CS2105 lab` , CS2105 lab doesn't exist in the calendar +
    Expected: Error details shown in the status message.
