@@ -86,13 +86,7 @@ public class MergeShoppingCommand extends Command {
             modifyShoppingListAccordingToBoughtItem(boughtItem, model);
         }
 
-        for (int i = 0; i < lastShownBoughtList.size(); i++) {
-            GroceryItem boughtItem = lastShownBoughtList.get(i);
-        }
-
-        for (int i = 0; i < lastShownBoughtList.size(); i++) {
-           model.setBoughtList(new AddressBook());
-        }
+        model.setBoughtList(new AddressBook());
 
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
