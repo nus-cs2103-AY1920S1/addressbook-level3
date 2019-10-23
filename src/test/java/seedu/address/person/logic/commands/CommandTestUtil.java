@@ -104,7 +104,8 @@ public class CommandTestUtil {
             TransactionList transactionList = new TransactionList();
             ReimbursementList reimbursementList = new ReimbursementList();
             InventoryList inventoryList = new InventoryList();
-            seedu.address.cashier.util.InventoryList cashierInventoryList = new seedu.address.cashier.util.InventoryList();
+            seedu.address.cashier.util.InventoryList cashierInventoryList =
+                    new seedu.address.cashier.util.InventoryList();
 
             Path userPrefPath = Paths.get("data/test/userPrefs.txt");
             Path addressPath = Paths.get("data/test/address.txt");

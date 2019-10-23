@@ -25,7 +25,7 @@ public class DeleteCommandParser {
             throw new NotANumberException(CashierMessages.INDEX_NOT_A_NUMBER);
         }
 
-        if(index <= 0) {
+        if (index <= 0) {
             throw new NoSuchIndexException(NO_SUCH_INDEX_CASHIER);
         }
 
