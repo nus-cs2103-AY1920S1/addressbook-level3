@@ -111,7 +111,7 @@ public interface Model {
      * The transaction identity of {@code editedTransaction} must not be
      * the same as another existing transaction in the bank account.
      */
-    void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction);
+    void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
 
     /**
      * Adds the given transaction.
@@ -127,6 +127,12 @@ public interface Model {
      * {@code budget} must not already exist in the bank account.
      */
     void addBudget(Budget budget);
+
+    /**
+     * Adds the given budget.
+     * {@code budget} must not already exist in the bank account.
+     */
+    void addTransaction(BankAccountOperation bankAccountOperation);
 
     /**
      * Returns an unmodifiable view of the filtered transaction list
