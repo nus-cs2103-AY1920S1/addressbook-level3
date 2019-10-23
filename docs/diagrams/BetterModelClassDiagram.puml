@@ -4,13 +4,13 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Xpire *-right-> "1" UniqueItemList
+Xpire *-right-> "1" SortedUniqueItemList
 Xpire *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniqueItemList
-UniqueTagList -[hidden]down- UniqueItemList
+UniqueTagList -[hidden]down- SortedUniqueItemList
+UniqueTagList -[hidden]down- SortedUniqueItemList
 
 UniqueTagList *-right-> "*" Tag
-UniqueItemList o-right-> Item
+SortedUniqueItemList o-right-> Item
 
 Item o-up-> "*" Tag
 
