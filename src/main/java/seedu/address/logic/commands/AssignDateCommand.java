@@ -34,7 +34,7 @@ public class AssignDateCommand extends Command {
 
 
     /**
-     * @param index of the event in the filtered event list to fetch
+     * @param index of the event in the filtered event list to assign to
      */
     public AssignDateCommand(Index index, EventDate targetEventDate, EventDayTime eventDayTime) {
         requireNonNull(index);

@@ -14,7 +14,7 @@ import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDayTime;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new AssignDateCommand object.
  */
 public class AssignDateCommandParser implements Parser<AssignDateCommand> {
 
