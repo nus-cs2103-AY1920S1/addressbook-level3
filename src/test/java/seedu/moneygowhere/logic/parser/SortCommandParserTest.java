@@ -94,6 +94,10 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_invalidArgs_failure() {
+        // Unrecognised prefix
+        assertParseFailure(parser, " " + "aaaa/ASC",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+
         // No value for prefixes
         assertParseFailure(parser, " " + PREFIX_DATE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
