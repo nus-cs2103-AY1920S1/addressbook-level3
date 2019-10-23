@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Assignment> filteredAssignments;
+    private final FilteredList<Lesson> filteredLessons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredAssignments = new FilteredList<>(this.addressBook.getAssignmentList());
+        filteredLessons = new FilteredList<>(this.addressBook.getLessonList());
 
     }
 
@@ -141,6 +143,7 @@ public class ModelManager implements Model {
         addressBook.setAssignment(target, editedAssignment);
     }
 
+    @Override
     public void addLesson(Lesson lesson) {
         addressBook.addLesson(lesson);
     }
@@ -149,6 +152,18 @@ public class ModelManager implements Model {
     public boolean hasLesson(Lesson lesson) {
         requireNonNull(lesson);
         return addressBook.hasLesson(lesson);
+    }
+
+    @Override
+    public void deleteLesson(Lesson target) {
+        addressBook.removeLesson(target);
+    }
+
+    @Override
+    public void setLesson(Lesson target, Lesson editedLesson) {
+        requireAllNonNull(target, editedLesson);
+
+        addressBook.setLesson(target, editedLesson);
     }
     //=========== Filtered Student List Accessors =============================================================
 
@@ -167,6 +182,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Lesson> getFilteredLessonList() {
+        return filteredLessons;
+    }
+
+    @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
@@ -176,6 +196,12 @@ public class ModelManager implements Model {
     public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredLessonList(Predicate<Lesson> predicate) {
+        requireNonNull(predicate);
+        filteredLessons.setPredicate(predicate);
     }
 
     @Override

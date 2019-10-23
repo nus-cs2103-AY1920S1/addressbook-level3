@@ -16,7 +16,7 @@ import seedu.address.model.scheduler.Scheduler;
  */
 public class AddLessonCommand extends Command {
 
-    public static final String COMMAND_WORD = "addLesson";
+    public static final String COMMAND_WORD = "addlesson";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson to the address book. "
             + "Parameters: "
             + PREFIX_LESSONNAME + "NAME "
