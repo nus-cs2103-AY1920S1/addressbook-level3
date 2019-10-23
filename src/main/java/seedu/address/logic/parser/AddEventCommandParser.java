@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;

@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 import java.time.Period;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.StatsCompareCommand;
+import seedu.address.logic.commands.statistics.StatsCompareCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Timestamp;
 

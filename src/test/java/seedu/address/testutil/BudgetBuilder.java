@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
@@ -29,7 +29,7 @@ public class BudgetBuilder {
     private Timestamp startDate;
     private Timestamp endDate;
     private Period period;
-    private List<Expense> expenses;
+    private ObservableList<Expense> expenses;
     private boolean isPrimary;
     private Percentage proportionUsed;
 
@@ -37,7 +37,7 @@ public class BudgetBuilder {
         try {
             description = new Description(DEFAULT_DESCRIPTION);
             amount = new Price(DEFAULT_AMOUNT);
-            expenses = new ArrayList<>();
+            expenses = FXCollections.observableArrayList();
             startDate = Timestamp.createTimestampIfValid(DEFAULT_START_DATE).get();
             period = ParserUtil.parsePeriod(DEFAULT_PERIOD);
             endDate = startDate.plus(period);
@@ -54,7 +54,7 @@ public class BudgetBuilder {
     public BudgetBuilder(Budget budgetToCopy) {
         description = budgetToCopy.getDescription();
         amount = budgetToCopy.getAmount();
-        expenses = new ArrayList<>(budgetToCopy.getExpenses());
+        expenses = FXCollections.observableArrayList(budgetToCopy.getExpenses());
         startDate = budgetToCopy.getStartDate();
         endDate = budgetToCopy.getEndDate();
         period = budgetToCopy.getPeriod();
@@ -73,7 +73,7 @@ public class BudgetBuilder {
     /**
      * Set {@code List<Expense>} to the {@code Budget} that we are building.
      */
-    public BudgetBuilder withExpenses(List<Expense> expenses) {
+    public BudgetBuilder withExpenses(ObservableList<Expense> expenses) {
         this.expenses = expenses;
         return this;
     }

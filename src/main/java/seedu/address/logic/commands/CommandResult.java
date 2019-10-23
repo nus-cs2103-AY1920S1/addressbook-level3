@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.ui.panel.PanelName;
+
 /**
  * Represents the result of a command execution.
  */
@@ -18,6 +20,12 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should be forced to show a panel. */
+    private final boolean forcePanelChange;
+
+    /** The panel to show the in the application. */
+    private PanelName panelName;
+
     private final boolean statistic;
 
     private final List<String> names;
@@ -26,10 +34,9 @@ public class CommandResult {
 
     private final String title;
 
-    /**
-     * Constructs a {@code CommandResult} with the specified fields. Meant for statsCommand
-     */
+
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic,
+                         boolean forcePanelChange, PanelName panelName,
                          List<String> names, List<Double> percentages, String title) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
@@ -39,13 +46,36 @@ public class CommandResult {
         this.percentages = percentages;
         this.title = title;
     }
+    /**
+     * Constructs a {@code CommandResult} with the specified fields. Meant for statsCommand
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic,
+                         boolean forcePanelChange, PanelName panelName) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.statistic = statistic;
+        this.forcePanelChange = forcePanelChange;
+        this.panelName = panelName;
+
+    }
+
+
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, {@code forcePanelChange},
+     * {@code panelName}, and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, PanelName panelName) {
+        this(feedbackToUser, false, false, false, true, panelName);
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value. Meant for most MooLah commands
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, null, null, null);
+        this(feedbackToUser, false, false, false, false, PanelName.CURRENT);
     }
 
     /**
@@ -53,8 +83,10 @@ public class CommandResult {
      * and other fields set to their default value. Meant for Help and Bye commands.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic) {
-        this(feedbackToUser, showHelp, exit, statistic, null, null, null);
+        this(feedbackToUser, showHelp, exit, statistic, false, null, null, null, null);
     }
+
+    //idk if this works
 
 
     public String getFeedbackToUser() {
@@ -83,6 +115,14 @@ public class CommandResult {
 
     public String getTitle() {
         return title;
+    }
+
+    public boolean isViewRequest() {
+        return forcePanelChange;
+    }
+
+    public PanelName viewRequest() {
+        return panelName;
     }
 
     @Override
