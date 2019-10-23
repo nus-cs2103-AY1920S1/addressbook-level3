@@ -235,6 +235,47 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== [Proposed] Notification Feature
+A notification is a message that Mortago will display when the status of a body is automatically updated.
+If the next-of-kin of a body has not been uncontactable for 24 hours, Mortago will prompt the user to contact
+the police for a more thorough investigation and change the status of the body from `ARRIVED` to `CONTACT_POLICE`.
+
+==== Current Implementation
+Given below is the execution process of the `NotificationCommand`:
+
+1. The user executes `add -b /name John ...` to add a new body to Mortago.
+2. The add command also created a new new `Notif` using this body as the parameter.
+3. The add command instantiates a new`NotifCommand` with `Notif`, `period`, `unit` as parameters.
+`period` is a static final integer initialized for 10 seconds and `unit` is static final TimeUnit set at TimeUnit.SECONDS.
+4. `NotifCommand` creates a new static `ScheduledExecutorService` which is scheduled to update the `BodyStatus` to
+`CONTACT_POLICE` if there is no change in its status for the specified `period` using the `UpdateCommand`.
+5. After the `BodyStatus` is updated, a `NotifWindow` will be shown to alert the user of the automatic update in
+`BodyStatus`.
+
+.Notification Command Sequence Diagram
+image::NotifCommandSequenceDiagram.png[]
+
+.ChangeUI function Sequence Diagram
+image::ChangeUiFnSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to delay change in BodyStatus
+* **Alternative 1 (current choice):** Use `ScheduledExecutorService`.
+** Pros: Does not depend on thread synchronization and avoids the need to deal with threads directly.
+** Cons: May cause memory leaks if cache is not cleared.
+
+* **Alternative 2:** Use `Thread.sleep`
+** Pros: Straightforward way to delay a thread.
+** Cons: May quickly run into OutOfMemory error.
+
+==== Aspect: How to reflect change in BodyStatus on UI
+* **Alternative 1 (current choice):** Use `UpdateCommand`.
+** Pros: Easy to implement.
+** Cons: Increases `NotifCommand`'s dependency.
+
+* **Alternative 2: Directly make changes to the model.
+** Pros: Does not increase dependency .
+** Cons: Cause a lot of repetition of code.
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
