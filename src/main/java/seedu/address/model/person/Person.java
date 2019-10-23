@@ -129,8 +129,8 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getVisits().equals(getVisits())
-                && CollectionUtil.checkEqual(getVisitTodos(), otherPerson.getVisitTodos());
+                && CollectionUtil.checkEqual(getVisitTodos(), otherPerson.getVisitTodos())
+                && otherPerson.getVisits().equals(getVisits());
     }
 
     @Override
