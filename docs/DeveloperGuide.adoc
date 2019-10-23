@@ -131,7 +131,7 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `UniqueList<Tag>` in `Seller Manager`, which `Customer` / `Phone` / `Order` / `Schedule`  can reference.
 This would allow `Seller Manager` to only require one `Tag` object per unique `Tag`, instead of each object needing their own `Tag`.
-An example of how such a `UniqueList<Tag>` and a `UniqueList<Customer>` may look like is given below. +
+An example of how such `UniqueList<Tag>` and `UniqueList<Customer>` interacts is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -298,7 +298,6 @@ image::StatisticsCalculationUI.png[]
 ==== Implementation
 
 We decided to incorporate a third party library, `JFXtras's Agenda`, to represent our schedules on a calendar for easy viewing by our users.
-The `Agenda` is a class variable in `CalendarPanel`.
 
 `CalendarPanel` keeps `UniqueList<Schedule>` and `UniqueList<Order>` objects as class variables. On instantiation, all the schedules in `UniqueList<Schedule>` will be converted to `Appointments` and then added to `Agenda`.
 To set the display information of the `Schedule` object, we will find its `Order` in the `UniqueList<Order>` and retrieve its index.
