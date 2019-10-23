@@ -1,9 +1,13 @@
 package seedu.sgm.model.food;
 
+import java.awt.event.HierarchyBoundsAdapter;
+
 /**
  * Specifies the nutrition value of glycemic index(GI).
  */
 public class Gi extends NutritionValue {
+
+    private static final double HIGH_GI = 70;
 
     /**
      * Constructs a {@code GI}.
@@ -12,6 +16,16 @@ public class Gi extends NutritionValue {
      */
     public Gi(String giValue) {
         super(giValue);
+    }
+
+    @Override
+    public boolean isInDangerousRange() {
+        return getNumericalValue() >= HIGH_GI;
+    }
+
+    @Override
+    public String getWarningMessage() {
+        return super.getWarningMessage("GI", HIGH_GI);
     }
 }
 

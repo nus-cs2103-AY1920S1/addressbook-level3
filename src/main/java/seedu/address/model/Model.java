@@ -92,6 +92,8 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
+
+    //==================Food List====================
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
@@ -105,11 +107,6 @@ public interface Model {
     void setFoodList(UniqueFoodList newFoodList);
 
     boolean hasFood(Food food);
-
-    /**
-     * Deletes the given food. The food must exist in the recommendations.
-     */
-    void deleteFood(Food food);
 
     /**
      * Adds the given food. {@code food} must not already exist in the recommendations.

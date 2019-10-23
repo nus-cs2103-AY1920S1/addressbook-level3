@@ -4,16 +4,24 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-interface FoodType
+enum FoodType <<enumeration>>
+class NutritionValue {
+}
 
 UniqueFoodList o-right-> Food
 
-Food *--> FoodName
-Food *--> FoodType
+
 Food *--> Calorie
 Food *--> Gi
 Food *--> Sugar
 Food *--> Fat
+Food *--> FoodName
+Food *--> FoodType
+
+Calorie .up.--|> NutritionValue
+Gi .up.--|> NutritionValue
+Sugar .up.--|> NutritionValue
+Fat .up.--|> NutritionValue
 
 enum FoodType {
     NON_STARCHY_VEGETABLE
@@ -23,6 +31,8 @@ enum FoodType {
     SNACK
     MEAL
 }
+
+
 
 show FoodType fields
 

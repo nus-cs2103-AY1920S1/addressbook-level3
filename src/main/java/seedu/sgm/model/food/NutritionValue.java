@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a kind of nutrition value of <code>Food</code> in the recommended food list. Guarantees: immutable; is
  * valid as declared in {@link #isValidValue(String)}
  */
-public class NutritionValue {
+public abstract class NutritionValue {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Nutrition value should only contain number and should be non-negative.";
@@ -27,6 +27,18 @@ public class NutritionValue {
     }
 
     /**
+     * Indicates whether this {@code NutritionValue} is suitable for diabetes patients.
+     *
+     * @return {@code true} if a certain nutrition value is too high to be considered safe for diabetes,
+     *         {@code false} otherwise.
+     */
+    public abstract boolean isInDangerousRange();
+
+    /**
+     * Returns a specific warning message about the suitable range.
+     */
+
+    /**
      * Returns true if a given string is a valid nutrition value.
      */
     public static boolean isValidValue(String test) {
@@ -38,6 +50,17 @@ public class NutritionValue {
      */
     public double getNumericalValue() {
         return Double.parseDouble(value);
+    }
+
+    /**
+     * Returns the specific warning message which indicates the suitable range of the input food for diabetes patients.
+     */
+    public abstract String getWarningMessage();
+
+    //Helps the uniform warning message formats
+    String getWarningMessage(String nutritionType, Double boundary) {
+        return "The input value for " + nutritionType + " is too high. For diabetes patients, it should be lower than "
+            + boundary + "\n";
     }
 
     @Override

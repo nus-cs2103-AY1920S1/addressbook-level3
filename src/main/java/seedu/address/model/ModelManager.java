@@ -284,11 +284,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteFood(Food food) {
-        foodList.remove(food);
-    }
-
-    @Override
     public void addFood(Food food) {
         foodList.add(food);
     }

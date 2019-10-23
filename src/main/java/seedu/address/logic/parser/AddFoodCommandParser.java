@@ -18,12 +18,27 @@ import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.FoodName;
 import seedu.sgm.model.food.FoodType;
 import seedu.sgm.model.food.Gi;
+import seedu.sgm.model.food.NutritionValue;
 import seedu.sgm.model.food.Sugar;
+import seedu.sgm.model.food.exception.FoodNotSuitableException;
 
 /**
  * Parses input arguments and creates a new AddFoodCommand object
  */
 public class AddFoodCommandParser implements Parser<AddFoodCommand> {
+
+    /**
+     * Checks whether the input food has suitable calorie, gi, sugar, and fat values for type II diabetes patients.
+     *
+     * @throws FoodNotSuitableException if any of the nutrition value is in dangerous range.
+     */
+    private void checkValueRange(NutritionValue... values) throws FoodNotSuitableException{
+        for (NutritionValue value : values) {
+            if (value.isInDangerousRange()) {
+                throw new FoodNotSuitableException(value.getWarningMessage());
+            }
+        }
+    }
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
@@ -50,10 +65,14 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
 
         FoodName name = ParserUtil.parseFoodName(argMultimap.getValue(PREFIX_FOOD).get());
         FoodType foodType = FoodType.getFrom(argMultimap.getValue(PREFIX_FOOD_TYPE).get());
+
         Calorie calorie = ParserUtil.parseCalorieValue(argMultimap.getValue(PREFIX_CALORIE).get());
         Gi gi = ParserUtil.parseGiValue(argMultimap.getValue(PREFIX_GI).get());
         Sugar sugar = ParserUtil.parseSugarValue(argMultimap.getValue(PREFIX_SUGAR).get());
         Fat fat = ParserUtil.parseFatValue(argMultimap.getValue(PREFIX_FAT).get());
+
+        checkValueRange(calorie, gi, sugar, fat);
+
         Food newFood = new Food(name, calorie, gi, sugar, fat, foodType);
 
         return new AddFoodCommand(newFood);
