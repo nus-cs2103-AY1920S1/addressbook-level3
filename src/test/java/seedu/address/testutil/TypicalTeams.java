@@ -1,5 +1,16 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_ALFRED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_BRUCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALFRED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BRUCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_NAME_ALFRED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_NAME_BRUCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_TYPE_ALFRED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_TYPE_BRUCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_ALFRED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_BRUCE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -93,6 +104,16 @@ public class TypicalTeams {
                                           new Name("Project Epsilon"),
                                           ProjectType.PLACEHOLDER,
                                           new Location(5));
+
+
+    // Manually added - Person's details found in {@code CommandTestUtil}
+    public static final Team ALFRED = new TeamBuilder().withName(VALID_NAME_ALFRED).withLocation(VALID_LOCATION_ALFRED)
+            .withProjectName(VALID_PROJECT_NAME_ALFRED).withProjectType(VALID_PROJECT_TYPE_ALFRED)
+            .withSubject(VALID_SUBJECT_ALFRED).build();
+
+    public static final Team BRUCE = new TeamBuilder().withName(VALID_NAME_BRUCE).withLocation(VALID_LOCATION_BRUCE)
+            .withProjectName(VALID_PROJECT_NAME_BRUCE).withProjectType(VALID_PROJECT_TYPE_BRUCE)
+            .withSubject(VALID_SUBJECT_BRUCE).build();
 
     /**
      * Retrieves a List of Typical Teams.

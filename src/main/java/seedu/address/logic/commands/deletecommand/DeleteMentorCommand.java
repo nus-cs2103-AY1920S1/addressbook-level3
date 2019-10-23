@@ -56,4 +56,11 @@ public class DeleteMentorCommand extends DeleteCommand {
                 mentorToBeDeleted.toString()), PrefixType.M);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteMentorCommand // instanceof handles nulls
+                && id.equals(((DeleteMentorCommand) other).id));
+    }
+
 }

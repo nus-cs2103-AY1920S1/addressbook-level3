@@ -43,4 +43,11 @@ public class ViewMentorCommand extends ViewCommand {
         return new CommandResult(MESSAGE_SUCCESS, PrefixType.M);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewMentorCommand // instanceof handles nulls
+                && id.equals(((ViewMentorCommand) other).id));
+    }
+
 }

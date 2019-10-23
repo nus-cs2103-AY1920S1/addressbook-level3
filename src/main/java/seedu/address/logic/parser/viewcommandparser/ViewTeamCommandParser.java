@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.viewcommandparser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.viewcommand.ViewTeamCommand;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.Parser;
@@ -19,7 +21,7 @@ public class ViewTeamCommandParser implements Parser<ViewTeamCommand> {
      */
     public ViewTeamCommand parse(String args) throws ParseException {
         if (args.equals("")) {
-            throw new ParseException(String.format(ViewTeamCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTeamCommand.MESSAGE_USAGE));
         }
 
         Id id;

@@ -59,4 +59,11 @@ public class AddTeamCommand extends AddCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.team.toString()), PrefixType.T);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddTeamCommand // instanceof handles nulls
+                && team.equals(((AddTeamCommand) other).team));
+    }
+
 }
