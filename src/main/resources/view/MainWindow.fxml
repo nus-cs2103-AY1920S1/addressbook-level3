@@ -55,7 +55,7 @@
                     <StackPane fx:id="budgetListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                 </VBox>
 
-                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+                <StackPane fx:id="statusBarPlaceholder" VBox.vgrow="NEVER"/>
             </VBox>
         </Scene>
     </scene>
