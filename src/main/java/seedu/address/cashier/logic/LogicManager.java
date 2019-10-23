@@ -18,7 +18,6 @@ import seedu.address.transaction.model.Transaction;
  */
 public class LogicManager implements Logic {
 
-    //private final Model model;
     private final Model model;
     private final StorageManager storage;
     private CashierTabParser parser;
@@ -26,19 +25,18 @@ public class LogicManager implements Logic {
     private final seedu.address.transaction.model.Model transactionModel;
     private final seedu.address.inventory.model.Model inventoryModel;
 
-    //Model inventoryModel,
     public LogicManager(Model cashierManager,
                         StorageManager cashierStorage,
                         seedu.address.person.model.Model personModel,
                         seedu.address.transaction.model.Model transactionModel,
                         seedu.address.inventory.model.Model inventoryModel) {
-        //this.model = inventoryModel;
+
         this.model = cashierManager;
-        this.storage = cashierStorage;
         this.personModel = personModel;
         this.transactionModel = transactionModel;
         this.inventoryModel = inventoryModel;
 
+        this.storage = cashierStorage;
         parser = new CashierTabParser();
     }
 

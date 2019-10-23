@@ -19,7 +19,8 @@ import seedu.address.testutil.TypicalTransactions;
 
 public class DeleteCommandTest {
 
-    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList());
+    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+            TypicalTransactions.getTypicalTransactionList());
 
     private seedu.address.person.model.Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -35,22 +36,21 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(1);
         String message = String.format(CashierMessages.MESSAGE_DELETED_ITEM, TypicalItem.FISH_BURGER);
 
-        ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList());
+        ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList(),
+                TypicalTransactions.getTypicalTransactionList());
         expectedModel.addItem(TypicalItem.FISH_BURGER);
         expectedModel.deleteItem(1);
 
         model.addItem(TypicalItem.FISH_BURGER);
 
-        assertCommandSuccess(deleteCommand, model, message, expectedModel,
-                personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
+        assertCommandSuccess(deleteCommand, model, message, expectedModel, personModel);
     }
 
     @Test
     public void execute_outOfBoundIndex_failure() {
         DeleteCommand deleteCommand = new DeleteCommand(30);
         String message = CashierMessages.NO_SUCH_INDEX_CASHIER;
-        assertCommandFailure(deleteCommand, model, message,
-                personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
+        assertCommandFailure(deleteCommand, model, message, personModel);
     }
 
     @Test

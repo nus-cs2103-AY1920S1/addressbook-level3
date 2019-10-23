@@ -48,7 +48,7 @@ public class AddCommandTest {
         TransactionList transactionList = new TransactionList();
         ReimbursementList reimbursementList = new ReimbursementList();
         InventoryList inventoryList = new InventoryList();
-        seedu.address.cashier.util.InventoryList cashierList = new seedu.address.cashier.util.InventoryList();
+        seedu.address.cashier.util.InventoryList cashierInventoryList = new seedu.address.cashier.util.InventoryList();
 
         Path userPrefPath = Paths.get("data/test/userPrefs.txt");
         Path addressPath = Paths.get("data/test/address.txt");
@@ -75,7 +75,7 @@ public class AddCommandTest {
 
         //For Cashier Storage and Manager
         seedu.address.cashier.model.ModelManager cashierModel =
-                new seedu.address.cashier.model.ModelManager(cashierList);
+                new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
         seedu.address.cashier.storage.StorageManager cashierManager =
                 new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
                         FILE_PATH_TRANSACTION, personModel);
@@ -94,7 +94,7 @@ public class AddCommandTest {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        transactionModel, transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, inventoryModel);
         CommandResult commandResult =
                 new AddCommand(validPerson).execute(modelStub, logic, reimbursementLogic, cashierLogic);
 
@@ -111,7 +111,7 @@ public class AddCommandTest {
         TransactionList transactionList = new TransactionList();
         ReimbursementList reimbursementList = new ReimbursementList();
         InventoryList inventoryList = new InventoryList();
-        seedu.address.cashier.util.InventoryList cashierList = new seedu.address.cashier.util.InventoryList();
+        seedu.address.cashier.util.InventoryList cashierInventoryList = new seedu.address.cashier.util.InventoryList();
 
         Path userPrefPath = Paths.get("data/test/userPrefs.txt");
         Path addressPath = Paths.get("data/test/address.txt");
@@ -138,7 +138,7 @@ public class AddCommandTest {
 
         //For Cashier Storage and Manager
         seedu.address.cashier.model.ModelManager cashierModel =
-                new seedu.address.cashier.model.ModelManager(cashierList);
+                new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
         seedu.address.cashier.storage.StorageManager cashierManager =
                 new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
                         FILE_PATH_TRANSACTION, personModel);
@@ -157,7 +157,7 @@ public class AddCommandTest {
                         transactionModel, transactionManager, personModel);
         seedu.address.cashier.logic.Logic cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        transactionModel, transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, inventoryModel);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () ->
                 addCommand.execute(personModelStub, logic, reimbursementLogic, cashierLogic));

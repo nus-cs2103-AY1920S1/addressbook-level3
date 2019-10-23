@@ -22,23 +22,17 @@ import seedu.address.inventory.model.Item;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.stubs.CashierModelStubAcceptingItemAdded;
 import seedu.address.stubs.InventoryModelStubAcceptingItemAdded;
-import seedu.address.stubs.TransactionModelStubAcceptingTransactionAdded;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
 public class AddCommandTest {
 
 
-    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList());
+    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+            TypicalTransactions.getTypicalTransactionList());
 
     private seedu.address.person.model.Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-    private TransactionModelStubAcceptingTransactionAdded modelStubWithTransaction =
-            new TransactionModelStubAcceptingTransactionAdded(TypicalTransactions.getTypicalTransactions());
-
-    private InventoryModelStubAcceptingItemAdded inventoryModelStubAcceptingItemAdded =
-            new InventoryModelStubAcceptingItemAdded(TypicalItem.getTypicalItems());
 
     @Test
     public void constructor_nullDescription_throwAssertionException() {
@@ -61,8 +55,7 @@ public class AddCommandTest {
         Item anotherItem = TypicalItem.FISH_BURGER;
         AddCommand addCommand = new AddCommand(anotherItem.getDescription(),
                 anotherItem.getQuantity());
-        CommandResult commandResult = addCommand.execute(modelStubWithItem,
-                personModel, modelStubWithTransaction, inventoryModelStubWithItem);
+        CommandResult commandResult = addCommand.execute(modelStubWithItem, personModel);
 
         assertEquals(String.format(MESSAGE_ADDED_ITEM, anotherItem.getDescription()),
                 commandResult.getFeedbackToUser());
@@ -82,8 +75,7 @@ public class AddCommandTest {
                 anotherItem.getQuantity());
 
         String expectedMessage = CashierMessages.NO_SUCH_ITEM_CASHIER;
-        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage,
-                personModel, modelStubWithTransaction, inventoryModelStubWithItem);
+        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, personModel);
 
     }
 
@@ -99,8 +91,7 @@ public class AddCommandTest {
 
         String message = String.format(MESSAGE_INSUFFICIENT_STOCK,
                 anotherItem.getQuantity(), anotherItem.getDescription());
-        assertCommandFailure(addCommand, model, message,
-                personModel, modelStubWithTransaction, inventoryModelStubWithItem);
+        assertCommandFailure(addCommand, model, message, personModel);
     }
 
     @Test
@@ -116,8 +107,7 @@ public class AddCommandTest {
                 anotherItem.getQuantity());
         String expectedMessage = NO_SUCH_ITEM_FOR_SALE_CASHIER;
 
-        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage,
-                personModel, modelStubWithTransaction, inventoryModelStubWithItem);
+        assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, personModel);
     }
 
 }
