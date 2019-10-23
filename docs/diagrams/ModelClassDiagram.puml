@@ -8,6 +8,7 @@ Package Model <<Rectangle>>{
 Interface ReadOnlyMemeBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
+Interface Stats <<Interface>>
 Class MemeBook
 Class ReadOnlyMemeBook
 Class Model
@@ -28,6 +29,12 @@ Class Name
 Class UniqueTemplateList
 }
 
+Package Statistics {
+Class StatsManager
+Class LikeData
+Class LikeManager
+}
+
 Package Tag {
 Class Tag
 }
@@ -46,6 +53,7 @@ ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" MemeBook
 ModelManager o-left-> "1" UserPrefs
+ModelManager o-right-> "1" Stats
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 MemeBook *--> "1" UniqueMemeList
@@ -58,6 +66,10 @@ MemeBook *--> "1" UniqueTemplateList
 UniqueTemplateList o--> "*" Template
 Template *--> "1" Name
 Template *--> "1" ImagePath
+
+StatsManager .up.|> Stats
+StatsManager *--> "1" LikeManager
+LikeManager *--> "1" LikeData
 
 ModelManager -->"1" Meme : filtered list
 ModelManager -->"1" Template : filtered list
