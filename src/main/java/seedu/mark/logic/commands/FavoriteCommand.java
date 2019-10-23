@@ -18,6 +18,7 @@ import seedu.mark.storage.Storage;
  */
 public class FavoriteCommand extends Command {
     public static final String COMMAND_WORD = "favorite";
+    public static final String COMMAND_ALIAS = "fav";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Favorites the bookmark identified by the index number used in the displayed bookmark list.\n"

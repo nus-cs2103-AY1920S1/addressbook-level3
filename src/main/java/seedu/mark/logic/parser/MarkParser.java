@@ -63,6 +63,7 @@ public class MarkParser {
             return new EditCommandParser().parse(arguments);
 
         case FavoriteCommand.COMMAND_WORD:
+        case FavoriteCommand.COMMAND_ALIAS:
             return new FavoriteCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
