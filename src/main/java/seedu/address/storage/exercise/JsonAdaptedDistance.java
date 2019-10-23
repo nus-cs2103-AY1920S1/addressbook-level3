@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exercise.WorkoutPlannerParserUtil;
-import seedu.address.model.exercise.details.Distance;
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.unit.DistanceUnit;
+import seedu.address.model.workout.exercise.details.Distance;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.unit.DistanceUnit;
 
 /**
  * Jackson-friendly version of {@link Distance}.

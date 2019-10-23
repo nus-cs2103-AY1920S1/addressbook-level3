@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.components.Exercise;
 
 /**
  * Panel containing the list of persons.

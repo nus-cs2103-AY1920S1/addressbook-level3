@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
-import seedu.address.model.exercise.WorkoutPlanner;
-import seedu.address.model.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.components.Exercise;
 
 /**
  * An Immutable Exercise Catalogue that is serializable to JSON format.

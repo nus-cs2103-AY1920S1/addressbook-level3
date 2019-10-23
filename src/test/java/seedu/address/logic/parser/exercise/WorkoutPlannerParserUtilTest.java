@@ -8,10 +8,10 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.exercise.components.ExerciseName;
-import seedu.address.model.exercise.details.Distance;
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.unit.DistanceUnit;
+import seedu.address.model.workout.exercise.components.ExerciseName;
+import seedu.address.model.workout.exercise.details.Distance;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.unit.DistanceUnit;
 
 public class WorkoutPlannerParserUtilTest {
     private static final String INVALID_NAME = "Revers* Lunge";

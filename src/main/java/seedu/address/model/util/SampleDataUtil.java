@@ -7,20 +7,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.common.Name;
-import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
-import seedu.address.model.exercise.WorkoutPlanner;
-import seedu.address.model.exercise.components.Exercise;
-import seedu.address.model.exercise.components.ExerciseName;
-import seedu.address.model.exercise.components.Intensity;
-import seedu.address.model.exercise.components.MuscleType;
-import seedu.address.model.exercise.components.MusclesTrained;
-import seedu.address.model.exercise.details.Distance;
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.ExerciseWeight;
-import seedu.address.model.exercise.details.Repetitions;
-import seedu.address.model.exercise.details.Sets;
-import seedu.address.model.exercise.details.unit.DistanceUnit;
-import seedu.address.model.exercise.details.unit.WeightUnit;
 import seedu.address.model.health.HealthRecords;
 import seedu.address.model.health.ReadOnlyHealthRecords;
 import seedu.address.model.health.components.Record;
@@ -36,6 +22,20 @@ import seedu.address.model.profile.person.Gender;
 import seedu.address.model.profile.person.Height;
 import seedu.address.model.profile.person.Person;
 import seedu.address.model.profile.person.Weight;
+import seedu.address.model.workout.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.components.ExerciseName;
+import seedu.address.model.workout.exercise.components.Intensity;
+import seedu.address.model.workout.exercise.components.MuscleType;
+import seedu.address.model.workout.exercise.components.MusclesTrained;
+import seedu.address.model.workout.exercise.details.Distance;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.ExerciseWeight;
+import seedu.address.model.workout.exercise.details.Repetitions;
+import seedu.address.model.workout.exercise.details.Sets;
+import seedu.address.model.workout.exercise.details.unit.DistanceUnit;
+import seedu.address.model.workout.exercise.details.unit.WeightUnit;
 
 /**
  * Contains utility methods for populating {@code DukeCooks} with sample data.

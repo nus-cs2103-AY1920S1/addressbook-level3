@@ -17,9 +17,6 @@ import seedu.address.model.dashboard.components.Dashboard;
 import seedu.address.model.diary.DiaryRecords;
 import seedu.address.model.diary.ReadOnlyDiary;
 import seedu.address.model.diary.components.Diary;
-import seedu.address.model.exercise.ReadOnlyWorkoutPlanner;
-import seedu.address.model.exercise.WorkoutPlanner;
-import seedu.address.model.exercise.components.Exercise;
 import seedu.address.model.health.HealthRecords;
 import seedu.address.model.health.ReadOnlyHealthRecords;
 import seedu.address.model.health.components.Record;
@@ -29,6 +26,9 @@ import seedu.address.model.profile.person.Person;
 import seedu.address.model.recipe.ReadOnlyRecipeBook;
 import seedu.address.model.recipe.RecipeBook;
 import seedu.address.model.recipe.components.Recipe;
+import seedu.address.model.workout.exercise.ReadOnlyWorkoutPlanner;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.components.Exercise;
 
 /**
  * Represents the in-memory model of Duke Cooks data.

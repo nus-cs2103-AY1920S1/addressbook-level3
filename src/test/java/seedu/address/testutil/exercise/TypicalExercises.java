@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.exercise.WorkoutPlanner;
-import seedu.address.model.exercise.components.Exercise;
-import seedu.address.model.exercise.components.Intensity;
-import seedu.address.model.exercise.details.unit.WeightUnit;
+import seedu.address.model.workout.exercise.WorkoutPlanner;
+import seedu.address.model.workout.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.components.Intensity;
+import seedu.address.model.workout.exercise.details.unit.WeightUnit;
 
 
 /**

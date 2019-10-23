@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exercise.WorkoutPlannerParserUtil;
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.ExerciseWeight;
-import seedu.address.model.exercise.details.unit.WeightUnit;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.ExerciseWeight;
+import seedu.address.model.workout.exercise.details.unit.WeightUnit;
 
 
 /**

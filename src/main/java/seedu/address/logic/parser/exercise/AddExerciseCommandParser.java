@@ -20,16 +20,16 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.exercise.components.Exercise;
-import seedu.address.model.exercise.components.ExerciseName;
-import seedu.address.model.exercise.components.Intensity;
-import seedu.address.model.exercise.components.MuscleType;
-import seedu.address.model.exercise.components.MusclesTrained;
-import seedu.address.model.exercise.details.Distance;
-import seedu.address.model.exercise.details.ExerciseDetail;
-import seedu.address.model.exercise.details.ExerciseWeight;
-import seedu.address.model.exercise.details.Repetitions;
-import seedu.address.model.exercise.details.Sets;
+import seedu.address.model.workout.exercise.components.Exercise;
+import seedu.address.model.workout.exercise.components.ExerciseName;
+import seedu.address.model.workout.exercise.components.Intensity;
+import seedu.address.model.workout.exercise.components.MuscleType;
+import seedu.address.model.workout.exercise.components.MusclesTrained;
+import seedu.address.model.workout.exercise.details.Distance;
+import seedu.address.model.workout.exercise.details.ExerciseDetail;
+import seedu.address.model.workout.exercise.details.ExerciseWeight;
+import seedu.address.model.workout.exercise.details.Repetitions;
+import seedu.address.model.workout.exercise.details.Sets;
 
 /**
  * Parses input arguments and creates a new AddCommand object

@@ -8,7 +8,7 @@ import seedu.address.logic.commands.exercise.FindExerciseByMuscleCommand;
 import seedu.address.logic.commands.exercise.FindExerciseCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.exercise.components.MusclesTrainedContainsKeywordsPredicate;
+import seedu.address.model.workout.exercise.components.MusclesTrainedContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindExerciseByMuscleCommand object

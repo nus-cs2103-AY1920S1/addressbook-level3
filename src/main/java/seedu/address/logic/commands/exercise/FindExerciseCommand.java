@@ -6,7 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.components.ExerciseNameContainsKeywordsPredicate;
+import seedu.address.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all Exercises in Duke Cooks whose name contains any of the argument keywords.
