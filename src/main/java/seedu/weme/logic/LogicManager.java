@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.logic.commands.Command;
@@ -19,6 +20,7 @@ import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
+import seedu.weme.statistics.LikeData;
 import seedu.weme.storage.Storage;
 
 /**
@@ -49,6 +51,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveMemeBook(model.getMemeBook());
+            storage.saveStatsData(model.getStats());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -89,6 +92,16 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public LikeData getLikeData() {
+        return model.getLikeData();
+    }
+
+    @Override
+    public ObservableMap<String, Integer> getObservableLikeData() {
+        return model.getObservableLikeData();
     }
 
     public void cleanUp() {

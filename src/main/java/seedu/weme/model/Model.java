@@ -5,9 +5,12 @@ import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
+import seedu.weme.statistics.LikeData;
+import seedu.weme.statistics.Stats;
 
 /**
  * The API of the Model component.
@@ -73,7 +76,9 @@ public interface Model {
      */
     void setMemeBook(ReadOnlyMemeBook memeBook);
 
-    /** Returns the MemeBook */
+    /**
+     * Returns the MemeBook
+     */
     ReadOnlyMemeBook getMemeBook();
 
     /**
@@ -147,6 +152,29 @@ public interface Model {
      * Saves the current meme book state for undo/redo.
      */
     void commitMemeBook();
+
+    /**
+     * Returns statistics data.
+     */
+    Stats getStats();
+
+    /**
+     * Returns the like data.
+     */
+    LikeData getLikeData();
+
+    ObservableMap<String, Integer> getObservableLikeData();
+
+    /**
+     * Increments likes of a meme by the Meme object.
+     */
+    void incrementMemeLikeCount(Meme meme);
+
+    /**
+     * Deletes stats data by meme.
+     */
+    void clearMemeStats(Meme memeToDelete);
+
 
     /**
      * Clears the image data folder of any memes that are not referenced in weme.

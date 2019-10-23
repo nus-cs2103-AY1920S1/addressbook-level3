@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
+import seedu.weme.statistics.Stats;
+import seedu.weme.statistics.StatsManager;
 import seedu.weme.testutil.MemeBookBuilder;
 
 public class ModelManagerTest {
@@ -98,10 +100,11 @@ public class ModelManagerTest {
         MemeBook memeBook = new MemeBookBuilder().withMeme(DOGE).build();
         MemeBook differentMemeBook = new MemeBook();
         UserPrefs userPrefs = new UserPrefs();
+        Stats stats = new StatsManager();
 
         // same values -> returns true
-        modelManager = new ModelManager(memeBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(memeBook, userPrefs);
+        modelManager = new ModelManager(memeBook, userPrefs, stats);
+        ModelManager modelManagerCopy = new ModelManager(memeBook, userPrefs, stats);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different memeBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentMemeBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentMemeBook, userPrefs, stats)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
@@ -122,11 +125,11 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         String[] keywords = JOKER.getFilePath().toString().split("\\s+");
         modelManager.updateFilteredMemeList(new TagContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(memeBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(memeBook, userPrefs, stats)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setDataFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(memeBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(memeBook, differentUserPrefs, stats)));
     }
 }

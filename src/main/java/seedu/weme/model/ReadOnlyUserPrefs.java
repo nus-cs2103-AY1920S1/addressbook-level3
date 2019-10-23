@@ -16,4 +16,6 @@ public interface ReadOnlyUserPrefs {
     Path getMemeImagePath();
 
     Path getTemplateImagePath();
+
+    Path getStatsDataFilePath();
 }

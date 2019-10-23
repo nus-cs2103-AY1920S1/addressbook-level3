@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
@@ -12,6 +13,7 @@ import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
+import seedu.weme.statistics.LikeData;
 
 /**
  * API of the Logic component
@@ -56,6 +58,10 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    LikeData getLikeData();
+
+    ObservableMap<String, Integer> getObservableLikeData();
 
     /**
      * Handles any logic that needs to be done before exiting weme.

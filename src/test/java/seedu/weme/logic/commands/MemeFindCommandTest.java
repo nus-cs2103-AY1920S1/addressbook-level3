@@ -16,13 +16,14 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
+import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code MemeFindCommand}.
  */
 public class MemeFindCommandTest {
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+    private Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
 
     @Test
     public void equals() {

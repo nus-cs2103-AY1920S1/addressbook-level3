@@ -86,7 +86,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to `Model` data and also Statistical Data in `StatsEngine` so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component

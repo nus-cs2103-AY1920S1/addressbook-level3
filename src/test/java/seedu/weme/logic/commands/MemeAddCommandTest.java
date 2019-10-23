@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.Model;
@@ -24,6 +25,8 @@ import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
+import seedu.weme.statistics.LikeData;
+import seedu.weme.statistics.Stats;
 import seedu.weme.testutil.MemeBuilder;
 import seedu.weme.testutil.TestUtil;
 import seedu.weme.testutil.UserPrefsBuilder;
@@ -212,6 +215,32 @@ public class MemeAddCommandTest {
         @Override
         public void cleanMemeStorage() {
             throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public Stats getStats() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public LikeData getLikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableMap<String, Integer> getObservableLikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void incrementMemeLikeCount(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void clearMemeStats(Meme meme) {
+            throw new AssertionError("This method should not be called");
         }
 
     }
