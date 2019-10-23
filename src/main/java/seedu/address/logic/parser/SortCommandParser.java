@@ -4,8 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.transaction.AmountComparator;
-import seedu.address.model.transaction.DateComparator;
+import seedu.address.logic.comparator.AmountComparator;
+import seedu.address.logic.comparator.DateComparator;
 
 /**
  * Parses input arguments and creates a new FilterCommand object

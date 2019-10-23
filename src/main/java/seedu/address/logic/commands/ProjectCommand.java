@@ -8,7 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.DateComparator;
+import seedu.address.logic.comparator.DateComparator;
 import seedu.address.model.util.Date;
 
 /**
@@ -18,10 +18,10 @@ public class ProjectCommand extends Command {
     public static final String COMMAND_WORD = "project";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
-            + "Parameters: "
-            + PREFIX_DATE + "DATE\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "12122103 09:00";
+        + "Parameters: "
+        + PREFIX_DATE + "DATE\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_DATE + "12122103 09:00";
 
     public static final String MESSAGE_SUCCESS = "Projected balance: %1$s";
     public final Date date;
@@ -36,7 +36,7 @@ public class ProjectCommand extends Command {
         requireNonNull(model);
 
         ObservableList<BankAccountOperation> transactionHistory =
-                model.getBankAccount().getSortedTransactionHistory(new DateComparator());
+            model.getBankAccount().getSortedTransactionHistory(new DateComparator());
 
         Projection projection = new Projection(transactionHistory, date, model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString()));

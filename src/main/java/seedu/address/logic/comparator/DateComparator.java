@@ -1,4 +1,6 @@
-package seedu.address.model.transaction;
+package seedu.address.logic.comparator;
+
+import seedu.address.model.transaction.BankAccountOperation;
 
 import java.util.Comparator;
 
