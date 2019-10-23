@@ -3,7 +3,7 @@ package seedu.address.model.common;
 /**
  * Unmodifiable reference ID for a person.
  */
-public interface ReferenceId extends Comparable<ReferenceId> {
+public interface ReferenceId extends Identical<ReferenceId> {
     /**
      * Checks whether the person is a doctor working as part of the staff.
      */

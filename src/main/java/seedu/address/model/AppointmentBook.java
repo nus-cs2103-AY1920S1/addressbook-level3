@@ -6,8 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.common.UniqueElementList;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.UniqueEventList;
 
 /**
  * Wraps all data at the appointment-book level
@@ -15,7 +15,7 @@ import seedu.address.model.events.UniqueEventList;
  */
 public class AppointmentBook implements ReadOnlyAppointmentBook {
 
-    private final UniqueEventList events;
+    private final UniqueElementList<Event> events;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,7 +25,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      *   among constructors.
      */
     {
-        events = new UniqueEventList();
+        events = new UniqueElementList<>();
     }
 
     public AppointmentBook() { }
@@ -45,7 +45,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      * {@code events} must not contain duplicate events.
      */
     public void setEvents(List<Event> events) {
-        this.events.setEvents(events);
+        this.events.setAll(events);
     }
 
     /**
@@ -91,7 +91,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     public void setEvent(Event target, Event editedEvent) {
         requireNonNull(editedEvent);
 
-        events.setEvent(target, editedEvent);
+        events.set(target, editedEvent);
     }
 
     /**

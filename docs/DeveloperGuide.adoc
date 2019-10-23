@@ -298,6 +298,46 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |clerk|find out the upcoming appointments for given patients |
+
+|`* * *` |clerk|update the doctors' details by typing commands and user details |
+
+|`* * *` |clerk|add new doctors into system |
+
+|`* * *` |clerk|edit patients' details | keep their particulars up to date
+
+|`* * *` |clerk|register new patients with optional fields |
+
+|`* * *` |clerk|add ad-hoc patients to the queue |
+
+|`* * *` |clerk|search for patients using their name or phone number |
+
+|`* * *` |clerk|look up how many patients are in the queue, on a side panel | recommend estimated time that the patient will be attended to
+
+|`* * *` |clerk|look up patient using a reference id |
+
+|`* * *` |clerk|reschedule appointments of patients |
+
+|`* * *` |clerk|search for appointment slots easily | schedule appointments for patients easily
+
+|`* * *` |clerk|assign a queue number to each patient in the queue |
+
+|`* * *` |clerk|use the appointment scheduler | schedule appointments for my patients
+
+|`* * *` |clerk|save time managing the queue | have more time to do my own work
+
+|`* * *` |clerk|take note of the doctors that are on-shift | effectively direct patients to available doctors
+
+|`* *` |clerk|remove a patient from the queue if they leave. |
+
+|`* *` |clerk|view the number of patients who visited the clinic today |
+
+|`* *` |clerk|schedule patient's follow up appointments |
+
+|`* *` |clerk|find all patients who have missed their appointments | keep track of the list of patients whom I need to inform
+
+|`* *` |experienced user|create custom aliases to commands | so that it can save time
+
 |`* *` |clerk|use auto-complete to predict my commands|save time on verifying its existence and correctness
 
 |`* *` |clerk|quick-fill the command box with the suggestions of Auto-Complete|so that it reduces typing of the entire command
@@ -306,54 +346,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |clerk|quick-fill the command box with history commands|inputting last few commands is easier
 
-|`* * *` |clerk|find out the upcoming appointments for given patients. |
-
-|`* * *` |clerk|update the doctors' details by typing commands and user details. |
-
-|`* * *` |clerk|add new doctors into system |
-
-|`* *` |clerk|remove a patient from the queue if they leave. |
-
-|`* *` |clerk|view the number of patients who visited the clinic today |
-
-|`* * *` |clerk|edit patients' details | keep their particulars up to date
-
-|`* * *` |clerk|register new patients with optional fields |
-
-|`* *` |clerk|find all patients who have missed their appointments. | keep track of the list of patients whom I need to inform
-
-|`* * *` |clerk|add ad-hoc patients to the queue |
+|`* *` |receptionist|use the undo and redo feature | to remedy any mistakes
 
 |`* *` |clerk|acknowledge appointments if patients are present for their appointments | keep track of patients who came for their appointments
 
-|`* *` |clerk|tag patient with known allergies. | keep track of their allegies
+|`* *` |clerk|tag patient with known allergies | keep track of their allegies
 
 |`* *` |clerk|cancel appointments for patients | free up appointment time slots
-
-|`* * *` |clerk|search for patients using their name or phone number |
-
-|`* * *` |clerk|look up how many patients are in the queue, on a side panel | recommend estimated time that the patient will be attended to
-
-|`* * *` |clerk|look up patient using a reference id. |
-
-|`* * *` |clerk|reschedule appointments of patients |
-
-|`* * *` |clerk|search for appointment slots easily | schedule appointments for patients easily.
-
-|`* * *` |clerk|assign a queue number to each patient in the queue |
-
-|`* *` |clerk|schedule patient's follow up appointments |
-
-|`* * *` |clerk|use the appointment scheduler | schedule appointments for my patients
-
-|`* * *` |clerk|save time managing the queue | have more time to do my own work
-
-|`* * *` |clerk|take note of the doctors that are on-shift | effectively direct patients to available doctors.
-
-|`* *` |experienced user|create custom aliases to commands |
-
-|`* *` |receptionist|use the undo and redo feature to remedy any mistakes.|
-
 |=======================================================================
 
 _{More to be added}_
@@ -370,17 +369,15 @@ _{More to be added}_
 
 1.  New patient arrives at the clinic
 2.  User wants to add new patient into the queue
-3.  ClerkPro adds the patient into the queue
+3.  System adds the patient into the queue
 
 Use case ends.
 
 *Extensions*
 
-* 2a. Actor inputs invalid format
-+
-Use case ends.
+* 2a. User inputs invalid format
 
-* 2a. ClerkPro requests for correct input format. +
+** 2a1. System requests for correct input format. +
 +
 Use case resumes at step 2.
 
@@ -391,7 +388,7 @@ Use case resumes at step 2.
 
 1.  Patient wants to leave
 2.  User requests to remove patient from the queue
-3.  ClerkPro removes the person from queue
+3.  System removes the person from queue
 
 Use case ends.
 
@@ -405,7 +402,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. ClerkPro shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 

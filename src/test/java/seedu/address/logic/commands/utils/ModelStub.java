@@ -120,12 +120,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void removeFromQueue(int index) {
+    public void enqueuePatient(ReferenceId id) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void enqueuePatient(ReferenceId id) {
+    public void enqueuePatientToIndex(ReferenceId id, int index) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -135,27 +135,27 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Room> getFilteredRoomList() {
+    public ObservableList<Room> getConsultationRoomList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateFilteredRoomList(Predicate<Room> predicate) {
+    public void addRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void serveNextPatient(int index) {
+    public void addRoomToIndex(Room room, int indexOfRoom) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void addRoom(ReferenceId id) {
+    public void removeRoom(Room target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void removeRoom(int index) {
+    public boolean hasRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -205,13 +205,39 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<ReferenceId> getFilteredReferenceIdList() {
+    public void updateFilteredEventList(ReferenceId referenceId) {
+
+    }
+
+    @Override
+    public void updateFilteredEventList() {
+
+    }
+
+    @Override
+    public void updateToMissedEventList() {
+
+    }
+
+    @Override
+    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
+
+    }
+
+
+    @Override
+    public Boolean isPatientList() {
         return null;
     }
 
     @Override
-    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
+    public Boolean isMissedList() {
+        return null;
+    }
 
+    @Override
+    public ObservableList<ReferenceId> getQueueList() {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override

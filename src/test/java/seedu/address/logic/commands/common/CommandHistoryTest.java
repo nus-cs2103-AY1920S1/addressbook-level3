@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.utils.ReversibleCommandStub;
+import seedu.address.logic.commands.utils.ReversibleActionPairCommandStub;
 import seedu.address.model.ModelManager;
 import seedu.address.testutil.TestUtil;
 
@@ -28,10 +28,10 @@ class CommandHistoryTest {
     void execute_performUndo_success() {
         assertFalse(history.canUndo());
 
-        history.addToCommandHistory(new ReversibleCommandStub("cmd 1"));
+        history.addToCommandHistory(new ReversibleActionPairCommandStub("cmd 1"));
         assertTrue(history.canUndo());
 
-        history.addToCommandHistory(new ReversibleCommandStub("cmd 2"));
+        history.addToCommandHistory(new ReversibleActionPairCommandStub("cmd 2"));
         assertTrue(history.canUndo());
 
         try {
@@ -55,10 +55,10 @@ class CommandHistoryTest {
     void canRedo() {
         assertFalse(history.canRedo());
 
-        history.addToCommandHistory(new ReversibleCommandStub("cmd 1"));
+        history.addToCommandHistory(new ReversibleActionPairCommandStub("cmd 1"));
         assertFalse(history.canRedo());
 
-        history.addToCommandHistory(new ReversibleCommandStub("cmd 2"));
+        history.addToCommandHistory(new ReversibleActionPairCommandStub("cmd 2"));
         assertFalse(history.canRedo());
 
         try {
@@ -74,7 +74,7 @@ class CommandHistoryTest {
             assertTrue(history.canUndo());
             assertTrue(history.canRedo());
 
-            history.addToCommandHistory(new ReversibleCommandStub("cmd 3"));
+            history.addToCommandHistory(new ReversibleActionPairCommandStub("cmd 3"));
             assertTrue(history.canUndo());
             assertFalse(history.canRedo());
 

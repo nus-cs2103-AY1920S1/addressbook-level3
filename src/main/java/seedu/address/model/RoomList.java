@@ -28,7 +28,9 @@ public class RoomList {
         listOfRooms = new UniqueRoomList();
     }
 
-    public RoomList() {}
+    public RoomList() {
+
+    }
 
     public RoomList(RoomList toBeCopied) {
         this();
@@ -50,11 +52,15 @@ public class RoomList {
         listOfRooms.add(room);
     }
 
+    public void addRoom(Room room, int index) {
+        listOfRooms.add(room, index);
+    }
+
     /**
      * Removes a room.
      */
-    public void removeRoom(int index) {
-        listOfRooms.remove(index);
+    public void removeRoom(Room target) {
+        listOfRooms.remove(target);
     }
 
     /**
@@ -62,6 +68,13 @@ public class RoomList {
      */
     public ReferenceId getCurrentlyServed(int index) {
         return listOfRooms.get(index).getCurrentPatient().get();
+    }
+
+    /**
+     * Removes the current patient
+     */
+    public void removeCurrentPatient(int index) {
+        listOfRooms.get(index).removeCurrentPatient();
     }
 
     /**
@@ -76,6 +89,19 @@ public class RoomList {
      */
     public void setRooms(List<Room> rooms) {
         this.listOfRooms.setPersons(listOfRooms);
+    }
+
+    public boolean hasRoom(Room room) {
+        return listOfRooms.contains(room);
+    }
+
+    /**
+     * Replaces the room {@code target} in the list with {@code editedRoom}.
+     * {@code target} must exist in the list.
+     * The identity of {@code editedRoom} must not be the same as another existing room in the list.
+     */
+    public void set(Room target, Room editedRoom) {
+        listOfRooms.set(target, editedRoom);
     }
 
     //// util methods

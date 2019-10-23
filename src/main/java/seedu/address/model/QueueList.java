@@ -63,6 +63,10 @@ public class QueueList {
         ids.add(id);
     }
 
+    public void addPatient(int index, ReferenceId id) {
+        ids.add(index, id);
+    }
+
     public void setIds(List<ReferenceId> ids) {
         this.ids.setIds(ids);
     }
