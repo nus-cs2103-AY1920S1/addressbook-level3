@@ -326,7 +326,7 @@ The current implementation of Appointment will do check with patient object by t
 The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
 
 .Interactions Inside the Logic Component when a user executes a `changeappt` command
-image::changeAppointmentActivityDiagram.png[]
+image::ChangeAppointmentActivityDiagram.png[]
 
 ==== `addappt` Command
 The addappt command behaves similarly to the add command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
