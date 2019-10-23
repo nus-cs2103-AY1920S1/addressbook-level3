@@ -76,6 +76,10 @@ public class AttendeeList {
                     .collect(Collectors.toList());
     }
 
+    public List<Person> getAttendees() {
+        return attendees;
+    }
+
     @Override
     public String toString() {
         return attendees.toString();
