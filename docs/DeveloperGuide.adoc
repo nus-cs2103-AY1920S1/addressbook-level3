@@ -44,14 +44,15 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Statistics,*`Statistics`*>>: Generate statistics and charts.
 
-Each of the four components
+Each of the five components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -101,15 +102,15 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  `Logic` uses the `SellerManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a customer/phone/order/schedule).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  The result of the command execution, a `String` message and `UiChange` enum is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `UiChange` enum in the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying the respective panels or help/statistics window.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete-c 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete-c 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteCustomerCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -122,12 +123,15 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores a `CalendarDate` object that stores date shown on the calendar panel.
+* stores the Seller Manager data.
+* exposes 4 unmodifiable `ObservableList<Identifiable>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other four components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `UniqueList<Tag>` in `Seller Manager`, which `Customer` / `Phone` / `Order` / `Schedule`  can reference.
+This would allow `Seller Manager` to only require one `Tag` object per unique `Tag`, instead of each object needing their own `Tag`.
+An example of how such a `UniqueList<Tag>` and a `UniqueList<Customer>` may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -294,11 +298,11 @@ image::StatisticsCalculationUI.png[]
 ==== Implementation
 
 We decided to incorporate a third party library, `JFXtras's Agenda`, to represent our schedules on a calendar for easy viewing by our users.
-The `Agenda` is made a class variable in `CalendarPanel`, which extends `UiPart`, making it one of the tabbed panels we offer on our application.
+The `Agenda` is a class variable in `CalendarPanel`.
 
-`CalendarPanel` keeps `UniqueList<Schedule>` and `UniqueList<Order>` objects as class variables. On instantiation, all the schedules will be converted to `Appointments` and then added to `Agenda`.
+`CalendarPanel` keeps `UniqueList<Schedule>` and `UniqueList<Order>` objects as class variables. On instantiation, all the schedules in `UniqueList<Schedule>` will be converted to `Appointments` and then added to `Agenda`.
 To set the display information of the `Schedule` object, we will find its `Order` in the `UniqueList<Order>` and retrieve its index.
-`CalendarPanel` also keeps `CalendarDate` as a variable to set the date `Agenda` shows.
+`CalendarPanel` also keeps `CalendarDate` as a variable to set the date shown by `Agenda`.
 
 Schedule supports a few basic commands:
 
@@ -312,6 +316,7 @@ For example:
 
 * If the user adds/edits/deletes a schedule -- calendar panel will display the week with the date of the schedule.
 * If the user uses the switch-s command -- calendar panel will display the week with today's date.
+* If the user uses the schedule command -- calendar will display the week with the date resquested by the user.
 
 Changes to the schedules are made in the model by editing the `UniqueList<Schedule>` object.
 `CalendarPanel` adds a listener to its `UniqueList<Schedule>` variable.
@@ -349,7 +354,7 @@ Then, `CalendarPanel` will be called in the handleSchedule method to set the age
 
 This implementation was however changed because we thought that the date shown on the panel should be changed automatically.
 Hence, we decided to use a listener instead.
-`CalendarDate` is then placed in `Model` so that it can be edited right away while the Model executes any schedule related commands.
+`CalendarDate` is then placed in `Model` so that it can be edited right away when `Model` executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
 
 =======
