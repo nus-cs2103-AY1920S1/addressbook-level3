@@ -291,9 +291,9 @@ If the command execution fails, a `ParseException` (from Step 2) or a `CommandEx
 
 The following activity diagram shows how the Setting of Date&Time to Event work:
 
-image::SettingEventDateActivityDiagram.png[]
+image::SettingEventDateActivityDiagram.png[SettingEvent,295,607]
 
-Figure 1.x
+Figure 1.4
 
 ==== Design Considerations
 ===== Aspect: Storage of DateTimeMap
