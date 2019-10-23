@@ -1,8 +1,12 @@
 package seedu.address.appmanager;
 
-import javafx.collections.ObservableList;
+import java.nio.file.Path;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -20,13 +24,10 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 
-import java.nio.file.Path;
-import java.util.List;
-
 
 class AppManagerTest {
 
-    AppManager dummyAppManager;
+    private AppManager dummyAppManager;
 
     @BeforeEach
     void setUp() {

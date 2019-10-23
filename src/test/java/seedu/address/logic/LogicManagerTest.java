@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -39,48 +38,45 @@ public class LogicManagerTest {
     private Model model = new ModelManager();
     private Logic logic;
 
-        @BeforeEach
-        public void setUp() {
-            JsonWordBankListStorage addressBookStorage =
-                    new JsonWordBankListStorage(temporaryFolder.resolve("addressBook.json"));
-         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-
-            WordBankStatisticsListStorage wordBankStatisticsListStorage =
-                    new JsonWordBankStatisticsListStorage(Path.of("dummyWbStats"));
-            GlobalStatisticsStorage globalStatisticsStorage =
-                    new JsonGlobalStatisticsStorage(Path.of("dummyWbStats"));
-            AppSettingsStorage appSettingsStorage =
-                    new JsonAppSettingsStorage(Path.of("dummyWbStats"));
-
-            StorageManager storage = new StorageManager(addressBookStorage,
+    @BeforeEach
+    public void setUp() {
+        JsonWordBankListStorage addressBookStorage =
+                new JsonWordBankListStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        WordBankStatisticsListStorage wordBankStatisticsListStorage =
+               new JsonWordBankStatisticsListStorage(Path.of("dummyWbStats"));
+        GlobalStatisticsStorage globalStatisticsStorage =
+               new JsonGlobalStatisticsStorage(Path.of("dummyWbStats"));
+        AppSettingsStorage appSettingsStorage =
+               new JsonAppSettingsStorage(Path.of("dummyWbStats"));
+        StorageManager storage = new StorageManager(addressBookStorage,
                     userPrefsStorage, wordBankStatisticsListStorage,
                     globalStatisticsStorage, appSettingsStorage);
-            logic = new LogicManager(model, storage);
-        }
+        logic = new LogicManager(model, storage);
+    }
 
-        @Test
-        public void execute_invalidCommandFormat_throwsParseException() {
-            String invalidCommand = "uicfhmowqewca";
-            assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        }
+    @Test
+    public void execute_invalidCommandFormat_throwsParseException() {
+        String invalidCommand = "uicfhmowqewca";
+        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
 
-//        @Test
-//        public void execute_commandExecutionError_throwsCommandException() {
-//            String bankCommand = "bank";
-//            assertCommandException(bankCommand, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
-//        }
+    //    @Test
+    //    public void execute_commandExecutionError_throwsCommandException() {
+    //        String bankCommand = "bank";
+    //        assertCommandException(bankCommand, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+    //    }
 
-        @Test
-        public void execute_validCommand_success() throws Exception {
-            String homeCommand = HomeCommand.COMMAND_WORD;
-            String listCommand = ListCommand.COMMAND_WORD;
-//            assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-            CommandResult homeResult = logic.execute(homeCommand);
-            assertEquals(HomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
-            CommandResult listResult = logic.execute(listCommand);
-            assertEquals(ListCommand.MESSAGE_SUCCESS, listResult.getFeedbackToUser());
-            assertEquals(model, model);
-        }
+    @Test
+    public void execute_validCommand_success() throws Exception {
+        String homeCommand = HomeCommand.COMMAND_WORD;
+        String listCommand = ListCommand.COMMAND_WORD;
+        CommandResult homeResult = logic.execute(homeCommand);
+        assertEquals(HomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
+        CommandResult listResult = logic.execute(listCommand);
+        assertEquals(ListCommand.MESSAGE_SUCCESS, listResult.getFeedbackToUser());
+        assertEquals(model, model);
+    }
 
     //    todo: storage test
     //    @Test
@@ -107,18 +103,21 @@ public class LogicManagerTest {
     //        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     //    }
 
-//    /**
-//     * Executes the command and confirms that
-//     * - no exceptions are thrown <br>
-//     * - the feedback message is equal to {@code expectedMessage} <br>
-//     * - the internal model manager state is the same as that in {@code expectedModel} <br>
-//     *
-//     * @see #assertCommandFailure(String, Class, String, Model)
-//     */
-//    private void assertCommandSuccess(String inputCommand, String expectedMessage,
-//                                      Model expectedModel) throws CommandException, ParseException {
-//
-//    }
+
+    /**
+     * Executes the command and confirms that
+     * - no exceptions are thrown <br>
+     * - the feedback message is equal to {@code expectedMessage} <br>
+     * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
+     * @see #assertCommandFailure(String, Class, String, Model)
+     */
+    /*
+    private void assertCommandSuccess(String inputCommand, String expectedMessage,
+                                      Model expectedModel) throws CommandException, ParseException {
+
+    }
+    */
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.

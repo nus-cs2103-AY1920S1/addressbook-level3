@@ -1,14 +1,16 @@
 package seedu.address.appmanager.timer;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.LinkedList;
-import java.util.Queue;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+import org.junit.jupiter.api.Test;
+
+
 
 class HintTimingQueueTest {
 
@@ -16,7 +18,7 @@ class HintTimingQueueTest {
     public void pollNextTimeToUpdate_queueSizeZero_throwsNullPointerException() {
         HintTimingQueue testQueue = new HintTimingQueue(0, 1000);
         assertThrows(NullPointerException.class, () -> {
-           testQueue.pollNextTimeToUpdate();
+            testQueue.pollNextTimeToUpdate();
         });
     }
 
@@ -41,7 +43,7 @@ class HintTimingQueueTest {
     void pollNextTimeToUpdate() {
         HintTimingQueue testQueue = new HintTimingQueue(7, 5000);
         long expectedDelta = (long) (8000 * 0.75) / (7 - 1);
-        Queue<Long> expectedTimings =  new LinkedList<>();
+        Queue<Long> expectedTimings = new LinkedList<>();
         for (int i = 0; i < 7; i++) {
             long currentTiming = (long) (5000 * 0.75) - (i * expectedDelta);
             if (currentTiming <= 0) {
