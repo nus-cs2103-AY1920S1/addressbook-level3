@@ -12,7 +12,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void constructor_invalidCategoryName_throwsIllegalArgumentException() {
+    public void constructor_invalidTagName_throwsIllegalArgumentException() {
         String invalidTagName = "";
         assertThrows(IllegalArgumentException.class, () -> new Category(invalidTagName));
     }

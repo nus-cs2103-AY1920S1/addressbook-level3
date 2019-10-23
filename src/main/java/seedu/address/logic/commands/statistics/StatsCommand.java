@@ -4,12 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.util.Objects;
+import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.ui.panel.PanelName;
 
 /**
@@ -46,16 +48,20 @@ public class StatsCommand extends Command {
 
     @Override
     protected void validate(Model model) {
-        Objects.requireNonNull(model);
+        requireNonNull(model);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        String statsResult = model.calculateStatistics(COMMAND_WORD, startDate, endDate, null);
-        //modifies model to store the statistic in its field
 
-        return new CommandResult(statsResult, false, false, true, false, PanelName.CURRENT);
+        ObservableList<Expense> statsExpenses = model.getFilteredExpenseList();
+        Statistics statistics = Statistics.startStatistics(statsExpenses);
+        String statsResult = statistics.calculateStats(COMMAND_WORD, startDate, endDate, null).toString();
+
+        return new CommandResult(statsResult, false, false, true, false, PanelName.CURRENT,
+                statistics.getFormattedCategories(), statistics.getFormattedPercentages(),
+                statistics.getTitle());
     }
 
     @Override
