@@ -18,7 +18,10 @@ By: `Team AY1920S1-CS2103T-W12-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-IchiFund is for those who *prefer to use a desktop app for managing finance*. More importantly, IchiFund is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, IchiFund can get your finance management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+IchiFund is for those who *prefer to use a desktop app for managing finance*. More importantly, IchiFund is
+*optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a
+Graphical User Interface (GUI). If you can type fast, IchiFund can get your finance management tasks done faster than
+traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -30,15 +33,48 @@ IchiFund is for those who *prefer to use a desktop app for managing finance*. Mo
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. +
+Here are some example commands you can try in the transaction tab:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`de/Lunch a/12.30` : adds an expenditure item for "Lunch" to IchiFund.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
+.  Refer to <<Navigation>> for details on how to navigate through the application.
 .  Refer to <<Features>> for details of each command.
+
+[[Navigation]]
+== Navigation
+IchiFund has five features: Transactions, Repeaters, Budgets, Loans and Analytics.
+Each feature is allocated to its own tab, and the commands for each feature only work when you are
+using the tab associated to the feature.
+
+When you enter a command that is not used by the feature, the following message is shown:
+
+image::InapplicableCommand.png[]
+
+In this case, `expenditure`, a command for the "Analytics".
+
+We offer three modes for you to switch tab:
+
+. Clicking on the tab
+. Using a shortcut key
+. Entering a global command
+
+The global commands and shortcut keys are summarized in the table below:
+
+|==============================
+| Feature | Command | Shortcut Key
+
+| Transactions | `tx` | `Ctrl + 1`
+| Repeaters | `rep` | `Ctrl + 2`
+| Budgets | `budget` | `Ctrl + 3`
+| Loans | `loan` | `Ctrl + 4`
+| Analytics | `analytics` | `Ctrl + 5`
+|==============================
+
+To use the global command, simply enter the command as you would for any other
+command, and the application automatically switches to the appropriate tab.
 
 [[Features]]
 == Features
@@ -67,17 +103,6 @@ Format: `exit`
 
 IchiFund data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-=== Wealth
-
-==== Set current wealth: `wealthset`
-Set current wealth. +
-Format: `wealthset a/AMOUNT`
-
-Examples:
-
-* `wealthset a/2103.20` +
-Sets current wealth to $2103.20.
 
 === Transactions
 
