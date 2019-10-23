@@ -8,48 +8,49 @@ Package Model <<Rectangle>>{
 Interface ReadOnlyBankAccount <<Interface>>
 Interface Model <<Interface>>
 Interface ReadOnlyLedger <<Interface>>
-Interface ReadOnlyUserPrefs <<Interface>>
+'Interface ReadOnlyUserPrefs <<Interface>>
 Class BankAccount
 Class ReadOnlyBankAccount
 Class Model
 Class ModelManager
-Class UserPrefs
-Class UserPrefs
+'Class UserPrefs
 Class Ledger
 Class Projection
 Class VersionedBankAccount
 
 
 Package Transaction {
-Class Transaction
+Interface BankOperation <<Interface>>
+Interface LedgerOperation <<Interface>>
+
+Class Transaction <<abstract>>
 Class InTransaction
 Class OutTransaction
 
-Class Split
-
 Class Budget
-
 Class Amount
+
+Package {
+Class Split
 Class LendMoney
 Class Payment
 Class ReceiveMoney
 
+Split -[hidden]-> Payment
+ReceiveMoney -[hidden]-> LendMoney
+}
+
 Class UniqueBudgetList
 Class UniqueTransactionList
-
-'Class AmountComparator
-'Class DateComparator
 
 }
 
 Package Person {
 Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
 Class UniquePersonList
+Person -[hidden]right-> UniquePersonList
 }
+
 
 Package Util {
 Class Date
@@ -65,46 +66,74 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-BankAccount .up.|> ReadOnlyBankAccount
+'read only implementation
 Ledger .up.|> ReadOnlyLedger
-VersionedBankAccount .up.|> BankAccount
+BankAccount .up.|> ReadOnlyBankAccount
+'UserPrefs .up.|> ReadOnlyUserPrefs
 
+'first level of association
 ModelManager .up.|> Model
-' Model .right.> ObservableList
-ModelManager o--> "1" BankAccount
-ModelManager o-left-> "1" UserPrefs
-ModelManager o-right-> "1" Ledger
-UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o--> VersionedBankAccount
+VersionedBankAccount o--> BankAccount
+VersionedBankAccount o--> Ledger
+
+'bank operation
+BankAccount o--> "1" UniqueTransactionList
+UniqueTransactionList o--> "*" BankOperation
+
+InTransaction .up.|> BankOperation
+OutTransaction .up.|> BankOperation
+
+InTransaction --> Transaction
+OutTransaction --> Transaction
+
+Transaction o--> Date
+Transaction o--> Amount
 
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+'ledger operation
+Ledger o--> LedgerOperation
+Split .up.|> LedgerOperation
+Payment .up.|> LedgerOperation
+LendMoney .up.|> LedgerOperation
+ReceiveMoney .up.|> LedgerOperation
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Split --> Transaction
+Payment --> Transaction
+LendMoney --> Transaction
+ReceiveMoney --> Transaction
 
-BankAccount *--> "1" UniqueTransactionList
-BankAccount *--> "1" UniqueBudgetList
-UniqueTransactionList o--> "*" Transaction
-Transaction *--> Amount
-Transaction *--> Date
-Transaction *--> Person
-Transaction *--> "*" Tag
-InTransaction .up.|> Transaction
-OutTransaction .up.|> Transaction
+Split o--> Person
+Payment o--> Person
+LendMoney o--> Person
+ReceiveMoney o--> Person
 
+' budget
+BankAccount o--> "1" UniqueBudgetList
 UniqueBudgetList o--> "*" Budget
 Budget *--> Amount
 Budget *--> Date
 Budget *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+' person
+Person o--> Amount
+'Person *--> Name
+'Person *--> Phone
+'Person *--> Email
+'Person *--> Address
+'Person *--> "*" Tag
 
-ModelManager -->"1" Person : filtered list
+'Name -[hidden]right-> Phone
+'Phone -[hidden]right-> Address
+'Address -[hidden]right-> Email
+
+'BankAccount *--> "1" UniqueTransactionList
+'BankAccount *--> "1" UniqueBudgetList
+'Transaction *--> Amount
+'Transaction *--> Date
+'Transaction *--> Person
+'Transaction *--> "*" Tag
+'InTransaction .up.|> Transaction
+'OutTransaction .up.|> Transaction
+
 @enduml
