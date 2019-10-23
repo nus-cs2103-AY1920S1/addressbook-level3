@@ -36,12 +36,14 @@ public class ScriptManager {
      * The context between evaluations is persisted.
      *
      * @param script the script
+     * @param argv the arguments to pass to the script
      * @return the result of the script, which may be <code>null</code>
      * @throws ScriptException if an exception occurs during script evaluation
      */
-    public Object evaluateScript(String script) throws ScriptException {
+    public Object evaluateScript(String script, Object... argv) throws ScriptException {
         synchronized (scriptEngineLock) {
             try {
+                setVariable("argv", argv);
                 return scriptEngine.eval(script);
             } catch (Exception ex) {
                 throw new ScriptException(String.format("Exception while evaluating script: %1$s", ex.toString()), ex);
