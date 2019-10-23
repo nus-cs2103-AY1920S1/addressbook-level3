@@ -36,15 +36,19 @@ public class UserViewUpdate {
 
         switch(preamble) {
 
-        case "list":
+        case "list-tasks":
 
         case "delete-task":
 
-        case "edit":
+        case "edit-task":
 
         case "set-deadline":
 
-        case "find":
+        case "doing-task":
+
+        case "done-task":
+
+        case "find-task":
             paneToRender.getChildren().add(userViewMain.loadTasks());
             break;
 
@@ -64,14 +68,14 @@ public class UserViewUpdate {
 
         case "delete-inv":
 
+        case "edit-inv":
+
         case "add-inv":
 
         case "list-inv":
             paneToRender.getChildren().add(userViewMain.loadInventories());
-
-        case "list-tasks":
-            paneToRender = userViewMain.loadTasks();
             break;
+
         case "get-member-stats":
            paneToRender = userViewMain.loadMemberStats();
            break;

@@ -313,9 +313,9 @@ Data previously saved refers to the statistics calculation done based on list of
 
 Step 2. The user executes `get-task-stats` command to retrieve statistics related to the tasks in the application.
 
-The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` after updating all the lists to show all tasks/members/mappings, to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard. 
+The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` after updating all the lists to show all tasks/members/mappings, to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
 
-The following sequence diagram shows how the 'get-member-stats' operation works. 
+The following sequence diagram shows how the 'get-member-stats' operation works.
 
 image::GetStatisticsSequenceDiagram.png[]
 Figure 10. Operational flow of 'GetStatisticsCommand'
@@ -335,17 +335,17 @@ image::GetStatisticsActivityDiagram.png[]
 ** Pros: Easy to implement, centralised class for all statistics
 ** Cons: May have performance issues due to calculations involving large amounts of tasks and members.
 * **Alternative 2:** Individual statistic objects for members and tasks.
-** Pros: Will ensure faster performance, 
+** Pros: Will ensure faster performance,
 ** Cons: Design of statistics object has to be very well-implemented, might not have enough time to implement it by v1.3
 
 ===== Aspect: Display of Statistics for Project Dashboard
 
 * **Alternative 1 (current choice):** Use a pie chart to represent information
 ** Pros: Easy for workload comparison
-** Cons: Less details of individual taks and members exposed in the statistiscs page. 
+** Cons: Less details of individual taks and members exposed in the statistiscs page.
 * **Alternative 2:** Use a list to represent information
 ** Pros: Includes more details for individual elements
-** Cons: Decreases the ease of comparison between tasks and members 
+** Cons: Decreases the ease of comparison between tasks and members
 // end::statistics[]
 
 === [Proposed] Undo/Redo feature
