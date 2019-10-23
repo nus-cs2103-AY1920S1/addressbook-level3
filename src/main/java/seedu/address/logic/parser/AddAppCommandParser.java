@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -94,29 +95,28 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
     private List<Event> getRecEvents(Appointment event, String recursiveString, int times) {
         List<Event> eventList = new ArrayList<>();
         Timing timing = event.getEventTiming();
+        Function<Timing, Timing> func = null;
 
-        if (recursiveString.equals("w")) {
-            for (int i = 0; i < times; i++) {
-                eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
-                timing = Timing.getOneWeekLaterTiming(timing);
-            }
-        } else if (recursiveString.equals("m")) {
-            for (int i = 0; i < times; i++) {
-                eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
-                timing = Timing.getOneMonthLaterTiming(timing);
-            }
-        } else if (recursiveString.equals("d")) {
-            for (int i = 0; i < times; i++) {
-                eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
-                timing = Timing.getOneDayLaterTiming(timing);
-            }
-        } else {
-            for (int i = 0; i < times; i++) {
-                eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
-                timing = Timing.getOneYearLaterTiming(timing);
-
-            }
+        switch (recursiveString) {
+        case "w":
+            func = Timing::getOneWeekLaterTiming;
+            break;
+        case "m":
+            func = Timing::getOneMonthLaterTiming;
+            break;
+        case "d":
+            func = Timing::getOneDayLaterTiming;
+            break;
+        default:
+            func = Timing::getOneYearLaterTiming;
+            break;
         }
+
+        for (int i = 0; i < times; i++) {
+            eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
+            timing = func.apply(timing);
+        }
+
         return eventList;
     }
 
