@@ -79,9 +79,9 @@ class JsonAdaptedWorker {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Worker} object.
+     * Converts this Jackson-friendly adapted worker object into the model's {@code Worker} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted worker.
      */
     public Worker toModelType() throws IllegalValueException {
         // Convert ID number.

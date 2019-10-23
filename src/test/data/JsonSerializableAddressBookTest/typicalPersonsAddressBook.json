@@ -44,5 +44,6 @@
     "tagged" : [ ]
   } ],
   "bodies" : [ ],
-  "workers" : [ ]
+  "workers" : [ ],
+  "fridges" : [ ]
 }

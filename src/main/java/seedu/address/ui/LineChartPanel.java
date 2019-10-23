@@ -114,6 +114,13 @@ public class LineChartPanel extends UiPart<Region> {
             Date noTimeDate = formatDateNoTime(date);
             freqByDate.putIfAbsent(noTimeDate, 0);
         }
+
+        for (Body body: bodyList) {
+            Date noTimeDate = formatDateNoTime(body.getDateOfAdmission());
+            Number oldFreq = freqByDate.getOrDefault(noTimeDate, 0);
+            int newFreq = oldFreq.intValue() + 1;
+            freqByDate.put(noTimeDate, newFreq);
+        }
     }
 
     /**

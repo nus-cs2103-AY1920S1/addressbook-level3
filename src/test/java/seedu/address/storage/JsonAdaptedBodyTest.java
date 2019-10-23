@@ -15,16 +15,14 @@ import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
-public class JsonAdaptedBodyTest {
+public class JsonAdaptedBodyTest<priavte> {
     private static final String VALID_BODY_ID = "1";
     private static final String VALID_DATE_OF_ADMISSION = "11/11/1111";
     private static final String VALID_BODY_STATUS = "ARRIVED";
     private static final String VALID_NAME = "Rachel";
-
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_BODY_STATUS = "ARXIVED";
-    public static final String INVALID_DATE = "17/ad/11";
-
+    private static final String INVALID_DATE = "17/ad/11";
 
     @Test
     public void toModelType_validBodyDetails_returnsBody() throws Exception {

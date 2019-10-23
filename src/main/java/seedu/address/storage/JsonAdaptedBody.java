@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -112,8 +113,8 @@ class JsonAdaptedBody {
         dateOfBirth = source.getDateOfBirth().map(x -> formatter.format(x)).orElse(null);
         dateOfDeath = source.getDateOfDeath().map(x -> formatter.format(x)).orElse(null);
 
-        if (source.getFridgeId() != null) {
-            fridgeId = Integer.toString(source.getIdNum().getIdNum());
+        if (source.getFridgeId().isPresent() || !(source.getFridgeId().equals(Optional.empty()))) {
+            fridgeId = Integer.toString(source.getFridgeId().get().getIdNum());
         } else {
             fridgeId = null;
         }

@@ -30,6 +30,7 @@ public class UniqueIdentificationNumberMaps {
         }
     }
 
+    //@@author ambervoong
     /**
      * Adds the {@code entity} to the respective map with the given ID.
      */
@@ -39,11 +40,11 @@ public class UniqueIdentificationNumberMaps {
             putBody((Body) entity, id);
         } else if (entity instanceof Worker) {
             putWorker((Worker) entity, id);
+        } else {
+            putFridge((Fridge) entity, id);
         }
-        //        else {
-        //            return putFridge((Fridge) entity);
-        //        }
     }
+    //@@author
 
     /**
      * Adds the {@code worker} into the Map at an empty id or the next largest id.
@@ -62,16 +63,17 @@ public class UniqueIdentificationNumberMaps {
         return newId;
     }
 
+    //@@author ambervoong
     /**
      * Adds the {@code Worker} into the Map at the given ID.
      */
     private static void putWorker(Worker worker, int id) {
-        Set<Integer> keys = uniqueBodyMap.keySet();
-        System.out.println(keys);
+        Set<Integer> keys = uniqueWorkerMap.keySet();
         if (uniqueWorkerMap.get(id) == null) {
             uniqueWorkerMap.put(id, worker);
         }
     }
+    //@@author
 
     /**
      * Adds the {@code fridge} into the Map at an empty id or the next largest id.
@@ -90,12 +92,23 @@ public class UniqueIdentificationNumberMaps {
         return newId;
     }
 
+    //@@author ambervoong
+    /**
+     * Adds the {@code Fridge} into the Map at the given ID.
+     */
+    private static void putFridge(Fridge fridge, int id) {
+        Set<Integer> keys = uniqueFridgeMap.keySet();
+        if (uniqueFridgeMap.get(id) == null) {
+            uniqueFridgeMap.put(id, fridge);
+        }
+    }
+    //@@author
+
     /**
      * Adds the {@code body} into the Map at an empty id or the next largest id.
      */
     private static Integer putBody(Body body) {
         Set<Integer> keys = uniqueBodyMap.keySet();
-        System.out.println(keys);
         int numOfKeys = keys.size();
         for (int id = 1; id <= numOfKeys; id++) {
             if (uniqueBodyMap.get(id) == null) {
@@ -108,16 +121,17 @@ public class UniqueIdentificationNumberMaps {
         return newId;
     }
 
+    //@@author ambervoong
     /**
      * Adds the {@code body} into the Map at the given ID.
      */
     private static void putBody(Body body, int id) {
         Set<Integer> keys = uniqueBodyMap.keySet();
-        System.out.println(keys);
         if (uniqueBodyMap.get(id) == null) {
             uniqueBodyMap.put(id, body);
         }
     }
+    //@@author
 
     public boolean containsWorkerId(int id) {
         return uniqueWorkerMap.containsKey(id);
@@ -150,5 +164,15 @@ public class UniqueIdentificationNumberMaps {
         uniqueFridgeMap.clear();
         uniqueBodyMap.clear();
         uniqueWorkerMap.clear();
+    }
+
+    public static Entity getMapping(String typeOfEntity, int id) {
+        if (typeOfEntity.equals("W")) {
+            return uniqueWorkerMap.get(id);
+        } else if (typeOfEntity.equals("B")) {
+            return uniqueBodyMap.get(id);
+        } else {
+            return uniqueFridgeMap.get(id);
+        }
     }
 }

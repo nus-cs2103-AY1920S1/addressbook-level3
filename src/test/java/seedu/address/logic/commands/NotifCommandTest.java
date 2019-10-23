@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 import static seedu.address.model.entity.body.BodyStatus.PENDING_CLAIM;
-import static seedu.address.model.entity.body.BodyStatus.PENDING_POLICE_REPORT;
 import static seedu.address.testutil.TypicalNotifs.ALICE_NOTIF;
 import static seedu.address.testutil.TypicalNotifs.BOB_NOTIF;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -17,6 +17,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
+//@@author arjavibahety
+
 public class NotifCommandTest {
     private static final long ONE_SECOND = 1000;
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -28,7 +30,7 @@ public class NotifCommandTest {
 
         Thread.sleep(ONE_SECOND);
 
-        assertEquals(Optional.of(PENDING_POLICE_REPORT), BOB_NOTIF.getBody().getBodyStatus());
+        assertEquals(Optional.of(CONTACT_POLICE), BOB_NOTIF.getBody().getBodyStatus());
     }
 
     @Test
@@ -42,3 +44,4 @@ public class NotifCommandTest {
     }
 
 }
+//@@author

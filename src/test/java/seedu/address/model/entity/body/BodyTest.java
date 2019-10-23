@@ -194,6 +194,7 @@ class BodyTest {
         // Check that it works with an actual fridge.
         Fridge fridge = new FridgeBuilder().build();
         assertEquals(fridge.getIdNum(), ALICE.getFridgeId().get());
+        ALICE.setFridgeId(null);
     }
 
     // Stub Classes
