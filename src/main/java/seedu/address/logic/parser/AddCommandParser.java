@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.model.flashcard.Rating.NULL;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -31,14 +32,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_RATING, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_RATING, PREFIX_ANSWER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Question question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
-        Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get());
+        Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).orElse(NULL));
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         FlashCard flashCard = new FlashCard(question, answer, rating, categoryList);
