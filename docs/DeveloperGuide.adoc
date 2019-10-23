@@ -372,18 +372,6 @@ This sequential iteration checks for any number that is not assigned to any work
 If there is an existing gap in the sequential iteration of numbers, this number is assigned to the newly added worker.
 If there is no gap available, the next highest number is assigned to the worker.
 
-==== Design Considerations
-
-*Aspect: Tracking of numbers and determination of next free number*
-
-* Alternative 1: Three counters that track the total number of each entity in the system.
-** Pros: Easy to implement.
-** Cons: Does not cater for deletion of entity as deletion creates a gap.
-* Alternative 2 (current choice): A `HashMap` keeping track of the ID numbers and their respective assigned entity.
-** Pros: Caters for deletion of entities as the `Keys` can be iterated through to check for any gaps introduced during deletion.
-This also allows the assigned (mapped) entity to be accessible through the `HashMap` via the `IdentificationNumber#getMapping()` method.
-** Cons: Harder to implement.
-
 ===== The steps below detail the generation of a unique `IdentificationNumber`:
 
 . The user executes `add -w /name Zach ...` to add a new worker to Mortago.
@@ -396,6 +384,18 @@ The figure below illustrates the sequence diagram of the aforementioned steps.
 
 .Generation of unique `IdentificationNumber` Sequence Diagram
 image::UniqueIdentificationNumberSequenceDiagram.png[]
+
+==== Design Considerations
+
+*Aspect: Tracking of numbers and determination of next free number*
+
+* Alternative 1: Three counters that track the total number of each entity in the system.
+** Pros: Easy to implement.
+** Cons: Does not cater for deletion of entity as deletion creates a gap.
+* Alternative 2 (current choice): A `HashMap` keeping track of the ID numbers and their respective assigned entity.
+** Pros: Caters for deletion of entities as the `Keys` can be iterated through to check for any gaps introduced during deletion.
+This also allows the assigned (mapped) entity to be accessible through the `HashMap` via the `IdentificationNumber#getMapping()` method.
+** Cons: Harder to implement.
 
 === Logging
 
