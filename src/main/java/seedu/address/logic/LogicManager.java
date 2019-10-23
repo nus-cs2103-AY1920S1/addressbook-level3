@@ -13,6 +13,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.suggestions.SuggestionLogicManager;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -25,22 +26,25 @@ import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
+import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 
 /**
  * The main LogicManager of the app.
  */
-public class LogicManager implements Logic {
+public class LogicManager implements Logic, SuggestionLogic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final SuggestionLogic suggestionLogic;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        this.suggestionLogic = new SuggestionLogicManager(model);
     }
 
     @Override
@@ -145,4 +149,14 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public ObservableList<String> getSuggestions(final String commandText, final int caretPosition) {
+        return suggestionLogic.getSuggestions(commandText, caretPosition);
+    }
+
+    @Override
+    public SelectionResult selectSuggestion(
+            final String commandText, final int caretPosition, final String selectedValue) {
+        return suggestionLogic.selectSuggestion(commandText, caretPosition, selectedValue);
+    }
 }
