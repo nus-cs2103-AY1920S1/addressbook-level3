@@ -3,6 +3,11 @@ matrix:
   include:
     - jdk: openjdk11
 
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+
 script: >-
     ./config/travis/run-checks.sh &&
     ./gradlew clean checkstyleMain checkstyleTest test coverage coveralls asciidoctor

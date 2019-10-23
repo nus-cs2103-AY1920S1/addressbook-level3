@@ -122,6 +122,7 @@ allTests.dependsOn nonGuiTests
 
 
 test {
+
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
 
