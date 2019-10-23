@@ -1,4 +1,5 @@
 @startuml
+scale 1.5
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
@@ -8,7 +9,8 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class "{abstract}\nWemeParser" as WemeParser
+Class XYZParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -35,8 +37,11 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager ..> WemeParser
+
+XYZParser -up-|> WemeParser
+XYZParser .down.> XYZCommandParser : creates >
+note right of XYZParser: XYZParser = MemeParser, TemplateParser, \nImportParser, etc.
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
@@ -53,7 +58,7 @@ LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of XYZCommand: XYZCommand = MemeAddCommand, \nFindCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

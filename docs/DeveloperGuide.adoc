@@ -64,7 +64,7 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` in the Meme tab.
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
@@ -98,9 +98,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses a subclass of `WemeParser` to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a meme).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -109,7 +109,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `MemeDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -139,7 +139,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Meme Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -153,7 +153,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::undoredo[]
 === Undo/Redo feature
 
-Undo and Redo is necessary to give users the flexibility of undoing or redoing a wrongly executed command. Especially in Weme where we deal with image files, it is possible to key in the wrong file when adding a meme. Hence, simply entering the command `undo` allows the user to revert this mistake and add the correct file accordingly.
+The Undo and Redo commands are necessary to give users the flexibility of undoing or redoing a wrongly executed command. Especially in Weme where we deal with image files, it is possible to key in the wrong file when adding a meme. Hence, simply entering the command `undo` allows the user to revert this mistake and add the correct file accordingly.
 
 ==== Current implementation
 
