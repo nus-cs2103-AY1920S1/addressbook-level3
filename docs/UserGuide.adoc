@@ -298,9 +298,7 @@ e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Toggle night mode*: `toggleui`
-* *Set standard number of days for a loan* : `setLoanTime DAYS`
-* *Set standard number of days for a renewal* : `setRenewTime DAYS`
-* *Set fine* : `setFineAmt CENTS`
+* *Set user settings*: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] }`
 * *Exit* : `exit`
 * *Rate a book* : `rate INDEX r/RATING` ** - Coming in v2.0**
 
