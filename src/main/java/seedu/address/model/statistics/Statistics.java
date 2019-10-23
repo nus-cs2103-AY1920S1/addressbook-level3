@@ -24,7 +24,6 @@ public class Statistics {
     public static final String MESSAGE_CONSTRAINTS_END_DATE = "Start date must be before end date.";
 
     private ObservableList<Expense> expenses;
-
     private List<Category> categories;
     //gonna remove soon, currently for debugging into ResultDisplay
     private StringBuilder statsBuilder = new StringBuilder();
@@ -197,7 +196,7 @@ public class Statistics {
         for (Category category : categories) {
             percentages.add(0.0);
             numberOfEntries.add(0);
-            names.add(category.categoryName);
+            names.add(category.getCategoryName());
         }
 
         List<String> headers = List.of("Category: ",
@@ -211,6 +210,14 @@ public class Statistics {
         generatePercentages(data, percentages, numberOfEntries, names, title);
     }
 
+    /**
+     * Fills in the data to be passed to a GUI
+     * @param data Expenses grouped together under their Categories
+     * @param percentages List of all percentages under each category
+     * @param numberOfEntries List of number of entries under each category
+     * @param names List of all names to be shown in the legend representing the category
+     * @param titleWithPeriod String containing the period of time the statistics is taken
+     */
     private void generatePercentages(ArrayList<ArrayList<Expense>> data, ArrayList<Double> percentages,
                                      ArrayList<Integer> numberOfEntries, ArrayList<String> names,
                                      String titleWithPeriod) {
@@ -234,7 +241,6 @@ public class Statistics {
             double categoricalTotal = percentages.get(i);
             double roundedResult = Math.round(categoricalTotal * 10000 / totalAmount) / 100.0;
             percentages.set(i, roundedResult);
-
             //append the percentage of total expenditure for each category to its name
             String oldName = names.get(i);
             names.set(i, String.format("%s(%.2f%%)", oldName, roundedResult));
@@ -242,7 +248,7 @@ public class Statistics {
 
         this.formattedCategories = names;
         this.formattedPercentages = percentages;
-        this.title = String.format("%s\nTotal amount: $%.2f",titleWithPeriod,totalAmount);
+        this.title = String.format("%s\nTotal amount: $%.2f", titleWithPeriod, totalAmount);
     }
 
 
@@ -301,7 +307,6 @@ public class Statistics {
 
             double categoricalTotal = 0;
             int entryNumber = 0;
-            
             //update entry number and the total
             for (Expense expense : categoryStats) {
                 categoricalTotal += Double.parseDouble(expense.getPrice().value);

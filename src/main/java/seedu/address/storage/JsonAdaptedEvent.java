@@ -46,7 +46,7 @@ class JsonAdaptedEvent {
         this.description = source.getDescription().fullDescription;
         this.price = source.getPrice().value;
         this.rawTimestamp = source.getTimestamp().toString();
-        this.category = source.getCategory().categoryName;
+        this.category = source.getCategory().getCategoryName();
 
     }
 

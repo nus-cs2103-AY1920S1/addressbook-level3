@@ -11,8 +11,7 @@ public class Category {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-
-    public final String categoryName;
+    private final String categoryName;
 
     /**
      * Constructs a {@code Tag}.
@@ -23,6 +22,10 @@ public class Category {
         requireNonNull(categoryName);
         checkArgument(isValidCategoryName(categoryName), MESSAGE_CONSTRAINTS);
         this.categoryName = categoryName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
     }
 
     /**

@@ -28,7 +28,8 @@ public class ExpenseUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_DESCRIPTION + expense.getDescription().fullDescription + " ");
         sb.append(PREFIX_PRICE + expense.getPrice().value + " ");
-        sb.append(PREFIX_CATEGORY + expense.getCategory().categoryName + " ");
+
+        sb.append(PREFIX_CATEGORY + expense.getCategory().getCategoryName() + " ");
         sb.append(PREFIX_TIMESTAMP + expense.getTimestamp().toString() + " ");
         return sb.toString();
     }
@@ -42,7 +43,7 @@ public class ExpenseUtil {
                 .append(PREFIX_DESCRIPTION).append(description.fullDescription).append(" "));
         descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));
         descriptor.getCategory().ifPresent(category -> sb.append(PREFIX_CATEGORY).append(
-                category.categoryName).append(" "));
+                category.getCategoryName()).append(" "));
         descriptor.getTimestamp()
                 .ifPresent(timestamp -> sb.append(PREFIX_TIMESTAMP).append(timestamp.toString()).append(" "));
         return sb.toString();

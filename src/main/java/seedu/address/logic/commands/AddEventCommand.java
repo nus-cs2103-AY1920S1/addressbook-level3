@@ -21,12 +21,11 @@ public class AddEventCommand extends UndoableCommand {
             + "Parameters: " // need to change later
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
-            + "[" + PREFIX_CATEGORY + "TAG]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Chicken Rice "
             + PREFIX_PRICE + "3.50 "
-            + PREFIX_CATEGORY + "nusDeck "
-            + PREFIX_CATEGORY + "chicken"
+            + PREFIX_CATEGORY + "Food "
             + PREFIX_TIMESTAMP + "31-12-2019";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";

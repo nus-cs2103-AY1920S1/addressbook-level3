@@ -43,7 +43,7 @@ public class ExpenseCard extends UiPart<Region> {
         index.setText(displayedIndex + ". ");
         description.setText(expense.getDescription().fullDescription);
         price.setText("$" + expense.getPrice().value);
-        categories.getChildren().add(new Label(expense.getCategory().categoryName));
+        categories.getChildren().add(new Label(expense.getCategory().getCategoryName()));
     }
 
     @Override

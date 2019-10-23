@@ -3,8 +3,10 @@ package seedu.address.ui;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
@@ -147,6 +149,9 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.enableSyntaxHightlightingForCommand("stats",
                 List.of(PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_END_DATE),
                 "stats    ");
+        commandBox.enableSyntaxHightlightingForCommand("statscompare",
+                List.of(PREFIX_DESCRIPTION, PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE, PREFIX_PERIOD),
+                "statscompare sd1/ sd2/ pr/    ");
         commandBox.enableSyntaxHightlightingForCommand("undo",
                 Collections.emptyList(),
                 "undo");
@@ -183,9 +188,13 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats window or focuses on it if it's already opened.
+     */
     @FXML
     private void handleStats(CommandResult commandResult) {
-        this.statsWindow = new StatsWindow(commandResult.getNames(),commandResult.getPercentages(), commandResult.getTitle());
+        this.statsWindow = new StatsWindow(commandResult.getNames(),
+                commandResult.getPercentages(), commandResult.getTitle());
         if (!statsWindow.isShowing()) {
             statsWindow.show();
         } else {

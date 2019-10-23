@@ -36,7 +36,7 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_CATEGORY + "CATEGORY]"
-            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]...\n"
+            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "3512.123 ";
 

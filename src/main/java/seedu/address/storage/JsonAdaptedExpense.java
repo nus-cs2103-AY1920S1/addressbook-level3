@@ -49,7 +49,7 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         this.description = source.getDescription().fullDescription;
         this.price = source.getPrice().value;
-        this.category = source.getCategory().categoryName;
+        this.category = source.getCategory().getCategoryName();
         this.uniqueIdentifier = source.getUniqueIdentifier().value;
         this.rawTimestamp = source.getTimestamp().toString();
     }

@@ -51,7 +51,6 @@ public class StatsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-
         ObservableList<Expense> statsExpenses = model.getFilteredExpenseList();
         Statistics statistics = Statistics.startStatistics(statsExpenses);
         String statsResult = statistics.calculateStats(COMMAND_WORD, startDate, endDate, null).toString();

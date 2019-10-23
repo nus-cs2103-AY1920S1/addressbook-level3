@@ -18,7 +18,6 @@ public class Expense {
     private final Description description;
     private final Price price;
     private final Timestamp timestamp;
-
     private final Category category;
 
     /**
@@ -115,7 +114,7 @@ public class Expense {
                 .append(" Date: ")
                 .append(getTimestamp())
                 .append(" Category: ")
-                .append(category)
+                .append(getCategory())
                 .append("Timestamp: ")
                 .append(getTimestamp());
         return builder.toString();

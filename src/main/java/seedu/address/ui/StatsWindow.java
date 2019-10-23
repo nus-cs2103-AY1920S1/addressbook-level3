@@ -9,10 +9,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -23,19 +19,11 @@ import seedu.address.commons.core.LogsCenter;
 
 public class StatsWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-
     private static final Logger logger = LogsCenter.getLogger(StatsWindow.class);
 
     private static final String FXML = "StatsWindow.fxml";
 
-    @javafx.fxml.FXML
-    private Button copyButton;
-
     @FXML
-    private Label helpMessage;
-
     private final ObservableList<PieChart.Data> details = FXCollections.observableArrayList();
 
     private BorderPane root;
@@ -49,23 +37,22 @@ public class StatsWindow extends UiPart<Stage> {
      */
     public StatsWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
         root.sizeToScene();
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new StatsWindow
      */
 
     public StatsWindow(List<String> names, List<Double> percentages, String title) {
         this(new Stage());
         Stage primaryStage = getRoot();
-        primaryStage.setTitle(title);//set the main stage
+        primaryStage.setTitle(title);
 
         for (int i = 0; i < names.size(); i++) {
             String name = names.get(i);
             double percentage = percentages.get(i);
-            details.add(new PieChart.Data(name,percentage));
+            details.add(new PieChart.Data(name, percentage));
         }
 
         BorderPane borderPane = new BorderPane();
@@ -84,8 +71,6 @@ public class StatsWindow extends UiPart<Stage> {
 
         primaryStage.setScene(scene);
     }
-
-
 
     /**
      * Shows the help window.
@@ -106,43 +91,30 @@ public class StatsWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing help page about the application.");
+        logger.fine("Showing stats page about the application.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the stats window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the stats window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the stats window.
      */
     public void focus() {
         getRoot().requestFocus();
-    }
-
-
-    //here just because its still in the fxml file
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
     }
 }
 

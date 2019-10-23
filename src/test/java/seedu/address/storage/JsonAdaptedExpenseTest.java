@@ -22,7 +22,7 @@ public class JsonAdaptedExpenseTest {
 
     private static final String VALID_DESCRIPTION = BUSAN_TRIP.getDescription().toString();
     private static final String VALID_PRICE = BUSAN_TRIP.getPrice().toString();
-    private static final String VALID_CATEGORY = BUSAN_TRIP.getCategory().categoryName;
+    private static final String VALID_CATEGORY = BUSAN_TRIP.getCategory().getCategoryName();
     private static final String VALID_UNIQUE_IDENTIFIER = BUSAN_TRIP.getUniqueIdentifier().toString();
     private static final String VALID_TIMESTAMP = BUSAN_TRIP.getTimestamp().toString();
 
