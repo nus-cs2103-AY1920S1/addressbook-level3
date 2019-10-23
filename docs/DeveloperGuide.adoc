@@ -466,9 +466,8 @@ There are 3 main aspects to the implementation
 . Getting the closest location
 
 ===== External API
-To support the lack of internet connection, we preprocess the relevant data and save it into the resources directory.
 
-image::gmaps/ApiDiagram.png[]
+To support the limited internet connection, we preprocess the relevant data and save it into the resources directory (See <<External APIs, External APIs>>).
 
 ==== Creating matrix
 
@@ -498,6 +497,58 @@ This is the sequence diagram for when the method `Model.getClosestLocationData` 
 
 image::gmaps/ClosestLocationSequenceDiagram.png[]
 >>>>>>> 4d908ab81c2bd5e35254b1528ab1e76480b2b893
+
+// tag::nusmods[]
+=== Add NUSMods To Schedule
+==== Implementation
+This feature allows users to add their NUSMods timetable (using the `AddNusModsCommand`) or individual NUS modules (using the `AddNusModCommand`) to their TimeBook schedules.
+
+The `AddNusModsCommand` can be executed by the user through the CLI with the following syntax `addmods n/NAME l/NUSMODS_SHARE_LINK`. The provided link will be parsed for the module codes and the lesson numbers.
+
+The `AddNusModCommand` can be executed by the user through the CLI with the following syntax `addmod n/NAME m/MODULE_CODE l/LESSON_NOS...`.
+
+Since the `AddNusModCommand` is implemented in a similar fashion with `AddNusModsCommand`, we will walk through an example usage scenario of the latter command, which is slightly more complex parsing.
+
+*Steps*
+
+. The user types in the command `addmods n/NAME l/NUSMODS_SHARE_LINK` and the
+//TODO: Steps
+
+==== Design Considerations
+//TODO: compare 1) using share link, 2) individual modules
+
+// end::nusmods[]
+
+
+// tag::websocket[]
+=== External APIs
+
+The application requires data from the https://api.nusmods.com/v2/[NUSMods API] for the <<Add NUSMods To Schedule, Add NUSMods To Schedule>> feature and data from the https://developers.google.com/maps/documentation[Google Maps API] for the <<Closest Common Location(Micro Service), Closest Common Location>> feature. The following subsections describe the implementation of various aspects with regards to working with external APIs:
+
+==== APIs
+The class `NusModsApi` contains methods for querying different endpoints of the NUSMods API and parsing the query results into `JSONObject` or `JSONArray` objects.
+
+The class `GmapsApi` contains methods for querying different endpoints of the Google Maps API and parsing the query results into `JSONObject` or `JSONArray` objects.
+//TODO: describe more
+
+==== Caching API Results
+
+To support limited connectivity in our application, the results of all API queries are preprocessed and saved into the resources directory. The following activity diagram shows how the caching feature works when external data is required for the execution of a certain command:
+
+image::gmaps/ApiDiagram.png[]
+
+==== Preprocessing NUSMods API
+The key information that we require for each NUS module is the timetable information. Unfortunately, there is no available endpoint which provides the timetable information of all modules at once - there is only an endpoint which provides the timetable information of one module per query. Thus, we developed a small program in `logic.internal.nusmods.ImportMods`, which can be run prior to the main application itself, to query the timetable info for every module and build a list of modules data containing the timetable information.
+//TODO: insert diagram websocket - logic.internal.nusmods diagram
+
+==== Preprocessing Google Maps API
+//TODO: talk about your internal program to build the DistanceMatrix.json / Places.json
+
+
+==== Design Considerations
+//TODO: talk about how 3 approaches: 1) direct api calls, 2) api calls + caching, 3) api calls + caching + preprocessing
+
+// end::websocket[]
 
 == Documentation
 
