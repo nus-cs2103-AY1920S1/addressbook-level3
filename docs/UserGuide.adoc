@@ -77,75 +77,72 @@ Format: `exit`
 
 === Calendar
 
-Calendar consists of `planner` and `timetable`. In `planner`, the user can view and manage tasks while the
-`timetable` is used to view and manage the user's current modules. +
-To enter the Calendar section please enter the command: `switch cal`.
-
-==== Switch type: `switch`
-Change the type into either `planner` or `timetable` view.
-
-Format: `switch VIEW_TYPE` +
-e.g. `switch timetable`
+Calendar displays a weekly list of tasks and modules which the user has added. To enter the Calendar section
+please enter the command: `switch calendar`.
 
 ==== Add a new task: `add`
-Adds a new task. The `TASK_TITLE` should be specified first. Both `TASK_TITLE` and `TIME` are compulsory while the
-other fields are optional. The fields consist of: +
-- `TASK_TITLE` The name of the task. No prefix needed. +
-- `TIME` The time when the user plan to do the task. Prefix: `t\`. +
-- `DEADLINE` When the task is due. Prefix: `d\`. +
-- `PLACE` Where the task took place Prefix: `p\`. +
-- `TAG` Tag that can be used to sort the tasks. Prefix: `#`. More than one `TAG` can be added to each task, e.g. `#High-Priority #Math`
+Adds a new `Task`. `TaskTitle` and `TaskDay` are compulsory while the other fields are optional.
+The fields consist of: +
+- `TaskTitle` The name of the task. Prefix: `<title>` +
+- `TaskDay` The time when the user plan to do the task. Prefix: `<day>`. +
+- `TaskDescription` Additional description of the `Task`. Prefix: `<desc>`. +
+- `TaskDeadline` When the task is due. Prefix: `<deadline>`. +
+- `TaskPlace` Where the task took place. Prefix: `<place>`. +
+- `TAG` Tag that can be used to sort the tasks. Prefix: `<tag>`.
+More than one `TAG` can be added to each task, e.g. `<tag> High-Priority <tag>Math`
 
-Format: `add TASK_TITLE t\TIME d\DEADLINE p\PLACE #TAG` +
-e.g. `add CS2100 Assignment 1 t\21 August 2019 #High-Priority`
+Format: `add <title>TITLE <day>DAY <desc>DESCRIPTION <deadline>DEADLINE <place>PLACE [<tag>TAG]` +
+e.g. `add <title>CS2109 Lab 10 <day>tuesday <desc>Submit code through LumiNUS <deadline>21-10-2019
+<place>NUS <tag>IMPORTANT`
 
 ==== Edit existing task: `edit`
-Edit one or multiple fields of an existing task.
+Edit one or multiple fields of an existing task. `INDEX` should be a positive integer.
 
-Format: `edit TASK_TITLE T\NEW_TASK_TITLE t\NEW_TIME p\NEW_PLACE #NEW_TAG` +
-e.g. `edit CS2100 Assignment T\CS2102 Assignment t\22 August 2019`
+Format: `edit  INDEX [<title>TITLE] [<day>TIME] [<desc>DESCRIPTION] [<deadline>DEADLINE] [<place>PLACE] [<tag>TAG]` +
+e.g. `1 <title>CS2108 Assignment <day>friday`
 
 ==== Delete existing task: `delete`
 Delete an exisiting task.
 
-Format: `delete TASK_TITLE` +
-e.g.   `delete CS2102 Assignment`
+Format: `delete INDEX` +
+e.g.   `delete 1`
 
 ==== Sort tasks: `sort`
-Change the order of the tasks; either sorted by `time` or `priority`. The default sorting method is by `time`.
+Change the order of the tasks. Use `sort timeadded` to sort the tasks according to when the Task was added to the
+calendar and use `sort deadline` to sort the task according to `TaskDeadline` with the `Task` with the earliest
+deadline to be listed first. The default sorting method is by time added.
 
 Format: `sort  SORT_TYPE` +
-e.g. `sort time`
+e.g. `sort deadline`
 
 ==== Change week: `next` and `previous`
-Go to either the `next` or `previous` week. This can only be done when the `VIEW_TYPE` is `planner`.
+Go to either the `next` or `previous` week.
 
 Format: `next` or `previous`
 
 
-==== Add module: `add`
+==== Add module: `addmod`
 Add module with the specified `MODULE_CODE` to the timetable. After entering the command, user will be prompted to input
 additional information about its lecture, tutorial, recitation, and lab slots.
 
-Format: `add MODULE_CODE` +
-e.g. `add CS2103`
+Format: `addmod MODULE_CODE` +
+e.g. `addmod CS2103`
 
-==== Edit module: `edit`
+==== Edit module: `editmod`
 Update an existing module. After entering the command, user will be prompted to input additional information depending
 on the `TYPE`. +
 
-Format: `edit  MODULE_CODE TYPE`
-e.g. `edit CS2103 lecture`
+Format: `editmod  MODULE_CODE TYPE`
+e.g. `editmod CS2103 lecture`
 
-==== Delete module from timetable: `delete`
+==== Delete module from timetable: `deletemod`
 Delete an existing module.
 
-Format: `delete MODULE_CODE` +
-e.g. `delete CS2103`
+Format: `deletemod MODULE_CODE` +
+e.g. `deletemod CS2103`
 
-==== Reset planner/timetable: `reset`
-Remove all existing tasks/modules. If the current view is `planner`, this action would not affect the `timetable` and
-vice versa.
+==== Clear data: `clear`
+Delete all information of the tasks and modules of the current week (the week that is currently displayed).
 
 Format: `reset`
 
