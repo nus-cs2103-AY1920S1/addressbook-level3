@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.logic.program.exceptions.NoQuestionSetException;
+import com.dukeacademy.logic.program.exceptions.SubmissionChannelNotSetException;
 import com.dukeacademy.logic.program.exceptions.SubmissionLogicManagerClosedException;
 import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.Question;
@@ -37,6 +38,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     private CompilerEnvironment compilerEnvironment;
     private TestExecutor testExecutor;
     private boolean isClosed;
+    private ProgramSubmissionChannel submissionChannel;
 
     /**
      * Constructor.
@@ -114,6 +116,21 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
         }
 
         return true;
+    }
+
+    @Override
+    public void setUserProgramSubmissionChannel(ProgramSubmissionChannel channel) {
+        this.submissionChannel = channel;
+    }
+
+    @Override
+    public boolean submitUserProgramFromSubmissionChannel() {
+        if (this.submissionChannel == null) {
+            throw new SubmissionChannelNotSetException();
+        }
+
+        UserProgram program = this.submissionChannel.getProgram();
+        return this.submitUserProgram(program);
     }
 
     private void verifyNotClosed() {

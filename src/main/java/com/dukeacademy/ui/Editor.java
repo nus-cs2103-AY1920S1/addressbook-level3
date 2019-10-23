@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.dukeacademy.model.question.UserProgram;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -72,5 +74,13 @@ public class Editor extends UiPart<Region> {
     public String onSubmitButtonClick(ActionEvent e) {
         System.out.println(textOutput.getText().strip());
         return textOutput.getText().strip();
+    }
+
+    /**
+     * Returns the current text in the editor.
+     * @return current text in editor.
+     */
+    public UserProgram getUserProgram() {
+        return new UserProgram("Main", textOutput.getText().strip());
     }
 }

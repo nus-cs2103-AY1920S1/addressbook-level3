@@ -242,4 +242,13 @@ class ProgramSubmissionLogicManagerTest {
         return new Question(title, status, difficulty, topics, testCases, new UserProgram("Main", ""));
     }
 
+    @Test
+    void setUserProgramSubmissionChannel() {
+        // TODO
+    }
+
+    @Test
+    void submitUserProgramFromSubmissionChannel() {
+        // TODO
+    }
 }
