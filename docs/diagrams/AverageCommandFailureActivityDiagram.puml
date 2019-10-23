@@ -1,0 +1,25 @@
+@startuml
+start
+:User enters average command;
+
+:Parse command;
+
+if () then ([valid command])
+if () then ([missing count parameter])
+    :set count to 5;
+else ([else])
+endif
+    :execute average command;
+if () then ([no data found])
+    :throw CommandException - no records found;
+else ([else])
+    :Model calculates average;
+    :Ui creates chart;
+    :Ui displays graph to user;
+endif
+else ([invalid command])
+    :throw ParseException;
+endif
+
+stop
+@enduml

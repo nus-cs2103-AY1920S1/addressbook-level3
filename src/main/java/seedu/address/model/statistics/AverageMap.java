@@ -33,9 +33,9 @@ public class AverageMap {
             AverageType.MONTHLY, TemporalAdjusters.firstDayOfMonth()
     );
 
-    private final ObservableMap<LocalDate, Double> internalMap = FXCollections.observableHashMap();
-    private final ObservableMap<LocalDate, Double> internalUnmodifiableMap =
-            FXCollections.unmodifiableObservableMap(internalMap);
+    private final ObservableMap<LocalDate, Double> internalAverageMap = FXCollections.observableHashMap();
+    private final ObservableMap<LocalDate, Double> internalUnmodifiableAverageMap =
+            FXCollections.unmodifiableObservableMap(internalAverageMap);
 
     /**
      * Calculates average values of a given record type based on the average type given.
@@ -64,8 +64,8 @@ public class AverageMap {
         Map<LocalDate, Double> countAverageMap = averageMap.entrySet().stream().limit(count)
                 .collect(TreeMap::new, (m, e) -> m.put(e.getKey(), e.getValue()), Map::putAll);
 
-        internalMap.clear();
-        internalMap.putAll(countAverageMap);
+        internalAverageMap.clear();
+        internalAverageMap.putAll(countAverageMap);
     }
 
     //TODO: abstract this by using ModelManager#updateFilteredRecordList.
@@ -142,6 +142,6 @@ public class AverageMap {
      * @return
      */
     public ObservableMap<LocalDate, Double> asUnmodifiableObservableMap() {
-        return internalUnmodifiableMap;
+        return internalUnmodifiableAverageMap;
     }
 }
