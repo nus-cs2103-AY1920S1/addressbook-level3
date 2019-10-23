@@ -1,3 +1,4 @@
+//@@author nattanyz
 package dream.fcard.gui;
 
 import dream.fcard.model.Deck;
@@ -14,18 +15,18 @@ import javafx.stage.Stage;
 
 public class MainWindow {
     Gui gui;
-    Stage primaryStage;
-    Scene scene;
+    private Stage primaryStage;
+    private Scene scene;
 
     // containers
-    VBox window;
-    VBox titleBar;
-    VBox windowContents;
-    VBox commandBoxPlaceholder;
+    private VBox window;
+    private VBox titleBar;
+    private VBox windowContents;
+    private VBox commandBoxPlaceholder;
 
     // ui components
-    Text title;
-    TextField commandTextField;
+    private Text title;
+    private TextField commandTextField;
     ListView<Deck> deckDisplay;
 
     public MainWindow(Stage primaryStage) {
@@ -37,13 +38,14 @@ public class MainWindow {
         initializeStage();
 
         // set up containers for UI components
-        initializeContainers(10);
+        initializeContainers();
         setupContainerSizes();
-        setupContainerPaddings(10);
+        setupContainerPadding();
         setupContainerColours();
 
-        // add initial content to UI components
-        fillInnerParts();
+        // set up initial UI components
+        setupCommandBox();
+        setTitle("Welcome!");
 
         // add UI components to scene
         setupScene();
@@ -52,23 +54,17 @@ public class MainWindow {
         primaryStage.show();
     }
 
-    // consider renaming fillInnerParts
-    void fillInnerParts() {
-        setTitle("Welcome!");
-        setupCommandBox();
-    }
-
     private void initializeStage() {
         primaryStage.setTitle("FlashCard Pro");
         primaryStage.setMinHeight(GuiSettings.getMinHeight());
         primaryStage.setMinWidth(GuiSettings.getMinWidth());
     }
 
-    private void initializeContainers(double spacing) {
+    private void initializeContainers() {
         window = new VBox();
-        titleBar = new VBox(spacing);
-        windowContents = new VBox(spacing);
-        commandBoxPlaceholder = new VBox (spacing);
+        titleBar = new VBox(GuiSettings.getSpacing());
+        windowContents = new VBox(GuiSettings.getSpacing());
+        commandBoxPlaceholder = new VBox (GuiSettings.getSpacing());
     }
 
     private void setupContainerSizes() {
@@ -77,10 +73,10 @@ public class MainWindow {
         VBox.setVgrow(windowContents, Priority.ALWAYS);
     }
 
-    private void setupContainerPaddings(double padding) {
-        titleBar.setPadding(new Insets(padding));
-        windowContents.setPadding(new Insets(padding));
-        commandBoxPlaceholder.setPadding(new Insets(padding));
+    private void setupContainerPadding() {
+        titleBar.setPadding(new Insets(GuiSettings.getPadding()));
+        windowContents.setPadding(new Insets(GuiSettings.getPadding()));
+        commandBoxPlaceholder.setPadding(new Insets(GuiSettings.getPadding()));
     }
 
     private void setupContainerColours() {
