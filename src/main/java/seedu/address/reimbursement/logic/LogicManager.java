@@ -19,14 +19,14 @@ public class LogicManager implements Logic {
     private final seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
     private final seedu.address.person.model.Model personModel;
     private final seedu.address.transaction.model.Model transactionModel;
-    private final seedu.address.transaction.storage.StorageManager transactionStorage;
+    private final seedu.address.transaction.storage.Storage transactionStorage;
     private final ReimbursementTabParser parser;
 
 
     public LogicManager(Model reimbursementModel,
                         seedu.address.reimbursement.storage.StorageManager reimbursementStorage,
                         seedu.address.transaction.model.Model transactionModel,
-                        seedu.address.transaction.storage.StorageManager transactionStorage,
+                        seedu.address.transaction.storage.Storage transactionStorage,
                         seedu.address.person.model.Model personModel) {
 
         this.reimbursementModel = reimbursementModel;
