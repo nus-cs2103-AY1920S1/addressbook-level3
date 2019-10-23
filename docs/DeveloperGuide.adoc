@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -210,7 +211,7 @@ image::LikeSequenceDiagram.png[]
 The following activity diagram below summarizes how the `like` command works:
 
 .Activity diagram for a sample like command
-image::LikeActivityDiagram.png[]
+image::LikeActivityDiagram.png[width=450]
 
 ==== Displaying recommendations
 
@@ -222,23 +223,51 @@ include::UserGuide.adoc[tag=recommendationbonus]
 
 include::UserGuide.adoc[tag=recommendationpenalty]
 
-The sequence diagram below shows how a sample `recommend` command is executed to output a
+The sequence diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
 recommendation value:
 
 .Sequence diagram for `calculateRecommendation`
-image::RecValueSequenceDiagram.png[]
+image::RecValueSequenceDiagram.png[width=400]
 
 The following activity diagram below summarizes how the `recommend` command works: *TODO*
 
+The calculated recommendation values are used to sort the food items when the `recommend` command
+is executed. Food with similar recommendation values are sorted based on their price.
+
 ===== Design Considerations
+
 |===
 |Aspect |Alternative 1 |Alternative 2
 
-|TODO
-|TODO
-|TODO
-|===
+|Design of calculateRecommendation()
+a|Declare a static method `calculateRecommendation` to calculate the recommendation value of each `Food`
+before sorting them.
 
+* Pros:
+** No extra field required for each `Food` item
+** Easier implementation and more straightforward
+
+* Cons:
+** Sorting by recommendation value may be less efficient as the recommendation system has to calculate the
+recommendation value of each `Food` item when the comparator is called
+
+We chose this design because adding a `recommendationValue` field for each `Food` might not make sense in
+the design of our application. A `Food` object by itself has no sense of `recommendationValue` and thus it
+might not be reasonable to force a connection between the two for the sake of efficiency.
+
+Furthermore, we do not have to update the recommendation of each `Food` item after every command with this design.
+
+a|Have a field (e.g. `recommendationValue`) for each `Food` item
+
+* Pros:
+** Sorting by recommendation value would be more efficient as the recommendation value would
+be stored in each item
+
+* Cons:
+** The recommendation value of each `Food` must be updated after every command to ensure validity of
+the recommendation value
+** An extra field `recommendationValue` has to be added to each `Food`
+|===
 
 == Documentation
 
