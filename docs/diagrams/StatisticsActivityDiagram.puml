@@ -1,0 +1,15 @@
+@startuml
+start
+:User executes stats command;
+:Check input;
+
+if () then ([input is valid])
+    :filters quizResults list;
+    :hides notes and
+    tasks panels;
+    :Display statistics;
+else ([else])
+    :Exception thrown;
+endif
+stop
+@enduml

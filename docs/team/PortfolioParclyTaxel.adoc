@@ -38,7 +38,9 @@ Having a unified appearance helps the student understand the content of lecture 
 unnecessary markup and distracting styles.
 ** While adding this feature I also refactored all other code throughout the application to use names relevant to
 lecture notes. This helped my teammates add their own features, setting an example for them to follow.
-* Minor enhancements, enhancements to existing features: _fill in here_
+** Image support was implemented in https://github.com/AY1920S1-CS2103T-F11-4/main/pull/67[#67]. Instead of a custom class,
+I used JavaFX's `scene.image.Image`, which reduced the additional code I had to write on top of the
+`Title` and `Content` classes by avoiding an unnecessary wrapper.
 * I enforced a style for the user and developer guides and wrote several of their key sections,
 such as the user guide's introduction and the developer guide's non-functional requirements.
 See https://github.com/AY1920S1-CS2103T-F11-4/main/pull/21[#21] and https://github.com/AY1920S1-CS2103T-F11-4/main/pull/22[#22]
