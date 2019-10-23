@@ -1,5 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEXES;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.importexport.CsvUtil;
@@ -7,15 +16,6 @@ import seedu.address.importexport.exceptions.ExportingException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEXES;
 
 /**
  * Exports Person data from the AddressBook
@@ -33,11 +33,12 @@ public class ExportCommand extends Command {
             + "Parameters: [" + PREFIX_FILENAME + "FILENAME] "
             + "[" + PREFIX_INDEXES + "INDEXES]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "patient_data "
-            + PREFIX_INDEXES + "2 " + PREFIX_INDEXES + "4 "  + PREFIX_INDEXES +"6";
+            + PREFIX_INDEXES + "2 " + PREFIX_INDEXES + "4 " + PREFIX_INDEXES + "6";
 
     public static final String MESSAGE_SUCCESS = "Export success! File written to: ";
     public static final String MESSAGE_FAILURE = "Export failed.";
-    public static final String MESSAGE_FILE_EXISTS = "File name already in use. Please delete the existing file or use a new file name";
+    public static final String MESSAGE_FILE_EXISTS =
+            "File name already in use. Please delete the existing file or use a new file name";
 
     private final String exportFileName;
     private final Optional<Set<Index>> targetIndexes;
@@ -64,7 +65,7 @@ public class ExportCommand extends Command {
         // Selectively export if indexes are provided
         if (targetIndexes.isPresent()) {
 
-            if(!indexesAllInBounds(targetIndexes.get(), lastShownList.size())) {
+            if (!indexesAllInBounds(targetIndexes.get(), lastShownList.size())) {
                 // If any index is out of bounds, throw an exception
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }

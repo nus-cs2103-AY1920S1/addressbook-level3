@@ -157,7 +157,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /** Returns a list of persons at the provided indexes */
     public ObservableList<Person> getPersonListByIndex(Set<Index> indexes) {
         ObservableList<Person> personList = FXCollections.observableArrayList();
-        for(Index index : indexes) {
+        for (Index index : indexes) {
             int indexAsInt = index.getZeroBased();
             personList.add(persons.getByIndex(indexAsInt).get());
         }

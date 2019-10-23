@@ -1,5 +1,13 @@
 package seedu.address.importexport;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -9,19 +17,13 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.importexport.exceptions.ExportingException;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAdaptedPerson;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Reads and writes Java based Person objects to and fro .csv files
@@ -43,7 +45,8 @@ public class CsvUtil {
      * @return string of the path that was written to
      * @throws IOException
      */
-    public static String writePersonsToCsv(List<Person> persons, String filename) throws IOException, ExportingException {
+    public static String writePersonsToCsv(List<Person> persons, String filename)
+            throws IOException, ExportingException {
         String pathString = exportFolder + "/" + filename + ".csv";
         Path writePath = Paths.get(pathString);
         if (FileUtil.isFileExists(writePath)) {

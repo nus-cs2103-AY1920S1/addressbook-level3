@@ -38,6 +38,9 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses a {@code Collection<String> indexes} into a {@code Set<Index>}.
+     */
     public static Set<Index> parseIndexes(Collection<String> indexes) throws ParseException {
         requireNonNull(indexes);
         final Set<Index> indexSet = new HashSet<>();
@@ -148,7 +151,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     *
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
