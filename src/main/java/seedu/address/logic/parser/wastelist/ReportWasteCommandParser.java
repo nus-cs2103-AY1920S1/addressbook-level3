@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.wastelist;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_MONTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_MONTH;
 
@@ -56,11 +55,6 @@ public class ReportWasteCommandParser implements Parser<ReportWasteCommand> {
             startWasteMonth = endWasteMonth.minusWasteMonth(ONE_PERIOD);
         }
 
-        if (startWasteMonth.isAfter(endWasteMonth)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ReportWasteCommand.MESSAGE_USAGE));
-        }
-
-        return new ReportWasteCommand(startWasteMonth, endWasteMonth);
+        return new ReportWasteCommand(startWasteMonth, endWasteMonth, startMonthGiven, endMonthGiven);
     }
 }

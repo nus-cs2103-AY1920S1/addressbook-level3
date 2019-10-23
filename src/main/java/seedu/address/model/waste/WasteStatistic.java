@@ -101,4 +101,10 @@ public class WasteStatistic {
         return totalQuantity;
     }
 
+    @Override
+    public String toString() {
+        return "Weight = " + getTotalWeight()
+                + ", Volume = " + getTotalVolume()
+                + ", Quantity = " + getTotalQuantity();
+    }
 }

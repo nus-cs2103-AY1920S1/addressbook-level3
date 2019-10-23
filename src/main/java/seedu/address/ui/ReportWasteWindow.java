@@ -24,10 +24,7 @@ import org.jfree.data.xy.XYDataset;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.stage.Stage;
-
 import seedu.address.model.waste.WasteMonth;
 import seedu.address.model.waste.WasteReport;
 import seedu.address.model.waste.WasteStatistic;
@@ -41,7 +38,7 @@ public class ReportWasteWindow {
     public static final String WEIGHT_UNIT = "Kilograms";
     public static final String VOLUME_TITLE = "Wastage in Litres";
     public static final String VOLUME_UNIT = "Litres";
-    public static final String QUANTITY_TITLE = "Quantity in Units";
+    public static final String QUANTITY_TITLE = "Wastage in Units";
     public static final String QUANTITY_UNIT = "Units";
 
     private WasteReport wasteReport;
@@ -53,7 +50,7 @@ public class ReportWasteWindow {
         stage = new Stage();
         stage.setTitle("Waste Report");
         stage.setWidth(700);
-        stage.setHeight(390);
+        stage.setHeight(400);
     }
 
     /**
@@ -76,8 +73,6 @@ public class ReportWasteWindow {
 
 
         ChartViewer weightViewer = getChartViewer(historicalWeightData, WEIGHT_TITLE, WEIGHT_UNIT);
-        weightViewer.setBackground(new Background(new BackgroundFill(
-                javafx.scene.paint.Color.rgb(202, 229, 230), null, null)));
         ChartViewer volumeViewer = getChartViewer(historicalVolumeData, VOLUME_TITLE, VOLUME_UNIT);
         ChartViewer quantityViewer = getChartViewer(historicalQuantityData, QUANTITY_TITLE, QUANTITY_UNIT);
 
@@ -116,7 +111,7 @@ public class ReportWasteWindow {
     private static JFreeChart createChart(XYDataset dataset, String title, String valueAxisLabel) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(title, null, valueAxisLabel, dataset);
-        String fontName = "Helvetica";
+        String fontName = "Roboto";
         chart.getTitle().setFont(new Font(fontName, Font.BOLD, 18));
         chart.addSubtitle(new TextTitle("For more details on reducing food waste, "
                 + "visit https://www.thinkeatsave.org/top-tips-on-reducing-food-waste/",
@@ -138,7 +133,7 @@ public class ReportWasteWindow {
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setDefaultShapesVisible(false);
+            renderer.setDefaultShapesVisible(true);
             renderer.setDrawSeriesLineAsPath(true);
             // set the default stroke for all series
             renderer.setAutoPopulateSeriesStroke(false);
@@ -151,6 +146,7 @@ public class ReportWasteWindow {
             renderer.setSeriesPaint(5, new Color(0, 55, 122));
             renderer.setSeriesPaint(6, new Color(0, 92, 165));
         }
+        plot.setBackgroundPaint(new Color(202, 229, 230));
 
         return chart;
 
