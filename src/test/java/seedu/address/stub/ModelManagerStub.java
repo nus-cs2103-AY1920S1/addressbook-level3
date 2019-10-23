@@ -235,6 +235,20 @@ public class ModelManagerStub extends ModelManager {
         return mentorToDelete;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof ModelManagerStub)) {
+            return false;
+        }
+        ModelManagerStub model = (ModelManagerStub) other;
+        return this.participantList.equals(model.participantList)
+                && this.mentorList.equals(model.mentorList)
+                && this.teamList.equals(model.teamList);
+    }
+
     /**
      * Placeholder method simulating the updating of ModelHistory
      */

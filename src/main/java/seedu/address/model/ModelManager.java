@@ -242,6 +242,13 @@ public class ModelManager implements Model {
     //========== EntityListMethods ===============
 
     /**
+     * Checks if there exists any {@code Entity} in this {@code ModelManager}.
+     */
+    public boolean isEmpty() {
+        return this.participantList.isEmpty() && this.mentorList.isEmpty() && this.teamList.isEmpty();
+    }
+
+    /**
      * Returns the participant list located in the Model Manager.
      *
      * @return ReadableEntityList

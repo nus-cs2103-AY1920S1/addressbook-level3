@@ -90,7 +90,9 @@ public class MentorList extends EntityList {
             }
         }
         this.mentors.add(mentor);
-        lastUsedId++;
+        if (mentor.getId().getNumber() > lastUsedId) {
+            lastUsedId = mentor.getId().getNumber();
+        }
     }
 
     /**
@@ -155,6 +157,23 @@ public class MentorList extends EntityList {
     }
 
     /**
+     * Checks if given {@code Entity} exists.
+     */
+    @Override
+    public boolean contains(Entity entity) {
+        if (!(entity instanceof Mentor)) {
+            return false;
+        }
+        Mentor mentor = (Mentor) entity;
+        for (Mentor m : this.mentors) {
+            if (m.isSameMentor(mentor) || m.getId().equals(mentor.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if this {@code MentorList} is empty.
      */
     @Override
@@ -199,5 +218,24 @@ public class MentorList extends EntityList {
             newMList.add(m.copy());
         }
         return newMList;
+    }
+
+    @Override
+    public PrefixType getPrefix() {
+        return PrefixType.M;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof MentorList)) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+        MentorList mentorList = (MentorList) other;
+        // Anyone feel free to optimize
+        return this.getSpecificTypedList().stream().allMatch(mentorList::contains)
+                && mentorList.getSpecificTypedList().stream().allMatch(this::contains);
     }
 }

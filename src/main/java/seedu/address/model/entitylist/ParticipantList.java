@@ -91,7 +91,9 @@ public class ParticipantList extends EntityList {
             }
         }
         this.participants.add(participant);
-        lastUsedId++;
+        if (participant.getId().getNumber() > lastUsedId) {
+            lastUsedId = participant.getId().getNumber();
+        }
     }
 
     /**
@@ -156,6 +158,23 @@ public class ParticipantList extends EntityList {
     }
 
     /**
+     * Checks if given {@code Entity} exists.
+     */
+    @Override
+    public boolean contains(Entity entity) {
+        if (!(entity instanceof Participant)) {
+            return false;
+        }
+        Participant participant = (Participant) entity;
+        for (Participant p : this.participants) {
+            if (p.isSameParticipant(participant) || p.getId().equals(participant.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if this {@code ParticipantList} is empty.
      */
     @Override
@@ -200,5 +219,23 @@ public class ParticipantList extends EntityList {
             newPList.add(p.copy());
         }
         return newPList;
+    }
+
+    @Override
+    public PrefixType getPrefix() {
+        return PrefixType.P;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ParticipantList)) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+        ParticipantList participantList = (ParticipantList) other;
+        return this.getSpecificTypedList().stream().allMatch(participantList::contains)
+                && participantList.getSpecificTypedList().stream().allMatch(this::contains);
     }
 }

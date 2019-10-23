@@ -19,13 +19,13 @@ public class Phone {
             "Phone numbers be of the format (optional)country-code + phone-number "
                     + "and should adhere to the following constraints:\n"
                     + "1. The country code, if it is not existent in constructor, "
-                    + "the country code '+65' will be added. "
+                    + "the country code '+65' will be added.\n"
                     + "2. The phone number should be at least three digit long.\n "
                     + "The phone number must:\n"
                     + "    -contain numbers\n"
                     + "    -contain these special characters only, excluding parentheses,"
                     + "(" + SPECIAL_CHARACTERS + ").";
-    public static final String COUNTRY_CODE_REGEX = "\\+" + DIGITS;
+    public static final String COUNTRY_CODE_REGEX = "(\\+" + DIGITS + ")?";
     public static final String PHONE_NUMBER_PART_REGEX = "[" + SPECIAL_CHARACTERS + "]" + "?" + DIGITS;
     public static final String PHONE_NUMBER_REGEX = "(" + PHONE_NUMBER_PART_REGEX + ")" + "*";
     public static final String VALIDATION_REGEX = COUNTRY_CODE_REGEX + PHONE_NUMBER_REGEX;

@@ -75,6 +75,11 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Checks if there exists any {@code Entity} in this {@code Model}.
+     */
+    boolean isEmpty();
+
+    /**
      * Returns the ParticipantList.
      */
     ReadOnlyEntityList getParticipantList();

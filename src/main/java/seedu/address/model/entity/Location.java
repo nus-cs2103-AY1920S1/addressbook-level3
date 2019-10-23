@@ -14,9 +14,7 @@ public class Location {
     // Constants
     public static final String MESSAGE_CONSTRAINTS_INVALID_TABLE_NUMBER = "Table number should be an integer "
             + "and adhere to the following constraints:\n"
-            + "1. The tableNumber can be any digit.\n"
-            + "2. be at least one digit long\n"
-            + "3.contain only digits from 0 to 9\n";
+            + "1. The tableNumber can be any number from 0 to 1000\n";
 
     private static final String TABLE_NUMBER_REGEX = "^\\d+$";
 

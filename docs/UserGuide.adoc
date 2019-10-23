@@ -203,9 +203,9 @@ Example:
 Do note that if you input "k" as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon.
 
 ==== Add points: `score add TEAM_ID POINTS`
-Adds the value of POINTS to the current score of the team with ID TEAM_ID. Use this command when you want to award a particular team a certain amount of points. 
+Adds the value of POINTS to the current score of the team with ID TEAM_ID. Use this command when you want to award a particular team a certain amount of points.
 
-Do note that if you try to award more than the maximum amount of points (which is set to 100 points as default), Alfred will not allow it and will display an error message. If the addition of points makes the team's total exceed the maximum, the score will simply be set to the maximum score. 
+Do note that if you try to award more than the maximum amount of points (which is set to 100 points as default), Alfred will not allow it and will display an error message. If the addition of points makes the team's total exceed the maximum, the score will simply be set to the maximum score.
 
 Example:
 
@@ -214,9 +214,9 @@ Example:
 * `score add T-5 60` will add 60 points to the score of the team with ID T-5.
 
 ==== Subtract points: `score sub TEAM_ID NEW_POINTS`
-Deducts the value of POINTS from the current score of the team with ID TEAM_ID. Use this command when you want to take away a certain amount of points from a particular team. 
+Deducts the value of POINTS from the current score of the team with ID TEAM_ID. Use this command when you want to take away a certain amount of points from a particular team.
 
-Do note that if you try to subtract more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message. If the subtraction of points makes the team's total go below the minimum (which is set to 0 points), the score will simply be set to 0. 
+Do note that if you try to subtract more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message. If the subtraction of points makes the team's total go below the minimum (which is set to 0 points), the score will simply be set to 0.
 
 Example:
 
@@ -225,9 +225,9 @@ Example:
 * `score sub T-5 10` will subtract 10 points from the score of the team with ID T-5.
 
 ==== Set points: `score set TEAM_ID NEW_POINTS`
-Sets the score of the team with ID TEAM_ID to a new score NEW_POINTS, regardless of the team's current score. Use this command when you want to set a team's score to an exact score, rather than adding or subtracting points from their current score. 
+Sets the score of the team with ID TEAM_ID to a new score NEW_POINTS, regardless of the team's current score. Use this command when you want to set a team's score to an exact score, rather than adding or subtracting points from their current score.
 
-Do note that if you try to set more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message.  
+Do note that if you try to set more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message.
 
 Example:
 

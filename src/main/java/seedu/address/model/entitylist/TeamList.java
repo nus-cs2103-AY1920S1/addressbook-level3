@@ -94,7 +94,9 @@ public class TeamList extends EntityList {
             }
         }
         this.teams.add(team);
-        this.lastUsedId++;
+        if (team.getId().getNumber() > lastUsedId) {
+            lastUsedId = team.getId().getNumber();
+        }
     }
 
     /**
@@ -158,6 +160,23 @@ public class TeamList extends EntityList {
     }
 
     /**
+     * Checks if given {@code Entity} exists.
+     */
+    @Override
+    public boolean contains(Entity entity) {
+        if (!(entity instanceof Team)) {
+            return false;
+        }
+        Team team = (Team) entity;
+        for (Team t : this.teams) {
+            if (t.isSameTeam(team) || t.getId().equals(team.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if this {@code TeamList} is empty.
      */
     @Override
@@ -202,5 +221,23 @@ public class TeamList extends EntityList {
             newTList.add(t.copy());
         }
         return newTList;
+    }
+
+    @Override
+    public PrefixType getPrefix() {
+        return PrefixType.T;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof TeamList)) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+        TeamList teamList = (TeamList) other;
+        return this.getSpecificTypedList().stream().allMatch(teamList::contains)
+                && teamList.getSpecificTypedList().stream().allMatch(this::contains);
     }
 }

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 
 
 /**
@@ -13,6 +14,7 @@ import java.util.Objects;
 public class Id {
 
     //Constants
+    public static final String MESSAGE_CONSTRAINTS_INVALID_ID = "Given Id string is invalid";
     public static final String MESSAGE_CONSTRAINTS_INVALID_NUMBER = "Number should be of the format integer,"
             + "and adhere to the following constraints: \n"
             + "1. It should  number which can be any digit."
@@ -22,6 +24,7 @@ public class Id {
 
 
     private static final String NUMBER_REGEX = "^\\d+$";
+    private static final String ID_REGEX = "^(?i)(M-|P-|T-)(?-i)\\d+$";
 
     // Data fields
     private PrefixType prefix;
@@ -51,16 +54,20 @@ public class Id {
         return Integer.toString(number).matches(NUMBER_REGEX);
     }
 
+    /**
+     * Checks if given {@code strId} is a valid {@code String} to be passed onto {@link #toId(String)}.
+     */
+    public static boolean isValidString(String strId) {
+        return strId.matches(ID_REGEX);
+    }
 
     public PrefixType getPrefix() {
         return prefix;
     }
 
-
     public int getNumber() {
         return number;
     }
-
 
     public void setPrefix(PrefixType prefix) {
         this.prefix = prefix;
@@ -113,5 +120,20 @@ public class Id {
     public Id copy() {
         return new Id(this.prefix, this.number);
     }
+
+    /**
+     * Converts given {@code strId} into an {@code Id}.
+     *
+     * @throws IllegalValueException If given {@code strId} does not match a valid {@code Id} format.
+     */
+    public static Id toId(String strId) throws IllegalValueException {
+        if (!strId.matches(ID_REGEX)) {
+            throw new IllegalValueException(MESSAGE_CONSTRAINTS_INVALID_ID);
+        }
+        // Can use valueOf() because given strId already matches ID_REGEX
+        PrefixType prefixType = PrefixType.valueOf(strId.substring(0, 1).toUpperCase());
+        return new Id(prefixType, Integer.parseInt(strId.substring(2)));
+    }
+
 }
 

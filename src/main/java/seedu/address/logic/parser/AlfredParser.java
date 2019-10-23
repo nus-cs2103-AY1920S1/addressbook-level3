@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
-
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
@@ -16,6 +15,8 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.addcommand.AddCommand;
+import seedu.address.logic.commands.csvcommand.ExportCommand;
+import seedu.address.logic.commands.csvcommand.ImportCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.findcommand.FindMentorCommand;
 import seedu.address.logic.commands.findcommand.FindParticipantCommand;
@@ -24,9 +25,10 @@ import seedu.address.logic.commands.listcommand.ListCommand;
 import seedu.address.logic.commands.undocommand.UndoCommand;
 import seedu.address.logic.commands.viewcommand.ViewCommand;
 import seedu.address.logic.parser.addcommandparser.AddCommandAllocator;
+import seedu.address.logic.parser.csvcommandparser.ExportCommandParser;
+import seedu.address.logic.parser.csvcommandparser.ImportCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteCommandAllocator;
 import seedu.address.logic.parser.editcommandparser.EditCommandAllocator;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.findcommandparser.FindMentorCommandParser;
 import seedu.address.logic.parser.findcommandparser.FindParticipantCommandParser;
@@ -97,6 +99,12 @@ public class AlfredParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
+
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
