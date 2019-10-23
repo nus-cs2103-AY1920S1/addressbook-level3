@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.statistics.Type.CHART;
+import static seedu.address.logic.commands.statistics.Type.STATS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
 import seedu.address.logic.commands.Command;
@@ -41,7 +41,7 @@ public class GetStatisticsCommand extends Command {
         //model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
         //model.setStatistics();
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
-        c.setType(CHART);
+        c.setType(STATS);
         return c;
     }
 }

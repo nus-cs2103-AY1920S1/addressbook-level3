@@ -212,15 +212,15 @@ Returns a report of how well you have answered a particular question,
 the number of times the question has been attempted and the past answers to the question. +
 Format: `report INDEX`
 
-==== Get overview of lecture notes: `overview -ln`
+==== Get overview of lecture notes: `overviewn`
 Gets an overview of the types of notes that have been added into the app.
 A stacked bar graph, sorted by subjects will be returned. +
-Format: `overview -ln`
+Format: `overviewn`
 
-==== Get overview of questions attempted: `overview -q`
+==== Get overview of questions attempted: `overviewq`
 Gets an overview of the types of questions that have been attempted overall.
 A stacked bar graph, sorted by subjects will be returned. +
-Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
+Format: `overviewq [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks
 

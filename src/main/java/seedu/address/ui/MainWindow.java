@@ -21,7 +21,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.statistics.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.statistics.StatsChart;
+import seedu.address.ui.statistics.StatsPieChart;
 import seedu.address.ui.statistics.StatsQnsList;
 
 /**
@@ -44,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private QuizQuestionListPanel quizQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private StatsChart statsChart;
+    private StatsPieChart statsPieChart;
     private StatsQnsList statsQnsList;
 
     @FXML
@@ -195,10 +195,11 @@ public class MainWindow extends UiPart<Stage> {
         mainPanel.setVisible(false);
         stats.setVisible(true);
         switch (type) {
-        case CHART:
-            statsChart = new StatsChart(logic.getStatsChartData(), logic.getTotalQuestionsDone());
-            statsPanelPlaceholder.getChildren().add(statsChart.getRoot());
-            statsChart.getChart().getData().forEach(data -> {
+        case STATS:
+            statsPanelPlaceholder.getChildren().clear();
+            statsPieChart = new StatsPieChart(logic.getStatsChartData(), logic.getTotalQuestionsDone());
+            statsPanelPlaceholder.getChildren().add(statsPieChart.getRoot());
+            statsPieChart.getChart().getData().forEach(data -> {
                 String value = "" + (int) data.getPieValue();
                 Tooltip toolTip = new Tooltip(value);
                 toolTip.setStyle("-fx-font-size: 20");
@@ -210,6 +211,9 @@ public class MainWindow extends UiPart<Stage> {
             statsPanelPlaceholder.getChildren().clear();
             statsQnsList = new StatsQnsList(logic.getStatsQnsList());
             statsPanelPlaceholder.getChildren().add(statsQnsList.getLabel());
+            break;
+        case OVERVIEW:
+            statsPanelPlaceholder.getChildren().clear();
             break;
         default:
             throw new ParseException("Invalid type: " + type);

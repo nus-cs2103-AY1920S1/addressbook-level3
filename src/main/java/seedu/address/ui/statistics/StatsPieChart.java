@@ -11,15 +11,15 @@ import seedu.address.ui.UiPart;
 /**
  * A UI component that displays statistics.
  */
-public class StatsChart extends UiPart<Region> {
-    private static final String FXML = "StatsChart.fxml";
+public class StatsPieChart extends UiPart<Region> {
+    private static final String FXML = "StatsPieChart.fxml";
 
     @FXML
     private PieChart pc;
     @FXML
     private Label overview;
 
-    public StatsChart(ObservableList<PieChart.Data> data, int totalQns) {
+    public StatsPieChart(ObservableList<PieChart.Data> data, int totalQns) {
         super(FXML);
         pc.setLegendSide(Side.LEFT);
         pc.setData(data);

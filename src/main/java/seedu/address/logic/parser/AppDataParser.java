@@ -19,6 +19,7 @@ import seedu.address.logic.commands.questioncommands.AddQuestionCommand;
 import seedu.address.logic.commands.questioncommands.DeleteQuestionCommand;
 import seedu.address.logic.commands.questioncommands.ListQuestionCommand;
 import seedu.address.logic.commands.quiz.QuizModeCommand;
+import seedu.address.logic.commands.statistics.GetOverviewqCommand;
 import seedu.address.logic.commands.statistics.GetQnsCommand;
 import seedu.address.logic.commands.statistics.GetReportCommand;
 import seedu.address.logic.commands.statistics.GetStatisticsCommand;
@@ -34,6 +35,7 @@ import seedu.address.logic.parser.note.FindNoteCommandParser;
 import seedu.address.logic.parser.questionparser.AddQuestionCommandParser;
 import seedu.address.logic.parser.questionparser.DeleteQuestionCommandParser;
 import seedu.address.logic.parser.quiz.QuizModeCommandParser;
+import seedu.address.logic.parser.statistics.GetOverviewqCommandParser;
 import seedu.address.logic.parser.statistics.GetQnsCommandParser;
 import seedu.address.logic.parser.statistics.GetReportCommandParser;
 import seedu.address.logic.parser.statistics.GetStatisticsCommandParser;
@@ -103,6 +105,9 @@ public class AppDataParser {
 
         case GetReportCommand.COMMAND_WORD:
             return new GetReportCommandParser().parse(arguments);
+
+        case GetOverviewqCommand.COMMAND_WORD:
+            return new GetOverviewqCommandParser().parse(arguments);
 
         case AddQuestionCommand.COMMAND_WORD:
             return new AddQuestionCommandParser().parse(arguments);
