@@ -27,7 +27,7 @@ public class Actor {
      */
     public Actor(String name) {
         requireNonNull(name);
-        AppUtil.checkArgument(isValidActorName(name), MESSAGE_CONSTRAINTS);
+        //AppUtil.checkArgument(isValidActorName(name), MESSAGE_CONSTRAINTS);
         actorName = name;
     }
 
