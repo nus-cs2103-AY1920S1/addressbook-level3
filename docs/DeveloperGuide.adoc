@@ -353,14 +353,14 @@ This means that all potential redo actions are cleared.
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
-* *Alternative 1:* Use a list to store the history of `Model` states.
+* *Alternative 1:* Use a `List` to store the history of `Model` states.
 Maintain a pointer to point to the current version of `Model`, and shift the pointer along the list to facilitate undo/redo operations.
 ** Pros: Simple implementation.
 ** Cons: Expensive on storage as multiple copies of `Model` is stored.
 * *Alternative 2:* Implement invertible commands whereby they support their inverse execution. Use two `Deque` data structures to store the history of commands, to represent
 executed commands and inversely executed commands. Move commands from one deque to another and executing/inversely executing them to facilitate undo/redo operations.
 ** Pros: Storage efficient, as application only needs to keep track of invertible commands, and do not need to store multiple copies of `Model`.
-** Cons: Need to ensure that invertible commands implement their inverse execution correctly.
+** Cons: Implementation is more complex.
 
 // end::undoredo[]
 
