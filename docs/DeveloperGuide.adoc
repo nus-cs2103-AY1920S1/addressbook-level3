@@ -187,18 +187,21 @@ The diagram below shows a simplified class diagram for Commands and Parser
 .Structure of Commands and Parser
 image::CommandImplementation.png[]
 
+{nbsp} +
 The current implementation provides the added benefit of easier scalability. Overall, we only need to account for the
 type of command (i.e `AddCommand`, `DeleteCommand` etc). It's corresponding variants (i.e `AddRecipeCommand`,
 `DeleteExerciseCommand`) can simply further extend from it. However, its implementation is rather complex and it increases the amount of code within the repository. For each
 command variant added, a corresponding command variant parser needs to be added as well.
 
-===== Alternatives
+*Alternatives*
+
 Another possible structure would be for all command variants to extend from the abstract `Command` class directly.
 Although this implementation is simpler, it can greatly increase the number of switch cases within `DukeCooksParser`.
 This could potentially increase the difficulty of debugging as it becomes harder to locate the bugs. Furthermore,
 this structure exposes all the different types of commands to `DukeCooksParser`.
 
-===== Our Choice
+*Our Choice*
+
 We chose to follow the structure provided in the figure above. As our application is comprised of many different
 components with the same variants of commands (i.e Add, Delete, Edit etc), this structure is more suitable as it
 reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
@@ -272,25 +275,41 @@ The following sequence diagram shows how the add operation works:
 
 image::AddTaskSequenceDiagram.png[]
 
-===== Aspect: How add/delete/edit/find/list executes
-* **Alternative 1 (current choice):** Sort the list whenever add/delete/edit is called.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of time.
-* **Alternative 2:** Keep an instance of the earliest and latest date. If dates fall
-out of range from the two dates, sorting does not happen.
-** Pros: Faster runtime.
-** Cons: We must ensure that the implementation of each individual command are correct.
+*Aspect: How add/delete/edit/find/list executes*
 
-===== Aspect: Data structure to support the add/delete/edit/find/list commands
-* **Alternative 1 (current choice):** Use `Collections.sort` to sort by date.
-** Pros: Easy to implement.
-** Cons: Current implementations require a `LocalDate` object to be create for every
+*Alternative 1 (current choice)*
+
+Sort the list whenever add/delete/edit is called.
+
+* Pros: Easy to implement.
+* Cons: May have performance issues in terms of time.
+
+*Alternative 2*
+
+Keep an instance of the earliest and latest date. If dates fall
+out of range from the two dates, sorting does not happen.
+
+* Pros: Faster runtime.
+* Cons: We must ensure that the implementation of each individual command are correct.
+
+*Aspect: Data structure to support the add/delete/edit/find/list commands*
+
+*Alternative 1 (current choice)*
+
+Use `Collections.sort` to sort by date.
+
+* Pros: Easy to implement.
+* Cons: Current implementations require a `LocalDate` object to be create for every
 `TaskDate` object.
-* **Alternative 2:** Use `LocalDate` to store dates instead of creating a custom class,
+
+*Alternative 2*
+
+Use `LocalDate` to store dates instead of creating a custom class,
 `TaskDate`.
-** Pros: Since this is found in the Java API, we do not have to worry about invalid dates
+
+* Pros: Since this is found in the Java API, we do not have to worry about invalid dates
 being keyed.
-** Cons: As the current `TaskDate` works fine, refactoring the code to `LocalDate` might
+* Cons: As the current `TaskDate` works fine, refactoring the code to `LocalDate` might
 take some time.
 // end::dashboard[]
 
@@ -393,20 +412,24 @@ image::AddHealthSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: Data structure on how the different health types are stored
+*Aspect: Data structure on how the different health types are stored*
 
-*  **Alternative 1 (Current Choice)**: Maintain a Map to validate type of health record
+*Alternative 1 (Current Choice)*
+
+Maintain a Map to validate type of health record
 
     A `HashMap` is used to store the different health types and its respective metric unit (eg. Weight, kg). When a health related command is called, the `TYPE_UTIL` will be accessed and checked against to determine if command is valid.
 
-** Pros: Greater flexibility in the implementation and usage of `TYPE_UTIL` Map. Allow possible extension of having more user defined health types.
-** Cons: Difficult to keep track of each health type and lack of clarity.
+* Pros: Greater flexibility in the implementation and usage of `TYPE_UTIL` Map. Allow possible extension of having more user defined health types.
+* Cons: Difficult to keep track of each health type and lack of clarity.
 
 
-* **Alternative 2:** Introduce each health type as a Class on its own
+*Alternative 2*
 
-** Pros: Clearer distinction and declaration of each health type
-** Cons: Limited to a specific number of health types. User cannot introduce their own health type for record tracking. Requires diligence on developer’s end to introduce new classes for more variations.
+Introduce each health type as a Class on its own
+
+* Pros: Clearer distinction and declaration of each health type
+* Cons: Limited to a specific number of health types. User cannot introduce their own health type for record tracking. Requires diligence on developer’s end to introduce new classes for more variations.
 
 
 
@@ -439,12 +462,13 @@ types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be inv
 `DeleteDiaryCommandParser` etc). After which, the corresponding command will be executed (i.e `AddDiaryCommand`,
 `DeleteDiaryCommand` etc).
 
-The figure below describes the execution of an `AddPageCommand`.
-The input provided is `add page n/[DiaryName] t/[Title]`.
+The figure below describes the execution of an `DeletePageCommand`.
 
-/ insert UML diagram on AddPageCommand.
+.Sequence Diagram of DeletePageCommand
+image::DeletePageSequenceDiagram.png[]
 
-After a successful execution, a new page will be added to the specific diary.
+{nbsp} +
+After a successful execution, the specified page will be removed from the specified diary.
 
 / maybe insert a screenshot to show the expected output.
 
@@ -452,12 +476,14 @@ The current implementation makes use of an ArrayList to store the `Page` objects
 This is the simplest implementation as most novice programmers would be familiar with ArrayLists.
 However, list operations tend to take more time to run compared to other data structures such as Sets.
 
-==== Alternatives
-An alternative to using ArrayList would be to use Sets to store `Page` objects. This could increase the
+*Alternatives*
+
+An alternative to using ArrayList would be to use sets to store `Page` objects. This could increase the
 overall performance of the program as set operations tend to be faster than list operations. However, using sets
 does not provide an order to `Page` objects, unlike in lists.
 
-==== Our Choice
+*Our Choice*
+
 We chose to use ArrayLists instead as we require the `Page` objects to be ordered, so that the implementation of
 `DeletePageCommand` is simplified. An index can be provided in `DeletePageCommand` and the corresponding `Page`
 object can simply be removed from the ArrayList, using the specified index.
