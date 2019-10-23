@@ -36,11 +36,11 @@ public class UserViewUpdate {
 
         switch(preamble) {
 
-        case "list":
+        case "list-tasks":
 
         case "delete-task":
 
-        case "edit":
+        case "edit-task":
 
         case "set-deadline":
 
@@ -63,6 +63,8 @@ public class UserViewUpdate {
             break;
 
         case "delete-inv":
+
+        case "edit-inv":
 
         case "add-inv":
 
