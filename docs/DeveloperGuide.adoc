@@ -255,6 +255,7 @@ image::statsOverallClassDiagram.png[]
 
 Below is a more in-depth explanation at each step:
 
+
 step 1: User inputs a stats command e.g `generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13`.
 
 The commandBox executes it and the `MainWindow` runs its `executeCommand(commandText)` method.
