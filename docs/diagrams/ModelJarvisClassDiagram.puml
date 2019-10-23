@@ -1,0 +1,152 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>> {
+    Interface Model <<interface>>
+    Interface AddressModel <<interface>>
+    Interface UserPrefsModel <<interface>>
+    Interface HistoryModel <<interface>>
+    Interface FinanceTrackerModel <<interface>>
+    Interface CcaTrackerModel <<interface>>
+    Interface PlannerModel <<interface>>
+    Interface CoursePlannerModel <<interface>>
+    Class ModelManager
+}
+
+ModelManager .up.|> Model
+Model -up-|> AddressModel
+Model -up-|> UserPrefsModel
+Model -up-|> HistoryModel
+Model -up-|> FinanceTrackerModel
+Model -up-|> CcaTrackerModel
+Model -up-|> PlannerModel
+Model -up-|> CoursePlannerModel
+
+Package Planner <<Rectangle>> {
+    Class Planner
+    Class TaskList
+    abstract Class Task
+}
+
+Planner *--> "1" TaskList
+TaskList o--> "*" Task
+
+Package CoursePlanner <<Rectangle>> {
+    Class CoursePlanner
+    Class UniqueCourseList
+    Class Course
+
+    Class Title
+    Class CourseCode
+    Class CourseCredit
+    Class Faculty
+    Class Description
+    Class PrereqTree
+    Class Preclusion
+    Class FulfillRequirements
+}
+
+Course *--> "1" Title
+Course *--> "1" CourseCode
+Course *--> "1" CourseCredit
+Course *--> "1" Faculty
+Course *--> "1" Description
+Course *--> "0..1" PrereqTree
+Course *--> "0..1" Preclusion
+Course *--> "0..1" FulfillRequirements
+UniqueCourseList o--> "*" Course
+CoursePlanner *--> "1" UniqueCourseList
+
+Package CcaTracker {
+    Class CcaTracker
+    Class CcaList
+    Class Cca
+    Class CcaName
+    Class CcaType
+    Class EquipmentList
+    Class Equipment
+}
+
+CcaTracker *--> "1" CcaList
+CcaList o--> "*" Cca
+Cca *--> "1" CcaName
+Cca *--> "1" CcaType
+Cca *--> "1" EquipmentList
+EquipmentList o--> "*" Equipment
+
+Package FinanceTracker <<Rectangle>> {
+    Class FinanceTracker
+    Class PurchaseList
+    Class InstallmentList
+    Class Purchase
+    Class PurchaseDescription
+    Class PurchaseMoneySpent
+    Class Installment
+    Class InstallmentDescription
+    Class InstallmentMoneyPaid
+}
+
+FinanceTracker *--> "1" PurchaseList
+FinanceTracker *--> "1" InstallmentList
+
+PurchaseList o--> "*" Purchase
+Purchase *--> "1" PurchaseDescription
+Purchase *--> "1" PurchaseMoneySpent
+
+InstallmentList o--> "*" Installment
+Installment *--> "1" InstallmentDescription
+Installment *--> "1" InstallmentMoneyPaid
+
+Package HistoryManager <<Rectangle>> {
+    Class HistoryManager
+    Class CommandDeque
+    abstract Class Command
+}
+
+HistoryManager *--> "2" CommandDeque
+CommandDeque *--> "*" Command
+
+Package AddressBook <<Rectangle>> {
+    Class AddressBook
+    Interface ReadOnlyAddressBook <<interface>>
+    Class UniquePersonList
+    Class Person
+    Class Name
+    Class Phone
+    Class Address
+    Class Email
+    Class Tag
+}
+
+AddressBook ..|> ReadOnlyAddressBook
+AddressBook *--> "1" UniquePersonList
+UniquePersonList o--> "*" Person
+Person *--> "1" Name
+Person *--> "1" Phone
+Person *--> "1" Address
+Person *--> "*" Tag
+Person *--> "1" Email
+
+Package UserPrefs <<Rectangle>> {
+    Class UserPrefs
+    Interface ReadOnlyUserPrefs <<interface>>
+}
+
+UserPrefs ..|> ReadOnlyUserPrefs
+
+'Combine all models together'
+
+ModelManager o--> "1" Planner
+ModelManager o--> "1" AddressBook
+ModelManager o--> "1" HistoryManager
+ModelManager o--> "1" FinanceTracker
+ModelManager o--> "1" CcaTracker
+ModelManager o--> "1" Planner
+ModelManager o--> "1" CoursePlanner
+ModelManager o--> "1" UserPrefs
+
+
+@enduml

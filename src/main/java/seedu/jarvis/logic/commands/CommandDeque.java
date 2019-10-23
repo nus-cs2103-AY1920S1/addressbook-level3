@@ -19,7 +19,7 @@ import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
  */
 public class CommandDeque {
     /** Size limit of the maximum possible number of commands to store. */
-    private static final int SIZE_LIMIT = 20;
+    private static final int SIZE_LIMIT = 10;
     /**
      * Deque to store commands. Deque is used to facilitate adding new commands to the start of the deque, and deleting
      * old commands from the back of the deque.
