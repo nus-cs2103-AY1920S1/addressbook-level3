@@ -88,6 +88,13 @@ public class Semester {
         return this.modules.contains(module);
     }
 
+    /**
+     * Clears/deletes all modules this semester.
+     */
+    public void clearAllModules() {
+        modules = new UniqueModuleList();
+    }
+
     // NOTE: this is for the GUI to use for Milestone 2
     @Override
     public String toString() {

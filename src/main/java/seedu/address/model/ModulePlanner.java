@@ -264,6 +264,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return moduleInfo == null ? null : moduleInfo.getInformation();
     }
 
+    /**
+     * Deletes all the modules inside a semester of the current active study plan.
+     */
+    public void deleteAllModulesInSemester(SemesterName semesterName) {
+        activeStudyPlan.deleteAllModulesInSemester(semesterName);
+    }
+
     //=========== Module Information and Verification =============================================================
 
     /**

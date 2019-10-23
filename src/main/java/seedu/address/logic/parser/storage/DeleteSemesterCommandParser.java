@@ -22,7 +22,7 @@ public class DeleteSemesterCommandParser implements Parser<DeleteSemesterCommand
         String trimmedArgs = args.trim();
         SemesterName semesterName = null;
         try {
-            semesterName = SemesterName.valueOf(trimmedArgs);
+            semesterName = SemesterName.valueOf(trimmedArgs.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteSemesterCommand.MESSAGE_USAGE));

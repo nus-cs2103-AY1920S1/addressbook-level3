@@ -45,7 +45,7 @@ public class DeleteSemesterCommand extends Command {
             return new CommandResult(MESSAGE_NO_ACTIVE_STUDYPLAN);
         }
 
-        // model.deleteStudyPlan(studyPlanToDelete);
+        model.deleteAllModulesInSemester(semesterName);
 
         return new CommandResult(String.format(MESSAGE_DELETE_SEMESTER_SUCCESS, semesterName.toString()));
     }
