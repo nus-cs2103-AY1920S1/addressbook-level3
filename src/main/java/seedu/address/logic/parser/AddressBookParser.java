@@ -33,7 +33,8 @@ import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.TogglePanelCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.WishListCommand;import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.commands.WishListCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
