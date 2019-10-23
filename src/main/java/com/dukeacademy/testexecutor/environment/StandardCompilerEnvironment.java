@@ -136,7 +136,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     private void createDirectory(Path path) throws CompilerEnvironmentException {
         try {
             String directoryPath = path.toUri().getPath();
-            if (!new File(directoryPath).mkdir()) {
+            if (!new File(directoryPath).exists() && !new File(directoryPath).mkdir()) {
                 throw new CompilerEnvironmentException(messageCreateEnvironmentFailed);
             }
 

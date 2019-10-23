@@ -6,5 +6,5 @@ import com.dukeacademy.model.question.UserProgram;
  * Functional interface used by ProgramSubmissionLogicManagers to allow external components to submit user programs.
  */
 public interface ProgramSubmissionChannel {
-    public void submitProgram(UserProgram program);
+    public UserProgram getProgram();
 }
