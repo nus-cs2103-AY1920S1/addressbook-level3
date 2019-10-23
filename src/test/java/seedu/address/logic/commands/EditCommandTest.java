@@ -23,6 +23,7 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.BudgetList;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
@@ -32,7 +33,7 @@ import seedu.address.testutil.ExpenseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +43,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new BudgetList(), new UserPrefs());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +65,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new BudgetList(), new UserPrefs());
         expectedModel.setExpense(lastExpense, editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,7 +79,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new BudgetList(), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +96,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new BudgetList(), new UserPrefs());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

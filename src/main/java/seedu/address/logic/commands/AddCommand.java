@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Expense;
 
+
 /**
  * Adds an expense to the expense list.
  */

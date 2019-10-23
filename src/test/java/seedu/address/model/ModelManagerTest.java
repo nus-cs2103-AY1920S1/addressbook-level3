@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalBudgets.JAPAN;
+import static seedu.address.testutil.TypicalBudgets.KOREA;
 import static seedu.address.testutil.TypicalExpenses.FOOD;
 import static seedu.address.testutil.TypicalExpenses.SHOPPING;
 
@@ -15,7 +17,9 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.budget.BudgetList;
 import seedu.address.model.expense.NameContainsKeywordsPredicate;
+import seedu.address.testutil.BudgetListBuilder;
 import seedu.address.testutil.ExpenseListBuilder;
 
 public class ModelManagerTest {
@@ -27,6 +31,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new ExpenseList(), new ExpenseList(modelManager.getExpenseList()));
+        assertEquals(new BudgetList(), new BudgetList(modelManager.getBudgetList()));
     }
 
     @Test
@@ -96,12 +101,14 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         ExpenseList expenseList = new ExpenseListBuilder().withExpense(FOOD).withExpense(SHOPPING).build();
+        BudgetList budgetList = new BudgetListBuilder().withBudget(JAPAN).withBudget(KOREA).build();
         ExpenseList differentExpenseList = new ExpenseList();
+        BudgetList differentBudgetList = new BudgetList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(expenseList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(expenseList, userPrefs);
+        modelManager = new ModelManager(expenseList, budgetList, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(expenseList, budgetList, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,12 +121,20 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different expenseList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentExpenseList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentExpenseList, budgetList, userPrefs)));
+
+        // different budgetList -> returns false
+        assertFalse(modelManager.equals(new ModelManager(expenseList, differentBudgetList, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = FOOD.getName().fullName.split("\\s+");
         modelManager.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(expenseList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, userPrefs)));
+
+        // different filteredBudgetList -> returns false
+        // String[] budgetKeyword = JAPAN.getName().fullName.split("\\s+");
+        // modelManager.updateFilteredBudgetList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        // assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
@@ -127,6 +142,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExpenseListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(expenseList, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, differentUserPrefs)));
     }
 }

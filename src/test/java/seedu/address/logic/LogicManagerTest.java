@@ -25,7 +25,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.BudgetList;
+import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.expense.Expense;
+import seedu.address.storage.JsonBudgetListStorage;
 import seedu.address.storage.JsonExpenseListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -44,8 +47,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonExpenseListStorage expenseListStorage =
                 new JsonExpenseListStorage(temporaryFolder.resolve("expenseList.json"));
+        JsonBudgetListStorage budgetListStorage =
+                new JsonBudgetListStorage(temporaryFolder.resolve("budgetList.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(expenseListStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(expenseListStorage, budgetListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -72,9 +77,11 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonExpenseListIoExceptionThrowingStub
         JsonExpenseListStorage expenseListStorage =
                 new JsonExpenseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExpenseList.json"));
+        JsonBudgetListStorage budgetListStorage =
+                new JsonBudgetListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionBudgetList.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(expenseListStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(expenseListStorage, budgetListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -127,7 +134,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getExpenseList(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseList(), new BudgetList(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -154,6 +161,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveExpenseList(ReadOnlyExpenseList expenseList, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonBudgetListIoExceptionThrowingStub extends JsonBudgetListStorage {
+        private JsonBudgetListIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveBudgetList(ReadOnlyBudgetList budgetList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.ExpenseBuilder;
 
@@ -147,6 +150,71 @@ public class AddCommandTest {
         public void updateFilteredExpenseList(Predicate<Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Path getBudgetListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBudgetListFilePath(Path budgetListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBudgetList(ReadOnlyBudgetList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyBudgetList getBudgetList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteBudget(Budget target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBudget(Budget target, Budget editedBudget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Budget> getFilteredBudgetList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBudgetList(Predicate<Budget> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Budget> getBudgetExpenseFallsInto(Expense expense) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBudgetPeriodClash(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean expenseFallsIntoABudget(Expense expense) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

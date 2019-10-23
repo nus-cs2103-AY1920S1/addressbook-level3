@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.ExpenseList;
 import seedu.address.model.ReadOnlyExpenseList;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetList;
+import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
@@ -46,6 +49,13 @@ public class SampleDataUtil {
             sampleEl.addExpense(sampleExpense);
         }
         return sampleEl;
+    }
+
+    public static ReadOnlyBudgetList getSampleBudgetList() {
+        BudgetList sampleB1 = new BudgetList();
+        sampleB1.addBudget(new Budget(new Name("Japan Travel"), new Amount("$2000.00"), new Amount("$2000.00"),
+                new Date("12/12/2019"), new Date("18/12/2019"), new ExpenseList()));
+        return sampleB1;
     }
 
     /**
