@@ -1,15 +1,16 @@
 package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDEADLINE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
-import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.task.Task;
 
 /**
  * Adds a task to the address book.
@@ -21,15 +22,17 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "
             + PREFIX_TASKTITLE + "TITLE "
-            + PREFIX_TASKTIME + "TIME "
+            + PREFIX_TASKDAY + "DAY "
             + PREFIX_TASKDESCRIPTION + "DESCRIPTION "
-            + PREFIX_TASKPLACE + "PLACE "
+            + PREFIX_TASKDEADLINE + "DEADLINE "
+            + PREFIX_TASKTIME + "TIME "
             + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASKTITLE + "CS2109 Assignment 7 "
-            + PREFIX_TASKTIME + "20/10/2019 "
+            + PREFIX_TASKDAY + "monday "
             + PREFIX_TASKDESCRIPTION + "Submit to Luminus "
-            + PREFIX_TASKPLACE + "NUS "
+            + PREFIX_TASKDEADLINE + "12-10-2019 "
+            + PREFIX_TASKTIME + "19:00 "
             + PREFIX_TASKTAG + "IMPORTANT "
             + PREFIX_TASKTAG + "CS2109";
 
@@ -50,11 +53,11 @@ public class AddCommand extends Command {
     public CommandResult execute(CalendarModel calendarModel) throws CommandException {
         requireNonNull(calendarModel);
 
-        if (calendarModel.hasPerson(toAdd)) {
+        if (calendarModel.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        calendarModel.addPerson(toAdd);
+        calendarModel.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

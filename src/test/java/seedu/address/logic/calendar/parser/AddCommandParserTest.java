@@ -33,11 +33,11 @@
 //
 //import seedu.address.logic.commands.AddCommand;
 //import seedu.address.logic.parser.AddCommandParser;
-//import seedu.address.calendarModel.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskTime;
 //import seedu.address.calendarModel.task.TaskDescription;
 //import seedu.address.calendarModel.task.TaskTitle;
 //import seedu.address.calendarModel.task.Task;
-//import seedu.address.calendarModel.task.TaskTime;
+//import seedu.address.calendarModel.task.TaskDay;
 //import seedu.address.calendarModel.tag.TaskTag;
 //import seedu.address.testutil.PersonBuilder;
 //
@@ -118,7 +118,7 @@
 //
 //        // invalid phone
 //        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-//                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, TaskTime.MESSAGE_CONSTRAINTS);
+//                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, TaskDay.MESSAGE_CONSTRAINTS);
 //
 //        // invalid email
 //        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
@@ -126,7 +126,7 @@
 //
 //        // invalid address
 //        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-//                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, TaskPlace.MESSAGE_CONSTRAINTS);
+//                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, TaskTime.MESSAGE_CONSTRAINTS);
 //
 //        // invalid tag
 //        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

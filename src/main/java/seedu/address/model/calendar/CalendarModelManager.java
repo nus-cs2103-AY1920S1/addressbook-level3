@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.task.Task;
 
 /**
  * Represents the in-memory calendarModel of the address book data.
@@ -89,24 +89,24 @@ public class CalendarModelManager implements CalendarModel {
     }
 
     @Override
-    public boolean hasPerson(Task task) {
+    public boolean hasTask(Task task) {
         requireNonNull(task);
         return calendarAddressBook.hasPerson(task);
     }
 
     @Override
-    public void deletePerson(Task target) {
+    public void deleteTask(Task target) {
         calendarAddressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(Task task) {
+    public void addTask(Task task) {
         calendarAddressBook.addPerson(task);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Task target, Task editedTask) {
+    public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
         calendarAddressBook.setPerson(target, editedTask);
@@ -119,12 +119,12 @@ public class CalendarModelManager implements CalendarModel {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Task> getFilteredPersonList() {
+    public ObservableList<Task> getFilteredTaskList() {
         return filteredTasks;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Task> predicate) {
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }

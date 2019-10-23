@@ -17,6 +17,7 @@ public class Question {
 
     // Identity fields
     private final Name name;
+    private final Comment comment;
     private final Answer answer;
     private final Category category;
 
@@ -27,9 +28,10 @@ public class Question {
     /**
      * Every field must be present and not null.
      */
-    public Question(Name name, Answer answer, Category category, Type type, Set<Tag> tags) {
+    public Question(Name name, Comment comment, Answer answer, Category category, Type type, Set<Tag> tags) {
         requireAllNonNull(name, answer, category, type, tags);
         this.name = name;
+        this.comment = comment;
         this.answer = answer;
         this.category = category;
         this.type = type;
@@ -38,6 +40,10 @@ public class Question {
 
     public Name getName() {
         return name;
+    }
+
+    public Comment getComment() {
+        return comment;
     }
 
     public Answer getAnswer() {
@@ -99,13 +105,15 @@ public class Question {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, answer, category, type, tags);
+        return Objects.hash(name, comment, answer, category, type, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Comment: ")
+                .append(getComment())
                 .append(" Answer: ")
                 .append(getAnswer())
                 .append(" Category: ")

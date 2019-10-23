@@ -16,7 +16,7 @@ import seedu.address.MainApp;
 public abstract class UiPart<T> {
 
     /** Resource folder where FXML files are stored. */
-    public static final String FXML_FILE_FOLDER = "/view/";
+    public static final String FXML_FILE_FOLDER = "/view/finance/";
 
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 

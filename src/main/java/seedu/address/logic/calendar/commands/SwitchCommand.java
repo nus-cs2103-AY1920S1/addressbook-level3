@@ -30,7 +30,7 @@ public class SwitchCommand extends Command {
         swOperation.execute();
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_STATE_CHANGE, calendarModel.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_STATE_CHANGE, calendarModel.getFilteredTaskList().size()));
     }
 
     @Override

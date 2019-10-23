@@ -5,55 +5,51 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.finance.FinanceLog;
-import seedu.address.model.finance.ReadOnlyAddressBook;
-import seedu.address.model.finance.person.Address;
-import seedu.address.model.finance.person.Email;
-import seedu.address.model.finance.person.Name;
-import seedu.address.model.finance.person.Person;
-import seedu.address.model.finance.person.Phone;
-import seedu.address.model.finance.tag.Tag;
+import seedu.address.model.finance.ReadOnlyFinanceLog;
+import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.TransactionMethod;
+import seedu.address.model.finance.logentry.Amount;
+import seedu.address.model.finance.logentry.Description;
+import seedu.address.model.finance.logentry.LogEntry;
+import seedu.address.model.finance.logentry.SpendLogEntry;
+import seedu.address.model.finance.logentry.TransactionDate;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code FinanceLog} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+    public static LogEntry[] getSampleLogEntries() {
+        return new LogEntry[] {
+            new SpendLogEntry(new Amount("2.80"),
+                    new TransactionDate("11-10-2019"),
+                    new Description("Yong Tau Foo"),
+                    new TransactionMethod("Cash"),
+                    getCategorySet("Food", "School"),
+                    new Place("Frontier")),
+            new SpendLogEntry(new Amount("50"),
+                    new TransactionDate("13-10-2019"),
+                    new Description("Dian Xiao Er"),
+                    new TransactionMethod("Cash"),
+                    getCategorySet("Mother", "Birthday"),
+                    new Place("J8"))
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        FinanceLog sampleAb = new FinanceLog();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+    public static ReadOnlyFinanceLog getSampleFinanceLog() {
+        FinanceLog sampleFl = new FinanceLog();
+        for (LogEntry sampleLogEntry : getSampleLogEntries()) {
+            sampleFl.addLogEntry(sampleLogEntry);
         }
-        return sampleAb;
+        return sampleFl;
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a set of categories containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(String... strings) {
+    public static Set<Category> getCategorySet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(Category::new)
                 .collect(Collectors.toSet());
     }
 

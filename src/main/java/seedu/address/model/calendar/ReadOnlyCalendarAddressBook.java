@@ -1,7 +1,7 @@
 package seedu.address.model.calendar;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.task.Task;
 
 /**
  * Unmodifiable view of an address book

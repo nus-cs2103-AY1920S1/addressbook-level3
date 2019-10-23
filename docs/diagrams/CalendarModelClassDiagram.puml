@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyAddressBook <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class AddressBook
+Class ReadOnlyAddressBook
+Class Model
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+
+Package Task {
+Class Task
+Class TaskPlace
+Class TaskDescription
+Class TaskTitle
+Class TaskDay
+Class TaskDeadline
+Class UniqueTaskList
+}
+
+Package Tag {
+Class Tag
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+AddressBook .up.|> ReadOnlyAddressBook
+
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o--> "1" AddressBook
+ModelManager o-left-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+AddressBook *--> "1" UniqueTaskList
+UniqueTaskList o--> "*" Task
+Task *--> TaskTitle
+Task *--> TaskDay
+Task *--> TaskDescription
+Task *--> TaskPlace
+Task *--> TaskDeadline
+Task *--> "*" Tag
+
+TaskTitle -[hidden]right-> TaskDay
+TaskDay -[hidden]right-> TaskPlace
+TaskPlace -[hidden]right-> TaskDescription
+TaskDescription -[hidden]right-> TaskDeadline
+
+ModelManager -->"1" Task : filtered list
+@enduml

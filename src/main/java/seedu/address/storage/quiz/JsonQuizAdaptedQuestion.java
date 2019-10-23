@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.quiz.person.Answer;
 import seedu.address.model.quiz.person.Category;
+import seedu.address.model.quiz.person.Comment;
 import seedu.address.model.quiz.person.Name;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.model.quiz.person.Type;
@@ -25,6 +26,7 @@ class JsonQuizAdaptedQuestion {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Question's %s field is missing!";
 
     private final String name;
+    private final String comment;
     private final String answer;
     private final String category;
     private final String type;
@@ -34,10 +36,11 @@ class JsonQuizAdaptedQuestion {
      * Constructs a {@code JsonAdaptedQuestion} with the given question details.
      */
     @JsonCreator
-    public JsonQuizAdaptedQuestion(@JsonProperty("name") String name, @JsonProperty("answer") String answer,
-            @JsonProperty("category") String category, @JsonProperty("type") String type,
-            @JsonProperty("tagged") List<JsonQuizAdaptedTag> tagged) {
+    public JsonQuizAdaptedQuestion(@JsonProperty("name") String name, @JsonProperty("comment") String comment,
+            @JsonProperty("answer") String answer, @JsonProperty("category") String category,
+            @JsonProperty("type") String type, @JsonProperty("tagged") List<JsonQuizAdaptedTag> tagged) {
         this.name = name;
+        this.comment = comment;
         this.answer = answer;
         this.category = category;
         this.type = type;
@@ -51,6 +54,13 @@ class JsonQuizAdaptedQuestion {
      */
     public JsonQuizAdaptedQuestion(Question source) {
         name = source.getName().fullName;
+
+        if (source.getComment() == null) {
+            comment = null;
+        } else {
+            comment = source.getComment().value;
+        }
+
         answer = source.getAnswer().value;
         category = source.getCategory().value;
         type = source.getType().value;
@@ -78,6 +88,16 @@ class JsonQuizAdaptedQuestion {
         }
         final Name modelName = new Name(name);
 
+        Comment modelComment = null;
+
+        if (comment != null) {
+            if (!Comment.isValidComment(comment)) {
+                throw new IllegalValueException(Comment.MESSAGE_CONSTRAINTS);
+            }
+
+            modelComment = new Comment(comment);
+        }
+
         if (answer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Answer.class.getSimpleName()));
         }
@@ -104,7 +124,7 @@ class JsonQuizAdaptedQuestion {
         final Type modelType = new Type(type);
 
         final Set<Tag> modelTags = new HashSet<>(questionTags);
-        return new Question(modelName, modelAnswer, modelCategory, modelType, modelTags);
+        return new Question(modelName, modelComment, modelAnswer, modelCategory, modelType, modelTags);
     }
 
 }

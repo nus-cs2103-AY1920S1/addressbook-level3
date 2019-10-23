@@ -8,38 +8,47 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.finance.person.Person;
+import seedu.address.model.finance.logentry.LogEntry;
+import seedu.address.model.finance.logentry.SpendLogEntry;
 
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of log entries.
  */
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<LogEntry> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<LogEntry> logEntryList) {
         super(FXML);
-        personListView.setItems(personList);
+        personListView.setItems(logEntryList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<LogEntry> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(LogEntry logEntry, boolean empty) {
+            super.updateItem(logEntry, empty);
 
-            if (empty || person == null) {
+            if (empty || logEntry == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                String logEntryType = logEntry.getLogEntryType();
+                switch (logEntryType) {
+                case SpendLogEntry.LOG_ENTRY_TYPE:
+                    SpendLogEntry currLogEntry = (SpendLogEntry) logEntry;
+                    setGraphic(new SpendLogEntryCard(currLogEntry, getIndex() + 1).getRoot());
+                    break;
+                default:
+                    setGraphic(new LogEntryCard(logEntry, getIndex() + 1).getRoot());
+                }
             }
         }
     }

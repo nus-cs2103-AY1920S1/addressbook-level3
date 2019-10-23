@@ -11,31 +11,31 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.finance.person.Person;
+import seedu.address.model.finance.logentry.LogEntry;
 
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the finance log data.
  */
 public class ModelFinanceManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelFinanceManager.class);
 
-    private final FinanceLog addressBook;
+    private final FinanceLog financeLog;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<LogEntry> filteredLogEntries;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given financeLog and userPrefs.
      */
-    public ModelFinanceManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelFinanceManager(ReadOnlyFinanceLog financeLog, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(financeLog, userPrefs);
 
-        logger.fine("Initializing with finance log: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with finance log: " + financeLog + " and user prefs " + userPrefs);
 
-        this.addressBook = new FinanceLog(addressBook);
+        this.financeLog = new FinanceLog(financeLog);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredLogEntries = new FilteredList<>(this.financeLog.getLogEntryList());
     }
 
     public ModelFinanceManager() {
@@ -67,67 +67,67 @@ public class ModelFinanceManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getFinanceLogFilePath() {
         return userPrefs.getFinanceLogFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setFinanceLogFilePath(Path financeLogFilePath) {
+        requireNonNull(financeLogFilePath);
+        userPrefs.setFinanceLogFilePath(financeLogFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== FinanceLog ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setFinanceLog(ReadOnlyFinanceLog financeLog) {
+        this.financeLog.resetData(financeLog);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyFinanceLog getFinanceLog() {
+        return financeLog;
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public boolean hasLogEntry(LogEntry logEntry) {
+        requireNonNull(logEntry);
+        return financeLog.hasLogEntry(logEntry);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void deleteLogEntry(LogEntry target) {
+        financeLog.removeLogEntry(target);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public void addLogEntry(LogEntry logEntry) {
+        financeLog.addLogEntry(logEntry);
+        updateFilteredLogEntryList(PREDICATE_SHOW_ALL_LOG_ENTRIES);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void setLogEntry(LogEntry target, LogEntry editedLogEntry) {
+        requireAllNonNull(target, editedLogEntry);
+
+        financeLog.setLogEntry(target, editedLogEntry);
+    }
+
+    //=========== Filtered List of Finance Log Entries Accessors ===========
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code LogEntry} backed by the internal list of
+     * {@code versionedFinanceLog}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<LogEntry> getFilteredLogEntryList() {
+        return filteredLogEntries;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredLogEntryList(Predicate<LogEntry> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredLogEntries.setPredicate(predicate);
     }
 
     @Override
@@ -144,9 +144,9 @@ public class ModelFinanceManager implements Model {
 
         // state check
         ModelFinanceManager other = (ModelFinanceManager) obj;
-        return addressBook.equals(other.addressBook)
+        return financeLog.equals(other.financeLog)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredLogEntries.equals(other.filteredLogEntries);
     }
 
 }

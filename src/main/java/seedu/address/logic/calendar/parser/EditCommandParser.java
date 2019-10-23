@@ -2,8 +2,8 @@ package seedu.address.logic.calendar.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDAY;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
@@ -32,8 +32,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TASKTITLE, PREFIX_TASKTIME, PREFIX_TASKDESCRIPTION,
-                        PREFIX_TASKPLACE, PREFIX_TASKTAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TASKTITLE, PREFIX_TASKDAY, PREFIX_TASKDESCRIPTION,
+                    PREFIX_TASKTIME, PREFIX_TASKTAG);
 
         Index index;
 
@@ -45,17 +45,17 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_TASKTITLE).isPresent()) {
-            editPersonDescriptor.setTaskTitle(ParserUtil.parseName(argMultimap.getValue(PREFIX_TASKTITLE).get()));
+            editPersonDescriptor.setTaskTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TASKTITLE).get()));
         }
-        if (argMultimap.getValue(PREFIX_TASKTIME).isPresent()) {
-            editPersonDescriptor.setTaskTime(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_TASKTIME).get()));
+        if (argMultimap.getValue(PREFIX_TASKDAY).isPresent()) {
+            editPersonDescriptor.setTaskDay(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKDAY).get()));
         }
         if (argMultimap.getValue(PREFIX_TASKDESCRIPTION).isPresent()) {
-            editPersonDescriptor.setTaskDescription(ParserUtil.parseEmail(argMultimap
+            editPersonDescriptor.setTaskDescription(ParserUtil.parseDescription(argMultimap
                     .getValue(PREFIX_TASKDESCRIPTION).get()));
         }
-        if (argMultimap.getValue(PREFIX_TASKPLACE).isPresent()) {
-            editPersonDescriptor.setTaskPlace(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_TASKPLACE).get()));
+        if (argMultimap.getValue(PREFIX_TASKTIME).isPresent()) {
+            editPersonDescriptor.setTaskTime(ParserUtil.parsePlace(argMultimap.getValue(PREFIX_TASKTIME).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TASKTAG)).ifPresent(editPersonDescriptor::setTaskTags);
 

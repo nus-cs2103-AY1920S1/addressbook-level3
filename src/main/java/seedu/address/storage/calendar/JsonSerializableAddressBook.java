@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.calendar.CalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
-import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.task.Task;
 
 /**
  * An Immutable CalendarAddressBook that is serializable to JSON format.
@@ -21,13 +21,13 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate task(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedTask> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedTask> persons) {
         this.persons.addAll(persons);
     }
 
@@ -38,7 +38,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyCalendarAddressBook source) {
         persons.addAll(source.getPersonList()
-                .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+                .stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**
@@ -48,8 +48,8 @@ class JsonSerializableAddressBook {
      */
     public CalendarAddressBook toModelType() throws IllegalValueException {
         CalendarAddressBook calendarAddressBook = new CalendarAddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Task task = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedTask jsonAdaptedTask : persons) {
+            Task task = jsonAdaptedTask.toModelType();
             if (calendarAddressBook.hasPerson(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
