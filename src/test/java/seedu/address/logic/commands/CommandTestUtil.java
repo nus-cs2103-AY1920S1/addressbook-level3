@@ -16,6 +16,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ProjectDashboard;
+import seedu.address.model.inventory.InvName;
+import seedu.address.model.inventory.Price;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
@@ -54,6 +56,11 @@ public class CommandTestUtil {
     public static final String TAG_DESC_URGENCY = " " + PREFIX_TASK_TAG + VALID_TAG_URGENCY;
     public static final String TAG_DESC_FINANCE = " " + PREFIX_TASK_TAG + VALID_TAG_FINANCE;
 
+    public static final String VALID_INVENTORY_NAME_SPORTS = "Sports equipments";
+    public static final String VALID_INVENTORY_NAME_MUSIC = "Drums";
+    public static final double VALID_INVENTORY_PRICE_SPORTS = 79.50;
+    public static final double VALID_INVENTORY_PRICE_MUSIC = 999;
+
     public static final String INVALID_TASK_NAME_DESC = " " + PREFIX_TASK_NAME
             + "Project Review&"; // '&' not allowed in names
     public static final String INVALID_TASK_STATUS_DESC = " " + PREFIX_TASK_STATUS
@@ -66,6 +73,7 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditTaskDescriptor TASK_DESC_FINANCE;
     public static final EditCommand.EditTaskDescriptor TASK_DESC_PUBLICITY;
+    public static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_TOY;
 
     static {
         TASK_DESC_FINANCE = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE)
@@ -74,6 +82,12 @@ public class CommandTestUtil {
         TASK_DESC_PUBLICITY = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_PUBLICITY)
                 .withStatus(TaskStatus.DOING)
                 .withTags(VALID_TAG_PUBLICITY).build();
+
+        INVENTORY_DESC_TOY = new EditInventoryCommand.EditInventoryDescriptor();
+        INVENTORY_DESC_TOY.setName(new InvName("toy"));
+        INVENTORY_DESC_TOY.setPrice(new Price(1));
+        INVENTORY_DESC_TOY.setTaskId(new Index(1));
+        INVENTORY_DESC_TOY.setMemId(new MemberId("rak"));
     }
 
     /**

@@ -14,8 +14,9 @@ import seedu.address.commons.core.LogsCenter;
 
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
-import seedu.address.model.task.Task;
+import seedu.address.model.member.MemberId;
 import seedu.address.model.mapping.Mapping;
+import seedu.address.model.task.Task;
 
 //import seedu.address.model.task.NameContainsKeywordsPredicate;
 
@@ -31,6 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasksNotStarted;
     private final FilteredList<Task> filteredTasksDoing;
     private final FilteredList<Task> filteredTasksDone;
+    private final FilteredList<Task> filteredTasksByDeadline;
     private final FilteredList<Member> filteredMembers;
     private final FilteredList<Mapping> filteredMappings;
     private final FilteredList<Inventory> filteredInventories;
@@ -52,6 +54,7 @@ public class ModelManager implements Model {
         filteredTasksNotStarted = new FilteredList<>(this.projectDashboard.getTasksNotStarted());
         filteredTasksDoing = new FilteredList<>(this.projectDashboard.getTasksDoing());
         filteredTasksDone = new FilteredList<>(this.projectDashboard.getTasksDone());
+        filteredTasksByDeadline = new FilteredList<>(this.projectDashboard.getTasksByDeadline());
         filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
         filteredInventories = new FilteredList<>(this.projectDashboard.getInventoryList());
         filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
@@ -136,6 +139,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Task> getFilteredTaskListNotStarted() {
+        projectDashboard.splitTasksBasedOnStatus();
         return filteredTasksNotStarted;
     }
 
@@ -147,6 +151,13 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Task> getFilteredTaskListDone() {
         return filteredTasksDone;
+    }
+
+
+    @Override
+    public ObservableList<Task> getFilteredTaskListByDeadline() {
+        projectDashboard.splitTasksByDeadline();
+        return filteredTasksByDeadline;
     }
 
     /**
@@ -177,7 +188,7 @@ public class ModelManager implements Model {
     @Override
     public void addInventory(Inventory inventory) {
         projectDashboard.addInventory(inventory);
-        updateFilteredTasksList(PREDICATE_SHOW_ALL_INVENTORIES);
+        updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
     }
 
     @Override
@@ -189,6 +200,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteInventory(Inventory target) {
         projectDashboard.removeInventory(target);
+    }
+
+    @Override
+    public void setInventory(Inventory target, Inventory editedInventory) {
+        requireAllNonNull(target, editedInventory);
+
+        projectDashboard.setInventory(target, editedInventory);
     }
 
     @Override
@@ -231,6 +249,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasMemberId(MemberId memId) {
+        requireNonNull(memId);
+        return projectDashboard.hasMemId(memId);
+    }
+
+    @Override
     public void deleteMember(Member target) {
         projectDashboard.removeMember(target);
     }
@@ -246,6 +270,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedMember);
 
         projectDashboard.setMember(target, editedMember);
+    }
+
+    @Override
+    public int getMembersLength() {
+        return filteredMembers.size();
     }
 
     //=========== Filtered Member List Accessors =============================================================
@@ -282,6 +311,9 @@ public class ModelManager implements Model {
         return projectDashboard.hasMapping(mapping);
     }
 
+    /**
+     * replace existing mapping with new Member
+     */
     public void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember) {
         for (int i = 0; i < filteredMappings.size(); i++) {
             if (filteredMappings.get(i).getMember().equals(oldMember)) {
@@ -292,6 +324,9 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * replaces existing mappings with new tasks
+     */
     public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
         for (int i = 0; i < filteredMappings.size(); i++) {
             if (filteredMappings.get(i).getTask().equals(oldTask)) {

@@ -6,13 +6,17 @@ import java.util.List;
 import java.util.HashMap;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.UniqueMappingManager;
 import seedu.address.model.member.UniqueMemberList;
 
-import seedu.address.model.mapping.Mapping;
-import seedu.address.model.mapping.UniqueMappingList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.UniqueTaskList;
@@ -27,9 +31,10 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     private final UniqueTaskList tasksNotStarted;
     private final UniqueTaskList tasksDoing;
     private final UniqueTaskList tasksDone;
+    private final UniqueTaskList tasksByDeadline;
     private final UniqueMemberList members;
     private final UniqueInventoryList inventories;
-    private final UniqueMappingList mappings;
+    private final UniqueMappingManager mappings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -43,9 +48,10 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         tasksNotStarted = new UniqueTaskList();
         tasksDoing = new UniqueTaskList();
         tasksDone = new UniqueTaskList();
+        tasksByDeadline = new UniqueTaskList();
         members = new UniqueMemberList();
         inventories = new UniqueInventoryList();
-        mappings = new UniqueMappingList();
+        mappings = new UniqueMappingManager();
     }
 
     public ProjectDashboard() {}
@@ -67,16 +73,19 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public void setTasks(List<Task> tasks) {
         this.tasks.setTasks(tasks);
         splitTasksBasedOnStatus(); // initial loading
+        splitTasksByDeadline();
     }
 
     public void setMembers(List<Member> members) {
         this.members.setMembers(members);
     }
 
-    public void setMappings(List<Mapping> mappings) {
-        for (Mapping mapping : mappings) {
-            this.mappings.add(mapping);
-        }
+    public void setMappings(List<InvMemMapping> invMemMappings,
+                            List<InvTasMapping> invTasMappings,
+                            List<TasMemMapping> tasMemMappings) {
+        this.mappings.setMappings(invMemMappings);
+        this.mappings.setMappings(invTasMappings);
+        this.mappings.setMappings(tasMemMappings);
     }
 
     /**
@@ -96,7 +105,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         setTasks(newData.getTaskList());
         setInventories(newData.getInventoryList());
         setMembers(newData.getMemberList());
-        setMappings(newData.getMappingList());
+        setMappings(newData.getInvMemMappingList(), newData.getInvTasMappingList(), newData.getTasMemMappingList());
     }
 
     //// task-level operations
@@ -115,7 +124,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     public void addTask(Task p) {
         tasks.add(p);
-        splitTasksBasedOnStatus();
     }
 
     /**
@@ -127,7 +135,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         requireNonNull(editedTask);
 
         tasks.setTask(target, editedTask);
-        splitTasksBasedOnStatus();
     }
 
     /**
@@ -136,7 +143,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     public void removeTask(Task key) {
         tasks.remove(key);
-        splitTasksBasedOnStatus();
     }
 
     //// inventory-level operations
@@ -164,16 +170,27 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         inventories.remove(target);
     }
 
+    //// util methods TODO add them to the another util class, this breaks SRP
+    /**
+     * Replaces the given inventory {@code target} in the list with {@code editedInventory}.
+     * {@code target} must exist in the project dashboard.
+     * The inventory identity of {@code editedInventory} must not be the same as another existing inventory in the project dashboard.
+     */
+    public void setInventory(Inventory target, Inventory editedInventory) {
+        requireNonNull(editedInventory);
+
+        inventories.setInventory(target, editedInventory);
+    }
+
     //// util methods
 
     // TODO make this algo more efficient, code may break if lists are overloaded
 
     /**
      * Utility method to split the main task list into three separate lists based on progress status.
-     * Called by methods in this class which manipulate the main task list.
+     * Called by the getter methods in {@code ModelManager}
      */
-    private void splitTasksBasedOnStatus() {
-
+    public void splitTasksBasedOnStatus() {
         // prevent duplicates
         tasksNotStarted.clearAll();
         tasksDoing.clearAll();
@@ -202,15 +219,72 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         }
     }
 
-    public void addMapping(Mapping mapping) {
+    // TODO let user choose when to get reminders
+    /**
+     * Utility method to split tasks by their deadline, for Ui purposes.
+     * Called by getter methods in {@code ModelManager}
+     */
+    public void splitTasksByDeadline() {
+        tasksByDeadline.clearAll();
+        for (Task task: tasks) {
+            if (task.hasDeadline()) {
+                TaskStatus taskStatus = task.getTaskStatus();
+                if (taskStatus == TaskStatus.UNBEGUN || taskStatus == TaskStatus.DOING) {
+                    if (DateTimeUtil.checkIfDueSoon(2, task.getDeadline())) {
+                        tasksByDeadline.add(task);
+                    }
+                }
+            }
+        }
+    }
+
+    /// Mapping util
+
+    public void addMapping(InvMemMapping mapping) {
         mappings.add(mapping);
     }
 
-    public void removeMapping(Mapping mapping) {
+    public void addMapping(InvTasMapping mapping) {
+        mappings.add(mapping);
+    }
+
+    public void addMapping(TasMemMapping mapping) {
+        mappings.add(mapping);
+    }
+
+    public void removeMapping(InvMemMapping mapping) {
         mappings.remove(mapping);
     }
 
-    public boolean hasMapping(Mapping mapping) {
+    public void removeMapping(InvTasMapping mapping) {
+        mappings.remove(mapping);
+    }
+
+    public void removeMapping(TasMemMapping mapping) {
+        mappings.remove(mapping);
+    }
+
+
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
+    public boolean hasMapping(InvMemMapping mapping) {
+        requireNonNull(mapping);
+        return mappings.contains(mapping);
+    }
+
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
+    public boolean hasMapping(InvTasMapping mapping) {
+        requireNonNull(mapping);
+        return mappings.contains(mapping);
+    }
+
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
+    public boolean hasMapping(TasMemMapping mapping) {
         requireNonNull(mapping);
         return mappings.contains(mapping);
     }
@@ -221,10 +295,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         // TODO: refine later
     }
 
-    @Override
-    public ObservableList<Task> getTaskList() {
-        return tasks.asUnmodifiableObservableList();
-    }
+
 
     @Override
     public ObservableList<Inventory> getInventoryList() {
@@ -232,8 +303,28 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }
 
     @Override
+    public ObservableList<InvMemMapping> getInvMemMappingList() {
+        return mappings.getUnmodifiableObservableInvMemList();
+    }
+
+    @Override
+    public ObservableList<InvTasMapping> getInvTasMappingList() {
+        return mappings.getUnmodifiableObservableInvTasList();
+    }
+
+    @Override
+    public ObservableList<TasMemMapping> getTasMemMappingList() {
+        return mappings.getUnmodifiableObservableTasMemList();
+    }
+
+    @Override
     public ObservableList<Mapping> getMappingList() {
-        return mappings.asUnmodifiableObservableList();
+        return mappings.getUnmodifiableObserableList();
+    }
+
+    @Override
+    public ObservableList<Task> getTaskList() {
+        return tasks.asUnmodifiableObservableList();
     }
 
     @Override
@@ -249,6 +340,11 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     @Override
     public ObservableList<Task> getTasksDone() {
         return tasksDone.asUnmodifiableObservableList();
+    }
+
+
+    public ObservableList<Task> getTasksByDeadline() {
+        return tasksByDeadline.asUnmodifiableObservableList();
     }
 
     @Override
@@ -273,6 +369,14 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public boolean hasMember(Member member) {
         requireNonNull(member);
         return members.contains(member);
+    }
+
+    /**
+     * Returns true if a member with the same identity as {@code memberId} exists in the dashboard.
+     */
+    public boolean hasMemId(MemberId memId) {
+        requireNonNull(memId);
+        return members.containsId(memId);
     }
 
     /**

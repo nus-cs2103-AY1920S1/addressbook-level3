@@ -1,5 +1,6 @@
 package seedu.address.model.member;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -29,7 +30,9 @@ public class MemberId {
     /**
      * Default MemberId constructor for Json support
      */
-    public MemberId() {}
+    public MemberId() {
+        displayId = null;
+    }
 
     /**
      * Returns true if a given string is a valid name.
