@@ -40,7 +40,7 @@ public class WishListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new WishListCard(entry, getIndex() + 1).getRoot());
+                setGraphic(new EntryCard(entry, getIndex() + 1).getRoot());
             }
         }
     }

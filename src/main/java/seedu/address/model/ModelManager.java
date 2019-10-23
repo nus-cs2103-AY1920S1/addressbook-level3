@@ -32,7 +32,6 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final SortType sortByTime = new SortType("time");
     private final SortSequence sortByAsc = new SortSequence("descending");
-    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Entry> filteredEntries;
     private final FilteredList<Expense> filteredExpenses;

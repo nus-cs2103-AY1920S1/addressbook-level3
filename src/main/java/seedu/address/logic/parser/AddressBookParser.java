@@ -6,33 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddExpenseReminderCommand;
-import seedu.address.logic.commands.BudgetListCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteBudgetCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteExpenseReminderCommand;
-import seedu.address.logic.commands.DeleteWishCommand;
-import seedu.address.logic.commands.EditBudgetCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditExpenseCommand;
-import seedu.address.logic.commands.EditExpenseReminderCommand;
-import seedu.address.logic.commands.EditIncomeCommand;
-import seedu.address.logic.commands.EditWishCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindBudgetCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindWishCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.commands.TogglePanelCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.WishListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

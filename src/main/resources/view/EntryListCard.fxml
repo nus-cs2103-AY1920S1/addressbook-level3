@@ -7,10 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<<<<<<< HEAD
 <?import javafx.scene.layout.RowConstraints?>
-=======
->>>>>>> c02ab6600907c091df79d84666367c8c13d126ef
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -32,17 +29,7 @@
         <Label fx:id="amt" styleClass="cell_big_label" text="\$amt" />
 
       </HBox>
-<<<<<<< HEAD
-      <FlowPane fx:id="tags" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-      <Label fx:id="time" styleClass="cell_small_label" text="\$time" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
-=======
       <FlowPane GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="tags" />
       <Label GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="date" styleClass="cell_small_label" text="\$date" />
->>>>>>> c02ab6600907c091df79d84666367c8c13d126ef
-
   </GridPane>
 </HBox>
