@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +12,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
+import seedu.address.model.lesson.ClassName;
+import seedu.address.model.lesson.Time;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
@@ -63,8 +67,8 @@ public class ParserUtil {
     public static AssignmentName parseAssignmentName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!AssignmentName.isValidAssignmentName(trimmedName)) {
+            throw new ParseException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         return new AssignmentName(trimmedName);
     }
@@ -74,16 +78,21 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      * String grades will be split by whitespace, converted to Integer and stored in List.
      *
+     * @return output The grades string to be used in updating assignment.
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static List<Integer> parseAssignmentGrades(String grades) throws ParseException {
+    public static List<String> parseAssignmentGrades(String grades) throws ParseException {
         requireNonNull(grades);
-        List<Integer> output = new ArrayList<>();
+
+        List<String> output = new ArrayList<>();
+
         String trimmedGrades = grades.trim();
         String[] individualGrades = trimmedGrades.split(" ");
+        if (!AssignmentGrades.isValidGrade(individualGrades)) {
+            throw new ParseException(AssignmentGrades.MESSAGE_CONSTRAINTS);
+        }
         for (String grade: individualGrades) {
-            Integer integerGrade = Integer.parseInt(grade);
-            output.add(integerGrade);
+            output.add(grade);
         }
         return output;
     }
@@ -188,5 +197,40 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String className} into a {@code ClassName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code className} is invalid.
+     */
+    public static ClassName parseClassName(String className) throws ParseException {
+        requireNonNull(className);
+        String trimmedClassName = className.trim();
+        if (!ClassName.isValidClassName(trimmedClassName)) {
+            throw new ParseException(ClassName.MESSAGE_CONSTRAINTS);
+        }
+        return new ClassName(trimmedClassName);
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code Time}.
+     * @param time String representing time.
+     * @return Time object.
+     */
+    public static Time parseTime(String time) {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        String[] dateAndTime = trimmedTime.split(" ");
+        String[] date = dateAndTime[0].split("/");
+        int day = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]) - 1;
+        int year = Integer.parseInt(date[2]);
+        int hour = Integer.parseInt(dateAndTime[1].substring(0, 2));
+        int min = Integer.parseInt(dateAndTime[1].substring(2));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day, hour, min);
+        return new Time(calendar);
     }
 }

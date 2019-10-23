@@ -7,6 +7,10 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
+import seedu.address.model.scheduler.Reminder;
+import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
@@ -14,10 +18,14 @@ import seedu.address.model.student.UniqueStudentList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameStudent comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class Classroom implements ReadOnlyClassroom {
 
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
+    private boolean isDisplayStudents = true;
+    private final UniqueLessonList lessons;
+    private final UniqueReminderList reminders;
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -28,14 +36,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         students = new UniqueStudentList();
         assignments = new UniqueAssignmentList();
+        lessons = new UniqueLessonList();
+        reminders = new UniqueReminderList();
     }
 
-    public AddressBook() {}
+    public Classroom() {}
 
     /**
-     * Creates an AddressBook using the Students in the {@code toBeCopied}
+     * Creates an Classroom using the Students in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public Classroom(ReadOnlyClassroom toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -55,9 +65,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Classroom} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyClassroom newData) {
         requireNonNull(newData);
         setStudents(newData.getStudentList());
         setAssignments(newData.getAssignmentList());
@@ -122,7 +132,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code Classroom}.
      * {@code key} must exist in the address book.
      */
     public void removeStudent(Student key) {
@@ -130,11 +140,39 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code Classroom}.
      * {@code key} must exist in the address book.
      */
     public void removeAssignment(Assignment key) {
         assignments.remove(key);
+    }
+
+    public boolean isDisplayStudents() {
+        return this.isDisplayStudents;
+    }
+
+    public void displayStudents() {
+        this.isDisplayStudents = true;
+    }
+
+    public void displayAssignments() {
+        this.isDisplayStudents = false;
+    }
+
+    /**
+     * Adds a lessons to the address book.
+     * The lesson must not already exist in the address book.
+     */
+    public void addLesson(Lesson p) {
+        lessons.add(p);
+    }
+
+    /**
+     * Returns true if a lesson with the same identity as {@code lesson} exists in the address book.
+     */
+    public boolean hasLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        return lessons.contains(lesson);
     }
 
     //// util methods
@@ -151,6 +189,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Reminder> getReminderList() {
+        return reminders.asUnmodifiableObservableList();
+    }
+
     public ObservableList<Assignment> getAssignmentList() {
         return assignments.asUnmodifiableObservableList();
     }
@@ -158,8 +200,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && students.equals(((AddressBook) other).students));
+                || (other instanceof Classroom // instanceof handles nulls
+                && students.equals(((Classroom) other).students));
     }
 
     @Override

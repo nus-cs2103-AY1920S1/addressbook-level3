@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -15,6 +17,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+    Predicate<Student> PREDICATE_SHOW_NO_STUDENTS = used -> false;
+    Predicate<Assignment> PREDICATE_SHOW_NO_ASSIGNMENTS = used -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -39,20 +43,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getClassroomFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setClassroomFilePath(Path classroomFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code classroom}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setClassroom(ReadOnlyClassroom classroom);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Classroom */
+    ReadOnlyClassroom getClassroom();
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the address book.
@@ -81,11 +85,52 @@ public interface Model {
     void setAssignment(Assignment target, Assignment editedAssignment);
     /** Returns an unmodifiable view of the filtered student list */
     ObservableList<Student> getFilteredStudentList();
+
+    /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
+
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStudentList(Predicate<Student> predicate);
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    /**
+     * Returns the boolean Classroom.isDisplayStudents to determine if students should be displayed.
+     */
+    boolean isDisplayStudents();
+
+    /**
+     * Sets the boolean Classroom.isDisplayStudents to true, to display student list.
+     */
+    void displayStudents();
+
+    /**
+     * Sets the boolean Classroom.isDisplayStudents to false, to display assignment list.
+     */
+    void displayAssignments();
+
+    /**
+     * Adds the given lesson.
+     * @param lesson Lesson object.
+     */
+    void addLesson(Lesson lesson);
+
+    /**
+     * Returns true if a Lesson with the same identity exists in the addressbook.
+     * @param lesson Lesson object.
+     */
+    boolean hasLesson(Lesson lesson);
+
+    /**
+     * returns an unmodifiable view of the filtered
+     * @return Ob
+     */
+    ObservableList<Reminder> getFilteredReminderList();
 }

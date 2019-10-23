@@ -19,7 +19,7 @@ public class AddAssignmentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns an assignment \n"
                                                    + "Parameters: "
                                                    + PREFIX_ASSIGNMENT + "ASSIGNMENTNAME "
-                                                   + "Example: " + COMMAND_WORD
+                                                   + "Example: " + COMMAND_WORD + " "
                                                    + PREFIX_ASSIGNMENT + "Math Test ";
     public static final String MESSAGE_SUCCESS = "New assignment added: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the address book";
