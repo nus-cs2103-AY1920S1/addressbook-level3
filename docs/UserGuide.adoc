@@ -192,7 +192,7 @@ Examples:
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-=== Viewing budget
+=== Viewing budget : `budget`
 
 Calculates the projected budget based on all income and approved claim values. +
 Also displays a graph detailing total income, claim and budget values for every day of the current month. +
