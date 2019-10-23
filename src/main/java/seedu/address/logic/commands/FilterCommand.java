@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.model.Model;
 import seedu.address.model.entity.body.BodyContainsAttributesKeywordsPredicate;
 import seedu.address.model.entity.worker.WorkerContainsAttributesKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
 
 //@@author dalisc
 /**

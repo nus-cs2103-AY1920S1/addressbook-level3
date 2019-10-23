@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
-import seedu.address.logic.parser.Prefix;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;

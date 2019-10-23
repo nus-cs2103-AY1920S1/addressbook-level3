@@ -1,11 +1,5 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FilterCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY_DETAILS;
@@ -30,6 +24,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.FilterCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author dalisc
 /**
@@ -61,19 +60,19 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         boolean areAnyPrefixesPresent;
 
         switch (flag) {
-            case "w":
-                areAnyPrefixesPresent = areAnyPrefixesPresent(argMultimap, PREFIX_NAME,
-                        PREFIX_PHONE_NUMBER, PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION,
-                        PREFIX_EMPLOYMENT_STATUS);
-                break;
-            case "b":
-                areAnyPrefixesPresent = areAnyPrefixesPresent(argMultimap, PREFIX_NAME,
-                        PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_NRIC,
-                        PREFIX_CAUSE_OF_DEATH, PREFIX_RELATIONSHIP, PREFIX_RELIGION, PREFIX_NAME_NOK,
-                        PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION, PREFIX_FRIDGE_ID);
-                break;
-            default:
-                areAnyPrefixesPresent = false;
+        case "w":
+            areAnyPrefixesPresent = areAnyPrefixesPresent(argMultimap, PREFIX_NAME,
+                    PREFIX_PHONE_NUMBER, PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION,
+                    PREFIX_EMPLOYMENT_STATUS);
+            break;
+        case "b":
+            areAnyPrefixesPresent = areAnyPrefixesPresent(argMultimap, PREFIX_NAME,
+                    PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_NRIC,
+                    PREFIX_CAUSE_OF_DEATH, PREFIX_RELATIONSHIP, PREFIX_RELIGION, PREFIX_NAME_NOK,
+                    PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION, PREFIX_FRIDGE_ID);
+            break;
+        default:
+            areAnyPrefixesPresent = false;
         }
 
         if (!areAnyPrefixesPresent || !argMultimap.getPreamble().isEmpty()) {

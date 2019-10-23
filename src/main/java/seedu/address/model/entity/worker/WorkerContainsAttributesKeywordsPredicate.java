@@ -1,27 +1,30 @@
 package seedu.address.model.entity.worker;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.Prefix;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESIGNATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 
-import javax.swing.*;
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.Prefix;
 
+// @@author dalisc
 /**
  * Tests that a {@code Entity}'s {@code Name} matches any of the keywords given.
  */
 public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Worker> {
+    private ArgumentMultimap workerMap = new ArgumentMultimap();
     private final ArgumentMultimap argumentMultimap;
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    ArgumentMultimap workerMap = new ArgumentMultimap();
+    private final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     public WorkerContainsAttributesKeywordsPredicate(ArgumentMultimap argumentMultimap) {
         this.argumentMultimap = argumentMultimap;
@@ -136,8 +139,8 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
         boolean pass = true;
         try {
             for (Map.Entry<Prefix, List<String>> entry : argumentMultimap.getMap().entrySet()) {
-                if (entry.getValue() != null && !entry.getKey().toString().equals("") &&
-                        !entry.getKey().equals(PREFIX_FLAG)) {
+                if (entry.getValue() != null && !entry.getKey().toString().equals("")
+                        && !entry.getKey().equals(PREFIX_FLAG)) {
                     if (!workerMap.getValue(entry.getKey()).get().equalsIgnoreCase(entry.getValue().get(0))) {
                         pass = false;
                         break;
@@ -155,7 +158,8 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WorkerContainsAttributesKeywordsPredicate // instanceof handles nulls
-                && argumentMultimap.equals(((WorkerContainsAttributesKeywordsPredicate) other).argumentMultimap)); // state check
+                && argumentMultimap.equals(((WorkerContainsAttributesKeywordsPredicate) other).argumentMultimap));
+        // state check
     }
 
 }

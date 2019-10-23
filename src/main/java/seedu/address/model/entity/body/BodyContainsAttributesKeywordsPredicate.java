@@ -1,14 +1,27 @@
 package seedu.address.model.entity.body;
 
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.Prefix;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_ADMISSION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_DEATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FRIDGE_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_NOK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static seedu.address.logic.parser.CliSyntax.*;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.Prefix;
 
 //@@author dalisc
 
@@ -16,9 +29,9 @@ import static seedu.address.logic.parser.CliSyntax.*;
  * Tests that a {@code Entity}'s {@code Name} matches any of the keywords given.
  */
 public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> {
+    private ArgumentMultimap bodyMap = new ArgumentMultimap();
+    private final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private final ArgumentMultimap argumentMultimap;
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    ArgumentMultimap bodyMap = new ArgumentMultimap();
 
     public BodyContainsAttributesKeywordsPredicate(ArgumentMultimap argumentMultimap) {
         this.argumentMultimap = argumentMultimap;
@@ -61,7 +74,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
             System.out.println(e);
             System.out.println("Exception found in DOB.");
         }
-     }
+    }
 
     public void addDodToBodyMap(Body body) {
         try {
@@ -215,8 +228,8 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         boolean pass = true;
         try {
             for (Map.Entry<Prefix, List<String>> entry : argumentMultimap.getMap().entrySet()) {
-                if (entry.getValue() != null && !entry.getKey().toString().equals("") &&
-                        !entry.getKey().equals(PREFIX_FLAG)) {
+                if (entry.getValue() != null && !entry.getKey().toString().equals("")
+                        && !entry.getKey().equals(PREFIX_FLAG)) {
                     if (entry.getKey().equals(PREFIX_ORGANS_FOR_DONATION)) {
                         if (!entry.getValue().containsAll(bodyMap.getMap().get(PREFIX_ORGANS_FOR_DONATION))) {
                             pass = false;
@@ -239,7 +252,8 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BodyContainsAttributesKeywordsPredicate // instanceof handles nulls
-                && argumentMultimap.equals(((BodyContainsAttributesKeywordsPredicate) other).argumentMultimap)); // state check
+                && argumentMultimap.equals(((BodyContainsAttributesKeywordsPredicate) other).argumentMultimap));
+        // state check
     }
 
 }
