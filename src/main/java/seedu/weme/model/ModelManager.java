@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
@@ -182,7 +183,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public SimpleObjectProperty<ModelContext> getContext() {
+    public void setContext(ModelContext context) {
+        this.context.setValue(context);
+    }
+
+    @Override
+    public ObservableValue<ModelContext> getContext() {
         return context;
     }
 
