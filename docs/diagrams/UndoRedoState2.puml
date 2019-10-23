@@ -3,18 +3,16 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "add n/David"
+title After command "add u/www.google.com n/Google"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+package MarkStateRecords <<rectangle>> {
+    class State1 as "__sr0:MarkStateRecord__"
+    class State2 as "__sr1:MarkStateRecord__"
+    class State3 as "__sr2:MarkStateRecord__"
 }
-
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
-class Pointer as "Current State" #FFFFF
-
+class Pointer as "Current Pointer" #FFFFF
 Pointer -up-> State3
 @end

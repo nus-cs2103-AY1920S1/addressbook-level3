@@ -9,14 +9,21 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.annotation.ParagraphIdentifier;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * Represents the in-memory model of the Mark data.
@@ -28,6 +35,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
     private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
+    private final ObservableList<Paragraph> annotatedDocument;
 
     /**
      * Initializes a ModelManager with the given mark and userPrefs.
@@ -41,6 +49,17 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
+        annotatedDocument = new SortedList<Paragraph>(
+                //TODO: change this to link to proper offline document
+                FXCollections.observableArrayList(
+                        new OfflineDocument("example doc",
+                                OfflineDocument.OFFLINE_DOC_EXAMPLE).getCollection()), (
+            Paragraph p1, Paragraph p2) -> {
+            ParagraphIdentifier pid1 = p1.getId();
+            ParagraphIdentifier pid2 = p2.getId();
+            return pid1.compareTo(pid2);
+        }
+        );
     }
 
     public ModelManager() {
@@ -163,6 +182,25 @@ public class ModelManager implements Model {
         // for each Bookmark in list, if name = renamed-folder, change name to new-name
     }
 
+    @Override
+    public boolean hasTagger(SelectiveBookmarkTagger tagger) {
+        requireNonNull(tagger);
+
+        return versionedMark.hasTagger(tagger);
+    }
+
+    @Override
+    public void addTagger(SelectiveBookmarkTagger tagger) {
+        requireNonNull(tagger);
+
+        versionedMark.addTagger(tagger);
+    }
+
+    @Override
+    public void applyAllTaggers() {
+        versionedMark.applyAllTaggers();
+    }
+
     //=========== Filtered Bookmark List Accessors =============================================================
 
     /**
@@ -193,18 +231,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoMark() {
-        versionedMark.undo();
+    public String undoMark() {
+        return versionedMark.undo();
     }
 
     @Override
-    public void redoMark() {
-        versionedMark.redo();
+    public String redoMark() {
+        return versionedMark.redo();
     }
 
     @Override
-    public void saveMark() {
-        versionedMark.save();
+    public void saveMark(String record) {
+        versionedMark.save(record);
     }
 
     //=========== Current bookmark ===========================================================================
@@ -222,6 +260,18 @@ public class ModelManager implements Model {
     @Override
     public void setCurrentUrl(Url url) {
         currentUrl.setValue(url);
+    }
+
+    //=========== Current offline ============================================================================
+
+    @Override
+    public ObservableList<Paragraph> getObservableDocument() {
+        return annotatedDocument;
+    }
+
+    @Override
+    public void updateDocument(OfflineDocument doc) {
+        //TODO: replace observable list with the updated paragraphs in doc (can be new bookmark doc too)
     }
 
     @Override
@@ -244,5 +294,55 @@ public class ModelManager implements Model {
                 && (currentUrl.getValue() == null
                     ? other.currentUrl.getValue() == null
                     : currentUrl.getValue().equals(other.currentUrl.getValue()));
+    }
+
+    //=========== Reminder =================================================================================
+
+    /**
+     * Adds a reminder that opens a specific bookmark.
+     *
+     * @param bookmark the bookmark to be opened.
+     * @param reminder the reminder that is added.
+     */
+    public void addReminder(Bookmark bookmark, Reminder reminder) {
+        versionedMark.addReminder(bookmark, reminder);
+    }
+
+    /**
+     * Removes a specific reminder.
+     *
+     * @param reminder the reminder to be removed.
+     */
+    public void removeReminder(Reminder reminder) {
+        versionedMark.removeReminder(reminder);
+    }
+
+    /**
+     * Edits a specific reminder.
+     *
+     * @param targetReminder the reminder to be edited.
+     * @param editedReminder the edited reminder.
+     */
+    public void editReminder(Reminder targetReminder, Reminder editedReminder) {
+        versionedMark.editReminder(targetReminder, editedReminder);
+    }
+
+    /**
+     * Checks if the bookmark already has reminder.
+     *
+     * @param bookmark the bookmark to check.
+     * @return whether the bookmark already has a reminder.
+     */
+    public boolean isBookmarkHasReminder(Bookmark bookmark) {
+        return versionedMark.isBookmarkHasReminder(bookmark);
+    }
+
+    /**
+     * Gets all reminders in ascending time order.
+     *
+     * @return a list of all reminders in ascending time order.
+     */
+    public ObservableList<Reminder> getReminders() {
+        return versionedMark.getReminders();
     }
 }

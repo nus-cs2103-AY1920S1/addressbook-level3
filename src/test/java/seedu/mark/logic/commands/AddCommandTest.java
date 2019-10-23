@@ -111,7 +111,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveMark() {
+        public void applyAllTaggers() {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public void saveMark(String record) {
             // called by {@code AddCommand#execute()}
         }
 

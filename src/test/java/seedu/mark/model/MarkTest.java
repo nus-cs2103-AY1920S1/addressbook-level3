@@ -18,10 +18,12 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.ReminderAssociation;
 import seedu.mark.testutil.BookmarkBuilder;
 
 public class MarkTest {
@@ -90,6 +92,7 @@ public class MarkTest {
      */
     private static class MarkStub implements ReadOnlyMark {
         private final ObservableList<Bookmark> bookmarks = FXCollections.observableArrayList();
+        private final ReminderAssociation association = new ReminderAssociation();
 
         MarkStub(Collection<Bookmark> bookmarks) {
             this.bookmarks.setAll(bookmarks);
@@ -103,6 +106,16 @@ public class MarkTest {
         @Override
         public FolderStructure getFolderStructure() {
             return new FolderStructure(Folder.ROOT_FOLDER, FXCollections.observableArrayList());
+        }
+
+        @Override
+        public ReminderAssociation getReminderAssociation() {
+            return association;
+        }
+
+        @Override
+        public AutotagController getAutotagController() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

@@ -8,7 +8,10 @@ import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
@@ -68,4 +71,20 @@ public interface Logic {
      * @see seedu.mark.model.Model#setCurrentUrl(Url)
      */
     void setCurrentUrl(Url url);
+
+
+    /**
+     * Returns a view of the annotated document.
+     *
+     * @see Model#getObservableDocument()
+     */
+    ObservableList<Paragraph> getObservableDocument();
+
+    /**
+     * Updates the view of document to the document given.
+     * @param doc Document to update view and be shown.
+     *
+     * @see seedu.mark.model.Model#updateDocument(OfflineDocument)
+     */
+    void updateDocument(OfflineDocument doc);
 }

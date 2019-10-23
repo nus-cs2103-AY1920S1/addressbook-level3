@@ -92,26 +92,35 @@ The `UI` component,
 
 [[Design-Logic]]
 === Logic component
+The following class diagram illustrates the structure of the `Logic` component:
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/mark/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+`Logic` uses the `MarkParser` class to parse the user command.
+This results in a `Command` object which is executed by the `LogicManager`.
+The command execution can affect the `Model` (e.g. adding a bookmark) and/or `Storage` (e.g. import bookmarks).
+The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions,
+such as displaying help to the user, switching the tab view, or exiting the application.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+As an example of how the `Logic` component works, the following sequence diagram shows the interactions
+within the `Logic` component for the `execute("delete 1")` API call:
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `Logic` component does the following:
+
+* Parses and executes user commands
+* Modifies `Model` and/or `Storage` according to user commands
+* Instructs `Ui` through `CommandResult` objects
 
 [[Design-Model]]
 === Model component
@@ -135,16 +144,17 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+The following diagram illustrates the structure of the Storage component:
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component does the following:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* Saves `UserPref` objects in json format and reads them back.
+* Saves the Mark data in json format and reads it back.
 
 [[Design-Commons]]
 === Common classes
@@ -156,93 +166,161 @@ Classes used by multiple components are in the `seedu.mark.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedMark`.
+It extends `Mark` with an undo/redo history, stored internally as a list of `markStateRecord` and `currentPointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedMark#save()` -- Saves the current Mark state and the corresponding record to its history.
+* `VersionedMark#undo()` -- Restores the previous Mark state from its history and returns the record.
+* `VersionedMark#redo()` -- Restores a previously undone Mark state from its history and returns the record for that
+state.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#saveMark()`, `Model#undoMark()` and `Model#redoMark()`
+respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedMark` will be initialized with the initial
+Mark state and an empty record, and the `currentPointer` pointing to that single state record.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th bookmark in the Mark. The `delete` command calls
+`Model#saveMark()`, causing the modified state of the Mark and the record of the command after command execution to be
+saved in the `markStateRecords`, and the `currentPointer` is shifted to the newly inserted state record.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add u/www.google.com ...` to add a new bookmark. The `add` command also calls
+`Model#saveMark()`,
+causing another modified Mark state and the record to be saved into the `markStateRecords`, and the `currentPointer` is
+again shifted to the newly inserted state record..
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#saveMark()`, so the Mark state will not be saved into the
+`markStateRecords`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the bookmark was a mistake, and decides to undo that action by executing the
+`undo` command. The `undo` command will call `Model#undoMark()`, which will shift the `currentPointer` once to the left,
+pointing it to the previous state record, and restores the Mark to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentPointer` is at index 0, pointing to the initial Mark state, then there are no previous Mark states to
+restore.
+The `undo` command uses `Model#canUndoMark()` to check if this is the case. If so, it will return an error to the user
+rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoMark()`, which shifts the `currentPointer` once to the right,
+pointing to the previously undone state record, and restores the Mark to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentPointer` is at index `markStateRecords.size() - 1`, pointing to the latest address book state, then there
+are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is
+the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the Mark, such as `find`, will
+usually not call `Model#saveMark()`, `Model#undoMark()` or `Model#redoMark()`. Thus, the `markStateRecords` remains
+unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#saveMark()`. Since the `currentPointer` is not pointing at the end
+of the `markStateRecords`, all state records after the `currentPointer` will be purged.
+We designed it this way because it no longer makes sense to redo the `add u/www.google.com ...` command. This is the
+behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::SaveMarkActivityDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire Mark state.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the bookmark being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Use a list to store the history of Mark state records.
+** Pros: Undo/redo multiple commands can be achieved in O(1) time by just shifting the current pointer.
+** Cons: Clear state records after the current pointer can take O(n) time.
+* **Alternative 2:** Use two stacks, an undo stack and a redo stack to store the history of Mark state records.
+** Pros: Clear state records after the current pointer can be achieved in O(1) time by clearing the redo stack.
+** Cons: Undo/redo multiple commands can take O(n) time as each undo/redo action requires popping a state record from the
+undo stack and pushing it into the redo stack. There is no way to pop multiple state records efficiently at one time.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::folders[]
+=== Folders feature
+==== Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+A bookmark can be in a folder, and a folder can be nested within other folders for traditional directory organization.
 
-// end::dataencryption[]
+This mechanism is facilitated mainly by `Folder` and `FolderStructure`.
+
+`Folder` is simply another field in `Bookmark`, just like `Url` or `Name`, and has a single `String` property that contains the folder in which the bookmark is located.
+
+`FolderStructure` represents the hierarchy of folders, containing the folder it represents and its subfolders
+
+.Class Diagram of the Folders component
+image::FolderStructureClassDiagram.png[]
+
+
+Given below is an example usage scenario and how the folder structure behaves at each step.
+
+Step 1. The user launches the application for the first time. The root `FolderStructure` will be initialized with the initial hierarchy in the stored data.
+
+image::FolderStructureState0.png[]
+
+Step 2. The user enters a `folder GER1000 p/Work` command to create a new `FolderStructure` in the subfolders of `work`. Starting from the `root`, a depth first search will be performed to locate `work`. When found, `ger1000` will be added to its subfolders.
+
+image::FolderStructureState1.png[]
+
+[NOTE]
+If the parent folder is not provided, the parent folder will default to `root`.
+
+The following sequence diagram shows in more detail how the execution of `folder GER1000 p/Work` works:
+
+image::FolderSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Finally, the user sees his folder added successfully in the folder hierarchy.
+
+==== Design Considerations
+
+The following are a few design considerations made in deciding how to implement the folders feature:
+
+===== Aspect: How the folder hierarchy is saved into storage.
+
+* **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
+** Pros: Easy to implement
+** Cons: Easy for model to get into invalid state (e.g. bookmark has a folder that is not in the hierarchy)
+* **Alternative 2:** Change the bookmarks from being stored in a list to being stored as a hierarchy
+** Pros: Single source of truth, its folder is simply where it's located
+** Cons: The whole `BookmarkList` abstraction will have to be rewritten
+// end::folders[]
 
 === Logging
 

@@ -1,6 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
@@ -19,7 +20,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bookmark to Mark. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a bookmark to Mark.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_URL + "URL "
@@ -47,14 +48,15 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
 
         if (model.hasBookmark(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_BOOKMARK);
         }
 
         model.addBookmark(toAdd);
-        model.saveMark();
+        model.applyAllTaggers();
+        model.saveMark(String.format(MESSAGE_SUCCESS, toAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

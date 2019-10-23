@@ -7,10 +7,14 @@ import java.util.function.Predicate;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * The API of the Model component.
@@ -106,6 +110,22 @@ public interface Model {
      */
     void addFolders(FolderStructure foldersToAdd);
 
+    /**
+     * Checks whether Mark contains this {@code tagger}.
+     */
+    boolean hasTagger(SelectiveBookmarkTagger tagger);
+
+    /**
+     * Adds a {@code tagger} to Mark.
+     */
+    void addTagger(SelectiveBookmarkTagger tagger);
+
+    /**
+     * Activates all taggers in Mark to apply tags to Mark's bookmarks based
+     * on their respective conditions.
+     */
+    void applyAllTaggers();
+
     /*
      * Wrapper for current url.
      * null if not present.
@@ -135,16 +155,59 @@ public interface Model {
 
     /**
      * Restores the model's Mark to its previous state.
+     * @return The record
      */
-    void undoMark();
+    String undoMark();
 
     /**
      * Restores the model's Mark to its previously undone state.
+     * @return The record
      */
-    void redoMark();
+    String redoMark();
 
     /**
      * Saves the current Mark state for undo/redo.
+     * @param record The record for the state
      */
-    void saveMark();
+    void saveMark(String record);
+
+    /**
+     * Adds a reminder that opens a specific bookmark.
+     */
+    void addReminder(Bookmark bookmark, Reminder reminder);
+
+    /**
+     * Removes a specific reminder.
+     */
+    void removeReminder(Reminder reminder);
+
+    /**
+     * Edits a specific reminder.
+     */
+    void editReminder(Reminder targetReminder, Reminder editedReminder);
+
+    /**
+     * Checks if the bookmark already has reminder.
+     *
+     * @param bookmark the bookmark to check.
+     * @return whether the bookmark already has a reminder.
+     */
+    boolean isBookmarkHasReminder(Bookmark bookmark);
+
+    /**
+     * Gets all reminders in ascending time order.
+     */
+    ObservableList<Reminder> getReminders();
+
+    /**
+     * Returns a view of the annotated document.
+     */
+    ObservableList<Paragraph> getObservableDocument();
+
+    /**
+     * Updates the view of document to the document given.
+     * @param doc Document to update view and be shown.
+     */
+    void updateDocument(OfflineDocument doc);
+
 }
