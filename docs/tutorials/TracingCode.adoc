@@ -9,6 +9,11 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+[NOTE]
+====
+This document was originally written for _AddressBook Level 3_ and hence it refers to _Address Book_ and other classes / fields that exist in _Address Book Level 3_ but not in _NurseTraverse_. Since the tutorial can still be used to understand how to trace the application, it has been left in this repository as a reference.
+====
+
 [quote, Robert C. Martin, Clean Code: A Handbook of Agile Software Craftsmanship ]
 Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as
 part of the effort to write new code.  ...[Therefore,] making it easy to read makes it easier to write.

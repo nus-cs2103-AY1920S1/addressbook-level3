@@ -1,0 +1,139 @@
+== Medical Conditions
+====
+*Medical Conditions*
+
+As a community nurse, you will often have to keep track of your patients' medical conditions. This section describes the features that will allow you to manage the full list of medical conditions, as well as the list of medical conditions of a patient.
+====
+
+=== Listing All Medical Conditions: `medcon list`
+You can see a list of all medical conditions in the app by typing `medcon list`.
+
+In the list displayed, each medical condition will have an *index* number which can then be used for other features that require you to select a medical condition by *index* e.g. `medcon delete`. Take note that a medical condition will be given the same *index* regardless of other display commands such as `medcon find`.
+
+Format: `medcon list`
+
+=== Finding Medical Condition(s): `medcon find`
+
+You can find medical conditions that fit the parameters given using `medcon find`.
+
+In the list displayed, each medical condition will have an *index* number which can then be used for other features that require you to select a medical condition by *index* e.g. `medcon delete`. Take note that a medical condition will be given the same *index* regardless of other display commands such as `medcon list` or if different parameters are used.
+
+
+Format: `medcon find [KEYWORD] [n/NAME] [s/SYMPTOMS] [d/DIAGNOSIS] [t/TREATMENT]`
+
+****
+* The search is case insensitive. e.g `asthma` will match `Asthma`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/Diabetes` will return `Diabetes, Type 1` and `Diabetes, Type 2`.
+* If KEYWORD is specified, will attempt search all fields for a match for KEYWORD.
+****
+
+Examples:
+
+* `medcon find asthma` +
+Returns all medical conditions with the keyword `asthma` in it
+
+* `medcon find` +
+Returns all medical conditions in the application database
+
+=== Viewing a Medical Condition: `medcon view`
+
+You can see a medical condition's full details using `medcon view`. The medical condition is selected by their *index*.
+
+Format: `medcon view INDEX`
+
+****
+* View the medical condition at the specified `INDEX`.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon view 1`
+View the item with index number 1. This index can be found from the full list of medical conditions.
+
+* `medcon view 2`
+View the item with the index number 2.
+
+=== Adding a Medical Condition: `medcon add`
+
+You can add a medical condition to the list of all conditions by using `medcon add`.
+
+Format: `medcon add n/NAME s/SYMPTOMS d/DIAGNOSIS t/TREATMENT`
+
+****
+ * All fields must be specified.
+****
+
+Examples:
+
+ * `medcon add n/Diabetes, Type 1 s/Increased thirst, frequent urination, extreme hunger, unexplained weight loss
+    d/A1C test, blood sugar test, oral glucose test t/Insulin injections, insulin pump, blood sugar monitoring,
+    carbohydrate counting`
+
+=== Editing a Medical Condition: `medcon edit`
+
+You can edit an existing medical condition in the app using `medcon edit`.
+
+Format: `medcon edit INDEX [n/NAME] [s/SYMPTOMS] [d/DIAGNOSIS] [t/TREATMENT]`
+
+****
+* Edits the medical condition at the specified `INDEX`.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `medcon list` +
+ `medcon edit 3 s/increased hunger, increased thirst, weight loss, frequent urination, blurry vision, extreme fatigue, sores that don’t heal` +
+Edits the symptoms of the medical condition with index 3.
+
+// tag::delete[]
+=== Deleting a Medical Condition: `medcon delete`
+
+You can delete a medical condition by *index* using `medcon delete`.
+
+Format: `medcon delete INDEX`
+
+****
+* Deletes the medical condition at the specified `INDEX`.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon delete 2` +
+Deletes the 2nd medical condition in the medical condition list.
+
+* `medcon delete 1` +
+Deletes the medical condition which had been assigned the index 1.
+
+// end::delete[]
+
+=== Deleting multiple Medical Conditions: `medcon delete` `[coming in V2.0]`
+
+You can delete a medical condition by *indexes* using `medcon delete`.
+
+Format: `medcon delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the medical condition at the specified `INDEX` es. You can put in as many indexes to delete as many medical conditions as you wish.
+* The index refers to the index number shown in the list of medical conditions displayed by `medcon list` or `medcon find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `medcon list` +
+`medcon delete 2` +
+Deletes the 2nd medical condition in the medical condition list.
+
+* `medcon delete 1 2` +
+Deletes the and 2nd medical conditions with which had been assigned the 1.command.

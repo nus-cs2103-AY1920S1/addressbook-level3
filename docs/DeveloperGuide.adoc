@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= NurseTraverse - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -241,6 +241,10 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+=== Visits Management
+
+include::./devguide/VisitsManagement.adoc[]
 
 === Logging
 
