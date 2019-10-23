@@ -355,3 +355,7 @@ Use case ends
 
 [appendix]
 == Glossary
+
+* Category - Income, Expense, Wishlist, Budget +
+* Entry - any item in a category +
+* Tag - label(s) attached to an entry
