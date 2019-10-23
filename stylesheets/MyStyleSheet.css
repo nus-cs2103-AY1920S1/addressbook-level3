@@ -1,6 +1,6 @@
 .blue {
     -fx-control-inner-background: transparent;
-    -fx-background-color: rgba(255, 255, 0, 0.2);
+    -fx-background-color: transparent;
     -fx-border-color: #FF00FF;
     /*-fx-table-cell-border-color: transparent;*/
     /*-fx-table-header-border-color: transparent;*/
@@ -8,34 +8,34 @@
 }
 
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
     background-color: #383838; /* Used in the default.html file */
 }
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: Futura;
     -fx-text-fill: yellow;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: Futura;
     -fx-text-fill: yellow;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Futura;
     -fx-text-fill: yellow;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: Futura;
 }
 
 .tab-pane {
@@ -51,7 +51,7 @@
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: transparent;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -75,31 +75,31 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Futura;
     -fx-text-fill: yellow;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: transparent;
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .list-cell {
@@ -109,15 +109,15 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -130,11 +130,11 @@
 }
 
 .v-box {
-    -fx-background-color: #424d5f;
+    -fx-background-color: transparent;
 }
 
 .card_big_label {
-    -fx-font-family: "Candara";
+    -fx-font-family: Futura;
     -fx-font-size: 18px;
     -fx-text-fill: yellow;
     -fx-wrap-text: true;
@@ -142,72 +142,83 @@
 }
 
 .card_small_label {
-    -fx-font-family: "Comic Sans MS";
+    -fx-font-family: Futura;
     -fx-font-size: 15px;
     -fx-text-fill: yellow;
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: Futura;
     -fx-font-size: 16px;
     -fx-text-fill: yellow;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: Futura;
     -fx-font-size: 13px;
     -fx-text-fill: yellow;
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: transparent;
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: transparent;
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
 }
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Futura;
     -fx-font-size: 13pt;
     -fx-text-fill: yellow;
 }
 
 .result-display .label {
     -fx-text-fill: yellow !important;
+    -fx-background-color: transparent;
 }
 
 .profile-name {
      -fx-background-color: transparent;
-     -fx-font-family: "Segoe UI Light";
+     -fx-font-family: Futura;
      -fx-font-size: 20pt;
      -fx-text-fill: yellow;
  }
 
 .profile-asl {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Futura;
     -fx-font-size: 10pt;
     -fx-text-fill: yellow;
 }
 
 .bio-table {
     -fx-background-color: transparent;
+    -fx-font-family: Futura;
+
 }
 
 .bio-table .table-row-cell {
     -fx-background-color: transparent;
+    -fx-font-family: Futura;
+
 }
 
+.bio-table .table-cell .table-cell-text {
+    -fx-fill: yellow;
+    -fx-font-family: Futura;
+}
+
+
 .field-column {
-    -fx-font-family: "Arial" !important;
+    -fx-font-family: Futura !important;
     -fx-font-size: 10pt !important;
     -fx-font-style: italic !important;
     -fx-font-weight: bold !important;
@@ -215,34 +226,34 @@
 }
 
 .data-column {
-    -fx-font-family: "Arial" !important;
+    -fx-font-family: Futura !important;
     -fx-font-size: 10pt !important;
     -fx-text-fill: yellow !important;
 }
 
 
 .field-column .label {
-    -fx-font-family: "Arial" !important;
+    -fx-font-family: Futura !important;
     -fx-font-size: 10pt !important;
     -fx-font-style: italic !important;
     -fx-text-fill: yellow !important;
 }
 
 .data-column .label{
-    -fx-font-family: "Arial" !important;
+    -fx-font-family: Futura !important;
     -fx-font-size: 10pt !important;
     -fx-text-fill: yellow !important;
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Futura;
     -fx-text-fill: yellow;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
     -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
@@ -252,17 +263,17 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
     -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: transparent;
 }
 
 .context-menu .label {
@@ -270,18 +281,18 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Futura;
     -fx-text-fill: yellow;
     -fx-opacity: 0.9;
 }
 
 .menu .left-container {
-    -fx-background-color: black;
+    -fx-background-color: transparent;
 }
 
 /*
@@ -294,19 +305,19 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-background-color: transparent;
+    -fx-font-family: Futura;
     -fx-font-size: 11pt;
     -fx-text-fill: yellow;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: transparent;
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
+  -fx-background-color: transparent;
   -fx-text-fill: yellow;
 }
 
@@ -320,25 +331,25 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: transparent;
     -fx-text-fill: yellow;
 }
 
 .button:default {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: transparent;
     -fx-text-fill: yellow;
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
+    -fx-background-color: transparent;
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: transparent;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: transparent;
 }
 
 .dialog-pane > *.label.content {
@@ -348,13 +359,13 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: transparent;
 }
 
 .dialog-pane:header *.header-panel *.label {
     -fx-font-size: 18px;
     -fx-font-style: italic;
-    -fx-fill: white;
+    -fx-fill: yellow;
     -fx-text-fill: yellow;
 }
 
@@ -365,11 +376,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: transparent;
     -fx-background-insets: 3;
 }
 
@@ -401,12 +412,12 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-border-color: #383838 #383838 #ffffff #383838;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Futura;
     -fx-font-size: 13pt;
     -fx-text-fill: yellow;
 }
@@ -416,7 +427,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent;
     -fx-background-radius: 0;
 }
 
@@ -427,7 +438,7 @@
 
 #tags .label {
     -fx-text-fill: yellow;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: transparent;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

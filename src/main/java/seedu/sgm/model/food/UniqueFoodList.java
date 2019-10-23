@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.ReadOnlyData;
 import seedu.sgm.model.food.exception.DuplicateFoodException;
 import seedu.sgm.model.food.exception.FoodNotFoundException;
 
@@ -18,7 +19,7 @@ import seedu.sgm.model.food.exception.FoodNotFoundException;
  *
  * @see Food#isSameFood(Food)
  */
-public class UniqueFoodList implements Iterable<Food> {
+public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
 
     private final ObservableList<Food> internalList = FXCollections.observableArrayList();
     private final ObservableList<Food> internalUnmodifiableList =

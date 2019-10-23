@@ -28,7 +28,7 @@ public class DisplayPicPath {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid display pic path.
      */
     public static boolean isValidDisplayPicPath(String test) {
         return test.matches(VALIDATION_REGEX);

@@ -18,6 +18,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
@@ -341,6 +342,34 @@ public class ParserUtil {
             throw new ParseException(Colour.MESSAGE_CONSTRAINTS);
         }
         return new Colour(trimmedColour);
+    }
+
+    /**
+     * Parses a {@code String background} into a {@code Background}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code background} is invalid.
+     */
+    public static Background parseBackground(String background) throws ParseException {
+        requireNonNull(background);
+        String trimmedBackground = background.trim();
+        if (Colour.isValidColour(trimmedBackground)) {
+            return new Background(trimmedBackground);
+        } else if (!Background.isValidBackgroundPicPath(trimmedBackground)) {
+            throw new ParseException(Background.MESSAGE_CONSTRAINTS);
+        } else if (trimmedBackground.isEmpty()) {
+            return new Background("");
+        } else {
+            try {
+                Image image = ImageIO.read(new File(trimmedBackground));
+                if (image == null) {
+                    throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                }
+            } catch (IOException e) {
+                throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+            }
+            return new Background(trimmedBackground);
+        }
     }
 
     //=========== Food Map =============================================================

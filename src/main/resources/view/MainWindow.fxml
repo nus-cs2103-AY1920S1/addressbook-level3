@@ -2,14 +2,15 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="SugarMummy App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -38,12 +39,12 @@
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <HBox VBox.vgrow="never" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+              minHeight="100" prefHeight="100" maxHeight="Infinity" alignment="TOP_LEFT">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
-        </StackPane>
+        </HBox>
 
         <VBox styleClass="pane-with-border" minWidth="340" prefWidth="340" minHeight="270" prefHeight="270" VBox.vgrow="ALWAYS">
           <padding>
