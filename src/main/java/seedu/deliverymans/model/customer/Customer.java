@@ -51,8 +51,16 @@ public class Customer {
         return Collections.unmodifiableSet(tags);
     }
 
-    public void addOrder(Order order) {
-        orders.add(order);
+    /**
+     * Returns an immutable order set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Order> getOrders() {
+        return Collections.unmodifiableSet(orders);
+    }
+
+    public int getOrderSize() {
+        return orders.size();
     }
 
     /**
@@ -85,8 +93,7 @@ public class Customer {
 
         Customer otherCustomer = (Customer) other;
         return otherCustomer.getName().equals(getName())
-                && otherCustomer.getPhone().equals(getPhone())
-                && otherCustomer.getTags().equals(getTags());
+                && otherCustomer.getPhone().equals(getPhone());
     }
 
     @Override
