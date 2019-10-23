@@ -1,10 +1,10 @@
-package seedu.address.transaction.logic;
+package seedu.address.transaction.logic.parser;
 
 import static seedu.address.testutil.TransactionBuilder.DEFAULT_CATEGORY;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_CATEGORY;
@@ -38,7 +38,6 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.logic.commands.AddCommand;
-import seedu.address.transaction.logic.parser.AddCommandParser;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
 

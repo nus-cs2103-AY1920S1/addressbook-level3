@@ -1,7 +1,7 @@
-package seedu.address.transaction.logic;
+package seedu.address.transaction.logic.parser;
 
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseFailure;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseSuccess;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseFailure;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseSuccess;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_FIND_COMMAND_FORMAT;
 
 import java.util.Arrays;
@@ -9,7 +9,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.transaction.logic.commands.FindCommand;
-import seedu.address.transaction.logic.parser.FindCommandParser;
 import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 
 class FindCommandParserTest {

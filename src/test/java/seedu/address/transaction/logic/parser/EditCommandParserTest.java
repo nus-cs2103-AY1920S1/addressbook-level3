@@ -1,9 +1,7 @@
-package seedu.address.transaction.logic;
+package seedu.address.transaction.logic.parser;
 
 import static seedu.address.person.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
-import static seedu.address.transaction.logic.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_CATEGORY;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_DATE;
@@ -21,6 +19,8 @@ import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_DAT
 import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_DESC;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_NAME_BENSEN;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
+import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_PERSON;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT;
@@ -34,7 +34,6 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.logic.commands.EditCommand;
-import seedu.address.transaction.logic.parser.EditCommandParser;
 
 class EditCommandParserTest {
     private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
