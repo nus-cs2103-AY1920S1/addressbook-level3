@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Documentation
+= VISIT - Documentation
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
 
 == Introduction
 
@@ -51,7 +51,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 == Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/tree/master/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -69,11 +69,6 @@ If set, the name will be displayed near the top of the page.
 |`site-githuburl`
 |URL to the site's repository on https://github.com[GitHub].
 Setting this will add a "View on GitHub" link in the navigation bar.
-|_not set_
-
-|`site-seedu`
-|Define this attribute if the project is an official SE-EDU project.
-This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
 |_not set_
 
 |===
@@ -109,15 +104,14 @@ _{asterisk} Official SE-EDU projects only_
 
 == Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/tree/master/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:{repoURL}/tree/master/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:{repoURL}/tree/master/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
-The SE-EDU team does not provide support for modified template files.
 ====
