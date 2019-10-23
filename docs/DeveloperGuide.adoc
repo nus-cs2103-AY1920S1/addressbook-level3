@@ -495,7 +495,9 @@ type of data stored by each node in the tree.
 
 * `AndOrTree#fulfills(Collection)`
 +
-Checks if the given `Collection` fulfills the condition specified by this tree
+Checks if the given `Collection` fulfills the condition specified by this tree.
+`AndOrNode` has its own corresponding `fulfill` that checks its children or
+data against `Collection`
 
 Due to the arbitrary ordering of the tree, `insert()` and `delete()`
 operations commonly found in implementations of standard, ordered trees are
@@ -512,13 +514,20 @@ children of this node
 3. `DATA` - any element in a  `Collection<T>` must match the data stored in
 this node
 
+The following diagram shows the conditions for which
+`AndOrNode#fulfills(Collection)` returns `true` or `false`.
+
+.AndOrNode Condition Diagram
+image::AndOrNodeConditionDiagram.png[700,700,align=center]
+
 The tree is built recursively using the Jackson JSON API's `JsonNode` class,
 which along with `ObjectMapper()` that can read `json` strings, lets us
 traverse the `json` object tree structure.
 
 The sequence diagram of the tree building process is shown below:
 
-image::AndOrSequenceDiagram.png[]
+.AndOrTree Sequence Diagram
+image::AndOrSequenceDiagram.png[align=center]
 
 The class looks at each node - checks if its a json Object, json Array or
 a String, and does the appropriate actions and method calls to build the tree.

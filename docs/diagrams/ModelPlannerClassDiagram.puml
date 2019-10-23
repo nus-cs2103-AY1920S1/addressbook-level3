@@ -18,12 +18,11 @@ Package Planner <<Rectangle>> {
 
 Planner *--> "1" TaskList
 TaskList o--> "*" Task
-Event o-up-|> Task
-Deadline o-up-|> Task
-Todo o-up-|> Task
+Event -up-|> Task
+Deadline -up-|> Task
+Todo -up-|> Task
 Task *-left-> "*" Tag
 Task *-right-> "0...1" Priority
 Task *-up-> "0...1" Frequency
-
 
 @enduml
