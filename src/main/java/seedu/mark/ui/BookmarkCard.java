@@ -1,5 +1,7 @@
 package seedu.mark.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -9,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Bookmark}.
@@ -54,7 +57,21 @@ public class BookmarkCard extends UiPart<Region> {
         folder.setText(bookmark.getFolder().folderName);
         bookmark.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    tagLabel.getStyleClass().add(getTagColor(tag));
+                    tags.getChildren().add(tagLabel);
+                });
+    }
+
+    private String getTagColor(Tag tag) {
+        requireNonNull(tag);
+
+        if ("Favorite".equals(tag.tagName)) {
+            return "orange";
+        } else {
+            return "teal";
+        }
     }
 
     /**
