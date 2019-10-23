@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * Represents a Spending's remark in the MoneyGoWhere list. Guarantees: immutable; is always valid
  */
-public class Remark {
+public class Remark implements Comparable<Remark> {
 
     public final String value;
 
@@ -31,4 +31,8 @@ public class Remark {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Remark o) {
+        return value.compareTo(o.value);
+    }
 }

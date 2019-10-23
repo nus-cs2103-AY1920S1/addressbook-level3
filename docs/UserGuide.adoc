@@ -229,6 +229,23 @@ Generates statistics for spending that fall between and including 01/01/2019 and
 * `stats` +
 Generates statistics for all spending.
 
+=== Sorting spending entries : `sort`
+Sorts all spending based on a given order. Note that the input entered is order-sensitive. +
+Format: `sort [PREFIX/SORT_ORDER]`
+
+****
+* Valid prefixes are: Cost (`c`), Date (`d`), Name (`n`), Remarks (`r`).
+* Valid sort orders are: `ASC`, `DESC`.
+* At least one of the optional fields must be provided.
+****
+
+Examples:
+
+* `sort d/ASC c/DESC` +
+Sorts current spending displayed by Date in ascending order. If they are the same, sort by Cost in descending order.
+* `sort n/DESC` +
+Sorts current spending displayed by Name in descending order.
+
 === Listing all tags : `ltags`
 Displays a list of all available tags. +
 Format: `ltags`
@@ -344,6 +361,8 @@ e.g. `import p/C:\Users\User\Documents\importfile.csv` +
 e.g. `export p/C:\Users\User\Documents\importfile.csv` +
 | *Generate statistics*| `stats d/STARTDATE d/ENDDATE` +
 e.g. `stats d/01/01/2019 d/07/01/2019` +
+| *Sort*| `sort [PREFIX/SORT_ORDER]` +
+e.g. `sort d/DESC c/ASC` +
 | *List all tags*| `ltags` +
 | *Undo*| `undo` +
 | *Redo*| `redo` +

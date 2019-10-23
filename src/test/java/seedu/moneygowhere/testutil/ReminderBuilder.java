@@ -5,7 +5,7 @@ import seedu.moneygowhere.model.reminder.ReminderMessage;
 import seedu.moneygowhere.model.spending.Date;
 
 /**
- * A utility class to help with building Spending objects.
+ * A utility class to help with building Reminder objects.
  */
 public class ReminderBuilder {
     public static final String DEFAULT_DEADLINE = "25/12/2019";

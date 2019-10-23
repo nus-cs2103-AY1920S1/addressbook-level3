@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.moneygowhere.logic.sorting.SpendingComparator;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.UserPrefs;
@@ -54,7 +55,7 @@ public class FindCommandTest {
         assertFalse(findFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(findFirstCommand == null);
 
         // different predicate list -> returns false
         List<Predicate<Spending>> secondPredicateList = new ArrayList<>();
@@ -100,9 +101,12 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicates);
         expectedModel.updateFilteredSpendingList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CATFOOD, ENCYCLOPEDIA, FLIGHTTICKET), model.getFilteredSpendingList());
-    }
 
+        List<Spending> expectedList = Arrays.asList(CATFOOD, ENCYCLOPEDIA, FLIGHTTICKET);
+        expectedList.sort(new SpendingComparator());
+
+        assertEquals(expectedList, model.getFilteredSpendingList());
+    }
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */

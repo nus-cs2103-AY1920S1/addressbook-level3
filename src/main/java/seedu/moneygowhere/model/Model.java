@@ -1,6 +1,7 @@
 package seedu.moneygowhere.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -87,6 +88,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSpendingList(Predicate<Spending> predicate);
+
+    /**
+     * Updates the comparator of the sorted Spending list to filter by the given {@code comparator}.
+     * @throws NullPointerException if {@code comparator} is null.
+     */
+    void updateSortedSpendingList(Comparator<Spending> comparator);
 
     /**
      * Replaces the previous budget of MoneyGoWhere with the new budget.
