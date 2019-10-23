@@ -33,11 +33,15 @@ public class UpdateUi {
             modularDisplay.swapToBankDisplay(modularDisplayPlaceholder);
         } else if (firstArg.equals("list")) {
             modularDisplay.swapToList(modularDisplayPlaceholder);
-        } else if (firstArg.equals("help")) {
-            //modularDisplay.swapToBanks(modularDisplayPlaceholder);
+        } else if (firstArg.equals("skip")) {
+
         } else if (modeEnum.equals(ModeEnum.SETTINGS)) {
             modularDisplay.swapToSettings(modularDisplayPlaceholder);
         } else {
+            if (modeEnum.equals(ModeEnum.GAME)) {
+                // Swapping to load display by default disabled when in game mode (by Yida).
+                return;
+            }
             modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
         }
     }

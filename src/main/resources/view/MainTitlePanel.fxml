@@ -20,7 +20,8 @@
             <HBox>
                <children>
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label id="slogan" fx:id="slogan" styleClass="cell_big_label" text="Learn with Dukemon haha this is supposed to be the *catch* phrase." translateY="-40.0" />
+                  <Label id="slogan" fx:id="slogan" styleClass="cell_big_label"
+                         text="The FlashCard App Of The Future" style="-fx-font-style: italic" translateY="-40.0" />
                   <Region HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
