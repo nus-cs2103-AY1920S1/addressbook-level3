@@ -35,7 +35,7 @@ class JsonSerializableAlgoBase {
     @JsonCreator
     public JsonSerializableAlgoBase(@JsonProperty("problems") List<JsonAdaptedProblem> problems,
                                     @JsonProperty("tags") List<JsonAdaptedTag> tags,
-                                    @JsonProperty("findrules") List<JsonAdaptedProblemSearchRule> findRules) {
+                                    @JsonProperty("findRules") List<JsonAdaptedProblemSearchRule> findRules) {
         this.problems.addAll(problems);
         this.tags.addAll(tags);
         this.findRules.addAll(findRules);

@@ -59,6 +59,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
         setProblems(newData.getProblemList());
         setTags(newData.getTagList());
+        setFindRules(newData.getFindRules());
     }
 
     //========== Problem ================================================================
@@ -240,6 +241,14 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
         requireAllNonNull(target, editedRule);
         findRules.setFindRule(target, editedRule);
+    }
+
+    /**
+     * Replaces the contents of the FindRule list with {@code rules}.
+     * {@code rules} must not contain duplicate problems.
+     */
+    public void setFindRules(List<ProblemSearchRule> rules) {
+        this.findRules.setFindRules(rules);
     }
 
     /**
