@@ -15,24 +15,18 @@ import seedu.address.model.entity.body.Body;
 public class Fridge implements Entity {
 
     // Identity field
-    private final IdentificationNumber fridgeIdNum;
+    private IdentificationNumber fridgeIdNum;
 
     // Data field
     private Optional<Body> body;
     private FridgeStatus fridgeStatus;
 
+    //@@author ambervoong
+    private int bodyId;
+    //@@author
+
     public Fridge() {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        this.body = Optional.ofNullable(null);
-    }
-
-    public Fridge(boolean isTestFridge) {
-        if (isTestFridge) {
-            fridgeIdNum = IdentificationNumber.customGenerateTestId("F", 1);
-        } else {
-            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        }
         this.fridgeStatus = FridgeStatus.UNOCCUPIED;
         this.body = Optional.ofNullable(null);
     }
@@ -47,19 +41,28 @@ public class Fridge implements Entity {
         }
     }
 
-    public Fridge(Body body, boolean isTestFridge) {
-        if (isTestFridge) {
-            this.fridgeIdNum = IdentificationNumber.customGenerateTestId("F", 1);
-        } else {
-            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        }
-        this.body = Optional.ofNullable(body);
-        if (body == null) {
-            this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        } else {
-            this.fridgeStatus = FridgeStatus.OCCUPIED;
+    //@@author ambervoong
+    private Fridge(boolean wasStored) {
+        if (!wasStored) {
+            fridgeIdNum = IdentificationNumber.customGenerateId("F", 1);
         }
     }
+    //@@author
+
+    /**
+     * Generates a new Fridge with a custom ID. Only used for creating a Fridge from storage.
+     * @param id ID of the stored Fridge.
+     * @return Fridge
+     */
+    public static Fridge generateNewStoredFridge(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException();
+        }
+        Fridge fridge = new Fridge(true);
+        fridge.fridgeIdNum = IdentificationNumber.generateNewFridgeId(fridge, id);
+        return fridge;
+    }
+    //@@author
 
     public IdentificationNumber getIdNum() {
         return fridgeIdNum;
@@ -85,6 +88,16 @@ public class Fridge implements Entity {
             setFridgeStatus(FridgeStatus.OCCUPIED);
         }
     }
+
+    //@@author ambervoong
+    public int getBodyId() {
+        return bodyId;
+    }
+
+    public void setBodyId(int bodyId) {
+        this.bodyId = bodyId;
+    }
+    //@@author
 
     /**
      * Returns true if both fridge have the same identity fields.
@@ -127,7 +140,7 @@ public class Fridge implements Entity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(fridgeIdNum);
+        return Objects.hash(getIdNum());
     }
 
     @Override

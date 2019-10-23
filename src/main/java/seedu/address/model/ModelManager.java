@@ -49,14 +49,12 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
         filteredNotifs = new FilteredList<>(this.addressBook.getNotifList());
-
         commandHistory = new CommandHistory();
         undoHistory = new CommandHistory();
         filteredFridges = new FilteredList<>(this.addressBook.getFridgeList());
@@ -67,6 +65,7 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
+    //@@author ambervoong
     //=========== CommandHistory ==================================================================================
     /**
      * Adds a command that was executed to the top of a list of executed commands. Note that only
@@ -104,6 +103,15 @@ public class ModelManager implements Model {
     public UndoableCommand getUndoneCommand() {
         return undoHistory.getExecutedCommand();
     }
+
+    public CommandHistory getUndoHistory() {
+        return undoHistory;
+    }
+
+    public void clearUndoHistory() {
+        undoHistory.clear();
+    }
+    //@@author
 
     //=========== UserPrefs ==================================================================================
 
@@ -176,7 +184,6 @@ public class ModelManager implements Model {
     @Override
     public void setEntity(Entity target, Entity editedEntity) {
         requireAllNonNull(target, editedEntity);
-
         addressBook.setEntity(target, editedEntity);
     }
 
@@ -202,6 +209,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedNotif);
 
         addressBook.setNotif(target, editedNotif);
+    }
+
+    @Override
+    public int getNumberOfNotifs() {
+        return filteredNotifs.size();
     }
     //=========== Filtered Body List Accessors =============================================================
     /**

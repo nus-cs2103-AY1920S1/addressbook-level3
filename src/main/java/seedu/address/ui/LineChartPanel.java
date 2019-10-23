@@ -9,8 +9,8 @@ import java.util.TreeMap;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
@@ -27,10 +27,10 @@ public class LineChartPanel extends UiPart<Region> {
     private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
     private static final int WINDOW_SIZE = 10;
     // this is used to display time in HH:mm:ss format
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d");
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
     final NumberAxis yAxis = new NumberAxis();
-    final LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    final AreaChart<String, Number> lineChart = new AreaChart<>(xAxis, yAxis);
     private XYChart.Series<String, Number> series = new XYChart.Series<>();
     private Map<Date, Number> freqByDate = new TreeMap<>();
     private ObservableList<Body> bodyList;
@@ -43,7 +43,7 @@ public class LineChartPanel extends UiPart<Region> {
         this.bodyList = bodyList;
     }
 
-    public LineChart getLineChart() throws ParseException {
+    public AreaChart getLineChart() throws ParseException {
         initialiseTreeMap();
         initialiseLineChart();
         updateSeries();
@@ -113,6 +113,13 @@ public class LineChartPanel extends UiPart<Region> {
         for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
             Date noTimeDate = formatDateNoTime(date);
             freqByDate.putIfAbsent(noTimeDate, 0);
+        }
+
+        for (Body body: bodyList) {
+            Date noTimeDate = formatDateNoTime(body.getDateOfAdmission());
+            Number oldFreq = freqByDate.getOrDefault(noTimeDate, 0);
+            int newFreq = oldFreq.intValue() + 1;
+            freqByDate.put(noTimeDate, newFreq);
         }
     }
 

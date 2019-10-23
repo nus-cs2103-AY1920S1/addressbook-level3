@@ -17,9 +17,9 @@ import seedu.address.model.Model;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.notif.Notif;
 import seedu.address.ui.NotifWindow;
+import seedu.address.ui.NotificationButton;
 
 //@@author arjavibahety
-
 /**
  * Notifies a user when there is an automatic change in BodyStatus.
  */
@@ -57,6 +57,20 @@ public class NotifCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    //@@author ambervoong
+    /**
+     * Removes a notification from the model. Used to undo changes made in an AddCommand
+     * @param model model of Mortago.
+     */
+    public void removeNotif(Model model) {
+        requireNonNull(model);
+
+        if (model.hasNotif(toAdd)) {
+            model.deleteNotif(toAdd);
+        }
+    }
+    //@@author
+
     /**
      * Updates the BodyStatus after a specified time.
      */
@@ -90,6 +104,7 @@ public class NotifCommand extends Command {
                     logger.info("Error updating the body and fridge ");
                 }
             }
+            NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
         });
 
         ses.schedule(changeUi, period, timeUnit);

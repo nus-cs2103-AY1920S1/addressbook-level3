@@ -17,6 +17,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.history.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -105,6 +106,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void clearUndoHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CommandHistory getUndoHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
@@ -181,6 +192,11 @@ public class AddCommandTest {
 
         @Override
         public void setNotif(Notif target, Notif editedEntity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getNumberOfNotifs() {
             throw new AssertionError("This method should not be called.");
         }
 
