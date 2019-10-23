@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
@@ -15,11 +16,11 @@ import seedu.address.transaction.util.TransactionList;
  * Manages storage of transaction data in local storage.
  */
 public class StorageManager implements Storage {
-    private final String filepath;
+    private final File file;
     private final seedu.address.person.model.Model personModel;
 
-    public StorageManager(String filepath, seedu.address.person.model.Model personModel) {
-        this.filepath = filepath;
+    public StorageManager(File file, Model personModel) {
+        this.file = file;
         this.personModel = personModel;
     }
 
@@ -27,10 +28,9 @@ public class StorageManager implements Storage {
     public TransactionList readTransactionList() {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
-            File f = new File(filepath);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
-            BufferedReader bfr = new BufferedReader(new FileReader(f));
+            file.getAbsoluteFile().getParentFile().mkdirs();
+            file.createNewFile();
+            BufferedReader bfr = new BufferedReader(new FileReader(file));
             String line = null;
             while ((line = bfr.readLine()) != null) {
                 Transaction t = this.readInFileLine(line, personModel);
@@ -44,7 +44,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void writeFile(TransactionList transactionList) throws IOException {
-        FileWriter fw = new FileWriter(this.filepath);
+        FileWriter fw = new FileWriter(this.file);
         String textFileMsg = "";
         for (int i = 0; i < transactionList.size(); i++) {
             if (i == 0) {

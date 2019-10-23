@@ -7,7 +7,7 @@ import seedu.address.transaction.logic.commands.CommandResult;
 import seedu.address.transaction.logic.parser.TransactionTabParser;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.storage.StorageManager;
+import seedu.address.transaction.storage.Storage;
 import seedu.address.transaction.util.TransactionList;
 
 /**
@@ -16,22 +16,22 @@ import seedu.address.transaction.util.TransactionList;
 public class LogicManager implements Logic {
 
     private final Model model;
-    private final StorageManager storage;
+    private final Storage storage;
     private final TransactionTabParser parser;
-    private final seedu.address.person.storage.Storage personStorage;
+    //private final seedu.address.person.storage.Storage personStorage;
     private final seedu.address.person.model.Model personModel;
     private final seedu.address.reimbursement.model.Model reimbursementModel;
     private final seedu.address.reimbursement.storage.Storage reimbursementStorage;
 
-    public LogicManager(Model transactionModel, StorageManager transactionStorage,
+    public LogicManager(Model transactionModel, Storage transactionStorage,
                         seedu.address.person.model.Model personModel,
-                        seedu.address.person.storage.Storage personStorage,
+                        //seedu.address.person.storage.Storage personStorage,
                         seedu.address.reimbursement.model.Model reimbursementModel,
                         seedu.address.reimbursement.storage.Storage reimbursementStorage) {
         this.model = transactionModel;
         this.storage = transactionStorage;
         this.parser = new TransactionTabParser();
-        this.personStorage = personStorage;
+        //this.personStorage = personStorage;
         this.personModel = personModel;
         this.reimbursementModel = reimbursementModel;
         this.reimbursementStorage = reimbursementStorage;
@@ -44,7 +44,7 @@ public class LogicManager implements Logic {
         Command command = parser.parseCommand(commandText, personModel);
         CommandResult commandResult = command.execute(model, personModel);
         model.updateIndexes();
-        personStorage.saveAddressBook(personModel.getAddressBook());
+        //personStorage.saveAddressBook(personModel.getAddressBook());
         storage.writeFile(model.getTransactionList());
         reimbursementModel.updateReimbursementList(
                 reimbursementStorage.getReimbursementFromFile(model.getTransactionList()));
