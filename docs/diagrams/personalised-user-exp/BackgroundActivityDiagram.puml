@@ -1,0 +1,29 @@
+@startuml
+start
+:User enters background command;
+
+:Parse command;
+
+if () then ([no arguments])
+    :Display current\nbackground as String;
+else ([else[)
+    if () then ([argument is\nvalid colour])
+        if () then ([argument has\nsub-arguments])
+            :throw ParseException -\nsubarguments only meant \nfor background picture;
+        else ([else])
+            :Set background\nto specified colour;
+            :Save background in\nstorage as string\nrepresentation of colour;
+        endif
+    else ([else])
+        :parse argument as path;
+        if () then ([background path\nis valid and\nleads to loadable image])
+            :Set background\nas picture;
+            :Save background in\nstorage as string\nrepresentation of path;
+        else ([else])
+            :throw ParseException -\nunable to load image;
+        endif
+    endif
+endif
+
+stop
+@enduml
