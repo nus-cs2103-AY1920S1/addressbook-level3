@@ -137,7 +137,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the SecureIT data in json format and read it back, including Password Book, File Book, Note Book and Card Book.
 
 [[Design-Commons]]
 === Common classes
@@ -231,7 +231,21 @@ image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Data Encryption
+
+==== Initialization and Validation
+
+All data files of SecureIT are encrypted with a master password set by the user. The initialization and validation of the master password is handled by `TestStorage`.
+
+The following sequence diagram shows how the master password is initialized when the user uses the app for the first time, and validated for subsequent uses of the app.
+
+image::InitPasswordSequenceDiagram.png[]
+
+Note that the main components of the app (`Storage`, `Ui`, `Logic`, `Model`) can only be initialised with a correct master password.
+
+The app does not store the master password itself. Instead, during initialization, the app encrypts a magic word using the password and stores it in the storage. For validation, the app tries to decrypt the stored magic word using the password given and compares if the original word is obtained. If the password given is correct, the decrypted magic word should be the same as the original one.
+
+==== Encryption Method
 
 _{Explain here how the data encryption feature will be implemented}_
 

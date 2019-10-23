@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -48,6 +47,7 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TestStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.ui.DialogManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -310,32 +310,24 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         if (!TestStorage.isUserExist()) {
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("SecureIT");
-            dialog.setHeaderText("Create your master password");
-            dialog.setContentText("Password: ");
-            Optional<String> result = dialog.showAndWait();
+            Optional<String> result = DialogManager.showCreatePasswordDialog();
             if (result.isPresent()) {
                 try {
                     TestStorage.initPassword(result.get());
                     initWithPassword(result.get());
-                    startAddressBook(primaryStage);
+                    startSecureIt(primaryStage);
                 } catch (IOException e) {
                     //TODO: if init password fails
                 }
             }
         } else {
             while (true) {
-                TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("SecureIT");
-                dialog.setHeaderText("Enter your master password");
-                dialog.setContentText("Password: ");
-                Optional<String> result = dialog.showAndWait();
+                Optional<String> result = DialogManager.showValidatePasswordDialog();
                 if (result.isPresent()) {
                     try {
                         if (TestStorage.testPassword(result.get())) {
                             initWithPassword(result.get());
-                            startAddressBook(primaryStage);
+                            startSecureIt(primaryStage);
                             break;
                         }
                     } catch (IOException e) {
@@ -349,11 +341,11 @@ public class MainApp extends Application {
     }
 
     /**
-     * starts the address book.
+     * Starts the main app.
      * @param primaryStage the primary stage of ui
      */
-    private void startAddressBook(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+    private void startSecureIt(Stage primaryStage) {
+        logger.info("Starting SecureIT " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

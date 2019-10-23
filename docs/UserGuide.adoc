@@ -154,28 +154,28 @@ Example: `delete VisaPOSB`
 
 Encrypts a local file as specified by the user.
 
-Format: `encrypt <filepath> <filename>`
+Format: `encrypt FILEPATH`
 
-Example: `encrypt /docs/mysecret/secret_photo.png secretphoto`
+Example: `encrypt ~/Desktop/Secret File.png`
 
-==== Decrypting a file : `encrypt`
+==== Decrypting a file : `decrypt`
 
 Decrypts a local file as specified by the user.
 
-Format: `decrypt <filepath> <filename>`
+Format: `decrypt INDEX`
 
-Example: `decrypt /docs/mysecret/secret_photo.png secretphoto`
+Example: `decrypt 1` (This command decrypts the first file in the file list.)
 
 ==== Finding a file: `find`
 
-Finds a local file as specified by the user.
+Finds an encrypted file as specified by the user.
 
-Format: `find <filename>`
+Format: `find FILENAME`
 
-Example: `find secretphoto`
+Example: `find Secret File`
 ****
-* The search is case insensitive. e.g `secretphoto` will match `SecretPhoto`
-* Only the description is searched.
+* The search is case insensitive. e.g `secret file` will match `Secret File`
+* Only the file name is searched.
 ****
 
 ===  Accessing note directory : `goto note`
