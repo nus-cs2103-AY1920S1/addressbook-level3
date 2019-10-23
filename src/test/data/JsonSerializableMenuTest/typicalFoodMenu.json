@@ -7,7 +7,8 @@
     "tagged" : [ "Noodle" ],
     "location" : "The Deck",
     "openingHours" : "0800 1700",
-    "restrictions" : "Contains dairy and pork"
+    "restrictions" : "Contains dairy and pork",
+    "favoriteValue": "0"
   }, {
     "name" : "Tonkotsu Ramen",
     "price" : "11.00",
@@ -16,7 +17,8 @@
     "tagged" : [ "Noodle", "Asian" ],
     "location" : "Frontier Canteen",
     "openingHours" : "0800 1800",
-    "restrictions" : "Contains pork"
+    "restrictions" : "Contains pork",
+    "favoriteValue": "0"
   }, {
     "name" : "Bak Kut Teh",
     "price" : "10.00",
@@ -25,7 +27,8 @@
     "tagged" : [ "Asian" ],
     "location" : "University Town",
     "openingHours" : "0800 1800",
-    "restrictions" : "Contains pork"
+    "restrictions" : "Contains pork",
+    "favoriteValue": "0"
   }, {
     "name" : "Teh Ping",
     "price" : "1.50",
@@ -34,7 +37,8 @@
     "tagged" : [ "Tea" , "Leaves" ],
     "location": "Cool Spot",
     "openingHours" : "0000 2359",
-    "restrictions" : "May cause cancer"
+    "restrictions" : "May cause cancer",
+    "favoriteValue": "0"
   }, {
     "name" : "Mala Xiang Guo",
     "price" : "15.00",
@@ -43,7 +47,8 @@
     "tagged" : [ "Spicy" , "Vegetables" ],
     "location" : "Liang Ban Kung Fu at The Deck",
     "openingHours": "0800 1930",
-    "restrictions": "Not halal"
+    "restrictions": "Not halal",
+    "favoriteValue": "0"
   }, {
     "name" : "Wagyu Donburi with Teh",
     "price" : "17.99",
@@ -52,7 +57,8 @@
     "tagged" : [ "Expensive" , "Beef" , "Luxury" ],
     "location" : "Atas Place in NUS",
     "openingHours" : "1000 1700",
-    "restrictions" : "Expensive"
+    "restrictions" : "Expensive",
+    "favoriteValue": "0"
   }, {
     "name" : "Nasi Ayam",
     "price" : "4.80",
@@ -61,6 +67,7 @@
     "tagged" : [ "Chicken" , "Roasted" , "Steamed" ],
     "location" : "Techno Edge",
     "openingHours": "0900 1700",
-    "restrictions": "Halal"
+    "restrictions": "Halal",
+    "favoriteValue": "0"
   } ]
 }

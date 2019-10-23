@@ -6,7 +6,8 @@
     "category": "canwedobetter",
     "location": "test",
     "openingHours": "0921 0922",
-    "restrictions": "Bruh"
+    "restrictions": "Bruh",
+    "favoriteValue": "0"
   } ],
   "wallet" : {
     "remainingBudget" : "100",
