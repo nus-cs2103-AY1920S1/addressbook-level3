@@ -46,6 +46,9 @@ image::LogicClassDiagram.png[]
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+
 [[Design-Storage]]
 === Storage component
 
