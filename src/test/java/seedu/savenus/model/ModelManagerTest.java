@@ -13,14 +13,11 @@ import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.exceptions.CommandException;
-import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.purchase.PurchaseHistory;
@@ -112,52 +109,6 @@ public class ModelManagerTest {
     @Test
     public void getPurchaseHistoryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getPurchaseHistoryList().remove(0));
-    }
-
-    @Test
-    public void nullRecommendationComparator_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.updateRecommendationComparator(null));
-    }
-
-    @Test
-    public void nullRecommendationPredicate_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.updateRecommendationPredicate(null));
-    }
-
-    @Test
-    public void updateRecommendationPredicate_inUse() {
-        Predicate<Food> recommendationPredicate = x -> false;
-        modelManager.updateRecommendationPredicate(recommendationPredicate);
-        modelManager.setRecommendationSystemInUse(true);
-
-        assertEquals(recommendationPredicate, modelManager.getRecommendationSystem().getRecommendationPredicate());
-    }
-
-    @Test
-    public void updateRecommendationPredicate_notInUse() {
-        Predicate<Food> recommendationPredicate = x -> false;
-        modelManager.updateRecommendationPredicate(recommendationPredicate);
-        modelManager.setRecommendationSystemInUse(false);
-
-        assertNotEquals(recommendationPredicate, modelManager.getRecommendationSystem().getRecommendationPredicate());
-    }
-
-    @Test
-    public void updateRecommendationComparator_inUse() {
-        Comparator<Food> recommendationComparator = (x, y) -> 12345;
-        modelManager.updateRecommendationComparator(recommendationComparator);
-        modelManager.setRecommendationSystemInUse(true);
-
-        assertEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
-    }
-
-    @Test
-    public void updateRecommendationComparator_notInUse() {
-        Comparator<Food> recommendationComparator = (x, y) -> 12345;
-        modelManager.updateRecommendationComparator(recommendationComparator);
-        modelManager.setRecommendationSystemInUse(false);
-
-        assertNotEquals(recommendationComparator, modelManager.getRecommendationSystem().getRecommendationComparator());
     }
 
     @Test

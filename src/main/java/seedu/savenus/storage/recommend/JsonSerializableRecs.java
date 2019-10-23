@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.recommend.UserRecommendations;
 
+//@@author jon-chua
 /**
  * An Immutable Recommendation Set that is serializable to JSON format.
  */
@@ -32,18 +33,18 @@ public class JsonSerializableRecs {
      * @param source future changes to this will not affect the created {@code JsonSerializableRecs}.
      */
     public JsonSerializableRecs(UserRecommendations source) {
-        Set<String> likedLocations = source.getLikedLocations().stream().parallel()
+        Set<String> likedLocations = source.getLikedLocations().stream()
                 .map(l -> l.location).collect(Collectors.toSet());
-        Set<String> likedTags = source.getLikedTags().stream().parallel()
+        Set<String> likedTags = source.getLikedTags().stream()
                 .map(t -> t.tagName).collect(Collectors.toSet());
-        Set<String> likedCategories = source.getLikedCategories().stream().parallel()
+        Set<String> likedCategories = source.getLikedCategories().stream()
                 .map(c -> c.category).collect(Collectors.toSet());
 
-        Set<String> dislikedLocations = source.getDislikedLocations().stream().parallel()
+        Set<String> dislikedLocations = source.getDislikedLocations().stream()
                 .map(l -> l.location).collect(Collectors.toSet());
-        Set<String> dislikedTags = source.getDislikedTags().stream().parallel()
+        Set<String> dislikedTags = source.getDislikedTags().stream()
                 .map(t -> t.tagName).collect(Collectors.toSet());
-        Set<String> dislikedCategories = source.getDislikedCategories().stream().parallel()
+        Set<String> dislikedCategories = source.getDislikedCategories().stream()
                 .map(c -> c.category).collect(Collectors.toSet());
 
         userRecommendations = new JsonAdaptedRecs(likedCategories, likedTags, likedLocations,

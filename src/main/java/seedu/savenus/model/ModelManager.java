@@ -5,7 +5,6 @@ import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -318,18 +317,6 @@ public class ModelManager implements Model {
     @Override
     public RecommendationSystem getRecommendationSystem() {
         return RecommendationSystem.getInstance();
-    }
-
-    @Override
-    public void updateRecommendationComparator(Comparator<Food> recommendationComparator) {
-        requireNonNull(recommendationComparator);
-        RecommendationSystem.getInstance().setRecommendationComparator(recommendationComparator);
-    }
-
-    @Override
-    public void updateRecommendationPredicate(Predicate<Food> recommendationPredicate) {
-        requireNonNull(recommendationPredicate);
-        RecommendationSystem.getInstance().setRecommendationPredicate(recommendationPredicate);
     }
 
     @Override

@@ -11,7 +11,7 @@ import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
 
-
+//@@author jon-chua
 /**
  * Adds the user's liked recommendations to the $aveNUS recommendation system.
  */
