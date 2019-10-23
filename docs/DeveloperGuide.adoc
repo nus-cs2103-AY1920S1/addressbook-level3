@@ -411,13 +411,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* Has a need to help HR manage events and employees
-* Prefer desktop apps over other types
-* Can type fast
-* Prefers typing over mouse input
-* Is reasonably comfortable using CLI apps
+* Has a need to help Administrative staff to manage events and employees.
+* Prefer desktop apps over other types.
+* Can type fast.
+* Prefers typing over mouse input.
+* Is reasonably comfortable using CLI apps.
+* Someone who prefers a clean interface and dislike clutter.
 
 *Value proposition*: Manage events and employees easier than enterprise apps commonly used such as Microsoft Excel and Microsoft Word.
+Provides a clean and modern desktop application designed specifically to cater to their specific needs while improving user experience and efficiency.
 
 [appendix]
 == User Stories
@@ -429,7 +431,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |HR Admin |automate my manpower allocation process | improve work productivity
 
-|`* * *` |HR Admin |view upcoming events | remind the company staff to attend
+|`* * *` |HR Admin |view upcoming events and schedule of these events | remind the company staff to attend
 
 |`* * *` |HR Director |view the number of events | decide whether to have more or less of events
 
@@ -449,7 +451,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |view upcoming events | record them on my calendar
 
-|`* *` |Admin Staff|find upcoming events | plan on the logistics needed ahead of time
+|`* *` |Admin Staff|see all events on a specific date | plan on the logistics needed ahead of time
 
 |`* *` |Manager|tag my employees with comments/remarks | have better manpower allocation for events
 
@@ -468,7 +470,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 1.  User requests to list employees
 2.  AddMin+ shows a list of employees
-3.  User requests to delete a specific employee by stating the Employee ID
+3.  User requests to delete a specific employee by stating the index of the current displayed list.
 4.  AddMin+ deletes the employee
 +
 Use case ends.
@@ -476,7 +478,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 3a. The given Employee ID is invalid.
+* 3a. The given input index is invalid.
 +
 [none]
 ** 3a1. AddMin+ shows an error message.
@@ -489,15 +491,15 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to view the company’s current list of events.
-2.  AddMin+ shows a list of events, with each event containing a unique Event ID.
-3.  User specifies Event ID, and list the details of the event to edit
+2.  AddMin+ shows a list of events, with each event tagged to an index of the current displayed list.
+3.  User specifies the index of the event, and list the details of the event to edit
 4.  AddMin+ edits and saves the updated event details.
 +
 Use case ends.
 
 *Extensions*
 
-* 3a. Event ID given is invalid.
+* 3a. Input Index given is invalid.
 +
 [none]
 ** 3a1.AddMin+ shows an error message and refuses the edit.
@@ -533,21 +535,21 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Generate Employee PaySlip
+=== Use case: View Schedule on a specific date
 
 *MSS*
 
-1.  User requests to list employee
-2.  EmployeeBook shows a list of employees
-3.  User requests to generate a payslip document of a specific employee ID in the list by using a specific employee ID.
-4.  AddMin+ generates a document of the pay slip of the employee ID.
+1.  User requests to list events
+2.  EventBook shows a list of events
+3.  User requests see schedule on a specific date
+4.  AddMin+ display a list of events that is on that date
 
 +
 Use case ends.
 
 *Extensions*
 
-* 3.The employee ID given is invalid.
+* 3.The date format given is invalid.
 +
 [none]
 ** 3a.AddMin+ shows an error message.
