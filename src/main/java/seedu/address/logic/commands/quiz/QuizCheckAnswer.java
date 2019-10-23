@@ -12,8 +12,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.question.Answer;
+import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionBody;
+import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
 
 /**
@@ -51,8 +53,11 @@ public class QuizCheckAnswer extends Command {
         }
 
         boolean result = model.checkQuizAnswer(index, answer);
-        QuestionBody questionBody = model.getFilteredQuizQuestionList().get(index).getQuestionBody();
-        QuizResult quizResult = new QuizResult(answer, questionBody, getQuizTime(), result);
+        Question question = model.getFilteredQuizQuestionList().get(index);
+        QuestionBody questionBody = question.getQuestionBody();
+        Subject subject = question.getSubject();
+        Difficulty difficulty = question.getDifficulty();
+        QuizResult quizResult = new QuizResult(answer, questionBody, subject, difficulty, getQuizTime(), result);
         model.addQuizResult(quizResult);
 
         if (result) {
