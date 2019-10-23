@@ -44,7 +44,8 @@ Class DocumentPath
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
-
+HiddenOutside ..> DocumentPath
+HiddenOutside ..> Deadline
 AddressBook .up.|> ReadOnlyAddressBook
 
 ModelManager .up.|> Model
