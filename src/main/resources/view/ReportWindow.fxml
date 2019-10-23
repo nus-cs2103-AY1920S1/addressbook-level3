@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -27,9 +28,9 @@
                                  <font>
                                     <Font size="25.0" />
                                  </font></Label>
-                              <TextFlow fx:id="maximumCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
-                              <TextFlow fx:id="minimumCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
-                              <TextFlow fx:id="averageCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
+                              <TextFlow fx:id="maximumCalorie" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" stylesheets="@DarkTheme.css" />
+                              <TextFlow fx:id="minimumCalorie" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" stylesheets="@DarkTheme.css" />
+                              <TextFlow fx:id="averageCalorie" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" stylesheets="@DarkTheme.css" />
                            </items>
                         </SplitPane>
                         <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL">
@@ -39,11 +40,14 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextFlow fx:id="countCalorieExceeded" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
-                              <TextFlow fx:id="mostConsumedMeal" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
+                              <TextFlow fx:id="countCalorieExceeded" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
+                              <TextFlow fx:id="mostConsumedMeal" textAlignment="CENTER" />
                            </items>
                         </SplitPane>
-                    <ScrollPane prefHeight="-1.0" prefWidth="-1.0" />
+                    <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+                           <content>
+                              <PieChart fx:id="foodChart" title="Food Chart" />
+                           </content></ScrollPane>
                   </items>
                 </SplitPane>
                 <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

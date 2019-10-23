@@ -1,10 +1,14 @@
 package calofit.model.util;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 
+import javafx.scene.chart.PieChart.Data;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import calofit.model.CalorieBudget;
@@ -21,7 +25,8 @@ public class Statistics {
     private final int minimum;
     private final double average;
     private final int calorieExceedCount;
-    private final Dish mostConsumedDish;
+    private final List<Dish> mostConsumedDishes;
+    private final ObservableList<Data> pieChartData;
 
     /**
      * Constructor for the wrapper Statistics class that cannot be called by other classes.
@@ -29,14 +34,17 @@ public class Statistics {
      * @param minimum is the minimum Calorie intake of the month.
      * @param average is the average Calorie intake per day of the month.
      * @param calorieExceedCount is the number of days of the month where the calorie budget exceeded.
-     * @param mostConsumed is the Meal that was most consumed in the month.
+     * @param mostConsumed is the list of dishes that was most consumed in the month.
+     * @param data is the list of meals converted into a list of data to be used in a PieChart.
      */
-    private Statistics(int maximum, int minimum, double average, int calorieExceedCount, Dish mostConsumed) {
+    private Statistics(int maximum, int minimum, double average, int calorieExceedCount, List<Dish> mostConsumed,
+                       ObservableList<Data> data) {
         this.maximum = maximum;
         this.minimum = minimum;
         this.average = average;
         this.calorieExceedCount = calorieExceedCount;
-        this.mostConsumedDish = mostConsumed;
+        this.mostConsumedDishes = mostConsumed;
+        this.pieChartData = data;
     }
 
     /**
@@ -47,7 +55,8 @@ public class Statistics {
      */
     public static Statistics generateStatistics(MealLog mealLog, CalorieBudget budget) {
         ObservableList<Meal> currentMonthMeals = mealLog.getCurrentMonthMeals();
-        Dish mostConsumed = Statistics.getMostConsumedDish(currentMonthMeals);
+        ObservableList<Data> pieChartData = Statistics.getPieChartData(currentMonthMeals);
+        List<Dish> mostConsumed = Statistics.getMostConsumedDishes(currentMonthMeals);
         int calorieExceedCount = Statistics.getCalorieExceedCount(budget, currentMonthMeals);
         int maximum = 0;
         int minimum = 0;
@@ -72,7 +81,7 @@ public class Statistics {
 
         average = Math.round(average / LocalDate.now().lengthOfMonth());
 
-        return new Statistics(maximum, minimum, average, calorieExceedCount, mostConsumed);
+        return new Statistics(maximum, minimum, average, calorieExceedCount, mostConsumed, pieChartData);
     }
 
     /**
@@ -118,17 +127,17 @@ public class Statistics {
      * Returns the most consumed Dish of the Month.
      * @return a Dish.
      */
-    public Dish getMostConsumedDish() {
-        return this.mostConsumedDish;
+    public List<Dish> getMostConsumedDishes() {
+        return this.mostConsumedDishes;
     }
 
     /**
-     * Method to obtain the most consumed Dish in a list of meals
+     * Method to obtain the most consumed Dishes in a list of meals
      * Obtained by storing Dishes in a hashmap to check for duplicates and increment how many times they are eaten.
      * @param meals is the list of meals that we want to know the information from.
-     * @return the most consumed Dish in the list.
+     * @return the list of most consumed dishes.
      */
-    public static Dish getMostConsumedDish(ObservableList<Meal> meals) {
+    public static List<Dish> getMostConsumedDishes(ObservableList<Meal> meals) {
         HashMap<Dish, Integer> map = new HashMap<>();
         for (int i = 0; i < meals.size(); i++) {
             Dish currentDish = meals.get(i).getDish();
@@ -141,7 +150,14 @@ public class Statistics {
                 max = e;
             }
         }
-        return max.getKey();
+        Integer maxValue = max.getValue();
+        ArrayList<Dish> toBeReturned = new ArrayList<>();
+        for (Entry<Dish, Integer> e : map.entrySet()) {
+            if (e.getValue() == maxValue) {
+                toBeReturned.add(e.getKey());
+            }
+        }
+        return toBeReturned;
     }
 
     /**
@@ -166,6 +182,33 @@ public class Statistics {
      */
     public double getAverage() {
         return this.average;
+    }
+
+    /**
+     * Generates the list of dishes that the user has eaten this month and number of times each dish has been eaten.
+     * Uses a HashMap to track the quantity and for each entry, a Data object is created with the entry name and value.
+     * @return the list of dishes eaten this month.
+     */
+    public static ObservableList<Data> getPieChartData(ObservableList<Meal> meals) {
+        ArrayList<Data> data = new ArrayList<>();
+        HashMap<Dish, Integer> map = new HashMap<>();
+        for (int i = 0; i < meals.size(); i++) {
+            Dish currentDish = meals.get(i).getDish();
+            Integer value = map.get(currentDish);
+            map.put(currentDish, value == null ? 1 : value + 1);
+        }
+        for (Entry<Dish, Integer> e : map.entrySet()) {
+            data.add(new Data(e.getKey().getName().toString() + "\n" + e.getValue(), e.getValue()));
+        }
+        return FXCollections.observableList(data);
+    }
+
+    /**
+     * Getter method to return the list of dishes and their quantity as a list of data.
+     * @return the list of data containing the dishes eaten this month.
+     */
+    public ObservableList<Data> getPieChartData() {
+        return this.pieChartData;
     }
 
 }

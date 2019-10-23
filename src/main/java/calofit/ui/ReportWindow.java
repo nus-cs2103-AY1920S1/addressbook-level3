@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -25,10 +26,6 @@ public class ReportWindow extends UiPart<Stage> {
     public static final String FXML = "ReportWindow.fxml";
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
 
-    public final int maximum;
-    public final int minimum;
-    public final double average;
-
     @FXML
     private Label numericalStatistics;
 
@@ -49,6 +46,9 @@ public class ReportWindow extends UiPart<Stage> {
 
     @FXML
     private TextFlow mostConsumedMeal;
+
+    @FXML
+    private PieChart foodChart;
 
     /**
      * Constructs the Report Window based on the FXML file as the basis.
@@ -83,10 +83,6 @@ public class ReportWindow extends UiPart<Stage> {
         mostConsumedMeal.setBackground(forFoodStatistics);
         mostConsumedMeal.setTextAlignment(TextAlignment.CENTER);
 
-        this.maximum = statistics.getMaximum();
-        this.minimum = statistics.getMinimum();
-        this.average = statistics.getAverage();
-
         Text maximum = new Text("Maximum\n");
         maximum.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
         Text valueOfMaximum = new Text(String.valueOf(statistics.getMaximum()));
@@ -114,11 +110,17 @@ public class ReportWindow extends UiPart<Stage> {
         calorieCountExceededValue.setStyle("-fx-font-size: 35px");
         countCalorieExceeded.getChildren().addAll(calorieCountExceededHeader, calorieCountExceededValue);
 
-        Text mostConsumedFoodHeader = new Text("Most consumed dish of the month is: \n");
+        Text mostConsumedFoodHeader = new Text("Most consumed dish(es) of the month is:");
         mostConsumedFoodHeader.setStyle("-fx-font-size: 20px");
-        Text mostConsumedFoodValue = new Text(statistics.getMostConsumedDish().getName().toString());
-        mostConsumedFoodValue.setStyle("-fx-font-size: 35px");
-        mostConsumedMeal.getChildren().addAll(mostConsumedFoodHeader, mostConsumedFoodValue);
+        mostConsumedMeal.getChildren().add(mostConsumedFoodHeader);
+        for(int i = 0; i < statistics.getMostConsumedDishes().size(); i++) {
+            Text mostConsumedFood = new Text("\n" + statistics.getMostConsumedDishes().get(i).getName().toString());
+            mostConsumedFood.setStyle("-fx-font-size: 35px");
+            mostConsumedMeal.getChildren().add(mostConsumedFood);
+        }
+
+        foodChart.setData(statistics.getPieChartData());
+        foodChart.setLegendVisible(false);
     }
 
     /**
