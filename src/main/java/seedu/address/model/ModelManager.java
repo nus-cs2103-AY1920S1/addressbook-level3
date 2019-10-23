@@ -21,6 +21,7 @@ import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
@@ -780,11 +781,11 @@ public class ModelManager implements Model {
      * This method is expected to be called during the `execute()` method of each Command, right after
      * any transformations/mutations have been made to the data in Model.
      */
-    public void updateHistory() {
+    public void updateHistory(Command c) {
         try {
             this.history.updateHistory(this.participantList, ParticipantList.getLastUsedId(),
                     this.mentorList, MentorList.getLastUsedId(),
-                    this.teamList, TeamList.getLastUsedId());
+                    this.teamList, TeamList.getLastUsedId(), c);
         } catch (AlfredModelHistoryException e) {
             logger.warning("Problem encountered updating model state history.");
         }
@@ -805,9 +806,13 @@ public class ModelManager implements Model {
             TeamList.setLastUsedId(hr.getTeamListLastUsedId());
 
             //Update each of the EntityLists to the state in the ModelHistoryRecord hr
-            this.participantList = hr.getParticipantList();
-            this.mentorList = hr.getMentorList();
-            this.teamList = hr.getTeamList();
+            try {
+                this.participantList = hr.getParticipantList().copy();
+                this.mentorList = hr.getMentorList().copy();
+                this.teamList = hr.getTeamList().copy();
+            } catch (AlfredModelException e) {
+                throw new AlfredModelHistoryException("Unable to copy EntityLists from ModelHistoryRecord");
+            }
 
             //Update each of the filteredEntityLists
             this.filteredParticipantList =
@@ -819,5 +824,13 @@ public class ModelManager implements Model {
         } else {
             throw new AlfredModelHistoryException("Unable to undo.");
         }
+    }
+
+    /**
+     * Gets a String detailing the previously executed commands that can be undone by the user.
+     * @return String representing the previously executed commands that can be undone by the user.
+     */
+    public String getCommandHistory() {
+        return this.history.getCommandHistory();
     }
 }

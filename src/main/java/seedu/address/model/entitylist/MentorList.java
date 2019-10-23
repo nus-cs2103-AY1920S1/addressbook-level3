@@ -212,7 +212,7 @@ public class MentorList extends EntityList {
      * Provides a deep copy of the MentorList
      * @return Deep copy of MentorList
      */
-    public MentorList copy() throws AlfredException {
+    public MentorList copy() throws AlfredModelException {
         MentorList newMList = new MentorList();
         for (Mentor m: this.mentors) {
             newMList.add(m.copy());

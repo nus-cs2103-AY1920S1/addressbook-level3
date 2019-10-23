@@ -22,6 +22,7 @@ import seedu.address.logic.commands.findcommand.FindMentorCommand;
 import seedu.address.logic.commands.findcommand.FindParticipantCommand;
 import seedu.address.logic.commands.findcommand.FindTeamCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
+import seedu.address.logic.commands.undocommand.HistoryCommand;
 import seedu.address.logic.commands.undocommand.UndoCommand;
 import seedu.address.logic.commands.viewcommand.ViewCommand;
 import seedu.address.logic.parser.addcommandparser.AddCommandAllocator;
@@ -108,6 +109,9 @@ public class AlfredParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         case EditCommand.COMMAND_WORD:
             logger.info("Editing an existing Entity...");

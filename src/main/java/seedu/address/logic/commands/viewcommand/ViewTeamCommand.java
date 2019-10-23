@@ -35,7 +35,7 @@ public class ViewTeamCommand extends ViewCommand {
         Team teamToView;
         try {
             teamToView = model.getTeam(this.id);
-            model.updateHistory();
+            model.updateHistory(this);
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         }
@@ -50,5 +50,4 @@ public class ViewTeamCommand extends ViewCommand {
                 || (other instanceof ViewTeamCommand // instanceof handles nulls
                 && id.equals(((ViewTeamCommand) other).id));
     }
-
 }

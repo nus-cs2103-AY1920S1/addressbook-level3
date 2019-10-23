@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.ModelManager;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
@@ -252,7 +253,6 @@ public class ModelManagerStub extends ModelManager {
     /**
      * Placeholder method simulating the updating of ModelHistory
      */
-    public void updateHistory() {
-
+    public void updateHistory(Command c) {
     }
 }

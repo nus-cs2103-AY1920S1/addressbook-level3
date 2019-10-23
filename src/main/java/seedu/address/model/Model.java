@@ -10,6 +10,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
@@ -192,13 +193,19 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the history of entity states with the current state (after execution of a command)
+     * Updates the history of entity states with the current state (after execution of Command c)
      */
-    void updateHistory();
+    void updateHistory(Command c);
 
     /**
      * Undoes the effects of the previous command and returns the model to the state
      * prior to the execution of the command.
      */
     void undo() throws AlfredModelHistoryException;
+
+    /**
+     * Gets a String detailing the previously executed commands that can be undone by the user.
+     * @return String representing the previously executed commands that can be undone by the user.
+     */
+    String getCommandHistory();
 }

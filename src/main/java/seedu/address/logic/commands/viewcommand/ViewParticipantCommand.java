@@ -36,7 +36,7 @@ public class ViewParticipantCommand extends ViewCommand {
         Participant participantToView;
         try {
             participantToView = model.getParticipant(this.id);
-            model.updateHistory();
+            model.updateHistory(this);
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX);
         }
@@ -51,5 +51,4 @@ public class ViewParticipantCommand extends ViewCommand {
                 || (other instanceof ViewParticipantCommand // instanceof handles nulls
                 && id.equals(((ViewParticipantCommand) other).id));
     }
-
 }

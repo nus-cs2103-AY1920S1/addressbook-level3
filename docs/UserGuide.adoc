@@ -13,6 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master
+:releaseURL: https://github.com/AY1920S1-CS2103T-F11-1/main/releases
 
 By: `Team F11-1`
 
@@ -36,7 +37,7 @@ Interested? Well, head to <<Quick Start>> to get started. We hope Alfred serves 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `alfred.jar` link:{repoURL}/releases[here].
+.  Download the latest `alfred.jar` link:{releaseURL}[here].
 .  Copy the file to the folder you want to use as the home folder for Alfred.
 .  Double-click the file to start the app. Alternatively, if you use a Mac, type the command `java -jar alfred.jar`
 on terminal in the jar file's directory to open start the app. The GUI should appear in a few seconds.
@@ -48,8 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Here are some sample commands you can experiment with:
 
 * *`list teams`* : lists teams in the hackathon
-* *`add participant n/John Doe p/98765432 e/johnd@example.com`* : adds a new participant named `John Doe` to the Hackathon.
-* *`delete mentor 3`* : removes the mentor with ID 3 from the hackathon.
+* *`add participant n/Bartholomew Lim p/97654321 e/barrytheflash@superheros.com`* : adds a new participant named `Bartholomew Lim` to the Hackathon.
+* *`delete participant P-1`* : removes the participant with ID P-1 from the hackathon.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -64,12 +65,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 `NAME` is a parameter which you need to specify as the mentor's name, for example `add mentor n/John Doe`.
 * You can type the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
 you may input `p/PHONE_NUMBER n/NAME` and Alfred will still deem it as an acceptable command.
-* Words in {curly braces} indicate values for the command that you need to supply.
-** For example, in the case of `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
+* Words in {curly braces} indicate values for the command that you need to select and provide.
+** For example in the case of `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
 * Words in [brackets] indicate values that are optional for the command.
 ** For example, in the case of `export [CSV_FILE_PATH]`, you can choose to leave out the file path.
+* Whenever you need to specify an ID, the ID will be prefixed with an alphabet indicating the type of the Entity (e.g. M for Mentors, P for Participants, T for Teams).
 * Type your commands in the textbox displayed on the Alfred UI. After you are done typing the command, press ENTER on your keyboard to execute the command.
 ====
+
+=== Saving the data:
+
+Data in Alfred is saved to the hard disk automatically after any command that changes the data. +
+There is no need for you to save the data manually.
 
 === Viewing help : `help` (Coming in v1.3)
 
@@ -84,25 +91,16 @@ Format: `help`
 Use this command to add a new entity for Alfred to keep track of. +
 
 ****
-* Creates an Entity as specified by you. Each Entity object will have a unique ID autmatically assigned to it.
+* Creates an Entity as specified by you. Each Entity object will have a unique ID automatically assigned to it.
 * As of version 1.1, you must provide all the fields. There are no optional fields.
 ****
 
-==== Adding a Mentor: `add mentor [PARAMETERS]`
-Use this command to add a new Mentor to Alfred to keep track of for your hackathon. Mentors have the fields "Name", "Phone number" and "Email address" which you must provide. Additionally, they have field called "Organization" which is the organization for which they work, and a field called "Specialisation" which is the area they specialise in. The Specialisation must be chosen from the predetermined list of specialisations given in Section (some number). The format of the command for adding a new Mentor is as described below.
-
-Format: `add mentor  n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS o/ORGANIZATION s/SPECIALISATION`
-
-Examples:
-
-* `add mentor n/Professor Superman p/91236549 e/clarkkent@gmail.com o/Daily Planet s/Artificial Intelligence`
-
-* `add mentor n/Doctor Batman p/91236549 e/bruce@gmail.com o/Google s/Augmented Reality`
-
 ==== Adding a Participant: `add participant [PARAMETERS]`
-Use this command to add a new Participant to Alfred to keep track of for your hackathon. Participants have the fields "Name", "Phone number" and "Email address" which you must provide. The format of the command for adding a new Participant is as described below.
+Use this command to add a new Participant to Alfred to keep track of for your hackathon.
 
-Additionally, they have the parameters "Organization" which is the organization for which they work, and "Specialisation" which is the area they specialise in. The Specialisation must be chosen from the predetermined list of specialisations given in Section (some number). The format of the command for adding a new Mentor is as described below.
+****
+* Participants have the fields "Name", "Phone number" and "Email address" which you must provide.
+****
 
 Format: `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`
 
@@ -112,11 +110,29 @@ Examples:
 
 * `add participant n/Betsy Crowe e/betsycrowe@example.com p/1234567`
 
+==== Adding a Mentor: `add mentor [PARAMETERS]`
+Use this command to add a new Mentor to Alfred to keep track of for your hackathon.
+
+****
+* Mentors have the fields "Name", "Phone number" and "Email address" which you must provide.
+* Mentors also have a field called "Organization", which refers to the organization for which they work.
+* Mentors also have a field called "Specialisation", which refers which is the field of work they specialise in. The Specialisation must be chosen from the predetermined list of specialisations given in Section (some number).
+****
+
+Format: `add mentor  n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS o/ORGANIZATION s/SPECIALISATION`
+
+Examples:
+
+* `add mentor n/Professor Superman p/91236549 e/clarkkent@gmail.com o/Daily Planet s/Artificial Intelligence`
+
+* `add mentor n/Doctor Batman p/91236549 e/bruce@gmail.com o/Google s/Augmented Reality`
 
 ==== Adding a Team: `add team [PARAMETERS]`
-Use this command to add a new Team to Alfred to keep track of for your hackathon. Teams have the parameters "Name", "Project name" and "Table Number" which you must provide.
-
-Additionally, they have the parameters "Subject" which is the area the team's project focuses on, and must be chosen from the predetermined list of subjects given in Section (some number). The format of the command for adding a new Team is as described below.
+Use this command to add a new Team to Alfred to keep track of for your hackathon.
+****
+* Teams have the fields "Name", "Project name" and "Table Number" which you must provide.
+* Teams also have a field called "Subject", which refers the area the team's project focuses on, and must be chosen from the predetermined list of subjects given in Section (some number).
+****
 
 Format: `add team n/NAME s/SUBJECT pn/PROJECT_NAME pt/PROJECT_TYPE l/TABLE_NUMBER`
 
@@ -139,13 +155,11 @@ Edits an entity based on the parameter values you supply. Use this command in ca
 
 Examples:
 
-* `edit mentor M-1 n/NewMentorName` sets the name of the mentor with ID M-1 to "NewMentorName"
+* `edit mentor M-1 n/NewMentorName `
 
-* `edit participant P01 n/NewParticipantName`
+* `edit team T-1 n/NewTeamName pn/New Project Name`
 
-* `edit team T-1 n/NewTeamName pn/New Project Name` sets the name of the team with ID T-1 to "NewTeamName" and their project name to "New Project Name"
-
-* `edit team T01 n/NewTeamName pn/New Project Name`
+* `edit participant P-1 n/NewParticipantNAme`
 
 === Listing all Entities : `list {mentors/participants/teams}`
 
@@ -165,11 +179,9 @@ Examples:
 
 === Deleting an Entity: `delete {mentor/participant/team} ID`
 Deletes an Entity, so that Alfred will no longer keep track of that Entity.
-This is a permanent operation, so please be careful.
 
 ****
 * Deletes the Entity with the ID that you specify.
-* As of version 1.1, the delete operation is permanent and irreversible. Be careful.
 ****
 
 * `delete mentor M-1` will delete the mentor with ID M-1 from Alfred.
@@ -178,14 +190,13 @@ This is a permanent operation, so please be careful.
 
 * `delete team T-1` will delete the team with ID T-1 from Alfred.
 
-=== Saving the data: `save`
+=== Finding a Specific Entity: `find {mentor/team/participant} n/NAME`
 
-Data in Alfred is saved to the hard disk automatically after any command that changes the data. +
-There is no need for you to save the data manually.
+Searches for Entities by their name, instead of their ID, in case you find that the ID is difficult to keep track of. +
 
-=== Finding a Specific Entity: `find {mentor/participant/team} NAME`
-
-You may search for Entities via their name, instead of their ID, in case you find that the ID is difficult to keep track of. +
+****
+* Take note that the `find` command only searches and matches the names of each Entity, and does not search in other fields.
+****
 
 Examples:
 
@@ -195,13 +206,68 @@ Examples:
 
 * `find team n/FutureHackathonWinner` will display a list of all teams in the Hackathon that are named "FutureHackathonWinner", or have "FutureHackathonWinner" in their name.
 
+=== Show Command History: `history`
+Shows you up to the last 50 commands that you executed.
+
+****
+* This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before.
+* Above the `=` delimiter are the commands that can be re-done. (see the example below)
+* Below the `=` delimiter are the commands that can be un-done. (see the example below)
+****
+
+Example:
+Running `history` could give you the following output in the Graphical User Interface:
+```
+2. AddParticipantCommand
+1. AddTeamCommand
+==============================
+1. AddParticipantCommand
+2. AddParticipantCommand
+3. AddMentorCommand
+```
+Above the `=` delimiter are the commands that you can re-do, listed in consecutive order. Hence, calling the `redo` command will redo the `1. AddTeamCommand` command. Calling the `redo` command once more will redo the `2. AddParticipantCommand` command.
+
+Below the `=` delimiter are the commands that you can un-do, listed in consecutive order. Hence, calling the `undo` command once will undo the `1. AddParticipantCommand` command. Calling the `undo` command once more will undo the `2. AddTeamCommand` command. Note that it is not possible to undo beyond the last listed command below the `=` delimiter.
+
+In other words, calling `undo` will undo the command immediately below the `=` delimiter, and calling `redo` will redo the command immediately above the `=` delimiter.
+
+=== Undo Previous Commands: `undo`
+Undoes the previous command you executed.
+
+****
+* Undoes the effects of the previous command you executed, and will return Alfred to the previous state (as though you never executed the previous command).
+* All commands that can be undone can be found in the output of the `history` command.
+* To be certain which command you are actually undo-ing, first run the `history` command and examine the output.
+* Only the commands that actually change the data in Alfred will be undo-able. Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command. (Coming in v1.4)
+****
+
+=== Redo Previous Commands: `redo`
+Redoes the previous command you executed.
+
+****
+* Redoes the effects of the previous command you executed, and will return Alfred to the previous state (as though you never executed the previous command).
+* All commands that can be redone can be found in the output of the `history` command.
+* To be certain which command you are actually redo-ing, first run the `history` command and examine the output.
+* Only the commands that actually change the data in Alfred will be redo-able. Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command. (Coming in v1.4)
+****
+
 === Judging and Leaderboard Features
 
-==== Show Team Ranking: `leaderboard`
-Use this command to display the ranking of the teams in the hackathon in descending order of their points. Once you run this command, Alfred's UI will display a list of all the teams stored within Alfred sorted in descending order of their points.
+==== List Team Ranking: `leaderboard`
+Use this command to display the ranking of the teams in the hackathon in descending order of their points.
+
+****
+* Once you run this command, Alfred's UI will display a list of all the teams stored within Alfred sorted in descending order of their points.
+****
 
 ==== Get the top k teams: `getTop NUMBER`
-Use this command to list the top k teams in the leaderboard, where k is a number (NUMBER) which you specify. Essentially, this command will show you a cropped version of the leaderboard. Upon running this command, Alfed's UI will display a list of top "k" teams based on their current score.
+Use this command to list the top k teams in the leaderboard, where k is a number (NUMBER) which you specify.
+
+****
+* This command will show you a cropped version of the leaderboard.
+* Alfed's UI will display a list of top "k" teams based on their current score.
+* If you input "k" as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon.
+****
 
 ****
 
@@ -215,10 +281,10 @@ Example:
 * `getTop 20` will display the top 20 teams with the highest points in the hackathon.
 
 ==== Add points: `score add TEAM_ID POINTS`
-Adds the value of POINTS to the current score of the team with ID TEAM_ID. Use this command when you want to award a particular team a certain amount of points.
+Adds the value of POINTS to the current score of the team with ID TEAM_ID.
 
 ****
-:tip-caption:
+* Use this command when you want to award a particular team a certain amount of points.
 * If you try to award more than the maximum amount of points (which is set to 100 points as default), Alfred will not allow it and will display an error message.
 * If the addition of points makes the team's total exceed the maximum, the score will simply be set to the maximum score.
 ****
@@ -230,11 +296,12 @@ Example:
 * `score add T-5 60` will add 60 points to the score of the team with ID T-5.
 
 ==== Subtract points: `score sub TEAM_ID NEW_POINTS`
-Deducts the value of POINTS from the current score of the team with ID TEAM_ID. Use this command when you want to take away a certain amount of points from a particular team.
+
+Deducts the value of POINTS from the current score of the team with ID TEAM_ID.
 
 ****
-* If you try to subtract more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message.
-* If the subtraction of points makes the team's total go below the minimum (which is set to 0 points), the score will simply be set to 0.
+* Use this command when you want to take away a certain amount of points from a particular team.
+* If you try to subtract more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message. If the subtraction of points makes the team's total go below the minimum (which is set to 0 points), the score will simply be set to 0.
 ****
 
 Example:
@@ -244,11 +311,11 @@ Example:
 * `score sub T-5 10` will subtract 10 points from the score of the team with ID T-5.
 
 ==== Set points: `score set TEAM_ID NEW_POINTS`
-Sets the score of the team with ID TEAM_ID to a new score NEW_POINTS, regardless of the team's current score. Use this command when you want to set a team's score to an exact score, rather than adding or subtracting points from their current score.
+Sets the score of the team with ID TEAM_ID to a new score NEW_POINTS, regardless of the team's current score.
 
 ****
+* Use this command when you want to set a team's score to an exact score, rather than adding or subtracting points from their current score.
 * If you try to set more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message.
-* If you try to set less than the minimum amount of points (which is set to 0 as default), Alfred will not allow it and will display an error message.
 ****
 
 Example:
@@ -387,14 +454,26 @@ Delete a Schedule for a Team
 
 === Food (Coming in v2.0)
 ==== Add Food Company and Inventory: `addFoodCompany COMPANY_NAME INVENTORY QUANTITY`
+Add a Food Company and it associated food item inventory
+
 ==== Mark Food as Received: `receiveFood COMPANY_NAME INVENTORY QUANTITY`
+Mark the inventory as received
+
 ==== List Food Inventory: `list food`
+List the food inventory and its current status (e.g. delivering, received)
 
 === Waitlist (Coming in v2.0)
-==== Add to waitlist: `addToWaitList USER_ID`
-==== Remove from waitlist: `removeFromWaitList USER_ID`
-==== List by Registration Time: `listWaitList`
+==== Add to waitlist: `addToWaitList PARTICIPANT_ID`
+Add a participant to a waitlist when the number of participants exceeds a stipulated capacity.
 
+==== Remove from waitlist: `removeFromWaitList PARTICIPANT_ID`
+Remove a participant from the waitlist.
+
+==== List by Registration Time: `listWaitList`
+Go through the waitlist and list the participants in the waitlist in ascending orger of registration time.
+****
+* This helps fulfill a first-come-first-serve policy.
+****
 
 
 == FAQ
@@ -404,13 +483,20 @@ Delete a Schedule for a Team
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Add* `add {participant/mentor/team} [PARAMETERS]` +
+e.g. `add participant n/James Ho p/97654321 e/jamesho@example.com`
+* *Edit* : `edit {participant/mentor/team} ID [PARAMETERS]` +
+e.g. `edit participant P-1 n/NewName`
+* *List* : `list {participants/mentors/teams}`
+* *Delete* : `delete {participant/mentor/team} ID` +
+e.g. `delete participant P-1`
+* *Find* : `find{Participant/Mentor/Team} [KEYWORD]` +
+e.g. `findParticipant n/James`
+* *Command History* `history`
+* *Undo* `undo`
+* *Redo* `redo`
+* *Team Ranking* `leaderboard`
+* *Get Top Teams* `getTop NUMBER`
+* *Add Points* `score add TEAM_ID POINTS`
+* *Bulk Registration* `addBulk PATH_TO_CSV_FILE`
 * *Help* : `help`
