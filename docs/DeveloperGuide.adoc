@@ -32,7 +32,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
-This section shows the design of AddressBook Level 3, which Mark is adapted from. It will be updated in a future release.
+This section shows the design of Mark.
 
 [[Design-Architecture]]
 === Architecture
