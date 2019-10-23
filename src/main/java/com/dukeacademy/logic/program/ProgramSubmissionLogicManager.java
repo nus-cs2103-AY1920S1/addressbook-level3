@@ -53,7 +53,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
         }
 
         try {
-            String compilerEnvironmentPath = Paths.get(outputDirectoryPath).resolve("temp").toUri().getPath();
+            String compilerEnvironmentPath = Paths.get(outputDirectoryPath).resolve("temp").toString();
             this.compilerEnvironment = new StandardCompilerEnvironment(compilerEnvironmentPath);
             this.testExecutor = new TestExecutor(this.compilerEnvironment, new StandardCompiler(),
                     new StandardProgramExecutor());

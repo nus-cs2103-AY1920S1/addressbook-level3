@@ -38,11 +38,6 @@ public class JavaFile {
     }
 
     public File getFile() {
-        String trimmedClassPath = classPath;
-        if (classPath.lastIndexOf(File.separator) == classPath.length() - 1) {
-            trimmedClassPath = classPath.substring(0, classPath.length() - 1);
-        }
-
         return new File(this.getAbsolutePath());
     }
 

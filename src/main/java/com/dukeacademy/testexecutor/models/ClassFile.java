@@ -2,6 +2,7 @@ package com.dukeacademy.testexecutor.models;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 
 /**
  * Represents a java class file in the application. The canonical name refers to the name of the class you would
@@ -29,7 +30,7 @@ public class ClassFile {
     }
 
     public String getAbsolutePath() {
-        return classPath + canonicalName.replace(".", File.separator) + ".class";
+        return Paths.get(classPath).resolve(canonicalName.replace(".", File.separator) + ".class").toString();
     }
 
     public File getFile() {

@@ -36,7 +36,7 @@ class TestExecutorTest {
 
     @BeforeEach
     public void initialize() throws CompilerEnvironmentException {
-        CompilerEnvironment environment = new StandardCompilerEnvironment(tempFolder.resolve("test").toUri().getPath());
+        CompilerEnvironment environment = new StandardCompilerEnvironment(tempFolder.resolve("test").toString());
         Compiler compiler = new StandardCompiler();
         ProgramExecutor executor = new StandardProgramExecutor();
 

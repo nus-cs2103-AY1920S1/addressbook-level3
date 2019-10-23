@@ -48,7 +48,7 @@ class ProgramSubmissionLogicManagerTest {
 
     @BeforeEach
     void initializeTest() throws LogicCreationException {
-        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toUri().getPath());
+        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toString());
     }
 
     @AfterEach
@@ -156,7 +156,7 @@ class ProgramSubmissionLogicManagerTest {
         assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
                 .submitUserProgram(null));
 
-        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toUri().getPath());
+        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toString());
     }
 
     @Test

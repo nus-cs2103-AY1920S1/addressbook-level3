@@ -91,7 +91,7 @@ class StandardCompilerTest {
      * @throws JavaFileCreationException if file creation fails.
      */
     private JavaFile createJavaFile(UserProgram program) throws IOException, JavaFileCreationException {
-        String path = environmentPath.resolve(program.getClassName() + ".java").toUri().getPath();
+        String path = environmentPath.resolve(program.getClassName() + ".java").toString();
         File file = new File(path);
 
         boolean isFileCreated = file.createNewFile();
@@ -111,6 +111,6 @@ class StandardCompilerTest {
             throw new JavaFileCreationException("Unable to create file.");
         }
 
-        return new JavaFile(program.getClassName(), environmentPath.toUri().getPath());
+        return new JavaFile(program.getClassName(), environmentPath.toString());
     }
 }

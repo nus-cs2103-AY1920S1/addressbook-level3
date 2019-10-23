@@ -95,7 +95,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             // Discard any references to previously created files
             this.createdFiles.clear();
 
-            String path = locationPath.toUri().getPath();
+            String path = locationPath.toString();
             logger.info("Compiler environment successfully cleared: " + path);
         } catch (IOException e) {
             throw new CompilerEnvironmentException(messageClearEnvironmentFailed);
@@ -114,7 +114,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             // Discard any references to previously created files
             this.createdFiles.clear();
 
-            String path = locationPath.toUri().getPath();
+            String path = locationPath.toString();
             logger.info("Compiler environment successfully closed: " + path);
         } catch (IOException e) {
             logger.info(messageClearEnvironmentFailed);
@@ -125,7 +125,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
      * Returns the root path of the environment as a String
      */
     public String getLocationPath() {
-        return this.locationPath.toUri().getPath();
+        return this.locationPath.toString();
     }
 
     /**
@@ -135,7 +135,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
      */
     private void createDirectory(Path path) throws CompilerEnvironmentException {
         try {
-            String directoryPath = path.toUri().getPath();
+            String directoryPath = path.toString();
             if (!new File(directoryPath).exists() && !new File(directoryPath).mkdir()) {
                 throw new CompilerEnvironmentException(messageCreateEnvironmentFailed);
             }
