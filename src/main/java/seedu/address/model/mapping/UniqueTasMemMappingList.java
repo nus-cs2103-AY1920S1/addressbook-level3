@@ -31,23 +31,21 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
     private final ObservableList<TasMemMapping> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    public ObservableList<Member> getMappedMembers(Task task) {
-        requireNonNull(task);
-        ObservableList<Member> result = FXCollections.observableArrayList();
+    public ObservableList<Integer> getMembersMappedToTask(int taskIndex) {
+        ObservableList<Integer> result = FXCollections.observableArrayList();
         for (TasMemMapping mapping : internalList) {
-            if (mapping.hasTask(task)) {
-                result.add(mapping.getMember());
+            if (mapping.hasTask(taskIndex)) {
+                result.add(mapping.getMemberIndex());
             }
         }
         return result;
     }
 
-    public ObservableList<Task> getMappedTasks(Member member) {
-        requireNonNull(member);
-        ObservableList<Task> result = FXCollections.observableArrayList();
+    public ObservableList<Integer> getTasksMappedToMember(int memberIndex) {
+        ObservableList<Integer> result = FXCollections.observableArrayList();
         for (TasMemMapping mapping : internalList) {
-            if (mapping.hasMember(member)) {
-                result.add(mapping.getTask());
+            if (mapping.hasMember(memberIndex)) {
+                result.add(mapping.getTaskIndex());
             }
         }
         return result;
@@ -56,14 +54,14 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
     /**
      *returns a hashMap of members by tasks
      */
-    public HashMap<Task, ObservableList<Member>> listMemberByTask() {
-        HashMap<Task, ObservableList<Member>> result = new HashMap<>();
+    public HashMap<Integer, ObservableList<Integer>> listMemberByTask() {
+        HashMap<Integer, ObservableList<Integer>> result = new HashMap<>();
         for (TasMemMapping mapping : internalList) {
-            Task currentTask = mapping.getTask();
-            if (result.get(currentTask) == null) {
-                result.put(currentTask, FXCollections.observableArrayList());
+            int currentTaskIndex = mapping.getTaskIndex();
+            if (result.get(currentTaskIndex) == null) {
+                result.put(currentTaskIndex, FXCollections.observableArrayList());
             }
-            result.get(currentTask).add(mapping.getMember());
+            result.get(currentTask).add(mapping.getMemberIndex());
         }
         return result;
     }
@@ -71,21 +69,20 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(TasMemMapping toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameMapping);
-    }
 
-    /**
-     * Adds a task to the list.
-     * The task must not already exist in the list.
-     */
     public void add(TasMemMapping toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateMappingException();
         }
         internalList.add(toAdd);
+    }
+
+    public void remove(TasMemMapping toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new MappingNotFoundException();
+        }
     }
 
     /**
@@ -105,18 +102,7 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
             throw new DuplicateMappingException();
         }
 
-        internalList.set(index, editedMapping);
-    }
-
-    /**
-     * Removes the equivalent task from the list.
-     * The task must exist in the list.
-     */
-    public void remove(TasMemMapping toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new MappingNotFoundException();
-        }
+        internalList.set(index, editedMapwping);
     }
 
     public void setMappings(UniqueTasMemMappingList replacement) {
@@ -135,6 +121,11 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
         }
 
         internalList.setAll(mappings);
+    }
+
+    public boolean contains(TasMemMapping toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameMapping);
     }
 
     /**

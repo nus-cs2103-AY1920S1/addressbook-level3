@@ -21,8 +21,16 @@ public class TasMemMapping {
         return memberIndex;
     }
 
+    public boolean hasMember(int memberIndex) {
+        return this.memberIndex = memberIndex;
+    }
+
     public int getTaskIndex() {
         return taskIndex;
+    }
+
+    public boolean hasTask(int taskIndex) {
+        return this.taskIndex = taskIndex;
     }
 
     /**

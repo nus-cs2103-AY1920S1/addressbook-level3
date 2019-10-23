@@ -26,148 +26,134 @@ import seedu.address.model.task.Task;
  */
 public class UniqueMappingManager {
 
-    public ObservableList<Member> getMappedMembers(Task task) {
-        requireNonNull(task);
-        ObservableList<Member> result = FXCollections.observableArrayList();
-        for (TasMemMapping mapping : internalList) {
-            if (mapping.hasTask(task)) {
-                result.add(mapping.getMember());
-            }
-        }
-        return result;
+    private final UniqueInvMemMappingList invMemMappingList;
+    private final UniqueInvTasMappingList invTasMappingList;
+    private final UniqueTasMemMappingList tasMemMappingList;
+
+    public UniqueMappingManager() {
+        invMemMappingList = new UniqueInvMemMappingList();
+        invTasMappingList = new UniqueInvTasMappingList();
+        tasMemMappingList = new UniqueTasMemMappingList();
     }
 
-    public ObservableList<Task> getMappedTasks(Member member) {
-        requireNonNull(member);
-        ObservableList<Task> result = FXCollections.observableArrayList();
-        for (TasMemMapping mapping : internalList) {
-            if (mapping.hasMember(member)) {
-                result.add(mapping.getTask());
-            }
-        }
-        return result;
-    }
+    // ================ InvMem methods ==============================
 
-    /**
-     *returns a hashMap of members by tasks
-     */
-    public HashMap<Task, ObservableList<Member>> listMemberByTask() {
-        HashMap<Task, ObservableList<Member>> result = new HashMap<>();
-        for (TasMemMapping mapping : internalList) {
-            Task currentTask = mapping.getTask();
-            if (result.get(currentTask) == null) {
-                result.put(currentTask, FXCollections.observableArrayList());
-            }
-            result.get(currentTask).add(mapping.getMember());
-        }
-        return result;
-    }
-
-    /**
-     * Returns true if the list contains an equivalent task as the given argument.
-     */
-    public boolean contains(TasMemMapping toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameMapping);
-    }
-
-    /**
-     * Adds a task to the list.
-     * The task must not already exist in the list.
-     */
-    public void add(TasMemMapping toAdd) {
+    public void add(InvMemMapping toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateMappingException();
-        }
-        internalList.add(toAdd);
+        invMemMappingList.add(toAdd);
     }
 
-    /**
-     * Replaces the task {@code target} in the list with {@code editedTask}.
-     * {@code target} must exist in the list.
-     * The task identity of {@code editedTask} must not be the same as another existing task in the list.
-     */
-    public void setMapping(TasMemMapping target, TasMemMapping editedMapping) {
-        requireAllNonNull(target, editedMapping);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new MappingNotFoundException();
-        }
-
-        if (!target.isSameMapping(editedMapping) && contains(editedMapping)) {
-            throw new DuplicateMappingException();
-        }
-
-        internalList.set(index, editedMapping);
-    }
-
-    /**
-     * Removes the equivalent task from the list.
-     * The task must exist in the list.
-     */
-    public void remove(TasMemMapping toRemove) {
+    public void delete(InvMemMapping toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new MappingNotFoundException();
-        }
+        invMemMappingList.remove(toRemove);
     }
 
-    public void setMappings(UniqueTasMemMappingList replacement) {
+    public boolean contains(InvMemMapping toCheck) {
+        requireNonNull(toCheck);
+        return invMemMappingList.contains(toCheck);
+    }
+
+    public void setMapping(InvMemMapping target, InvMemMapping editedMapping) {
+        requireAllNonNull(target, editedMapping);
+        invMemMappingList.setMapping(index, editedMapping);
+    }
+
+    public void setMappings(UniqueInvMemMappingList replacement) {
         requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code tasks}.
-     * {@code tasks} must not contain duplicate tasks.
-     */
-    public void setMappings(List<TasMemMapping> mappings) {
-        requireAllNonNull(mappings);
-        if (!mappingsAreUnique(mappings)) {
-            throw new DuplicateMappingException();
-        }
-
-        internalList.setAll(mappings);
+        invMemMappingList.setMappings(replacement);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<TasMemMapping> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+    public ObservableList<InvMemMapping> getUnmodifiableObservableInvMemList() {
+        return invMemMappingList.getUnmodifiableObserableList();
     }
 
-    @Override
-    public Iterator<TasMemMapping> iterator() {
-        return internalList.iterator();
+    // ================ InvTas methods ==============================
+
+    public void add(InvTasMapping toAdd) {
+        requireNonNull(toAdd);
+        invTasMappingList.add(toAdd);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueTasMemMappingList // instanceof handles nulls
-                        && internalList.equals(((UniqueTasMemMappingList) other).internalList));
+    public void delete(InvTasMapping toRemove) {
+        requireNonNull(toRemove);
+        InvTasMappingList.remove(toRemove);
     }
 
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
+    public boolean contains(InvTasMapping toCheck) {
+        requireNonNull(toCheck);
+        return invTasMappingList.contains(toCheck);
+    }
+
+    public void setMapping(InvTasMapping target, InvTasMapping editedMapping) {
+        requireAllNonNull(target, editedMapping);
+        invTasMappingList.setMapping(index, editedMapping);
+    }
+
+    public void setMappings(UniqueInvTasMappingList replacement) {
+        requireNonNull(replacement);
+        invTasMappingList.setMappings(replacement);
     }
 
     /**
-     * Returns true if {@code tasks} contains only unique tasks.
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    private boolean mappingsAreUnique(List<TasMemMapping> mappings) {
-        for (int i = 0; i < mappings.size() - 1; i++) {
-            for (int j = i + 1; j < mappings.size(); j++) {
-                if (mappings.get(i).isSameMapping(mappings.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    public ObservableList<InvTasMapping> getUnmodifiableObservableInvTasList() {
+        return invTasMappingList.getUnmodifiableObserableList();
     }
 
+
+    // ================ TasMem methods ==============================
+
+
+    public ObservableList<Integer> getMembersMappedToTask(int taskIndex) {
+        tasMemMappingList.getMembersMappedToTask(taskIndex);
+    }
+
+    public ObservableList<Integer> getTasksMappedToMember(int memberIndex) {
+        tasMemMappingList.getTasksMappedToMember(memberIndex);
+    }
+
+    /**
+     *returns a hashMap of members by tasks
+     */
+    public HashMap<Integer, ObservableList<Integer>> listMemberByTask() {
+        return tasMemMappingList.listMemberByTask();
+    }
+
+    public void add(TasMemMapping toAdd) {
+        requireNonNull(toAdd);
+        tasMemMappingList.add(toAdd);
+    }
+
+    public void delete(TasMemMapping toRemove) {
+        requireNonNull(toRemove);
+        tasMemMappingList.remove(toRemove);
+    }
+
+    public boolean contains(TasMemMapping toCheck) {
+        requireNonNull(toCheck);
+        return tasMemMappingList.contains(toCheck);
+    }
+
+    public void setMapping(TasMemMapping target, TasMemMapping editedMapping) {
+        requireAllNonNull(target, editedMapping);
+        tasMemMappingList.setMapping(index, editedMapping);
+    }
+
+    public void setMappings(UniqueTasMemMappingList replacement) {
+        requireNonNull(replacement);
+        tasMemMappingList.setMappings(replacement);
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<TasMemMapping> getUnmodifiableObservableTasMemList() {
+        return tasMemMappingList.getUnmodifiableObserableList();
+    }
+
+    // ==============================================
 }
