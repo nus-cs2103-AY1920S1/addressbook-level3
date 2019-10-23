@@ -1,4 +1,4 @@
-budgetbuddy.logic.parser.commandparsers.EvalCommandParser
+budgetbuddy.logic.parser.commandparsers.scriptcommandparsers.ScriptEvalCommandParser
 budgetbuddy.logic.parser.commandparsers.ExitCommandParser
 budgetbuddy.logic.parser.commandparsers.HelpCommandParser
 budgetbuddy.logic.parser.commandparsers.accountcommandparsers.AccountAddCommandParser

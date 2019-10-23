@@ -1,7 +1,8 @@
-package budgetbuddy.logic.commands;
+package budgetbuddy.logic.commands.scriptcommands;
 
 import static java.util.Objects.requireNonNull;
 
+import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.script.ScriptManager;
 import budgetbuddy.logic.script.exceptions.ScriptException;
@@ -10,15 +11,15 @@ import budgetbuddy.model.Model;
 /**
  * Evaluates a script. The script has access to the full model.
  */
-public class EvalCommand extends Command {
-    public static final String COMMAND_WORD = "eval";
+public class ScriptEvalCommand extends ScriptCommand {
+    public static final String COMMAND_WORD = "script eval";
 
     public static final String MESSAGE_NO_RESULT = "Script succeeded with no result.";
     public static final String MESSAGE_SCRIPT_EXCEPTION = "Exception thrown during script evaluation\n%1$s";
 
     private final String script;
 
-    public EvalCommand(String script) {
+    public ScriptEvalCommand(String script) {
         this.script = script;
     }
 
@@ -35,10 +36,5 @@ public class EvalCommand extends Command {
         } catch (ScriptException se) {
             throw new CommandException(String.format(MESSAGE_SCRIPT_EXCEPTION, se.getMessage()), se);
         }
-    }
-
-    @Override
-    protected CommandResult execute(Model model) throws CommandException {
-        return execute(model, null);
     }
 }
