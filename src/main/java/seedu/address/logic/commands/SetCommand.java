@@ -31,6 +31,7 @@ public class SetCommand extends Command {
     private Budget budget;
 
     public SetCommand(Budget budget) {
+        requireNonNull(budget);
         this.budget = budget;
     }
 

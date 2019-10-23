@@ -27,6 +27,7 @@ public class ProjectCommand extends Command {
     public final Date date;
 
     public ProjectCommand(Date date) {
+        requireNonNull(date);
         this.date = date;
     }
 

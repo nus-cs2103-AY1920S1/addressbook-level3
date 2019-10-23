@@ -129,6 +129,12 @@ public interface Model {
     void addBudget(Budget budget);
 
     /**
+     * Adds the given budget.
+     * {@code budget} must not already exist in the bank account.
+     */
+    void addTransaction(BankAccountOperation bankAccountOperation);
+
+    /**
      * Returns an unmodifiable view of the filtered transaction list
      * @return
      */
