@@ -279,8 +279,8 @@ undo stack and pushing it into the redo stack. There is no way to pop multiple s
 
 
 // tag::annotation[]
-=== [Proposed] Annotation feature
-==== Proposed Implementation
+=== Annotation feature
+==== Implementation
 The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
 Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. As each annotation is targeted to an entire paragraph,
 we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
