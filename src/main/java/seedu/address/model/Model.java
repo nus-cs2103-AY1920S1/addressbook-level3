@@ -177,6 +177,10 @@ public interface Model {
     void setPrimary(Budget budget);
 
     /** Returns an unmodifiable view of the filtered expense list */
+    ObservableList<Budget> getFilteredBudgetList();
+
+
+    /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 
     /** Returns the predicate of the filltred expense list. **/
@@ -202,6 +206,7 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
+
     void addEvent(Event event);
 
     void deleteEvent(Event target);
@@ -212,7 +217,4 @@ public interface Model {
 
     StringBuilder getStatistic();
 
-    //ObservableList<Budget> getFilteredBudgetList();
-
-    //void updateFilteredBudgetList(Predicate<Budget> predicate);
 }

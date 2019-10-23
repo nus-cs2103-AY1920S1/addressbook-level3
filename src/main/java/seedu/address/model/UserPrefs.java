@@ -9,6 +9,7 @@ import java.util.Objects;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.RecursiveAliasException;
 
 /**
  * Represents User's preferences.
@@ -73,7 +74,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      * Add a user defined {@code Alias} to the user prefs' {@code AliasMappings}
      * @param alias
      */
-    public void addUserAlias(Alias alias) {
+    public void addUserAlias(Alias alias) throws RecursiveAliasException {
         requireNonNull(alias);
         this.aliasMappings = aliasMappings.addAlias(alias);
     }
@@ -85,24 +86,26 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public boolean hasAlias(String aliasName) {
-        return this.aliasMappings.aliasExists(aliasName);
+        return this.aliasMappings.aliasWithNameExists(aliasName);
     }
 
     /**
      * Returns true if the {@code String aliasName} is a reserved command word, and false otherwise.
+     * @param alias
      */
-    public boolean aliasNameIsReserved(String aliasName) {
-        requireNonNull(aliasName);
-        return this.aliasMappings.aliasNameIsReserved(aliasName);
+    public boolean aliasNameIsReserved(Alias alias) {
+        requireNonNull(alias);
+        return this.aliasMappings.aliasUsesReservedName(alias);
     }
 
     /**
      * Returns true if the {@code String commandWord} of an {@code Alias} is an alias name mapped to an
      * existing {@code Alias}, and false otherwise.
+     * @param alias
      */
-    public boolean aliasCommandWordIsAlias(String commandWord) {
-        requireNonNull(commandWord);
-        return this.aliasMappings.aliasCommandWordIsAlias(commandWord);
+    public boolean aliasCommandWordIsAlias(Alias alias) {
+        requireNonNull(alias);
+        return this.aliasMappings.aliasCommandWordIsAlias(alias);
     }
 
     @Override

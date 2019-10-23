@@ -10,10 +10,10 @@ import static seedu.address.testutil.TypicalBudgets.SCHOOL_BUDGET_STRING;
 import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
 import static seedu.address.testutil.TypicalExpenses.CHICKEN_RICE;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.testutil.BudgetBuilder;
@@ -29,7 +29,7 @@ public class BudgetTest {
 
     @Test
     public void testGetExpenseSum() {
-        ArrayList<Expense> expenses = new ArrayList<>();
+        ObservableList<Expense> expenses = FXCollections.observableArrayList();
         expenses.add(ANNIVERSARY);
         expenses.add(CHICKEN_RICE);
         Budget editedSchool = new BudgetBuilder(SCHOOL)
@@ -62,7 +62,7 @@ public class BudgetTest {
 
     @Test
     public void testRemoveIdentical() {
-        ArrayList<Expense> expenses = new ArrayList<>();
+        ObservableList<Expense> expenses = FXCollections.observableArrayList();
         expenses.add(ANNIVERSARY);
         Budget editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
@@ -72,7 +72,7 @@ public class BudgetTest {
 
     @Test
     public void testSetExpense() {
-        ArrayList<Expense> expenses = new ArrayList<>();
+        ObservableList<Expense> expenses = FXCollections.observableArrayList();
         expenses.add(ANNIVERSARY);
         Budget editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
@@ -125,7 +125,7 @@ public class BudgetTest {
         assertTrue(SCHOOL.isSameBudget(editedSchool));
 
         // different expense list -> return true
-        ArrayList<Expense> expenses = new ArrayList<>();
+        ObservableList<Expense> expenses = FXCollections.observableArrayList();
         expenses.add(ANNIVERSARY);
         editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
@@ -193,7 +193,7 @@ public class BudgetTest {
         assertFalse(SCHOOL.equals(editedSchool));
 
         // different expense list -> returns false
-        ArrayList<Expense> expenses = new ArrayList<>();
+        ObservableList<Expense> expenses = FXCollections.observableArrayList();
         expenses.add(ANNIVERSARY);
         editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();

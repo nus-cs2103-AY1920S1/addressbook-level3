@@ -15,6 +15,7 @@ import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
@@ -33,8 +34,8 @@ public class ModelManager implements Model {
     private final ModelHistory modelHistory;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Budget> filteredBudgets;
     private StringBuilder statsBuilder;
-    //private final FilteredList<Budget> filteredBudgets;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -50,7 +51,7 @@ public class ModelManager implements Model {
         this.modelHistory = new ModelHistory(modelHistory);
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
-        //filteredBudgets = new FilteredList<>(this.addressBook.getBudgetList());
+        filteredBudgets = new FilteredList<>(this.addressBook.getBudgetList());
     }
 
     public ModelManager() {
@@ -189,7 +190,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addUserAlias(Alias alias) {
-        userPrefs.addUserAlias(alias);
+        try {
+            userPrefs.addUserAlias(alias);
+        } catch (RecursiveAliasException e) {
+            // should should be prevented by validation
+            e.printStackTrace();
+        }
     }
 
     //=========== GuiSettings ===============================================================================
@@ -253,7 +259,6 @@ public class ModelManager implements Model {
     @Override
     public void addBudget(Budget budget) {
         addressBook.addBudget(budget);
-        //updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
     }
 
     @Override
@@ -359,16 +364,16 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
-    //@Override
-    //public ObservableList<Budget> getFilteredBudgetList() {
-    //   return filteredBudgets;
-    //}
+    //=========== Filtered Budget List Accessors =============================================================
 
-    //@Override
-    //public void updateFilteredBudgetList(Predicate<Budget> predicate) {
-    //  requireNonNull(predicate);
-    //  filteredBudgets.setPredicate(predicate);
-    //}
+    /**
+     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return filteredBudgets;
+    }
 
     @Override
     public boolean equals(Object obj) {

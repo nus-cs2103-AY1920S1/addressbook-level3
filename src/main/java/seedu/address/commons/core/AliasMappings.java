@@ -6,17 +6,18 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import seedu.address.logic.commands.AddBudgetCommand;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AliasCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.commons.exceptions.RecursiveAliasException;
+import seedu.address.logic.commands.alias.AliasCommand;
+import seedu.address.logic.commands.budget.AddBudgetCommand;
+import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.expense.AddCommand;
+import seedu.address.logic.commands.expense.ClearCommand;
+import seedu.address.logic.commands.expense.DeleteCommand;
+import seedu.address.logic.commands.expense.EditCommand;
+import seedu.address.logic.commands.expense.FindCommand;
+import seedu.address.logic.commands.expense.ListCommand;
+import seedu.address.logic.commands.general.ExitCommand;
+import seedu.address.logic.commands.general.HelpCommand;
 
 
 /**
@@ -25,28 +26,31 @@ import seedu.address.logic.commands.ListCommand;
  */
 public class AliasMappings implements Serializable {
 
-    private Map<String, Alias> aliasesMappings;
+    private Map<String, Alias> aliasNameToAliasMap;
 
     // Constructors
     public AliasMappings() {
-        this.aliasesMappings = new HashMap<>();
+        this.aliasNameToAliasMap = new HashMap<>();
     }
 
     private AliasMappings(AliasMappings aliasMappings) {
         requireNonNull(aliasMappings);
-        this.aliasesMappings = new HashMap<>(aliasMappings.aliasesMappings);
+        this.aliasNameToAliasMap = new HashMap<>(aliasMappings.aliasNameToAliasMap);
     }
 
     public Alias getAlias(String aliasName) {
-        return aliasesMappings.get(aliasName);
+        return aliasNameToAliasMap.get(aliasName);
     }
 
     /**
-     * Returns a {@code UserAliasSettings} with an added {@code Alias}.
+     * Returns an {@code AliasMappings} with an added {@code Alias}.
      */
-    public AliasMappings addAlias(Alias alias) {
+    public AliasMappings addAlias(Alias alias) throws RecursiveAliasException {
+        if (aliasCommandWordIsAlias(alias)) {
+            throw new RecursiveAliasException(alias);
+        }
         AliasMappings aliasMappings = new AliasMappings(this);
-        aliasMappings.aliasesMappings.put(alias.getAliasName(), alias);
+        aliasMappings.aliasNameToAliasMap.put(alias.getAliasName(), alias);
         return aliasMappings;
     }
 
@@ -55,16 +59,17 @@ public class AliasMappings implements Serializable {
      * @param aliasName The alias name to check if it has a mapped {@code Alias}.
      * @return true if an {@code Alias} is mapped to the given {@code String aliasName}, and false otherwise.
      */
-    public boolean aliasExists(String aliasName) {
-        return aliasesMappings.containsKey(aliasName);
+    public boolean aliasWithNameExists(String aliasName) {
+        return aliasNameToAliasMap.containsKey(aliasName);
     }
 
     /**
-     * Returns true if an alias name is not a reserved command word and false otherwise.
-     * @param aliasName The alias name which needs to be checked.
-     * @return true if an alias name is not a reserved command word and false otherwise.
+     * Returns true if an alias' name is a reserved command word and false otherwise.
+     * @param alias The alias which needs to be checked.
+     * @return true if an alias name is a reserved command word and false otherwise.
      */
-    public boolean aliasNameIsReserved(String aliasName) {
+    public boolean aliasUsesReservedName(Alias alias) {
+        String aliasName = alias.getAliasName();
         switch (aliasName) {
         case AddCommand.COMMAND_WORD:
             // fallthrough
@@ -72,21 +77,21 @@ public class AliasMappings implements Serializable {
             // fallthrough
         case AddBudgetCommand.COMMAND_WORD:
             // fallthrough
-        case EditCommand.COMMAND_WORD:
-            // fallthrough
         case AddEventCommand.COMMAND_WORD:
-            // fallthrough
-        case DeleteCommand.COMMAND_WORD:
             // fallthrough
         case ClearCommand.COMMAND_WORD:
             // fallthrough
-        case FindCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_WORD:
             // fallthrough
-        case ListCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORD:
             // fallthrough
         case ExitCommand.COMMAND_WORD:
             // fallthrough
+        case FindCommand.COMMAND_WORD:
+            // fallthrough
         case HelpCommand.COMMAND_WORD:
+            // fallthrough
+        case ListCommand.COMMAND_WORD:
             return true;
         default:
             return false;
@@ -96,13 +101,14 @@ public class AliasMappings implements Serializable {
     /**
      * Returns true if the Alias' command word references another Alias' alias name.
      */
-    public boolean aliasCommandWordIsAlias(String commandWord) {
-        return aliasesMappings.containsKey(commandWord);
+    public boolean aliasCommandWordIsAlias(Alias alias) {
+        String commandWord = alias.getCommandWord();
+        return aliasWithNameExists(commandWord);
     }
 
     @Override
     public int hashCode() {
-        return aliasesMappings.hashCode();
+        return aliasNameToAliasMap.hashCode();
     }
 
     @Override
@@ -117,13 +123,13 @@ public class AliasMappings implements Serializable {
         AliasMappings other = (AliasMappings) obj;
 
         // contains the same keys, for the keys it contains, it maps to the same inputs
-        if (!aliasesMappings.keySet().equals(other.aliasesMappings.keySet())) {
+        if (!aliasNameToAliasMap.keySet().equals(other.aliasNameToAliasMap.keySet())) {
             return false;
         }
-        return aliasesMappings
+        return aliasNameToAliasMap
                 .keySet()
                 .stream()
-                .allMatch(key -> aliasesMappings.get(key).equals(other.aliasesMappings.get(key)));
+                .allMatch(key -> aliasNameToAliasMap.get(key).equals(other.aliasNameToAliasMap.get(key)));
     }
 
 }

@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import java.time.Period;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddBudgetCommand;
+import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;

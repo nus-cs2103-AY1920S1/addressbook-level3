@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandTestUtil;
-import seedu.address.logic.commands.StatsCommand;
+import seedu.address.logic.commands.statistics.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Statistics;
