@@ -48,19 +48,19 @@ public class RoomList {
     /**
      * Adds a room.
      */
-    public void addRoom(ReferenceId id) {
-        listOfRooms.add(new Room(id));
+    public void addRoom(Room room) {
+        listOfRooms.add(room);
     }
 
-    public void addRoom(ReferenceId id, int index) {
-        listOfRooms.add(new Room(id), index);
+    public void addRoom(Room room, int index) {
+        listOfRooms.add(room, index);
     }
 
     /**
      * Removes a room.
      */
-    public void removeRoom(ReferenceId target) {
-        listOfRooms.remove(new Room(target));
+    public void removeRoom(Room target) {
+        listOfRooms.remove(target);
     }
 
     /**
@@ -91,8 +91,17 @@ public class RoomList {
         this.listOfRooms.setPersons(listOfRooms);
     }
 
-    public boolean hasRoom(ReferenceId doctorReferenceId) {
-        return listOfRooms.contains(new Room(doctorReferenceId));
+    public boolean hasRoom(Room room) {
+        return listOfRooms.contains(room);
+    }
+
+    /**
+     * Replaces the room {@code target} in the list with {@code editedRoom}.
+     * {@code target} must exist in the list.
+     * The identity of {@code editedRoom} must not be the same as another existing room in the list.
+     */
+    public void set(Room target, Room editedRoom) {
+        listOfRooms.set(target, editedRoom);
     }
 
     //// util methods
