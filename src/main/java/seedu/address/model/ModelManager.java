@@ -305,9 +305,14 @@ public class ModelManager implements Model {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
+
+
+    //=========== Statistics ================================================================================
+
+    //temporary support the compareStats first
     @Override
     public String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
-        FilteredList<Expense> statsExpenses = new FilteredList<>(addressBook.getExpenseList());
+        ObservableList<Expense> statsExpenses = getFilteredExpenseList();
         Statistics statistics = Statistics.startStatistics(statsExpenses);
         this.statsBuilder = statistics.calculateStats(command, date1, date2, period);
         return statsBuilder.toString();
