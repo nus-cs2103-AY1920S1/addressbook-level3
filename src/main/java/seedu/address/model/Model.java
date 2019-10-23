@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
@@ -119,7 +121,7 @@ public interface Model {
     //region StudentRecord
     Path getStudentRecordFilePath();
 
-    void setStudentRecordFilePath(Path addressBookFilePath);
+    void setStudentRecordFilePath(Path studentRecordFilePath);
 
     void setStudentRecord(ReadOnlyStudentRecord studentRecord);
 
@@ -350,6 +352,22 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNotesList(Predicate<Note> predicate);
+    //endregion
+
+    //region EventRecord
+    void setEventRecord(Path eventRecordFilePath);
+    void setEventRecord(ReadOnlyEvents events);
+    Path getEventRecordFilePath();
+    ReadOnlyEvents getEventRecord();
+    //endregion
+
+    //region VEvents
+    boolean hasVEvent(VEvent vEvent);
+    void deleteVEvent(VEvent vEvent);
+    void addVEvent(VEvent vEvent);
+    void setVEvent(VEvent target, VEvent editedVEvent);
+    String getVEventSummary();
+    ObservableList<VEvent> getVEventList();
     //endregion
 
     //region Statistics

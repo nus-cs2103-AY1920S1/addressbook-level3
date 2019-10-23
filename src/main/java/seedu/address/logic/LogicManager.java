@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -53,6 +54,7 @@ public class LogicManager implements Logic {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveStudentRecord(model.getStudentRecord());
             storage.saveQuestions(model.getSavedQuestions());
+            storage.saveEvents(model.getEventRecord());
             storage.saveQuizzes(model.getSavedQuizzes());
             storage.saveNotesRecord(model.getNotesRecord());
         } catch (IOException ioe) {
@@ -109,6 +111,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getNotesRecordFilePath() {
         return model.getNotesRecordFilePath();
+    }
+
+    @Override
+    public ObservableList<VEvent> getVEventList() {
+        return model.getVEventList();
     }
 
     @Override

@@ -20,7 +20,7 @@ public class QuestionBank implements Iterable<Question> {
         FXCollections.unmodifiableObservableList(questions);
 
     /**
-     * Replaces the contents of this list with {@code Students}. {@code Students} must not contain
+     * Replaces the contents of this list with {@code Question}. {@code questions} must not contain
      * duplicate Students.
      */
     public void setQuestions(List<Question> questions) {

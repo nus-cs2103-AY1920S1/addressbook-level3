@@ -35,7 +35,7 @@ public class StatisticsAddCommand extends StatisticsCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.addStatistics(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true, false, false);
     }
 
     @Override

@@ -8,10 +8,12 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
+import seedu.address.storage.event.EventStorage;
 import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.quiz.QuizStorage;
@@ -21,7 +23,7 @@ import seedu.address.storage.student.StudentRecordStorage;
  * API of the Storage component
  */
 public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRecordStorage,
-        QuestionStorage, QuizStorage, NotesRecordStorage {
+        QuestionStorage, QuizStorage, NotesRecordStorage, EventStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -60,6 +62,18 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
 
     @Override
     void saveQuestions(ReadOnlyQuestions savedQuestions) throws IOException;
+
+    // ================ Event methods ==============================
+
+    @Override
+    Path getEventRecordFilePath();
+
+    @Override
+    Optional<ReadOnlyEvents> readEvents() throws DataConversionException, IOException;
+
+    @Override
+    void saveEvents(ReadOnlyEvents events) throws IOException;
+
     //endregion
 
     //region Quiz methods
