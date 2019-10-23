@@ -16,7 +16,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.expense.AddCommand;
+import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
@@ -28,7 +28,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExpenseCommand.MESSAGE_USAGE);
 
         // missing description prefix
         assertParseFailure(parser, VALID_DESCRIPTION_TRANSPORT + PRICE_DESC_TRANSPORT,
@@ -69,7 +69,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser,
                 PREAMBLE_NON_EMPTY + DESCRIPTION_DESC_TRANSPORT + PRICE_DESC_TRANSPORT
                         + TAG_DESC_DISCOUNTED,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExpenseCommand.MESSAGE_USAGE));
     }
 
     @Test

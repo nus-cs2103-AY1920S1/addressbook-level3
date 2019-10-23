@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Event;
@@ -15,20 +15,20 @@ import seedu.address.model.expense.Event;
 /**
  * Adds an event to the address book.
  */
-public class AddEventCommand extends UndoableCommand {
+public class AddEventCommand extends AddCommand {
 
-    public static final String COMMAND_WORD = "event";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the address book. "
-            + "Parameters: " // need to change later
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds an event to the address book. \n"
+            + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
-            + "[" + PREFIX_CATEGORY + "CATEGORY\n"
+            + PREFIX_CATEGORY + "CATEGORY "
+            + PREFIX_TIMESTAMP + "TIMESTAMP\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Chicken Rice "
             + PREFIX_PRICE + "3.50 "
             + PREFIX_CATEGORY + "Food "
-            + PREFIX_TIMESTAMP + "31-12-2019";
+            + PREFIX_TIMESTAMP + "25-12";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the tracker";

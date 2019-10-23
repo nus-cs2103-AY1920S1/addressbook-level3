@@ -75,7 +75,7 @@ public class LogicManagerTest {
     //        logic = new LogicManager(model, storage, timekeeper);
 
     // Execute add command
-    //        String addCommand = AddCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN;
+    //        String addCommand = AddExpenseCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN;
     //        Expense expectedExpense = new ExpenseBuilder(CHICKEN).withTags().build();
     //        ModelManager expectedModel = new ModelManager();
     //        expectedModel.addExpense(expectedExpense);

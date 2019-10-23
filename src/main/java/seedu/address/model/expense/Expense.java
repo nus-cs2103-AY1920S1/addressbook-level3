@@ -35,6 +35,17 @@ public class Expense {
         this.budgetName = null;
     }
 
+    public Expense(Description description, Price price, Category category,
+                   Timestamp timestamp, UniqueIdentifier uniqueIdentifier) {
+        requireAllNonNull(description, price, category, uniqueIdentifier);
+        this.description = description;
+        this.price = price;
+        this.uniqueIdentifier = uniqueIdentifier;
+        this.category = category;
+        this.timestamp = timestamp;
+        this.budgetName = null;
+    }
+
     public Expense(Description description, Price price, Category category, Timestamp timestamp, Description budgetName,
                    UniqueIdentifier uniqueIdentifier) {
         requireAllNonNull(description, price, category, timestamp, budgetName, uniqueIdentifier);
@@ -123,7 +134,7 @@ public class Expense {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Expense: ")
+        builder.append("Description: ")
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
@@ -131,7 +142,7 @@ public class Expense {
                 .append(getTimestamp())
                 .append(" Category: ")
                 .append(getCategory())
-                .append("Timestamp: ")
+                .append(" Timestamp: ")
                 .append(getTimestamp());
         return builder.toString();
     }
