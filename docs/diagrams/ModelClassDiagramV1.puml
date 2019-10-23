@@ -7,6 +7,7 @@ skinparam classBackgroundColor MODEL_COLOR
 Class HashSet
 
 Package Model <<Rectangle>>{
+Interface ReferenceId <<Interface>>
 Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
 Interface Identical <<Interface>>
@@ -24,13 +25,6 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 }
 
-Package ReferenceId {
-Interface ReferenceId <<Interface>>
-Class PersonReferenceId
-Class PatientReferenceId
-Class StaffReferenceId
-}
-
 Package UniqueList {
 Class UniqueTreeList
 Class UniqueElementList
@@ -44,6 +38,9 @@ Class Email
 Class Name
 Class Phone
 Class UniquePersonList
+Class PersonReferenceId
+Class PatientReferenceId
+Class StaffReferenceId
 }
 
 Package Tag {

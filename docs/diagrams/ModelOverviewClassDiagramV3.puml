@@ -34,30 +34,12 @@ Class UniquePersonList
 }
 
 Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
-Class PersonReferenceId
-Class PatientReferenceId
-Class StaffReferenceId
 }
 
 Package Events {
-Class Appointment
-Class DutyShift
-Class Event
-Class Timing
-Class DateTime
-Class Status
 }
 
 Package Queue {
-Class QueueManager
-Class QueueList
-Class Room
 }
 
 }
@@ -78,7 +60,7 @@ AddressBook *-> "1" UniquePersonList
 AddressBook *-> "1" UniqueTagList
 UniqueTagList --> "*" Tag
 AppointmentBook *--down-> "1" UniqueElementList : UniqueElementList<Appointment>
-AppointmentBook *-down-> Appointment
+AppointmentBook *-down-> "*" Events
 
 UniqueTreeList *-> Identical
 UniqueElementList *-down> UniqueTreeList
@@ -86,39 +68,16 @@ UniquePersonList -down-> "*" Person
 UniquePersonList *-up> "1" UniqueElementList : UniqueElementList<Person>
 
 ReferenceId .-|> Identical
-PersonReferenceId .up.|> ReferenceId
-PatientReferenceId *.up-> PersonReferenceId
-StaffReferenceId *.left-> PersonReferenceId
 
 Person .up.-|> Identical
 Person *.-|> ReferenceId
-Person *-down-> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *-left-> "*" Tag
+Person *.-|> Tag
 
+Events *.left.|> Identical
+Events .--|> ReferenceId
 
-Appointment *-down-> Event
-Appointment *.-right|> "1" ReferenceId : Doctor
-DutyShift *-> Event
-
-Timing *--> DateTime
-Timing -[hidden]right-> Status
-
-Event .up.|> Identical
-Event *.--|> ReferenceId
-Event *--> Timing
-Event *--> Status
-
-Room .-|> Identical
-Room *.---|> ReferenceId
-
-QueueManager -up-> UniqueElementList : UniqueElementList<Room>
-QueueManager *-down-> QueueList
-QueueManager *-down-> Room
-QueueList *.---|> ReferenceId
-
+Queue -up-> UniqueElementList : UniqueElementList<Room>
+Queue *.---|> ReferenceId
 
 ModelManager -left--> "1" AddressBook : staff
 ModelManager -left--> "1" AddressBook : patients
@@ -126,10 +85,7 @@ ModelManager -down--> "1" AppointmentBook : Appointments
 ModelManager -down--> "1" AppointmentBook : StaffDutyRoster
 ModelManager -right--> "1" UserPrefs
 
-Person -[hidden]up----> Identical
-Identical -[hidden]right----> ReferenceId
-ReferenceId -[hidden]right-> Events
+Queue -[hidden]up-> Events
 UniqueList -[hidden]down----> Identical
-
 
 @enduml
