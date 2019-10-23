@@ -1,4 +1,4 @@
-= Liberry
+= LiBerry
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-F13-1/main/[image:https://travis-ci.org/AY1920S1-CS2103T-F13-1/main.svg?branch=master[Build Status]]
@@ -12,11 +12,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* *Liberry* is a desktop library management application.
+* *LiBerry* is a desktop library management application.
 * It enables librarians from neighborhood libraries to manage tens of thousands of books and borrowers.
 * It is optimized for librarians to serve borrowers quickly through entering commands into the Command Line Interface
 (CLI) while still having the benefits of a Graphical User Interface (GUI)
-* Liberry! Berry, berry amazing! Wow!
+* LiBerry! Berry, berry amazing! Wow!
 
 == Site Map
 
