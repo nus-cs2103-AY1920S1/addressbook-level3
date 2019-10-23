@@ -15,11 +15,11 @@ public class OutTransaction extends Transaction implements BankAccountOperation 
     }
 
     public OutTransaction(Amount amount, Date date, Set<Category> categories) {
-        super(amount, date, categories);
+        super(amount.makeNegative(), date, categories);
     }
 
     public OutTransaction(Amount amount, Date date, Set<Category> categories, Person personInvolved) {
-        super(amount, date, categories, personInvolved);
+        super(amount.makeNegative(), date, categories, personInvolved);
 
     }
 

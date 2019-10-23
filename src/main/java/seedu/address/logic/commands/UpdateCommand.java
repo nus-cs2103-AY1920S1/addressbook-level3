@@ -34,11 +34,12 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
         + "by the index number used in the displayed person list. "
         + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) "
+        + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', "
+        + "Budget entries preced by 'b' \n"
         + "[" + PREFIX_AMOUNT + "AMOUNT] "
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-        + "Example: " + COMMAND_WORD + " 1 "
+        + "Example: " + COMMAND_WORD + " t1 "
         + PREFIX_AMOUNT + "123 "
         + PREFIX_DATE + "12022019";
 

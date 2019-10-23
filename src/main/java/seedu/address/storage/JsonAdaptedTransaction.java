@@ -15,6 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.InTransaction;
+import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
 
@@ -77,9 +78,14 @@ class JsonAdaptedTransaction {
         }
 
         final Set<Category> modelCategories = new HashSet<>(transactionCategories);
-        // temporary return InTransaction to store transaction (should eventually return in or out transaction)
 
-        return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);
+        if((Double.parseDouble(amount)) < 0){
+            /* if amount is negative */
+            return new OutTransaction(new Amount(Double.parseDouble(amount)).makeNegative(), new Date(date), modelCategories);
+        } else {
+            /* if amount is positive */
+            return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);
+        }
     }
 
 }
