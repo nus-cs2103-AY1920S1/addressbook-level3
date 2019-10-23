@@ -1,0 +1,56 @@
+@startuml
+!include ../../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show <<enumeration>> fields
+
+Package Model <<Rectangle>> {
+
+    Interface ReadOnlyAlgoBase <<Interface>>
+    Interface ReadOnlyUserPrefs <<Interface>>
+    Interface Model <<Interface>>
+    Interface ObservableList <<Interface>>
+    Class AlgoBase
+    Class ModelManager
+    Class UserPrefs
+    enum ModelType <<enumeration>> {
+        PROBLEM,
+        TAG,
+        PLAN,
+        TASK
+    }
+
+    Class GuiState
+    Class Plan
+    Class Problem
+    Class Tag
+    Class Task
+
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+AlgoBase .up.|> ReadOnlyAlgoBase
+
+'Model & UserPrefs
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o---> "1" AlgoBase
+ModelManager o-left-> "1" UserPrefs
+ModelManager -right->"*" Problem : filtered and sorted list
+ModelManager -->"*" Tag: filtered list
+ModelManager -->"*" Plan: filtered list
+ModelManager -->"*" Task: filtered list
+ModelManager --->"1" GuiState
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+'AlgoBase
+AlgoBase *--> "1" UniqueProblemList
+AlgoBase *--> "1" UniqueTagList
+AlgoBase *--> "1" PlanList
+
+
+@enduml
