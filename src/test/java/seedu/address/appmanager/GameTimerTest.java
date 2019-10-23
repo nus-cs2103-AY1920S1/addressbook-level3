@@ -2,12 +2,13 @@ package seedu.address.appmanager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javafx.application.Platform;
 import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import seedu.address.appmanager.timer.GameTimer;
@@ -60,7 +61,8 @@ public class GameTimerTest {
                     1000, dummyMainCallBack, dummyTimerCallBack);
             dummyTimer.abortTimer();
             // abortTimer() is supposed to pass timeLeft = 0 to the timerDisplay.
-            Platform.runLater(() -> {assertTrue(timerDisplayStub.timeLeftEqualsZero);});
+            Platform.runLater(() -> {
+                assertTrue(timerDisplayStub.timeLeftEqualsZero); });
         });
 
     }
