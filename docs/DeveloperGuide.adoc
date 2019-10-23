@@ -408,13 +408,18 @@ Also, it looks somewhat out of place in `Model` as alternative 1 seems to be abl
 // tag::export/import
 
 ===  Export/Import feature
+
+This feature allows the user to do exporting and importing of memes using their respective staging areas as
+intermediate platforms. This allows the user to both load memes into the application from their local directory,
+and also export memes from the application to their local directory.
+
 ==== Export
 The user may not want to export everything in the Meme storage to a directory. The Stage command
 functionality introduces flexibility for the user to stage and shortlist which memes he wants to export,
 which will be in the staging area under the export tab. When the user accidentally stages a meme, he can
 either use the undo command or the Unstage command. When the user finally confirms the memes to be export
 in the staging area, the user can execute the ExportCommand with a provided directory path. The
-following sequence diagram illustrates the execution of the `Stage Command` and `Emport Command`:
+following sequence diagram illustrates the execution of the `Stage Command` and `Export Command`:
 
 image::StageSequenceDiagram.png[]
 image::ExportSequenceDiagram.png[]
@@ -429,8 +434,7 @@ The import command will then populate all of the memes in the staging area to th
 by clearing the memes in the import context.
 
 ==== Current Implementation
-Export and Import do not share the same UniqueMemeList as that in the Meme context.
-
+Internally, `ModelManager` uses two `UniqueMemeList` to store memes that are to be imported or exported.
 While the user is selecting which meme to stage, the user should have a visual reference all the existing memes.
 Hence, the `Stage Command` works in the Meme Context, and the user is able to stage by the Meme Index.
 On the contrary, the unstage command is only available in the export tab, where the user can reference which
@@ -456,16 +460,18 @@ image::ImportActivityDiagram.png[]
 
 ==== Design Consideration
 
-===== Aspect: Storage of the imported and exported meme
+===== Aspect: Tab for Export and Import feature
 
-* **Alternative 1 (current choice):** Use 3 separate UniqueMemeList to store memes in the meme,
-export and import tab separately.
-** Pros: Straightforward Implementation. Lesser dependency among the 3 different context.
-** Cons: Repetitive method involved in retrieving the 3 different list using model.
-* **Alternative 2:** Use a single UniqueMemeList to store the memes, and introduce a flag attribute
-to distinguish between staged meme, imported meme and ordinary meme.
-** Pros: Lesser methods defined to retrieve 3 different UniqueMemeList, and a minimalist design.
-** Cons: More coupling involved and the list can get very large, hence iterating through it may cause lagging.
+* **Alternative 1 (current choice):** Separate import and export into two different tabs.
+** Pros: Shows clear segregation of the two different feature since they are implemented
+differently. This will not confuse the user.
+** Cons: Extra tab is required.
+
+* **Alternative 2:** Use a storage tab to represent both import and export. User can toggle between
+import and export using subcontext.
+** Pros: Only one tab is used and also `storage` label captures the concept of import and export.
+** Cons: Easily confuses the user due to extra complexity involved (subcontext). This will also cause
+navigating between import and export mode to be less subtle.
 
 // end::export/import[]
 

@@ -7,11 +7,15 @@ start
 
 repeat
 :User loads a given directory;
+repeat
 if () then ([User wants to edit loaded meme])
     :User edits loaded meme;
 else ([User wants to delete loaded meme])
     :User deletes loaded meme;
 endif
+
+repeat while () is ([User wants to continue editing/deleting])
+
 :User imports meme into meme storage;
 
 repeat while () is ([User wants to continue loading])
