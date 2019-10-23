@@ -3,7 +3,7 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
-skinparam linetype ortho
+skinparam linetype polyline
 
 Package Model <<Rectangle>>{
 Interface ReadOnlyPlanner <<Interface>>
@@ -63,30 +63,35 @@ ModelManager o--> "1" Planner
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
+Planner *--> "1" UniqueAccommodationList
 Planner *--> "1" UniqueContactList
 Planner *--> "1" UniqueActivityList
-Planner *--> "1" UniqueAccommodationList
 Planner *--> "1" Itinerary
 
+ItineraryItem *-right-> "1" Name
 ItineraryItem *--> "1" Address
-ItineraryItem *-[hidden]-> Contact
 ItineraryItem *--> "0..1" Contact
-ItineraryItem *--> "1" Name
-ItineraryItem *--> "*" Tag
+ItineraryItem *-[hidden]-> Contact
+ItineraryItem *-up-> "*" Tag
 ItineraryItem <|-- Accommodation
+ItineraryItem <|-[hidden]- Accommodation
+
 ItineraryItem <|-- Activity
+ItineraryItem *-[hidden]-> "1" Name
+ItineraryItem *-[hidden]-> "1" Name
 UniqueActivityList o--> "*" Activity
 UniqueAccommodationList o--> "*" Accommodation
 
 UniqueContactList o--> "*" Contact
 Contact *--> "1" Name
-Contact *-[hidden]-> Phone
 Contact *--> "1" Phone
-Contact *-[hidden]-> Email
 Contact *--> "0..1" Email
 Contact *--> "0..1" Address
-Contact *-[hidden]-> Tag
-Contact *--> "*" Tag
+Contact *-[hidden]-> "0..1" Address
+Contact *-[hidden]-> "0..1" Address
+Contact *--> "0..1" Address
+
+Contact *-up-> "*" Tag
 
 
 Itinerary o--> "*" Day
