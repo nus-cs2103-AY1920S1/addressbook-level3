@@ -48,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private Editor editorPanel;
     private CodeResultPanel codeResultPanel;
+    private ProfilePage profilePage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -69,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private AnchorPane codeResultPanelPlaceholder;
+
+    @FXML
+    private AnchorPane profilePlaceholder;
 
     public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
                       ProgramSubmissionLogic programSubmissionLogic, GuiSettings guiSettings) {
@@ -148,7 +152,6 @@ public class MainWindow extends UiPart<Stage> {
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
         programSubmissionLogic.setUserProgramSubmissionChannel(editorPanel::getUserProgram);
 
-
         List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
         sampleTestCaseResults.add(
                 TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz", "Fizz"));
@@ -159,6 +162,9 @@ public class MainWindow extends UiPart<Stage> {
 
         codeResultPanel = new CodeResultPanel(sampleTestCaseResults);
         codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
+
+        profilePage = new ProfilePage();
+        profilePlaceholder.getChildren().add(profilePage.getRoot());
     }
 
     /**
@@ -208,6 +214,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public CodeResultPanel getRunCodeResultPanel() {
         return codeResultPanel;
+    }
+
+    public ProfilePage getProfilePage() {
+        return profilePage;
     }
 
     /**
