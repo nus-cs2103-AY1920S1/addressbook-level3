@@ -69,7 +69,7 @@ public class DeleteNoteCommandTest {
         showNoteAtIndex(model, INDEX_FIRST);
 
         Index outOfBoundIndex = INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of app data list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAppData().getNoteList().size());
 
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(outOfBoundIndex);

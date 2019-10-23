@@ -66,9 +66,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane questionListPanelPlaceholder;
 
     @FXML
-    private StackPane quizQuestionListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -133,9 +130,6 @@ public class MainWindow extends UiPart<Stage> {
         questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
-        quizQuestionListPanel = new QuizQuestionListPanel(logic.getFilteredQuizQuestionList());
-        quizQuestionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -184,6 +178,26 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Shows a list of quiz questions, replace the panel of questions.
+     */
+    @FXML
+    private void showQuiz() {
+        questionListPanelPlaceholder.getChildren().clear();
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getFilteredQuizQuestionList());
+        questionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
+    }
+
+    /**
+     * Shows a list of questions when the quiz mode is not activated.
+     */
+    @FXML
+    private void showQuestion() {
+        questionListPanelPlaceholder.getChildren().clear();
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
     }
 
     /**
@@ -249,9 +263,11 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            //if (commandResult.isQuiz()) {
-            //
-            //}
+            if (commandResult.isQuiz()) {
+                showQuiz();
+            } else {
+                showQuestion();
+            }
 
             if (commandResult.isShowStats()) {
                 showStats(commandResult.getType());

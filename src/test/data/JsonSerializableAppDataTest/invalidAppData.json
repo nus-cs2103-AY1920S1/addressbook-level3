@@ -43,6 +43,8 @@
   "quizResults" : [ {
     "answer" : "",
     "questionBody" : "aaa",
+    "subject" : "def",
+    "difficulty" : "x",
     "quizTime" : "",
     "result" : ""
   } ]

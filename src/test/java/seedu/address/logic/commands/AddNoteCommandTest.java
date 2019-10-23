@@ -8,7 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,6 @@ import seedu.address.model.task.Task;
 import seedu.address.testutil.NoteBuilder;
 
 public class AddNoteCommandTest {
-
     @Test
     public void constructor_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddNoteCommand(null));
@@ -47,7 +46,7 @@ public class AddNoteCommandTest {
         CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
 
         assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
+        assertEquals(Collections.singletonList(validNote), modelStub.notesAdded);
     }
 
     @Test
@@ -155,6 +154,11 @@ public class AddNoteCommandTest {
 
         @Override
         public void deleteNote(Note target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearNotes() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -274,7 +278,7 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public ObservableList getFilteredQuizResultList() {
+        public ObservableList<QuizResult> getFilteredQuizResultList() {
             throw new AssertionError("This method should not be called.");
         }
 

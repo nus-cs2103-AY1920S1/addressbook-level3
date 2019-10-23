@@ -39,8 +39,13 @@ unnecessary markup and distracting styles.
 ** While adding this feature I also refactored all other code throughout the application to use names relevant to
 lecture notes. This helped my teammates add their own features, setting an example for them to follow.
 ** Image support was implemented in https://github.com/AY1920S1-CS2103T-F11-4/main/pull/67[#67]. Instead of a custom class,
-I used JavaFX's `scene.image.Image`, which reduced the additional code I had to write on top of the
-`Title` and `Content` classes by avoiding an unnecessary wrapper.
+I used JavaFX's _scene.image.Image_, which reduced the additional code I had to write on top of the
+_Title_ and _Content_ classes by avoiding an unnecessary wrapper.
+* As my fellow team members added their features to the code, one of the constructors of _CommandResult_
+grew to have four boolean variables representing command side effects. In https://github.com/AY1920S1-CS2103T-F11-4/main/pull/71[#71]
+I replaced the boolean arguments of this constructor with a single integer argument acting as a bit field.
+** This serves two purposes: to avoid unnecessary use of the boolean literals and to allow easy extension
+to more side effects by increasing the range of the integer argument.
 * I enforced a style for the user and developer guides and wrote several of their key sections,
 such as the user guide's introduction and the developer guide's non-functional requirements.
 See https://github.com/AY1920S1-CS2103T-F11-4/main/pull/21[#21] and https://github.com/AY1920S1-CS2103T-F11-4/main/pull/22[#22]
@@ -55,9 +60,10 @@ for examples.
 (https://github.com/nus-cs2103-AY1920S1/forum/issues/88[#88], https://github.com/nus-cs2103-AY1920S1/forum/issues/106[#106]) and asker
 (https://github.com/nus-cs2103-AY1920S1/forum/issues/68[#68], https://github.com/nus-cs2103-AY1920S1/forum/issues/100[#100]).
 * I reviewed the following pull requests non-trivially, among others: https://github.com/AY1920S1-CS2103T-F11-4/main/pull/40[#40],
-https://github.com/AY1920S1-CS2103T-F11-4/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53]
-
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+https://github.com/AY1920S1-CS2103T-F11-4/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53],
+https://github.com/AY1920S1-CS2103T-F11-4/main/pull/70[#70].
+* A detailed exposition of all code I contributed to NUStudy can be found
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Parcly-Taxel&tabRepo=AY1920S1-CS2103T-F11-4%2Fmain%5Bmaster%5D[here].
 
 == User guide contributions
 

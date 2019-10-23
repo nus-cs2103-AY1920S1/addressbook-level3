@@ -59,7 +59,7 @@ class JsonSerializableAppData {
     }
 
     /**
-     * Converts this address book into the model's {@code AppData} object.
+     * Converts this set of application data into the model's {@code AppData} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

@@ -58,7 +58,7 @@ public interface Logic {
     ObservableList<Question> getFilteredQuizQuestionList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' application data file path.
      */
     Path getAppDataFilePath();
 
