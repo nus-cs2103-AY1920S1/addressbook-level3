@@ -18,6 +18,9 @@ public class CommandResult {
     /** Tell the system if it is an exit command.*/
     private final boolean exit;
 
+    /**Tell the system to show stats screen*/
+    private final boolean showStats;
+
     /**
      * Construct a {@Code CommandResult} with all fields specified.
      */
@@ -25,6 +28,18 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showStats = false;
+    }
+
+    /**
+     *Construct a {@Code CommandResult} with all fields specified.
+     * to be merged with the above method
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStats) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showStats = showStats;
     }
 
     /**
@@ -32,7 +47,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -45,6 +60,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowStats() {
+        return showStats;
     }
 
     @Override

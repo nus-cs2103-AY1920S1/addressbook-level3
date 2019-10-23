@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.Statistics;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Flashcard> filteredFlashcards;
     private Flashcard viewedFlashcard;
+    private Statistics desiredStats;
 
     /**
      * Default initializer
@@ -136,6 +138,7 @@ public class ModelManager implements Model {
     @Override
     public void systemRemoveTag(Tag tag) {
         flashcardList.flashcardsRemoveTag(tag);
+        updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
     @Override
@@ -166,5 +169,17 @@ public class ModelManager implements Model {
         return flashcardList.equals(obj.flashcardList)
                 && userPrefs.equals(obj.userPrefs)
                 && filteredFlashcards.equals(obj.filteredFlashcards);
+    }
+
+    @Override
+    public String generateStatistics() {
+        desiredStats = new Statistics();
+        desiredStats.calculate(filteredFlashcards);
+        return desiredStats.results();
+    }
+
+    @Override
+    public Statistics getStatistics() {
+        return desiredStats;
     }
 }

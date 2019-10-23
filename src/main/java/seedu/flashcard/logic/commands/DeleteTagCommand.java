@@ -17,7 +17,7 @@ public class DeleteTagCommand extends Command {
         + ": Deletes the tag identified by the index number used in the displayed flashcard list.\n"
         + "Parameters: TAG NAME (must exist in the flashcards)\n"
         + "Example: " + COMMAND_WORD + "t/software engineering";
-    public static final String MESSAGE_DELETE_TAG_SUCCESS = "This tag has been deleted,"
+    public static final String MESSAGE_DELETE_TAG_SUCCESS = "This tag has been deleted, "
         + "the cards under this tag are kept.";
     public static final String MESSAGE_TAG_DOES_NOT_EXIST = "This tag does not exist in the flashcards.";
 

@@ -3,10 +3,11 @@ package seedu.flashcard.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
 import static seedu.flashcard.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +23,9 @@ import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
-import seedu.flashcard.model.flashcard.Word;
+import seedu.flashcard.model.flashcard.McqFlashcard;
+import seedu.flashcard.model.flashcard.Question;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -36,13 +39,13 @@ public class EditCommand extends Command {
         + "by the index number used in the displayed flashcard list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
-        + "[" + PREFIX_WORD + "WORD] "
+        + "[" + PREFIX_QUESTION + "WORD] "
         + "[" + PREFIX_CHOICE + "Choice]"
         + "[" + PREFIX_DEFINITION + "DEFINITION] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_CHOICE + "Sample"
-        + PREFIX_WORD + "A* Search "
+        + PREFIX_QUESTION + "A* Search "
         + PREFIX_TAG + "Artificial Intelligence";
 
     public static final String MESSAGE_EDIT_FLASHCARD_SUCCESS = "Edited Flashcard: %1$s";
@@ -71,7 +74,12 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_ID_NUMBER);
         }
         Flashcard flashcardToEdit = lastShownList.get(index.getZeroBased());
-        Flashcard editedFlashcard = createEditedFlashcard(flashcardToEdit, editFlashcardDescriptor);
+        Flashcard editedFlashcard;
+        if (!flashcardToEdit.isMcq()) {
+            editedFlashcard = createEditedShortAnswerFlashcard(flashcardToEdit, editFlashcardDescriptor);
+        } else {
+            editedFlashcard = createEditedMcqFlashcard((McqFlashcard) flashcardToEdit, editFlashcardDescriptor);
+        }
         if (!flashcardToEdit.isSameFlashcard(editedFlashcard) && model.hasFlashcard(editedFlashcard)) {
             throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);
         }
@@ -81,18 +89,32 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Flashcard} with the details of {@code flashcardToEdit}
+     * Creates and returns a {@code McqFlashcard} with the details of {@code flashcardToEdit}
      * edited with {@code editFlashcardDescriptor}.
      */
-    private static Flashcard createEditedFlashcard(Flashcard flashcardToEdit,
-                                                   EditFlashcardDescriptor editFlashcardDescriptor) {
+    private static Flashcard createEditedMcqFlashcard(McqFlashcard flashcardToEdit,
+                                                      EditFlashcardDescriptor editFlashcardDescriptor) {
         assert flashcardToEdit != null;
-        Word updatedWord = editFlashcardDescriptor.getWord().orElse(flashcardToEdit.getWord());
-        Set<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
+        Question updatedQuestion = editFlashcardDescriptor.getQuestion().orElse(flashcardToEdit.getQuestion());
+        List<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
         Definition updatedDefinition = editFlashcardDescriptor.getDefinition().orElse(flashcardToEdit.getDefinition());
         Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
         Answer updatedAnswer = editFlashcardDescriptor.getAnswer().orElse(flashcardToEdit.getAnswer());
-        return new Flashcard(updatedWord, updatedChoices, updatedDefinition, updatedTags, updatedAnswer);
+        return new McqFlashcard(updatedQuestion, updatedChoices, updatedDefinition, updatedTags, updatedAnswer);
+    }
+
+    /**
+     * Creates and returns a {@code ShortAnswerFlashcard} with the details of {@code flashcardToEdit}
+     * edited with {@code editFlashcardDescriptor}.
+     */
+    private static Flashcard createEditedShortAnswerFlashcard(Flashcard flashcardToEdit,
+                                                   EditFlashcardDescriptor editFlashcardDescriptor) {
+        assert flashcardToEdit != null;
+        Question updatedQuestion = editFlashcardDescriptor.getQuestion().orElse(flashcardToEdit.getQuestion());
+        Definition updatedDefinition = editFlashcardDescriptor.getDefinition().orElse(flashcardToEdit.getDefinition());
+        Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
+        Answer updatedAnswer = editFlashcardDescriptor.getAnswer().orElse(flashcardToEdit.getAnswer());
+        return new ShortAnswerFlashcard(updatedQuestion, updatedDefinition, updatedTags, updatedAnswer);
     }
 
     @Override
@@ -118,9 +140,9 @@ public class EditCommand extends Command {
      */
     public static class EditFlashcardDescriptor {
 
-        private Word word;
+        private Question question;
         private Definition definition;
-        private Set<Choice> choices;
+        private List<Choice> choices;
         private Set<Tag> tags;
         private Answer answer;
 
@@ -128,7 +150,7 @@ public class EditCommand extends Command {
         }
 
         public EditFlashcardDescriptor(EditFlashcardDescriptor toCopy) {
-            setWord(toCopy.word);
+            setQuestion(toCopy.question);
             setChoices(toCopy.choices);
             setDefinition(toCopy.definition);
             setTags(toCopy.tags);
@@ -140,23 +162,23 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(word, definition, tags, choices, answer);
+            return CollectionUtil.isAnyNonNull(question, definition, tags, choices, answer);
         }
 
-        public void setWord(Word word) {
-            this.word = word;
+        public void setQuestion(Question question) {
+            this.question = question;
         }
 
-        public Optional<Word> getWord() {
-            return Optional.ofNullable(word);
+        public Optional<Question> getQuestion() {
+            return Optional.ofNullable(question);
         }
 
         /**
          * Sets {@code choices} to this object's {@code choices}.
          * A defensive copy of {@code choices} is used internally.
          */
-        public void setChoices(Set<Choice> choices) {
-            this.choices = (choices != null) ? new HashSet<>(choices) : null;
+        public void setChoices(List<Choice> choices) {
+            this.choices = (choices != null) ? new ArrayList<>(choices) : null;
         }
 
         /**
@@ -164,8 +186,8 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code choice} is null.
          */
-        public Optional<Set<Choice>> getChoices() {
-            return (choices != null) ? Optional.of(Collections.unmodifiableSet(choices)) : Optional.empty();
+        public Optional<List<Choice>> getChoices() {
+            return (choices != null) ? Optional.of(Collections.unmodifiableList(choices)) : Optional.empty();
         }
 
         public void setDefinition(Definition definition) {
@@ -216,7 +238,7 @@ public class EditCommand extends Command {
             // state check
             EditFlashcardDescriptor e = (EditFlashcardDescriptor) other;
 
-            return getWord().equals(e.getWord())
+            return getQuestion().equals(e.getQuestion())
                 && getDefinition().equals(e.getDefinition())
                 && getTags().equals(e.getTags());
         }

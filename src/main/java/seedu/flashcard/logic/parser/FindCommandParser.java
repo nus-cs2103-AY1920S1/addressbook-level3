@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.flashcard.logic.commands.FindCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
-import seedu.flashcard.model.flashcard.WordContainsKeywordsPredicate;
+import seedu.flashcard.model.flashcard.QuestionContainsKeywordsPredicate;
 
 /**
  * Parse input arguments to generate a {@Code EditCommand}
@@ -25,6 +25,6 @@ public class FindCommandParser implements Parser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         String[] wordKeywords = trimmedArgs.split("\\s+");
-        return new FindCommand(new WordContainsKeywordsPredicate(Arrays.asList(wordKeywords)));
+        return new FindCommand(new QuestionContainsKeywordsPredicate(Arrays.asList(wordKeywords)));
     }
 }
