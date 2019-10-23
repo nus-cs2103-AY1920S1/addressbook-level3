@@ -266,27 +266,34 @@ Figure 1.3
 // end::allocate[]
 
 // tag::test[]
-=== Assigning Date & Time to Events
+=== Setting Date & Time to Events
 ==== Implementation
-The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects.
-Our implementation of `Event` does not assume that the event will be held consecutively across multiple days, and requires the user to manually state the valid event dates and time period of that specific date.
+The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects, which represents a single day by itself.
+Our implementation of `Event` does not assume that the event will be occurring consecutively from the start to the end date, and requires the user to manually assign each specific date with the time period that the Event is in process.
 
-To achieve this functionality, there exists an `EventDayTime` object that encapsulates the time period on a specific day that the Event is in process.
-It takes in two arguments - both of which are `LocalTime` objects to represent the start and end time.
+To achieve this functionality, there exists an `EventDayTime` object that encapsulates the period of the day.
+It has two class attributes - both of which are `LocalTime` objects to represent the start and end time.
 
-Each Event contains a class attribute `EventDateTimeMap` that maps an `EventDate` object to an `EventDayTime` object using a HashMap implementation.
-The mapping is added through the `EventAssignDate` command.
+Each Event contains an `EventDateTimeMap` object that maps an `EventDate` object to an `EventDayTime` object using a HashMap implementation.
+This mapping is added through the `EventAssignDate` command.
 
-Given below is an example usage scenario of how the program functionality when a user attempts to assign a Date & Time to an already existent Event.
+Given below is an example usage scenario of the program functionality when a user attempts to assign a Date & Time to an already existent Event.
 
-. The User executes `ev_date 2 on/18102019 from/0900 to/2000`, with the intention to assign the date of 18th October 2019, time period 9am-8pm to the second event currently displayed in the event list.
-. The command checks if the event list contains the stated index. (Input Validation)
-. The command checks if the date stated is a valid date and within the start and end date of the Event. (Input Validation)
-. The command checks if the time period stated can be parsed as a valid time, and that the start time is before the end time. (Input Validation)
-. The `EventDate` and `EventDayTime` objects are instantiated.
-. The command calls `Event#assignDate()` on the referenced Event object to add the EventDate-EventDayTime mapping into `EventDateTimeMap`.
-. Storage is updated
+. The User executes the command `set_ev_dt 2 on/18/10/2019 time/0900-2000`, with the intention to assign the date of 18th October 2019, time period 9am-8pm to the second event currently displayed in the event list.
+. The parser checks if input format is correct, and attempts to create `Index`, `EventDate` and `EventDayTime` objects from it
+. The command checks if the index of the event stated exists on the displayed list, and if the stated date is within the start and end date of the Event. (Input Validation)
+. The command calls `Event#assignDateTime()` on the referenced Event object to add the EventDate-EventDayTime mapping into `EventDateTimeMap`.
+. Storage is updated.
 . Done.
+
+[NOTE]
+If the command execution fails, a `ParseException` (from Step 2) or a `CommandException` (from Step 3) will be thrown, specifiying the reason of the error.
+
+The following activity diagram shows how the Setting of Date&Time to Event work:
+
+image::SettingEventDateActivityDiagram.png[]
+
+Figure 1.x
 
 ==== Design Considerations
 ===== Aspect: Storage of DateTimeMap
