@@ -284,6 +284,7 @@ To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `A
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
 
+image::AnnotationActivityDiagram.png[]
 
 ==== Design Considerations
 //TODO: alternatives 1 2 3 (current choice); rmb to rename aspect properly

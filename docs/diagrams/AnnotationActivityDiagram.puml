@@ -1,0 +1,35 @@
+@startuml
+start
+:User executes annotate command;
+:Mark retrieves bookmark in query;
+:Mark retrieves cache copy in query;
+:Mark retrieves offline document of cache copy;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+:Retrieve paragraph(s) in query;
+if () then ([command adds annotation])
+    :Add annotation to paragraph;
+else if () then ([command deletes annotation])
+    if () then ([delete only highlight])
+        :Make annotation of paragraph stray;
+    else if () then ([delete only annotation note])
+        :Remove note from annotation of paragraph;
+    else ([else])
+        :Remove annotation from paragraph;
+    endif
+else ([command edits annotation])
+    if () then ([edit highlight or note content])
+        :Modify annotation;
+    else ([else])
+        if () then ([move stray note to another paragraph])
+            :Move stray note to other paragraph;
+            :Destroy (phantom) paragraph;
+        else ([else])
+            :Move note to other paragraph;
+        endif
+    endif
+endif
+stop
+@enduml
