@@ -222,7 +222,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
                             pass = false;
                             break;
                         }
-                    } else if (!bodyMap.getValue(entry.getKey()).get().equals(entry.getValue().get(0))) {
+                    } else if (!bodyMap.getValue(entry.getKey()).get().equalsIgnoreCase(entry.getValue().get(0))) {
                         pass = false;
                         break;
                     }

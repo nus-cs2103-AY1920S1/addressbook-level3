@@ -138,7 +138,7 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
             for (Map.Entry<Prefix, List<String>> entry : argumentMultimap.getMap().entrySet()) {
                 if (entry.getValue() != null && !entry.getKey().toString().equals("") &&
                         !entry.getKey().equals(PREFIX_FLAG)) {
-                    if (!workerMap.getValue(entry.getKey()).get().equals(entry.getValue().get(0))) {
+                    if (!workerMap.getValue(entry.getKey()).get().equalsIgnoreCase(entry.getValue().get(0))) {
                         pass = false;
                         break;
                     }
