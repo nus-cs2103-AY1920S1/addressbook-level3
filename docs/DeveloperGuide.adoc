@@ -137,6 +137,10 @@ The `Model`,
 * stores the Duke Cooks data.
 * exposes an unmodifiable `ObservableList<XYZ>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+* BlackBox refers to the model diagram of the individual components of DukeCooks as shown below
+
+.Structure of Workout Model
+image::WorkoutPlannerModelClassDiagram.png[]
 
 [NOTE]
 ====
