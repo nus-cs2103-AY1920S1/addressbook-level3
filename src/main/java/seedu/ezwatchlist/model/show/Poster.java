@@ -14,9 +14,8 @@ import seedu.ezwatchlist.api.ImageRetrieval;
  */
 public class Poster {
     private static final String PLACEHOLDER_IMAGE = "poster-placeholder.png";
-    private String imageCacheLocation;
+    private static final String ROOT_LOCATION = ImageRetrieval.IMAGE_CACHE_LOCATION + File.separator;
     private Image image;
-
     private String imagePath;
 
     /**
@@ -43,9 +42,9 @@ public class Poster {
      */
     public Image getImage() {
         try {
-            String ss = ImageRetrieval.IMAGE_CACHE_LOCATION + File.separator + imagePath;
-            File file = new File(ss);
-            System.out.println("File path in Poster is :" + ss);
+            String url = ROOT_LOCATION + imagePath;
+            File file = new File(url);
+            System.out.println("File path in Poster is :" + url);
             image = SwingFXUtils.toFXImage(ImageIO.read(file), null);
 
             if (image == null) {

@@ -2,7 +2,7 @@ package seedu.ezwatchlist.model.actor;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.ezwatchlist.commons.util.AppUtil;
+//import seedu.ezwatchlist.commons.util.AppUtil;
 
 /**
  * Represents an Actor in a show in the watchlist.
