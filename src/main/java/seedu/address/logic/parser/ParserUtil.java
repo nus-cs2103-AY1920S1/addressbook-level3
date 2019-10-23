@@ -21,7 +21,6 @@ import seedu.address.model.person.Participation;
 import seedu.address.model.person.Picture;
 import seedu.address.model.person.Result;
 import seedu.address.model.task.Marking;
-import seedu.address.model.task.TaskDescription;
 import seedu.address.model.task.TaskTime;
 
 
@@ -149,16 +148,6 @@ public class ParserUtil {
             throw new ParseException(Participation.MESSAGE_CONSTRAINTS);
         }
         return new Participation(trimmedParticipation);
-    }
-
-    /**
-     * Parses a {@code String taskDescription} into a {@code TaskDescription}.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static TaskDescription parseTaskDescription(String taskDescription) {
-        requireNonNull(taskDescription);
-        String trimmedTaskDescription = taskDescription.trim();
-        return new TaskDescription(trimmedTaskDescription);
     }
 
     /**

@@ -7,27 +7,29 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.classid.ClassId;
+
 /**
  * Represents a Task in the calendar.
  */
 public class Task {
     // Identity fields
-    private final TaskDescription taskDescription;
+    private final ClassId classId;
     private final Set<TaskTime> taskTimeSet = new HashSet<>();
     private final Marking marking;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskDescription description, Set<TaskTime> taskTimes, Marking mark) {
-        requireAllNonNull(description, taskTimes, mark);
-        taskDescription = description;
+    public Task(ClassId id, Set<TaskTime> taskTimes, Marking mark) {
+        requireAllNonNull(id, taskTimes, mark);
+        classId = id;
         taskTimeSet.addAll(taskTimes);
         marking = mark;
     }
 
-    public TaskDescription getDescription() {
-        return taskDescription;
+    public ClassId getClassId() {
+        return classId;
     }
 
     public Set<TaskTime> getTime() {
@@ -49,7 +51,7 @@ public class Task {
         }
 
         return otherTask != null
-                && otherTask.getDescription().equals(getDescription());
+                && otherTask.getClassId().equals(getClassId());
     }
 
     /**
@@ -67,7 +69,7 @@ public class Task {
         }
 
         Task otherPerson = (Task) other;
-        return otherPerson.getDescription().equals(getDescription())
+        return otherPerson.getClassId().equals(getClassId())
                 && otherPerson.getTime().equals(getTime())
                 && otherPerson.getMarking().equals(getMarking());
     }
@@ -75,15 +77,15 @@ public class Task {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskDescription, taskTimeSet, marking);
+        return Objects.hash(classId, taskTimeSet, marking);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Description: ")
-                .append(getDescription())
-                .append(" Time: ")
+                .append(getClassId())
+                .append(" \nTime: ")
                 .append(getTime() + "\n")
                 .append(" Status: ")
                 .append(getMarking());
