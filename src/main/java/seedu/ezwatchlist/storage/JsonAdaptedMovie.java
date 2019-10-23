@@ -1,10 +1,5 @@
 package seedu.ezwatchlist.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,94 +14,122 @@ import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
 
-/**
- * Jackson-friendly version of {@link Movie}.
- */
-class JsonAdaptedMovie extends JsonAdaptedShow {
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Movie's %s field is missing!";
+public class JsonAdaptedMovie extends JsonAdaptedItem {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
+
+    private final String name;
+    private final String type;
+    private final String dateOfRelease;
+    private final boolean isWatched;
+    private final String description;
+    private final int runningTime;
+    private final String poster;
+    private final List<JsonAdaptedActor> actors = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedMovie} with the given movie details.
+     * Constructs a {@code JsonAdaptedMovie} with the given show details.
      */
     @JsonCreator
     public JsonAdaptedMovie(@JsonProperty("name") String name,
-                            @JsonProperty("type") String type,
-                            @JsonProperty("dateOfRelease") String dateOfRelease,
-                            @JsonProperty("watched") boolean isWatched,
-                            @JsonProperty("description") String description,
-                            @JsonProperty("runningTime") int runningTime,
-                            @JsonProperty("actors") List<JsonAdaptedActor> actors,
-                            @JsonProperty("poster") String poster) {
-        super(name, type, dateOfRelease, isWatched, description, runningTime, actors, poster);
+                             @JsonProperty("type") String type,
+                             @JsonProperty("dateOfRelease") String dateOfRelease,
+                             @JsonProperty("watched") boolean isWatched,
+                             @JsonProperty("description") String description,
+                             @JsonProperty("runningTime") int runningTime,
+                             @JsonProperty("actors") List<JsonAdaptedActor> actors,
+                             @JsonProperty("poster") String poster) {
+        this.name = name;
+        this.type = type;
+        this.dateOfRelease = dateOfRelease;
+        this.isWatched = isWatched;
+        this.description = description;
+        this.runningTime = runningTime;
+        if (actors != null) {
+            this.actors.addAll(actors);
+        }
+        this.poster = poster;
     }
 
     /**
      * Converts a given {@code Movie} into this class for Jackson use.
      */
     public JsonAdaptedMovie(Show source) {
-        super(source);
+        name = source.getName().showName;
+        type = source.getType();
+        dateOfRelease = source.getDateOfRelease().value;
+        isWatched = source.isWatched().value;
+        description = source.getDescription().fullDescription;
+        runningTime = source.getRunningTime().value;
+        if (actors != null) {
+            this.actors.addAll(actors);
+        }
+        poster = source.getPoster().getImagePath();
     }
 
     /**
-     * Converts this Jackson-friendly adapted movie object into the model's {@code Movie} object.
+     * Converts this Jackson-friendly adapted tv show object into the model's {@code TvShow} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted movie.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted tv show.
      */
-    public Movie toModelType() throws IllegalValueException {
-        final List<Actor> movieActors = new ArrayList<>();
-        for (JsonAdaptedActor actor : super.getActors()) {
-            movieActors.add(actor.toModelType());
+    public Show toModelType() throws IllegalValueException {
+        final List<Actor> showActors = new ArrayList<>();
+        for (JsonAdaptedActor actor : actors) {
+            showActors.add(actor.toModelType());
         }
 
-        if (super.getRunningTime() < 0) {
-            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
-        }
-
-        if (super.getName() == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(super.getName())) {
+        if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(super.getName());
+        final Name modelName = new Name(name);
 
-        if (super.getDateOfRelease() == null) {
+        if (dateOfRelease == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(super.getDateOfRelease())) {
+        if (!Date.isValidDate(dateOfRelease)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Date modelDateOfRelease = new Date(super.getDateOfRelease());
+        final Date modelDateOfRelease = new Date(dateOfRelease);
 
-        if (!IsWatched.isValidIsWatched(super.isWatched())) {
+        if (!IsWatched.isValidIsWatched(isWatched)) {
             throw new IllegalValueException(IsWatched.MESSAGE_CONSTRAINTS);
         }
-        final IsWatched modelIsWatched = new IsWatched(super.isWatched());
+        final IsWatched modelIsWatched = new IsWatched(isWatched);
 
-        if (super.getDescription() == null) {
+        if (description == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+                    MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(super.getDescription())) {
+        if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(super.getDescription());
+        final Description modelDescription = new Description(description);
 
-        if (super.getRunningTime() == 0) {
-            throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
+
+        if (runningTime < 0) {
+            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
         }
-        if (!RunningTime.isValidRunningTime(super.getRunningTime())) {
+        if (runningTime == 0) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
+        }
+        if (!RunningTime.isValidRunningTime(runningTime )) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final RunningTime modelRunningTime = new RunningTime(super.getRunningTime());
+        final RunningTime modelRunningTime = new RunningTime(runningTime );
 
-        final Set<Actor> modelActors = new HashSet<>(movieActors);
-        Movie movie = new Movie(modelName, modelDescription, modelIsWatched,
-                            modelDateOfRelease, modelRunningTime, modelActors);
-        movie.setType(super.getType());
-        movie.setPoster(new Poster(super.getPoster()));
-        return movie;
+        final Set<Actor> modelActors = new HashSet<>(showActors);
+
+        Show show = new Movie(modelName, modelDescription, modelIsWatched,
+                modelDateOfRelease, modelRunningTime, modelActors);
+
+        show.setType(type);
+        show.setPoster(new Poster(poster));
+        return show;
     }
 }

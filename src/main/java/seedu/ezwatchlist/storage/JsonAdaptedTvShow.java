@@ -21,10 +21,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class JsonAdaptedTvShow extends JsonAdaptedShow {
+public class JsonAdaptedTvShow extends JsonAdaptedItem{
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
 
+    private final String name;
+    private final String type;
+    private final String dateOfRelease;
+    private final boolean isWatched;
+    private final String description;
+    private final int runningTime;
+    private final String poster;
+    private final List<JsonAdaptedActor> actors = new ArrayList<>();
     private final int numOfEpisodesWatched;
     private final int totalNumOfEpisodes;
     private final List<JsonAdaptedTvSeason> tvSeasons = new ArrayList<>();
@@ -44,7 +52,16 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
                              @JsonProperty("numOfEpisodesWatched") int numOfEpisodesWatched,
                              @JsonProperty("totalNumOfEpisodes") int totalNumOfEpisodes,
                              @JsonProperty("tvSeasons") List<JsonAdaptedTvSeason> tvSeasons) {
-        super(name, type, dateOfRelease, isWatched, description, runningTime, actors, poster);
+        this.name = name;
+        this.type = type;
+        this.dateOfRelease = dateOfRelease;
+        this.isWatched = isWatched;
+        this.description = description;
+        this.runningTime = runningTime;
+        if (actors != null) {
+            this.actors.addAll(actors);
+        }
+        this.poster = poster;
         this.numOfEpisodesWatched = numOfEpisodesWatched;
         this.totalNumOfEpisodes = totalNumOfEpisodes;
         if (tvSeasons != null) {
@@ -56,7 +73,16 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
      * Converts a given {@code TvShow} into this class for Jackson use.
      */
     public JsonAdaptedTvShow(Show source) {
-        super(source);
+        name = source.getName().showName;
+        type = source.getType();
+        dateOfRelease = source.getDateOfRelease().value;
+        isWatched = source.isWatched().value;
+        description = source.getDescription().fullDescription;
+        runningTime = source.getRunningTime().value;
+        if (actors != null) {
+            this.actors.addAll(actors);
+        }
+        poster = source.getPoster().getImagePath();
         numOfEpisodesWatched = source.getNumOfEpisodesWatched();
         totalNumOfEpisodes = source.getTotalNumOfEpisodes();
         tvSeasons.addAll(source.getTvSeasons().stream()
@@ -71,7 +97,7 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
      */
     public Show toModelType() throws IllegalValueException {
         final List<Actor> showActors = new ArrayList<>();
-        for (JsonAdaptedActor actor : super.getActors()) {
+        for (JsonAdaptedActor actor : actors) {
             showActors.add(actor.toModelType());
         }
 
@@ -80,57 +106,54 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
             showSeasons.add(season.toModelType());
         }
 
-        if (super.getRunningTime() < 0) {
-            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
-        }
-
-        if (super.getName() == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(super.getName())) {
+        if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(super.getName());
+        final Name modelName = new Name(name);
 
-        if (super.getDateOfRelease() == null) {
+        if (dateOfRelease == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(super.getDateOfRelease())) {
+        if (!Date.isValidDate(dateOfRelease)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Date modelDateOfRelease = new Date(super.getDateOfRelease());
+        final Date modelDateOfRelease = new Date(dateOfRelease);
 
-        if (!IsWatched.isValidIsWatched(super.isWatched())) {
+        if (!IsWatched.isValidIsWatched(isWatched)) {
             throw new IllegalValueException(IsWatched.MESSAGE_CONSTRAINTS);
         }
-        final IsWatched modelIsWatched = new IsWatched(super.isWatched());
+        final IsWatched modelIsWatched = new IsWatched(isWatched);
 
-        if (super.getDescription() == null) {
+        if (description == null) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(super.getDescription())) {
+        if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(super.getDescription());
+        final Description modelDescription = new Description(description);
 
-        if (super.getRunningTime() == 0) {
+
+        if (runningTime < 0) {
+            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
+        }
+        if (runningTime == 0) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
         }
-        if (!RunningTime.isValidRunningTime(super.getRunningTime() )) {
+        if (!RunningTime.isValidRunningTime(runningTime )) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final RunningTime modelRunningTime = new RunningTime(super.getRunningTime() );
+        final RunningTime modelRunningTime = new RunningTime(runningTime );
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
 
-        TvShow show = new TvShow(modelName, modelDescription, modelIsWatched,
+        Show show = new TvShow(modelName, modelDescription, modelIsWatched,
                 modelDateOfRelease, modelRunningTime, modelActors,
                 numOfEpisodesWatched, totalNumOfEpisodes, showSeasons);
 
-        show.setType(super.getType());
-        show.setPoster(new Poster(super.getPoster()));
+        show.setType(type);
+        show.setPoster(new Poster(poster));
         return show;
     }
 }

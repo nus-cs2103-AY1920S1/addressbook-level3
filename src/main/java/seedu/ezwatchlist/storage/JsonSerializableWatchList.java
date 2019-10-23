@@ -41,17 +41,16 @@ class JsonSerializableWatchList {
      */
     public JsonSerializableWatchList(ReadOnlyWatchList source) {
         ObservableList<Show> showList = source.getShowList();
-        List<JsonAdaptedShow> list = new ArrayList<>();
+        List<JsonAdaptedMovie> movies = new ArrayList<>();
+        List<JsonAdaptedTvShow> tvShows = new ArrayList<>();
         for (Show show : showList) {
             if (show.getType().equals("Movie")) {
-                list.add(new JsonAdaptedMovie(show));
+                movies.add(new JsonAdaptedMovie(show));
             } else if (show.getType().equals("Tv Show")) {
-                list.add(new JsonAdaptedTvShow(show));
+                tvShows.add(new JsonAdaptedTvShow(show));
             }
         }
-        for (JsonAdaptedShow show : list) {
-            shows.add(show);
-        }
+        shows.set(0, new JsonAdaptedShow(tvShows, movies));
     }
 
     /**
@@ -62,11 +61,13 @@ class JsonSerializableWatchList {
     public WatchList toModelType() throws IllegalValueException {
         WatchList watchList = new WatchList();
         for (JsonAdaptedShow jsonAdaptedShow : shows) {
-            Show show = jsonAdaptedShow.toModelType();
-            if (watchList.hasShow(show)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_SHOW);
+            List<Show> list = jsonAdaptedShow.toModelType();
+            for(Show show : list) {
+                if (watchList.hasShow(show)) {
+                    throw new IllegalValueException(MESSAGE_DUPLICATE_SHOW);
+                }
+                watchList.addShow(show);
             }
-            watchList.addShow(show);
         }
         return watchList;
     }
