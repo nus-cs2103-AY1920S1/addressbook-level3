@@ -50,7 +50,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased());
+                DeleteCommand.COMMAND_WORD + " " + TYPE_TRANSACTION + INDEX_FIRST_TRANSACTION.getOneBased());
         assertEquals(new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION), command);
     }
 
@@ -59,7 +59,8 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_TRANSACTION.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + TYPE_TRANSACTION + INDEX_FIRST_TRANSACTION.getOneBased() + " "
+                + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_TRANSACTION, descriptor), command);
     }
 

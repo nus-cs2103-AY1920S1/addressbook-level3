@@ -33,7 +33,7 @@ public class DeleteCommandTest {
         BankAccountOperation transactionToDelete = model
                 .getFilteredTransactionList()
                 .get(INDEX_FIRST_TRANSACTION.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(TYPE_BUDGET, INDEX_FIRST_TRANSACTION);
+        DeleteCommand deleteCommand = new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
