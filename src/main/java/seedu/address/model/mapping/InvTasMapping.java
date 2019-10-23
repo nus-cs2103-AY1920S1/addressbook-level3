@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class InvTasMapping {
+public class InvTasMapping extends Mapping{
 
     private final int taskIndex;
     private final int inventoryIndex;

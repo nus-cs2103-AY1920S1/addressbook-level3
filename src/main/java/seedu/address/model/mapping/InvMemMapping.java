@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class InvMemMapping {
+public class InvMemMapping extends Mapping{
 
     private final int memberIndex;
     private final int inventoryIndex;

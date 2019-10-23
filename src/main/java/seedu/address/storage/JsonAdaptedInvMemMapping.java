@@ -19,25 +19,25 @@ class JsonAdaptedInvMemMapping {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Mapping's %s field is missing!";
 
-    private final int member;
-    private final int inventory;
+    private final int memberIndex;
+    private final int inventoryIndex;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
-    public JsonAdaptedInvMemMapping(@JsonProperty("member") int member,
-                              @JsonProperty("inventory") int inventory){
-        this.member = member;
-        this.inventory = inventory;
+    public JsonAdaptedInvMemMapping(@JsonProperty("member") int memberIndex,
+                              @JsonProperty("inventory") int inventoryIndex){
+        this.memberIndex = memberIndex;
+        this.inventoryIndex = inventoryIndex;
     }
 
     /**
      * Converts a given {@code Task} into this class for Jackson use.
      */
     public JsonAdaptedInvMemMapping(InvMemMapping source) {
-        member = source.getMemberIndex();
-        inventory = source.getInventoryIndex();
+        memberIndex = source.getMemberIndex();
+        inventoryIndex = source.getInventoryIndex();
     }
 
     /**
@@ -46,6 +46,6 @@ class JsonAdaptedInvMemMapping {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
     public InvMemMapping toModelType() throws IllegalValueException {
-        return new InvMemMapping(member, inventory);
+        return new InvMemMapping(inventoryIndex, memberIndex);
     }
 }

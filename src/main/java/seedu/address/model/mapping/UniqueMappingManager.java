@@ -148,6 +148,21 @@ public class UniqueMappingManager {
         tasMemMappingList.setMappings(replacement);
     }
 
+    public void setMappings(List<InvMemMapping> replacement) {
+        requireNonNull(replacement);
+        invMemMappingList.setMappings(replacement);
+    }
+
+    public void setMappings(List<InvTasMapping> replacement) {
+        requireNonNull(replacement);
+        invTasMappingList.setMappings(replacement);
+    }
+
+    public void setMappings(List<TasMemMapping> replacement) {
+        requireNonNull(replacement);
+        tasMemMappingList.setMappings(replacement);
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
@@ -156,4 +171,12 @@ public class UniqueMappingManager {
     }
 
     // ==============================================
+
+    public ObservableList<Mapping> getUnmodifiableObserableList() {
+        ObservableList<Mapping> result = FXCollections.observableArrayList();
+        result.addAll(invMemMappingList.asUnmodifiableObservableList());
+        result.addAll(invTasMappingList.asUnmodifiableObservableList());
+        result.addAll(tasMemMappingList.asUnmodifiableObservableList());
+        return result;
+    }
 }

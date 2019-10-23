@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class TasMemMapping {
+public class TasMemMapping extends Mapping{
 
     private final int memberIndex;
     private final int taskIndex;

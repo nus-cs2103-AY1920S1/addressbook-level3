@@ -10,8 +10,10 @@ import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
-import seedu.address.model.mapping.Mapping;
-import seedu.address.model.mapping.UniqueMappingList;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.UniqueMappingManager;
 import seedu.address.model.member.UniqueMemberList;
 
 import seedu.address.model.task.Task;
@@ -31,7 +33,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     private final UniqueTaskList tasksByDeadline;
     private final UniqueMemberList members;
     private final UniqueInventoryList inventories;
-    private final UniqueMappingList mappings;
+    private final UniqueMappingManager mappings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -77,10 +79,12 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         this.members.setMembers(members);
     }
 
-    public void setMappings(List<Mapping> mappings) {
-        for (Mapping mapping : mappings) {
-            this.mappings.add(mapping);
-        }
+    public void setMappings(List<InvMemMapping> invMemMappings,
+                            List<InvTasMapping> invTasMappings,
+                            List<TasMemMapping> tasMemMappings) {
+        this.mappings.setMappings(invMemMappings);
+        this.mappings.setMappings(invTasMappings);
+        this.mappings.setMappings(tasMemMappings);
     }
 
     /**
@@ -100,7 +104,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         setTasks(newData.getTaskList());
         setInventories(newData.getInventoryList());
         setMembers(newData.getMemberList());
-        setMappings(newData.getMappingList());
+        setMappings(newData.getInvMemMappingList(), newData.getInvTasMappingList(), newData.getTasMemMappingList());
     }
 
     //// task-level operations
@@ -235,18 +239,51 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     /// Mapping util
 
-    public void addMapping(Mapping mapping) {
+    public void addMapping(InvMemMapping mapping) {
         mappings.add(mapping);
     }
 
-    public void removeMapping(Mapping mapping) {
+    public void addMapping(InvTasMapping mapping) {
+        mappings.add(mapping);
+    }
+
+    public void addMapping(TasMemMapping mapping) {
+        mappings.add(mapping);
+    }
+
+    public void removeMapping(InvMemMapping mapping) {
         mappings.remove(mapping);
+    }
+
+    public void removeMapping(InvTasMapping mapping) {
+        mappings.remove(mapping);
+    }
+
+    public void removeMapping(TasMemMapping mapping) {
+        mappings.remove(mapping);
+    }
+
+
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
+    public boolean hasMapping(InvMemMapping mapping) {
+        requireNonNull(mapping);
+        return mappings.contains(mapping);
     }
 
     /**
      * returns whether the mapping list contains targetMapping
      */
-    public boolean hasMapping(Mapping mapping) {
+    public boolean hasMapping(InvTasMapping mapping) {
+        requireNonNull(mapping);
+        return mappings.contains(mapping);
+    }
+
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
+    public boolean hasMapping(TasMemMapping mapping) {
         requireNonNull(mapping);
         return mappings.contains(mapping);
     }
@@ -265,8 +302,23 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }
 
     @Override
+    public ObservableList<InvMemMapping> getInvMemMappingList() {
+        return mappings.getUnmodifiableObservableInvMemList();
+    }
+
+    @Override
+    public ObservableList<InvTasMapping> getInvTasMappingList() {
+        return mappings.getUnmodifiableObservableInvTasList();
+    }
+
+    @Override
+    public ObservableList<TasMemMapping> getTasMemMappingList() {
+        return mappings.getUnmodifiableObservableTasMemList();
+    }
+
+    @Override
     public ObservableList<Mapping> getMappingList() {
-        return mappings.asUnmodifiableObservableList();
+        return mappings.getUnmodifiableObserableList();
     }
 
     @Override
