@@ -342,12 +342,15 @@ image::submitCommandActivityDiagram.png[]
 
 ===== No parameter mode (listing incidents)
 The `IncidentManagerParser` will return a new `FillCommand` which has its fields `targetIndex`, `callerNumber`, and `description` initialised to null (as they won't be required). The `execute()` method in `FillCommand` checks for these null conditions and simply displays the list of incidents filtered according to whether they are `DRAFT` or not.
-TODO - SEQUENCE DIAGRAM FOR FILL COMMAND WITHOUT PARAMETERS
+
+image::fillCommandSequenceDiagramWithParams.png
+
 The `SubmitCommand` functions similarly, this time listing the incidents filtered by whether they are `COMPLETE` or not.
 ===== Parameter mode (modifying incidents)
 The `FillCommandParser` will be invoked to parse the fields `targetIndex`, `callerNumber`, and `description` and return a `FillCommand` containing these non-null fields. The `execute()` method in `FillCommand` will now fetch the specified incident from the list of drafts and call the static `updateReport()` method. The `updateReport()` method creates a new Incident object which has all its required attributes filled. The attributes from the incident to be updated are simply copied into this new Incident object. The fill command then inserts this new Incident into the list of incidents at the same index.
 The `SubmitCommand` functions similarly, with one crucial difference. As no Incident fields are to be updated, the specified incident is simply retrieved, marked as `FINAL` using the static `submitReport()` method, and inserted into the list of incidents at the same index again. The `submitReport` method also creates a new Incident object which is a copy of the Incident to be submitted, with the difference being that the newly created Incident is marked `FINAL`.
-TODO - SEQUENCE DIAGRAM FOR FILL COMMAND WITH PARAMETERS
+
+image::fillCommandSequenceDiagramWithoutParams.png
 
 ==== Design Considerations
 
