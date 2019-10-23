@@ -17,6 +17,8 @@ import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.calendar.Reminder;
+import seedu.address.model.calendar.Scheduler;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
@@ -43,6 +45,8 @@ public class ModelManager implements Model {
     private final FilteredList<Record> filteredRecordList;
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
+    private final FilteredList<CalendarEntry> pastReminderList;
+    private final Scheduler scheduler;
     private final AverageMap averageMap;
 
     private AverageType averageType;
@@ -71,6 +75,8 @@ public class ModelManager implements Model {
         this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
         this.calendar = new Calendar(calendar);
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
+        this.pastReminderList = new FilteredList<>(this.calendar.getPastReminderList());
+        this.scheduler = new Scheduler();
         this.averageMap = new AverageMap();
         this.averageType = null;
         this.recordType = null;
@@ -258,7 +264,11 @@ public class ModelManager implements Model {
     @Override
     public void addCalendarEntry(CalendarEntry calendarEntry) {
         calendar.addCalendarEntry(calendarEntry);
+    }
 
+    @Override
+    public void addPastReminder(Reminder reminder) {
+        calendar.addPastReminder(reminder);
     }
 
     @Override
@@ -270,6 +280,21 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
         return filteredCalenderEntryList;
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getPastReminderList() {
+        return pastReminderList;
+    }
+
+    @Override
+    public void schedule() {
+        scheduler.schedule(this);
+    }
+
+    @Override
+    public void stopAllReminders() {
+        scheduler.stopAll();
     }
 
     @Override
