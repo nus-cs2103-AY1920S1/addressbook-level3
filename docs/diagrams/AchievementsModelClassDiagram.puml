@@ -14,13 +14,6 @@ Class Person
 }
 }
 
-namespace Model {
-Class ModelManager
-Interface Model <<Interface>>{
-}
-}
-
-
 namespace Achievements {
 namespace Model {
 Interface StatisticsModel <<Interface>>
@@ -31,17 +24,7 @@ Class StatisticsModelManager
 
 Interface ObservableList <<Interface>>
 Interface Supplier <<Interface>>
-HiddenOutside ..> Model.Model
-
-''''''''''MODEL''''''''''
-''''''''''Model
-Model.ModelManager .up.|> Model.Model
-''''''''''Model Interface
-Model.Model .down.> Achievements.Model.StatisticsModel :supplies >
-Model.Model .right.>Supplier
-''''''''''ModelManager Constructor
-''' composition or aggregation?
-Model.ModelManager ..> "1" Achievements.Model.StatisticsModel
+HiddenOutside ..> Achievements.Model.StatisticsModel :supplies>
 
 
 ''''''''''ACHIEVEMENTS''''''''''

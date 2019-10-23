@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+namespace Logic {
+}
+
+
+namespace Achievements {
+namespace Model {
+}
+namespace Logic {
+interface AchievementsLogic <<interface>>
+Class AchievementsLogicManager
+namespace Commands {
+Class XYZCommand
+}
+namespace Parser {
+Class AchievementsParser
+Class XYZCommandParser
+}
+}
+}
+
+
+Interface Supplier <<Interface>>
+Class HiddenOutside #FFFFFF
+
+''''''''''LOGIC''''''''''
+HiddenOutside ..> Logic
+Logic ..> AchievementsLogic
+
+'''''''''''''''''''''''''''''''''
+
+
+''''''''''ACHIEVEMENTS''''''''''
+
+''''''''''AchievementsLogic
+Achievements.Logic.AchievementsLogic .up.> Logic
+
+''''''''''AchievementsLogicManager
+Achievements.Logic.AchievementsLogicManager .up.|> Achievements.Logic.AchievementsLogic
+Achievements.Logic.AchievementsLogicManager .left.> Supplier
+Achievements.Logic.AchievementsLogicManager .up.> Logic
+
+Achievements.Logic.AchievementsLogicManager *-down-> "1" Achievements.Logic.Parser.AchievementsParser
+Achievements.Logic.AchievementsLogicManager o-right-> "1" Achievements.Model
+
+''''''''''AchievementsParser
+Achievements.Logic.Parser.AchievementsParser .up.> Logic
+Achievements.Logic.Parser.AchievementsParser .down.> Achievements.Logic.Parser.XYZCommandParser :creates >
+
+''''''''''XYZCommand
+Achievements.Logic.Commands.XYZCommand -up-|> Logic
+
+''''''''''XYZCommandParser
+Achievements.Logic.Parser.XYZCommandParser .up.|> Logic
+Achievements.Logic.Parser.XYZCommandParser .left.> Achievements.Logic.Commands.XYZCommand :creates >
+
+''''''''''''''''''''''''''''''''
+
+''''''''''LAYOUT''''''''''
+'Logic.LogicManager .[hidden]left.> Storage
+'Logic.LogicManager .[hidden]down.> Achievements
+'Logic.LogicManager .[hidden]down.> Logic.Commands
+'Logic.Commands.Command .[hidden]down.> Achievements
+'Logic.Commands .[hidden]left.> Logic.Parser
+'Achievements .left.> Address
+''''''''''''''''''''''''''
+@enduml

@@ -96,6 +96,9 @@ The Calendar and Itinerary window work in tandem with each other. Due to their d
 
 The `UI` component,
 
+* Facilitate the changing of scenes between different user interface for the different features
+* Gets the requested page
+* Changes the scene on the primary stage upon request
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
@@ -104,13 +107,14 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::BetterLogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
+.  `Logic` gets the `AddressBookLogic`
+.  `AddressBookLogic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `AddressLogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
@@ -126,14 +130,16 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::BetterModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the different model used for different packages inside Travezy
+* stores a `UserPrefModel` object used to get and set user preferences
+* stores a `AddressBookModel` object used to get data from the address book
+* supply a `StatisticsModel` which is only evaluated upon request
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -453,11 +459,27 @@ The GUI also collaborate with Model Class directly, which will be changed to onl
 
 === Diary
 
-
 === Address Book
 
+.Model Diagram of the AddressBook feature
+image::AddressModelClass.png[]
+
+.Logic Diagram of the AddressBook feature
+image::AddressLogicClassDiagram.png[]
+
+.Sequence Diagram for the `Delete 1` Command
+image::DeleteSequenceDiagram.png[]
 
 === Achievements
+
+.Model Diagram of the Achievements feature
+image::AchievementsModelClassDiagram.png[]
+
+.Logic Diagram of the Achievements feature
+image::AchievementsLogicClassDiagram.png[]
+
+.Sequence Diagram of the Statistics Model
+image::AchievementsPage.png[]
 
 == Documentation
 

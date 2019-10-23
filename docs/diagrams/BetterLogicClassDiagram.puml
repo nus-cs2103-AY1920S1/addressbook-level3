@@ -1,0 +1,139 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+namespace Logic {
+Interface Logic <<Interface>>
+Class LogicManager
+namespace Commands {
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+Class XYZCommand
+}
+namespace Parser {
+Interface Parser <<Interface>>
+Class ArgumentMultimap
+Class ArgumentTokenizer
+Class ParserUtil
+Class Prefix
+Class XYZCommandParser
+}
+}
+
+namespace Storage {
+}
+
+namespace Model {
+}
+
+
+namespace Achievements {
+namespace Logic {
+interface AchievementsLogic <<interface>>
+}
+}
+
+namespace Address {
+namespace Model {
+}
+namespace Logic {
+Interface AddressBookLogic <<interface>>
+}
+}
+
+namespace Calendar {
+namespace Parser {
+}
+}
+
+namespace diaryFeature {
+namespace diaryParser {
+}
+}
+
+namespace FinancialTracker {
+namespace Parser {
+}
+}
+
+namespace Itinerary {
+namespace Parser {
+}
+}
+
+Interface ObservableList <<Interface>>
+Class HiddenOutside #FFFFFF
+
+''''''''''LOGIC''''''''''
+HiddenOutside ..> Logic.Logic
+
+''''''''''Logic
+Logic.Logic .left.> Storage
+Logic.Logic .down.> Address.Logic.AddressBookLogic :gets >
+Logic.Logic .down.> Achievements.Logic.AchievementsLogic :gets >
+
+''''''''''LogicManager
+Logic.LogicManager .up.|> Logic.Logic
+Logic.LogicManager ..> Model
+Logic.LogicManager o-right-> "1" Storage
+Logic.LogicManager o-right-> "1" Model
+Logic.LogicManager *-down-> "1" Address.Logic.AddressBookLogic
+Logic.LogicManager *-down-> "1" Achievements.Logic.AchievementsLogic
+
+''''''''''Command
+Logic.Commands.Command .up.> Logic.Commands.CommandResult
+
+''''''''''XYZ Command
+Logic.Commands.XYZCommand -up-|> Logic.Commands.Command
+
+''''''''''Parser
+Logic.Parser.XYZCommandParser .up.|> Logic.Parser.Parser
+
+''''''''''ParserUtil
+Logic.Parser.ParserUtil .down.>Logic.Parser.Prefix
+
+''''''''''ArgumentTokenizer
+Logic.Parser.ArgumentTokenizer .left.> Logic.Parser.ArgumentMultimap
+Logic.Parser.ArgumentTokenizer .down.> Logic.Parser.Prefix
+
+'''''''''''''''''''''''''
+
+''''''''''ACHIEVEMENTS''''''''''
+
+''''''''''AchievementsLogic
+Achievements.Logic.AchievementsLogic .up.> Logic.Commands.CommandResult
+
+''''''''''AchievementsLogicManager
+Achievements.Logic.AchievementsLogicManager .up.|> Achievements.Logic.AchievementsLogic
+
+''''''''''''''''''''''''''''''''
+
+''''''''''ADDRESS''''''''''
+
+''''''''''AddressBookLogic
+Address.Logic.AddressBookLogic .up.> Storage
+Address.Logic.AddressBookLogic .up.> Logic.Commands.CommandResult
+Address.Logic.AddressBookLogic .right.> ObservableList
+Address.Logic.AddressBookLogic .right.> Address.Model
+
+''''''''''AddressBookLogicManager
+Address.Logic.AddressBookLogicManager .up.|> Address.Logic.AddressBookLogic
+
+'''''''''''''''''''''''''''
+
+''''''''''LAYOUT''''''''''
+Logic.LogicManager .[hidden]left.> Storage
+Logic.LogicManager .[hidden]down.> Achievements
+Logic.LogicManager .[hidden]down.> Address
+Logic.LogicManager .[hidden]down.> Logic.Commands
+Logic.Commands.XYZCommand .[hidden]down.> Achievements
+Logic.Commands.XYZCommand .[hidden]down.> Address
+Logic.Commands.XYZCommand .[hidden]down.> Calendar
+Logic.Commands.XYZCommand .[hidden]down.> diaryFeature
+Logic.Commands.XYZCommand .[hidden]down.> FinancialTracker
+Logic.Commands.XYZCommand .[hidden]down.> Itinerary
+Logic.Commands .[hidden]left.> Logic.Parser
+''''''''''''''''''''''''''
+@enduml
