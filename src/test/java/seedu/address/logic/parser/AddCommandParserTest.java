@@ -22,6 +22,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalFlashCards.NORATING;
 import static seedu.address.testutil.TypicalFlashCards.NUS;
 import static seedu.address.testutil.TypicalFlashCards.WWII;
 
@@ -44,19 +45,19 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + QUESTION_DESC_2 + ANSWER_DESC_2
-                + RATING_DESC_2 + CATEGORY_DESC_HISTORY, new AddCommand(expectedFlashCard));
+                + RATING_DESC_2 + CATEGORY_DESC_LOCATION, new AddCommand(expectedFlashCard));
 
-        // multiple names - last name accepted
+        // multiple questions - last question accepted
         assertParseSuccess(parser, QUESTION_DESC_1 + QUESTION_DESC_2 + ANSWER_DESC_2
-                + RATING_DESC_2 + CATEGORY_DESC_HISTORY, new AddCommand(expectedFlashCard));
+                + RATING_DESC_2 + CATEGORY_DESC_LOCATION, new AddCommand(expectedFlashCard));
 
         // multiple answers - last answer accepted
         assertParseSuccess(parser, QUESTION_DESC_2 + ANSWER_DESC_1 + ANSWER_DESC_2
-                + RATING_DESC_2 + CATEGORY_DESC_HISTORY, new AddCommand(expectedFlashCard));
+                + RATING_DESC_2 + CATEGORY_DESC_LOCATION, new AddCommand(expectedFlashCard));
 
         // multiple ratings - last rating accepted
         assertParseSuccess(parser, QUESTION_DESC_2 + ANSWER_DESC_2 + RATING_DESC_1
-                + RATING_DESC_2 + CATEGORY_DESC_HISTORY, new AddCommand(expectedFlashCard));
+                + RATING_DESC_2 + CATEGORY_DESC_LOCATION, new AddCommand(expectedFlashCard));
 
         // multiple categories - all accepted
         FlashCard expectedFlashCardMultipleCategories =
@@ -73,6 +74,12 @@ public class AddCommandParserTest {
         FlashCard expectedFlashCard = new FlashCardBuilder(WWII).withCatgeories().build();
         assertParseSuccess(parser, QUESTION_DESC_1 + ANSWER_DESC_1 + RATING_DESC_1,
                 new AddCommand(expectedFlashCard));
+
+        //no inital rating
+        expectedFlashCard = NORATING;
+        assertParseSuccess(parser, QUESTION_DESC_1 + ANSWER_DESC_1 + CATEGORY_DESC_LOCATION,
+                new AddCommand(expectedFlashCard));
+
     }
 
     @Test
@@ -87,9 +94,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, QUESTION_DESC_2 + VALID_ANSWER_2 + RATING_DESC_2,
                 expectedMessage);
 
-        // missing rating prefix
-        assertParseFailure(parser, QUESTION_DESC_2 + ANSWER_DESC_2 + VALID_RATING_2,
-                expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_QUESTION_2 + VALID_ANSWER_2 + VALID_RATING_2,

@@ -14,7 +14,7 @@ public class RatingTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidRating_throwsIllegalArgumentException() {
         String invalidAddress = "";
         assertThrows(IllegalArgumentException.class, () -> new Rating(invalidAddress));
     }
@@ -31,7 +31,8 @@ public class RatingTest {
 
         // valid rating
         assertTrue(Rating.isValidRating("good"));
-        assertTrue(Rating.isValidRating("hard")); // one character
-        assertTrue(Rating.isValidRating("easy")); // long address
+        assertTrue(Rating.isValidRating("hard"));
+        assertTrue(Rating.isValidRating("easy"));
+        assertTrue(Rating.isValidRating("null"));
     }
 }

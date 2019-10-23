@@ -31,7 +31,6 @@
       <Separator></Separator>
       <Label fx:id="answer" styleClass="cell_small_label" text="\$answer" />
       <FlowPane fx:id="categories" />
-      <FlowPane fx:id="rating" />
     </VBox>
   </GridPane>
 </HBox>

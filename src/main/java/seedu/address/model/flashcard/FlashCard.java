@@ -100,8 +100,6 @@ public class FlashCard {
         builder.append(getQuestion())
                 .append(" Answer: ")
                 .append(getAnswer())
-                .append(" Rating: ")
-                .append(getRating())
                 .append(" Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();
