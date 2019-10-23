@@ -178,7 +178,7 @@ and generates the `profit`, `cost` or `revenue`  each `month` between this 2 dat
 
 Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
 
-image::StatisticsCalculationActvityDiagram.png[]
+image::StatisticsCalculationAcitvityDiagram.png[]
 
 ===== Statistic Module
 The statistic module exposes the calculation operations in the `Statistics` interface.
