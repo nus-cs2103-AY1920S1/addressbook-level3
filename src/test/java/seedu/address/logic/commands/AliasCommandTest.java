@@ -56,11 +56,16 @@ public class AliasCommandTest {
     }
 
     private class ModelStubWithAliasTable extends ModelStub {
-        final ReadOnlyUserPrefs userPrefs = new UserPrefs();
+        final UserPrefs userPrefs = new UserPrefs();
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             return userPrefs;
+        }
+
+        @Override
+        public void addAlias(String alias, String aliasTo) {
+            userPrefs.addAlias(alias, aliasTo);
         }
     }
 
@@ -105,6 +110,21 @@ public class AliasCommandTest {
 
         @Override
         public void addReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAlias(String alias, String aliasTo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean removeAlias(String alias) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String applyAlias(String commandText) {
             throw new AssertionError("This method should not be called.");
         }
 
