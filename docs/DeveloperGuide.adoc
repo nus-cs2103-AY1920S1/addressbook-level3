@@ -213,6 +213,39 @@ image::CloseCommitActivityDiagram.png[]
 ** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
 // end::close[]
 
+// tag::modeCommand[]
+=== [Proposed] Mode Command feature
+==== Proposed Implementation
+Allows the user to toggle between Main mode and Todo mode. It extends 'Command', and once mode had been switched, will affect all other command functions.
+The mode is determined through the value of a boolean variable named 'isMainMode'.
+
+Given below is an example usage of how the Mode Command behaved.
+
+Step 1: The user launches the application. Data from `addressbook` will be fetched and will be initialised as `Main Mode` by default.
+
+Step 2: The user execute `mode` command and the mode of the application will be switched to `todo` mode, displaying items in the `todo` list instead.
+
+Step 3: The user can execute `mode` command again, returning the application to `main` mode, showing the items stored in the `main` list.
+
+The following sequence diagram shows how the `mode` command works:
+image::ModeCommandSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+image::ModeCommandActivity.png[]
+
+==== Design Considerations
+===== Aspect: How Mode execute
+* **Alternative 1 (current choice):** Toggle between mode through a boolean value.
+** Pros: Easy for implementation.
+** Cons: An additional factor to check when executing any other commands; Possibility of mis-manipulation of data.
+
+===== Aspect: Data structure to support Mode Command
+* **Alternative 1 (current choice):** Maintain 2 separate lists for Main mode and Todo Mode.
+** Pros: Data between the 2 modes will be separated apart. Commands executed will only affect data stored in the list for the particular mode.
+** Cons: More effort required for maintenance purposes. Need to make sure that data from main list should not go into todo list, and vice versa
+
+//end::modeCommand[]
+
 // tag::add[]
 === Add eatery feature
 ==== Implementation
