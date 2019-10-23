@@ -280,13 +280,16 @@ Commands support the given operations to mutate the state of the `Model` and to 
 * `Command#execute(Model)` -- Executes the command on the given `Model`.
 * `Command#executeInverse(Model)` -- Executes on the given `Model` such that it will undo whatever changes were made when `Command#execute(Model)` was called.
 
+image::HistoryManagerClassDiagram.png[]
+
 The following activity diagram illustrates how commands are remembered when a user types in a command:
 
 image::CommandActivityDiagram.png[]
-image::HistoryManagerClassDiagram.png[]
 
 Undo and redo operations are executed with `UndoCommand` and `RedoCommand`. These commands store an integer value referencing the number of commands to undo or redo,
 represented by `UndoCommand#numberOfTimes` and `RedoCommand#numberOfTimes`.
+
+image::UndoRedoCommandClassDiagram.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
