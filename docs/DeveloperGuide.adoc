@@ -265,28 +265,31 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 [[Implementation-Find]]
 === Find feature
+
 The find feature allows the user to search for a spending based on specified field. If search results are too broad, fields may be combined to increase specificity.
 
 For example, `find n/Apple c/2.50-3.00` will find an `Apple` of cost range `2.00` to `3.00`.
 
 ==== Implementation
+
 Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user.
 
 The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
 
 The sequence diagram below demonstrates how the `find` command is executed:
 
-.Sequence diagram for a find command
+.Sequence diagram for an example find command
 image::FindSequenceDiagram.png[Find Sequence Diagram]
 
 NOTE: The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The following activity diagram summarises what happens when the user uses the `find` command:
 
-.Activity diagram for a find command
+.Activity diagram for an example find command
 image::FindActivityDiagram.png[Find Activity Diagram]
 
 ==== Design Considerations
+
 [width="90%", cols="1,2,2", options="header",]
 |===
 |Aspect |Alternative 1 |Alternative 2
@@ -298,6 +301,64 @@ Cons: All fields require a predicate
 |Search the underlying list directly without using a predicate +
 Pros: Able to manipulate object easily +
 Cons: Poor abstraction
+
+|===
+
+[[Implementation-Sort]]
+=== Sort feature
+
+The sort feature allows users to sort all currently displayed Spending entries automatically. The default sorting sequence is by Date, followed by Cost. Both are in descending order.
+
+The user may choose to modify how the displayed entries are sorted using the `sort` command.
+
+For example, `sort n/ASC d/DESC` applies sorting by name in ascending order, followed by Date in descending order. This applies to any future commands entered.
+
+==== Implementation
+
+The sorting feature is supported by `SpendingComparator`, a custom comparator to facilitate different sort ordering, and implements the following operation:
+
+* `updateSortedSpendingList(comparator)` -- Updates the sorted spending list with a new comparator.
+
+This operation is exposed in the `Model` interface as `Model#updateSortedSpendingList(comparator)`.
+
+At a high level view, `SpendingComparator` and `SortField` interacts in the manner shown below.
+
+.High-level view of package interaction
+image::SortPackageDiagram.png[Sort Package Diagram]
+
+The sequence diagram below demonstrates how the `sort` command is executed:
+
+.Sequence diagram for an example sort command
+image::SortSequenceDiagram.png[Sort Sequence Diagram]
+
+NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram summarises what happens when the user uses the `sort` command:
+
+.Activity diagram for an example sort command
+image::SortActivityDiagram.png[Sort Activity Diagram]
+
+==== Design Considerations
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 |Alternative 2
+
+|How sort is executed
+|Set a new comparator +
+Pros: Easy to implement +
+Cons: None
+|Sort the underlying list without a comparator +
+Pros: Able to manipulate objects directly +
+Cons: Poor abstraction
+
+|Method design for sort
+|Create filtered list from sorted list +
+Pros: Easy to implement +
+Cons: Minor structure changes
+|Create sorted list from filtered list +
+Pros: Able to test large sorting side effects +
+Cons: Large code structure changes
 
 |===
 
