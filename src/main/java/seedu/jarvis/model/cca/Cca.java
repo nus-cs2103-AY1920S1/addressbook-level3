@@ -4,6 +4,10 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
+
 /**
  * Represents a Cca in the Jarvis parser.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -16,15 +20,28 @@ public class Cca {
 
     // Data fields
     private final EquipmentList equipmentList;
+    private final CcaProgress ccaProgress;
 
     /**
      * Every field must be present and not null.
+     */
+    public Cca(CcaName name, CcaType ccaType, EquipmentList equipmentList, CcaProgress ccaProgress) {
+        requireAllNonNull(name, ccaType, equipmentList);
+        this.name = name;
+        this.ccaType = ccaType;
+        this.equipmentList = equipmentList;
+        this.ccaProgress = ccaProgress;
+    }
+
+    /**
+     * Constructor to be used when Cca is first added.
      */
     public Cca(CcaName name, CcaType ccaType, EquipmentList equipmentList) {
         requireAllNonNull(name, ccaType, equipmentList);
         this.name = name;
         this.ccaType = ccaType;
         this.equipmentList = equipmentList;
+        this.ccaProgress = new CcaProgress();
     }
 
     public CcaName getName() {
@@ -37,6 +54,36 @@ public class Cca {
 
     public EquipmentList getEquipmentList() {
         return equipmentList;
+    }
+
+    public CcaProgress getCcaProgress() {
+        return ccaProgress;
+    }
+
+    /**
+     * Returns true if the cca progresslist is empty.
+     *
+     * @return true if the cca progresslist is empty.
+     */
+    public boolean ccaProgressListIsEmpty() {
+        return ccaProgress.ccaProgressListIsEmpty();
+    }
+
+    /**
+     * Adds a progresslist to the {@code CcaProgress}.
+     */
+    public void addProgress(CcaProgressList ccaProgressList) {
+        if (!ccaProgressListIsEmpty()) {
+            throw new CcaProgressAlreadySetException();
+        }
+        ccaProgress.setMilestones(ccaProgressList);
+    }
+
+    /**
+     * Increments the progress of the {@code Cca} by 1 {@code Milestone}.
+     */
+    public void increaseProgress() {
+        ccaProgress.increaseProgress();
     }
 
     /**
@@ -68,18 +115,16 @@ public class Cca {
         }
 
         Cca otherCca = (Cca) other;
-        System.out.println("Cca names equals: " + otherCca.getName().equals(getName()));
-        System.out.println("Cca type equals: " + otherCca.getCcaType().equals(getCcaType()));
-        System.out.println("Cca equipment equals: " + otherCca.getEquipmentList().equals(getEquipmentList()));
         return otherCca.getName().equals(getName())
                 && otherCca.getCcaType().equals(getCcaType())
-                && otherCca.getEquipmentList().equals(getEquipmentList());
+                && otherCca.getEquipmentList().equals(getEquipmentList())
+                && otherCca.getCcaProgress().equals(getCcaProgress());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, ccaType, equipmentList);
+        return Objects.hash(name, ccaType, equipmentList, ccaProgress);
     }
 
     @Override

@@ -28,8 +28,6 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
@@ -69,8 +67,8 @@ public class EditInstallmentCommandTest {
     public void execute_allFieldsList_success() {
         Installment editedInstallment =
                 new InstallmentBuilder()
-                        .withDescription(new InstallmentDescription(VALID_DESC_SPOTIFY))
-                        .withMoneySpent(new InstallmentMoneyPaid(VALID_MONEY_SPOTIFY))
+                        .withDescription(VALID_DESC_SPOTIFY)
+                        .withMoneySpent(VALID_MONEY_SPOTIFY)
                         .build();
         EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder(editedInstallment)
@@ -98,9 +96,9 @@ public class EditInstallmentCommandTest {
         InstallmentBuilder installmentInList = new InstallmentBuilder(lastInstallment);
         Installment editedInstallment = installmentInList
                 .withDescription(
-                        new InstallmentDescription(VALID_DESC_EARPHONES))
+                        VALID_DESC_EARPHONES)
                 .withMoneySpent(
-                        new InstallmentMoneyPaid(VALID_MONEY_EARPHONES))
+                        VALID_MONEY_EARPHONES)
                 .build();
 
         EditInstallmentDescriptor descriptor =

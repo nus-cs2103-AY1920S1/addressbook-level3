@@ -72,7 +72,7 @@ public class SetPaidCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single purchase.
      */
     private class ModelStubWithPurchase extends ModelStub {
         private final Purchase purchase;

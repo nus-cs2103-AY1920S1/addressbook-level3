@@ -127,13 +127,6 @@ public class Course {
 
     @Override
     public String toString() {
-        return "[Title]: " + getTitle()
-            + " [Faculty]: " + getFaculty()
-            + " [Description]: " + getDescription()
-            + " [CourseCode]: " + getCourseCode()
-            + " [CourseCredit]: " + getCourseCredit()
-            + " [PrereqTree]: " + getPrereqTree()
-            + " [Preclusions]: " + getPreclusion()
-            + " [FulfillRequirements]: " + getFulfillRequirements();
+        return getCourseCode().toString();
     }
 }

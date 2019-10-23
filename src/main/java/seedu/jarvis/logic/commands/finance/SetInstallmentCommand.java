@@ -28,7 +28,7 @@ public class SetInstallmentCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New installment added: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Installment: %1$s";
-    public static final String MESSAGE_INVERSE_PAYMENT_NOT_FOUND = "Installment already deleted: %1$s";
+    public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment already deleted: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -77,9 +77,26 @@ public class SetInstallmentCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Deletes {@code Installment} from the finance tracker that was added by this command's execution
+     * if the installment is still in the finance tracker
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} that installment was removed if installment was in the finance tracker,
+     * else {@code CommandResult} that the installment was already not in the finance tracker
+     * @throws CommandException If installment to be removed is not found in the finance tracker
+     */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (!model.hasInstallment(toAdd)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND, toAdd));
+        }
+
+        model.deleteInstallment(toAdd);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
     }
 
     @Override

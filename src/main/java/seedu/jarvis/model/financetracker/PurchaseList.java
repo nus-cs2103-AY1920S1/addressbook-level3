@@ -79,6 +79,16 @@ public class PurchaseList {
         return internalPurchaseList.stream().anyMatch(toCheck::isSamePurchase);
     }
 
+    /**
+     * Checks for the existence of the purchase that has already been added to avoid duplicates in the list.
+     *
+     * @param purchase that is to be newly added
+     * @return boolean checking the existence of the same purchase
+     */
+    public boolean hasPurchase(Purchase purchase) {
+        return this.contains(purchase);
+    }
+
     public int getNumPurchases() {
         return internalPurchaseList.size();
     }
@@ -86,13 +96,24 @@ public class PurchaseList {
     //=========== Command Methods ==================================================================================
 
     /**
-     * Adds a single-use purchases to the list of purchases
+     * Adds a single-use purchases to the list of purchases.
      *
      * @param newPurchase object from newly added single-use payment
      */
     public void addSinglePurchase(Purchase newPurchase) {
         requireNonNull(newPurchase);
         internalPurchaseList.add(newPurchase);
+    }
+
+    /**
+     * Adds a purchase to the list at the given index.
+     *
+     * @param newPurchase object from newly added single-use payment
+     * @param zeroBasedIndex index where the purchase should be added
+     */
+    public void addSinglePurchase(int zeroBasedIndex, Purchase newPurchase) {
+        requireNonNull(newPurchase);
+        internalPurchaseList.add(zeroBasedIndex, newPurchase);
     }
 
     /**
@@ -108,6 +129,13 @@ public class PurchaseList {
         } catch (IndexOutOfBoundsException e) {
             throw new PurchaseNotFoundException();
         }
+    }
+
+    /**
+     * Removes purchase from the list of purchases.
+     */
+    public void deletePurchase(Purchase purchase) {
+        internalPurchaseList.remove(purchase);
     }
 
     /**

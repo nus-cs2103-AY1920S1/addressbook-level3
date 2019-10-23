@@ -17,16 +17,22 @@ import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.address.FindAddressCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.cca.AddCcaCommand;
+import seedu.jarvis.logic.commands.cca.AddProgressCommand;
 import seedu.jarvis.logic.commands.cca.DeleteCcaCommand;
 import seedu.jarvis.logic.commands.cca.EditCcaCommand;
 import seedu.jarvis.logic.commands.cca.FindCcaCommand;
+import seedu.jarvis.logic.commands.cca.IncreaseProgressCommand;
 import seedu.jarvis.logic.commands.cca.ListCcaCommand;
+import seedu.jarvis.logic.commands.course.AddCourseCommand;
+import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.FindPurchaseCommand;
 import seedu.jarvis.logic.commands.finance.ListFinancesCommand;
 import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.RemovePaidCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
 import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
@@ -37,15 +43,21 @@ import seedu.jarvis.logic.parser.address.DeleteAddressCommandParser;
 import seedu.jarvis.logic.parser.address.EditAddressCommandParser;
 import seedu.jarvis.logic.parser.address.FindAddressCommandParser;
 import seedu.jarvis.logic.parser.cca.AddCcaCommandParser;
+import seedu.jarvis.logic.parser.cca.AddProgressCommandParser;
 import seedu.jarvis.logic.parser.cca.DeleteCcaCommandParser;
 import seedu.jarvis.logic.parser.cca.EditCcaCommandParser;
 import seedu.jarvis.logic.parser.cca.FindCcaCommandParser;
+import seedu.jarvis.logic.parser.cca.IncreaseProgressCommandParser;
+import seedu.jarvis.logic.parser.course.AddCourseCommandParser;
+import seedu.jarvis.logic.parser.course.DeleteCourseCommandParser;
 import seedu.jarvis.logic.parser.course.LookUpCommandParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.logic.parser.finance.EditInstallmentCommandParser;
+import seedu.jarvis.logic.parser.finance.FindPurchaseCommandParser;
 import seedu.jarvis.logic.parser.finance.RemoveInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.RemovePaidCommandParser;
 import seedu.jarvis.logic.parser.finance.SetInstallmentCommandParser;
+import seedu.jarvis.logic.parser.finance.SetMonthlyLimitCommandParser;
 import seedu.jarvis.logic.parser.finance.SetPaidCommandParser;
 import seedu.jarvis.logic.parser.history.RedoCommandParser;
 import seedu.jarvis.logic.parser.history.UndoCommandParser;
@@ -111,6 +123,12 @@ public class JarvisParser {
         case LookUpCommand.COMMAND_WORD:
             return new LookUpCommandParser().parse(arguments);
 
+        case AddCourseCommand.COMMAND_WORD:
+            return new AddCourseCommandParser().parse(arguments);
+
+        case DeleteCourseCommand.COMMAND_WORD:
+            return new DeleteCourseCommandParser().parse(arguments);
+
         case AddCcaCommand.COMMAND_WORD:
             return new AddCcaCommandParser().parse(arguments);
 
@@ -125,6 +143,13 @@ public class JarvisParser {
 
         case FindCcaCommand.COMMAND_WORD:
             return new FindCcaCommandParser().parse(arguments);
+
+        case AddProgressCommand.COMMAND_WORD:
+            return new AddProgressCommandParser().parse(arguments);
+
+        case IncreaseProgressCommand
+                .COMMAND_WORD:
+            return new IncreaseProgressCommandParser().parse(arguments);
 
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
@@ -149,6 +174,12 @@ public class JarvisParser {
 
         case ListFinancesCommand.COMMAND_WORD:
             return new ListFinancesCommand();
+
+        case FindPurchaseCommand.COMMAND_WORD:
+            return new FindPurchaseCommandParser().parse(arguments);
+
+        case SetMonthlyLimitCommand.COMMAND_WORD:
+            return new SetMonthlyLimitCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

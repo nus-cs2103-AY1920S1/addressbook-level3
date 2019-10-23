@@ -38,8 +38,7 @@ public class PurchaseDescription {
         return test.matches(VALIDATION_REGEX);
     }
 
-    @Override
-    public String toString() {
+    public String getPurchaseDescription() {
         return purchaseDescription;
     }
 
