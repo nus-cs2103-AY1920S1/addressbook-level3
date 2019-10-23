@@ -1,10 +1,9 @@
 package com.dukeacademy.ui;
 
+import java.nio.file.Path;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import java.nio.file.Path;
 
 import java.util.logging.Logger;
 
