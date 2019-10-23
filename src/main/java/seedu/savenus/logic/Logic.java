@@ -11,7 +11,6 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
-import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.wallet.Wallet;
 
@@ -78,10 +77,4 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
-
-    /**
-     * Returns the user's savings history.
-     */
-    ReadOnlySavingsAccount getSavingsHistory();
-
 }

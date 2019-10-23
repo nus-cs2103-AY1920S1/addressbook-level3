@@ -6,8 +6,6 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
 /**
  * Acts as the amount of money to be added into the {@code SavingsAccount} of the user
  * and also the amount of money to deduct from the {@code Wallet} of the user.
- *
- * @author fatclarence
  */
 public class Savings {
 
