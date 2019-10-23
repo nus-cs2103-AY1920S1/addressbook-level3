@@ -243,6 +243,7 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::reminder[]
 === Reminder Feature
 ==== Implementation
 A bookmark can have a reminder, and a reminder can use to open the bookmark.
@@ -254,6 +255,16 @@ This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
  the relation from `Reminder` to `Bookmark` and `Reminder` to `Bookmark`.
 
 ==== Design Consideration
+===== Aspect: How to represent the relationship between reminder and bookmark.
+* **Alternative 1 (current choice):** Use two hashmap to store both the relationship from reminder to bookmark and bookmark to reminder.
+** Pros: More OOP and can easily find the relationship.
+** Cons: More complex when doing any operation to a reminder. Need to check two hashmap.
+
+* **Alternative 2:** Reminder is a field of bookmark.
+** Pros: Easier to implement.
+** Cons: Reminder is a field of bookmark, so using a reminder to open the bookmark violate the relationship.
+// end::reminder[]
+
 
 === Logging
 
