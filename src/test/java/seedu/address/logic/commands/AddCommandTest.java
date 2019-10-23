@@ -48,7 +48,7 @@ public class AddCommandTest {
     public void execute_duplicateFlashCard_throwsCommandException() {
         FlashCard validFlashCard = new FlashCardBuilder().build();
         AddCommand addCommand = new AddCommand(validFlashCard);
-        ModelStub modelStub = new ModelStubWithPerson(validFlashCard);
+        ModelStub modelStub = new ModelStubWithFlashCard(validFlashCard);
 
         assertThrows(CommandException.class,
                 AddCommand.MESSAGE_DUPLICATE_FLASHCARD, () -> addCommand.execute(modelStub));
@@ -275,10 +275,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single flashCard.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithFlashCard extends ModelStub {
         private final FlashCard flashCard;
 
-        ModelStubWithPerson(FlashCard flashCard) {
+        ModelStubWithFlashCard(FlashCard flashCard) {
             requireNonNull(flashCard);
             this.flashCard = flashCard;
         }
