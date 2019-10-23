@@ -103,4 +103,13 @@ public interface Model {
      * @return Returns true if alias exists in alias table and removed successfully, returns false otherwise.
      */
     boolean removeAlias(String alias);
+
+    /**
+     * Apply a suitable alias to the input command text. A suitable alias is an alias that matches the regex
+     * "{alias}($|\\s).*".
+     * If multiple matches exists, this method chooses the longest matching alias.
+     * @param commandText Command for alias to be applied to.
+     * @return Command that alias has been applied to.
+     */
+    String applyAlias(String commandText);
 }

@@ -106,4 +106,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void addAlias(String alias, String aliasTo) {
         aliasTable.addAlias(alias, aliasTo);
     }
+
+    public String applyAlias(String commandText) {
+        return aliasTable.applyAlias(commandText);
+    }
 }

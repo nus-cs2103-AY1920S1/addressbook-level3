@@ -145,6 +145,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String applyAlias(String commandText) {
+        return userPrefs.applyAlias(commandText);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
