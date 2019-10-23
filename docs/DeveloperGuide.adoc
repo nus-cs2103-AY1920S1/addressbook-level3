@@ -366,8 +366,8 @@ exercises. Every exercise contains the following information:
 
 The Exercise class is represented by the following class diagram below.
 
+image::ExerciseClassDiagram.png[]
 .Exercise Class Diagram
-//insert UML here
 
 ===== Implementation of Exercise Commands
 
@@ -389,6 +389,22 @@ All the commands listed above are parsed in `DukeCooksParser`, invoking the resp
 to fulfill their functionality.
 
 ==== Design Considerations
+
+When coming up with the Exercise class there were various considerations as to what fields should be added. Initially,
+we had planned for MuscleType to be an enum given the limited number of muscles in the human body. However, we had
+strayed away from this implementation given the complexity of the way the muscles work as well as the numerous names
+that one muscle could be called. We instead allowed the user to define the muscles themselves which is better for their
+own understanding. We instead utilised enums for the Intensity field since it is only limited High, Medium and Low.
+
+===== Alternatives
+When coming up with the optional details field, `ExerciseDetail` we had morphed the tag feature which was stored in a
+Set in AddressBook 3. The various details such as weight, distance would then be implementing the `ExerciseDetail`
+interface. After careful consideration, we had come to the conclusion that this method of storage is flawed given that
+we only intended for at most one instance of each detail and inability to call upon them at O(1) time complexity.
+
+Instead, we designed the `ExerciseDetails` to be a class with 4 Optional fields containing the various details. This
+allows for the details to be obtained more efficiently as well as limit them to only a single instance.
+
 
 === Health Records feature
 The Health Records feature handles the following:
