@@ -117,6 +117,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void favoriteBookmark(Bookmark target) {
+        versionedMark.favoriteBookmark(target);
+    }
+
+    @Override
     public void addBookmark(Bookmark bookmark) {
         versionedMark.addBookmark(bookmark);
         updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
@@ -292,8 +297,8 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredBookmarks.equals(other.filteredBookmarks)
                 && (currentUrl.getValue() == null
-                    ? other.currentUrl.getValue() == null
-                    : currentUrl.getValue().equals(other.currentUrl.getValue()));
+                ? other.currentUrl.getValue() == null
+                : currentUrl.getValue().equals(other.currentUrl.getValue()));
     }
 
     //=========== Reminder =================================================================================
