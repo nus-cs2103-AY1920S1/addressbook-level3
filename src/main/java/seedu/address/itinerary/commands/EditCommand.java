@@ -1,11 +1,6 @@
 package seedu.address.itinerary.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +18,7 @@ import seedu.address.itinerary.model.event.Title;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.itinerary.parser.CliSyntax;
 
 /**
  * Edits the details of an existing event in the itinerary.
@@ -35,14 +31,14 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed event list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TITLE + "TITLE] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_LOCATION + "LOCATION] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + CliSyntax.PREFIX_TITLE + "TITLE] "
+            + "[" + CliSyntax.PREFIX_DATE + "DATE] "
+            + "[" + CliSyntax.PREFIX_TIME + "TIME] "
+            + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION] "
+            + "[" + CliSyntax.PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DATE + "15032015 "
-            + PREFIX_LOCATION + "Singapore";
+            + CliSyntax.PREFIX_DATE + "15032015 "
+            + CliSyntax.PREFIX_LOCATION + "Singapore";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided. ╚(•⌂•)╝";
     private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Updated successfully! :D\n" + "HAND, TrazEzy~";

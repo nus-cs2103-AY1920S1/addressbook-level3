@@ -13,6 +13,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.address.model.person.Person;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Represents the in-memory addressBookModel of the address book data.
@@ -29,7 +30,7 @@ public class AddressBookModelManager implements AddressBookModel {
      */
     public AddressBookModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        CollectionUtil.requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
@@ -86,7 +87,7 @@ public class AddressBookModelManager implements AddressBookModel {
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+        CollectionUtil.requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
     }

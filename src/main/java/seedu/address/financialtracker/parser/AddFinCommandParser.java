@@ -1,10 +1,5 @@
 package seedu.address.financialtracker.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_COUNTRY;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DESCRIPTION;
-
 import java.util.stream.Stream;
 
 import seedu.address.financialtracker.commands.AddFinCommand;
@@ -14,6 +9,7 @@ import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new AddFinCommand.
@@ -27,16 +23,16 @@ public class AddFinCommandParser implements Parser<AddFinCommand> {
      */
     public AddFinCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_COUNTRY);
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_AMOUNT, CliSyntax.PREFIX_DESCRIPTION, CliSyntax.PREFIX_COUNTRY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_COUNTRY)
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_AMOUNT, CliSyntax.PREFIX_DESCRIPTION, CliSyntax.PREFIX_COUNTRY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddFinCommand.MESSAGE_USAGE));
         }
 
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Country country = ParserUtil.parseCountry(argMultimap.getValue(PREFIX_COUNTRY).get());
+        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(CliSyntax.PREFIX_AMOUNT).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).get());
+        Country country = ParserUtil.parseCountry(argMultimap.getValue(CliSyntax.PREFIX_COUNTRY).get());
 
         Expense expense = new Expense(amount, description, country);
 

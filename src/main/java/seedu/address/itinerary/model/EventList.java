@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * An event list for tracking events on itinerary.
@@ -40,7 +41,7 @@ public class EventList {
      * @param doneEvent the event with the attribute mark done.
      */
     public void doneEvent(Event target, Event doneEvent) {
-        requireAllNonNull(target, doneEvent);
+        CollectionUtil.requireAllNonNull(target, doneEvent);
 
         int index = events.indexOf(target);
 
@@ -52,7 +53,7 @@ public class EventList {
     }
 
     public void setEvent(Event eventToEdit, Event editedEvent) throws ItineraryException {
-        requireAllNonNull(eventToEdit, editedEvent);
+        CollectionUtil.requireAllNonNull(eventToEdit, editedEvent);
 
         int index = events.indexOf(eventToEdit);
         if (index == -1) {
