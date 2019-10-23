@@ -3,7 +3,11 @@ package seedu.address.logic.parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
+
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
@@ -84,6 +88,26 @@ public class ArgumentTokenizer {
      * @return ArgumentMultimap object that maps prefixes to their arguments
      */
     private static ArgumentMultimap extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
+        // Map prefixes to their argument values (if any)
+        final ArgumentMultimap argMultimap = new ArgumentMultimap();
+        extractArguments(argsString, prefixPositions, (prefixPosition, argValue) -> {
+            Prefix argPrefix = prefixPosition.getPrefix();
+            argMultimap.put(argPrefix, argValue);
+        });
+        return argMultimap;
+    }
+
+    /**
+     * Extracts prefixes and their argument values, and returns an {@code ArgumentMultimap} object that maps the
+     * extracted prefixes to their respective arguments. Prefixes are extracted based on their zero-based positions in
+     * {@code argsString}.
+     *
+     * @param argsString      Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @param prefixPositions Zero-based positions of all prefixes in {@code argsString}
+     */
+    private static void extractArguments(
+            final String argsString, final List<PrefixPosition> prefixPositions,
+            final BiConsumer<PrefixPosition, String> consumer) {
 
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
@@ -96,16 +120,11 @@ public class ArgumentTokenizer {
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         prefixPositions.add(endPositionMarker);
 
-        // Map prefixes to their argument values (if any)
-        ArgumentMultimap argMultimap = new ArgumentMultimap();
+        // Provide consumer with prefixes and their argument values (if any)
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
-            // Extract and store prefixes and their arguments
-            Prefix argPrefix = prefixPositions.get(i).getPrefix();
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
-            argMultimap.put(argPrefix, argValue);
+            consumer.accept(prefixPositions.get(i), argValue);
         }
-
-        return argMultimap;
     }
 
     /**
@@ -124,11 +143,49 @@ public class ArgumentTokenizer {
     }
 
     /**
+     * Tokenizes an arguments string and returns an {@link ArgumentList} object that provides an ordered sequence of
+     * prefixes with their respective argument values. Only the given prefixes will be recognized in the arguments
+     * string.
+     *
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @param prefixes   Prefixes to tokenize the arguments string with
+     * @return ArgumentList object that provides an ordered sequence of prefixes together with their arguments
+     */
+    public static ArgumentList orderedTokenize(final String argsString, final Prefix... prefixes) {
+        CollectionUtil.requireAllNonNull(argsString, prefixes);
+
+        final List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
+        final ArgumentList argumentList = new ArgumentList();
+
+        extractArguments(argsString, positions, argumentList::add);
+
+        argumentList.sort();
+
+        return argumentList;
+    }
+
+    /**
+     * Tokenizes an arguments string and returns an {@link ArgumentList} object that provides an ordered sequence of
+     * prefixes with their respective argument values. Only the given prefixes will be recognized in the arguments
+     * string.
+     *
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @param prefixes   Prefixes to tokenize the arguments string with
+     * @return ArgumentList object that provides an ordered sequence of prefixes together with their arguments
+     */
+    public static ArgumentList orderedTokenize(final String argsString, final List<Prefix> prefixes) {
+        CollectionUtil.requireAllNonNull(argsString, prefixes);
+
+        final Prefix[] prefixArr = prefixes.toArray(new Prefix[0]);
+        return orderedTokenize(argsString, prefixArr);
+    }
+
+    /**
      * Represents a prefix's position in an arguments string.
      */
-    private static class PrefixPosition {
+    static class PrefixPosition {
         private final Prefix prefix;
-        private int startPosition;
+        private final int startPosition;
 
         PrefixPosition(Prefix prefix, int startPosition) {
             this.prefix = prefix;
@@ -139,8 +196,26 @@ public class ArgumentTokenizer {
             return startPosition;
         }
 
-        Prefix getPrefix() {
+        public Prefix getPrefix() {
             return prefix;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            PrefixPosition that = (PrefixPosition) o;
+            return startPosition == that.startPosition
+                    && prefix.equals(that.prefix);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(prefix, startPosition);
         }
     }
 
