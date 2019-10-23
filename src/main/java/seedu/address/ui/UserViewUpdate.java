@@ -68,15 +68,15 @@ public class UserViewUpdate {
 
         case "list-inv":
             paneToRender.getChildren().add(userViewMain.loadInventories());
-
+            break;
         case "list-tasks":
-            paneToRender = userViewMain.loadTasks();
+            paneToRender.getChildren().add(userViewMain.loadTasks());
             break;
         case "get-member-stats":
-           paneToRender = userViewMain.loadMemberStats();
+           paneToRender.getChildren().add(userViewMain.loadMemberStats());
            break;
         case "get-task-stats":
-            paneToRender = userViewMain.loadTaskStats();
+            paneToRender.getChildren().add(userViewMain.loadTaskStats());
             break;
         default:
             // show nothing (only exit has no case)
