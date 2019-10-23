@@ -136,7 +136,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a wind
 
 ==== Collapse
 
-Makes the Food Card more or less compact, depending on the user's preference.
+Makes the Food Card more compacted, depending on the user's preference.
 
 ****
 *Format*: `collapse`
@@ -160,12 +160,18 @@ Exits the app. +
 ifdef::env-github[| :white_check_mark: a| Application closes.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.]
 |===
-==== Tutorial
-Displays the tutorial on how to use the app.
+
+==== Expand
+Makes the Food Display Card expend, such that each line only has one attribute of the food item.
 
 ****
-*Format*: `tutorial`
+*Format*: `expand`
 ****
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see an expanded box for the food items displayed in the menu.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see an expanded box for the food items displayed in the menu.]
+|===
 
 === Food Items
 

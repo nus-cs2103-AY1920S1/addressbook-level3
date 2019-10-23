@@ -17,11 +17,13 @@ import seedu.savenus.model.info.DefaultInfo;
 import seedu.savenus.model.info.DeleteInfo;
 import seedu.savenus.model.info.EditInfo;
 import seedu.savenus.model.info.ExitInfo;
+import seedu.savenus.model.info.FilterInfo;
 import seedu.savenus.model.info.FindInfo;
 import seedu.savenus.model.info.HelpInfo;
 import seedu.savenus.model.info.InfoInfo;
 import seedu.savenus.model.info.ListInfo;
 import seedu.savenus.model.info.RecommendInfo;
+import seedu.savenus.model.info.SaveInfo;
 import seedu.savenus.model.info.SortInfo;
 
 /**
@@ -160,6 +162,12 @@ public class InfoWindow extends UiPart<Stage> {
             usageExample.setText(ExitInfo.USAGE);
             output.setText(ExitInfo.OUTPUT);
             break;
+        case InfoCommand.FILTER_INFO:
+            commandWord.setText(FilterInfo.COMMAND_WORD);
+            infoMessage.setText(FilterInfo.INFORMATION);
+            usageExample.setText(FilterInfo.USAGE);
+            output.setText(FilterInfo.OUTPUT);
+            break;
         case InfoCommand.FIND_INFO :
             commandWord.setText(FindInfo.COMMAND_WORD);
             infoMessage.setText(FindInfo.INFORMATION);
@@ -189,6 +197,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(RecommendInfo.INFORMATION);
             usageExample.setText(RecommendInfo.USAGE);
             output.setText(RecommendInfo.OUTPUT);
+            break;
+        case InfoCommand.SAVE_INFO:
+            commandWord.setText(SaveInfo.COMMAND_WORD);
+            infoMessage.setText(SaveInfo.INFORMATION);
+            usageExample.setText(SaveInfo.USAGE);
+            output.setText(SaveInfo.OUTPUT);
             break;
         case InfoCommand.SORT_INFO :
             commandWord.setText(SortInfo.COMMAND_WORD);

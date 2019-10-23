@@ -276,11 +276,13 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EXIT_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.FILTER_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.FIND_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.HELP_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.INFO_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.RECOMMEND_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.SAVE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)) {
                 if (infoWindow.isShowing()) {
                     infoWindow.closeWindow();
