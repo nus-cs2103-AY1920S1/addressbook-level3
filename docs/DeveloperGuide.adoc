@@ -298,15 +298,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |student with subjects of different language mediums |add flashcards of differing languages  |I can customise my flashcards to the subject I am interested to do
 
-|`* * *` |user creating flash cards |save collections of thematically similar flash cards | I can share my cards easily to other users
+|`* * *` | user| add a new deck| create a new topic collection of flash cards to test myself
+
+|`* * *` | user| add a new card to a deck| include a new question into the topic of the deck to test myself
+
+|`* * *` | user| save my deck of flash cards into my local drive| I can share it with my friends
+
+|`* * *` | user| load my deck of flash cards into the app| I can reuse the deck of cards created
+
+|`* * *` | | |
+
+|`* * *` | | |
 
 |`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
 
+|`* * *` |learner who wants to track his/her progress |view the questions I have not done well in| improve my understanding on these concepts tested
+
+|`* * *` |learner who wants to prioritise some test questions over others |set which questions are more important | be exposed to these important questions more in the tests
+
 |`* * *` |beginner user |access a help page |i can learn about the features at a glance
 
-|`* * *` |student who wants to track his/her progress |view the questions I have not done well in| improve my understanding on these concepts tested
+|`* *` |student with subjects of different language mediums |add flashcards of differing languages  |I can customise my flashcards to the subject I am interested to do
+
+|`* *` |user creating flash cards |save collections of thematically similar flash cards | I can share my cards easily to other users
+
 
 |=======================================================================
 
