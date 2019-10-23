@@ -138,7 +138,7 @@ image:BetterModelClassDiagram.png[]
 
 The `Person`,
 
-* represents a user account on the incident manager
+* represents a user account on the incident manager.
 * Contains the account `Username`, `Password`, `Name`, `Phone`, `Email`
 
 [[Design-Incident]]
@@ -193,11 +193,10 @@ The access control feature is centered around three core concepts:
 
 ===== Command Restrictions
 
-Prior to login, the user is only granted access to the `Login` and `Add` commands. This is achieved via a guard statement in the `LogicManager` checking whether the command created is an instance of `Login` or `Add` command:
+Prior to login, the user is only granted access to the `Login`, `Add`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
 
-`if (!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand)) {
-    throw new CommandException(ACCESS_CONTROL_MESSAGE);
-}`
+[NOTE]
+The guard statement throws a command exception if the following conditions are met: `!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand || command instanceof ExitCommand)`
 
 Activity Diagram for illustration:
 
@@ -263,17 +262,38 @@ image::AccessSequenceDiagram.png[]
 === [Proposed] Account Management feature
 ==== Proposed Implementation
 
-The account management feature ...
+The account management feature functions as a suite of commands available to the user. The commands available as part of this suite:
+
+* Add Command - Creates a new user account.
+* Update Command - Edits a user account. Not including an index updates your own account.
+* Delete Command - Deletes a a user account. Not allowed to delete your own account.
+* List Command - Lists all user accounts or those whose tags match the user input.
+* Find Command - Searches for user accounts based on matching name keywords.
+* Swap Command - Swaps GUI interface between account management and incident management.
+
+[NOTE]
+Only `Admin` accounts can access the full suite of account management features. See access control feature for more information. Non-Admins only have access to `Add`, `List`, `Find`, and `Swap` commands, as well as `Update` for their own account.
+
+In the code base, Persons represent user accounts. See person model for more information.
 
 ==== Design Considerations
-===== Aspect: How login & logout executes
+===== Aspect: How Update executes
 
-* **Alternative 1 (current choice):** ...
-** Pros: ...
-** Cons: ...
-* **Alternative 2:** ...
-** Pros: ...
-** Cons: ...
+* **Alternative 1 (current choice):** No index indicates own account update
+** Pros: Improves user experience.
+** Cons: Prone to user error.
+* **Alternative 2:** Select index of own account for update
+** Pros: Easy to implement.
+** Cons: Decreases user experience.
+
+===== Aspect: How Tag searching executes
+
+* **Alternative 1 (current choice):** Adding keyword after the List command prefix performs a search
+** Pros: Intuitive. Improves user exprience.
+** Cons: Can only search for one tag at a time.
+* **Alternative 2:** Utilising Find command to search for tags
+** Pros: Potential to include more granular filters.
+** Cons: Decreases user experience.
 // end::accountManagement[]
 
 // tag::incidentdraftcreation[]
@@ -566,17 +586,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The username is not found.
+* 2a. The username is not found or password is incorrect.
 +
 [none]
-** 2a1. IMS shows an error message that user does not exist.
-Use case ends.
-
-[none]
-* 2b. The password is incorrect.
-+
-[none]
-** 2b1. IMS shows an error message that password is incorrect.
+** 2a1. IMS shows a generic error message to deter malicious intent.
 Use case ends.
 
 [discrete]
@@ -642,7 +655,7 @@ Use case ends.
 .  Should be able to hold up to 1000 incidents without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Performance first for vehicle dispatch upon new incident creation.
-.  Data storage should be allow for easy access (directly manipulable).
+.  Interface should prioritise user experience since operators function in a high stress environment.
 
 [appendix]
 == Glossary
