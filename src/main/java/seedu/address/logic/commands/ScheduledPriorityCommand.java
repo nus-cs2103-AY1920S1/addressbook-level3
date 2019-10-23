@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 
 /**
