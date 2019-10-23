@@ -155,8 +155,103 @@ Classes used by multiple components are in the `mams.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::clash[]
+=== Clash feature
+==== Implementation
+
+The clash feature is facilitated by an abstract `ClashCommand` class which extends abstract `Command` class and
+three sub-classes which extends `ClashCommand` to handle different types of checking.
+
+The three sub-classes are:
+
+* `ClashModCommand` -- check time slots clashes within two modules and return messages accordingly.
+* `ClashStudentCommand` -- check time slots clashes within a particular student's timetable and return messages accordingly.
+* `ClashAppealCommand` -- check time slots clashes between the requested module and the student's existing timetable for a "Add Module" appeal .
+
+image::ClashCommandClassDiagram.png[]
+
+Each sub-class has a `execute()` method that takes in a `Model` object. Clash commands only retrieve information from model but do not alter anything in the existing lists.
+
+Below shows how the Clash Command mechanism behaves at each step.
+
+Step 1. The user inputs `clash ...` to check whether there is clash in the timetable.
+
+Step 2. The `ClashCommandParser` will be called first to check which of the three types of checking is evoked by checking the prefixes.
+
+Step 3. Relevant `ClashModCommand`, `ClashStudentCommand`, or `ClashAppealCommand` object will be created accordingly.
+
+Step 4. `ClashCommand.execute()` is called.
+
+* If the command is a `ClashModCommand`, it will get the relevant `Module` objects from the list `model.getFilteredModuleList()`.
+* If the command is a `ClashStudentCommand`, it will get the relevant `Student` object from the list `model.getFilteredStudentList()`.
+
+[NOTE]
+The student current modules are stored as String of module code to reduce coupling. Hence, modules taken by the student are retrieved from `model.getFilteredModuleList()` by matching module codes.
+
+* If the command is a `ClashAppealCommand`, it will get the relevant `Appeal` object from the list `model.getFilteredAppealList()`
+
+[NOTE]
+The `Student` who submits the appeal and requested `Module` are stored as String of Matric ID and module code respectively in an `Appeal` object to reduce coupling.
+Hence, `Student` who submits the appeal is retrieved from `model.getFilteredStudentList()` by matching Matric ID,
+and `Module` requested is retrieved from `model.getFilteredModuleList()` by matching module codes.
+
+Step 5. Each `ClashCommand` returns a `CommandResult` object which contains the message of the clashing time slots if there are clashes and 'No clashes detected' if there is no clash.
+
+The following sequence diagram shows how the undo operation works:
+
+image::ClashSequenceDiagram.png[]
+
+===== Aspect: How to deal with different user inputs for different checking
+
+* **Alternative 1 (current choice):** Create three different sub-classes extending `ClashCommand` class. `ClashCommand` will deal with differentiating cases for checking and create Command object accordingly.
+** Pros: Easy to implement.
+** Cons: some of the code are different to be abstracted. (repeted codes in part of the two sub-classes to keep low coupling) May need to find a way to improve it in the future.
+* **Alternative 2:** Only 1 `ClashCommand` class. The cases of checking are determined inside `ClashCommand`.
+** Pros:
+** Cons: Violates Single Responsibility Principle. `ClashCommand` is doing part of the parsing work.
+
+===== Aspect: String representation of clashig time slots
+
+* **Alternative 1 (current choice):** Use a list to store time slot index and use them to create a temporary `Module` object.
+** Pros: Can reuse `getTimeSlotToString()` to obtain the string representation
+** Cons: Redundant objects are created. More memory space used.
+// end::clash[]
+
+//tag::find[]
+=== Find feature
+==== Implementation
+
+The find feature is facilitated by `FindCommand` class. The `FindCommand` constructor takes a `List` of `Predicates`, which can be `NameContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `AppealContainsKeywordsPredicate`
+
+image::PredicateClassDiagram.png[]
+
+Find commands only retrieve information from model but do not alter anything in the existing lists.
+
+Below shows how the Find Command mechanism behaves at each step.
+
+Step 1. The user inputs `find prefix/[KEYWORDS]...`.
+
+Step 2. The `FindCommandParser` will be called first to check which of the three lists to search by checking the prefixes.
+`NameContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, and `AppealContainsKeywordsPredicate` will be created accordingly which stores all the keywords for the same list.
+
+Step 3. A new `FindCommand` is created.
+
+[NOTE]
+Even there is no keyword for a particular `Predicate`, a new `Predicate` object with an empty `List` of keywords will be passed in to create a new `FindCommand`.
+Eg. input: `find s/bob`. A new `FindCommand` is created with a `NameContainsKeywordsPredicate` with a `List` of keywords containing `bob`, and `ModuleContainsKeywordsPredicate`, and `AppealContainsKeywordsPredicate` with empty `List` of keywords.
+
+Step 4. `FindCommand.execute()` is called. Each `Predicate` object is examined and calls `Predicate.test()`. `Model#updateStudentList()`, `Model#updateModuleList()`, or `Module#updateAppealList()` is called accordingly.
+
+Step 5. A `CommandResult` object is returned, which contains message about the number of items found in the target list. The target list only shows the item contains keyword.
+
+The following sequence diagram shows how the undo operation works:
+
+image::FindSequenceDiagram.png[]
+// end::find[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
+
 ==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
