@@ -1,0 +1,25 @@
+@startuml
+
+start
+-Entered change appointment command
+if () then ([valid command])
+
+    if () then ([Appointments belong to a patient])
+        if() then ([Valid idx and timing])
+        -Appointment's timing changed
+        -Display patient's all upcoming appointments
+
+        else ([Not valid])
+        -Display error message\n to put valid appointment's idx and timing
+        endif
+
+    else ([Not belong to a patient])
+    -Display error message\n "not belong to the same patient"
+    endif
+
+else ([Invalid command])
+-Invalid command \n message
+endif
+
+stop
+@enduml
