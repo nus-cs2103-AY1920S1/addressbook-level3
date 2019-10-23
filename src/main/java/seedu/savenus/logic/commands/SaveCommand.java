@@ -6,6 +6,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.savings.Savings;
 
+//@@author fatclarence
 /**
  * Saves an amount of money into the user's savings account.
  */
@@ -19,7 +20,7 @@ public class SaveCommand extends Command {
             + "Restriction: " + Savings.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 100";
 
-    public static final String MESSAGE_SAVINGS_SUCCESS = "Current Savings: TODO @FATCLARENCE";
+    public static final String MESSAGE_SAVINGS_SUCCESS = "Added to your Savings Account: $%1$s";
 
     private final Savings savingsAmount;
 
@@ -37,6 +38,6 @@ public class SaveCommand extends Command {
         // add to the savings account in the model.
         model.addToSavings(this.savingsAmount);
 
-        return new CommandResult(String.format(MESSAGE_SAVINGS_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_SAVINGS_SUCCESS, savingsAmount.toString()));
     }
 }

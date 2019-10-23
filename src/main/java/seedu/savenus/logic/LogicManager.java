@@ -17,6 +17,7 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.storage.Storage;
@@ -123,5 +124,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ReadOnlySavingsAccount getSavingsHistory() {
+        return model.getSavingsAccount();
     }
 }

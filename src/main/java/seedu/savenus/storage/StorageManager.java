@@ -211,6 +211,7 @@ public class StorageManager implements Storage {
         customSortStorage.saveFields(sorter, filePath);
     }
 
+    // =============== Savings methods ========================
 
     @Override
     public Path getSavingsAccountFilePath() {
