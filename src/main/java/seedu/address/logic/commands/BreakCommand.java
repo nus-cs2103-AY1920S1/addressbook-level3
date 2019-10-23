@@ -28,12 +28,10 @@ public class BreakCommand extends ReversibleCommand {
 
     private final Room roomToEdit;
     private final Room editedRoom;
-    private final Index index;
 
-    public BreakCommand(Room roomToEdit, Room editedRoom, Index index) {
+    public BreakCommand(Room roomToEdit, Room editedRoom) {
         this.editedRoom = editedRoom;
         this.roomToEdit = roomToEdit;
-        this.index = index;
     }
 
     @Override
@@ -48,8 +46,8 @@ public class BreakCommand extends ReversibleCommand {
         if (model.hasRoom(editedRoom)) {
             throw new CommandException(MESSAGE_DUPLICATE_ROOM);
         }
-        model.addRoomToIndex(editedRoom, index.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, model.resolve(editedRoom.getDoctor()).getName()));
+        model.addRoom(editedRoom);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, model.resolveStaff(editedRoom.getDoctor()).getName()));
     }
 
     @Override
@@ -57,7 +55,6 @@ public class BreakCommand extends ReversibleCommand {
         return other == this // short circuit if same object
                 || (other instanceof BreakCommand // instanceof handles nulls
                 && editedRoom.equals(((BreakCommand) other).editedRoom)
-                && roomToEdit.equals(((BreakCommand) other).roomToEdit)
-                && index.equals(((BreakCommand) other).index)); // state check
+                && roomToEdit.equals(((BreakCommand) other).roomToEdit)); // state check
     }
 }

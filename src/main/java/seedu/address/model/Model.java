@@ -185,7 +185,7 @@ public interface Model extends ReferenceIdResolver {
     /**
      * Checks if the patient is in queue
      */
-    public boolean isPatientInQueue(ReferenceId id);
+    boolean isPatientInQueue(ReferenceId id);
 
     /**
      * Returns the queueList
@@ -198,11 +198,6 @@ public interface Model extends ReferenceIdResolver {
     void addRoom(Room room);
 
     /**
-     * Adds a new room to the list of rooms based on the index
-     */
-    void addRoomToIndex(Room room, int indexOfRoom);
-
-    /**
      * Removes a room
      */
     void removeRoom(Room target);
@@ -210,7 +205,7 @@ public interface Model extends ReferenceIdResolver {
     /**
      * Checks if the room exists
      */
-    public boolean hasRoom(Room room);
+    boolean hasRoom(Room room);
 
     ObservableList<Room> getConsultationRoomList();
 

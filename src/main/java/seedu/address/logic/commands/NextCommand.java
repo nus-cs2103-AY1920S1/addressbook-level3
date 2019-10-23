@@ -53,7 +53,7 @@ public class NextCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ROOM);
         }
 
-        model.addRoomToIndex(editedRoom, index.getZeroBased());
+        model.addRoom(editedRoom);
         return new CommandResult(MESSAGE_SUCCESS + editedRoom);
     }
 

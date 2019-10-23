@@ -101,11 +101,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addRoomToIndex(Room room, int indexOfRoom) {
-        queueManager.addRoomToIndex(room, indexOfRoom);
-    }
-
-    @Override
     public void removeRoom(Room target) {
         queueManager.removeRoom(target);
     }

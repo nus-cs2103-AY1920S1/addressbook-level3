@@ -81,11 +81,7 @@ public class QueueManager {
     }
 
     public void addRoom(Room room) {
-        roomList.addRoom(room);
-    }
-
-    public void addRoomToIndex(Room room, int indexOfRoom) {
-        roomList.addRoom(room, indexOfRoom);
+        roomList.add(room);
     }
 
     public boolean hasId(ReferenceId id) {
@@ -93,11 +89,11 @@ public class QueueManager {
     }
 
     public void removeRoom(Room target) {
-        roomList.removeRoom(target);
+        roomList.remove(target);
     }
 
     public boolean hasRoom(Room room) {
-        return roomList.hasRoom(room);
+        return roomList.contains(room);
     }
 
     public ReferenceId getCurrentlyServed(int index) {

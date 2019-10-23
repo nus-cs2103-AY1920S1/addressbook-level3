@@ -28,12 +28,10 @@ public class ResumeCommand extends ReversibleCommand {
 
     private final Room roomToEdit;
     private final Room editedRoom;
-    private final Index index;
 
-    public ResumeCommand(Room roomToEdit, Room editedRoom, Index index) {
+    public ResumeCommand(Room roomToEdit, Room editedRoom) {
         this.editedRoom = editedRoom;
         this.roomToEdit = roomToEdit;
-        this.index = index;
     }
 
     @Override
@@ -49,8 +47,8 @@ public class ResumeCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ROOM);
         }
 
-        model.addRoomToIndex(editedRoom, index.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, model.resolve(editedRoom.getDoctor()).getName()));
+        model.addRoom(editedRoom);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, model.resolveStaff(editedRoom.getDoctor()).getName()));
     }
 
     @Override
@@ -58,7 +56,6 @@ public class ResumeCommand extends ReversibleCommand {
         return other == this // short circuit if same object
                 || (other instanceof ResumeCommand // instanceof handles nulls
                 && editedRoom.equals(((ResumeCommand) other).editedRoom)
-                && roomToEdit.equals(((ResumeCommand) other).roomToEdit)
-                && index.equals(((ResumeCommand) other).index)); // state check
+                && roomToEdit.equals(((ResumeCommand) other).roomToEdit)); // state check
     }
 }

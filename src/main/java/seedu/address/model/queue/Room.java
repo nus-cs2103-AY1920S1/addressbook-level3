@@ -18,7 +18,6 @@ public class Room implements Identical<Room> {
     public Room(ReferenceId doctor, Optional<ReferenceId> patient, boolean isResting) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
-        this.isResting = isResting;
     }
 
     public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
@@ -29,11 +28,10 @@ public class Room implements Identical<Room> {
     public Room(ReferenceId doctor) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = Optional.empty();
-        this.isResting = false;
     }
 
     public boolean isReadyToServe() {
-        return !isResting;
+        return patientCurrentlyBeingServed.isEmpty();
     }
 
     public ReferenceId getDoctor() {
