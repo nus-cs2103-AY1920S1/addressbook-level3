@@ -410,7 +410,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeAutocomplete(String partialInput) {
         try {
             String autocompletedString = logic.autocomplete(partialInput);
-            resultDisplay.setFeedbackToUser(autocompletedString);
             commandBox.setInput(autocompletedString);
         } catch (IndexOutOfBoundsException | ParseException e) {
             resultDisplay.setFeedbackToUser(e.getMessage());

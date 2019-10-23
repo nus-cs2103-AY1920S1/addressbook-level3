@@ -178,6 +178,24 @@ When a valid option is selected, the `execute()` method in `SelectSuggestionComm
 
 image::AutocorrectSequence.png[]
 
+=======
+NOTE: The lifelines for `SelectSuggestionCommand` and `AddStudentCommand` should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
+
+// tag::autocomplete[]
+=== Autocomplete feature
+
+Autoomplete provides an autofill feature similar to that found in most common CLIs.
+
+==== Implementation
+
+Autocomplete is implemented at the `Parser` level. When the user presses the "TAB" key, `AutoCompleteHandler`  handles the processing of the input, as opposed to `ApplicationParser` when the "ENTER" key is pressed.
+
+`PartialInputParser#parse` is responsible for the actual parsing of the input string. It calls `ArgumentTokenizer#tokenizeLastArgument` to find only the last present prefix and its associated value, then uses the appropriate method in `Finder` to get a list of all values corresponding to the prefix type in the application that begin with the detected partial input. Should this prefix be one not supported by Autocomplete (e.g. `i/` for a purely numerical input), an error message is shown to the user.
+
+`AutocompleteHandler#handle` is responsible for determining the correct autofilled string. If the user presses "TAB" multiple times successively, it cycles through the available autofill options; otherwise, it gets the list of options from `PartialInputParser` and returns the first one. The activity flow is summarised below:
+
+image::AutocompleteActivity.png[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
