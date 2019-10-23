@@ -30,14 +30,16 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertEqualsParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_ITEM));
-
-        //trailing bars and arguments behind trailing bars will be trimmed
-        assertEqualsParseSuccess(parser, "1||||||1", new DeleteCommand(INDEX_FIRST_ITEM));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+        //invalid trailing arguments
+        assertParseFailure(parser, "1||||||1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
     }
 
