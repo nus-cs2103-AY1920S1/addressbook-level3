@@ -282,54 +282,6 @@ If no monthly limit has been specified, the program will show:
 `Oops, there does not seem to be a monthly limit.`
 
 
-==== Adding owed amounts: `owe` & `debt`
-`owe`: saves a payment owed by someone else to the user. +
-`debt`: saves a payment owed by the user to someone else.
-
-Format: `owe n/PERSON a/AMOUNT` or `debt n/PERSON a/AMOUNT`
-
-
-==== Splitting a Tab: `tab`
-Divides and tracks a tab for a bill. All names are input to Jarvis will
-then have a separate tab
-
-Format: `tab a/AMOUNT n/PERSON...`
-
-Examples: +
-`tab a/20 n/Alice n/Bob n/Charlie`
-
-
-==== Mark a debt as paid: `paid debt`
-Marks a payment owed by the user to someone else as paid. Payment is identified
-by its index in the list of debts. Once marked as paid, the corresponding
-amount will be added to spending amount. The debt will be removed form the
-list of debts and added t othe list of payments.
-
-Format: `paid debt INDEX`
-
-where `INDEX` is the **one-based** index of the payment list.
-
-Example: +
-`paid tab 1`
-
-
-==== Listing Debts
-Shows all debts that user owes or is owed.
-
-Format: `list debts`
-
-
-==== Loans: `set loans`
-Set loans with interest per annum.
-
-Format: `set loan a/TOTAL [i/INTEREST]`
-
-where `INTEREST` is in `% per annum`
-
-Example: +
-`set loan a/10000 i/3.7`
-
-
 ==== Export to File: `export`
 Export the current expenditure to a file, either as a `.txt`, `.csv`
 or `xlsx` format.
@@ -341,21 +293,6 @@ Examples: +
 
 This will create a file called `expenditures.csv` in the current directory,
 containing all expenditures.
-
-
-==== Track Income: `income`
-Enables additional budgeting options when monthly income is specified.
-
-Format: `income a/AMOUNT`
-
-Example: +
-`income a/3000`
-
-
-==== Display as Graph: `graph`
-Show detailed statistics about your expenditures.
-
-Format: `graph`
 
 
 ////
