@@ -9,7 +9,7 @@ Interface ReadOnlyProjectDashboard <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class ProjectDashboard
-Class ReadOnlProjectDashboard
+Class ReadOnlyProjectDashboard
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -36,11 +36,6 @@ Class Price
 Class UniqueInventoryList
 }
 
-Package Mapping {
-Class Mapping
-Class UniqueMappingList
-}
-
 Package Tag {
 Class Tag
 }
@@ -57,33 +52,26 @@ ModelManager o--> "1" ProjectDashboard
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueTaskList
+ProjectDashboard *--> "1" UniqueTaskList
 UniqueTaskList o--> "*" Task
 Task *--> Name
 Task *--> TaskStatus
 Task *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
 
-AddressBook *--> "1" UniqueMemberList
+ProjectDashboard *--> "1" UniqueMemberList
 UniqueMemberList o--> "*" Member
 Member *--> MemberId
 Member *--> MemberName
 Member *--> "*" Tag
 
-AddressBook *--> "1" UniqueInventoryList
+ProjectDashboard *--> "1" UniqueInventoryList
 UniqueInventoryList o--> "*" Inventory
 Inventory *--> InvName
 Inventory *--> Price
-
-AddressBook *--> "1" UniqueMappingList
-UniqueMappingList o--> "*" Mapping
 
 
 ModelManager -->"1" Task : filtered list
 ModelManager -->"1" Member : filtered list
 ModelManager -->"1" Inventory : filtered list
-ModelManager -->"1" Mapping : filtered list
 @enduml
