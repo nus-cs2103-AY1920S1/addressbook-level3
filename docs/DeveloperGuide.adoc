@@ -201,7 +201,8 @@ list of recommendations. Users will then able to find the food that they are lik
 The feature of adding the user's liked and disliked categories, tags and locations was introduced to support the
 recommendation system.
 
-The _UserRecommendations_ class stores the list of user likes and dislikes as a set in lowecase to prevent duplicates.
+The _UserRecommendations_ class stores the list of user likes and dislikes as a set in lowercase to prevent duplicates.
+Furthermore, the user's likes and dislikes are integrated with `Storage` for the user's convenience.
 
 The sequence diagram below shows how a sample `like` command is executed:
 
@@ -212,6 +213,8 @@ The following activity diagram below summarizes how the `like` command works:
 
 .Activity diagram for a sample like command
 image::LikeActivityDiagram.png[width=450]
+
+A similar execution sequence is performed for a dislike command, replacing instances of like with dislike and vice versa.
 
 ==== Displaying recommendations
 
@@ -228,8 +231,6 @@ recommendation value:
 
 .Sequence diagram for `calculateRecommendation`
 image::RecValueSequenceDiagram.png[width=400]
-
-The following activity diagram below summarizes how the `recommend` command works: *TODO*
 
 The calculated recommendation values are used to sort the food items when the `recommend` command
 is executed. Food with similar recommendation values are sorted based on their price.
