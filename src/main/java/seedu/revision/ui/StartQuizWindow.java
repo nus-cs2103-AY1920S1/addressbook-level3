@@ -119,9 +119,9 @@ public class StartQuizWindow extends Window {
     }
 
     private void restartQuiz() {
+        fillInnerParts();
         score = 0;
         currentProgressIndex.set(0);
-        fillInnerParts();
         commandBox.getCommandTextField().requestFocus();
     }
 
@@ -151,12 +151,14 @@ public class StartQuizWindow extends Window {
             CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
             if (commandResult.getFeedbackToUser() == "correct") {
-                //KhiangLeon can update statistics here or McqInputCommand#execute. Both has access to the answerable.
+                // TODO: KhiangLeon use the updateStatistics() method here or in McqInputCommand#execute.
+                //  Both has access to the answerable.
                 score++;
             }
 
             if (!answerableIterator.hasNext()) {
                 handleEnd();
+                return new CommandResult("Quiz has ended.");
             }
 
             if (commandResult.isShowHelp()) {
