@@ -38,11 +38,6 @@ public class CashierModelStub implements Model {
     }
 
     @Override
-    public void writeInInventoryFile() throws Exception {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void setCashier(Person p) {
         throw new AssertionError("This method should not be called.");
     }
@@ -59,6 +54,11 @@ public class CashierModelStub implements Model {
 
     @Override
     public void clearSalesList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void resetCashier() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -88,9 +88,7 @@ public class CashierModelStub implements Model {
     }
 
     @Override
-    public Transaction checkoutAsTransaction(double amount,
-                                             Person person, seedu.address.transaction.model.Model transactionModel)
-            throws Exception {
+    public Transaction checkoutAsTransaction(double amount, Person person) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -111,6 +109,16 @@ public class CashierModelStub implements Model {
 
     @Override
     public boolean hasSufficientQuantityToEdit(int index, int quantity) throws NoSuchItemException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void getUpdatedLists(InventoryList inventoryList, TransactionList transactionList) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Transaction getCheckoutTransaction() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -139,10 +147,6 @@ public class CashierModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
-    public void readInUpdatedList() {
-        throw new AssertionError("This method should not be called.");
-    }
 
     @Override
     public boolean hasSufficientQuantityToAdd(String description, int quantity) throws NoSuchItemException {

@@ -35,9 +35,7 @@ public class CheckoutCommand extends Command {
 
     @Override
     public CommandResult execute(seedu.address.cashier.model.Model modelManager,
-                                 seedu.address.person.model.Model personModel,
-                                 seedu.address.transaction.model.Model transactionModel,
-                                 seedu.address.inventory.model.Model inventoryModel)
+                                 seedu.address.person.model.Model personModel)
             throws Exception {
         Person p;
         try {
@@ -45,13 +43,11 @@ public class CheckoutCommand extends Command {
         } catch (NoCashierFoundException e) {
             throw new NoCashierFoundException(CashierMessages.NO_CASHIER);
         }
-        modelManager.checkoutAsTransaction(totalAmount, p, transactionModel);
+        modelManager.checkoutAsTransaction(totalAmount, p);
         //logger.info("Cashier set to: " + p.toString());
         modelManager.updateInventoryList();
-        modelManager.writeInInventoryFile();
-        inventoryModel.readInUpdatedList();
         ClearCommand clearCommand = new ClearCommand();
-        clearCommand.execute(modelManager, personModel, transactionModel, inventoryModel);
+        clearCommand.execute(modelManager, personModel);
         return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, Item.DECIMAL_FORMAT.format(totalAmount),
                 Item.DECIMAL_FORMAT.format(change)));
 

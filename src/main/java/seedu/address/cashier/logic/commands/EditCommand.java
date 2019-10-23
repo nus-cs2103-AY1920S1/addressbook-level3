@@ -4,7 +4,7 @@ import static seedu.address.cashier.ui.CashierMessages.MESSAGE_EDIT_SUCCESS;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
-import seedu.address.cashier.logic.parser.exception.ParseException;
+import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.Model;
@@ -35,14 +35,12 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel,
-                                 seedu.address.transaction.model.Model transactionModel,
-                                 seedu.address.inventory.model.Model inventoryModel) throws Exception {
+    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel) throws Exception {
         Item i;
         try {
             i = model.findItemByIndex(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(CashierMessages.NO_SUCH_INDEX_CASHIER);
+            throw new NoSuchIndexException(CashierMessages.NO_SUCH_INDEX_CASHIER);
         }
         if (!model.hasSufficientQuantityToEdit(index, quantity)) {
             String description = model.findItemByIndex(index).getDescription();

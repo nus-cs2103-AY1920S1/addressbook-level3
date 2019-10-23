@@ -38,8 +38,7 @@ public class ClearCommandTest {
         CashierModelStubWithItem cashierModelStubWithItem = new CashierModelStubWithItem(anotherItem);
 
         ClearCommand clearCommand = new ClearCommand();
-        CommandResult commandResult = clearCommand.execute(cashierModelStubWithItem,
-                modelStubWithPerson, modelStubWithTransaction, inventoryModelStubWithItem);
+        CommandResult commandResult = clearCommand.execute(cashierModelStubWithItem, modelStubWithPerson);
 
         assertEquals(commandResult.getFeedbackToUser(), CashierMessages.CLEARED_SUCCESSFULLY);
     }

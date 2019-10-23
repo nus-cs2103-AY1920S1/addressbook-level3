@@ -17,4 +17,9 @@ public class AddCommandParserTest {
     public void parse_allFieldsPresent_success() {
 
     }
+
+    @Test
+    public void parse_compulsoryFieldMissing_failure() {
+
+    }
 }

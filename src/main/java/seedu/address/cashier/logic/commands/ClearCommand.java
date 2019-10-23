@@ -18,10 +18,10 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel,
-                                        seedu.address.transaction.model.Model transactionModel,
-                                        seedu.address.inventory.model.Model inventoryModel) throws Exception {
+    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel) throws Exception {
         model.clearSalesList();
+        model.resetCashier();
         return new CommandResult(CLEARED_SUCCESSFULLY);
     }
+
 }

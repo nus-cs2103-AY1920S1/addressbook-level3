@@ -27,7 +27,8 @@ public class EditCommandTest {
     private static final int INVALID_QUANTITY = -5;
     private static final int INVALID_QUANTITY_STORYBOOK = 40;
 
-    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList());
+    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+            TypicalTransactions.getTypicalTransactionList());
 
     private Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -54,7 +55,8 @@ public class EditCommandTest {
         String message = String.format(CashierMessages.MESSAGE_EDIT_SUCCESS,
                 TypicalItem.STORYBOOK.getDescription(), VALID_QUANTITY);
 
-        ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList());
+        ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList(),
+                TypicalTransactions.getTypicalTransactionList());
         expectedModel.addItem(TypicalItem.FISH_BURGER);
         expectedModel.addItem(TypicalItem.STORYBOOK);
         expectedModel.editItem(VALID_INDEX, VALID_QUANTITY);
@@ -62,16 +64,14 @@ public class EditCommandTest {
         model.addItem(TypicalItem.FISH_BURGER);
         model.addItem(TypicalItem.STORYBOOK);
 
-        assertCommandSuccess(editCommand, model, message, expectedModel,
-                personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
+        assertCommandSuccess(editCommand, model, message, expectedModel, personModel);
     }
 
     @Test
     public void execute_invalidIndex_failure() {
         EditCommand editCommand = new EditCommand(INVALID_INDEX_2, VALID_QUANTITY);
         String message = CashierMessages.NO_SUCH_INDEX_CASHIER;
-        assertCommandFailure(editCommand, model, message,
-                personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
+        assertCommandFailure(editCommand, model, message, personModel);
     }
 
     @Test
@@ -83,8 +83,7 @@ public class EditCommandTest {
         model.addItem(TypicalItem.FISH_BURGER);
         model.addItem(TypicalItem.STORYBOOK);
 
-        assertCommandFailure(editCommand, model, message,
-                personModel, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
+        assertCommandFailure(editCommand, model, message, personModel);
     }
 
 

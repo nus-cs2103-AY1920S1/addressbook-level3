@@ -55,7 +55,7 @@ public class LogicManagerTest {
         TransactionList transactionList = new TransactionList();
         ReimbursementList reimbursementList = new ReimbursementList();
         InventoryList inventoryList = new InventoryList();
-        seedu.address.cashier.util.InventoryList cashierList = new seedu.address.cashier.util.InventoryList();
+        seedu.address.cashier.util.InventoryList cashierInventoryList = new seedu.address.cashier.util.InventoryList();
         //For Person Storage and Manager
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
         seedu.address.person.storage.StorageManager personManager =
@@ -74,7 +74,7 @@ public class LogicManagerTest {
 
         //For Cashier Storage and Manager
         seedu.address.cashier.model.ModelManager cashierModel =
-                new seedu.address.cashier.model.ModelManager(cashierList);
+                new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
         seedu.address.cashier.storage.StorageManager cashierManager =
                 new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
                         FILE_PATH_TRANSACTION, personModel);
@@ -92,7 +92,7 @@ public class LogicManagerTest {
                         transactionModel, transactionManager, personModel);
         cashierLogic =
                 new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        transactionModel, transactionManager, inventoryModel, inventoryManager);
+                        transactionModel, inventoryModel);
         inventoryLogic =
                 new seedu.address.inventory.logic.LogicManager(cashierModel, cashierManager, inventoryModel,
                         inventoryManager);

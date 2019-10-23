@@ -3,11 +3,13 @@ package seedu.address.stubs;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.inventory.model.Item;
+import seedu.address.person.model.person.Person;
 
 /**
  * Represents a Cashier tab's Model stub.
  */
 public class CashierModelStubWithItem extends CashierModelStub {
+    private Person cashier;
     private Item item;
 
     public CashierModelStubWithItem(Item item) {
@@ -24,6 +26,11 @@ public class CashierModelStubWithItem extends CashierModelStub {
     @Override
     public void clearSalesList() {
         item = null;
+    }
+
+    @Override
+    public void resetCashier() {
+        this.cashier = null;
     }
 
 }

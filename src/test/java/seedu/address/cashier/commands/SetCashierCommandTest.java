@@ -31,7 +31,8 @@ import seedu.address.transaction.model.exception.NoSuchPersonException;
 
 public class SetCashierCommandTest {
 
-    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList());
+    private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+            TypicalTransactions.getTypicalTransactionList());
 
     private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -57,11 +58,12 @@ public class SetCashierCommandTest {
 
         SetCashierCommand setCashierCommand = new SetCashierCommand(validPerson);
         CommandResult commandResult = setCashierCommand.execute(model,
-                modelStubWithPerson, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
+                modelStubWithPerson);
 
         String expectedMessage = String.format(MESSAGE_ADD_CASHIER, validPerson.getName());
 
-        ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList());
+        ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList(),
+                TypicalTransactions.getTypicalTransactionList());
         expectedModel.setCashier(validPerson);
 
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
@@ -78,8 +80,7 @@ public class SetCashierCommandTest {
 
         String expectedMessage = String.format(NO_SUCH_PERSON);
 
-        assertCommandFailure(setCashierCommand, model, expectedMessage,
-                personModelStub2, modelStubWithTransaction, inventoryModelStubAcceptingItemAdded);
+        assertCommandFailure(setCashierCommand, model, expectedMessage, personModelStub2);
 
     }
 

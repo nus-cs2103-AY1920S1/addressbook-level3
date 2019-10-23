@@ -20,8 +20,6 @@ public interface Model {
 
     TransactionList getTransactionList();
 
-    void readInUpdatedList();
-
     boolean hasSufficientQuantityToAdd(String description, int quantity) throws NoSuchItemException;
 
     int getStockLeft(String description) throws NoSuchItemException;
@@ -40,8 +38,6 @@ public interface Model {
 
     void setItem(int i, Item editedItem) throws Exception;
 
-    void writeInInventoryFile() throws Exception;
-
     void setCashier(Person p);
 
     Person getCashier() throws NoCashierFoundException, NoCashierFoundException;
@@ -49,6 +45,8 @@ public interface Model {
     ArrayList<Item> getSalesList();
 
     void clearSalesList();
+
+    void resetCashier();
 
     Item editItem(int index, int qty) throws NoSuchIndexException;
 
@@ -60,8 +58,7 @@ public interface Model {
 
     ArrayList<String> getRecommendedItems(String description) throws NoSuchIndexException;
 
-    Transaction checkoutAsTransaction(double amount, Person person,
-                                      seedu.address.transaction.model.Model transactionModel) throws Exception;
+    Transaction checkoutAsTransaction(double amount, Person person) throws Exception;
 
     void updateInventoryList() throws Exception;
 
@@ -70,6 +67,10 @@ public interface Model {
     int findIndexByDescription(String description) throws NoSuchItemException;
 
     boolean hasSufficientQuantityToEdit(int index, int quantity) throws NoSuchItemException;
+
+    void getUpdatedLists(InventoryList inventoryList, TransactionList transactionList);
+
+    Transaction getCheckoutTransaction();
 
 
 }

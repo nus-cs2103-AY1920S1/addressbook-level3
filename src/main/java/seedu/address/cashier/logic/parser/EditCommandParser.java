@@ -2,16 +2,18 @@ package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.logic.parser.AddCommandParser.arePrefixesPresent;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_INDEX;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import seedu.address.cashier.logic.commands.EditCommand;
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
+import seedu.address.cashier.logic.commands.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.commands.exception.NotANumberException;
-import seedu.address.cashier.logic.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.Model;
+import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.util.ArgumentMultimap;
@@ -29,7 +31,7 @@ public class EditCommandParser {
      */
     public static EditCommand parse(String args, Model modelManager)
             throws NotANumberException, ParseException, NoSuchItemException,
-            InsufficientAmountException, NegativeQuantityException {
+            InsufficientAmountException, NegativeQuantityException, NoSuchIndexException {
         int index;
         int quantity;
         ArgumentMultimap argMultimap;
@@ -48,6 +50,13 @@ public class EditCommandParser {
             } catch (Exception e) {
                 throw new NotANumberException(CashierMessages.INDEX_NOT_A_NUMBER);
             }
+
+            try {
+                modelManager.findItemByIndex(index);
+            } catch (IndexOutOfBoundsException e) {
+                throw new NoSuchIndexException(NO_SUCH_INDEX_CASHIER);
+            }
+
         } else {
             argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);
 

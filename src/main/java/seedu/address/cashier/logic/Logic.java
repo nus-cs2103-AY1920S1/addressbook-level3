@@ -32,6 +32,10 @@ public interface Logic {
      */
     ArrayList<Item> getSalesList() throws Exception;
 
+    void writeInInventoryFile() throws Exception;
+
+    void readInUpdatedList() throws Exception;
+
     String getAmount();
 
     String getCashier() throws NoCashierFoundException;

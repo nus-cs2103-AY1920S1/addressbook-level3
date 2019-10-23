@@ -62,12 +62,10 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model cashierModel,
                                             CommandResult expectedCommandResult,
-                                            Model expectedModel, seedu.address.person.model.Model personModel,
-                                            seedu.address.transaction.model.Model transactionModel,
-                                            seedu.address.inventory.model.Model inventoryModel) {
+                                            Model expectedModel, seedu.address.person.model.Model personModel) {
         try {
             System.out.println("beforee");
-            CommandResult result = command.execute(cashierModel, personModel, transactionModel, inventoryModel);
+            CommandResult result = command.execute(cashierModel, personModel);
             System.out.println("inside test util:" + expectedCommandResult.getFeedbackToUser());
             System.out.println(result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
@@ -81,18 +79,15 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to
-     * {@link #assertCommandSuccess(Command, Model, CommandResult, Model, seedu.address.person.model.Model,
-     * seedu.address.transaction.model.Model transactionModel, seedu.address.inventory.model.Model inventoryModel)}
+     * {@link #assertCommandSuccess(Command, Model, CommandResult, Model, seedu.address.person.model.Model)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model cashierModel,
                                             String expectedMessage,
-                                            Model expectedModel, seedu.address.person.model.Model personModel,
-                                            seedu.address.transaction.model.Model transactionModel,
-                                            seedu.address.inventory.model.Model inventoryModel) {
+                                            Model expectedModel, seedu.address.person.model.Model personModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, cashierModel, expectedCommandResult, expectedModel,
-                personModel, transactionModel, inventoryModel);
+                personModel);
     }
 
 
@@ -103,29 +98,15 @@ public class CommandTestUtil {
      * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
-                                            seedu.address.person.model.Model personModel,
-                                            seedu.address.transaction.model.Model transactionModel,
-                                            seedu.address.inventory.model.Model inventoryModel) {
+                                            seedu.address.person.model.Model personModel) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ArrayList<Item> salesList = actualModel.getSalesList();
         InventoryList inventoryList = actualModel.getInventoryList();
 
-        assertThrows(Exception.class, expectedMessage, () -> command.execute(actualModel,
-                personModel, transactionModel, inventoryModel));
+        assertThrows(Exception.class, expectedMessage, () -> command.execute(actualModel, personModel));
         assertEquals(salesList, actualModel.getSalesList());
         assertEquals(inventoryList, actualModel.getInventoryList());
     }
 
-    /**
-     * Updates {@code model}'s filtered list to show only the person with the given name in the
-     * {@code model}'s transaction list
-     */
-    /*public static void showTransactionsOfPerson(Model model, String name) {
-        assertTrue(model.hasTransactionWithName(name));
-        final String[] splitName = name.split("\\s+");
-        model.updatePredicate(new TransactionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-        //to apply the predicate on the filtered list
-        model.getFilteredList();
-    } */
 }

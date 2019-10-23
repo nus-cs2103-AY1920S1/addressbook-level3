@@ -28,16 +28,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel,
-                                 seedu.address.transaction.model.Model transactionModel,
-                                 seedu.address.inventory.model.Model inventoryModel)
+    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel)
             throws NoSuchIndexException, ParseException {
         Item item;
         try {
             item = modelManager.findItemByIndex(index);
             modelManager.deleteItem(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(CashierMessages.NO_SUCH_INDEX_CASHIER);
+            throw new NoSuchIndexException(CashierMessages.NO_SUCH_INDEX_CASHIER);
         }
         //logger.info("Deleted Item: " + item.toString());
         return new CommandResult(String.format(MESSAGE_DELETED_ITEM, item));

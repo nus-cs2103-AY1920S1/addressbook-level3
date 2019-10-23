@@ -29,7 +29,7 @@ public class CashierLogicStub implements Logic {
         CashierTabParser parser = new CashierTabParser();
         Command command = parser.parseCommand(commandText,
                 model, personModel);
-        CommandResult commandResult = command.execute(model, personModel, transactionModel, inventoryModel);
+        CommandResult commandResult = command.execute(model, personModel);
         return commandResult;
     }
 
@@ -41,6 +41,16 @@ public class CashierLogicStub implements Logic {
     @Override
     public ArrayList<Item> getSalesList() throws Exception {
         return null;
+    }
+
+    @Override
+    public void writeInInventoryFile() throws Exception {
+
+    }
+
+    @Override
+    public void readInUpdatedList() throws Exception {
+
     }
 
     @Override

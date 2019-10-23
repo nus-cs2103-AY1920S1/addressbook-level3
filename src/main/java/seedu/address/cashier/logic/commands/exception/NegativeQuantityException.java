@@ -1,4 +1,4 @@
-package seedu.address.cashier.logic.exception;
+package seedu.address.cashier.logic.commands.exception;
 
 /**
  * Represents an "negative quantity" error encountered by a parser.
