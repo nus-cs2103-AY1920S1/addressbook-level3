@@ -68,7 +68,7 @@ create Annotation
 AddAnnotationCommand -> Annotation
 activate Annotation
 
-Annotation --> AddAnnotationCommand
+Annotation --> AddAnnotationCommand : an
 deactivate Annotation
 
 AddAnnotationCommand -> OfflineDocument : addAnnotation(pid, an)

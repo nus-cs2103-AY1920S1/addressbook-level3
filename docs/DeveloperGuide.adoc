@@ -254,6 +254,7 @@ You can view the class structure of the annotation feature in the Figure above.
 
 
 There are three parts to the annotation feature:
+
  * Add an annotation (executed by `AddAnnotationCommand#execute()`).
  * Delete an annotation (executed by `DeleteAnnotationCommand#execute()`).
  * Edit an annotation (executed by `EditAnnotationCommand#execute()`).
