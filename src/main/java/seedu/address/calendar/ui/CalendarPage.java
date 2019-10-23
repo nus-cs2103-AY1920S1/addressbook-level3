@@ -1,59 +1,50 @@
 package seedu.address.calendar.ui;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
+import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.Year;
 import seedu.address.calendar.parser.CalendarParser;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
+import seedu.address.ui.UiPart;
 
-public class CalendarPage implements Page {
+public class CalendarPage extends UiPart<Scene> implements Page {
+    private static final String FXML = "CalendarPage.fxml";
+    private static final PageType pageType = PageType.CALENDAR;
 
-    private final static PageType pageType = PageType.CALENDAR;
-    private boolean isOpened = false;
+    private ResultDisplay resultDisplay;
 
     @FXML
-    Scene calendarScene;
+    StackPane commandBoxPlaceholder;
     @FXML
-    VBox calendarPane = new VBox();
+    StackPane monthHeaderPlaceholder;
     @FXML
-    GridPane weekHeader;
+    StackPane yearHeaderPlaceholder;
     @FXML
-    GridPane monthView;
-    @FXML // todo change the following to CommandBox class?
-    TextField commandBoxPlaceHolder = new TextField();
+    StackPane monthViewPlaceholder;
     @FXML
-    Label monthLabel;
+    VBox resultDisplayPlaceholder;
 
     private Calendar calendar;
 
     public CalendarPage() {
+        super(FXML);
         calendar = new Calendar();
-        commandBoxPlaceHolder = new CommandBox(this::executeCommand).getCommandBox();
-        setUp();
-    }
-
-    public boolean isOpened() {
-        return isOpened;
-    }
-
-    void setOpened(boolean isOpened) {
-        this.isOpened = isOpened;
+        fillInnerParts();
     }
 
     public Scene getScene() {
-        return calendarScene;
+        return getRoot();
     }
 
     public PageType getPageType() {
@@ -63,33 +54,51 @@ public class CalendarPage implements Page {
     /**
      * Sets up calendar page by laying out nodes.
      */
-    private void setUp() {
-        weekHeader = WeekHeader.generateWeekHeader();
-
+    private void fillInnerParts() {
         Month currentMonth = calendar.getMonth();
-        MonthView monthV = new MonthView(currentMonth);
-        monthView = monthV.generateMonthGrid();
-        monthLabel = monthV.generateMonthLabel();
-        monthLabel.setTextAlignment(TextAlignment.CENTER);
+        MonthOfYear monthOfYear = currentMonth.getMonthOfYear();
+        MonthHeader monthHeader = new MonthHeader(monthOfYear);
+        monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
 
-        calendarPane.setAlignment(Pos.BOTTOM_LEFT);
-        calendarPane.getChildren().addAll(monthLabel, weekHeader, monthView, commandBoxPlaceHolder);
-        calendarScene = new Scene(calendarPane);
+        Year year = currentMonth.getYear();
+        YearHeader yearHeader = new YearHeader(year);
+        yearHeaderPlaceholder.getChildren().add(yearHeader.getRoot());
+
+        MonthView monthView = new MonthView(currentMonth);
+        monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private void updateCalendarView(MonthView updatedMonthView) {
-        updateMonthLabel(updatedMonthView);
-        updateMonthGrid(updatedMonthView);
+    private void updateCalendarPage(Month updatedMonth) {
+        Year year = updatedMonth.getYear();
+        MonthOfYear monthOfYear = updatedMonth.getMonthOfYear();
+
+        updateYearHeader(year);
+        updateMonthHeader(monthOfYear);
+        updateMonthView(updatedMonth);
     }
 
-    private void updateMonthLabel(MonthView updatedMonthView) {
-        Label updatedMonthLabel = updatedMonthView.generateMonthLabel();
-        calendarPane.getChildren().set(0, updatedMonthLabel);
+    private void updateYearHeader(Year year) {
+        YearHeader yearHeader = new YearHeader(year);
+        yearHeaderPlaceholder.getChildren().clear();
+        yearHeaderPlaceholder.getChildren().add(yearHeader.getRoot());
     }
 
-    private void updateMonthGrid(MonthView updatedMonthView) {
-        GridPane updatedMonthGrid = updatedMonthView.generateMonthGrid();
-        calendarPane.getChildren().set(2, updatedMonthGrid);
+    private void updateMonthHeader(MonthOfYear monthOfYear) {
+        MonthHeader monthHeader = new MonthHeader(monthOfYear);
+        monthHeaderPlaceholder.getChildren().clear();
+        monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
+    }
+
+    private void updateMonthView(Month month) {
+        MonthView monthView = new MonthView(month);
+        monthViewPlaceholder.getChildren().clear();
+        monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
     }
 
     /**
@@ -97,15 +106,22 @@ public class CalendarPage implements Page {
      *
      * @see AddressBookLogic#execute(String)
      */
-    private void executeCommand(String commandText) throws CommandException, ParseException {
-        Command command = (new CalendarParser()).parseCommand(commandText);
-        command.execute(calendar);
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+            Command command = (new CalendarParser()).parseCommand(commandText);
+            CommandResult commandResult = command.execute(calendar);
 
-        if (calendar.hasViewUpdates()) {
-            Month newMonth = calendar.getMonth();
-            MonthView newMonthView = new MonthView(newMonth);
-            updateCalendarView(newMonthView);
-            calendar.completeUpdate();
+            if (calendar.hasVisibleUpdates()) {
+                Month updatedMonth = calendar.getMonth();
+                updateCalendarPage(updatedMonth);
+                calendar.completeVisibleUpdates();
+            }
+
+            resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
+            return commandResult;
+        } catch (ParseException e) {
+            resultDisplay.setDisplayText(e.getMessage());
+            throw e;
         }
     }
 }

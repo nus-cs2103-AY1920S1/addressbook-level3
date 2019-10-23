@@ -1,10 +1,9 @@
 package seedu.address.financialtracker.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.financialtracker.commands.GoToCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
+import seedu.address.commons.core.Messages;
 
 /**
  * Parser for GoToCommand to understand which pages user what to switch to.
@@ -23,7 +22,7 @@ public class GoToCommandParser implements Parser<GoToCommand> {
             return new GoToCommand(pageType);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE), pe);
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE), pe);
         }
     }
 }

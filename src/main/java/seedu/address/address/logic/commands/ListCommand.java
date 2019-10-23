@@ -3,7 +3,6 @@ package seedu.address.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.address.model.AddressBookModel.PREDICATE_SHOW_ALL_PERSONS;
 
-import seedu.address.address.logic.commands.Command;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.logic.commands.CommandResult;
 

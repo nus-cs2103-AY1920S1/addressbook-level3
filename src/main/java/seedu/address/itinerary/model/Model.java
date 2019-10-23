@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Access the filtered event list of the itinerary.
@@ -33,7 +34,7 @@ public class Model {
     }
 
     public void setEvent(Event eventToEdit, Event editedEvent) throws ItineraryException {
-        requireAllNonNull(eventToEdit, editedEvent);
+        CollectionUtil.requireAllNonNull(eventToEdit, editedEvent);
 
         itinerary.setEvent(eventToEdit, editedEvent);
     }
@@ -64,7 +65,7 @@ public class Model {
      * @param doneEvent the event with the attribute mark done.
      */
     public void doneEvent(Event target, Event doneEvent) {
-        requireAllNonNull(target, doneEvent);
+        CollectionUtil.requireAllNonNull(target, doneEvent);
 
         itinerary.doneEvent(target, doneEvent);
     }
