@@ -1,8 +1,8 @@
 package com.dukeacademy.logic.program;
 
 import com.dukeacademy.model.program.TestResult;
-import com.dukeacademy.model.program.UserProgram;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.observable.Observable;
 
 /**
@@ -37,4 +37,17 @@ public interface ProgramSubmissionLogic {
      * @return True if the program was successfully tested.
      */
     public boolean submitUserProgram(UserProgram userProgram);
+
+    /**
+     * Sets a channel which allows the logic instance to retrieve user programs for submission.
+     * @param channel The channel to be set.
+     */
+    public void setUserProgramSubmissionChannel(ProgramSubmissionChannel channel);
+
+    /**
+     * Retrieves a user program from the submission channel and tests it against the current question being handled
+     * by the logic instance.
+     * @return True if the program was successfully tested.
+     */
+    public boolean submitUserProgramFromSubmissionChannel();
 }

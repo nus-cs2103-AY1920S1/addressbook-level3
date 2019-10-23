@@ -1,31 +1,33 @@
 package com.dukeacademy;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.Config;
 import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.commons.core.Mode;
 import com.dukeacademy.commons.core.Version;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
+import com.dukeacademy.logic.commands.CommandLogic;
+import com.dukeacademy.logic.commands.CommandLogicManager;
+import com.dukeacademy.logic.program.ProgramSubmissionLogic;
+import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
+import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.logic.question.QuestionsLogicManager;
-import com.dukeacademy.model.Model;
-import com.dukeacademy.model.ModelManager;
-import com.dukeacademy.model.QuestionBank;
-import com.dukeacademy.model.ReadOnlyQuestionBank;
-import com.dukeacademy.model.ReadOnlyUserPrefs;
-import com.dukeacademy.model.UserPrefs;
-import com.dukeacademy.model.util.SampleDataUtil;
-import com.dukeacademy.storage.JsonQuestionBankStorage;
-import com.dukeacademy.storage.JsonUserPrefsStorage;
-import com.dukeacademy.storage.QuestionBankStorage;
-import com.dukeacademy.storage.Storage;
-import com.dukeacademy.storage.StorageManager;
-import com.dukeacademy.storage.UserPrefsStorage;
+import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
+import com.dukeacademy.model.prefs.UserPrefs;
+import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
+import com.dukeacademy.storage.prefs.UserPrefsStorage;
+import com.dukeacademy.storage.question.JsonQuestionBankStorage;
+import com.dukeacademy.storage.question.QuestionBankStorage;
 import com.dukeacademy.ui.Ui;
 import com.dukeacademy.ui.UiManager;
 
@@ -42,62 +44,40 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    protected QuestionsLogic questionsLogic;
-    protected Storage storage;
-    protected Model model;
-    protected Config config;
+    private ProgramSubmissionLogicManager programSubmissionLogic;
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing QuestionBank ]===========================");
+        logger.info("=============================[ Initializing DukeAcademy ]===========================");
         super.init();
 
+        // Retrieves config parameters
         AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
+        Config config = initConfig(appParameters.getConfigPath());
 
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        QuestionBankStorage
-            questionBankStorage =
-            new JsonQuestionBankStorage(userPrefs.getQuestionBankFilePath());
-        storage = new StorageManager(questionBankStorage, userPrefsStorage);
-
+        // Sets logging level as described
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        // Configures user preferences
+        UserPrefs userPrefs = initPrefs(config);
 
-        questionsLogic = new QuestionsLogicManager(model, storage);
-
-        ui = new UiManager(questionsLogic);
-    }
-
-    /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s question bank and {@code userPrefs}. <br>
-     * The data from the sample question bank will be used instead if {@code storage}'s question bank is not found,
-     * or an empty question bank will be used instead if errors occur when reading {@code storage}'s question bank.
-     */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyQuestionBank> addressBookOptional;
-        ReadOnlyQuestionBank initialData;
-        try {
-            addressBookOptional = storage.readQuestionBank();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample QuestionBank");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleQuestionBank);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty QuestionBank");
-            initialData = new QuestionBank();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
-            initialData = new QuestionBank();
+        if (userPrefs == null) {
+            logger.warning("Fatal: Unrecognized mode in config file. Unable to initialize preferences.");
+            this.stop();
+            return;
         }
 
-        return new ModelManager(initialData, userPrefs);
-    }
+        CommandLogicManager commandLogic = this.initCommandLogic();
+        QuestionsLogicManager questionsLogic = this.initQuestionsLogic(userPrefs);
+        programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
 
-    private void initLogging(Config config) {
-        LogsCenter.init(config);
+        if (this.programSubmissionLogic == null) {
+            logger.info("Fatal: Failed to create program submission logic.");
+            this.stop();
+            return;
+        }
+
+        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic);
     }
 
     /**
@@ -105,7 +85,7 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    private Config initConfig(Path configFilePath) {
         Config initializedConfig;
         Path configFilePathUsed;
 
@@ -136,51 +116,169 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
+    private void initLogging(Config config) {
+        LogsCenter.init(config);
+    }
+
     /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
-        Path prefsFilePath = storage.getUserPrefsFilePath();
+    private UserPrefs initPrefs(Config config) {
+        logger.info("=============================[ Configuring preferences ]===========================");
+
+        if (config.getMode() == Mode.PRODUCTION) {
+            logger.info("Production mode detected, using development prefs.");
+            return getUserPrefsInProduction();
+        } else if (config.getMode() == Mode.DEVELOPMENT) {
+            logger.info("Development mode detected, using custom prefs.");
+            return getUserPrefsInDevelopment(config);
+        } else {
+            return null;
+        }
+    }
+
+    private UserPrefs getUserPrefsInDevelopment(Config config) {
+        Path prefsFilePath = config.getUserPrefsFilePath();
+        UserPrefsStorage storage = new JsonUserPrefsStorage(prefsFilePath);
+
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
+
         try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+            initializedPrefs = storage.readUserPrefs().orElse(new UserPrefs(Paths.get("development")));
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");
-            initializedPrefs = new UserPrefs();
+            initializedPrefs = new UserPrefs(Paths.get("development"));
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
-            initializedPrefs = new UserPrefs();
-        }
-
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            logger.warning("Problem while reading from the file. Using default user prefs.");
+            initializedPrefs = new UserPrefs(Paths.get("development"));
         }
 
         return initializedPrefs;
     }
 
+    private UserPrefs getUserPrefsInProduction() {
+        Path appRootDirectory = Paths.get(System.getProperty("user.home")).resolve("DukeAcademy");
+        Path testExecutorOutputPath = appRootDirectory.resolve("tests");
+        Path questionBankFilePath = appRootDirectory.resolve("questionBank.json");
+
+        // If app is opened for the first time...
+        if (!appRootDirectory.toFile().exists()) {
+            logger.info("Opening app for the first time. Creating new app directory at : " + appRootDirectory);
+
+            if (!appRootDirectory.toFile().mkdirs()) {
+                logger.warning("Unable to create create app directory.");
+                return null;
+            }
+
+            if (!testExecutorOutputPath.toFile().mkdir()) {
+                logger.warning("Unable to create create test executor output directory.");
+                return null;
+            }
+
+            createQuestionBankFile(questionBankFilePath);
+            return new UserPrefs(appRootDirectory);
+        }
+
+        // If test output directory not found
+        if (!testExecutorOutputPath.toFile().exists()) {
+            logger.info("Tests output folder not found. Creating folder at : " + testExecutorOutputPath);
+            if (!testExecutorOutputPath.toFile().mkdir()) {
+                logger.warning("Unable to create create test executor output directory.");
+                return null;
+            }
+        }
+
+        // If questions data not found
+        if (!appRootDirectory.resolve("questionBank.json").toFile().exists()) {
+            logger.info("Question storage file not found. Loading questions to : " + questionBankFilePath);
+
+            createQuestionBankFile(appRootDirectory);
+        }
+
+        return new UserPrefs(appRootDirectory);
+    }
+
+    /**
+     * Helper method to create a question bank json file at the specified location. Default questions are copied.
+     * @param questionBankFilePath the path at which to create the file.
+     */
+    private void createQuestionBankFile(Path questionBankFilePath) {
+        try {
+            logger.info("Creating new question bank.");
+            // Copy default questions
+            Path defaultQuestions = Paths.get("questionBank.json");
+            Files.copy(defaultQuestions, questionBankFilePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.warning("Unable to create default question bank data file.");
+        }
+    }
+
+    /**
+     * Returns a new CommandLogicManager based on the UserPrefs passed into the function. Any commands to be registered
+     * in the CommandLogicManager is done in this method.
+     *
+     * @return a CommandLogicManger instance.
+     */
+    private CommandLogicManager initCommandLogic() {
+        logger.info("============================ [ Initializing command logic ] =============================");
+        CommandLogicManager commandLogicManager = new CommandLogicManager();
+        // TODO: create and register commands
+        return commandLogicManager;
+    }
+
+    /**
+     * Returns a new QuestionLogicManager based on the UserPrefs passed into the function.
+     *
+     * @param userPrefs a UserPrefs instance.
+     * @return a QuestionsLogicManager instance.
+     */
+    private QuestionsLogicManager initQuestionsLogic(ReadOnlyUserPrefs userPrefs) {
+        logger.info("============================ [ Initializing question logic ] =============================");
+        QuestionBankStorage storage = new JsonQuestionBankStorage(userPrefs.getQuestionBankFilePath());
+        return new QuestionsLogicManager(storage);
+    }
+
+    /**
+     * Returns a new ProgramSubmissionLogicManager based on the UserPrefs passed into the function.
+     *
+     * @return a ProgramSubmissionLogicManager instance.
+     */
+    private ProgramSubmissionLogicManager initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
+        logger.info("============================ [ Initializing program submission logic ] "
+                + "=============================");
+        try {
+            String outputPath = userPrefs.getTestExecutorOutputPath().toUri().getPath();
+            return new ProgramSubmissionLogicManager(outputPath);
+        } catch (LogicCreationException e) {
+            return null;
+        }
+    }
+
+    private Ui initUi(CommandLogic commandLogic, QuestionsLogic questionsLogic,
+                      ProgramSubmissionLogic programSubmissionLogic) {
+        logger.info("============================ [ Initializing UI ] =============================");
+        return new UiManager(commandLogic, questionsLogic, programSubmissionLogic);
+    }
+
     @Override
     public void start(Stage primaryStage) {
+        logger.info("============================ [ Starting application ] =============================");
         logger.info("Starting QuestionBank " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Difficulty Book ] =============================");
-        try {
-            storage.saveUserPrefs(model.getUserPrefs());
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        logger.info("============================ [ Stopping DukeAcademy ] =============================");
+
+        // Deletes the temporary folder created for test execution purposes
+        if (this.programSubmissionLogic != null) {
+            this.programSubmissionLogic.closeProgramSubmissionLogicManager();
         }
     }
 }

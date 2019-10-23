@@ -5,10 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.dukeacademy.commons.core.index.Index;
-import com.dukeacademy.model.Model;
-import com.dukeacademy.model.question.Question;
-
 /**
  * A utility class for test cases.
  */
@@ -30,26 +26,5 @@ public class TestUtil {
             throw new RuntimeException(e);
         }
         return SANDBOX_FOLDER.resolve(fileName);
-    }
-
-    /**
-     * Returns the middle index of the question in the {@code model}'s question list.
-     */
-    public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredQuestionList().size() / 2);
-    }
-
-    /**
-     * Returns the last index of the question in the {@code model}'s question list.
-     */
-    public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredQuestionList().size());
-    }
-
-    /**
-     * Returns the question in the {@code model}'s question list at {@code index}.
-     */
-    public static Question getQuestion(Model model, Index index) {
-        return model.getFilteredQuestionList().get(index.getZeroBased());
     }
 }

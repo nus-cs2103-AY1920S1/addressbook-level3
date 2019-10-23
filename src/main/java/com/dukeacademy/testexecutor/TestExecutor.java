@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import com.dukeacademy.model.program.TestCaseResult;
 import com.dukeacademy.model.program.TestResult;
-import com.dukeacademy.model.program.UserProgram;
-import com.dukeacademy.model.question.TestCase;
+import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.testexecutor.compiler.Compiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;

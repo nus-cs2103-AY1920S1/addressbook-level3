@@ -1,89 +1,95 @@
 package com.dukeacademy.testutil;
 
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_DIFFICULTY_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TITLE_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TOPIC_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.VALID_TOPIC_BOB;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.dukeacademy.model.QuestionBank;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.QuestionBuilder;
+import com.dukeacademy.model.question.StandardQuestionBank;
+import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.model.question.entities.Difficulty;
+import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.model.question.entities.Topic;
 
 /**
  * A utility class containing a list of {@code Question} objects to be used in tests.
  */
 public class TypicalQuestions {
 
-    public static final Question ALICE = new QuestionBuilder()
-        .withTitle("Alice Pauline")
-        .withDifficulty("123, Jurong West Ave 6, #08-111").withStatus("alice@example.com")
-        .withTopic("94351253")
-        .withTags("friends").build();
-    public static final Question BENSON = new QuestionBuilder().withTitle("Benson Meier")
-                                                               .withDifficulty("311, Clementi Ave 2, #02-25")
-                                                               .withStatus("johnd@example.com").withTopic("98765432")
-                                                               .withTags("owesMoney", "friends").build();
-    public static final Question
-        CARL = new QuestionBuilder().withTitle("Carl Kurz").withTopic("95352563")
-                                    .withStatus("heinz@example.com").withDifficulty("wall street").build();
-    public static final Question
-        DANIEL = new QuestionBuilder().withTitle("Daniel Meier").withTopic("87652533")
-                                      .withStatus("cornelia@example.com")
-                                      .withDifficulty("10th street").withTags("friends").build();
-    public static final Question
-        ELLE = new QuestionBuilder().withTitle("Elle Meyer").withTopic("9482224")
-                                    .withStatus("werner@example.com").withDifficulty("michegan ave").build();
-    public static final Question
-        FIONA = new QuestionBuilder().withTitle("Fiona Kunz").withTopic("9482427")
-                                     .withStatus("lydia@example.com").withDifficulty("little tokyo").build();
-    public static final Question
-        GEORGE = new QuestionBuilder().withTitle("George Best").withTopic("9482442")
-                                      .withStatus("anna@example.com").withDifficulty("4th street").build();
+    private static final Question TWO_NUMBER_ADDER = new QuestionBuilder()
+            .withTitle("Two Number Adder")
+            .withStatus(Status.PASSED)
+            .withDifficulty(Difficulty.EASY)
+            .withTopics(Topic.OTHERS)
+            .withTestCases(new TestCase("1 2", "3"), new TestCase("100 2", "102"))
+            .withUserProgram(new UserProgram("Adder",
+                    "public class Adder { public static void main(String[] args) { } }"))
+            .build();
 
-    // Manually added
-    public static final Question
-        HOON = new QuestionBuilder().withTitle("Hoon Meier").withTopic("8482424")
-                                    .withStatus("stefan@example.com").withDifficulty("little india").build();
-    public static final Question
-        IDA = new QuestionBuilder().withTitle("Ida Mueller").withTopic("8482131")
-                                   .withStatus("hans@example.com").withDifficulty("chicago ave").build();
+    private static final Question VALID_SUDOKU = new QuestionBuilder()
+            .withTitle("Valid Sudoku")
+            .withStatus(Status.PASSED)
+            .withDifficulty(Difficulty.MEDIUM)
+            .withTopics(Topic.OTHERS, Topic.ARRAY, Topic.DYNAMIC_PROGRAMMING)
+            .withTestCases(new TestCase("1 2 3 4 5 6 7 8 9", "True"),
+                    new TestCase("-1 -1 -1 -1", "False"))
+            .withUserProgram(new UserProgram("Sudoku",
+                    "public class Sudoku { public static void main(String[] args) { } }"))
+            .build();
 
-    // Manually added - Question's details found in {@code CommandTestUtil}
-    public static final Question
-        AMY = new QuestionBuilder().withTitle(VALID_TITLE_AMY).withTopic(VALID_TOPIC_AMY)
-                                   .withStatus(VALID_STATUS_AMY)
-                                   .withDifficulty(VALID_DIFFICULTY_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Question
-        BOB = new QuestionBuilder().withTitle(VALID_TITLE_BOB).withTopic(VALID_TOPIC_BOB)
-                                   .withStatus(VALID_STATUS_BOB)
-                                   .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-                                   .build();
+    private static final Question PALINDROME_NUMBER = new QuestionBuilder()
+            .withTitle("Palindrome Number")
+            .withStatus(Status.PASSED)
+            .withDifficulty(Difficulty.EASY)
+            .withTopics(Topic.OTHERS, Topic.RECURSION)
+            .withTestCases(new TestCase("12321", "True"),
+                    new TestCase("10111", "False"))
+            .withUserProgram(new UserProgram("Palindrome",
+                    "public class Palindrome { public static void main(String[] args) { } }"))
+            .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    private static final Question SWAP_NODES_IN_PAIRS = new QuestionBuilder()
+            .withTitle("Swap nodes in pairs")
+            .withStatus(Status.NEW)
+            .withDifficulty(Difficulty.MEDIUM)
+            .withTopics(Topic.GRAPH, Topic.DYNAMIC_PROGRAMMING)
+            .withTestCases(new TestCase("5 12 33 23", "4132"),
+                    new TestCase("2 31 01", "1232"))
+            .withUserProgram(new UserProgram("NodePairs", ""))
+            .build();
+
+    private static final Question MERGE_K_SORTED_LISTS = new QuestionBuilder()
+            .withTitle("Merge k Sorted Lists")
+            .withStatus(Status.ATTEMPTED)
+            .withDifficulty(Difficulty.HARD)
+            .withTopics(Topic.SORTING, Topic.LINKED_LIST)
+            .withTestCases(new TestCase("3 5 3 4 1 99 0 21 34 123 3 21 3 1",
+                    "0 1 3 4 21 34 99 123"), new TestCase("1 4 1 2 3 4", "1 2 3 4"))
+            .withUserProgram(new UserProgram("Merge",
+                    "public class Merge { public static void main(String[] args) { } }"))
+            .build();
 
     private TypicalQuestions() {} // prevents instantiation
 
     /**
      * Returns an {@code QuestionBank} with all the typical persons.
      */
-    public static QuestionBank getTypicalQuestionBank() {
-        QuestionBank ab = new QuestionBank();
-        for (Question question : getTypicalPersons()) {
+    public static StandardQuestionBank getTypicalQuestionBank() {
+        StandardQuestionBank ab = new StandardQuestionBank();
+        for (Question question : getTypicalQuestions()) {
             ab.addQuestion(question);
         }
         return ab;
     }
 
-    public static List<Question> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    public static List<Question> getTypicalQuestions() {
+        List<Question> questions = new ArrayList<>();
+        questions.add(TWO_NUMBER_ADDER);
+        questions.add(VALID_SUDOKU);
+        questions.add(PALINDROME_NUMBER);
+        questions.add(SWAP_NODES_IN_PAIRS);
+        questions.add(MERGE_K_SORTED_LISTS);
+        return questions;
     }
 }
