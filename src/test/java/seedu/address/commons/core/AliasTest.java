@@ -15,7 +15,7 @@ class AliasTest {
     public static final String VALID_ALIAS_NAME_2 = "nAm3";
     public static final String INVALID_ALIAS_NAME = "n@#é";
 
-    public static final String VALID_INPUT = "  7n1293jmj98(*@##*ybC (@*8 @9n wkdnqwdk   ";
+    public static final String VALID_INPUT = "7n1293jmj98(*@##*ybC (@*8 @9n wkdnqwdk   ";
     public static final String WHITE_SPACE = "     \n \t  ";
 
     @Test

@@ -21,8 +21,8 @@ public interface ReadOnlyUserPrefs {
 
     boolean hasAlias(String aliasName);
 
-    boolean aliasNameIsReserved(String aliasName);
+    boolean aliasNameIsReserved(Alias alias);
 
-    boolean aliasCommandWordIsAlias(String commandWord);
+    boolean aliasCommandWordIsAlias(Alias alias);
 
 }

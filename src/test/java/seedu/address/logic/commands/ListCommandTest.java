@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.expense.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;

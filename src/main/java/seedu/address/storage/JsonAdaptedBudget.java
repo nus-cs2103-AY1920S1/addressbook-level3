@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -83,7 +85,7 @@ class JsonAdaptedBudget {
      * @throws IllegalValueException if there were any data constraints violated in the adapted budget.
      */
     public Budget toModelType() throws IllegalValueException {
-        final List<Expense> expenseList = new ArrayList<>();
+        final ObservableList<Expense> expenseList = FXCollections.observableArrayList();
         for (JsonAdaptedExpense expense : expenses) {
             expenseList.add(expense.toModelType());
         }

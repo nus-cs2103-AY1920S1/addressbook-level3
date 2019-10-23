@@ -3,14 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.SwitchBudgetCommand.MESSAGE_BUDGET_ALREADY_PRIMARY;
-import static seedu.address.logic.commands.SwitchBudgetCommand.MESSAGE_BUDGET_NOT_FOUND;
+import static seedu.address.logic.commands.budget.SwitchBudgetCommand.MESSAGE_BUDGET_ALREADY_PRIMARY;
+import static seedu.address.logic.commands.budget.SwitchBudgetCommand.MESSAGE_BUDGET_NOT_FOUND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBudgets.OUTSIDE_SCHOOL;
 import static seedu.address.testutil.TypicalBudgets.SCHOOL;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

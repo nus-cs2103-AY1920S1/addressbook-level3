@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.SwitchBudgetCommand;
+import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Description;
 

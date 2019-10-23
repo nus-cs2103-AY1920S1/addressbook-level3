@@ -1,8 +1,19 @@
-.command-word {
-    -fx-fill: #00ffe9;
-    -fx-font-weight: bold;
-    -rtfx-background-color: rgba(172, 78, 71, 0.48);
+#SyntaxBox {
+    -fx-font-size: 20px;
+    -fx-font-family: Monospaced;
+}
 
+#SyntaxBox .text-area {
+    -fx-opacity: 0;
+}
+
+#SyntaxBox .text-area .scroll-pane {
+    -fx-vbar-policy: Never;
+    -fx-hbar-policy: Never;
+}
+
+#SyntaxBox .text-area .scroll-pane .content {
+    -fx-padding: 0;
 }
 
 .error {
@@ -10,50 +21,59 @@
     -rtfx-background-color: rgba(255, 0, 0, 0.51);
 }
 
-* {
-    -fx-font-size: 20px;
+.string {
+    -fx-fill: black;
+}
+
+.command-word {
+    -fx-fill: #710071;
+    -fx-font-weight: bold;
+}
+
+.placeholder {
+    -fx-fill: grey;
 }
 
 .style1 {
-    -fx-fill: #6a00b1;
+    -fx-font-weight: bold;
+
+    -fx-fill: #004d71;
 }
 
 .arg1 {
-    -fx-fill: white;
-    -rtfx-background-color: #6a00b1;
-
+    -fx-fill: #004d71;
 }
 
 .style2 {
+    -fx-font-weight: bold;
+
     -fx-fill: #0c910b;
 }
 
 .arg2 {
-    -fx-fill: white;
-    -rtfx-background-color: #0c910b;
-
+    -fx-fill: #0c910b;
 }
 
 .style3 {
+    -fx-font-weight: bold;
+
     -fx-fill: #a24400;
 }
 
 .arg3 {
-    -fx-fill: white;
-    -rtfx-background-color: #a24400;
-
+    -fx-fill: #a24400;
 }
 
 .style4 {
-    -fx-fill: #006961;
+    -fx-font-weight: bold;
+
+    -fx-fill: #690700;
 }
 
 .arg4 {
-    -fx-fill: white;
-    -rtfx-background-color: #006961;
-
+    -fx-fill: #690700;
 }
 
 .paragraph-box:has-caret {
-    -fx-background-color: #f2f9fc;
+    /*-fx-background-color: #f2f9fc;*/
 }

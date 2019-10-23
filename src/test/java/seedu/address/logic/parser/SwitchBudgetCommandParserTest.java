@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.SwitchBudgetCommand;
+import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 
 public class SwitchBudgetCommandParserTest {
     private SwitchBudgetCommandParser parser = new SwitchBudgetCommandParser();

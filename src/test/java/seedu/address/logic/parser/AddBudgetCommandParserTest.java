@@ -13,7 +13,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddBudgetCommand;
+import seedu.address.logic.commands.budget.AddBudgetCommand;
 
 public class AddBudgetCommandParserTest {
     private AddBudgetCommandParser parser = new AddBudgetCommandParser();

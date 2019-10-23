@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.StatsCommand;
+import seedu.address.logic.commands.statistics.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Statistics;

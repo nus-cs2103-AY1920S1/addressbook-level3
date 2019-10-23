@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -233,6 +234,11 @@ public class AddBudgetCommandTest {
 
         @Override
         public void setPrimary(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Budget> getFilteredBudgetList() {
             throw new AssertionError("This method should not be called.");
         }
 

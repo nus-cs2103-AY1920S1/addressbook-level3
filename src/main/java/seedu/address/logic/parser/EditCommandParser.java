@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.address.logic.commands.expense.EditCommand;
+import seedu.address.logic.commands.expense.EditCommand.EditExpenseDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
