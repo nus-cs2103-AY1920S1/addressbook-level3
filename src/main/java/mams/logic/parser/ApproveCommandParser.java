@@ -48,12 +48,15 @@ public class ApproveCommandParser implements Parser<Approve> {
             List<String> validIds = new ArrayList<>();
             List<String> invalidIds = new ArrayList<>();
             for (String appeal : appeals) {
+                appeal = appeal.trim();
                 if (Appeal.isValidAppealId(appeal)) {
                     if (!validIds.contains(appeal)) {
                         validIds.add(appeal);
                     }
                 } else {
-                    invalidIds.add(appeal);
+                    if (!appeal.isEmpty()) {
+                        invalidIds.add(appeal);
+                    }
                 }
             }
             return new MassApprove(validIds, invalidIds);
