@@ -15,7 +15,7 @@ public class Event {
     private static ArrayList<Event> events = new ArrayList<>();
 
     private String name;
-    private TreeMap<Person, PerformanceEntry> performances;
+    private TreeMap<Person, ArrayList<PerformanceEntry>> performances;
 
     /**
      * Creates a type of event that stores the members and their respective timings (performance) for this event.
@@ -41,6 +41,25 @@ public class Event {
     public static void addEvent(String name) {
         Event newEvent = new Event(name);
         events.add(newEvent);
+    }
+
+    public void addPerformance(Person athlete, PerformanceEntry performanceEntry) {
+        if (!performances.containsKey(athlete)) {
+            ArrayList<PerformanceEntry> initialisedPerformanceEntries = new ArrayList<>();
+            initialisedPerformanceEntries.add(performanceEntry);
+            performances.put(athlete, initialisedPerformanceEntries);
+        } else {
+            // copying the existing performances
+            ArrayList<PerformanceEntry> currentPerformanceEntries = new ArrayList<>();
+            currentPerformanceEntries.addAll(performances.get(athlete));
+            // adding the new performance
+            currentPerformanceEntries.add(performanceEntry);
+            // remove the existing athelete record for this event
+            performances.remove(athlete);
+            // adding the athlete again with their updated record for this event
+            performances.put(athlete, currentPerformanceEntries);
+        }
+
     }
 
     /**
