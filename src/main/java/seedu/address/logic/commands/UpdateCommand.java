@@ -29,27 +29,30 @@ import seedu.address.model.util.Date;
 public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the transaction or budget"
+            + " identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX (must be 'b' or 't' followed by a positive integer) "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " t1 "
             + PREFIX_AMOUNT + "123 "
             + PREFIX_DATE + "12022019";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
-    public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
+    public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated: %1$s";
 
+    private final String type;
     private final Index targetIndex;
     private final UpdateTransactionDescriptor updateTransactionDescriptor;
 
-    public UpdateCommand(Index targetIndex, UpdateTransactionDescriptor updateTransactionDescriptor) {
+    public UpdateCommand(String type, Index targetIndex, UpdateTransactionDescriptor updateTransactionDescriptor) {
         requireNonNull(targetIndex);
         requireNonNull(updateTransactionDescriptor);
 
+        this.type = type;
         this.targetIndex = targetIndex;
         this.updateTransactionDescriptor = new UpdateTransactionDescriptor(updateTransactionDescriptor);
     }
@@ -58,21 +61,27 @@ public class UpdateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        FilteredList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
+        if (this.type.equals("t")) {
+            FilteredList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+            }
+
+            BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
+            BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace,
+                    updateTransactionDescriptor);
+
+            model.setTransaction(transactionToReplace, updatedTransaction);
+            model.commitBankAccount();
+
+
+            return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
+        } else if (this.type.equals("b")) {
+            
+        } else {
+            throw new CommandException("Unknown command error");
         }
-
-        BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
-        BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace,
-                updateTransactionDescriptor);
-
-        model.setTransaction(transactionToReplace, updatedTransaction);
-        model.commitBankAccount();
-
-
-        return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
     }
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}

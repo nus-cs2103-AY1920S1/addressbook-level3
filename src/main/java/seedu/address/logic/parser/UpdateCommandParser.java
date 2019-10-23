@@ -33,9 +33,12 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
 
+        String type;
         Index index;
 
         try {
+            System.out.println(argMultimap.getPreamble());
+            type = ParserUtil.parseType(argMultimap.getPreamble());
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
@@ -53,7 +56,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new UpdateCommand(index, updateTransactionDescriptor);
+        return new UpdateCommand(type, index, updateTransactionDescriptor);
     }
 
     /**
