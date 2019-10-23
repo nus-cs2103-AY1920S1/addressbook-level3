@@ -9,6 +9,7 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class ClearEvent implements Event {
 
+    public static final String KEY_EXERCISE_BOOK_CLEARED = "exerciseBookCleared";
     private static final String EVENT_DESCRIPTION = "Clear Exercise Book: %1$s";
 
     /**
@@ -19,10 +20,10 @@ public class ClearEvent implements Event {
     /**
      * Creates a ClearEvent to store the particular event of the exercise book being cleared.
      *
-     * @param exerciseBookCleared an exercise book in the state before the ClearEvent.
+     * @param eventPayload a wrapper class that stores the exercise book in the state before the ClearEvent.
      */
-    ClearEvent(ReadOnlyResourceBook<Exercise> exerciseBookCleared) {
-        this.exerciseBookCleared = exerciseBookCleared;
+    public ClearEvent(EventPayload<? super ReadOnlyResourceBook<Exercise>> eventPayload) {
+        this.exerciseBookCleared = (ReadOnlyResourceBook<Exercise>) eventPayload.get(KEY_EXERCISE_BOOK_CLEARED);
     }
 
     @Override

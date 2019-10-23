@@ -4,10 +4,11 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
 
 /**
- * Represents a particular add event that can be redone or undone.
+ * Represents a particular add exercise event that can be redone or undone.
  */
 public class AddExerciseEvent implements Event {
 
+    public static final String KEY_EXERCISE_TO_ADD = "exerciseToAdd";
     private static final String EVENT_DESCRIPTION = "Add exercise: %1$s";
 
     /**
@@ -18,10 +19,10 @@ public class AddExerciseEvent implements Event {
     /**
      * Creates an AddExerciseEvent to store the particular event of an exercise being added to the exercise book.
      *
-     * @param exercise the exercise that has been added in this instance of AddExerciseEvent.
+     * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    AddExerciseEvent(Exercise exercise) {
-        this.exercise = exercise;
+    public AddExerciseEvent(EventPayload<? super Exercise> eventPayload) {
+        this.exercise = (Exercise) eventPayload.get(KEY_EXERCISE_TO_ADD);
     }
 
     @Override

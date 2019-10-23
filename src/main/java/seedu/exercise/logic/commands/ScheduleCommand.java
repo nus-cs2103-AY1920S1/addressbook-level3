@@ -22,4 +22,5 @@ public abstract class ScheduleCommand extends Command {
             + PREFIX_INDEX + "INDEX OF SCHEDULE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1";
+
 }

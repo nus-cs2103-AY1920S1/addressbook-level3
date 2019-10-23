@@ -1,6 +1,8 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.logic.commands.events.EditEvent.KEY_EDITED_EXERCISE;
+import static seedu.exercise.logic.commands.events.EditEvent.KEY_EXERCISE_TO_EDIT;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
@@ -20,6 +22,7 @@ import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.commons.util.CollectionUtil;
 import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.property.Calories;
@@ -33,7 +36,7 @@ import seedu.exercise.model.resource.Exercise;
 /**
  * Edits the details of an existing exercise in the exercise book.
  */
-public class EditCommand extends Command implements UndoableCommand {
+public class EditCommand extends Command implements UndoableCommand, PayloadCarrierCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -57,8 +60,7 @@ public class EditCommand extends Command implements UndoableCommand {
 
     private final Index index;
     private final EditExerciseDescriptor editExerciseDescriptor;
-    private Exercise exerciseToEdit;
-    private Exercise editedExercise;
+    private EventPayload<Exercise> eventPayload;
 
     /**
      * @param index                  of the exercise in the filtered exercise list to edit
@@ -69,6 +71,7 @@ public class EditCommand extends Command implements UndoableCommand {
         requireNonNull(editExerciseDescriptor);
 
         this.index = index;
+        this.eventPayload = new EventPayload<>();
         this.editExerciseDescriptor = new EditExerciseDescriptor(editExerciseDescriptor);
     }
 
@@ -81,35 +84,39 @@ public class EditCommand extends Command implements UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        exerciseToEdit = lastShownList.get(index.getZeroBased());
-        editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
+        Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
+        Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
 
         if (!exerciseToEdit.isSameResource(editedExercise) && model.hasExercise(editedExercise)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
+        addToEventPayload(exerciseToEdit, editedExercise);
         model.setExercise(exerciseToEdit, editedExercise);
         EventHistory.getInstance().addCommandToUndoStack(this);
         model.updateFilteredExerciseList(Model.PREDICATE_SHOW_ALL_EXERCISES);
         return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
     }
 
-    /**
-     * Returns the exercise to be edited in the exercise book.
-     *
-     * @return exercise to be edited
-     */
-    public Exercise getExerciseToEdit() {
-        return exerciseToEdit;
+    @Override
+    public String getUndoableCommandWord() {
+        return COMMAND_WORD;
+    }
+
+    @Override
+    public EventPayload<Exercise> getPayload() {
+        return eventPayload;
     }
 
     /**
-     * Returns the newly edited exercise.
+     * Stores the various states of the exercise to the payload.
      *
-     * @return exercise with fields edited
+     * @param exerciseToEdit the exercise before it is edited
+     * @param editedExercise the exercise after it is edited
      */
-    public Exercise getEditedExercise() {
-        return editedExercise;
+    private void addToEventPayload(Exercise exerciseToEdit, Exercise editedExercise) {
+        eventPayload.put(KEY_EXERCISE_TO_EDIT, exerciseToEdit);
+        eventPayload.put(KEY_EDITED_EXERCISE, editedExercise);
     }
 
     /**

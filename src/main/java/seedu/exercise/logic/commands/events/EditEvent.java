@@ -8,6 +8,8 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class EditEvent implements Event {
 
+    public static final String KEY_EXERCISE_TO_EDIT = "exerciseToEdit";
+    public static final String KEY_EDITED_EXERCISE = "editedExercise";
     private static final String EVENT_DESCRIPTION = "Edit\t: %1$s\nTo\t: %2$s";
 
     /**
@@ -24,12 +26,11 @@ public class EditEvent implements Event {
      * Creates a EditEvent to store the particular event of an exercise being edited
      * in the exercise book.
      *
-     * @param exerciseOld exercise before the edit event happens
-     * @param exerciseNew exercise after the edit event happens
+     * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    EditEvent(Exercise exerciseOld, Exercise exerciseNew) {
-        this.exerciseOld = exerciseOld;
-        this.exerciseNew = exerciseNew;
+    public EditEvent(EventPayload<? super Exercise> eventPayload) {
+        this.exerciseOld = (Exercise) eventPayload.get(KEY_EXERCISE_TO_EDIT);
+        this.exerciseNew = (Exercise) eventPayload.get(KEY_EDITED_EXERCISE);
     }
 
     @Override

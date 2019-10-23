@@ -6,7 +6,7 @@ import static seedu.exercise.logic.commands.AddRegimeCommand.MESSAGE_USAGE_REGIM
 /**
  * Represents an AddCommand with hidden internal logic and the ability to be executed.
  */
-public abstract class AddCommand extends Command implements UndoableCommand {
+public abstract class AddCommand extends Command implements UndoableCommand, ResourceTypeDependentCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -14,4 +14,9 @@ public abstract class AddCommand extends Command implements UndoableCommand {
             + ": Adds exercise to exercise list or adds regime to regime list.\n"
             + "EXERCISE: " + MESSAGE_USAGE_EXERCISE + "\n"
             + "REGIME: " + MESSAGE_USAGE_REGIME;
+
+    @Override
+    public String getUndoableCommandWord() {
+        return COMMAND_WORD;
+    }
 }

@@ -14,17 +14,16 @@ import seedu.exercise.model.Model;
 public class EventHistory {
 
     private static final Logger logger = LogsCenter.getLogger(EventHistory.class);
-    private static Stack<Event> undoStack;
-    private static Stack<Event> redoStack;
+    private static EventHistory eventHistory;
+    private Stack<Event> undoStack;
+    private Stack<Event> redoStack;
 
     /**
      * Initializes both undo and redo history if no undo history exists.
      */
     private EventHistory() {
-        if (undoStack == null) {
-            undoStack = new Stack<>();
-            redoStack = new Stack<>();
-        }
+        undoStack = new Stack<>();
+        redoStack = new Stack<>();
     }
 
     /**
@@ -33,7 +32,10 @@ public class EventHistory {
      * @return an instance of EventHistory that can be used to access the undo and redo history.
      */
     public static EventHistory getInstance() {
-        return new EventHistory();
+        if (eventHistory == null) {
+            eventHistory = new EventHistory();
+        }
+        return eventHistory;
     }
 
     /**
