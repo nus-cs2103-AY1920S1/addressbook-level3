@@ -157,7 +157,7 @@ This section describes some noteworthy details on how certain features are imple
 === Statistics feature
 ==== Proposed Implementation
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the statistics mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time and generates statistics via the "statistics /g" command.
 
@@ -169,11 +169,13 @@ Step 2. Statistics are generated on-demand and displayed to the user based on th
 
 * **Alternative 1 (current choice):** Generate statistics data on-demand, when the user requests.
 ** Pros: Easier to implement as would not have to mannage storage of statistical data.
-** Cons: User may see a slight wait time whenever staistics are generated as it does not only update
-the data for what's been modified but recalculates all the statistics each time, as it is not stored.
+** Cons: App may have overall lower performance, with the possibility of lag as the app needs to read
+through all the stored data and generate the statistics data whenever it is queried.
 * **Alternative 2:** Generate statistics each time there is change in the data and store them.
-** Pros: Statistical data will be displayed faster as it is recalculated and stored in the background after each change.
-** Cons: Requires managing storage of statistical data and may take up extra memory resources.
+** Pros: Statistical data will be displayed faster as it is recalculated and stored in the JSON file storage.
+** Cons: Requires managing the storage of the statistical data and possibly lead to lowered performance of
+other features such as the command which does CRUD to Employees/Events which will be slower with the need to 
+generate the statistical data and store it in the JSON file storage.
 // end::statistics[]
 
 // tag::undoredo[]
