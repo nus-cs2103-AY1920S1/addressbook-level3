@@ -15,7 +15,7 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListIncidentCommand.
  */
-public class ListIncidentCommandTest {
+public class ListIncidentsCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -28,12 +28,12 @@ public class ListIncidentCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListIncidentCommand(), model, ListIncidentCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListIncidentsCommand(), model, ListIncidentsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showIncidentAtIndex(model, INDEX_FIRST_ENTITY);
-        assertCommandSuccess(new ListIncidentCommand(), model, ListIncidentCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListIncidentsCommand(), model, ListIncidentsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
