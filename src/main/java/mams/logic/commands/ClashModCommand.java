@@ -46,7 +46,6 @@ public class ClashModCommand extends ClashCommand {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
-
         Module moduleToCheckA = modulesToCheckListA.get(0);
         Module moduleToCheckB = modulesToCheckListB.get(0);
 
