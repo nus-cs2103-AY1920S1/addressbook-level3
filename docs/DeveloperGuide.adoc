@@ -298,6 +298,34 @@ Use Case: user adds an expense
 . The user types listAutoExpenditure.
 . GuiltTrip lists all the current automatically recurring expenditures.
 
+=== Use Case 09: Set TrackerReminder
+
+==== MSS
+
+. User adds a TrackerReminder, indicates the quota which if exceeded will activate the reminder, and the tags nad keywords that entries should have to be tracked;
+. guiltTrip() notifies user that Reminder has been added.
+
+Use case ends.
+
+==== Extensions
+
+. 1a. user does not indicate if he wants to track entries with keywords or tags.
+Reminder tracks all entries.
+
+=== Use Case 10: Set DateReminder
+
+==== MSS
+
+. User adds a DateReminder, indicate the index of the entry to track and the period before the event date to activate reminder.
+. guiltTrip() notifies user that Reminder has been added.
+
+Use case ends.
+
+==== Extensions
+
+. 1a. index out of bounds.
+Use case ends
+
 [appendix]
 == Non Functional Requirements
 
