@@ -239,6 +239,10 @@ image::CommitActivityDiagram.png[]
 ==== Overview
 The application should be able to undo and redo changes made by commands to give the user more flexibility in their inputs.
 Undo and redo operations should also be undo or redo multiple commands in a command.
+In the event that a undo/redo command that comprises of multiple undo/redo operations fails at any point, all changes made
+by the command should be rolled back.
+
+image::UndoRedoActivityDiagram.png[]
 
 Therefore there is a need to remember commands that change the state of the `Model`. Commands that just render a view without
 actually changing the application should not be stored as it does not make sense to undo or redo them.
@@ -250,6 +254,11 @@ We will distinguish these types of commands into two categories, *invertible com
 [NOTE]
 Undo and redo commands will be considered non-invertible commands even though they technically change the state of the `Model`.
 The reason is that they are commands facilitating the undo and redo operation, thus they should not be stored.
+
+The following activity diagram illustrates how commands are remembered when a user types in a command:
+
+image::CommandActivityDiagram.png[]
+
 
 ==== Implementation
 The undo/redo feature mechanism is facilitated by `HistoryManager`. `HistoryManager` remembers *invertible commands*. These commands are stored internally in
@@ -281,10 +290,6 @@ Commands support the given operations to mutate the state of the `Model` and to 
 * `Command#executeInverse(Model)` -- Executes on the given `Model` such that it will undo whatever changes were made when `Command#execute(Model)` was called.
 
 image::HistoryManagerClassDiagram.png[]
-
-The following activity diagram illustrates how commands are remembered when a user types in a command:
-
-image::CommandActivityDiagram.png[]
 
 Undo and redo operations are executed with `UndoCommand` and `RedoCommand`. These commands store an integer value referencing the number of commands to undo or redo,
 represented by `UndoCommand#numberOfTimes` and `RedoCommand#numberOfTimes`.
