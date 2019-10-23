@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.ArrayList;
+
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Date;

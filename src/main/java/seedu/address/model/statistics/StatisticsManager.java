@@ -7,6 +7,10 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Entry;
 
+
+/**
+ * Handles calculation of statistics.
+ */
 public class StatisticsManager {
     private double lastMonthExpenses;
     private ObservableMap<Integer, MonthList> monthlyRecord;

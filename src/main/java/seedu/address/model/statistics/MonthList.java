@@ -11,6 +11,9 @@ import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.util.EntryComparator;
 
+/**
+ * Contains the entries for the current Month in the idea.
+ */
 public class MonthList {
 
     private ObservableMap<Integer, DailyList> dailyRecord;

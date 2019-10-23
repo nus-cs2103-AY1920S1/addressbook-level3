@@ -4,6 +4,10 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Entry;
 
+
+/**
+ * Filters the entrylist predicates based on the int month.
+ */
 public class EntryTimeContainsPredicate implements Predicate<Entry> {
     private int monthFromUser;
 
