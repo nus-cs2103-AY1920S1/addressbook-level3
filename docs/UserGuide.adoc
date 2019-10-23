@@ -25,7 +25,7 @@ The app focuses on the tracking of claims that will help the While FinSec has a 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `finsec.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -35,7 +35,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com : adds a contact named `John Doe` to the Address Book.
+* **`add_contact`**`n/John Doe p/98765432` : adds a contact named John Doe to FinSec.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -125,17 +125,57 @@ Examples:
 
 * `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
-=== Editing a claim : `edit_claim`
+=== Approving a claim : `approve`
 
-Edits an existing claim +
+Approves an existing pending claim +
 
-Keyword: `edit_claim`
+Keyword: `approve`
 
-Format: `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+Format: `approve INDEX`
 
 Examples:
 
-* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+* `approve 1` (approves the first claim in the claim list)
+
+****
+* Approves the claim at the specified `INDEX`.
+* The displayed list must be the claim list.
+* Claim at the specified `INDEX` must be a pending claim.
+* The index refers to the index number shown in the displayed claim list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+=== Rejecting a claim : `reject`
+
+Rejects an existing pending claim +
+
+Keyword: `reject`
+
+Format: `reject INDEX`
+
+Examples:
+
+* `reject 1` (approves the first claim in the claim list)
+
+****
+* Rejects the claim at the specified `INDEX`.
+* The displayed list must be the claim list.
+* Claim at the specified `INDEX` must be a pending claim.
+* The index refers to the index number shown in the displayed claim list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+//=== Editing a claim : `edit_claim`
+//
+//Edits an existing claim +
+//
+//Keyword: `edit_claim`
+//
+//Format: `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+//
+//Examples:
+//
+//* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
 === Adding an income
 
@@ -299,6 +339,12 @@ e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
 * *Edit claim* `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+
+* *Approves claim* `approve INDEX` +
+e.g. `approve 1`
+
+* *Rejects claim* `reject INDEX` +
+e.g. `reject 1`
 
 * *Adding income* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
