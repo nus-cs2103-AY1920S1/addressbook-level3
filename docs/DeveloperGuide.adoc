@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= StudyBuddy Pro Level 3 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W13-3`
 
 == Setting up
 
@@ -62,8 +62,20 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[]
 
 [discrete]
+==== How the application modes works?
+
+The _StudyBuddy Pro_ application has 3 modes for all the features: Flashcard, Cheatsheet and Notes.
+The users use `switch` command to switch between the modes.
+In each mode, the users will interact with only the modes' commands, unless it is a _global_ command.
+
+- `switch fc` - switches to flashcard mode
+- `switch cs` - switches to cheatsheet mode
+- `switch notes` - switches to notes mode
+
+[discrete]
 ==== How the architecture components interact with each other
 
+Assuming that the user is currently in the _flashcard_ mode.
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
@@ -79,7 +91,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ActivityWindow`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,38 +110,22 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `StudyBuddyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a cheatsheet).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+Assuming that the user is in _flashcard_ mode.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteFlashcardCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
-
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
-
-The `Model`,
-
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -142,7 +138,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the StudyBuddyBook data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -152,95 +148,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -261,6 +168,174 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Tagging Feature
+
+==== Implementation
+
+** The current implementation of StudyBuddyItems in StudyBuddyPro is such that it contains a Set of Tags.
+** The following objects of each individual feature shares similar Tagging behaviour, as shown in the class diagram below.
+
+image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
+
+==== Design Considerations
+
+** As explained in the class diagram above, each StudyBuddyItem is limited to a total number of 10 tags.
+** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
+** To reduce confusion for the user, all tags will be converted to lower-case upon initialization.
+
+==== Usage of Tags
+
+** Inside each feature
+*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `list tag/cs2100`).
+** Using Tags globally
+*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro.
+** Currently, the user is able to specify multiple tags in his/her query.
+** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
+
+image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
+
+==== [Proposed] Future improvements
+
+** Supporting deletion of Tags
+*** Allow the user to delete a specified Tag.
+*** All StudyBuddyItems must be updated in response to the deletion.
+*** A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
+*** As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
+
+** Supporting statistics for Tags
+*** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
+
+=== Auto-generated cheatsheet feature
+
+==== Implementation
+
+The auto-generation mechanism is used in the `AddCheatSheetCommand` during creation of the cheatsheet.
+After creation, the cheatsheet is then stored in the `studyBuddy` storage.
+
+It is involved in the following operations:
+
+- `AddCheatSheetCommand#execute()` -- Creates the cheatsheet
+
+- `AddCheatSheetCommand#getRelevantContents()` -- Gets all the contents from _flashcard_ and _notes_ according to the _tags_ specified
+
+The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
+
+The following sequence diagram shows how the undo operation works:
+
+[NOTE]
+Assuming that user is already in the _cheatsheet_ mode.
+
+image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect:
+
+* **Alternative 1 (current choice):**
+** Pros:
+** Cons:
+* **Alternative 2:**
+** Pros:
+** Cons:
+
+==== [Proposed] Future improvements
+
+=== Remind Flashcard Feature
+
+==== Implementation
+The  remind feature is facilitated by ``
+
+image::remindDiagrams/RemindFeatureRelevantClassDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Implementation of utility attributes or classes to keep track of number of times a `Flashcard` object was
+viewed.
+
+* **Alternative 1 (current choice):** Design a new `ViewCount` class and make a `Flashcard` object store a `ViewCount`
+object.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons:
+* **Alternative 2:** Use an integer attribute field in `Flashcard` object
+** Pros: Easier to maintain: The addition of a new class increases overall coupling compared to adding a single new
+attribute.
+** Cons: Bad OOP practice and makes it difficult to implement future changes
+
+===== Aspect:
+
+* **Alternative 1 (current choice):**
+** Pros:
+** Cons:
+* **Alternative 2:**
+** Pros:
+** Cons:
+
+==== [Proposed] Future improvements
+** Improved formula for reminding
+*** Take into account other factors such as user confidence level or number of times flashcard was answered correctly
+or incorrectly to create a more dynamic reminding schedule.
+
+** Link to `exit` command
+*** Checks if the user viewed all flashcards to be revised on the day.
+*** If some of the relevant flashcards were not viewed, reminds user about remaining flashcards and stalls
+application exit.
+*** User can either go back into StudyBuddy and view the relevant flashcards or supply an `exit` command again to
+close the application.
+
+** More statistics for motivation
+*** Tracks how often user viewed flashcards on time and how many flashcards users missed viewing on the relevant
+deadline.
+// end::remind[]
+
+=== Note feature
+
+Notes are used in the creation of CheatSheet objects as well as in general use of StudyBuddyPro.
+
+==== Implementation
+
+Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
+
+image::samDiagrams/NoteModelClassDiagram.png[]
+
+==== Usages of Notes
+
+Notes can be used to:
+
+** Store information under a title
+** Categorize information via the use of Tags
+** Provide information to CheatSheets for collation
+
+Notes can currently be:
+
+** Added to StudyBuddyBook
+** Deleted from StudyBuddyBook
+** Viewed from StudyBuddyBook
+** Viewed with filter from StudyBuddyBook
+
+The sequence diagram below describes the calls within the Model component upon the addition of a Note object:
+
+image::samDiagrams/AddNoteSequenceDiagram.png[]
+
+The two main steps of the process are:
+
+** The parsing of a Command from the input String
+** The execution of the Command which alters Model
+
+==== [Proposed] Note content tagging feature
+
+The proposed feature involves the application of tags within the Note content.
+
+===== Design Implementation
+
+This feature can be achieved by:
+
+** Including a user-inputted tag within portions of the Note content
+** Parsing for this content tag when filtering by tag
+** Listing these content fragments upon filtering by tag
+
+===== Usages of feature
+
+** More precise inclusion of tags when creating CheatSheet objects
+** Ability to nest tags inside each other
 
 == Documentation
 
@@ -586,18 +661,6 @@ Use case ends.
 
 {Todo delete later}
 
-[discrete]
-=== Use case: Delete person
-
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
-
 *Extensions*
 
 [none]
@@ -608,7 +671,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. StudyBuddyBook shows an error message.
 +
 Use case resumes at step 2.
 
@@ -638,7 +701,7 @@ A titled digital 'card' that contains a question (image or text), answer, as wel
 A document that contains the notes the user has specified during creation
 
 [[time-trial]] Time-Trial::
-A mode of answering flashcards in which you must provide the answer within a deisgnated time period.
+A mode of answering flashcards in which you must provide the answer within a designated time period.
 
 
 [appendix]
@@ -679,20 +742,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
 _{ more test cases ... }_
 

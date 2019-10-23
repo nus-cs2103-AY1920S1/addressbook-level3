@@ -1,0 +1,23 @@
+@startuml
+
+ScheduleIncrement "1"<-up- Statistics
+Flashcard *-down- "1" Statistics
+
+class Flashcard {
++getStatistics() : Statistics
+}
+
+class Statistics {
+-LocalDate lastViewed
+-LocalDate toViewNext
++setLastViewed(newLastViewed : LocalDate)
++increaseIncrement() : ScheduleIncrement
++updateToViewNext()
+}
+
+enum ScheduleIncrement {
+FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, FINAL
++<u>getNumberOfDays() : Integer
+}
+
+@enduml
