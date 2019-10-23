@@ -56,14 +56,14 @@ public class PerformanceCommand extends Command {
         }
 
         Person athlete = lastShownList.get(index.getZeroBased());
-        addPerformance(athlete);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, athlete));
+        PerformanceEntry performanceEntry = createPerformance(athlete);
+        String response = event.addPerformance(athlete, performanceEntry);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, response));
+
     }
 
-    private void addPerformance(Person athlete) {
-        PerformanceEntry performanceEntry = new PerformanceEntry(date, time);
-        event.addPerformance(athlete, performanceEntry);
-
+    private PerformanceEntry createPerformance(Person athlete) {
+        return new PerformanceEntry(date, time);
     }
 
 }

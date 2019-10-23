@@ -25,4 +25,8 @@ public class PerformanceEntry {
     public String getTime() {
         return time;
     }
+
+    public String getDate() {
+        return date;
+    }
 }

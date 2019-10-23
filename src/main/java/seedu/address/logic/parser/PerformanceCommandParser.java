@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_EVENT;
 import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_TIMING;
@@ -23,11 +24,11 @@ public class PerformanceCommandParser implements Parser<PerformanceCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public PerformanceCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT, PREFIX_DATE, PREFIX_TIMING);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT, PREFIX_DATE, PREFIX_TIMING)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT, PREFIX_DATE, PREFIX_TIMING)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE));
         }
 
