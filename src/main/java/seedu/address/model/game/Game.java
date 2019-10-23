@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
@@ -16,10 +17,8 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
  */
 public class Game {
 
-    public static final int CORRECT_GUESS = 1;
-    public static final int WRONG_GUESS = 0;
+    private DifficultyEnum currentGameDifficulty;
     private boolean isOver = false;
-    private FormattedHint formattedHint;
 
     // Shuffled Deck of Cards using cards from ReadOnlyWordBank
     private final List<Card> shuffledDeckOfCards;
@@ -32,10 +31,15 @@ public class Game {
      * WordBank must not be null.
      * @param wordBank WordBank that current Game session will run on.
      */
-    public Game(ReadOnlyWordBank wordBank, CardShuffler cardShuffler) {
+    public Game(ReadOnlyWordBank wordBank, CardShuffler cardShuffler, DifficultyEnum difficulty) {
         requireAllNonNull(wordBank, cardShuffler);
         this.cardIndex = Index.fromZeroBased(0);
         this.shuffledDeckOfCards = setShuffledDeckOfCards(wordBank, cardShuffler);
+        this.currentGameDifficulty = difficulty;
+    }
+
+    public DifficultyEnum getCurrentGameDifficulty() {
+        return currentGameDifficulty;
     }
 
     /**

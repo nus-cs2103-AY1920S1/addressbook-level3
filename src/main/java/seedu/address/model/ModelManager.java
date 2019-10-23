@@ -86,12 +86,19 @@ public class ModelManager implements Model {
         this.game = game;
     }
 
-    public boolean gameIsOver() {
-        return game == null ? true : game.isOver();
+    @Override
+    public Game getGame() {
+        return game;
     }
 
-    public Game getGame() {
-        return this.game;
+    @Override
+    public boolean gameIsOver() {
+        return this.game == null ? true : game.isOver();
+    }
+
+    @Override
+    public DifficultyEnum getCurrentGameDifficulty() {
+        return game.getCurrentGameDifficulty();
     }
 
     //=========== AppSettings ================================================================================
@@ -138,7 +145,7 @@ public class ModelManager implements Model {
 
     @Override
     public long getTimeAllowedPerQuestion() {
-        return this.appSettings.getDefaultDifficulty().getTimeAllowedPerQuestion();
+        return this.game.getCurrentGameDifficulty().getTimeAllowedPerQuestion();
     }
 
     @Override

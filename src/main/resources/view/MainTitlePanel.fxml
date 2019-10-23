@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <content>
-        <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@DarkTheme.css">
+        <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0">
             <children>
             <BorderPane fx:id="logoPlaceholder" />
             <HBox>
                <children>
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label id="slogan" fx:id="slogan" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="Learn with Dukemon haha this is supposed to be the *catch* phrase." translateY="-40.0" />
+                  <Label id="slogan" fx:id="slogan" styleClass="cell_big_label" text="Learn with Dukemon haha this is supposed to be the *catch* phrase." translateY="-40.0" />
                   <Region HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
@@ -33,7 +33,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Circle fx:id="avatarShadow" fill="#bcbcbc" radius="195.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle fx:id="avatarShadow" fill="#c2c2c2" radius="195.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                         <ImageView fx:id="avatarImageView" fitHeight="440.0" fitWidth="440.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>

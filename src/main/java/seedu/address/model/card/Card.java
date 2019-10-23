@@ -22,7 +22,7 @@ public class Card {
     private final Meaning meaning;
     private final Set<Tag> tags = new HashSet<>();
 
-    // stateful objects
+    // stateful objects, will create a new hintSupplier every game session. (by instantiaing a new card).
     private HintSupplier hintSupplier;
 
     /**
@@ -37,8 +37,19 @@ public class Card {
         this.hintSupplier = new HintSupplier(word.value);
     }
 
+
     /**
-     * Creates a new card with a new id.
+     * Returns a deep copy of the current {@code Card}.
+     * This is to prevent hintSupplier carrying state to another game session due to referring to same
+     * card object.
+     */
+    @Override
+    public Card clone() {
+        return new Card(this.word, this.meaning, this.tags, this.id);
+    }
+
+    /**
+     * Creates a new {@code card} with a new id.
      */
     public static Card createNewCard(Word word, Meaning meaning, Set<Tag> tags) {
         return new Card(word, meaning, tags, UidGenerator.get());

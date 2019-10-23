@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@DarkTheme.css">
+      <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0">
          <children>
             <Label fx:id="title" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header" text="Title" textAlignment="CENTER" />
             <StackPane fx:id="badgesRowPlaceholder" />
@@ -48,7 +48,7 @@
                   <Insets top="3.0" />
                </padding>
             </HBox>
-            <Separator opacity="0.6" prefWidth="200.0" stylesheets="@DarkTheme.css">
+            <Separator opacity="0.6" prefWidth="200.0">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
@@ -64,7 +64,7 @@
                   <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
                </VBox.margin>
             </VBox>
-            <Separator opacity="0.6" prefWidth="200.0" stylesheets="@DarkTheme.css">
+            <Separator opacity="0.6" prefWidth="200.0">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
@@ -81,7 +81,7 @@
                               <Insets left="8.0" />
                            </HBox.margin>
                         </Label>
-                        <Label alignment="BOTTOM_RIGHT" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="Hit rate" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                        <Label alignment="BOTTOM_RIGHT" styleClass="cell_big_label" text="Hit rate" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets top="3.0" />
                            </HBox.margin>

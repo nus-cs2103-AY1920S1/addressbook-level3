@@ -27,10 +27,6 @@ public class ClassUtil {
         classPairs.add(classPair);
     }
 
-    /**
-     *  Filters list of classes to only include valid ones in processing
-     */
-
     public List<String> getAttribute(String attr) {
         List<String> result = new ArrayList<>();
         for (ClassPair clsPair : classPairs) {

@@ -14,16 +14,16 @@
          <children>
             <VBox fx:id="cardContainer" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="cardWord" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="Word" />
-                  <FlowPane fx:id="tags" stylesheets="@DarkTheme.css" />
-                  <Label fx:id="cardMeaning" maxHeight="1.7976931348623157E308" styleClass="cell_small_label" stylesheets="@DarkTheme.css" text="Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning " wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="cardWord" styleClass="cell_big_label" text="Word" />
+                  <FlowPane fx:id="tags" />
+                  <Label fx:id="cardMeaning" maxHeight="1.7976931348623157E308" styleClass="cell_small_label" text="Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning Meaning " wrapText="true" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox alignment="TOP_RIGHT" fillWidth="false" prefHeight="0.0" HBox.hgrow="NEVER">
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="0.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="correctRate" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="60.0" styleClass="label-header2" stylesheets="@DarkTheme.css" text="XX%" textAlignment="CENTER" textOverrun="CLIP">
+                        <Label fx:id="correctRate" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="60.0" styleClass="label-header2" text="XX%" textAlignment="CENTER" textOverrun="CLIP">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

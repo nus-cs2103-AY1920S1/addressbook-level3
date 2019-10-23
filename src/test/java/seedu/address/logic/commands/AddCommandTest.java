@@ -98,6 +98,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean gameIsOver() {
+            return false;
+        }
+
+        @Override
         public AppSettings getAppSettings() {
             return null;
         }
@@ -115,6 +120,11 @@ public class AddCommandTest {
         @Override
         public DifficultyEnum getDefaultDifficulty() {
             return null;
+        }
+
+        @Override
+        public DifficultyEnum getCurrentGameDifficulty() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

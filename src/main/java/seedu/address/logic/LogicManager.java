@@ -176,7 +176,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         try {
             requireNonNull(model.getWordBankStatistics());
             WordBankStatistics currWbStats = model.getWordBankStatistics();
-            currWbStats.update(gameStatistics);
+            currWbStats.update(gameStatistics, model.getCurrentGameDifficulty());
 
             Path targetPath = Path.of(model.getUserPrefs().getDataFilePath().toString(), "wbstats",
                     currWbStats.getWordBankName() + ".json");
@@ -257,6 +257,11 @@ public class LogicManager implements Logic, UiLogicHelper {
     @Override
     public AppSettings getAppSettings() {
         return this.model.getAppSettings();
+    }
+
+    @Override
+    public String getCurrentQuestion() {
+        return model.getGame().getCurrQuestion();
     }
 
 }

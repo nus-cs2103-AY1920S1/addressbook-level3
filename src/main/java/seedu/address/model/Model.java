@@ -136,6 +136,9 @@ public interface Model {
 
     Game getGame();
 
+
+    DifficultyEnum getCurrentGameDifficulty();
+
     /**
      * Returns the app settings
      */

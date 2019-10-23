@@ -35,9 +35,10 @@ public class AppManager {
     private GameTimer gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
     // Call-back method to update ResultDisplay in MainWindow
-    private HintDisplayCallBack hintDisplayCallBack = null; // not used for now.
+    private HintDisplayCallBack hintDisplayCallBack = null;
     private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
     private GameStatisticsBuilder gameStatisticsBuilder = null;
+    private QuestionDisplayCallBack questionDisplayCallBack = null;
 
     public AppManager(Logic logic) {
         this.logic = logic;
@@ -47,7 +48,7 @@ public class AppManager {
         logic.setGuiSettings(guiSettings);
     }
 
-    private void setAndRunGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
+    private void setGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
         gameTimer = new GameTimer("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack,
@@ -55,7 +56,7 @@ public class AppManager {
         if (logic.hintsAreEnabled()) {
             gameTimer.setHintTimingQueue(hintFormatSize, timeAllowedPerQuestion);
         }
-        gameTimer.run();
+
     }
 
     /**
@@ -80,7 +81,7 @@ public class AppManager {
 
         if (commandResult instanceof StartCommandResult) {
             StartCommandResult startCommandResult = (StartCommandResult) commandResult;
-            initGameStatistics(startCommandResult.getTitle());
+            initGameStatistics(startCommandResult.getTitle()); // initialize game statistics building
         }
 
         // handles game related actions
@@ -104,8 +105,12 @@ public class AppManager {
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
-            Platform.runLater(() -> setAndRunGameTimer(logic.getTimeAllowedPerQuestion(),
-                    logic.getHintFormatSizeFromCurrentGame()));
+            setGameTimer(logic.getTimeAllowedPerQuestion(),
+                    logic.getHintFormatSizeFromCurrentGame());
+            Platform.runLater(() -> {
+                this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
+                gameTimer.run();
+            });
         }
 
         return commandResult;
@@ -116,7 +121,7 @@ public class AppManager {
     }
 
     private void requestHintAndCallBack() {
-        hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
+        this.hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
     }
 
     public Logic getLogic() {
@@ -179,6 +184,10 @@ public class AppManager {
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
     }
 
+    public void setQuestionDisplayCallBack(QuestionDisplayCallBack questionDisplayCallBack) {
+        this.questionDisplayCallBack = questionDisplayCallBack;
+    }
+
     /**
      * Call-back functional interface for the GameManager to periodically update the TimerDisplay
      * component of the UI.
@@ -189,7 +198,7 @@ public class AppManager {
     }
 
     /**
-     * Call-back functional interface from GameManager to MainWindow to update the ResultDisplay
+     * Call-back functional interface from GameManager to MainWindow to update the HintDisplay
      * component of the UI.
      */
     @FunctionalInterface
@@ -204,6 +213,14 @@ public class AppManager {
     @FunctionalInterface
     public interface MainWindowExecuteCallBack {
         CommandResult execute(String commandText) throws ParseException, CommandException;
+    }
+
+    /**
+     * Call-back functional interface from GameManager to MainWindow to update the QuestionDisplay component
+     * of the UI.
+     */
+    public interface QuestionDisplayCallBack {
+        void updateQuestionDisplay(String message);
     }
 
 }

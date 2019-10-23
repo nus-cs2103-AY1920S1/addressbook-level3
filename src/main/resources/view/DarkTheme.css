@@ -31,6 +31,22 @@
     -fx-opacity: 1;
 }
 
+.label-unhighlighted {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-opacity: 0.5;
+    -fx-padding: 20 20 20 0;
+    -fx-text-fill: rgba(255, 255, 255, 100);
+}
+
+.label-highlighted {
+     -fx-font-size: 11pt;
+     -fx-font-family: "Segoe UI SemiBold";
+     -fx-opacity: 0.9;
+     -fx-padding: 20 20 20 0;
+     -fx-text-fill: rgba(85, 255, 68, 100);
+ }
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -381,6 +397,19 @@
 #timerText .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
+}
+
+.hint-label {
+    -fx-font-family: "monospace";
+    -fx-font-size: 20pt;
+    -fx-text-fill: pink;
+}
+
+.question-label {
+    -fx-font-family: "Times New Roman";
+    -fx-underline: true;
+    -fx-font-size: 24pt;
+    -fx-text-fill: lightgreen;
 }
 
 .progress-bar > .track {
