@@ -11,10 +11,21 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class FlashCardListPanel
+Class FlashCardPanel
 Class StatusBarFooter
 Class CommandBox
+Class CategoryListPanel
+Class CategoryPanel
+Class DeadlineListPanel
+Class DeadlinePanel
+
+Package Calendar {
+Class CalendarPane
+Class CalendarWindow
+Class FullCalendarView
+}
+
 }
 
 package Model <<Rectangle>> {
@@ -31,30 +42,45 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
+MainWindow *-down-> CategoryListPanel
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> FlashCardListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> DeadlineListPanel
 
-PersonListPanel -down-> PersonCard
+CategoryListPanel -down-> CategoryPanel
+FlashCardListPanel -down-> FlashCardPanel
+DeadlineListPanel -down-> DeadlinePanel
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+FlashCardListPanel --|> UiPart
+FlashCardPanel --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+CategoryPanel --|> UiPart
+CategoryListPanel --|> UiPart
+DeadlinePanel -down-|> UiPart
+DeadlineListPanel -down-|> UiPart
+CalendarWindow --|> UiPart
 
-PersonCard ..> Model
+
+FlashCardPanel ..> Model
 UiManager -right-> Logic
-MainWindow -left-> Logic
+MainWindow -right-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+CalendarWindow *-down-> CalendarPane
+CalendarWindow -left-> FullCalendarView
+
+FlashCardListPanel -[hidden]left- ResultDisplay
+DeadlineListPanel -[hidden]left- FlashCardListPanel
+CategoryListPanel -[hidden]left- DeadlineListPanel
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-
+Ui -[hidden]-> Calendar
 MainWindow -[hidden]-|> UiPart
 @enduml

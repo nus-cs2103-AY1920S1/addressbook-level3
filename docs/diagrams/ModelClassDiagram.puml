@@ -16,7 +16,7 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Flashcard {
-Class FLashcard
+Class Flashcard
 Class Question
 Class Answer
 Class Rating
@@ -24,13 +24,28 @@ Class UniqueFlashcardList
 }
 
 Package Category {
+Class UniqueCategoryList
 Class Category
 }
+Package Deadline  {
+Class Deadline
+Class DueDate
+Class Task
+Class UniqueDeadlineList
+}
+
+Package Export {
+Class DirectoryPath
+Class DocumentFilePath
+Class DocumentPath
+}
+
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
-
+HiddenOutside ..> DocumentPath
+HiddenOutside ..> Deadline
 AddressBook .up.|> ReadOnlyAddressBook
 
 ModelManager .up.|> Model
@@ -44,10 +59,19 @@ UniqueFlashcardList o--> "*" Flashcard
 Flashcard *--> Question
 Flashcard *--> Answer
 Flashcard *--> Rating
-Flashcard *--> "*" Categories
+Flashcard *--> "*" Category
 
 Question -[hidden]right-> Answer
 Answer -[hidden]right-> Rating
 
 ModelManager -->"1" Flashcard : filtered list
+
+UniqueCategoryList o--> "*" Category
+
+DocumentPath *--> DocumentFilePath
+DocumentPath *--> DirectoryPath
+
+Deadline *--> Task
+Deadline*--> DueDate
+UniqueDeadlineList o--> "*" Deadline
 @enduml

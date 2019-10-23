@@ -4,24 +4,26 @@ import java.io.IOException;
 import java.time.YearMonth;
 import java.util.logging.Logger;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
 //@author dalsontws
 /**
- * Controller for a help page
+ * Controller for a calender page
  */
 public class CalendarWindow extends UiPart<Stage> {
 
-
     private static final Logger logger = LogsCenter.getLogger(CalendarWindow.class);
     private static final String FXML = "fullCalendar.fxml";
-
+    @FXML
+    private Pane calendarPane;
     /**
-     * Creates a new HelpWindow.
+     * Creates a new calendar Window.
      */
     public CalendarWindow(Stage primaryStage) throws IOException {
         super(FXML, primaryStage);
@@ -29,11 +31,9 @@ public class CalendarWindow extends UiPart<Stage> {
         primaryStage.setTitle("KeyboardFlashCards Calendar");
         primaryStage.setScene(new Scene(loader.load()));
         // Get the controller and add the calendar view to it
-        Controller controller = loader.getController();
-        controller.getCalendarPane().getChildren().add(new FullCalendarView(YearMonth.now()).getView());
+        calendarPane.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
         primaryStage.show();
     }
-
     /**
      * Shows the help window.
      * @throws IllegalStateException

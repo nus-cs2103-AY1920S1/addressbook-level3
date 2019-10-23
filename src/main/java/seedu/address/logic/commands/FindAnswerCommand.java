@@ -15,7 +15,7 @@ import seedu.address.model.flashcard.AnswerContainsAnyKeywordsPredicate;
  */
 public class FindAnswerCommand extends Command {
 
-    public static final String COMMAND_WORD = "findAns";
+    public static final String COMMAND_WORD = "finda";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all flashcards whose answers contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

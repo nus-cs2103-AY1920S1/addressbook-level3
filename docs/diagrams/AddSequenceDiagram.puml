@@ -1,0 +1,104 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":FlashCard" as FlashCard LOGIC_COLOR
+
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add q>1+1 a>2 c>math")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("add q>1+1 a>2 c>math")
+activate AddressBookParser
+
+create AddCommandParser
+AddressBookParser -> AddCommandParser : AddCommandParser()
+activate AddCommandParser
+
+AddCommandParser --> AddressBookParser
+deactivate AddCommandParser
+
+AddressBookParser -> AddCommandParser : parse("q>1+1 a>2 c>math")
+activate AddCommandParser
+
+AddCommandParser -> ParserUtil: parseQuestion("1+1")
+activate ParserUtil
+
+ParserUtil --> AddCommandParser: qn
+deactivate ParserUtil
+
+AddCommandParser -> ParserUtil: parseAnswer("2")
+activate ParserUtil
+
+ParserUtil --> AddCommandParser: ans
+deactivate ParserUtil
+
+AddCommandParser -> ParserUtil: parseRating("null")
+activate ParserUtil
+
+ParserUtil --> AddCommandParser: r
+deactivate ParserUtil
+
+AddCommandParser -> ParserUtil: parseCategory("math")
+activate ParserUtil
+
+ParserUtil --> AddCommandParser: cat
+deactivate ParserUtil
+
+create FlashCard
+AddCommandParser -> FlashCard: FlashCard(qn, ans, r, c)
+activate FlashCard
+
+FlashCard --> AddCommandParser: fc
+deactivate FlashCard
+
+create AddCommand
+AddCommandParser -> AddCommand: AddCommand(fc)
+activate AddCommand
+
+
+AddCommand --> AddCommandParser : a
+deactivate AddCommand
+
+AddCommandParser --> AddressBookParser : a
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> AddressBookParser
+destroy AddCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AddCommand : execute(model)
+activate AddCommand
+
+AddCommand -> Model : addFlashCard(fc)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+create CommandResult
+AddCommand -> CommandResult: CommandResult()
+activate CommandResult
+
+CommandResult --> AddCommand : result
+deactivate CommandResult
+
+AddCommand --> LogicManager : result
+deactivate AddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
