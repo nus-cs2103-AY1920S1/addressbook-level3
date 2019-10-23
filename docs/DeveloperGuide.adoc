@@ -143,7 +143,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.module.commons` package.
 
 == Implementation
 
@@ -263,6 +263,71 @@ as individual fields in the `ArchivedModule` object.
 ** pros: Can be further adapted to search fields from `Deadline` and `Links`.
 // end::searchfiltering[]
 
+// tag::deadline[]
+=== Deadline Feature
+
+Deadline allows users to manage deadline tasks for a module.
+Users can add, edit, mark as done or in-progress, tag priority,
+sort and delete deadline tasks.
+
+==== Add Deadline
+
+===== 3.3.3.1. Implementation
+
+The format to add deadline command is as follows:
+
+....
+deadline 2 a/add d/description t/dateAndTime
+....
+
+The add deadline mechanism is facilitated by `AddDeadlineCommand` and `AddDeadlineCommandParser`.
+It takes in the following input from the user: `MODULE_CODE`, `DESCRIPTION`, `DATE_AND_TIME`,
+which will construct individual Deadline object to be added to the deadline list.
+
+Given below is an example usage scenario of how add deadline mechanism behaves at each step.
+
+Step 1. The user executes:
+
+....
+deadline 2 a/add d/do homework t/2/12/2019 1645
+....
+
+Step 2. `LogicManager` would use `ModuleBookParser#parseCommand()` to parse input from the user.
+
+Step 3. `ModuleBookParser` would determine which command is being used and creates the respective parser.
+In this case, `DeadlineCommandParser` is being created from the COMMAND.WORD: `deadline` and
+the user’s input would be passed in as a parameter.
+
+Step 4. `DeadlineCommandParser` would then determine which action is being used and creates the respective parser.
+In this case, `AddDeadlineCommandParser` is created and user's input would be parsed in as a ArgumentMultimap parameter.
+
+Step 5. `AddDeadlineCommandParser` would do a validation check on the user’s input before creating
+and returning a `AddDeadlineCommand` with `index` and `Deadline` as its attribute.
+
+Step 6. `LogicManager` would execute `AddDeadlineCommand#execute()`,
+checks whether there is an existing module,
+then adds the `TrackedModule` into the `Model` which is handled by the `ModelManager`.
+
+Step 7. `AddDeadlineCommand` would return a `CommandResult`
+to the `LogicManager` which would then be returned back to the user.
+
+The following sequence diagram shows how the add deadline operation works:
+
+.Add Deadline Command Sequence Diagram
+image::AddDeadlineSequenceDiagram.png[]
+
+===== 3.3.3.2. Design Considerations
+Aspect: Data Structure used to support add command
+
+*  Alternative 1(Current choice) : Use of ArrayList to store deadline tasks of each module.
+** Pros: Other commands (eg. edit, sort, delete) can be easily supported
+by a list operations.
+** Pros: One and only one list is created for each TrackedModule.
+** Cons: More difficult to maintain over the course of the project.
+New commands(eg. done, priority) need to edit and maintain the list constantly.
+** Cons: Potential side effects from certain commands.
+
+// end::deadline[]
 
 === Logging
 

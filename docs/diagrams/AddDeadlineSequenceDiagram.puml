@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModuleBookParser" as ModuleBookParser LOGIC_COLOR
+participant ":AddDeadlineCommandParser" as AddDeadlineCommandParser LOGIC_COLOR
+participant "a:AddDeadlineCommand" as AddDeadlineCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+skinparam ParticipantFontSize 16
+skinparam defaultFontSize 16
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deadline 2 a/add d/... t/...")
+activate LogicManager
+
+LogicManager -> ModuleBookParser : parseCommand("deadline 2 a/add d/... t/...")
+activate ModuleBookParser
+
+create AddDeadlineCommandParser
+ModuleBookParser -> AddDeadlineCommandParser
+activate AddDeadlineCommandParser
+
+AddDeadlineCommandParser --> ModuleBookParser
+deactivate AddDeadlineCommandParser
+
+ModuleBookParser -> AddDeadlineCommandParser : parse("deadline 2 a/add d/... t/...")
+activate AddDeadlineCommandParser
+
+create AddDeadlineCommand
+AddDeadlineCommandParser -> AddDeadlineCommand
+activate AddDeadlineCommand
+
+AddDeadlineCommand --> AddDeadlineCommandParser : a
+deactivate AddDeadlineCommand
+
+AddDeadlineCommandParser --> ModuleBookParser : a
+deactivate AddDeadlineCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddDeadlineCommandParser -[hidden]-> ModuleBookParser
+destroy AddDeadlineCommandParser
+
+ModuleBookParser --> LogicManager : a
+deactivate ModuleBookParser
+
+LogicManager -> AddDeadlineCommand : execute()
+activate AddDeadlineCommand
+
+AddDeadlineCommand -> Model : updateFilteredModuleList(pred)
+activate Model
+
+Model --> AddDeadlineCommand
+deactivate Model
+
+AddDeadlineCommand -> Model : addDeadline(Deadline)
+activate Model
+
+Model --> AddDeadlineCommand
+deactivate Model
+
+AddDeadlineCommand -> Model : displayTrackedList()
+activate Model
+
+Model --> AddDeadlineCommand
+deactivate Model
+
+create CommandResult
+AddDeadlineCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddDeadlineCommand
+deactivate CommandResult
+
+AddDeadlineCommand --> LogicManager : result
+deactivate AddDeadlineCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
