@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":UnregisterPatientCommandParser" as UnregisterPatientCommandParser LOGIC_COLOR
-participant "d:UnregisterPatientCommand" as UnregisterPatientCommand LOGIC_COLOR
+participant "u:UnregisterPatientCommand" as UnregisterPatientCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -33,16 +33,16 @@ create UnregisterPatientCommand
 UnregisterPatientCommandParser -> UnregisterPatientCommand
 activate UnregisterPatientCommand
 
-UnregisterPatientCommand --> UnregisterPatientCommandParser : d
+UnregisterPatientCommand --> UnregisterPatientCommandParser : u
 deactivate UnregisterPatientCommand
 
-UnregisterPatientCommandParser --> AddressBookParser : d
+UnregisterPatientCommandParser --> AddressBookParser : u
 deactivate UnregisterPatientCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 DeleteCommandParser -[hidden]-> AddressBookParser
 destroy UnregisterPatientCommandParser
 
-AddressBookParser --> LogicManager : d
+AddressBookParser --> LogicManager : u
 deactivate AddressBookParser
 
 LogicManager -> UnregisterPatientCommand : execute()
