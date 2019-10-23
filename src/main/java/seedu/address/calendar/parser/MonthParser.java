@@ -3,6 +3,7 @@ package seedu.address.calendar.parser;
 import seedu.address.calendar.model.MonthOfYear;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,8 +17,14 @@ class MonthParser {
     private static final String MONTH_NUM_PATTERN = "(?<" + MONTH_NUM_KEY + ">\\d{1,2}?)";
     private static final Pattern MONTH_FORMAT = Pattern.compile(MONTH_NUM_PATTERN + "|" + MONTH_STR_PATTERN);
 
-    MonthOfYear parse(String userInput) throws ParseException {
-        final Matcher matcher = MONTH_FORMAT.matcher(userInput.trim());
+    Optional<MonthOfYear> parse(Optional<String> monthInput) throws ParseException {
+        if (monthInput.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String input = monthInput.get();
+
+        final Matcher matcher = MONTH_FORMAT.matcher(input.trim());
 
         if (!matcher.matches()) {
             throw new ParseException(FORMAT_ERROR_MESSAGE);
@@ -33,7 +40,7 @@ class MonthParser {
             month = convertMonthStr(monthStr);
         }
 
-        return month;
+        return Optional.of(month);
     }
 
     private MonthOfYear convertMonthNum(String monthNum) throws ParseException {

@@ -4,6 +4,9 @@ import seedu.address.itinerary.model.Model;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Represents a command with hidden internal itinerary and the ability to be executed.
+ */
 public abstract class Command {
     /**
      * Executes the command and returns the result message.

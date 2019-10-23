@@ -33,4 +33,27 @@ enum DayOfWeek {
 
         return desiredDay.get();
     }
+
+    @Override
+    public String toString() {
+        switch(this) {
+        case SUN:
+            return "Sun";
+        case MON:
+            return "Mon";
+        case TUE:
+            return "Tue";
+        case WED:
+            return "Wed";
+        case THU:
+            return "Thu";
+        case FRI:
+            return "Fri";
+        case SAT:
+            return "Sat";
+        default:
+            assert false : "Only possible values are from Sun to Mon";
+            return "";
+        }
+    }
 }

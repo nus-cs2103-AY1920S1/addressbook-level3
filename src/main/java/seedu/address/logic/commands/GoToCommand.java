@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.AddressBookModel;
+import seedu.address.address.logic.commands.Command;
+import seedu.address.address.model.AddressBookModel;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 

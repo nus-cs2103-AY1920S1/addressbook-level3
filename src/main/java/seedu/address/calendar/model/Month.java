@@ -9,10 +9,10 @@ public class Month {
     private static int FIRST_DAY_OF_MONTH = 1;
     MonthOfYear monthOfYear;
     List<Day> days = new ArrayList<>();
-    int year;
+    Year year;
     int daysInMonth;
 
-    public Month(MonthOfYear monthOfYear, int year) {
+    public Month(MonthOfYear monthOfYear, Year year) {
         this.monthOfYear = monthOfYear;
         this.year = year;
         this.daysInMonth = monthOfYear.getNumDaysInMonth(year);
@@ -38,8 +38,21 @@ public class Month {
         return days.get(0);
     }
 
+    public Day getDay(int dayOfMonth) {
+        int dayOfMonthZeroBased = dayOfMonth - 1;
+        return days.get(dayOfMonthZeroBased);
+    }
+
     public MonthOfYear getMonthOfYear() {
         return monthOfYear;
+    }
+
+    public Year getYear() {
+        return year;
+    }
+
+    public static Month copy(Month month) {
+        return new Month(month.getMonthOfYear(), month.getYear());
     }
 
     /**
@@ -79,6 +92,6 @@ public class Month {
      * @return year such that it can be easily used with Zeller's rule.
      */
     private int findZellerYear(int zellerMonth) {
-        return zellerMonth > 10 ? (year - 1) : year;
+        return zellerMonth > 10 ? (year.getNumericalValue() - 1) : year.getNumericalValue();
     }
 }

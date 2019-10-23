@@ -5,9 +5,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 
+/**
+ * Navigate through the TravEzy application.
+ */
 public class GoToCommand extends Command {
     public static final String COMMAND_WORD = "goto";
-    public static final String MESSAGE_CHANGE_SUCCESS = "Switching to %s page";
+    private static final String MESSAGE_CHANGE_SUCCESS = "Switching to %s page";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Goes to the page specified.\n"
             + "Parameters: 'address_book', 'calendar', 'diary', 'financial_tracker', 'itinerary', 'main'\n"

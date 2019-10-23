@@ -1,10 +1,9 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
+import seedu.address.commons.core.Messages;
 
 /**
  * A parser to parse user input and create a GoToCommand object.
@@ -22,7 +21,7 @@ public class GoToParser implements Parser<GoToCommand> {
             return new GoToCommand(pageType);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE), pe);
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE), pe);
         }
     }
 }

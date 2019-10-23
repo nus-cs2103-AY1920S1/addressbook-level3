@@ -1,8 +1,9 @@
 package seedu.address.calendar.parser;
 
+import seedu.address.calendar.commands.AddCommitmentCommand;
 import seedu.address.calendar.commands.ShowCommand;
 import seedu.address.calendar.commands.Command;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.regex.Matcher;
@@ -38,6 +39,9 @@ public class CalendarParser {
 
         case ShowCommand.COMMAND_WORD:
             return new ShowParser().parse(arguments);
+
+        case AddCommitmentCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
