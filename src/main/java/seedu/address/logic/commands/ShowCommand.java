@@ -15,6 +15,6 @@ public class ShowCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_MOTD_MESSAGE, false, false, false, false, false, true);
+        return new CommandResult(SHOWING_MOTD_MESSAGE, false, false, false, false, false, false, true);
     }
 }

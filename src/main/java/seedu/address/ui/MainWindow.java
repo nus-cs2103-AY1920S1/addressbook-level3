@@ -197,7 +197,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the visit form or focuses on it if it's already opened.
      */
     @FXML
-    public void handleAddVisit() {
+    public void handleShowVisitForm() {
         if (!visitWindow.isShowing()) {
             visitWindow.show();
         } else {
@@ -209,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the visit form or focuses on it if it's already opened.
      */
     @FXML
-    public void handleDeleteVisit() {
+    public void handleShowVisitList() {
         if (!visitListPanel.isShowing()) {
             visitListPanel.show();
         } else {
@@ -242,12 +242,18 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isAddVisit()) {
                 visitWindow.setReportInfo(commandResult.getIdx(), commandResult.getDate(), logic);
-                handleAddVisit();
+                handleShowVisitForm();
             }
 
-            if (commandResult.isDeleteVisit()) {
+            if (commandResult.isEditVisit()) {
+                visitWindow.setOldReportInfo(commandResult.getIdx(), commandResult.getReportIdx(),
+                        commandResult.getOldReport(), logic);
+                handleShowVisitForm();
+            }
+
+            if (commandResult.isShowVisitList()) {
                 visitListPanel.setup(commandResult.getObservableVisitList());
-                handleDeleteVisit();
+                handleShowVisitList();
             }
 
             if (commandResult.isShowProfile()) {

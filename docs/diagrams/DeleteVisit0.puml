@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+
+start
+:User executes deletevisit command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([report index given])
+    :Delete chosen report;
+else ([no report index given])
+endif
+:Show List of Visit Reports;
+stop
+@enduml
