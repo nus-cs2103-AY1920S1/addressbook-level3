@@ -5,52 +5,60 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyMemeBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class MemeBook
+Class ReadOnlyMemeBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class FilteredList
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Meme {
+Class Meme
+Class Description
+Class UniqueMemeList
+}
+
+Package Template {
+Class Template
 Class Name
-Class Phone
-Class UniquePersonList
+Class UniqueTemplateList
 }
 
 Package Tag {
 Class Tag
+}
+
+Package ImagePath {
+Class ImagePath
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+MemeBook .up.|> ReadOnlyMemeBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" MemeBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+MemeBook *--> "1" UniqueMemeList
+UniqueMemeList o--> "*" Meme
+Meme *--> "1" ImagePath
+Meme *--> Description
+Meme *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+MemeBook *--> "1" UniqueTemplateList
+UniqueTemplateList o--> "*" Template
+Template *--> "1" Name
+Template *--> "1" ImagePath
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Meme : filtered list
+ModelManager -->"1" Template : filtered list
 @enduml
