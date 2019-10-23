@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -26,12 +28,16 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final int MINIMUM_HEIGHT = 650;
+    private static final int MINIMUM_WIDTH = 1250;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
     private ReadOnlyAddressBook readOnlyAddressBook;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -39,6 +45,20 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private BodyMasterDetailPane bodyMasterDetailPane;
+    private NotificationButton notificationButton;
+    private CommandBox commandBox;
+
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Button minimiseButton;
+
+    @FXML
+    private Button maximiseButton;
+
+    @FXML
+    private Button exitButton;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -61,6 +81,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane bodyMasterListPlaceholder;
 
+    @FXML
+    private StackPane notificationButtonPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -71,6 +94,7 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
         setWindowCloseHandler();
+        setMenuBarHandlers();
 
         setAccelerators();
 
@@ -131,13 +155,35 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
                 logic.selectedBodyProperty(), logic::setSelectedBody),
-                        new BodyCardSelected(logic.selectedBodyProperty()));
+                new BodyCardSelected(logic.selectedBodyProperty()));
         bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
+
+        notificationButton = NotificationButton.getInstanceOfNotifButton();
+        notificationButtonPlaceholder.getChildren().add(notificationButton.getRoot());
+
+
+    }
+
+    private void setMenuBarHandlers() {
+        menuBar.setOnMousePressed((event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        menuBar.setOnMouseDragged((event) -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        setMaximiseButtonHandler();
+        setMinimiseButtonHandler();
+        ResizableWindow.enableResizableWindow(primaryStage, MINIMUM_WIDTH, MINIMUM_HEIGHT,
+                Double.MAX_VALUE, Double.MAX_VALUE);
     }
 
     /**
@@ -157,6 +203,31 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setWindowCloseHandler() {
         primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, e -> handleExit());
+    }
+
+    /**
+     * Sets the minimising handler for minimise button.
+     */
+    private void setMinimiseButtonHandler() {
+        minimiseButton.setOnMouseClicked(click ->
+            primaryStage.setIconified(true)
+        );
+    }
+
+    /**
+     * Sets the maximising and restoring handler for maximise button
+     * Change button images respectively via css.
+     */
+    private void setMaximiseButtonHandler() {
+        maximiseButton.setOnMouseClicked(click -> {
+            primaryStage.setMaximized(true);
+            maximiseButton.setId("restoreButton");
+        });
+
+        maximiseButton.setOnMousePressed(click -> {
+            primaryStage.setMaximized(false);
+            maximiseButton.setId("maximiseButton");
+        });
     }
 
     /**

@@ -9,8 +9,8 @@ import java.util.TreeMap;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
@@ -30,7 +30,7 @@ public class LineChartPanel extends UiPart<Region> {
     final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
     final NumberAxis yAxis = new NumberAxis();
-    final LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    final AreaChart<String, Number> lineChart = new AreaChart<>(xAxis, yAxis);
     private XYChart.Series<String, Number> series = new XYChart.Series<>();
     private Map<Date, Number> freqByDate = new TreeMap<>();
     private ObservableList<Body> bodyList;
@@ -43,7 +43,7 @@ public class LineChartPanel extends UiPart<Region> {
         this.bodyList = bodyList;
     }
 
-    public LineChart getLineChart() throws ParseException {
+    public AreaChart getLineChart() throws ParseException {
         initialiseTreeMap();
         initialiseLineChart();
         updateSeries();

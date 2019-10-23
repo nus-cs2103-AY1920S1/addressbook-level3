@@ -31,16 +31,6 @@ public class Fridge implements Entity {
         this.body = Optional.ofNullable(null);
     }
 
-    public Fridge(boolean isTestFridge) {
-        if (isTestFridge) {
-            fridgeIdNum = IdentificationNumber.customGenerateTestId("F", 1);
-        } else {
-            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        }
-        this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        this.body = Optional.ofNullable(null);
-    }
-
     public Fridge(Body body) {
         this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
         this.body = Optional.ofNullable(body);
@@ -51,24 +41,10 @@ public class Fridge implements Entity {
         }
     }
 
-    public Fridge(Body body, boolean isTestFridge) {
-        if (isTestFridge) {
-            this.fridgeIdNum = IdentificationNumber.customGenerateTestId("F", 1);
-        } else {
-            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
-        }
-        this.body = Optional.ofNullable(body);
-        if (body == null) {
-            this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        } else {
-            this.fridgeStatus = FridgeStatus.OCCUPIED;
-        }
-    }
-
     //@@author ambervoong
-    private Fridge(boolean isTest, boolean wasStored) {
-        if (isTest && !wasStored) {
-            fridgeIdNum = IdentificationNumber.customGenerateTestId("F", 1);
+    private Fridge(boolean wasStored) {
+        if (!wasStored) {
+            fridgeIdNum = IdentificationNumber.customGenerateId("F", 1);
         }
     }
     //@@author
@@ -82,7 +58,7 @@ public class Fridge implements Entity {
         if (id <= 0) {
             throw new IllegalArgumentException();
         }
-        Fridge fridge = new Fridge(false, true);
+        Fridge fridge = new Fridge(true);
         fridge.fridgeIdNum = IdentificationNumber.generateNewFridgeId(fridge, id);
         return fridge;
     }
@@ -164,7 +140,7 @@ public class Fridge implements Entity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(fridgeIdNum);
+        return Objects.hash(getIdNum());
     }
 
     @Override

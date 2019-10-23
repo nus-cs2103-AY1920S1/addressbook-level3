@@ -4,15 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
 import static seedu.address.storage.JsonAdaptedBody.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBodies.ALICE;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
+import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.person.Name;
+import seedu.address.testutil.BodyBuilder;
 
 //@@author ambervoong
 public class JsonAdaptedBodyTest<priavte> {
@@ -26,8 +28,11 @@ public class JsonAdaptedBodyTest<priavte> {
 
     @Test
     public void toModelType_validBodyDetails_returnsBody() throws Exception {
-        JsonAdaptedBody body = new JsonAdaptedBody(ALICE);
-        assertEquals(ALICE, body.toModelType());
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Body body = new BodyBuilder().build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        JsonAdaptedBody jsonBody = new JsonAdaptedBody(body);
+        assertEquals(body, jsonBody.toModelType());
     }
 
     @Test

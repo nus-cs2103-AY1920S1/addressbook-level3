@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -31,7 +32,7 @@ public class ClearCommandTest {
 
     //@@author ambervoong
     @Test
-    public void executedUndo_nonEmptyAddressBook_success() {
+    public void executedUndo_nonEmptyAddressBook_success() throws CommandException {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         new ClearCommand().execute(model);
@@ -39,7 +40,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void executedUndo_emptyAddressBook_success() {
+    public void executedUndo_emptyAddressBook_success() throws CommandException {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         new ClearCommand().execute(model);

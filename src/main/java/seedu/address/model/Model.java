@@ -147,6 +147,10 @@ public interface Model {
      */
     void setNotif(Notif target, Notif editedNotif);
 
+    /**
+     *  Returns the total number of notifications in the system.
+     */
+    int getNumberOfNotifs();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

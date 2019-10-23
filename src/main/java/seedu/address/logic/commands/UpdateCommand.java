@@ -165,6 +165,8 @@ public class UpdateCommand extends UndoableCommand {
             } else {
                 model.setEntity(entity, updateEntityDescriptor.apply(entity));
             }
+            SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
+            selectCommand.execute(model);
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
