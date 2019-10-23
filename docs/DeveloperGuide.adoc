@@ -421,21 +421,37 @@ The key difference is the utility of the `SearchIncidentsCommandParser` to parse
 // end::incidentsearch[]
 
 // tag::incidentedit[]
-=== [Proposed] Incident Edit feature
+=== Incident Edit feature
 ==== Proposed Implementation
 
-The incident edit mechanism is facilitated by ...
+The incident edit mechanism is facilitated by `EditCommand` class. Validity of user input is checked when `execute()` is called and an exception is thrown if invalid.
+
+An exception will be thrown under these 2 conditions:
+* `index.getZeroBased() >= listOfIncidents.size()`
+* `!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)`
+
+Below is an activity diagram to illustrate the process that the user may go through
+
+image::EditCommandActivity.png[]
+
+To prevent direct access and modification to the attributes in an incident object, a new incident object is created
+using `EditIncident` each time the command is executed and then replaced at the specified index in a
+`List<Incident>` that is facilitated by `FilteredIncidentList` class. This is all done in the execution stage.
+
+Below is a sequence diagram to illustrate how the command executes:
+
+image::EditCommandSequence.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How incident edit executes
 
-* **Alternative 1 (current choice):** ...
-** Pros: ...
-** Cons: ...
-* **Alternative 2:** ...
-** Pros: ...
-** Cons: ...
+* **Alternative 1 (current choice):** Create a new incident object and replace the old copy in the list
+** Pros: able to control access to attributes in incident objects
+** Cons: more tedious implementation and more objects created
+* **Alternative 2:** Directly access the attributes of the incident and change it
+** Pros: less objects created, do not need to worry much about `IncidentId` of instance.
+** Cons: More prone to errors since attributes can be directly access and changed outside the class.
 // end::incidentedit[]
 
 === Logging
