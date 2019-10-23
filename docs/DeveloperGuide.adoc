@@ -173,7 +173,7 @@ Step 2. Statistics are generated on-demand and displayed to the user based on th
 through all the stored data and generate the statistics data whenever it is queried.
 * **Alternative 2:** Generate statistics each time there is change in the data and store them.
 ** Pros: Statistical data will be displayed faster as it is recalculated and stored in the JSON file storage.
-** Cons: Requires managing the storage of the statistical data and possibly lead to lowered performance of
+** Cons: Requires managing the storage of the statistical data and possibly lead to lowered performance of 
 other features such as the command which does CRUD to Employees/Events which will be slower with the need to 
 generate the statistical data and store it in the JSON file storage.
 // end::statistics[]
