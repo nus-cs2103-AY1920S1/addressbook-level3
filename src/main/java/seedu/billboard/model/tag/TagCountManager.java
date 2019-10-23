@@ -72,6 +72,7 @@ public class TagCountManager {
     }
     /**
      * Decrease count of tag given in the argument.
+     * Tag must exist in list.
      * @param tag whose count to be decreased.
      */
     public void decreaseCount(Tag tag) {
@@ -95,7 +96,7 @@ public class TagCountManager {
      * Removes all tags whose count = 0 and returns a list of tags removed.
      * @return list of tags removed.
      */
-    public List<Tag> removeAll() {
+    public List<Tag> removeZeroCount() {
         List<Tag> toReturn = new ArrayList<Tag>();
         Iterator it = count.entrySet().iterator();
         while (it.hasNext()) {
@@ -113,7 +114,7 @@ public class TagCountManager {
      * Sets the current map to the specified map given in argument.
      * @param count to replace the current map.
      */
-    public void setCount(Map<Tag, Integer> count) {
+    public void setCountMap(Map<Tag, Integer> count) {
         requireNonNull(count);
         this.count = new HashMap<>(count);
     }
@@ -122,14 +123,27 @@ public class TagCountManager {
      * Returns an unmodifiable current map.
      * @return current map.
      */
-    public Map<Tag, Integer> getCount() {
+    public Map<Tag, Integer> getCountMap() {
         return Collections.unmodifiableMap(count);
     }
 
-
     public TagCountManager getClone() {
         TagCountManager result = new TagCountManager();
-        result.setCount(getCount());
+        result.setCountMap(getCountMap());
         return result;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TagCountManager)) {
+            return false;
+        }
+
+        TagCountManager otherList = (TagCountManager) other;
+        return otherList.getCountMap().equals(getCountMap());
     }
 }

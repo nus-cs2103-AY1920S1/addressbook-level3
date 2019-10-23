@@ -14,11 +14,16 @@ import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.billboard.model.ArchiveWrapper;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.tag.Tag;
+import seedu.billboard.model.tag.TagCountManager;
+import seedu.billboard.model.tag.UniqueTagList;
 
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.
@@ -111,6 +116,15 @@ public class TypicalExpenses {
         for (Expense expense : getTypicalExpenses()) {
             bb.addExpense(expense);
         }
+        UniqueTagList tagList = new UniqueTagList();
+        TagCountManager countManager = new TagCountManager();
+        List<String> tags = new ArrayList<>(Arrays.asList("bills", "leisure", "monday", "friends"));
+        tagList.addNewTags(tags);
+        Set<Tag> count = tags.stream().map(Tag::new).collect(Collectors.toSet());
+        countManager.incrementAllCount(count);
+        bb.setCountManager(countManager.getCountMap());
+        bb.setUniqueTagList(tagList.getTagList());
+
         return bb;
     }
 

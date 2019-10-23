@@ -8,8 +8,8 @@ import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -74,8 +74,17 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         }
 
+        Expense editedExpense;
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
-        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
+
+        if (editExpenseDescriptor.getTags().isEmpty()) {
+            editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
+        } else {
+            model.decreaseCount(expenseToEdit.getTags());
+            Set<Tag> tagSet = model.retrieveTags(editExpenseDescriptor.getTags().get());
+            editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor, tagSet);
+            model.incrementCount(tagSet);
+        }
 
         if (!expenseToEdit.equals(editedExpense) && model.hasExpense(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
@@ -88,6 +97,7 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
+     * This method is used when user does not edit the tags.
      * edited with {@code editExpenseDescriptor}.
      */
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
@@ -96,8 +106,23 @@ public class EditCommand extends Command {
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
         CreatedDateTime updatedCreated = editExpenseDescriptor.getCreated().orElse(expenseToEdit.getCreated());
-        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
+        Set<Tag> updatedTags = expenseToEdit.getTags();
         return new Expense(updatedName, updatedDescription, updatedAmount, updatedCreated, updatedTags);
+    }
+
+    /**
+     * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
+     * This method is used when user edits the tags.
+     * edited with {@code editExpenseDescriptor}.
+     */
+    private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor,
+                                               Set<Tag> tags) {
+        assert expenseToEdit != null;
+        Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
+        Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
+        Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
+        CreatedDateTime updatedCreated = editExpenseDescriptor.getCreated().orElse(expenseToEdit.getCreated());
+        return new Expense(updatedName, updatedDescription, updatedAmount, updatedCreated, tags);
     }
 
     @Override
@@ -128,7 +153,7 @@ public class EditCommand extends Command {
         private Description description;
         private Amount amount;
         private CreatedDateTime created;
-        private Set<Tag> tags;
+        private List<String> tags;
 
         public EditExpenseDescriptor() {
         }
@@ -189,17 +214,17 @@ public class EditCommand extends Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setTags(List<String> tags) {
+            this.tags = (tags != null) ? new ArrayList<>(tags) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable tag names list, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<List<String>> getTags() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableList(tags)) : Optional.empty();
         }
 
         @Override

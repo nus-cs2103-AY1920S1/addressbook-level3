@@ -1,14 +1,20 @@
 package seedu.billboard.model.tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class UniqueTagListTest {
@@ -21,7 +27,7 @@ public class UniqueTagListTest {
 
     @Test
     public void contains_tagNotInList_returnsFalse() {
-        Assertions.assertFalse(uniqueTagList.contains("ALICE"));
+        assertFalse(uniqueTagList.contains("ALICE"));
     }
 
     @Test
@@ -63,5 +69,70 @@ public class UniqueTagListTest {
         expectedSet.add(new Tag("new"));
         uniqueTagList.add("new");
         assertEquals(expectedSet, uniqueTagList.retrieveTags(Collections.singletonList("new")));
+    }
+
+    @Test
+    public void remove_nullTag_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueTagList.remove(null));
+    }
+
+    @Test
+    public void remove_tagInList_success() {
+        uniqueTagList.add("dinner");
+        uniqueTagList.remove("dinner");
+        assertFalse(uniqueTagList.contains("dinner"));
+    }
+
+    @Test
+    public void removeAll_tagsInList_success() {
+        List<String> tagNames = new ArrayList<>();
+        tagNames.add("lunch");
+        tagNames.add("drink");
+        uniqueTagList.addNewTags(tagNames);
+        List<Tag> tags = tagNames.stream().map(Tag::new).collect(Collectors.toList());
+        uniqueTagList.removeAll(tags);
+        assertFalse(uniqueTagList.contains("lunch"));
+        assertFalse(uniqueTagList.contains("drink"));
+    }
+
+    @Test
+    public void removeAll_nullTags_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueTagList.removeAll(null));
+    }
+
+    @Test
+    public void setList_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueTagList.setList(null));
+    }
+
+    @Test
+    public void setList_success() {
+        Map<String, Tag> expected = new HashMap<>();
+        expected.put("test", new Tag("test"));
+        UniqueTagList actual = new UniqueTagList();
+        actual.setList(expected);
+        assertEquals(expected, actual.getTagList());
+    }
+
+    @Test
+    public void getTagNames_success() {
+        UniqueTagList tagList = new UniqueTagList();
+        List<String> names = new ArrayList<>();
+        names.add("hello");
+        names.add("bye");
+        Collections.sort(names);
+        tagList.addNewTags(names);
+        assertEquals(names, tagList.getTagNames());
+    }
+
+    @Test
+    public void equals_test() {
+        UniqueTagList empty = new UniqueTagList();
+        UniqueTagList oneTag = new UniqueTagList();
+        oneTag.add("test10");
+        UniqueTagList oneTagCopy = new UniqueTagList();
+        oneTagCopy.add("test10");
+        assertNotEquals(empty, oneTag);
+        assertEquals(oneTag, oneTagCopy);
     }
 }

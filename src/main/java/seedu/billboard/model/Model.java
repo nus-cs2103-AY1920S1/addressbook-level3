@@ -113,6 +113,7 @@ public interface Model {
      * @return list of unique tag names.
      */
     List<String> getTagNames();
+
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenses();
 

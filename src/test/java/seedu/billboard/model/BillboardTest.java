@@ -152,7 +152,7 @@ public class BillboardTest {
 
         @Override
         public Map<Tag, Integer> getCountManager() {
-            return countManager.getCount();
+            return countManager.getCountMap();
         }
 
     }

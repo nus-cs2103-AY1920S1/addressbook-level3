@@ -1,6 +1,6 @@
 package seedu.billboard.testutil;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,7 +11,6 @@ import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
-import seedu.billboard.model.tag.Tag;
 
 /**
  * A utility class to help with building EditExpenseDescriptor objects.
@@ -37,7 +36,7 @@ public class EditExpenseDescriptorBuilder {
         descriptor.setDescription(expense.getDescription());
         descriptor.setAmount(expense.getAmount());
         descriptor.setCreated(expense.getCreated());
-        descriptor.setTags(expense.getTags());
+        descriptor.setTags(expense.getTags().stream().map(s -> s.tagName).collect(Collectors.toList()));
     }
 
     /**
@@ -78,7 +77,7 @@ public class EditExpenseDescriptorBuilder {
      * that we are building.
      */
     public EditExpenseDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
+        List<String> tagSet = Stream.of(tags).collect(Collectors.toList());
         descriptor.setTags(tagSet);
         return this;
     }
