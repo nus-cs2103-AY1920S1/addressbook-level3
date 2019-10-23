@@ -14,7 +14,7 @@ import seedu.address.transaction.model.Transaction;
 public class TransactionList {
     private final ArrayList<Transaction> original;
     private ArrayList<Transaction> tArrList;
-    boolean isModifiable;
+    private boolean isModifiable;
     //private ObservableList<Transaction> tList;
 
     /**
@@ -85,7 +85,7 @@ public class TransactionList {
      * Deletes transaction at the given index.
      * @param index Index of transaction to be deleted.
      */
-    public void delete(int index) throws UnsupportedOperationException{
+    public void delete(int index) throws UnsupportedOperationException {
         if (isModifiable) {
             Transaction transaction = tArrList.get(index);
             tArrList.remove(index);
@@ -108,7 +108,7 @@ public class TransactionList {
      * @param index Index to replace.
      * @param transaction Transaction to replace current transaction at specified index.
      */
-    public void set(int index, Transaction transaction) throws UnsupportedOperationException{
+    public void set(int index, Transaction transaction) throws UnsupportedOperationException {
         if (isModifiable) {
             Transaction trans = tArrList.get(index);
             tArrList.set(index, transaction);

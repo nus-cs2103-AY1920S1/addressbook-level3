@@ -82,7 +82,7 @@ class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-                                     Model expectedModel)  {
+                                      Model expectedModel) {
         try {
             CommandResult result = logic.execute(inputCommand);
             assertEquals(expectedMessage, result.getFeedbackToUser());

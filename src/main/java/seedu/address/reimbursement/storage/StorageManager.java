@@ -54,7 +54,7 @@ public class StorageManager implements Storage {
     private HashMap<String, LocalDate> readReimbursementFile() {
         try {
             HashMap<String, LocalDate> map = new HashMap<>();
-            fileReimbursement.getAbsoluteFile().getParentFile().mkdirs();//theres an error here
+            fileReimbursement.getAbsoluteFile().getParentFile().mkdirs();
             fileReimbursement.createNewFile();
             BufferedReader bfr = new BufferedReader(new FileReader(fileReimbursement));
             String line = null;
