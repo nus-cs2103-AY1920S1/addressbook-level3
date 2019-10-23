@@ -41,9 +41,7 @@ The `.puml` files used to create diagrams in this document can be found in the l
 * Shuts down the components and invokes cleanup method where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-`LogsCenter` plays an important role at the architecture level. Here is how it works:
-
-* Uses `LogsCenter` to write log messages to the App's log file.
+`LogsCenter` plays an important role at the architecture level. `LogsCenter` is used to write log messages to the App's log file.
 
 The rest of the App consists of the following four components:
 
