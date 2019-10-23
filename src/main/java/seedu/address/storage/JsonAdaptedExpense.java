@@ -120,7 +120,8 @@ class JsonAdaptedExpense {
         }
         final Description modelBudgetName = new Description(budgetName);
 
-        return new Expense(modelDescription, modelPrice, modelCategory, modelTimestamp, modelBudgetName, modelUniqueIdentifier);
+        return new Expense(modelDescription, modelPrice, modelCategory, modelTimestamp, modelBudgetName,
+                modelUniqueIdentifier);
     }
 
 }

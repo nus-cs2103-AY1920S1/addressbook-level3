@@ -1,10 +1,11 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import static java.util.Objects.requireNonNull;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -145,7 +146,8 @@ class JsonAdaptedBudget {
         }
         final Percentage proportionUsed = new Percentage(proportionValue);
 
-        Budget budget = new Budget(modelDescription, modelAmount, modelStartDate, modelEndDate, modelPeriod, expenseList, isPrimary, proportionUsed);
+        Budget budget = new Budget(modelDescription, modelAmount, modelStartDate, modelEndDate,
+                modelPeriod, expenseList, isPrimary, proportionUsed);
 
         return budget;
     }

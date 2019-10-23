@@ -9,9 +9,10 @@ import java.util.Objects;
  * dummy.
  */
 public class Percentage {
-    private final int proportion;
     public static final String MESSAGE_CONSTRAINTS =
             "Percentage should be a non-negative integer less than or equal to 100.";
+
+    private final int proportion;
 
     public Percentage(int proportion) {
         checkArgument(isValidPercentage(proportion), MESSAGE_CONSTRAINTS);
@@ -22,13 +23,20 @@ public class Percentage {
         return proportion;
     }
 
+    /**
+     * Calculates the percentage from double division.
+     * @param num The numerator.
+     * @param den The denominator.
+     * @return A Percentage representing the proportion of num over den.
+     * @throws IllegalArgumentException If num is larger than den, or num and den have different signs.
+     */
     public static Percentage calculate(double num, double den) throws IllegalArgumentException {
         if (num > den) {
             throw new IllegalArgumentException("Numerator cannot be larger than denominator");
         } else if (num * den < 0) {
             throw new IllegalArgumentException("Numerator and denominator must have same sign");
         }
-        return new Percentage ((int)Math.round(num / den * 100));
+        return new Percentage ((int) Math.round(num / den * 100));
     }
 
     public boolean reach(Percentage threshold) {

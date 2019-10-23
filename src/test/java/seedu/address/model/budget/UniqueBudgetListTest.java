@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBudgets.SCHOOL;
 import static seedu.address.testutil.TypicalBudgets.OUTSIDE_SCHOOL;
+import static seedu.address.testutil.TypicalBudgets.SCHOOL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,8 +67,8 @@ public class UniqueBudgetListTest {
     @Test
     public void setBudgets_list_replacesOwnListWithProvidedList() {
         uniqueBudgetList.add(SCHOOL);
-        List<Budget> BudgetList = Collections.singletonList(OUTSIDE_SCHOOL);
-        uniqueBudgetList.setBudgets(BudgetList);
+        List<Budget> budgetList = Collections.singletonList(OUTSIDE_SCHOOL);
+        uniqueBudgetList.setBudgets(budgetList);
         UniqueBudgetList expectedUniqueBudgetList = new UniqueBudgetList();
         expectedUniqueBudgetList.add(OUTSIDE_SCHOOL);
         assertEquals(expectedUniqueBudgetList, uniqueBudgetList);
@@ -82,7 +82,7 @@ public class UniqueBudgetListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueBudgetList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+            uniqueBudgetList.asUnmodifiableObservableList().remove(0));
     }
 }

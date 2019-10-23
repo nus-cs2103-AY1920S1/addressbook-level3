@@ -118,6 +118,10 @@ public class Budget {
                 DEFAULT_BUDGET_PERIOD);
     }
 
+    /**
+     * Adds an expense to this budget's expense list.
+     * @param e The expense to add.
+     */
     public void addExpense(Expense e) {
         if (!expenses.contains(e)) {
             expenses.add(e);
@@ -201,10 +205,15 @@ public class Budget {
         expenses.remove(toRemove);
     }
 
+    /**
+     * Sets the specified expense in the expense list to an updated one.
+     * @param target The expense to be updated.
+     * @param editedExpense The edited expense.
+     */
     public void setExpense(Expense target, Expense editedExpense) {
         if (expenses.contains(target)) {
-           int index = expenses.indexOf(target);
-           expenses.set(index, editedExpense);
+            int index = expenses.indexOf(target);
+            expenses.set(index, editedExpense);
         }
     }
 
@@ -218,6 +227,11 @@ public class Budget {
         return currentPeriodExpenses;
     }
 
+    /**
+     * Checks if a timestamp is within the current budget period.
+     * @param timestamp The timestamp to be checked against the current period.
+     * @return A boolean indicating whether the timestamp is within the current period.
+     */
     public boolean withinCurrentPeriod(Timestamp timestamp) {
         return (timestamp.isAfter(startDate) || timestamp.isEqual(startDate))
                 && (timestamp.isBefore(endDate));
