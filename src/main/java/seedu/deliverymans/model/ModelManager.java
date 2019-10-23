@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -49,6 +50,7 @@ public class ModelManager implements Model {
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
+    private final FilteredList<Deliveryman> statusSortedDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Restaurant> editingRestaurant;
     private final UndoHistory<Data> undoHistory;
@@ -79,6 +81,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
+        statusSortedDeliverymen = new FilteredList<>(this.deliverymenDatabase.getStatusSortedDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
@@ -302,19 +305,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Deliveryman> listAvailableDeliverymen() {
-        return deliverymenDatabase.listAvailableMen();
-    }
-
-    @Override
-    public void listUnavailableDeliverymen() {
-        deliverymenDatabase.listUnavailableMen();
-    }
-
-    @Override
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireAllNonNull(target, editedDeliveryman);
         deliverymenDatabase.setDeliveryman(target, editedDeliveryman);
+    }
+
+    @Override
+    public void showAvailableDeliverymen() {
+        deliverymenDatabase.setAsAvailable();
+        //updateStatusFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
     }
 
     //=========== Order Methods =============================================================
@@ -427,6 +426,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Deliveryman> getStatusSortedList() {
+        return statusSortedDeliverymen;
+    }
+
+    @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {
         return filteredRestaurants;
     }
@@ -457,6 +461,12 @@ public class ModelManager implements Model {
     public void updateFilteredCustomerList(Predicate<Customer> predicate) {
         requireNonNull(predicate);
         filteredCustomers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate) {
+        requireNonNull(predicate);
+        statusSortedDeliverymen.setPredicate(predicate);
     }
 
     @Override

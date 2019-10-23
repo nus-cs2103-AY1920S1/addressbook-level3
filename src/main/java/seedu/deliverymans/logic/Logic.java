@@ -63,6 +63,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of deliverymen */
     ObservableList<Deliveryman> getFilteredDeliverymenList();
 
+    /** Returns a list of deliverymen filtered by a given status*/
+    ObservableList<Deliveryman> getFilteredStatusList();
+
     /**
      * Returns the user prefs' deliverymen database file path.
      */

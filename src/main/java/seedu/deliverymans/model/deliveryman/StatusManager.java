@@ -1,9 +1,12 @@
 package seedu.deliverymans.model.deliveryman;
 
 import java.util.List;
+import java.util.Set;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 // import javafx.collections.transformation.SortedList;
+import javafx.collections.transformation.FilteredList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
 
 /**
@@ -16,16 +19,20 @@ public class StatusManager {
 
     //private ObservableList<Deliveryman> statusList = SortedList<Deliveryman>(null);
 
-    private final UniqueDeliverymanList deliverymen;
+    private final UniqueDeliverymanList deliverymen; // used for sorting later
     private final UniqueStatusList statuses;
 
-    private ObservableList<Deliveryman> availableMen;
-    private ObservableList<Deliveryman> unavailableMen;
-    private ObservableList<Deliveryman> deliveringMen;
+    private ObservableList<Deliveryman> availableMen = FXCollections.observableArrayList();
+    private ObservableList<Deliveryman> unavailableMen = FXCollections.observableArrayList();
+    private ObservableList<Deliveryman> deliveringMen = FXCollections.observableArrayList();
 
     public StatusManager(UniqueDeliverymanList deliverymenList) {
-        this.deliverymen = deliverymenList;
-        this.statuses = new UniqueStatusList();
+        deliverymen = deliverymenList;
+        statuses = new UniqueStatusList();
+    }
+
+    public void addAvailableMan(Deliveryman deliveryman) {
+        availableMen.add(deliveryman);
     }
 
     /**
@@ -85,7 +92,7 @@ public class StatusManager {
     /**
      * Returns a list of all available deliverymen.
      */
-    public List<Deliveryman> listAvailableMen() {
+    public ObservableList<Deliveryman> listAvailableMen() {
         return availableMen;
     }
 

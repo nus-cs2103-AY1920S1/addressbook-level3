@@ -287,8 +287,8 @@ public interface Model {
     boolean hasDeliveryman(Deliveryman deliveryman);
 
     /**
-     * Adds the given customer.
-     * {@code customer} must not already exist in the address book.
+     * Adds the given deliveryman.
+     * {@code deliveryman} must not already exist in the deliverymen list.
      */
     void addDeliveryman(Deliveryman deliveryman);
 
@@ -298,16 +298,7 @@ public interface Model {
      */
     void deleteDeliveryman(Deliveryman target);
 
-    /**
-     * Returns a list of all the currently available deliverymen.
-     */
-    List<Deliveryman> listAvailableDeliverymen();
-
-    /**
-     * Returns a list of all the currently unavailable deliverymen.
-     */
-    void listUnavailableDeliverymen();
-
+    ObservableList<Deliveryman> getStatusSortedList();
     /**
      * Replaces the given deliveryman {@code target} with {@code editedDeliveryman}.
      * {@code target} must exist in the deliverymen database.
@@ -321,6 +312,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDeliverymenList(Predicate<Deliveryman> predicate);
+
+    /**
+     * Shows all the available deliverymen on the status list.
+     */
+    void showAvailableDeliverymen();
+
+    void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate);
 
     //=========== Order Methods =============================================================
 

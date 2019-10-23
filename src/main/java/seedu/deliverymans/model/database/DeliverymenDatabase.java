@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.StatusManager;
@@ -17,6 +19,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
 
     private final UniqueDeliverymanList deliverymen;
     private final StatusManager statusManager;
+    private ObservableList<Deliveryman> statusSortedList = FXCollections.observableArrayList();;
 
     {
         deliverymen = new UniqueDeliverymanList();
@@ -31,9 +34,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     public DeliverymenDatabase(ReadOnlyDeliverymenDatabase toBeCopied) {
         this();
         resetData(toBeCopied);
+        initStatusManager();
     }
-
-    //// list overwrite operations
 
     /**
      * Replaces the contents of the deliverymen list with {@code deliverymen}.
@@ -52,6 +54,15 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         setDeliverymen(newData.getDeliverymenList());
     }
 
+    /**
+     * Updates the status manager with new data as well.
+     */
+    public void initStatusManager() {
+        for (Deliveryman man: deliverymen) {
+            statusManager.addAvailableMan(man);
+        }
+    }
+
     //// deliverymen-level operations
 
     /**
@@ -68,14 +79,28 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void addDeliveryman(Deliveryman man) {
         deliverymen.add(man);
+        statusManager.addAvailableMan(man);
         //statusManager.updateStatusOf(man,"UNAVAILABLE");
     }
+
+    /// status methods
 
     /**
      * Lists all the available deliverymen;
      */
-    public List<Deliveryman> listAvailableMen() {
+    public ObservableList<Deliveryman> getAvailableDeliverymenList() {
         return statusManager.listAvailableMen();
+    }
+
+    public void setAsAvailable() {
+        //statusSortedList = statusManager.listAvailableMen();
+        for (Deliveryman man: statusManager.listAvailableMen()) {
+            statusSortedList.add(man);
+        }
+    }
+
+    public ObservableList<Deliveryman> getStatusSortedDeliverymenList() {
+        return statusSortedList;
     }
 
     /**
@@ -88,7 +113,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Replaces the given deliveryman {@code target} in the list with {@code editedDeliveryman}.
      * {@code target} must exist in the deliveryman database.
-     * The customer identity of {@code editedDeliveryman} must not be the same as another existing deliveryman in the
+     * The deliveryman identity of {@code editedDeliveryman} must not be the same as another existing deliveryman in the
      * deliverymen database.
      */
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {

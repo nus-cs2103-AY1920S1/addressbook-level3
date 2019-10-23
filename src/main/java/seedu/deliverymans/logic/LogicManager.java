@@ -99,6 +99,11 @@ public class LogicManager implements Logic {
         return model.getDeliverymenDatabaseFilePath();
     }
 
+    @Override
+    public ObservableList<Deliveryman> getFilteredStatusList() {
+        return model.getStatusSortedList();
+    }
+
     //=========== Restaurant =============================================================
     @Override
     public ReadOnlyRestaurantDatabase getRestaurantDatabase() {
