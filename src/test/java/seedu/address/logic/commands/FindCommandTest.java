@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalExpenses.CHRISTMAS;
 import static seedu.address.testutil.TypicalExpenses.SHOPPING;
 import static seedu.address.testutil.TypicalExpenses.VALENTINES;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 
 import java.util.Arrays;
@@ -26,8 +27,8 @@ import seedu.address.model.expense.NameContainsKeywordsPredicate;
  */
 public class FindCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseList(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExpenseList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseList(), getTypicalExchangeData(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalExpenseList(), getTypicalExchangeData(), new UserPrefs());
 
     @Test
     public void equals() {

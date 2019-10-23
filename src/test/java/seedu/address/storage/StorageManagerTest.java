@@ -26,7 +26,8 @@ public class StorageManagerTest {
     public void setUp() {
         JsonExpenseListStorage expenseListStorage = new JsonExpenseListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(expenseListStorage, userPrefsStorage);
+        JsonExchangeDataStorage exchangeDataStorage = new JsonExchangeDataStorage(getTempFilePath("prefs"));
+        storageManager = new StorageManager(expenseListStorage, exchangeDataStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -65,4 +66,8 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getExpenseListFilePath());
     }
 
+    @Test
+    public void getExchangeDataFilePath() {
+        assertNotNull(storageManager.getExchangeDataFilePath());
+    }
 }

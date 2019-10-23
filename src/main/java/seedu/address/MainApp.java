@@ -21,8 +21,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.storage.ExchangeDataStorage;
 import seedu.address.storage.ExpenseListStorage;
+import seedu.address.storage.JsonExchangeDataStorage;
 import seedu.address.storage.JsonExpenseListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -57,7 +60,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ExpenseListStorage expenseListStorage = new JsonExpenseListStorage(userPrefs.getExpenseListFilePath());
-        storage = new StorageManager(expenseListStorage, userPrefsStorage);
+        ExchangeDataStorage exchangeDataStorage = new JsonExchangeDataStorage(userPrefs.getExchangeDataFilePath());
+        storage = new StorageManager(expenseListStorage, exchangeDataStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -76,11 +80,13 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExpenseList> expenseListOptional;
         ReadOnlyExpenseList initialData;
+        ExchangeData exchangeData = new ExchangeData();
         try {
             expenseListOptional = storage.readExpenseList();
             if (!expenseListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExpenseList");
             }
+            exchangeData = storage.readExchangeData().get();
             initialData = expenseListOptional.orElseGet(SampleDataUtil::getSampleExpenseList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExpenseList");
@@ -90,7 +96,7 @@ public class MainApp extends Application {
             initialData = new ExpenseList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, exchangeData, userPrefs);
     }
 
     private void initLogging(Config config) {

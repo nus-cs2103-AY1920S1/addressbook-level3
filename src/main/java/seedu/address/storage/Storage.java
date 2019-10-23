@@ -8,11 +8,12 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exchangedata.ExchangeData;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends ExpenseListStorage, UserPrefsStorage {
+public interface Storage extends ExpenseListStorage, ExchangeDataStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -25,6 +26,9 @@ public interface Storage extends ExpenseListStorage, UserPrefsStorage {
 
     @Override
     Optional<ReadOnlyExpenseList> readExpenseList() throws DataConversionException, IOException;
+
+    @Override
+    Optional<ExchangeData> readExchangeData() throws DataConversionException, IOException;
 
     @Override
     void saveExpenseList(ReadOnlyExpenseList addressBook) throws IOException;

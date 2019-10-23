@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -53,6 +54,24 @@ public interface Model {
     ReadOnlyExpenseList getExpenseList();
 
     /**
+     * Returns the user prefs' exchangeData file path.
+     */
+    Path getExchangeDataFilePath();
+
+    /**
+     * Sets the user prefs' exchangeData file path.
+     */
+    void setExchangeDataFilePath(Path exchangeDataFilePath);
+
+    /**
+     * Replaces exchange data with the data in {@code exchangeData}.
+     */
+    void setExchangeData(ExchangeData exchangeData);
+
+    /** Returns the ExchangeData */
+    ExchangeData getExchangeData();
+
+    /**
      * Returns true if an expense with the same identity as {@code expense} exists in the expense list.
      */
     boolean hasExpense(Expense expense);
@@ -85,4 +104,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenseList(Predicate<Expense> predicate);
+
+
 }

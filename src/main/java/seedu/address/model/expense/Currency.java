@@ -14,6 +14,12 @@ public class Currency {
     public static final String VALIDATION_REGEX = "([a-zA-Z]){3}";
 
     public final String value;
+    public final Double rate;
+
+    public Currency() {
+        value = "";
+        rate = 0.0;
+    }
 
     /**
      * Constructs an {@code Amount}.
@@ -24,6 +30,8 @@ public class Currency {
         requireNonNull(currency);
         checkArgument(isValidCurrency(currency), MESSAGE_CONSTRAINTS);
         value = currency.toUpperCase();
+        //TODO: Retrieve rate from ExchangeData
+        rate = 0.0;
     }
 
     /**

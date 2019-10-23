@@ -20,6 +20,7 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.ExpenseBuilder;
 
@@ -120,6 +121,26 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyExpenseList getExpenseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getExchangeDataFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setExchangeDataFilePath(Path exchangeDataFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setExchangeData(ExchangeData exchangeData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ExchangeData getExchangeData() {
             throw new AssertionError("This method should not be called.");
         }
 

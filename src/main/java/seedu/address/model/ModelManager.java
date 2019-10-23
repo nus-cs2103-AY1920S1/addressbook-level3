@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -20,25 +21,27 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ExpenseList expenseList;
+    private ExchangeData exchangeData;
     private final UserPrefs userPrefs;
     private final FilteredList<Expense> filteredExpenses;
 
     /**
      * Initializes a ModelManager with the given expenseList and userPrefs.
      */
-    public ModelManager(ReadOnlyExpenseList expenseList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExpenseList expenseList, ExchangeData exchangeData, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(expenseList, userPrefs);
+        requireAllNonNull(expenseList, exchangeData, userPrefs);
 
         logger.fine("Initializing with expense list: " + expenseList + " and user prefs " + userPrefs);
 
         this.expenseList = new ExpenseList(expenseList);
+        this.exchangeData = new ExchangeData(exchangeData);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExpenses = new FilteredList<>(this.expenseList.getExpenseList());
     }
 
     public ModelManager() {
-        this(new ExpenseList(), new UserPrefs());
+        this(new ExpenseList(), new ExchangeData(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,6 +79,17 @@ public class ModelManager implements Model {
         userPrefs.setExpenseListFilePath(expenseListFilePath);
     }
 
+    @Override
+    public Path getExchangeDataFilePath() {
+        return userPrefs.getExchangeDataFilePath();
+    }
+
+    @Override
+    public void setExchangeDataFilePath(Path exchangeDataFilePath) {
+        requireNonNull(exchangeDataFilePath);
+        userPrefs.setExchangeDataFilePath(exchangeDataFilePath);
+    }
+
     //=========== ExpenseList ================================================================================
 
     @Override
@@ -86,6 +100,16 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyExpenseList getExpenseList() {
         return expenseList;
+    }
+
+    @Override
+    public void setExchangeData(ExchangeData exchangeData) {
+        this.exchangeData = exchangeData;
+    }
+
+    @Override
+    public ExchangeData getExchangeData() {
+        return exchangeData;
     }
 
     @Override
@@ -144,6 +168,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return expenseList.equals(other.expenseList)
+                && exchangeData.equals(other.exchangeData)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpenses.equals(other.filteredExpenses);
     }

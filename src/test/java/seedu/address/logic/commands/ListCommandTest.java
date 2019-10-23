@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
@@ -22,8 +23,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExpenseList(), new UserPrefs());
-        expectedModel = new ModelManager(model.getExpenseList(), new UserPrefs());
+        model = new ModelManager(getTypicalExpenseList(), getTypicalExchangeData(), new UserPrefs());
+        expectedModel = new ModelManager(model.getExpenseList(), model.getExchangeData(), new UserPrefs());
     }
 
     @Test
