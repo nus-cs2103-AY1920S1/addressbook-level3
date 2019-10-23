@@ -132,7 +132,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagramNew.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -146,7 +146,7 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Member` or 'Task' can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Member` or 'Task' needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagramNew.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -272,7 +272,7 @@ The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFil
 
 The following sequence diagram shows how the 'get-member-stats' operation works. 
 
-image::UndoRedoState1.png[]
+image::GetStatisticsSequenceDiagram.png[]
 Figure 10. Operational flow of 'GetStatisticsCommand'
 
 [NOTE]
@@ -280,7 +280,7 @@ The 'get-member-stats' operation is similar to the one shown in figure 10.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::GetStatisticsActivityDiagram.png[]
 
 ==== Design Considerations
 
