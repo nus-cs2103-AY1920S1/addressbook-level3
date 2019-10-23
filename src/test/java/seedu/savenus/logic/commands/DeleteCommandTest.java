@@ -9,6 +9,10 @@ import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.commons.core.Messages;
@@ -31,11 +35,22 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
             new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
+    private List<Index> indexes;
+    private List<Index> secondindexes;
+
+    @BeforeEach
+    public void setUp() {
+        indexes = new ArrayList<>();
+        indexes.add(INDEX_FIRST_FOOD);
+
+        secondindexes = new ArrayList<>();
+        secondindexes.add(INDEX_SECOND_FOOD);
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Food foodToDelete = model.getFilteredFoodList().get(INDEX_FIRST_FOOD.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_FOOD);
+        DeleteCommand deleteCommand = new DeleteCommand(indexes);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
 
@@ -49,7 +64,8 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFoodList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        indexes.add(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(indexes);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
     }
@@ -57,7 +73,8 @@ public class DeleteCommandTest {
     @Test
     public void execute_infiniteIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(Integer.MAX_VALUE);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        indexes.add(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(indexes);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
     }
@@ -67,7 +84,7 @@ public class DeleteCommandTest {
         showFoodAtIndex(model, INDEX_FIRST_FOOD);
 
         Food foodToDelete = model.getFilteredFoodList().get(INDEX_FIRST_FOOD.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_FOOD);
+        DeleteCommand deleteCommand = new DeleteCommand(indexes);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
         Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
@@ -83,24 +100,25 @@ public class DeleteCommandTest {
         showFoodAtIndex(model, INDEX_FIRST_FOOD);
 
         Index outOfBoundIndex = INDEX_SECOND_FOOD;
+        indexes.add(outOfBoundIndex);
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getMenu().getFoodList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(indexes);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_FOOD);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_FOOD);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(indexes);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(secondindexes);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_FOOD);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(indexes);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

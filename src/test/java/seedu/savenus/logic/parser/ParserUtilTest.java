@@ -6,13 +6,16 @@ import static seedu.savenus.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.savenus.commons.core.index.Index;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Description;
 import seedu.savenus.model.food.Name;
@@ -47,6 +50,22 @@ public class ParserUtilTest {
             ParseException.class,
             MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1))
         );
+    }
+
+    @Test
+    public void parseIndexes_outOfRangeInput_throwsParseException() {
+        assertThrows(
+                ParseException.class,
+                MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndexes(Long.toString(Integer.MAX_VALUE + 1))
+        );
+    }
+
+    @Test
+    public void parseValidIndexes_test() throws ParseException {
+        List<Index> indexes = new ArrayList<Index>();
+        indexes.add(Index.fromOneBased(3));
+        indexes.add(Index.fromOneBased(4));
+        assertEquals(ParserUtil.parseIndexes("3 4"), indexes);
     }
 
     @Test
