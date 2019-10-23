@@ -215,7 +215,7 @@ The mechanism is also supported by the package `seedu.address.model.export`, con
 * `DocumentFilePath` -- Represents the path to a specific document, relative to its immediate parent directory
 * `DirectoryPath` -- Represents the path to a specific directory - either absolute or relative to the application directory
 
-Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work. 
+Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work.
 Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
 It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCard` s to a `.docx`
 document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
