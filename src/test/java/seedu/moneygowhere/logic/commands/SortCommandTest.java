@@ -54,13 +54,13 @@ class SortCommandTest {
     }
 
     @Test
-    void execute_defaultFieldsSortedList_success() {
+    public void execute_defaultFieldsSortedList_success() {
         SortCommand command = new SortCommand(SortUtil.getDefaultSortFieldSet());
         assertCommandSuccess(command, model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    void execute_oneFieldSortedList_success() {
+    public void execute_oneFieldSortedList_success() {
         LinkedHashSet<SortField> fields = new LinkedHashSet<>();
         fields.add(new SortField(SortAttribute.DATE, SortOrder.ASCENDING));
 
@@ -71,7 +71,7 @@ class SortCommandTest {
     }
 
     @Test
-    void execute_differentFieldsSortedList_success() {
+    public void execute_differentFieldsSortedList_success() {
         LinkedHashSet<SortField> fields = new LinkedHashSet<>();
         fields.add(new SortField(SortAttribute.NAME, SortOrder.DESCENDING));
         fields.add(new SortField(SortAttribute.DATE, SortOrder.ASCENDING));
