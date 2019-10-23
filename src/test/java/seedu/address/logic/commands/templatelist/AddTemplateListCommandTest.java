@@ -115,12 +115,12 @@ public class AddTemplateListCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getGroceryListFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setGroceryListFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

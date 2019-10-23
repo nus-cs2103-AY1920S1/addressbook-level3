@@ -116,12 +116,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getGroceryListFilePath() {
         return userPrefs.getGroceryListFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setGroceryListFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setGroceryListFilePath(addressBookFilePath);
     }

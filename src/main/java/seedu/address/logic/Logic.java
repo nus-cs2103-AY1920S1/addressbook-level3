@@ -45,7 +45,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getGroceryListFilePath();
 
     /**
      * Returns the TemplateList.
