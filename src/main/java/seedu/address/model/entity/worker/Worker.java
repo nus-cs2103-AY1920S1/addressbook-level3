@@ -11,8 +11,6 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_NAME;
-
 //@@author shaoyi
 /**
  * Represents a worker entry in Mortago.

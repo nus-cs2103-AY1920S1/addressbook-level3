@@ -25,8 +25,8 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
 
     @Override
     public boolean test(Worker worker) {
-        boolean workerMatch = workerMatch(argumentMultimap, worker, PREFIX_FIRST_NAME, PREFIX_LAST_NAME,
-                PREFIX_PHONE, PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION,
+        boolean workerMatch = workerMatch(argumentMultimap, worker, PREFIX_NAME,
+                PREFIX_PHONE_NUMBER, PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION,
                 PREFIX_EMPLOYMENT_STATUS);
         return workerMatch;
     }

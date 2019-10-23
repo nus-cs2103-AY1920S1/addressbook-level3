@@ -42,7 +42,7 @@ public class BodyCardSelected extends UiPart<Region> {
             if (newValue == null) {
                 return;
             }
-            name.setText(newValue.getName().fullName);
+            name.setText(newValue.getName().toString());
             bodyId.setText(newValue.getIdNum().toString());
             dateOfAdmission.setText(newValue.getDateOfAdmission().toString());
         });

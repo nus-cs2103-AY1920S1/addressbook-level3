@@ -7,10 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.entity.body.BodyContainsAttributesKeywordsPredicate;
 import seedu.address.model.entity.worker.WorkerContainsAttributesKeywordsPredicate;
 
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * Lists all persons in the address book to the user.
@@ -18,9 +15,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
-
-    public static final String MESSAGE_SUCCESS_BODIES = " all persons";
-    public static final String MESSAGE_SUCCESS_WORKERS = " all persons";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Filters entities by attributes supplied\n"
             + "Parameters: FLAG (must be either b/w) /ATTRIBUTE attribute\n"
