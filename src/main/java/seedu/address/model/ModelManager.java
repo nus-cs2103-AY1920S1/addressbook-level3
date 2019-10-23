@@ -183,6 +183,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getFirstQuizQuestionAsList() {
+        return appData.getQuizQuestionAsList();
+    }
+
+    @Override
     public Answer showQuizAnswer(int index) {
         return appData.showQuizAnswer(index);
     }

@@ -132,4 +132,9 @@ public class LogicManager implements Logic {
     public ObservableList<Question> getFilteredQuizQuestionList() {
         return model.getFilteredQuizQuestionList();
     }
+
+    @Override
+    public ObservableList<Question> getFirstQuizQuestionAsList() {
+        return model.getFirstQuizQuestionAsList();
+    }
 }

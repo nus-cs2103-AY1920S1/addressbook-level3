@@ -14,6 +14,7 @@ import seedu.address.model.question.Question;
  */
 public class QuizQuestionList implements Iterable<Question> {
     private final ObservableList<Question> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Question> modifiableList = FXCollections.observableList(internalList);
     private final ObservableList<Question> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
@@ -31,9 +32,11 @@ public class QuizQuestionList implements Iterable<Question> {
     /**
      * Gets one question from the list and return a new list contains this question.
      */
-    public ObservableList<Question> getQuestionAsList(int index) {
+    public ObservableList<Question> getFirstQuizQuestionAsList() {
         ObservableList<Question> oneQuestionList = FXCollections.observableArrayList();
-        oneQuestionList.add(get(index));
+        Question question = modifiableList.get(0);
+        oneQuestionList.add(question);
+        modifiableList.remove(0);
         return oneQuestionList;
     }
 

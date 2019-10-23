@@ -181,6 +181,11 @@ public interface Model {
      */
     void setQuizQuestionList(ObservableList<Question> quizQuestionList);
 
+    /**
+     * Gets one question from the list and return a new list contains this question.
+     */
+    ObservableList<Question> getFirstQuizQuestionAsList();
+
     void setTask(Task target, Task editedTask);
 
     /**

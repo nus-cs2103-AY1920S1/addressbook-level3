@@ -58,6 +58,11 @@ public interface Logic {
     ObservableList<Question> getFilteredQuizQuestionList();
 
     /**
+     * Gets the first question from the list and return a new list contains this question.
+     */
+    ObservableList<Question> getFirstQuizQuestionAsList();
+
+    /**
      * Returns the user prefs' application data file path.
      */
     Path getAppDataFilePath();
