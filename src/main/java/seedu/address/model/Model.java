@@ -45,8 +45,16 @@ public interface Model {
      */
     void setSchedulesList(List<Schedule> schedulesList);
 
+    /**
+     * Sets interviewee's data.
+     */
+    void setIntervieweesList(List<Interviewee> list);
+
     /** Returns the schedulesList **/
     List<Schedule> getSchedulesList();
+
+    /** Returns the intervieweesList **/
+    List<Interviewee> getIntervieweesList();
 
     /**
      * Returns a list of observable list of the schedules.

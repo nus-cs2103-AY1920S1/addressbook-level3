@@ -1,5 +1,4 @@
 package seedu.address.logic.commands;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -20,13 +19,6 @@ public class ImportCommandTest {
         CommandResult expectedCommandResult = new CommandResult(ImportCommand.SUCCESS_MESSAGE, false, false);
         Model expectedModel = model;
         assertCommandSuccess(importCommand, model, expectedCommandResult, expectedModel);
-    }
-
-    @Test
-    public void interviewerImportCommandFailure() {
-        ImportCommand importCommand = new ImportCommand(INTERVIEWER + " " + INVALID_FILE_PATH);
-        CommandResult expectedCommandResult = new CommandResult(ImportCommand.FILE_DOES_NOT_EXIST, false, false);
-        assertEquals(importCommand.execute(model), expectedCommandResult);
     }
 
 }

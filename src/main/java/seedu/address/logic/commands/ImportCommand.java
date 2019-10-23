@@ -1,12 +1,18 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.Schedule;
 import seedu.address.model.util.CsvReader;
+
+
+
 
 
 /**
@@ -37,7 +43,7 @@ public class ImportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
 
         try {
             if (this.type.equals("interviewer")) {
@@ -49,15 +55,14 @@ public class ImportCommand extends Command {
             } else if (this.type.equals("interviewee")) {
                 return new CommandResult(MESSAGE_NOT_IMPLEMENTED_YET, false, false);
             } else {
-                return new CommandResult(MESSAGE_USAGE, false, false);
+                throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
             }
-        } catch (FileNotFoundException e) {
-            return new CommandResult(FILE_DOES_NOT_EXIST, false, false);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new CommandResult("Failed", false, false);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return new CommandResult(INCORRECT_FORMAT, false, false);
+        } catch (FileNotFoundException fileE) {
+            throw new CommandException(FILE_DOES_NOT_EXIST, fileE);
+        } catch (IOException ioe) {
+            throw new CommandException("Failed", ioe);
+        } catch (ArrayIndexOutOfBoundsException arrayE) {
+            throw new CommandException(INCORRECT_FORMAT, arrayE);
         }
     }
 }

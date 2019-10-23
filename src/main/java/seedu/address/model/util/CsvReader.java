@@ -16,7 +16,11 @@ public class CsvReader {
 
     /**
      * Constructor for CsvReader object to read from excel.
+<<<<<<< HEAD
+     * @param filePath Path of csv file
+=======
      * @param filePath
+>>>>>>> 8d5e5072afe29f45a0772570f143a75cefd6b715
      */
     public CsvReader(String filePath) {
         this.filePath = filePath;
@@ -64,8 +68,9 @@ public class CsvReader {
     }
 
     private static int getValue(String element) {
-        String[] strings = element.split("= ");
-        return Integer.parseInt(strings[1]);
+        String[] strings = element.split("=");
+        String trimmedString = strings[1].trim();
+        return Integer.parseInt(trimmedString);
     }
 
     private boolean fileExists() {

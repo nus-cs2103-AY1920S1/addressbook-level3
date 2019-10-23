@@ -35,6 +35,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final List<Schedule> schedulesList;
+    private List<Interviewee> intervieweesList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -109,6 +110,20 @@ public class ModelManager implements Model {
     @Override
     public List<Schedule> getSchedulesList() {
         return schedulesList;
+    }
+
+    /**
+     * Sets interviewee's data.
+     * @param list list of interviewees
+     */
+    public void setIntervieweesList(List<Interviewee> list) {
+        intervieweesList = cloneIntervieweesList(list);
+        logger.fine("interviewee's list is updated");
+    }
+
+    /** Returns the intervieweesList **/
+    public List<Interviewee> getIntervieweesList() {
+        return intervieweesList;
     }
 
     /**
@@ -228,6 +243,20 @@ public class ModelManager implements Model {
         List<Schedule> listClone = new LinkedList<>();
         for (Schedule schedule : list) {
             listClone.add(Schedule.cloneSchedule(schedule));
+        }
+        return listClone;
+    }
+
+    /**
+     * Returns the deep copy of the interviewee's list given.
+     *
+     * @param list the list of interviewees to be copied.
+     * @return a deep copy of interviewee's list.
+     */
+    private static List<Interviewee> cloneIntervieweesList(List<Interviewee> list) {
+        List<Interviewee> listClone = new LinkedList<>();
+        for (Interviewee interviewee : list) {
+            listClone.add(interviewee);
         }
         return listClone;
     }
