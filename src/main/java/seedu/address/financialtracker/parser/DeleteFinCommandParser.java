@@ -2,6 +2,7 @@ package seedu.address.financialtracker.parser;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.financialtracker.commands.DeleteFinCommand;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.commons.core.Messages;
 
