@@ -9,8 +9,8 @@ participant "g:GenReportCommand" as GenReportCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-box Storage MODEL_COLOR_T1
-participant ":ReportGenerator" as Storage MODEL_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":ReportGenerator" as Storage STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("genReport B1")
