@@ -53,12 +53,11 @@ public class AddEventCommandParser implements Parser<AddCommand> {
 
         try {
             Optional<AutoReschedulePeriod> reschedulePeriod = ParserUtil.parseReschedule(argMultimap.getValue(PREFIX_AUTO_RESCHEDULE).orElse(null));
-    System.out.println("Reschedule Period: " + reschedulePeriod.get().getPeriod());
             if (reschedulePeriod.isPresent()) {
                 event = event.setAutoReschedule(true).setReschedulePeriod(reschedulePeriod.get());
             }
         } catch (Exception e) {
-            System.out.println("Issue with parsing -auto ");
+            System.out.println("Issue with parsing -auto " + e.getMessage());
         }
 
         ItemBuilder itemBuilder = new ItemBuilder();

@@ -72,24 +72,38 @@ public class Event {
         return isAutoReschedule;
     }
 
+    /**
+     * Set auto reschedule to true if the event should recur/auto-reschedule, false otherwise
+     * @param bool true if event can be auto-rescheduled
+     * @return a new Event object with the updated parameters
+     */
     public Event setAutoReschedule(boolean bool) {
         return new Event(getStartDateTime(), getDuration(), bool);
     }
 
+    /**
+     * Get the reschedule period of this event
+     * @return AutoReschedule period of this event
+     */
     public AutoReschedulePeriod getPeriod() {
         return this.period;
     }
 
+    /**
+     * Set the reschedule period of this event. This would also set isAutoReschedule of this event to true.
+     * @param period to set to this event
+     * @return a new Event object with the updated parameters
+     */
     public Event setReschedulePeriod(AutoReschedulePeriod period) {
         return new Event(getStartDateTime(), getDuration(), true, period);
     }
 
     public Event changeStartDateTime(LocalDateTime newStartDateTime) {
-        return new Event(newStartDateTime, getDuration());
+        return new Event(newStartDateTime, getDuration(), this.isAutoReschedule, this.period);
     }
 
     public Event changeDuration(Duration newDuration) {
-        return new Event(getStartDateTime(), newDuration);
+        return new Event(getStartDateTime(), newDuration, this.isAutoReschedule, this.period);
     }
 
     @Override

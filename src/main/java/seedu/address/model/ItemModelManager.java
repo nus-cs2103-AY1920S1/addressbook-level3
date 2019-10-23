@@ -139,6 +139,12 @@ public class ItemModelManager implements ItemModel {
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
+<<<<<<< HEAD
+=======
+
+        // Init the auto-reschedule thread by adding events that are auto-reschedulable
+        elisaStateHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
+>>>>>>> Implement methods for loading reccuring events from storage. Storage not updated yet.
     }
 
     /* Bryan Reminder
@@ -578,5 +584,9 @@ public class ItemModelManager implements ItemModel {
         }
 
         return item;
+    }
+
+    public EventList getEventList() {
+        return this.eventList;
     }
 }

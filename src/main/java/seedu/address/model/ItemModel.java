@@ -10,6 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.VisualizeList;
+import seedu.address.model.item.EventList;
 
 /**
  * The API of the Model component.
@@ -108,4 +109,6 @@ public interface ItemModel {
     ArrayList<Item> getFutureRemindersList();
 
     void updateCommandHistory(Command command);
+
+    public EventList getEventList();
 }

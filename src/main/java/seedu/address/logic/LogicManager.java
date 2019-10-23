@@ -42,6 +42,7 @@ public class LogicManager implements Logic {
         this.model = model;
         addressBookParser = new AddressBookParser(model.getElisaCommandHistory());
         autoRescheduleManager = AutoRescheduleManager.getInstance();
+        autoRescheduleManager.initStorageEvents(model.getEventList(), model);
 
         //Create new thread class to check
         /*

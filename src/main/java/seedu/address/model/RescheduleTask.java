@@ -38,7 +38,12 @@ public class RescheduleTask extends TimerTask {
         Event newEvent = event.changeStartDateTime(LocalDateTime.now());
         Item newItem = item.changeEvent(newEvent);
         model.replaceItem(oldItem, newItem);
+<<<<<<< HEAD
         model.updateLists();
+=======
+        model.updateModelLists();
+        model.setVisualizeList(model.getVisualList()); // to refresh the view
+>>>>>>> Implement methods for loading reccuring events from storage. Storage not updated yet.
 
         this.item = newItem;
         this.event = newEvent;
