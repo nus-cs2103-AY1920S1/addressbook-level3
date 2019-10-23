@@ -1,10 +1,13 @@
 package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.ezwatchlist.api.ApiMain;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.Messages;
+import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
+import seedu.ezwatchlist.logic.parser.ParserUtil;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.show.*;
@@ -14,6 +17,7 @@ import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Show;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,55 +36,44 @@ public class SearchCommand extends Command {
             + "Example: " + COMMAND_WORD + " Joker";
 
     private final String EMPTY_STRING = "";
-    private Name showName;
-    private String type;
-    /*private IsWatched isWatched;
+    private List<String> name_list;
+    private List<String> type_list;
+    private List<String> actor_list;
+    private List<String> is_watched_list;
+    private List<String> is_internal_list;
 
-    private List<String> actorList;*/
+    List<Show> searchResult = new ArrayList<>();
+    public static final String MESSAGE_INVALID_IS_INTERNAL_COMMAND =
+            "Invalid input. i/[Option] where option is either true, yes or false, no.";
 
-    public SearchCommand(Optional<String> name/*, Optional<String> type, Optional<String> isWatched,
-                         List<String> actorList*/) {
-        if (name.isPresent()) {
-            this.showName = new Name(name.get().trim());
-        } else {
-            this.showName = new Name(EMPTY_STRING);
-        }
-
-        /*if (type.isPresent()) {
-            this.type = type.get().trim();
-        } else {
-            this.type = EMPTY_STRING;
-        }
-
-        this.isWatched = new IsWatched(false);
-        if (isWatched.isPresent()) {
-            this.isWatched = new IsWatched(Boolean.parseBoolean(isWatched.get().trim()));
-        }
-
-        this.actorList = actorList;*/
+    public SearchCommand(HashMap<String, List<String>> searchShowsHashMap) {
+        name_list = searchShowsHashMap.get("name");
+        type_list = searchShowsHashMap.get("type");
+        actor_list = searchShowsHashMap.get("actor");
+        is_watched_list = searchShowsHashMap.get("is_watched");
+        is_internal_list = searchShowsHashMap.get("is_internal");
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            List<Show> searchResult = new ArrayList<>();
-
-            if (!showName.getName().equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
-                List<Show> filteredShowList = model.getShowIfSameNameAs(showName);
-                for (Show show : filteredShowList) {
-                    searchResult.add(show);
+            if (!is_internal_list.isEmpty()) { // set to be must internal (if true or yes)
+                if (is_internal_list.get(0).equals("true") || is_internal_list.get(0).equals("yes")) {
+                    for (String showName : name_list) {
+                        addShowFromWatchListIfSameNameAs(showName, model);
+                    }
+                } else if (is_internal_list.get(0).equals("false") || is_internal_list.get(0).equals("no")) {
+                    for (String showName : name_list) {
+                        addShowFromOnlineIfSameNameAs(showName);
+                    }
+                } else {
+                    throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
                 }
-            }
-
-            if (!showName.getName().equals("")) {
-                List<Movie> movies = new ApiMain().getMovieByName(showName.getName());
-                List<TvShow> tvShows = new ApiMain().getTvShowByName(showName.getName());
-                for (Movie movie : movies) {
-                    searchResult.add(movie);
-                }
-                for(TvShow tvShow : tvShows) {
-                    searchResult.add(tvShow);
+            } else {
+                for (String showName : name_list) {
+                    addShowFromWatchListIfSameNameAs(showName, model);
+                    addShowFromOnlineIfSameNameAs(showName);
                 }
             }
 
@@ -93,14 +86,37 @@ public class SearchCommand extends Command {
         }
     }
 
+    private void addShowFromWatchListIfSameNameAs(String showName, Model model) {
+        if (!showName.equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
+            List<Show> filteredShowList = model.getShowIfSameNameAs(new Name(showName));
+            for (Show show : filteredShowList) {
+                searchResult.add(show);
+            }
+        }
+    }
+
+    private void addShowFromOnlineIfSameNameAs(String showName) throws OnlineConnectionException {
+        if (!showName.equals("")) {
+            List<Movie> movies = new ApiMain().getMovieByName(showName);
+            List<TvShow> tvShows = new ApiMain().getTvShowByName(showName);
+            for (Movie movie : movies) {
+                searchResult.add(movie);
+            }
+            for(TvShow tvShow : tvShows) {
+                searchResult.add(tvShow);
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SearchCommand // instanceof handles nulls
-                && showName.equals(((SearchCommand) other).showName)
-                /*&& type.equals(((SearchCommand) other).type)
-                && isWatched.equals(((SearchCommand) other).isWatched)
-                && actorList.equals(((SearchCommand) other).actorList)*/); // state check
+                && name_list.equals(((SearchCommand) other).name_list)
+                && type_list.equals(((SearchCommand) other).type_list)
+                && actor_list.equals(((SearchCommand) other).actor_list)
+                && is_watched_list.equals(((SearchCommand) other).is_watched_list)
+                && is_internal_list.equals(((SearchCommand) other).is_internal_list));
     }
 
 
