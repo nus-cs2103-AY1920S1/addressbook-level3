@@ -16,6 +16,12 @@ public class Session implements ReadOnlySession {
         loginTime = new Date();
     }
 
+    // Used for testing
+    public Session(Person person, Date loginTime) {
+        this.person = person;
+        this.loginTime = loginTime;
+    }
+
     @Override
     public Person getLoggedInPerson() {
         return person;
@@ -24,5 +30,20 @@ public class Session implements ReadOnlySession {
     @Override
     public Date getLoginTime() {
         return loginTime;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Session)) {
+            return false;
+        }
+
+        Session otherSession = (Session) other;
+        return otherSession.getLoggedInPerson().equals(getLoggedInPerson())
+                && otherSession.getLoginTime().equals(getLoginTime());
     }
 }

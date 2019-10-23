@@ -13,6 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T11-1/main
+:websiteURL: https://ay1920s1-cs2103-t11-1.github.io
 
 By: `Team CS2103-T11-1`      Since: `October 2019`      Licence: `MIT`
 
@@ -132,13 +133,14 @@ As a more OOP model, we can store a `Tag` list in `Incident Manager`, which `Per
 image:BetterModelClassDiagram.png[]
 
 [[Design-Person]]
-==== Incident component
+==== Person Model component
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Person.java[`Person.java`]
 
 The `Person`,
 
-...
+* represents a user account on the incident manager.
+* Contains the account `Username`, `Password`, `Name`, `Phone`, `Email`
 
 [[Design-Incident]]
 ==== Incident component
@@ -180,23 +182,121 @@ Classes used by multiple components are in the `seedu.incidentManager.commons` p
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::loginlogout[]
-=== [Proposed] Login/Logout feature
-==== Proposed Implementation
+// tag::accessControl[]
+=== Access Control feature
+==== Implementation
 
-The login/logout mechanism is facilitated by ...
+The access control feature is centered around three core concepts:
+
+1. Command Restrictions: Restriction of access to commands until after identity is verified
+2. Identity Verification: Verification of identity via unique credentials and a confidential key
+3. Account Management Restrictions: Access level restrictions for commands affecting other accounts
+
+===== Command Restrictions
+
+Prior to login, the user is only granted access to the `Login`, `Add`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
+
+[NOTE]
+The guard statement throws a command exception if the following conditions are met: +
+`!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand || command instanceof ExitCommand)`
+
+Activity Diagram for illustration:
+
+image::AccessActivityDiagram.png[]
+
+===== Identity Verification
+
+Users are required to login via the `Login` command with a `Username` and `Password`. See user guide for more details on the command syntax for `Login`. Users are also allowed to `Logout` and thus end their `Session`.
+
+[NOTE]
+Session details are displayed on the status bar in the GUI to reflect whether a user is logged in, and the username as well as time logged in if a user is logged in.
+
+Uniqueness of username is ensured by preventing duplicates during the account creation [`AddCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
+
+===== Account Management Restrictions
+
+To prevent abuse (e.g. adding a dummy account and editing/deleting other accounts), all new accounts are differentiated from `Admin` accounts. This restriction based on access level is implemented via account `Tags`:
+
+* Only a `Person` with an admin `Tag` can access account management features. Such a person will henceforth be referred to as an Admin.
+* Users who are not admins are not allowed to add tags (via both AddCommand and UpdateCommand).
+* Only Admins are allowed to edit or add tags (via both AddCommand and UpdateCommand).
+
+[NOTE]
+Non-admins can still edit their own account details via the `Update` command. Refer to user guide for more info.
+
+The checks described above all function in the command execution stage. The `Add` command, `Update` command, and `Delete` retrieve the `LoggedInPerson` from the `Model` via utilisation of the `Session` object.
+
+Sequence Diagram for illustration:
+
+image::AccessSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How login & logout executes
+===== Aspect: How Command Restrictions are Managed
 
-* **Alternative 1 (current choice):** ...
-** Pros: ...
-** Cons: ...
-* **Alternative 2:** ...
-** Pros: ...
-** Cons: ...
-// end::loginlogout[]
+* **Alternative 1 (current choice):** Guard statement in LogicManager prior to Command Execution.
+** Pros: Single control point, easy to maintain and debug.
+** Cons: Command still gets instantiated, memory allocated to command creation.
+* **Alternative 2:** Guard statement in IncidentManagerParser
+** Pros: Early catching of restriction, command doesn't get instantiated unnecessarily.
+** Cons: Need to expose model to parser, increasing coupling.
+
+===== Aspect: How Identity Verification is Managed
+
+* **Alternative 1 (current choice):** Unique username and password.
+** Pros: Easy to implement.
+** Cons: Sufficiently advanced users can access the data file directly to retrieve user passwords.
+* **Alternative 2:** Physical security USB dongle.
+** Pros: Secure individually identifiable apparatus.
+** Cons: Prone to loss and potential duplication.
+
+===== Aspect: How Account Management Restrictions are Managed
+
+* **Alternative 1 (current choice):** Utilisation of Account Tags
+** Pros: Easy to implement.
+** Cons: Users cannot add tags to themselves.
+* **Alternative 2:** Addition of an Admin account attribute.
+** Pros: Distinct object class, improves cohesiveness.
+** Cons: Hard to implement.
+// end::accessControl[]
+
+// tag::accountManagement[]
+=== Account Management feature
+==== Implementation
+
+The account management feature functions as a suite of commands available to the user. The commands available as part of this suite:
+
+* Add Command - Creates a new user account.
+* Update Command - Edits a user account. Not including an index updates your own account.
+* Delete Command - Deletes a a user account. Not allowed to delete your own account.
+* List Command - Lists all user accounts or those whose tags match the user input.
+* Find Command - Searches for user accounts based on matching name keywords.
+* Swap Command - Swaps GUI interface between account management and incident management.
+
+[NOTE]
+Only `Admin` accounts can access the full suite of account management features. See access control feature for more information. Non-Admins only have access to `Add`, `List`, `Find`, and `Swap` commands, as well as `Update` for their own account.
+
+In the code base, Persons represent user accounts. See person model for more information.
+
+==== Design Considerations
+===== Aspect: How Update executes
+
+* **Alternative 1 (current choice):** No index indicates own account update
+** Pros: Improves user experience.
+** Cons: Prone to user error.
+* **Alternative 2:** Select index of own account for update
+** Pros: Easy to implement.
+** Cons: Decreases user experience.
+
+===== Aspect: How Tag searching executes
+
+* **Alternative 1 (current choice):** Adding keyword after the List command prefix performs a search
+** Pros: Intuitive. Improves user exprience.
+** Cons: Can only search for one tag at a time.
+* **Alternative 2:** Utilising Find command to search for tags
+** Pros: Potential to include more granular filters.
+** Cons: Decreases user experience.
+// end::accountManagement[]
 
 // tag::incidentdraftcreation[]
 === [Proposed] Incident Draft Creation feature
@@ -235,21 +335,64 @@ The incident fill mechanism is facilitated by ...
 // end::incidentfill[]
 
 // tag::incidentsearch[]
-=== [Proposed] Incident Search feature
-==== Proposed Implementation
+=== Incident Search feature
+==== Implementation
 
-The incident search mechanism is facilitated by ...
+The incident search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
+* Unfiltered - Displays all incidents in `Model`
+* ID - Displays all incidents with exact matches in `IncidentId incidentId` in `Incident incident`
+* Description - Displays all incidents with keyword(s) contained within the `Description description` in `Incident incident`
+* Operator - Displays all incidents with keyword(s) contained within the name of the `Person operator` in `Incident incident`
+
+The incident search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Incidents> filteredIncidents`, which internally stores the list of displayed incidents in the GUI. Additionally, it implements the following key method:
+* `updateFilteredIncidentsList(Predicate<Incident> predicate)` - Updates the stored filtered incidents list with the new predicate
+
+There are two possible commands within this set of searches. Firstly, we will consider when the user calls the command `incidents` in the application.
+
+The following sequence diagram shows how the `incidents` command works:
+
+image::ListIncidentsSequenceDiagram.png[]
+
+As indicated in the diagram, the `LogicManager` instantiates a `ListIncidentsCommand` upon running command `execute(incidents)`. It then calls `ListIncidentsCommand#execute()`, which runs `Model#updateFilteredIncidentList` with the predicate `PREDICATE_SHOW_ALL_INCIDENTS`. This `Predicate<Incident>` always evaluates to true. This `Predicate<Incident>` is passed to `FilteredList<Incident> filteredList`, as a parameter to run the method `setPredicate()`. This updates the list of visible incidents. `CommandResult commandResult` is also returned to the `LogicManager` to log the success/failure of the method.
+
+Next, we will look at an example in which the user calls `search` to look for incidents written by an operator whose name contains `Alex`.
+
+The execution of this method is a little more complex.
+
+The following sequence diagram shows how the `search` command identifies the keyword and flag, and returns related incidents:
+
+image::SearchIncidentsSequenceDiagram.png[]
+
+The key difference is the utility of the `SearchIncidentsCommandParser` to parse the keyword after tag `op\` in the command. It creates a `NameKeywordsPredicate` using the String "Alex", which is returned to be used in constructing a new instance of `SearchIncidentsCommand`, stored as a `Predicate<Incident> predicate`. From there, the process is similar, in that `SearchIncidentsCommand#execute()` is run, causing the Model to run `Model#updateFilteredIncidentList(predicate)` using the predicate stored in `SearchIncidentsCommand`. Upon updating the list similar to the `incidents` listing command above, `SearchIncidentsCommand` also calls `Model#getFilteredIncidentList()` to return `ObservableList<Incident>`. It obtains the size of this list, and returns it in `CommandResult commandResult`.
 
 ==== Design Considerations
 
-===== Aspect: How incident search executes
+===== Aspect: How incident search keyword is inputted
 
-* **Alternative 1 (current choice):** ...
-** Pros: ...
-** Cons: ...
-* **Alternative 2:** ...
-** Pros: ...
-** Cons: ...
+* **Alternative 1 (current choice):** Parse user input after flag (eg. `op\` or `desc\`)
+** Pros: Easy to implement.
+** Cons: Have to parse keyword from command and flag, user has to follow style of flag for successful search.
+* **Alternative 2:** Prompt user for search input
+** Pros: Separates command from keyword for ease of reading and parsing.
+** Cons: Difficult to implement multi-command execution.
+
+===== Aspect: How listing all incidents is called
+
+* **Alternative 1 (current choice):** Utilise separate command `incidents`
+** Pros: Intuitive to use.
+** Cons: Similar code under different command.
+* **Alternative 2:** Utilise `search` command (eg. `search unfiltered`)
+** Pros: Less overlap in code.
+** Cons: Unintuitive to the user as no search is being made, even more keywords to remember.
+
+===== Aspect: How predicate is added to `SearchIncidentsCommand`
+
+* **Alternative 1 (current choice):** `SearchIncidentsCommandParser` class calls `Model` to create a new Predicate based on search string.
+** Pros: Abstracts the creation and management of predicates to the `Model`.
+** Cons: Requires greater level of coupling between classes.
+* **Alternative 2:** `SearchIncidentsCommand` or `SearchIncidentsCommandParser` directly create Predicate based on search string.
+** Pros: Less dependencies within the parser class.
+** Cons: Breaks abstraction flow.
 // end::incidentsearch[]
 
 // tag::incidentedit[]
@@ -269,95 +412,6 @@ The incident edit mechanism is facilitated by ...
 ** Pros: ...
 ** Cons: ...
 // end::incidentedit[]
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedIncidentManager`.
-It extends `IncidentManager` with an undo/redo history, stored internally as an `incidentManagerStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedIncidentManager#commit()` -- Saves the current incident Manager state in its history.
-* `VersionedIncidentManager#undo()` -- Restores the previous incident Manager state from its history.
-* `VersionedIncidentManager#redo()` -- Restores a previously undone incident Manager state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitIncidentManager()`, `Model#undoIncidentManager()` and `Model#redoIncidentManager()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedIncidentManager` will be initialized with the initial incident Manager state, and the `currentStatePointer` pointing to that single incident Manager state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the incident Manager. The `delete` command calls `Model#commitIncidentManager()`, causing the modified state of the incident Manager after the `delete 5` command executes to be saved in the `incidentManagerStateList`, and the `currentStatePointer` is shifted to the newly inserted incident Manager state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitIncidentManager()`, causing another modified incident Manager state to be saved into the `incidentManagerStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitIncidentManager()`, so the incident Manager state will not be saved into the `incidentManagerStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoIncidentManager()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous incident Manager state, and restores the incident Manager to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial incident Manager state, then there are no previous incident Manager states to restore. The `undo` command uses `Model#canUndoIncidentManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoIncidentManager()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the incident Manager to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `incidentManagerStateList.size() - 1`, pointing to the latest incident Manager state, then there are no undone incident Manager states to restore. The `redo` command uses `Model#canRedoIncidentManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the incident Manager, such as `list`, will usually not call `Model#commitIncidentManager()`, `Model#undoIncidentManager()` or `Model#redoIncidentManager()`. Thus, the `incidentManagerStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitIncidentManager()`. Since the `currentStatePointer` is not pointing at the end of the `incidentManagerStateList`, all incident Manager states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire incident Manager.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of incident Manager states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedIncidentManager`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -488,17 +542,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The username is not found.
+* 2a. The username is not found or password is incorrect.
 +
 [none]
-** 2a1. IMS shows an error message that user does not exist.
-Use case ends.
-
-[none]
-* 2b. The password is incorrect.
-+
-[none]
-** 2b1. IMS shows an error message that password is incorrect.
+** 2a1. IMS shows a generic error message to deter malicious intent.
 Use case ends.
 
 [discrete]
@@ -564,7 +611,7 @@ Use case ends.
 .  Should be able to hold up to 1000 incidents without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Performance first for vehicle dispatch upon new incident creation.
-.  Data storage should be allow for easy access (directly manipulable).
+.  Interface should prioritise user experience since operators function in a high stress environment.
 
 [appendix]
 == Glossary

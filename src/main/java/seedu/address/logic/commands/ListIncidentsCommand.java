@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Lists all incidents in the address book to the user.
  */
-public class ListIncidentCommand extends Command {
+public class ListIncidentsCommand extends Command {
 
     public static final String COMMAND_WORD = "incidents";
 
