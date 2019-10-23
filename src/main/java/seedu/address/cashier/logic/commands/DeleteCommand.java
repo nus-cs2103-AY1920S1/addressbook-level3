@@ -28,9 +28,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel,
-                                 seedu.address.transaction.model.Model transactionModel,
-                                 seedu.address.inventory.model.Model inventoryModel)
+    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel)
             throws NoSuchIndexException, ParseException {
         Item item;
         try {

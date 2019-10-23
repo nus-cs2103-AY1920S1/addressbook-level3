@@ -10,14 +10,10 @@ public abstract class Command {
      *
      * @param model {@code Model} which the command should operate on
      * @param personModel which the command uses to add the cashier-in-charge
-     * @param transactionModel which the command uses to update the transaction view
-     * @param inventoryModel which the command uses to update the inventory view
      * @return feedback message of the operation result for display
      * @throws Exception If an error occurs during command execution.
      */
     public abstract CommandResult execute(seedu.address.cashier.model.Model model,
-                                          seedu.address.person.model.Model personModel,
-                                          seedu.address.transaction.model.Model transactionModel,
-                                          seedu.address.inventory.model.Model inventoryModel) throws Exception;
+                                          seedu.address.person.model.Model personModel) throws Exception;
 }
 

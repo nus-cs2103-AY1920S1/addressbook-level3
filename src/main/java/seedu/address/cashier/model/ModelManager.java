@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
-import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
@@ -24,38 +23,18 @@ public class ModelManager implements Model {
     private static ArrayList<Item> salesList = new ArrayList<Item>();
     private Person cashier = null;
     private InventoryList inventoryList;
-    private StorageManager storage;
+    //private StorageManager storage;
     private TransactionList transactionList;
+    private Transaction checkoutTransaction;
+
+
 
     /**
-     * Initializes a ModelManager with the given inventory list.
+     * Initializes a ModelManager with the given inventory list and transaction list.
      */
-    public ModelManager(InventoryList inventoryList) {
+    public ModelManager(InventoryList inventoryList, TransactionList transactionList) {
         this.inventoryList = inventoryList;
-    }
-
-    /**
-     * Initializes a ModelManager with the given transaction list.
-     */
-    public ModelManager(TransactionList transactionList) {
         this.transactionList = transactionList;
-    }
-
-    /**
-     * Initializes a ModelManager with the given storage manager.
-     */
-    public ModelManager(StorageManager storage) {
-        this.storage = storage;
-        try {
-            this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
-            this.inventoryList = new InventoryList();
-        }
-        try {
-            this.transactionList = storage.getTransactionList();
-        } catch (Exception e) {
-            this.transactionList = new TransactionList();
-        }
     }
 
     /**
@@ -76,16 +55,17 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Updates the inventory list from the data file.
+     * Updates the inventory and transaction list.
+     *
+     * @param inventoryList of the current inventory
+     * @param transactionList of the current transaction
      */
     @Override
-    public void readInUpdatedList() {
-        try {
-            this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
-            this.inventoryList = new InventoryList();
-        }
+    public void getUpdatedLists(InventoryList inventoryList, TransactionList transactionList) {
+        this.inventoryList = inventoryList;
+        this.transactionList = transactionList;
     }
+
 
     /**
      * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
@@ -222,11 +202,6 @@ public class ModelManager implements Model {
         inventoryList.set(i, editedItem);
     }
 
-    @Override
-    public void writeInInventoryFile() throws Exception {
-        storage.writeFileToInventory(inventoryList);
-    }
-
     /**
      * Updates the quantity in the inventory list according to the quantity sold in Sales List.
      * @throws Exception if an item is invalid
@@ -334,7 +309,6 @@ public class ModelManager implements Model {
      */
     @Override
     public ArrayList<String> getDescriptionByCategory(String category) {
-        readInUpdatedList();
         return inventoryList.getAllSalesDescriptionByCategory(category);
     }
 
@@ -347,7 +321,6 @@ public class ModelManager implements Model {
      */
     @Override
     public ArrayList<String> getRecommendedItems(String description) throws NoSuchIndexException {
-        readInUpdatedList();
         ArrayList<String> recommendedItems = new ArrayList<>();
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.getItemByIndex(i);
@@ -375,18 +348,28 @@ public class ModelManager implements Model {
      *
      * @param amount to paid by customer
      * @param person cashier who is in-charge
-     * @param transactionModel the transaction model being used
      * @return the new transaction made from the sales
      * @throws Exception if the user input is invalid
      */
     @Override
-    public Transaction checkoutAsTransaction(double amount, Person person,
-                                             seedu.address.transaction.model.Model transactionModel) throws Exception {
+    public Transaction checkoutAsTransaction(double amount, Person person) {
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
-                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionModel.getTransactionList().size(), false);
-        storage.appendToTransaction(transaction);
-        transactionModel.addTransaction(transaction);
+                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, this.transactionList.size(), false);
+//        storage.appendToTransaction(transaction);
+//        transactionModel.addTransaction(transaction);
+        checkoutTransaction = transaction;
         return transaction;
+    }
+
+    /**
+     * Returns the checkout transaction.
+     *
+     * @return the checkout transaction
+     *
+     */
+    @Override
+    public Transaction getCheckoutTransaction() {
+        return checkoutTransaction;
     }
 
     @Override

@@ -36,9 +36,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model modelManager, seedu.address.person.model.Model personModel,
-                                 seedu.address.transaction.model.Model transactionModel,
-                                 seedu.address.inventory.model.Model inventoryModel)
+    public CommandResult execute(Model modelManager, seedu.address.person.model.Model personModel)
             throws NoSuchItemException, InsufficientAmountException {
 
         Item i;

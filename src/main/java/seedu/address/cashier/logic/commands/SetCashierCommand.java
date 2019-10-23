@@ -27,9 +27,7 @@ public class SetCashierCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel,
-                                 seedu.address.transaction.model.Model transactionModel,
-                                 seedu.address.inventory.model.Model inventoryModel)
+    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {
         if (!personModel.hasPerson(cashier)) {
             throw new NoSuchPersonException(NO_SUCH_PERSON);

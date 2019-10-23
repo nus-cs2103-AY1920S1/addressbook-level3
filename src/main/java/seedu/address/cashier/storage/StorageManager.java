@@ -69,7 +69,7 @@ public class StorageManager {
      * @throws IOException if the input is invalid
      * @throws NoSuchIndexException if the index input is invalid
      */
-    public void writeFileToInventory(InventoryList inventoryList) throws IOException, NoSuchIndexException {
+    public void writeToInventoryFile(InventoryList inventoryList) throws IOException, NoSuchIndexException {
         FileWriter fw = new FileWriter(this.filepathToInventory);
         String textFileMsg = "";
         for (int i = 0; i < inventoryList.size(); i++) {
