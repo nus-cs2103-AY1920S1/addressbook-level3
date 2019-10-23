@@ -90,9 +90,14 @@ public class ProjectDashboardParserTest {
 
     @Test
     public void parseCommand_getStats() throws Exception {
-        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD) instanceof GetStatisticsCommand);
-        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD  + " 3") instanceof GetStatisticsCommand);
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD_MEMBER) instanceof GetStatisticsCommand);
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD_MEMBER + " 3")
+                instanceof GetStatisticsCommand);
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD_TASK) instanceof GetStatisticsCommand);
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD_TASK + " 3")
+                instanceof GetStatisticsCommand);
     }
+
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
@@ -101,6 +106,7 @@ public class ProjectDashboardParserTest {
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND,
+            () -> parser.parseCommand("unknownCommand"));
     }
 }

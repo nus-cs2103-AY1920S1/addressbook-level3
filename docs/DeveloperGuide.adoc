@@ -46,7 +46,7 @@ The following class plays an important role at the architecture level:
 The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor, parses user input. 
+* <<Design-Logic,*`Logic`*>>: The command executor, parses user input.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 

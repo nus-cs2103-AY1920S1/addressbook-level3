@@ -163,7 +163,7 @@ public class ParserUtil {
     /**
      * Parses {@code dateTime} into an {@code DateTime} and returns it. Leading and trailing whitespaces will be
      * trimmed.
-     * @throws DateTimeParseException if the input string is not in the valid format. 
+     * @throws DateTimeParseException if the input string is not in the valid format.
      */
     public static LocalDateTime parseDate(String dateTime) throws DateTimeParseException {
         requireNonNull(dateTime);
