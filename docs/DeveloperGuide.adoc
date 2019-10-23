@@ -481,23 +481,24 @@ An example of a processable json string is as such:
 
 This is compressed to
 
-`"prereqTree": {"and": [{"or": ["CD1111", "XY2222"]},"EF3333"]}"`
+`"prereqTree":{"and":[{"or":["CD1111","XY2222"]},"EF3333"]}`
 
 ===== Methods of the `AndOrTree` class
 
 The following are `public` methods in `AndOrTree`.
 
-* `AndOrTree#buildTree(String, jsonString, Function)`
+* `AndOrTree#buildTree(String, Function<String, ? extends R>)`
 +
 Builds a tree from the given jsonString. `Function` is a mapper function
-that processes a `String` returns a value of type `R`, where `R` is the
-type of data stored by each node in the tree.
+that processes a `String` and returns a value of type `R`, where `R` is the
+type of data stored by each node in the tree, and therefore the overall
+type of the tree.
 
-* `AndOrTree#fulfills(Collection)`
+* `AndOrTree#fulfills(Collection<? super R>)`
 +
-Checks if the given `Collection` fulfills the condition specified by this tree.
-`AndOrNode` has its own corresponding `fulfill` that checks its children or
-data against `Collection`
+Checks if the given `Collection` of type `? super R` fulfills the condition
+specified by this tree. `AndOrNode` has its own corresponding `fulfill` that
+checks its children or data against `Collection`
 
 Due to the arbitrary ordering of the tree, `insert()` and `delete()`
 operations commonly found in implementations of standard, ordered trees are
@@ -518,7 +519,7 @@ The following diagram shows the conditions for which
 `AndOrNode#fulfills(Collection)` returns `true` or `false`.
 
 .AndOrNode Condition Diagram
-image::AndOrNodeConditionDiagram.png[700,700,align=center]
+image::AndOrNodeConditionDiagram.png[600,600,align=center]
 
 The tree is built recursively using the Jackson JSON API's `JsonNode` class,
 which along with `ObjectMapper()` that can read `json` strings, lets us
