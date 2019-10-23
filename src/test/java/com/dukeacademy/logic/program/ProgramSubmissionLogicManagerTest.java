@@ -243,12 +243,24 @@ class ProgramSubmissionLogicManagerTest {
     }
 
     @Test
-    void setUserProgramSubmissionChannel() {
-        // TODO
-    }
+    void setAndSubmitUserProgramSubmissionChannel() throws IOException {
+        TestListener<TestResult> resultListener = new TestListener<>();
+        this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
+        FibMockProgramSubmissionChannel channel = new FibMockProgramSubmissionChannel();
+        this.programSubmissionLogicManager.setUserProgramSubmissionChannel(channel);
 
-    @Test
-    void submitUserProgramFromSubmissionChannel() {
-        // TODO
+        Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
+        List<TestCase> testCases = this.loadTestCases(rootFolder);
+
+        Question question = this.createMockQuestion("Fib", testCases);
+        this.programSubmissionLogicManager.setCurrentQuestion(question);
+
+        this.programSubmissionLogicManager.submitUserProgramFromSubmissionChannel();
+
+        TestResult result = resultListener.getLatestValue();
+        assertNotNull(result);
+        assertFalse(result.getCompileError().isPresent());
+        assertEquals(5, result.getNumPassed());
+        assertTrue(this.matchTestCaseAndResults(testCases, result.getResults()));
     }
 }

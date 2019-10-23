@@ -26,12 +26,4 @@ public interface UserPrefsStorage {
      * @throws IOException if there was any problem when reading from the storage.
      */
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
-
-    /**
-     * Saves the given {@link ReadOnlyUserPrefs} to the storage.
-     * @param userPrefs cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-    void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
-
 }

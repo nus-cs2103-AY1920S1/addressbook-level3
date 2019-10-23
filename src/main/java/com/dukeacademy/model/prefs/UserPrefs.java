@@ -1,14 +1,24 @@
 package com.dukeacademy.model.prefs;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Represents User's preferences.
  */
 public class UserPrefs extends ReadOnlyUserPrefs {
     private final Path appDirectoryPath;
+
+    @JsonCreator
+    public UserPrefs(@JsonProperty("appDirectoryPath") String appDirectoryPath) {
+        requireAllNonNull(appDirectoryPath);
+        this.appDirectoryPath = Paths.get(appDirectoryPath);
+    }
 
     /**
      * Creates a {@code UserPrefs} with default values.

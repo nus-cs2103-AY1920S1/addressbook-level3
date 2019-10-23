@@ -157,14 +157,8 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs(Paths.get("development"));
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
+            logger.warning("Problem while reading from the file. Using default user prefs.");
             initializedPrefs = new UserPrefs(Paths.get("development"));
-        }
-
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save user prefs file : " + StringUtil.getDetails(e));
         }
 
         return initializedPrefs;
