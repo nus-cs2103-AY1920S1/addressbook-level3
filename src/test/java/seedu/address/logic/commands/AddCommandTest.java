@@ -21,6 +21,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyClassroom;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentName;
+import seedu.address.model.assignment.UniqueAssignmentList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
@@ -81,6 +83,7 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -118,7 +121,7 @@ public class AddCommandTest {
 
         @Override
         public void addAssignment(Assignment assignment) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -235,6 +238,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Student> personsAdded = new ArrayList<>();
+        final UniqueAssignmentList assignments = new UniqueAssignmentList();
 
         @Override
         public boolean hasStudent(Student student) {
@@ -251,6 +255,24 @@ public class AddCommandTest {
         @Override
         public ReadOnlyClassroom getClassroom() {
             return new Classroom();
+        }
+
+        @Override
+        public ObservableList<Assignment> getFilteredAssignmentList() {
+            AssignmentName assignmentName = new AssignmentName("Dummy Assignment");
+            Assignment dummyAssignment = new Assignment(assignmentName);
+            assignments.add(dummyAssignment);
+            return assignments.asUnmodifiableObservableList();
+        }
+
+        @Override
+        public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+
+        }
+
+        @Override
+        public void setAssignment(Assignment target, Assignment editedAssignment) {
+
         }
     }
 
