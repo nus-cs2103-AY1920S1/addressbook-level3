@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
@@ -35,7 +35,7 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getCategories().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_CATEGORY + s.categoryName + " ")
         );
         return sb.toString();
     }
@@ -52,9 +52,9 @@ public class PersonUtil {
         if (descriptor.getCategories().isPresent()) {
             Set<Category> categories = descriptor.getCategories().get();
             if (categories.isEmpty()) {
-                sb.append(PREFIX_TAG);
+                sb.append(PREFIX_CATEGORY);
             } else {
-                categories.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                categories.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
             }
         }
         return sb.toString();

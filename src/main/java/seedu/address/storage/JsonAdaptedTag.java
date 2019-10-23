@@ -22,7 +22,7 @@ class JsonAdaptedTag {
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code Category} into this class for Jackson use.
      */
     public JsonAdaptedTag(Category source) {
         tagName = source.categoryName;
@@ -34,9 +34,9 @@ class JsonAdaptedTag {
     }
 
     /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
+     * Converts this Jackson-friendly adapted category object into the model's {@code Category} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted category.
      */
     public Category toModelType() throws IllegalValueException {
         if (!Category.isValidCategoryName(tagName)) {

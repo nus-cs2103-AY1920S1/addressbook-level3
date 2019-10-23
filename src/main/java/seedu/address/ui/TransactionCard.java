@@ -27,7 +27,7 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private FlowPane tags;
+    private FlowPane categories;
 
     public TransactionCard(BankAccountOperation transaction, int displayedIndex) {
         super(FXML);
@@ -37,7 +37,7 @@ public class TransactionCard extends UiPart<Region> {
         date.setText(transaction.getDate().toString());
         transaction.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
-                .forEach(category -> tags.getChildren().add(new Label(category.categoryName)));
+                .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override

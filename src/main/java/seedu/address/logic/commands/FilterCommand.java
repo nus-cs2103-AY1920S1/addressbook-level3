@@ -16,7 +16,7 @@ public class FilterCommand extends Command {
 
     public static final String MESSAGE_USAGE = FilterCommand.COMMAND_WORD + ": Filters the transaction "
             + "in the bank account.\n"
-            + "Parameter: TAG\n"
+            + "Parameter: CATEGORY\n"
             + "Example: " + FilterCommand.COMMAND_WORD + " food drink";
 
     public static final String MESSAGE_SUCCESS = "Bank Account has been filtered!";

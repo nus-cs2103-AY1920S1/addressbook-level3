@@ -123,9 +123,9 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         final List<String> tags = ALICE
-                .getTags()
+                .getCategories()
                 .stream()
-                .map(tag -> tag.getCategoryName())
+                .map(category -> category.getCategoryName())
                 .collect(Collectors.toList());
         modelManager.updateFilteredTransactionList(new TransactionContainsTagsPredicate(tags));
         assertFalse(modelManager.equals(new ModelManager(bankAccount, userPrefs)));

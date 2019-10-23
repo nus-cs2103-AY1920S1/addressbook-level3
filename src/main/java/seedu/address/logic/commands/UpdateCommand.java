@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -35,7 +35,7 @@ public class UpdateCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "123 "
             + PREFIX_DATE + "12022019";

@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,12 +16,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.category.Category;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -38,7 +38,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -117,7 +117,7 @@ public class EditCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code categories} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
@@ -167,17 +167,17 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code categories} to this object's {@code categories}.
+         * A defensive copy of {@code categories} is used internally.
          */
         public void setCategories(Set<Category> categories) {
             this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code categories} is null.
          */
         public Optional<Set<Category>> getCategories() {
             return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();

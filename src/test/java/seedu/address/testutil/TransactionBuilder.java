@@ -53,7 +53,7 @@ public class TransactionBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Transaction} that we are building.
+     * Parses the {@code tags} into a {@code Set<Category>} and set it to the {@code Transaction} that we are building.
      */
     public TransactionBuilder withTags(String... tags) {
         this.categories = SampleDataUtil.getTagSet(tags);

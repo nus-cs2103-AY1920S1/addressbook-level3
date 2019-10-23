@@ -134,28 +134,28 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
+     * Parses a {@code String category} into a {@code Category}. Leading and trailing
      * whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code category} is invalid.
      */
-    public static Category parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Category.isValidCategoryName(trimmedTag)) {
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (!Category.isValidCategoryName(trimmedCategory)) {
             throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
-        return new Category(trimmedTag);
+        return new Category(trimmedCategory);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> categories} into a {@code Set<Category>}.
      */
-    public static Set<Category> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
+    public static Set<Category> parseCategories(Collection<String> categories) throws ParseException {
+        requireNonNull(categories);
         final Set<Category> categorySet = new HashSet<>();
-        for (String tagName : tags) {
-            categorySet.add(parseTag(tagName));
+        for (String categoryName : categories) {
+            categorySet.add(parseCategory(categoryName));
         }
         return categorySet;
     }
