@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.IfridgeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyWasteList;
@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getGroceryList());
+            storage.saveGroceryList(model.getGroceryList());
             storage.saveTemplateList(model.getTemplateList());
             storage.saveShoppingList(model.getShoppingList());
             storage.saveWasteList(model.getWasteArchive());
@@ -65,7 +65,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyGroceryList getGroceryList() {
         return model.getGroceryList();
     }
 
@@ -140,7 +140,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getBoughtList() {
+    public ReadOnlyGroceryList getBoughtList() {
         return model.getBoughtList();
     }
 

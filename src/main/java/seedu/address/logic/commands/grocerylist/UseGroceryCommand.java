@@ -2,7 +2,7 @@ package seedu.address.logic.commands.grocerylist;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -66,7 +66,7 @@ public class UseGroceryCommand extends Command {
         GroceryItem usedGroceryItem = createdUsedGroceryItem(groceryItemToUse, useGroceryItemDescriptor);
 
         model.setGroceryItem(groceryItemToUse, usedGroceryItem);
-        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         return new CommandResult(String.format(MESSAGE_USE_GROCERY_ITEM_SUCCESS, usedGroceryItem));
     }
 

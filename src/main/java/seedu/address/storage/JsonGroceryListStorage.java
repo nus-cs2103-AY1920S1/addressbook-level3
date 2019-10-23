@@ -12,47 +12,47 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyTemplateList;
+import seedu.address.model.ReadOnlyGroceryList;
 
 /**
  * A class to access GroceryList data stored as a json file on the hard disk.
  */
-public class JsonTemplateListStorage implements TemplateListStorage {
+public class JsonGroceryListStorage implements GroceryListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonTemplateListStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonGroceryListStorage.class);
 
     private Path filePath;
 
-    public JsonTemplateListStorage(Path filePath) {
+    public JsonGroceryListStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getTemplateListFilePath() {
+    public Path getGroceryListFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyTemplateList> readTemplateList() throws DataConversionException {
-        return readTemplateList(filePath);
+    public Optional<ReadOnlyGroceryList> readGroceryList() throws DataConversionException {
+        return readGroceryList(filePath);
     }
 
     /**
-     * Similar to {@link #readTemplateList()}.
+     * Similar to {@link #readGroceryList()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTemplateList> readTemplateList(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyGroceryList> readGroceryList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableTemplateList> jsonTemplateList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableTemplateList.class);
-        if (!jsonTemplateList.isPresent()) {
+        Optional<JsonSerializableGroceryList> jsonGroceryList = JsonUtil.readJsonFile(
+                filePath, JsonSerializableGroceryList.class);
+        if (!jsonGroceryList.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonTemplateList.get().toModelType());
+            return Optional.of(jsonGroceryList.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonTemplateListStorage implements TemplateListStorage {
     }
 
     @Override
-    public void saveTemplateList(ReadOnlyTemplateList templateList) throws IOException {
-        saveTemplateList(templateList, filePath);
+    public void saveGroceryList(ReadOnlyGroceryList groceryList) throws IOException {
+        saveGroceryList(groceryList, filePath);
     }
 
     /**
-     * Similar to {@link #saveTemplateList(ReadOnlyTemplateList)}.
+     * Similar to {@link #saveGroceryList(ReadOnlyGroceryList, Path)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveTemplateList(ReadOnlyTemplateList templateList, Path filePath) throws IOException {
-        requireNonNull(templateList);
+    public void saveGroceryList(ReadOnlyGroceryList groceryList, Path filePath) throws IOException {
+        requireNonNull(groceryList);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableTemplateList(templateList), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableGroceryList(groceryList), filePath);
     }
 
 }

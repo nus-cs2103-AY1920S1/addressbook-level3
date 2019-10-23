@@ -8,7 +8,7 @@ import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyWasteList;
@@ -33,11 +33,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the GroceryList.
      *
      * @see seedu.address.model.Model#getGroceryList()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyGroceryList getGroceryList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<GroceryItem> getFilteredGroceryItemList();
@@ -89,7 +89,7 @@ public interface Logic {
      */
     Path getShoppingListFilePath();
 
-    ReadOnlyAddressBook getBoughtList();
+    ReadOnlyGroceryList getBoughtList();
 
     ObservableList<GroceryItem> getFilteredBoughtList();
 

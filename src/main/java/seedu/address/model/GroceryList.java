@@ -13,7 +13,7 @@ import seedu.address.model.food.UniqueFoodList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class GroceryList implements ReadOnlyGroceryList {
 
     private final UniqueFoodList persons;
 
@@ -28,12 +28,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniqueFoodList();
     }
 
-    public AddressBook() {}
+    public GroceryList() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an GroceryList using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public GroceryList(ReadOnlyGroceryList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -49,12 +49,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code GroceryList} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyGroceryList newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getGroceryList());
     }
 
     //// person-level operations
@@ -87,7 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code GroceryList}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Food key) {
@@ -103,15 +103,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<GroceryItem> getPersonList() {
+    public ObservableList<GroceryItem> getGroceryList() {
         return persons.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof GroceryList // instanceof handles nulls
+                && persons.equals(((GroceryList) other).persons));
     }
 
     @Override

@@ -29,11 +29,11 @@ import seedu.address.model.waste.WasteReport;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook groceryList;
+    private final GroceryList groceryList;
     private final TemplateList templateList;
     private WasteList wasteList;
     private final ShoppingList shoppingList;
-    private final AddressBook boughtList;
+    private final GroceryList boughtList;
     private final UserPrefs userPrefs;
     private final FilteredList<GroceryItem> filteredGroceryItems;
     private final FilteredList<UniqueTemplateItems> filteredTemplateList;
@@ -47,9 +47,9 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook groceryList, ReadOnlyUserPrefs userPrefs,
+    public ModelManager(ReadOnlyGroceryList groceryList, ReadOnlyUserPrefs userPrefs,
                         ReadOnlyTemplateList templateList, TreeMap<WasteMonth, WasteList> wasteArchive,
-                        ReadOnlyShoppingList shoppingList, ReadOnlyAddressBook boughtList) {
+                        ReadOnlyShoppingList shoppingList, ReadOnlyGroceryList boughtList) {
         super();
         requireAllNonNull(groceryList, userPrefs, templateList, shoppingList);
 
@@ -59,25 +59,25 @@ public class ModelManager implements Model {
         WasteList.initialiseWasteArchive();
         WasteList.addWasteArchive(wasteArchive);
 
-        this.groceryList = new AddressBook(groceryList);
+        this.groceryList = new GroceryList(groceryList);
         this.templateList = new TemplateList(templateList);
         this.wasteList = WasteList.getCurrentWasteList();
         this.shoppingList = new ShoppingList(shoppingList);
-        this.boughtList = new AddressBook(boughtList);
+        this.boughtList = new GroceryList(boughtList);
         this.userPrefs = new UserPrefs(userPrefs);
         this.shownTemplate = new UniqueTemplateItems(new Name("Displayed Template"));
-        filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
+        filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getGroceryList());
         filteredTemplateList = new FilteredList<UniqueTemplateItems>(this.templateList.getTemplateList());
         filteredWasteItems = new FilteredList<GroceryItem>(this.wasteList.getWasteList());
         filteredShoppingItems = new FilteredList<ShoppingItem>(this.shoppingList.getShoppingList());
-        filteredBoughtItems = new FilteredList<GroceryItem>(this.boughtList.getPersonList());
+        filteredBoughtItems = new FilteredList<GroceryItem>(this.boughtList.getGroceryList());
         filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
 
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TemplateList(),
-                new TreeMap<WasteMonth, WasteList>(), new ShoppingList(), new AddressBook());
+        this(new GroceryList(), new UserPrefs(), new TemplateList(),
+                new TreeMap<WasteMonth, WasteList>(), new ShoppingList(), new GroceryList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -117,13 +117,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getGroceryListFilePath();
     }
 
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setGroceryListFilePath(addressBookFilePath);
     }
 
     @Override
@@ -170,15 +170,15 @@ public class ModelManager implements Model {
         userPrefs.setBoughtListFilePath(boughtListFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== GroceryList ================================================================================
 
     @Override
-    public void setGroceryList(ReadOnlyAddressBook groceryList) {
+    public void setGroceryList(ReadOnlyGroceryList groceryList) {
         this.groceryList.resetData(groceryList);
     }
 
     @Override
-    public ReadOnlyAddressBook getGroceryList() {
+    public ReadOnlyGroceryList getGroceryList() {
         return groceryList;
     }
 
@@ -200,7 +200,7 @@ public class ModelManager implements Model {
     @Override
     public void addGroceryItem(GroceryItem food) {
         groceryList.addPerson(food);
-        updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
     }
 
     @Override
@@ -468,12 +468,12 @@ public class ModelManager implements Model {
     //=========== BoughtList ================================================================================
 
     @Override
-    public void setBoughtList(ReadOnlyAddressBook boughtList) {
+    public void setBoughtList(ReadOnlyGroceryList boughtList) {
         this.boughtList.resetData(boughtList);
     }
 
     @Override
-    public ReadOnlyAddressBook getBoughtList() {
+    public ReadOnlyGroceryList getBoughtList() {
         return boughtList;
     }
 
@@ -495,7 +495,7 @@ public class ModelManager implements Model {
     @Override
     public void addBoughtItem(GroceryItem food) {
         boughtList.addPerson(food);
-        updateFilteredBoughtItemList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredBoughtItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
     }
 
     @Override

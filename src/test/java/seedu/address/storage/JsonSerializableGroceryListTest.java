@@ -5,9 +5,9 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableGroceryListTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableGroceryListTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalTemplatesTemplateList.json");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidTemplateTemplateList.json");
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicateTemplateTemplateList.json");
@@ -16,8 +16,8 @@ public class JsonSerializableAddressBookTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalGroceryItems.getTypicalAddressBook();
+        GroceryList groceryListFromFile = dataFromFile.toModelType();
+        GroceryList typicalPersonsGroceryList = TypicalGroceryItems.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }*/
 

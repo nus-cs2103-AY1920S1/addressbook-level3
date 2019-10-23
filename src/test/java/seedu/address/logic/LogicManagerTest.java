@@ -16,9 +16,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonGroceryListStorage;
 import seedu.address.storage.JsonTemplateListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -37,8 +37,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonGroceryListStorage groceryListStorage =
+                new JsonGroceryListStorage(temporaryFolder.resolve("groceryList.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonTemplateListStorage templateListStorage =
                 new JsonTemplateListStorage(temporaryFolder.resolve("templateList.json"));
@@ -48,7 +48,7 @@ public class LogicManagerTest {
                 new JsonShoppingItemStorage(temporaryFolder.resolve("shoppingList.json"));
         JsonBoughtItemStorage boughtListStorage =
                 new JsonBoughtItemStorage(temporaryFolder.resolve("boughtList.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage,
+        StorageManager storage = new StorageManager(groceryListStorage, userPrefsStorage, templateListStorage,
                 wasteListStorage, shoppingListStorage, boughtListStorage);
         logic = new LogicManager(model, storage);
     }
@@ -74,9 +74,9 @@ public class LogicManagerTest {
 
     /*@Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonGroceryListIoExceptionThrowingStub
+        JsonGroceryListStorage groceryListStorage =
+                new JsonGroceryListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionGroceryList.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
@@ -153,13 +153,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonGroceryListIoExceptionThrowingStub extends JsonGroceryListStorage {
+        private JsonGroceryListIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveGroceryList(ReadOnlyGroceryList groceryList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

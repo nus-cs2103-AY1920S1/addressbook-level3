@@ -19,7 +19,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.logic.commands.templatelist.template.AddTemplateItemCommand;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -130,12 +130,12 @@ public class AddTemplateListCommandTest {
         }
 
         @Override
-        public void setGroceryList(ReadOnlyAddressBook newData) {
+        public void setGroceryList(ReadOnlyGroceryList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getGroceryList() {
+        public ReadOnlyGroceryList getGroceryList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -381,12 +381,12 @@ public class AddTemplateListCommandTest {
         }
 
         @Override
-        public void setBoughtList(ReadOnlyAddressBook newData) {
+        public void setBoughtList(ReadOnlyGroceryList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getBoughtList() {
+        public ReadOnlyGroceryList getBoughtList() {
             throw new AssertionError("This method should not be called.");
         }
 

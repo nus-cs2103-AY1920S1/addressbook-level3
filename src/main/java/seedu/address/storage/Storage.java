@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.TreeMap;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -20,7 +20,7 @@ import seedu.address.storage.wastelist.WasteListStorage;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, TemplateListStorage, WasteListStorage,
+public interface Storage extends GroceryListStorage, UserPrefsStorage, TemplateListStorage, WasteListStorage,
         ShoppingListStorage, BoughtListStorage {
 
     @Override
@@ -30,13 +30,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, TemplateL
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getGroceryListFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyGroceryList> readGroceryList() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveGroceryList(ReadOnlyGroceryList addressBook) throws IOException;
 
     @Override
     Path getTemplateListFilePath();
@@ -69,8 +69,8 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, TemplateL
     Path getBoughtListFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readBoughtList() throws DataConversionException, IOException;
+    Optional<ReadOnlyGroceryList> readBoughtList() throws DataConversionException, IOException;
 
     @Override
-    void saveBoughtList(ReadOnlyAddressBook boughtList) throws IOException;
+    void saveBoughtList(ReadOnlyGroceryList boughtList) throws IOException;
 }

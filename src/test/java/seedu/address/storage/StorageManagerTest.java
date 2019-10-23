@@ -24,13 +24,13 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonGroceryListStorage groceryListStorage = new JsonGroceryListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonTemplateListStorage templateListStorage = new JsonTemplateListStorage(getTempFilePath("ac"));
         JsonWasteListStorage wasteListStorage = new JsonWasteListStorage(getTempFilePath("ad"));
         JsonShoppingItemStorage shoppingListStorage = new JsonShoppingItemStorage(getTempFilePath("ae"));
         JsonBoughtItemStorage boughtListStorage = new JsonBoughtItemStorage(getTempFilePath("af"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage,
+        storageManager = new StorageManager(groceryListStorage, userPrefsStorage, templateListStorage,
                 wasteListStorage, shoppingListStorage, boughtListStorage);
     }
 
@@ -56,18 +56,18 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {*/
     /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonGroceryListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonGroceryListStorageTest} class.
     */
-    /*   AddressBook original = getTypicalAddressBook();
+    /*   GroceryList original = getTypicalGroceryList();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ReadOnlyGroceryList retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new GroceryList(retrieved));
     }*/
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getGroceryListFilePath());
     }
 
 }

@@ -12,11 +12,11 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access GroceryList data stored as a json file on the hard disk.
  */
 public class JsonBoughtItemStorage implements BoughtListStorage {
 
@@ -33,7 +33,7 @@ public class JsonBoughtItemStorage implements BoughtListStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readBoughtList() throws DataConversionException {
+    public Optional<ReadOnlyGroceryList> readBoughtList() throws DataConversionException {
         return readBoughtList(filePath);
     }
 
@@ -43,7 +43,7 @@ public class JsonBoughtItemStorage implements BoughtListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readBoughtList(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyGroceryList> readBoughtList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableBoughtList> jsonBoughtList = JsonUtil.readJsonFile(
@@ -61,7 +61,7 @@ public class JsonBoughtItemStorage implements BoughtListStorage {
     }
 
     @Override
-    public void saveBoughtList(ReadOnlyAddressBook boughtList) throws IOException {
+    public void saveBoughtList(ReadOnlyGroceryList boughtList) throws IOException {
         saveBoughtList(boughtList, filePath);
     }
 
@@ -70,7 +70,7 @@ public class JsonBoughtItemStorage implements BoughtListStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveBoughtList(ReadOnlyAddressBook boughtList, Path filePath) throws IOException {
+    public void saveBoughtList(ReadOnlyGroceryList boughtList, Path filePath) throws IOException {
         requireNonNull(boughtList);
         requireNonNull(filePath);
 

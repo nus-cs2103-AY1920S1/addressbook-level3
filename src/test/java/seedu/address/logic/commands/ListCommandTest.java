@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
-import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalGroceryItems.getTypicalGroceryList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
@@ -26,7 +26,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+        model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
                 getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
         expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), getTypicalTemplateList(),
                 model.getWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());

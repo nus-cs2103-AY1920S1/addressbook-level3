@@ -9,13 +9,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.GroceryList;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.storage.JsonAdaptedFood;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable GroceryList that is serializable to JSON format.
  */
 @JsonRootName(value = "boughtlist")
 class JsonSerializableBoughtList {
@@ -37,8 +37,8 @@ class JsonSerializableBoughtList {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableShoppingList}.
      */
-    public JsonSerializableBoughtList(ReadOnlyAddressBook source) {
-        boughtItems.addAll(source.getPersonList().stream()
+    public JsonSerializableBoughtList(ReadOnlyGroceryList source) {
+        boughtItems.addAll(source.getGroceryList().stream()
                 .map(JsonAdaptedFood::new).collect(Collectors.toList()));
     }
 
@@ -47,16 +47,16 @@ class JsonSerializableBoughtList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public GroceryList toModelType() throws IllegalValueException {
+        GroceryList groceryList = new GroceryList();
         for (JsonAdaptedFood jsonAdaptedFood : boughtItems) {
             GroceryItem groceryItem = jsonAdaptedFood.toModelType();
-            if (addressBook.hasPerson(groceryItem)) {
+            if (groceryList.hasPerson(groceryItem)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOUGHT_ITEMS);
             }
-            addressBook.addPerson(groceryItem);
+            groceryList.addPerson(groceryItem);
         }
-        return addressBook;
+        return groceryList;
     }
 
 }

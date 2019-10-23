@@ -5,7 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
-import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalGroceryItems.getTypicalGroceryList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
@@ -27,7 +27,7 @@ import seedu.address.testutil.EditFoodDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+    private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
             getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
 
     /*@Test
@@ -38,7 +38,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getGroceryList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GroceryList(model.getGroceryList()), new UserPrefs());
         expectedModel.setGroceryItem(model.getFilteredGroceryItemList().get(0), editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -59,7 +59,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getGroceryList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GroceryList(model.getGroceryList()), new UserPrefs());
         expectedModel.setGroceryItem(lastFood, editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -72,7 +72,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getGroceryList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GroceryList(model.getGroceryList()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -88,7 +88,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getGroceryList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GroceryList(model.getGroceryList()), new UserPrefs());
         expectedModel.setGroceryItem(model.getFilteredGroceryItemList().get(0), editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -133,7 +133,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getGroceryList().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getGroceryList().getGroceryList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB).build());

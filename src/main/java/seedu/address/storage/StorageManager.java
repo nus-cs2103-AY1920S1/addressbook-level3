@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -21,23 +21,23 @@ import seedu.address.storage.wastelist.WasteListStorage;
 
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of GroceryList data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private GroceryListStorage groceryListStorage;
     private TemplateListStorage templateListStorage;
     private WasteListStorage wasteListStorage;
     private ShoppingListStorage shoppingListStorage;
     private BoughtListStorage boughtListStorage;
     private UserPrefsStorage userPrefsStorage;
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+    public StorageManager(GroceryListStorage groceryListStorage, UserPrefsStorage userPrefsStorage,
                           TemplateListStorage templateListStorage, WasteListStorage wasteListStorage,
                           ShoppingListStorage shoppingListStorage, BoughtListStorage boughtListStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.groceryListStorage = groceryListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.templateListStorage = templateListStorage;
         this.wasteListStorage = wasteListStorage;
@@ -63,33 +63,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ GroceryList methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getGroceryListFilePath() {
+        return groceryListStorage.getGroceryListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyGroceryList> readGroceryList() throws DataConversionException, IOException {
+        return readGroceryList(groceryListStorage.getGroceryListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyGroceryList> readGroceryList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return groceryListStorage.readGroceryList(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveGroceryList(ReadOnlyGroceryList groceryList) throws IOException {
+        saveGroceryList(groceryList, groceryListStorage.getGroceryListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveGroceryList(ReadOnlyGroceryList groceryList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        groceryListStorage.saveGroceryList(groceryList, filePath);
     }
 
     // ================ TemplateList methods ==============================
@@ -190,24 +190,24 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readBoughtList() throws DataConversionException, IOException {
+    public Optional<ReadOnlyGroceryList> readBoughtList() throws DataConversionException, IOException {
         return readBoughtList(boughtListStorage.getBoughtListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readBoughtList(Path filePath)
+    public Optional<ReadOnlyGroceryList> readBoughtList(Path filePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return boughtListStorage.readBoughtList(filePath);
     }
 
     @Override
-    public void saveBoughtList(ReadOnlyAddressBook boughtList) throws IOException {
+    public void saveBoughtList(ReadOnlyGroceryList boughtList) throws IOException {
         saveBoughtList(boughtList, boughtListStorage.getBoughtListFilePath());
     }
 
     @Override
-    public void saveBoughtList(ReadOnlyAddressBook boughtList, Path filePath) throws IOException {
+    public void saveBoughtList(ReadOnlyGroceryList boughtList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         boughtListStorage.saveBoughtList(boughtList, filePath);
     }

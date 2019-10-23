@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
-import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalGroceryItems.getTypicalGroceryList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
@@ -28,7 +28,7 @@ import seedu.address.model.food.GroceryItem;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+    private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
             getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
 
     @Test
@@ -76,7 +76,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getGroceryList().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getGroceryList().getGroceryList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

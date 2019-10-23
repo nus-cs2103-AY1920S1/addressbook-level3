@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
 import static seedu.address.model.food.Amount.getValue;
 
@@ -10,7 +10,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.AddressBook;
+import seedu.address.model.GroceryList;
 import seedu.address.model.Model;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.ExpiryDate;
@@ -101,10 +101,10 @@ public class MergeShoppingCommand extends Command {
             modifyShoppingListAccordingToBoughtItem(boughtItem, model);
         }
 
-        model.setBoughtList(new AddressBook());
+        model.setBoughtList(new GroceryList());
 
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
-        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
         commandResult.setShoppingListCommand();
         return commandResult;

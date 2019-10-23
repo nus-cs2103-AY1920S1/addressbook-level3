@@ -1,4 +1,4 @@
-package seedu.address.storage.shoppinglist;
+package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -6,41 +6,40 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyGroceryList;
-import seedu.address.model.ReadOnlyShoppingList;
 
 /**
  * Represents a storage for {@link seedu.address.model.GroceryList}.
  */
-public interface BoughtListStorage {
+public interface GroceryListStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getBoughtListFilePath();
+    Path getGroceryListFilePath();
 
     /**
-     * Returns ShoppingList data as a {@link ReadOnlyGroceryList}.
+     * Returns GroceryList data as a {@link ReadOnlyGroceryList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyGroceryList> readBoughtList() throws DataConversionException, IOException;
+    Optional<ReadOnlyGroceryList> readGroceryList() throws DataConversionException, IOException;
 
     /**
-     * @see #getShoppingListFilePath()
+     * @see #getGroceryListFilePath()
      */
-    Optional<ReadOnlyGroceryList> readBoughtList(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyGroceryList> readGroceryList(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyGroceryList} to the storage.
-     * @param boughtList cannot be null.
+     * @param groceryList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveBoughtList(ReadOnlyGroceryList boughtList) throws IOException;
+    void saveGroceryList(ReadOnlyGroceryList groceryList) throws IOException;
 
     /**
-     * @see #saveShoppingList(ReadOnlyShoppingList, Path)
+     * @see #saveGroceryList(ReadOnlyGroceryList, Path)
      */
-    void saveBoughtList(ReadOnlyGroceryList boughtList, Path filePath) throws IOException;
+    void saveGroceryList(ReadOnlyGroceryList addressBook, Path filePath) throws IOException;
 
 }

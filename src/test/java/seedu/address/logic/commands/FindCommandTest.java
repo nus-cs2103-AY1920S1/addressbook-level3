@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.address.testutil.TypicalGroceryItems.CARL;
 import static seedu.address.testutil.TypicalGroceryItems.ELLE;
 import static seedu.address.testutil.TypicalGroceryItems.FIONA;
-import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalGroceryItems.getTypicalGroceryList;
 import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.address.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -28,9 +28,9 @@ import seedu.address.model.food.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+    private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
             getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+    private Model expectedModel = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
             getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
 
     @Test
