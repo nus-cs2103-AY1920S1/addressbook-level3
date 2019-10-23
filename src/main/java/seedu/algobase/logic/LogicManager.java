@@ -44,6 +44,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = algoBaseParser.parseCommand(commandText);
+        // Saving commandText happens after this line - when we're sure that it's a valid command
         commandResult = command.execute(model);
 
         try {

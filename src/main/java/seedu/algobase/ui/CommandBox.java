@@ -1,8 +1,11 @@
 package seedu.algobase.ui;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -26,6 +29,17 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.UP && event.isControlDown()) {
+                    System.out.println("up");
+                }
+                if (event.getCode() == KeyCode.DOWN && event.isControlDown()) {
+                    System.out.println("down");
+                }
+            }
+        });
     }
 
     /**
