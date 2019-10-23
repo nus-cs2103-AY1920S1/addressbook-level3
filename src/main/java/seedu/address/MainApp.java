@@ -27,6 +27,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleFoodDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -158,7 +159,7 @@ public class MainApp extends Application {
             if (!foodListOptional.isPresent()) {
                 logger.info("Food list data file not found. Will be starting a sample food list");
             }
-            initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
+            initialFoodListData = foodListOptional.orElseGet(SampleFoodDataUtil::getSampleFoodList);
         } catch (DataConversionException e) {
             logger.warning("Food list data file is not in the correct format. Will be starting with an empty "
                 + "food list");

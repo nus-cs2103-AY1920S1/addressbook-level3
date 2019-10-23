@@ -5,23 +5,21 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 enum FoodType <<enumeration>>
-class NutritionValue {
-}
+Class "{abstract}\nNutritionValue" as NutritionValue
 
 UniqueFoodList o-right-> Food
 
-
+Food *--> FoodName
 Food *--> Calorie
 Food *--> Gi
 Food *--> Sugar
 Food *--> Fat
-Food *--> FoodName
 Food *--> FoodType
 
-Calorie .up.--|> NutritionValue
-Gi .up.--|> NutritionValue
-Sugar .up.--|> NutritionValue
-Fat .up.--|> NutritionValue
+Calorie -down-|> NutritionValue
+Gi -down-|> NutritionValue
+Sugar -down-|> NutritionValue
+Fat -down-|> NutritionValue
 
 enum FoodType {
     NON_STARCHY_VEGETABLE
@@ -31,9 +29,5 @@ enum FoodType {
     SNACK
     MEAL
 }
-
-
-
 show FoodType fields
-
 @enduml

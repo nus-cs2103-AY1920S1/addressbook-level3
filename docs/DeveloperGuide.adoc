@@ -217,50 +217,63 @@ The food recommendation feature externally shows a filtered food list in the for
 * Predicates: indicates the filters that the user wants to apply on partial presentation of the foods
 * Unique Food List: holds the collection of all foods
 
-==== Model Overview
-The
+==== Overview
+* Internal Data Structure
++
+The `UniqueFoodList` is the main model that contains all the foods and interacts with logic and UI. It exposes an
+unmodifiable `ObservableList<Food>` that associates the UI display of food recommendations.
+
 image::FoodModelClassDiagram.png[]
+
+* Parsers
+** `RecmFoodCommandParser` specifies the filters applied on the food list. Filters are implemented by two `Predicate` and are based on `Flag` and / or `FoodName`.
+** `AddFoodCommandParser` specifies and checks each fields of a new input food.
+
+* UI: Two main components are `FoodCard`, which shows the food information, and `FoodFlowPanel`: holds all the cards. It is nested in a `Scrollable` One highlight of the design is the background color usage for food name. Different colors are corresponding to different types of foods.
 
 ==== Implementation
 
-It majorly implements the following operations:
+The food recommendation mechanism majorly implements the following operations:
 
 * `SugarMummy#recmf()` -- Recommends a list of foods to the user.
-* `SugarMummy#sortf()` -- Sorts the recommendations in ascending or descending order in terms of food name or calorie, gi, sugar, and fat values.
+* `SugarMummy#sort()` -- Sorts the recommendations in ascending or descending order in terms of food name or calorie, gi, sugar, and fat values.
+* `SugarMummy#addfood()` -- Inputs new foods into the database for future recommendations.
 
-These operations are exposed in the `Model` interface as `Model#updateFilteredFoodList()`, `Model#sortFilteredFoodList()` respectively.
+These operations are exposed in the `Model` interface as `Model#updateFilteredFoodList()`, `Model#sortFilteredFoodList()`, `Model#addFood()` respectively.
 
 Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
 
-Step 1. The user launches the application and enter `recmf` Command for the first time and . The `foodlist.json` storage file will be initialized with the pre-loaded food data.
+Step 1. The user launches the application and enter `recmf` Command for the first time and . The `foodlist.json` storage file will be initialized with the pre-loaded food data from `SampleFoodDataUtil`.
 
-Step 2. The user executes `recmf -f -sv` command.  calls
+Step 2. The user executes `recmf -f -sv` command. `IsWantedTypePredicate` will be applied on the food list to select specified types.
 
 [NOTE]
 If no flag is specified, `RecmFoodCommandParser#getParsedFlags()` will return all flags to show to full content of foods.
 
+Step 3. The user executes `recmf fn/Cherry`. Similar to step 2, `FoodNameContainsKeywordPredicate` will be applied.
 
-Step 4. The user executes `recmf sort/calorie`
-
-Step 5. The user feels the database is insufficient and wants to add a new food by executing `addfood (FOOD INFO)`.
+Step 4. The user executes `recmf sort/calorie`.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Collectively, Step 2 to 4 have similar underlying logic implementation and Ui updates. The whole food list wil be iterated through to get a filter or reordered food list.
 
+Step 5. The user feels the database is insufficient and wants to add a new food by executing `addfood (FOOD INFO)`. The `foodlist.json` storage file will be immediately updated if the execution is successful.
 
-* The following sequence diagram shows how the food recommendation operation works: `recmf -f fn/Cherry`
+* The following sequence diagram shows how the typical food recommendation operation works: `recmf -f fn/Cherry`
 
 image::RecmFoodSequenceDiagram.png[]
 
-NOTE: The lifeline for `RecmFoodCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+[NOTE]
+The lifeline for `RecmFoodCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-* The following activity diagram summarizes what happens when a user executes `recmf` :
+* The following activity diagram summarizes what happens when a user executes `addfood` command.
 
-image::CommitActivityDiagram.png[]
+image::AddFoodActivityDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How recommendations are presented to user
+
 * **Alternative 1 (current choice):** Shows the user a pane of cards. Different types are indicated by the different background colors of the food names.
 ** Pros: Easy to implement.
 ** Cons:
@@ -280,6 +293,7 @@ image::CommitActivityDiagram.png[]
 ** Cons:
 
 ===== Aspect: New food data input from user
+
 * **Alternative 1 (current choice):** Require inputs for all fields (e.g. calorie, gi...).
 ** Pros: It is easy for data manipulation. Specifically, this prevents some foods from permanently having empty fields. Additionally, this may further hinder the data usage for data analysis.
 ** Cons: Some data may not be currently available while the user still to want to record a new food by simply inputting the food name.
@@ -295,13 +309,6 @@ To increase the usability of food recommendations, it is suggested to have more 
 ** Diet records and analysis
 The current food models can be utilized to help record daily diets. This would allow the user to have an overview of his food consuming statistics. Therefore, some suggestions can be proposed to help diabetes users regulate and plan their diets.
 // end::recmf[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
