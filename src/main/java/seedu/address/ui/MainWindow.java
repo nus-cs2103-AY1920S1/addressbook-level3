@@ -29,6 +29,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.expense.Event;
 import seedu.address.ui.budget.BudgetListPanel;
 import seedu.address.ui.budget.BudgetPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
@@ -172,7 +173,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // add supported commands (not all yet)
         commandBox.enableSyntaxHighlightingForCommand("add",
-                List.of(PREFIX_PRICE, PREFIX_DESCRIPTION));
+                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP));
         commandBox.enableSyntaxHighlightingForCommand("alias",
                 List.of(PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT));
         commandBox.enableSyntaxHighlightingForCommand("budget",
@@ -288,4 +289,14 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay.setFeedbackToUser(logic.displayReminders());
     }
 
+    /**
+     * Handles the opening of popup windows to notify the user of transpired events.
+     */
+    @FXML
+    public void notifyAboutTranspiredEvents() {
+        List<Event> transpiredEvents = logic.getTranspiredEvents();
+        for (Event event : transpiredEvents) {
+            new TranspiredEventsWindow(logic).show(event);
+        }
+    }
 }

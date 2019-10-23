@@ -16,16 +16,18 @@ public class Event {
     private final Price price;
     private final Timestamp timestamp;
     private final Category category;
+    private final String originalUserInput;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Description description, Price price, Category category, Timestamp timestamp) {
+    public Event(Description description, Price price, Category category, Timestamp timestamp, String userInput) {
         requireAllNonNull(description, price, timestamp);
         this.description = description;
         this.price = price;
         this.category = category;
         this.timestamp = timestamp;
+        this.originalUserInput = userInput;
     }
 
     public Description getDescription() {
@@ -89,15 +91,18 @@ public class Event {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Event: ")
+        builder.append("Description: ")
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
                 .append(" Category: ")
-                .append(category)
-                .append("Timestamp: ")
+                .append(getCategory())
+                .append(" Timestamp: ")
                 .append(getTimestamp());
         return builder.toString();
     }
 
+    public String getOriginalUserInput() {
+        return originalUserInput;
+    }
 }

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -203,6 +204,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<? super Event> predicate);
+
+    void notifyAboutTranspiredEvents(List<Event> events);
 
     boolean hasEvent(Event event);
 

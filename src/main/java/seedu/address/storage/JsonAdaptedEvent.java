@@ -18,12 +18,13 @@ import seedu.address.model.expense.Timestamp;
  */
 class JsonAdaptedEvent {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
 
     private final String description;
     private final String price;
     private final String rawTimestamp;
     private final String category;
+    private final String originalUserInput;
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -32,11 +33,13 @@ class JsonAdaptedEvent {
     public JsonAdaptedEvent(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
                               @JsonProperty("category") String category,
-                              @JsonProperty("timestamp") String rawTimestamp) {
+                              @JsonProperty("timestamp") String rawTimestamp,
+                              @JsonProperty("originalUserInput") String originalUserInput) {
         this.description = description;
         this.price = price;
         this.rawTimestamp = rawTimestamp;
         this.category = category;
+        this.originalUserInput = originalUserInput;
     }
 
     /**
@@ -47,7 +50,7 @@ class JsonAdaptedEvent {
         this.price = source.getPrice().value;
         this.rawTimestamp = source.getTimestamp().toString();
         this.category = source.getCategory().getCategoryName();
-
+        this.originalUserInput = source.getOriginalUserInput();
     }
 
     /**
@@ -93,7 +96,13 @@ class JsonAdaptedEvent {
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 
-        return new Event(modelDescription, modelPrice, modelCategory, modelTimestamp);
+        if (originalUserInput == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "originalUserInput"));
+        }
+        final String modelOriginalInput = originalUserInput;
+
+        return new Event(modelDescription, modelPrice, modelCategory, modelTimestamp, modelOriginalInput);
     }
 
 }

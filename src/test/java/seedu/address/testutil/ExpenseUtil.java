@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
-import seedu.address.logic.commands.expense.AddCommand;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.expense.EditCommand;
 import seedu.address.model.expense.Expense;
 

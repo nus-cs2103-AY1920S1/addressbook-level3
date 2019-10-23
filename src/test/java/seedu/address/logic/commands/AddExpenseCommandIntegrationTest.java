@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.expense;
+package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;
@@ -13,9 +14,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.expense.Expense;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddExpenseCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddExpenseCommandIntegrationTest {
 
     private Model model;
 
@@ -29,7 +30,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void run_duplicateExpense_throwsCommandException() {
         Expense expenseInList = model.getAddressBook().getExpenseList().get(0);
-        assertCommandFailure(new AddCommand(expenseInList), model, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
+        assertCommandFailure(new AddExpenseCommand(expenseInList), model, AddExpenseCommand.MESSAGE_DUPLICATE_EXPENSE);
     }
 
 }

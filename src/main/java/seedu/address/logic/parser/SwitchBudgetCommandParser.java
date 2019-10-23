@@ -15,8 +15,8 @@ import seedu.address.model.expense.Description;
 public class SwitchBudgetCommandParser implements Parser<SwitchBudgetCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddExpenseCommand
+     * and returns an AddExpenseCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SwitchBudgetCommand parse(String args) throws ParseException {
