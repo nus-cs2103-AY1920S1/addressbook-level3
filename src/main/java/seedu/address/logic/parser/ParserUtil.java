@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,6 +23,7 @@ import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.employee.EmployeePosition;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDayTime;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
@@ -236,6 +239,30 @@ public class ParserUtil {
         }
         LocalDate newDate = LocalDate.parse(trimmed, FORMATTER);
         return new EventDate(newDate);
+    }
+
+    /**
+     * Parses a {@code String timePeriod} into a {@code EventDayTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param timePeriod Valid String example: "1000-2000"
+     * @throws ParseException if the given {@code timePeriod} format is incorrect
+     */
+    public static EventDayTime parseTimePeriod(String timePeriod) throws ParseException {
+        requireNonNull(timePeriod);
+        String trimmed = timePeriod.trim();
+        if (!EventDayTime.isValidTime(trimmed)) {
+            throw new ParseException(EventDayTime.MESSAGE_CONSTRAINTS);
+        }
+        try {
+            String[] timeSplit = trimmed.split("-");
+            LocalTime startTime = LocalTime.parse(timeSplit[0], EventDayTime.FORMATTER);
+            LocalTime endTime = LocalTime.parse(timeSplit[1], EventDayTime.FORMATTER);
+            return new EventDayTime(startTime, endTime);
+        } catch (ArrayIndexOutOfBoundsException | DateTimeException e) {
+            throw new ParseException(EventDayTime.MESSAGE_CONSTRAINTS);
+        }
+
     }
 
     /**
