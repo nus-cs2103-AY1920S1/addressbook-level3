@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -283,6 +284,10 @@ public class ModelManager implements Model {
 
     //=========== Event ================================================================================
 
+    @Override
+    public void notifyAboutTranspiredEvents(List<Event> events) {
+
+    }
     @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);

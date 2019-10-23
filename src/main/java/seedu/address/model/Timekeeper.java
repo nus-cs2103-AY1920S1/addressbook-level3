@@ -18,6 +18,7 @@ import seedu.address.model.expense.Timestamp;
  */
 public class Timekeeper {
     public static final Timestamp SYSTEM_DATE = new Timestamp(LocalDate.now());
+    // public static final Timestamp SYSTEM_DATE = Timestamp.createTimestampIfValid("11-11").get();
     public static final long LOWER_THRESHOLD = 0;
     public static final long UPPER_THRESHOLD = 7;
     private Model model;
@@ -29,26 +30,31 @@ public class Timekeeper {
         this.model = model;
         events = model.getFilteredEventList();
         budgets = model.getAddressBook().getBudgetList();
-        filterOutdatedEvents();
         getReminders();
     }
 
     /**
-     * Removes events that are already past their due date from the list of events in Moolah.
+     * Removes events with timestamps on this current day or before this current day. Returns these transpired events.
+     *
+     * @return A list of transpired events.
      */
-    private void filterOutdatedEvents() {
-        List<Event> toBeRemoved = new ArrayList<>();
+    public List<Event> getTranspiredEvents() {
+        List<Event> eventsToNotify = new ArrayList<>();
+        List<Event> eventsToBeRemoved = new ArrayList<>();
+
         for (Event event : events) {
-            LocalDate timestamp = event.getTimestamp().timestamp;
-            long daysLeft = SYSTEM_DATE.getTimestamp().until(timestamp, ChronoUnit.DAYS);
-            if (isOutdated(daysLeft)) {
-                toBeRemoved.add(event);
+            Timestamp timestamp = event.getTimestamp();
+            if (hasTranspired(timestamp)) {
+                eventsToNotify.add(event);
+                eventsToBeRemoved.add(event);
             }
         }
 
-        for (Event outdatedEvent : toBeRemoved) {
-            model.deleteEvent(outdatedEvent);
+        for (Event event : eventsToBeRemoved) {
+            model.deleteEvent(event);
         }
+
+        return eventsToNotify;
     }
 
     /**
@@ -97,18 +103,38 @@ public class Timekeeper {
      * @return An Optional Reminder which may contain a Reminder of the Event.
      */
     private static Optional<Reminder> createReminderIfValid(Event event) {
-        LocalDate timestamp = event.getTimestamp().timestamp;
-
-        long daysLeft = SYSTEM_DATE.getTimestamp().until(timestamp, ChronoUnit.DAYS);
-
-        return (isUrgent(daysLeft)) ? Optional.of(new Reminder(event, daysLeft)) : Optional.empty();
+        Timestamp timestamp = event.getTimestamp();
+        long daysLeft = calculateDaysRemaining(timestamp);
+        return (isUrgent(timestamp)) ? Optional.of(new Reminder(event, daysLeft)) : Optional.empty();
     }
 
-    private static boolean isUrgent(long daysLeft) {
-        return daysLeft < UPPER_THRESHOLD;
+    /**
+     * Calculates how many days outdated the given timestamp is.
+     *
+     * @param timestamp The given timestamp.
+     * @return How many days outdated the given timestamp is. Can be negative.
+     */
+    public static long calculateDaysOutdated(Timestamp timestamp) {
+        long daysOutdated = -SYSTEM_DATE.getTimestamp().until(timestamp.getTimestamp(), ChronoUnit.DAYS);
+        return daysOutdated;
     }
 
-    private static boolean isOutdated(long daysLeft) {
-        return daysLeft < LOWER_THRESHOLD;
+    private static long calculateDaysRemaining(Timestamp timestamp) {
+        long daysLeft = SYSTEM_DATE.getTimestamp().until(timestamp.getTimestamp(), ChronoUnit.DAYS);
+        return daysLeft;
+    }
+
+    private static boolean isUrgent(Timestamp timestamp) {
+        long daysLeft = calculateDaysRemaining(timestamp);
+        return daysLeft < UPPER_THRESHOLD && !hasTranspired(timestamp);
+    }
+
+    private static boolean hasTranspired(Timestamp timestamp) {
+        long daysOutdated = calculateDaysOutdated(timestamp);
+        return daysOutdated >= LOWER_THRESHOLD;
+    }
+
+    public static boolean isFutureTimestamp(Timestamp timestamp) {
+        return timestamp.isAfter(SYSTEM_DATE);
     }
 }

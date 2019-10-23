@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.expense;
+package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,8 +21,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -35,11 +35,11 @@ import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.testutil.ExpenseBuilder;
 
-public class AddCommandTest {
+public class AddExpenseCommandTest {
 
     @Test
     public void constructor_nullExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddExpenseCommand(null));
     }
 
     @Test
@@ -51,9 +51,9 @@ public class AddCommandTest {
         Stack<ModelStub> expectedPastModels = new Stack<>();
         expectedPastModels.push(new ModelStubAcceptingExpenseAdded(modelStub));
 
-        CommandResult commandResult = new AddCommand(validExpense).run(modelStub);
+        CommandResult commandResult = new AddExpenseCommand(validExpense).run(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddExpenseCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
         assertEquals(expectedExpensesAdded, modelStub.expensesAdded);
         assertEquals(expectedPastModels, modelStub.pastModels);
     }
@@ -61,24 +61,25 @@ public class AddCommandTest {
     @Test
     public void run_duplicateExpense_throwsCommandException() {
         Expense validExpense = new ExpenseBuilder().build();
-        AddCommand addCommand = new AddCommand(validExpense);
+        AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
         ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.run(modelStub));
+        assertThrows(CommandException.class,
+                AddExpenseCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addExpenseCommand.run(modelStub));
     }
 
     @Test
     public void equals() {
         Expense alice = new ExpenseBuilder().withDescription("Alice").build();
         Expense bob = new ExpenseBuilder().withDescription("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddExpenseCommand addAliceCommand = new AddExpenseCommand(alice);
+        AddExpenseCommand addBobCommand = new AddExpenseCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddExpenseCommand addAliceCommandCopy = new AddExpenseCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -95,6 +96,11 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        @Override
+        public ObservableList<Budget> getFilteredBudgetList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -191,6 +197,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void notifyAboutTranspiredEvents(List<Event> events) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addExpense(Expense expense) {
             throw new AssertionError("This method should not be called.");
         }
@@ -247,11 +258,6 @@ public class AddCommandTest {
 
         @Override
         public void switchBudgetTo(Description targetDescription) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Budget> getFilteredBudgetList() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -7,10 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.commons.exceptions.RecursiveAliasException;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.alias.AliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
-import seedu.address.logic.commands.event.AddEventCommand;
-import seedu.address.logic.commands.expense.AddCommand;
 import seedu.address.logic.commands.expense.ClearCommand;
 import seedu.address.logic.commands.expense.DeleteCommand;
 import seedu.address.logic.commands.expense.EditCommand;
@@ -77,21 +76,19 @@ public class AliasMappings implements Serializable {
             // fallthrough
         case AddBudgetCommand.COMMAND_WORD:
             // fallthrough
-        case AddEventCommand.COMMAND_WORD:
-            // fallthrough
-        case ClearCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORD:
             // fallthrough
         case DeleteCommand.COMMAND_WORD:
             // fallthrough
-        case EditCommand.COMMAND_WORD:
-            // fallthrough
-        case ExitCommand.COMMAND_WORD:
+        case ClearCommand.COMMAND_WORD:
             // fallthrough
         case FindCommand.COMMAND_WORD:
             // fallthrough
-        case HelpCommand.COMMAND_WORD:
-            // fallthrough
         case ListCommand.COMMAND_WORD:
+            // fallthrough
+        case ExitCommand.COMMAND_WORD:
+            // fallthrough
+        case HelpCommand.COMMAND_WORD:
             return true;
         default:
             return false;

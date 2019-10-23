@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Category {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Category names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
     private final String categoryName;
 
@@ -51,7 +51,7 @@ public class Category {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + categoryName + ']';
+        return categoryName;
     }
 
 }

@@ -10,7 +10,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PRICE = new Prefix("p/", "amount");
     public static final Prefix PREFIX_CATEGORY = new Prefix("c/", "category");
     public static final Prefix PREFIX_PERIOD = new Prefix("pr/", "period");
-    public static final Prefix PREFIX_TIMESTAMP = new Prefix("date/", "date");
+    public static final Prefix PREFIX_TIMESTAMP = new Prefix("t/", "date");
     public static final Prefix PREFIX_START_DATE = new Prefix("sd/", "start date");
     public static final Prefix PREFIX_END_DATE = new Prefix("ed/", "end date");
     public static final Prefix PREFIX_FIRST_START_DATE = new Prefix("sd1/", "start date1");
