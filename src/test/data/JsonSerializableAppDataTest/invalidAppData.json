@@ -4,14 +4,12 @@
     "content": ""
   } ],
   "tasks" : [ {
-    "title" : "CS2040",
-    "content" : "sort",
+    "heading" : "CS2040",
     "date" : "2019-08-06",
     "time" : "16:00",
     "status" : "[N]"
   }, {
-    "title" : "CS2100",
-    "content" : "MIPS",
+    "heading" : "CS2100",
     "date" : "2019-09-06",
     "time" : "17:00",
     "status" : "[N]"
