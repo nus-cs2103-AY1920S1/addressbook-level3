@@ -20,7 +20,7 @@ end box
 [-> LogicManager : execute("annotate 1 p/p1 n/some remark")
 activate LogicManager
 
-LogicManager -> MarkParser : parseCommand("annotate 1 p/p1 n/some remark")
+LogicManager -> MarkParser : parseCommand("annotate \n1 p/p1 n/some remark")
 activate MarkParser
 
 create AddAnnotationCommandParser
@@ -30,7 +30,7 @@ activate AddAnnotationCommandParser
 AddAnnotationCommandParser --> MarkParser
 deactivate AddAnnotationCommandParser
 
-MarkParser -> AddAnnotationCommandParser : parse("1 p/p1 n/some remark")
+MarkParser -> AddAnnotationCommandParser : parse("1 p/p1 n/a remark")
 activate AddAnnotationCommandParser
 
 create AddAnnotationCommand
