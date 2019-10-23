@@ -65,6 +65,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Engagement> getSortedEngagementList() {
+        return model.getSortedEngagementList();
+    }
+
+    @Override
     public ObservableList<Tab> getTabList() throws DataConversionException {
         return storage.getTabList();
     }

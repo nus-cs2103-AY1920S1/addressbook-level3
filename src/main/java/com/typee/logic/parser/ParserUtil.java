@@ -13,6 +13,7 @@ import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.person.Name;
+import com.typee.model.util.EngagementComparator;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -117,6 +118,22 @@ public class ParserUtil {
             return parsedPriority;
         } catch (IllegalArgumentException e) {
             throw new ParseException(Priority.getMessageConstraints());
+        }
+    }
+
+    /**
+     * Parses a {@code String order} and returns a {@code EngagementComparator}.
+     * @param order the sorting order.
+     * @return the PersonPropertyComparator representing the comparator for that property.
+     * @throws ParseException if the given {@code personProperty} is invalid.
+     */
+    public static EngagementComparator parseComparator(String order) throws ParseException {
+        requireNonNull(order);
+
+        try {
+            return EngagementComparator.getComparator(order);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(EngagementComparator.MESSAGE_PROPERTY_CONSTRAINTS);
         }
     }
 

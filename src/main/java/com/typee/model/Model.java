@@ -1,13 +1,13 @@
 package com.typee.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.engagement.Engagement;
-
 import javafx.collections.ObservableList;
 
 /**
@@ -91,6 +91,10 @@ public interface Model {
      */
 
     void updateFilteredEngagementList(Predicate<Engagement> predicate);
+
+    void updateSortedEngagementList(Comparator<Engagement> comparator);
+
+    ObservableList<Engagement> getSortedEngagementList();
 
     boolean hasNoUndoableCommand();
 
