@@ -221,9 +221,10 @@ have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 
 ==== Delete
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
+Note: You are allowed to have more than one `INDEX`.
 
 ****
-*Format*: `delete INDEX` +
+*Format*: `delete INDEX ...` +
 *Example*: `delete 2`
 ****
 
@@ -234,13 +235,60 @@ Clears all the food items in the list.
 *Format*: `clear`
 ****
 
+=== Sorting
+Allows the user to sort the food items based on his liking.
+This is done so that the user is able to get the food which is most relevant to his or her preferences.
+
+[NOTE]
+You must always provide pairs of FIELD and DIRECTION to execute the Sorting commands.
+The fields are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
+`CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
+THe directions are as followed: `ASCENDING` or `DESCENDING`.
+
+[IMPORTANT]
+Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
+price in ascending order. Following which, sorts the food items based on names in descending order.
+
 ==== Sort
-Sorts all the food items by one specific FIELD. The fields are as followed: NAME, DESCRIPTION, PRICE, CATEGORY,
-LOCATION, OPENING_HOURS, RESTRICTIONS.
+Sorts all the food items by some specific FIELD.
+
+Note: You can have more than one pair of FIELD and DIRECTION.
 
 ****
-*Format*: `sort FIELD`
-*Example*: `sort OPENING_HOURS`
+*Format*: `sort FIELD DIRECTION ...`
+*Example*: `sort PRICE ASCENDING`
+****
+
+==== MakeSort
+Create your own custom comparator, which will be stored within the storage of the application, using specific
+FIELD and DIRECTION.
+
+****
+*Format*: `makesort FIELD DIRECTION ...`
+*Example*: `makesort PRICE ASCENDING`
+****
+
+==== CustomSort
+Sort Using your own custom comparator, which you have creating from MakeSort.
+
+****
+*Format*: `customsort`
+****
+
+==== AutoSort
+Turns on and off auto sorting, based on your own custom comparator, every time you make changes to the food list.
+There are only two states, ON or OFF.
+
+****
+*Format*: `autosort STATE`
+*Example*: `autosort ON`
+****
+
+==== Default
+Sorts the food items based on their default ordering, where it is based on ascending price, name and then category.
+
+****
+*Format*: `default`
 ****
 
 === Budgeting
@@ -555,6 +603,8 @@ Unfortunately you are unable to change the app’s language
 | Command | Description
 | Add <<Add>>
 | Add food item.
+| AutoSort <<AutoSort>>
+| Allows the user to sort every time the food list is changed. This is based on a created custom comparator.
 | Budget <<Budget>>
 | Allows the user to set a budget amount for food expenses for a certain number
 of days.
@@ -564,6 +614,10 @@ of days.
 | Clears all food item
 | Collapse <<Collapse>>
 | Makes the Food Card more or less compact, depending on the user's preference.
+| CustomSort <<CustomSort>>
+| Sorts items based on a created custom comparator.
+| Default <<Default>>
+| Sorts the food items based on their natural ordering.
 | Delete <<Delete>>
 | Deletes a food items based on the given index.
 | Dislike <<Adding likes and dislikes to the recommendation system: `like` or `dislike`>>
@@ -586,6 +640,8 @@ of days.
 | Specifies the user's liked categories, tags and locations
 | List <<List>>
 | List all saved food items
+| MakeSort <<MakeSort>>
+| Makes the custom comparator based on some specified fields and directions.
 | Recommend <<Getting a list of recommended food items: `recommend`>>
 | Recommend a food item, based on the user's budget.
 | Redo <<Redo>>
@@ -595,7 +651,7 @@ of days.
 | Removelike <<Removing likes and dislikes from the recommendation system: `removelike` and `removedislike`>>
 | Remove likes from the user's specified likes or clears the likes list
 | Sort <<Sort>>
-| Sort all the food items by a specified field.
+| Sort all the food items by some specified fields and directions.
 | Save <<Save>>
 | Saves a specified amount of money from the user's wallet into his savings account.
 | Topup <<Topup>>
