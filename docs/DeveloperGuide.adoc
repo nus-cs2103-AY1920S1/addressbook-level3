@@ -224,7 +224,7 @@ image::UndoRedoCommandClassDiagram.png[]
 Below is a Sequence Diagram of how an `UndoCommand` executes in the program. `RedoCommand` follows a similar process.
 
 .Sequence Diagram for `UndoCommand`
-image::UndoSequenceDiagram.png[]
+image::UndoCommandSequenceDiagram.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
