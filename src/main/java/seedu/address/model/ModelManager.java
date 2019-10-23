@@ -45,9 +45,6 @@ public class ModelManager implements Model {
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final AverageMap averageMap;
 
-    private AverageType averageType;
-    private RecordType recordType;
-
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -72,8 +69,6 @@ public class ModelManager implements Model {
         this.calendar = new Calendar(calendar);
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
         this.averageMap = new AverageMap();
-        this.averageType = null;
-        this.recordType = null;
     }
 
     public ModelManager() {
