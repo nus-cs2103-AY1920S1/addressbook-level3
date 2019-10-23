@@ -462,6 +462,16 @@ public class ModelManager implements Model {
         ccaTracker.increaseProgress(index);
     }
 
+    @Override
+    public boolean ccaContainsProgress(Index index) {
+        return ccaTracker.ccaContainsProgress(index);
+    }
+
+    @Override
+    public boolean ccaAtMaxIncrement(Index targetIndex) {
+        return ccaTracker.ccaAtMaxIncrement(targetIndex);
+    }
+
     //=========== Planner =============================================================
 
     /**

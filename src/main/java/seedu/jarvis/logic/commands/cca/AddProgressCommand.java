@@ -34,7 +34,7 @@ public class AddProgressCommand extends Command {
             + PREFIX_PROGRESS_LEVEL_NAMES + "gold star standard";
 
     public static final String MESSAGE_SUCCESS = "New progress added to cca at index: %1$s";
-    public static final String MESSAGE_DUPLICATE_CCA = "This specific progress already exists in this cca.";
+    public static final String MESSAGE_CCA_PROGRESS_ALREADY_SET = "A progress already exists in this cca.";
 
     private final Index targetIndex;
     private Cca targetCca;
@@ -72,7 +72,12 @@ public class AddProgressCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
         }
 
+        if (model.ccaContainsProgress(targetIndex)) {
+            throw new CommandException(MESSAGE_CCA_PROGRESS_ALREADY_SET);
+        }
+
         targetCca = model.getCca(targetIndex);
+
         model.addProgress(targetCca, toAddCcaMilestoneList);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));

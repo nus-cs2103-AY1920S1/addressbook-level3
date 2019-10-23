@@ -24,6 +24,8 @@ public class IncreaseProgressCommand extends Command {
             + "1 ";
 
     public static final String MESSAGE_INCREMENT_PROGRESS_SUCCESS = "Incremented progress for Cca: %1$s";
+    public static final String MESSAGE_CCA_PROGRESS_NOT_YET_SET = "A progress does not yet exists in this cca.";
+    public static final String MESSAGE_INCREMENT_AT_MAX = "Cca progress at maximum.";
 
     private final Index targetIndex;
 
@@ -49,6 +51,14 @@ public class IncreaseProgressCommand extends Command {
 
         if (targetIndex.getZeroBased() >= model.getNumberOfCcas()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
+        }
+
+        if (!model.ccaContainsProgress(targetIndex)) {
+            throw new CommandException(MESSAGE_CCA_PROGRESS_NOT_YET_SET);
+        }
+
+        if (model.ccaAtMaxIncrement(targetIndex)) {
+            throw new CommandException(MESSAGE_INCREMENT_AT_MAX);
         }
 
         model.increaseProgress(targetIndex);

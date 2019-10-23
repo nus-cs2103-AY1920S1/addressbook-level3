@@ -1,5 +1,7 @@
 package seedu.jarvis.model.cca.ccaprogress;
 
+import seedu.jarvis.model.cca.exceptions.CcaProgressNotSetException;
+
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
@@ -55,7 +57,17 @@ public class CcaProgress {
      * Increases the progress by 1 {@code Milestone}.
      */
     public void increaseProgress() {
+        if (ccaProgressListIsEmpty()) {
+            throw new CcaProgressNotSetException();
+        }
         ccaCurrentProgress.increaseProgress();
+    }
+
+    /**
+     * Checks if the Cca progress is at max.
+     */
+    public boolean progressAtMax() {
+        return ccaCurrentProgress.progressAtMax();
     }
 
     @Override
@@ -72,5 +84,4 @@ public class CcaProgress {
         return otherCcaProgress.ccaMilestoneList.equals(this.ccaMilestoneList)
                 && otherCcaProgress.ccaCurrentProgress.equals(this.ccaCurrentProgress);
     }
-
 }
