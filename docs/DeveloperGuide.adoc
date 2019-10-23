@@ -122,14 +122,11 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores Customer, Phone, Order and Schedule data in a DataBook each.
+* stores `Customer`, `Phone`, `Order` and `Schedule` data in a `DataBook` each.
+* a `DataBook` is backed by an underlying `UniqueList` which stores subclasses of `Identifiable`
+* the `Identifiable` interfaces exposes an `isSameAs` method which is used to determine if two objects have the same identity
 * exposes an unmodifiable `ObservableList` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -287,6 +284,35 @@ step 5: with this output from logic, `Statistic Window` will then handle the dip
 form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
 
 image::StatisticsCalculationUI.png[]
+
+=== Autocomplete feature
+==== Current Implementation
+
+This feature is visible in the UI as a dropdown menu when the user enters input into the command box.
+
+===== How the UI works
+
+The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's `TextField`, which adds an additional listener for changes in the input text.
+This listener reads the entire input text on each character change and performs comparisons with a predefined set of strings.
+For all predefined strings that matches the input text, they are sorted according to their "closeness", and a maximum of 5 is displayed.
+
+===== The underlying data structures
+
+This feature was designed to display values that are currently in the `Model`.
+
+For example, the input text `add-c n/` would display a list of `CustomerName` that already exists in the `Customer` `DataBook`.
+
+In order to achieve this, the underlying data structure used is a directed `Graph` with every `Node` storing a reference to a set of values,
+and a `Map<String, Node>` to represent outgoing edges. The keys of this map represent the possible prefixes for the next argument of the input text, such as `c/` or `e/`.
+
+===== Design Considerations
+
+* Dynamically updated: By storing references to a set of values that can be backed by `ObservableList` in the `Model`, whenever the user alters any data, it will be reflected in the displayed values.
+
+* Supports optional arguments: By storing the possible prefixes as "edge weights", it is possible to represent an optional argument by having an edge to the `Node` containing its values, as well as an edge to the next `Node`.
+
+* Infinite structure: By having a `TagNode` store a reference to itself, it is possible to endlessly display `t/` as a possible argument at the end of the input text,
+which is consistent with the unlimited number of `Tag` a `Customer` can hold.
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
