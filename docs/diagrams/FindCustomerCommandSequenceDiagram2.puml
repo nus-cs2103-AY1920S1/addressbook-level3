@@ -6,6 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SellerManagerParser" as SellerManagerParser LOGIC_COLOR
 participant ":FindCustomerCommandParser" as FindCustomerCommandParser LOGIC_COLOR
 participant ":CustomerNameContainsKeywordsPredicate" as CustomerNameContainsKeywordsPredicate LOGIC_COLOR
+participant ":EmailContainsKeywordsPredicate" as EmailContainsKeywordsPredicate LOGIC_COLOR
 participant "c:FindCustomerCommand" as FindCustomerCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -27,15 +28,23 @@ activate FindCustomerCommandParser
 FindCustomerCommandParser --> SellerManagerParser
 deactivate FindCustomerCommandParser
 
-SellerManagerParser -> FindCustomerCommandParser : parse("n/Alice")
+SellerManagerParser -> FindCustomerCommandParser : parse("n/Alice e/alex@gmail")
 activate FindCustomerCommandParser
 
 create CustomerNameContainsKeywordsPredicate
-FindCustomerCommandParser -> CustomerNameContainsKeywordsPredicate : predicate.or(new CustomerNameContainsKeywordsPredicate)
+FindCustomerCommandParser -> CustomerNameContainsKeywordsPredicate
 
 activate CustomerNameContainsKeywordsPredicate
 CustomerNameContainsKeywordsPredicate --> FindCustomerCommandParser : predicate
 deactivate CustomerNameContainsKeywordsPredicate
+
+create EmailContainsKeywordsPredicate
+FindCustomerCommandParser -> EmailContainsKeywordsPredicate
+
+
+activate EmailContainsKeywordsPredicate
+EmailContainsKeywordsPredicate --> FindCustomerCommandParser : predicate
+deactivate EmailContainsKeywordsPredicate
 
 create FindCustomerCommand
 FindCustomerCommandParser -> FindCustomerCommand : new FindCustomerCommand(predicate)
