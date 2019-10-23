@@ -20,13 +20,11 @@ public class ListAvailCommand extends Command {
 
     public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen";
 
-    public ListAvailCommand() {}
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.listAvailableDeliverymen();
+        model.showAvailableDeliverymen();
         return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS);
     }
 

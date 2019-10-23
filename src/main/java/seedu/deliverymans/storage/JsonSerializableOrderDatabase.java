@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
-import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.order.Order;
 
@@ -45,16 +45,16 @@ class JsonSerializableOrderDatabase {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public OrderBook toModelType() throws IllegalValueException {
-        OrderBook orderBook = new OrderBook();
+    public OrderDatabase toModelType() throws IllegalValueException {
+        OrderDatabase orderDatabase = new OrderDatabase();
         for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
             Order order = jsonAdaptedOrder.toModelType();
-            if (orderBook.hasOrder(order)) {
+            if (orderDatabase.hasOrder(order)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ORDER);
             }
-            orderBook.addOrder(order);
+            orderDatabase.addOrder(order);
         }
-        return orderBook;
+        return orderDatabase;
     }
 
 }

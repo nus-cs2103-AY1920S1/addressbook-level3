@@ -23,7 +23,7 @@ import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
-import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
@@ -64,7 +64,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing DeliveryMANS ]===========================");
+        logger.info("=============================[ Initializing DeliveryMANS... ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -184,10 +184,10 @@ public class MainApp extends Application {
             initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
-            initialOrderData = new OrderBook();
+            initialOrderData = new OrderDatabase();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
-            initialOrderData = new OrderBook();
+            initialOrderData = new OrderDatabase();
         }
 
         return new ModelManager(initialAddressData, initialCustomerData, initialDeliverymenData, initialRestaurantData,

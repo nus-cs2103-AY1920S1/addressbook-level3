@@ -5,7 +5,6 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -21,7 +20,7 @@ import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
-import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
@@ -38,7 +37,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final OrderBook orderBook;
+    private final OrderDatabase orderDatabase;
     private final CustomerDatabase customerDatabase;
     private final DeliverymenDatabase deliverymenDatabase;
     private final RestaurantDatabase restaurantDatabase;
@@ -49,6 +48,10 @@ public class ModelManager implements Model {
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
+    private final FilteredList<Deliveryman> statusSortedDeliverymen;
+    private final FilteredList<Deliveryman> availableDeliverymen;
+    private final FilteredList<Deliveryman> unavailableDeliverymen;
+    private final FilteredList<Deliveryman> deliveringDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Restaurant> editingRestaurant;
     private final UndoHistory<Data> undoHistory;
@@ -73,15 +76,19 @@ public class ModelManager implements Model {
         this.customerDatabase = new CustomerDatabase(customerDatabase);
         this.deliverymenDatabase = new DeliverymenDatabase(deliverymenDatabase);
         this.restaurantDatabase = new RestaurantDatabase(restaurantDatabase);
-        this.orderBook = new OrderBook(orderBook);
+        this.orderDatabase = new OrderDatabase(orderBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
+        statusSortedDeliverymen = new FilteredList<>(this.deliverymenDatabase.getStatusSortedDeliverymenList());
+        availableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getAvailableDeliverymenList());
+        unavailableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getUnavailableDeliverymenList());
+        deliveringDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliveringDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
+        filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
-        filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
         undoHistory = new UndoHistory<>(new Data(this));
 
         context = Context.GLOBAL;
@@ -89,7 +96,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new CustomerDatabase(), new DeliverymenDatabase(),
-                new RestaurantDatabase(), new OrderBook(), new UserPrefs());
+                new RestaurantDatabase(), new OrderDatabase(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -302,19 +309,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Deliveryman> listAvailableDeliverymen() {
-        return deliverymenDatabase.listAvailableMen();
-    }
-
-    @Override
-    public void listUnavailableDeliverymen() {
-        deliverymenDatabase.listUnavailableMen();
-    }
-
-    @Override
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireAllNonNull(target, editedDeliveryman);
         deliverymenDatabase.setDeliveryman(target, editedDeliveryman);
+    }
+
+    @Override
+    public void showAvailableDeliverymen() {
+        deliverymenDatabase.setAsAvailable();
     }
 
     //=========== Order Methods =============================================================
@@ -330,29 +332,29 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setOrderBook(ReadOnlyOrderBook orderBook) {
-        this.orderBook.resetData(orderBook);
+    public void setOrderDatabase(ReadOnlyOrderBook orderDatabase) {
+        this.orderDatabase.resetData(orderDatabase);
     }
 
     @Override
-    public ReadOnlyOrderBook getOrderBook() {
-        return orderBook;
+    public ReadOnlyOrderBook getOrderDatabase() {
+        return orderDatabase;
     }
 
     @Override
     public boolean hasOrder(Order order) {
         requireNonNull(order);
-        return orderBook.hasOrder(order);
+        return orderDatabase.hasOrder(order);
     }
 
     @Override
     public void deleteOrder(Order order) {
-        orderBook.removeOrder(order);
+        orderDatabase.removeOrder(order);
     }
 
     @Override
     public void addOrder(Order order) {
-        orderBook.addOrder(order);
+        orderDatabase.addOrder(order);
         updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
     }
 
@@ -360,7 +362,7 @@ public class ModelManager implements Model {
     public void setOrder(Order target, Order editedOrder) {
         requireAllNonNull(target, editedOrder);
 
-        orderBook.setOrder(target, editedOrder);
+        orderDatabase.setOrder(target, editedOrder);
     }
 
     //=========== Undo ================================================================================
@@ -398,7 +400,7 @@ public class ModelManager implements Model {
         setAddressBook(data.addressBook);
         setDeliverymenDatabase(data.deliverymenDatabase);
         setRestaurantDatabase(data.restaurantDatabase);
-        setOrderBook(data.orderBook);
+        setOrderDatabase(data.orderDatabase);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -424,6 +426,26 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Deliveryman> getFilteredDeliverymenList() {
         return filteredDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getStatusSortedList() {
+        return statusSortedDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getAvailableMenList() {
+        return availableDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getUnavailableMenList() {
+        return unavailableDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getDeliveringMenList() {
+        return deliveringDeliverymen;
     }
 
     @Override
@@ -457,6 +479,12 @@ public class ModelManager implements Model {
     public void updateFilteredCustomerList(Predicate<Customer> predicate) {
         requireNonNull(predicate);
         filteredCustomers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate) {
+        requireNonNull(predicate);
+        statusSortedDeliverymen.setPredicate(predicate);
     }
 
     @Override
@@ -503,13 +531,13 @@ public class ModelManager implements Model {
         private final AddressBook addressBook;
         private final DeliverymenDatabase deliverymenDatabase;
         private final RestaurantDatabase restaurantDatabase;
-        private final OrderBook orderBook;
+        private final OrderDatabase orderDatabase;
 
         public Data(Model model) {
             addressBook = new AddressBook(model.getAddressBook());
             deliverymenDatabase = new DeliverymenDatabase(model.getDeliverymenDatabase());
             restaurantDatabase = new RestaurantDatabase(model.getRestaurantDatabase());
-            orderBook = new OrderBook(model.getOrderBook());
+            orderDatabase = new OrderDatabase(model.getOrderDatabase());
         }
 
         @Override
@@ -529,7 +557,7 @@ public class ModelManager implements Model {
             return addressBook.equals(other.addressBook)
                     && deliverymenDatabase.equals(other.deliverymenDatabase)
                     && restaurantDatabase.equals(other.restaurantDatabase)
-                    && orderBook.equals(other.orderBook);
+                    && orderDatabase.equals(other.orderDatabase);
         }
     }
 }

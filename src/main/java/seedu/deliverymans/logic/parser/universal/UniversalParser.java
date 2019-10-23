@@ -2,6 +2,7 @@ package seedu.deliverymans.logic.parser.universal;
 
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_ALREADY_IN_CONTEXT;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_SWITCH_CONTEXT;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -76,18 +77,27 @@ public class UniversalParser {
             return new RedoCommand();
 
         case CustomerParser.COMMAND_WORD:
+            if (arguments.length() != 0) {
+                throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
+            }
             nextContext = Context.CUSTOMER;
             checkContext(nextContext);
             currentContext = nextContext;
             return new ContextCommand(nextContext);
 
         case DeliverymanParser.COMMAND_WORD:
+            if (arguments.length() != 0) {
+                throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
+            }
             nextContext = Context.DELIVERYMEN;
             checkContext(nextContext);
             currentContext = nextContext;
             return new ContextCommand(nextContext);
 
         case RestaurantParser.COMMAND_WORD:
+            if (arguments.length() != 0) {
+                throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
+            }
             nextContext = Context.RESTAURANT;
             checkContext(nextContext);
             currentContext = nextContext;

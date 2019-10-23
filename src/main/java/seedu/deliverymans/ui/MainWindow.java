@@ -39,7 +39,10 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
+    private AvailableDeliverymenListPanel availableDeliverymenListPanel;
+    private UnavailableDeliverymenListPanel unavailableDeliverymenListPanel;
     private RestaurantListPanel restaurantListPanel;
+    private OrderListPanel orderListPanel;
     private FoodListPanel foodListPanel;
     private ResultDisplay resultDisplay;
     private StatisticsDisplay statisticsDisplay;
@@ -125,8 +128,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        // orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        // listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -197,11 +200,20 @@ public class MainWindow extends UiPart<Stage> {
         case DELIVERYMEN:
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
+            availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getFilteredStatusList());
+            statisticsPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
             break;
         case RESTAURANT:
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
+        case DELIVERYMENSTATUS:
+            availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
+            listPanelPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
+            unavailableDeliverymenListPanel = new UnavailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
+            statisticsPlaceholder.getChildren().add(unavailableDeliverymenListPanel.getRoot());
+            break;
+
         case EDITING:
             Restaurant editing = logic.getEditingRestaurantList().get(0);
             editingRestaurantPlaceholder.setPrefHeight(125.0);
@@ -216,7 +228,8 @@ public class MainWindow extends UiPart<Stage> {
             statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS");
             break;
         default:
-            // to be implemented with order list
+            orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
         }
     }
 

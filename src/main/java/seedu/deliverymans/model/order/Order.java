@@ -1,11 +1,13 @@
 package seedu.deliverymans.model.order;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import static java.util.Objects.requireNonNull;
 
-import seedu.deliverymans.model.food.Food;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import seedu.deliverymans.model.Name;
 
 /**
  * Represents an Order in the application.
@@ -14,62 +16,78 @@ import seedu.deliverymans.model.food.Food;
 public class Order {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-
-    public final String orderName;
+    private static int counter = 1;
 
     // Identity fields
-    private final String customer;
-    private final String restaurant;
-    private final String deliveryman;
+    private final Name orderName;
+    private final Name customer;
+    private final Name restaurant;
+    private Name deliveryman = new Name("unassigned");
     private boolean isCompleted;
 
     // Data fields
-    private final Set<Food> foods = new HashSet<>();
+    private final Map<Name, Integer> foods = new HashMap<>();
 
     /**
      * Constructs a {@code Order}
      *
      * @param customer   The customer who made the order.
-     * @param restaurant The restaurant...
+     * @param restaurant The restaurant.
      */
-    public Order(String orderName, String customer, String restaurant, String deliveryman) {
-        // requireNonNull(orderName);
-        // checkArgument(isValidOrderName(orderName), MESSAGE_CONSTRAINTS);
+    public Order(Name customer, Name restaurant, Map<Name, Integer> foodList) {
+        requireNonNull(customer);
+        requireNonNull(restaurant);
+
+        this.orderName = new Name(String.format("Order no %d", counter));
+        ++counter;
+        this.customer = customer;
+        this.restaurant = restaurant;
+        this.foods.putAll(foodList);
+    }
+
+    public Order(Name orderName, Name customer, Name restaurant, Map<Name, Integer> foodList) {
+        requireNonNull(customer);
+        requireNonNull(restaurant);
+
         this.orderName = orderName;
         this.customer = customer;
         this.restaurant = restaurant;
-        this.deliveryman = deliveryman;
+        this.foods.putAll(foodList);
     }
 
-    public void addFood(Food food) {
-        foods.add(food);
+    public void addFood(Name food, int quantity) {
+        foods.put(food, quantity);
     }
 
-    public void addFood(Set<Food> foods) {
-        this.foods.addAll(foods);
+    public void addFood(Map<Name, Integer> foods) {
+        this.foods.putAll(foods);
     }
 
-    public String getOrderName() {
+    public Name getOrderName() {
         return orderName;
     }
 
-    public String getCustomer() {
+    public Name getCustomer() {
         return customer;
     }
 
-    public String getDeliveryman() {
+    public Name getDeliveryman() {
         return deliveryman;
     }
 
-    /**
-     * Returns an immutable food set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Food> getFood() {
-        return Collections.unmodifiableSet(foods);
+    public void setDeliveryman(Name deliveryman) {
+        this.deliveryman = deliveryman;
     }
 
-    public String getRestaurant() {
+    /**
+     * Returns an immutable food map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<Name, Integer> getFood() {
+        return Collections.unmodifiableMap(foods);
+    }
+
+    public Name getRestaurant() {
         return restaurant;
     }
 
@@ -120,10 +138,12 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getCustomer().equals(getCustomer())
+        return otherOrder.getOrderName().equals(getOrderName())
+                && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getDeliveryman().equals(getDeliveryman())
                 && otherOrder.getFood().equals(getFood())
-                && otherOrder.getRestaurant().equals(getRestaurant());
+                && otherOrder.getRestaurant().equals(getRestaurant())
+                && (otherOrder.isCompleted() == isCompleted());
     }
 
     @Override
@@ -134,14 +154,22 @@ public class Order {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Customer: ")
+        builder.append(getOrderName())
+                .append(" Customer: ")
                 .append(getCustomer())
                 .append(" Restaurant: ")
                 .append(getRestaurant())
                 .append(" Deliveryman: ")
                 .append(getDeliveryman())
                 .append(" Food: ");
-        getFood().forEach(builder::append);
+
+        // for (Map.Entry<Name, Integer> entry : getFood().entrySet()) {
+        //    builder.append(String.format("%s x%d", entry.getKey().fullName, entry.getValue()));
+        //}
+        getFood().entrySet().forEach(entry -> {
+            builder.append(String.format("%s x%d", entry.getKey().fullName, entry.getValue()));
+        });
+        builder.append(" Delivery status: ").append(isCompleted());
         return builder.toString();
     }
 }

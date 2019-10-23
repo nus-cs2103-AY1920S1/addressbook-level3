@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,6 +52,18 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses {@code Collection<String> names} into a {@code Set<Name>}.
+     */
+    public static ArrayList<Name> parseNames(Collection<String> names) throws ParseException {
+        requireNonNull(names);
+        final ArrayList<Name> nameSet = new ArrayList<>();
+        for (String tagName : names) {
+            nameSet.add(parseName(tagName));
+        }
+        return nameSet;
     }
 
     /**
@@ -111,6 +124,19 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String bool} into a {@code boolean}.
+     */
+    public static boolean parseBoolean(String bool) throws ParseException {
+        requireNonNull(bool);
+        String trimmedBool = bool.trim();
+        boolean isCompleted = Boolean.parseBoolean(trimmedBool);
+        if (!isCompleted && trimmedBool.equalsIgnoreCase("false")) {
+            throw new ParseException("Completed should be true or false");
+        }
+        return isCompleted;
+    }
+
+    /**
      * Parses a {@code String price} into a {@code BigDecimal}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -140,5 +166,20 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException(e.getMessage(), e);
         }
+    }
+
+    /**
+     * Parses a {@code Collection<String> tags} in seconds into a {@code ArrayList<Integer>}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Collection<String> tags} is invalid.
+     */
+    public static ArrayList<Integer> parseQuantity(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final ArrayList<Integer> tagSet = new ArrayList<>();
+        for (String tagName : tags) {
+            tagSet.add(Integer.parseInt(tagName));
+        }
+        return tagSet;
     }
 }

@@ -8,6 +8,7 @@ public enum Context {
     CUSTOMER,
     DELIVERYMEN,
     RESTAURANT,
+    DELIVERYMENSTATUS,
     EDITING;
 
     public String toLowerCaseString() {

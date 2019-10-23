@@ -12,20 +12,20 @@ import seedu.deliverymans.model.order.UniqueOrderList;
  * Wraps all data at the order database level
  * Duplicates are not allowed (by .isSameOrder comparison)
  */
-public class OrderBook implements ReadOnlyOrderBook {
+public class OrderDatabase implements ReadOnlyOrderBook {
     private final UniqueOrderList orders;
 
     {
         orders = new UniqueOrderList();
     }
 
-    public OrderBook() {
+    public OrderDatabase() {
     }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public OrderBook(ReadOnlyOrderBook toBeCopied) {
+    public OrderDatabase(ReadOnlyOrderBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -93,8 +93,8 @@ public class OrderBook implements ReadOnlyOrderBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof OrderBook // instanceof handles nulls
-                && orders.equals(((OrderBook) other).orders));
+                || (other instanceof OrderDatabase // instanceof handles nulls
+                && orders.equals(((OrderDatabase) other).orders));
     }
 
     @Override
