@@ -53,8 +53,8 @@ public class Budget {
     }
 
     //Constructor for system.
-    public Budget(Description description, Price amount, Timestamp startDate,
-                  Period period, ObservableList<Expense> expenses) {
+    public Budget(Description description, Price amount, Timestamp startDate, Period period,
+                  ObservableList<Expense> expenses) {
         requireAllNonNull(description, amount, startDate, period, expenses);
         this.description = description;
         this.amount = amount;
@@ -106,10 +106,6 @@ public class Budget {
 
     public Percentage getProportionUsed() {
         return proportionUsed;
-    }
-
-    public void removeExpense(Expense e) {
-        expenses.remove(e);
     }
 
     /**

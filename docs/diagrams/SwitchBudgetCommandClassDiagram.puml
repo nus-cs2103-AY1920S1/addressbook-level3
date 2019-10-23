@@ -1,0 +1,21 @@
+@startuml
+
+class SwitchBudgetCommand {
++{static} COMMAND_WORD: String
++{static} MESSAGE_USAGE: String
++{static} MESSAGE_SUCCESS: String
++{static} MESSAGE_BUDGET_NOT_FOUND: String
++{static} MESSAGE_BUDGET_ALREADY_PRIMARY: String
+#validate(model: Model)
+#execute(model: Model): CommandResult
+}
+
+abstract class UndoableCommand
+
+SwitchBudgetCommand -up-|> UndoableCommand
+SwitchBudgetCommand -right-> "1" Description: target budget name
+SwitchBudgetCommand ..> Model
+SwitchBudgetCommand ..> CommandResult
+SwitchBudgetCommand .left.> CommandException: throws
+
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+
+class Percentage {
+-int: proportion
++{static} calculate(num: double, den: double): Percentage
++{static} isValidPercentage(int): boolean
++{static} getProportionFromString(String): int
+}
+
+@enduml

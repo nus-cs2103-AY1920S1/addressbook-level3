@@ -234,6 +234,104 @@ by the `add` command.
 
 // end::undoredo[]
 
+
+
+// category::budget[]
+=== Budget feature
+==== Implementation
+
+The budget feature allows users to add a budget and track expenses under this budget.
+When a budget is added, it is automatically set to the primary budget, and all expenses added after that
+will be tracked under this budget. If the user wants to track an expense under a different budget, he
+switches to the target budget first, before adding the expense.
+
+Each budget has 8 fields:
+- description: `Description`, budget name
+- amount: `Price`, amount of budget limit
+- startDate: `Timestamp`, the start date of the budget (for the current period)
+- endDate: `Timestamp`, the end date of the budget (for the current period)
+- period: `Period`, the recurring period of the budget
+- expenses: `ObservableList<Expense>`, the list of all expenses under this budget
+- isPrimary: `boolean`, a flag indicating the primary status of this budget
+- proportionUsed: `Percentage`, the proportion of the total amount that has been used up
+
+image::BudgetClassDiagram.png[]
+
+Each budget, once added, will recur infinitely. This is achieved by the refresh() method, which checks whether
+the budget has expired, and refreshes it to a new period if necessary, upon launching MooLah.
+
+A budget is like a sliding window that moves in the positive direction of time axis. The window has a fixed size,
+which is the period of the budget. Only expenses within the current window will be shown in the app. Every time
+the budget refreshes, the window "slides" to the next period, starting with an empty screen that gradually gets
+populated with newly added expenses over time.
+
+A budget keeps a list of all expenses ever been tracked by this budget, including historical ones. Additionally,
+it has a method `getCurrentPeriodExpenses()` that generates a filtered list of expenses within the current budgeting
+period, which interacts with GUI to be shown in the current screen.
+
+The fundamental classes of the budget feature are:
+- `Budget` : main functional backend class
+- `JsonAdaptedBudget` : for storage of a `Budget` object in Json format
+- `UniqueBudgetList` : a list of non-duplicate budgets in MooLah
+- `AddBudgetCommand` and `SwitchBudgetCommand` : budget-related commands
+        `AddBudgetCommand` creates a new `Budget` and adds it to `UniqueBudgetList`
+        `SwitchBudgetCommand` switches the primary budget to the specified budget
+- `AddBudgetCommandParser` and `SwitchBudgetCommandParser` : for parsing CLI input into commands
+
+image::AddBudgetCommandClassDiagram.png[]
+
+image::SwitchBudgetCommandClassDiagram.png[]
+
+Additionally, util classes like `Percentage` which wraps a percentage for easier calculation and validation of proportionUsed.
+
+image::PercentageClassDiagram.png[]
+
+The following sequence diagram shows how the add budget operation works:
+
+image::AddBudgetSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram summarizes what happens when the app launches and when a new expense is added:
+
+image::BudgetActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Since Budget already keeps a list of expenses, should Expense have a Budget field?
+
+* **Alternative 1:** Expense has a `Budget` field
+** Pros: Easier to manage expenses.
+** Cons: Causes cyclical dependency, and reduces testability. Also, this will cause infinite loop when creating
+JsonAdaptedExpense and JsonAdaptedBudget.
+* **Alternative 2:** Expense does not have reference to Budget
+** Pros: Less coupling.
+** Cons: When reconstructing MooLah from json file, system does not know which budget to add the past expenses to.
+* **Solution (Current implementation):**
+Each Expense keeps a budgetName field which indicates the name of the Budget it is tracked under. Since UniqueBudgetList
+checks for duplicate budget names, a name is sufficient to identify a Budget. Besides, since budgetName is of
+`Description` type instead of `Budget` type, it is easy to convert to String, and resolves infinite loop when creating
+json files. Also, the resulting JsonAdaptedExpense file will not be too long, since the "budgetName" property stores
+only the budget name instead of the full budget object.
+
+
+===== Aspect: Must every expense be tracked under a Budget? Can one expense be tracked under multiple Budgets?
+
+* **Alternative 1:** Every expense must be tracked under one, and only one Budget.
+** Pros: Budgets would be a partition of all expenses, which makes generating statistics (pie charts, etc.) easier.
+** Cons: User would not be able to track expenses that fall under multiple Budgets.
+* **Alternative 2:** Allow expenses without a Budget.
+** Pros: More flexible budgeting experience.
+** Cons: Internal logic would be very confusing. GUI and statistics would be harder to implement.
+* **Solution (Current implementation):**
+Adopts Alternative 1. Every expense must be tracked under one and only one Budget. If the expense is added before
+adding any budgets, a default budget with a huge limit is created for tracking all expenses without a proper budget.
+This ensures that the main screen has a budget and shows a budget status bar at all times. Besides, it leads to neater
+statistics.
+// end::budget[]
+
+
+
 // category::dataencryption[]
 === [Proposed] Data Encryption
 

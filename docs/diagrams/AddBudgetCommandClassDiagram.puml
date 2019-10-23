@@ -1,0 +1,20 @@
+@startuml
+
+class AddBudgetCommand {
++{static} COMMAND_WORD: String
++{static} MESSAGE_USAGE: String
++{static} MESSAGE_SUCCESS: String
++{static} MESSAGE_DUPLICATE_BUDGET: String
+#validate(model: Model)
+#execute(model: Model): CommandResult
+}
+
+abstract class UndoableCommand
+
+AddBudgetCommand -up-|> UndoableCommand
+AddBudgetCommand -right-> "1" Budget: toAdd
+AddBudgetCommand ..> Model
+AddBudgetCommand ..> CommandResult
+AddBudgetCommand .left.> CommandException: throws
+
+@enduml

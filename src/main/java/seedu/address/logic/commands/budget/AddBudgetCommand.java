@@ -14,7 +14,7 @@ import seedu.address.model.budget.Budget;
 import seedu.address.ui.budget.BudgetPanel;
 
 /**
- * Adds a budget to Moolah.
+ * Adds a budget to MooLah.
  */
 public class AddBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "budget";
@@ -32,7 +32,7 @@ public class AddBudgetCommand extends UndoableCommand {
             + PREFIX_PERIOD + "month";
 
     public static final String MESSAGE_SUCCESS = "New budget added:\n %1$s";
-    public static final String MESSAGE_DUPLICATE_BUDGET = "This budget already exists in Moolah";
+    public static final String MESSAGE_DUPLICATE_BUDGET = "This budget already exists in MooLah";
 
     private final Budget toAdd;
 
@@ -55,7 +55,6 @@ public class AddBudgetCommand extends UndoableCommand {
         requireNonNull(model);
 
         model.addBudget(toAdd);
-        model.setPrimary(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), BudgetPanel.PANEL_NAME);
     }
 
