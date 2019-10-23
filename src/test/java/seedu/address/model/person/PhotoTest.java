@@ -27,10 +27,10 @@ class PhotoTest {
 		assertFalse(Photo.isValidFilePath(" "));
 		assertFalse(Photo.isValidFilePath("!@#dummy.png"));
 		assertFalse(Photo.isValidFilePath("21"));
-		assertFalse(Photo.isValidFilePath("12345.png"));
 		assertFalse(Photo.isValidFilePath("dummy.jpeg"));
 		assertFalse(Photo.isValidFilePath("Chicken.jpg"));
 
+		assertTrue(Photo.isValidFilePath("12345.png"));
 		assertTrue(Photo.isValidFilePath("Default.png"));
 		assertTrue(Photo.isValidFilePath("bobby97.png"));
 		assertTrue(Photo.isValidFilePath("986amyBoseman.png"));

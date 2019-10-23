@@ -41,21 +41,6 @@ class SelectCommandTest {
         assertCommandFailure(selectCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    @Test void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Person personToSelect = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        SelectCommand selectCommand = new SelectCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, personToSelect);
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.selectPerson();
-        showNoPerson(expectedModel);
-
-        assertCommandSuccess(selectCommand, model, expectedMessage, expectedModel);
-    }
-
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandExpection() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
@@ -89,7 +74,7 @@ class SelectCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showSelectPerson(Model model) {
         model.updateFilteredPersonList(p -> false);
 
         assertTrue(model.getFilteredPersonList().isEmpty());
