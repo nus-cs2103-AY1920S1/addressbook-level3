@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":guiltTripParser" as guiltTripParser LOGIC_COLOR
 participant "HistoryCommandParser:" as HistoryCommandParser LOGIC_COLOR
-participant "h: HistoryCommand:" as HistoryCommand LOGIC_COLOR
+participant "h: StatisticsCommand:" as StatisticsCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -33,12 +33,12 @@ deactivate HistoryCommandParser
 guiltTripParser -> HistoryCommandParser : parse("typ/Expense")
 activate HistoryCommandParser
 
-create HistoryCommand
-HistoryCommandParser -> HistoryCommand
-activate HistoryCommand
+create StatisticsCommand
+HistoryCommandParser -> StatisticsCommand
+activate StatisticsCommand
 
-HistoryCommand --> HistoryCommandParser : h
-deactivate HistoryCommand
+StatisticsCommand --> HistoryCommandParser : h
+deactivate StatisticsCommand
 
 HistoryCommandParser --> guiltTripParser : h
 deactivate HistoryCommandParser
@@ -49,10 +49,10 @@ destroy HistoryCommandParser
 guiltTripParser --> LogicManager : h
 deactivate guiltTripParser
 
-LogicManager -> HistoryCommand : execute()
-activate HistoryCommand
+LogicManager -> StatisticsCommand : execute()
+activate StatisticsCommand
 
-HistoryCommand -> Model : generateHistory(Expense)
+StatisticsCommand -> Model : generateHistory(Expense)
 activate Model
 
 Model --> Statistics: generateHistory(Expense)
@@ -61,18 +61,18 @@ activate Statistics
 Statistics --> Model: historyResult
 deactivate Statistics
 
-Model --> HistoryCommand: historyResult
+Model --> StatisticsCommand: historyResult
 deactivate Model
 
 create CommandResult
-HistoryCommand -> CommandResult
+StatisticsCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> HistoryCommand
+CommandResult --> StatisticsCommand
 deactivate CommandResult
 
-HistoryCommand --> LogicManager : result
-deactivate HistoryCommand
+StatisticsCommand --> LogicManager : result
+deactivate StatisticsCommand
 
 [<--LogicManager
 deactivate LogicManager

@@ -1,33 +1,53 @@
 {
-  "ignoreGlobList": ["**.adoc", "collate**"],
-  "formats": ["gradle", "jade", "java", "js", "md", "scss", "yml"],
+  "ignoreGlobList": [
+    "**.adoc",
+    "collate**"
+  ],
+  "formats": [
+    "gradle",
+    "jade",
+    "java",
+    "js",
+    "md",
+    "scss",
+    "yml"
+  ],
   "ignoreCommitList": [],
-  "authors":
-  [
+  "authors": [
     {
       "githubId": "Dandford",
       "displayName": "ONG MING CHUNG",
-      "authorNames": ["MC"]
+      "authorNames": [
+        "MC"
+      ]
     },
     {
       "githubId": "jessicax941",
       "displayName": "Jessica Phua Shu Xin",
-      "authorNames": ["Jessica Phua Shu Xin"],
+      "authorNames": [
+        "Jessica Phua Shu Xin"
+      ]
     },
     {
       "githubId": "SwampertX",
       "displayName": "Tan Yee Jian",
-      "authorNames": ["Tan Yee Jian"]
+      "authorNames": [
+        "Tan Yee Jian"
+      ]
     },
     {
       "githubId": "rongrongrr",
       "displayName": "Chan Jing Rong",
-      "authorNames": ["rongrongrr"]
+      "authorNames": [
+        "rongrongrr"
+      ]
     },
     {
       "githubId": "yuhongtay",
       "displayName": "Tay Yu Hong",
-      "authorNames": ["yuhongtay"],
+      "authorNames": [
+        "yuhongtay"
+      ]
     }
   ]
 }
