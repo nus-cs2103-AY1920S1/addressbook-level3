@@ -1,15 +1,16 @@
-package seedu.address.ui;
+package seedu.address.ui.card;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 import seedu.address.model.events.EventSource;
+import seedu.address.ui.UiParser;
 
 /**
  * An UI component that displays information of a {@code Event}.
  */
-public class EventCard extends UiPart<Region> {
+public class EventCard extends Card {
 
     private static final String FXML = "EventCard.fxml";
 

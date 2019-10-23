@@ -1,15 +1,16 @@
-package seedu.address.ui;
+package seedu.address.ui.card;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Event}.
  */
-public class EventCardHolder extends UiPart<Region> {
+public class CardHolder extends UiPart<Region> {
 
-    private static final String FXML = "EventCardHolder.fxml";
+    private static final String FXML = "CardHolder.fxml";
 
     private EventCard eventCard;
 
@@ -20,7 +21,7 @@ public class EventCardHolder extends UiPart<Region> {
      * Constructor for the EventCardHolder.
      */
 
-    public EventCardHolder() {
+    public CardHolder() {
         super(FXML);
     }
 

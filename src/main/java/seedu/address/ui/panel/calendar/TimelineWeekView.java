@@ -5,8 +5,8 @@ import java.util.List;
 import javafx.scene.layout.RowConstraints;
 
 import seedu.address.model.events.EventSource;
-import seedu.address.ui.EventCard;
-import seedu.address.ui.EventCardHolder;
+import seedu.address.ui.card.EventCard;
+import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.UiParser;
 /**
  * An UI component that displays the feedback to the user.
@@ -66,7 +66,7 @@ public class TimelineWeekView extends TimelineView {
         int eventIndex = getUiParser().getWeekIndex(event.getStartDateTime().toInstant());
 
         EventCard eventCard = new EventCard(event, getUiParser());
-        EventCardHolder eventCardHolder = getEventCardHolder().get(eventIndex - 1);
+        CardHolder eventCardHolder = getEventCardHolder().get(eventIndex - 1);
         eventCardHolder.addEvent(eventCard);
 
         // Set Constraints for the grid pane

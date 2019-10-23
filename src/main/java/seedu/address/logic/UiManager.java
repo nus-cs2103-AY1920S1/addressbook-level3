@@ -55,11 +55,11 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
                     this.mainWindow.viewList();
                 } else if (commandInput.equals("log")) {
                     this.mainWindow.viewLog();
-                } else if (commandInput.equals("day 05/11/2019")) {
+                } else if (commandInput.equals("day")) {
                     // TODO: ADD a command for changing for parsing the day, month and year.
                     this.mainWindow.viewDay(5, 11, 2019);
-                } else if (commandInput.equals("week 2 \"11/2019\"")) {
-                    this.mainWindow.viewWeek(2, 11, 2019);
+                } else if (commandInput.equals("week")) {
+                    this.mainWindow.viewWeek(1, 11, 2019);
                 } else if (commandInput.equals("month")) {
                     this.mainWindow.viewMonth(11, 2019);
                 } else if (commandInput.equals("calendar 11/2019")) {

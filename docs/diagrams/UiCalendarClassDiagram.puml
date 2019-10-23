@@ -6,18 +6,19 @@ skinparam classBackgroundColor UI_COLOR
 
 '==== Packages ====
 package Ui <<Rectangle>> {
-Class "{abstract}\nUiPart" as UiPart
+'Class "{abstract}\nUiPart" as UiPart
+Class "{abstract}\nCard" as Card
 Class MainWindow
-    package Calendar <<Rectangle>> {
-    Class "{abstract}\nTimelineView" as TimelineView
-    Class CalendarPanel
-    Class TimelineDayView
-    Class TimelineWeekView
-    Class TimelineMonthView
-    Class CalendarScreen
-    Class CalendarGridDay
-    Class EventCardHolder
+    Class CardHolder
     Class EventCard
+    package Calendar <<Rectangle>> {
+        Class "{abstract}\nTimelineView" as TimelineView
+        Class CalendarPanel
+        Class TimelineDayView
+        Class TimelineWeekView
+        Class TimelineMonthView
+        Class CalendarScreen
+        Class CalendarGridDay
     }
 }
 
@@ -26,24 +27,36 @@ package Model <<Rectangle>> {
 }
 
 Class HiddenOutside #FFFFFF
-MainWindow ..> CalendarPanel
+HiddenOutside ..> MainWindow
+
+'==== MainWindow =====
+Class HiddenOutside #FFFFFF
+MainWindow *-down--> CalendarPanel
+MainWindow .left-|> EventListListener
+'MainWindow -down--|> UiPart
 
 '==== CalendarPanel ====
-CalendarPanel .right..|> EventListListener
-CalendarPanel *-down--|> UiPart
-CalendarPanel *-down--> TimelineView
+'CalendarPanel -down--|> UiPart
+CalendarPanel *-left--> TimelineView
 CalendarPanel *-down--> CalendarScreen
 
-'==== EventCardHolder ====
-EventCardHolder -down|> UiPart
-EventCardHolder *-down-> EventCard
+'==== CardHolder ====
+'CardHolder -down|> UiPart
+CardHolder *-down-> Card
+
+'==== Card ====
+'Card -down|> UiPart
+Card -up..> Model
 
 '==== EventCard ====
-EventCard -down|> UiPart
-EventCard -down..> Model
+EventCard --|> Card
+
+'==== TaskCard ====
+'TaskCard --|> Card
 
 '==== TimelineView ====
-TimelineView -down--|> UiPart
+'TimelineView -down--|> UiPart
+TimelineView *-up--> CardHolder
 
 '==== TimelineDayView ====
 TimelineDayView -up--|> TimelineView
@@ -55,11 +68,11 @@ TimelineWeekView -up--|> TimelineView
 TimelineMonthView -up--|> TimelineView
 
 '==== CalendarScreen ===='
-CalendarScreen -down--|> UiPart
+'CalendarScreen -down--|> UiPart
 CalendarScreen *-down-> CalendarGridDay
 
 '==== CalendarGridDay ===='
-CalendarGridDay -down--|> UiPart
+'CalendarGridDay -down--|> UiPart
 
 
 @enduml

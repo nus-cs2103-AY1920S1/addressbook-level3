@@ -84,6 +84,10 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         return primaryStage;
     }
 
+    public void show() {
+        primaryStage.show();
+    }
+
     /**
      * Fills up all the placeholders of this window.
      */
@@ -267,6 +271,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
      */
     public void changeCalendarScreenDate(int month, int year) {
         calendarPanel.changeCalendarScreenDate(month, year);
+        viewCalendar();
     }
 
     /**

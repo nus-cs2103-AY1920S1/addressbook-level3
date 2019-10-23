@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+'==== Packages ====
+package Ui <<Rectangle>> {
+    'Class "{abstract}\nUiPart" as UiPart
+    Class "{abstract}\nCard" as Card
+    Class MainWindow
+    Class CardHolder
+    Class EventCard
+    package Calendar <<Rectangle>> {
+        Class ListPanel
+        Class EventListView
+    }
+}
+
+package Model <<Rectangle>> {
+    Class EventListListener
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MainWindow
+
+'==== MainWindow ====
+'MainWindow --|> UiPart
+MainWindow --> ListPanel
+MainWindow -left..|> EventListListener
+
+'==== ListPanel ====
+'ListPanel -down--|> UiPart
+ListPanel *-down--> EventListView
+
+'==== EventListView ====
+'EventListView -down--|> UiPart
+EventListView *-down--> CardHolder
+
+'==== CardHolder ====
+'CardHolder -down|> UiPart
+CardHolder *-down-> Card
+
+'==== Card ====
+'Card -down|> UiPart
+Card -left..> Model
+
+'==== EventCard ====
+EventCard --|> Card
+
+
+
+@enduml
