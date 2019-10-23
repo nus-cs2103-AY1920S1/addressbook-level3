@@ -1,57 +1,45 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
+import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.event.Event;
 
 /**
  * An UI component that displays information of a {@code Event}.
  */
-public class EventCard extends UiPart<Region> {
+public class DateCard extends UiPart<Region> {
 
-    private static final String FXML = "EventListCard.fxml";
+    private static final String FXML = "DateListCard.fxml";
 
-    public final Event event;
+    public final DistinctDate date;
     private MainWindow mainWindow;
     private Integer index;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
-    @FXML
     private Label id;
     @FXML
-    private Label venue;
+    private Label dateLabel;
     @FXML
-    private Label startDate;
-    @FXML
-    private Label manpowerCount;
-    @FXML
-    private FlowPane tags;
+    private Label eventsLabel;
 
-    public EventCard(Event event, int displayedIndex, MainWindow mainWindow) {
+
+    public DateCard(DistinctDate distinctDate, int displayedIndex, MainWindow mainWindow) {
         super(FXML);
-        this.event = event;
+        this.date = distinctDate;
         this.mainWindow = mainWindow;
         this.index = displayedIndex - 1;
         id.setText(displayedIndex + ". ");
-        name.setText(event.getName().eventName);
-        venue.setText(event.getVenue().venue);
-        manpowerCount.setText("Manpower: " + event.getManpowerAllocatedList().getCurrentManpowerCount() + " / "
-                + event.getManpowerNeeded().value);
-        startDate.setText(event.getStartDate().getDate() + " to "
-                + event.getEndDate().getDate());
-        event.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        dateLabel.setText(date.getDate().toString());
+        eventsLabel.setText(generateString(distinctDate));
 
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -62,8 +50,19 @@ public class EventCard extends UiPart<Region> {
         cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
-
-
+    /**
+     * Generates a string output based on the list of events inside the DistinctDate Object.
+     * @param date contains a list of events that i used to generate the string
+     * @return a string of the information of the events inside the object
+     */
+    private String generateString(DistinctDate date) {
+        List<Event> list = date.getListOfEvents();
+        String outputString = "";
+        for (int i = 0; i < list.size(); i++) {
+            outputString = outputString + list.get(i) + "\n";
+        }
+        return outputString;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -78,8 +77,8 @@ public class EventCard extends UiPart<Region> {
         }
 
         // state check
-        EventCard card = (EventCard) other;
+        DateCard card = (DateCard) other;
         return id.getText().equals(card.id.getText())
-                && event.equals(card.event);
+                && date.equals(card.date);
     }
 }

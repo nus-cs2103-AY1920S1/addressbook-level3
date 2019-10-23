@@ -1,5 +1,7 @@
 package seedu.address.model.event;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -68,8 +70,19 @@ public class Event {
         return eventDateTimeMap;
     }
 
+    public List<LocalDate> getListOfEventDates() {
+        List<LocalDate> listOfDate = new ArrayList<>();
+        LocalDate dateCount = startDate.getDate();
+        while (!dateCount.isAfter(endDate.getDate())) {
+            listOfDate.add(dateCount);
+            dateCount = dateCount.plusDays(1);
+        }
+        return listOfDate;
+    }
+
     /**
      * Checks if an employee is available for this event.
+     *
      * @param employee
      * @param filteredEventList
      */
@@ -78,11 +91,21 @@ public class Event {
                 .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId().id))
                 .collect(Collectors.toList());
         long nonOverlapEventsCount = containsEmployeeEventList.stream()
-                .filter(x -> (startDate.date.compareTo(x.getEndDate().date) > 0
-                        && endDate.date.compareTo(x.getEndDate().date) > 0)
-                        || (startDate.date.compareTo(x.getStartDate().date) < 0
-                                && endDate.date.compareTo(x.getStartDate().date) < 0)).count();
+                .filter(x -> (startDate.getDate().compareTo(x.getEndDate().getDate()) > 0
+                        && endDate.getDate().compareTo(x.getEndDate().getDate()) > 0)
+                        || (startDate.getDate().compareTo(x.getStartDate().getDate()) < 0
+                        && endDate.getDate().compareTo(x.getStartDate().getDate()) < 0)).count();
         return nonOverlapEventsCount == containsEmployeeEventList.size();
+    }
+
+    /**
+     * Assigns the EventDate-EventDayTime mapping to the EventDateTimeMap object.
+     *
+     * @param eventDate       Target Date to be assigned.
+     * @param eventTimePeriod Time Period Event is being held.
+     */
+    public void assignDateTime(EventDate eventDate, EventDayTime eventTimePeriod) {
+        this.eventDateTimeMap.mapDateTime(eventDate, eventTimePeriod);
     }
 
     /**

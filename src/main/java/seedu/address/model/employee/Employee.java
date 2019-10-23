@@ -42,6 +42,7 @@ public class Employee {
         this.employeeGender = employeeGender;
         this.employeeJoinDate = employeeJoinDate;
         this.employeePosition = employeePosition;
+        this.tags.add(new Tag(employeeGender.gender));
         this.tags.addAll(tags);
     }
 
@@ -164,5 +165,4 @@ public class Employee {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

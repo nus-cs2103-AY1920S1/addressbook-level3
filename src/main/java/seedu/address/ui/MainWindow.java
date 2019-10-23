@@ -124,8 +124,10 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
+        scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(),
+                logic.getDistinctDateList(), logic, this);
         schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
+
     }
 
     /**
@@ -212,6 +214,11 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.getFetch() != null) {
                 handleFetch(commandResult.getFetch());
                 //listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+            }
+            if (commandResult.getType().equals("DisplaySchedule")) {
+                scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(),
+                        logic.getDistinctDateList(), logic, this);
+                schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
             }
 
             /*if (commandResult.isFetch()) {
