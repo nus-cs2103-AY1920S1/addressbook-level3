@@ -31,6 +31,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleFoodDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
