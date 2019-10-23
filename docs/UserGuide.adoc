@@ -145,24 +145,34 @@ Format: `clear`
 === Setting shorthand commands: `alias`
 
 Set an alias for a command to do shorthand. +
-Format: `alias [SHORTHAND] [COMMAND]`
+Format: `alias l/[SHORTHAND] v/[COMMAND]`
 
 Examples:
 
-* `alias ls list` +
+* `alias l/ls v/list` +
 Typing `ls` now works equivalently as `list`.
-* `alias "show all persons" list` +
-Typing `show all persons` now works equivalently as `list`.
+* `alias l/h v/help` +
+Typing `h` now works equivalently as `help`.
 
-=== Deleting shorthand commands: `deletealias`
+=== Deleting shorthand commands: `unalias`
 
 Delete a existing alias. +
-Format: `deletealias [SHORTHAND]`
+Format: `unalias [SHORTHAND]`
 
 Examples:
 
-* `deletealias ls` +
+* `unalias ls` +
 Typing `ls` is no longer equivalent to `list`.
+
+=== Showing all existing aliases: `showalias`
+
+Show all existing aliases. +
+Format: `showalias`
+
+Examples:
+
+* `showalias` +
+Shows all the existing aliases.
 
 === Clearing all entries : `clear`
 
