@@ -463,6 +463,46 @@ image::CommitActivityDiagram.png[]
 ** Cons: User most likely have data stored in respective educational database system. Report generation is not computationally intensive and thus offers little performance advantage for effort.
 // end::Generating Statistics Feature[]
 
+=== Event Mangagement Feature
+==== Implementation
+
+The Event feature is facilitated by the Event class and managed by the EventRecord class
+The EventRecord class converts between an event object and VEvent object which is imported from the vCalendar jfxtras library. VEvent objects are the required type for rendering using the iCalendarAgenda object fromm the iCalendarAgenda jfxtras library.
+
+The included functionalites for event management are:
+* <<Feature-Event-Add, `EventAddCommand`>> - Adding events
+* <<Feature-Event-Edit, `EventEditCommand`>> - Editing events
+* <<Feature-Event-Delete, `EventDeleteCommand`>> - Deleting events
+* Creating an event
+** Events can recur daily, weekly or none
+** Events can be grouped by their own color
+* Deleting an event
+* Editing an event
+* Switching between daily and weekly view in the calendar
+* Change calendar range
+* All event details are stored and persisted
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+==== Design Considerations
+
+===== Aspect: Rendering UI
+* **Alternative 1 (current choice):** Opens a new window for the report generated.
+** Pros: More space to work with, able to generate more comprehensive report that is easier to view.
+** Cons: Data widgets are no longer stateful, they are newly created every time new report is requested.
+* **Alternative 2:** Render data for current state of the model on the original application.
+** Pros: Stateful, no need to recreate the widget every time there is new input data.
+** Cons: Lack of space, hard to render other UI elements such as the timetable.
+
+===== Aspect: [Proposed] Storing of generated data reports.
+* ** [Proposed] Alternative 1 (preferred choice):** Generate a pdf report every time user requests for the report.
+** Pros: Available for printing, portable.
+** Cons: Can be difficult to implement, need good understanding of API.
+* **Alternative 2:** Render a report from a stored library of reports when requested.
+** Pros: Easy to use, no need to input long file path every time.
+** Cons: User most likely have data stored in respective educational database system. Report generation is not computationally intensive and thus offers little performance advantage for effort.
+// end::Generating Statistics Feature[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
