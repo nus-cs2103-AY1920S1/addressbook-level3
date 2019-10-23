@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtInde
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
-import static seedu.address.testutil.TypicalTypes.TYPE_BUDGET;
 import static seedu.address.testutil.TypicalTypes.TYPE_TRANSACTION;
 
 import org.junit.jupiter.api.Test;
