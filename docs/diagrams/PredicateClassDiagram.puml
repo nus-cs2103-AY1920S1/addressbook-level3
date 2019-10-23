@@ -1,0 +1,24 @@
+@startuml
+
+interface Predicate
+class NamesContainsKeywordsPredicate {
+List<String> Keywords
+test()
+equals()
+}
+class ModuleContainsKeywordsPredicate {
+List<String> Keywords
+test()
+equals()
+}
+class AppealContainsKeywordsPredicate {
+List<String> Keywords
+test()
+equals()
+}
+
+Predicate <|.. NamesContainsKeywordsPredicate
+Predicate <|.. ModuleContainsKeywordsPredicate
+Predicate <|.. AppealContainsKeywordsPredicate
+
+@enduml

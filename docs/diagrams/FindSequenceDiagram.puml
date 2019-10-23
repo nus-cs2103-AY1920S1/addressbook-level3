@@ -1,0 +1,99 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MamsParser" as MamsParser LOGIC_COLOR
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "f:FindCommand" as FindCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":NameContainsKeywordsPredicate" as NameContainsKeywordsPredicate MODEL_COLOR
+participant ":ModuleContainsKeywordsPredicate" as ModuleContainsKeywordsPredicate MODEL_COLOR
+participant ":AppealContainsKeywordsPredicate" as AppealContainsKeywordsPredicate MODEL_COLOR
+end box
+
+[-> LogicManager : execute("clash a/c000001")
+activate LogicManager
+
+LogicManager -> MamsParser : parseCommand("clash a/c000001")
+activate MamsParser
+
+create FindCommandParser
+MamsParser -> FindCommandParser
+activate FindCommandParser
+
+FindCommandParser --> MamsParser
+deactivate FindCommandParser
+
+MamsParser -> FindCommandParser : parse("s/paul bob")
+activate FindCommandParser
+
+create NameContainsKeywordsPredicate
+FindCommandParser -> NameContainsKeywordsPredicate
+activate NameContainsKeywordsPredicate
+
+NameContainsKeywordsPredicate -> FindCommandParser
+deactivate
+
+create ModuleContainsKeywordsPredicate
+FindCommandParser -> ModuleContainsKeywordsPredicate
+activate ModuleContainsKeywordsPredicate
+
+ModuleContainsKeywordsPredicate -> FindCommandParser
+deactivate
+
+create AppealContainsKeywordsPredicate
+FindCommandParser -> AppealContainsKeywordsPredicate
+activate AppealContainsKeywordsPredicate
+
+AppealContainsKeywordsPredicate -> FindCommandParser
+deactivate
+
+create FindCommand
+FindCommandParser -> FindCommand
+activate FindCommand
+
+FindCommand --> FindCommandParser : f
+deactivate FindCommand
+
+FindCommandParser --> MamsParser : f
+deactivate FindCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCommandParser -[hidden]-> MamsParser
+destroy FindCommandParser
+
+MamsParser --> LogicManager : f
+deactivate MamsParser
+
+LogicManager -> FindCommand : execute()
+activate FindCommand
+
+FindCommand -> Model : updateFilteredStudentList(NameContainsKeywordsPredicate)
+activate Model
+
+Model -> NameContainsKeywordsPredicate : test()
+activate NameContainsKeywordsPredicate
+
+NameContainsKeywordsPredicate -> Model
+deactivate
+
+Model --> FindCommand
+deactivate Model
+
+create CommandResult
+FindCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FindCommand
+deactivate CommandResult
+
+FindCommand --> LogicManager : result
+deactivate FindCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
