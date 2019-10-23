@@ -20,8 +20,16 @@ import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.show.*;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Edits the details of an existing show in the watchlist.
@@ -96,15 +104,18 @@ public class EditCommand extends Command {
         Description updatedDescription = editShowDescriptor.getDescription().orElse(showToEdit.getDescription());
         RunningTime updatedRunningTime = editShowDescriptor.getRunningTime().orElse(showToEdit.getRunningTime());
         Set<Actor> updatedActors = editShowDescriptor.getActors().orElse(showToEdit.getActors());
+        Poster updatedPoster = editShowDescriptor.getPoster().orElse(showToEdit.getPoster());
 
         if (showToEdit.type.equals("Movie")) {
             Movie editedShow = new Movie(updatedName, updatedDescription, updatedIsWatched,
                     updatedDateOfRelease, updatedRunningTime, updatedActors);
+            editedShow.setPoster(updatedPoster);
             return editedShow;
         } else { //showToEdit.type.equals("Tv show")
             TvShow editedShow = new TvShow(updatedName, updatedDescription, updatedIsWatched,
                     updatedDateOfRelease, updatedRunningTime, updatedActors,
                     0,0,null);
+            editedShow.setPoster(updatedPoster);
             return editedShow;
         }
     }
@@ -139,6 +150,7 @@ public class EditCommand extends Command {
         private Description description;
         private RunningTime runningTime;
         private Set<Actor> actors;
+        private Poster poster;
 
         public EditShowDescriptor() {}
 
@@ -154,6 +166,7 @@ public class EditCommand extends Command {
             setDescription(toCopy.description);
             setRunningTime(toCopy.runningTime);
             setActors(toCopy.actors);
+            setPoster(toCopy.poster);
         }
 
         /**
@@ -211,6 +224,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(runningTime);
         }
 
+        public void setPoster(Poster poster) {
+            this.poster = poster;
+        }
+
+        public Optional<Poster> getPoster() {
+            return Optional.ofNullable(poster);
+        }
+
         /**
          * Sets {@code actors} to this object's {@code actors}.
          * A defensive copy of {@code actors} is used internally.
@@ -249,7 +270,8 @@ public class EditCommand extends Command {
                     && getIsWatched().equals(e.getIsWatched())
                     && getDescription().equals(e.getDescription())
                     && getRunningTime().equals(e.getRunningTime())
-                    && getActors().equals(e.getActors());
+                    && getActors().equals(e.getActors())
+                    && getPoster().equals(e.getPoster());
 
         }
     }
