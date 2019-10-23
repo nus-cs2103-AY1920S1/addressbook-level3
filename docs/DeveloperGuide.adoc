@@ -10,11 +10,56 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W13-3/main
 
 By: `Team AY1920S1-CS2103T-W13-3`
+
+== Introduction
+
+Welcome to StudyBuddy Pro!
+StudyBuddy Pro is a desktop-based application intended for
+students in the School of Computing at NUS that prefer to use a to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+StudyBuddy Pro effectively tackles the problem of target users having spent large amount of time for quality study revision.
+To lessen time consumption to produce same study revision quality for target users, StudyBuddy Pro provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
+
+This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddy Pro's information for set-ups, its architectures and its key features.
+
+If you wish to know more details about StudyBuddy Pro, please do not hesitate to contact us!
+
+=== Callouts Signs and Syntax
+
+Do refer to signs below that will be used across the documents for references. These will prove to be useful when you are reading this document.
+
+.Table title
+|===
+| Signs/Syntax | Explanations
+
+| [WARNING], Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+
+[IMPORTANT]
+====
+Indicates information that are crucial to understand so that you will be able to follow the flow of the document. Confusion may arise if you do not grasp the information here.
+====
+
+[NOTE]
+====
+Indicates information that are note-worthy. Do read them for more information and better understandings.
+====
+
+[TIP]
+====
+Indicates additional information that are helpful. Not to worry, tips can be good to know but are not vital.
+====
+
+[`exampleCommand`]
+
+====
+
+====
 
 == Setting up
 
