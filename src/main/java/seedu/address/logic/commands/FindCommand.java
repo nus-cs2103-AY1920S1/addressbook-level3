@@ -1,11 +1,14 @@
 package seedu.address.logic.commands;
 
+import java.util.function.Predicate;
+
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
 
 /**
@@ -14,16 +17,16 @@ import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
  */
 public class FindCommand extends NonActionableCommand {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "patient";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: KEYWORD\n"
+            + "Example: " + COMMAND_WORD + " alice";
 
-    private final ContainsKeywordsPredicate predicate;
+    private final Predicate<Person> predicate;
 
-    public FindCommand(ContainsKeywordsPredicate predicate) {
+    public FindCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
     }
 
