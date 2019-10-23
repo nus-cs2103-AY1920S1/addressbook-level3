@@ -1,5 +1,6 @@
 package budgetbuddy.model.loan;
 
+import static budgetbuddy.commons.util.AppUtil.getDateFormat;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.text.SimpleDateFormat;
@@ -56,8 +57,7 @@ public class Loan {
     }
 
     public String getDateString() {
-        // TODO Should standardize the date display format throughout the app.
-        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+        return getDateFormat().format(date);
     }
 
     public Description getDescription() {

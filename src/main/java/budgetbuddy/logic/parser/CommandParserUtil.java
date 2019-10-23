@@ -1,8 +1,8 @@
 package budgetbuddy.logic.parser;
 
+import static budgetbuddy.commons.util.AppUtil.getDateFormat;
 import static java.util.Objects.requireNonNull;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 
@@ -134,8 +134,7 @@ public class CommandParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            // TODO Some problems, e.g. 12/13/2020 gets parsed to 12/01/2021
-            return new SimpleDateFormat("dd/MM/yy").parse(trimmedDate);
+            return getDateFormat().parse(trimmedDate);
         } catch (java.text.ParseException e) {
             throw new ParseException(e.getMessage());
         }

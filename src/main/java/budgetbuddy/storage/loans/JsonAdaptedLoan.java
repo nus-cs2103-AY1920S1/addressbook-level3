@@ -1,7 +1,9 @@
 package budgetbuddy.storage.loans;
 
+import static budgetbuddy.commons.util.AppUtil.getDateFormat;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -116,7 +118,12 @@ public class JsonAdaptedLoan {
      * @throws IllegalValueException If adapted object cannot be converted.
      */
     private Date checkDate() throws IllegalValueException {
-        // TODO Check validity of date.
+        try {
+            String dateStr = getDateFormat().format(date);
+            getDateFormat().parse(dateStr);
+        } catch (ParseException e) {
+            throw new IllegalValueException("Error reading stored date.");
+        }
         return date;
     }
 
