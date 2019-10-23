@@ -49,6 +49,7 @@ StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
 MemeCard ..> Model
+MemeGridPanel ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 

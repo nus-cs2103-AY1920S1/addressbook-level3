@@ -356,6 +356,55 @@ For example, `a` to add a piece of text, arrow keys to adjust the position of th
 
 // end::templates[]
 
+// tag::stats[]
+=== Statistics feature 1: Like Meme
+
+It is important to include a like meme feature such that the user gets to indicate their preference of certain memes.
+This is part of the statistics feature and isolated from the main MemeBook.
+The like data can be used for other statistical analysis.
+
+==== Current Implementation
+
+Like data of the memes are stored inside `LikeData` class. It is built upon the infrastructure of statistics.
+Statistics infrastructure is parallel to `MemeBook` structure from the runtime storage to logic to hard disk storage.
+
+image::ModelClassDiagram.png[]
+
+An interface for statistics `Stats` is set up for access to statistics components.
+`StatsManager` implements it and manages and carries LikeManager, which manages LikeData access.
+`Stats` exposes the `LikeData` as an unmodifiable `ObservableMap<String, Integer>` that the UI can subscribe to.
+Updates to the like count of any memes inside the currently displayed memes will be reflected on the UI.
+
+image::StorageClassDiagram.png[]
+
+In the storage component, LikeData is stored in a similar fashion as `MemeBook`,
+whereas the LikeData is stored as json file.
+
+The following activity diagram summarizes the meme liking process:
+
+image::MemeLikeActivityDiagram.png[]
+
+The following sequence diagram shows how `MemeLikeCommand` communicates with `Stats` and update the like count.
+
+image::LikeMemeSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Implementation of LikeData.
+
+* **Alternative 1:** Put like data as a field inside Meme object.
+** Pros: Simple to implement.
+** Cons: It breaks the current closed structure of Meme.
+It would not make sense to add new field everytime we have some new statistics data for a meme (Like views in 2.0)
+* **Alternative 2 (Current choice):** Separate `LikeData` as a `HashMap` and keep it in Stats.
+** Pros: It isolates an additional feature (which is not essential) from Meme
+and allows `Stats` features in the future to use the data easily without looking through the entire MemeBook.
+(After a long while, when the number of memes pile up, like statistics has a O(n) growth in running time)
+** Cons: Harder to implement as it involves constructing a new infrastructure.
+Also, it looks somewhat out of place in `Model` as alternative 1 seems to be able to solve the problem (for now).
+
+// end::stats[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

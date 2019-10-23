@@ -8,18 +8,25 @@ skinparam classBackgroundColor STORAGE_COLOR
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface MemeBookStorage <<Interface>>
+Interface StatsDataStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonMemeBookStorage
+class JsonStatsDataStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
 StorageManager o--> MemeBookStorage
+StorageManager o-up-> StatsDataStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonMemeBookStorage .left.|> MemeBookStorage
 JsonMemeBookStorage .down.> JsonSerializableMemeBookStorage
 JsonSerializableMemeBookStorage .right.> JsonSerializableMeme
 JsonSerializableMeme .right.> JsonAdaptedTag
+
+JsonStatsDataStorage .left.|> StatsDataStorage
+JsonStatsDataStorage .right.> JsonSerializableStatsData
+JsonSerializableStatsData .right.> JsonAdaptedLikeData
 @enduml

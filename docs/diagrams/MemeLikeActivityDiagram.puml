@@ -1,0 +1,7 @@
+@startuml
+start
+:User likes a meme by index;
+
+:Weme updates the like count of the meme at the index;
+stop
+@enduml
