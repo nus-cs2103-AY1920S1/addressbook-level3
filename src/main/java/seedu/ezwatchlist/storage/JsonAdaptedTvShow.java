@@ -25,14 +25,6 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
 
-    private final String name;
-    private final String type;
-    private final String dateOfRelease;
-    private final boolean isWatched;
-    private final String description;
-    private final int runningTime;
-    private final List<JsonAdaptedActor> actors = new ArrayList<>();
-    private final String poster;
     private final int numOfEpisodesWatched;
     private final int totalNumOfEpisodes;
     private final List<JsonAdaptedTvSeason> tvSeasons = new ArrayList<>();
@@ -52,16 +44,7 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
                              @JsonProperty("numOfEpisodesWatched") int numOfEpisodesWatched,
                              @JsonProperty("totalNumOfEpisodes") int totalNumOfEpisodes,
                              @JsonProperty("tvSeasons") List<JsonAdaptedTvSeason> tvSeasons) {
-        this.name = name;
-        this.type = type;
-        this.dateOfRelease = dateOfRelease;
-        this.isWatched = isWatched;
-        this.description = description;
-        this.runningTime = runningTime;
-        if (actors != null) {
-            this.actors.addAll(actors);
-        }
-        this.poster = poster;
+        super(name, type, dateOfRelease, isWatched, description, runningTime, actors, poster);
         this.numOfEpisodesWatched = numOfEpisodesWatched;
         this.totalNumOfEpisodes = totalNumOfEpisodes;
         if (tvSeasons != null) {
@@ -73,19 +56,10 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
      * Converts a given {@code TvShow} into this class for Jackson use.
      */
     public JsonAdaptedTvShow(Show source) {
-        name = source.getName().showName;
-        type = source.getType();
-        dateOfRelease = source.getDateOfRelease().value;
-        isWatched = source.isWatched().value;
-        description = source.getDescription().fullDescription;
-        runningTime = source.getRunningTime().value;
-        actors.addAll(source.getActors().stream()
-                .map(JsonAdaptedActor::new)
-                .collect(Collectors.toList()));
-        poster = source.getPoster().getImagePath();
-        numOfEpisodesWatched = ((TvShow) source).getNumOfEpisodesWatched();
-        totalNumOfEpisodes = ((TvShow) source).getTotalNumOfEpisodes();
-        tvSeasons.addAll(((TvShow) source).getTvSeasons().stream()
+        super(source);
+        numOfEpisodesWatched = source.getNumOfEpisodesWatched();
+        totalNumOfEpisodes = source.getTotalNumOfEpisodes();
+        tvSeasons.addAll(source.getTvSeasons().stream()
                 .map(JsonAdaptedTvSeason::new)
                 .collect(Collectors.toList()));
     }
@@ -97,7 +71,7 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
      */
     public Show toModelType() throws IllegalValueException {
         final List<Actor> showActors = new ArrayList<>();
-        for (JsonAdaptedActor actor : actors) {
+        for (JsonAdaptedActor actor : super.getActors()) {
             showActors.add(actor.toModelType());
         }
 
@@ -106,48 +80,48 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
             showSeasons.add(season.toModelType());
         }
 
-        if (runningTime < 0) {
+        if (super.getRunningTime() < 0) {
             throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
         }
 
-        if (name == null) {
+        if (super.getName() == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValidName(super.getName())) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Name modelName = new Name(super.getName());
 
-        if (dateOfRelease == null) {
+        if (super.getDateOfRelease() == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(dateOfRelease)) {
+        if (!Date.isValidDate(super.getDateOfRelease())) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Date modelDateOfRelease = new Date(dateOfRelease);
+        final Date modelDateOfRelease = new Date(super.getDateOfRelease());
 
-        if (!IsWatched.isValidIsWatched(isWatched)) {
+        if (!IsWatched.isValidIsWatched(super.isWatched())) {
             throw new IllegalValueException(IsWatched.MESSAGE_CONSTRAINTS);
         }
-        final IsWatched modelIsWatched = new IsWatched(isWatched);
+        final IsWatched modelIsWatched = new IsWatched(super.isWatched());
 
-        if (description == null) {
+        if (super.getDescription() == null) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(description)) {
+        if (!Description.isValidDescription(super.getDescription())) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description);
+        final Description modelDescription = new Description(super.getDescription());
 
-        if (runningTime == 0) {
+        if (super.getRunningTime() == 0) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
         }
-        if (!RunningTime.isValidRunningTime(runningTime)) {
+        if (!RunningTime.isValidRunningTime(super.getRunningTime() )) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final RunningTime modelRunningTime = new RunningTime(runningTime);
+        final RunningTime modelRunningTime = new RunningTime(super.getRunningTime() );
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
 
@@ -155,8 +129,8 @@ public class JsonAdaptedTvShow extends JsonAdaptedShow {
                 modelDateOfRelease, modelRunningTime, modelActors,
                 numOfEpisodesWatched, totalNumOfEpisodes, showSeasons);
 
-        show.setType(type);
-        show.setPoster(new Poster(poster));
+        show.setType(super.getType());
+        show.setPoster(new Poster(super.getPoster()));
         return show;
     }
 }

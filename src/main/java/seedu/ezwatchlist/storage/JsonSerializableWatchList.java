@@ -22,6 +22,7 @@ import seedu.ezwatchlist.model.show.Show;
 class JsonSerializableWatchList {
 
     public static final String MESSAGE_DUPLICATE_SHOW = "Show list contains duplicate show(s).";
+    public static final String MESSAGE_INVALID_SHOW_TYPE = "Show list contains shows of unacceptable type.";
 
     private final List<JsonAdaptedShow> shows = new ArrayList<>();
 
@@ -62,13 +63,6 @@ class JsonSerializableWatchList {
         WatchList watchList = new WatchList();
         for (JsonAdaptedShow jsonAdaptedShow : shows) {
             Show show = jsonAdaptedShow.toModelType();
-            /*try {
-                JsonAdaptedTvShow jsonAdaptedTvShow = (JsonAdaptedTvShow) jsonAdaptedShow;
-                show = jsonAdaptedTvShow.toModelType();
-            } catch (Exception e) {
-                JsonAdaptedMovie jsonAdaptedMovie = (JsonAdaptedMovie) jsonAdaptedShow;
-                show = jsonAdaptedMovie.toModelType();
-            }*/
             if (watchList.hasShow(show)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_SHOW);
             }

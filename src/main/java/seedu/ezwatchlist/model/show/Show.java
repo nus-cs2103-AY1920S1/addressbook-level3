@@ -1,7 +1,9 @@
 package seedu.ezwatchlist.model.show;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -75,6 +77,17 @@ public class Show {
         return runningTime;
     }
 
+    public int getNumOfEpisodesWatched() {
+        return 0;
+    }
+
+    public int getTotalNumOfEpisodes() {
+        return 0;
+    }
+
+    public List<TvSeason> getTvSeasons(){
+        return new ArrayList<TvSeason>();
+    }
 
     /**
      * Returns an immutable actor set, which throws {@code UnsupportedOperationException}

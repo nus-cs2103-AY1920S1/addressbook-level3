@@ -30,14 +30,17 @@ public class TvShow extends Show {
         super.setType("Tv Show");
     }
 
+    @Override
     public int getNumOfEpisodesWatched() {
         return numOfEpisodesWatched;
     }
 
+    @Override
     public List<TvSeason> getTvSeasons() {
         return tvSeasons;
     }
 
+    @Override
     public int getTotalNumOfEpisodes() {
         return totalNumOfEpisodes;
     }
