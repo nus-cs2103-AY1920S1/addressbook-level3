@@ -27,6 +27,7 @@ public class UiManager implements Ui {
     private TempWindow tempWindow;
     private RecipeBookWindow recipeBookWindow;
     private DiaryWindow diaryWindow;
+    private DashboardWindow dashboardWindow;
 
     public UiManager(Logic logic) {
         super();
@@ -41,8 +42,8 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            tempWindow = new TempWindow(primaryStage, logic);
-            tempWindow.show(); //This should be called before creating other UI parts
+            dashboardWindow = new DashboardWindow(primaryStage, logic);
+            dashboardWindow.show(); //This should be called before creating other UI parts
             //recipeBookWindow = new RecipeBookWindow(primaryStage, logic);
             //recipeBookWindow.show(); //This should be called before creating other UI parts
             //recipeBookWindow.fillInnerParts();

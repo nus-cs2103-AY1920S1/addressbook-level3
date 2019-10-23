@@ -21,4 +21,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getDiaryFilePath();
 
+    Path getDashboardFilePath();
+
 }

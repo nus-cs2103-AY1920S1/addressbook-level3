@@ -6,12 +6,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.dashboard.AddTaskCommand;
 import seedu.address.logic.commands.diary.AddDiaryCommand;
 import seedu.address.logic.commands.diary.AddPageCommand;
 import seedu.address.logic.commands.exercise.AddExerciseCommand;
 import seedu.address.logic.commands.health.AddHealthCommand;
 import seedu.address.logic.commands.profile.AddProfileCommand;
 import seedu.address.logic.commands.recipe.AddRecipeCommand;
+import seedu.address.logic.parser.dashboard.AddTaskCommandParser;
 import seedu.address.logic.parser.diary.AddDiaryCommandParser;
 import seedu.address.logic.parser.diary.AddPageCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -45,6 +47,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (variant) {
+
+        case AddTaskCommand.VARIANT_WORD:
+            return new AddTaskCommandParser().parse(arguments);
 
         case AddRecipeCommand.VARIANT_WORD:
             return new AddRecipeCommandParser().parse(arguments);

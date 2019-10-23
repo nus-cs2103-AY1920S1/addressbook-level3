@@ -166,8 +166,9 @@ public class WorkoutPlannerWindow extends UiPart<Stage> {
     @FXML
     private void switchHome() {
         primaryStage.hide();
-        TempWindow tempWindow = new TempWindow(getPrimaryStage(), logic);
-        tempWindow.show();
+        DashboardWindow dashboardWindow = new DashboardWindow(getPrimaryStage(), logic);
+        dashboardWindow.show();
+        dashboardWindow.fillInnerParts();
     }
 
     /**

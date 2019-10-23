@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.dashboard.ListTaskCommand;
 import seedu.address.logic.commands.exercise.ListExerciseCommand;
 import seedu.address.logic.commands.recipe.ListRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -35,6 +36,9 @@ public class ListCommandParser implements Parser<ListCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (variant) {
+
+        case ListTaskCommand.VARIANT_WORD:
+            return new ListTaskCommand();
 
         case ListRecipeCommand.VARIANT_WORD:
             return new ListRecipeCommand();
