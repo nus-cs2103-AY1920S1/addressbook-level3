@@ -243,6 +243,18 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Reminder Feature
+==== Implementation
+A bookmark can have a reminder, and a reminder can use to open the bookmark.
+This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
+
+`Reminder` containing a reminding time, the `Url` of the `Bookmark` and a `Note`.
+
+`ReminderAssociation` represents the association between `Reminder` and `Bookmark`, containing
+ the relation from `Reminder` to `Bookmark` and `Reminder` to `Bookmark`.
+
+==== Design Consideration
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
