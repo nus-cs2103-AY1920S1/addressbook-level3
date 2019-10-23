@@ -347,7 +347,20 @@ The incident search mechanism features a set of different types of searches that
 The incident search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Incidents> filteredIncidents`, which internally stores the list of displayed incidents in the GUI. Additionally, it implements the following key method:
 * `updateFilteredIncidentsList(Predicate<Incident> predicate)` - Updates the stored filtered incidents list with the new predicate
 
-When calling the command `incidents` in the application,
+There are two possible commands within this set of searches. Firstly, we will consider when the user calls the command `incidents` in the application.
+
+The following sequence diagram shows how the `incidents` command works:
+
+image::ListIncidentsSequenceDiagram.png[]
+
+As incidated in the diagram, the `LogicManager` instantiates a `ListIncidentsCommand` upon running command `execute(incidents)`. It then calls `ListIncidentsCommand#execute()`, which runs `Model#updateFilteredIncidentList` with the predicate `PREDICATE_SHOW_ALL_INCIDENTS`. This `Predicate<Incident>` always evaluates to true. This `Predicate<Incident>` is passed to `FilteredList<Incident> filteredList`, as a parameter to run the method `setPredicate()`. This updates the list of visible incidents. `CommandResult commandResult` is also returned to the `LogicManager` to log the success/failure of the method.
+
+Next, we will look at an example in which the user calls `search` to look for incidents written by an operator whose name contains `Alex`.
+
+The execution of this method is a little more complex.
+
+The following sequence diagram shows how the `search` command identifies the keyword and flag, and returns related incidents:
+
 
 ==== Design Considerations
 

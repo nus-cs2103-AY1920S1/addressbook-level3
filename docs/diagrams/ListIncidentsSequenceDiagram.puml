@@ -9,7 +9,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedIncidentManager" as VersionedIncidentManager MODEL_COLOR
+participant "filteredIncidents:FilteredList<Incident>" as FilteredList MODEL_COLOR
 end box
 [-> LogicManager : execute(incidents)
 activate LogicManager
@@ -33,11 +33,10 @@ activate ListIncidentsCommand
 ListIncidentsCommand -> Model : updatedFilteredIncidentList(PREDICATE_SHOW_ALL_INCIDENTS)
 activate Model
 
-Model -> VersionedIncidentManager : setPredicate(PREDICATE_SHOW_ALL_INCIDENTS)
-activate VersionedIncidentManager
-
-VersionedIncidentManager --> Model :
-deactivate VersionedIncidentManager
+Model -> FilteredList : setPredicate(PREDICATE_SHOW_ALL_INCIDENTS)
+activate FilteredList
+ FilteredList --> Model :
+deactivate FilteredList
 
 Model --> ListIncidentsCommand
 deactivate Model
