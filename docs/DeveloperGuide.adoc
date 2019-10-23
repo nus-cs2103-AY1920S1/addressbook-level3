@@ -181,7 +181,7 @@ image::ExportSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes an export command:
 
-image::ExportActivityDiagram.png[]
+image::ExportActivityDiagram.png[width=320,height=480]
 
 ==== Design Considerations
 
