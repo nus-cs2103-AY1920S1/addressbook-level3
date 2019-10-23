@@ -255,6 +255,32 @@ Multi-loan targeting is implemented for the commands `loan paid`, `loan unpaid` 
 ** Cons: Circular dependency and high coupling, potentially leading to lower testability and a higher bug count.
 // end::loans[]
 
+// tag::scripts[]
+=== Scripting
+==== Implementation
+
+The scripting engine works independently of the rest of the application.
+At its core, it uses the Nashorn ECMAScript 5.1 engine bundled with Java 11 to
+evaluate scripts.
+
+A set of convenience functions are provided to make basic tasks, such as manipulating
+transactions and accounts, easier. The full model and UI are nevertheless exposed to
+scripts, and scripts are able to access any classes provided in the Java 11 standard
+library, as well as any dependencies included in the application.
+
+There is a simple mechanism to store scripts to be run in future. This works together
+with rules to give the ability to have complex predicates and actions outside of
+those supported inherently by the program. This also works with aliases to allow,
+in effect, custom commands to be created.
+
+The following class diagram illustrates the design of the scripting engine and model.
+
+_TODO: Class diagram_
+
+==== Design considerations
+
+_TODO_
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
