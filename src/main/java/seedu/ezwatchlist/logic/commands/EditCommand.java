@@ -1,12 +1,12 @@
 package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
 import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
 
 import java.util.Collections;
@@ -106,7 +106,7 @@ public class EditCommand extends Command {
         Set<Actor> updatedActors = editShowDescriptor.getActors().orElse(showToEdit.getActors());
         Poster updatedPoster = editShowDescriptor.getPoster().orElse(showToEdit.getPoster());
 
-        if (showToEdit.type.equals("Movie")) {
+        if (showToEdit.getType().equals("Movie")) {
             Movie editedShow = new Movie(updatedName, updatedDescription, updatedIsWatched,
                     updatedDateOfRelease, updatedRunningTime, updatedActors);
             editedShow.setPoster(updatedPoster);
@@ -114,7 +114,7 @@ public class EditCommand extends Command {
         } else { //showToEdit.type.equals("Tv show")
             TvShow editedShow = new TvShow(updatedName, updatedDescription, updatedIsWatched,
                     updatedDateOfRelease, updatedRunningTime, updatedActors,
-                    0,0,null);
+                    0, 0, null);
             editedShow.setPoster(updatedPoster);
             return editedShow;
         }

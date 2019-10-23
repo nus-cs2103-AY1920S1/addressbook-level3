@@ -1,8 +1,8 @@
 package seedu.ezwatchlist.model.actor;
 
-import seedu.ezwatchlist.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.ezwatchlist.commons.util.AppUtil;
 
 /**
  * Represents an Actor in a show in the watchlist.
@@ -19,8 +19,6 @@ public class Actor {
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String actorName;
-    //Maybe add a character name for actors?
-    public String characterName;
 
     /**
      * Constructs a {@code Name}.

@@ -10,16 +10,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.Logic;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.ui.ShowListPanel;
-import seedu.ezwatchlist.ui.WatchedPanel;
-import seedu.ezwatchlist.ui.SearchPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing

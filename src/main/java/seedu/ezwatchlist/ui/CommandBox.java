@@ -5,10 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+import seedu.ezwatchlist.logic.Logic;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.logic.Logic;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

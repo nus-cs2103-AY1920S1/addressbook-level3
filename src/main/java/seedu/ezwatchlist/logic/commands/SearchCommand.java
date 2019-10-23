@@ -2,22 +2,18 @@ package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.ezwatchlist.api.ApiMain;
-import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
-import seedu.ezwatchlist.commons.core.Messages;
-import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.ReadOnlyWatchList;
-import seedu.ezwatchlist.model.show.*;
-import seedu.ezwatchlist.api.ApiMain;
-import seedu.ezwatchlist.ui.SearchPanel;
-import seedu.ezwatchlist.model.show.Movie;
-import seedu.ezwatchlist.model.show.Show;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+import seedu.ezwatchlist.api.ApiMain;
+import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+import seedu.ezwatchlist.commons.core.Messages;
+import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Finds and lists all shows in watchlist whose name contains any of the argument keywords.
@@ -31,7 +27,7 @@ public class SearchCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " Joker";
 
-    private final String EMPTY_STRING = "";
+    private static final String EMPTY_STRING = "";
     private Name showName;
     private String type;
     /*private IsWatched isWatched;
@@ -79,16 +75,17 @@ public class SearchCommand extends Command {
                 for (Movie movie : movies) {
                     searchResult.add(movie);
                 }
-                for(TvShow tvShow : tvShows) {
+                for (TvShow tvShow : tvShows) {
                     searchResult.add(tvShow);
                 }
             }
 
             model.updateSearchResultList(searchResult);
 
-            return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getSearchResultList().size()));
+            return new CommandResult(String.format(
+                    Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getSearchResultList().size()));
         } catch (OnlineConnectionException e) {
-            return new CommandResult("Not connected to internet");            //to be added
+            return new CommandResult("Not connected to internet"); //to be added
         }
     }
 

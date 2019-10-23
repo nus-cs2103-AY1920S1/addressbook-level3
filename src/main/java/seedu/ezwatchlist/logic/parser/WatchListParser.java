@@ -7,7 +7,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
-import seedu.ezwatchlist.logic.commands.*;
+import seedu.ezwatchlist.logic.commands.AddCommand;
+import seedu.ezwatchlist.logic.commands.ClearCommand;
+import seedu.ezwatchlist.logic.commands.Command;
+import seedu.ezwatchlist.logic.commands.DeleteCommand;
+import seedu.ezwatchlist.logic.commands.EditCommand;
+import seedu.ezwatchlist.logic.commands.ExitCommand;
+import seedu.ezwatchlist.logic.commands.HelpCommand;
+import seedu.ezwatchlist.logic.commands.ListCommand;
+import seedu.ezwatchlist.logic.commands.SearchCommand;
+import seedu.ezwatchlist.logic.commands.SyncCommand;
+import seedu.ezwatchlist.logic.commands.WatchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
 /**
@@ -37,38 +47,38 @@ public class WatchListParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
-            case EditCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-            case WatchCommand.COMMAND_WORD:
-                return new WatchCommandParser().parse(arguments);
+        case WatchCommand.COMMAND_WORD:
+            return new WatchCommandParser().parse(arguments);
 
-            case SearchCommand.COMMAND_WORD:
-                return new SearchCommandParser().parse(arguments);
+        case SearchCommand.COMMAND_WORD:
+            return new SearchCommandParser().parse(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case SyncCommand.COMMAND_WORD:
-                return new SyncCommandParser().parse(arguments);
+        case SyncCommand.COMMAND_WORD:
+            return new SyncCommandParser().parse(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

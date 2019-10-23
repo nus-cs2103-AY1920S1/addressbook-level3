@@ -21,6 +21,7 @@ import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
+import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.ShowBuilder;
@@ -179,6 +180,11 @@ public class AddCommandTest {
         @Override
         public void updateSearchResultList(List<Show> searchResult) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void syncMovie(List<Movie> syncMovie) {
+
         }
     }
 

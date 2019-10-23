@@ -1,20 +1,18 @@
 package seedu.ezwatchlist.logic.commands;
 
-import seedu.ezwatchlist.api.ApiMain;
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Show;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
-
+/**
+ * Syncs a result from the search list into the watch list.
+ */
 public class SyncCommand extends Command {
 
     public static final String COMMAND_WORD = "sync";
@@ -27,7 +25,7 @@ public class SyncCommand extends Command {
 
     private Index toSync;
 
-    public SyncCommand(Index toSync){
+    public SyncCommand(Index toSync) {
         requireNonNull(toSync);
         this.toSync = toSync;
     }
@@ -40,9 +38,9 @@ public class SyncCommand extends Command {
         if (toSync.getZeroBased() >= searchResultList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
         }
-        Show FromIMDB = searchResultList.get(toSync.getZeroBased());
-        model.addShow(FromIMDB);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, FromIMDB));
+        Show fromImdb = searchResultList.get(toSync.getZeroBased());
+        model.addShow(fromImdb);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb));
     }
 
     @Override

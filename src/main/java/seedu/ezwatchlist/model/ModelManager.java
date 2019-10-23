@@ -11,10 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Movie;
-import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Show;
 
 /**
  * Represents the in-memory model of the watchlist data.
@@ -132,7 +132,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void SyncMovie(List<Movie> syncMovie) {
+    public void syncMovie(List<Movie> syncMovie) {
 
     }
 

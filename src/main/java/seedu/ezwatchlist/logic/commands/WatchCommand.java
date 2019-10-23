@@ -10,8 +10,16 @@ import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.show.*;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Marks an existing show in the watchlist as watched.
@@ -89,7 +97,7 @@ public class WatchCommand extends Command {
             return editedShow;
         } else {
             TvShow editedShow = new TvShow(name, description, updatedIsWatched,
-                    dateOfRelease, runningTime, actors, 0,0,null);
+                    dateOfRelease, runningTime, actors, 0, 0, null);
             editedShow.setPoster(poster);
             return editedShow;
         }

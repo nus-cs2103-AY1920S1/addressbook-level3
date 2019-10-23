@@ -3,20 +3,12 @@ package seedu.ezwatchlist.logic.parser;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
-import seedu.ezwatchlist.logic.commands.AddCommand;
 import seedu.ezwatchlist.logic.commands.SyncCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
 
-import seedu.ezwatchlist.api.*;
-
-import java.util.Set;
-import java.util.stream.Stream;
-
-import static seedu.ezwatchlist.logic.parser.CliSyntax.*;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
-
+/**
+ * Parses input arguments and creates a new SyncCommand object
+ */
 public class SyncCommandParser implements Parser<SyncCommand> {
 
     /**

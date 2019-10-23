@@ -10,8 +10,6 @@ import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * The API of the Model component.
  */
@@ -121,5 +119,5 @@ public interface Model {
      * Sync a given show.
      * {@code syncMovie} must already been retrieved from IMDB database.
      */
-    public void SyncMovie(List<Movie> syncMovie);
+    public void syncMovie(List<Movie> syncMovie);
 }

@@ -18,21 +18,26 @@ import info.movito.themoviedbapi.model.config.TmdbConfiguration;
  */
 public class ImageRetrieval {
     private static final String DEFAULT_FILE_SIZE = "w500";
-    private final String IMAGE_CACHE_LOCATION;
-    private final String FXML_IMAGE_ROOT = "/images/posters/"; //relative to the FXML Image location.
-    private String API_BASE_URL;
+    private final String imageCacheLocation;
+    private final String fxmlImageRoot = "/images/posters/"; //relative to the FXML Image location.
+    private String apiBaseUrl;
 
     private String imageUrl;
 
     public ImageRetrieval(TmdbApi tmdbApi, String filePath) {
         Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
-        IMAGE_CACHE_LOCATION = Paths.get(root.toString(), "src", "main", "resources", "images", "posters")
+        imageCacheLocation = Paths.get(root.toString(), "src", "main", "resources", "images", "posters")
                 .toString() + File.separator;
         TmdbConfiguration configuration = tmdbApi.getConfiguration();
-        API_BASE_URL = configuration.getBaseUrl() + DEFAULT_FILE_SIZE;
-        imageUrl = API_BASE_URL + filePath;
+        apiBaseUrl = configuration.getBaseUrl() + DEFAULT_FILE_SIZE;
+        imageUrl = apiBaseUrl + filePath;
     }
 
+    /**
+     * Retrives image from database.
+     * @param fileName file name
+     * @return String file name
+     */
     public String retrieveImage(String fileName) {
         downloadImage(fileName);
         return fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png";
@@ -42,11 +47,15 @@ public class ImageRetrieval {
         return imageUrl;
     }
 
+    /**
+     * Downloads image from online database.
+     * @param fileName file name of the show.
+     */
     public void downloadImage(String fileName) {
         try (InputStream in = new URL(imageUrl).openStream()) {
-            Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION
+            Files.copy(in, Paths.get(imageCacheLocation
                     + fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png"));
-        } catch(FileAlreadyExistsException f) {
+        } catch (FileAlreadyExistsException f) {
             System.err.println("Duplicate image");
         } catch (IOException e) {
             System.err.println(e.getCause());
