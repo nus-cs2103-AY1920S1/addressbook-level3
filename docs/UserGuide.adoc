@@ -84,11 +84,11 @@ Format: `resume <ROOM_NUMBER>
 ==== Add a new room: `addRoom` ====
 
 Adds a new room with a doctor to the list. +
-Format: `resume <ROOM_NUMBER>`
+Format: `addRoom <DOCTOR_REFERENCE_ID>`
 
 ==== Removes a room: `removeRoom` ====
 Removes a room in the list. +
-Format: `resume <ROOM_NUMBER>`
+Format: `removeRoom <ROOM_NUMBER>`
 
 
 === Patient Management
