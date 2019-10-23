@@ -1,6 +1,8 @@
-package seedu.address.model.transaction;
+package seedu.address.logic.comparator;
 
 import java.util.Comparator;
+
+import seedu.address.model.transaction.BankAccountOperation;
 
 /**
  * Comparator class for sorting Transactions in ascending order of amount
