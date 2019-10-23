@@ -170,7 +170,7 @@ public class ModelManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
         updateFilteredWorkerList(PREDICATE_SHOW_ALL_WORKERS);
-        //updateFilteredFridgeList(PREDICATE_SHOW_ALL_FRIDGES);
+        updateFilteredFridgeList(PREDICATE_SHOW_ALL_FRIDGES);
     }
 
     @Override
@@ -202,6 +202,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedNotif);
 
         addressBook.setNotif(target, editedNotif);
+    }
+
+    @Override
+    public int getNumberOfNotifs() {
+        return filteredNotifs.size();
     }
     //=========== Filtered Body List Accessors =============================================================
     /**

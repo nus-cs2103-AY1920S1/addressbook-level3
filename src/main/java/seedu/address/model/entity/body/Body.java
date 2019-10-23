@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
@@ -28,7 +29,7 @@ public class Body implements Entity {
     private Optional<Religion> religion;
 
     private Optional<String> causeOfDeath;
-    private Optional<List<String>> organsForDonation;
+    private List<String> organsForDonation;
     private Optional<BodyStatus> bodyStatus;
     private Optional<IdentificationNumber> fridgeId;
     private Optional<Date> dateOfBirth;
@@ -60,7 +61,7 @@ public class Body implements Entity {
         this.nric = Optional.ofNullable(nric);
         this.religion = Optional.ofNullable(religion);
         this.causeOfDeath = Optional.ofNullable(causeOfDeath);
-        this.organsForDonation = Optional.ofNullable(organsForDonation);
+        this.organsForDonation = organsForDonation;
         this.bodyStatus = Optional.ofNullable(bodyStatus);
         this.fridgeId = Optional.ofNullable(fridgeId);
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
@@ -164,12 +165,12 @@ public class Body implements Entity {
         this.causeOfDeath = Optional.ofNullable(causeOfDeath);
     }
 
-    public Optional<List<String>> getOrgansForDonation() {
+    public List<String> getOrgansForDonation() {
         return organsForDonation;
     }
 
     public void setOrgansForDonation(List<String> organsForDonation) {
-        this.organsForDonation = Optional.ofNullable(organsForDonation);
+        this.organsForDonation = organsForDonation;
     }
 
     public Optional<BodyStatus> getBodyStatus() {
@@ -285,7 +286,7 @@ public class Body implements Entity {
             .append(" Date of Birth: ")
             .append(dateOfBirth.isPresent() ? dateOfBirth.get() : OPTIONAL_FIELD_EMPTY)
             .append(" Organs for Donation: ")
-            .append(organsForDonation.isPresent() ? organsForDonation.get() : OPTIONAL_FIELD_EMPTY)
+            .append(organsForDonation)
             .append(" Fridge ID: ")
             .append(fridgeId.isPresent() ? fridgeId.get() : OPTIONAL_FIELD_EMPTY)
             .append(" Body Status: ")

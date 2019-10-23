@@ -99,6 +99,8 @@ public class AddCommand extends UndoableCommand {
         model.addEntity(toAdd);
 
         if (toAdd instanceof Body) {
+            SelectCommand selectCommand = new SelectCommand(toAdd.getIdNum().getIdNum());
+            selectCommand.execute(model);
             NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd), 5, TimeUnit.SECONDS);
             notifCommand.execute(model);
         }

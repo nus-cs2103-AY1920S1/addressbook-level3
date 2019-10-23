@@ -3,6 +3,8 @@ package seedu.address.model.entity;
 import java.util.HashMap;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
@@ -69,7 +71,6 @@ public class UniqueIdentificationNumberMaps {
      */
     private static Integer putBody(Body body) {
         Set<Integer> keys = uniqueBodyMap.keySet();
-        System.out.println(keys);
         int numOfKeys = keys.size();
         for (int id = 1; id <= numOfKeys; id++) {
             if (uniqueBodyMap.get(id) == null) {
@@ -115,6 +116,10 @@ public class UniqueIdentificationNumberMaps {
         uniqueWorkerMap.clear();
     }
 
+    /**
+     * Returns the entity that belongs to the supplied Identification Number details.
+     * Guarantee: Identification Number is present and will not retrieve a null.
+     */
     public static Entity getMapping(String typeOfEntity, int id) {
         if (typeOfEntity.equals("W")) {
             return uniqueWorkerMap.get(id);

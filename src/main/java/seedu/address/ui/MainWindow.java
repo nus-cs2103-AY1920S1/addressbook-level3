@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private BodyMasterDetailPane bodyMasterDetailPane;
     private NotificationButton notificationButton;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -135,7 +136,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
@@ -143,7 +144,7 @@ public class MainWindow extends UiPart<Stage> {
                         new BodyCardSelected(logic.selectedBodyProperty()));
         bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
 
-        notificationButton = new NotificationButton();
+        notificationButton = NotificationButton.getInstanceOfNotifButton();
         notificationButtonPlaceholder.getChildren().add(notificationButton.getRoot());
     }
 

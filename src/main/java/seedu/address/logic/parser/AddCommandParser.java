@@ -156,7 +156,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
         String relationship = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELATIONSHIP)
             .orElse(""));
-
         IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
             argMultimap.getValue(PREFIX_FRIDGE_ID).orElse(""));
         if (fridgeId != null) {

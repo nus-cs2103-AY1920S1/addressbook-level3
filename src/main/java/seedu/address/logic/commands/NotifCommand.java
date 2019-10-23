@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.notif.Notif;
+import seedu.address.ui.NotificationButton;
 
 /**
  * Notifes a user when there is an automatic change in BodyStatus.
@@ -69,6 +70,7 @@ public class NotifCommand extends Command {
             } catch (CommandException e) {
                 // todo what to throw?
             }
+            NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
         });
 
         ses.schedule(changeUi, period, timeUnit);

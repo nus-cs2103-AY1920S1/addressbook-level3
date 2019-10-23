@@ -55,7 +55,7 @@ public class TypicalBodies {
             .withKinPhoneNumber("87120919")
             .build();
 
-    // Manually added - Workers's details found in {@code CommandTestUtil}
+    // Manually added - Bodies's details found in {@code CommandTestUtil}
     public static final Body JOHN = new BodyBuilder().withName(VALID_NAME_JOHN).withSex(VALID_SEX_JOHN)
         .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JOHN).withDateOfDeath(VALID_DATE_OF_DEATH_JOHN).build();
     public static final Body JANE = new BodyBuilder().withName(VALID_NAME_JANE).withSex(VALID_SEX_JANE)

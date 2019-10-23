@@ -159,7 +159,7 @@ class BodyTest {
         ArrayList<String> list = new ArrayList<String>();
         list.add("Liver");
         ALICE.setOrgansForDonation(list);
-        assertEquals("Liver", ALICE.getOrgansForDonation().get().get(0));
+        assertEquals("Liver", ALICE.getOrgansForDonation().get(0));
     }
 
     @Test

@@ -72,7 +72,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.nric = body.getNric().orElse(null);
         this.religion = body.getReligion().orElse(null);
         this.causeOfDeath = body.getCauseOfDeath().orElse(null);
-        this.organsForDonation = body.getOrgansForDonation().orElse(null);
+        this.organsForDonation = body.getOrgansForDonation();
         this.bodyStatus = body.getBodyStatus().orElse(null);
         this.fridgeId = body.getFridgeId().orElse(null);
         this.dateOfBirth = body.getDateOfBirth().orElse(null);
@@ -104,7 +104,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setNric(this.getNric().orElse(body.getNric().orElse(null)));
         body.setReligion(this.getReligion().orElse(body.getReligion().orElse(null)));
         body.setCauseOfDeath(this.getCauseOfDeath().orElse(body.getCauseOfDeath().orElse(null)));
-        body.setOrgansForDonation(this.getOrgansForDonation().orElse(body.getOrgansForDonation().orElse(null)));
+        body.setOrgansForDonation(this.getOrgansForDonation().orElse(body.getOrgansForDonation()));
         body.setBodyStatus(this.getBodyStatus().orElse(body.getBodyStatus().orElse(null)));
         body.setFridgeId(this.getFridgeId().orElse(body.getFridgeId().orElse(null)));
         body.setDateOfBirth(this.getDateOfBirth().orElse(body.getDateOfBirth().orElse(null)));

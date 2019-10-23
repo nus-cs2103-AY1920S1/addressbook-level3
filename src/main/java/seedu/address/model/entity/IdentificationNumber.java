@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
@@ -114,6 +115,13 @@ public class IdentificationNumber {
         default:
             return false;
         }
+    }
+
+    /**
+     * Checks if given {@code IdentificationNumber id} already exists in Mortago.
+     */
+    public static boolean isExistingIdentificationNumber(IdentificationNumber id) {
+        return isExistingIdentificationNumber(id.toString());
     }
 
     public String getTypeOfEntity() {

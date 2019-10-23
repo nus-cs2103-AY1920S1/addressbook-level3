@@ -6,7 +6,9 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
@@ -23,7 +25,7 @@ public interface Model {
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
     Predicate<Notif> PREDICATE_SHOW_ALL_NOTIFS = unused -> true;
-    Predicate<Worker> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
+    Predicate<Fridge> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
 
     /**
      * Adds an executed command to the model's command history.
@@ -135,6 +137,10 @@ public interface Model {
      */
     void setNotif(Notif target, Notif editedNotif);
 
+    /**
+     *  Returns the total number of notifications in the system.
+     */
+    int getNumberOfNotifs();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

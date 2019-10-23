@@ -93,7 +93,7 @@ public class BodyBuilder {
         nric = bodyToCopy.getNric().orElse(null);
         religion = bodyToCopy.getReligion().orElse(null);
         causeOfDeath = bodyToCopy.getCauseOfDeath().orElse(null);
-        organsForDonation = bodyToCopy.getOrgansForDonation().orElse(null);
+        organsForDonation = bodyToCopy.getOrgansForDonation();
         bodyStatus = bodyToCopy.getBodyStatus().orElse(null);
         fridgeId = bodyToCopy.getFridgeId().orElse(null);
         nextOfKin = bodyToCopy.getNextOfKin().orElse(null);

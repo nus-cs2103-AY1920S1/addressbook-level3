@@ -2,12 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 
 //@@ shaoyi1997-reused
@@ -26,24 +24,23 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_BODY_SUCCESS = "Selected Body: %1$s";
 
-    private final Index targetIndex;
+    private final int targetId;
 
-    public SelectCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public SelectCommand(int targetId) {
+        this.targetId = targetId;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        List<Body> filteredBodyList = model.getFilteredBodyList();
-
-        if (targetIndex.getZeroBased() >= filteredBodyList.size()) {
+        IdentificationNumber targetIdNum = IdentificationNumber.customGenerateId("B",
+            targetId);
+        if (!IdentificationNumber.isExistingIdentificationNumber(targetIdNum)) {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
         }
-
-        model.setSelectedBody(filteredBodyList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_BODY_SUCCESS, targetIndex.getOneBased()));
+        Body selectedBody = (Body) targetIdNum.getMapping();
+        model.setSelectedBody(selectedBody);
+        return new CommandResult(String.format(MESSAGE_SELECT_BODY_SUCCESS, targetId));
 
     }
 
@@ -51,7 +48,7 @@ public class SelectCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof SelectCommand // instanceof handles nulls
-            && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+            && targetId == ((SelectCommand) other).targetId); // state check
     }
 }
 //@@ shaoyi1997-reused
