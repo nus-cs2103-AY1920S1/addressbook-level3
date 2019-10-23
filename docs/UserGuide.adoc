@@ -81,7 +81,7 @@ Format: `home`
 Returns to time management page where calendar and meeting times are displayed +
 Format: `calendar`
 
-==== Accessing settings page: `settings` +
+==== Accessing settings page: `settings` (Coming in v1.3) +
 Returns to settings page  +
 Format: `settings`
 
@@ -206,33 +206,42 @@ Deadline for task 21 will be specified as 21/09/19 1500
 
 '''
 
-=== Calendar Commands
-
-==== Add a member’s calendar
-
-Adds a calendar to the required member's profile
+=== Calendar Commands (Coming in v1.3)
 
 ****
 
-Steps
+Suggested steps for you to follow
 
-* User first exports their `.ics` file from NUSmods
+1. User first exports their `.ics` file from NUSmods
 
-* Then import it into their google calendar
+2. Then import it into their google calendar
 
-* Add any weekly commitments to their google calendar
+3. Add any weekly commitments to their google calendar
 
-* Export `.ics` file again
+4. Export `.ics` file again
 
-* Import all to our application
+5. Import all to our application
 
-* enter command `generate-timings`
+6. enter command `generate-timings`
 
-* Choose the desired timing for the weekly meetings from the grid displayed
+7. Choose the desired timing for the weekly meetings from the grid displayed
+
+8. Create a new `Meeting`
 
 ****
 
-==== Generate free time across all calendars uploaded: `generate timings`
+==== Add a member’s calendar: `import-calendar`
+
+Format: `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`
+
+Example:
+
+You can add your project's member John Doe's `ics` file like this,
+
+* `import-calendar mi/JD c/data/john_ics_file` +
+Adds a calendar to John's profile
+
+==== Generate free time across all calendars uploaded: `generate-timings`
 
 Format: `generate-timings`
 
@@ -305,7 +314,7 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 
 '''
 
-=== Settings Commands
+=== Settings Commands (Coming in v1.3)
 
 ==== Switching the theme of +Work: `theme`
 
@@ -448,9 +457,11 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Deadline*:  `deadline-task [ti/TASK_ID] [at/ dd-mm-yy hh:mm]`
 
-* *Generate timings*: `generate-timings`
+* *Import calendar*: `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]` (Coming in v1.3)
 
-* *add meeting*: `add-meeting [at/ dd-mm-yyyy hh:mm - hh:mm]  [l/LOCATION]`
+* *Generate timings*: `generate-timings` (Coming in v1.3)
+
+* *add meeting*: `add-meeting [at/ dd-mm-yyyy hh:mm - hh:mm]  [l/LOCATION]` (Coming in v1.3)
 
 * *Adding an inventory*: `add-inventory`
 
@@ -459,3 +470,11 @@ _{explain how the user can enable/disable data encryption}_
 * *Generating report of inventory by task*: `generate-inventory /task`
 
 * *Generating report of inventory by person*: `generate-inventory /person`
+
+* *Switch to light theme*: `theme light` (Coming in v1.3)
+
+* *Switch to dark theme*: `theme dark` (Coming in v1.3)
+
+* *Switch to 12 hour clock*: `clock twelve` (Coming in v1.3)
+
+* *Switch to 24 hour clock*: `clock twenty_four` (Coming in v1.3)

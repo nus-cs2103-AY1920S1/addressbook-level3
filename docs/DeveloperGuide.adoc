@@ -78,13 +78,24 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The `UI` consists of a `MainWindow` that is made up of static and non-static parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-`UserViewMain` is the component responsible for switching the user view. The controller class of `UserViewMain` is `UserViewController`. When the user enters a command, `UserViewUpdate` interacts
-with `UserViewMain` to switch the view of the user. `UserViewMain` then interacts with `UserViewUpdate`, which obtains the
+**How non-static UI components are switched:**
+
+`UserViewMain` is the component responsible for switching the user view. The controller class of `UserViewMain` is `UserViewController`.
+
+Step 1: User enters a command.
+
+Step 2: `UserViewUpdate` parses said command and interacts with `UserViewMain` to display the requested layout.
+
+Step 3: `UserViewMain` interacts with `UserViewNavigator`, which obtains the
 relevant data from `Logic`, to create the relevant `UiPart`. These `UiPart` components are the `MemberListPanel`,
-`ProjectDashBoardView` etc. This component is then passed to `UserViewController` to set the current view of
+`ProjectDashBoardView` etc.
+
+Step 4: This component is then passed to `UserViewController` to set the current view of
 `UserViewMain` component.
+
+Step 5: Users view is then switched successfully.
 
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -141,7 +152,7 @@ image:BetterModelClassDiagram.png[]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.PNG[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -159,7 +170,123 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== [Proposed] Calendar feature
+==== Proposed Implementation
+
+The commands introduced by this feature include; `generate-timings`, `ics` import and commands.
+The commands are facilitated by `ProjectCalendar`. The various `ics` files of the members are parsed in this component.
+
+* `ProjectCalendar#generateTimings()` -- Generates the free times after on syncing `ics` calendars of members.
+* `ProjectCalendar#getAvailableTimings()` -- Retrieves the available timings of members.
+* `ProjectCalendar#importCalendar()` -- Import the member's calendar.
+
+These operations are exposed in the `Model` interface as `Model#generateTimings()`, `Model#getAvailableTimings()` and
+`Model#importCalendar()`.
+
+Given below is an example usage scenario and how the various commands work.
+
+Step 1. The user launches the application. The `ProjectCalendar` will be initialised based on the
+saved `ProjectCalendar`.
+
+Step 2. The user imports members' calendars by executing `impport-calendar`.
+
+Step 3. The user executes `generate-timings` command.
+
+Step 4. +Work displays available meeting times for the project members.
+
+==== Design Considerations
+===== Aspect: Importing and storing calendars of users
+
+* **Alternative 1 (current choice):** User specifies file path of `ics` file in command line.
+** Pros: Easier to implement, files can be stored in application.
+** Cons: User must enter file path, which is error prone.
+* **Alternative 2:** Upon execution of `import-calendar` a file chooser pops up to allow user to browse and upload file.
+** Pros: User can use UI to upload instead.
+** Cons: Due to constraints of application, a ui based upload may not be feasible (Possibly in v2.0)
+
+===== Aspect: Flexibility in syncing calendars
+
+* **Alternative 1 (current choice):** +Work syncs all calendars uploaded when `generate-timings` is executed
+** Pros: Easier to implement.
+** Cons: User may be finding a suitable time for an event where only specific members are required, in which case timings
+may not help as much.
+* **Alternative 2:** User can specify which members calendars to sync
+** Pros: User can find more suitable timings for events which involve only specific members.
+** Cons: Association between members and their respective calendars must be rigorously tested to ensure accuracy of timings.
+May introduce complexity into storage and dependencies among components.
+
+=== [Proposed] Settings feature
+==== Proposed Implementation
+
+The commands introduced by this feature include; `theme light`, `theme dark`, `clock twenty_four` and `clock twelve`.
+The commands are facilitated by `UserSettings`. This component resides in model and contains the customisable settings available to
+the user, which include `theme` and `clockFormat`.
+
+* `Settings#getTheme()` -- Retrieves the current theme applied to +Work.
+* `Settings#getClockFormat()` -- Retrieves the current clock format applied to +Work.
+* `Settings#setDarkTheme()` -- Sets the new theme of +Work to be `DARK`.
+* `Settings#setLightTheme()` -- Sets the new theme of +Work to be `LIGHT`.
+* `Settings#setTwelveHourFormat()` -- Sets the new clock format of +Work to be `TWELVE_HOUR`.
+* `Settings#setTwentyFourHourFormat()` -- Sets the new clock format of +Work to be `TWENTY_FOUR`.
+
+These operations are exposed in the `Model` interface as `Model#getTheme()`, `Model#getClockFormat()`, `Model#setDarkTheme()`,
+`Model#setLightTheme()`, `Model#setTwelveHourFormat()`, `Model#setTwentyFourHourFormat()` respectively.
+
+[NOTE]
+
+To allow the `UI` to be responsive, two of the operations are similarly exposed in the `Logic` interface as `Logic#getTheme()` and
+`Logic#getClockFormat()`.
+
+Given below is an example usage scenario and how the various commands work.
+
+Step 1. The user launches the application. The `UserSettings` will be initialised based on the
+saved `UserSettings`.
+
+[NOTE]
+
+Assume that the previous setting for `theme` is `LIGHT`.
+
+Step 2. The user executes `theme dark` command to switch the theme of +Work to `DARK`.
+
+Step 3. `Logic` calls `Model#setDarkTheme()`, which calls `UserSettings#setDarkTheme()`, which changes `theme` attribute to
+`DARK`.
+
+Step 4. `DARK` theme has been applied to +Work, and the settings have been updated and stored in the save file.
+
+The following sequence diagram shows how the `theme dark` operation works.
+
+.Operational flow of `ThemeCommand`
+image::ThemeSequenceDiagram.png[]
+
+NOTE: The lifeline for `ThemeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `theme light` operation is similar to the one shown in figure 9. However, the method called is `setLightTheme`.
+
+[IMPORTANT]
+
+The `clock twelve` and `clock twenty_four` have a similar operation to `theme dark` as well. There are two differences, `ClockCommand` replaces
+`ThemeCommand` and the associated methods called in `Model` are different.
+
+==== Design Considerations
+===== Aspect: Level of user customisation for +Work clock format
+
+* **Alternative 1 (current choice):** User can change the display format of date and time only
+** Pros: Easier to implement in terms of storage.
+** Cons: User has to remember to create new deadlines for tasks in 24 hour format only.
+* **Alternative 2:** User can change the input and display format of date and time
+** Pros: User has greater flexibility in input of date and time.
+** Cons: We must ensure that during load and save of storage, the formatting does not cause any errors.
+
+===== Aspect: Level of user customisation for +Work themes
+
+* **Alternative 1 (current choice):** User can change between light and dark only.
+** Pros: Easier to implement and maintain UI components and css files to ensure theme cascades consistently.
+** Cons: User is limited to two themes, which may affect their viewing preferences.
+* **Alternative 2:** User can import their own themes and use them.
+** Pros: User has greater flexibility in choosing themes for +Work.
+** Cons: We must ensure that all UI components switch themes consistently. This may take a long time to test, due to large number of views
+offered by +Work. Furthermore the compatibility of the theme with JavaFx must be regarded as well.
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
@@ -654,6 +781,26 @@ Use case ends.
 ** 1a1. +Work informs user that they have entered an invalid ID
 ** 1a2. User enters a valid ID
 ** Steps 1a1 - 1a2 are repeated until user provides a valid ID
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: Edit an inventory item
+
+*Main Success Scenario*
+
+1. User requests to edit an item to the inventory and specifies the ID of the inventory item first, followed by the parameter(s) to be edited
+2. +Work informs user that the inventory item has been successfully edited
+3. +Work updates the inventory
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user specifies an invalid inventory ID or specifies no parameters to be edited
+** 1a1. +Work informs user that they have entered an invalid ID and at least one parameter
+** 1a2. User enters a valid ID and the parameter
+** Steps 1a1 - 1a2 are repeated until user provides a valid ID and a parameter to be changed
 +
 Use case resumes from step 2.
 
