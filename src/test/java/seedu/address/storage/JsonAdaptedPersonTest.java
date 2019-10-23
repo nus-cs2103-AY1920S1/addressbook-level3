@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -11,12 +11,14 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.address.storage.JsonAdaptedPerson;
+import seedu.address.address.storage.JsonAdaptedTag;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.country.Country;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.address.model.country.Country;
+import seedu.address.address.model.person.Address;
+import seedu.address.address.model.person.Email;
+import seedu.address.address.model.person.Name;
+import seedu.address.address.model.person.Phone;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";

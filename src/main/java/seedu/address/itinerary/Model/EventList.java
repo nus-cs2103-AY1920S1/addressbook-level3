@@ -1,12 +1,11 @@
 package seedu.address.itinerary.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.itinerary.model.Event.Event;
-import seedu.address.itinerary.model.Exceptions.ItineraryException;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.model.exceptions.ItineraryException;
 
 /**
  * An event list for tracking events on itinerary.
@@ -35,6 +34,11 @@ public class EventList {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Mark the specified event in the itinerary event list as done.
+     * @param target the specified event to be marked done.
+     * @param doneEvent the event with the attribute mark done.
+     */
     public void doneEvent(Event target, Event doneEvent) {
         requireAllNonNull(target, doneEvent);
 

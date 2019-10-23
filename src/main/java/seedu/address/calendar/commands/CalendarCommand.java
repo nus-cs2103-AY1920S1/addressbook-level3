@@ -1,8 +1,8 @@
 package seedu.address.calendar.commands;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.AddressBookModel;
+import seedu.address.address.model.AddressBookModel;
 
 /**
  * Shows calendar.

@@ -1,20 +1,19 @@
 package seedu.address.itinerary.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.itinerary.model.Itinerary;
 import seedu.address.ui.UiPart;
 
-import java.util.logging.Logger;
-
+/**
+ * Opens up a window with a summary of the events in itinerary.
+ */
 public class SummaryCommandWindow extends UiPart<Stage> {
-    Itinerary itinerary = new Itinerary();
-
-    public final String SUMMARY_MESSAGE = "You current have " + itinerary.getEventList().size()
-            + " events in your list.";
-
     private static final Logger logger = LogsCenter.getLogger(SummaryCommandWindow.class);
     private static final String FXML = "SummaryCommandWindow.fxml";
 
@@ -26,9 +25,12 @@ public class SummaryCommandWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public SummaryCommandWindow(Stage root) {
+    private SummaryCommandWindow(Stage root) {
         super(FXML, root);
-        summaryMessage.setText(SUMMARY_MESSAGE);
+        Itinerary itinerary = new Itinerary();
+        String summary = "You current have " + itinerary.getEventList().size()
+                + " events in your list.";
+        summaryMessage.setText(summary);
     }
 
     /**
@@ -72,6 +74,7 @@ public class SummaryCommandWindow extends UiPart<Stage> {
     /**
      * Hides the help window.
      */
+    @SuppressWarnings("unused")
     public void hide() {
         getRoot().hide();
     }

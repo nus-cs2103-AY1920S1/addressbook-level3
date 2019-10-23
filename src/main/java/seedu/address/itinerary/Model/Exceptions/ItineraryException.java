@@ -1,5 +1,8 @@
-package seedu.address.itinerary.model.Exceptions;
+package seedu.address.itinerary.model.exceptions;
 
+/**
+ * Represents an error which occurs during execution of an itinerary command.
+ */
 public class ItineraryException extends Exception {
     /**
      * Constructor for the ItineraryException class. It contains the error message
