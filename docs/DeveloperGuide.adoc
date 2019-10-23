@@ -222,6 +222,77 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Statistics feature
+==== Current Implementation
+For the current `statistics` feature, there are 2 main commands that the user can execute.
+
+1. `stats` - display statistics for all spending
+2. `stats d/DATE_START d/DATE_END` - display statistics for spending within a date range
+
+The `StatsCommandParser` differentiates these 2 commands based on whether a valid date range is provided as illustrated in the diagram below.
+
+.Activity Diagram showing behaviour of StatsCommandParser
+image::statsactivitydiagram.png[width="600"]
+
+The implementation of the Statistics feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Statistics mechanism behaves at each phase.
+
+===== Preparation
+
+During the preparation phase, the program parses the command for Statistics and prepares to open a new Statistics Window.
+The following sequence diagram shows how `stats d/01/01/2019 d/07/01/2019` works during the preparation phase.
+
+.Sequence Diagram demonstrating the preparation stage of Statistics feature
+image::StatsSequenceDiagram.png[]
+
+1. User executes `stats d/01/01/2019 d/07/01/2019` to generate statistics for spending within `01/01/2019` and `07/01/2019`.
+
+2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/ 01/01/2019 d/07/01/2019` to StatsCommandParser.
+
+3. StatsCommandParser will check whether the date range parameters provided are valid.
+
+4. `StatsCommand#execute()` is executed, returning a message which tells the user that the Stats Window will be opened and set a boolean `isShowStats` = true to indicate that a new window to display the statistics will be opened.
+
+===== Execution
+
+In the execution phase, the program processes and retrieves the data to be displayed and finally displaying it.
+
+There are 2 types of data that the program require, `statsMessage` for displaying the statistics in text and `statsData` for displaying the data in a piechart.
+Below is the UML sequence diagram and a step-by-step explanation for the retrieval of `statsData`. `statsMessage` is retrieved in the same manner.
+
+.Sequence Diagram of Execution Phase showing retrieving of `statsData`
+image::StatsMessageSequenceDiagram.png[]
+
+1. Upon checking that the boolean `isShowStats` = true, the MainWindow calls `LogicManager#getStatsData()`.
+
+2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/ 01/01/2019 d/07/01/2019` to StatsCommandParser.
+
+3. StatsCommandParser will check whether the date range parameters provided are valid.
+
+4. `StatsCommand#getStatsData()` is executed. Spending with date range within `01/01/2019` and `07/01/2019` is filtered.
+The filtering is done through a predicate parameter which checks through the dates of the spending in the application.
+
+5. Finally, the `statsData` will be displayed on the Ui through `StatsWindow#loadData()` call.
+
+==== Design Considerations
+
+===== How to pass statistics data parameters from Logic to UI
+
+Alternative 1 (current choice): UI gets all data and parameters from Logic, which gets data from Model.
+
+Pros: Easy to implement. Aligned with architecture.
+
+Cons: A lot of method calls
+
+Alternative 2: Pass data and parameters through event
+
+Pros: Less method calls. Easier to read.
+
+Cons: Not in alignment with architecture. Need to consider application startup when there are no events posted.
+
+Alternative 1 was chosen due to the ease of implementation.
+As the current statistics feature does not require a large amount of data, the number of method calls is not too large.
+Alternative 2 requires a change in the architecture which may result in higher complexity.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
