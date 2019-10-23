@@ -21,7 +21,7 @@ participant ":JsonSerializableRecs" as JsonSerializableRecs STORAGE_COLOR
 participant ":JsonAdaptedRecs" as JsonAdaptedRecs STORAGE_COLOR
 end box
 
-legend bottom
+legend top right
 Legend:
 * CS: categorySet
 * TS: tagSet
