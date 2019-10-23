@@ -35,7 +35,7 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" guiltTripParser
+LogicManager --->"1" guiltTripParser
 guiltTripParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
