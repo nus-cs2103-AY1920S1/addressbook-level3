@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,17 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.appcommands.AddCommand;
-import seedu.address.logic.commands.appcommands.ClearCommand;
-import seedu.address.logic.commands.appcommands.DeleteCommand;
-import seedu.address.logic.commands.appcommands.EditCommand;
-import seedu.address.logic.commands.appcommands.ExitCommand;
-import seedu.address.logic.commands.appcommands.FindCommand;
 import seedu.address.logic.commands.appcommands.HelpCommand;
-import seedu.address.logic.commands.appcommands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
-import seedu.address.model.Model;
 
 /**
  * Parses user input.

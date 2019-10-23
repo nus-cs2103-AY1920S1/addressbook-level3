@@ -121,9 +121,9 @@ public class CommandBox extends UiPart<Region> {
                 public void handle(ActionEvent e) {
                     commandComboField.setValue(uiLogicHelper.getMode().toString());
                     //try {
-                        //commandExecutor.execute(commandComboField.getValue());
+                    //commandExecutor.execute(commandComboField.getValue());
                     //} catch (CommandException | ParseException ex) {
-                      //  setStyleToIndicateCommandFailure();
+                    //  setStyleToIndicateCommandFailure();
                     //}
 
                 }

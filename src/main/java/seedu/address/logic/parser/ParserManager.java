@@ -1,10 +1,7 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
@@ -21,8 +18,8 @@ import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.commands.gamecommands.GuessCommand;
 import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.gamecommands.StopCommand;
-import seedu.address.logic.commands.loadcommands.CreateCommand;
 import seedu.address.logic.commands.loadcommands.BankCommand;
+import seedu.address.logic.commands.loadcommands.CreateCommand;
 import seedu.address.logic.commands.loadcommands.ExportCommand;
 import seedu.address.logic.commands.loadcommands.ImportCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
@@ -34,23 +31,21 @@ import seedu.address.logic.commands.switches.LoadScreenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.parser.app.AddCommandParser;
+import seedu.address.logic.parser.app.DeleteCommandParser;
 import seedu.address.logic.parser.app.EditCommandParser;
 import seedu.address.logic.parser.app.FindCommandParser;
-import seedu.address.logic.parser.app.DeleteCommandParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
 import seedu.address.logic.parser.load.BankCommandParser;
-import seedu.address.logic.parser.load.ImportCommandParser;
-import seedu.address.logic.parser.load.ExportCommandParser;
 import seedu.address.logic.parser.load.CreateCommandParser;
+import seedu.address.logic.parser.load.ExportCommandParser;
+import seedu.address.logic.parser.load.ImportCommandParser;
 import seedu.address.logic.parser.load.RemoveCommandParser;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
 import seedu.address.logic.parser.settings.HintsCommandParser;
 import seedu.address.logic.parser.settings.ThemeCommandParser;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
-import seedu.address.model.Model;
-
 
 
 /**
@@ -88,35 +83,35 @@ public class ParserManager {
 
         SpecificModeParser temp = new SpecificModeParser();
         switch (this.mode) {
-            case APP:
-                temp.add(AddCommand.class, AddCommandParser.class);
-                temp.add(EditCommand.class, EditCommandParser.class);
-                temp.add(DeleteCommand.class, DeleteCommandParser.class);
-                temp.add(FindCommand.class, FindCommandParser.class);
-                temp.add(ClearCommand.class, null);
-                temp.add(ListCommand.class, null);
-                temp.add(ExitCommand.class, null);
-                temp.add(HelpCommand.class, null);
-                return temp;
-            case LOAD:
-                temp.add(BankCommand.class, BankCommandParser.class);
-                temp.add(ImportCommand.class, ImportCommandParser.class);
-                temp.add(ExportCommand.class, ExportCommandParser.class);
-                temp.add(CreateCommand.class, CreateCommandParser.class);
-                temp.add(RemoveCommand.class, RemoveCommandParser.class);
-                return temp;
-            case SETTINGS:
-                temp.add(DifficultyCommand.class, DifficultyCommandParser.class);
-                temp.add(HintsCommand.class, HintsCommandParser.class);
-                temp.add(ThemeCommand.class, ThemeCommandParser.class);
-                return temp;
-            case GAME:
-                temp.add(GuessCommand.class, GuessCommandParser.class);
-                temp.add(SkipCommand.class, null);
-                temp.add(StopCommand.class, null);
-                return temp;
-            default:
-                return null;
+        case APP:
+            temp.add(AddCommand.class, AddCommandParser.class);
+            temp.add(EditCommand.class, EditCommandParser.class);
+            temp.add(DeleteCommand.class, DeleteCommandParser.class);
+            temp.add(FindCommand.class, FindCommandParser.class);
+            temp.add(ClearCommand.class, null);
+            temp.add(ListCommand.class, null);
+            temp.add(ExitCommand.class, null);
+            temp.add(HelpCommand.class, null);
+            return temp;
+        case LOAD:
+            temp.add(BankCommand.class, BankCommandParser.class);
+            temp.add(ImportCommand.class, ImportCommandParser.class);
+            temp.add(ExportCommand.class, ExportCommandParser.class);
+            temp.add(CreateCommand.class, CreateCommandParser.class);
+            temp.add(RemoveCommand.class, RemoveCommandParser.class);
+            return temp;
+        case SETTINGS:
+            temp.add(DifficultyCommand.class, DifficultyCommandParser.class);
+            temp.add(HintsCommand.class, HintsCommandParser.class);
+            temp.add(ThemeCommand.class, ThemeCommandParser.class);
+            return temp;
+        case GAME:
+            temp.add(GuessCommand.class, GuessCommandParser.class);
+            temp.add(SkipCommand.class, null);
+            temp.add(StopCommand.class, null);
+            return temp;
+        default:
+            return null;
         }
     }
 
