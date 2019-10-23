@@ -20,7 +20,7 @@ public class EndTestCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         // TODO: integrate statistics
-        addressBookParser.endTest();
+        addressBookParser.endTestMode();
         return new CommandResult("Test ended");
     }
 }

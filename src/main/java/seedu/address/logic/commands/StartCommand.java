@@ -51,7 +51,7 @@ public class StartCommand extends Command {
         if (!model.hasTestFlashCard()) {
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
-        addressBookParser.startTest();
+        addressBookParser.startTestMode();
         String question = model.getTestQuestion(model);
         addressBookParser.setAwaitingAnswer(true);
         return new CommandResult(String.format(MESSAGE_START_TEST_SUCCESS, question));
