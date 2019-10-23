@@ -11,7 +11,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.visual.DisplayIndicator;
 
-// TODO: Use images to style chart haha
+// TODO: Rename visual to controller
 
 /**
  * An UI component that displays the policy popularity breakdown in the display panel.

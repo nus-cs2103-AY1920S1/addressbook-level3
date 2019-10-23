@@ -1,0 +1,31 @@
+@startuml
+
+abstract class UIPart {
+}
+abstract class DisplayController {
+{abstract}castData(ObservableMap)
+{abstract}setTitle(String)
+{abstract}setIndicatorAttributes()
+}
+class AxisController {
+axisLabels:String
+setXAxis(String)
+setYAxis(String)
+}
+class PieChartController{
+}
+class BarChartController{
+}
+class LineChartController{
+}
+
+UIPart <|-down- DisplayController
+DisplayController <|-down- AxisController
+DisplayController <|-down- PieChartController
+AxisController <|-down- BarChartController
+AxisController <|-down- LineChartController
+
+note bottom of DisplayController: setIndicatorAttributes() = \nsetPolicyPopularityBreakdown(), \nsetGenderBreakdown(), etc
+note left of AxisController: axisLabels = \nPOLICY_POPULARITY_XAXIS, \nPOLICY_POPULARITY_YAXIS, etc
+
+@enduml
