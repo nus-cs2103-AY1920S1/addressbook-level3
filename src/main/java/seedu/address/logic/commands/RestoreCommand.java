@@ -46,13 +46,10 @@ public class RestoreCommand extends Command {
         model.deleteBinItem(itemToRestore);
         if (itemToRestore.getItem() instanceof Person) {
             Person p = (Person) itemToRestore.getItem();
-            // Building person without tags and policies in case they don't exist anymore
-            // Undo redo takes care of accidental deletions
-            model.addPerson(new PersonBuilder(p).withTags().withPolicies().build());
+            model.addPerson(new PersonBuilder(p).build());
         } else {
             Policy p = (Policy) itemToRestore.getItem();
-            // Same as above
-            model.addPolicy(new PolicyBuilder(p).withTags().withCriteria().build());
+            model.addPolicy(new PolicyBuilder(p).build());
         }
 
         // to maintain the model's state for undo/redo

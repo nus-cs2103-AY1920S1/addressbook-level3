@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.BinItemBuilder;
 import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -50,6 +51,16 @@ public class DeletePolicyCommand extends Command {
             if (p.hasPolicy(policyToDelete)) {
                 Person editedPerson = new PersonBuilder(p).removePolicies(policyToDelete).build();
                 model.setPerson(p, editedPerson);
+            }
+        }
+
+        // Update persons in bin as well since we are displaying the list of bin items
+        for (BinItem b : model.getAddressBook().getBinItemList()) {
+            if (b.getItem() instanceof Person) {
+                Person p = (Person) b.getItem();
+                Person editedPerson = new PersonBuilder(p).removePolicies(policyToDelete).build();
+                BinItem editedBinItem = new BinItemBuilder(b).withItem(editedPerson).build();
+                model.setBinItem(b, editedBinItem);
             }
         }
 

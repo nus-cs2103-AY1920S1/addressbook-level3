@@ -27,8 +27,8 @@ public class BinPersonCard extends PersonCard {
 
     public BinPersonCard(Person person, int displayedIndex, String dateDeleted, String expiryDate) {
         super(person, displayedIndex, FXML);
-        this.dateDeleted.setText(dateDeleted);
-        this.expiryDate.setText(expiryDate);
+        this.dateDeleted.setText("Deleted on " + dateDeleted);
+        this.expiryDate.setText("Expires on " + expiryDate);
     }
 
 }
