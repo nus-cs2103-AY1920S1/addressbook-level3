@@ -163,6 +163,86 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::activityclass[]
+=== Activity class
+`Activity` is a class used to store activities and their details. It contains the following information:
+
+* Primary Key
+
+Each `Activity` has a unique primary key used by external classes to identify and access them, without unnecessary dependencies.
+
+* Title
+
+Title of the activity is stored using `Title`, which runs validations to ensure that the title is valid. Currently, the only restriction for the title is that it can't be blank.
+
+* Participants
+
+Participants are saved internally under `participantIds`, which only stores the primary key of `Contact` involved.
+
+* Expenses incurred by this activity
+
+Expenses are stored as `Expense`. Refer to <<Expense>> for more details. (TBD)
+
+* Outstanding balance for each participant
+
+The balance of each participants are stored internally under `participantBalances`.
+
+All `Activity` objects are stored in `ActivityBook`.
+
+The following class diagram describes the implementation of `Activity`.
+
+.Structure of the Activity class
+image::ActivityClassDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Storage of participant
+
+* **Alternative 1 (current choice):** Only storing the primary key of participants
+** *Pros*: Minimizes dependency and potential bugs.
+** *Cons*: More difficult for external classes to retrieve participant objects if necessary.
+** *Reason for choice*: Storing entire object can potentially cause bugs, as there are no mechanisms to ensure the consistency of data between `Person` object in `Activity` and `AddressBook`.
+
+* **Alternative 2:** Storing the entire `Person` object inside the `Activity`.
+** Pros: Easier to implement. Object can be easily retrieved when necessary.
+** Cons: Creates extra dependency between classes. More prone to error.
+
+// tag::createactivity[]
+=== Create activity feature
+Mechanism to create activity is facilitated by `Activity`.
+It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`. Additionally, it implements the following operation:
+
+* `Activity()` -- Constructor used to create a new `Activity`.
+
+All `Activity` models are stored inside `ActivityBook`.
+
+When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately.
+
+Adding of participant relies on keyword-based search. A set of keyword is passed in for each participant to be invited in. The keywords are used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.
+
+Given below is an example usage scenario and how the create activity mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `activity t/Breakfast p/David` command to create an activity named Breakfast in the activity book, with David as a participant.
+
+Step 3. The user executes `activity t/Lunch p/Alex p/David` command to create an activity named Lunch in the activity book. In this case, as there are two contacts with the name "Alex", only David is added into the Lunch activity as a participant.
+
+//TODO: Add sequence diagram and Activity diagram showing how this works
+
+==== Design Considerations
+
+===== Aspect: Finding the correct contact to add
+
+* **Alternative 1 (current choice):** Users can use keywords to specify the contact to be added.
+** *Pros*: Improves usability.
+** *Cons*: Difficult to implement. Necessary to handle multiple edge cases.
+** *Reason for choice*: Forcing users to specify exact full name was deemed to be too tedious.
+
+* **Alternative 2:** Users must type in the exact full name of the contact to be added.
+** Pros: Easy to implement. Low possibility of bugs.
+** Cons: Significantly decreases usability of the application.
+
 === List feature
 
 The List mechanism is facilitated by the combination of three classes `MainWindow`, `Model` and `Context`.
