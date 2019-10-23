@@ -26,7 +26,7 @@ public class LoanUnpaidCommand extends UpdateStatusCommand {
             + "Example: " + COMMAND_WORD + " "
             + MULTI_LOAN_SYNTAX_EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "Loan(s) marked as unpaid.";
+    public static final String MESSAGE_SUCCESS = "Loan(s) %1$s marked as unpaid.";
 
     public LoanUnpaidCommand(List<Index> loanIndices, List<Person> persons) throws CommandException {
         super(loanIndices, persons);

@@ -115,6 +115,12 @@ public abstract class MultiLoanCommand extends Command {
      */
     protected String constructMultiLoanResult(String successMessage) {
 
+        successMessage = String.format(
+                successMessage,
+                hitLoanIndices.stream()
+                        .map(index -> String.format("%d", index.getOneBased()))
+                        .collect(Collectors.joining(", ")));
+
         if (missingLoanIndices.isEmpty()) {
             return successMessage;
         }
@@ -124,12 +130,15 @@ public abstract class MultiLoanCommand extends Command {
         }
 
         StringBuilder resultMessage = new StringBuilder();
-        resultMessage.append(successMessage).append("\n").append("However, the following loans were not found:\n");
-        for (Index missingIndex : missingLoanIndices) {
-            resultMessage.append(missingIndex.toString()).append(", ");
-        }
-        resultMessage.delete(resultMessage.length() - 2, resultMessage.length() - 1); // remove ", " at end
+        resultMessage.append(successMessage).append("\n").append("However, the following loans were not found: ");
 
+        for (Index missingIndex : missingLoanIndices) {
+            resultMessage
+                    .append(String.format("%d", missingIndex.getOneBased()))
+                    .append(", ");
+        }
+
+        resultMessage.delete(resultMessage.length() - 2, resultMessage.length() - 1); // remove ", " at end
         return resultMessage.toString();
     }
 

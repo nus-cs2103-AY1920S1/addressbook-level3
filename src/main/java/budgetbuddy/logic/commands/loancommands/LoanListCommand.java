@@ -28,22 +28,11 @@ public class LoanListCommand extends Command {
             + "Example: "
             + "loan list 1 2 o a";
 
-    public static final String MESSAGE_SUCCESS = "Listed loans.";
+    public static final String MESSAGE_SUCCESS = "Loans listed.";
 
     @Override
     public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getLoansManager());
-
-        LoansManager loansManager = model.getLoansManager();
-        SortedList<Loan> loans = loansManager.getSortedLoans();
-
-        // TODO Display the list in the main window instead of in the command result text box.
-        StringBuilder builder = new StringBuilder();
-        builder.append("Current Loans:\n");
-        for (int i = 0; i < loansManager.getLoansCount(); i++) {
-            builder.append(loans.get(i)).append("\n");
-        }
-
-        return new CommandResult(builder.toString(), CommandCategory.LOAN);
+        return new CommandResult(MESSAGE_SUCCESS, CommandCategory.LOAN);
     }
 }

@@ -10,33 +10,33 @@
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" minWidth="25" prefWidth="25"/>
+            <ColumnConstraints percentWidth="5"/>
         </columnConstraints>
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+            <ColumnConstraints percentWidth="80" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="15"/>
+        </columnConstraints>
+        <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15"/>
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_small_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-            </HBox>
+            <Label fx:id="id" styleClass="cell_big_label"/>
         </VBox>
         <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="1">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="amountDirectionPerson" text="\$first" styleClass="cell_big_label" />
-            </HBox>
+            <Label fx:id="amountDirectionPerson" text="\$first" styleClass="cell_big_label" />
             <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+        </VBox>
+        <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="2">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label fx:id="status" styleClass="cell_big_label"/>
         </VBox>
     </GridPane>
 </HBox>

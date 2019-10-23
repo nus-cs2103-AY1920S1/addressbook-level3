@@ -11,6 +11,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
 
 /**
@@ -27,7 +28,7 @@ public class LoanDeleteCommand extends MultiLoanCommand {
             + "Example: " + COMMAND_WORD + " "
             + MULTI_LOAN_SYNTAX_EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "Loan(s) deleted.";
+    public static final String MESSAGE_SUCCESS = "Loan(s) %1$s deleted.";
 
     public LoanDeleteCommand(List<Index> loanIndices, List<Person> persons) throws CommandException {
         super(loanIndices, persons);
@@ -45,6 +46,21 @@ public class LoanDeleteCommand extends MultiLoanCommand {
 
         String resultMessage = constructMultiLoanResult(MESSAGE_SUCCESS);
         return new CommandResult(resultMessage, CommandCategory.LOAN);
+    }
+
+    @Override
+    public void actOnTargetLoans(List<Index> targetLoanIndices, Consumer<Index> operation) {
+        int indicesProcessed = 0;
+        targetLoanIndices.sort(new Index.SortDescending()); // indices MUST be sorted before iteration
+        for (Index index : targetLoanIndices) {
+            try {
+                operation.accept(Index.fromZeroBased(index.getZeroBased() - indicesProcessed));
+                indicesProcessed++;
+                hitLoanIndices.add(index);
+            } catch (LoanNotFoundException e) {
+                missingLoanIndices.add(index);
+            }
+        }
     }
 
     @Override

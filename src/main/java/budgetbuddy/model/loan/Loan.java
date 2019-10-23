@@ -79,21 +79,19 @@ public class Loan {
         return status == Status.PAID;
     }
 
-    /**
-     * Returns a {@code string} containing the status, amount, direction, and person of the loan.
-     */
-    public String getEssentialInfo() {
-        String directionWithFunctionWord = getDirection() == Direction.OUT
+    public String getDirectionWithFunctionWord() {
+        return getDirection() == Direction.OUT
                 ? getDirection().direction.toLowerCase() + " to "
                 : getDirection().direction.toLowerCase() + " from ";
+    }
 
-        StringBuilder info = new StringBuilder();
-        info.append(getStatus().getStatusIcon()).append(" ")
-                .append(getAmount()).append(" ")
-                .append(directionWithFunctionWord)
-                .append(getPerson());
-
-        return info.toString();
+    /**
+     * Returns a {@code string} containing the amount, direction and person of the loan.
+     */
+    public String getEssentialInfo() {
+        return getAmount() + " "
+                + getDirectionWithFunctionWord()
+                + getPerson();
     }
 
     /**
@@ -124,16 +122,11 @@ public class Loan {
 
     @Override
     public String toString() {
-        String directionWithFunctionWord = getDirection() == Direction.OUT
-                ? getDirection().direction.toLowerCase() + " to "
-                : getDirection().direction.toLowerCase() + " from ";
-
         final String divider = " | ";
         final StringBuilder builder = new StringBuilder();
         builder.append(getStatus().getStatusIcon()).append(" ")
-                .append(getAmount()).append(" ")
-                .append(directionWithFunctionWord)
-                .append(getPerson().getName()).append(divider)
+                .append(getDirectionWithFunctionWord())
+                .append(divider)
                 .append(getDateString());
         if (!description.getDescription().isBlank()) {
             builder.append(divider).append(getDescription());

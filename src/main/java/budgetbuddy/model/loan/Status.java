@@ -41,8 +41,8 @@ public enum Status {
      * @return The icon as a string.
      */
     public String getStatusIcon() {
-        // PAID: tick icon; UNPAID: blank space
-        return status.equals(PAID.toString()) ? "\u2713" : "\u2718";
+        // PAID: tick icon; UNPAID: blank space (or a cross? \u2718)
+        return status.equals(PAID.toString()) ? "\u2713" : " ";
     }
 
     @Override

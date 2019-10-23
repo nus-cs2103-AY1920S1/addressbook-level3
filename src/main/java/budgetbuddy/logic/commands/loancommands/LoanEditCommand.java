@@ -41,7 +41,7 @@ public class LoanEditCommand extends Command {
             + "1 "
             + PREFIX_AMOUNT + "4.30";
 
-    public static final String MESSAGE_SUCCESS = "Loan edited: %1$s";
+    public static final String MESSAGE_SUCCESS = "Loan %1$d edited.";
     public static final String MESSAGE_UNEDITED = "At least one field must be provided for editing.";
     public static final String MESSAGE_FAILURE = "The loan targeted for editing could not be found.";
 
@@ -69,7 +69,8 @@ public class LoanEditCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedLoan), CommandCategory.LOAN);
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, targetLoanIndex.getOneBased()), CommandCategory.LOAN);
     }
 
     /**
