@@ -69,7 +69,7 @@ Format: `dequeue <QUEUE_NUMBER>`
 ==== Assign next patient to an available doctor : `next` ====
 
 Assigns next patient to an available doctor based on the room number. +
-Format: `next <ROOM_ID>`
+Format: `next <ROOM_NUMBER>`
 
 ==== Doctor takes a break: `break`  ====
 
@@ -79,7 +79,16 @@ Format: `break <ROOM_NUMBER>`
 ==== Doctor resumes his/her duty: `resume` ====
 
 Allows patients to be directed to a given Doctor based on the room number. +
-Format: `resume <ROOM_NUMBER>`
+Format: `resume <ROOM_NUMBER>
+
+==== Add a new room: `addRoom` ====
+
+Adds a new room with a doctor to the list. +
+Format: `addRoom <DOCTOR_REFERENCE_ID>`
+
+==== Removes a room: `removeRoom` ====
+Removes a room in the list. +
+Format: `removeRoom <ROOM_NUMBER>`
 
 
 === Patient Management
@@ -97,6 +106,11 @@ Registers a new patient +
 Format:  `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
  [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
 
+==== Unregisters an existing patient: `unregister` ====
+
+If user is in the patients listing screen,
+Unregisters an existing patient +
+Format:  `unregister <ENTRY_ID>`
 
 ==== Updates patients’ profiles: `update` ====
 

@@ -14,19 +14,28 @@ import seedu.address.model.common.ReferenceId;
 public class Room {
     private final ReferenceId doctor;
     private Optional<ReferenceId> patientCurrentlyBeingServed;
+    private boolean isResting;
+
+    public Room(ReferenceId doctor, Optional<ReferenceId> patient, boolean isResting) {
+        this.doctor = doctor;
+        this.patientCurrentlyBeingServed = patient;
+        this.isResting = isResting;
+    }
 
     public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
+        this.isResting = false;
     }
 
     public Room(ReferenceId doctor) {
         this.doctor = doctor;
-        this.patientCurrentlyBeingServed = null;
+        this.patientCurrentlyBeingServed = Optional.empty();
+        this.isResting = false;
     }
 
     public boolean isReadyToServe() {
-        return patientCurrentlyBeingServed.isEmpty();
+        return !isResting;
     }
 
     public ReferenceId getDoctor() {
@@ -35,6 +44,10 @@ public class Room {
 
     public Optional<ReferenceId> getCurrentPatient() {
         return patientCurrentlyBeingServed;
+    }
+
+    public void removeCurrentPatient() {
+        patientCurrentlyBeingServed = Optional.empty();
     }
 
     /**
@@ -48,7 +61,7 @@ public class Room {
     }
 
     public void serve(ReferenceId id) {
-        patientCurrentlyBeingServed.of(id);
+        patientCurrentlyBeingServed = Optional.of(id);
     }
 
     /**
@@ -57,17 +70,24 @@ public class Room {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == null || !(other instanceof Room)) {
-            return false;
-        }
-
         if (other == this) {
             return true;
         }
 
+        if (!(other instanceof Room)) {
+            return false;
+        }
+
         Room o = (Room) other;
-        return getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
-                && (getCurrentPatient().isEmpty()
-                    || getCurrentPatient().get().equals(o.getCurrentPatient().get()));
+        return getDoctor().equals(o.getDoctor())
+                && getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
+                && getCurrentPatient().equals(o.getCurrentPatient());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(doctor);
+        return builder.toString();
     }
 }

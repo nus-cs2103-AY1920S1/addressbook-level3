@@ -1,11 +1,12 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.function.Consumer;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.autocomplete.AutoCompleter;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -30,20 +31,18 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException   If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
-    /** Returns an unmodifiable view of the filtered list of events */
-    ObservableList<Event> getFilteredEventList();
+    CommandResult execute(String commandText, Consumer<OmniPanelTab> omniPanelTabConsumer) throws CommandException,
+        ParseException;
 
     /**
-     * Updates AutoCompleter to the current command text.
-     *
-     * @param commandText The command as entered by the user.
+     * Returns an unmodifiable view of the filtered list of persons
      */
-    AutoCompleter updateAutoCompleter(String commandText);
+    ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of events
+     */
+    ObservableList<Event> getFilteredEventList();
 
     /**
      * Returns the AddressBook.
@@ -58,14 +57,14 @@ public interface Logic {
     ReferenceIdResolver getReferenceIdResolver();
 
     /**
-     * Returns an unmodifiable view of the filtered list of rooms
+     * Returns an unmodifiable view of the list of available consultation rooms.
      */
-    ObservableList<Room> getFilteredRoomList();
+    ObservableList<Room> getConsultationRoomList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of ids
+     * Returns an unmodifiable view of the queue list.
      */
-    ObservableList<ReferenceId> getFilteredReferencedIdList();
+    ObservableList<ReferenceId> getQueueList();
 
     /**
      * Returns the user prefs' address book file path.
@@ -93,4 +92,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }

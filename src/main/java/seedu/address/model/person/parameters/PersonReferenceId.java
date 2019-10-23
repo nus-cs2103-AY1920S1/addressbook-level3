@@ -39,9 +39,14 @@ public abstract class PersonReferenceId implements ReferenceId {
     }
 
     @Override
+    public boolean isSameAs(ReferenceId other) {
+        return equals(other);
+    }
+
+    @Override
     public int compareTo(ReferenceId o) {
         requireNonNull(o);
-        return toString().compareTo(o.toString());
+        return o.toString().compareTo(toString());
     }
 
     @Override

@@ -17,7 +17,7 @@ public class ModelAcceptingEventAddedStub extends ModelStub {
     @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
-        return eventsAdded.stream().anyMatch(event::isSameEvent);
+        return eventsAdded.stream().anyMatch(event::isSameAs);
     }
 
     @Override

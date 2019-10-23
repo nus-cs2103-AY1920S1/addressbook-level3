@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.HashSet;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -11,23 +13,27 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.autocomplete.AutoCompleter;
+import seedu.address.ui.commandboxhistory.CommandBoxHistory;
 import seedu.address.ui.queue.QueueListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel {
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -35,6 +41,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private AutoCompleter autoCompleter;
+    private CommandBoxHistory commandBoxHistory;
+    private OmniPanelTab currentOmniPanelTab;
+
+    private HashSet<Runnable> deferredDropSelectors;
 
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
@@ -79,6 +90,10 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.autoCompleter = new AutoCompleter();
+        this.commandBoxHistory = new CommandBoxHistory();
+
+        this.deferredDropSelectors = new HashSet<>();
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -86,6 +101,13 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                deferredDropSelectors.forEach(e -> e.run());
+            }
+        });
 
         upperPane.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
@@ -144,15 +166,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), deferredDropSelectors);
 
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
-        tabBar = new TabBar(this::onTabSelected);
+        tabBar = new TabBar(this);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
-        queueListPanel = new QueueListPanel(logic.getFilteredRoomList(),
-            logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
+        queueListPanel = new QueueListPanel(logic.getConsultationRoomList(),
+            logic.getQueueList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -161,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::onCommandBoxTextChanged, this::onCommandBoxKeyPressed);
+        commandBox = new CommandBox(this::executeCommand, this);
         commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
 
         aco = new AutoCompleteOverlay(this::autoCompleterSelected);
@@ -220,11 +242,11 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.address.logic.Logic#execute(String, Consumer)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, this::setOmniPanelTab);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -245,35 +267,37 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Called whenever Command Box text changed.
+     * Called whenever AutoComplete selected command.
      */
-    private void onCommandBoxTextChanged(String commandText) {
-        aco.showSuggestions(commandText, logic.updateAutoCompleter(commandText).getSuggestions());
+    public void updateCommandAutoComplete(String commandText) {
+        aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
     }
 
     /**
      * Receives Key Press event from Command Box and executes expected behaviours.
      */
-    private void onCommandBoxKeyPressed(KeyCode keyCode) {
+    public void updateSelectionKeyPressedCommandBox(KeyCode keyCode) {
         switch (keyCode) {
         case UP:
             if (aco.isSuggesting()) {
                 aco.traverseSelection(true);
                 break;
             }
+            commandBox.setCommandTextField(commandBoxHistory.getOlder());
             break;
         case DOWN:
             if (aco.isSuggesting()) {
                 aco.traverseSelection(false);
                 break;
             }
+            commandBox.setCommandTextField(commandBoxHistory.getNewer());
             break;
         case ENTER:
             if (aco.isSuggesting()) {
                 aco.simulateMouseClick();
                 break;
             }
-            commandBox.handleCommandEntered();
+            commandBoxHistory.add(commandBox.handleCommandEntered());
             break;
         default:
         }
@@ -287,17 +311,29 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Called whenever tab has been selected.
+     * Sets OmniPanelTab.
      */
-    private void onTabSelected(String selectedText) {
-        switch (selectedText) {
-        case "patientsTab":
+    @Override
+    public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
+        currentOmniPanelTab = omniPanelTab;
+        switch (omniPanelTab) {
+        case PATIENTS_TAB:
             omniPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
             break;
-        case "appointmentsTab":
+        case APPOINTMENTS_TAB:
             omniPanelPlaceholder.getChildren().setAll(eventListPanel.getRoot());
             break;
-        case "doctorsTab":
+        case DOCTORS_TAB:
+            break;
+        default:
+        }
+    }
+
+    @Override
+    public void regainOmniPanelSelector() {
+        switch (currentOmniPanelTab) {
+        case PATIENTS_TAB:
+            personListPanel.regainSelector();
             break;
         default:
         }

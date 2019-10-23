@@ -1,75 +1,92 @@
 package seedu.address;
 
-import java.util.concurrent.TimeoutException;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.framework.junit5.Init;
 
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
 
-    @BeforeAll
-    public static void setUpClass() throws TimeoutException {
-        FxToolkit.registerPrimaryStage();
-        FxToolkit.setupApplication(MainApp.class);
-    }
-
-    @AfterEach
-    public void afterEach() throws TimeoutException {
-        FxToolkit.cleanupStages();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        stage.show();
+    @Init
+    public void init() throws Exception {
+        ApplicationTest.launch(MainApp.class);
     }
 
     @Test
     public void traverseTabBarTest(FxRobot robot) {
-        robot.clickOn("#doctorsTab");
-        Assertions.assertThat(lookup("#patientsTab").query().getStyleClass()).containsOnly("unselected-tab");
-        Assertions.assertThat(lookup("#doctorsTab").query().getStyleClass()).containsOnly("selected-tab");
+        var patientsTabStyleClass = robot.lookup("#patientsTab").query().getStyleClass();
+        var appointmentsTabStyleClass = robot.lookup("#appointmentsTab").query().getStyleClass();
+        var doctorsTabStyleClass = robot.lookup("#doctorsTab").query().getStyleClass();
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        var tabBar = robot.lookup("#tabBar").query();
 
-        robot.type(KeyCode.DOWN);
-        Assertions.assertThat(lookup("#patientsTab").query().getStyleClass()).containsOnly("selected-tab");
-        Assertions.assertThat(lookup("#doctorsTab").query().getStyleClass()).containsOnly("unselected-tab");
+        robot.clickOn("#doctorsTab");
+        Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(doctorsTabStyleClass).containsOnly("selected-tab");
 
         robot.type(KeyCode.UP);
-        Assertions.assertThat(lookup("#patientsTab").query().getStyleClass()).containsOnly("unselected-tab");
-        Assertions.assertThat(lookup("#doctorsTab").query().getStyleClass()).containsOnly("selected-tab");
+        Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("selected-tab");
+        Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+
+        robot.type(KeyCode.UP);
+        Assertions.assertThat(patientsTabStyleClass).containsOnly("selected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+
+        robot.type(KeyCode.UP);
+        Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(doctorsTabStyleClass).containsOnly("selected-tab");
+
+        robot.type(KeyCode.DOWN);
+        Assertions.assertThat(patientsTabStyleClass).containsOnly("selected-tab");
+        Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+
+        robot.type(KeyCode.TAB);
+        Assertions.assertThat(tabBar).isNotFocused();
+        Assertions.assertThat(commandBox).isFocused();
+
+        robot.type(KeyCode.TAB);
+        Assertions.assertThat(tabBar).isFocused();
+        Assertions.assertThat(commandBox).isNotFocused();
     }
 
     @Test
     public void autoCompleterTest(FxRobot robot) {
+        var aco = robot.lookup("#autoCompleteOverlay").queryListView();
+
         robot.clickOn("#commandTextField");
         robot.write('a').type(KeyCode.UP);
-        Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().isVisible()).isTrue();
-        Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().getSelectionModel().getSelectedIndex())
-            .isEqualTo(2);
+        Assertions.assertThat(aco).isVisible();
+        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(3);
+
         robot.type(KeyCode.DOWN);
-        Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().getSelectionModel().getSelectedIndex())
-            .isEqualTo(0);
+        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
         robot.eraseText(1);
     }
 
     @Test
     public void traverseAndUnknownCommandTest(FxRobot robot) {
-        robot.clickOn("#commandTextField").write("lol").type(KeyCode.ENTER);
-        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl()).hasText("Unknown command");
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
+
+        robot.clickOn(commandBox).write("lol").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay).hasText("Unknown command");
+
         robot.type(KeyCode.UP);
-        Assertions.assertThat(lookup("#commandTextField").queryTextInputControl().getCaretPosition()).isEqualTo(3);
+        Assertions.assertThat(commandBox.getCaretPosition()).isEqualTo(3);
+
         robot.type(KeyCode.LEFT, KeyCode.BACK_SPACE);
-        Assertions.assertThat(lookup("#commandTextField").queryTextInputControl().getCaretPosition()).isEqualTo(1);
+        Assertions.assertThat(commandBox.getCaretPosition()).isEqualTo(1);
         robot.type(KeyCode.RIGHT).eraseText(2);
     }
 
@@ -83,24 +100,40 @@ public class MainAppTest extends ApplicationTest {
 
     @Test
     public void invalidCommandFormatTest(FxRobot robot) {
-        robot.clickOn("#commandTextField").write("addappt").type(KeyCode.ENTER);
-        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
-            .startsWith("Invalid command format!");
-        robot.eraseText(7).write("ackappt").type(KeyCode.ENTER);
-        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
-            .startsWith("Invalid command format!");
-        robot.eraseText(7).write("appointments").type(KeyCode.ENTER);
-        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
-            .startsWith("Invalid command format!");
-        robot.eraseText(12);
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
+
+        robot.clickOn(commandBox).write("addappt").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Invalid command format!");
+
+        robot.eraseText(7);
     }
 
     @Test
     public void helpCommandTest(FxRobot robot) {
-        robot.clickOn("#commandTextField").write("help").type(KeyCode.ENTER);
-        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
-            .startsWith("Opened help window.");
-        Assertions.assertThat(window("Help")).isShowing();
-        Assertions.assertThat(listWindows().size()).isEqualTo(2);
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
+
+        robot.clickOn(commandBox).write("help").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Opened help window.");
+        Assertions.assertThat(robot.window("Help")).isShowing();
+        Assertions.assertThat(robot.listWindows().size()).isEqualTo(2);
+    }
+
+    @Test
+    public void commandBoxHistoryTest(FxRobot robot) {
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        String[] testStrings = {"blabla", "   jUmPs. "};
+
+        robot.clickOn(commandBox).write(testStrings[0]).type(KeyCode.ENTER).type(KeyCode.UP);
+        Assertions.assertThat(commandBox.getText()).isEqualTo(testStrings[0]);
+        robot.eraseText(testStrings[0].length()).write(testStrings[1]).type(KeyCode.ENTER).type(KeyCode.UP);
+        Assertions.assertThat(commandBox.getText()).isEqualTo(testStrings[1]);
+        robot.type(KeyCode.UP, 2);
+        Assertions.assertThat(commandBox.getText()).isEqualTo(testStrings[0]);
+        robot.type(KeyCode.DOWN);
+        Assertions.assertThat(commandBox.getText()).isEqualTo(testStrings[1]);
+        robot.type(KeyCode.DOWN, 3);
+        Assertions.assertThat(commandBox.getText()).isBlank();
     }
 }

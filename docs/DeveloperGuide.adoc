@@ -111,6 +111,12 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+.Interactions inside the Logic Component for the `enqueue 001A` Command
+image::EnqueueSequenceDiagram.png[]
+
+.Interactions inside the Logic Component for the `next 1` Command
+image::NextSequenceDiagram.png[]
+
 [[Design-Model]]
 === Model component
 
@@ -130,6 +136,15 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+
+The `QueueManager`,
+
+* stores a `QueueList` object that represents the queue.
+* stores a `UniqueElementList<Room>` which contains the list of rooms.
+* does not depend on any of the other three components.
+
+.Structure of the QueueManager Component
+image:QueueManagerClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -233,14 +248,43 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::autocomplete[]
 
-_{Explain here how the data encryption feature will be implemented}_
+=== AutoComplete
 
-// end::dataencryption[]
+We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique alphabets used, m is length of longest word stored.
+
+image::AutoCompleteSequenceDiagram.png[]
+
+// end::autocomplete[]
+
+=== Queue feature
+The queue feature allows the user to enqueue and dequeue a patient from the queue.
+
+* e.g. `enqueue 003A` - Enqueues the patient with reference id 003A.
+* e.g. `next 1` Serves the next patient in queue and allocates him/her to room 1.
+
+==== Current Implementation
+The queue will be displayed in a list.
+
+The following activity diagram summarizes what happens when a user executes an enqueue command:
+
+image::EnqueueActivityDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes an next command:
+
+image::NextActivityDiagram.png[]
+
+Below is an example usage of the queue feature.
+
+Step 1: User enters the `enqueue 001A` command.
+
+Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
+
+Step 3: Patient will then be showed in the queue.
 
 === Logging
 
@@ -298,6 +342,46 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
+|`* * *` |clerk|find out the upcoming appointments for given patients |
+
+|`* * *` |clerk|update the doctors' details by typing commands and user details |
+
+|`* * *` |clerk|add new doctors into system |
+
+|`* * *` |clerk|edit patients' details | keep their particulars up to date
+
+|`* * *` |clerk|register new patients with optional fields |
+
+|`* * *` |clerk|add ad-hoc patients to the queue |
+
+|`* * *` |clerk|search for patients using their name or phone number |
+
+|`* * *` |clerk|look up how many patients are in the queue, on a side panel | recommend estimated time that the patient will be attended to
+
+|`* * *` |clerk|look up patient using a reference id |
+
+|`* * *` |clerk|reschedule appointments of patients |
+
+|`* * *` |clerk|search for appointment slots easily | schedule appointments for patients easily
+
+|`* * *` |clerk|assign a queue number to each patient in the queue |
+
+|`* * *` |clerk|use the appointment scheduler | schedule appointments for my patients
+
+|`* * *` |clerk|save time managing the queue | have more time to do my own work
+
+|`* * *` |clerk|take note of the doctors that are on-shift | effectively direct patients to available doctors
+
+|`* *` |clerk|remove a patient from the queue if they leave. |
+
+|`* *` |clerk|view the number of patients who visited the clinic today |
+
+|`* *` |clerk|schedule patient's follow up appointments |
+
+|`* *` |clerk|find all patients who have missed their appointments | keep track of the list of patients whom I need to inform
+
+|`* *` |experienced user|create custom aliases to commands | so that it can save time
+
 |`* *` |clerk|use auto-complete to predict my commands|save time on verifying its existence and correctness
 
 |`* *` |clerk|quick-fill the command box with the suggestions of Auto-Complete|so that it reduces typing of the entire command
@@ -306,54 +390,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |clerk|quick-fill the command box with history commands|inputting last few commands is easier
 
-|`* * *` |clerk|find out the upcoming appointments for given patients. |
-
-|`* * *` |clerk|update the doctors' details by typing commands and user details. |
-
-|`* * *` |clerk|add new doctors into system |
-
-|`* *` |clerk|remove a patient from the queue if they leave. |
-
-|`* *` |clerk|view the number of patients who visited the clinic today |
-
-|`* * *` |clerk|edit patients' details | keep their particulars up to date
-
-|`* * *` |clerk|register new patients with optional fields |
-
-|`* *` |clerk|find all patients who have missed their appointments. | keep track of the list of patients whom I need to inform
-
-|`* * *` |clerk|add ad-hoc patients to the queue |
+|`* *` |receptionist|use the undo and redo feature | to remedy any mistakes
 
 |`* *` |clerk|acknowledge appointments if patients are present for their appointments | keep track of patients who came for their appointments
 
-|`* *` |clerk|tag patient with known allergies. | keep track of their allegies
+|`* *` |clerk|tag patient with known allergies | keep track of their allegies
 
 |`* *` |clerk|cancel appointments for patients | free up appointment time slots
-
-|`* * *` |clerk|search for patients using their name or phone number |
-
-|`* * *` |clerk|look up how many patients are in the queue, on a side panel | recommend estimated time that the patient will be attended to
-
-|`* * *` |clerk|look up patient using a reference id. |
-
-|`* * *` |clerk|reschedule appointments of patients |
-
-|`* * *` |clerk|search for appointment slots easily | schedule appointments for patients easily.
-
-|`* * *` |clerk|assign a queue number to each patient in the queue |
-
-|`* *` |clerk|schedule patient's follow up appointments |
-
-|`* * *` |clerk|use the appointment scheduler | schedule appointments for my patients
-
-|`* * *` |clerk|save time managing the queue | have more time to do my own work
-
-|`* * *` |clerk|take note of the doctors that are on-shift | effectively direct patients to available doctors.
-
-|`* *` |experienced user|create custom aliases to commands |
-
-|`* *` |receptionist|use the undo and redo feature to remedy any mistakes.|
-
 |=======================================================================
 
 _{More to be added}_
@@ -370,17 +413,15 @@ _{More to be added}_
 
 1.  New patient arrives at the clinic
 2.  User wants to add new patient into the queue
-3.  ClerkPro adds the patient into the queue
+3.  System adds the patient into the queue
 
 Use case ends.
 
 *Extensions*
 
-* 2a. Actor inputs invalid format
-+
-Use case ends.
+* 2a. User inputs invalid format
 
-* 2a. ClerkPro requests for correct input format. +
+** 2a1. System requests for correct input format. +
 +
 Use case resumes at step 2.
 
@@ -391,7 +432,7 @@ Use case resumes at step 2.
 
 1.  Patient wants to leave
 2.  User requests to remove patient from the queue
-3.  ClerkPro removes the person from queue
+3.  System removes the patient from queue
 
 Use case ends.
 
@@ -405,12 +446,90 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. ClerkPro shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add new appointment for a patient (UC3)
+=== Use case: Serve next patient (UC3)
+
+*MSS*
+
+1.  Patient exits from room 1
+2.  User requests to allocate patient into room 1
+3.  System removes the patient from queue and allocates him/her to room 1
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Doctor is resting
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Doctor takes a break (UC4)
+
+*MSS*
+
+1.  User requests to avoid directing patients to the doctor in room 1
+2.  System sets the doctor to be on break
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Doctor is already on break
++
+** 1a1. System shows an error message.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Doctor resumes his/her duty (UC5)
+Pre-condition: Doctor is on break
+
+*MSS*
+
+1.  User requests to start directing patients to the doctor in room 1
+2.  System sets the doctor to be on duty
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Doctor is already on duty
++
+** 1a1. System shows an error message.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Change appointment date (UC6)
 Pre-condition: Patient exists in the system
 
 *MSS*
@@ -448,7 +567,7 @@ Steps 2b1-2b2 are repeated until the appointment is not conflicted
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Change appointment date (UC4)
+=== Use case: Set next appointment (UC7)
 Pre-condition: Patient’s appointment exists
 
 *MSS*
@@ -481,7 +600,7 @@ Steps 3b1-3b2 are repeated until the appointment is not conflicted
 Use case resumes at step 3
 
 [discrete]
-=== Use case: Find patients appointment (UC5)
+=== Use case: Find patients appointment (UC8)
 
 *MSS*
 
@@ -501,7 +620,7 @@ Use case ends.
 Use case ends
 
 [discrete]
-=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC6)
+=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC9)
 Pre-condition: Details of the doctor is already registered in system.
 
 *MSS*
@@ -529,27 +648,7 @@ Use case ends.
 * Use case ends.
 
 [discrete]
-=== Use case: Editing Information in GUI (U7)
-
-*Actor:* Clerk
-
-*Guarantees:*
-
-1. Information is edited after change is completed in GUI.
-
-*MSS:*
-
-1. Clerk selects the tabs of information (e.g Patients, Appointments) that requires modification.
-2. Clerk selects an item in the list of information.
-3. Clerk selects an attribute of the item.
-4. Clerk modifies the attribute.
-5. Clerk completes the modificatigit on.
-6. ClerkPro stores the change and displays the new information.
-
-Use case ends.
-
-[discrete]
-=== Use case: AutoCompleter (UC8)
+=== Use case: AutoCompleter (UC10)
 
 *Actor:* Clerk
 
@@ -568,7 +667,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: History (UC9)
+=== Use case: History (UC11)
 
 *Actor:* Clerk
 
