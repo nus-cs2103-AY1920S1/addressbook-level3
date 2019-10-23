@@ -14,22 +14,8 @@
     "type" : "high",
     "tagged" : [ "pop", "lecture" ]
   }, {
-    "name" : "Wat is always coming, but never arrives?",
-    "comment" : "kukuriyou",
-    "answer" : "Tomorrow",
-    "category" : "CS2131",
-    "type" : "high",
-    "tagged" : [ "lecture" ]
-  }, {
     "name" : "Wut is always coming, but never arrives?",
     "comment" : " Hayoloh",
-    "answer" : "Tomorrow",
-    "category" : "CS2131",
-    "type" : "high",
-    "tagged" : [ "lecture" ]
-  }, {
-    "name" : "Wit is always coming, but never arrives?",
-    "comment" : null,
     "answer" : "Tomorrow",
     "category" : "CS2131",
     "type" : "high",
