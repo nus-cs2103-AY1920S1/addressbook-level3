@@ -4,7 +4,7 @@ import static budgetbuddy.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A stub class to represent a description of a Transaction.
+ * A stub class to represent a description of an entity.
  */
 public class Description {
 

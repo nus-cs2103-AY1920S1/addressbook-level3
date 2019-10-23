@@ -6,6 +6,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import budgetbuddy.logic.script.exceptions.ScriptException;
+import budgetbuddy.model.script.Script;
 
 /**
  * Evaluates scripts.
@@ -49,6 +50,18 @@ public class ScriptManager {
                 throw new ScriptException(String.format("Exception while evaluating script: %1$s", ex.toString()), ex);
             }
         }
+    }
+
+    /**
+     * Evaluates a script.
+     *
+     * @param script the script
+     * @param argv the arguments to pass to the script
+     * @return the result of the script, which may be <code>null</code>
+     * @throws ScriptException if an exception occurs during script evaluation
+     */
+    public Object evaluateScript(Script script, Object... argv) throws ScriptException {
+        return evaluateScript(script.getCode(), argv);
     }
 
     /**
