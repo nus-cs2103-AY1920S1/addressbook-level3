@@ -321,6 +321,13 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 
 ===== Loaning
 
+The following activity diagram summarizes what happens when a user enters a loan command:
+
+image::LoaningActivityDiagram.png[]
+
+NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
+they are not shown.
+
 When a book is successfully loaned out by a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
 to the number of loans in the `LoanRecords` object in the model. The `startDate` is also automatically set to today's date.
 The `endDate` is automatically set according to the loan period set in the user settings. This `Loan` object is added to
@@ -334,6 +341,13 @@ Similarly, the new book object also replaces the old book object in the `Catalog
 `Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support immutability of the objects.
 
 ===== Returning
+
+The following activity diagram summarizes what happens when a user enters a return command:
+
+image::ReturningActivityDiagram.png[]
+
+NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
+they are not shown.
 
 When a loaned out book is successfully returned by a borrower, the associated `Loan` object is moved from the borrower's
 `currentLoanList` to `returnedLoanList`. Inside the book object, this `Loan` object is also removed. Inside this loan
