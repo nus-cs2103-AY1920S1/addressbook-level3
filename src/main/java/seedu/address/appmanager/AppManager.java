@@ -78,6 +78,7 @@ public class AppManager {
      */
     public CommandResult execute(String commandText) throws ParseException, CommandException {
         CommandResult commandResult = logic.execute(commandText);
+        System.out.println(Thread.currentThread().getName() + "<-----EXECUTE RESULT THREAD");
 
         if (commandResult instanceof StartCommandResult) {
             StartCommandResult startCommandResult = (StartCommandResult) commandResult;
@@ -111,6 +112,7 @@ public class AppManager {
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
                 gameTimer.run();
             });
+
         }
 
         return commandResult;
