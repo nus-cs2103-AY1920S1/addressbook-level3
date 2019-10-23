@@ -296,25 +296,6 @@ Additionally, it implements the following operation(s):
 +
 ** `FindProblemDescriptor#isAnyFieldProvided()` - Determines if there is at least one search restriction included in this instance of `FindProblemDescriptor`.
 ** `FindProblemDescriptor#equals(...)` - Two instances of `FindProblemDescriptor` are equal if and only if all of their predicates are equal.
-* Predicates that implements interface `Predicate<Problem>`
-+
-These are classes that describes whether an instance of `Problem` is considered a match under a certain field with provided keyword(s).
-+
-** `NameContainsKeywordsPredicate`
-*** It ignores case.
-*** It returns true as long as one of the keywords appear in the name as a word. (“As a word” means the matching is done word by word. For instance, `hello` doesn’t match `helloworld`.)
-** `AuthorMatchesKeywordPredicate`
-*** It is case sensitive and matches the entire author string (i.e. requires an exact match).
-** `DescriptionContainsKeywordsPredicate`
-*** It ignores case.
-*** It returns true only when all of the keywords appear in the description as a word.
-** `SourceMatchesKeywordPredicate`
-*** It requires an exact match.
-** `DifficultyIsInRangePredicate`
-*** It matches problems with LOWER_BOUND \<= difficulty \<= UPPER_BOUND
-** `TagIncludesKeywordsPredicate`
-*** Each keyword will be considered as a tag, and two tags are considered equal only when their names are exactly the same.
-*** It returns true when the provided tags are a subset of the tags of the provided problem.
 * `FindCommandParser`
 It validates and parses user input to an instance of `FindCommand`.
 
@@ -334,6 +315,29 @@ Additionally, it implements the following operation(s):
 
 .Class Diagram of the Find Feature
 image::find/FindCommandClassDiagram.png[]
+
+* Predicates that implements interface `Predicate<Problem>`
++
+These are classes that describes whether an instance of `Problem` is considered a match under a certain field with provided keyword(s).
++
+** `NameContainsKeywordsPredicate`
+*** It ignores case.
+*** It returns true as long as one of the keywords appear in the name as a word. (“As a word” means the matching is done word by word. For instance, `hello` doesn’t match `helloworld`.)
+** `AuthorMatchesKeywordPredicate`
+*** It is case sensitive and matches the entire author string (i.e. requires an exact match).
+** `DescriptionContainsKeywordsPredicate`
+*** It ignores case.
+*** It returns true only when all of the keywords appear in the description as a word.
+** `SourceMatchesKeywordPredicate`
+*** It requires an exact match.
+** `DifficultyIsInRangePredicate`
+*** It matches problems with LOWER_BOUND \<= difficulty \<= UPPER_BOUND
+** `TagIncludesKeywordsPredicate`
+*** Each keyword will be considered as a tag, and two tags are considered equal only when their names are exactly the same.
+*** It returns true when the provided tags are a subset of the tags of the provided problem.
+
+.Class Diagram for Predicates in the Find Feature
+image::find/PredicateClassDiagram.png[]
 
 Given below is an example usage scenario and how the find problem mechanism behaves at each step.
 

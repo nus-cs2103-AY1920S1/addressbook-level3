@@ -1,87 +1,40 @@
 @startuml
+!include ../style.puml
+show interface members
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor MODEL_COLOR
 
-left to right direction
+abstract class Command
 
-abstract class Command {
-  {abstract} CommandResult execute(Model)
-}
 interface Predicate {
 	+ boolean test(Problem problem)
 	+ boolean equals(Object other)
 }
-interface Parser<T extends Command> {
+
+interface Parser {
 	T parse(String userInput)
 }
-class FindCommand {
-	+ {static} String COMMAND_WORD
-	+ {static} String MESSAGE_USAGE
-	+ {static} String MESSAGE_NO_CONSTRAINTS
-	- Predicate<Problem> predicate
-	+ FindCommand(FindProblemDescriptor findProblemDescriptor)
-	- {static} Predicate<Problem> createFindProblemPredicate(FindProblemDescriptor findProblemDescriptor)
-}
-class FindProblemDescriptor {
-	+ public FindProblemDescriptor()
-	+ FindProblemDescriptor(FindProblemDescriptor toCopy)
-	+ boolean isAnyFieldProvided()
-}
-class NameContainsKeywordsPredicate {
-	+ {static} NameContainsKeywordsPredicate DEFAULT_NAME_PREDICATE
-	- List<String> keywords
-	+ NameContainsKeywordsPredicate(List<String> keywords)
-	- NameContainsKeywordsPredicate()
-}
-class AuthorMatchesKeywordPredicate {
-	+ {static} AuthorMatchesKeywordPredicate DEFAULT_AUTHOR_PREDICATE
-	- String keyword
-	+ AuthorMatchesKeywordPredicate(String keyword)
-	- AuthorMatchesKeywordPredicate()
-}
-class DescriptionContainsKeywordsPredicate {
-	+ {static} DescriptionContainsKeywordsPredicate DEFAULT_DESCRIPTION_PREDICATE
-	- List<String> keywords
-	+ DescriptionContainsKeywordsPredicate(List<String> keywords)
-	- DescriptionContainsKeywordsPredicate()
-}
-class SourceMatchesKeywordPredicate {
-	+ {static} SourceMatchesKeywordPredicate DEFAULT_SOURCE_PREDICATE
-	- String keyword
-	+ SourceMatchesKeywordPredicate(String keyword)
-	- SourceMatchesKeywordPredicate()
-}
-class DifficultyIsInRangePredicate {
-	+ {static} DifficultyIsInRangePredicate DEFAULT_DIFFICULTY_PREDICATE
-	- {static} double DEFAULT_BOUND
-	- double lowerBound
-	- double upperBound
-	+ DifficultyIsInRangePredicate(double lowerBound, double upperBound)
-	- DifficultyIsInRangePredicate()
-}
-class TagIncludesKeywordsPredicate {
-	+ {static} TagIncludesKeywordsPredicate DEFAULT_TAG_PREDICATE
-	- List<String> keywords
-	+ TagIncludesKeywordsPredicate(List<String> keywords)
-	- TagIncludesKeywordsPredicate()
-}
-class FindCommandParser {
-	- List<String> getArgumentValueAsList(String argValue)
-}
+
+class FindCommand
+
+class FindProblemDescriptor
+
+class FindCommandParser
 
 Command <|.. FindCommand
-FindProblemDescriptor *-- NameContainsKeywordsPredicate
-FindProblemDescriptor *-- AuthorMatchesKeywordPredicate
-FindProblemDescriptor *-- DescriptionContainsKeywordsPredicate
-FindProblemDescriptor *-- SourceMatchesKeywordPredicate
-FindProblemDescriptor *-- DifficultyIsInRangePredicate
-FindProblemDescriptor *-- TagIncludesKeywordsPredicate
-Predicate <|.. NameContainsKeywordsPredicate
-Predicate <|.. AuthorMatchesKeywordPredicate
-Predicate <|.. DescriptionContainsKeywordsPredicate
-Predicate <|.. SourceMatchesKeywordPredicate
-Predicate <|.. DifficultyIsInRangePredicate
-Predicate <|.. TagIncludesKeywordsPredicate
+
 Parser <|-- FindCommandParser
+
+FindProblemDescriptor *-- XXXPredicate
 FindProblemDescriptor <.. FindCommand
 FindProblemDescriptor <.. FindCommandParser
+
+Predicate <|.. XXXPredicate
+
+note bottom of XXXPredicate
+This includes
+<b>NameContainsKeywordsPredicate</b>
+and all similarly named predicates.
+end note
 
 @enduml
