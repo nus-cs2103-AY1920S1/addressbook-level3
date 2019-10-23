@@ -3,7 +3,6 @@ package budgetbuddy.model.loan;
 import static budgetbuddy.commons.util.AppUtil.getDateFormat;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
