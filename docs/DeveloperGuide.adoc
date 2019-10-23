@@ -627,6 +627,7 @@ The Finance Tracker feature closely follows the extendable OOP solution already
 implemented within AB3. In the Finance Tracker, the `Installment` objects (containing
 `InstallmentDescription` and `InstallmentMoneyPaid` objects) and the `Purchase` objects (containing
 'PurchaseDescription' and `PurchaseMoneySpent` objects) manage most aspects related to this feature.
+
 The finance tracker mechanism is facilitated by `FinanceTrackerModel`.
 
 `Model#getFinanceTracker()` - Gets the `FinanceTracker` instance
