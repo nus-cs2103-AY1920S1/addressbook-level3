@@ -20,7 +20,10 @@ public interface Model {
     /** {@code Predicate} for incidents that always evaluate to true */
     Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS = unused -> true;
 
-    /** {@code Predicate} for filtering draft incident reporst */
+    /** {@code Predicate} for incidents that always evaluate to true */
+    Predicate<Vehicle> PREDICATE_SHOW_ALL_VEHICLES = unused -> true;
+
+    /** {@code Predicate} for filtering draft incident reports */
     Predicate<Incident> PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS = Incident::isDraft;
 
     /**

@@ -13,7 +13,7 @@ import seedu.address.model.person.Password;
 import seedu.address.model.person.Username;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindPersonCommand object
  */
 public class LoginCommandParser implements Parser<LoginCommand> {
 

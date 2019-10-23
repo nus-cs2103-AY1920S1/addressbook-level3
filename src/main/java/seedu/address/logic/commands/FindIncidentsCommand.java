@@ -19,9 +19,9 @@ import seedu.address.model.incident.NameKeywordsPredicate;
  * Finds and lists all incidents in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class SearchIncidentsCommand extends Command {
+public class FindIncidentsCommand extends Command {
 
-    public static final String COMMAND_WORD = "search";
+    public static final String COMMAND_WORD = "find-i";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which IDs match exactly "
             + "or description contains any of the specified keywords (case-insensitive) and displays them as a list "
@@ -35,15 +35,15 @@ public class SearchIncidentsCommand extends Command {
 
     private final Predicate<Incident> predicate;
 
-    public SearchIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
+    public FindIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
         this.predicate = descriptionPredicate;
     }
 
-    public SearchIncidentsCommand(IdKeywordsPredicate idPredicate) {
+    public FindIncidentsCommand(IdKeywordsPredicate idPredicate) {
         this.predicate = idPredicate;
     }
 
-    public SearchIncidentsCommand(NameKeywordsPredicate namePredicate) {
+    public FindIncidentsCommand(NameKeywordsPredicate namePredicate) {
         this.predicate = namePredicate;
     }
 
@@ -58,7 +58,7 @@ public class SearchIncidentsCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SearchIncidentsCommand // instanceof handles nulls
-                && predicate.equals(((SearchIncidentsCommand) other).predicate)); // state check
+                || (other instanceof FindIncidentsCommand // instanceof handles nulls
+                && predicate.equals(((FindIncidentsCommand) other).predicate)); // state check
     }
 }
