@@ -101,7 +101,7 @@ public class EditCommand extends UndoableCommand {
         Timestamp updatedTimestamp = editExpenseDescriptor.getTimestamp().orElse(expenseToEdit.getTimestamp());
 
         return new Expense(updatedDescription, updatedPrice, updatedCategory,
-                updatedTimestamp, expenseToEdit.getUniqueIdentifier());
+                updatedTimestamp, expenseToEdit.getBudgetName(), expenseToEdit.getUniqueIdentifier());
     }
 
     @Override

@@ -17,30 +17,34 @@ public class ExpenseBuilder {
     public static final String DEFAULT_UNIQUE_IDENTIFIER = "Expense@00000000-0000-0000-0000-000000000001";
     public static final String DEFAULT_TAGS = "AnniversaryAndHoliday";
     public static final String DEFAULT_TIMESTAMP = "01-12-2019";
+    public static final String DEFAULT_BUDGET = "Default Budget";
 
     private Description description;
     private Price price;
     private Category category;
     private UniqueIdentifier uniqueIdentifier;
     private Timestamp timestamp;
+    private Description budgetName;
 
     public ExpenseBuilder() {
-        this.description = new Description(DEFAULT_DESCRIPTION);
-        this.price = new Price(DEFAULT_PRICE);
-        this.category = new Category(DEFAULT_TAGS);
-        this.uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
-        this.timestamp = Timestamp.createTimestampIfValid(DEFAULT_TIMESTAMP).get();
+        description = new Description(DEFAULT_DESCRIPTION);
+        price = new Price(DEFAULT_PRICE);
+        category = new Category(DEFAULT_TAGS);
+        uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
+        timestamp = Timestamp.createTimestampIfValid(DEFAULT_TIMESTAMP).get();
+        budgetName = new Description(DEFAULT_BUDGET);
     }
 
     /**
      * Initializes the ExpenseBuilder with the data of {@code expenseToCopy}.
      */
     public ExpenseBuilder(Expense expenseToCopy) {
-        this.description = expenseToCopy.getDescription();
-        this.price = expenseToCopy.getPrice();
-        this.category = expenseToCopy.getCategory();
-        this.uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
-        this.timestamp = expenseToCopy.getTimestamp();
+        description = expenseToCopy.getDescription();
+        price = expenseToCopy.getPrice();
+        category = expenseToCopy.getCategory();
+        uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
+        timestamp = expenseToCopy.getTimestamp();
+        budgetName = expenseToCopy.getBudgetName();
     }
 
     /**
@@ -83,8 +87,16 @@ public class ExpenseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Timestamp} of the {@code Expense} that we are building.
+     */
+    public ExpenseBuilder withBudgetName(String budgetName) {
+        this.budgetName = new Description(budgetName);
+        return this;
+    }
+
     public Expense build() {
-        return new Expense(description, price, category, timestamp, uniqueIdentifier);
+        return new Expense(description, price, category, timestamp, budgetName, uniqueIdentifier);
     }
 
 }

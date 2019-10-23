@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.budget.Budget;
 import seedu.address.model.category.Category;
 
 /**
@@ -18,6 +19,7 @@ public class Expense {
     private final Description description;
     private final Price price;
     private final Timestamp timestamp;
+    private Description budgetName;
     private final Category category;
 
     /**
@@ -30,16 +32,18 @@ public class Expense {
         this.uniqueIdentifier = uniqueIdentifier;
         this.category = category;
         this.timestamp = Timestamp.getCurrentTimestamp();
+        this.budgetName = null;
     }
 
-    public Expense(Description description, Price price, Category category, Timestamp timestamp,
+    public Expense(Description description, Price price, Category category, Timestamp timestamp, Description budgetName,
                    UniqueIdentifier uniqueIdentifier) {
-        requireAllNonNull(description, price, category, uniqueIdentifier);
+        requireAllNonNull(description, price, category, timestamp, budgetName, uniqueIdentifier);
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
         this.category = category;
         this.timestamp = timestamp;
+        this.budgetName = budgetName;
     }
 
     public Description getDescription() {
@@ -58,6 +62,18 @@ public class Expense {
         return uniqueIdentifier;
     }
 
+    public Description getBudgetName() {
+        return budgetName;
+    }
+
+    public void setBudget(Budget budget) {
+        this.budgetName = budget.getDescription();
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public Category getCategory() {
         return category;
     }
@@ -90,18 +106,18 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getUniqueIdentifier().equals(getUniqueIdentifier())
-                && otherExpense.getDescription().equals(getDescription())
-                && otherExpense.getPrice().equals(getPrice())
-                && otherExpense.getTimestamp().equals(getTimestamp())
-
-                && otherExpense.getCategory().equals(getCategory());
+        return otherExpense.uniqueIdentifier.equals(uniqueIdentifier)
+                && otherExpense.description.equals(description)
+                && otherExpense.price.equals(price)
+                && otherExpense.timestamp.equals(timestamp)
+                && otherExpense.category.equals(category)
+                && otherExpense.budgetName.equals(budgetName);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, category, uniqueIdentifier);
+        return Objects.hash(description, price, timestamp, budgetName, category, uniqueIdentifier);
     }
 
     @Override
