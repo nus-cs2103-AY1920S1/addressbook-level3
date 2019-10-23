@@ -208,9 +208,9 @@ components with the same variants of commands (i.e Add, Delete, Edit etc), this 
 reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
 
 // tag::dashboard[]
-=== Add/Delete/Edit/Find/List tasks
+=== Dashboard features
 ==== Implementation
-The functions are found under the Dashboard. +
+The functions add/delete/edit/find/list task, are found under the Dashboard. +
 The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
 by the user. The tasks are sorted accordingly by earliest date.
 Here, a task is represented by a Dashboard object.
@@ -237,8 +237,6 @@ Step 1. The user launches the application for the first time. `DukeCooks v1.3` w
 be initialized with the dashboard state, and the `currentStatePointer` pointing to
 that single dashboard state.
 
-/insert uml here
-
 Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
 task into Duke Cooks. The `add` command calls `Model#addDashboard()`, causing the task to
 be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
@@ -246,8 +244,6 @@ be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
 stage, the list of task is sorted by date. After which, the `add` command also calls
 `Model#saveDashboard()`, causing another modified dashboard state to be saved into the
 `UniqueDashboardList`.
-
-/insert uml here
 
 Step 3. The user executes `delete task 3` command to delete the 3rd task in the
 dashboard. The delete command calls `Model#deleteDashboard()` causing the specified task
@@ -258,8 +254,6 @@ causing the modified state of the dashboard after the `delete task 3` command ex
 to be saved in the `UniqueDashboardList`, and the `currentStatePointer` is shifted to the
 newly inserted dashboard state.
 
-/insert uml here
-
 Step 4. The user executes `edit task...` command to edit a field in a task. The edit
 command calls `Model#setDashboard()` causing the edited task to be updated in
 `UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#setDashboard()`
@@ -268,14 +262,10 @@ sorted by date. Also, it calls `Model#saveDashboard()`, causing the modified sta
 dashboard after the `edit task...` command executes to `UniqueDashboardList`, and the
 `currentStatePointer` is shifted to the newly inserted dashboard state.
 
-/insert uml here
-
 Step 5. The user executes `find task...` command to find a list of task given a keyword.
 The find command calls `Model#hasDashboard()`, which searches through the
 `UniqueDashboardList` for tasks containing the particular keyword. The `currentStatePointer`
 remains at the same location after the step.
-
-/insert uml here
 
 Step 6. The user executes `list task` command to view all the tasks found in `UniqueDashboardList`.
 The list command calls `Model#getDashboardRecords()`, which returns the `ReadOnlyDashboard` that
@@ -284,12 +274,7 @@ homepage. The `currentStatePointer` remains at the same location after the step.
 
 The following sequence diagram shows how the add operation works:
 
-/insert uml here
-
-The following activity diagram summarizes what happens when a user executes a new
-command.
-
-/insert activity diagram here
+image::AddTaskSequenceDiagram.png[]
 
 ===== Aspect: How add/delete/edit/find/list executes
 * **Alternative 1 (current choice):** Sort the list whenever add/delete/edit is called.
@@ -314,8 +299,57 @@ take some time.
 // end::dashboard[]
 
 === RecipeBook feature
-==== Proposed Implementation
-==== Design Considerations
+The current implementation of Diary consists of the following:
+
+* Each `Recipe` consists of a unique `name`
+* Each `Recipe` contains an Set of `Ingredient`
+* Each `Recipe` consists of a unique `Calories`
+* Each `Recipe` consists of a unique `Carbohydrates`
+* Each `Recipe` consists of a unique `Fats`
+* Each `Recipe` consists of a unique `Protein`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Recipe` class.
+
+.Recipe Class Diagram
+image::RecipeClassDiagram.png[]
+
+==== Implementation of recipe book commands
+
+`Recipe` class supports multiple commands. It includes:
+
+* `AddRecipeCommand` - Adds a `Recipe` into `DukeCooks`
+* `DeleteRecipeCommand` - Deletes a `Recipe` from `DukeCooks`
+* `EditRecipeCommand` - Edits the specified `Recipe`
+* `FindRecipeCommand` - Finds all `Recipe` whose `name` contains user-specified keywords
+
+All the above recipe commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddRecipeCommandParser`,
+`DeleteRecipeCommandParser` etc). After which, the corresponding command will be executed (i.e `AddRecipeCommand`,
+`DeleteRecipeCommand` etc).
+
+The figure below describes the execution of an `DeleteRecipeCommand`.
+The input provided is `delete recipe 1`.
+
+.DeleteRecipeCommand Sequence Diagram
+image::DeleteSequenceDiagram.png[]
+
+After a successful execution, the recipe with the specified index will be deleted from the recipe book.
+
+/ maybe insert a screenshot to show the expected output.
+
+The current implementation makes use of an Sets to store the `Ingredient` objects.
+This is the easiest way to implement the `Ingredient` component of the recipe as it builds on the existing codebase
+of ab3.
+
+==== Alternatives
+An alternative would be to use an ArrayList instead of Sets to store `Ingredient` objects. This would make the
+implementation of `Ingredient` specific objects easier as they could be referenced through indexing of the ArrayList,
+which is more straight forward.
+
+==== Our Choice
+We will soon implement ArrayLists instead as the current implementation of `Ingredient` objects using Sets do not allow
+for ease of use for the user whenever the user wishes to edit `Ingredient` objects present within a `Recipe`.
 
 === Workout Planner feature
 ==== Implementation
@@ -356,9 +390,64 @@ to fulfill their functionality.
 
 ==== Design Considerations
 
-=== Health feature
+=== Health Records feature
+The Health Records feature handles the following:
+
+* Keeping track of the health data recorded by the user
+* Present the data with visual representation of a trend graph that shows the health progress of the user
+
 ==== Proposed Implementation
+The commands that are callable by the user are as followed:
+
+.  `view health` - view the specific type of health records
+.  `add health` - adds a new record respective to the type of health records
+.  `edit health` - edits a existing health record
+.  `delete health` - deletes a existing health record
+
+The class diagram below illustrates the structure of a Health Record class.
+
+image::HealthRecordsClassDiagram.png[]
+
+Each Health Record object consist of a Type, Timestamp and Value. The current implementation stores 6 key areas:
+
+2. Weight
+3. Height
+4. Calories
+5. Glucose
+6. Blood Pressure
+7. Menstrual Cycle (for Females)
+
+[NOTE]
+The types available are stored in a list named `TYPE_UTIL`. This means that the validity check of `Type` Object will be checked against `TYPE_UTIL` list. If type does not exist, the record will fail to construct.
+
+In future implementations (possibly in v2.0), the `TYPE_UTIL` list will accommodate more record types defined by the user. This means that there will not be a restriction imposed in health types that can be recorded. User can create a new health type to start health tracking (eg. Sodium level).
+
+===== `add health` Command
+`add health t/[type] [inputs]` is parsed in the `addHealthCommandParser`. The inputs will first be initialised to its respective objects with underlying validation checks (eg. `Type` object will call for `isValidType()` method to check against `TYPE_UTIL` List). A `Record` object will then be created with the three valid object components.
+
+The sequence diagram below illustrates a sample run of program where `add health` command has been successfully parsed.
+
+image::AddHealthSequenceDiagram.png[]
+
+
 ==== Design Considerations
+
+===== Aspect: Data structure on how the different health types are stored
+
+*  **Alternative 1 (Current Choice)**: Maintain a Map to validate type of health record
+
+    A `HashMap` is used to store the different health types and its respective metric unit (eg. Weight, kg). When a health related command is called, the `TYPE_UTIL` will be accessed and checked against to determine if command is valid.
+
+** Pros: Greater flexibility in the implementation and usage of `TYPE_UTIL` Map. Allow possible extension of having more user defined health types.
+** Cons: Difficult to keep track of each health type and lack of clarity.
+
+
+* **Alternative 2:** Introduce each health type as a Class on its own
+
+** Pros: Clearer distinction and declaration of each health type
+** Cons: Limited to a specific number of health types. User cannot introduce their own health type for record tracking. Requires diligence on developer’s end to introduce new classes for more variations.
+
+
 
 === Diary feature
 ==== Implementation

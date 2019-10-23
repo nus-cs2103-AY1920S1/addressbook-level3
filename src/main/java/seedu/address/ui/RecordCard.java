@@ -26,8 +26,6 @@ public class RecordCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label recordId;
-    @FXML
     private Label id;
     @FXML
     private Label timestamp;
@@ -40,7 +38,6 @@ public class RecordCard extends UiPart<Region> {
         super(FXML);
         this.record = record;
         id.setText(displayedIndex + ". ");
-        recordId.setText(String.valueOf(record.getRecordId()));
         timestamp.setText(record.getTimestamp().timestamp);
         type.setText(record.getType().type);
         value.setText(record.getValue().value + record.getType().unit);

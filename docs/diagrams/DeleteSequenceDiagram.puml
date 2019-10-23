@@ -5,7 +5,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":DukeCooksParser" as DukeCooksParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":DeleteRecipeCommandParser" as DeleteRecipeCommandParser LOGIC_COLOR
+participant "d:DeleteRecipeCommand" as DeleteRecipeCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -29,12 +30,29 @@ deactivate DeleteCommandParser
 DukeCooksParser -> DeleteCommandParser : parse("recipe 1")
 activate DeleteCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create DeleteRecipeCommandParser
+DeleteCommandParser -> DeleteRecipeCommandParser
+activate DeleteRecipeCommandParser
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+DeleteRecipeCommandParser -> DeleteCommandParser
+deactivate DeleteRecipeCommandParser
+
+DeleteCommandParser -> DeleteRecipeCommandParser : parse("1")
+activate DeleteRecipeCommandParser
+
+create DeleteRecipeCommand
+DeleteRecipeCommandParser -> DeleteRecipeCommand
+activate DeleteRecipeCommand
+
+DeleteRecipeCommand --> DeleteRecipeCommandParser : d
+deactivate DeleteRecipeCommand
+
+DeleteRecipeCommandParser --> DeleteCommandParser : d
+deactivate DeleteRecipeCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> DukeCooksParser
+destroy DeleteRecipeCommandParser
 
 DeleteCommandParser --> DukeCooksParser : d
 deactivate DeleteCommandParser
@@ -45,24 +63,24 @@ destroy DeleteCommandParser
 DukeCooksParser --> LogicManager : d
 deactivate DukeCooksParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> DeleteRecipeCommand : execute()
+activate DeleteRecipeCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteRecipeCommand -> Model : deleteRecipe(1)
 activate Model
 
-Model --> DeleteCommand
+Model --> DeleteRecipeCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteRecipeCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeleteRecipeCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+DeleteRecipeCommand --> LogicManager : result
+deactivate DeleteRecipeCommand
 
 [<--LogicManager
 deactivate LogicManager
