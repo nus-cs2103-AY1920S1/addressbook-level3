@@ -135,6 +135,7 @@ public class EditPolicyCommand extends Command {
         Policy editedPolicy = createEditedPolicy(policy, editPolicyDescriptor);
         model.setPolicy(policy, editedPolicy);
         updatePersonsWithPolicy(policy, editedPolicy, model);
+        model.saveAddressBookState();
         return editedPolicy;
     }
 

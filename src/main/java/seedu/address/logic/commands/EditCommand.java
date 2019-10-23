@@ -134,6 +134,7 @@ public class EditCommand extends Command {
     public Person executeForMerge(Person person, EditPersonDescriptor editPersonDescriptor, Model model) {
         Person editedPerson = createEditedPerson(person, editPersonDescriptor);
         model.setPerson(person, editedPerson);
+        model.saveAddressBookState();
         return editedPerson;
     }
 

@@ -37,8 +37,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private PolicyListPanel policyListPanel;
-    private DisplayPanel displayPanel;
+    private BinItemListPanel binItemListPanel;
     private HistoryListPanel historyListPanel;
+    private DisplayPanel displayPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportPanel reportPanel;
@@ -218,6 +219,12 @@ public class MainWindow extends UiPart<Stage> {
                 historyListPanel = new HistoryListPanel(logic.getHistoryList());
                 displayPlaceHolder.getChildren().removeAll();
                 displayPlaceHolder.getChildren().add(historyListPanel.getRoot());
+            }
+
+            if (commandResult.isListBin()) {
+                binItemListPanel = new BinItemListPanel(logic.getFilteredBinItemList());
+                listPanelPlaceholder.getChildren().clear();
+                listPanelPlaceholder.getChildren().add(binItemListPanel.getRoot());
             }
 
             if (commandResult.isReport()) {

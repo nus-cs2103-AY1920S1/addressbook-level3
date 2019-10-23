@@ -33,8 +33,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListBinCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.RestoreCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -45,6 +47,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.binitem.BinItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.storage.Storage;
@@ -82,7 +85,7 @@ public class LogicManager implements Logic {
             FindCommand.COMMAND_WORD, FindPolicyCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
             HistoryCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
             SuggestionSwitchCommand.COMMAND_WORD, UnassignPolicyCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD,
-            DisplayCommand.COMMAND_WORD);
+            DisplayCommand.COMMAND_WORD, ListBinCommand.COMMAND_WORD, RestoreCommand.COMMAND_WORD);
     }
 
     @Override
@@ -142,6 +145,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Policy> getFilteredPolicyList() {
         return model.getFilteredPolicyList();
+    }
+
+    @Override
+    public ObservableList<BinItem> getFilteredBinItemList() {
+        return model.getFilteredBinItemList();
     }
 
     @Override

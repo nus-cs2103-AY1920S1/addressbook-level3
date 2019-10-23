@@ -76,6 +76,32 @@ public class PolicyCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
+    public PolicyCard(Policy policy, int displayedIndex, String fxml) {
+        super(fxml);
+        this.policy = policy;
+        id.setText(displayedIndex + ". ");
+        name.setText(policy.getName().toString());
+        description.setText(policy.getDescription().toString());
+        coverage.setText(policy.getCoverage().toString());
+        price.setText(policy.getPrice().toString());
+        if (!policy.getStartAge().age.equals("0")) {
+            startAge.setText(policy.getStartAge().age);
+        } else {
+            startAge.setText(StartAge.AGE_ZERO);
+        }
+        if (!policy.getEndAge().age.equals(EndAge.AGE_INFINITY)) {
+            endAge.setText(policy.getEndAge().age);
+        } else {
+            endAge.setText(EndAge.AGE_INFINITY);
+        }
+        policy.getCriteria().stream()
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        policy.getTags().stream()
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.binitem.Binnable;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Policy in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Policy {
+public class Policy implements Binnable {
 
     public static final String MESSAGE_CONSTRAINTS =
             "This policy is not available.";
