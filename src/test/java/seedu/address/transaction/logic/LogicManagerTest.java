@@ -38,7 +38,7 @@ class LogicManagerTest {
             personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testing", "tempTransaction.txt");
             storage = new StorageManager(file, personModel);
-            rFile = File.createTempFile("testing","tempReimbursement.txt");
+            rFile = File.createTempFile("testing", "tempReimbursement.txt");
             model.getTransactionList();
             reimbursementStorage =
                     new seedu.address.reimbursement.storage.StorageManager(rFile);
