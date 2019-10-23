@@ -48,19 +48,28 @@
             <children>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Admission:" />
+                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Admission:">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font></Text>
                      <Label fx:id="selectedBodyDateOfAdmission" layoutX="23.0" layoutY="18.0" text="Date Of Admission:" />
                   </children>
                </AnchorPane>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Death:" />
+                     <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Death:">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font></Text>
                      <Label fx:id="selectedBodyDateOfDeath" layoutX="24.0" layoutY="16.0" text="Date Of Death:" />
                   </children>
                </AnchorPane>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Birth:" />
+                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Birth:">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font></Text>
                      <Label fx:id="selectedBodyDateOfBirth" layoutX="24.0" layoutY="17.0" text="Date Of Birth:" />
                   </children>
                </AnchorPane>

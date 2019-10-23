@@ -2,6 +2,21 @@
     -fx-background-color: derive(#121212, 25%);
 }
 
+#appStage {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+#appScene {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.appBox {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
 .background {
     -fx-background-color: derive(#121212, 25%);
     background-color: #383838; /* Used in the default.html file */
@@ -245,7 +260,7 @@
 .button {
     -fx-padding: 3 8 3 8;
     -fx-background-radius: 0;
-    -fx-background-color: derive(#121212, 25%);
+    -fx-background-color: #121212;
     -fx-font-family: "Century Gothic", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -564,4 +579,36 @@
     -fx-background-radius: 5;
     -fx-font-size: 14;
     -fx-font-weight: 700
+}
+
+/* Window Buttons */
+
+#exitButton {
+    -fx-background-image: url("../images/close.png");
+    -fx-background-size: 35px 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-border-radius: 0 10 0 0;
+    -fx-background-radius: 0 10 0 0;
+}
+
+#maximiseButton {
+    -fx-background-image: url("../images/maximise.png");
+    -fx-background-size: 35px 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#restoreButton {
+    -fx-background-image: url("../images/restore.png");
+    -fx-background-size: 35px 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#minimiseButton {
+    -fx-background-image: url("../images/minimise.png");
+    -fx-background-size: 35px 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
