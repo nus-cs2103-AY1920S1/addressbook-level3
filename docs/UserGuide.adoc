@@ -118,17 +118,22 @@ Example: `find Gmail`
 
 ==== Generating a new password: `generate`
 
-Generates a new random strong password for the user with the specified description username.
+Generates a new random password based on user preference input and copies generated password into user clipboard.
 
-Format: `generate <desc> <username>`
+Format: `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`
 
-Example: `generate Gmail user3`
 
 ==== Analysing all password: `analyse`
 
-Analyses all passwords for the user and creates a report for the user.
+Analyses all passwords currently stored and produces a security summary report.
 
 Format: `analyse`
+
+==== Analysing all password: `analyse strong`
+
+Analyses in detail a specified password based on the user specified index.
+
+Format: `analyse strong/<index>`
 
 ===  Accessing card directory : `goto card`
 
