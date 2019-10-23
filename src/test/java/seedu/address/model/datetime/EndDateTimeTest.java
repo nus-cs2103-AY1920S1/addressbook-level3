@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 
 public class EndDateTimeTest {
 
+    public static final EndDateTime VALID_END_DATE_TIME = new EndDateTime(new Date());
+
     @Test
     public void constructorString_null_nullPointerException() {
         String nullString = null;

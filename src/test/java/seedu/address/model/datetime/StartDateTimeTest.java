@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 public class StartDateTimeTest {
 
+    public static final StartDateTime VALID_START_DATE_TIME = new StartDateTime(new Date());
+
     @Test
     public void constructorString_null_nullPointerException() {
         String nullString = null;
