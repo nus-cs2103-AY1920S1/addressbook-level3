@@ -29,6 +29,15 @@ public class QuizQuestionList implements Iterable<Question> {
     }
 
     /**
+     * Gets one question from the list and return a new list contains this question.
+     */
+    public ObservableList<Question> getQuestionAsList(int index) {
+        ObservableList<Question> oneQuestionList = FXCollections.observableArrayList();
+        oneQuestionList.add(get(index));
+        return oneQuestionList;
+    }
+
+    /**
      * Returns an answer for the question in quiz with specific {@code index}.
      */
     public Answer showAnswer(int index) {

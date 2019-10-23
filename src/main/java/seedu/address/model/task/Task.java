@@ -1,18 +1,18 @@
 package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.address.model.note.Note;
 import seedu.address.model.task.exceptions.RedundantOperationException;
 
 /**
- * Represents a NUStudy revision task. Its
+ * Represents a NUStudy revision task.
  */
-public abstract class Task {
+public class Task {
     public static final String MESSAGE_DATE_CONSTRAINT = "Please follow Singapore local date format 'dd/MM/yyyy',"
             + "with 1 <= dd <= 31, 1 <= MM <= 12, -9999 < yyyy < 9999";
     public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HH/mm',"
@@ -22,23 +22,24 @@ public abstract class Task {
     public static final DateTimeFormatter FORMAT_USER_INPUT_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final DateTimeFormatter FORMAT_USER_INPUT_TIME = DateTimeFormatter.ofPattern("HHmm");
 
-
+    protected Heading heading;
     private boolean isDone;
     private LocalDate date;
     private LocalTime time;
 
     Task(LocalDate date, LocalTime time) {
-        requireNonNull(date);
+        requireAllNonNull(date, time);
         this.isDone = false;
         this.date = date;
         this.time = time;
     }
 
-    public Task(LocalDate date, LocalTime time, boolean isDone) {
+    public Task(Heading heading, LocalDate date, LocalTime time, boolean isDone) {
         requireNonNull(date);
-        this.isDone = isDone;
+        this.heading = heading;
         this.date = date;
         this.time = time;
+        this.isDone = isDone;
     }
 
     public static boolean isValidStatusIcon(String status) {
@@ -55,7 +56,11 @@ public abstract class Task {
     }
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return getStatusIcon() + " " + heading.toString() + " by: "
+                + getDate().format(FORMAT_FILE_DATE_STRING) + " "
+                + getTime().format(FORMAT_FILE_TIME_STRING);
+    }
 
     public LocalDate getDate() {
         return date;
@@ -65,12 +70,26 @@ public abstract class Task {
         return time;
     }
 
+    public Heading getHeading() {
+        return heading;
+    }
+
     @Override
-    public abstract boolean equals(Object other);
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
-    public abstract Note getNote();
+        if (!(other instanceof Task)) {
+            return false;
+        }
 
-    public abstract void setNote(Note note);
+        Task otherTask = (Task) other;
+        return heading.equals(otherTask.getHeading())
+                && getDate().equals(otherTask.getDate())
+                && getTime().equals(otherTask.getTime())
+                && getStatusIcon().equals(otherTask.getStatusIcon());
+    }
 
     /**
      * Marks the task as done.
