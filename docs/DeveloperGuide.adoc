@@ -1,5 +1,4 @@
 = guiltTrip() - Developer Guide
->>>>>>> c02ab6600907c091df79d84666367c8c13d126ef
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -8,12 +7,40 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
-<<<<<<< HEAD
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
+
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103-T16-4/main
+
+By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
+
+== Setting up
+
+Refer to the guide <<SettingUp#, here>>.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+[[Design-Ui]]
+=== UI component
+
+.UI Diagram
+image::UiClassDiagram.png[]
+
+[[Design-Logic]]
 == Logic component
 
 .Structure of the Logic Component
