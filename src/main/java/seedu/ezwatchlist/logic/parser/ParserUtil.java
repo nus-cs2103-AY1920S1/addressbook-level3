@@ -9,12 +9,12 @@ import java.util.Set;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.util.StringUtil;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.IsWatched;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.RunningTime;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

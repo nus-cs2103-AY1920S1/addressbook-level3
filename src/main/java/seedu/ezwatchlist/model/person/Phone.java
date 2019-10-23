@@ -1,8 +1,8 @@
 package seedu.ezwatchlist.model.person;
 
-import seedu.ezwatchlist.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.ezwatchlist.commons.util.AppUtil;
 
 /**
  * Represents a Person's phone number in the address book.

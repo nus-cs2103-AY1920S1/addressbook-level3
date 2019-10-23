@@ -2,7 +2,11 @@ package seedu.ezwatchlist.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_ANNABELLE;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showShowAtIndex;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
@@ -12,13 +16,10 @@ import org.junit.jupiter.api.Test;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
-import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
-import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
-import seedu.ezwatchlist.testutil.ShowBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -26,7 +27,7 @@ import seedu.ezwatchlist.testutil.ShowBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
-/*
+    /*
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Show editedShow = new ShowBuilder().build();
@@ -40,15 +41,16 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
-*/
-/*
+    */
+    /*
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastShow = Index.fromOneBased(model.getFilteredShowList().size());
         Show lastShow = model.getFilteredShowList().get(indexLastShow.getZeroBased());
 
         ShowBuilder showInList = new ShowBuilder(lastShow);
-        Show editedShow = showInList.withName(VALID_NAME_BOB_THE_BUILDER).withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER)
+        Show editedShow = showInList.withName(VALID_NAME_BOB_THE_BUILDER)
+                .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER)
                 .withActors(VALID_ACTOR_BOB_THE_BUILDER).build();
 
         EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER)
@@ -63,8 +65,8 @@ public class EditCommandTest {
 
         //assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
-*/
-/*
+    */
+    /*
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_SHOW, new EditShowDescriptor());
@@ -93,8 +95,8 @@ public class EditCommandTest {
 
         //assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
-*/
-/*
+    */
+    /*
     @Test
     public void execute_duplicateShowUnfilteredList_failure() {
         Show firstShow = model.getFilteredShowList().get(INDEX_FIRST_SHOW.getZeroBased());
@@ -104,8 +106,6 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_SHOW);
     }
 
- */
-/*
     @Test
     public void execute_duplicateShowFilteredList_failure() {
         showShowAtIndex(model, INDEX_FIRST_SHOW);
@@ -118,7 +118,7 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_SHOW);
     }
 
- */
+    */
 
     @Test
     public void execute_invalidShowIndexUnfilteredList_failure() {

@@ -1,7 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
 import java.io.File;
-
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
@@ -14,8 +13,10 @@ import seedu.ezwatchlist.api.ImageRetrieval;
  * Represents a Show's poster in the watchlist.
  */
 public class Poster {
-    private static final String PLACEHOLDER_IMAGE = "/images/poster-placeholder.png";
+    private static final String PLACEHOLDER_IMAGE = "poster-placeholder.png";
+    private String imageCacheLocation;
     private Image image;
+
     private String imagePath;
 
     /**
@@ -31,6 +32,10 @@ public class Poster {
      */
     public Poster(String path) {
         imagePath = path;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     /**

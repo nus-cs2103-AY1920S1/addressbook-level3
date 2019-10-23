@@ -153,6 +153,53 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::markaswatched[]
+=== [Feature] Mark/unmark as watched feature
+==== Implementation
+The mark/unmark as watched mechanism is facilitated by `WatchCommand`.
+It extends `Command` and uses the `WatchCommandParser` to process the command entered by the user.
+
+Given below is an example usage scenario and how the mark/unmark as watched mechanism works at each step.
+
+Step 1. The user launches the application, and executes `watch 1` command to mark the first show in the watch list as watched.
+
+Step 2. Entering the command calls `WatchListParser#parseCommand()`, which in turn returns a new `WatchCommandParser` and the `WatchCommandParser#parse()` command is called.
+
+Step 3. A new `WatchCommand` is created, with the index of the show to be marked being parsed as a field of the `WatchCommand`.
+
+Step 4. The `WatchCommand#execute()` method is called, referencing the current `model`, and the show that is in the current `FilteredShowList` is referenced based off the current `model`.
+
+[NOTE]
+If the `index` is out of bounds, a new `CommandException` is thrown.
+
+Step 5. A copy of the show is created, with its `isWatched` field being switched to `true`.
+
+[NOTE]
+The un-marking of a show as watched is similar, except that the `isWatched` field will be set to `false`.
+
+Step 6. The show in the current show list is updated to the newly created copy with the updated watched status, and a `CommandResult` with the new watched status of the show is created.
+
+The following sequence diagram shows how the watch operation works:
+
+image::WatchSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How mark/unmark shows as watched executes
+
+* **Current choice:** Works in a similar way to the `edit` command, referencing the index of the show, and creating a new show with the changed `isWatched` field.
+** Pros: Easy to implement.
+
+===== Aspect: Command word for the mark/unmark shows as watched function
+
+* **Alternative 1 (current choice):** The same keyword, `watch` is used.
+** Pros: Easy for the user to remember a single word, simpler to implement since only one command will be required.
+** Cons: Does not make logical sense to `watch` an already watched show.
+* **Alternative 2:** Use `watch` and `unwatch` keywords.
+** Pros: Logical keywords are being used.
+** Cons: The same logic will be repeated twice, albeit different command names.
+// end::undoredo[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation

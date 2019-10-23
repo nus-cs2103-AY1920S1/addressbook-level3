@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import info.movito.themoviedbapi.TmdbApi;
@@ -98,6 +100,7 @@ public class ImageRetrieval {
 
             Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION + File.separator +
                     fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png"));
+          
         } catch (FileAlreadyExistsException f) {
             System.err.println("Duplicate image");
         } catch (IOException e) {

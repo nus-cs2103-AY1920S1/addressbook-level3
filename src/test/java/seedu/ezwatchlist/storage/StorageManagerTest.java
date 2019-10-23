@@ -1,19 +1,12 @@
 package seedu.ezwatchlist.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
-import seedu.ezwatchlist.commons.core.GuiSettings;
-import seedu.ezwatchlist.model.WatchList;
-import seedu.ezwatchlist.model.ReadOnlyWatchList;
-import seedu.ezwatchlist.model.UserPrefs;
 
 public class StorageManagerTest {
 
@@ -32,7 +25,7 @@ public class StorageManagerTest {
     private Path getTempFilePath(String fileName) {
         return testFolder.resolve(fileName);
     }
-/*
+    /*
     @Test
     public void prefsReadSave() throws Exception {
 
@@ -43,7 +36,7 @@ public class StorageManagerTest {
         //assertEquals(original, retrieved);
     }
 */
-/*
+    /*
     @Test
     public void watchListReadSave() throws Exception {
 
