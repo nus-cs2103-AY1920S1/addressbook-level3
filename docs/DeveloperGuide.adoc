@@ -262,6 +262,14 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Calendar Window
+
+.Structure of the Calendar Window
+image::CalendarWindowClassDiagram.png[]
+
+The calendar window provides a visual representation of stored engagements over a monthly period. Users can choose to change the month being displayed and also open scrolling text windows which show more detailed descriptions of the stored engagements for a particular day.
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
