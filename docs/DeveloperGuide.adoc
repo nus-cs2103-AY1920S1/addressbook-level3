@@ -322,8 +322,58 @@ take some time.
 ==== Design Considerations
 
 === Diary feature
-==== Proposed Implementation
-==== Design Considerations
+==== Implementation
+The current implementation of Diary consists of the following:
+
+* Each `Diary` consists of a unique `DiaryName`
+* Each `Diary` contains an array list of `Page`
+* Each `Page` is identified by a unique `Title`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Diary` class.
+
+.Diary Class Diagram
+image::DiaryClassDiagram.png[]
+
+==== Implementation of diary commands
+
+`Diary` class supports multiple commands. It includes:
+
+* `AddDiaryCommand` - Adds a `Diary` into `DukeCooks`
+* `DeleteDiaryCommand` - Deletes a `Diary` from `DukeCooks`
+* `EditDiaryCommand` - Edits the specified `Diary` with a new `DiaryName`
+* `AddPageCommand` - Adds a new `Page` to the specified `Diary`
+* `DeletePageCommand` - Deletes the `Page` in the specified `Diary`
+
+All the above diary commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddDiaryCommandParser`,
+`DeleteDiaryCommandParser` etc). After which, the corresponding command will be executed (i.e `AddDiaryCommand`,
+`DeleteDiaryCommand` etc).
+
+The figure below describes the execution of an `AddPageCommand`.
+The input provided is `add page n/[DiaryName] t/[Title]`.
+
+/ insert UML diagram on AddPageCommand.
+
+After a successful execution, a new page will be added to the specific diary.
+
+/ maybe insert a screenshot to show the expected output.
+
+The current implementation makes use of an ArrayList to store the `Page` objects.
+This is the simplest implementation as most novice programmers would be familiar with ArrayLists.
+However, list operations tend to take more time to run compared to other data structures such as Sets.
+
+==== Alternatives
+An alternative to using ArrayList would be to use Sets to store `Page` objects. This could increase the
+overall performance of the program as set operations tend to be faster than list operations. However, using sets
+does not provide an order to `Page` objects, unlike in lists.
+
+==== Our Choice
+We chose to use ArrayLists instead as we require the `Page` objects to be ordered, so that the implementation of
+`DeletePageCommand` is simplified. An index can be provided in `DeletePageCommand` and the corresponding `Page`
+object can simply be removed from the ArrayList, using the specified index.
+
+
 
 === Logging
 
