@@ -153,6 +153,14 @@ allprojects {
     }
 }
 
+task extrachecks(type: Exec) {
+    commandLine 'bash', './config/travis/run-checks.sh'
+}
+
+tasks.check {
+    dependsOn extrachecks
+}
+
 // Copies stylesheets into the directory containing generated HTML files as
 // Asciidoctor does not copy linked CSS files to the output directory when rendering.
 // This is needed for linked stylesheets and embedded stylesheets which import other files.
