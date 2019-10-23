@@ -6,14 +6,20 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.body.Nric;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,6 +32,9 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_SEX = "queer";
+    private static final String INVALID_NRIC = "S12356A";
+    private static final String INVALID_ID = "B000001";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +42,10 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_SEX = "male";
+    private static final String VALID_NRIC = "S1234567A";
+    private static final String VALID_ID = "F01";
+    private static final String VALID_ORGANS_FOR_DONATION = "kidney, cornea";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -193,4 +206,61 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseSex_validMale_returnsMale() throws Exception {
+        assertEquals(Sex.MALE, ParserUtil.parseSex(VALID_SEX));
+    }
+
+    @Test
+    public void parseSex_invalidSex_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSex(INVALID_SEX));
+    }
+
+    @Test
+    public void parseNric_validNric_returnsNric() throws Exception {
+        Nric expectedNric = new Nric(VALID_NRIC);
+        assertEquals(expectedNric, ParserUtil.parseNric(VALID_NRIC));
+    }
+
+    @Test
+    public void parseNric_invalidNric_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNric(INVALID_NRIC));
+    }
+
+    @Test
+    public void parseIdentificationNumber_validId_returnsId() throws Exception {
+        IdentificationNumber expectedId = IdentificationNumber.customGenerateId("F", 1);
+        assertEquals(expectedId, ParserUtil.parseIdentificationNumber(VALID_ID));
+    }
+
+    @Test
+    public void parseIdentificationNumber_invalidId_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIdentificationNumber(INVALID_ID));
+    }
+
+    @Test
+    public void parseOrgansForDonation_validString_returnListOfOrgans() throws Exception {
+        List<String> expectedListOfOrgans = new ArrayList<String>();
+        expectedListOfOrgans.add("kidney");
+        expectedListOfOrgans.add("cornea");
+        assertEquals(expectedListOfOrgans, ParserUtil.parseOrgansForDonation(VALID_ORGANS_FOR_DONATION));
+
+    }
+
+    //@@author ambervoong
+    @Test
+    public void parseFridgeStatus_validString_returnFridgeStatus () throws ParseException {
+        assertEquals(FridgeStatus.OCCUPIED, ParserUtil.parseFridgeStatus("occupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("unoccupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("Unoccupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("unoccUPied"));
+    }
+
+    @Test
+    public void parseFridgeStatus_invalidString_throwParseException () throws ParseException {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFridgeStatus("melonelon"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseFridgeStatus(""));
+    }
+    //@@author
 }
