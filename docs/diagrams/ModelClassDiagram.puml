@@ -5,23 +5,23 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyGuiltTrip <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class GuiltTrip
+Class ReadOnlyGuiltTrip
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class VersionedGuiltTrip
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Entry {
+Class Entry
+Class Description
+Class Date
+Class Amount
+Class UniqueEntryList
 }
 
 Package Tag {
@@ -32,25 +32,25 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+GuiltTrip .up.|> ReadOnlyGuiltTrip
+VersionedGuiltTrip .up.|> GuiltTrip
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" VersionedGuiltTrip
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+VersionedGuiltTrip *--> "1" UniqueEntryList
+UniqueEntryList o--> "*" Entry
+Entry *--> Description
+Entry *--> Date
+Entry *--> Amount
+Entry *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Description -[hidden]right-> Date
+Date -[hidden]right-> Amount
 
-ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Entry : filtered list
 @enduml
+© 2019 GitHub, Inc.
