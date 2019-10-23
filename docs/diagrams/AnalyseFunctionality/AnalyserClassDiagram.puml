@@ -1,0 +1,77 @@
+@startuml
+!include ../style.puml
+
+Class AnalysePasswordCommand LOGIC_COLOR_T1{
+--
++GetRequiredAnalyser: List<Analyser> analysers
+}
+
+Class Password LOGIC_COLOR_T1
+
+Interface Analyser LOGIC_COLOR_T1 {
+----
++ analyse(List<Password> passwords) : void
++outputSummaryReport() : String
++outDetailedReport(Index index) : String
+}
+
+Class DictionaryAnalyser LOGIC_COLOR_T1 {
+--
++ analyse(List<Password> passwords) : void
++outputSummaryReport() : String
++outDetailedReport(Index index) : String
++GetAllMatches(String password) : List<DictionaryMatch> matches
+}
+
+Class "{abstract}\nResult" as Result LOGIC_COLOR_T1{
+# password : Password
+# description : String
+---
++ {abstract} getGreaterDetail : String
++ toString() : String
+}
+
+Class DictionaryResult LOGIC_COLOR_T1 {
+- matches : List<DictionaryMatch>
+--
++ getGreaterDetail: String
++toString() : String
+}
+
+Interface Match LOGIC_COLOR_T1 {
+----
+}
+
+Class "{abstract}\nBaseMatch" as BaseMatch LOGIC_COLOR_T1{
+# token : String
+# StartIdx : int
+# EndIdx : int
+---
++ toString() : String
+}
+
+Class DictionaryMatch LOGIC_COLOR_T1 {
+- rank : int
+--
++toString() : String
+}
+
+AnalysePasswordCommand .up.> Password : retrieves
+AnalysePasswordCommand .down.> Analyser : retrieves
+
+Analyser "1" .right.> "*" Result : produces
+(Analyser, Result) .. Match
+BaseMatch .up.|> Match
+DictionaryMatch  -up-|> BaseMatch
+
+DictionaryAnalyser .up.|> Analyser
+
+DictionaryResult  -up-|> Result
+
+
+
+show members
+
+skinparam classFontColor #000000
+skinparam classAttributeIconSize 0
+@enduml

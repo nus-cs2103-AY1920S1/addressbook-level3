@@ -18,7 +18,7 @@ public class DictionaryAnalyser implements Analyser {
 
     private static final String MESSAGE_HEADER = "Analysing passwords for commonly used passwords:\n";
     private Dictionary dictionary;
-    private ArrayList<DictionaryResult> analysisObjects;
+    private ArrayList<DictionaryResult> results;
 
     public DictionaryAnalyser(Dictionary dictionary) {
         this.dictionary = dictionary;
@@ -26,16 +26,16 @@ public class DictionaryAnalyser implements Analyser {
 
     @Override
     public void analyse(List<Password> passwordList) {
-        ArrayList<DictionaryResult> analysisObjects = new ArrayList<>();
+        ArrayList<DictionaryResult> results = new ArrayList<>();
         for (Password acc : passwordList) {
             List<DictionaryMatch> matches = getAllMatches(acc.getPasswordValue().value);
             if (matches.isEmpty()) {
-                analysisObjects.add(new DictionaryResult(acc, DESC_PASS, matches));
+                results.add(new DictionaryResult(acc, DESC_PASS, matches));
             } else {
-                analysisObjects.add(new DictionaryResult(acc, DESC_FAIL, matches));
+                results.add(new DictionaryResult(acc, DESC_FAIL, matches));
             }
         }
-        this.analysisObjects = analysisObjects;
+        this.results = results;
     }
 
     private List<DictionaryMatch> getAllMatches(String password) {
@@ -74,7 +74,7 @@ public class DictionaryAnalyser implements Analyser {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append(MESSAGE_HEADER);
         reportBuilder.append(MESSAGE_COLUMNS);
-        for (DictionaryResult o : analysisObjects) {
+        for (DictionaryResult o : results) {
             reportBuilder.append(o);
         }
         return reportBuilder.toString();
@@ -85,7 +85,7 @@ public class DictionaryAnalyser implements Analyser {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append(MESSAGE_INIT);
         reportBuilder.append(MESSAGE_HEADER);
-        DictionaryResult target = analysisObjects.get(index.getZeroBased());
+        DictionaryResult target = results.get(index.getZeroBased());
         reportBuilder.append(target.getGreaterDetail());
         return reportBuilder.toString();
     }

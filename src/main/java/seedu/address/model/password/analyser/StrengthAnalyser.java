@@ -16,16 +16,16 @@ public class StrengthAnalyser implements Analyser {
     private static final String DESC_STRONG = "strong";
     private static final String MESSAGE_HEADER = "Analysing passwords for strength: \n";
 
-    private ArrayList<StrengthResult> analysisObjects;
+    private ArrayList<StrengthResult> results;
 
     @Override
     public void analyse(List<Password> accountList) {
-        ArrayList<StrengthResult> analysisObjects = new ArrayList<>();
+        ArrayList<StrengthResult> results = new ArrayList<>();
         for (Password p : accountList) {
             StrengthResult o = calculateStrength(p);
-            analysisObjects.add(o);
+            results.add(o);
         }
-        this.analysisObjects = analysisObjects;
+        this.results = results;
     }
 
     /**
@@ -101,7 +101,7 @@ public class StrengthAnalyser implements Analyser {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append(MESSAGE_HEADER);
         reportBuilder.append(MESSAGE_COLUMNS);
-        for (StrengthResult o : analysisObjects) {
+        for (StrengthResult o : results) {
             reportBuilder.append(o);
         }
         return reportBuilder.toString();
@@ -112,7 +112,7 @@ public class StrengthAnalyser implements Analyser {
         StringBuilder report = new StringBuilder();
         report.append(MESSAGE_INIT);
         report.append(MESSAGE_HEADER);
-        StrengthResult target = analysisObjects.get(index.getZeroBased());
+        StrengthResult target = results.get(index.getZeroBased());
         report.append(target.getGreaterDetail());
         return report.toString();
     }
