@@ -1,10 +1,10 @@
-package seedu.address.logic.autocomplete;
+package seedu.address.ui.autocomplete;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Logic Component for AutoComplete
+ * Component for AutoComplete
  */
 public class AutoCompleter {
     private static final String[] SUPPORTED_COMMANDS = {
