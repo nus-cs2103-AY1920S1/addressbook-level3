@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Wish;
 
 /**
  * API of the Logic component
@@ -32,6 +33,8 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Entry> getFilteredEntryList();
+
+    ObservableList<Wish> getFilteredWishList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

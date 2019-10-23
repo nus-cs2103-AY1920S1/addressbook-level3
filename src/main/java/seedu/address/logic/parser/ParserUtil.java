@@ -76,11 +76,30 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a time in String to ArrayList.
+     * @param period the time as a String.
+     * @return the specified time as Date.
+     */
+    public static ArrayList<Date> parsePeriod(String period) {
+        requireNonNull(period);
+        String[] splitStartAndEnd = period.split(",");
+        ArrayList<Date> listOfPeriods = new ArrayList<Date>();
+        if (splitStartAndEnd.length == 1) {
+            listOfPeriods.add(new Date(period));
+        } else if (splitStartAndEnd.length == 2) {
+            listOfPeriods.add(new Date(splitStartAndEnd[0]));
+            listOfPeriods.add(new Date(splitStartAndEnd[1]));
+        } else {
+            //TODO
+        }
+        return listOfPeriods;
+    }
+    /**
      * Parses a type of sorting in String to SortType.
      * @param type the time as a String.
      * @return the specified time as SortType.
      */
-    public static SortType parseSortType(String type) {
+    public static SortType parseSortType(String type) throws IllegalArgumentException {
         requireNonNull(type);
         return new SortType(type);
     }

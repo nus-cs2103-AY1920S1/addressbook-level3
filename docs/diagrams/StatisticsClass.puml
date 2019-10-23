@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Statistics {
+
+Interface Statistics <<Interface>>
+Interface ObservableMap <<Interface>>
+Interface StatisticsList <<Interface>>
+Class StatisticsManager
+Class MonthlyList
+Class DailyList
+Class CategoryList
+}
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Statistics
+
+StatisticsManager .up.|> Statistics
+StatisticsManager .right...|> ObservableMap
+StatisticsManager *--> "1..12" MonthlyList
+MonthlyList .right...|> StatisticsList
+DailyList .right...|> StatisticsList
+CategoryList .right...|> StatisticsList
+MonthlyList *--> "1..31" DailyList
+MonthlyList --> Model
+DailyList *--> "1..*" CategoryList
+
+
+@enduml

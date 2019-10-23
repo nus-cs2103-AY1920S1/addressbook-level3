@@ -33,6 +33,9 @@
 
 !define USER_COLOR #000000
 
+!define STATS_COLOR #FFA500
+!define STATS_COLOR_1 #013220
+
 skinparam BackgroundColor #FFFFFFF
 
 skinparam Shadowing false

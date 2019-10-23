@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Wish;
 import seedu.address.storage.Storage;
 
 /**
@@ -41,7 +42,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, IllegalArgumentException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -72,6 +73,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Entry> getFilteredEntryList() {
         return model.getFilteredEntryList();
+    }
+
+    @Override
+    public ObservableList<Wish> getFilteredWishList() {
+        return model.getFilteredWishes();
     }
 
     @Override
