@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ARGUMENT_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEQUENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
@@ -21,7 +22,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      * and returns a SortCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SortCommand parse(String args) throws ParseException {
+    public SortCommand parse(String args) throws ParseException, IllegalArgumentException {
         try {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_SEQUENCE);
@@ -30,9 +31,13 @@ public class SortCommandParser implements Parser<SortCommand> {
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
             }
-            SortType type = ParserUtil.parseSortType(argMultimap.getValue(PREFIX_TYPE).get().toLowerCase());
+            SortType type;
+            type = ParserUtil.parseSortType(argMultimap.getValue(PREFIX_TYPE).get().toLowerCase());
             SortSequence seq = ParserUtil.parseSortSequence(argMultimap.getValue(PREFIX_SEQUENCE).get().toLowerCase());
             return new SortCommand(type, seq);
+        } catch (IllegalArgumentException iea) {
+            throw new IllegalArgumentException(String.format(MESSAGE_INVALID_ARGUMENT_FORMAT,
+                                                               SortType.MESSAGE_CONSTRAINTS));
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
