@@ -213,7 +213,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void revertTo(HistoryRecord record) {
+        public List<HistoryRecord> revertTo(HistoryRecord record) {
             throw new AssertionError("This method should not be called.");
         }
 

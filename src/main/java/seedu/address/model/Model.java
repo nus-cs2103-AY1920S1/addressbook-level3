@@ -155,8 +155,11 @@ public interface Model {
     /**
      * Reverts current model state to the {@link AddressBook} contained in the specified {@link HistoryRecord}
      * (i.e. the state before the {@link MutatorCommand} was executed).
+     *
+     * @param record record to revert to
+     * @return list of reverted records with the first reversion at index 0
      */
-    void revertTo(HistoryRecord record);
+    List<HistoryRecord> revertTo(HistoryRecord record);
 
     /** Returns an unmodifiable view of the history */
     ObservableList<HistoryRecord> getHistory();
