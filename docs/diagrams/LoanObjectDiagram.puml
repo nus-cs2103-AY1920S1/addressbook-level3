@@ -25,9 +25,16 @@ object "__borrowerId:BorrowerId__" as BorrowerId {
 object "__startDate:LocalDate__" as startDate
 object "__dueDate:LocalDate__" as dueDate
 object "__returnDate:LocalDate__" as returnDate
+object "__:Book__" as Book
+object "__:Borrower__" as Borrower
 
 LoanRecords -->"*" Loan : stores
-Loan -->"1" LoanId
+LoanRecords -->"*" LoanId : stores
+Book -left->"1" LoanId
+Book -up->"1" SerialNumber
+Borrower -left->"*" LoanId
+Borrower -up->"1" BorrowerId
+Loan ->"1" LoanId
 Loan -->"1" SerialNumber
 Loan -->"1" BorrowerId
 Loan -->"1" startDate
