@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextArea fx:id="textEditor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#handleTextChange" promptText="Edit your diary text here!" stylesheets="@diaryTextArea.css" wrapText="true" VBox.vgrow="ALWAYS">
-         <font>
-            <Font name="Arial" size="14.0" />
-         </font>
-      </TextArea>
-   </children>
-</VBox>
+
+<TextArea fx:id="textEditor" promptText="Edit your diary text here!" styleClass="diary-edit-box" stylesheets="@diaryTextArea.css" wrapText="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <font>
+      <Font name="Arial" size="14.0" />
+   </font>
+</TextArea>

@@ -16,12 +16,12 @@ import seedu.address.model.diary.photo.Photo;
  * Jackson-friendly version of {@link Photo}.
  */
 public class JsonAdaptedPhoto {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "One of the fields provided is invalid!\n"
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "One of the fields provided is invalid!\n"
             + "Cause: %1$s";
 
-    private String imagePath;
-    private String description;
-    private LocalDateTime dateTaken;
+    private final String imagePath;
+    private final String description;
+    private final LocalDateTime dateTaken;
 
     /**
      * Constructs a {@code JsonAdaptedDiary} with the given diary details.

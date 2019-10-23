@@ -57,10 +57,6 @@ public class Diary {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(" Diary Entry List: ")
-                .append(diaryEntryList.toString());
-
-        return builder.toString();
+        return " Diary Entry List: " + diaryEntryList.toString();
     }
 }

@@ -1,5 +1,7 @@
 package seedu.address.model.appstatus;
 
+import static seedu.address.commons.util.AppUtil.isBothNullOrEqual;
+
 import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
 import seedu.address.logic.commands.itinerary.days.edit.EditDayFieldCommand;
 import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
@@ -278,5 +280,31 @@ public class PageStatus {
 
     public EditDiaryEntryDescriptor getEditDiaryEntryDescriptor() {
         return editDiaryEntryDescriptor;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof PageStatus)) {
+            return false;
+        }
+
+        PageStatus otherPage = (PageStatus) obj;
+
+        return isBothNullOrEqual(pageType, otherPage.pageType)
+                && isBothNullOrEqual(trip, otherPage.trip)
+                && isBothNullOrEqual(day, otherPage.day)
+                && isBothNullOrEqual(event, otherPage.event)
+                && isBothNullOrEqual(expenditure, otherPage.expenditure)
+                && isBothNullOrEqual(diaryEntry, otherPage.diaryEntry)
+                && isBothNullOrEqual(editTripDescriptor, otherPage.editTripDescriptor)
+                && isBothNullOrEqual(editPrefsDescriptor, otherPage.editPrefsDescriptor)
+                && isBothNullOrEqual(editDayDescriptor, otherPage.editDayDescriptor)
+                && isBothNullOrEqual(editEventDescriptor, otherPage.editEventDescriptor)
+                && isBothNullOrEqual(editExpenditureDescriptor, otherPage.editExpenditureDescriptor)
+                && isBothNullOrEqual(editDiaryEntryDescriptor, otherPage.editDiaryEntryDescriptor);
     }
 }

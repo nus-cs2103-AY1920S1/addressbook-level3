@@ -30,7 +30,6 @@ public class Budget {
     }
 
     public Budget(double value) {
-        requireNonNull(value);
         this.value = (double) Math.round(value * 100) / 100;
     }
 

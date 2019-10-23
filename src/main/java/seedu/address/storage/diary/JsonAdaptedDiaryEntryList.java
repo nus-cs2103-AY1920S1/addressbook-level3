@@ -17,7 +17,7 @@ import seedu.address.model.diary.DiaryEntryList;
 /**
  * Jackson-friendly version of {@link DiaryEntryList}.
  */
-public class JsonAdaptedDiaryEntryList {
+class JsonAdaptedDiaryEntryList {
     private final List<JsonAdaptedDiaryEntry> diaryEntries;
 
     /**
