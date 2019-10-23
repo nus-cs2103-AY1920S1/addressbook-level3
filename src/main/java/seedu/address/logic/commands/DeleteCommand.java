@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 
 //@@author arjavibahety
 /**
@@ -62,6 +64,7 @@ public class DeleteCommand extends UndoableCommand {
             for (Body body : lastShownList) {
                 if (body.getIdNum().equals(targetIdNum)) {
                     entityToDelete = body;
+                    removeBodyNotifFromList(body, model);
                     if (!body.getFridgeId().equals(Optional.empty())) {
                         removeBodyFromFridge(body, model);
                     }
@@ -114,6 +117,25 @@ public class DeleteCommand extends UndoableCommand {
             if (fridge.getIdNum().equals(fridgeId)) {
                 fridge.setBody(null);
             }
+        }
+    }
+
+    /**
+     * Removes a notif from the list of notifs when the body is deleted.
+     * @param body refers to the body being deleted.
+     * @param model refers to the model in use.
+     */
+    private void removeBodyNotifFromList(Body body, Model model) {
+        List<Notif> lastShownNotificationList = model.getFilteredNotifList();
+        List<Notif> notifsToRemove = new ArrayList<>();
+        for (Notif notif : lastShownNotificationList) {
+            if (notif.getBody().equals(body)) {
+                notifsToRemove.add(notif);
+            }
+        }
+
+        for (Notif notif : notifsToRemove) {
+            model.deleteNotif(notif);
         }
     }
 

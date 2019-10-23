@@ -89,6 +89,7 @@ public class UpdateCommandTest {
         model.addEntity(f1);
         model.addEntity(f2);
 
+        // initally a fridge was specified
         Body body = new BodyBuilder().build();
         body.setFridgeId(f1.getIdNum());
         f1.setBody(body);
@@ -110,6 +111,31 @@ public class UpdateCommandTest {
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
         assertEquals(f1.getFridgeStatus(), FridgeStatus.UNOCCUPIED);
         assertEquals(f2.getFridgeStatus(), FridgeStatus.OCCUPIED);
+
+    }
+
+    @Test
+    public void executeBody_fridgeIdNotSpecifiedInitially_success() throws CommandException {
+        // initally a fridge was not specified
+        Body body = new BodyBuilder().build();
+        model.addEntity(body);
+
+        Fridge f1 = new Fridge();
+        model.addEntity(f1);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setFridgeId(f1.getIdNum());
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
+
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
+        assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
 
     }
 

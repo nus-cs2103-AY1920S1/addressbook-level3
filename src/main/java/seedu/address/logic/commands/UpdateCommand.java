@@ -24,6 +24,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -108,6 +109,7 @@ public class UpdateCommand extends UndoableCommand {
 
         this.id = id;
         this.updateEntityDescriptor = updateEntityDescriptor;
+        this.updateFromNotif = false;
     }
 
 
@@ -187,33 +189,31 @@ public class UpdateCommand extends UndoableCommand {
         List <Fridge> fridgeList = model.getFilteredFridgeList();
         Fridge originalFridge = null;
         Fridge updatedFridge = null;
+        boolean initallyNoFridge = true;
         for (Fridge fridge : fridgeList) {
-            //@@author ambervoong
-            if (originalBodyDescriptor.getFridgeId().isPresent()) {
-                if (fridge.getIdNum().equals(originalBodyDescriptor.getFridgeId().get())) {
-                    originalFridge = fridge;
-                }
+            if (Optional.ofNullable(fridge.getIdNum()).equals(originalBodyDescriptor.getFridgeId())) {
+                originalFridge = fridge;
+                initallyNoFridge = false;
             }
-            //@@author
             if (!(updateBodyDescriptor.getFridgeId() == null)) {
                 if (fridge.getIdNum().equals(updateBodyDescriptor.getFridgeId().get())) {
                     updatedFridge = fridge;
-
-
                 }
+            if (Optional.ofNullable(fridge.getIdNum()).equals(updateBodyDescriptor.getFridgeId())) {
+                updatedFridge = fridge;
             }
         }
 
-        if (originalFridge != null && updatedFridge != null) {
+        if ((originalFridge != null && updatedFridge != null)) {
             originalFridge.setBody(null);
-
+            updatedFridge.setBody((Body) entity);
+            model.setEntity(entity, updateEntityDescriptor.apply(entity));
+        } else if (initallyNoFridge) {
+            updatedFridge.setBody((Body) entity);
+            model.setEntity(entity, updateEntityDescriptor.apply(entity));
         } else if (updatedFridge == null) {
             throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
         }
-
-        updatedFridge.setBody((Body) entity);
-        model.setEntity(entity, updateEntityDescriptor.apply(entity));
-
     }
     //@@author
 

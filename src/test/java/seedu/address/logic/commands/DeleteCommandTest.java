@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +21,7 @@ import static seedu.address.testutil.TypicalIdentificationNumbers.THIRD_FRIDGE_I
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMMAND;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,7 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.testutil.TypicalPersons;
 
 //@@author arjavibahety
@@ -49,7 +52,6 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-
         // Delete Body
         List<Body> bodyList = model.getFilteredBodyList();
         for (Body body : bodyList) {
@@ -65,6 +67,7 @@ public class DeleteCommandTest {
                 if (!body.getFridgeId().equals(Optional.empty())) {
                     checkIsBodyRemovedFromFridge(body);
                 }
+                checkIsNotifRemovedFromList(body);
                 break;
             }
         }
@@ -135,7 +138,7 @@ public class DeleteCommandTest {
 
         // Delete Fridge when it is occupied
         IdentificationNumber aliceFridgeId = ALICE_FRIDGE.getIdNum();
-        Fridge alice = ALICE_FRIDGE;
+
         deleteFridgeCommand = new DeleteCommand(Index.fromZeroBased(aliceFridgeId.getIdNum()), "f");
 
         assertDeleteCommandFailure(deleteFridgeCommand, model, Messages.MESSAGE_OCCUPIED_FRIDGE_CANNOT_BE_DELETED,
@@ -261,6 +264,22 @@ public class DeleteCommandTest {
                 break;
             }
         }
+    }
+
+    /**
+     * Checks if the notif is removed from the notif list the body is deleted.
+     * @param body refers to the body which is deleted.
+     */
+    private void checkIsNotifRemovedFromList(Body body) {
+        List<Notif> notifList = model.getFilteredNotifList();
+        ArrayList<Notif> expectedToBeDeleted = new ArrayList<>();
+        for (Notif notif : notifList) {
+            if (notif.getBody().equals(body)) {
+                expectedToBeDeleted.add(notif);
+                break;
+            }
+        }
+        assertArrayEquals(expectedToBeDeleted.toArray(), (new ArrayList<Notif>()).toArray());
     }
 
     /**
