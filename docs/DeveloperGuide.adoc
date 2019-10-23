@@ -309,8 +309,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | | |
 
-|`* * *` | | |
-
 |`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
 
 |`* * *` |learner who wants to track his/her progress |view the questions I have not done well in| improve my understanding on these concepts tested
