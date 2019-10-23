@@ -50,4 +50,26 @@ public class FlashCardTestModel {
         requireNonNull(currentFlashCard);
         return currentFlashCard.getAnswer().toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof FlashCardTestModel)) {
+            return false;
+        }
+
+        if (currentFlashCard == null && ((FlashCardTestModel) obj).currentFlashCard == null) {
+            return testList.equals(((FlashCardTestModel) obj).testList);
+        }
+
+        if (currentFlashCard != null && ((FlashCardTestModel) obj).currentFlashCard != null) {
+            return testList.equals(((FlashCardTestModel) obj).testList)
+                    && currentFlashCard.equals(((FlashCardTestModel) obj).currentFlashCard);
+        }
+        return false;
+    }
 }

@@ -12,12 +12,16 @@ import static seedu.address.testutil.TypicalFlashCards.STORE_AND_FORWARD;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.FlashCardTestListBuilder;
 
 public class ModelManagerTest {
 
@@ -131,4 +135,53 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
+
+    //@@author keiteo
+    @Test
+    public void hasTestFlashCard_containsFlashCards_returnTrue() {
+        List<FlashCard> testList = new FlashCardTestListBuilder().build();
+        modelManager.initializeTestModel(testList);
+        assertTrue(modelManager.hasTestFlashCard());
+    }
+
+    @Test
+    public void hasTestFlashCard_noFlashCards_returnFalse() {
+        List<FlashCard> testList = new LinkedList<>();
+        modelManager.initializeTestModel(testList);
+        assertFalse(modelManager.hasTestFlashCard());
+    }
+
+    @Test
+    public void hasTestFlashCard_nullList_nullPointerException() {
+        modelManager.initializeTestModel(null);
+        assertThrows(NullPointerException.class, () -> {
+            modelManager.hasTestFlashCard();
+        });
+    }
+
+    //  TODO: fix integration test
+    /*
+    @Test
+    public void getTestQuestion_containsFlashCards_success() {
+        List<FlashCard> testList = new FlashCardTestListBuilder().build();
+        List<FlashCard> dummyList = new FlashCardTestListBuilder().build();
+        modelManager.initializeTestModel(testList);
+        for (FlashCard fc : dummyList) {
+            String qn = fc.getQuestion().toString();
+            assertEquals(qn, modelManager.getTestQuestion());
+        }
+    }
+
+    @Test
+    public void getTestAnswer_containsFlashCards_success() {
+        List<FlashCard> testList = new FlashCardTestListBuilder().build();
+        List<FlashCard> dummyList = new FlashCardTestListBuilder().build();
+        modelManager.initializeTestModel(testList);
+        for (FlashCard fc : dummyList) {
+            String qn = fc.getAnswer().toString();
+            modelManager.getTestQuestion();
+            assertEquals(qn, modelManager.getTestAnswer());
+        }
+    }
+     */
 }

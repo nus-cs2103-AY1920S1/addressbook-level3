@@ -12,7 +12,8 @@ import seedu.address.model.Model;
 public class RateQuestionCommand extends Command {
 
     public static final String COMMAND_WORD = "rate";
-    public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:";
+    public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:\n%s";
+    public static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
 
     private final AddressBookParser addressBookParser;
 
@@ -28,11 +29,11 @@ public class RateQuestionCommand extends Command {
 
         if (!model.hasTestFlashCard()) {
             addressBookParser.endTest();
-            return new CommandResult(MESSAGE_SUCCESS + "\n" + "placeholder text: end of test!!!!");
+            return new CommandResult(MESSAGE_SUCCESS_END_OF_TEST);
         }
 
         String nextQuestion = model.getTestQuestion(model);
         addressBookParser.setAwaitingAnswer(true);
-        return new CommandResult(MESSAGE_SUCCESS + "\n" + nextQuestion);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, nextQuestion));
     }
 }

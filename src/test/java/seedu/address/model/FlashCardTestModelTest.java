@@ -37,4 +37,12 @@ public class FlashCardTestModelTest {
         assertEquals(expectedOutput, flashCardTestModel.getQuestion());
     }
     */
+
+    @Test
+    public void equals() {
+        flashCardTestModel = new FlashCardTestModel(testList);
+        FlashCardTestModel anotherFlashCardTestModel = new FlashCardTestModel(testList);
+
+        assertTrue(flashCardTestModel.equals(anotherFlashCardTestModel));
+    }
 }
