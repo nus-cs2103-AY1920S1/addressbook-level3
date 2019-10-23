@@ -1,0 +1,24 @@
+@startuml
+
+interface ProgramExecutor {
+    + ProgramOutput : executeProgram(ClassFile program, ProgramInput input)
+    + ProgramOutput : executeProgram(ClassFile program)
+}
+
+class ProgramOutput {
+    + String : getOutput()
+    + Optional<RuntimeError> : getRuntimeError()
+    + ProgramOutput : append(String string)
+    + ProgramOutput : appendNewLine(String string)
+    + {static} ProgramOutput : getEmptyProgramOutput()
+    + {static} ProgramOutput : getErroredProgramOutput(String errorMessage)
+}
+
+class ProgramInput {
+    + String : getInput()
+}
+
+ProgramExecutor -> ProgramOutput
+ProgramExecutor -> ProgramInput
+
+@enduml

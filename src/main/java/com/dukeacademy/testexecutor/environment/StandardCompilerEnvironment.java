@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.model.program.UserProgram;
+import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.models.JavaFile;
@@ -136,7 +136,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     private void createDirectory(Path path) throws CompilerEnvironmentException {
         try {
             String directoryPath = path.toUri().getPath();
-            if (!new File(directoryPath).mkdir()) {
+            if (!new File(directoryPath).exists() && !new File(directoryPath).mkdir()) {
                 throw new CompilerEnvironmentException(messageCreateEnvironmentFailed);
             }
 

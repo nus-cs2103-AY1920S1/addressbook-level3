@@ -1,15 +1,20 @@
 package com.dukeacademy.ui;
 
+import java.nio.file.Path;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import java.util.logging.Logger;
 
-import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
+import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.program.TestCaseResult;
-import com.dukeacademy.model.question.TestCase;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,14 +37,17 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+    private CommandLogic commandLogic;
     private QuestionsLogic questionsLogic;
+    private ProgramSubmissionLogic programSubmissionLogic;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private Editor editorPanel;
-    private RunCodeResult runCodeResultPanel;
+    private CodeResultPanel codeResultPanel;
+    private ProfilePage profilePage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -60,22 +68,29 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane editorPlaceholder;
 
     @FXML
-    private AnchorPane runCodeResultPlaceholder;
+    private AnchorPane codeResultPanelPlaceholder;
 
-    public MainWindow(Stage primaryStage, QuestionsLogic questionsLogic) {
+    @FXML
+    private AnchorPane profilePlaceholder;
+
+    public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
+                      ProgramSubmissionLogic programSubmissionLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
+        this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
+        this.programSubmissionLogic = programSubmissionLogic;
 
         // Configure the UI
-        setWindowDefaultSize(questionsLogic.getGuiSettings());
+        setWindowDefaultSize();
 
         setAccelerators();
 
         helpWindow = new HelpWindow();
     }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -87,6 +102,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -119,14 +135,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        questionListPanel = new QuestionListPanel(questionsLogic.getFilteredPersonList());
+        questionListPanel = new QuestionListPanel(questionsLogic.getFilteredQuestionsList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter =
-            new StatusBarFooter(questionsLogic.getQuestionBankFilePath());
+                new StatusBarFooter(Path.of("hello"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -134,25 +150,28 @@ public class MainWindow extends UiPart<Stage> {
 
         editorPanel = new Editor();
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
+        programSubmissionLogic.setUserProgramSubmissionChannel(editorPanel::getUserProgram);
 
-        // Passing in sample test case and sample test case result into the constructor of RunCodeResult.
-        // The sample problem in this context is an adder function.
-        // Test case given is 1, 1. Expected result is 2, from 1 + 1.
-        runCodeResultPanel = new RunCodeResult(new TestCase("1 1", "2"),
-                TestCaseResult.getFailedTestCaseResult("1 1", "2", "3"));
-        runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
+        List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
+        sampleTestCaseResults.add(
+                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz", "Fizz"));
+        sampleTestCaseResults.add(
+                TestCaseResult.getFailedTestCaseResult("25", "Buzz", "FizzBuzz"));
+        sampleTestCaseResults.add(
+                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz", "FizzBuzz"));
+
+        codeResultPanel = new CodeResultPanel(sampleTestCaseResults);
+        codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
+
+        profilePage = new ProfilePage();
+        profilePlaceholder.getChildren().add(profilePage.getRoot());
     }
 
     /**
      * Sets the default size based on {@code guiSettings}.
      */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
+    private void setWindowDefaultSize() {
+        primaryStage.setFullScreen(true);
     }
 
     /**
@@ -176,9 +195,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        questionsLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -191,18 +207,20 @@ public class MainWindow extends UiPart<Stage> {
         return editorPanel;
     }
 
-    public RunCodeResult getRunCodeResultPanel() {
-        return runCodeResultPanel;
+    public CodeResultPanel getRunCodeResultPanel() {
+        return codeResultPanel;
+    }
+
+    public ProfilePage getProfilePage() {
+        return profilePage;
     }
 
     /**
      * Executes the command and returns the result.
-     *
-     * @see QuestionsLogic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = questionsLogic.execute(commandText);
+            CommandResult commandResult = commandLogic.executeCommand(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

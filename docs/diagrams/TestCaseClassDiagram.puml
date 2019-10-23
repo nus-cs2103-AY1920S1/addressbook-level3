@@ -1,0 +1,9 @@
+@startuml
+class TestCase {
+    - String input
+    - String expectedResult
+
+    + String : getInput()
+    + String : getExpectedResult()
+}
+@enduml

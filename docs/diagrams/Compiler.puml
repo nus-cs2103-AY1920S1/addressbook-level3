@@ -1,0 +1,23 @@
+@startuml
+
+interface Compiler {
+    + ClassFile : compileJavaFile(JavaFile file)
+}
+
+class ClassFile {
+    - String canonicalName
+    - String classPath
+    + String : getCanonicalName()
+    + String : getClassPath()
+    + String : getAbsolutePath()
+    + File : toFile()
+    + boolean : equals()
+}
+
+class JavaFile {
+
+}
+
+Compiler -> ClassFile
+Compiler -> JavaFile
+@enduml

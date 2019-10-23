@@ -242,6 +242,89 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Evaluation of user program submissions
+The evaluation of the user's programs is facilitated by the `solutions` package.
+
+==== Entry point
+
+It contains the class `TestExecutor`
+which contains a single method `runTestCases(testCases, program)`. This method is used to run a user's program against
+a series of test cases.
+
+The method utilizes the classes `TestCase` and `UserProgram` to model the data needed for evaluation.
+
+====
+*TestCase* - stores an input and an expected value
+
+image:TestCaseClassDiagram.png[width=240]
+
+*UserProgram* - stores the main class name and the program's source code a String (note that the specified class name
+must match the source code for it to be successfully evaluated)
+
+image:UserProgramClassDiagram.png[width=240]
+
+====
+
+The result of the evaluation is returned as a `TestResult` object.
+
+====
+*TestResult* - encapsulates all the possible outcomes of evaluating the user's program. It is composed of other model
+classes -- `TestCaseResult`, `CompileError`.
+
+image::TestResultDiagram.png[align=center]
+
+====
+
+==== Implementation overview
+
+The evaluation of a user's program is done in 3 main steps, each handled by a specialized interface. The 3 steps include:
+
+====
+1. Create a Java file inside a temporary directory in the user's file system and writing the user's program to it.
+
+2. Compile that Java file into an executable Java Class file. Catch and store compile errors if any.
+
+3. Execute the main Class file and provide the inputs of the specified test cases. Collect and store any output from the program.
+
+4. Encapsulate the output, errors and results in a model class
+====
+
+This is done by `TestExecutor` with the help of three interfaces that are made available through dependency injection --
+`CompilerEnvironment`, `Compiler`, `ProgramExecutor`.
+
+Each interface has its specialized role in the evaluation process.
+`TestExecutor` acts as an orchestrator to tie all their functionalities together.
+
+====
+*CompilerEnvironment* - in charge of creating a temporary folder in the user's file system to create and write Java files.
+This temporary folder is deleted after `closed()`. Utilizes the model class `JavaFile`.
+
+image::CompilerEnvironment.png[align=center]
+
+*Compiler* - in charge of compiling the Java files into Class files at a given file path. Utilizes the model class `ClassFile`.
+
+image::Compiler.png[align=center]
+
+*ProgramExecutor* - in charge of executing the compiled Class files. Utilizes the model class `ProgramOutput`.
+
+image::ProgramExecutor.png[align=center]
+
+*Models:*
+
+* *JavaFile* - contains the canonical name and class path of a Java file with various convenience methods. Note that the file must actually exist or
+an `FileNotFoundException` is thrown during instantiation.
+* *ClassFile* - contains the canonical name and class path of a Java file with various convenience methods. Note that the file must actually exist or
+an `FileNotFoundException` is thrown during instantiation.
+* *ProgramInput* - contains the String input to be fed into the user's program.
+* *ProgramOutput* - contains the String output produced by the user's program. It also contains convenience methods for producing different outputs.
+====
+
+====
+*Sequence diagram:*
+
+image::TestExecutorSequenceDiagram.png[align:center]
+====
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
