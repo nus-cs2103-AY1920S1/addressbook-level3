@@ -1,0 +1,66 @@
+@startuml
+!include style.puml
+
+box ChangeUI LOGIC_COLOR_T1
+participant "ubd:UpdateBodyDescriptor" as UpdateBodyDescriptor LOGIC_COLOR
+participant "up:UpdateCommand" as UpdateCommand LOGIC_COLOR
+participant "notifWindow:NotifWindow" as NotifWindow LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+participant "body:Body" as Body MODEL_COLOR
+end box
+
+-> Body :getIdNum()
+create Body
+activate Body
+<-- Body :bodyId
+deactivate Body
+
+-> UpdateBodyDescriptor :UpdateBodyDescriptor(body)
+create UpdateBodyDescriptor
+activate UpdateBodyDescriptor
+<-- UpdateBodyDescriptor :ubd
+deactivate UpdateBodyDescriptor
+
+
+-> UpdateCommand :UpdateCommand(bodyId, ubd)
+create UpdateCommand
+activate UpdateCommand
+<-- UpdateCommand :up
+deactivate UpdateCommand
+
+-> UpdateCommand :setUpdateFromNotif(true)
+activate UpdateCommand
+<-- UpdateCommand
+deactivate UpdateCommand
+
+-> UpdateCommand :execute(model)
+activate UpdateCommand
+<-- UpdateCommand
+deactivate UpdateCommand
+
+-> NotifWindow :NotifWindow()
+create NotifWindow
+activate NotifWindow
+<-- NotifWindow
+deactivate NotifWindow
+
+-> NotifWindow :setTitle("Contact Police")
+activate NotifWindow
+<-- NotifWindow
+deactivate NotifWindow
+
+-> NotifWindow :setContent("Body ...")
+activate NotifWindow
+<-- NotifWindow
+deactivate NotifWindow
+
+-> NotifWindow :display()
+activate NotifWindow
+<-- NotifWindow
+deactivate NotifWindow
+
+
+@enduml
