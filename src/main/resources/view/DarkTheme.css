@@ -140,7 +140,7 @@
 
 .pane-with-border {
      -fx-background-color: derive(#256de8, 20%);
-     -fx-border-color: derive(256de8, 10%);
+     -fx-border-color: derive(#256de8, 10%);
      -fx-border-top-width: 1px;
 }
 
