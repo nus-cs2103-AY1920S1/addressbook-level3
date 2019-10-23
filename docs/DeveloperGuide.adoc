@@ -179,35 +179,34 @@ Given below is an example usage scenario and how the auto allocation mechanism b
 image::AutoAllocateFlowChart.png[]
 Figure 1.1
 
-Step 1. The user executes `allocate 1 n/2 t/female` with the intention to allocate 2 employees with tag [female]
+**Step 1**. The user executes `allocate 1 n/2 t/female` with the intention to allocate 2 employees with tag [female]
 to the 1st event displayed in the event list.
 
-Step 2. The command checks if `eventIndex` is valid and if `ManpowerCountToAdd` is specified.
+**Step 2**. The command checks if `eventIndex` is valid and if `ManpowerCountToAdd` is specified.
 [NOTE]
-if `ManpowerCountToAdd` is specified, command assumes it to be the maximum number possible for the event.
-
-[NOTE]
+If `ManpowerCountToAdd` is not specified, it is assumed to be the maximum number possible for the event.
 Validity of other command arguments e.g. if `ManpowerCountToAdd` is a positive integer is checked
 by `AutoAllocateCommandParser` and not within the command `AutoAllocateCommand`.
 
 
-Step 3. The command calls its own method `AutoAllocateCommand#getManpowerNeededByEvent()` to get the number of employees
+**Step 3**. The command calls its own method `AutoAllocateCommand#getManpowerNeededByEvent()` to get the number of employees
 required by the specified event.
 
-Step 4. The command calls its own method `AutoAllocateCommand#createAvailableEmployeeListForEvent()` to create a
+
+**Step 4**. The command calls its own method `AutoAllocateCommand#createAvailableEmployeeListForEvent()` to create a
 filtered list of employees based on the `tagList` and if employee satisfies `Event#isAvailableForEvent()`.
 
-Step 5. The command checks if supply (number of employees in filtered list in step 4) exceeds
+**Step 5**. The command checks if supply (number of employees in filtered list in step 4) exceeds
 demand (number of employees required by event, generated in step 3).
 [NOTE]
 If supply < demand, throws exception to user. If supply > demand, employees will be randomly selected instead.
 
-Step 6. The command calls `Event#allocateEmployee()` to allocate the chosen employees to the event.
+**Step 6**. The command calls `Event#allocateEmployee()` to allocate the chosen employees to the event.
 
 [NOTE]
 For storage purposes, only the `Employee#EmployeeId` is allocated to the event.
 
-Step 7. Done.
+**Step 7**. Done.
 
 
 The following sequence diagram shows how the auto allocation works:
@@ -222,7 +221,6 @@ The following activity diagram summarizes what happens when a user successfully 
 
 image::AutoAllocateActivityDiagram.png[]
 Figure 1.3
-
 
 ==== Design Considerations
 
