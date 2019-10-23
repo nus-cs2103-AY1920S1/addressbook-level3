@@ -8,7 +8,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Enumerates all the possible states a body undergoes in the mortuary.
  */
 public enum BodyStatus {
-    ARRIVED, PENDING_IDENTIFICATION, PENDING_CLAIM, CLAIMED, DONATED, PENDING_POLICE_REPORT, PENDING_CORONER_APPROVAL;
+    ARRIVED, PENDING_IDENTIFICATION, PENDING_CLAIM, CLAIMED, DONATED, CONTACT_POLICE, PENDING_POLICE_REPORT,
+    PENDING_CORONER_APPROVAL;
 
     /**
      * Parses {@code String status} to return the corresponding {@code Status}.
@@ -25,6 +26,8 @@ public enum BodyStatus {
             return PENDING_CLAIM;
         case "pending coroner approval":
             return PENDING_CORONER_APPROVAL;
+        case "contact police":
+            return CONTACT_POLICE;
         case "pending police report":
             return PENDING_POLICE_REPORT;
         case "claimed":

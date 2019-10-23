@@ -27,7 +27,7 @@ public class Notif {
                 if (body.getBodyStatus().equals(Optional.of(ARRIVED))) {
                     try {
                         body.setBodyStatus(BodyStatus.parseBodyStatus(
-                                "pending police report"));
+                                "contact police"));
                     } catch (ParseException exp) {
                         // todo what to do here?
                     }
@@ -90,3 +90,4 @@ public class Notif {
     }
 
 }
+//@@author

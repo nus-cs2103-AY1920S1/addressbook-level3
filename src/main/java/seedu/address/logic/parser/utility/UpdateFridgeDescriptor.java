@@ -39,12 +39,14 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
      * @returns UpdateFridgeDescriptor that contains the fridge's current fields.
      */
     public UpdateFridgeDescriptor(Fridge fridge) {
-        Body body = fridge.getBody();
-        if (body != null) {
-            this.bodyId = body.getIdNum();
+        Optional<Body> body = fridge.getBody();
+        if (!body.equals(Optional.empty())) {
+            this.bodyId = body.get().getIdNum();
+            this.newBody = body.get();
+        } else {
+            this.newBody = null;
         }
         this.fridgeStatus = fridge.getFridgeStatus();
-        this.newBody = body;
     }
 
     @Override
