@@ -276,7 +276,7 @@ image::ChangeUiFnSequenceDiagram.png[]
 * **Alternative 2: Directly make changes to the model.
 ** Pros: Does not increase dependency .
 ** Cons: Cause a lot of repetition of code.
-=======
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
