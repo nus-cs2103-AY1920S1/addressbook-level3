@@ -257,6 +257,28 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Queue feature
+The queue feature allows the user to enqueue and dequeue a patient from the queue.
+
+==== Current Implementation
+The queue will be displayed in a list.
+
+The following activity diagram summarizes what happens when a user executes an enqueue command:
+
+image::EnqueueActivityDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes an next command:
+
+image::NextActivityDiagram.png[]
+
+Below is an example usage of the queue feature.
+
+Step 1: User enters the `enqueue 001A` command.
+
+Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
+
+Step 3: Patient will then be showed in the queue.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
