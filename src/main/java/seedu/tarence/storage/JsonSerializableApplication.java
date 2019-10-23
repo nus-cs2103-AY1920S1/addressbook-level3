@@ -12,7 +12,6 @@ import seedu.tarence.commons.exceptions.IllegalValueException;
 import seedu.tarence.model.Application;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.module.Module;
-import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 
@@ -27,7 +26,6 @@ class JsonSerializableApplication {
     public static final String MESSAGE_DUPLICATE_TUTORIAL = "Tutorial list contains duplicate tutorial(s).";
     public static final String MESSAGE_DUPLICATE_STUDENT = "Student list contains duplicate student(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
@@ -35,11 +33,7 @@ class JsonSerializableApplication {
      * Reads the Json file and converts to model.
      */
     @JsonCreator
-    public JsonSerializableApplication(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                       @JsonProperty("modules") List<JsonAdaptedModule> modules) {
-        this.persons.addAll(persons);
-
-        // Toggles if modules is read or not
+    public JsonSerializableApplication(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
         this.modules.addAll(modules);
     }
 
@@ -49,8 +43,6 @@ class JsonSerializableApplication {
      * @param source future changes to this will not affect the created {@code JsonSerializableApplication}.
      */
     public JsonSerializableApplication(ReadOnlyApplication source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-
         // A JsonAdaptedModule is created for each module in the list.
         modules.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
     }
@@ -65,15 +57,6 @@ class JsonSerializableApplication {
     public Application toModelType() throws IllegalValueException {
         Application application = new Application();
         Application bypassApp = new Application();
-
-
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (application.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            application.addPerson(person);
-        }
 
         // Reads the saved module from file and populates application with it.
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
