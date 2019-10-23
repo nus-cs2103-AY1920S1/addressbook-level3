@@ -2,7 +2,7 @@ package seedu.weme.logic;
 
 import java.nio.file.Path;
 
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
@@ -41,8 +41,17 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of templates */
     ObservableList<Template> getFilteredTemplateList();
 
-    /** Returns the current context */
-    SimpleObjectProperty<ModelContext> getContext();
+    /**
+     * Returns the current context.
+     */
+    ObservableValue<ModelContext> getContext();
+
+    /**
+     * Sets the context.
+     *
+     * @param context the context to switch to
+     */
+    void setContext(ModelContext context);
 
     /**
      * Returns the user prefs' meme book file path.

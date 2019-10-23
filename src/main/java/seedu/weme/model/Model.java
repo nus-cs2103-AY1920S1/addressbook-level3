@@ -3,7 +3,7 @@ package seedu.weme.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
@@ -124,9 +124,16 @@ public interface Model {
     void updateFilteredTemplateList(Predicate<Template> predicate);
 
     /**
-     * Returns the context of the model.
+     * Sets the model context.
+     * @param context the context to switch to
      */
-    SimpleObjectProperty<ModelContext> getContext();
+    void setContext(ModelContext context);
+
+    /**
+     * Returns the context of the model.
+     * @return the current context
+     */
+    ObservableValue<ModelContext> getContext();
 
     /**
      * Returns true if model has a previous state to restore.

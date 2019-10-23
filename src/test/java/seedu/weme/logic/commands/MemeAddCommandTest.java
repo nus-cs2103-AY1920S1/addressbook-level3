@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
@@ -183,7 +183,12 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public SimpleObjectProperty<ModelContext> getContext() {
+        public void setContext(ModelContext context) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableValue<ModelContext> getContext() {
             throw new AssertionError("This method should not be called.");
         }
 
