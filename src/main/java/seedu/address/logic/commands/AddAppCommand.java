@@ -7,13 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
+import java.util.List;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 
-import java.util.List;
 
 /**
  * Adds a person to the address book.
@@ -32,7 +33,8 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_START + "01/11/19 1800 "
             + PREFIX_END + "01/11/19 1900";
 
-    public static final String MESSAGE_USAGE_RECURSIVELY = COMMAND_WORD + ": Adds recursively appointment to the address book. \n"
+    public static final String MESSAGE_USAGE_RECURSIVELY = COMMAND_WORD + ": Adds recursively appointment"
+            + " to the address book. \n"
             + "Parameters: "
             + PREFIX_ID + "REFERENCE ID "
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
@@ -47,6 +49,7 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_END + "01/11/19 1900";
 
     public static final String MESSAGE_SUCCESS = "Appointment added: %1$s";
+    public static final String MESSAGE_SUCCESS_RECURSIVE = " recusive Appointments were added";
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled.";
     public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
 
@@ -85,7 +88,7 @@ public class AddAppCommand extends ReversibleCommand {
                 model.addEvent(e);
             }
             model.updateFilteredEventList(eventList.get(0).getPersonId());
-            return new CommandResult(String.format(MESSAGE_SUCCESS, eventList));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, eventList.size() + MESSAGE_SUCCESS_RECURSIVE));
         }
     }
 
@@ -106,4 +109,3 @@ public class AddAppCommand extends ReversibleCommand {
                 && toAdd.equals(((AddAppCommand) other).toAdd));
     }
 }
-

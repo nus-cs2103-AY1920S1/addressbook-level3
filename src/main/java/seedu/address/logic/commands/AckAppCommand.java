@@ -6,8 +6,8 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import seedu.address.model.events.Event;
+
 
 /**
  * Acknowledge a person to the address book.

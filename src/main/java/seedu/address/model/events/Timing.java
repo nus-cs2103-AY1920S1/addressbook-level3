@@ -1,7 +1,4 @@
-//shawns version
 package seedu.address.model.events;
-
-import org.assertj.core.util.DateUtil;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -9,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Date;
 import java.util.Objects;
+
 
 /**
  * Represents a Date time in the schedule.
@@ -78,18 +76,36 @@ public class Timing implements Comparable<Timing> {
                 && other.getStartTime().before(getEndTime());
     }
 
+    /**
+     * gets another Timing object which is one week later from current one.
+     *
+     * @param current a given Timing object
+     * @return a {@code Timing} new object which is one month later from given one.
+     */
     public static Timing getOneWeekLaterTiming(Timing current) {
         DateTime start = DateTime.plusOneWeek(current.getStartTime());
         DateTime end = DateTime.plusOneWeek(current.getEndTime());
         return new Timing(start, end);
     }
 
+    /**
+     * gets another Timing object which is one month later from current one.
+     *
+     * @param current a given Timing object
+     * @return a {@code Timing} new object which is one month later from given one.
+     */
     public static Timing getOneMonthLaterTiming(Timing current) {
         DateTime start = DateTime.plusOneMonth(current.getStartTime());
         DateTime end = DateTime.plusOneMonth(current.getEndTime());
         return new Timing(start, end);
     }
 
+    /**
+     * gets another Timing object which is one year later from current one.
+     *
+     * @param current a given Timing object
+     * @return a {@code Timing} new object which is one year later from given one.
+     */
     public static Timing getOneYearLaterTiming(Timing current) {
         DateTime start = DateTime.plusOneYear(current.getStartTime());
         DateTime end = DateTime.plusOneYear(current.getEndTime());

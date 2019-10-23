@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -53,6 +52,12 @@ public class DateTime implements Comparable<DateTime> {
         return parsedDateTime;
     }
 
+    /**
+     * gets another DateTime object which is one week later from current one.
+     *
+     * @param current a given DateTime object
+     * @return a {@code DateTime} new object which is one week later from given one.
+     */
     public static DateTime plusOneWeek(DateTime current) {
         LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
                 ZoneId.systemDefault());
@@ -60,6 +65,12 @@ public class DateTime implements Comparable<DateTime> {
         return new DateTime(currentDate);
     }
 
+    /**
+     * gets another DateTime object which is one month later from current one.
+     *
+     * @param current a given DateTime object
+     * @return a {@code DateTime} new object which is one month later from given one.
+     */
     public static DateTime plusOneMonth(DateTime current) {
         LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
                 ZoneId.systemDefault());
@@ -67,6 +78,12 @@ public class DateTime implements Comparable<DateTime> {
         return new DateTime(currentDate);
     }
 
+    /**
+     * gets another DateTime object which is one year later from current one.
+     *
+     * @param current a given DateTime object
+     * @return a {@code DateTime} new object which is one year later from given one.
+     */
     public static DateTime plusOneYear(DateTime current) {
         LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
                 ZoneId.systemDefault());

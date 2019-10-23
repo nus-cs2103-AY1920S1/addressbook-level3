@@ -230,6 +230,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateToSettleEventList() {
+
+    }
+
+    @Override
     public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
 
     }
