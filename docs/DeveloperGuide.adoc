@@ -247,8 +247,43 @@ Figure 1.3
 // end::allocate[]
 
 // tag::test[]
-=== [Proposed] feature1
-==== Proposed Implementation
+=== Assigning Date & Time to Events
+==== Implementation
+The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects.
+Our implementation of `Event` does not assume that the event will be held consecutively across multiple days, and requires the user to manually state the valid event dates and time period of that specific date.
+
+To achieve this functionality, there exists an `EventDayTime` object that encapsulates the time period on a specific day that the Event is in process.
+It takes in two arguments - both of which are `LocalTime` objects to represent the start and end time.
+
+Each Event contains a class attribute `EventDateTimeMap` that maps an `EventDate` object to an `EventDayTime` object using a HashMap implementation.
+The mapping is added through the `EventAssignDate` command.
+
+Given below is an example usage scenario of how the program functionality when a user attempts to assign a Date & Time to an already existent Event.
+
+. The User executes `ev_date 2 on/18102019 from/0900 to/2000`, with the intention to assign the date of 18th October 2019, time period 9am-8pm to the second event currently displayed in the event list.
+. The command checks if the event list contains the stated index. (Input Validation)
+. The command checks if the date stated is a valid date and within the start and end date of the Event. (Input Validation)
+. The command checks if the time period stated can be parsed as a valid time, and that the start time is before the end time. (Input Validation)
+. The `EventDate` and `EventDayTime` objects are instantiated.
+. The command calls `Event#assignDate()` on the referenced Event object to add the EventDate-EventDayTime mapping into `EventDateTimeMap`.
+. Storage is updated
+. Done.
+
+===== Aspect: Storage of DateTimeMap
+
+* **Alternative 1 (current choice):** Stores the DateTimeMap in an array format that is saved in `eventbook.json`
+** Pros: Simplicity in implementation and easier reference as it is loaded and saved to the same JSON file.
+** Cons: Performance issues as it needs to update the entire event object although only one attribute is updated
+* **Alternative 2:** Store the DateTimeMap in a separate file e.g. `EventDateTimes.json` that will be referenced by EventBook during initialization.
+** Pros: Faster performance in saving and loading as it is kept separate from `eventbook.json` and hence will not
+** Cons: Requires a new storage unit, along with all its supporting functions which will require alot of repeated code.
+Instantiation of the `Event` object when the app is started will be more complicated as well due to the need to read from two separate files
+
+* **Decision:** Alternative 1
+** Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information.
+However, as we are constrained with not utilizing a DBMS, Alternative 1 is a logically simpler and more efficent solution from a software engineering standpoint.
+
+
 ==== Design Considerations
 // end::test[]
 
@@ -338,13 +373,6 @@ the program is required to process through all DistinctDate Object to make the n
 ** Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
 Processing is only done when it is needed.
 // end::displayschedule[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
