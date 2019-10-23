@@ -2,15 +2,18 @@ package com.dukeacademy.model.prefs;
 
 import java.nio.file.Path;
 
-import com.dukeacademy.commons.core.GuiSettings;
-
 /**
  * Unmodifiable view of user prefs.
  */
-public interface ReadOnlyUserPrefs {
+public abstract class ReadOnlyUserPrefs {
+    protected abstract Path getAppDirectoryPath();
 
-    GuiSettings getGuiSettings();
+    public Path getTestExecutorOutputPath() {
+        return this.getAppDirectoryPath().resolve("tests");
+    }
 
-    Path getQuestionBankFilePath();
+    public Path getQuestionBankFilePath() {
+        return this.getAppDirectoryPath().resolve("questionBank.json");
+    };
 
 }

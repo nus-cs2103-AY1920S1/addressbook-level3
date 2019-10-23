@@ -3,7 +3,6 @@ package com.dukeacademy.ui;
 import java.util.logging.Logger;
 
 import com.dukeacademy.MainApp;
-import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.util.StringUtil;
 
@@ -31,16 +30,14 @@ public class UiManager implements Ui {
     private final CommandLogic commandLogic;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
-    private final GuiSettings guiSettings;
     private MainWindow mainWindow;
 
     public UiManager(CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                     ProgramSubmissionLogic programSubmissionLogic, GuiSettings guiSettings) {
+                     ProgramSubmissionLogic programSubmissionLogic) {
         super();
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
-        this.guiSettings = guiSettings;
     }
 
     @Override
@@ -52,7 +49,7 @@ public class UiManager implements Ui {
 
         try {
             mainWindow = new MainWindow(primaryStage, commandLogic, questionsLogic,
-                    programSubmissionLogic, guiSettings);
+                    programSubmissionLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

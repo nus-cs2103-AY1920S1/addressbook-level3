@@ -3,7 +3,6 @@ package com.dukeacademy.ui;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import com.dukeacademy.commons.core.GuiSettings;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandResult;
@@ -68,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane runCodeResultPlaceholder;
 
     public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic, GuiSettings guiSettings) {
+                      ProgramSubmissionLogic programSubmissionLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -78,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         this.programSubmissionLogic = programSubmissionLogic;
 
         // Configure the UI
-        setWindowDefaultSize(guiSettings);
+        setWindowDefaultSize();
 
         setAccelerators();
 
@@ -95,6 +94,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -134,7 +134,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter =
-            new StatusBarFooter(Path.of("hello"));
+                new StatusBarFooter(Path.of("hello"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -155,13 +155,8 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sets the default size based on {@code guiSettings}.
      */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
+    private void setWindowDefaultSize() {
+        primaryStage.setFullScreen(true);
     }
 
     /**
@@ -203,7 +198,6 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Executes the command and returns the result.
-     *
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
