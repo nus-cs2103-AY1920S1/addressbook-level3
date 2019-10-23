@@ -22,10 +22,11 @@ import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.SplitCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new SplitCommand or InCommand object
+ * Parses input arguments and creates a new SplitCommand or InCommand object.
  */
 public class BankAccountParser {
 
@@ -71,6 +72,9 @@ public class BankAccountParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

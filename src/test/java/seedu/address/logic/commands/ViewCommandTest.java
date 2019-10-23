@@ -1,22 +1,23 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.address.logic.commands.ViewCommand.MESSAGE_SUCCESS;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.ui.tab.Tab;
 
-public class ExitCommandTest {
+
+public class ViewCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void execute_exit_success() {
+    public void execute_view_success() {
         CommandResult expectedCommandResult =
-            new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, null);
-        assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
+            new CommandResult(MESSAGE_SUCCESS, false, false, Tab.BUDGET);
+        assertCommandSuccess(new ViewCommand(Tab.BUDGET), model, expectedCommandResult, expectedModel);
     }
-
 }

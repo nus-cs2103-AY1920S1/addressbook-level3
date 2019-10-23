@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
 
 /**
  * An Immutable BankAccount that is serializable to JSON format.
@@ -20,6 +21,7 @@ import seedu.address.model.transaction.BankAccountOperation;
 class JsonSerializableBankAccount {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
+    public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
 
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
@@ -41,15 +43,15 @@ class JsonSerializableBankAccount {
      */
     public JsonSerializableBankAccount(ReadOnlyBankAccount source) {
         budgets
-                .addAll(source.getBudgetHistory()
-                        .stream()
-                        .map(JsonAdaptedBudget::new)
-                        .collect(Collectors.toList()));
+            .addAll(source.getBudgetHistory()
+                .stream()
+                .map(JsonAdaptedBudget::new)
+                .collect(Collectors.toList()));
         transactions
-                .addAll(source.getTransactionHistory()
-                        .stream()
-                        .map(JsonAdaptedTransaction::new)
-                        .collect(Collectors.toList()));
+            .addAll(source.getTransactionHistory()
+                .stream()
+                .map(JsonAdaptedTransaction::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -66,6 +68,15 @@ class JsonSerializableBankAccount {
             }
             bankAccount.addTransaction(txn);
         }
+
+        for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
+            Budget budget = jsonAdaptedBudget.toModelType();
+            if (bankAccount.hasBudget(budget)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
+            }
+            bankAccount.addBudget(budget);
+        }
+
         return bankAccount;
     }
 
