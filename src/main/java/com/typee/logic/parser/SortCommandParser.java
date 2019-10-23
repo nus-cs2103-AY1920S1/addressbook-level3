@@ -27,33 +27,37 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException if the input format is incorrect
      */
     private String parseOrder() throws ParseException {
-        switch (Order.valueOf(trimmedArgs.toUpperCase())) {
+        try {
+            switch (Order.valueOf(trimmedArgs.toUpperCase())) {
 
-        case STARTA:
-            return "START_TIME";
+            case STARTA:
+                return "START_TIME";
 
-        case STARTD:
-            return "START_TIME_REVERSE";
+            case STARTD:
+                return "START_TIME_REVERSE";
 
-        case ENDA:
-            return "END_TIME";
+            case ENDA:
+                return "END_TIME";
 
-        case ENDD:
-            return "END_TIME_REVERSE";
+            case ENDD:
+                return "END_TIME_REVERSE";
 
-        case NAMEA:
-            return "ALPHABETICAL";
+            case NAMEA:
+                return "ALPHABETICAL";
 
-        case NAMED:
-            return "ALPHABETICAL_REVERSE";
+            case NAMED:
+                return "ALPHABETICAL_REVERSE";
 
-        case PRIORITYA:
-            return "PRIORITY";
+            case PRIORITYA:
+                return "PRIORITY";
 
-        case PRIORITYD:
-            return "PRIORITY_REVERSE";
+            case PRIORITYD:
+                return "PRIORITY_REVERSE";
 
-        default:
+            default:
+                return "Not supposed to reach here";
+            }
+        } catch (IllegalArgumentException e) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
     }
