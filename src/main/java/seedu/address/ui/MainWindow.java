@@ -183,9 +183,9 @@ public class MainWindow extends UiPart<Stage> {
             //resultDisplay.setResultView(moduleListPanel.getRoot());
             break;
         case STUDY_PLAN:
-            //ObservableList<StudyPlan> studyPlanContent = (ObservableList<StudyPlan>) resultContent;
-            //StudyPlanListPanel = studyPlanListPanel = new StudyPlanListPanel(studyPlanContent);
-            //resultDisplay.setResultView(studyPlanListPanel.getRoot());
+            ObservableList<Semester> studyPlanContent = (ObservableList<Semester>) resultContent;
+            SimpleSemesterListPanel simpleSemesterListPanel = new SimpleSemesterListPanel(studyPlanContent);
+            resultDisplay.setResultView(simpleSemesterListPanel.getRoot());
             break;
         case COMMIT_HISTORY:
             //ObservableList<Commit> commitContent = (ObservableList<Commit>) resultContent;

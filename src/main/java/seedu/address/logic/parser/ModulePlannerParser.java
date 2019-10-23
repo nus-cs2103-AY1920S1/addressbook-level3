@@ -32,6 +32,7 @@ import seedu.address.logic.commands.storage.DeleteSemesterCommand;
 import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
+import seedu.address.logic.commands.storage.ViewCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
 import seedu.address.logic.commands.verification.DescriptionCommand;
 import seedu.address.logic.commands.verification.ValidModsCommand;
@@ -58,6 +59,7 @@ import seedu.address.logic.parser.storage.DeleteStudyPlanParser;
 import seedu.address.logic.parser.storage.EditStudyPlanTitleParser;
 import seedu.address.logic.parser.storage.ListAllStudyPlansParser;
 import seedu.address.logic.parser.storage.RevertCommitParser;
+import seedu.address.logic.parser.storage.ViewCommitCommandParser;
 import seedu.address.logic.parser.storage.ViewCommitHistoryParser;
 import seedu.address.logic.parser.verification.DescriptionCommandParser;
 import seedu.address.logic.parser.verification.ValidModsCommandParser;
@@ -173,6 +175,9 @@ public class ModulePlannerParser {
 
         case DeleteSemesterCommand.COMMAND_WORD:
             return new DeleteSemesterCommandParser().parse(arguments);
+
+        case ViewCommitCommand.COMMAND_WORD:
+            return new ViewCommitCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
