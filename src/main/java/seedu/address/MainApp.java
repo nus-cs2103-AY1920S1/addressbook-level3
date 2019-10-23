@@ -44,6 +44,7 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";
     private static final String FILE_PATH_TRANSACTION = "data/transactionHistory.txt";
+    private static final String FILE_PATH_INVENTORY = "data//inventoryInformation.txt";
 
     protected Ui ui;
     protected Logic logic;
@@ -109,9 +110,10 @@ public class MainApp extends Application {
                 new seedu.address.inventory.model.ModelManager(inventoryStorage);
 
         //For Cashier Storage and Manager
-        cashierStorage = new seedu.address.cashier.storage.StorageManager("data"
-                + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
-        cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage);
+        cashierStorage = new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
+                FILE_PATH_TRANSACTION, model);
+        cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage.getInventoryList(),
+                cashierStorage.getTransactionList());
 
         //For Overview Storage and Manager
         overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
@@ -129,9 +131,8 @@ public class MainApp extends Application {
                 seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage,
                 inventoryModel, inventoryStorage);
 
-        cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model, storage,
-                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage, inventoryModel,
-                inventoryStorage);
+        cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model,
+                transactionModel, inventoryModel);
 
         overviewLogic = new seedu.address.overview.logic.LogicManager(overviewModel, overviewStorage, transactionLogic,
                 inventoryLogic);
