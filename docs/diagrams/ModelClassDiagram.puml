@@ -5,11 +5,11 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyXpire <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Xpire
+Class ReadOnlyXpire
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -17,11 +17,10 @@ Class ReadOnlyUserPrefs
 
 Package Item {
 Class Item
-Class Address
-Class Email
+Class ExpiryDate
+Class Quantity
 Class Name
-Class Phone
-Class UniqueItemList
+Class SortedUniqueItemList
 }
 
 Package Tag {
@@ -32,25 +31,23 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Xpire .up.|> ReadOnlyXpire
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Xpire
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueItemList
-UniqueItemList o--> "*" Item
+Xpire *--> "1" SortedUniqueItemList
+SortedUniqueItemList o--> "*" Item
 Item *--> Name
-Item *--> Phone
-Item *--> Email
-Item *--> Address
+Item *--> ExpiryDate
+Item *--> Quantity
 Item *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Name -[hidden]right-> ExpiryDate
+ExpiryDate -[hidden]right-> Quantity
 
 ModelManager -->"1" Item : filtered list
 @enduml

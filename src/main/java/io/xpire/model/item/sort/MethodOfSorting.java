@@ -16,6 +16,11 @@ public class MethodOfSorting {
     public static final String MESSAGE_CONSTRAINTS = "Sorting can only be done by 'name' or 'date'.";
     public static final String SORT_NAME = "name";
     public static final String SORT_DATE = "date";
+    private final Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
+            String.CASE_INSENSITIVE_ORDER);
+    private final Comparator<Item> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
+            Comparator.nullsFirst(Comparator.naturalOrder()));
+    private final Comparator<Item>nameThenDateSorter = nameSorter.thenComparing(dateSorter);
     private final String method;
 
     /**
@@ -39,11 +44,6 @@ public class MethodOfSorting {
      * Returns a comparator for the given method of sorting.
      */
     public Comparator<Item> getComparator() {
-        final Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
-                String.CASE_INSENSITIVE_ORDER);
-        final Comparator<Item> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
-                Comparator.nullsFirst(Comparator.naturalOrder()));
-        final Comparator<Item>nameThenDateSorter = nameSorter.thenComparing(dateSorter);
         switch (method) {
         case "date":
             return dateSorter;

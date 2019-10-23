@@ -144,7 +144,7 @@ Sorts all items in your list by either name or date. +
 Format: `sort|<key>`
 
 ****
-* Items are sorted by both name and date.
+* Items can be sorted by either name or date.
 * For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
 ****
 
@@ -166,12 +166,15 @@ Format: `search|<keyword>[|<other keywords>]...`
 * For name search, partial words can be matched e.g. `Papa` will match `Papayas`.
 * For tag search, only exact words will be matched e.g. `#Fruit` will match `#Fruit` but `#Fru` will not match `#Fruit`.
 * Items matching at least one keyword will be returned (an `OR` search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
+* If no items are found, any closely related keywords, if any, will be displayed.
 ****
 
 Examples:
 
 * `search|kebab` +
 Returns `Chicken Kebab` and `kebab`
+* `search|Chicken Ham` +
+Returns `Chicken Ham`
 * `search|milk|tea|#Drink` +
 Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 
