@@ -274,15 +274,18 @@ are performed.
 Given below is an example of how the Nodes (containers) in MainWindow changes with respect to the show command.
 
 Step 1. After the user launches the application, the MainWindow will consist of 4 main Nodes: `CommandBox`, `TabsPanel`, `ResultDisplay` and `DefaultDetailWindow`.
+
 image::VisualRepresentationCD0.png[]
 
 Step 2a. Suppose the user has a friend named Ben in the application. The user executes `show n/ Ben` in order to view Ben's details
 and his schedule. The state of MainWindow will now have another set of 4 Nodes: `CommandBox`, `ResultDisplay`, `ScheduleView` and `PersonDetailCard`.
+
 image::VisualRepresentationCD1.png[]
 
 Step 2b. Alternatively, suppose the user has a group named CS2103T team project. The user executes `show g/ CS2103T team project` in
 order to view the group's schedule and information. The state of MainWindow will now have a different set of 4 Nodes: `CommandBox`, `ScheduleView`,
 `ResultDisplay` and `GroupInformation`
+
 image::VisualRepresentationCD2.png[]
 
 [NOTE]
@@ -291,6 +294,7 @@ that such name or group is not found in the application.
 
 The following sequence diagram shows how the show command eventually lead to changes in the UI to show the visual representation
 of an individual's or group's schedule.
+
 image::VisualRepresentationSD0.png[]
 
 ==== Design Considerations
