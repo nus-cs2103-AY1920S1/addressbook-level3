@@ -235,6 +235,13 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::statistics[]
+=== [Proposed] Statistics feature
+==== Proposed Implementation
+
+The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
+
+//end::statistics[]
 === Notification Feature
 A notification is a message that Mortago will display when the status of a body is automatically updated.
 If the next-of-kin of a body has not been uncontactable for 24 hours, Mortago will prompt the user to contact
