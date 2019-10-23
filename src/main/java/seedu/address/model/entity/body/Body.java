@@ -9,6 +9,7 @@ import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
@@ -67,6 +68,11 @@ public class Body implements Entity {
         this.nextOfKin = Optional.ofNullable(nextOfKin);
         this.relationship = Optional.ofNullable(relationship);
         this.kinPhoneNumber = Optional.ofNullable(kinPhoneNumber);
+
+        if (fridgeId != null) {
+            Fridge fridge = (Fridge) fridgeId.getMapping();
+            fridge.setBody(this);
+        }
     }
 
     // Getters and Setters

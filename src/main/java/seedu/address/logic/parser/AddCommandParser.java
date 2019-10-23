@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INEXISTENT_FRIDGE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FRIDGE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
@@ -62,25 +64,12 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = tokenize(args);
         String flag = argMultimap.getValue(PREFIX_FLAG).orElse("").toLowerCase();
-        boolean arePrefixesPresent;
-        switch (flag) {
-        case "w":
-            arePrefixesPresent = arePrefixesPresentWorker(argMultimap);
-            break;
-        case "b":
-            arePrefixesPresent = arePrefixesPresentBody(argMultimap);
-            break;
-        case "f":
-            arePrefixesPresent = true;
-            break;
-        default:
-            arePrefixesPresent = arePrefixesPresentPerson(argMultimap);
-        }
-
+        boolean arePrefixesPresent = arePrefixesPresent(argMultimap, flag);
         if (!arePrefixesPresent || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        // todo delete
         if (flag.isEmpty()) {
             Name namePerson = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE_NUMBER).get());
@@ -94,47 +83,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         if (flag.equals("f")) {
-            Fridge fridge = new Fridge();
-            return new AddCommand(fridge);
-        }
-        // obtain common fields between Workers and Body
-        // fields are assigned null or empty when no argument is provided
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Sex sex = ParserUtil.parseSex(argMultimap.getValue(PREFIX_SEX).get());
-        Date dateOfBirth = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).orElse(""));
-
-        if (flag.equals("w")) {
-            PhoneNumber phone = ParserUtil.parsePhoneNumber(argMultimap.getValue(PREFIX_PHONE_NUMBER).orElse(""));
-            Date dateJoined = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_JOINED).get());
-            String designation = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_DESIGNATION).orElse(""));
-            String employmentStatus = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_EMPLOYMENT_STATUS)
-                    .orElse(""));
-            Worker worker = new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation);
-
-            return new AddCommand(worker);
+            return new AddCommand(new Fridge());
+        } else if (flag.equals("w")) {
+            return new AddCommand(parseFieldsWorker(argMultimap));
         } else if (flag.equals("b")) {
-            Date dateOfDeath = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_DEATH).orElse(""));
-            Date dateOfAdmission = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_ADMISSION).orElse(""));
-            BodyStatus status = ParserUtil.parseBodyStatus(argMultimap.getValue(PREFIX_STATUS).orElse(""));
-            Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).orElse(""));
-            Name nameNok = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME_NOK).orElse(""));
-            PhoneNumber phoneNok = ParserUtil.parsePhoneNumber(argMultimap.getValue(PREFIX_PHONE_NOK).orElse(""));
-            String causeOfDeath = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_CAUSE_OF_DEATH)
-                    .orElse(""));
-            String details = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_BODY_DETAILS).orElse(""));
-            List<String> organsForDonation = ParserUtil.parseOrgansForDonation(
-                    argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).orElse(""));
-            IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
-                    argMultimap.getValue(PREFIX_FRIDGE_ID).orElse(""));
-            Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
-            String relationship = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELATIONSHIP)
-                    .orElse(""));
-
-            Body body = new Body(false, 1, dateOfAdmission, name, sex, nric, religion,
-                    causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationship,
-                            phoneNok);
-
-            return new AddCommand(body);
+            return new AddCommand(parseFieldsBody(argMultimap));
         } else {
             throw new ParseException(MESSAGE_INVALID_FLAG);
         }
@@ -148,18 +101,75 @@ public class AddCommandParser implements Parser<AddCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    private static boolean arePrefixesPresentWorker(ArgumentMultimap argumentMultimap) {
-        return arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_DATE_JOINED, PREFIX_SEX);
-    }
-
-    private static boolean arePrefixesPresentBody (ArgumentMultimap argumentMultimap) {
-        return arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_DATE_OF_ADMISSION,
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}, for the given {@code typeOfEntity}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, String typeOfEntity) {
+        switch (typeOfEntity) {
+        case "w":
+            return arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_DATE_JOINED, PREFIX_SEX);
+        case "b":
+            return arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_DATE_OF_ADMISSION,
                 PREFIX_DATE_OF_DEATH, PREFIX_SEX);
+        case "f":
+            return true;
+        default:
+            return arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE_NUMBER,
+                PREFIX_EMAIL);
+        }
     }
 
-    private static boolean arePrefixesPresentPerson(ArgumentMultimap argumentMultimap) {
-        return arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE_NUMBER,
-            PREFIX_EMAIL);
+    /**
+     * Reads the values of all supplied fields for the Worker and returns the constructed Worker.
+     */
+    private static Worker parseFieldsWorker(ArgumentMultimap argMultimap) throws ParseException {
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Sex sex = ParserUtil.parseSex(argMultimap.getValue(PREFIX_SEX).get());
+        Date dateOfBirth = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).orElse(""));
+        PhoneNumber phone = ParserUtil.parsePhoneNumber(argMultimap.getValue(PREFIX_PHONE_NUMBER).orElse(""));
+        Date dateJoined = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_JOINED).get());
+        String designation = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_DESIGNATION).orElse(""));
+        String employmentStatus = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_EMPLOYMENT_STATUS)
+            .orElse(""));
+        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation);
+    }
+
+    /**
+     * Reads the values of all supplied fields for the Body and returns the constructed Body.
+     */
+    private static Body parseFieldsBody(ArgumentMultimap argMultimap) throws ParseException {
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Sex sex = ParserUtil.parseSex(argMultimap.getValue(PREFIX_SEX).get());
+        Date dateOfBirth = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).orElse(""));
+        Date dateOfDeath = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_DEATH).orElse(""));
+        Date dateOfAdmission = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_ADMISSION).orElse(""));
+        BodyStatus status = ParserUtil.parseBodyStatus(argMultimap.getValue(PREFIX_STATUS).orElse(""));
+        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).orElse(""));
+        Name nameNok = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME_NOK).orElse(""));
+        PhoneNumber phoneNok = ParserUtil.parsePhoneNumber(argMultimap.getValue(PREFIX_PHONE_NOK).orElse(""));
+        String causeOfDeath = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_CAUSE_OF_DEATH)
+            .orElse(""));
+        String details = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_BODY_DETAILS).orElse(""));
+        List<String> organsForDonation = ParserUtil.parseOrgansForDonation(
+            argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).orElse(""));
+        IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
+            argMultimap.getValue(PREFIX_FRIDGE_ID).orElse(""));
+        if (fridgeId != null) {
+            if (!fridgeId.getTypeOfEntity().equalsIgnoreCase("f")) {
+                throw new ParseException(MESSAGE_INVALID_FRIDGE_ID);
+            }
+            if (!IdentificationNumber.isExistingIdentificationNumber(fridgeId.toString())) {
+                throw new ParseException(MESSAGE_INEXISTENT_FRIDGE);
+            }
+        }
+        Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
+        String relationship = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELATIONSHIP)
+            .orElse(""));
+
+        return new Body(false, 1, dateOfAdmission, name, sex, nric, religion,
+                causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationship,
+                        phoneNok);
     }
 
     /**
