@@ -72,10 +72,10 @@ Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
 
 ''''''''''LAYOUT''''''''''
 Model.ModelManager -[hidden]down-> Model.UserPrefsModel
-Achievements -[hidden]right->Calendar
-Achievements -[hidden]right->diaryFeature
-Achievements -[hidden]right->FinancialTracker
-Achievements -[hidden]right->Itinerary
+Address -[hidden]right->Calendar
+Address -[hidden]right->diaryFeature
+Address -[hidden]right->FinancialTracker
+Address -[hidden]right->Itinerary
 Model.UserPrefsModelManager -[hidden]down->Address
 Model.UserPrefsModelManager -[hidden]down->Achievements
 Model.UserPrefsModelManager -[hidden]down->Calendar

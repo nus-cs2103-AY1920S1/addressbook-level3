@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":AchievementsLogicManager" as AchievementsLogicManager LOGIC_COLOR
+participant ":Supplier" as Supplier LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":StatisticsModelManager" as StatisticsModelManager MODEL_COLOR
+participant ":AddressBookModelManager" as AddressBookModelManager MODEL_COLOR
+end box
+
+[-> AchievementsLogicManager : getTotalPersons()
+activate AchievementsLogicManager
+
+AchievementsLogicManager -> Supplier : get()
+activate Supplier
+create StatisticsModelManager
+
+Supplier -> StatisticsModelManager
+activate StatisticsModelManager
+create AddressBookModelManager
+
+StatisticsModelManager -> AddressBookModelManager
+activate AddressBookModelManager
+
+AddressBookModelManager -> AddressBookModelManager : getFiltered()
+activate AddressBookModelManager
+return FilteredPersonList
+return FilteredPersonList
+
+StatisticsModelManager -> StatisticsModelManager : getTotalPersons()
+activate StatisticsModelManager
+return totalPersons
+return totalPersons
+return totalPersons
+
+[<- AchievementsLogicManager
+deactivate AchievementsLogicManager
+@enduml

@@ -16,16 +16,15 @@ Class ReadOnlyUserPrefs
 Class UserPrefs
 }
 
-namespace Address {
-namespace Model {
-Interface AddressBookModel <<Interface>>
-}
-}
-
-
 namespace Achievements {
 namespace Model {
 Interface StatisticsModel <<Interface>>
+}
+}
+
+namespace Address {
+namespace Model {
+Interface AddressBookModel <<Interface>>
 }
 }
 

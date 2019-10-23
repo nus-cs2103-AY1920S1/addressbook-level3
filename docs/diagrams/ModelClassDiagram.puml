@@ -16,6 +16,13 @@ Class ReadOnlyUserPrefs
 Class UserPrefs
 }
 
+namespace Achievements {
+namespace Model {
+Interface StatisticsModel <<Interface>>
+Class StatisticsModelManager
+}
+}
+
 namespace Address {
 namespace Model {
 namespace Person {
@@ -36,14 +43,6 @@ Interface AddressBookModel <<Interface>>
 Class AddressBookModelManager
 Interface ReadOnlyAddressBook <<Interface>>
 Class AddressBook
-}
-}
-
-
-namespace Achievements {
-namespace Model {
-Interface StatisticsModel <<Interface>>
-Class StatisticsModelManager
 }
 }
 
