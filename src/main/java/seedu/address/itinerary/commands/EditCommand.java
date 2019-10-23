@@ -1,18 +1,5 @@
 package seedu.address.itinerary.commands;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.itinerary.model.Event.*;
-import seedu.address.itinerary.model.Exceptions.ItineraryException;
-import seedu.address.itinerary.model.Model;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -20,9 +7,28 @@ import static seedu.address.itinerary.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.List;
+import java.util.Optional;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.itinerary.model.Model;
+import seedu.address.itinerary.model.event.Date;
+import seedu.address.itinerary.model.event.Description;
+import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.model.event.Location;
+import seedu.address.itinerary.model.event.Time;
+import seedu.address.itinerary.model.event.Title;
+import seedu.address.itinerary.model.exceptions.ItineraryException;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+
+/**
+ * Edits the details of an existing event in the itinerary.
+ */
+@SuppressWarnings("MalformedFormatString")
 public class EditCommand extends Command {
-    /** {@code Predicate} that always evaluate to true */
-    public Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
@@ -38,23 +44,23 @@ public class EditCommand extends Command {
             + PREFIX_DATE + "15032015 "
             + PREFIX_LOCATION + "Singapore";
 
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Updated successfully! :D\n" + "HAND, TrazEzy~";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event exists in the address book.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided. ╚(•⌂•)╝";
+    private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Updated successfully! :D\n" + "HAND, TrazEzy~";
+    private static final String MESSAGE_DUPLICATE_EVENT = "This event exists in the address book.";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
 
     /**
      * @param index of the event in the filtered event list to edit
-     * @param editPersonDescriptor details to edit the event with
+     * @param editEventDescriptor details to edit the event with
      */
-    public EditCommand(Index index, EditEventDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditEventDescriptor editEventDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editEventDescriptor);
 
         this.index = index;
-        this.editEventDescriptor = new EditEventDescriptor(editPersonDescriptor);
+        this.editEventDescriptor = new EditEventDescriptor(editEventDescriptor);
     }
 
     @Override
@@ -78,7 +84,7 @@ public class EditCommand extends Command {
         } catch (ItineraryException e) {
             e.getMessage();
         }
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
@@ -97,7 +103,7 @@ public class EditCommand extends Command {
 
         Event event = new Event(updatedTitle, updatedDate, updatedLocation, updatedDescription, updatedTime);
 
-        if (eventToEdit.getIsDone() == true) {
+        if (eventToEdit.getIsDone()) {
             event.markIsDone();
         }
 
@@ -124,7 +130,7 @@ public class EditCommand extends Command {
 
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the event.
      */
     public static class EditEventDescriptor {
         private Title title;
@@ -139,7 +145,7 @@ public class EditCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditEventDescriptor(EditEventDescriptor toCopy) {
+        EditEventDescriptor(EditEventDescriptor toCopy) {
             setTitle(toCopy.title);
             setDate(toCopy.date);
             setTime(toCopy.time);
