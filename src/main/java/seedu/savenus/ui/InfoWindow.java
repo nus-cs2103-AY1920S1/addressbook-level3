@@ -72,6 +72,26 @@ public class InfoWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the info window theme to light theme.
+     */
+    public void setToLightTheme() {
+        getRoot().getScene().getStylesheets().clear();
+        getRoot().getScene().setUserAgentStylesheet(null);
+        getRoot().getScene().getStylesheets()
+                .add(MainWindow.LIGHT_THEME_CSS);
+    }
+
+    /**
+     * Sets the info window theme to dark theme.
+     */
+    public void setToDarkTheme() {
+        getRoot().getScene().getStylesheets().clear();
+        getRoot().getScene().setUserAgentStylesheet(null);
+        getRoot().getScene().getStylesheets()
+                .add(MainWindow.DARK_THEME_CSS);
+    }
+
+    /**
      * Shows the information window.
      * @throws IllegalStateException
      * <ul>

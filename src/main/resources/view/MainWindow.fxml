@@ -29,7 +29,7 @@
             </stylesheets>
             <HBox>
                 <children>
-                    <AnchorPane styleClass="pane-with-border" HBox.hgrow="NEVER">
+                    <AnchorPane styleClass="menu-pane-with-border" HBox.hgrow="NEVER">
                         <children>
                             <Button layoutX="2.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                                 <graphic>

@@ -16,16 +16,16 @@
   </icons>
   <scene>
     <Scene stylesheets="@DarkTheme.css">
-         <VBox spacing="10.0" styleClass="help-window" stylesheets="@DarkTheme.css">
+         <VBox spacing="10.0" styleClass="help-window">
             <children>
-               <Label fx:id="helpMessage" styleClass="help-text" stylesheets="@DarkTheme.css" text="Label">
+               <Label fx:id="helpMessage" styleClass="help-text" text="Label">
                   <font>
                      <Font size="20.0" />
                   </font></Label>
                <HBox spacing="20.0">
                   <children>
-                     <Button fx:id="openButton" mnemonicParsing="false" onAction="#openUrl" prefHeight="40.0" prefWidth="135.0" styleClass="help-button" stylesheets="@DarkTheme.css" text="Guide" />
-                     <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" prefHeight="40.0" prefWidth="135.0" styleClass="help-button" stylesheets="@DarkTheme.css" text="Close" />
+                     <Button fx:id="openButton" mnemonicParsing="false" onAction="#openUrl" prefHeight="40.0" prefWidth="135.0" styleClass="help-button" text="Guide" />
+                     <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" prefHeight="40.0" prefWidth="135.0" styleClass="help-button" text="Close" />
                   </children>
                </HBox>
             </children>

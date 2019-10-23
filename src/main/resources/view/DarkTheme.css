@@ -74,10 +74,15 @@
     -fx-text-fill: derive(grey, 70%);
 }
 
-.pane-with-border {
+.menu-pane-with-border {
     -fx-background-color: #1d1d1d;
     -fx-border-color: derive(#1d1d1d, 10%);
     -fx-border-top-width: 1px;
+}
+
+.pane-with-border {
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: derive(#1d1d1d, 10%);
 }
 
 .vbox-tab-pane-with-border {
@@ -105,7 +110,7 @@
 }
 
 .account-days-left {
-    -fx-text-fill: white;
+    -fx-fill: white;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 27px;
 }
@@ -163,7 +168,7 @@
     -fx-text-fill: white;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
-    -fx-font-size: 11pt;
+    -fx-font-size: 12pt;
 }
 
 .status-bar-with-border {
@@ -191,6 +196,11 @@
 .menu-button {
     -fx-border-color: transparent;
     -fx-background-color: #1d1d1d;
+}
+
+.info-window {
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: white;
 }
 
 .info-header {

@@ -7,14 +7,14 @@
 }
 
 .menu-item .label {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 15pt;
 }
 
 .context-menu {
     -fx-background-color: #dfe3ee;
-    -fx-border-color: #3b5998;
+    -fx-border-color: #8b9dc3;
 }
 
 .menu-item:focused {
@@ -34,7 +34,7 @@
 .help-text {
     -fx-font-size: 13pt;
     -fx-font-family: "Franklin Gothic Medium";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-alignment: center-left;
 }
 
@@ -52,60 +52,65 @@
 
 .list-cell:filled {
     -fx-background-color: #dfe3ee;
-    -fx-border-color: derive(#dfe3ee, 20%);
+    -fx-border-color: #8b9dc3;
     -fx-border-width: 0 0 1 0;
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-background-color: #0D293E;
-    -fx-border-color: #0D293E;
+    -fx-background-color: #8b9dc3;
+    -fx-border-color: #8b9dc3;
     -fx-border-width: 2;
 }
 
 .cell_big_label {
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 20px;
-    -fx-text-fill: white;
+    -fx-text-fill: #3b5998;
 }
 
 .cell_small_label {
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 15px;
-    -fx-text-fill: derive(grey, 70%);
+    -fx-text-fill: derive(black, 20%);
+}
+
+.menu-pane-with-border {
+    -fx-background-color: #3b5998;
+    -fx-border-color: #3b5998;
 }
 
 .pane-with-border {
     -fx-background-color: #dfe3ee;
-    -fx-border-color: derive(#dfe3ee, 10%);
+    -fx-border-color: #8b9dc3;
     -fx-border-top-width: 1px;
 }
 
 .vbox-tab-pane-with-border {
     -fx-background-color: #dfe3ee;
-    -fx-border-color: derive(#dfe3ee, 10%);
+    -fx-border-color: #8b9dc3;
     -fx-border-style: solid none none none;
 }
 
 .tab-pane-with-border {
     -fx-background-color: #dfe3ee;
-    -fx-border-color: derive(#dfe3ee, 10%);
+    -fx-border-color: #8b9dc3;
     -fx-border-width: 1 1 1 1;
 }
 
 .account-balance {
-    -fx-text-fill: white;
+    -fx-fill: green;
     -fx-font-family: Monospaced;
     -fx-font-size: 51px;
 }
 
 .purchase-history-text {
-    -fx-text-fill: white;
+    -fx-fill: black;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 40px;
 }
 
 .account-days-left {
-    -fx-text-fill: white;
+    -fx-fill: black;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 27px;
 }
@@ -131,7 +136,7 @@
 }
 
 .tab-pane .tab:selected {
-    -fx-background-color: #003d7c;
+    -fx-background-color: #3b5998;
 }
 
 .tab .tab-label {
@@ -150,25 +155,25 @@
     -fx-background-color: transparent;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .status-bar {
     -fx-background-color: #dfe3ee;
-    -fx-border-color: derive(#dfe3ee, 10%);
+    -fx-border-color: #8b9dc3;
 }
 
 .status-bar .label {
     -fx-font-family: "Franklin Gothic Medium";
-    -fx-text-fill: white;
+    -fx-text-fill: #3b5998;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
-    -fx-font-size: 11pt;
+    -fx-font-size: 12pt;
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#dfe3ee, 30%);
-    -fx-border-color: derive(#dfe3ee, 25%);
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: #8b9dc3;
 }
 
 /*
@@ -178,37 +183,43 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: white;
+    -fx-border-color: #8b9dc3;
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #dfe3ee;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
+    -fx-text-fill: #3b5998;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .menu-button {
     -fx-border-color: transparent;
+    -fx-background-color: #3b5998;
+}
+
+.info-window {
     -fx-background-color: #dfe3ee;
+    -fx-border-color: #8b9dc3;
+    -fx-border-width: 2;
 }
 
 .info-header {
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 45pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #3b5998;
 }
 
 .info-big-label {
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 25pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #3b5998;
 }
 
 .info-small-label {
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 15pt;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .command-text {
@@ -216,7 +227,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #8b9dc3;
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -240,14 +251,15 @@
 }
 
 .help-button {
-    -fx-text-fill: white;
+    -fx-text-fill: #3b5998;
     -fx-font-size: 15pt;
     -fx-font-family: "Franklin Gothic Medium";
 }
 
 .help-window {
     -fx-background-color: #dfe3ee;
-    -fx-border-color: white;
+    -fx-border-color: #8b9dc3;
+    -fx-border-width: 2;
 }
 
 .scroll-bar {
@@ -255,7 +267,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#dfe3ee, 50%);
+    -fx-background-color: #3b5998;
     -fx-background-insets: 3;
 }
 
@@ -288,11 +300,11 @@
     -fx-border-width: 1;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #2a2a2a, transparent, #2a2a2a;
+    -fx-background-color: transparent, white, transparent, white;
     -fx-background-radius: 0;
 }
 
@@ -317,6 +329,6 @@
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #c5c5c5;
+    -fx-background: #8b9dc3;
 }
 

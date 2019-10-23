@@ -105,6 +105,26 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the help window theme to light theme.
+     */
+    public void setToLightTheme() {
+        getRoot().getScene().getStylesheets().clear();
+        getRoot().getScene().setUserAgentStylesheet(null);
+        getRoot().getScene().getStylesheets()
+                .add(MainWindow.LIGHT_THEME_CSS);
+    }
+
+    /**
+     * Sets the help window theme to dark theme.
+     */
+    public void setToDarkTheme() {
+        getRoot().getScene().getStylesheets().clear();
+        getRoot().getScene().setUserAgentStylesheet(null);
+        getRoot().getScene().getStylesheets()
+                .add(MainWindow.DARK_THEME_CSS);
+    }
+
+    /**
      * Shows the help window.
      * @throws IllegalStateException
      * <ul>
