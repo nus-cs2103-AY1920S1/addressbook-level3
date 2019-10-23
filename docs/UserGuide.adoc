@@ -328,6 +328,7 @@ Also the amount withdrawn is added into your wallet.
 Users can get a list of recommendations from the application, based on several factors, summarized
 in the tables below.
 
+//tag::recommendationbonus[]
 .Bonuses applied by the recommendation system
 |===
 |Condition 1 |Condition 2 |Bonus
@@ -362,7 +363,9 @@ in the tables below.
 |10 or more purchases
 |+0.50
 |===
+//end::recommendationbonus[]
 
+//tag::recommendationpenalty[]
 .Penalties applied by the recommendation system
 |===
 |Condition 1 |Condition 2 |Penalty
@@ -387,6 +390,7 @@ in the tables below.
 |Within a time period of <2 days
 |Applies a decreasing penalty from -10 which diminishes to 0 after 2 days
 |===
+//end::recommendationpenalty[]
 
 ****
 Format: `recommend`

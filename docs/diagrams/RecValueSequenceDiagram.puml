@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":RecommendationSystem" as RecommendationSystem MODEL_COLOR
+end box
+
+[-> RecommendationSystem : calculateRecommendation(food)
+activate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getLikedTagBonus(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getLikedCategoryBonus(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getLikedLocationBonus(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getDislikedTagPenalty(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getDislikedCategoryPenalty(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getDislikedLocationPenalty(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getPurchaseHistoryTagBonus(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getPurchaseHistoryLocationBonus(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getPurchaseHistoryCategoryBonus(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getPurchaseHistorySameFoodBonus(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+RecommendationSystem -> RecommendationSystem : getPurchaseHistorySameFoodTimePenalty(food)
+activate RecommendationSystem
+
+RecommendationSystem --> RecommendationSystem : weight
+deactivate RecommendationSystem
+
+[<--RecommendationSystem : weight
+deactivate RecommendationSystem
+@enduml

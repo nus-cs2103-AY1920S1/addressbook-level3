@@ -1,5 +1,7 @@
 package seedu.savenus.model.recommend;
 
+import static java.util.Objects.requireNonNull;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -20,7 +22,7 @@ import seedu.savenus.model.purchase.Purchase;
 /**
  * Represents the Recommendation System of the menu.
  */
-public class RecommendationSystem {
+public class RecommendationSystem implements Recommender {
     private static final Comparator<Food> DEFAULT_COMPARATOR = (x, y) -> 0;
     private static final Predicate<Food> DEFAULT_PREDICATE = x -> true;
 
@@ -76,7 +78,7 @@ public class RecommendationSystem {
     private Predicate<Food> predicate = f -> dailyBudget.compareTo(new BigDecimal(f.getPrice().value)) >= 0;
     private int daysToExpire = 100;
 
-    private boolean inUse;
+    private boolean isInUse;
 
     private RecommendationSystem() {
     }
@@ -91,7 +93,10 @@ public class RecommendationSystem {
     /**
      * Calculates the recommendation value for each Food provided
      */
+    @Override
     public double calculateRecommendation(Food food) {
+        requireNonNull(food);
+
         double weight = 0;
 
         // Bonuses for liked tags, categories and locations
@@ -302,6 +307,7 @@ public class RecommendationSystem {
         return new BigDecimal(timeInMillis).multiply(scale).sqrt(new MathContext(10)).subtract(intercept);
     }
 
+    @Override
     public Comparator<Food> getRecommendationComparator() {
         if (isInUse()) {
             return comparator;
@@ -310,6 +316,7 @@ public class RecommendationSystem {
         }
     }
 
+    @Override
     public Predicate<Food> getRecommendationPredicate() {
         if (isInUse()) {
             return predicate;
@@ -318,47 +325,60 @@ public class RecommendationSystem {
         }
     }
 
+    @Override
     public boolean isInUse() {
-        return inUse;
+        return isInUse;
     }
 
-    public void setInUse(boolean inUse) {
-        this.inUse = inUse;
+    @Override
+    public void setInUse(boolean isInUse) {
+        this.isInUse = isInUse;
     }
 
+    @Override
     public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         userRecommendations.addLikes(categoryList, tagList, locationList);
     }
 
+    @Override
     public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         userRecommendations.addDislikes(categoryList, tagList, locationList);
     }
 
+    @Override
     public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         userRecommendations.removeLikes(categoryList, tagList, locationList);
     }
 
+    @Override
     public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         userRecommendations.removeDislikes(categoryList, tagList, locationList);
     }
 
+    @Override
     public void clearLikes() {
         userRecommendations.clearLikes();
     }
 
+    @Override
     public void clearDislikes() {
         userRecommendations.clearDislikes();
     }
 
+    @Override
     public UserRecommendations getUserRecommendations() {
         return userRecommendations;
     }
 
+    @Override
     public void setUserRecommendations(UserRecommendations userRecommendations) {
+        requireNonNull(userRecommendations);
         this.userRecommendations = userRecommendations;
     }
 
+    @Override
     public void updatePurchaseHistory(ObservableList<Purchase> purchaseHistory) {
+        requireNonNull(purchaseHistory);
         this.purchaseHistory = purchaseHistory;
     }
 
@@ -367,7 +387,10 @@ public class RecommendationSystem {
      *
      * @param budget The specified budget
      */
+    @Override
     public void updateBudget(BigDecimal budget) {
+        requireNonNull(budget);
+
         this.budget = budget;
         if (budget.equals(BigDecimal.ZERO) || daysToExpire == 0) {
             this.dailyBudget = BigDecimal.ZERO;
@@ -376,15 +399,19 @@ public class RecommendationSystem {
         }
     }
 
+    @Override
     public BigDecimal getBudget() {
         return budget;
     }
 
+    @Override
     public BigDecimal getDailyBudget() {
         return dailyBudget;
     }
 
+    @Override
     public void updateDaysToExpire(int daysToExpire) {
+        requireNonNull(daysToExpire);
         this.daysToExpire = daysToExpire;
     }
 
