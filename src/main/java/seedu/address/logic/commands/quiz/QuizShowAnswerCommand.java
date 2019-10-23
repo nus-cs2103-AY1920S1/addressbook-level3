@@ -33,6 +33,6 @@ public class QuizShowAnswerCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException(INDEX_EXCEED_RANGE);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, answer.toString()), false, false, true, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, answer.toString()), 4);
     }
 }

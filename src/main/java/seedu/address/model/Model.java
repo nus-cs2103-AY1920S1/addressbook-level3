@@ -89,6 +89,11 @@ public interface Model {
     void deleteNote(Note target);
 
     /**
+     * Clears all lecture notes.
+     */
+    void clearNotes();
+
+    /**
      * Adds the given (not yet existing) lecture note.
      */
     void addNote(Note note);

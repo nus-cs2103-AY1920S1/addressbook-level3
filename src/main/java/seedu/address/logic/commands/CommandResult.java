@@ -10,7 +10,6 @@ import seedu.address.logic.commands.statistics.Type;
  * Represents the result of a command execution.
  */
 public class CommandResult {
-
     private final String feedbackToUser;
 
     /**
@@ -30,22 +29,28 @@ public class CommandResult {
     private Type type;
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with fields specified by flags, an integer variable acting
+     * as a bit field for four boolean variables.
+     *
+     * @param flags a non-negative integer whose last four bits represent showHelp (1), exit (2),
+     *         isQuiz (4) and showStats (8)
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isQuiz, boolean showStats) {
+    public CommandResult(String feedbackToUser, int flags) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.isQuiz = isQuiz;
-        this.showStats = showStats;
+        assert flags >= 0;
+
+        this.showHelp = (flags & 1) > 0;
+        this.exit = (flags & 2) > 0;
+        this.isQuiz = (flags & 4) > 0;
+        this.showStats = (flags & 8) > 0;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
+     * and other fields set to their default value of <code>false</code>.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, 0);
     }
 
     public String getFeedbackToUser() {
@@ -97,5 +102,4 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
-
 }

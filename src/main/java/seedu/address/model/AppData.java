@@ -135,10 +135,18 @@ public class AppData implements ReadOnlyAppData {
         notes.remove(title);
     }
 
+    /**
+     * Clears all lecture notes.
+     */
+    public void clearNotes() {
+        notes.setNotes(new UniqueNoteList());
+    }
+
     //// question operations
 
     /**
-     * Returns true if a question with the same identity as {@code question} exists in the address book.
+     * Returns true if a question with the same identity as {@code question} exists in this set
+     * of application data.
      */
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
@@ -166,7 +174,7 @@ public class AppData implements ReadOnlyAppData {
 
     /**
      * Removes {@code key} from this {@code AppData}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the application data.
      */
     public void removeQuestion(Question key) {
         questions.remove(key);
