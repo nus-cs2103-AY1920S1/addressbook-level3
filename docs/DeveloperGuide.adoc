@@ -287,12 +287,36 @@ image::TaskCode.png[]
 
 // tag::transfilter[]
 ==== Filtering Transactions
+
+The filter transactions feature allows the user to change the filter for the list of transactions.
+This feature is facilitated by `TransactionFeatureParser`, `FilterTransactionCommandParser`, and `TransactionCommand`.
+The arguments supported by this feature includes:
+
+- `Month` (optional)
+- `Year` (optional)
+- `Category` (optional)
+- `TransactionType` (optional)
+
+
 ===== Implementation
 ===== Design Considerations
 // end::transfilter[]
 
 // tag::transadd[]
 ==== Adding Transactions
+
+The add transaction feature allows the user to add a transaction into IchiFund.
+This feature is facilitated by `BudgetFeatureParser`, `AddBudgetCommandParser`, and `AddBudgetCommand`.
+The arguments supported by this feature includes:
+
+- `Description`
+- `Amount`
+- `Category` (optional)
+- `Day` (optional)
+- `Month` (optional)
+- `Year` (optional)
+- `TransactionType` (optional)
+
 ===== Implementation
 ===== Design Considerations
 // end::transadd[]
