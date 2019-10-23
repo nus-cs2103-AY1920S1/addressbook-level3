@@ -1,0 +1,6 @@
+== Autocomplete
+====
+*Autocomplete*
+
+As a community nurse, you will be performing several commands through the Command Line Interface (CLI). In order to speed up the process, the application includes an autocomplete feature that allows you to more quickly and conveniently input your commands and parameters. This section describes the feature in further detail.
+====

@@ -1,0 +1,4 @@
+== Exiting the program : `exit`
+
+You can exit the program using `exit`. +
+Format: `exit`
