@@ -83,7 +83,13 @@ The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBa
 
 *  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback.
 
+.Structure of the Chat Pane sub-component
+image::UiChatPaneClassDiagram.png[]
+
 *  The `ResultPane` displays a relevant `ResultView` based on the command entered.
+
+.Structure of the Result Pane sub-component
+image::UiResultPaneClassDiagram.png[]
 
 All these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
 
@@ -160,7 +166,59 @@ Classes used by multiple components are in the `tagline.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== [Proposed] Chatbot prompting feature
+
+==== Description
+
+When the user enters an incomplete command, the command could be missing only a few compulsory fields. Instead of forcing the user to edit the command entirely, TagLine will prompt the user for further details instead.
+
+At this point, the user may abort the command or provide the requested details. When all details are provided, the command is executed.
+
+==== Proposed Implementation
+
+The prompting mechanism uses `Prompt` objects to represent individual queries for additional information. A list of `Prompt` objects is used to pass information between the `Logic` and `Ui` components. `Prompt` implements the following operations:
+
+`Logic` side:
+
+* `Prompt#setPrefix()` -- Sets the prefix of the queried data
+* `Prompt#setQuestion()` -- Sets the prompt to be displayed to the user
+* `Prompt#getResponse()` -- Gets the prompt response from the user
+
+`Ui` side:
+
+* `Prompt#getQuestion()` -- Gets the prompt to be displayed to the user
+* `Prompt#setResponse()` -- Sets the response from the user
+
+Given below is an example scenario where the user command has missing compulsory fields.
+
+Step 1: The `Ui` passes the user's command to `Logic`, which finds one or more missing compulsory fields. For each missing field, it creates a new `Prompt` object with a question. Then it throws a `ParseException` containing the list of `Prompt` objects.
+
+image::UserPromptSequenceDiagramStep1.png[]
+
+Step 2: The `Ui` receives the list of `Prompt` objects. For each `Prompt`, it retrieves the question and obtains the corresponding user feedback.
+
+image::UserPromptSequenceDiagramStep2.png[]
+
+Step 3: The `Ui` passes the original command, together with the processed `Prompt` objects, back to `Logic`. `Logic` then executes the corrected command.
+
+image::UserPromptSequenceDiagramStep3.png[]
+
+The user can also abort the command by entering a special string. In this case, the `Ui` will discard the original command and continue to receive further user commands.
+
+==== Design Considerations
+
+===== Aspect: Command correction method
+
+* **Alternative 1**: The `Ui` updates the command with the user's responses by adding the new data to the command string.
+** Pros: No need to overload `Logic#execute()` and `Parser#parse()` methods
+** Cons: Requires `Ui` to know where to insert preambles, and increases coupling between `Ui` and `Logic` components (as `Ui` now needs to know and follow the command format)
+* **Alternative 2** (chosen): The `LogicManager` updates the command with the user's responses by adding the new data to the command string.
+** Pros: No need to overload `Parser#parse()` method
+** Cons: Requires all commands to follow the same general format
+* **Alternative 3**: The `Parser` handles the `Prompt` objects when parsing the command
+** Pros: Easily handles preambles and allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands
+** Cons: Requires changing every `Parser` class, decreases maintainability in the long run
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
