@@ -53,8 +53,8 @@ public class JsonAdaptedTrip {
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
             @JsonProperty("expenditureList")List<JsonAdaptedExpenditure> expenditureList,
             @JsonProperty("diary") JsonAdaptedDiary diary,
-            @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList)
-    {
+            @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) {
+        
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;

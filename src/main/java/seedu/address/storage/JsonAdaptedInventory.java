@@ -1,13 +1,10 @@
 package seedu.address.storage;
 
-import java.util.Optional;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.itinerary.Name;
 
 /**
  * Jackson friendly version of {@code Inventory}.
@@ -48,8 +45,6 @@ public class JsonAdaptedInventory {
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }*/
-
-        System.out.println("naam hai "+name);
 
         if (name == null) {
             throw new IllegalValueException(

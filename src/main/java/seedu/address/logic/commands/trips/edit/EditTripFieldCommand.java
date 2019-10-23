@@ -177,7 +177,8 @@ public class EditTripFieldCommand extends Command {
         public Trip buildTrip() {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
                 return new Trip(name.get(), startDate.get(), endDate.get(),
-                        destination.get(), totalBudget.get(), new DayList(), new ExpenditureList(), diary, new InventoryList());
+                        destination.get(), totalBudget.get(), new DayList(),
+                        new ExpenditureList(), diary, new InventoryList());
             } else {
                 throw new NullPointerException();
             }

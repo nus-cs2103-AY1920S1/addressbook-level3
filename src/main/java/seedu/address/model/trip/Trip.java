@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.ExpenditureList;
-import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;

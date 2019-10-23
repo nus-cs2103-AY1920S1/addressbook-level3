@@ -97,7 +97,8 @@ public class TripBuilder {
      * Terminal method to construct new {@link Trip}.
      */
     public Trip build() {
-        return new Trip(name, startDate, endDate, destination, totalBudget, dayList, expenditureList, diary, inventoryList);
+        return new Trip(name, startDate, endDate, destination, totalBudget,
+                dayList, expenditureList, diary, inventoryList);
     }
 
 }
