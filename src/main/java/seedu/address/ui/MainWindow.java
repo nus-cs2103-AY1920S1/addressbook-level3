@@ -32,6 +32,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.aesthetics.Background;
+import seedu.sgm.model.food.exception.FoodNotSuitableException;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
@@ -53,6 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
+    private ReminderListPanel reminderListPanel;
 
     @FXML
     private Scene scene;
@@ -72,6 +74,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private HBox resultDisplayPlaceholder;
 
+    @FXML
+    private StackPane reminderListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -234,6 +238,10 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getPastReminderList());
+        reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        logic.schedule();
     }
 
     /**
@@ -396,6 +404,10 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        } catch (FoodNotSuitableException e) {
+            logger.info("Not suitable food input: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

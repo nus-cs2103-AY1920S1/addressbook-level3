@@ -89,6 +89,39 @@ public class DateTime {
     }
 
     /**
+     * Returns true if current date time is before the given date time.
+     */
+    public boolean isBeforeDateTime(DateTime dateTime) {
+        return LocalDateTime.of(date, time).isBefore(LocalDateTime.of(dateTime.date, dateTime.time));
+    }
+
+    /**
+     * Returns true if current time is between the given time.
+     */
+    public boolean isBetweenTime(DateTime startingDateTime, DateTime endingDateTime) {
+        return (time.isAfter(startingDateTime.getTime()) || time.equals(startingDateTime.getTime()))
+                && (time.isBefore(endingDateTime.getTime()) || time.equals(endingDateTime.getTime()));
+    }
+
+    /**
+     * Returns true if current date and time is between the given date and time.
+     */
+    public boolean isBetweenDateTime(DateTime startingDateTime, DateTime endingDateTime) {
+        LocalDateTime thisDateTime = toLocalDateTime();
+        LocalDateTime starting = startingDateTime.toLocalDateTime();
+        LocalDateTime ending = endingDateTime.toLocalDateTime();
+        return (thisDateTime.isAfter(starting) || time.equals(starting))
+                && (thisDateTime.isBefore(ending) || thisDateTime.equals(ending));
+    }
+
+    /**
+     * Returns a LocalDateTime object representing the dateTime object.
+     */
+    public LocalDateTime toLocalDateTime() {
+        return LocalDateTime.of(date, time);
+    }
+
+    /**
      * Returns true if both date and time are same.
      */
     @Override
@@ -115,4 +148,5 @@ public class DateTime {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.of(date, time).format(formatter);
     }
+
 }

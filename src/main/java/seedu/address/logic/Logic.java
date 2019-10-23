@@ -11,11 +11,14 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
+import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
@@ -115,6 +118,34 @@ public interface Logic {
      * @return List of maps of fields in the json file containing invalid references.
      */
     List<Map<String, String>> getListOfFieldsContainingInvalidReferences();
+
+    //=========================Calendar==============================
+    /**
+     * Returns the Calendar.
+     *
+     * @see Model#getCalendar()
+     */
+    ReadOnlyCalendar getCalendar();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of calendar entries
+     */
+    ObservableList<CalendarEntry> getFilteredCalendarEntryList();
+
+    /**
+     * Returns an unmodifiable view of past reminders.
+     */
+    ObservableList<CalendarEntry> getPastReminderList();
+
+    /**
+     * Reschedule upcoming reminders.
+     */
+    void schedule();
+
+    /**
+     * Stop all upcoming reminders;
+     */
+    void stopAllReminders();
 
     //=========== Statistics List =============================================================
 

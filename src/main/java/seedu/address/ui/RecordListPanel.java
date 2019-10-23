@@ -13,7 +13,7 @@ import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Record;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of records.
  */
 public class RecordListPanel extends UiPart<Region> {
     private static final String FXML = "RecordListPanel.fxml";
@@ -29,7 +29,8 @@ public class RecordListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code BloodSugarRecordCard} or
+     * a {@code BmiRecordCard}.
      */
     class RecordListViewCell extends ListCell<Record> {
         @Override

@@ -11,6 +11,7 @@ import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
@@ -98,6 +99,8 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
+
+    //==================Food List====================
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
@@ -111,11 +114,6 @@ public interface Model {
     void setFoodList(UniqueFoodList newFoodList);
 
     boolean hasFood(Food food);
-
-    /**
-     * Deletes the given food. The food must exist in the recommendations.
-     */
-    void deleteFood(Food food);
 
     /**
      * Adds the given food. {@code food} must not already exist in the recommendations.
@@ -293,6 +291,11 @@ public interface Model {
     void addCalendarEntry(CalendarEntry calendarEntry);
 
     /**
+     * Adds the given reminder to the past calendar. {@code reminder} must not already exist in the past calendar.
+     */
+    void addPastReminder(Reminder reminder);
+
+    /**
      * Replaces the given calendarEntry {@code target} with {@code editedCalendarEntry}. {@code target} must exist in
      * the calendar. The calendarEntry identity of {@code editedCalendarEntry} must not be the same as another existing
      * calendar entry in the calendar.
@@ -303,6 +306,21 @@ public interface Model {
      * Returns an unmodifiable view of the filtered calendar entry list
      */
     ObservableList<CalendarEntry> getFilteredCalendarEntryList();
+
+    /**
+     * Returns an unmodifiable view of the past reminder list
+     */
+    ObservableList<CalendarEntry> getPastReminderList();
+
+    /**
+     * Reschedule upcoming reminders.
+     */
+    void schedule();
+
+    /**
+     * Stop all upcoming reminders.
+     */
+    void stopAllReminders();
 
     //=========== Aesthetics =============================================================
 

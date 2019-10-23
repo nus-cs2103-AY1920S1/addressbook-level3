@@ -18,10 +18,12 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
+import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
@@ -147,6 +149,30 @@ public class LogicManager implements Logic {
     @Override
     public List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
         return storage.getListOfFieldsContainingInvalidReferences();
+    }
+
+    public ReadOnlyCalendar getCalendar() {
+        return model.getCalendar();
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
+        return model.getFilteredCalendarEntryList();
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getPastReminderList() {
+        return model.getPastReminderList();
+    }
+
+    @Override
+    public void schedule() {
+        model.schedule();
+    }
+
+    @Override
+    public void stopAllReminders() {
+        model.stopAllReminders();
     }
 
     //=========== Statistics List =============================================================

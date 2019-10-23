@@ -1,7 +1,5 @@
 package seedu.address;
 
-import static seedu.sgm.model.food.TypicalFoods.FOODS;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -90,7 +88,6 @@ public class MainApp extends Application {
 
         Model model = initModelManager(userPrefs);
         this.model = model;
-
         logic = new LogicManager(this.model, storage);
 
         ui = new UiManager(logic);
@@ -169,12 +166,36 @@ public class MainApp extends Application {
             logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
                     + "user list containing no bio data");
             initialData = dataObjectSupplier.get();
+            logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
+                + "user list containing no bio data");
+            initialUserData = new UserList();
+        } catch (IOException e) {
+            logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
+                + "user list containing no bio data");
+            initialUserData = new UserList();
         }
         return initialData;
     }
 
     private String capitaliseFirstLetter(String str) {
         return str.substring(0, 1).toUpperCase() + str.substring(1);
+        try {
+            foodListOptional = storage.readFoodList();
+            if (!foodListOptional.isPresent()) {
+                logger.info("Food list data file not found. Will be starting a sample food list");
+            }
+            initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
+        } catch (DataConversionException e) {
+            logger.warning("Food list data file is not in the correct format. Will be starting with an empty "
+                + "food list");
+            initialFoodListData = new UniqueFoodList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty food list");
+            initialFoodListData = new UniqueFoodList();
+        }
+
+        return new ModelManager(initialData, userPrefs, initialUserData, initialFoodListData, initialRecordListData,
+            initialCalendar);
     }
 
 
@@ -262,5 +283,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+        logic.stopAllReminders();
     }
 }

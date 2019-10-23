@@ -42,7 +42,7 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
         if (contains(toAdd)) {
             throw new DuplicateCalendarEntryException();
         }
-        internalList.add(toAdd);
+        internalList.add(0, toAdd);
     }
 
     /**
