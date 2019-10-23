@@ -176,30 +176,33 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== AutoComplete feature for command execution
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The AutoComplete is facilitated by `ParserManager`.
+It dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+For the UI package to have access to this information, it exposes its functionality through `LogicManager` as `UiLogicHelper` interface with the following getter methods:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
+* `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
+* `List<ModeEnu#getModes()` -- Retrieves the possible modes the user can transition to from current mode 
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+These operations are implemented in `SpecificModeParser` aided by `ClassUtil` to handle instantiation of Parser and Command objects.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is an example usage scenario and how the AutoCompletion mechanism behaves at each step.
+
+Step 1. The user launches the application. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+Replace image with state of ParserManager
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user enters `start difficult` command to begin the game. The `LogicManager` passes string to `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `stop` to abruptly end the game. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
@@ -232,20 +235,20 @@ Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Sinc
 
 image::UndoRedoState5.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user types a keystroke:
 
 image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How parser and command objects are instantiated in SpecificModeParser
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** Use java reflections to hold a List of Classes and iterate through them to pick the matching Classes
+** Pros: Open Close Principle strictly followed. Adding a command with a parser takes only one line of code.
+** Cons: It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
+* **Alternative 2:** Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.
+** Pros: Compile time error would be thrown if new command or parser does not subclass correctly.
+** Cons: Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
