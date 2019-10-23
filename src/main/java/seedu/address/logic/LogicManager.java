@@ -3,6 +3,8 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -18,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
@@ -144,6 +147,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
+        return storage.getListOfFieldsContainingInvalidReferences();
+    }
+
     public ReadOnlyCalendar getCalendar() {
         return model.getCalendar();
     }
@@ -167,6 +174,7 @@ public class LogicManager implements Logic {
     public void stopAllReminders() {
         model.stopAllReminders();
     }
+
     //=========== Statistics List =============================================================
 
     @Override
@@ -188,6 +196,11 @@ public class LogicManager implements Logic {
     @Override
     public Colour getFontColour() {
         return model.getFontColour();
+    }
+
+    @Override
+    public Background getBackground() {
+        return model.getBackground();
     }
 
 }

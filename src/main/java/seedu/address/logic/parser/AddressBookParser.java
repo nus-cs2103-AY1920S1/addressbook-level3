@@ -21,11 +21,13 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecmFoodCommand;
 import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.achvm.AchvmCommand;
+import seedu.address.logic.commands.aesthetics.BackgroundCommand;
 import seedu.address.logic.commands.aesthetics.FontColourCommand;
 import seedu.address.logic.commands.bio.AddBioCommand;
 import seedu.address.logic.commands.bio.BioCommand;
 import seedu.address.logic.commands.bio.ClearBioCommand;
 import seedu.address.logic.commands.bio.EditBioCommand;
+import seedu.address.logic.parser.aesthetics.BackgroundCommandParser;
 import seedu.address.logic.parser.aesthetics.FontColourCommandParser;
 import seedu.address.logic.parser.bio.AddBioCommandParser;
 import seedu.address.logic.parser.bio.EditBioCommandParser;
@@ -77,24 +79,6 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case BioCommand.COMMAND_WORD:
-            requireEmptyArguments(arguments);
-            return new BioCommand();
-
-        case AddBioCommand.COMMAND_WORD:
-            return new AddBioCommandParser().parse(arguments);
-
-        case EditBioCommand.COMMAND_WORD:
-            return new EditBioCommandParser().parse(arguments);
-
-        case ClearBioCommand.COMMAND_WORD:
-            requireEmptyArguments(arguments);
-            return new ClearBioCommand();
-
-        case AchvmCommand.COMMAND_WORD:
-            requireEmptyArguments(arguments);
-            return new AchvmCommand();
-
         case ExitCommand.COMMAND_WORD:
             requireEmptyArguments(arguments);
             return new ExitCommand();
@@ -118,8 +102,35 @@ public class AddressBookParser {
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments);
 
+        //=========== User List =============================================================
+
+        case BioCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new BioCommand();
+
+        case AddBioCommand.COMMAND_WORD:
+            return new AddBioCommandParser().parse(arguments);
+
+        case EditBioCommand.COMMAND_WORD:
+            return new EditBioCommandParser().parse(arguments);
+
+        case ClearBioCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new ClearBioCommand();
+
+        //=========== Achievements =============================================================
+
+        case AchvmCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new AchvmCommand();
+
+        //=========== Aesthetics =============================================================
+
         case FontColourCommand.COMMAND_WORD:
             return new FontColourCommandParser().parse(arguments);
+
+        case BackgroundCommand.COMMAND_WORD:
+            return new BackgroundCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

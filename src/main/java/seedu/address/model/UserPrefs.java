@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 
 /**
@@ -81,9 +82,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return new Colour(this.guiSettings.getFontColour());
     }
 
+    @Override
     public void setFontColour(Colour fontColour) {
         requireNonNull(fontColour);
         this.guiSettings.setFontColour(fontColour);
+    }
+
+    @Override
+    public Background getBackground() {
+        return this.guiSettings.getBackground();
+    }
+
+    @Override
+    public void setBackground(Background background) {
+        requireNonNull(background);
+        this.guiSettings.setBackground(background);
     }
 
     //=========== Food Map =============================================================

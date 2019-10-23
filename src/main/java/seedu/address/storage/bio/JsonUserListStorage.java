@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -23,6 +26,7 @@ public class JsonUserListStorage implements UserListStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonUserListStorage.class);
 
     private Path filePath;
+    private List<Map<String, String>> listOfFieldsContainingInvalidReferences = new ArrayList<>();
 
     public JsonUserListStorage(Path filePath) {
         this.filePath = filePath;
@@ -52,6 +56,9 @@ public class JsonUserListStorage implements UserListStorage {
             return Optional.empty();
         }
 
+        listOfFieldsContainingInvalidReferences = JsonSerializableUserList
+                .getListOfFieldsContainingInvalidReferences();
+
         try {
             return Optional.of(jsonUserList.get().toModelType());
         } catch (IllegalValueException ive) {
@@ -78,4 +85,8 @@ public class JsonUserListStorage implements UserListStorage {
         JsonUtil.saveJsonFile(new JsonSerializableUserList(userList), filePath);
     }
 
+    @Override
+    public List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
+        return listOfFieldsContainingInvalidReferences;
+    }
 }

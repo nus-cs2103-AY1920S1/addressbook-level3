@@ -41,14 +41,15 @@ public class MainDisplayPane {
             ObservableList<User> filteredUserList = logic.getFilteredUserList();
             BioPane previousPane = (BioPane) map.get(DisplayPaneType.BIO);
             Image previousDp = previousPane != null ? previousPane.getImg() : null;
+
             if (!filteredUserList.isEmpty() && previousDp != null && filteredUserList.get(0).getDpPath().toString()
                     .equals(previousPane.getDpPath())) {
                 return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList, previousDp,
-                                logic.getFontColour()),
+                                logic.getFontColour(), logic.getBackground()),
                         newPaneIsToBeCreated);
             } else {
                 return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList,
-                                logic.getFontColour()),
+                                logic.getFontColour(), logic.getBackground()),
                         newPaneIsToBeCreated);
             }
         case ACHVM:
