@@ -1,0 +1,78 @@
+@startuml
+!include style.puml
+title Sequence Diagram for Edit Command
+
+box Logic LOGIC_COLOR_T1
+participant ":EditCommand" as EditCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":EventHistory" as EventHistory LOGIC_COLOR
+participant ":EventFactory" as EventFactory LOGIC_COLOR
+participant ":EditEvent" as EditEvent LOGIC_COLOR
+participant ":EventPayload" as EventPayload LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+end box
+
+
+
+[-> EditCommand : execute(model)
+activate EditCommand
+
+    create EventPayload
+    EditCommand -> EventPayload
+    activate EventPayload
+    return payload
+
+    EditCommand -> EventPayload : put(KEY_ORIGINAL_EXERCISE, originalExercise)
+    activate EventPayload
+    return
+
+    EditCommand -> EventPayload : put(KEY_EDITED_EXERCISE, editedExercise)
+    activate EventPayload
+    return
+
+    EditCommand -> EventHistory : addCommandToUndoStack(command)
+    activate EventHistory
+
+        EventHistory -> EventFactory : commandToEvent(command)
+        activate EventFactory
+
+            create EditEvent
+            EventFactory -> EditEvent : editEvent(payload)
+            activate EditEvent
+
+                EditEvent -> EventPayload : get(KEY_ORIGINAL_EXERCISE)
+                activate EventPayload
+                return
+
+                EditEvent -> EventPayload : get(KEY_EDITED_EXERCISE)
+                activate EventPayload
+                return
+
+            return event
+
+        return event
+
+
+    EventHistory --> EditCommand
+    deactivate EventHistory
+
+    EditCommand -> Model : set(originalExercise, editedExercise)
+    activate Model
+
+    EditCommand -[hidden]-> Model
+    return
+
+    create CommandResult
+    EditCommand -> CommandResult
+    activate CommandResult
+
+    CommandResult --> EditCommand
+    deactivate CommandResult
+
+[<-- EditCommand
+deactivate EditCommand
+
+@enduml

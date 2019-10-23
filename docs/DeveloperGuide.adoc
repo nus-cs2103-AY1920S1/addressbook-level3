@@ -81,7 +81,7 @@ image::UiClassDiagram.png[]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExerciseListPanel`, `ExerciseCard` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/exercise/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,11 +96,11 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/exercise/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ExerciseBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding an exercise).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -158,85 +158,147 @@ Classes used by multiple components are in the `seedu.exercise.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by the `events` package consisting of `EventHistory`, `EventFactory`,
+`EventPayload` and the various `Event` classes.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The `EventHistory` is a singleton class used to store a history of successfully executed commands as `Event` objects.
+Instances of `Event` are stored in either the `undoStack` or the `redoStack` depending on the user's course of action.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The `EventHistory` class has two primary methods namely `undo(Model model)` and `redo(Model model)`:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* `eventHistory.undo(model)` -- Undoes the `Event` at the top of the `undoStack`, executes it, and pushes it to the top of the `redoStack`
+* `eventHistory.redo(model)` -- Redoes the `Event` at the top of the `redoStack`, executes it, and pushes it to the top of the `undoStack`
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+These operations are utilised in the `UndoCommand` and `RedoCommand` respectively.
 
-image::UndoRedoState0.png[]
+The following steps will describe the full life-cycle of executing an UndoableCommand, and subsequently
+the UndoCommand and RedoCommand.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
+Step 1: When an `UndoableCommand` is executed, relevant information will be added into a newly initialized
+`EventPayload`.
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+The `EventPayload` is a wrapper class to store key information about the particular `Command` object.
+For instance, if an `EditCommand` has been executed, the `EventPayload` will store the `originalExercise`
+as well as the `editedExercise`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
+Step 2: The `UndoableCommand` is used to generate a an `Event` with the help of the `EventFactory`.
+The `Event` is then added to the undo stack of the `EventHistory`.
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+The `EventFactory` checks for the command word of the `UndoableCommand` to decide a specific `Event` object
+to generate. It will pass the `EventPayload` into the constructor of the `Event` so that the `Event` captures
+the key information of the `UndoableCommand`.
 
-The following sequence diagram shows how the undo operation works:
+Step 3: The user, upon realizing that a mistake has been made, can then execute the `UndoCommand`.
+
+Step 4: The `UndoCommand` executes `eventHistory.undo(model)`, which prompts the `EventHistory` instance
+to pop the next `Event` to undo from the undo stack. Once the `Event` is undone, it will be pushed to the
+top of the redo stack.
+
+Step 5: The user, upon realizing a second mistake made, can then execute the `RedoCommand`. This execution
+behaves similarly to step 4, except that the next `Event` is taken from the top of the redo stack.
+[NOTE]
+For step 4 and 5, if any of the respective stack is empty when it is needed, a `CommandException` will be thrown
+and a `CommandResult` feedback will be displayed to inform of the user that there are no commands to undo or redo
+at the moment.
+
+The following two Sequence Diagrams show a sample flow of the execution when an `EditCommand`, which is an
+`UndoableCommand`, has been executed and subsequently undone.
+
+The first diagram describes the process of storing an `EditEvent` to `EventHistory` during the execution of the
+`EditCommand`. Observe that the `EventPayload` serves as the main channel of communication of data between the
+`Command` and the `Event`.
+
+image::UndoableCommandSequenceDiagram.png[]
+
+The second diagram here describes the process of undoing the `EditCommand` executed above using the `UndoCommand`. The
+`UndoCommand` will only communicate with the `EventHistory` once to ensure the `EventHistory` takes care of the
+execution and updating of the undo and redo stack it holds internally.
 
 image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
+Given below is a Class Diagram to show the associations between Event, Command and Model. It is specifically designed
+such that only instances that implement the `Event` and `Command` interface will need to handle the `model` class.
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+The only commands that implements the `UndoableCommand` are `AddCommand`, `DeleteCommand`, `EditCommand`
+and `ClearCommand` and they each stores an `EventPayload` instance.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+image::EventClassDiagram.png[]
 
-image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+The following Activity Diagram summarizes what happens when a user enter undoable commands,
+the undo command and the redo command.
 
-image::UndoRedoState5.png[]
+image:CommitActivityDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+* **Alternative 1: (current choice)** Implements undo and redo of each Command in a separate Event object stored in the EventHistory
+** Pros:
+*** Will use less memory as each frame is represented by an Event object instead of the entire model which consists of
+Exercise books and Regime books.
+*** Open for extensions and close to modifications as the Event interface only contains undo and redo methods, and can
+be easily implemented when new Undoable commands are introduced.
+*** Obeys Single Responsibility Principle as Commands simply have to execute what it does and does not need to know
+how it is undone or redone
+** Cons:
+*** Have to store the payload of Command objects to be accessed by Event objects
+(e.g. for `delete`, the exercise being deleted).
+
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros:
+*** Will use less memory
+** Cons:
+*** Violates Single Responsibility Principle as Commands need to know implementation for how it can be undone or redone.
+
+
+* **Alternative 3 (current choice):** Saves the entire model consisting of the exercise and regime books.
+** Pros:
+*** Easy to implement.
+** Cons:
+*** May have performance issues in terms of memory usage.
+*** Unnecessary storage of irrelevant details such as schedule list.
+
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1:** Use a singleton EventHistory to store stacks of Events generated by a EventFactory.
+** Pros:
+*** Ensures only one instance of EventHistory exists
+*** The EventFactory relies on the Factory pattern and helps to eliminate coupling while
+enabling ease of extension to future events that need to be generated
+** Cons:
+*** Singletons are difficult to test
+*** Singletons may break if the program is multi-threaded
+
+* **Alternative 2:** Use a list to store the history of resource book states.
+** Pros:
+*** Very trivial
+** Cons:
+*** Difficult to monitor multiple resource books (e.g. Regime books and Exercise books) as they all
+manage different types of resources that can be altered by commands.
+
+==== Design Patterns
+
+The Undo/Redo feature implementation is based on the Singleton, Command, and Factory design patterns
+
+* *Singleton*
+** To help ensure that only one copy of `EventHistory` exists during the execution of the program
+** Allows easier access by the various command classes
+
+* *Command*
+** Extensions to add a new `Event` is easy and can be done without changing the existing code
+
+* *Factory*
+** Suitable for the context of taking in a particular Command and returning a corresponding Event
+** Reduces coupling between Command classes and Event classes
+
 // end::undoredo[]
 
 === Logging
@@ -650,7 +712,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample exercises. The window size may not be optimum.
 
 . Saving window preferences
 

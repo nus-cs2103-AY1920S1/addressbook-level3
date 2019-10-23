@@ -1,15 +1,36 @@
 @startuml
 start
 :User executes command;
-
-'Since the beta syntax does not support placing the condition outside the
-'diamond we place it as the true branch instead.
-
-if () then ([command commits AddressBook])
-    :Purge redunant states;
-    :Save AddressBook to
-    addressBookStateList;
-else ([else])
+if () then ([is undoableCommand])
+    :Executes command;
+    :Clears redo stack;
+    :Adds event to undo stack;
+else
+    if () then ([is undo or redo command])
+        if () then ([is undo command])
+            if () then ([undo stack not empty])
+                :Pops event from
+                    undo stack;
+                : Executes undo
+                method of event;
+                : Pushes event to
+                    redo stack;
+            else([else])
+            endif
+        else([is redo command])
+            if () then ([redo stack not empty])
+            :Pops event from
+                 redo stack;
+            : Executes redo
+            method of event;
+            : Pushes event to
+                undo stack;
+            else([else])
+            endif
+         endif
+     else([else])
+        :Executes command;
+    endif
 endif
 stop
 @enduml

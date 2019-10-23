@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+    package Command {
+        Interface UndoableCommand <<Interface>>
+        Class XYZCommand
+        Class "{abstract}\nCommand" as Command
+    }
+
+    package Event {
+        Interface Event <<Interface>>
+        Class XYZEvent
+        class EventFactory
+        class EventHistory
+        class EventPayload
+        class HiddenEvent #FFFFFF
+    }
+
+
+    package Model{
+        Class HiddenModel #FFFFFF
+    }
+
+
+    XYZCommand -up-|> Command
+    XYZCommand .up.|> UndoableCommand
+    XYZCommand *--> EventPayload : stores >
+    Command .up.> Model
+    note left of XYZCommand: XYZCommand = \nAddCommand, \nDeleteCommand, \nEditCommand, \nClearCommand
+
+
+    XYZEvent .up.|> Event
+    XYZEvent .right.> "1" EventPayload : extracts >
+    Event ..> Model
+    EventFactory ..> XYZEvent : creates >
+    EventFactory .up.> Event #FFFFFF
+    EventFactory ..> UndoableCommand
+    EventHistory .up.> EventFactory
+    EventHistory ..> UndoableCommand
+    EventHistory *-up-> "0..*" Event
+    note bottom of XYZEvent: XYZEvent = \nAddExerciseEvent, \nDeleteRegime, \nEditEvent, etc
+}
+
+@enduml

@@ -1,53 +1,73 @@
 @startuml
 !include style.puml
+title Sequence Diagram for Undo Command on Edit Exercise
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
+participant ":UndoCommand" as UndoCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":EventHistory" as EventHistory LOGIC_COLOR
+participant ":EditEvent" as EditEvent LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant "model:Model" as Model MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+[-> LogicManager : execute("undo")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+    LogicManager -> ExerciseBookParser : parseCommand("undo")
+    activate ExerciseBookParser
 
-create UndoCommand
-AddressBookParser -> UndoCommand
-activate UndoCommand
+        create UndoCommand
+        ExerciseBookParser -> UndoCommand
+        activate UndoCommand
 
-UndoCommand --> AddressBookParser
-deactivate UndoCommand
+        UndoCommand --> ExerciseBookParser
+        deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+    ExerciseBookParser --> LogicManager : command
+    deactivate ExerciseBookParser
 
-LogicManager -> UndoCommand : execute()
-activate UndoCommand
+    LogicManager -> UndoCommand : execute(model)
+    activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
-activate Model
+        UndoCommand -> EventHistory : undo(model)
+        activate EventHistory
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+            EventHistory -> EditEvent : undo(model)
+            activate EditEvent
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+                EditEvent -> Model : set(editedExercise, originalExercise)
+                activate Model
 
-Model --> UndoCommand
-deactivate Model
+                EditEvent -[hidden]-> Model
 
-UndoCommand --> LogicManager : result
-deactivate UndoCommand
-UndoCommand -[hidden]-> LogicManager : result
-destroy UndoCommand
+                Model --> EditEvent
+                deactivate Model
 
-[<--LogicManager
+
+            EditEvent --> EventHistory
+            deactivate EditEvent
+
+        EventHistory --> UndoCommand
+        deactivate EventHistory
+
+        create CommandResult
+        UndoCommand -> CommandResult
+        activate CommandResult
+
+        CommandResult --> UndoCommand
+        deactivate CommandResult
+
+
+    UndoCommand --> LogicManager : commandResult
+    deactivate UndoCommand
+
+    UndoCommand -[hidden]-> LogicManager : commandResult
+    destroy UndoCommand
+
+[<--LogicManager : commandResult
 deactivate LogicManager
 @enduml

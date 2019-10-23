@@ -1,0 +1,20 @@
+@startuml
+start
+:User executes undo;
+
+if () then ([undo stack not empty])
+
+:Pop Event from
+    undo stack;
+
+: Executes undo
+method of Event;
+
+: Push Event to
+    redo stack;
+
+else([else])
+
+endif
+stop
+@enduml
