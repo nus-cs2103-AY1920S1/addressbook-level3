@@ -1,11 +1,16 @@
 package seedu.address.ui;
 
+import java.util.Collections;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
@@ -28,7 +33,7 @@ public class FlashcardTabWindowController {
     @FXML
     private TextArea ansTextArea;
 
-    private static final Integer TIMER_DURATION = 15;
+    private static final Integer TIMER_DURATION = 5;
 
     private IntegerProperty currentSeconds;
 
@@ -39,6 +44,7 @@ public class FlashcardTabWindowController {
     public void initialize() {
         currentSeconds = new SimpleIntegerProperty(TIMER_DURATION);
         timerLabel.textProperty().bind(currentSeconds.asString());
+        timerLabel.setVisible(false);
     }
 
     /**
@@ -47,14 +53,15 @@ public class FlashcardTabWindowController {
      */
     public void loadFlashcard(Flashcard flashcard) {
         qnsTextArea.setText(flashcard.getQuestion().toString());
-        ansTextArea.setVisible(false);
         ansTextArea.setText(flashcard.getAnswer().toString());
+        ansTextArea.setVisible(false);
+        timerLabel.setVisible(true);
         startTimer();
     }
 
     public void showFlashcardAns() {
-//        rightPane.getChildren().
         ansTextArea.setVisible(true);
+        timerLabel.setVisible(false);
     }
 
 
@@ -62,14 +69,19 @@ public class FlashcardTabWindowController {
      * Starts the timer countdown.
      */
     private void startTimer() {
+        // Adapted from https://asgteach.com/2011/10/javafx-animation-and-binding-simple-countdown-timer-2/
         if (timeline != null) {
             timeline.stop();
         }
         currentSeconds.set(TIMER_DURATION);
-        timeline = new Timeline();
-        timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(TIMER_DURATION + 1),
-                        new KeyValue(currentSeconds, 0)));
-        timeline.playFromStart();
+        timeline = new Timeline(new KeyFrame(Duration.seconds(TIMER_DURATION + 1),
+                new KeyValue(currentSeconds, 0)),
+                new KeyFrame(Duration.seconds(TIMER_DURATION + 1), e -> showFlashcardAns()));
+        timeline.play();
+    }
+
+    private void resetViews() {
+        qnsTextArea.setText("");
+        ansTextArea.setText("");
     }
 }
