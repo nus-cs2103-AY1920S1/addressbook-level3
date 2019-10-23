@@ -40,7 +40,7 @@ public class ProgressIndicatorBar extends UiPart<Region> {
 
         bar.setMaxWidth(Double.MAX_VALUE); // allows the progress bar to expand to fill available horizontal space.
 
-//        pane.getChildren().addAll(bar, text);
+        pane.getChildren().setAll(bar, text);
     }
 
     // synchronizes the progress indicated with the work done.

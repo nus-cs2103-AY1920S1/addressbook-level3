@@ -101,7 +101,7 @@ public class StartQuizWindow extends Window {
 
 //        currentReadOnlyIndex.set(currentAnswerableIndex);
         progressIndicatorBar = new ProgressIndicatorBar(currentReadOnlyIndex, filteredAnswerableList.size(),
-                "%s");
+                "%.0f/" + filteredAnswerableList.size());
 //                "%d /" + filteredAnswerableList.size());
         scoreProgressBar.getChildren().add(progressIndicatorBar.getRoot());
     }
