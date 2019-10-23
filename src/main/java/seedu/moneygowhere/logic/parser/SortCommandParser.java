@@ -6,7 +6,6 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.LinkedHashSet;
 
@@ -28,25 +27,38 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE, PREFIX_COST, PREFIX_REMARK, PREFIX_TAG);
 
+        String[] fieldWords = args.split("\\s+");
         LinkedHashSet<SortField> fields = new LinkedHashSet<>();
-        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            SortOrder order = convert(argMultimap.getValue(PREFIX_DATE).get());
-            fields.add(new SortField(SortAttribute.DATE, order));
-        }
-        if (argMultimap.getValue(PREFIX_COST).isPresent()) {
-            SortOrder order = convert(argMultimap.getValue(PREFIX_COST).get());
-            fields.add(new SortField(SortAttribute.COST, order));
-        }
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            SortOrder order = convert(argMultimap.getValue(PREFIX_NAME).get());
-            fields.add(new SortField(SortAttribute.NAME, order));
-        }
-        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
-            SortOrder order = convert(argMultimap.getValue(PREFIX_REMARK).get());
-            fields.add(new SortField(SortAttribute.REMARK, order));
+
+        for (String field : fieldWords) {
+            if (field.isEmpty()) {
+                continue;
+            }
+
+            if (field.startsWith(PREFIX_DATE.getPrefix())) {
+                String trimmedPrefix = field.substring(PREFIX_DATE.getPrefix().length());
+                SortOrder order = convert(trimmedPrefix);
+                fields.add(new SortField(SortAttribute.DATE, order));
+
+            } else if (field.startsWith(PREFIX_COST.getPrefix())) {
+                String trimmedPrefix = field.substring(PREFIX_COST.getPrefix().length());
+                SortOrder order = convert(trimmedPrefix);
+                fields.add(new SortField(SortAttribute.COST, order));
+
+            } else if (field.startsWith(PREFIX_NAME.getPrefix())) {
+                String trimmedPrefix = field.substring(PREFIX_NAME.getPrefix().length());
+                SortOrder order = convert(trimmedPrefix);
+                fields.add(new SortField(SortAttribute.NAME, order));
+
+            } else if (field.startsWith(PREFIX_REMARK.getPrefix())) {
+                String trimmedPrefix = field.substring(PREFIX_REMARK.getPrefix().length());
+                SortOrder order = convert(trimmedPrefix);
+                fields.add(new SortField(SortAttribute.REMARK, order));
+
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            }
         }
 
         if (fields.isEmpty()) {
