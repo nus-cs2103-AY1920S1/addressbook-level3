@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
             item = modelManager.findItemByIndex(index);
             modelManager.deleteItem(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(CashierMessages.NO_SUCH_INDEX_CASHIER);
+            throw new NoSuchIndexException(CashierMessages.NO_SUCH_INDEX_CASHIER);
         }
         //logger.info("Deleted Item: " + item.toString());
         return new CommandResult(String.format(MESSAGE_DELETED_ITEM, item));

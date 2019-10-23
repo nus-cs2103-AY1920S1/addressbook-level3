@@ -418,7 +418,35 @@ The following sequence diagram shows how the checkout command works:
 
 image::CheckoutCommandCashierSeqDiag.png[]
 
+As shown below, if the amount inputted is valid and the cashier has been set, the `cashier model` will create a new
+transaction of the sales made. The remaining stock in the inventory will also be updated accordingly.
+A clear command will then be called to clear all the sales items on the tab.
 
+The `cashier logic` will write the updated inventory list and transaction to the relevant data files. To update the
+view on the `Inventory Tab` and `Transaction Tab`, transaction will be added to the transaction model and
+`readInUpdatedList()` method of inventory model will called to read in the entire inventory data file.
+
+The following activity diagram shows the steps after the user input a checkout command:
+
+.Activity Diagram of Checkout Command (cashier package)
+
+image::CheckoutCommandCashierActivityDiag.png[]
+
+==== Clear Feature
+The clear command is facilitated by the `VersionedtreasurerPro`. This feature clears all the sales items in the table.
+This command is called after the list of items has been checkout. It can also be called by the user.
+
+There is no required fields.
+
+image::ClearCommandCashierSeqDiag.png[]
+
+As shown below, after the clear command is called, the table will be emptied and the cashier will be set to null.
+
+The following activity diagram shows the steps after the user input a clear command:
+
+.Activity Diagram of Clear Command (cashier package)
+
+image::ClearCommandCashierActivityDiag.png[]
 
 
 === Overview Tab

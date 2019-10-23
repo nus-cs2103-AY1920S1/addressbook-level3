@@ -58,6 +58,11 @@ public class CashierModelStub implements Model {
     }
 
     @Override
+    public void resetCashier() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Item editItem(int index, int qty) {
         throw new AssertionError("This method should not be called.");
     }

@@ -1,7 +1,10 @@
 package seedu.address.cashier.logic.parser;
 
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
+
 import seedu.address.cashier.logic.commands.DeleteCommand;
 import seedu.address.cashier.logic.commands.exception.NotANumberException;
+import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
 
 /**
@@ -14,12 +17,16 @@ public class DeleteCommandParser {
      * and returns an DeleteCommand object for execution.
      * @throws NotANumberException if the user input is not a number
      */
-    public static DeleteCommand parse(String userInput) throws NotANumberException {
+    public static DeleteCommand parse(String userInput) throws NotANumberException, NoSuchIndexException {
         int index;
         try {
             index = Integer.parseInt(userInput.substring(1));
         } catch (Exception e) {
             throw new NotANumberException(CashierMessages.INDEX_NOT_A_NUMBER);
+        }
+
+        if(index <= 0) {
+            throw new NoSuchIndexException(NO_SUCH_INDEX_CASHIER);
         }
 
         DeleteCommand deleteCommand = new DeleteCommand(index);

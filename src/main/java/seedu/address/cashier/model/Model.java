@@ -46,6 +46,8 @@ public interface Model {
 
     void clearSalesList();
 
+    void resetCashier();
+
     Item editItem(int index, int qty) throws NoSuchIndexException;
 
     double getSubtotal(Item i);

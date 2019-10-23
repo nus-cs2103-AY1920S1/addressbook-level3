@@ -269,6 +269,14 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Resets the cashier to null.
+     */
+    @Override
+    public void resetCashier() {
+        this.cashier = null;
+    }
+
+    /**
      * Edits the item to update the quantity to be sold.
      * @param index of the item to be updated
      * @param qty of the item to be updated
@@ -355,8 +363,6 @@ public class ModelManager implements Model {
     public Transaction checkoutAsTransaction(double amount, Person person) {
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
                 SALES_DESCRIPTION, SALES_CATEGORY, amount, person, this.transactionList.size(), false);
-//        storage.appendToTransaction(transaction);
-//        transactionModel.addTransaction(transaction);
         checkoutTransaction = transaction;
         return transaction;
     }
