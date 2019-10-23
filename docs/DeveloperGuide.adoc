@@ -240,7 +240,7 @@ image::CommitActivityDiagram.png[]
 
 ==== Implementation
 
-The priority mode is used to aid the user in focusing on the most pressing task that they have especially when they have many tasks in their list.
+The priority mode is used to aid the user in focusing on the most pressing task that they have especially when they have many tasks in their list. As priority mode is only for clearing of tasks, the priority mode can only be activated at the task pane of the application.
 
 The priority mode is mainly controlled in the ```ItemModelManager``` and the following are the methods it implements within the ```ItemModelManager```:
 
@@ -252,22 +252,68 @@ There are two variants to the priority mode, a normal priority mode that is cont
 
 * ```ItemModelManager#startTimer(LocalDateTime)``` - Starts a timer to turn off the priority mode.
 
+==== Example run of code
+
+In the following section, we will be showing a run of the priority mode and the behaviour of the mechanism at each step. In particular, we will be showing how the ```ScheduledPriorityMode``` works as it requires more step through the sequence diagram as compared to the ```PriorityMode```.
+
+Step 1. The user opens his ELISA software. The first screen that he observes will be the task screen which contains all the task of the user based on the time they were added into the list.
+
+Step 2. The user types ```priority 30.min.later``` into the command box of ELISA and hits enter. The list is instantly shrink to show only the most pressing task (i.e. the task with the highest priority). If two tasks have the same priority, either of the task will be shown as there is no other way for ELISA to compare between the two task.
+
+Step 3. ELISA will automatically disable the priority mode after 30 minutes and show *all* the task that the user have in his task list currently.
+
+The figure below shows the sequence diagram on what happens from a simple execution of the ```priority 30.min.later``` command.
+
+image::PriorityMode.png[]
+_Fig 3.2.2.a Sequence diagram for priority mode_
+
+==== Internal working of the command
+Referring to _Fig 3.2.2.a_, we will be going through step by step the internal mechanism of the execution of the ```ScheduledPriorityCommand```.
+
+Step 1. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```AddressBookParser```
+
+Step 2. The ```AddressBookParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case, the command is that of a ```ScheduledPriorityCommand``` and so a new ```ScheduledPriorityCommand``` is created. This ```ScheduledPriorityCommand``` is passed back to the ```LogicManager```. (Despite the fact that this is a ```ScheduledPriorityCommand```, the following steps marked with a * are also applicable to a normal ```PriorityCommand```).
+
+Step 3*. Within the ```LogicManager```, the ```ScheduledPriorityCommand#execute()``` method is called and the command is executed.
+
+Step 4. The ```ScheduledPriorityCommand``` calls the ```ItemModel#scheduleOffPriorityMethod()``` which creates a new ```Timer``` object and a new ```TimerTask``` object. The ```TimerTask``` object will be scheduled to fire off at a specific time, which in this case is 30 minutes later (as defined by the user).
+
+Step 5*. The ```SchedulePriorityCommand``` then calls ```ItemModel#togglePriorityMode()``` which calls the private method ```ItemModel#toggleOnPriorityMode()``` (since the current state of the priority mode is false).
+
+Step 6*. This creates a new ```TaskList``` which will be the visualization list for the Task Panel throughout the entire priority mode period.
+
+Step 7*. A ```CommandResult``` is passed to the ```ScheduledPriorityCommand``` and then back to the ```LogicManager``` to be passed into the ```Ui```, informing the user that the priority mode is activate.
+
+(At this point, a normal ```PriorityCommand``` will end the sequence diagram here and will only be deactivated by the user's input of ```priority``` again.)
+
+Step 8. As the ```Timer``` within the ```ItemModelManager``` is still running on a separate thread, it will trigger the ```TimerTask#run()``` when the user defined time is reached.
+
+Step 9. The ```TimerTask``` will call ```ItemModelManager#toggleOffPriorityMode()``` which will cancel the ```Timer``` and destroy the ```Timer```. This is to ensure that the program can be closed properly.
+
+Step 10. The items are all added back into the ```TaskList``` and the priority mode is considered deactivated.
+
 ==== Design Consideration
 Aspect: How to turn off the priority mode after a fixed time
 
-* Alternative 1: Having two different classes for activating the priority mode, a normal ```PriorityCommand``` and a ```ScheduledPriorityCommand``` that extends from the ```PriorityCommand```. The timer will be activated in the ```ScheduledPriorityCommand```.
+* **Alternative 1:** Having two different classes for activating the priority mode, a normal ```PriorityCommand``` and a ```ScheduledPriorityCommand``` that extends from the ```PriorityCommand```. The timer will be activated in the ```ScheduledPriorityCommand```.
 
 ** Pros: Adhere to the SLAP principle with each class having it's own implementation of the ```Command#execute(ItemModel)```. This makes it easier to maintain the code and prevents from overloading the ItemModel by keeping the timer there.
 
 ** Cons: There is no way to end the ```ScheduledPriorityCommand``` as the timer is kept within the command and so cannot be cancelled prematurely as there is no way to access the command after that.
 
-* Alternative 2 (Current choice): Having a timer within the ```ItemModelManager``` and having a specific method within the ```ItemModelManager``` to handle this creation of the timer.
+* **Alternative 2 (Current choice)**: Having a timer within the ```ItemModelManager``` and having a specific method within the ```ItemModelManager``` to handle this creation of the timer.
 
 ** Pros: The scheduled priority mode can be controlled within the ```ItemModelManager``` and can then be controlled within the class such that it can be cancelled when it is done.
 
 ** Cons: This implementation will clutter the ```ItemModelManager``` further and make it harder for maintaining the code.
 
 Alternative 2 was chosen as we believe that the functionality of the ```ScheduledPriorityMode``` takes priority over the maintainability of the code and should be used first until a better method can be created.
+
+==== Possible extension
+
+As of this moment, there is no way to display the status of the priority mode within the ```Ui``` other than through the list. One possible extension is turning have a label to signify that the user is in the priority mode.
+
+At the moment, there is also no way to inform the user that the priority mode is disabled when it is scheduled to be off. However, this can be solved if the above extension is implemented as it will trigger the message when the mode switches.
 
 // end:: priority[]
 // tag::dataencryption[]
