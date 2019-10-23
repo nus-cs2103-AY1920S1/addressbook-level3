@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class CcaProgress {
 
-    private final CcaProgressList ccaProgressList = new CcaProgressList();
+    private final CcaMilestoneList ccaMilestoneList = new CcaMilestoneList();
     private final CcaCurrentProgress ccaCurrentProgress = new CcaCurrentProgress();
 
     public CcaProgress() {
@@ -23,7 +23,7 @@ public class CcaProgress {
     public void setMilestones(List<CcaMilestone> milestones) {
         requireAllNonNull(milestones);
 
-        ccaProgressList.setMilestones(milestones);
+        ccaMilestoneList.setMilestones(milestones);
         ccaCurrentProgress.setMaxProgress(milestones.size());
     }
 
@@ -31,20 +31,20 @@ public class CcaProgress {
      * Replaces the contents of the progress list with {@code milestones}.
      * {@code milestones} must not contain duplicate milestones.
      */
-    public void setMilestones(CcaProgressList ccaProgressList) {
-        requireAllNonNull(ccaProgressList);
+    public void setMilestones(CcaMilestoneList ccaMilestoneList) {
+        requireAllNonNull(ccaMilestoneList);
 
-        this.ccaProgressList.setMilestones(ccaProgressList);
-        ccaCurrentProgress.setMaxProgress(ccaProgressList.size());
+        this.ccaMilestoneList.setMilestones(ccaMilestoneList);
+        ccaCurrentProgress.setMaxProgress(ccaMilestoneList.size());
     }
 
     /**
-     * Checks if the CcaProgressList is empty.
+     * Checks if the CcaMilestoneList is empty.
      *
-     * @return true of the {@code CcaProgressList} is empty.
+     * @return true of the {@code CcaMilestoneList} is empty.
      */
     public boolean ccaProgressListIsEmpty() {
-        if (ccaProgressList.size() == 0) {
+        if (ccaMilestoneList.size() == 0) {
             return true;
         }
 
@@ -69,7 +69,7 @@ public class CcaProgress {
         }
 
         CcaProgress otherCcaProgress = (CcaProgress) other;
-        return otherCcaProgress.ccaProgressList.equals(this.ccaProgressList)
+        return otherCcaProgress.ccaMilestoneList.equals(this.ccaMilestoneList)
                 && otherCcaProgress.ccaCurrentProgress.equals(this.ccaCurrentProgress);
     }
 

@@ -5,7 +5,7 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
 
 /**
@@ -72,11 +72,11 @@ public class Cca {
     /**
      * Adds a progresslist to the {@code CcaProgress}.
      */
-    public void addProgress(CcaProgressList ccaProgressList) {
+    public void addProgress(CcaMilestoneList ccaMilestoneList) {
         if (!ccaProgressListIsEmpty()) {
             throw new CcaProgressAlreadySetException();
         }
-        ccaProgress.setMilestones(ccaProgressList);
+        ccaProgress.setMilestones(ccaMilestoneList);
     }
 
     /**

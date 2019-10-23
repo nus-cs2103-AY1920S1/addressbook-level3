@@ -15,7 +15,7 @@ import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 
 /**--
  * Parses input arguments and creates a new {@code AddProgressCommand} object.
@@ -42,10 +42,10 @@ public class AddProgressCommandParser implements Parser<AddProgressCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProgressCommand.MESSAGE_USAGE));
         }
 
-        CcaProgressList ccaProgressList = CcaParserUtil.parseCcaMilestones(argumentMultimap
+        CcaMilestoneList ccaMilestoneList = CcaParserUtil.parseCcaMilestones(argumentMultimap
                 .getAllValues(PREFIX_PROGRESS_LEVEL_NAMES));
 
-        return new AddProgressCommand(index, ccaProgressList);
+        return new AddProgressCommand(index, ccaMilestoneList);
     }
 
     /**

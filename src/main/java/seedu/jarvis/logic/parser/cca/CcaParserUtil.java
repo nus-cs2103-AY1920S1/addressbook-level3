@@ -12,7 +12,7 @@ import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 
 /**
  * Contains utility methods used for parsing strings in the Cca classes.
@@ -109,13 +109,13 @@ public class CcaParserUtil {
     /**
      * Parses {@code Collection<String> ccaMilestones} into a {@code CcaMilestoneList}.
      */
-    public static CcaProgressList parseCcaMilestones(Collection<String> ccaMilestones) throws ParseException {
+    public static CcaMilestoneList parseCcaMilestones(Collection<String> ccaMilestones) throws ParseException {
         requireNonNull(ccaMilestones);
-        final CcaProgressList ccaProgressList = new CcaProgressList();
+        final CcaMilestoneList ccaMilestoneList = new CcaMilestoneList();
         for (String ccaMilestoneName : ccaMilestones) {
-            ccaProgressList.add(parseCcaMilestone(ccaMilestoneName));
+            ccaMilestoneList.add(parseCcaMilestone(ccaMilestoneName));
         }
-        return ccaProgressList;
+        return ccaMilestoneList;
     }
 
 }

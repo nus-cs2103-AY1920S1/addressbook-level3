@@ -15,6 +15,13 @@ public class CcaCurrentProgress {
     private int currentProgress = 0;
 
     /**
+     * Default constructor used.
+     */
+    public CcaCurrentProgress() {
+
+    }
+
+    /**
      * Increments the current progress by 1.
      */
     public void increaseProgress() {
