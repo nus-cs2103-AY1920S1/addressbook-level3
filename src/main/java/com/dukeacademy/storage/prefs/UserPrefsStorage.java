@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
 
-import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
 
 /**

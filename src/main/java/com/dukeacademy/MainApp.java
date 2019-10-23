@@ -44,9 +44,6 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    private Config config;
-    private CommandLogicManager commandLogic;
-    private QuestionsLogicManager questionsLogic;
     private ProgramSubmissionLogicManager programSubmissionLogic;
 
     @Override
@@ -56,7 +53,7 @@ public class MainApp extends Application {
 
         // Retrieves config parameters
         AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
+        Config config = initConfig(appParameters.getConfigPath());
 
         // Sets logging level as described
         initLogging(config);
@@ -70,8 +67,8 @@ public class MainApp extends Application {
             return;
         }
 
-        commandLogic = this.initCommandLogic();
-        questionsLogic = this.initQuestionsLogic(userPrefs);
+        CommandLogicManager commandLogic = this.initCommandLogic();
+        QuestionsLogicManager questionsLogic = this.initQuestionsLogic(userPrefs);
         programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
 
         if (this.programSubmissionLogic == null) {
@@ -206,6 +203,10 @@ public class MainApp extends Application {
         return new UserPrefs(appRootDirectory);
     }
 
+    /**
+     * Helper method to create a question bank json file at the specified location. Default questions are copied.
+     * @param questionBankFilePath the path at which to create the file.
+     */
     private void createQuestionBankFile(Path questionBankFilePath) {
         try {
             logger.info("Creating new question bank.");
@@ -248,7 +249,8 @@ public class MainApp extends Application {
      * @return a ProgramSubmissionLogicManager instance.
      */
     private ProgramSubmissionLogicManager initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
-        logger.info("============================ [ Initializing program submission logic ] =============================");
+        logger.info("============================ [ Initializing program submission logic ] "
+                + "=============================");
         try {
             String outputPath = userPrefs.getTestExecutorOutputPath().toUri().getPath();
             return new ProgramSubmissionLogicManager(outputPath);
@@ -259,11 +261,13 @@ public class MainApp extends Application {
 
     private Ui initUi(CommandLogic commandLogic, QuestionsLogic questionsLogic,
                       ProgramSubmissionLogic programSubmissionLogic) {
+        logger.info("============================ [ Initializing UI ] =============================");
         return new UiManager(commandLogic, questionsLogic, programSubmissionLogic);
     }
 
     @Override
     public void start(Stage primaryStage) {
+        logger.info("============================ [ Starting application ] =============================");
         logger.info("Starting QuestionBank " + MainApp.VERSION);
         ui.start(primaryStage);
     }

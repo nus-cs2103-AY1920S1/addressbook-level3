@@ -5,13 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.model.prefs.UserPrefs;
@@ -38,7 +36,8 @@ public class JsonUserPrefsStorageTest {
         assertTrue(prefs.isPresent());
         assertEquals(expectedPrefs, prefs.get());
 
-        JsonUserPrefsStorage storage2 = new JsonUserPrefsStorage(testDataRootPath.resolve("NotJsonFormatUserPrefs.json"));
+        JsonUserPrefsStorage storage2 = new JsonUserPrefsStorage(testDataRootPath
+                .resolve("NotJsonFormatUserPrefs.json"));
         assertThrows(DataConversionException.class, storage2::readUserPrefs);
 
         JsonUserPrefsStorage storage3 = new JsonUserPrefsStorage(testDataRootPath.resolve("TypicalUserPref.json"));

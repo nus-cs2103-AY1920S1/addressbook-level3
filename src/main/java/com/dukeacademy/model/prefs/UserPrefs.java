@@ -1,12 +1,12 @@
 package com.dukeacademy.model.prefs;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Represents User's preferences.
