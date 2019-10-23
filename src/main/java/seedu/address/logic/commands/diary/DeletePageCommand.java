@@ -29,7 +29,7 @@ public class DeletePageCommand extends DeleteCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PAGE_NUMBER + " 1 "
-            + PREFIX_DIARY_NAME + "[Diary DiaryName]";
+            + PREFIX_DIARY_NAME + "[DiaryName]";
 
     public static final String MESSAGE_DELETE_PAGE_SUCCESS = "Deleted Page: %1$s";
     public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists in DiaryRecords";
