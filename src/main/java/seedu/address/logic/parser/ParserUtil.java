@@ -245,6 +245,7 @@ public class ParserUtil {
      * Parses a {@code String timePeriod} into a {@code EventDayTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param timePeriod Valid String example: "1000-2000"
      * @throws ParseException if the given {@code timePeriod} format is incorrect
      */
     public static EventDayTime parseTimePeriod(String timePeriod) throws ParseException {
