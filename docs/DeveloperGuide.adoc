@@ -283,6 +283,7 @@ Commands support the given operations to mutate the state of the `Model` and to 
 The following activity diagram illustrates how commands are remembered when a user types in a command:
 
 image::CommandActivityDiagram.png[]
+image::HistoryManagerClassDiagram.png[]
 
 Undo and redo operations are executed with `UndoCommand` and `RedoCommand`. These commands store an integer value referencing the number of commands to undo or redo,
 represented by `UndoCommand#numberOfTimes` and `RedoCommand#numberOfTimes`.
