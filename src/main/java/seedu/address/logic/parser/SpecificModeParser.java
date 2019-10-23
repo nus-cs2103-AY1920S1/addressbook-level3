@@ -55,9 +55,7 @@ public class SpecificModeParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        System.out.println("EHEHEHHEHE " + commandWord + " " + arguments);
         Command temp = classUtil.getCommandInstance(commandWord, arguments);
-        System.out.println("Specfici mode returning: " + temp);
         return temp;
     }
 
