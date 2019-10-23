@@ -1,0 +1,95 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant "d:ImportCommand" as ImportCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Spending" as Spending MODEL_COLOR
+end box
+
+[-> LogicManager : execute("import p/validSpending.csv")
+activate LogicManager
+
+LogicManager -> SpendingBookParser : parseCommand("import p/validSpending.csv")
+activate SpendingBookParser
+
+create ImportCommandParser
+SpendingBookParser -> ImportCommandParser
+activate ImportCommandParser
+
+ImportCommandParser --> SpendingBookParser
+deactivate ImportCommandParser
+
+SpendingBookParser -> ImportCommandParser : parse("validSpending.csv")
+activate ImportCommandParser
+
+create ImportCommand
+ImportCommandParser -> ImportCommand
+activate ImportCommand
+
+ImportCommand --> ImportCommandParser : i
+deactivate ImportCommand
+
+ImportCommandParser --> SpendingBookParser : i
+deactivate ImportCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ImportCommandParser -[hidden]-> SpendingBookParser
+destroy ImportCommandParser
+
+SpendingBookParser --> LogicManager : i
+deactivate SpendingBookParser
+
+LogicManager -> ImportCommand : execute()
+activate ImportCommand
+
+ImportCommand -> ImportCommand : readSpendingFromCsv("validSpending.csv")
+activate ImportCommand
+
+loop read csv file row by row until the end
+  ImportCommand -> ImportCommand : try
+  ImportCommand -> ImportCommand: createSpending(rowAsMap)
+  note right: rowAsMap: one row of data from csv file
+  activate ImportCommand
+    create Spending
+    ImportCommand -> Spending
+    activate Spending
+    Spending --> ImportCommand
+    deactivate Spending
+  deactivate ImportCommand
+end
+
+ImportCommand --> ImportCommand : Pair<List<Spending>, List<String>>
+note right
+          returns a pair of lists:
+          - first list consists of valid spending.
+          - second list consists of error messages of invalid spending.
+end note
+deactivate ImportCommand
+
+loop for all valid spending
+  ImportCommand -> Model : addSpending(spending)
+  activate Model
+  Model --> ImportCommand
+  deactivate Model
+end
+
+create CommandResult
+ImportCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ImportCommand
+deactivate CommandResult
+
+ImportCommand --> LogicManager : result
+deactivate ImportCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

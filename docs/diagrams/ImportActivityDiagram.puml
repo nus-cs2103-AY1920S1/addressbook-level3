@@ -1,0 +1,27 @@
+@startuml
+'(*)  --> "User input an import command"
+'If "input is a valid csv file" then
+'--> [Yes] "read in csv file"
+'--> "parse the rows in the file"
+'--> "create a valid `Spending` list"
+'repeat
+'  :
+'--> "add spending"
+'if "
+'--> "run command"
+'Endif
+'-->(*)
+start
+:User input an import command;
+if (valid csv?) then (yes)
+:parse the rows in the file;
+:create a valid Spending list;
+repeat
+  :read a Spending from list;
+  :add Spending to Model;
+repeat while (more valid Spending?) is (yes)
+->no;
+else (no)
+endif
+stop
+@enduml
