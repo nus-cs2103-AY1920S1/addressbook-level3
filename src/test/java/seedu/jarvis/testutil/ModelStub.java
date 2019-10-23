@@ -201,9 +201,24 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void addPurchase(int zeroBasedIndex, Purchase newPurchase) {
+        throw new AssertionError("This method should not be called.");
+    }
+
 
     @Override
     public Purchase deletePurchase(int itemNumber) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deletePurchase(Purchase purchase) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasPurchase(Purchase purchase) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -213,7 +228,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addInstallment(int zeroBasedIndex, Installment installment) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Installment deleteInstallment(int instalNumber) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteInstallment(Installment installment) {
         throw new AssertionError("This method should not be called.");
     }
 

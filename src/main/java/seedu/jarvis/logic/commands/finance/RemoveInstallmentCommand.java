@@ -26,7 +26,7 @@ public class RemoveInstallmentCommand extends Command {
     public static final String MESSAGE_DELETE_INSTALLMENT_SUCCESS = "Deleted Installment: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New person added: %1$s";
-    public static final String MESSAGE_INVERSE_PERSON_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
+    public static final String MESSAGE_INVERSE_INSTALLMENT_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -67,7 +67,7 @@ public class RemoveInstallmentCommand extends Command {
     }
 
     /**
-     * Deletes {@code Installment} from address book.
+     * Deletes {@code Installment} from finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful delete.
@@ -76,6 +76,7 @@ public class RemoveInstallmentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         try {
             toDelete = model.getInstallment(targetIndex.getOneBased());
             model.deleteInstallment(targetIndex.getOneBased());
@@ -85,9 +86,26 @@ public class RemoveInstallmentCommand extends Command {
         }
     }
 
+    /**
+     * Adds back the {@code Installment} that was deleted
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} of a successful restore of the deleted {@code Installment}
+     * if the {@code Installment} is not already in the finance tracker
+     * @throws CommandException If the installment to be added will be in conflict with an existing task
+     * in the finance tracker
+     */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (model.hasInstallment(toDelete)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_INSTALLMENT_TO_ADD_ALREADY_EXIST, toDelete));
+        }
+
+        model.addInstallment(targetIndex.getZeroBased(), toDelete);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, toDelete));
     }
 
     @Override

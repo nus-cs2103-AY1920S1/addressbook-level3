@@ -264,14 +264,39 @@ public class ModelManager implements Model {
         financeTracker.addSinglePurchase(purchase);
     }
 
+    @Override
+    public void addPurchase(int zeroBasedIndex, Purchase newPurchase) {
+        financeTracker.addSinglePurchase(zeroBasedIndex, newPurchase);
+    }
+
     /**
      * Deletes single use payment.
      *
-     * @param itemNumber
+     * @param itemNumber to be deleted
      */
     @Override
     public Purchase deletePurchase(int itemNumber) throws PurchaseNotFoundException {
         return financeTracker.deleteSinglePurchase(itemNumber);
+    }
+
+    /**
+     * Deletes a single use payment.
+     *
+     * @param purchase to be deleted
+     */
+    @Override
+    public void deletePurchase(Purchase purchase) {
+        financeTracker.deleteSinglePurchase(purchase);
+    }
+
+
+    /**
+     * Checks for the existence of the purchase.
+     *
+     * @param purchase
+     */
+    public boolean hasPurchase(Purchase purchase) {
+        return financeTracker.hasPurchase(purchase);
     }
 
     /**
@@ -314,6 +339,11 @@ public class ModelManager implements Model {
         financeTracker.addInstallment(installment);
     }
 
+    @Override
+    public void addInstallment(int zeroBasedIndex, Installment installment) {
+        financeTracker.addInstallment(zeroBasedIndex, installment);
+    }
+
     /**
      * Deletes installment.
      *
@@ -322,6 +352,16 @@ public class ModelManager implements Model {
     @Override
     public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
         return financeTracker.deleteInstallment(instalNumber);
+    }
+
+    /**
+     * Deletes installment.
+     *
+     * @param installment
+     */
+    @Override
+    public void deleteInstallment(Installment installment) {
+        financeTracker.deleteInstallment(installment);
     }
 
     /**

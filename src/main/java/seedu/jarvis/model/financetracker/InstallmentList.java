@@ -110,6 +110,18 @@ public class InstallmentList {
     }
 
     /**
+     * Add installment to the list at the given index.
+     *
+     * @param newInstallment to be added
+     * @param zeroBasedIndex index where the installment should be added
+     */
+    public void addInstallment(int zeroBasedIndex, Installment newInstallment) {
+        requireNonNull(newInstallment);
+        internalInstallmentList.add(zeroBasedIndex, newInstallment);
+        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
+    }
+
+    /**
      * Deletes instalment from the list of instalments based on the instalment number.
      *
      * @param installmentNumber of the instalment in the list
@@ -125,6 +137,13 @@ public class InstallmentList {
         } catch (IndexOutOfBoundsException e) {
             throw new InstallmentNotFoundException();
         }
+    }
+
+    /**
+     * Removes installment from the list of installments.
+     */
+    public void deleteInstallment(Installment installment) {
+        internalInstallmentList.remove(installment);
     }
 
     /**

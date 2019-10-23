@@ -52,11 +52,33 @@ public interface FinanceTrackerModel {
     void addPurchase(Purchase purchase);
 
     /**
+     * Adds single use payment back into the list.
+     *
+     * @param zeroBasedIndex
+     * @param newPurchase
+     */
+    void addPurchase(int zeroBasedIndex, Purchase newPurchase);
+
+    /**
      * Deletes single use payment.
      *
      * @param itemNumber
      */
     Purchase deletePurchase(int itemNumber);
+
+    /**
+     * Undoes the adding of an purchase in finance tracker.
+     *
+     * @param purchase to be deleted
+     */
+    void deletePurchase(Purchase purchase);
+
+    /**
+     * Checks for the existence of the purchase.
+     *
+     * @param purchase
+     */
+    boolean hasPurchase(Purchase purchase);
 
     /**
      * Retrieves installment at a particular index as seen on the list of finance tracker.
@@ -87,11 +109,26 @@ public interface FinanceTrackerModel {
     void addInstallment(Installment installment);
 
     /**
+     * Adds instalment.
+     *
+     * @param installment
+     * @param zeroBasedIndex index where the purchase should be added
+     */
+    void addInstallment(int zeroBasedIndex, Installment installment);
+
+    /**
      * Deletes instalment.
      *
      * @param instalNumber
      */
     Installment deleteInstallment(int instalNumber);
+
+    /**
+     * Undoes the adding of an installment in finance tracker.
+     *
+     * @param installment to be deleted
+     */
+    void deleteInstallment(Installment installment);
 
     /**
      * Checks for the existence of the same installment in the finance tracker.

@@ -26,7 +26,7 @@ public class RemovePaidCommand extends Command {
     public static final String MESSAGE_DELETE_PURCHASE_SUCCESS = "Deleted Purchase: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New person added: %1$s";
-    public static final String MESSAGE_INVERSE_PERSON_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
+    public static final String MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -67,7 +67,7 @@ public class RemovePaidCommand extends Command {
     }
 
     /**
-     * Deletes {@code Purchase} from address book.
+     * Deletes {@code Purchase} from finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful delete.
@@ -85,9 +85,26 @@ public class RemovePaidCommand extends Command {
         }
     }
 
+    /**
+     * Adds back the {@code Purchase} that was deleted
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} of a successful restore of the deleted {@code Purchase}
+     * if the {@code Purchase} is not already in the finance tracker
+     * @throws CommandException If the purchase to be added will be in conflict with an existing task
+     * in the finance tracker
+     */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (model.hasPurchase(toDelete)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST, toDelete));
+        }
+
+        model.addPurchase(targetIndex.getZeroBased(), toDelete);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, toDelete));
     }
 
     @Override

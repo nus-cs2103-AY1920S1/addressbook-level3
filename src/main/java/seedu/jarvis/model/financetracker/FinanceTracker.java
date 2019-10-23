@@ -129,7 +129,21 @@ public class FinanceTracker {
      * @param purchase to be added to the finance tracker
      */
     public void addSinglePurchase(Purchase purchase) {
+        requireNonNull(purchase);
+
         purchaseList.addSinglePurchase(purchase);
+    }
+
+    /**
+     * Adds a purchase to the list at the given index.
+     *
+     * @param newPurchase object from newly added single-use payment
+     * @param zeroBasedIndex index where the purchase should be added
+     */
+    public void addSinglePurchase(int zeroBasedIndex, Purchase newPurchase) {
+        requireNonNull(newPurchase);
+
+        purchaseList.addSinglePurchase(zeroBasedIndex, newPurchase);
     }
 
     /**
@@ -139,6 +153,28 @@ public class FinanceTracker {
      */
     public Purchase deleteSinglePurchase(int itemNumber) throws PurchaseNotFoundException {
         return purchaseList.deletePurchase(itemNumber);
+    }
+
+    /**
+     * Deletes single use payment.
+     *
+     * @param purchase  deleted
+     */
+    public void deleteSinglePurchase(Purchase purchase) throws PurchaseNotFoundException {
+        requireNonNull(purchase);
+
+        purchaseList.deletePurchase(purchase);
+    }
+
+    /**
+     * Checks for the existence of an purchase in the finance tracker.
+     *
+     * @param purchase to be checked
+     */
+    public boolean hasPurchase(Purchase purchase) {
+        requireNonNull(purchase);
+
+        return purchaseList.hasPurchase(purchase);
     }
 
     /**
@@ -167,6 +203,9 @@ public class FinanceTracker {
      * list.
      */
     public void setInstallment(Installment target, Installment editedInstallment) {
+        requireNonNull(target);
+        requireNonNull(editedInstallment);
+
         installmentList.setInstallment(target, editedInstallment);
     }
 
@@ -204,6 +243,7 @@ public class FinanceTracker {
      */
     public void updateFilteredInstallmentList(Predicate<Installment> installment) {
         requireNonNull(installment);
+
         filteredInstallments.setPredicate(installment);
     }
 
@@ -215,14 +255,51 @@ public class FinanceTracker {
      * @param installment to be added to the finance tracker
      */
     public void addInstallment(Installment installment) {
+        requireNonNull(installment);
+
         installmentList.addInstallment(installment);
     }
 
+    /**
+     * Add installment to the list at the given index.
+     *
+     * @param newInstallment to be added
+     * @param zeroBasedIndex index where the installment should be added
+     */
+    public void addInstallment(int zeroBasedIndex, Installment newInstallment) {
+        requireNonNull(newInstallment);
+
+        installmentList.addInstallment(zeroBasedIndex, newInstallment);
+    }
+
+    /**
+     * Deletes an installment from the finance tracker based on the index of the list.
+     *
+     * @param instalNumber of installment to be removed
+     */
     public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
         return installmentList.deleteInstallment(instalNumber);
     }
 
+    /**
+     * Deletes an existing installment from the finance tracker.
+     *
+     * @param installment to be removed
+     */
+    public void deleteInstallment(Installment installment) throws InstallmentNotFoundException {
+        requireNonNull(installment);
+
+        installmentList.deleteInstallment(installment);
+    }
+
+    /**
+     * Checks for the existence of an installment in the finance tracker.
+     *
+     * @param installment to be checked
+     */
     public boolean hasInstallment(Installment installment) {
+        requireNonNull(installment);
+
         return installmentList.hasInstallment(installment);
     }
 
@@ -242,6 +319,8 @@ public class FinanceTracker {
      * @param limit
      */
     public void setMonthlyLimit(MonthlyLimit limit) {
+        requireNonNull(limit);
+
         if (limit.getMonthlyLimit() < 0) {
             throw new NegativeLimitException();
         }
