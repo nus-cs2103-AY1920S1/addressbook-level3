@@ -215,23 +215,6 @@ Examples:
 
 === Event-Specific Management
 
-==== Mark Event as Done: `done`
-
-Record the completion/conclusion of an Event.
-
-Format: `done INDEX`
-
-****
-* `INDEX` must be a positive integer and exist within the displayed list.
-* If not found, an 'Event Not Found' will be displayed.
-****
-
-Examples:
-
-* `list_ev` +
-`done 2` +
-Marks the second event on the list as done.
-
 ==== Automated allocation of Employees to Events: `allocate`
 
 Automatically chooses and allocates employees to events that meet the requirements.
@@ -253,15 +236,15 @@ Random selection of employee to allocate if supply exceeds demand of event.
 
 Examples:
 
-* allocate 1 ` +
+* `allocate 1` +
 Allocates available employees to the 1st event.
-* `allocate 2 n/3 t/female +
+* `allocate 2 n/3 t/female` +
 Allocates 3 employees who are tagged as 'female' to the 2nd event.
 
 
 ==== Manually allocation of Employees to Events: `allocatem`
 
-Manually chooses and allocates employees to events that meet the requirements.
+Manually chooses and allocates employees to events.
 
 Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
 
@@ -274,7 +257,7 @@ Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
 
 Examples:
 
-* allocate 1 n/2` +
+* `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
 
 ==== Fetch Full Details of an Event: `fetch_ev` (also a GUI feature)
@@ -296,9 +279,11 @@ Alternatively, simply double-click the event card in the list.
 
 image::BeforeFetch.png[width="790"]
 
-After double-clicking, this should show:
+After double-clicking, a pop-up window should show:
 
 image::AfterFetch.png[width="790"]
+
+
 === Finance Management
 
 ==== Generate Employee Payslip: `pay [coming in v2.0]`
