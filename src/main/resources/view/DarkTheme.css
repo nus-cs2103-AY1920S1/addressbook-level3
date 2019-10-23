@@ -201,14 +201,19 @@
 
 .bio-table {
     -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+
 }
 
 .bio-table .table-row-cell {
     -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+
 }
 
 .bio-table .table-cell .table-cell-text {
     -fx-fill: white ;
+    -fx-font-family: "Segoe UI Light";
 }
 
 

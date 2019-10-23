@@ -158,6 +158,48 @@ public class StyleManager {
         }
     }
 
+    /**
+     * Sets the font family of this style manager's scene.
+     * @param fontFamily String representation of a CSS font family.
+     */
+    public void setFontFamily(String fontFamily) {
+        try {
+            InputStream is;
+            File outputCss;
+            if (myStyleSheet != null && myStyleSheet.exists()) {
+                String fileName = myStyleSheet.getName();
+                String nameWithoutCssExtension = fileName.substring(0, fileName.length() - 4);
+                File copy = createNewStyleSheet(nameWithoutCssExtension + " copy.css");
+                is = new FileInputStream(getMyStyleSheet());
+                outputCss = copy;
+            } else {
+                is = this.getClass().getResourceAsStream("/view/DarkTheme.css");
+                outputCss = getMyStyleSheet();
+            }
+
+            String lineReadFromReader;
+            String lineToWriteViaWriter = "";
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            while ((lineReadFromReader = br.readLine()) != null) {
+                lineToWriteViaWriter += getLineAfterReplacement(lineReadFromReader, "fx-font-family",
+                        fontFamily) + "\n";
+            }
+            FileWriter fw = new FileWriter(outputCss);
+            fw.write(lineToWriteViaWriter);
+            fw.close();
+            outputCss.renameTo(getMyStyleSheet());
+            setStyleSheet(getMyStyleSheet());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Consumes the next whole field from this current onwards.
+     * @param br Bufferedreader that reads lines.
+     * @param initialLine Initial line of text to determine whether or not to initiate reading.
+     * @throws IOException If reading of lines of text is unsuccessful.
+     */
     private void ignoreUntilNextField(BufferedReader br, String initialLine) throws IOException {
         boolean foundOpeningCurlyBraces = initialLine.contains("{");
         boolean foundClosingCurlyBraces = initialLine.contains("}");
@@ -176,8 +218,11 @@ public class StyleManager {
             }
         }
     }
-    
-    
+
+    /**
+     * Sets the background image of main window placeholder of this instance of style manager.
+     * @param background Background object representing background information of this application.
+     */
     public void setBackgroundImage(Background background) {
         String filePath = background.getBackgroundPicPath();
         String bgSize = background.getBgSize();

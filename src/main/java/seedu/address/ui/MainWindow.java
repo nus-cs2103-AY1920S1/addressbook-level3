@@ -23,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -87,6 +88,10 @@ public class MainWindow extends UiPart<Stage> {
         styleManager = new StyleManager(scene, mainWindowPlaceholder);
         setFontColour(logic.getGuiSettings());
         setBackground(logic.getGuiSettings());
+        System.out.println(Font.getFamilies());
+        //        String fontPath = Main.class.getResource("/fonts/Tahu!.ttf").toExternalForm();
+        //        Font font = Font.loadFont(fontPath, 10);
+        styleManager.setFontFamily("Futura");
     }
 
     /**
@@ -315,7 +320,6 @@ public class MainWindow extends UiPart<Stage> {
         } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
             DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
             if (paneToDisplay == null) {
-                System.out.println("Called here");
                 return;
             }
             newPaneIsToBeCreated = ((displayPaneType == COLOUR || displayPaneType == BACKGROUND)
