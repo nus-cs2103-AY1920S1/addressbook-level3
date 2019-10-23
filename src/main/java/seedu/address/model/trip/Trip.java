@@ -33,7 +33,8 @@ public class Trip {
      * Constructs a trip.
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary, InventoryList inventoryList) {
+                Budget totalBudget, DayList dayList, ExpenditureList expenditureList,
+                Diary diary, InventoryList inventoryList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
