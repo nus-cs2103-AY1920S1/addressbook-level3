@@ -36,7 +36,12 @@ import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.parser.app.AddCommandParser;
 import seedu.address.logic.parser.app.EditCommandParser;
 import seedu.address.logic.parser.app.FindCommandParser;
-import seedu.address.logic.parser.app.RemoveCommandParser;
+import seedu.address.logic.parser.app.DeleteCommandParser;
+import seedu.address.logic.parser.game.GuessCommandParser;
+import seedu.address.logic.parser.load.ImportCommandParser;
+import seedu.address.logic.parser.load.ExportCommandParser;
+import seedu.address.logic.parser.load.CreateCommandParser;
+import seedu.address.logic.parser.load.RemoveCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
 import seedu.address.logic.parser.settings.HintsCommandParser;
@@ -159,7 +164,7 @@ public class ParserManager {
         if (temp != null) {
             return temp;
         }
-        throw new ParseException("DK COMMAND!!");
+        throw new ParseException("Don't know COMMAND!!");
     }
 
     public List<ModeEnum> getModes() {

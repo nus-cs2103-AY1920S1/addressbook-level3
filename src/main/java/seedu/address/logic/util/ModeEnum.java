@@ -12,7 +12,7 @@ public enum ModeEnum {
     },
     GAME {
         public String toString() {
-            return "start";
+            return "game";
         }
     },
     LOAD {
