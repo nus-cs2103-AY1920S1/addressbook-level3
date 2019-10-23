@@ -29,7 +29,7 @@ import seedu.address.model.student.StudentRecord;
 public class QuestionEditCommandTest {
 
     private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(),  new EventRecord(), new StatisticsRecord(),
+        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(), new StatisticsRecord(),
         new UserPrefs());
 
     @Test
