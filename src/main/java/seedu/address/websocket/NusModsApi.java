@@ -53,6 +53,14 @@ public class NusModsApi {
         this.acadYear = acadYear;
     }
 
+    public AcadYear getAcadYear() {
+        return acadYear;
+    }
+
+    public void setAcadYear(AcadYear acadYear) {
+        this.acadYear = acadYear;
+    }
+
     /**
      * Returns a JSONArray of summaries of all modules in the academic year.
      *

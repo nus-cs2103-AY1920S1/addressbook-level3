@@ -73,11 +73,11 @@ public class FileUtil {
     }
 
     /**
-     * Writes given string to a file.
+     * Writes given string to a file and appends newline to EOF.
      * Will create the file if it does not exist yet.
      */
     public static void writeToFile(Path file, String content) throws IOException {
-        Files.write(file, content.getBytes(CHARSET));
+        Files.write(file, (content + System.lineSeparator()).getBytes(CHARSET));
     }
 
 }
