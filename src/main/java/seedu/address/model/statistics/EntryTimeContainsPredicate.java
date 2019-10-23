@@ -7,6 +7,9 @@ import seedu.address.model.person.Entry;
 public class EntryTimeContainsPredicate implements Predicate<Entry> {
     private int monthFromUser;
 
+    /**
+     * Filters the entrylist based on the int monthFromUser.
+     */
     public EntryTimeContainsPredicate(int monthFromUser) {
         this.monthFromUser = monthFromUser;
     }

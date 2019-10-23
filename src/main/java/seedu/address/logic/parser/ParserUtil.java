@@ -73,13 +73,18 @@ public class ParserUtil {
         return new Date(time);
     }
 
+    /**
+     * Parses a time in String to ArrayList<Date>.
+     * @param period the time as a String.
+     * @return the specified time as Date.
+     */
     public static ArrayList<Date> parsePeriod(String period) {
         requireNonNull(period);
         String[] splitStartAndEnd = period.split(",");
         ArrayList<Date> listOfPeriods = new ArrayList<Date>();
         if (splitStartAndEnd.length == 1) {
             listOfPeriods.add(new Date(period));
-        } else if (splitStartAndEnd.length == 2){
+        } else if (splitStartAndEnd.length == 2) {
             listOfPeriods.add(new Date(splitStartAndEnd[0]));
             listOfPeriods.add(new Date(splitStartAndEnd[1]));
         } else {

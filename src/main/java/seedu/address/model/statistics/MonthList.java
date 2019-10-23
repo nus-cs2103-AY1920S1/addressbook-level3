@@ -7,7 +7,6 @@ import java.time.Month;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.util.EntryComparator;
@@ -22,6 +21,9 @@ public class MonthList {
     private int year;
     private double monthExpenseTotal;
 
+    /**
+     * Contains the FilteredList of entries for the month.
+     */
     public MonthList(FilteredList<Entry> filteredList, Month month, int year) {
         this.filteredListForMonth = filteredList;
         this.month = month;
@@ -30,21 +32,24 @@ public class MonthList {
     }
 
     private void initRecords() {
-        filteredListForMonth.sort(new EntryComparator(sortByTime,sortByDesc));
+        filteredListForMonth.sort(new EntryComparator(sortByTime, sortByDesc));
         createObsMap();
     }
 
+    /**
+     * Creates an ObservableMap of Dailylists
+     */
     private void createObsMap() {
         for (int i = 0; i < 31; i++) {
             try {
-                LocalDate.of(year,month.getValue(),i);
+                LocalDate.of(year, month.getValue(), i);
             } catch (DateTimeException e) {
                 continue;
             }
             FilteredList<Entry> filteredListByDay = filteredListForMonth.filtered(new EntryContainsDayPredicate(i));
             DailyList dailyList = new DailyList(filteredListByDay, LocalDate.of(year, month.getValue(), i));
             monthExpenseTotal = monthExpenseTotal + dailyList.getTotalExpense();
-            dailyRecord.put(i,dailyList);
+            dailyRecord.put(i, dailyList);
         }
     }
 

@@ -1,13 +1,16 @@
 package seedu.address.model.statistics;
 
-import seedu.address.model.person.Entry;
-
 import java.util.function.Predicate;
+
+import seedu.address.model.person.Entry;
 
 public class EntryContainsDayPredicate implements Predicate<Entry> {
 
     private int dayFromUser;
 
+    /**
+     * Filters the entrylist based on the int day.
+     */
     public EntryContainsDayPredicate(int dayFromUser) {
         this.dayFromUser = dayFromUser;
     }
