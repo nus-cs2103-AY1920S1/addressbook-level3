@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.report;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import seedu.address.model.entity.body.Body;
 
 //@@author bernicechio
 /**
- * Represents a report generator and the ability to be generate aå report.
+ * Represents a report generator and the ability to be generate a report.
  */
 public class ReportGenerator {
 
@@ -27,7 +27,10 @@ public class ReportGenerator {
      * Generates a PDF report for all bodies registered in Mortago.
      *
      */
-    public static void generateAll(java.util.List<Body> bodyList) {
+    public static boolean generateAll(java.util.List<Body> bodyList) {
+        if (bodyList == null || bodyList.isEmpty()) {
+            return false;
+        }
         Document document = new Document();
         try {
             PdfWriter writer = PdfWriter.getInstance(document,
@@ -46,6 +49,7 @@ public class ReportGenerator {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     /**
@@ -86,8 +90,12 @@ public class ReportGenerator {
      * Generates a PDF report for the specific body.
      *
      * @param body which is used to generate the report.
+     * @return boolean which returns true when report is generated successfully.
      */
-    public static void generate(Body body) {
+    public static boolean generate(Body body) {
+        if (body == null) {
+            return false;
+        }
         Document document = new Document();
         try {
             PdfWriter writer = PdfWriter.getInstance(document,
@@ -102,6 +110,7 @@ public class ReportGenerator {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     /**
@@ -251,5 +260,12 @@ public class ReportGenerator {
 
         document.add(personalDetails);
 
+    }
+
+    public boolean isSameReportGenerator(Object other) {
+        if (!(other instanceof ReportGenerator)) {
+            return false;
+        }
+        return true;
     }
 }
