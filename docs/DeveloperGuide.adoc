@@ -405,6 +405,45 @@ Also, it looks somewhat out of place in `Model` as alternative 1 seems to be abl
 
 // end::stats[]
 
+// tag::command suggestions[]
+=== Command Suggestion Feature
+Users can be forgetful about the command format and sometimes unsure of what arguments to supply.
+Auto-suggestion of command arguments while the user keys in inputs can be very helpful to provide user hints.
+Possible command words will be suggested to user based on incomplete input.
+Depending on what the user has typed in for the argument, the most similar argument values retrieved from the historical
+records will be displayed to the user for reference.
+
+==== Current Implementation
+The command suggestions is achieved using a package of prompter files.
+For each parser, there will a corresponding prompter to process the current user input and return the `CommandPrompt` for display in `ResultBox`.
+Step 1. The user types commands into the `CommandBox`.
+Step 2. The `MainWindow` listens to changes in the content in `CommandBox` and direct the input to `WemePrompter`.
+Step 3. Depending on the context, the prompter that implements `WemePrompter` (e.g. `MemePrompter`) will then pass the arguments
+to different `Prompter` (e.g. `MemeAddCommandPrompter`) based on the command word.
+Step 4: The `Prompter` will process the input and return a `CommandPrompt` containing the command suggestion for the given input.
+Step 5: The prompt will be passed to and displayed by `ResultBox`.
+
+==== Design Considerations
+
+===== Aspect: How to process the input and produce the command prompt
+
+* **Alternative 1 (current choice):** Use a prompter package to abstract out the prompter for each command.
+** Pros: Single Responsibility Principle and Separation of Concerns are achieved and coupling is reduced.
+** Cons: Additional layer of abstraction and longer code.
+* **Alternative 2:** Add one more method in each parser.
+** Pros: Easier to implement.
+** Cons: The class that processses input will depend on `Parser`.
+
+===== Aspect: How to store and access historical records.
+
+* **Alternative 1 (current choice):** Use a separate `Records` storage file to store all the historical arguments.
+** Pros: Better abstraction and the records has the option to persist even if the file is deleted.
+** Cons: More files to store and longer code.
+* **Alternative 2:** Store arguments of a resource (e.g. `Meme`) as a field of the resource.
+** Pros: Easier to implement and cleaner.
+** Cons: Irrelevant information needs to be stored as a field (e.g. original file path of a resource).
+// end::command suggestions[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
