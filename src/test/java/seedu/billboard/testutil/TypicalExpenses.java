@@ -114,6 +114,14 @@ public class TypicalExpenses {
         return bb;
     }
 
+    public static Billboard getDeleteTypicalBillboard() {
+        Billboard bb = new Billboard();
+        for (Expense expense : getDeleteTypicalExpenses()) {
+            bb.addExpense(expense);
+        }
+        return bb;
+    }
+
     public static Billboard getTypicalBillboardWithArchiveExpenses() {
         Billboard bb = new Billboard();
         for (Expense expense : getTypicalExpensesWithArchiveExpenses()) {
@@ -139,6 +147,10 @@ public class TypicalExpenses {
 
     public static List<Expense> getTypicalExpenses() {
         return new ArrayList<>(Arrays.asList(BILLS, FOOD, GROCERIES, MOVIE));
+    }
+
+    public static List<Expense> getDeleteTypicalExpenses() {
+        return new ArrayList<>(Arrays.asList(FOOD, GROCERIES, MOVIE));
     }
 
     public static List<Expense> getTypicalExpensesWithArchiveExpenses() {

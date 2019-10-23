@@ -11,6 +11,7 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String EMPTY_UNDO_LIST = "There is no command to be redone.";
+    public static final String MESSAGE_REDO_SUCCESS = COMMAND_WORD + ": %s";
 
     /**
      * Executes the command and returns the result message.
@@ -28,7 +29,7 @@ public class RedoCommand extends Command {
         String redoCmd = VersionedBillboard.getRedoCmd();
         Model undoModel = VersionedBillboard.redo();
         model.setModel(undoModel);
-        CommandResult cmdResult = new CommandResult(COMMAND_WORD + ": " + redoCmd);
+        CommandResult cmdResult = new CommandResult(String.format(MESSAGE_REDO_SUCCESS, redoCmd));
         return cmdResult;
     }
 }

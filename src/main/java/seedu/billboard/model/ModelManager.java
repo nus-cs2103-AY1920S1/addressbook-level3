@@ -69,17 +69,6 @@ public class ModelManager implements Model {
         this(new Billboard(), new UserPrefs());
     }
 
-    public ModelManager(Billboard billboard, ArchiveWrapper archives, UserPrefs userPrefs,
-                        ObservableData<StatisticsType> statsType, FilteredList<Expense> filteredExpense,
-                        HashMap<String, FilteredList<Expense>> filteredArchives) {
-        this.billboard = billboard;
-        this.archives = archives;
-        this.userPrefs = userPrefs;
-        this.statsType = statsType;
-        this.filteredExpense = filteredExpense;
-        this.filteredArchives = filteredArchives;
-    }
-
     @Override
     public Billboard getCombinedBillboard() {
         List<Expense> combinedExpenses = new ArrayList<>();

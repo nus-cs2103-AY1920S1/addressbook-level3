@@ -80,13 +80,13 @@ public class BillboardParser {
             return new TagCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommandParser().parse(arguments);
+            return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommandParser().parse(arguments);
+            return new RedoCommand();
 
         case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommandParser().parse(arguments);
+            return new HistoryCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

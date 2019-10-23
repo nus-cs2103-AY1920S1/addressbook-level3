@@ -8,9 +8,9 @@ import seedu.billboard.model.Model;
  * Undo command List, store the previous model and command.
  */
 public class VersionedBillboard {
-    protected static Stack<Model> modelList = new Stack<>();
-    protected static Stack<String> cmdList = new Stack<>();
-    protected static int currentState = 0;
+    private static Stack<Model> modelList = new Stack<>();
+    private static Stack<String> cmdList = new Stack<>();
+    private static int currentState = 0;
 
     /**
      * Saves the current address book state in state history.
@@ -68,7 +68,17 @@ public class VersionedBillboard {
     public static void clearList() {
         modelList.clear();
         cmdList.clear();
+        currentState = 0;
     }
 
+    /**
+     * Compare the history of two Billboard states.
+     */
+    public boolean compareBillboardModels(Stack<Model> modelList) {
+        return VersionedBillboard.modelList.equals(modelList);
+    }
 
+    public static void setCurrentState(int currentState) {
+        VersionedBillboard.currentState = currentState;
+    }
 }

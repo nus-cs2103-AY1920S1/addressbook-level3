@@ -11,6 +11,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String EMPTY_UNDO_LIST = "There is no command to be undone.";
+    public static final String MESSAGE_UNDO_SUCCESS = COMMAND_WORD + ": %s";
 
     /**
      * Executes the command and returns the result message.
@@ -28,7 +29,7 @@ public class UndoCommand extends Command {
         Model undoModel = VersionedBillboard.undo();
         String undoCmd = VersionedBillboard.getUndoCmd();
         model.setModel(undoModel);
-        CommandResult cmdResult = new CommandResult(COMMAND_WORD + ": " + undoCmd);
+        CommandResult cmdResult = new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, undoCmd));
         return cmdResult;
     }
 }

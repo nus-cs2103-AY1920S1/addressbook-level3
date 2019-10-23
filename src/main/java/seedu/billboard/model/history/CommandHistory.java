@@ -6,7 +6,7 @@ import java.util.Stack;
  * Object to store all the executed command.
  */
 public class CommandHistory {
-    public static final String HAVE_HISTORY = "The following is the command history:";
+    public static final String HAVE_HISTORY = "The following is the command history:%s";
     private static Stack<String> cmdList = new Stack<>();
     private static int count = 0;
 
@@ -63,7 +63,7 @@ public class CommandHistory {
      * @return boolean return true if the cmdList is not empty.
      */
     public static boolean hasCommand() {
-        return !cmdList.empty();
+        return cmdList.size() != 1;
     }
 
     /**
@@ -72,11 +72,19 @@ public class CommandHistory {
      * @return String return the string containing all the history commands.
      */
     public static String getCmdHistory() {
-        String result = HAVE_HISTORY;
+        String result = "";
         for (int i = cmdList.size() - 1; i > 0; i--) {
             result = result.concat("\n\t");
             result = result.concat(cmdList.get(i - 1));
         }
-        return result;
+        return String.format(HAVE_HISTORY, result);
+    }
+
+    /**
+     * Clear command history.
+     */
+    public static void clearHistory() {
+        cmdList.clear();
+        count = 0;
     }
 }

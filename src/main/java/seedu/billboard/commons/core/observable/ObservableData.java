@@ -71,11 +71,4 @@ public class ObservableData<T> {
         this.observers.addAll(observers);
     }
 
-    public ObservableData getClone() {
-        ObservableData<T> clonedData = new ObservableData<>();
-        clonedData.setValue(value);
-        clonedData.setObservers(observers);
-        return clonedData;
-    }
-
 }

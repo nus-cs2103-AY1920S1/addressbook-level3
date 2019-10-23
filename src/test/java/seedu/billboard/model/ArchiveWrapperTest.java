@@ -129,4 +129,11 @@ public class ArchiveWrapperTest {
         assertEquals(new HashSet<>(), newData.getArchiveNames());
     }
 
+    @Test
+    public void getClone_success() {
+        ArchiveWrapper aw = getTypicalArchiveWrapper();
+        ArchiveWrapper cloned = aw.getClone();
+        assertTrue(aw.equals(cloned));
+    }
+
 }
