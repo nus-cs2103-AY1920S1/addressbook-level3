@@ -258,7 +258,7 @@ This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
 image::ReminderAssociationDiagram.png[]
 
 ==== Design Considerations
-===== Aspect: How to represent the relationship between reminder and bookmark.
+===== Aspect: How to represent the relationship between reminder and bookmark
 * **Alternative 1 (current choice):** Use two hashmaps to store both the relationship from reminder to bookmark and bookmark to reminder.
 ** Pros: More OOP and can easily find the relationship.
 ** Cons: More complex when doing any operation to a reminder. Need to check two hashmaps.
