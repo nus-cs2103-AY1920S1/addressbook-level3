@@ -92,6 +92,7 @@ public class LoansManager {
      */
     public void addLoan(Loan toAdd) {
         internalList.add(0, toAdd);
+        internalList.sort(new SortByPerson());
     }
 
     /**
