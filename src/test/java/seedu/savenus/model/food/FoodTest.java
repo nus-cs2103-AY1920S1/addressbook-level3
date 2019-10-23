@@ -60,6 +60,12 @@ public class FoodTest {
         // same name, same price, same description, different tags -> returns true
         editedAlice = new FoodBuilder(CARBONARA).withTags(VALID_TAG_CHICKEN).build();
         assertTrue(CARBONARA.isSameFood(editedAlice));
+
+        // reversed favorite value twice
+        editedAlice = new FoodBuilder(CARBONARA).build();
+        editedAlice.reverseFavoriteValue();;
+        editedAlice.reverseFavoriteValue();
+        assertTrue(CARBONARA.isSameFood(editedAlice));
     }
 
     @Test
@@ -71,6 +77,8 @@ public class FoodTest {
         assertEquals(carbonaraCopy.getField(FIELD_NAME_LOCATION), carbonaraCopy.getLocation());
         assertEquals(carbonaraCopy.getField(FIELD_NAME_OPENING_HOURS), carbonaraCopy.getOpeningHours());
         assertEquals(carbonaraCopy.getField(FIELD_NAME_RESTRICTIONS), carbonaraCopy.getRestrictions());
+        assertEquals(carbonaraCopy.getField(FIELD_NAME_CATEGORY), carbonaraCopy.getCategory());
+        assertEquals(carbonaraCopy.getField("Wrong"), null);
     }
 
     @Test
