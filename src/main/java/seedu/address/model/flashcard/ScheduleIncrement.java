@@ -13,6 +13,7 @@ public enum ScheduleIncrement {
     FINAL;
 
     private int numberOfDays;
+    private ScheduleIncrement nextIncrement;
 
     static {
         FIRST.numberOfDays = 1;
@@ -22,13 +23,29 @@ public enum ScheduleIncrement {
         FIFTH.numberOfDays = 5;
         SIXTH.numberOfDays = 5;
         FINAL.numberOfDays = 7;
+
+        FIRST.nextIncrement = SECOND;
+        SECOND.nextIncrement = THIRD;
+        THIRD.nextIncrement = FOURTH;
+        FOURTH.nextIncrement = FIFTH;
+        FIFTH.nextIncrement = SIXTH;
+        SIXTH.nextIncrement = FINAL;
+        FINAL.nextIncrement = FINAL;
     }
 
     /**
-     * Get int value of increment
+     * Get int value of increment.
      * @return int value of increment
      */
     public int getNumberOfDays() {
         return numberOfDays;
+    }
+
+    /**
+     * Get ScheduleIncrement value of next increment.
+     * @return ScheduleIncrement value of next increment
+     */
+    public ScheduleIncrement getNextIncrement() {
+        return nextIncrement;
     }
 }
