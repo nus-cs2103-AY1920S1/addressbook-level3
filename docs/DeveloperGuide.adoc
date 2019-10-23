@@ -177,9 +177,9 @@ The following sequence diagram shows how the export operation works:
 
 image::ExportSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user executes an export command:
 
-image::CommitActivityDiagram.png[]
+image::ExportActivityDiagram.png[]
 
 ==== Design Considerations
 
