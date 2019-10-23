@@ -13,7 +13,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.quiz.person.Question;
 
-
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -23,6 +22,8 @@ public class ModelQuizManager implements Model {
     private final AddressQuizBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
+    private int showQuestionNumber;
+    private boolean showAnswer;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -33,6 +34,7 @@ public class ModelQuizManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        this.showAnswer = true;
         this.addressBook = new AddressQuizBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
@@ -113,7 +115,34 @@ public class ModelQuizManager implements Model {
         addressBook.setQuestion(target, editedQuestion);
     }
 
+    @Override
+    public void setShowQuestion(Question question) {
+        addressBook.setShowQuestion(question);
+    }
+
+    @Override
+    public void setQuestionNumber(int questionNumber) {
+        showQuestionNumber = questionNumber;
+    }
+
+    public int getQuestionNumber() {
+        return showQuestionNumber;
+    }
+
+    public void setShowAnswer(boolean showAnswer) {
+        this.showAnswer = showAnswer;
+    }
+
+    public boolean getShowAnswer() {
+        return showAnswer;
+    }
+
     //=========== Filtered Question List Accessors =============================================================
+
+    @Override
+    public ObservableList<Question> getFilteredShowQuestionList() {
+        return addressBook.getShowQuestionList();
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of

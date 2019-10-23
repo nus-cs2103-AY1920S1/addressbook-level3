@@ -1,11 +1,8 @@
 package seedu.address.logic.quiz.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_TYPE;
+
+import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.model.quiz.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 
 import java.util.Collections;
@@ -29,48 +26,44 @@ import seedu.address.model.quiz.person.Type;
 import seedu.address.model.quiz.tag.Tag;
 
 /**
- * Edits the details of an existing question in modulo quiz.
+ * Add comment or explanation of an existing question in modulo quiz.
  */
-public class EditCommand extends Command {
+public class AddCommentCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "comment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the question identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add comment of the question identified "
             + "by the index number used in the displayed question list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: " + COMMAND_WORD + " CATEGORY "
+            + "Parameters: " + COMMAND_WORD
             + "INDEX (must be a positive integer) "
-            + PREFIX_QUESTION + "NAME "
-            + PREFIX_ANSWER + "PHONE "
-            + PREFIX_CATEGORY + "EMAIL "
-            + PREFIX_TYPE + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG] \n"
-            + "Example: " + COMMAND_WORD + "CS2103 1 "
-            + PREFIX_QUESTION + "How many mammals are there in the universe? "
-            + PREFIX_TYPE + "low";
+            + PREFIX_COMMENT + "COMMENT"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_COMMENT
+            + "The explanation is on lecture notes chapter 9 page 24.";
 
-    public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the modulo quiz.";
+    public static final String MESSAGE_COMMENT_QUESTION_SUCCESS = "Commented Question: %1$s";
 
     private final Index index;
-    private final EditQuestionDescriptor editQuestionDescriptor;
+    private final String questionComment;
 
     /**
      * @param index of the question in the filtered question list to edit
-     * @param editQuestionDescriptor details to edit the question with
+     * @param questionComment details to edit the question with
      */
-    public EditCommand(Index index, EditQuestionDescriptor editQuestionDescriptor) {
+    public AddCommentCommand(Index index, String questionComment) {
         requireNonNull(index);
-        requireNonNull(editQuestionDescriptor);
+        requireNonNull(questionComment);
 
         this.index = index;
-        this.editQuestionDescriptor = new EditQuestionDescriptor(editQuestionDescriptor);
+        this.questionComment = questionComment.trim();
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        Comment comment = new Comment(questionComment);
         List<Question> lastShownList = model.getFilteredQuestionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -78,15 +71,12 @@ public class EditCommand extends Command {
         }
 
         Question questionToEdit = lastShownList.get(index.getZeroBased());
-        Question editedQuestion = createEditedQuestion(questionToEdit, editQuestionDescriptor);
-
-        if (!questionToEdit.isSameQuestion(editedQuestion) && model.hasQuestion(editedQuestion)) {
-            throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
-        }
+        Question editedQuestion = createEditedQuestion(questionToEdit, comment);
 
         model.setQuestion(questionToEdit, editedQuestion);
         model.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS, editedQuestion));
+
+        return new CommandResult(String.format(MESSAGE_COMMENT_QUESTION_SUCCESS, questionComment), "detail");
     }
 
     /**
@@ -94,36 +84,19 @@ public class EditCommand extends Command {
      * edited with {@code editQuestionDescriptor}.
      */
     private static Question createEditedQuestion(Question questionToEdit,
-                                                 EditQuestionDescriptor editQuestionDescriptor) {
+                                                 Comment comment) {
         assert questionToEdit != null;
 
-        Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
-        Comment commentedQuestion = editQuestionDescriptor.getComment().orElse(questionToEdit.getComment());
-        Answer updatedAnswer = editQuestionDescriptor.getAnswer().orElse(questionToEdit.getAnswer());
-        Category updatedCategory = editQuestionDescriptor.getCategory().orElse(questionToEdit.getCategory());
-        Type updatedType = editQuestionDescriptor.getType().orElse(questionToEdit.getType());
-        Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
+        Name updatedName = questionToEdit.getName();
+        Comment commentedQuestion = comment;
+        Answer updatedAnswer = questionToEdit.getAnswer();
+        Category updatedCategory = questionToEdit.getCategory();
+        Type updatedType = questionToEdit.getType();
+        Set<Tag> updatedTags = questionToEdit.getTags();
 
         return new Question(updatedName, commentedQuestion, updatedAnswer, updatedCategory, updatedType, updatedTags);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-
-        // state check
-        EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editQuestionDescriptor.equals(e.editQuestionDescriptor);
-    }
 
     /**
      * Stores the details to edit the question with. Each non-empty field value will replace the
@@ -237,5 +210,24 @@ public class EditCommand extends Command {
                     && getType().equals(e.getType())
                     && getTags().equals(e.getTags());
         }
+    }
+
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddCommentCommand)) {
+            return false;
+        }
+
+        // state check
+        AddCommentCommand e = (AddCommentCommand) other;
+        return index.equals(e.index)
+                && questionComment.equals(e.questionComment);
     }
 }

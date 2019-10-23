@@ -17,8 +17,6 @@ import seedu.address.model.quiz.ReadOnlyAddressBook;
 import seedu.address.model.quiz.person.Question;
 import seedu.address.storage.quiz.Storage;
 
-
-
 /**
  * The main LogicManager of the app.
  */
@@ -63,8 +61,23 @@ public class LogicQuizManager implements Logic {
     }
 
     @Override
+    public int getQuestionNumber() {
+        return model.getQuestionNumber();
+    }
+
+    @Override
+    public boolean getShowAnswer() {
+        return model.getShowAnswer();
+    }
+
+    @Override
     public ObservableList<Question> getFilteredQuestionList() {
         return model.getFilteredQuestionList();
+    }
+
+    @Override
+    public ObservableList<Question> getFilteredShowQuestionList() {
+        return model.getFilteredShowQuestionList();
     }
 
     @Override

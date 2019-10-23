@@ -7,15 +7,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import seedu.address.model.quiz.person.Question;
 
 
 /**
  * An UI component that displays information of a {@code Question}.
  */
-public class QuestionCard extends UiPart<Region> {
+public class QuestionDetailCard extends UiPart<Region> {
 
-    private static final String FXML = "QuestionListCard.fxml";
+    private static final String FXML = "QuestionDetailCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -40,20 +41,26 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private Label category;
     @FXML
+    private Text comment;
+    @FXML
     private FlowPane tags;
 
-    public QuestionCard(Question question, int displayedIndex, boolean showAnswer) {
+    public QuestionDetailCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;
-        id.setText(displayedIndex + ". ");
+        id.setText("Filtered Question  #" + displayedIndex + "  ");
         name.setText(question.getName().fullName);
 
-        if (showAnswer) {
-            answer.setText(question.getAnswer().value);
+        System.out.println("BABY SHARL" + question.getComment());
+
+        if (question.getComment() == null) {
+            comment.setText("No explanation yet");
         } else {
-            answer.setText("-- Hidden --");
+            comment.setText(question.getComment().value);
         }
 
+        comment.wrappingWidthProperty().set(500);
+        answer.setText(question.getAnswer().value);
         type.setText(question.getType().value);
         category.setText(question.getCategory().value);
         question.getTags().stream()
@@ -69,12 +76,12 @@ public class QuestionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof QuestionCard)) {
+        if (!(other instanceof QuestionDetailCard)) {
             return false;
         }
 
         // state check
-        QuestionCard card = (QuestionCard) other;
+        QuestionDetailCard card = (QuestionDetailCard) other;
         return id.getText().equals(card.id.getText())
                 && question.equals(card.question);
     }

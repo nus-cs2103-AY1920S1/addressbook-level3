@@ -7,17 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.quiz.commands.AddCommand;
+import seedu.address.logic.quiz.commands.AddCommentCommand;
 import seedu.address.logic.quiz.commands.ClearCommand;
 import seedu.address.logic.quiz.commands.Command;
 import seedu.address.logic.quiz.commands.DeleteCommand;
+import seedu.address.logic.quiz.commands.DetailCommand;
 import seedu.address.logic.quiz.commands.EditCommand;
 import seedu.address.logic.quiz.commands.ExitCommand;
 import seedu.address.logic.quiz.commands.FindCommand;
 import seedu.address.logic.quiz.commands.HelpCommand;
 import seedu.address.logic.quiz.commands.ListCommand;
 import seedu.address.logic.quiz.commands.SwitchCommand;
+import seedu.address.logic.quiz.commands.ViewAnswerCommand;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
-
 
 /**
  * Parses user input.
@@ -49,11 +51,17 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case AddCommentCommand.COMMAND_WORD:
+            return new AddCommentCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DetailCommand.COMMAND_WORD:
+            return new DetailCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -72,6 +80,9 @@ public class AddressBookParser {
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
+
+        case ViewAnswerCommand.COMMAND_WORD:
+            return new ViewAnswerCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
