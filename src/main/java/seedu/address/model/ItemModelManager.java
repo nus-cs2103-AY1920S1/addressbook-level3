@@ -3,9 +3,16 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.PriorityQueue;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
@@ -41,6 +48,8 @@ public class ItemModelManager implements ItemModel {
     private ReminderList pastReminders;
     private ActiveRemindersList activeReminders;
     private ArrayList<Item> futureReminders;
+
+    private Timer timer = null;
 
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs,
                             ElisaCommandHistory elisaCommandHistory) {
@@ -467,6 +476,18 @@ public class ItemModelManager implements ItemModel {
         return priorityMode;
     }
 
+    public void scheduleOffPriorityMode(LocalDateTime localDateTime) {
+        this.timer = new Timer();
+        ZonedDateTime zdt = localDateTime.atZone(ZoneId.systemDefault());
+        Date date = Date.from(zdt.toInstant());
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                toggleOffPriorityMode();
+            }
+        }, date);
+    }
+
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
 
@@ -482,9 +503,24 @@ public class ItemModelManager implements ItemModel {
     /**
      * Turns off the priority mode.
      */
-    public void toggleOffPriorityMode() {
+    private void toggleOffPriorityMode() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+
         this.sortedTask = null;
-        this.visualList = taskList;
+        if (visualList instanceof TaskList) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    visualList.clear();
+                    for (Item item : taskList) {
+                        visualList.add(item);
+                    }
+                }
+            });
+        }
         this.priorityMode = false;
     }
 

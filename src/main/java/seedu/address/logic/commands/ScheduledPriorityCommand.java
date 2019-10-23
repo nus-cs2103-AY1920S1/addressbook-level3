@@ -3,9 +3,6 @@ package seedu.address.logic.commands;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
@@ -15,8 +12,7 @@ import seedu.address.model.ItemModel;
  */
 public class ScheduledPriorityCommand extends PriorityCommand {
     public static final String COMMAND_WORD = "priority";
-    private Date date;
-    private Timer timer;
+    private LocalDateTime ldt;
 
     /**
      * Constructor to create the command
@@ -24,25 +20,13 @@ public class ScheduledPriorityCommand extends PriorityCommand {
      */
     public ScheduledPriorityCommand(LocalDateTime ldt) {
         ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
-        this.date = Date.from(zdt.toInstant());
-        this.timer = new Timer();
+        this.ldt = ldt;
     }
 
     @Override
     public CommandResult execute(ItemModel model) {
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                model.toggleOffPriorityMode();
-                timer.cancel();
-            }
-        }, date);
+        model.scheduleOffPriorityMode(ldt);
         return super.execute(model);
     }
 
-    @Override
-    public void reverse(ItemModel model) throws CommandException {
-        timer.cancel();
-        super.reverse(model);
-    }
 }

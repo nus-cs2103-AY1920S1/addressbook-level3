@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import seedu.address.commons.core.GuiSettings;
@@ -94,7 +95,7 @@ public interface ItemModel {
 
     public boolean togglePriorityMode() throws IllegalListException;
 
-    public void toggleOffPriorityMode();
+    public void scheduleOffPriorityMode(LocalDateTime localDateTime);
 
     public Item markComplete(int index) throws IllegalListException;
 
