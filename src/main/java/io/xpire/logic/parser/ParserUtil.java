@@ -129,7 +129,10 @@ public class ParserUtil {
         requireNonNull(key);
         String trimmedMethodOfSorting = key.trim();
         if (!MethodOfSorting.isValidMethodOfSorting(trimmedMethodOfSorting)) {
-            throw new ParseException(MethodOfSorting.MESSAGE_CONSTRAINTS);
+            Set<String> allowedArgs = new TreeSet<>(Arrays.asList(
+                    MethodOfSorting.SORT_NAME, MethodOfSorting.SORT_DATE));
+            String output = StringUtil.findSimilar(key, allowedArgs, 1);
+            throw new ParseException(MethodOfSorting.MESSAGE_CONSTRAINTS + output);
         }
         return new MethodOfSorting(trimmedMethodOfSorting);
     }
