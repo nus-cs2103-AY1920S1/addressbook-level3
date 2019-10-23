@@ -31,4 +31,10 @@ JsonSerializableWish .down.> JsonAdaptedTag
 JsonSerializableAutoExpenditure .down.> JsonAdaptedTag
 JsonSerializableTrackerReminder .down.> JsonAdaptedTag
 JsonSerializableAddressBudget .down.> JsonAdaptedTag
+JsonSerializableExpense .down.> JsonAdaptedDateReminder
+JsonSerializableIncome .down.> JsonAdaptedDateReminder
+JsonSerializableWish .down.> JsonAdaptedDateReminder
+JsonSerializableAutoExpenditure .down.> JsonAdaptedDateReminder
+JsonSerializableTrackerReminder .down.> JsonAdaptedDateReminder
+JsonSerializableAddressBudget .down.> JsonAdaptedDateReminder
 @enduml
