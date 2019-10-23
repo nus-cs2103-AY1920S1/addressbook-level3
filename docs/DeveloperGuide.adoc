@@ -295,8 +295,57 @@ take some time.
 // end::dashboard[]
 
 === RecipeBook feature
-==== Proposed Implementation
-==== Design Considerations
+The current implementation of Diary consists of the following:
+
+* Each `Recipe` consists of a unique `name`
+* Each `Recipe` contains an Set of `Ingredient`
+* Each `Recipe` consists of a unique `Calories`
+* Each `Recipe` consists of a unique `Carbohydrates`
+* Each `Recipe` consists of a unique `Fats`
+* Each `Recipe` consists of a unique `Protein`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Recipe` class.
+
+.Recipe Class Diagram
+image::RecipeClassDiagram.png[]
+
+==== Implementation of recipe book commands
+
+`Recipe` class supports multiple commands. It includes:
+
+* `AddRecipeCommand` - Adds a `Recipe` into `DukeCooks`
+* `DeleteRecipeCommand` - Deletes a `Recipe` from `DukeCooks`
+* `EditRecipeCommand` - Edits the specified `Recipe`
+* `FindRecipeCommand` - Finds all `Recipe` whose `name` contains user-specified keywords
+
+All the above recipe commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddRecipeCommandParser`,
+`DeleteRecipeCommandParser` etc). After which, the corresponding command will be executed (i.e `AddRecipeCommand`,
+`DeleteRecipeCommand` etc).
+
+The figure below describes the execution of an `DeleteRecipeCommand`.
+The input provided is `delete recipe 1`.
+
+.DeleteRecipeCommand Sequence Diagram
+image::DeleteSequenceDiagram.png[]
+
+After a successful execution, the recipe with the specified index will be deleted from the recipe book.
+
+/ maybe insert a screenshot to show the expected output.
+
+The current implementation makes use of an Sets to store the `Ingredient` objects.
+This is the easiest way to implement the `Ingredient` component of the recipe as it builds on the existing codebase
+of ab3.
+
+==== Alternatives
+An alternative would be to use an ArrayList instead of Sets to store `Ingredient` objects. This would make the
+implementation of `Ingredient` specific objects easier as they could be referenced through indexing of the ArrayList,
+which is more straight forward.
+
+==== Our Choice
+We will soon implement ArrayLists instead as the current implementation of `Ingredient` objects using Sets do not allow
+for ease of use for the user whenever the user wishes to edit `Ingredient` objects present within a `Recipe`.
 
 === Exercise feature
 ==== Proposed Implementation
