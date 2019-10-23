@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,14 +30,22 @@ public class SearchCommandTest {
         NameContainsKeywordsPredicate secondPredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));*/
 
-        SearchCommand searchFirstCommand = new SearchCommand(Optional.of("first"));
-        SearchCommand searchSecondCommand = new SearchCommand(Optional.of("second"));
+        HashMap<String, List<String>> firstHash = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> secondHash = new HashMap<String, List<String>>();
+        ArrayList<String> firstList = new ArrayList<>();
+        ArrayList<String> secondList = new ArrayList<>();
+        firstList.add("first");
+        secondList.add("second");
+        firstHash.put("name", firstList);
+        secondHash.put("name", secondList);
+        SearchCommand searchFirstCommand = new SearchCommand(firstHash);
+        SearchCommand searchSecondCommand = new SearchCommand(secondHash);
 
         // same object -> returns true
         assertTrue(searchFirstCommand.equals(searchFirstCommand));
 
         // same values -> returns true
-        SearchCommand findFirstCommandCopy = new SearchCommand(Optional.of("first"));
+        SearchCommand findFirstCommandCopy = new SearchCommand(firstHash);
         assertTrue(searchFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -52,7 +62,11 @@ public class SearchCommandTest {
     public void execute_zeroKeywords_noShowFound() {
         /*String expectedMessage = String.format(MESSAGE_SHOWS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        SearchCommand command = new SearchCommand(Optional.of(" "));
+        HashMap<String, List<String>> emptyHash = new HashMap<String, List<String>>();
+        ArrayList<String> emptyList = new ArrayList<>();
+        emptyList.add(" ");
+        emptyHash.put("name", emptyList);
+        SearchCommand command = new SearchCommand(emptyHash);
         expectedModel.updateFilteredShowList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredShowList());

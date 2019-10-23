@@ -4,11 +4,13 @@ import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FO
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.commands.SearchCommand;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class SearchCommandParserTest {
 
@@ -22,8 +24,12 @@ public class SearchCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
+        HashMap<String, List<String>> searchHash = new HashMap<>();
+        ArrayList<String> nameList = new ArrayList<>();
+        nameList.add("Alice");
+        searchHash.put("name", nameList);
         SearchCommand expectedSearchCommand =
-                new SearchCommand(Optional.of("Alice"));
+                new SearchCommand(searchHash);
         assertParseSuccess(parser, "Alice", expectedSearchCommand);
 
         // multiple whitespaces between keywords
