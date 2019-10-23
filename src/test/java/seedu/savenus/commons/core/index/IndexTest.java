@@ -60,4 +60,10 @@ public class IndexTest {
         // different index -> returns false
         assertFalse(fifthFoodIndex.equals(Index.fromOneBased(1)));
     }
+
+    @Test
+    public void compareTo() {
+        final Index fifthFoodIndex = Index.fromOneBased(5);
+        assertTrue(fifthFoodIndex.compareTo(fifthFoodIndex) == 0);
+    }
 }
