@@ -69,7 +69,7 @@ Format: `dequeue <QUEUE_NUMBER>`
 ==== Assign next patient to an available doctor : `next` ====
 
 Assigns next patient to an available doctor based on the room number. +
-Format: `next <ROOM_ID>`
+Format: `next <ROOM_NUMBER>`
 
 ==== Doctor takes a break: `break`  ====
 
@@ -79,7 +79,16 @@ Format: `break <ROOM_NUMBER>`
 ==== Doctor resumes his/her duty: `resume` ====
 
 Allows patients to be directed to a given Doctor based on the room number. +
-Format: `resume <ROOM_NUMBER>`
+Format: `resume <ROOM_NUMBER>
+
+==== Add a new room: `addRoom` ====
+
+Adds a new room with a doctor to the list. +
+Format: `addRoom <DOCTOR_REFERENCE_ID>`
+
+==== Removes a room: `removeRoom` ====
+Removes a room in the list. +
+Format: `removeRoom <ROOM_NUMBER>`
 
 
 === Patient Management
@@ -149,21 +158,28 @@ Format: `offduty <ROOM_NUMBER>`
 
 === Appointment Management
 
+==== Adds all appointments: `addappt` ====
+
+Adds a new appointment for a patient +
+If optional field for recursive is empty, then only add the event that is given. Otherwise recursive appointments will be added. +
+Format: `appointments [i/REFERENCE_ID] [rec/recursively] [num/recursiveTimes] str/<START_DATE> end/<END_DATE>`
+
 ==== Displays all appointments: `appointments` ====
 
 Displays a sorted list of upcoming appointments whose appointment is within +
-If search keywords are empty, only upcoming appointments within the next 7 days will be displayed. +
+If search keywords are empty, all upcoming appointments will be displayed. +
 Format: `appointments [p/<PATIENT_NAME | PATIENT_IC>] [s/<START_DATE>] [e/<END_DATE>]`
+
 
 ==== Cancels an appointment: `cancel` ====
 
 Cancels the specified appointment. +
-Format: `cancel <ENTRY_ID>`
+Format: `cancelappt <ENTRY_ID>`
 
 ==== Changes the appointment date: `change` ====
 
 Changes and updates to a new appointment detail in the appointment listing screen +
-Format: `change <ENTRY_ID> [i/<PATIENT_IC>] [s/<START_DATE_TIME>] [e/<END_DATE_TIME>]`
+Format: `changeappt <ENTRY_ID> [i/<PATIENT_IC>] [s/<START_DATE_TIME>] [e/<END_DATE_TIME>]`
 
 ==== Shows the empty slots: `slot` ====
 
@@ -172,14 +188,14 @@ Format: `slot s/<START_DATE> e/<END_DATE>`
 
 ==== Displays patients who have missed their appointments and have yet to be notified: `missed` ====
 
-Displays all patients who have missed their appointments that are not yet settled. +
-Format: `missed [d/<DATETIME>]`
+Displays all appointments that are missed and not yet settled. +
+Format: `missappt`
 
 ==== Sets missed appointments as settled/notified: `settle` ====
 
 Settles the missed appointments for respective patients. +
-Format: `settle <ENTRY_ID>
-`
+Format: `settle <ENTRY_ID>`
+
 ==== Changes the max number of concurrent consultation: `maxconcurrentappt` (v2.0) ====
 
 Changes the maximum number of concurrent patient appointments +
