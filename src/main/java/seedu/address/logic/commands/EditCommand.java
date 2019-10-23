@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
@@ -39,7 +39,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TYPE + " "
             + "[" + PREFIX_DESC + "DESCRIPTION] "
-            + "[" + PREFIX_TIME + "TIME] "
+            + "[" + PREFIX_DATE + "TIME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "

@@ -99,6 +99,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.expenseReminders.setEntries(expenseReminders);
         indicateModified();
     }
+
     public void setExpenseTrackers(List<ExpenseTracker> trackers) {
         this.expenseTrackers.setEntries(trackers);
         indicateModified();
@@ -108,6 +109,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.budgets.setEntries(budgets);
         indicateModified();
     }
+
     public void setWishReminders(List<WishReminder> wishReminders) {
         this.wishReminders.setEntries(wishReminders);
     }
@@ -131,6 +133,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             }
         }
     }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */

@@ -202,7 +202,6 @@ Examples:
 
 === Use Case 09: List existing budgets
 
-
 listBudget: lists all the current budgets the user has. +
 Format: listBudget
 

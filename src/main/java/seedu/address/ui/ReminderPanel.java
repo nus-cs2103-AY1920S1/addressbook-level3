@@ -1,36 +1,31 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
-//import seedu.address.model.person.Wish;
 
 /**
- * Side panel for wishes in wishlist.
+ * Side panel for budgets.
  */
-public class WishListPanel extends UiPart<Region> {
-    private static final String FXML = "WishListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(WishListPanel.class);
+public class ReminderPanel extends UiPart<Region> {
+    private static final String FXML = "ReminderListPanel.fxml";
 
     @FXML
-    private ListView<Entry> wishListView;
+    private ListView<Entry> reminderListView;
 
-    public WishListPanel(ObservableList<Entry> wishList) {
+    public ReminderPanel(ObservableList<Entry> remindersList) {
         super(FXML);
-        wishListView.setItems(wishList);
-        wishListView.setCellFactory(listView -> new WishListViewCell());
+        reminderListView.setItems(remindersList);
+        reminderListView.setCellFactory(listView -> new ReminderListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class WishListViewCell extends ListCell<Entry> {
+    class ReminderListViewCell extends ListCell<Entry> {
         @Override
         protected void updateItem(Entry entry, boolean empty) {
             super.updateItem(entry, empty);
@@ -45,3 +40,4 @@ public class WishListPanel extends UiPart<Region> {
         }
     }
 }
+

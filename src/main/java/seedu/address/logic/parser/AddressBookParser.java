@@ -30,6 +30,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.TogglePanelCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.WishListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -126,6 +127,9 @@ public class AddressBookParser {
 
         case DeleteExpenseReminderCommand.COMMAND_WORD:
             return new DeleteExpenseReminderCommandParser().parse(arguments);
+
+        case TogglePanelCommand.COMMAND_WORD:
+            return new TogglePanelCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
