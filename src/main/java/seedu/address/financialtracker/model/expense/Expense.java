@@ -6,10 +6,9 @@ public class Expense {
     private Description desc;
     private Country country;
 
-    public Expense(Amount amount, Description desc, Country country) {
+    public Expense(Amount amount, Description desc) {
         this.amount = amount;
         this.desc = desc;
-        this.country = country;
     }
 
     public Amount getAmount() {
@@ -22,6 +21,10 @@ public class Expense {
 
     public Description getDesc() {
         return desc;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     /**

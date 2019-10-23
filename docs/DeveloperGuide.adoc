@@ -417,6 +417,23 @@ This sequential approach in implementing the `SearchCommand` will ensure that al
 based on the specific search condition and only the filtered list will be given as a result.
 
 === Financial Tracker
+The financial tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
+
+Current, the itinerary feature supports the basic commands of add, delete and summary.
+
+.Architecture Diagram of the Financial Tracker feature
+image::FinancialTrackerDiagram.png[]
+
+The Architecture Diagram given above explains the high-level design of the financial tracker feature.
+Inputs given by the user are channeled from the text UI and parsed by Command Parser before different commands are formed which generates
+the model and updates the FinancialTracker object which contains the expense list.
+
+The text UI, log centre and storage all stem from the common package of the main TravEzy application.
+However, in the parser package of itinerary, it contains various parser objects for the different command.
+This is to ensure that each command in financial tracker have only one parser validating the command.
+The GUI also collaborate with Model Class directly, which will be changed to only communicate with Logic class in later time.
+
+==== Expense Statistics
 
 === Diary
 
@@ -670,7 +687,24 @@ Extensions
 ----
 
 [discrete]
-=== Use case: Finance Tracker
+=== Use case: Financial Tracker
+----
+Software System : TravEzy Travelling Financial Tracker
+Use Case: UCFT01 - Add an expense into financial tracker page
+Actor: User
+
+Guarantees:
+    . A new expense will be added to the financial tracker page upon successful command
+
+MSS:
+    1. User type in the expense to be added to the financial tracker
+    2. TravEzy add the expense in order by date and time
+
+Extensions
+    1a. Command format is incorrect.
+        1a1. TravEzy shows an error message, prompt user with proper command format.
+        Use case resumes at step 1.
+----
 
 _{More to be added}_
 
