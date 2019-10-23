@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +47,14 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Returns the index of a person from the list.
+     */
+    public int indexOf(Person toFind) {
+        requireNonNull(toFind);
+        return internalList.indexOf(toFind);
     }
 
     /**
@@ -133,5 +142,15 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
+    }
+
+    /**
+     * Get a person by index (Optional object).
+     */
+    public Optional<Person> getByIndex(int key) {
+        if (key >= 0 && key < internalList.size()) {
+            return Optional.of(internalList.get(key));
+        }
+        return Optional.empty();
     }
 }

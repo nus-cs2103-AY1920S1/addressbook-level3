@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,21 +11,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.visit.EndDateTime;
+import seedu.address.model.datetime.EndDateTime;
+import seedu.address.model.datetime.StartDateTime;
+import seedu.address.model.person.Person;
 import seedu.address.model.visit.Remark;
-import seedu.address.model.visit.StartDateTime;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visittask.VisitTask;
+
 
 /**
  * Jackson-friendly version of {@link Visit}.
  */
-class JsonAdaptedVisit {
+public class JsonAdaptedVisit {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Visit's %s field is missing!";
     public static final String END_DATE_EARLIER_THAN_START_DATE = "Visit's start date is earlier "
             + "than its end date";
-
     private final String remark;
     private final String startDateTime;
     private final String endDateTime;
@@ -63,11 +66,15 @@ class JsonAdaptedVisit {
     }
 
     /**
-     * Converts this Jackson-friendly adapted visit object into the model's {@code Visit} object.
+     * Converts this Jackson-friendly adapted visit object into the model's {@code Visit} object
+     * with a reference to its patient object.
+     * Because this patient object is not saved together with the Visit, it is only passed in when the visit
+     * object needs to be converted to its model type.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
-    public Visit toModelType() throws IllegalValueException {
+    public Visit toModelType(Person patient) throws IllegalValueException {
+        requireNonNull(patient);
         final List<VisitTask> modelVisitTasks = new ArrayList<>();
         for (JsonAdaptedVisitTask visitTask : visitTasks) {
             modelVisitTasks.add(visitTask.toModelType());
@@ -94,12 +101,12 @@ class JsonAdaptedVisit {
             modelEndDateTime = new EndDateTime(endDateTime);
 
             //Other constraints e.g. EndDateTime cannot be earlier than startDateTime
-            if (modelEndDateTime.dateTime.before(modelStartDateTime.dateTime)) {
+            if (modelEndDateTime.dateTime.isBefore(modelStartDateTime.dateTime)) {
                 throw new IllegalValueException(END_DATE_EARLIER_THAN_START_DATE);
             }
         }
 
-        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks);
+        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks, patient);
     }
 
 }

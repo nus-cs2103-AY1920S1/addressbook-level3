@@ -1,0 +1,166 @@
+== Appointments [Parameters not updated]
+====
+*Appointments*
+
+As a community nurse, you will often make home visits to your patients. and keep track of these appointments you make with your patients. You can use the application to manage and keep track of these appointments. This section describes the features that will allow you to manage your appointments.
+====
+
+=== Listing All Appointments: `appt list`
+You can see a list of all appointments in the app by typing `appt list`.
+
+In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt find`.
+
+Format: `appt list`
+
+=== Finding Appointment(s): `appt find`
+
+You can find appointments that fit the parameters given using `appt find`.
+
+In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt list` or if different parameters are used.
+
+
+Format: `appt find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+* `appt find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
+Lists all appointments of that particular patient
+
+=== Viewing an Appointment: `appt view`
+
+You can see an appointment's full details using `appt view`. The appointment is selected by their *index*.
+
+Format: `appt view INDEX`
+
+****
+* View the appointment at the specified `INDEX`.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `appt list` +
+`appt view 1`
+View the item with index number 1. This index can be found from the full list of appointments.
+
+* `appt view 2`
+View the item with the index number 2.
+
+=== Listing the next earliest Appointments: `appt next`
+
+You can list the next earliest appointments using `appt next`.
+
+Format: `appt next NUMBER`
+
+Examples:
+
+`appt next 3` +
+Displays the next 3 earliest appointments sorted by time.
+
+=== Editing an Appointment: `appt edit`
+
+You can edit an existing appointment in the app using `appt edit`.
+
+Format: `appt edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `appt list` +
+ `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person in the entire appointment's list to be `91234567` and `johndoe@example.com` respectively.
+
+
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person with the index 1.`Betsy Crower` and clears all existing tags.
+
+
+// tag::delete[]
+=== Deleting an Appointment: `appt delete`
+
+You can delete an appointment by *index* using `appt delete`.
+
+Format: `appt delete INDEX`
+
+****
+* Deletes the appointment at the specified `INDEX`.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `appt list` +
+`appt delete 2` +
+Deletes the 2nd appointment in the appointment list.
+
+* `appt delete 1` +
+Deletes the appointment which had been assigned the index 1.
+
+// end::delete[]
+
+=== Beginning an Appointment: `appt begin`
+
+You can begin an appointment (i.e. begin a house visit) by *index* using `appt begin`.
+
+Format: `appt begin INDEX`
+
+OR
+
+If you want to begin the next appointment that you will have, you can begin the next appointment using `appt begin next`.
+
+****
+* Begins the appointment at the specified `INDEX` if using `INDEX`. If using `appt begin next`, begins the next appointment (the appointment that will happen the soonest).
+* Beginning an appointment converts it into a visit. This allows you to use the visit's todo list as well as add details to the visit, before finally archiving the visit by marking it as finished using `visit finish`.
+* The appointment you are beginning must start within the next 3 hours (you cannot begin an appointment too early in advance).
+* When you begin an appointment, the visit time will be updated using your system clock to reflect the actual start of the visit.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `appt next 2` +
+`appt begin 2` +
+Begins the 2nd earliest appointment (as shown by `appt next 2`).
+
+* `appt begin next` +
+Begins the next earliest appointment.
+
+=== Deleting multiple Appointments: `appt delete` `[coming in V2.0]`
+
+You can delete an appointment by *indexes* using `appt delete`.
+
+Format: `appt delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the appointment at the specified `INDEX` es. You can put in as many indexes to delete as many appointments as you wish.
+* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `appt list` +
+`appt delete 2` +
+Deletes the 2nd appointment in the appointment list.
+
+* `appt delete 1 2` +
+Deletes the and 2nd appointments which had been assigned the index 1.

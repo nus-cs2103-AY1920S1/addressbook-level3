@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,35 +14,38 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+public class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
-    private final int currentPatientIndex;
-    private final int currentVisitIndex;
+    private final int ongoingVisitPatientIndex;
+    private final int ongoingVisitIndex;
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializableAddressBook(
             @JsonProperty("persons") List<JsonAdaptedPerson> persons,
-            @JsonProperty("currentPatientIndex") Integer currentPatientIndex,
-            @JsonProperty("currentVisitIndex") Integer currentVisitIndex) {
+            @JsonProperty("ongoingVisitPatientIndex") Integer ongoingVisitPatientIndex,
+            @JsonProperty("ongoingVisitIndex") Integer ongoingVisitIndex) {
         this.persons.addAll(persons);
-        if (currentPatientIndex == null) {
-            currentPatientIndex = -1;
+        Integer resultingPatientIndex = ongoingVisitPatientIndex;
+        Integer resultingVisitIndex = ongoingVisitIndex;
+        if (ongoingVisitPatientIndex == null) {
+            resultingPatientIndex = -1;
         }
-        if (currentVisitIndex == null) {
-            currentVisitIndex = -1;
+        if (ongoingVisitIndex == null) {
+            resultingVisitIndex = -1;
         }
-        this.currentPatientIndex = currentPatientIndex;
-        this.currentVisitIndex = currentVisitIndex;
+        this.ongoingVisitPatientIndex = resultingPatientIndex;
+        this.ongoingVisitIndex = resultingVisitIndex;
     }
 
     /**
@@ -51,9 +55,9 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-        Pair<Integer, Integer> indexPairOfOngoingVisit = source.getIndexPairOfOngoingVisit();
-        this.currentPatientIndex = indexPairOfOngoingVisit.getKey();
-        this.currentVisitIndex = indexPairOfOngoingVisit.getValue();
+        Pair<Integer, Integer> indexPairOfCurrentPersonAndVisit = source.getIndexPairOfOngoingPatientAndVisit();
+        this.ongoingVisitPatientIndex = indexPairOfCurrentPersonAndVisit.getKey();
+        this.ongoingVisitIndex = indexPairOfCurrentPersonAndVisit.getValue();
     }
 
     /**
@@ -63,19 +67,18 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
+        for (int i = 0; i < persons.size(); i++) {
+            JsonAdaptedPerson jsonAdaptedPerson = persons.get(i);
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+            if (ongoingVisitPatientIndex == i) {
+                Optional<Visit> optionalVisit = person.getVisitByIndex(ongoingVisitIndex);
+                optionalVisit.ifPresent(addressBook::setOngoingVisit);
+            }
         }
-
-        addressBook.setIndexPairOfOngoingVisit(new Pair<>(
-                currentPatientIndex,
-                currentVisitIndex
-        ));
-
         return addressBook;
     }
 

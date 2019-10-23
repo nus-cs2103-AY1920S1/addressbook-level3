@@ -1,4 +1,6 @@
-package seedu.address.model.visit;
+package seedu.address.model.datetime;
+
+import java.util.Date;
 
 /**
  * Represents a Visit's end time in the application.
@@ -15,6 +17,15 @@ public class StartDateTime extends DateTime {
      */
     public StartDateTime(String dateTime) {
         super(dateTime);
+    }
+
+    /**
+     * Constructs a {@code DateTime}.
+     *
+     * @param date A valid Date.
+     */
+    public StartDateTime(Date date) {
+        super(date);
     }
 
     /**

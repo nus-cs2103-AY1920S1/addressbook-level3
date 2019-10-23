@@ -7,21 +7,29 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.HistoryRecord;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 import seedu.address.testutil.PersonBuilder;
+
 
 public class AddCommandTest {
 
@@ -47,7 +55,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+            AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -114,12 +123,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setStagedAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void replaceStagedAddressBook(List<Person> persons) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getStagedAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -139,7 +153,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public FilteredList<Person> getPersonList() {
+        public FilteredList<Person> getStagedPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,6 +164,61 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Visit> getObservableOngoingVisitList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNewOngoingVisit(Visit visit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateOngoingVisit(Visit updatedVisit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unsetOngoingVisit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Visit> getOngoingVisit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean patientHasOngoingVisit(Person personToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStagedChanges() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commit(MutatorCommand command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void discardStagedChanges() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<HistoryRecord> revertTo(HistoryRecord record) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<HistoryRecord> getHistory() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -191,7 +260,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAddressBook getStagedAddressBook() {
             return new AddressBook();
         }
     }

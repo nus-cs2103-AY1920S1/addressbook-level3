@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -22,7 +24,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -32,23 +33,33 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private OngoingVisitListPanel ongoingVisitListPanel;
+    private AutoCompletePanel autoCompletePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandBox commandBox;
+    private DataPanelsTabPaneManager dataPanelsTabPaneManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
-
     @FXML
     private MenuItem helpMenuItem;
-
     @FXML
     private StackPane personListPanelPlaceholder;
-
+    @FXML
+    private StackPane autoCompletePanelPlaceholder;
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
+    @FXML
+    private TabPane dataPanelsTabPane;
+    @FXML
+    private Tab patientTabPage;
+    @FXML
+    private Tab ongoingVisitTabPage;
+    @FXML
+    private StackPane ongoingVisitPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -75,6 +86,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -110,14 +122,24 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
+        ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        autoCompletePanel = new AutoCompletePanel();
+        autoCompletePanelPlaceholder.getChildren().add(autoCompletePanel.getRoot());
+
+        commandBox = new CommandBox(this::executeCommand, autoCompletePanel);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
+                patientTabPage,
+                ongoingVisitTabPage);
     }
 
     /**
@@ -164,6 +186,18 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public OngoingVisitListPanel getOngoingVisitListPanel() {
+        return ongoingVisitListPanel;
+    }
+
+    public AutoCompletePanel getAutoCompletePanel() {
+        return autoCompletePanel;
+    }
+
+    public DataPanelsTabPaneManager getDataPanelsTabPaneManager() {
+        return dataPanelsTabPaneManager;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -189,5 +223,12 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Set listeners for all individual components in main window
+     */
+    public void setAllListeners() {
+        commandBox.setOnButtonPressedListener();
     }
 }

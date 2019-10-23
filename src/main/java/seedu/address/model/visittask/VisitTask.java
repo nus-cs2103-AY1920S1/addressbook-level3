@@ -74,7 +74,6 @@ public class VisitTask {
         VisitTask otherVisitTask = (VisitTask) other;
         return otherVisitTask.getDetail().equals(getDetail())
                 && otherVisitTask.getVisitTodo().equals(getVisitTodo())
-                && otherVisitTask.getDetail().equals(getDetail())
                 && otherVisitTask.isDone() == isDone();
     }
 
