@@ -24,6 +24,7 @@ public class TypicalExpenses {
             .withPrice("20")
             .withCategory("AnniversaryAndHoliday")
             .withTimestamp("01-12-2019")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000001")
             .build();
     public static final Expense BUSAN_TRIP = new ExpenseBuilder()
@@ -31,20 +32,23 @@ public class TypicalExpenses {
             .withPrice("1300")
             .withCategory("Transport")
             .withTimestamp("02-12")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000002")
             .build();
     public static final Expense CHICKEN_RICE = new ExpenseBuilder()
             .withDescription("Chicken Rice extra Chicken")
             .withPrice("3.50")
-            .withCategory("Favourite")
+            .withCategory("Food")
             .withTimestamp("03-12-2019")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000003")
             .build();
     public static final Expense DRINKS = new ExpenseBuilder()
             .withDescription("Whiskey and Coke")
             .withPrice("50")
-            .withCategory("Party")
+            .withCategory("AnniversaryAndHoliday")
             .withTimestamp("04-12-2019")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000004")
             .build();
     public static final Expense ENTERTAINMENT = new ExpenseBuilder()
@@ -52,18 +56,21 @@ public class TypicalExpenses {
             .withPrice("75")
             .withCategory("Entertainment")
             .withTimestamp("05-12-2019")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000005")
             .build();
     public static final Expense FASHION = new ExpenseBuilder()
             .withDescription("Clothes for the New Year")
             .withPrice("88.88")
             .withTimestamp("06-12-2019")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000006")
             .build();
     public static final Expense GROCERIES = new ExpenseBuilder()
             .withDescription("Groceries for September meal preps")
             .withPrice("125.35")
             .withTimestamp("07-12-2019")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000007")
             .build();
 

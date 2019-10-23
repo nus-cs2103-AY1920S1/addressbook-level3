@@ -47,6 +47,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
             throw new DuplicateBudgetException();
         }
         internalList.add(toAdd);
+        setPrimary(toAdd);
     }
 
     public void setBudgets(UniqueBudgetList replacement) {

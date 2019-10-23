@@ -94,7 +94,6 @@ public class UniqueExpenseList implements Iterable<Expense> {
         if (!expensesAreUnique(expenses)) {
             throw new DuplicateExpenseException();
         }
-
         internalList.setAll(expenses);
     }
 
