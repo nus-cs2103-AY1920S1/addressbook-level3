@@ -301,7 +301,7 @@ in the tables below.
 |===
 |Condition 1 |Condition 2 |Bonus/Penalty
 
-.3+|Food tag matches the user's liked tags
+.3+|Food tags match the user's liked tags
 |1 or more tags
 |+0.05 plus 0.03 per matching tag
 |3 or more tags
@@ -314,7 +314,7 @@ in the tables below.
 |Food location matches the user's liked locations
 |N/A
 |+0.10
-|Food tag matches the user's tags in purchase history
+|Food tags match the user's tags in purchase history
 |N/A
 |+0.01 per matching tag
 |Food category matches the user's categories in purchase history
@@ -322,7 +322,7 @@ in the tables below.
 |+0.02
 |Food location matches the user's locations in purchase history
 |N/A
-|+0.3
+|+0.03
 .3+|Food purchase is found in user's purchase history
 |2 or more purchases
 |+0.10
@@ -339,7 +339,7 @@ in the tables below.
 |Food price is out of the user's current budget
 |N/A
 |Removes the item from the recommendation results
-.3+|Food tag matches the user's disliked tags
+.3+|Food tags match the user's disliked tags
 |1 or more tags
 |-0.10 minus 0.10 per matching tag
 |2 or more tags
