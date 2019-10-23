@@ -90,7 +90,7 @@ public class ParserUtil {
         if (!EmployeeGender.isValidGender(trimmedGender)) {
             throw new ParseException(EmployeeGender.MESSAGE_CONSTRAINTS);
         }
-        return new EmployeeGender(trimmedGender);
+        return new EmployeeGender(trimmedGender.toLowerCase());
     }
 
 
