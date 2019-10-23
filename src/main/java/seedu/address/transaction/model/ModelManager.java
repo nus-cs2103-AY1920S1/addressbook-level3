@@ -34,6 +34,13 @@ public class ModelManager implements Model {
         this.predicate = transaction -> true;
     }
 
+    public ModelManager() {
+        this.transactionList = new TransactionList();
+        this.filteredList = new TransactionList();
+        this.filteredList.setAsUnmodifiable();
+        this.predicate = transaction -> true;
+    }
+
     @Override
     public TransactionList getTransactionList() {
         return this.transactionList;

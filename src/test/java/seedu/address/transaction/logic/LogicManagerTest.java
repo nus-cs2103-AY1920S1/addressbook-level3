@@ -7,6 +7,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_C
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,11 +36,9 @@ class LogicManagerTest {
             model =
                     new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
             personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-            file = new File("tempTransaction.txt");
-            file.deleteOnExit();
+            file = File.createTempFile("testing", "tempTransaction.txt");
             storage = new StorageManager(file, personModel);
-            rFile = new File("tempReimbursement.txt");
-            rFile.deleteOnExit();
+            rFile = File.createTempFile("testing","tempReimbursement.txt");
             model.getTransactionList();
             reimbursementStorage =
                     new seedu.address.reimbursement.storage.StorageManager(rFile);
@@ -49,7 +48,7 @@ class LogicManagerTest {
             logic =
                     new LogicManager(model, storage, personModel, reimbursementModel,
                             reimbursementStorage);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new AssertionError("This method should not throw an exception.");
         }
     }
