@@ -7,16 +7,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.commons.util.DateTimeUtil;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Task}.
  */
-public class TaskCard extends UiPart<Region> {
+public class MemberCard extends UiPart<Region> {
 
-    private static final String FXML = "TaskListCard.fxml";
+    private static final String FXML = "MemberListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -26,7 +26,7 @@ public class TaskCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on ProjectDashboard level 4</a>
      */
 
-    public final Task task;
+    public final Member member;
 
     @FXML
     private HBox cardPane;
@@ -34,25 +34,21 @@ public class TaskCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-
     @FXML
-    private Label deadline;
+    private Label displayId;
+
     @FXML
     private FlowPane tags;
 
-    public TaskCard(Task task, int displayedIndex) {
+    public MemberCard(Member member, int displayedIndex) {
         super(FXML);
-        this.task = task;
+        this.member = member;
         id.setText(displayedIndex + ". ");
-        name.setText(task.getName().fullName);
-        task.getTags().stream()
+        displayId.setText(member.getId().getDisplayId());
+        name.setText(member.getName().fullName);
+        member.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        if (task.hasDeadline()) {
-            deadline.setText("Due on: " + DateTimeUtil.displayDateTime(task.getDeadline()));
-        } else {
-            deadline.setText("No deadline set");
-        }
     }
 
     @Override
@@ -68,8 +64,9 @@ public class TaskCard extends UiPart<Region> {
         }
 
         // state check
-        TaskCard card = (TaskCard) other;
+        MemberCard card = (MemberCard) other;
         return id.getText().equals(card.id.getText())
-                && task.equals(card.task);
+                && member.equals(card.member);
     }
 }
+

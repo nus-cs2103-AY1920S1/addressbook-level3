@@ -7,14 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Task}.
  */
-public class TaskCard extends UiPart<Region> {
+public class TaskWithMembersCard extends UiPart<Region> {
 
     private static final String FXML = "TaskListCard.fxml";
 
@@ -39,8 +38,10 @@ public class TaskCard extends UiPart<Region> {
     private Label deadline;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane members;
 
-    public TaskCard(Task task, int displayedIndex) {
+    public TaskWithMembersCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
@@ -49,7 +50,7 @@ public class TaskCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         if (task.hasDeadline()) {
-            deadline.setText("Due on: " + DateTimeUtil.displayDateTime(task.getDeadline()));
+            deadline.setText(task.getDeadline().toString());
         } else {
             deadline.setText("No deadline set");
         }
@@ -68,7 +69,7 @@ public class TaskCard extends UiPart<Region> {
         }
 
         // state check
-        TaskCard card = (TaskCard) other;
+        TaskWithMembersCard card = (TaskWithMembersCard) other;
         return id.getText().equals(card.id.getText())
                 && task.equals(card.task);
     }

@@ -58,6 +58,8 @@ public class LogicManager implements Logic {
         return model.getProjectDashboard();
     }
 
+    // Task
+
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return model.getFilteredTasksList();
@@ -81,6 +83,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskListDone() {
         return model.getFilteredTaskListDone();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskListByDeadline() {
+        return model.getFilteredTaskListByDeadline();
     }
 
     @Override
