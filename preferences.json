@@ -1,15 +1,15 @@
 {
   "guiSettings" : {
-    "windowWidth" : 1298.0,
-    "windowHeight" : 738.0,
+    "windowWidth" : 1297.3333740234375,
+    "windowHeight" : 737.3333129882812,
     "windowCoordinates" : {
-      "x" : 0,
-      "y" : 48
+      "x" : -2,
+      "y" : 18
     }
   },
-  "addressBookFilePath" : "data/addressbook.json",
-  "studentRecordFilePath" : "data/students.json",
-  "savedQuestionsFilePath" : "data/questions.json",
-  "savedQuizzesFilePath" : "data/quizzes.json",
-  "notesRecordFilePath" : "data/notes.json"
+  "addressBookFilePath" : "data\\addressbook.json",
+  "studentRecordFilePath" : "data\\students.json",
+  "savedQuestionsFilePath" : "data\\questions.json",
+  "savedQuizzesFilePath" : "data\\quizzes.json",
+  "notesRecordFilePath" : "data\\notes.json"
 }
