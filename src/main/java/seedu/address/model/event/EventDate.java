@@ -10,7 +10,8 @@ import java.time.format.DateTimeFormatter;
 public class EventDate {
     public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format DDMMYYYY";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    public final LocalDate date;
+
+    private final LocalDate date;
 
     /**
      * Constructs a {@code EventDate}.
@@ -19,6 +20,10 @@ public class EventDate {
      */
     public EventDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     /**

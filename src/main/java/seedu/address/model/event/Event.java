@@ -72,8 +72,8 @@ public class Event {
 
     public List<LocalDate> getListOfEventDates() {
         List<LocalDate> listOfDate = new ArrayList<>();
-        LocalDate dateCount = startDate.date;
-        while (!dateCount.isAfter(endDate.date)) {
+        LocalDate dateCount = startDate.getDate();
+        while (!dateCount.isAfter(endDate.getDate())) {
             listOfDate.add(dateCount);
             dateCount = dateCount.plusDays(1);
         }
@@ -82,6 +82,7 @@ public class Event {
 
     /**
      * Checks if an employee is available for this event.
+     *
      * @param employee
      * @param filteredEventList
      */
@@ -90,10 +91,10 @@ public class Event {
                 .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId().id))
                 .collect(Collectors.toList());
         long nonOverlapEventsCount = containsEmployeeEventList.stream()
-                .filter(x -> (startDate.date.compareTo(x.getEndDate().date) > 0
-                        && endDate.date.compareTo(x.getEndDate().date) > 0)
-                        || (startDate.date.compareTo(x.getStartDate().date) < 0
-                                && endDate.date.compareTo(x.getStartDate().date) < 0)).count();
+                .filter(x -> (startDate.getDate().compareTo(x.getEndDate().getDate()) > 0
+                        && endDate.getDate().compareTo(x.getEndDate().getDate()) > 0)
+                        || (startDate.getDate().compareTo(x.getStartDate().getDate()) < 0
+                        && endDate.getDate().compareTo(x.getStartDate().getDate()) < 0)).count();
         return nonOverlapEventsCount == containsEmployeeEventList.size();
     }
 
