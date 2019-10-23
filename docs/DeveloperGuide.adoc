@@ -250,8 +250,8 @@ The generate PDF feature is facilitated by `ReportGenerator`.
 It extends `Mortago` with the ability to create a report, supported by iText external library.
 Additionally, it implements the following operations:
 
-* `ReportGenerator#execute()` -- Creates report in a PDF file for the specific body identification number.
-* `ReportGenerator#executeAll()` -- Creates report in a PDF file for all bodies registered in Mortago.
+* `ReportGenerator#generate(body)` -- Creates report in a PDF file for the specific body.
+* `ReportGenerator#generateAll()` -- Creates report in a PDF file for all bodies registered in Mortago.
 
 The following sequence diagram shows how the execute operation works:
 
