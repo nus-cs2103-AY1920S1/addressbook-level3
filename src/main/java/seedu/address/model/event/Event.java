@@ -1,5 +1,7 @@
 package seedu.address.model.event;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -66,6 +68,16 @@ public class Event {
 
     public EventDateTimeMap getEventDateTimeMap() {
         return eventDateTimeMap;
+    }
+
+    public List<LocalDate> getListOfEventDates() {
+        List<LocalDate> listOfDate = new ArrayList<>();
+        LocalDate dateCount = startDate.date;
+        while (!dateCount.isAfter(endDate.date)) {
+            listOfDate.add(dateCount);
+            dateCount = dateCount.plusDays(1);
+        }
+        return listOfDate;
     }
 
     /**
