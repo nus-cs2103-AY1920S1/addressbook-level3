@@ -242,6 +242,27 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== [Proposed] Engagement Report Generation
+==== Proposed Implementation
+This feature allows user to generate a pre-selected engagement in to a report and save it as a document file. The document file will be created in a .pdf format.
+
+1. The feature will be implemented as an additional type of Command; `PdfCommand`
+* Proposed syntax of the PdfCommand is as follow: `pdf i/[engagementList_index] to/[Person] from/[Person]`
+1. Util class `PdfUtil` can be implemented for handling all pdf document creation related methods.
+* It will be able to generate a full report document based on the `Engagement` as input.
+* Util class will use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`.
+1. `Report` class needs to be implemented in order to model all necessary properties that has to be in the document.
+
+image::pdf-report/Report_ClassDiagram.png[]
+
+
+
+==== UI Design
+
+
+
+===== Aspect: How System generates a Report document file
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -596,19 +617,18 @@ Use case ends.
 
 *MSS*
 
-1. User requests to list appointments
-2. System displays the list of appointments
-3. User request for generate PDF of an appointment, providing the index number
-4. System generates a PDF file in a specific external directory
-5. System shows successful message
+1. System displays the list of appointments
+1. User requests for generating PDF of an engagement for a selected engagement.
+1. System generates a PDF file in a specific external directory
+1. System shows successful message
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 4a. System fails to generate PDF
+* 3a. System fails to generate PDF
 [none]
-** 4a1. System shows error message.
+** 3a1. System shows error message.
 +
 Use case resumes at step 2.
 
