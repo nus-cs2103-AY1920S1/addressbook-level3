@@ -69,13 +69,13 @@ public class LogicManager implements Logic {
         // Guard Statement for command suite corresponding to interface swaps.
         if (!isPersonView && (command instanceof AddCommand || command instanceof UpdateCommand
                 || command instanceof DeleteCommand || command instanceof ListCommand
-                ||  command instanceof FindCommand)) {
+                || command instanceof FindCommand)) {
             throw new CommandException(GUI_SWAP_MESSAGE);
         } else if (isPersonView && !(command instanceof AddCommand || command instanceof UpdateCommand
                 || command instanceof DeleteCommand || command instanceof ListCommand
                 || command instanceof FindCommand || command instanceof LoginCommand
                 || command instanceof ExitCommand || command instanceof SwapCommand
-                || command instanceof  LogoutCommand || command instanceof HelpCommand)) {
+                || command instanceof LogoutCommand || command instanceof HelpCommand)) {
             throw new CommandException(GUI_SWAP_MESSAGE);
         }
 
