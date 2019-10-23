@@ -23,7 +23,7 @@ public class Budget {
 
     private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
     //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
-    private static final Price DEFAULT_BUDGET_AMOUNT = new Price("100000000000");
+    private static final Price DEFAULT_BUDGET_AMOUNT = new Price("999999999999999999999");
     //private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
     private static final Timestamp DEFAULT_BUDGET_START_DATE = new Timestamp(LocalDate.of(2000, 1, 1));
     //private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
@@ -119,19 +119,25 @@ public class Budget {
     }
 
     public void addExpense(Expense e) {
-        expenses.add(e);
+        if (!expenses.contains(e)) {
+            expenses.add(e);
+        }
     }
 
     public double getExpenseSum() {
         double sum = 0;
         for (int i = 0; i < expenses.size(); i++) {
-            sum = sum + expenses.get(i).getPrice().getAsDouble();
+            sum += expenses.get(i).getPrice().getAsDouble();
         }
         return sum;
     }
 
     public Percentage calculateProportionUsed() {
         return Percentage.calculate(getExpenseSum(), amount.getAsDouble());
+    }
+
+    public void updateProportionUsed() {
+        proportionUsed = calculateProportionUsed();
     }
 
     public boolean isNear() {
@@ -151,7 +157,7 @@ public class Budget {
      * @return
      */
     public boolean expired(Timestamp date) {
-        return endDate.isBefore(date);
+        return date.isAfter(endDate) || date.isEqual(endDate);
     }
 
     /**
@@ -159,7 +165,7 @@ public class Budget {
      * @param date
      */
     public void refresh(Timestamp date) {
-        assert endDate.isBefore(date) : "Budget is refreshed only when expired";
+        assert expired(date) : "Budget is refreshed only when expired";
         long daysDiff = ChronoUnit.DAYS.between(endDate.getTimestamp(), date.getTimestamp());
         long periodDays = ChronoUnit.DAYS.between(startDate.getTimestamp(), endDate.getTimestamp());
         long cycles = daysDiff / periodDays;
@@ -197,9 +203,24 @@ public class Budget {
 
     public void setExpense(Expense target, Expense editedExpense) {
         if (expenses.contains(target)) {
-            int index = expenses.indexOf(target);
-            expenses.set(index, editedExpense);
+           int index = expenses.indexOf(target);
+           expenses.set(index, editedExpense);
         }
+    }
+
+    public List<Expense> getCurrentPeriodExpenses() {
+        List<Expense> currentPeriodExpenses = new ArrayList<>();
+        expenses.stream().forEach(expense -> {
+            if (withinCurrentPeriod(expense.getTimestamp())) {
+                currentPeriodExpenses.add(expense);
+            }
+        });
+        return currentPeriodExpenses;
+    }
+
+    public boolean withinCurrentPeriod(Timestamp timestamp) {
+        return (timestamp.isAfter(startDate) || timestamp.isEqual(startDate))
+                && (timestamp.isBefore(endDate));
     }
 
     /**
