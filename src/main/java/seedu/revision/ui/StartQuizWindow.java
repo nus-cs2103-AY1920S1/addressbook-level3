@@ -1,11 +1,7 @@
 package seedu.revision.ui;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -22,12 +18,7 @@ import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.category.Category;
-import seedu.revision.model.answerable.Difficulty;
-import seedu.revision.model.answerable.Mcq;
-import seedu.revision.model.answerable.Question;
 
 
 /**
@@ -36,18 +27,7 @@ import seedu.revision.model.answerable.Question;
  */
 public class StartQuizWindow extends Window {
 
-    Answer correctAnswerStub = new Answer("CORRECT");
-    ArrayList<Answer> correctAnswerSetStub = new ArrayList<>(Arrays.asList(correctAnswerStub));
-    Answer[] wrongAnswerStub = {new Answer("WRONG A"), new Answer("WRONG B"), new Answer("WRONG C")};
-    ArrayList<Answer> wrongAnswerSetStub = new ArrayList<>(Arrays.asList(wrongAnswerStub));
-    Category categoryStub = new Category("math");
-    Set<Category> categoriesStub = new HashSet<>(Arrays.asList(categoryStub));
-
     public MainWindow mainWindow;
-    private final Mcq DEFAULT_QUESTION =
-            new Mcq(new Question("what is 10 + 10?"), correctAnswerSetStub, wrongAnswerSetStub,
-                    new Difficulty("1"), categoriesStub);
-
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Independent Ui parts residing in this Ui container
@@ -57,20 +37,18 @@ public class StartQuizWindow extends Window {
     private CommandBox commandBox;
     private ProgressIndicatorBar progressIndicatorBar;
 
-//    private int currentAnswerableIndex = 0;
     private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
-//    private ObservableList<Answerable> filteredAnswerableList;
     private int score = 0;
 
-    ReadOnlyDoubleWrapper currentReadOnlyIndex = new ReadOnlyDoubleWrapper(this, "currenReadOnlyIndex",
+    ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(this, "currentProgressIndex",
             0);
 
-    public final double getCurrentReadOnlyIndex() {
-        return currentReadOnlyIndex.get();
+    public final double getCurrentProgressIndex() {
+        return currentProgressIndex.get();
     }
-    public final ReadOnlyDoubleProperty currentReadOnlyIndexProperty() {
-        return currentReadOnlyIndex.getReadOnlyProperty();
+    public final ReadOnlyDoubleProperty currentProgressIndexProperty() {
+        return currentProgressIndex.getReadOnlyProperty();
     }
 
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
@@ -99,10 +77,8 @@ public class StartQuizWindow extends Window {
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-//        currentReadOnlyIndex.set(currentAnswerableIndex);
-        progressIndicatorBar = new ProgressIndicatorBar(currentReadOnlyIndex, filteredAnswerableList.size(),
+        progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex, filteredAnswerableList.size(),
                 "%.0f/" + filteredAnswerableList.size());
-//                "%d /" + filteredAnswerableList.size());
         scoreProgressBar.getChildren().add(progressIndicatorBar.getRoot());
     }
 
@@ -112,7 +88,7 @@ public class StartQuizWindow extends Window {
 
     @FXML
     private void handleEnd() {
-        currentReadOnlyIndex.set(currentReadOnlyIndex.get() + 1);
+        currentProgressIndex.set(currentProgressIndex.get() + 1);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(null);
         alert.setHeaderText(null);
@@ -143,9 +119,9 @@ public class StartQuizWindow extends Window {
     }
 
     private void restartQuiz() {
-        fillInnerParts();
         score = 0;
-        currentReadOnlyIndex.set(0);
+        currentProgressIndex.set(0);
+        fillInnerParts();
         commandBox.getCommandTextField().requestFocus();
     }
 
@@ -175,12 +151,12 @@ public class StartQuizWindow extends Window {
             CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
             if (commandResult.getFeedbackToUser() == "correct") {
+                //KhiangLeon can update statistics here or McqInputCommand#execute. Both has access to the answerable.
                 score++;
             }
 
             if (!answerableIterator.hasNext()) {
                 handleEnd();
-                return new CommandResult("Quiz ended");
             }
 
             if (commandResult.isShowHelp()) {
@@ -192,10 +168,7 @@ public class StartQuizWindow extends Window {
             }
 
             currentAnswerable = answerableIterator.next();
-            currentReadOnlyIndex.set(currentReadOnlyIndex.get() + 1);
-//            currentAnswerableIndex++;
-//            currentReadOnlyIndex.set(currentAnswerableIndex++);
-//            logger.info(currentAnswerable.toString());
+            currentProgressIndex.set(getCurrentProgressIndex() + 1);
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
             answersGridPane.updateAnswers(currentAnswerable);
 
