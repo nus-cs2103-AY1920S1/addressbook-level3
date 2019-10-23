@@ -37,6 +37,10 @@ public class RepeaterUniqueId {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public boolean isEmpty() {
+        return id == null;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
