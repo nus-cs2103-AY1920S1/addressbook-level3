@@ -2,11 +2,14 @@ package seedu.address.ui;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -19,13 +22,26 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
 
     @FXML
-    private TextField commandTextField;
+    private StackPane commandBox;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    private Autocomplete autocomplete;
+
+    public CommandBox(CommandExecutor commandExecutor, StudyPlan activeStudyPlan) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        autocomplete = new Autocomplete(activeStudyPlan);
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        autocomplete.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        autocomplete.setId("commandTextField");
+        autocomplete.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                handleCommandEntered();
+            } else if (keyEvent.getCode() == KeyCode.TAB) {
+                autocomplete.handleAutocomplete();
+                keyEvent.consume();
+            }
+        });
+        commandBox.getChildren().add(autocomplete);
     }
 
     /**
@@ -34,8 +50,8 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
-            commandTextField.setText("");
+            commandExecutor.execute(autocomplete.getText());
+            autocomplete.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
@@ -45,14 +61,14 @@ public class CommandBox extends UiPart<Region> {
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
+        autocomplete.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
     /**
      * Sets the command box style to indicate a failed command.
      */
     private void setStyleToIndicateCommandFailure() {
-        ObservableList<String> styleClass = commandTextField.getStyleClass();
+        ObservableList<String> styleClass = autocomplete.getStyleClass();
 
         if (styleClass.contains(ERROR_STYLE_CLASS)) {
             return;

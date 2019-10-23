@@ -179,10 +179,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         return internalUnmodifiableList;
     }
 
-    public List<String> asListOfStrings() {
-        return asUnmodifiableObservableList().stream().map(tag -> tag.toString()).collect(Collectors.toList());
-    }
-
     @Override
     public Iterator<Tag> iterator() {
         return internalList.iterator();
@@ -236,6 +232,10 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         for (DefaultTagType defaultTagType : DefaultTagType.values()) {
             addTag(new DefaultTag(defaultTagType));
         }
+    }
+
+    public List<String> asListOfStrings() {
+        return asUnmodifiableObservableList().stream().map(Tag::getTagName).collect(Collectors.toList());
     }
 
 }

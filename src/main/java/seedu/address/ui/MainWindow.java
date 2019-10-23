@@ -28,6 +28,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
+    private static final String NO_ACTIVE_STUDY_PLAN = "You have no remaining study plans.";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
@@ -77,15 +79,21 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         StudyPlan sp = logic.getActiveStudyPlan();
-        ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
-        semesterListPanel = new SemesterListPanel(semesters);
-        semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
-        title.setText(sp.getTitle().toString());
+        if (sp == null) {
+            NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
+            semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
+            title.setText(NO_ACTIVE_STUDY_PLAN);
+        } else {
+            ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
+            semesterListPanel = new SemesterListPanel(semesters);
+            semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+            title.setText(sp.getTitle().toString());
+        }
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, sp);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -135,11 +143,21 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isChangesActiveStudyPlan()) {
                 StudyPlan sp = logic.getActiveStudyPlan();
-                ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
-                semesterListPanel = new SemesterListPanel(semesters);
-                semesterListPanelPlaceholder.getChildren().remove(0);
-                semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
-                title.setText(sp.getTitle().toString());
+                if (sp == null) {
+                    NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
+                    semesterListPanelPlaceholder.getChildren().remove(0);
+                    semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
+                    title.setText(NO_ACTIVE_STUDY_PLAN);
+                } else {
+                    ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
+                    semesterListPanel = new SemesterListPanel(semesters);
+                    semesterListPanelPlaceholder.getChildren().remove(0);
+                    semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+                    title.setText(sp.getTitle().toString());
+                    commandBoxPlaceholder.getChildren().remove(0);
+                    CommandBox commandBox = new CommandBox(this::executeCommand, sp);
+                    commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+                }
             }
 
             if (commandResult.isExit()) {
