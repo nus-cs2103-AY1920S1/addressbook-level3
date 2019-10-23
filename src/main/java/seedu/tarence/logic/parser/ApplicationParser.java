@@ -39,7 +39,6 @@ import seedu.tarence.logic.parser.event.DeleteEventCommandParser;
 import seedu.tarence.logic.parser.event.EditEventCommandParser;
 import seedu.tarence.logic.parser.event.ListEventsCommandParser;
 import seedu.tarence.logic.parser.exceptions.ParseException;
-import seedu.tarence.model.Model;
 
 /**
  * Parses user input.
@@ -121,10 +120,6 @@ public class ApplicationParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
 
-    }
-
-    public PartialInput parsePartialInput(String partialInput, Model model) throws ParseException {
-        return PartialInputParser.parse(partialInput, model);
     }
 
 }

@@ -2,8 +2,8 @@ package seedu.tarence.logic;
 
 import org.apache.commons.lang3.StringUtils;
 
-import seedu.tarence.logic.parser.ApplicationParser;
 import seedu.tarence.logic.parser.PartialInput;
+import seedu.tarence.logic.parser.PartialInputParser;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.Model;
 
@@ -33,8 +33,7 @@ public class AutocompleteHandler {
             if (model.hasInputChanged()) {
                 model.setInputChangedToFalse();
                 // find and display new suggested autocompletions
-                partialInput = new ApplicationParser()
-                        .parsePartialInput(input, model);
+                partialInput = PartialInputParser.parse(input, model);
                 model.storeSuggestedCompletions(partialInput);
             } else {
                 // display next suggestion in stored list
