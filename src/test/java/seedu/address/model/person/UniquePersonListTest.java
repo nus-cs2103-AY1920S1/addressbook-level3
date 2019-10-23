@@ -8,10 +8,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -167,5 +171,56 @@ public class UniquePersonListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void indexOf() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(BOB);
+        uniquePersonList.add(CARL);
+        assertThrows(NullPointerException.class, () -> uniquePersonList.indexOf(null));
+        assertEquals(-1, uniquePersonList.indexOf(DANIEL));
+        assertEquals(0, uniquePersonList.indexOf(ALICE));
+        assertEquals(2, uniquePersonList.indexOf(CARL));
+    }
+
+    @Test
+    public void getByIndex() {
+        assertEquals(Optional.empty(), uniquePersonList.getByIndex(-1));
+        assertEquals(Optional.empty(), uniquePersonList.getByIndex(0));
+        uniquePersonList.add(ALICE);
+        assertEquals(Optional.empty(), uniquePersonList.getByIndex(-1));
+        assertEquals(ALICE, uniquePersonList.getByIndex(0).get());
+        assertEquals(Optional.empty(), uniquePersonList.getByIndex(1));
+        uniquePersonList.add(BOB);
+        assertEquals(ALICE, uniquePersonList.getByIndex(0).get());
+        assertEquals(BOB, uniquePersonList.getByIndex(1).get());
+        uniquePersonList.add(CARL);
+        assertEquals(ALICE, uniquePersonList.getByIndex(0).get());
+        assertEquals(BOB, uniquePersonList.getByIndex(1).get());
+        assertEquals(CARL, uniquePersonList.getByIndex(2).get());
+        uniquePersonList.add(DANIEL);
+        uniquePersonList.remove(ALICE);
+        assertEquals(BOB, uniquePersonList.getByIndex(0).get());
+        assertEquals(CARL, uniquePersonList.getByIndex(1).get());
+        assertEquals(DANIEL, uniquePersonList.getByIndex(2).get());
+        uniquePersonList.remove(CARL);
+        assertEquals(BOB, uniquePersonList.getByIndex(0).get());
+        assertEquals(DANIEL, uniquePersonList.getByIndex(1).get());
+    }
+
+    @Test
+    public void iterator() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(CARL);
+        uniquePersonList.add(DANIEL);
+        uniquePersonList.add(BOB);
+        Iterator<Person> it = uniquePersonList.iterator();
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), ALICE);
+        assertEquals(it.next(), CARL);
+        assertEquals(it.next(), DANIEL);
+        assertEquals(it.next(), BOB);
+        assertFalse(it.hasNext());
     }
 }

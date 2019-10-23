@@ -32,7 +32,7 @@ public class EndDateTime extends DateTime {
     /**
      * Returns if a given string is a valid dateTime.
      */
-    public static boolean isValidEndDateTime(String endDateTime, String startDateTime) {
+    public static boolean isValidEndDateTime(String startDateTime, String endDateTime) {
         boolean validStartDateTime = isValidDateTime(startDateTime);
         boolean validEndDateTime = isValidDateTime(endDateTime);
 
