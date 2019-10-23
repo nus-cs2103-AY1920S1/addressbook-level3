@@ -262,6 +262,144 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Book loaning feature
+
+==== Functionalities
+The functionalities and commands associated with the book loaning feauture are:
+
+* `loan sn/BOOK_SN`
+
+** Loans out a book based on its serial number.
+
+* `return INDEX [-all]`
+
+** Returns a book based on the index of that book shown on the GUI.
+
+* `renew INDEX [-all]`
+
+** Renews a book based on the index of that book shown on the GUI.
+
+* `reserve sn/BOOK_SN` or `reserve INDEX`
+
+** Reserves a book based on its serial number or index of that book shown on the GUI.
+
+* `pay AMOUNT`
+
+** Pay a fine amount for overdue books.
+
+The rationale for the different types of arguments for the loan, return, renew and reserve may not be apparent at first,
+but it is actually very simple.
+
+* When borrowers come to the librarian (our user) to borrow a book, the book itself would have
+a serial number. Thus, the user just types in the serial number of the book to be loaned out, instead of using find to
+locate that book in LiBerry to use its index.
+
+* Whereas, when a borrower comes to return a book, the librarian only sees a limited list of book that was loaned out by
+the borrower on the GUI. Hence, the user need not type the longer serial number to return that book, and instead, types
+its index shown in the GUI list. Likewise, the same idea is applied to renewing books
+
+* When reserving books for borrowers, it is possible that the book is found through the GUI, and thus, index is used. Or,
+the borrower brings the physical book forward to reserve it as he/she does not want to borrow it now.
+
+==== Implementation
+
+This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
+just after a book is loaned out can be seen below.
+
+image::LoanObjectDiagram.png[]
+
+In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
+The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
+
+Both the `Book` and `Borrower` objects also have access to this `Loan` object.
+
+In each `Loan` object, the `BorrowerId`
+
+The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
+
+Immutability of each object is supported to ensure correctness of undo and redo functionality.
+
+===== Loaning
+
+When a book is successfully loaned out by a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
+to the number of loans in the `LoanRecords` object in the model. The `startDate` is also automatically set to today's date.
+The `endDate` is automatically set according to the loan period set in the user settings. This `Loan` object is added to
+`LoanRecords`.
+
+The new `Borrower` instance is created by copying the details of the borrower from the original object, and also with this `Loan`
+object being added into its `currentLoanList`. The new `Book` instance is also created by copying the details of the original
+book object, and likewise, with this `Loan` object added into it. The new borrower object then replaces the old borrower
+object in the `BorrowerRecords` object in the model. Likewise, the new book object also replaces the old book object
+in the `Catalog` object in the model. These were done to support immutability of the objects.
+
+===== Returning
+
+When a loaned out book is successfully returned by a borrower, the associated `Loan` object is moved from the borrower's
+`currentLoanList` to `returnedLoanList`. Inside the book object, this `Loan` object is also removed. Inside this loan
+object, the `returnDate` is added according to today's date. The `remainingFineAmount` of this loan object is also
+calculated based on the fine amount set in the user settings.
+
+Similarly, the creation of new objects for replacement are also done to support immutability.
+
+===== Renewing
+
+When a book is successfully renewed by a borrower, the `renewCount` of the `Loan` object is incremented by 1
+and its `dueDate` is also increased by the renew period set in the user settings.
+
+Similarly, the creation of new objects for replacement are also done to support immutability.
+
+===== Reserving
+
+When a book is successfully reserved by a borrower, the `Book` object is marked as reserved and is added to the borrower's
+`reservedBookList`.
+
+Similarly, the creation of new objects for replacement are also done to support immutability.
+
+===== Paying fines
+
+When a fine amount is successfully paid by a borrower, the `remainingFineAmount` and `paidFineAmount` of the loans in
+the borrower's `returnedLoanList` is updated accordingly.
+
+Similarly, the creation of new objects for replacement are also done to support immutability.
+
+==== Design Considerations
+
+===== Aspect: File storage of loans
+
+Inside the model, for each current loan (loans that are not returned yet), the `Book`, the `Borrower` and the `LoanRecords`
+point to the same the same `Loan` object. LiBerry's storage system is such that `Catalog` stores the books,
+`BorrowerRecords` stores the borrowers and `LoanRecords` stores the loans. Thus, a decision was made to decide how these
+oans are serialized and stored in the user's file system.
+
+* **Alternative 1:** Save the whole `Loan` object in each book in the `catalog.json` and save the the whole of every `Loan`
+object in each borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
+** Pros: Easy to implement. No need to read storage files in a specific order.
+** Cons: Storage memory size issues. Same information is duplicated and stored in all 3 storage files.
+
+* **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in the `catalog.json`
+and save a list of `LoanId` in each borrower in `borrowerrecords.json`. The whole `Loan` object is only saved in
+`loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` need to be read
+in first, before the borrowers and books can be read in as they would get the loan objects from the `LoanRecords` based
+on their `LoanId` s.
+** Pros: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
+Also, LoanRecords thus serve as a single source of truth.
+** Cons: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
+after reading in `borrowerrecords.json` and `catalog.json`. Method used to retrieve a `Loan` object from its `LoanId` must
+also be fast enough as there can be hundreds of thousands of loans.
+
+===== Aspect: Data structure to support recording of loans in LoanRecords
+
+* **Alternative 1:** Use a list data structure, such as an `ArrayList` to store the loans in the model component.
+** Pros: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
+** Cons: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
+correct associated `Loan` object. These additional time taken adds up when reading the storage files during the starting
+up of the application and can make the application feel laggy and unresponsive at the start.
+
+* **Alternative 2 (selected choice):** Use a `HashMap` to store the loans, where the key is its `LoanId`.
+** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
+** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
+`startDate` in order to obtain their insertion order.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
