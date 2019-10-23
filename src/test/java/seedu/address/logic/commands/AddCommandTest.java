@@ -250,7 +250,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public String getTestQuestion() {
+        public String getTestQuestion(Model model) {
             throw new AssertionError("This method should not be called.");
         }
 

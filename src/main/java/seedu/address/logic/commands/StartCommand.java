@@ -53,7 +53,7 @@ public class StartCommand extends Command {
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
         addressBookParser.startTest();
-        String question = model.getTestQuestion();
+        String question = model.getTestQuestion(model);
         addressBookParser.setAwaitingAnswer(true);
         return new CommandResult(MESSAGE_START_TEST_SUCCESS + "\n" + question);
     }

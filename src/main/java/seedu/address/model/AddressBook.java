@@ -198,6 +198,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return deadlines.contains(deadline);
     }
 
+    //@@author LeonardTay748
     public void addGood() {
         stats[0]++;
     }

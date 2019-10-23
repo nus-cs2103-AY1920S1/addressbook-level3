@@ -135,6 +135,7 @@ public class ModelManager implements Model {
         return addressBook.hasDeadline(deadline);
     }
 
+    //@@author LeonardTay748
     @Override
     public void editStats(int type) {
         if (type == 0) {
@@ -219,8 +220,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getTestQuestion() {
-        return flashCardTestModel.getQuestion();
+    public String getTestQuestion(Model model) {
+        return flashCardTestModel.getQuestion(model);
     }
 
     @Override

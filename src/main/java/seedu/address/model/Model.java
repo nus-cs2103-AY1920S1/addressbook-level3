@@ -87,6 +87,7 @@ public interface Model {
      */
     void deleteDeadline(Deadline deadline);
 
+    //@@author LeonardTay748
     /**
      * Updates the Statistics.
      * type 0,1 & 2 to edit number of Good, Hard & Easy qns completed during the test.
@@ -137,7 +138,7 @@ public interface Model {
 
     boolean hasTestFlashCard();
 
-    String getTestQuestion();
+    String getTestQuestion(Model model);
 
     String getTestAnswer();
 
