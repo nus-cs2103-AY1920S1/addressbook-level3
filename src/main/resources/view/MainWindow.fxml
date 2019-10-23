@@ -6,13 +6,15 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="SugarMummy App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="SugarMummy App" minWidth="650" minHeight="550" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -23,7 +25,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
+      <VBox fx:id="mainWindowPlaceholder">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -46,13 +48,18 @@
           </padding>
         </StackPane>
 
-        <VBox styleClass="pane-with-border" minWidth="340" prefWidth="340" minHeight="270" prefHeight="270" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <SplitPane VBox.vgrow="ALWAYS">
+          <items>
+            <VBox styleClass="pane-with-border" minWidth="340" minHeight="270" prefHeight="270" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
 
+            <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefWidth="250" prefHeight="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+          </items>
+        </SplitPane>
       </VBox>
     </Scene>
   </scene>

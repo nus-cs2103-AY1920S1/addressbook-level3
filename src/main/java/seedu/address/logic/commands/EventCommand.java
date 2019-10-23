@@ -23,8 +23,8 @@ public class EventCommand extends Command {
             + "[" + PREFIX_TIME_DURATION + "TIME DURATION]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CALENDAR_DESCRIPTION + "Appointment "
-            + PREFIX_DATETIME + "5/4/2020 09:00 "
-            + PREFIX_DATETIME + "5/4/2020 11:00 "
+            + PREFIX_DATETIME + "2020-05-04 09:00 "
+            + PREFIX_DATETIME + "2020-05-04 11:00 "
             + PREFIX_TIME_DURATION + "00:30";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
@@ -51,6 +51,7 @@ public class EventCommand extends Command {
         model.addCalendarEntry(toAdd);
         if (toAdd.getAutoReminder().isPresent()) {
             model.addCalendarEntry(toAdd.getAutoReminder().get());
+            model.schedule();
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }

@@ -9,9 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AverageCommand;
-import seedu.address.logic.commands.exceptions.AverageType;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.record.RecordType;
+import seedu.address.model.statistics.AverageType;
 
 /**
  * Parses input arguments and creates a new AverageCommand object
@@ -53,15 +53,9 @@ public class AverageCommandParser implements Parser<AverageCommand> {
         RecordType recordType;
 
         switch (argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase()) {
-        case "DIET":
-            //fallthrough
-        case "EXERCISE":
-            //fallthrough
         case "BLOODSUGAR":
             //fallthrough
-        case "HEIGHTANDWEIGHT":
-            //fallthrough
-        case "MEDICALEXPENSES":
+        case "BMI":
             recordType = RecordType.valueOf(argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase());
             break;
         default:

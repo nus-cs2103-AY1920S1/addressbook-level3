@@ -34,6 +34,20 @@ public class Reminder extends CalendarEntry {
                 && otherReminder.getDateTime().equals(getDateTime());
     }
 
+    @Override
+    public boolean isBetween(DateTime start, DateTime end) {
+        switch (repetition) {
+        case Once:
+            return super.isBetween(start, end);
+        case Daily:
+            return getDateTime().isBetweenTime(start, end);
+        case Weekly:
+            return getDayOfWeek().equals(end.getDayOfWeek()) && getDateTime().isBetweenTime(start, end);
+        default:
+            return false;
+        }
+    }
+
     /**
      * Returns true if both reminders have the same description, dateTime and repetition.
      */

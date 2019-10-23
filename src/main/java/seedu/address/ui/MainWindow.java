@@ -1,7 +1,12 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
+import static seedu.address.ui.DisplayPaneType.BIO;
+import static seedu.address.ui.DisplayPaneType.COLOUR;
 
+import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -13,6 +18,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -35,15 +41,19 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private StyleManager styleManager;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
+    private ReminderListPanel reminderListPanel;
 
     @FXML
     private Scene scene;
+
+    @FXML
+    private VBox mainWindowPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -57,6 +67,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    @FXML
+    private StackPane reminderListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -72,14 +84,12 @@ public class MainWindow extends UiPart<Stage> {
 
         mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
+        styleManager = new StyleManager(scene);
+        setFontColour(logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     private void setAccelerators() {
@@ -120,7 +130,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts(String imagePath) {
+    void fillInnerParts(String imagePath) throws URISyntaxException {
 
         //        ImageView imageView = new ImageView(imagePath);
         //        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
@@ -134,10 +144,24 @@ public class MainWindow extends UiPart<Stage> {
                 + "-fx-background-size: contain;");
 
         resultDisplay = new ResultDisplay();
+
+        if (!logic.getFilteredUserList().isEmpty()) {
+            String name = logic.getFilteredUserList().get(0).getName().toString();
+            resultDisplay.setFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
+                    + "assist you today?");
+        } else {
+            resultDisplay.setFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
+                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
+        }
+
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getPastReminderList());
+        reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        logic.schedule();
     }
 
     /**
@@ -153,6 +177,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the font colour based on {@code guiSettings}.
+     *
+     * @param guiSettings
+     */
+    private void setFontColour(GuiSettings guiSettings) {
+        styleManager.setFontColour(guiSettings.getFontColour());
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -163,24 +196,61 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
+
+    /**
+     * Returns the pane to be displayed depending on the type of pane to be displayed and whether the GUI has
+     * been modified.
+     * If the GUI has been modified, then the BIO page needs to reload to display the update if the current
+     * pane displayed happens to be so.
+     * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
+     * @param guiIsModified Boolean indicating whether the GUI has been modified.
+     * @return
+     */
+    private DisplayPaneType getPaneToDisplay(DisplayPaneType displayPaneType, boolean guiIsModified) {
+        if (guiIsModified && mainDisplayPane.getCurrPaneType() == BIO) {
+            return BIO;
+        } else if (guiIsModified) {
+            return null;
+        } else {
+            return displayPaneType;
+        }
+    }
+
+    /**
+     * Modifies the GUI based on the displayPaneType and returns true if the GUI has been modified
+     * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
+     * @return Boolean indicating whether the GUI has been modified.
+     */
+    private boolean guiIsModified(DisplayPaneType displayPaneType) {
+        if (displayPaneType == COLOUR) {
+            setFontColour(logic.getGuiSettings());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Switches the main display pane to the specified UI part.
      */
     public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
-        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated) {
+        if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
+            throw new NullPointerException();
+        } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
+            DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
+            if (paneToDisplay == null) {
+                return;
+            }
+            newPaneIsToBeCreated = (displayPaneType == COLOUR && paneToDisplay == BIO) || newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(displayPaneType, newPaneIsToBeCreated).getRoot()));
+                .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
         }
     }
 
     void show() {
         primaryStage.show();
-    }
-
-    public void hide() {
-        getRoot().hide();
     }
 
     /**
@@ -189,14 +259,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
@@ -219,6 +285,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
                 return commandResult;
+
             } else {
                 try {
                     switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getnewPaneIsToBeCreated());

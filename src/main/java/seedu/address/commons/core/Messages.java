@@ -1,5 +1,7 @@
 package seedu.address.commons.core;
 
+import seedu.address.logic.commands.bio.BioCommand;
+
 /**
  * Container for user visible messages.
  */
@@ -18,8 +20,16 @@ public class Messages {
             + "others do)";
     public static final String MESSAGE_UNABLE_TO_LOAD_IMAGE = "Oops! Unfortunately, I'm unable to load "
             + "your display picture. Please check if the file at the given destination is correct.";
+
+    public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The record index provided is invalid";
+    public static final String MESSAGE_RECORDS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-    public static final String MESSAGE_INVALID_PARAMETER = "Please enter correct input for %2$s! \n%1$s";
+    public static final String MESSAGE_INVALID_PARAMETER = "Please enter correct input for %2$s!\n%1$s";
+    public static final String MESSAGE_ARGUMENTS_MUST_BE_EMPTY = "Oops! This command cannot have any arguments.";
+    public static final String MESSAGE_NO_BIO_FOUND = "It looks like you have not set your biography. :("
+            + "Your biography could be crucial information especially in times of an emergency. "
+            + "Please enter the " + BioCommand.COMMAND_WORD + " command as soon as possible to set your biography, "
+            + "alright?";
 
 }

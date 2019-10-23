@@ -17,6 +17,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -26,16 +27,20 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.record.Weight;
+import seedu.address.model.statistics.AverageType;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.UniqueFoodList;
 
@@ -305,6 +310,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPastReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
             throw new AssertionError("This method should not be called.");
         }
@@ -315,12 +325,73 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<CalendarEntry> getPastReminderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void schedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void stopAllReminders() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUser(User target, User editedUser) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setUserListFilePath(Path userListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Statistics List =============================================================
+
+        @Override
+        public AverageType getAverageType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Aesthetics =============================================================
+
+        @Override
+        public Colour getFontColour() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFontColour(Colour fontColour) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Records =============================================================
+
+        @Override
+        public RecordType getRecordType() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAverageType(AverageType averageType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRecordType(RecordType recordType) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableMap<LocalDate, Double> getAverageMap() {
             throw new AssertionError("This method should not be called.");
         }
     }

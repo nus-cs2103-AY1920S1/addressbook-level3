@@ -33,7 +33,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE, PREFIX_DATETIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE, PREFIX_DATETIME, PREFIX_BLOODSUGAR_CONCENTRATION,
+                    PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_RECORDTYPE, PREFIX_DATETIME)
             || !argMultimap.getPreamble().isEmpty()) {
@@ -45,7 +46,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         switch(rt) {
         case BLOODSUGAR:
-            argMultimap = checkAllOtherPrefixes(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION);
+            if (!arePrefixesPresent(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION)
+                || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
             Concentration concentration = ParserUtil.parseConcentration(
                 argMultimap.getValue(PREFIX_BLOODSUGAR_CONCENTRATION).get()
             );
@@ -53,7 +57,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             return new AddCommand(bloodSugar);
 
         case BMI:
-            argMultimap = checkAllOtherPrefixes(argMultimap, PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
+            if (!arePrefixesPresent(argMultimap, PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT)
+                || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
             Height height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_BMI_HEIGHT).get());
             Weight weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_BMI_WEIGHT).get());
             Bmi bmi = new Bmi(height, weight, dateTime);
@@ -62,21 +69,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Returns a multimap of new new prefixes.
-     */
-    private ArgumentMultimap checkAllOtherPrefixes(ArgumentMultimap argMultimap, Prefix... prefixes)
-        throws ParseException {
-        String s = argMultimap.getValue(PREFIX_RECORDTYPE).get();
-        ArgumentMultimap a = ArgumentTokenizer.tokenize(s, prefixes);
-
-        if (!arePrefixesPresent(a, prefixes) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-
-        return a;
     }
 
     /**
