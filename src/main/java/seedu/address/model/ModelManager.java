@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -22,8 +23,10 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final Caretaker caretaker;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
+    private FilteredList<Reminder> filteredReminders;
     private final FilteredList<Assignment> filteredAssignments;
     private final FilteredList<Lesson> filteredLessons;
 
@@ -37,8 +40,10 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.caretaker = new Caretaker(new Memento(addressBook), this.addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
+        filteredReminders = new FilteredList<>(this.addressBook.getReminderList());
         filteredAssignments = new FilteredList<>(this.addressBook.getAssignmentList());
         filteredLessons = new FilteredList<>(this.addressBook.getLessonList());
 
@@ -165,6 +170,10 @@ public class ModelManager implements Model {
 
         addressBook.setLesson(target, editedLesson);
     }
+
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return filteredReminders;
+    }
     //=========== Filtered Student List Accessors =============================================================
 
     /**
@@ -203,6 +212,46 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredLessons.setPredicate(predicate);
     }
+    //=========== Undo and Redo Operations =============================================================
+
+    @Override
+    public ReadOnlyAddressBook undo() {
+        return caretaker.undo();
+    }
+
+    @Override
+    public boolean canUndo() {
+        return caretaker.canUndo();
+    }
+
+    @Override
+    public ReadOnlyAddressBook redo() {
+        return caretaker.redo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return caretaker.canRedo();
+    }
+
+    @Override
+    public void saveState() {
+        caretaker.saveState();
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
+    }
+
+    //=========== Event Listeners =============================================================
+    /*
+    @Override
+    public void checkListeners(Observable observable) {
+        ArrayList<InvalidationListener> listeners = new ArrayList<>(observable);
+        for (InvalidationListener listener : listeners) {
+            listener.invalidated()
+        }
+    }
+    */
 
     @Override
     public boolean equals(Object obj) {

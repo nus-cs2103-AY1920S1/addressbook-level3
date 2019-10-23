@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -95,6 +96,16 @@ public interface Model {
 
     void updateFilteredLessonList(Predicate<Lesson> predicate);
 
+    ReadOnlyAddressBook undo();
+
+    boolean canUndo();
+
+    ReadOnlyAddressBook redo();
+
+    boolean canRedo();
+
+    void saveState();
+
     /**
      * Adds the given lesson.
      * @param lesson lesson object.
@@ -108,6 +119,7 @@ public interface Model {
     boolean hasLesson(Lesson lesson);
 
     /**
+<<<<<<< HEAD
      * Deletes the given lesson.
      * The lesson must exist in the address book.
      */
@@ -120,4 +132,10 @@ public interface Model {
      * book.
      */
     void setLesson(Lesson target, Lesson editedLesson);
+
+    /**
+     * returns an unmodifiable view of the filtered reminder list.
+     * @return Ob
+     */
+    ObservableList<Reminder> getFilteredReminderList();
 }

@@ -1,19 +1,75 @@
 {
   "students" : [ {
+    "name" : "test1",
+    "phone" : "6432543",
+    "email" : "test1@gmail.com",
+    "parentPhone" : "23452345",
+    "address" : "test1",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
+    "name" : "test2",
+    "phone" : "6432543",
+    "email" : "test2@gmail.com",
+    "parentPhone" : "23452345",
+    "address" : "test2",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
+    "name" : "test3",
+    "phone" : "6432543",
+    "email" : "test3@gmail.com",
+    "parentPhone" : "23452345",
+    "address" : "test3",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
+    "name" : "test4",
+    "phone" : "6432543",
+    "email" : "test4@gmail.com",
+    "parentPhone" : "23452345",
+    "address" : "test4",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
     "name" : "test5",
-    "phone" : "222222",
+    "phone" : "6432543",
     "email" : "test5@gmail.com",
-    "parentPhone" : "333333",
+    "parentPhone" : "23452345",
     "address" : "test5",
     "medicalCondition" : "NIL",
     "tagged" : [ ]
   }, {
+    "name" : "test6",
+    "phone" : "6432543",
+    "email" : "test6@gmail.com",
+    "parentPhone" : "23452345",
+    "address" : "test6",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
+    "name" : "test7",
+    "phone" : "6432543",
+    "email" : "test7@gmail.com",
+    "parentPhone" : "23452345",
+    "address" : "test7",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
     "name" : "test8",
-    "phone" : "234234234",
+    "phone" : "6432543",
     "email" : "test8@gmail.com",
-    "parentPhone" : "2342342342",
+    "parentPhone" : "23452345",
     "address" : "test8",
-    "medicalCondition" : "sinus",
+    "medicalCondition" : "NIL",
+    "tagged" : [ ]
+  }, {
+    "name" : "test9",
+    "phone" : "2324234",
+    "email" : "test9@gmail.com",
+    "parentPhone" : "5435345",
+    "address" : "test9",
+    "medicalCondition" : "NIL",
     "tagged" : [ ]
   }, {
     "name" : "testttt",
@@ -45,5 +101,14 @@
   }, {
     "assignmentName" : "math test1",
     "grades" : [ ]
+<<<<<<< HEAD
+=======
+  }, {
+    "assignmentName" : "science work",
+    "grades" : [ ]
+  }, {
+    "assignmentName" : "placeholder",
+    "grades" : [ ]
+>>>>>>> d30fc4515aea01dcdfd5279e16586ec3a157424a
   } ]
 }
