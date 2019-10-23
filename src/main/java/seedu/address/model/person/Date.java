@@ -6,9 +6,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
+import seedu.address.model.util.Frequency;
+
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
+ * Represents a Person's name in the address book. Guarantees: immutable; is
+ * valid as declared in {@link #isValidDescription(String)}
  */
 public class Date {
 
@@ -16,10 +18,9 @@ public class Date {
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * The first character of the address must not be a whitespace, otherwise " " (a
+     * blank string) becomes a valid input.
      */
-    //public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     private static final DateTimeFormatter INPUTFORMATTER = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ofPattern("yyyy MM dd"))
@@ -43,6 +44,7 @@ public class Date {
 
     /**
      * Converts String to LocalDate
+     *
      * @param date in the format yyyy mm dd.
      */
     public Date(String date) {
@@ -55,7 +57,7 @@ public class Date {
 
     public Date(LocalDate date) {
         requireNonNull(date);
-        //checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
+        // checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
         this.date = date;
         parseDate();
     }
@@ -69,11 +71,19 @@ public class Date {
      */
     public static boolean isValidDescription(String test) {
         return test == null; // put this for now
-        //return test.matches(VALIDATION_REGEX);
+        // return test.matches(VALIDATION_REGEX);
     }
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public static Date now() {
+        return new Date(LocalDate.now());
+    }
+
+    public Date plus(Frequency freq) {
+        return new Date(this.getDate().plus(freq.getPeriod()));
     }
 
     @Override
@@ -85,7 +95,7 @@ public class Date {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && fullTime.equals(((Date) other).fullTime)); // state check
+                        && fullTime.equals(((Date) other).fullTime)); // state check
     }
 
     @Override
