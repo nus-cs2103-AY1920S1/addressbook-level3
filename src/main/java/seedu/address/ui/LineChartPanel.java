@@ -168,4 +168,24 @@ public class LineChartPanel extends UiPart<Region> {
         return simpleDateFormat.parse(simpleDateFormat.format(date));
     }
 
+    public XYChart.Series<String, Number> getSeries() {
+        return series;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof LineChart)) {
+            return false;
+        }
+
+        // state check
+        LineChart chart = (LineChart) other;
+        return this.lineChart.equals(chart);
+    }
 }

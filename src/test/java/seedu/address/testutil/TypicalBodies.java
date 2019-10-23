@@ -22,7 +22,7 @@ import seedu.address.model.entity.body.Body;
 public class TypicalBodies {
 
     public static final Body ALICE = new BodyBuilder()
-            .withDateOfAdmission("01/01/1991")
+            .withDateOfAdmission("20/10/2019")
             .withName("Alice Pauline")
             .withSex("FEMALE")
             .withNric("S1234567A")
@@ -39,7 +39,7 @@ public class TypicalBodies {
             .build();
 
     public static final Body BOB = new BodyBuilder()
-            .withDateOfAdmission("01/01/1991")
+            .withDateOfAdmission("19/10/2019")
             .withName("Bob Chachki")
             .withSex("MALE")
             .withNric("S1224567A")
