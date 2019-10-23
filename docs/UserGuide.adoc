@@ -33,7 +33,7 @@ Here are a few steps to get you started on Mark: +
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `mark.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Bookmark Manager.
+.  Copy the file to the folder you want to use as the home folder for your Mark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -44,8 +44,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Some example commands you can try:
 
 * *`list`* : lists all bookmarks
-* *`add u/git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
-named `Pro Git` to the Bookmark Manager.
+* *`add u/https://git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
+named `Pro Git` to Mark.
 * *`delete 3`* : deletes the 3rd bookmark shown in the current list
 * *`exit`* : exits the app
 
@@ -59,14 +59,14 @@ of each command.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
-E.g. In the command format `*add* u/URL`, `URL` is a parameter which can be used as `*add* u/luminus.nus.edu.sg`.
+E.g. In the command format `*add* u/URL`, `URL` is a parameter which can be used as `*add* u/https://luminus.nus.edu.sg`.
 * Items in square brackets are optional. +
 E.g `u/URL [t/TAG]` can be used as
-`u/luminus.nus.edu.sg t/NUS` or as `u/luminus.nus.edu.sg`.
+`u/https://luminus.nus.edu.sg t/NUS` or as `u/https://luminus.nus.edu.sg`.
 * Default values for optional items are specified with an `=` symbol. +
 E.g. When `u/URL [t/TAG=CS2103T]` is specified in the command format, the default value for the tag is `CS2103T` if not
 it is not provided.
-* Items with `…`​ after them can be used multiple times, including zero times. +
+* Items with `...`​ after them can be used multiple times, including zero times. +
 E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 `t/module t/read-later` etc.
 * Parameters can be in any order. +
@@ -82,7 +82,7 @@ Format: *`help`*
 
 Adds a bookmark to the bookmark manager.
 
-Format: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+Format: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]...​`
 
 ****
 * A bookmark can have any number of tags (including 0).
@@ -94,13 +94,18 @@ e.g. `*add* u/this n/Homepage`
 Examples:
 
 * `*add* u/this n/Homepage` +
-Bookmarks the current place and names it `Homepage`.
-Only valid if a web-page is currently being viewed.
-* `*add* u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T r/Contains textbook & important deadlines` +
+Bookmarks the current page and names it `Homepage`. The new bookmark contains
+a default remark of "-" and is added to the root folder since they are not
+specified.
+* `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
+f/CS2103T r/Contains textbook & important deadlines` +
 Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
 The new bookmark's remark is "Contains textbook & important deadlines".
 * `*add* u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
+Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
+"video" and "watch-later".
 
+[[folder]]
 === Adding a new folder *`folder`*
 
 Creates a new folder for organizing bookmarks into.
@@ -115,12 +120,12 @@ Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER]`
 
 Examples:
 
-* `*folder* CS2103 p/NUS +
+* `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
 
 === Deleting a folder *`folder delete`*
-
-Creates a new folder for organizing bookmarks into.
+//TODO: What happens to the bookmarks under the folder?
+Deletes the specified folder and its subfolders.
 
 Format: `*folder delete* FOLDER_NAME`
 
@@ -131,7 +136,7 @@ Format: `*folder delete* FOLDER_NAME`
 
 Examples:
 
-* `*folder delete* CS2103 +
+* `*folder delete* CS2103` +
 Deletes the folder named `CS2103` and all of its subfolders.
 
 === Listing all bookmarks: *`list`*
@@ -144,7 +149,7 @@ Format: `*list*`
 
 Edits an existing bookmark in the bookmark manager.
 
-Format: `*edit* INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+Format: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...`
 
 ****
 * Edits the bookmark at the specified `INDEX`. The index refers to the index
@@ -797,9 +802,9 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 == Command Summary
 
 * *Help*: `*help*`
-* *Add*: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​`
+* *Add*: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]…​`
 * *List*: `*list*`
-* *Edit*: `*edit* INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+* *Edit*: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]…​`
 * *Find*: `*find* [KEYWORD]... [t/TAG]...`
 * *Delete*: `*delete* INDEX`
 * *Goto*: `*goto* INDEX [v/VERSION]`
