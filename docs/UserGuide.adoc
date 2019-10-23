@@ -321,6 +321,43 @@ If the path is omitted, a file browser is opened for you to select where to save
 * The file is a comma-separated values file.
 ****
 
+=== Scripting: `script`
+
+==== Evaluate a script: `script eval`
+
+Evaluates a script and displays the result.
+
+Format: `script eval <script>`
+
+****
+* The scripting language is JavaScript (specifically, ECMAScript 5.1).
+****
+
+==== Add a stored script: `script add`
+
+Stores a script for future invocation.
+
+Format: `script add <script name> [p/<file path> | s/<script>]`
+
+****
+* The script name may contain only alphanumeric characters, underscores, and dashes.
+* If neither a file path nor the script code is given, a file browser is opened for you to
+select the script file.
+****
+
+WARNING: The script is not checked for correctness before it is stored. Any syntax errors
+will be reported only when the script is run.
+
+==== Run a stored script: `script run`
+
+Runs a previously-stored script.
+
+Format: `script run <script name> [<argument>]`
+
+****
+* The argument is the rest of the command line after the script name, and is passed to the script as a single string.
+****
+
 == FAQ
 
 == Command Summary
