@@ -4,11 +4,13 @@ import java.nio.file.Path;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
@@ -117,6 +119,9 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /** Returns a list of persons at the provided indexes */
+    ObservableList<Person> getPersonsByIndexes(Set<Index> indexes);
 
     /** Returns an unmodifiable view of the entire person list */
     ObservableList<Person> getStagedPersonList();

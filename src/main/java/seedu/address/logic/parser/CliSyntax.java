@@ -19,4 +19,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_VISIT_TASK_FINISH = new Prefix("f/");
     public static final Prefix PREFIX_VISIT_TASK_UNFINISH = new Prefix("uf/");
     public static final Prefix PREFIX_VISIT_REMARKS = new Prefix("r/");
+    //Do not use with PREFIX_NAME
+    public static final Prefix PREFIX_FILENAME = new Prefix("f/");
+    public static final Prefix PREFIX_INDEXES = new Prefix("i/");
 }

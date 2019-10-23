@@ -1,4 +1,4 @@
-package seedu.address.export;
+package seedu.address.importexport;
 
 import java.io.IOException;
 import java.nio.file.Path;

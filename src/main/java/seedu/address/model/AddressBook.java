@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.CopyError;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
@@ -149,6 +152,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    /** Returns a list of persons at the provided indexes */
+    public ObservableList<Person> getPersonListByIndex(Set<Index> indexes) {
+        ObservableList<Person> personList = FXCollections.observableArrayList();
+        for(Index index : indexes) {
+            int indexAsInt = index.getZeroBased();
+            personList.add(persons.getByIndex(indexAsInt).get());
+        }
+        return personList;
     }
 
     @Override
