@@ -37,6 +37,13 @@ public class CommandHistory {
     }
 
     /**
+     * Clears all entries in history.
+     */
+    public void clear() {
+        history.clear();
+    }
+
+    /**
      * Gets the current size of the CommandHistory deque.
      * @return an int representing the size of the deque.
      */

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -8,16 +10,20 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_UNDO_SUCCESS;
 import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalFridges.ALICE_FRIDGE;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_WORKER_ID_NUM;
+import static seedu.address.testutil.TypicalIdentificationNumbers.THIRD_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMMAND;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,9 +36,12 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.testutil.TypicalPersons;
 
+//@@author arjavibahety
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
@@ -43,7 +52,6 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-
         // Delete Body
         List<Body> bodyList = model.getFilteredBodyList();
         for (Body body : bodyList) {
@@ -56,6 +64,10 @@ public class DeleteCommandTest {
                 expectedBodyModel.deleteEntity(body);
 
                 assertCommandSuccess(deleteBodyCommand, model, expectedBodyMessage, expectedBodyModel);
+                if (!body.getFridgeId().equals(Optional.empty())) {
+                    checkIsBodyRemovedFromFridge(body);
+                }
+                checkIsNotifRemovedFromList(body);
                 break;
             }
         }
@@ -80,9 +92,9 @@ public class DeleteCommandTest {
         // Delete Fridge
         List<Fridge> fridgeList = model.getFilteredFridgeList();
         for (Fridge fridge : fridgeList) {
-            if (fridge.getIdNum().equals(FIRST_FRIDGE_ID_NUM)) {
+            if (fridge.getIdNum().equals(THIRD_FRIDGE_ID_NUM)) {
                 DeleteCommand deleteFridgeCommand = new DeleteCommand(
-                        Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "f");
+                        Index.fromZeroBased(THIRD_FRIDGE_ID_NUM.getIdNum()), "f");
                 String expectedFridgeMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, fridge);
 
                 ModelManager expectedFridgeModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -92,7 +104,6 @@ public class DeleteCommandTest {
                 break;
             }
         }
-
     }
 
     @Test
@@ -124,39 +135,15 @@ public class DeleteCommandTest {
 
         assertDeleteCommandFailure(deleteFridgeCommand, model, Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX,
                 "f");
+
+        // Delete Fridge when it is occupied
+        IdentificationNumber aliceFridgeId = ALICE_FRIDGE.getIdNum();
+
+        deleteFridgeCommand = new DeleteCommand(Index.fromZeroBased(aliceFridgeId.getIdNum()), "f");
+
+        assertDeleteCommandFailure(deleteFridgeCommand, model, Messages.MESSAGE_OCCUPIED_FRIDGE_CANNOT_BE_DELETED,
+                "f");
     }
-
-    /*
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, personToDelete);
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteEntity(personToDelete);
-        showNoPerson(expectedModel);
-
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
-    }
-
-     */
 
     //@@author ambervoong
     @Test
@@ -183,16 +170,12 @@ public class DeleteCommandTest {
         Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         assertThrows(CommandException.class, MESSAGE_NOT_EXECUTED_BEFORE, () -> deleteCommand.undo(model));
     }
-
-
     //@@author
 
     @Test
     public void equals() {
 
         // BODY
-        // model.addEntity(ALICE);
-        // model.addEntity(BOB);
         DeleteCommand deleteFirstBodyCommand = new DeleteCommand(
                 Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "b");
         DeleteCommand deleteSecondBodyCommand = new DeleteCommand(
@@ -217,8 +200,6 @@ public class DeleteCommandTest {
 
 
         // WORKER
-        // model.addEntity(CLARA);
-        // model.addEntity(BENSON);
         DeleteCommand deleteFirstWorkerCommand = new DeleteCommand(
                 Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()), "w");
         DeleteCommand deleteSecondWorkerCommand = new DeleteCommand(
@@ -241,7 +222,8 @@ public class DeleteCommandTest {
         // different worker -> returns false
         assertFalse(deleteFirstWorkerCommand.equals(deleteSecondWorkerCommand));
 
-        // todo FRIDGE
+
+        // FRIDGE
         DeleteCommand deleteFirstFridgeCommand =
                 new DeleteCommand(Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "f");
         DeleteCommand deleteSecondFridgeCommand =
@@ -267,6 +249,38 @@ public class DeleteCommandTest {
     }
 
     /**
+     * Checks if the body is removed from the fridge when the body is deleted.
+     * @param body refers to the body which is deleted.
+     */
+    private void checkIsBodyRemovedFromFridge(Body body) {
+        IdentificationNumber fridgeId = body.getFridgeId().get();
+        List<Fridge> fridgeList = model.getFilteredFridgeList();
+        for (Fridge fridge : fridgeList) {
+            if (fridge.getIdNum().equals(fridgeId)) {
+                assertEquals(fridge.getFridgeStatus(), FridgeStatus.UNOCCUPIED);
+                assertEquals(fridge.getBody(), Optional.empty());
+                break;
+            }
+        }
+    }
+
+    /**
+     * Checks if the notif is removed from the notif list the body is deleted.
+     * @param body refers to the body which is deleted.
+     */
+    private void checkIsNotifRemovedFromList(Body body) {
+        List<Notif> notifList = model.getFilteredNotifList();
+        ArrayList<Notif> expectedToBeDeleted = new ArrayList<>();
+        for (Notif notif : notifList) {
+            if (notif.getBody().equals(body)) {
+                expectedToBeDeleted.add(notif);
+                break;
+            }
+        }
+        assertArrayEquals(expectedToBeDeleted.toArray(), (new ArrayList<Notif>()).toArray());
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
@@ -276,3 +290,4 @@ public class DeleteCommandTest {
     }
 
 }
+//@@author

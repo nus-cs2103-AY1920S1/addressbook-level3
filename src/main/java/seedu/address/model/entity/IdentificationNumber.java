@@ -26,6 +26,7 @@ public class IdentificationNumber {
     private static UniqueIdentificationNumberMaps uniqueIds = new UniqueIdentificationNumberMaps();
 
     private int idNum;
+
     private String typeOfEntity;
     private boolean isTestId = false;
 
@@ -41,6 +42,21 @@ public class IdentificationNumber {
         }
     }
 
+    //@@author ambervoong
+    protected IdentificationNumber(Entity entity, int id) {
+        requireNonNull(entity);
+        idNum = id;
+        UniqueIdentificationNumberMaps.addEntity(entity, id);
+        if (entity instanceof Worker) {
+            typeOfEntity = "W";
+        } else if (entity instanceof Body) {
+            typeOfEntity = "B";
+        } else {
+            typeOfEntity = "F";
+        }
+    }
+    //@@author
+
     private IdentificationNumber(String typeOfEntity, int idNum, boolean isTestId) {
         this.typeOfEntity = typeOfEntity;
         this.idNum = idNum;
@@ -51,11 +67,23 @@ public class IdentificationNumber {
         return new IdentificationNumber(body);
     }
 
+    public static IdentificationNumber generateNewBodyId(Body body, int id) {
+        return new IdentificationNumber(body, id);
+    }
+
     public static IdentificationNumber generateNewWorkerId(Worker worker) {
         return new IdentificationNumber(worker);
     }
 
+    public static IdentificationNumber generateNewWorkerId(Worker worker, int id) {
+        return new IdentificationNumber(worker, id);
+    }
+
     public static IdentificationNumber generateNewFridgeId(Fridge fridge) {
+        return new IdentificationNumber(fridge);
+    }
+
+    public static IdentificationNumber generateNewFridgeId(Fridge fridge, int id) {
         return new IdentificationNumber(fridge);
     }
 
@@ -75,12 +103,12 @@ public class IdentificationNumber {
     /**
      * Checks if given {@code String id} is a valid identification number.
      */
-    public static boolean isValidIdentificationNumber(String id) {
-        int idLength = id.length();
+    public static boolean isValidIdentificationNumber(String fullIdString) {
+        int idLength = fullIdString.length();
         if (idLength < 3) {
             return false;
         }
-        String idPrefix = id.charAt(0) + "";
+        String idPrefix = fullIdString.charAt(0) + "";
         if (isValidIdPrefix(idPrefix)) {
             int numberLength = idLength - 1;
             switch (idPrefix) {
@@ -95,6 +123,28 @@ public class IdentificationNumber {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if given {@code String fullIdString} already exists in Mortago.
+     */
+    public static boolean isExistingIdentificationNumber(String fullIdString) {
+        String typeOfEntity = fullIdString.charAt(0) + "";
+        int idNum = Integer.parseInt(fullIdString.substring(1));
+        switch (typeOfEntity) {
+        case ID_PREFIX_BODY:
+            return uniqueIds.containsBodyId(idNum);
+        case ID_PREFIX_FRIDGE:
+            return uniqueIds.containsFridgeId(idNum);
+        case ID_PREFIX_WORKER:
+            return uniqueIds.containsWorkerId(idNum);
+        default:
+            return false;
+        }
+    }
+
+    public String getTypeOfEntity() {
+        return typeOfEntity;
     }
 
     public int getIdNum() {
@@ -135,8 +185,12 @@ public class IdentificationNumber {
             uniqueIds.removeFridgeId(idNum);
             break;
         default:
-            System.out.println("Invalid ID Prefix.");
+            return;
         }
+    }
+
+    public Entity getMapping() {
+        return uniqueIds.getMapping(typeOfEntity, idNum);
     }
 
 
