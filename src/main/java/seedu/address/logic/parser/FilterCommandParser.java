@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 
 /**
- * Parses input arguments and creates a new FilterCommand object
+ * Parses input arguments and creates a new FilterCommand object.
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
@@ -22,7 +22,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
         String[] tagKeywords = trimmedArgs.split("\\s+");

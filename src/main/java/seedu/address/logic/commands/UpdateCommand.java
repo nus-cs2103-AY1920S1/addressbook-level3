@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -19,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.util.Date;
@@ -41,15 +43,17 @@ public class UpdateCommand extends Command {
         + PREFIX_DATE + "12022019";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
-    public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
+    public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated: %1$s";
 
+    private final String type;
     private final Index targetIndex;
     private final UpdateTransactionDescriptor updateTransactionDescriptor;
 
-    public UpdateCommand(Index targetIndex, UpdateTransactionDescriptor updateTransactionDescriptor) {
+    public UpdateCommand(String type, Index targetIndex, UpdateTransactionDescriptor updateTransactionDescriptor) {
         requireNonNull(targetIndex);
         requireNonNull(updateTransactionDescriptor);
 
+        this.type = type;
         this.targetIndex = targetIndex;
         this.updateTransactionDescriptor = new UpdateTransactionDescriptor(updateTransactionDescriptor);
     }
@@ -58,26 +62,43 @@ public class UpdateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        FilteredList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
+        if (this.type.equals("t")) {
+            FilteredList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+            }
+
+            BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
+            BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace,
+                    updateTransactionDescriptor);
+
+            model.setTransaction(transactionToReplace, updatedTransaction);
+            model.commitBankAccount();
+            return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
+        } else if (this.type.equals("b")) {
+            ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
+            }
+
+            Budget budgetToReplace = lastShownList.get(targetIndex.getZeroBased());
+            Budget updatedBudget = createUpdatedBudget(budgetToReplace,
+                    updateTransactionDescriptor);
+
+            model.setBudget(budgetToReplace, updatedBudget);
+            model.commitBankAccount();
+            return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedBudget));
+
+        } else {
+            throw new CommandException("Unknown command error");
         }
-
-        BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
-        BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace,
-            updateTransactionDescriptor);
-
-        model.setTransaction(transactionToReplace, updatedTransaction);
-        model.commitBankAccount();
-
-
-        return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
+     * edited with {@code editTransactionDescriptor}.
      */
     private static BankAccountOperation createUpdatedTransaction(
         BankAccountOperation transactionToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
@@ -112,6 +133,22 @@ public class UpdateCommand extends Command {
         UpdateCommand u = (UpdateCommand) other;
         return targetIndex.equals(u.targetIndex)
                 && updateTransactionDescriptor.equals(u.updateTransactionDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
+     * edited with {@code editTransactionDescriptor}.
+     */
+    private static Budget createUpdatedBudget(
+            Budget budgetToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
+        assert budgetToEdit != null;
+
+        Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(budgetToEdit.getBudget());
+        Date updatedDate = updateTransactionDescriptor.getDate().orElse(budgetToEdit.getDeadline());
+        Set<Category> updatedCategories = updateTransactionDescriptor
+                .getCategories().orElse(budgetToEdit.getCategories());
+
+        return new Budget(updatedAmount, updatedDate, updatedCategories);
     }
 
     /**

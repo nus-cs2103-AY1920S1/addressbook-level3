@@ -15,9 +15,9 @@ public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = FilterCommand.COMMAND_WORD + ": Filters the transaction "
-            + "in the bank account.\n"
-            + "Parameter: CATEGORY\n"
-            + "Example: " + FilterCommand.COMMAND_WORD + " food drink";
+        + "in the bank account.\n"
+        + "Parameter: CATEGORY\n"
+        + "Example: " + FilterCommand.COMMAND_WORD + " food drink";
 
     public static final String MESSAGE_SUCCESS = "Bank Account has been filtered!";
 
@@ -33,8 +33,8 @@ public class FilterCommand extends Command {
         requireNonNull(model);
         model.updateFilteredTransactionList(pred);
         return new CommandResult(
-                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
-                        model.getFilteredTransactionList().size()));
+            String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
+                model.getFilteredTransactionList().size()));
     }
 
     @Override
