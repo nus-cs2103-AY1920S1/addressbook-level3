@@ -26,6 +26,6 @@ public class QuizShowAnswerParser implements Parser<QuizShowAnswerCommand> {
         } catch (NumberFormatException e) {
             throw new ParseException(INVALID_INDEX);
         }
-        return new QuizShowAnswerCommand(index);
+        return new QuizShowAnswerCommand();
     }
 }

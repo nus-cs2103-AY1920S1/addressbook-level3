@@ -25,16 +25,16 @@ public class QuizAnswerParser implements Parser<QuizCheckAnswer> {
      * and returns an QuizCheckAnswer object for execution.
      */
     public QuizCheckAnswer parse(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_INPUT_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(ANSWER_INVALID_FORMAT, SHOW_ANSWER_FORMAT));
-        }
+//        final Matcher matcher = BASIC_INPUT_FORMAT.matcher(userInput.trim());
+//        if (!matcher.matches()) {
+//            throw new ParseException(String.format(ANSWER_INVALID_FORMAT, SHOW_ANSWER_FORMAT));
+//        }
 
-        final String index = matcher.group("index");
-        final String stringAnswer = matcher.group("answer").trim();
-        final int intIndex = Integer.parseInt(index) - 1;
-        final Answer answer = new Answer(stringAnswer);
+//        final String index = matcher.group("index");
+//        final String stringAnswer = matcher.group("answer").trim();
+//        final int intIndex = Integer.parseInt(index) - 1;
+        final Answer answer = new Answer(userInput.trim());
 
-        return new QuizCheckAnswer(intIndex, answer);
+        return new QuizCheckAnswer(answer);
     }
 }

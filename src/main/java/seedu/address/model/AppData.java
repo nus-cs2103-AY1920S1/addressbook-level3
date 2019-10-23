@@ -212,22 +212,30 @@ public class AppData implements ReadOnlyAppData {
     /**
      * Gets one question from the list and return a new list contains this question.
      */
-    public ObservableList<Question> getQuizQuestionAsList() {
-        return quiz.getFirstQuizQuestionAsList();
+    public ObservableList<Question> getOneQuizQuestionAsList() {
+        return quiz.getOneQuizQuestionAsList();
+    }
+
+    public Question getOneQuizQuestion() {
+        return quiz.getOneQuizQuestion();
+    }
+
+    public void removeOneQuizQuestion() {
+        quiz.removeOneQuizQuestion();
     }
 
     /**
      * Returns an answer for the question in quiz with specific {@code index}.
      */
-    public Answer showQuizAnswer(int index) {
-        return quiz.showAnswer(index);
+    public Answer showQuizAnswer() {
+        return quiz.showAnswer();
     }
 
     /**
      * Checks the answer input by user and return a boolean value as the result.
      */
-    public boolean checkQuizAnswer(int index, Answer answer) {
-        return quiz.checkQuizAnswer(index, answer);
+    public boolean checkQuizAnswer(Answer answer) {
+        return quiz.checkQuizAnswer(answer);
     }
 
     /**

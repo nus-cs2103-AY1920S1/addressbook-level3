@@ -186,7 +186,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void showQuiz() {
         questionListPanelPlaceholder.getChildren().clear();
-        quizQuestionListPanel = new QuizQuestionListPanel(logic.getFirstQuizQuestionAsList());
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getOneQuizQuestionAsList());
         questionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
     }
 

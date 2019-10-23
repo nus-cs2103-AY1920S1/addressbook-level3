@@ -25,15 +25,12 @@ public class QuizCheckAnswer extends Command {
     public static final String ANSWER_CORRECT = "The answer is correct!";
     public static final String ANSWER_WRONG = "The answer is wrong!";
 
-    private final int index;
     private final Answer answer;
 
     /**
-     * @param index  of the question the answer is mapped to.
      * @param answer of the question input by user.
      */
-    public QuizCheckAnswer(int index, Answer answer) {
-        this.index = index;
+    public QuizCheckAnswer(Answer answer) {
         this.answer = answer;
     }
 
@@ -47,18 +44,20 @@ public class QuizCheckAnswer extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Question> listShownList = model.getFilteredQuizQuestionList();
-        if (index >= listShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_QUIZ_QUESTION_DISPLAYED_INDEX);
-        }
+//        List<Question> listShownList = model.getFilteredQuizQuestionList();
+//        if (index >= listShownList.size()) {
+//            throw new CommandException(Messages.MESSAGE_INVALID_QUIZ_QUESTION_DISPLAYED_INDEX);
+//        }
 
-        boolean result = model.checkQuizAnswer(index, answer);
-        Question question = model.getFilteredQuizQuestionList().get(index);
+        boolean result = model.checkQuizAnswer(answer);
+        Question question = model.getOneQuizQuestion();
         QuestionBody questionBody = question.getQuestionBody();
         Subject subject = question.getSubject();
         Difficulty difficulty = question.getDifficulty();
         QuizResult quizResult = new QuizResult(answer, questionBody, subject, difficulty, getQuizTime(), result);
+
         model.addQuizResult(quizResult);
+        model.removeOneQuizQuestion();
 
         if (result) {
             return new CommandResult(ANSWER_CORRECT, 4);

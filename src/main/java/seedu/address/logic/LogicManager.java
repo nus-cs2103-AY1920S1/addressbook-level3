@@ -134,7 +134,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Question> getFirstQuizQuestionAsList() {
-        return model.getFirstQuizQuestionAsList();
+    public ObservableList<Question> getOneQuizQuestionAsList() {
+        return model.getOneQuizQuestionAsList();
+    }
+
+    @Override
+    public void removeOneQuizQuestion() {
+        model.removeOneQuizQuestion();
     }
 }

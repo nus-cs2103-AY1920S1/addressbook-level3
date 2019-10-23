@@ -183,20 +183,30 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Question> getFirstQuizQuestionAsList() {
-        return appData.getQuizQuestionAsList();
+    public ObservableList<Question> getOneQuizQuestionAsList() {
+        return appData.getOneQuizQuestionAsList();
     }
 
     @Override
-    public Answer showQuizAnswer(int index) {
-        return appData.showQuizAnswer(index);
+    public Question getOneQuizQuestion() {
+        return appData.getOneQuizQuestion();
     }
 
     @Override
-    public boolean checkQuizAnswer(int index, Answer answer) {
+    public void removeOneQuizQuestion() {
+        appData.removeOneQuizQuestion();
+    }
+
+    @Override
+    public Answer showQuizAnswer() {
+        return appData.showQuizAnswer();
+    }
+
+    @Override
+    public boolean checkQuizAnswer(Answer answer) {
         requireNonNull(answer);
 
-        return appData.checkQuizAnswer(index, answer);
+        return appData.checkQuizAnswer(answer);
     }
 
     @Override

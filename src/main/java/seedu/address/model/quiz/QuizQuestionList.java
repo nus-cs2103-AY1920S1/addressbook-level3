@@ -32,28 +32,41 @@ public class QuizQuestionList implements Iterable<Question> {
     /**
      * Gets one question from the list and return a new list contains this question.
      */
-    public ObservableList<Question> getFirstQuizQuestionAsList() {
+    public ObservableList<Question> getOneQuizQuestionAsList() {
         ObservableList<Question> oneQuestionList = FXCollections.observableArrayList();
         Question question = modifiableList.get(0);
         oneQuestionList.add(question);
-        modifiableList.remove(0);
         return oneQuestionList;
+    }
+
+    /**
+     * Gets one question from the list and return a question.
+     */
+    public Question getOneQuizQuestion() {
+        return modifiableList.get(0);
+    }
+
+    /**
+     * Removes one question from the first element of list.
+     */
+    public void removeOneQuizQuestion() {
+        modifiableList.remove(0);
     }
 
     /**
      * Returns an answer for the question in quiz with specific {@code index}.
      */
-    public Answer showAnswer(int index) {
-        return get(index).getAnswer();
+    public Answer showAnswer() {
+        return getOneQuizQuestion().getAnswer();
     }
 
     /**
      * Checks if the answer input by user is correct and return a boolean value to show the result.
      */
-    public boolean checkQuizAnswer(int index, Answer answer) {
+    public boolean checkQuizAnswer(Answer answer) {
         requireAllNonNull(answer);
 
-        return get(index).getAnswer().equals(answer);
+        return getOneQuizQuestion().getAnswer().equals(answer);
     }
 
     /**
