@@ -75,17 +75,23 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+The following diagram illustrates the structure of the UI component:
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The structure of the `TabView` is depicted here:
 
-The `UI` component,
+.Structure of the TabView Component, which is a part of the UI component
+image::UiTabViewClassDiagram.png[]
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/mark/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+
+The `UI` component does the following:
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
@@ -271,6 +277,72 @@ image::SaveMarkActivityDiagram.png[]
 undo stack and pushing it into the redo stack. There is no way to pop multiple state records efficiently at one time.
 // end::undoredo[]
 
+
+// tag::annotation[]
+=== Annotation feature
+==== Implementation
+The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
+Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. As each annotation is targeted to an entire paragraph,
+we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
+You can view the class structure of the annotation feature in the Figure above.
+//TODO: link to annotation class diagram
+
+
+There are three parts to the annotation feature:
+
+ * Add an annotation (executed by `AddAnnotationCommand#execute()`).
+ * Delete an annotation (executed by `DeleteAnnotationCommand#execute()`).
+ * Edit an annotation (executed by `EditAnnotationCommand#execute()`).
+
+These executions are triggered by `annotation` command inputs entered into the `CommandBox`, which calls the respective command parser to create the command.
+Subsequently, the appropriate `Paragraph`(s) is retrieved and the annotation is handled according to the command.
+
+The following sequence diagram illustrates how the adding annotation operation works:
+
+image::AddAnnotationSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+//TODO: after adding delete cmd, (highlight, note, both --> stray paragrph)
+For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.
+If the user requests to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
+If the user requests to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
+Otherwise, if the user requests to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
+
+NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. `PhantomParagraph` is a temporary holding place for a `stray note` and does not contain content from the `cache`.
+
+//TODO: edit -- add the other parts of the command (eg shift from one p to another); atm only edit note and highlight
+//TODO: <may not do> object diagram showing only paragraph and annotation for all three above?
+The edit operation can modify the content of the `AnnotationNote`, colour of `Highlight` and re-link a `stray note` to a `TrueParagraph`.
+The former two is simply done by changing the fields in `Annotation` of the `Paragraph` in query.
+To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
+
+The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
+//TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
+
+image::AnnotationActivityDiagram.png[]
+
+==== Design Considerations
+The following are a few design considerations made in deciding how to implement the annotation feature:
+
+===== Aspect: How to structure the offline components to store annotations
+Each annotation is tagged to a paragraph and an offline document is composed of multiple paragraphs.
+A cached copy has the original cache of the website.
+There are hence a few alternatives in which we can combine these elements and store them:
+
+* **Alternative 1 (current choice):** Let each `CachedCopy` have an `OfflineDocument` that consists of paragraphs with content parsed from the original cache. Each paragraph contains a annotation, if any.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage and overheads from layers of abstraction.
+
+* **Alternative 2**: Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
+** Pros: Will use less memory since the content of the website is not duplicated.
+** Cons: Not straightforward to implement. Stray notes will need a different implementation to order and store them. Objects not well abstracted.
+
+//TODO: need do? ===== Aspect: How to save the
+
+// end::annotation[]
+
+
 // tag::folders[]
 === Folders feature
 ==== Implementation
@@ -321,6 +393,7 @@ The following are a few design considerations made in deciding how to implement 
 ** Pros: Single source of truth, its folder is simply where it's located
 ** Cons: The whole `BookmarkList` abstraction will have to be rewritten
 // end::folders[]
+
 
 === Logging
 
