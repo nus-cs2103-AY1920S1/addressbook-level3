@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
@@ -29,6 +30,7 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedWish> wishes = new ArrayList<>();
+    private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
     private final List<JsonAdaptedExpenseReminder> expenseReminders = new ArrayList<>();
     private final List<JsonAdaptedWishReminder> wishReminders = new ArrayList<>();
 
@@ -50,6 +52,9 @@ class JsonSerializableAddressBook {
         expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
         wishes.addAll(source.getWishList().stream().map(JsonAdaptedWish::new).collect(Collectors.toList()));
+        budgets.addAll(source.getBudgetList().stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
+        expenseReminders.addAll(source.getExpenseReminderList().stream().map(JsonAdaptedExpenseReminder::new)
+                .collect(Collectors.toList()));
         expenseReminders.addAll(
                 source.getExpenseReminderList().stream().map(
                         JsonAdaptedExpenseReminder::new).collect(Collectors.toList()));
@@ -77,13 +82,18 @@ class JsonSerializableAddressBook {
             addressBook.addWish(wish);
         }
 
+        for (JsonAdaptedBudget jsonAdaptedBudget: budgets) {
+            Budget budget = jsonAdaptedBudget.toModelType();
+            addressBook.addBudget(budget);
+        }
+
         for (JsonAdaptedExpenseReminder jsonAdaptedExpenseReminder : expenseReminders) {
             ExpenseReminder reminder = jsonAdaptedExpenseReminder.toModelType();
             addressBook.addExpenseReminder(reminder);
         }
 
-        for (JsonAdaptedWishReminder JsonAdaptedWishReminder : wishReminders) {
-            WishReminder reminder = JsonAdaptedWishReminder.toModelType();
+        for (JsonAdaptedWishReminder jsonAdaptedWishReminder : wishReminders) {
+            WishReminder reminder = jsonAdaptedWishReminder.toModelType();
             addressBook.addWishReminder(reminder);
         }
 
