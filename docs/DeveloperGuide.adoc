@@ -243,7 +243,7 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
+// tag::annotation[]
 === [Proposed] Annotation feature
 ==== Proposed Implementation
 The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
@@ -287,17 +287,24 @@ The following activity diagram summarizes what happens when a user attempts to a
 image::AnnotationActivityDiagram.png[]
 
 ==== Design Considerations
-//TODO: alternatives 1 2 3 (current choice); rmb to rename aspect properly
-===== Aspect: How to CLI annotate
-===== Aspect: How to structure offline documents (to support annotation to a paragraph)
-===== Aspect: What kind of annotations to support
+The following are a few design considerations made in deciding how to implement the annotation feature:
 
-===== Aspect: How to store annotations
-separate, with paragraph, add annotation class for abstraction blah
+===== Aspect: How to structure the offline components to store annotations
+Each annotation is tagged to a paragraph and an offline document is composed of multiple paragraphs.
+A cached copy has the original cache of the website.
+There are hence a few alternatives in which we can combine these elements and store them:
 
-===== Aspect: Which data structure to use
+* **Alternative 1 (current choice):** Let each `CachedCopy` have an `OfflineDocument` that consists of paragraphs with content parsed from the original cache. Each paragraph contains a annotation, if any.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage and overheads from layers of abstraction.
 
-// end::dataencryption[]
+* **Alternative 2**: Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
+** Pros: Will use less memory since the content of the website is not duplicated.
+** Cons: Not straightforward to implement. Stray notes will need a different implementation to order and store them. Objects not well abstracted.
+
+//TODO: need do? ===== Aspect: How to save the
+
+// end::annotation[]
 
 === Logging
 
