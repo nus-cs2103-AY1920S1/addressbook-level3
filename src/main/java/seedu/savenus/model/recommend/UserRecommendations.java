@@ -12,7 +12,7 @@ import seedu.savenus.model.food.Tag;
 /**
  * Stores the user's recommendations
  */
-public class UserRecommendations {
+public class UserRecommendations implements Recommendations {
     private Set<Tag> likedTags;
     private Set<Location> likedLocations;
     private Set<Category> likedCategories;
@@ -38,96 +38,74 @@ public class UserRecommendations {
         this.dislikedLocations = dislikedLocations;
     }
 
-    /**
-     * Add likes to the recommendation system.
-     *
-     * @param categoryList The list of categories
-     * @param tagList      The list of tags
-     * @param locationList The list of locations
-     */
+    @Override
     public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         likedCategories.addAll(categoryList);
         likedTags.addAll(tagList);
         likedLocations.addAll(locationList);
     }
 
-    /**
-     * Add dislikes to the recommendation system.
-     *
-     * @param categoryList The list of categories
-     * @param tagList      The list of tags
-     * @param locationList The list of locations
-     */
+    @Override
     public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         dislikedCategories.addAll(categoryList);
         dislikedTags.addAll(tagList);
         dislikedLocations.addAll(locationList);
     }
 
-    /**
-     * Removes likes from the recommendation system.
-     *
-     * @param categoryList The list of categories
-     * @param tagList      The list of tags
-     * @param locationList The list of locations
-     */
+    @Override
     public void removeLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         likedCategories.removeAll(categoryList);
         likedTags.removeAll(tagList);
         likedLocations.removeAll(locationList);
     }
 
-    /**
-     * Removes dislikes from the recommendation system.
-     *
-     * @param categoryList The list of categories
-     * @param tagList      The list of tags
-     * @param locationList The list of locations
-     */
+    @Override
     public void removeDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         dislikedCategories.removeAll(categoryList);
         dislikedTags.removeAll(tagList);
         dislikedLocations.removeAll(locationList);
     }
 
-    /**
-     * Clear the recommendation system's likes.
-     */
+    @Override
     public void clearLikes() {
         likedTags.clear();
         likedLocations.clear();
         likedCategories.clear();
     }
 
-    /**
-     * Clear the recommendation system's dislikes.
-     */
+    @Override
     public void clearDislikes() {
         dislikedTags.clear();
         dislikedLocations.clear();
         dislikedCategories.clear();
     }
 
+    @Override
     public Set<Tag> getLikedTags() {
         return likedTags;
     }
 
+    @Override
     public Set<Location> getLikedLocations() {
         return likedLocations;
     }
 
+    @Override
     public Set<Category> getLikedCategories() {
         return likedCategories;
     }
 
+    @Override
     public Set<Tag> getDislikedTags() {
         return dislikedTags;
     }
 
+    @Override
     public Set<Location> getDislikedLocations() {
         return dislikedLocations;
     }
 
+    @Override
     public Set<Category> getDislikedCategories() {
         return dislikedCategories;
     }

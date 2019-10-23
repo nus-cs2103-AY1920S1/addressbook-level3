@@ -196,6 +196,35 @@ Users are able to add their liked and disliked categories, tags and locations in
 command. The recommendation system will then take into account these preferences to generate a more accurate
 list of recommendations. Users will then able to find the food that they are likely to enjoy more accurately.
 
+==== Classes for Recommendation feature in Model
+
+With the recommendation feature, a new set of classes were added. A singleton class `RecommendationSystem` encapsulates
+the methods and classes related to this feature. This `RecommendationSystem` class implements the interface `Recommender`
+which specifies the behaviour of the system, which include the ability to generate recommendation values.
+
+Additionally, the `RecommendationSystem` class also contains a class `UserRecommendations`, which include the likes and
+dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
+encompassing the ability to add and remove likes and dislikes among other features.
+
+Each `UserRecommendations` object contain 6 sets, namely:
+
+****
+1. A set of user's liked categories
+2. A set of user's liked tags
+3. A set of user's liked locations
+4. A set of user's disliked categories
+5. A set of user's disliked tags
+6. A set of user's disliked locations
+****
+
+The items stored in the sets are first converted to lowercase before adding them to the sets so that a case-insensitive
+comparison can be done more easily.
+
+The class diagram below illustrates the relationship between the classes.
+
+.Recommendation class diagram in Model component
+image::RecommendationClassDiagram.png[]
+
 ==== Adding likes and dislikes
 
 The feature of adding the user's liked and disliked categories, tags and locations was introduced to support the
@@ -242,7 +271,7 @@ is executed. Food with similar recommendation values are sorted based on their p
 |Aspect |Alternative 1 |Alternative 2
 
 |Design of +
-calculateRecommendation()
+calculateRecommendation
 a|Declare a static method `calculateRecommendation` to calculate the recommendation value of each `Food`
 before sorting them.
 

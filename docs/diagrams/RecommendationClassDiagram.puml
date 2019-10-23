@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+
+package Model <<Rectangle>>{
+Interface Recommendations <<Interface>>
+Interface Recommender <<Interface>>
+Class RecommendationSystem
+Class UserRecommendations
+}
+
+RecommendationSystem ..|> Recommender
+
+RecommendationSystem *-right-> UserRecommendations
+
+UserRecommendations ..|> Recommendations
+
+
+@enduml
