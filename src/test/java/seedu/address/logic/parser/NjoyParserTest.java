@@ -41,6 +41,13 @@ public class NjoyParserTest {
     }
 
     @Test
+    public void parseCommand_statistics_addInvalidFile() throws Exception {
+        assertThrows(ParseException.class, "Grade must be a numeric value, not string or text", () ->
+            parser.parseCommand(
+                "statistics file/src/test/data/SampleStatisticsData/InvalidSampleStatistics.xlsx"));
+    }
+
+    @Test
     public void parseCommand_statistics_addEmptyFile() throws Exception {
         assertThrows(ParseException.class, MESSAGE_FILE_NOT_FOUND, () ->
             parser.parseCommand("statistics file/e"));
