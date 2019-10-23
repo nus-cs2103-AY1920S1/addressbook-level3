@@ -96,75 +96,89 @@
                                             </StackPane>
                                         </VBox>
                                     </VBox>
-                           <TabPane styleClass="tab-pane-with-border" tabClosingPolicy="UNAVAILABLE">
-                             <tabs>
-                               <Tab text="History">
-                                 <content>
-                                       <VBox maxHeight="1.7976931348623157E308" prefHeight="655.0" prefWidth="670.0" spacing="10.0" styleClass="vbox-tab-pane-with-border">
-                                          <children>
-                                             <AnchorPane prefHeight="148.0" prefWidth="670.0" VBox.vgrow="NEVER">
+                           <VBox styleClass="vbox-tab-pane-with-border">
+                              <children>
+                                 <AnchorPane VBox.vgrow="ALWAYS">
+                                    <children>
+                                       <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="54.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/Wallet.png" />
+                                          </image>
+                                       </ImageView>
+                                                  <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="204.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="money" wrappingWidth="386.0">
+                                                      <font>
+                                                          <Font name="Monospaced Regular" size="50.0" />
+                                                      </font>
+                                                  </Text>
+                                                  <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="205.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-days-left" text="days" wrappingWidth="174.0">
+                                                      <font>
+                                                          <Font name="Franklin Gothic Demi Cond" size="27.0" />
+                                                      </font>
+                                                  </Text>
+                                    </children>
+                                    <VBox.margin>
+                                       <Insets bottom="20.0" />
+                                    </VBox.margin>
+                                 </AnchorPane>
+                                 <TabPane styleClass="tab-pane-with-border" tabClosingPolicy="UNAVAILABLE">
+                                   <tabs>
+                                     <Tab text="History">
+                                       <content>
+                                             <VBox maxHeight="1.7976931348623157E308" prefHeight="655.0" prefWidth="670.0" spacing="10.0">
                                                 <children>
-                                                   <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="54.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                                                      <image>
-                                                         <Image url="@../images/Wallet.png" />
-                                                      </image>
-                                                   </ImageView>
-                                                              <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="204.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="money" wrappingWidth="386.0">
-                                                                  <font>
-                                                                      <Font name="Monospaced Regular" size="50.0" />
-                                                                  </font>
-                                                              </Text>
-                                                              <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="205.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-days-left" text="days" wrappingWidth="174.0">
-                                                                  <font>
-                                                                      <Font name="Franklin Gothic Demi Cond" size="27.0" />
-                                                                  </font>
-                                                              </Text>
+                                                               <Text fill="white" styleClass="purchase-history-text" text="Purchase History" textAlignment="CENTER" wrappingWidth="630.0" VBox.vgrow="NEVER">
+                                                                   <font>
+                                                                       <Font name="Franklin Gothic Demi Cond" size="40.0" />
+                                                                   </font>
+                                                               </Text>
+                                                   <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308">
+                                                      <children>
+                                                         <VBox maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                                                            <padding>
+                                                               <Insets bottom="10" left="10" right="10" top="10" />
+                                                            </padding>
+                                                            <children>
+                                                               <StackPane fx:id="purchaseListPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                                                  <VBox.margin>
+                                                                     <Insets />
+                                                                  </VBox.margin>
+                                                               </StackPane>
+                                                            </children>
+                                                         </VBox>
+                                                      </children>
+                                                   </VBox>
                                                 </children>
-                                             </AnchorPane>
-                                                         <Text fill="white" styleClass="purchase-history-text" text="Purchase History" textAlignment="CENTER" wrappingWidth="630.0" VBox.vgrow="NEVER">
-                                                             <font>
-                                                                 <Font name="Franklin Gothic Demi Cond" size="40.0" />
-                                                             </font>
-                                                         </Text>
-                                                        <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                                                            <VBox fx:id="purchaseList" maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                                                <padding>
+                                                   <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                                                </padding>
+                                             </VBox>
+                                       </content>
+                                     </Tab>
+                                     <Tab closable="false" text="Savings">
+                                          <content>
+                                                        <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308">
+                                                <Text fill="white" styleClass="purchase-history-text" text="Savings History" textAlignment="CENTER" wrappingWidth="630.0">
+                                                   <font>
+                                                      <Font name="Franklin Gothic Demi Cond" size="40.0" />
+                                                   </font>
+                                                </Text>
+                                                            <VBox maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                                                                 <padding>
                                                                     <Insets bottom="10" left="10" right="10" top="10" />
                                                                 </padding>
-                                                                <StackPane fx:id="purchaseListPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                                                <StackPane fx:id="savingsHistoryPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                                                     <VBox.margin>
                                                                         <Insets />
                                                                     </VBox.margin>
                                                                 </StackPane>
                                                             </VBox>
                                                         </VBox>
-                                          </children>
-                                          <padding>
-                                             <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                                          </padding>
-                                       </VBox>
-                                 </content>
-                               </Tab>
-                               <Tab closable="false" text="Savings">
-                                 <content>
-                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="vbox-tab-pane-with-border">
-                                          <children>
-                                             <Text fill="WHITE" layoutX="39.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MADE YOU LOOK GOTEEM" textAlignment="CENTER" wrappingWidth="594.13671875">
-                                                <font>
-                                                   <Font name="Franklin Gothic Demi Cond" size="43.0" />
-                                                </font>
-                                             </Text>
-                                             <Text fill="WHITE" layoutX="39.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="More to be added!" textAlignment="CENTER" wrappingWidth="594.13671875">
-                                                <font>
-                                                   <Font name="Franklin Gothic Demi Cond" size="43.0" />
-                                                </font>
-                                             </Text>
-                                          </children>
-                                       </AnchorPane>
-                                 </content>
-                               </Tab>
-                             </tabs>
-                           </TabPane>
+                                          </content>
+                                     </Tab>
+                                   </tabs>
+                                 </TabPane>
+                              </children>
+                           </VBox>
                                 </children>
                             </HBox>
                                <StackPane fx:id="statusbarPlaceholder" />

@@ -32,6 +32,8 @@ public class InfoCommand extends Command {
 
     public static final String EXIT_INFO = COMMAND_INDICATOR + ExitCommand.COMMAND_WORD;
 
+    public static final String FILTER_INFO = COMMAND_INDICATOR + FilterCommand.COMMAND_WORD;
+
     public static final String FIND_INFO = COMMAND_INDICATOR + FindCommand.COMMAND_WORD;
 
     public static final String HELP_INFO = COMMAND_INDICATOR + HelpCommand.COMMAND_WORD;
@@ -41,6 +43,8 @@ public class InfoCommand extends Command {
     public static final String LIST_INFO = COMMAND_INDICATOR + ListCommand.COMMAND_WORD;
 
     public static final String RECOMMEND_INFO = COMMAND_INDICATOR + RecommendCommand.COMMAND_WORD;
+
+    public static final String SAVE_INFO = COMMAND_INDICATOR + SaveCommand.COMMAND_WORD;
 
     public static final String SORT_INFO = COMMAND_INDICATOR + SortCommand.COMMAND_WORD;
 
@@ -79,6 +83,8 @@ public class InfoCommand extends Command {
             return new CommandResult(EDIT_INFO);
         case ExitCommand.COMMAND_WORD :
             return new CommandResult(EXIT_INFO);
+        case FilterCommand.COMMAND_WORD:
+            return new CommandResult(FILTER_INFO);
         case FindCommand.COMMAND_WORD :
             return new CommandResult(FIND_INFO);
         case HelpCommand.COMMAND_WORD :
@@ -89,6 +95,8 @@ public class InfoCommand extends Command {
             return new CommandResult(LIST_INFO);
         case RecommendCommand.COMMAND_WORD :
             return new CommandResult(RECOMMEND_INFO);
+        case SaveCommand.COMMAND_WORD :
+            return new CommandResult(SAVE_INFO);
         case SortCommand.COMMAND_WORD :
             return new CommandResult(SORT_INFO);
         default :
