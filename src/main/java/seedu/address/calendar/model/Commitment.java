@@ -5,8 +5,8 @@ import java.util.Optional;
 public class Commitment extends Event {
     private static final EventType EVENT_TYPE = EventType.COMMITMENT;
 
-    public Commitment(Date date, Name name, Optional<Info> info) {
-        super(date, name, info, EVENT_TYPE);
+    public Commitment(Name name, Date date, Optional<Info> info) {
+        super(name, date, info, EVENT_TYPE);
     }
 
     public EventType getEventType() {

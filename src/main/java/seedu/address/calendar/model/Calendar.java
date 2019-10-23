@@ -52,4 +52,10 @@ public class Calendar {
     public void addEvent(Event event) {
         events.add(event);
     }
+
+    // todo: extract the following and implement it using model manager
+    public ReadOnlyCalendar getCalendar() {
+        List<Event> eventsCopy = List.copyOf(events);
+        return new ReadOnlyCalendar(eventsCopy);
+    }
 }

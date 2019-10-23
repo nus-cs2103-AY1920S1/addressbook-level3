@@ -8,4 +8,13 @@ public class Info {
         requireNonNull(info);
         this.info = info;
     }
+
+    String asString() {
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        return info;
+    }
 }

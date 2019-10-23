@@ -10,6 +10,10 @@ public class Name {
         this.name = name;
     }
 
+    String asString() {
+        return toString();
+    }
+
     @Override
     public String toString() {
         return name;

@@ -55,4 +55,15 @@ public class Day {
     public String toString() {
         return String.format("%s, %d", dayOfWeek, dayOfMonth);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof Day)) {
+            return false;
+        }
+        Day dayToCompare = (Day) o;
+        return dayToCompare.dayOfWeek.equals(this.dayOfWeek) && dayToCompare.dayOfMonth == this.dayOfMonth;
+    }
 }

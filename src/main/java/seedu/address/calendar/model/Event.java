@@ -8,7 +8,7 @@ public abstract class Event {
     protected Optional<Info> info;
     protected EventType eventType;
 
-    public Event(Date date, Name name, Optional<Info> info, EventType eventType) {
+    public Event(Name name, Date date, Optional<Info> info, EventType eventType) {
         this.date = date;
         this.name = name;
         this.info = info;
@@ -16,4 +16,21 @@ public abstract class Event {
     }
 
     public abstract EventType getEventType();
+
+    public String getNameStr() {
+        return name.asString();
+    }
+
+    public String getStartDateStr() {
+        return date.asString();
+    }
+
+    public String getEndDateStr() {
+        return date.asString(); // todo: change to end date
+    }
+
+    public String getInfoStr() {
+        return info.map(i -> i.asString())
+                .orElse("");
+    }
 }

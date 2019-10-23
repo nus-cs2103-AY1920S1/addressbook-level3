@@ -32,7 +32,7 @@ class AddCommandParser {
         Name name = new NameParser().parse(argMultimap.getValue(CliSyntax.PREFIX_NAME)).get();
         Optional<Info> info = new InfoParser().parse(argMultimap.getValue(CliSyntax.PREFIX_INFO));
 
-        Commitment commitment = new Commitment(date, name, info);
+        Commitment commitment = new Commitment(name, date, info);
 
         return new AddCommitmentCommand(commitment);
     }
