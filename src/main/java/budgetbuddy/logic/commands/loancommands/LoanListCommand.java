@@ -11,6 +11,7 @@ import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Loan;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Lists loans.
@@ -34,7 +35,7 @@ public class LoanListCommand extends Command {
         requireAllNonNull(model, model.getLoansManager());
 
         LoansManager loansManager = model.getLoansManager();
-        ObservableList<Loan> loans = loansManager.getSortedLoans();
+        SortedList<Loan> loans = loansManager.getSortedLoans();
 
         // TODO Display the list in the main window instead of in the command result text box.
         StringBuilder builder = new StringBuilder();

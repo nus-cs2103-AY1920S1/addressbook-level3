@@ -14,6 +14,7 @@ import budgetbuddy.model.person.Person;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Maintains a list of loans.
@@ -45,7 +46,7 @@ public class LoansManager {
     /**
      * Returns the list of loans sorted by each loan's person's name.
      */
-    public ObservableList<Loan> getSortedLoans() {
+    public SortedList<Loan> getSortedLoans() {
         return internalList.sorted(new SortByPerson());
     }
 

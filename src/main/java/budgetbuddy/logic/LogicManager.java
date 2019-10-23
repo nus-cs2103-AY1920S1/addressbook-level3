@@ -12,9 +12,12 @@ import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.script.ScriptManager;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.storage.Storage;
+
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * The main LogicManager of the app.
@@ -54,6 +57,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public SortedList<Loan> getSortedLoanList() {
+        return model.getLoansManager().getSortedLoans();
     }
 
     @Override

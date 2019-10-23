@@ -11,6 +11,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.ui.panel.ListPanel;
+import budgetbuddy.ui.panel.LoanPanel;
 import budgetbuddy.ui.panel.RulePanel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private RulePanel ruleListPanel;
+    private LoanPanel loanListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -116,6 +118,9 @@ public class MainWindow extends UiPart<Stage> {
         // instantiate all list panels
         ruleListPanel = new RulePanel(logic.getRuleList());
         panelMap.put(CommandCategory.RULE, ruleListPanel);
+
+        loanListPanel = new LoanPanel(logic.getSortedLoanList());
+        panelMap.put(CommandCategory.LOAN, loanListPanel);
 
         // add initial panel as child
         // setCurrentPanel(INITIAL_PANEL_HERE.getRoot());

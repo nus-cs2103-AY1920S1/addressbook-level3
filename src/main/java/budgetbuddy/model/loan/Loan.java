@@ -80,6 +80,23 @@ public class Loan {
     }
 
     /**
+     * Returns a {@code string} containing the status, amount, direction, and person of the loan.
+     */
+    public String getEssentialInfo() {
+        String directionWithFunctionWord = getDirection() == Direction.OUT
+                ? getDirection().direction.toLowerCase() + " to "
+                : getDirection().direction.toLowerCase() + " from ";
+
+        StringBuilder info = new StringBuilder();
+        info.append(getStatus().getStatusIcon()).append(" ")
+                .append(getAmount()).append(" ")
+                .append(directionWithFunctionWord)
+                .append(getPerson());
+
+        return info.toString();
+    }
+
+    /**
      * Checks all fields of a Loan for equality (person, direction, amount, date, description, status).
      */
     @Override

@@ -4,8 +4,11 @@ import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
+
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * API of the Logic component
@@ -19,6 +22,11 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Returns an unmodifiable view of the list of loans.
+     */
+    SortedList<Loan> getSortedLoanList();
 
     /** Returns an unmodifiable view of the list of rules */
     ObservableList<Rule> getRuleList();
