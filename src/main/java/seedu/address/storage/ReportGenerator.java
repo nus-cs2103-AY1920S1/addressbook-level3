@@ -48,10 +48,16 @@ public class ReportGenerator {
         }
     }
 
-    private static void addHeader(Document document, String s) throws DocumentException, IOException {
+    /**
+     * Adds end details to the report.
+     *
+     * @param document which is the report.
+     * @param title which is title of the pdf report.
+     */
+    private static void addHeader(Document document, String title) throws DocumentException, IOException {
         document.open();
         Font bold = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-        document.add(new Paragraph(s, bold));
+        document.add(new Paragraph(title, bold));
         document.add(new Paragraph("\n"));
 
         Image logo = Image.getInstance("docs/images/Logo.png");
@@ -60,6 +66,12 @@ public class ReportGenerator {
         document.add(logo);
     }
 
+    /**
+     * Adds end details to the report.
+     *
+     * @param document which is the report.
+     * @param writer which is used to create the pdf report.
+     */
     private static void addFooter(Document document, PdfWriter writer) throws DocumentException {
         document.add(new Paragraph("\n"));
         document.add(new Paragraph("___________________________                _______________"));
