@@ -143,4 +143,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredIncidentList(Predicate<Incident> predicate);
+
+    /**
+     * Updates the filter of the filtered Vehicle list to filter by the given {@code district}.
+     * @throws NullPointerException if {@code district} is null.
+     */
+    void updateFilteredVehicleList(Predicate<Vehicle> predicate);
 }
