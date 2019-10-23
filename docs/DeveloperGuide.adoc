@@ -298,7 +298,6 @@ image::SmartSuggestActivityDiagram.png
 
 The above activity diagram shows how ``smartSuggest`` command works.
 
-
 === Itinerary
 
 The itinerary feature in TravEzy allows users to organize their events by giving a certain time they planned to

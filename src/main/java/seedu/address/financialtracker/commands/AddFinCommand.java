@@ -2,6 +2,7 @@ package seedu.address.financialtracker.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.logic.commands.CommandResult;
@@ -14,7 +15,7 @@ public class AddFinCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the financial tracker.\n"
-            + "e.g. add a/[amount] d/[description c/[category or country]";
+            + "e.g. add a/[amount] d/[description (Remember to select where you at currently!)";
     public static final String MESSAGE_SUCCESS = "Expense added";
 
     private final Expense expense;
@@ -25,6 +26,13 @@ public class AddFinCommand extends Command {
     public AddFinCommand(Expense expense) {
         requireNonNull(expense);
         this.expense = expense;
+    }
+
+    /**
+     * Insert {code: Country} field into {code: Expense}.
+     */
+    public void insertCountry(String country) {
+        this.expense.setCountry(new Country(country));
     }
 
     @Override

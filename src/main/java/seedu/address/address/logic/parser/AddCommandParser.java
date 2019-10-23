@@ -1,13 +1,5 @@
 package seedu.address.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
-import static seedu.address.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.address.logic.parser.CliSyntax.PREFIX_TAG;
-
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -26,6 +18,7 @@ import seedu.address.address.model.person.Person;
 import seedu.address.address.model.person.Phone;
 import seedu.address.address.model.person.Remark;
 import seedu.address.address.model.tag.Tag;
+import seedu.address.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -39,21 +32,21 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
-                        PREFIX_COUNTRY);
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL, CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_TAG,
+                        CliSyntax.PREFIX_COUNTRY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get());
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).get());
         Remark remark = new Remark(""); // add command does not allow adding remarks straight away
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Country country = ParserUtil.parseCountry(argMultimap.getValue(PREFIX_COUNTRY).orElse(""));
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(CliSyntax.PREFIX_TAG));
+        Country country = ParserUtil.parseCountry(argMultimap.getValue(CliSyntax.PREFIX_COUNTRY).orElse(""));
 
         Person person = new Person(name, phone, email, address, remark, tagList, country);
 
