@@ -54,7 +54,7 @@ public class ModelManager implements Model {
                 FXCollections.observableArrayList(
                         new OfflineDocument("example doc",
                                 OfflineDocument.OFFLINE_DOC_EXAMPLE).getCollection()), (
-                Paragraph p1, Paragraph p2) -> {
+            Paragraph p1, Paragraph p2) -> {
             ParagraphIdentifier pid1 = p1.getId();
             ParagraphIdentifier pid2 = p2.getId();
             return pid1.compareTo(pid2);
