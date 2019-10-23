@@ -1,6 +1,7 @@
 package seedu.jarvis.testutil;
 
 import java.nio.file.Path;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.MonthlyLimit;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
@@ -216,7 +218,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setMonthlyLimit(double value) {
+    public void setMonthlyLimit(MonthlyLimit limit) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public OptionalDouble getMonthlyLimit() {
         throw new AssertionError("This method should not be called.");
     }
 

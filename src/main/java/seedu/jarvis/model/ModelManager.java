@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -22,6 +23,7 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.MonthlyLimit;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
@@ -204,16 +206,31 @@ public class ModelManager implements Model {
         return financeTracker;
     }
 
+    /**
+     * Retrieves purchase at a particular index as seen on the list of finance tracker.
+     *
+     * @throws CommandException is thrown if purchase does not exist
+     */
     @Override
     public Purchase getPurchase(int paymentIndex) {
         return financeTracker.getPurchase(paymentIndex);
     }
 
+    /**
+     * Updates the filter of the purchase list to be viewed with the new predicate.
+     *
+     * @param predicate to filter purchases
+     */
     @Override
     public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
         financeTracker.updateFilteredPurchaseList(predicate);
     }
 
+    /**
+     * Retrieves list of all purchases
+     *
+     * @return ObservableList
+     */
     @Override
     public ObservableList<Purchase> getFilteredPurchaseList() {
         return financeTracker.getFilteredPurchaseList();
@@ -239,16 +256,31 @@ public class ModelManager implements Model {
         return financeTracker.deleteSinglePurchase(itemNumber);
     }
 
+    /**
+     * Retrieves installment at a particular index as seen on the list of finance tracker.
+     *
+     * @throws CommandException is thrown if installment does not exist
+     */
     @Override
     public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
         return financeTracker.getInstallment(instalIndex);
     }
 
+    /**
+     * Updates the filter of the installment list to be viewed with the new predicate.
+     *
+     * @param predicate to filter installments
+     */
     @Override
     public void updateFilteredInstallmentList(Predicate<Installment> predicate) {
         financeTracker.updateFilteredInstallmentList(predicate);
     }
 
+    /**
+     * Retrieves list of all installments.
+     *
+     * @return ObservableList
+     */
     @Override
     public ObservableList<Installment> getFilteredInstallmentList() {
         return financeTracker.getFilteredInstallmentList();
@@ -274,11 +306,25 @@ public class ModelManager implements Model {
         return financeTracker.deleteInstallment(instalNumber);
     }
 
+    /**
+     * Checks for the existence of the same installment in the finance tracker.
+     *
+     * @param installment to be checked
+     * @return boolean
+     */
     @Override
     public boolean hasInstallment(Installment installment) {
         return financeTracker.hasInstallment(installment);
     }
 
+    /**
+     * Replaces the installment in the list with {@code editedInstallment}.
+     * The identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * list.
+     *
+     * @param target installment to be replaced
+     * @param editedInstallment installment with all fields edited according to command
+     */
     @Override
     public void setInstallment(Installment target, Installment editedInstallment) {
         financeTracker.setInstallment(target, editedInstallment);
@@ -287,11 +333,21 @@ public class ModelManager implements Model {
     /**
      * Sets the monthly limit for spending.
      *
-     * @param value
+     * @param limit
      */
     @Override
-    public void setMonthlyLimit(double value) {
-        financeTracker.setMonthlyLimit(value);
+    public void setMonthlyLimit(MonthlyLimit limit) {
+        financeTracker.setMonthlyLimit(limit);
+    }
+
+    /**
+     * Retrieves monthly limit if it has been set by the user.
+     *
+     * @return Optional containing the monthly limit
+     */
+    @Override
+    public OptionalDouble getMonthlyLimit() {
+        return financeTracker.getMonthlyLimit();
     }
 
     /**

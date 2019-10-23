@@ -28,6 +28,7 @@ import seedu.jarvis.logic.commands.finance.ListFinancesCommand;
 import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.RemovePaidCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
 import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
@@ -48,6 +49,7 @@ import seedu.jarvis.logic.parser.finance.FindPurchaseCommandParser;
 import seedu.jarvis.logic.parser.finance.RemoveInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.RemovePaidCommandParser;
 import seedu.jarvis.logic.parser.finance.SetInstallmentCommandParser;
+import seedu.jarvis.logic.parser.finance.SetMonthlyLimitCommandParser;
 import seedu.jarvis.logic.parser.finance.SetPaidCommandParser;
 import seedu.jarvis.logic.parser.history.RedoCommandParser;
 import seedu.jarvis.logic.parser.history.UndoCommandParser;
@@ -154,6 +156,9 @@ public class JarvisParser {
 
         case FindPurchaseCommand.COMMAND_WORD:
             return new FindPurchaseCommandParser().parse(arguments);
+
+        case SetMonthlyLimitCommand.COMMAND_WORD:
+            return new SetMonthlyLimitCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

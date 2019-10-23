@@ -3,6 +3,7 @@ package seedu.jarvis.model.financetracker;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -18,7 +19,7 @@ import seedu.jarvis.model.financetracker.purchase.Purchase;
  * spent by the user and instalments paid.
  */
 public class FinanceTracker {
-    private double monthlyLimit;
+    private MonthlyLimit monthlyLimit;
     private double totalSpending;
 
     private final PurchaseList purchaseList;
@@ -227,8 +228,12 @@ public class FinanceTracker {
 
     //=========== General Finance Tracker =============================================================
 
-    public double getMonthlyLimit() {
-        return monthlyLimit;
+    /**
+     * Retrieves monthly limit if it has been set by the user.
+     * @return Optional containing the monthly limit
+     */
+    public OptionalDouble getMonthlyLimit() {
+        return OptionalDouble.of(monthlyLimit.getMonthlyLimit());
     }
 
     /**
@@ -236,8 +241,8 @@ public class FinanceTracker {
      *
      * @param limit
      */
-    public void setMonthlyLimit(double limit) {
-        if (limit < 0) {
+    public void setMonthlyLimit(MonthlyLimit limit) {
+        if (limit.getMonthlyLimit() < 0) {
             throw new NegativeLimitException();
         }
         monthlyLimit = limit;

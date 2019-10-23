@@ -1,5 +1,6 @@
 package seedu.jarvis.model.financetracker;
 
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -22,8 +23,18 @@ public interface FinanceTrackerModel {
      */
     FinanceTracker getFinanceTracker();
 
+    /**
+     * Retrieves purchase at a particular index as seen on the list of finance tracker.
+     *
+     * @throws CommandException is thrown if purchase does not exist
+     */
     Purchase getPurchase(int paymentIndex) throws CommandException;
 
+    /**
+     * Updates the filter of the purchase list to be viewed with the new predicate.
+     *
+     * @param predicate to filter purchases
+     */
     void updateFilteredPurchaseList(Predicate<Purchase> predicate);
 
     /**
@@ -47,12 +58,22 @@ public interface FinanceTrackerModel {
      */
     Purchase deletePurchase(int itemNumber);
 
+    /**
+     * Retrieves installment at a particular index as seen on the list of finance tracker.
+     *
+     * @throws CommandException is thrown if installment does not exist
+     */
     Installment getInstallment(int instalIndex) throws CommandException;
 
+    /**
+     * Updates the filter of the installment list to be viewed with the new predicate.
+     *
+     * @param predicate to filter installments
+     */
     void updateFilteredInstallmentList(Predicate<Installment> predicate);
 
     /**
-     * Retrieves list of all installments
+     * Retrieves list of all installments.
      *
      * @return ObservableList
      */
@@ -81,19 +102,28 @@ public interface FinanceTrackerModel {
     boolean hasInstallment(Installment installment);
 
     /**
-     * Replaces the installment {@code target} in the list with {@code editedInstallment}.
-     * {@code target} must exist in the list.
+     * Replaces the installment in the list with {@code editedInstallment}.
      * The identity of {@code editedInstallment} must not be the same as another existing installment in the
      * list.
+     *
+     * @param target installment to be replaced
+     * @param editedInstallment installment with all fields edited according to command
      */
     void setInstallment(Installment target, Installment editedInstallment);
 
     /**
      * Sets the monthly limit for spending.
      *
-     * @param value
+     * @param limit
      */
-    void setMonthlyLimit(double value);
+    void setMonthlyLimit(MonthlyLimit limit);
+
+    /**
+     * Retrieves monthly limit if it has been set by the user.
+     *
+     * @return Optional containing the monthly limit
+     */
+    OptionalDouble getMonthlyLimit();
 
     /**
      * Lists all purchases and payments from this month.

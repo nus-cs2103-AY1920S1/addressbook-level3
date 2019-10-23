@@ -3,6 +3,8 @@ package seedu.jarvis.model.finance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
+import java.util.OptionalDouble;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.MonthlyLimit;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
@@ -17,6 +20,7 @@ import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
 import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
+
 
 /**
  * Tests logic of finance tracker class.
@@ -111,15 +115,15 @@ public class FinanceTrackerTest {
 
     @Test
     public void setMonthlyLimit_normalInput_updatedCorrectly() {
-        financeTracker.setMonthlyLimit(500.0);
-        assertEquals(500.0, financeTracker.getMonthlyLimit());
+        financeTracker.setMonthlyLimit(new MonthlyLimit("500.0"));
+        assertEquals(OptionalDouble.of(500.0), financeTracker.getMonthlyLimit());
     }
 
     @Test
     public void setMonthlyLimit_negativeNumber_errorThrown() {
         assertThrows(RuntimeException.class, (
 
-                ) -> financeTracker.setMonthlyLimit(-500));
+                ) -> financeTracker.setMonthlyLimit(new MonthlyLimit("-500")));
     }
 
     private static class PurchaseStub extends Purchase {

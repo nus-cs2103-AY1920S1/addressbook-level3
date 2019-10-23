@@ -38,7 +38,7 @@ public class SetInstallmentCommandTest {
     }
 
     @Test
-    public void execute_installmentAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_installmentAcceptedByModel_addSuccessful() {
         ModelStubAcceptingInstallmentAdded modelStub = new ModelStubAcceptingInstallmentAdded();
         Installment validInstallment = new InstallmentBuilder().build();
 
@@ -74,7 +74,7 @@ public class SetInstallmentCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single installment.
      */
     private class ModelStubWithInstallment extends ModelStub {
         private final Installment installment;
@@ -92,7 +92,7 @@ public class SetInstallmentCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the installment being added.
      */
     private class ModelStubAcceptingInstallmentAdded extends ModelStub {
         final ArrayList<Installment> installmentsAdded = new ArrayList<>();
