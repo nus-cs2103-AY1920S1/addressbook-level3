@@ -150,7 +150,7 @@ data in json format and read it back.
 
 Classes used by multiple components are in the `seedu.jarvis.commons` package.
 
-== Implementation
+== Implementation==== Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -608,12 +608,94 @@ appended to the end of the `TaskList`.
 
 // end:: planner[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== CcaTracker Feature
+==== Overview
+The application is able to track Ccas. Each user can have multiple Ccas and each Cca can have multiple equipments
+needed. In addition, the application is able to track the progress of each person in their Ccas. Hence, there is a
+need to represent the CcaTracker as a list of Ccas on which the application can perform create, read, update and delete
+operations on each Cca.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Implementation
+The `CcaTracker` mechanism is facilitated by `CcaTrackerModel`.
 
-// end::dataencryption[]
+`Model` supports operations to facilitate
+cca tracking capabilities by extending the `CcaTrackerModel` which has the following operations:
+
+* `Model#containsCca(Cca cca)` -- Checks if the `CcaTracker` contains the given cca.
+* `Model#addCca(Cca cca)` -- Adds a `Cca` to the `CcaTracker`.
+* `Model#removeCca(Cca cca)` -- Removes a `Cca` from the `CcaTracker`.
+* `Model#updateCca(Cca toBeUpdatedCca, Cca updatedCca)` -- Updates a `Cca` in the `CcaTracker`.
+* `Model#getCcaTracker()` -- Gets the `CcaTracker` instance.
+* `Model#getNumberOfCcas()` -- Returns the number of `Ccas` currently in the `CcaTracker`.
+* `Model#getCca(Index index)` -- Gets the `Cca` instance by its index in the `CcaTracker`.
+* `Model#updateFilteredCcaList(Predicate<Cca> predicate)` -- Updates the `FilteredCcaList` by passing it a predicate.
+* `Model#getFilteredCcaList()` -- Returns an instance of the `FilteredCcaList`
+* `Model#addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList)` - Adds `CcaProgressList` to the target `Cca`.
+* `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
+
+CcaTracker has 7 specific commands that support the given operations to mutate the state of the `Model`. Each command is
+represented as seperate class:
+
+* `AddCcaCommand` -- Adds a `Cca` to the `CcaTracker`.
+* `DeleteCcaCommand` -- Deletes a `Cca` from the `CcaTracker`.
+* `EditCcaCommand` -- Edits the selected `Cca` in the `CcaTracker`.
+* `FindCcaCommand` -- Finds a `Cca` from the `CcaTracker` based on the keywords specified .
+* `ListCcaCommand` -- Lists all the `Cca` from the `CcaTracker`.
+* `AddProgressCommand` -- Adds a progress tracker to a cca.
+* `IncreaseProgressCommand` -- Increments the progress level of a cca.
+
+
+For brevity's sake, we will illustrate only 1 specific command and its execution on model.
+The following activity diagram illustrates how a `Cca`'s progress is incremented when a user types in a
+`increase-progress` command:
+
+Given below is an example usage scenario of how increase-progress mechanism behaves.
+
+Step 1. The user launches the application for the first time. The `CcaTracker` is initialized. Assume that a `Cca` has
+already been added to the Cca and that a progress tracker has already been set for that `Cca`.
+
+Step 2. The user executes `increase-progress 1` command to increment the progress of the 1st `Cca` in the CcaTracker.
+A `IncreaseProgressCommandParser` object is created and its `#parse` method is called. The parse method returns a new
+`IncreaseProgressCommand` object.
+
+Step 3. The `IncreaseProgressCommand` object is then executed on model. The `IncreaseProgressCommand#execute` method is
+called and in this method, the `Model#increaseProgress` method is called.
+
+[NOTE]
+The `IncreaseProgressCommand#execute` method first checks for whether the index is within the size of CcaList.
+
+Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the methods in the `CcaTracker` class. As such,
+the `CcaTracker#increaseProgress` method is called. This in turn calls the `CcaList#increaseProgress` method. This
+method first finds the `Cca` based on its corresponding index. Then, it calls the `Cca#increaseProgress` method.
+
+Step 5. This in turn calls the `CcaProgress#increaseProgress` method that calls `CcaCurrentProgress#increaseProgress`
+method. At long last, the final `#increaseProgress` method in the `CcaCurrentProgress` instance is called and the
+`currentProgress` counter is incremented by 1.
+
+[NOTE]
+TLDR: The calling of the `#increaseProgress` method at the `CcaTracker` level triggers a cascading series of
+`#increaseProgress` methods which culminates in the `currentProgress` variable being incremented by 1.
+
+==== Design Considerations
+===== Aspect: Whether to have subclasses for each type of cca.
+* *Alternative 1 (Current choice):* Instantiate a generic `CcaProgress` for each `Cca`  .
+** Pros: Less code needed.
+** Cons: Less extensible as CcaProgress is now limited to a list of strings.
+
+* *Alternative 2:* Implement `CcaProgress` as a parent class. Create classes such as SportProgress/PerformingArtsProgress
+that extend from CcaProgress for each type of `Cca`
+** Pros: Easier to extend functionality for each type of cca.
+** Cons: Does not significantly extend functionality for this version of Jarvis.
+
+===== Aspect: Whether to use observable list for `CcaProgressList`
+* *Alternative 1 (Current choice):* Implement CcaProgressList as an `ObservableList` .
+** Pros: Easier to manipulate for JavaFx.
+** Cons: Potentially complicated nesting when passing arguments to it as CcaProgressList is nested several classes
+within `Cca`.
+
+* *Alternative 2:* Implement CcaProgressList as a normal `List` e.g. `ArrayList` .
+** Pros: Does not require predicates to be passed in.
+** Cons: Might be more complicated when rendering in Javafx.
 
 === Logging
 
