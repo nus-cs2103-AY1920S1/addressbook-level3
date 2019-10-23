@@ -25,6 +25,18 @@ having the benefits of a Graphical User Interface (GUI). If you can type fast, A
 management
 tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
+== About
+
+This document shows you the full list of features in Athletick.
+
+Note the following symbols and formatting used in this document
+
+[horizontal]
+
+IMPORTANT:: This symbol indicates important information
+`undo`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
+command line and executed by the application.
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -32,7 +44,7 @@ tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Sta
 .  Copy the file to the folder you want to use as the home folder for your Athletick.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::currentui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -58,50 +70,229 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Adding an event : `event`
-Adds an event to Athletick. Used for keying player performance.
+=== Team Data Entry
+
+==== Adding an athlete : `add`
+
+This command adds an athlete to Athletick.
+
+*What you should do*
+
+Type the athlete's particulars in the format given below.
+
+Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
+
+Example: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/backstroke`
+
+*What you should see*
+
+image::addcommand.png[width="790"]
+
+If successfully added, the details of the added athlete will be displayed in the result box.
+
+The athlete will be shown in team list.
+
+==== Deleting an athlete : `delete`
+
+This command deletes an athlete from the list by their index.
+
+*What you should do*
+
+Type the delete command, followed by the index of the athlete you wish to delete from Athletick.
+
+Format: `delete INDEX`
+
+Example: `delete 7`
+
+IMPORTANT: The index refers to the index number shown in the displayed person list.
+
+IMPORTANT: ️The index must be a positive integer 1, 2, 3, …​
+
+*What you should see*
+
+image::deletecommand.png[width="790"]
+
+If successfully removed, the details of the removed athlete will be displayed in the result box.
+
+The athlete should no longer be shown in the team list.
+
+==== Editing an athlete : `edit`
+
+This command edits the details of an existing athlete in Athletick.
+
+All the details of an athlete (name, phone number, email, address, tags) can be edited.
+
+*What you should do*
+
+Type the edit command in the following format, using the relevant prefixes to edit the appropriate details.
+
+Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAGS]`
+
+In order to edit Roy Balakrishnan's name to Shawn, type in the following.
+
+Example: `edit 6 n/Shawn`
+
+IMPORTANT: The index refers to the index number shown in the displayed person list.
+
+IMPORTANT: ️The index must be a positive integer 1, 2, 3, …​
+
+IMPORTANT: At least one of the optional field must be provided.
+
+IMPORTANT: When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+
+IMPORTANT: You can remove all the person’s tags by typing t/ without specifying any tags after it.
+
+*What you should see*
+
+image::editcommand.png[width="790"]
+
+If successfully edited, the edited information of Roy (now Shawn) will be displayed in the result box.
+
+The team list should also reflect Roy's new details.
+
+
+=== Performance
+
+==== Adding an event : `event`
+
+This command adds an event to Athletick, and will be used for storing your athletes’ performances.
+
+*What you should do*
+
+Type the event command in the following format.
 
 Format : `event NAME_OF_EVENT`
 
-=== Adding a player : `add`
+Example: `event 50m freestyle`
 
-Adds a person to Athletick. +
+IMPORTANT: Event names are case-insensitive (eg. `50m freestyle` and `50M freestyle` are considered the same
+events)
 
-Format : `add n/NAME p/PHONE_NUMBER e/EMAIL g/GENDER`
-//a/ADDRESS [t/TAG]...
-//[TIP]
-//A person can have any number of tags (including 0)
+*What you should see*
 
-Examples:
+// insert picture
 
-`add n/James Ho p/91234567 e/jamesho@gmail.com g/M`
+If successfully added, the event name will be displayed in the result box.
 
-=== Attendance
-==== Taking attendance : `attendance`
-Mark attendance of players +
+==== Recording an athlete’s performance : `performance`
 
-.. By members present
-... Format by name : `attendance -tn n/NAME [n/NAME] [n/NAME] …`
-+
-Examples : +
-`attendance -tn n/Erwin n/Jun Hup n/Shawn n/Dom n/Jeun Hoe`
-+
+This command adds your athlete’s performance for a certain event, on a certain day, to Athletick.
 
-... Format by index : `attendance -ti INDEX [INDEX] [INDEX ] …`
-+
-Examples :
-//to include examples
-+
-.. By members absent
-... Format by name : `attendance -tn -a n/NAME [n/NAME] [n/NAME] …`
-+
-Examples:
-//to include examples
+You will need the event name, athlete’s index, date of performance and timing of performance.
 
-... Format by Index : `attendance -ti -a INDEX [INDEX] [INDEX ] ...`
-+
-Examples :
-//to include examples
+*What you should do*
+
+Type in the command in the following format.
+
+Format : `performance e/EVENT_NAME i/ATHLETE_INDEX d/DDMMYYYY t/TIMING`
+
+Example : `event e/50m freestyle i/5 d/22102019 t/24s`
+
+IMPORTANT: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
+
+*What you should see*
+
+// insert picture
+
+If successfully recorded, the performance details will be displayed in the result box.
+
+=== Training
+
+==== Taking attendance of a training session by athletes present : `training`
+
+This command adds a training session on the specified day to Athletick.
+
+*What you should do*
+
+Type in the training command, followed by the indexes of athletes who attended.
+
+Format : `attendance INDEX [INDEX] [INDEX ] …`
+
+Examples : `training 1 2 3 5 9`
+
+*What you should see*
+
+// insert picture
+
+==== Taking attendance of a training session by members absent : `training -a`
+
+This command adds a training session on the specified day to Athletick.
+
+*What you should do*
+
+Type in the training command, followed by the indexes of players who were absent.
+
+Format : `attendance -a INDEX [INDEX] [INDEX ] …​`
+
+Examples : `training -a 2 4`
+
+*What you will see*
+
+// insert picture
+
+=== Athlete Management
+
+==== Viewing more details of a team member : `select`
+
+This command shows you details of a specific athlete.
+
+*What you should do*
+
+Type in the command in the following format.
+
+Format : `select INDEX`
+Example: `select 1`
+
+*What you should see*
+
+// insert picture
+
+The result box will display a message “person selected!” to indicate that you have selected the person.
+
+In the feature box, all the information of the athlete will be displayed as shown.
+
+==== Viewing calendar displaying training and performance entries : `view calendar`
+
+This command displays calendar which indicates days with training or performance entries.
+
+*What you should do*
+
+Type in the following command and press enter.
+
+Format: `view calendar`
+
+*What you should see*
+
+// insert picture
+
+The result box will inform you that you are currently viewing your calendar.
+
+The feature box will display the calendar feature.
+
+Header 1 displays today’s day and date.
+
+Header 2 displays the month and year you are currently viewing.
+
+You may use the left and right buttons to navigate to a different month. In the calendar, days with training entries are marked with an orange circle, and days with performance entries are marked with a purple circle.
+
+==== Sorting athletes alphabetically : `sort`
+
+This command sorts your athletes alphabetically by their name.
+
+*What you should do*
+
+Type in the following command and press enter.
+
+Format: `sort`
+
+*What you should see*
+
+// insert picture
+
+The athlete list in the left sidebar should be alphabetically listed now.
+
+Take note that this command will change your athletes’ index numbers.
+
 
 ==== Viewing attendance : `attendance -v`
 Viewing overall attendance
@@ -120,25 +311,6 @@ Examples :
 === Clearing the data : `clear`
 Clears the entire data in the program. +
 Format: `clear`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-Deletes player from training list, either by index or by name.
-
-.. Format by name : `delete n/NAME`
-+
-Example : +
-`delete n/james ho`
-
-.. Format by index : `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-Example : +
-`delete 2`
 
 === Filtering members : `filter`
 Filters the members based on the gender or position.
