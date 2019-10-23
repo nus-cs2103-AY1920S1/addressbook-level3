@@ -7,6 +7,10 @@ import java.util.ArrayList;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class TvSeason {
+    public static final String MESSAGE_CONSTRAINTS_SEASON_NUM =
+            "Season numbers should be integers greater than 0.";
+    public static final String MESSAGE_CONSTRAINTS_TOTAL_EPISODES =
+            "Total number of episodes in a season should be integers greater or equal to 0.";
 
     private final int seasonNum;
     private final int totalNumOfEpisodes;
@@ -28,5 +32,19 @@ public class TvSeason {
 
     public ArrayList<Episode> getEpisodes() {
         return episodes;
+    }
+
+    /**
+     * Returns true if a given integer is a valid seasonNum.
+     */
+    public static boolean isValidTvSeasonNumber(int test) {
+        return test > 0;
+    }
+
+    /**
+     * Returns true if a given integer is a valid total number of episodes.
+     */
+    public static boolean isValidTotalNumOfEpisodes(int test) {
+        return test >= 0;
     }
 }

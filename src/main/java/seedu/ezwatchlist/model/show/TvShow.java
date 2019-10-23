@@ -1,6 +1,9 @@
 package seedu.ezwatchlist.model.show;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javafx.scene.image.Image;
@@ -14,12 +17,12 @@ public class TvShow extends Show {
 
     private static final Image imageOfShow = null;
     private int numOfEpisodesWatched;
-    private ArrayList<TvSeason> tvSeasons;
+    private List<TvSeason> tvSeasons;
     private final int totalNumOfEpisodes;
 
     public TvShow(Name name, Description description, IsWatched isWatched,
                   Date dateOfRelease, RunningTime runningTime, Set<Actor> actors,
-                  int numOfEpisodesWatched, int totalNumOfEpisodes, ArrayList<TvSeason> tvSeasons) {
+                  int numOfEpisodesWatched, int totalNumOfEpisodes, List<TvSeason> tvSeasons) {
         super(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.numOfEpisodesWatched = numOfEpisodesWatched;
         this.totalNumOfEpisodes = totalNumOfEpisodes;
@@ -31,7 +34,7 @@ public class TvShow extends Show {
         return numOfEpisodesWatched;
     }
 
-    public ArrayList<TvSeason> getTvSeasons() {
+    public List<TvSeason> getTvSeasons() {
         return tvSeasons;
     }
 

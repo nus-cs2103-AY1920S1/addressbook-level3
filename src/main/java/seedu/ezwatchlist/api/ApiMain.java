@@ -179,7 +179,7 @@ public class ApiMain implements ApiInterface {
                     ArrayList<Episode> episodeList = new ArrayList<>();
 
                     for (TvEpisode episode : episodes) {
-                        episodeList.add(new Episode(new Name(episode.getName()), episode.getEpisodeNumber()));
+                        episodeList.add(new Episode(episode.getName(), episode.getEpisodeNumber()));
                     }
 
                     seedu.ezwatchlist.model.show.TvSeason tvS =

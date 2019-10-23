@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.storage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.WatchList;
@@ -37,7 +39,18 @@ class JsonSerializableWatchList {
      * @param source future changes to this will not affect the created {@code JsonSerializableWatchList}.
      */
     public JsonSerializableWatchList(ReadOnlyWatchList source) {
-        shows.addAll(source.getShowList().stream().map(JsonAdaptedShow::new).collect(Collectors.toList()));
+        ObservableList<Show> showList = source.getShowList();
+        List<JsonAdaptedShow> list = new ArrayList<>();
+        for (Show show : showList) {
+            if (show.getType().equals("Movie")) {
+                list.add(new JsonAdaptedMovie(show));
+            } else if (show.getType().equals("Tv Show")) {
+                list.add(new JsonAdaptedTvShow(show));
+            }
+        }
+        for (JsonAdaptedShow show : list) {
+            shows.add(show);
+        }
     }
 
     /**
@@ -49,6 +62,13 @@ class JsonSerializableWatchList {
         WatchList watchList = new WatchList();
         for (JsonAdaptedShow jsonAdaptedShow : shows) {
             Show show = jsonAdaptedShow.toModelType();
+            /*try {
+                JsonAdaptedTvShow jsonAdaptedTvShow = (JsonAdaptedTvShow) jsonAdaptedShow;
+                show = jsonAdaptedTvShow.toModelType();
+            } catch (Exception e) {
+                JsonAdaptedMovie jsonAdaptedMovie = (JsonAdaptedMovie) jsonAdaptedShow;
+                show = jsonAdaptedMovie.toModelType();
+            }*/
             if (watchList.hasShow(show)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_SHOW);
             }
