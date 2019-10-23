@@ -113,7 +113,7 @@ Creates a new contact with name John Doe and mobile number 98765432.
 
 === Create new activity: `activity`
 
-Creates a new activity with a title, contacts (optional) and no expenses. 
+Creates a new activity with a title, contacts (optional) and no expenses.
 ****
 * The user creating the activity will be included automatically.
 * Additional contacts to add to the activity can be specified by using `p/` prefix.
