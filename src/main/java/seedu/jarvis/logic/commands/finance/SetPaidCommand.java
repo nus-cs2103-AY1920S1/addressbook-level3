@@ -28,7 +28,7 @@ public class SetPaidCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New purchase added: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Payment: %1$s";
-    public static final String MESSAGE_INVERSE_PAYMENT_NOT_FOUND = "Payment already deleted: %1$s";
+    public static final String MESSAGE_INVERSE_PURCHASE_NOT_FOUND = "Payment already deleted: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -77,9 +77,26 @@ public class SetPaidCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Deletes {@code Purchase} from the finance tracker that was added by this command's execution
+     * if the purchase is still in the finance tracker
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} that task was removed if task was in the planner,
+     * else {@code CommandResult} that the task was already not in the planner
+     * @throws CommandException If task to be removed is not found in the planner
+     */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (!model.hasPurchase(toAdd)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_PURCHASE_NOT_FOUND, toAdd));
+        }
+
+        model.deletePurchase(toAdd);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
     }
 
     @Override

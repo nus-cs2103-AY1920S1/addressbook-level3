@@ -11,6 +11,7 @@ public class Installment {
 
     public Installment(InstallmentDescription description, InstallmentMoneyPaid moneySpentOnInstallment) {
         requireNonNull(description);
+        requireNonNull(moneySpentOnInstallment);
         this.description = description;
         this.moneySpentOnInstallment = moneySpentOnInstallment;
     }

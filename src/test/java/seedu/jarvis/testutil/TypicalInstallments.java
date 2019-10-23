@@ -1,8 +1,6 @@
 package seedu.jarvis.testutil;
 
 import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**
@@ -11,10 +9,10 @@ import seedu.jarvis.testutil.finance.InstallmentBuilder;
 public class TypicalInstallments {
 
     public static final Installment PHONE_BILL = new InstallmentBuilder()
-            .withDescription(new InstallmentDescription("Phone bill"))
-            .withMoneySpent(new InstallmentMoneyPaid("40.0")).build();
+            .withDescription("Phone bill")
+            .withMoneySpent("40.0").build();
 
     public static final Installment TRANSPORT_CONCESSION = new InstallmentBuilder()
-            .withDescription(new InstallmentDescription("Transport concession"))
-            .withMoneySpent(new InstallmentMoneyPaid("25.0")).build();
+            .withDescription("Transport concession")
+            .withMoneySpent("25.0").build();
 }

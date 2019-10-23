@@ -38,8 +38,7 @@ public class InstallmentDescription {
         return test.matches(VALIDATION_REGEX);
     }
 
-    @Override
-    public String toString() {
+    public String getInstallmentDescription() {
         return installmentDescription;
     }
 

@@ -25,6 +25,7 @@ public class SetInstallmentCommandParser implements Parser<SetInstallmentCommand
     /**
      * Parses the given {@code String} of arguments in the context of the SetInstallmentCommand
      * and returns an SetInstallmentCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
@@ -38,11 +39,11 @@ public class SetInstallmentCommandParser implements Parser<SetInstallmentCommand
         }
 
         InstallmentDescription description = ParserUtil
-                .parseDescription(argMultimap
+                .parseInstallmentDescription(argMultimap
                         .getValue(PREFIX_DESCRIPTION)
                         .get());
         InstallmentMoneyPaid subscriptionFee = ParserUtil
-                .parseMoneySpent(argMultimap
+                .parseInstallmentMoneySpent(argMultimap
                         .getValue(PREFIX_MONEY)
                         .get());
 

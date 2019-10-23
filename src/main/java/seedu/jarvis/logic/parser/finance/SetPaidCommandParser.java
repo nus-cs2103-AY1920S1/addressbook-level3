@@ -37,11 +37,16 @@ public class SetPaidCommandParser implements Parser<SetPaidCommand> {
                     SetPaidCommand.MESSAGE_USAGE));
         }
 
-        String description = ParserUtil.parsePurchaseDes(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        double moneySpent = ParserUtil.parsePurchaseAmount(argMultimap.getValue(PREFIX_MONEY).get());
+        PurchaseDescription description = ParserUtil
+                .parsePurchaseDescription(argMultimap
+                        .getValue(PREFIX_DESCRIPTION)
+                        .get());
+        PurchaseMoneySpent moneySpent = ParserUtil
+                .parsePurchaseAmount(argMultimap
+                        .getValue(PREFIX_MONEY)
+                        .get());
 
-        Purchase purchase = new Purchase(new PurchaseDescription(description),
-                new PurchaseMoneySpent(Double.toString(moneySpent)));
+        Purchase purchase = new Purchase(description, moneySpent);
 
         return new SetPaidCommand(purchase);
     }

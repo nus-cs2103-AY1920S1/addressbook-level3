@@ -27,10 +27,12 @@ import seedu.jarvis.logic.commands.course.AddCourseCommand;
 import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.FindPurchaseCommand;
 import seedu.jarvis.logic.commands.finance.ListFinancesCommand;
 import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.RemovePaidCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
 import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
@@ -51,9 +53,11 @@ import seedu.jarvis.logic.parser.course.DeleteCourseCommandParser;
 import seedu.jarvis.logic.parser.course.LookUpCommandParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.logic.parser.finance.EditInstallmentCommandParser;
+import seedu.jarvis.logic.parser.finance.FindPurchaseCommandParser;
 import seedu.jarvis.logic.parser.finance.RemoveInstallmentCommandParser;
 import seedu.jarvis.logic.parser.finance.RemovePaidCommandParser;
 import seedu.jarvis.logic.parser.finance.SetInstallmentCommandParser;
+import seedu.jarvis.logic.parser.finance.SetMonthlyLimitCommandParser;
 import seedu.jarvis.logic.parser.finance.SetPaidCommandParser;
 import seedu.jarvis.logic.parser.history.RedoCommandParser;
 import seedu.jarvis.logic.parser.history.UndoCommandParser;
@@ -170,6 +174,12 @@ public class JarvisParser {
 
         case ListFinancesCommand.COMMAND_WORD:
             return new ListFinancesCommand();
+
+        case FindPurchaseCommand.COMMAND_WORD:
+            return new FindPurchaseCommandParser().parse(arguments);
+
+        case SetMonthlyLimitCommand.COMMAND_WORD:
+            return new SetMonthlyLimitCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
