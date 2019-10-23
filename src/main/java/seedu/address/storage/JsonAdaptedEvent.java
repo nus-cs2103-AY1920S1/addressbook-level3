@@ -119,7 +119,7 @@ class JsonAdaptedEvent {
         if (!EventDate.isValidDate(startDate)) {
             throw new IllegalValueException(EventDate.MESSAGE_CONSTRAINTS);
         }
-        LocalDate newStartDate = LocalDate.parse(endDate, FORMATTER);
+        LocalDate newStartDate = LocalDate.parse(startDate, FORMATTER);
         final EventDate modelStartDate = new EventDate(newStartDate);
 
         if (endDate == null) {
