@@ -41,12 +41,11 @@ public class DeleteCommand extends Command {
         }
 
         Employee employeeToDelete = lastShownList.get(targetIndex.getZeroBased());
-        String employeeId = employeeToDelete.getEmployeeId().id;
         model.deleteEmployee(employeeToDelete);
 
 
         model.getFilteredEventList().stream()
-                .forEach(x -> x.getManpowerAllocatedList().removeEmployee(employeeId));
+                .forEach(x -> x.getManpowerAllocatedList().removeEmployee(employeeToDelete));
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, employeeToDelete));
     }

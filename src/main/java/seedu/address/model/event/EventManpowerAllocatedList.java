@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.address.model.employee.Employee;
+
 /**
  * List of employees allocated as manpower for the Event.
  */
@@ -30,17 +32,14 @@ public class EventManpowerAllocatedList {
         manpowerList = Arrays.stream(personIds).collect(Collectors.toList());
     }
 
-    public int getCurrentManpowerCount() {
-        return manpowerList.size();
-    }
-
     /**
      * Allocates employee to the Manpower List for an Event.
      *
-     * @param employeeId to be allocated
+     * @param employee to be allocated
      * @return boolean to represent if employee is successfully allocated to event
      */
-    public boolean allocateEmployee(String employeeId) {
+    public boolean allocateEmployee(Employee employee) {
+        String employeeId = employee.getEmployeeId().id;
         if (manpowerList.contains(employeeId)) {
             return false;
         } else {
@@ -51,10 +50,11 @@ public class EventManpowerAllocatedList {
     /**
      * Removes employee to the Manpower List for an Event.
      *
-     * @param employeeId to be removed
+     * @param employee to be removed
      * @return boolean to represent if employee is successfully allocated to event
      */
-    public boolean removeEmployee(String employeeId) {
+    public boolean removeEmployee(Employee employee) {
+        String employeeId = employee.getEmployeeId().id;
         if (!manpowerList.contains(employeeId)) {
             return false;
         } else {

@@ -45,7 +45,7 @@ public class EventCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().eventName);
         venue.setText(event.getVenue().venue);
-        manpowerCount.setText("Manpower: " + event.getManpowerAllocatedList().getCurrentManpowerCount() + " / "
+        manpowerCount.setText("Manpower: " + event.getCurrentManpowerCount() + " / "
                 + event.getManpowerNeeded().value);
         startDate.setText(event.getStartDate().date + " to "
                 + event.getEndDate().date);
