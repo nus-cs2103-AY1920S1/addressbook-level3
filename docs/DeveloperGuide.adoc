@@ -154,7 +154,8 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Customer Book data, Phone Book data, Order Book data and Schedule Book data in json format and read them
+ back.
 
 [[Design-Commons]]
 === Common classes
