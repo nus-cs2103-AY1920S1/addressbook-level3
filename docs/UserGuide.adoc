@@ -69,7 +69,7 @@ Format: `dequeue <QUEUE_NUMBER>`
 ==== Assign next patient to an available doctor : `next` ====
 
 Assigns next patient to an available doctor based on the room number. +
-Format: `next <ROOM_ID>`
+Format: `next <ROOM_NUMBER>`
 
 ==== Doctor takes a break: `break`  ====
 
@@ -79,6 +79,15 @@ Format: `break <ROOM_NUMBER>`
 ==== Doctor resumes his/her duty: `resume` ====
 
 Allows patients to be directed to a given Doctor based on the room number. +
+Format: `resume <ROOM_NUMBER>
+
+==== Add a new room: `addRoom` ====
+
+Adds a new room with a doctor to the list. +
+Format: `resume <ROOM_NUMBER>`
+
+==== Removes a room: `removeRoom` ====
+Removes a room in the list. +
 Format: `resume <ROOM_NUMBER>`
 
 
