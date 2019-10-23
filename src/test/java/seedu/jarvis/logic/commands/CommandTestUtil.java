@@ -71,6 +71,8 @@ public class CommandTestUtil {
     public static final String PURCHASE_DESC_LUNCH = " " + PREFIX_DESCRIPTION + VALID_DESC_LUNCH;
     public static final String PURCHASE_MONEY_LUNCH = " " + PREFIX_MONEY + VALID_MONEY_LUNCH;
 
+    public static final String HIGH_MONTHLY_LIMIT = " " + PREFIX_MONEY + "800.0";
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -79,6 +81,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_INSTAL_MONEY = " " + PREFIX_MONEY + "-10.0";
     public static final String INVALID_PURCHASE_MONEY = " " + PREFIX_MONEY + "-10.0";
+
+    public static final String INVALID_MONTHLY_LIMIT = " " + PREFIX_MONEY + "-500.0";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

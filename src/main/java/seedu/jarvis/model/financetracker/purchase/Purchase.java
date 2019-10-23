@@ -11,6 +11,7 @@ public class Purchase {
 
     public Purchase(PurchaseDescription description, PurchaseMoneySpent moneySpent) {
         requireNonNull(description);
+        requireNonNull(moneySpent);
         this.description = description;
         this.moneySpent = moneySpent;
     }

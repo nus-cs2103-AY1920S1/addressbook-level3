@@ -17,7 +17,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
@@ -39,7 +38,7 @@ public class SetInstallmentCommandTest {
     }
 
     @Test
-    public void execute_installmentAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_installmentAcceptedByModel_addSuccessful() {
         ModelStubAcceptingInstallmentAdded modelStub = new ModelStubAcceptingInstallmentAdded();
         Installment validInstallment = new InstallmentBuilder().build();
 
@@ -52,8 +51,8 @@ public class SetInstallmentCommandTest {
 
     @Test
     public void equals() {
-        Installment spotify = new InstallmentBuilder().withDescription(new InstallmentDescription("spotify")).build();
-        Installment netflix = new InstallmentBuilder().withDescription(new InstallmentDescription("netflix")).build();
+        Installment spotify = new InstallmentBuilder().withDescription("spotify").build();
+        Installment netflix = new InstallmentBuilder().withDescription("netflix").build();
         SetInstallmentCommand addSpotifyCommand = new SetInstallmentCommand(spotify);
         SetInstallmentCommand addNetflixCommand = new SetInstallmentCommand(netflix);
 
@@ -75,7 +74,7 @@ public class SetInstallmentCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single installment.
      */
     private class ModelStubWithInstallment extends ModelStub {
         private final Installment installment;
@@ -93,7 +92,7 @@ public class SetInstallmentCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the installment being added.
      */
     private class ModelStubAcceptingInstallmentAdded extends ModelStub {
         final ArrayList<Installment> installmentsAdded = new ArrayList<>();
