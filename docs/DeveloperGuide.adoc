@@ -1,14 +1,30 @@
-== Developer Guide
+= guiltTrip() - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103-T16-4/main
 
-=== Target User Profile
+By: `Team T16-04`      Since: `Aug 2019`      Licence: `MIT`
+
+== Target User Profile
 
 Youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending.
 
-=== Value Proposition
+== Value Proposition
 
 A convenient financial tracker targeted at users who prefer typing over other inputs.
 
-=== User Stories
+== User Stories
 
 |===
 |+++<u>+++Priority+++</u>+++|+++<u>+++As a...+++</u>+++|+++<u>+++I want to…+++</u>+++|+++<u>+++So that I can…+++</u>+++
@@ -46,64 +62,68 @@ A convenient financial tracker targeted at users who prefer typing over other in
 |Low|As a lazy/busy student|I do not want to be required to write a description for my expense or income records every single time |so that I can save time and record quickly.
 |===
 
-=== Use Cases
+== Use Cases
 
 For all use cases:
 
 * System: guiltTrip()
 * Actor: User
-==== Use Case 01: View History
 
-===== MSS
+=== Use Case 01: View History
+
+==== MSS
 
 . User requests to view history of expenses for the past month.
 . guiltTrip() shows the history of expenses for the past month.
 . User requests to edit a specific expense in the list.
 . guiltTrip() edits the expense.
 Use case ends.
-===== Extensions
+
+==== Extensions
 
 . 2a. The history is empty.
 Use case ends.
 . 3a. The given index is invalid.
 .. 3a1. guiltTrip() shows an error message.
 Use case resumes at step 2
-==== Use Case 02: Add Expense
 
-===== MSS
+=== Use Case 02: Add Expense
+
+==== MSS
 
 Use Case: user adds an expense
 
 . User adds an expense.
 . GuiltTrip creates an expense entry.
 . GuiltTrip informs user that the expense have been created.
-==== Use Case 03: Change the details of an existing Expense Entry
 
-===== MSS
+=== Use Case 03: Change the details of an existing Expense Entry
+
+==== MSS
 
 . Guilt Trip displays list of expenses.
 . User decides to edit the description/ tag/ amount of an expense.
 . GuiltTrip makes the requested modifications to expenditure entry.
 . GuiltTrip informs user that changes have been made.
 
-==== Use Case 04: Deletes an expenditure
+=== Use Case 04: Deletes an expenditure
 
 . User keys in command deleteExpense, followed by the index of the expense in the list
 . GuiltTrip deletes the specified expense from the list.
 . GuiltTrip informs user that the expense has been deleted.
 
-==== Use Case 05: Add a recurring expenditure
+=== Use Case 05: Add a recurring expenditure
 
 . User keys in command setAutoExpenditure, followed by the frequency he would want the expenditure to be, the description and amount of the expenditure.
 . GuiltTrip creates an auto-expense entry.
 . GuiltTrip informs user that the auto-expense have been created.
 
-==== Use Case 06: List recurring expenditures
+=== Use Case 06: List recurring expenditures
 
 . The user types listAutoExpenditure.
 . GuiltTrip lists all the current automatically recurring expenditures.
 
-==== Use Case 07: Edit a recurring expenditure item
+=== Use Case 07: Edit a recurring expenditure item
 
 Format: editAutoExpenditure: <index> [--freq <frequency>] [--desc <description>] [--amt <expenditure>] +
 Examples:
@@ -114,7 +134,7 @@ Examples:
 deleteAutoExpenditure: deletes a current automatically recurring expenditure at the given index. +
 Format: deleteAutoExpenditure <index>
 
-==== Use Case 08: Add a new budget for expenditure
+=== Use Case 08: Add a new budget for expenditure
 
 . User adds a budget
 . GuiltTrip creates a
@@ -124,7 +144,8 @@ Examples:
 
 * addBudget --desc food budget --period day --amt 200 --tag food
 * addBudget --desc entertainment budget --amt 300
-==== Use Case 09: List existing budgets
+
+=== Use Case 09: List existing budgets
 
 
 listBudget: lists all the current budgets the user has. +
@@ -143,7 +164,8 @@ Format: deleteBudget <index> +
 Example:
 
 * deleteBudget 2
-=== Non Functional Requirements
+
+== Non Functional Requirements
 
 . Brownfield
 ** The final product should be a result of evolving/enhancing/morphing the given code base.
@@ -168,7 +190,8 @@ Example:
 . Quality Requirements
 ** The software should be able to be used by a user who has never used an expenditure tracking app before
 ** The software should be able to work on different computers if distributed
-=== Glossary
+
+== Glossary
 
 Category - Income, Expense, Wishlist, Budget +
 Entry - any item in a category +
