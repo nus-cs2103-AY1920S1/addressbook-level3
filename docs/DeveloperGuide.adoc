@@ -63,7 +63,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentUML.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -97,16 +97,17 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentUML.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ElisaParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `ItemModel` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  More instructions for the `Ui` can be given through implementing `ScrollCommand`
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -348,6 +349,26 @@ At the moment, there is also no way to inform the user that the priority mode is
 
 // end:: priority[]
 // tag::dataencryption[]
+
+=== Add Task/Event feature
+Task, Events and Reminders are all Items and can be added using the same command. Adding of Items is facilitated by ItemModel#add(Item). +
+
+A Task with a deadline will also be considered an Event. As such, adding of a task and event will be demonstrated with the use of a single command. +
+
+Given below is an example usage scenario of how add behaves at each step: +
+
+Step 1. The user enters the command `"task shower -d 1.hour.later"`. +
+Step 2. The LogicManager creates an AddressBookParser to parse the user input. +
+Step 3. AddressBookParser creates a AddTaskCommandParser which parses the input and returns an AddCommand. +
+Step 4. LogicManager will execute the AddCommand. AddCommand will then invoke `ItemModel#add(Item)`, which adds Task to its TaskList and Event to its EventList. +
+Step 5. AddCommand will also trigger a change in view by calling `ItemModel#setVisualList(taskList)`
+Step 6. Upon the successful execution of AddCommand, a CommandResult is returned to the LogicManager, which will then be returned to the Ui to render the appropriate view.
+
+The figure below shows the sequence diagram on what happens from a simple execution of `task shower -d 1.min.later` user command: +
+
+image::AddTaskEventSequenceDiagram.png[]
+
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -373,6 +394,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
 
 == Documentation
 
