@@ -1,13 +1,17 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+
 import seedu.address.commons.core.LogsCenter;
 
-import java.util.logging.Logger;
-
+/**
+ * Panel containing the different tabs of the application.
+ */
 public class MainTabPanel extends UiPart<Region> {
     private static final String FXML = "MainTabPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(MainTabPanel.class);
