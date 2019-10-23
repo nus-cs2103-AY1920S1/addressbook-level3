@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.util.Date;
@@ -25,14 +25,14 @@ class JsonAdaptedBudget {
 
     private final String amount;
     private final String date;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBudget} with the given budget details.
      */
     @JsonCreator
     public JsonAdaptedBudget(@JsonProperty("amount") String amount, @JsonProperty("date") String date,
-                                  @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("tagged") List<JsonAdaptedCategory> tagged) {
         this.amount = amount;
         this.date = date;
         if (tagged != null) {
@@ -46,9 +46,9 @@ class JsonAdaptedBudget {
     public JsonAdaptedBudget(Budget source) {
         amount = source.getBudget().toString();
         date = source.getDeadline().toString();
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        tagged.addAll(source.getCategories().stream()
+            .map(JsonAdaptedCategory::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -57,9 +57,9 @@ class JsonAdaptedBudget {
      * @throws IllegalValueException if there were any data constraints violated in the adapted budgets.
      */
     public Budget toModelType() throws IllegalValueException {
-        final List<Tag> budgetTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            budgetTags.add(tag.toModelType());
+        final List<Category> budgetCategories = new ArrayList<>();
+        for (JsonAdaptedCategory category : tagged) {
+            budgetCategories.add(category.toModelType());
         }
 
         if (amount == null) {
@@ -74,9 +74,9 @@ class JsonAdaptedBudget {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
 
-        final Set<Tag> modelTags = new HashSet<>(budgetTags);
+        final Set<Category> modelCategories = new HashSet<>(budgetCategories);
 
-        return new Budget(new Amount(Double.parseDouble(amount)), new Date(date), modelTags);
+        return new Budget(new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.transaction.TransactionContainsTagsPredicate;
+import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 
 /**
  * Parses input arguments and creates a new FilterCommand object
@@ -27,7 +27,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         String[] tagKeywords = trimmedArgs.split("\\s+");
 
-        return new FilterCommand(new TransactionContainsTagsPredicate(Arrays.asList(tagKeywords)));
+        return new FilterCommand(new TransactionContainsCategoriesPredicate(Arrays.asList(tagKeywords)));
     }
 
 }

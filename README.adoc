@@ -20,8 +20,8 @@ endif::[]
 
 == Site Map
 
-// * <<UserGuide#, User Guide>>
-// * <<DeveloperGuide#, Developer Guide>>
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
 // * <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
@@ -29,8 +29,7 @@ endif::[]
 == Acknowledgements
 
 * The foundation of this application is based on AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
-* Some parts of this application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
+* Some parts of this application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
