@@ -158,7 +158,8 @@ The `Incident`,
 
 The `Vehicle`,
 
-...
+* represents a vehicle that can be dispatched to incident sites.
+* Contains the attributes `VehicleNumber`, `VehicleType`, `district` and `availability`.
 
 [[Design-Storage]]
 === Storage component
@@ -299,10 +300,10 @@ In the code base, Persons represent user accounts. See person model for more inf
 // end::accountManagement[]
 
 // tag::incidentdraftcreation[]
-=== [Proposed] Incident Draft Creation feature
+=== Incident Draft Creation feature
 ==== Proposed Implementation
 
-The incident draft creation mechanism is facilitated by ...
+The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
 
 ==== Design Considerations
 
