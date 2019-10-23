@@ -318,8 +318,8 @@ The incident draft creation mechanism is facilitated by the New Command. It crea
 // end::incidentdraftcreation[]
 
 // tag::incidentfill[]
-=== [Proposed] Incident Filling and Submission feature
-==== Proposed Implementation
+=== Incident Filling and Submission feature
+==== Implementation
 The incident filling and submission subroutines are facilitated by the `fill` and `submit` commands respectively. In the IMS, each incident can have one of three statuses - `DRAFT`, `COMPLETE`, and `FINAL`. The `fill` command facilitates a `DRAFT` incident report becoming a `COMPLETE` incident report while the `submit` command facilitates a `COMPLETE` incident report becoming a `FINAL` incident report.
 
 ===== Overview of `Fill` and `Submit`
@@ -333,9 +333,11 @@ In this mode, the command - `fill` or `submit` - actually fills (i.e. changes in
 These two commands as well as the two modes they can be used in are summarised in the activity diagrams below:
 
 Fill Command
+
 image::fillCommandActivityDiagram.png[]
 
 Submit Command
+
 image::submitCommandActivityDiagram.png[]
 
 ===== No parameter mode (listing incidents)
