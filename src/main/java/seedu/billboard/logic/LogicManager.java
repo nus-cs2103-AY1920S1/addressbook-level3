@@ -20,7 +20,6 @@ import seedu.billboard.logic.commands.EditCommand;
 import seedu.billboard.logic.commands.FilterTagCommand;
 import seedu.billboard.logic.commands.RemoveTagCommand;
 import seedu.billboard.logic.commands.RevertArchiveCommand;
-import seedu.billboard.logic.commands.UndoCommand;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.BillboardParser;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -28,7 +27,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.undo.UndoList;
+import seedu.billboard.model.versionedbillboard.VersionedBillboard;
 import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.storage.Storage;
 
@@ -61,12 +60,9 @@ public class LogicManager implements Logic {
                 || (command instanceof AddTagCommand) || (command instanceof ClearCommand)
                 || (command instanceof DeleteArchiveCommand) || (command instanceof DeleteCommand)
                 || (command instanceof RevertArchiveCommand) || (command instanceof EditCommand)
-                || (command instanceof FilterTagCommand) || (command instanceof UndoCommand)
-                || (command instanceof RemoveTagCommand)) {
-            if (!(command instanceof UndoCommand)) {
-                UndoList.addCmd(commandText);
-            }
-            UndoList.addModel(model.getClone());
+                || (command instanceof FilterTagCommand) || (command instanceof RemoveTagCommand)) {
+            VersionedBillboard.addCmd(commandText);
+            VersionedBillboard.commit(model.getClone());
         }
 
         try {

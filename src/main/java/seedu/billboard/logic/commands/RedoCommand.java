@@ -7,10 +7,10 @@ import seedu.billboard.model.versionedbillboard.VersionedBillboard;
 /**
  * Undo the previous edit action.
  */
-public class UndoCommand extends Command {
+public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
-    public static final String EMPTY_UNDO_LIST = "There is no command to be undone.";
+    public static final String COMMAND_WORD = "redo";
+    public static final String EMPTY_UNDO_LIST = "There is no command to be redone.";
 
     /**
      * Executes the command and returns the result message.
@@ -21,14 +21,14 @@ public class UndoCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (!VersionedBillboard.isUndoable()) {
+        if (!VersionedBillboard.isRedoable()) {
             throw new CommandException(EMPTY_UNDO_LIST);
         }
 
-        Model undoModel = VersionedBillboard.undo();
-        String undoCmd = VersionedBillboard.getUndoCmd();
+        String redoCmd = VersionedBillboard.getRedoCmd();
+        Model undoModel = VersionedBillboard.redo();
         model.setModel(undoModel);
-        CommandResult cmdResult = new CommandResult(COMMAND_WORD + ": " + undoCmd);
+        CommandResult cmdResult = new CommandResult(COMMAND_WORD + ": " + redoCmd);
         return cmdResult;
     }
 }

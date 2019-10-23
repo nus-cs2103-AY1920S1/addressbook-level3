@@ -27,7 +27,7 @@ import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.undo.UndoList;
+import seedu.billboard.model.versionedbillboard.VersionedBillboard;
 import seedu.billboard.storage.JsonBillboardStorage;
 import seedu.billboard.storage.JsonUserPrefsStorage;
 import seedu.billboard.storage.StorageManager;
@@ -41,7 +41,7 @@ public class LogicManagerTest {
 
     private Model model = new ModelManager();
     private Logic logic;
-    private UndoList undoList = new UndoList();
+    private VersionedBillboard versionedBillboard = new VersionedBillboard();
 
     @BeforeEach
     public void setUp() {

@@ -17,6 +17,7 @@ import seedu.billboard.logic.commands.FindCommand;
 import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.commands.HistoryCommand;
 import seedu.billboard.logic.commands.ListCommand;
+import seedu.billboard.logic.commands.RedoCommand;
 import seedu.billboard.logic.commands.TagCommand;
 import seedu.billboard.logic.commands.UndoCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -81,8 +82,12 @@ public class BillboardParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(arguments);
 
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommandParser().parse(arguments);
+
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
