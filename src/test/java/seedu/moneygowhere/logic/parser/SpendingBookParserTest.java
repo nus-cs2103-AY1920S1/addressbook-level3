@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
@@ -30,6 +31,7 @@ import seedu.moneygowhere.logic.commands.ImportCommand;
 import seedu.moneygowhere.logic.commands.ListCommand;
 import seedu.moneygowhere.logic.commands.ReminderCommand;
 import seedu.moneygowhere.logic.commands.ShowBudgetCommand;
+import seedu.moneygowhere.logic.commands.SortCommand;
 import seedu.moneygowhere.logic.commands.StatsCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.budget.Budget;
@@ -112,6 +114,12 @@ public class SpendingBookParserTest {
     public void parseCommand_stats() throws Exception {
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " 3") instanceof StatsCommand);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        String command = SortCommand.COMMAND_WORD + " " + PREFIX_DATE + "ASC";
+        assertTrue(parser.parseCommand(command) instanceof SortCommand);
     }
 
     @Test

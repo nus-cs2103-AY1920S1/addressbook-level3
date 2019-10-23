@@ -4,13 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
+import seedu.moneygowhere.logic.sorting.SpendingComparator;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
@@ -24,6 +27,7 @@ public class ModelManager implements Model {
     private final SpendingBook spendingBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Spending> filteredSpendings;
+    private final SortedList<Spending> sortedSpendings;
 
     /**
      * Initializes a ModelManager with the given spendingBook and userPrefs.
@@ -36,7 +40,11 @@ public class ModelManager implements Model {
 
         this.spendingBook = new SpendingBook(spendingBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredSpendings = new FilteredList<>(this.spendingBook.getSpendingList());
+
+        sortedSpendings = new SortedList<>(this.spendingBook.getSpendingList());
+        sortedSpendings.setComparator(new SpendingComparator());
+
+        filteredSpendings = new FilteredList<>(sortedSpendings);
     }
 
     public ModelManager() {
@@ -139,10 +147,10 @@ public class ModelManager implements Model {
         return spendingBook.hasReminder(reminder);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Spending List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Spending} backed by the internal list of
      * {@code versionedSpendingBook}
      */
     @Override
@@ -154,6 +162,14 @@ public class ModelManager implements Model {
     public void updateFilteredSpendingList(Predicate<Spending> predicate) {
         requireNonNull(predicate);
         filteredSpendings.setPredicate(predicate);
+    }
+
+    //=========== Sorted Spending List Accessors =============================================================
+
+    @Override
+    public void updateSortedSpendingList(Comparator<Spending> comparator) {
+        requireNonNull(comparator);
+        sortedSpendings.setComparator(comparator);
     }
 
     @Override
