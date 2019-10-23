@@ -31,12 +31,10 @@ public class AppModeParser extends ModeParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private ClassUtil classUtil;
-    private Model model;
 
-    public AppModeParser(Model model) {
+    public AppModeParser() {
         //Class temp = AddCommandParser.class;
-        this.classUtil = new ClassUtil(model);
-        this.model = model;
+        this.classUtil = new ClassUtil();
         classUtil.add(new ClassPair(AddCommand.class, AddCommandParser.class));
         classUtil.add(new ClassPair(EditCommand.class, EditCommandParser.class));
         classUtil.add(new ClassPair(DeleteCommand.class, DeleteCommandParser.class));

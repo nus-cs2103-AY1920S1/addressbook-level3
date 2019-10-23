@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +14,7 @@ import seedu.address.logic.commands.gamecommands.GuessCommand;
 import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.gamecommands.StopCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.util.AutoFillAction;
 
 /**
  * Parses user input.
@@ -23,6 +26,14 @@ public class GameModeParser extends ModeParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    protected ClassUtil classUtil;
+
+    public GameModeParser() {
+        this.classUtil = new ClassUtil();
+        classUtil.add(new ClassPair(GuessCommand.class, GuessCommandParser.class));
+        classUtil.add(new ClassPair(SkipCommand.class, null));
+        classUtil.add(new ClassPair(StopCommand.class, null));
+    }
     /**
      * Parses user input into command for execution.
      *
@@ -36,29 +47,25 @@ public class GameModeParser extends ModeParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        /*
-        Step 10.
-        Additional commands to be done
-        Have 2 separate user modes: Game, Normal
-         */
-
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
 
-        case GuessCommand.COMMAND_WORD:
-            return new GuessCommandParser().parse(arguments);
-
-        case SkipCommand.COMMAND_WORD:
-            return new SkipCommand();
-
-        case StopCommand.COMMAND_WORD:
-            return new StopCommand();
-
-
-        default:
+        Command temp = classUtil.getCommandInstance(commandWord, arguments);
+        if (temp == null) {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        } else {
+            return temp;
         }
+    }
+
+    public List<AutoFillAction> getAutoFill(String input) {
+        List<AutoFillAction> temp = new ArrayList<>();
+        for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
+            if (txt.contains(input) || input.contains(txt)) {
+                temp.add(new AutoFillAction(txt));
+            }
+        }
+        return temp;
     }
 
 }

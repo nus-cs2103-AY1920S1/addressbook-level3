@@ -18,12 +18,9 @@ public class ClassUtil {
 
     private Model model;
     private List<ClassPair> classPairs;
-    private List<ClassPair> filteredList;
 
-    public ClassUtil (Model model) {
-        this.model = model;
+    public ClassUtil () {
         this.classPairs = new ArrayList<>();
-        this.filteredList = new ArrayList<>();
     }
 
     public void add(ClassPair classPair) {
@@ -33,30 +30,10 @@ public class ClassUtil {
     /**
      *  Filters list of classes to only include valid ones in processing
      */
-    private void filterList() {
-        filteredList.clear();
-        for (ClassPair clsPair : classPairs) {
-            System.out.println("FILTERING list");
-            try {
-                Class cls = clsPair.getCommand();
-                Constructor cons = cls.getConstructor();
-                Command test = (Command) cons.newInstance();
-                boolean temp = test.precondition(model);
-                System.out.println(temp);
-                if (temp) {
-                    filteredList.add(clsPair);
-                }
-            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
-                    | InvocationTargetException e) {
-                System.out.println("Erorrorror");
-            }
-        }
-    }
 
     public List<String> getAttribute(String attr) {
-        filterList();
         List<String> result = new ArrayList<>();
-        for (ClassPair clsPair : filteredList) {
+        for (ClassPair clsPair : classPairs) {
             try {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField(attr);
@@ -71,8 +48,7 @@ public class ClassUtil {
 
     public Command getCommandInstance(String commandWord, String arguments)
             throws ParseException {
-        filterList();
-        for (ClassPair clsPair : filteredList) {
+        for (ClassPair clsPair : classPairs) {
             try {
                 Class cls = clsPair.getCommand();
                 Field f = cls.getField("COMMAND_WORD");

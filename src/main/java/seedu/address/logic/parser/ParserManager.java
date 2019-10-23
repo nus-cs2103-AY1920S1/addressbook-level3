@@ -36,6 +36,7 @@ public class ParserManager {
     private ModeParser modeParser;
     private ModeEnum mode;
     private ModeEnum tempMode;
+    private boolean gameIsOver;
 
     private ClassUtil classUtil;
     private Model model;
@@ -44,7 +45,8 @@ public class ParserManager {
         this.mode = ModeEnum.LOAD;
         this.modeParser = setModeParser();
         this.tempMode = null;
-        this.classUtil = new ClassUtil(model);
+        this.gameIsOver = true;
+        this.classUtil = new ClassUtil();
         this.model = model;
         classUtil.add(new ClassPair(BankCommand.class, BankCommandParser.class));
         classUtil.add(new ClassPair(HomeCommand.class, null));
@@ -60,7 +62,7 @@ public class ParserManager {
     private ModeParser setModeParser() {
         switch (this.mode) {
         case APP:
-            return new AppModeParser(model);
+            return new AppModeParser();
         case LOAD:
             return new LoadModeParser();
         case SETTINGS:
@@ -77,7 +79,8 @@ public class ParserManager {
      * Sets new state within parsermanager if command was successful.
      * @param command
      */
-    public void updateState(Command command) {
+    public void updateState(Command command, boolean gameIsOver) {
+        this.gameIsOver = gameIsOver;
         if (command.postcondition() && tempMode != null) {
             mode = tempMode;
             tempMode = null;
@@ -88,16 +91,24 @@ public class ParserManager {
     }
 
     public List<AutoFillAction> getAutoFill(String input) {
-        List<AutoFillAction> temp = new ArrayList<>();
-        for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
-            if (txt.contains(input) || input.contains(txt)) {
-                temp.add(new AutoFillAction(txt));
+        if (gameIsOver) {
+            List<AutoFillAction> temp = new ArrayList<>();
+            for (String txt : classUtil.getAttribute("COMMAND_WORD")) {
+                if (txt.contains(input) || input.contains(txt)) {
+                    temp.add(new AutoFillAction(txt));
+                }
             }
+            for (AutoFillAction action : modeParser.getAutoFill(input)) {
+                temp.add(action);
+            }
+            return temp;
+        } else {
+            List<AutoFillAction> temp = new ArrayList<>();
+            for (AutoFillAction action : modeParser.getAutoFill(input)) {
+                temp.add(action);
+            }
+            return temp;
         }
-        for (AutoFillAction action : modeParser.getAutoFill(input)) {
-            temp.add(action);
-        }
-        return temp;
     }
 
 
@@ -110,7 +121,6 @@ public class ParserManager {
      */
     public Command parseCommand(String userInput) throws ParseException, ModeSwitchException {
         SwitchCommand switchCommand = null;
-
         switchCommand = checkSwitchMode(userInput);
 
         if (switchCommand != null) {

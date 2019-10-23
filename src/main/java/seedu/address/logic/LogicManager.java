@@ -90,7 +90,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         commandResult = command.execute(model);
         command.postcondition();
 
-        parserManager.updateState(command);
+        parserManager.updateState(command, model.gameIsOver());
 
         // todo need to save wordbankstatistics after deletion.
         // todo possible solution -> just save on every command like how the word bank is saved.

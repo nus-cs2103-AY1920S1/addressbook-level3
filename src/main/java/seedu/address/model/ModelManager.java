@@ -86,6 +86,10 @@ public class ModelManager implements Model {
         this.game = game;
     }
 
+    public boolean gameIsOver() {
+        return game == null ? true : game.isOver();
+    }
+
     public Game getGame() {
         return this.game;
     }
