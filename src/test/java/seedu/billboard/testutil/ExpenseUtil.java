@@ -7,13 +7,12 @@ import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
+import java.util.List;
 
 import seedu.billboard.logic.commands.AddCommand;
 import seedu.billboard.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.tag.Tag;
 
 /**
  * A utility class for Expense.
@@ -57,11 +56,11 @@ public class ExpenseUtil {
         descriptor.getAmount().ifPresent(amt -> sb.append(PREFIX_AMOUNT).append(amt.amount).append(" "));
 
         if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
+            List<String> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
                 sb.append(PREFIX_TAG);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_TAG).append(s).append(" "));
             }
         }
         return sb.toString();

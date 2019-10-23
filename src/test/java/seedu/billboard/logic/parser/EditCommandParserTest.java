@@ -180,7 +180,7 @@ public class EditCommandParserTest {
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TAXES)
                 .withAmount(VALID_AMOUNT_TAXES)
                 .withCreatedDateTime(VALID_DATE_TAXES)
-                .withTags(VALID_TAG_TAXES, VALID_TAG_DINNER)
+                .withTags(VALID_TAG_DINNER, VALID_TAG_TAXES, VALID_TAG_DINNER)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
