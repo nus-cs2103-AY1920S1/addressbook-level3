@@ -30,7 +30,10 @@ public class MainWindow {
 
     public MainWindow(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        onStartup();
+    }
 
+    private void onStartup() {
         initializeStage();
 
         // set up containers for UI components
@@ -39,31 +42,26 @@ public class MainWindow {
         setupContainerPaddings(10);
         setupContainerColours();
 
-        // add children to window
-        window.getChildren().addAll(titleBar, windowContents, commandBoxPlaceholder);
+        // add initial content to UI components
+        fillInnerParts();
 
-        // display window
-        scene = new Scene(window, 400, 400);
-        primaryStage.setScene(scene);
-    }
+        // add UI components to scene
+        setupScene();
 
-    void show() {
+        // finally, display main window
         primaryStage.show();
     }
 
     // consider renaming fillInnerParts
     void fillInnerParts() {
         setTitle("Welcome!");
-
-        // add text field to commandBoxPlaceholder
-        commandTextField = new TextField("Enter command here...");
-        commandBoxPlaceholder.getChildren().add(commandTextField);
+        setupCommandBox();
     }
 
     private void initializeStage() {
         primaryStage.setTitle("FlashCard Pro");
-        primaryStage.setMinHeight(400);
-        primaryStage.setMinWidth(400);
+        primaryStage.setMinHeight(GuiSettings.getMinHeight());
+        primaryStage.setMinWidth(GuiSettings.getMinWidth());
     }
 
     private void initializeContainers(double spacing) {
@@ -88,11 +86,38 @@ public class MainWindow {
     private void setupContainerColours() {
         // todo: abstract into UI component setBackgroundColour(String colour) method
         titleBar.setStyle("-fx-background-color:" + GuiSettings.getSecondaryUIColour() + ";");
-        commandBoxPlaceholder.setStyle("-fx-background-color:" + GuiSettings.getTertiaryUIColour() + ";");
+//        commandBoxPlaceholder.setStyle("-fx-background-color:#FFFFFF;");
+        commandBoxPlaceholder.setStyle("-fx-background-color:" + GuiSettings.getTertiaryUIColour() + ";"); // temporary
         windowContents.setStyle("-fx-background-color:#FFFFFF;"); // todo: define another colour
     }
 
-    // methods I can consider omitting or refactoring
+    private void setupCommandBox() {
+        // create text field
+        commandTextField = new TextField();
+
+        // add prompt text
+        commandTextField.setPromptText("Enter command here...");
+
+        // setup styles of commandTextField
+        // todo: fix text field background colour :(
+//        commandTextField.setStyle("-fx-border-color:" + GuiSettings.getTertiaryUIColour() + ";");
+//        commandTextField.setStyle("-fx-control-inner-background:" + GuiSettings.getTertiaryUIColour() + ";");
+//        commandTextField.setStyle("-fx-text-fill:#FFFFFF;");
+        commandTextField.setStyle("-fx-text-fill:" + GuiSettings.getPrimaryTextColour() +";");
+        commandTextField.setFont(GuiSettings.getCommandTextStyle());
+
+        commandBoxPlaceholder.getChildren().add(commandTextField);
+    }
+
+    private void setupScene() {
+        // add children to window
+        window.getChildren().addAll(titleBar, windowContents, commandBoxPlaceholder);
+
+        // display window
+        scene = new Scene(window, 400, 400);
+        primaryStage.setScene(scene);
+    }
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }
