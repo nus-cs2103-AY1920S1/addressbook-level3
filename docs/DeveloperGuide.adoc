@@ -13,6 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T11-1/main
+:websiteURL: https://ay1920s1-cs2103-t11-1.github.io
 
 By: `Team CS2103-T11-1`      Since: `October 2019`      Licence: `MIT`
 
@@ -337,7 +338,16 @@ The incident fill mechanism is facilitated by ...
 === [Proposed] Incident Search feature
 ==== Proposed Implementation
 
-The incident search mechanism is facilitated by ...
+The incident search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
+* Unfiltered - Displays all incidents in `Model`
+* ID - Displays all incidents with exact matches in `IncidentId incidentId` in `Incident incident`
+* Description - Displays all incidents with keyword(s) contained within the `Description description` in `Incident incident`
+* Operator - Displays all incidents with keyword(s) contained within the name of the `Person operator` in `Incident incident`
+
+The incident search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Incidents> filteredIncidents`, which internally stores the list of displayed incidents in the GUI. Additionally, it implements the following key method:
+* `updateFilteredIncidentsList(Predicate<Incident> predicate)` - Updates the stored filtered incidents list with the new predicate
+
+When calling the command `incidents` in the application,
 
 ==== Design Considerations
 
