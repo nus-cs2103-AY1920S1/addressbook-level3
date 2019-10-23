@@ -265,6 +265,7 @@ image::ReminderAssociationDiagram.png[]
 
 * **Alternative 2:** Reminder is a field of bookmark.
 ** Pros: Easier to implement.
+//TODO: Change this description
 ** Cons: Reminder is a field of bookmark, so using a reminder to open the bookmark violate the relationship.
 // end::reminder[]
 
