@@ -24,7 +24,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        commandTextField.getEntries().addAll(CommandSuggestions.getSuggestions());
+//        commandTextField.getEntries().addAll(CommandSuggestions.getSuggestions());
     }
 
     /**

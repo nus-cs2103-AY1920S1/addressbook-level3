@@ -4,6 +4,7 @@ import static seedu.address.ui.CommandBox.ERROR_STYLE_CLASS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -43,17 +44,47 @@ public class AutoCompleteTextField extends TextField {
             // calls #setStyleToDefault() whenever there is a change to the text of the command box.
             setStyleToDefault();
             String enteredText = getText();
+            String stringToCompare = enteredText;
             // hide suggestions if no input
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
             } else {
+                int firstSpace = enteredText.indexOf(" ");
+                if (firstSpace != -1) {
+                    String commandWord = enteredText.substring(0, firstSpace);
+                    Optional<Graph> graph = new GraphGenerator().getGraph(commandWord);
+                    if (graph.isPresent()) {
+//                        System.out.println(graph);
+                        String remaining = enteredText.substring(firstSpace);
+                        Node graphNode = graph.get().process(remaining);
+                        if (remaining.endsWith(" ")) {
+                            System.out.println("ENDS WITH SPACE");
+                            entries.clear();
+                            entries.addAll(graphNode.getEdges().keySet());
+                            System.out.println(entries);
+                            stringToCompare = "";
+                        } else {
+                            System.out.println("ADDING VALUES");
+                            entries.clear();
+                            entries.addAll(graphNode.getValues());
+                            System.out.println(entries);
+                            stringToCompare = graph.get().lastMatchEnd;
+                        }
+                    }
+                } else {
+                    entries.clear();
+                    entries.addAll(CommandSuggestions.getSuggestions());
+                    System.out.println(entries);
+                }
+
                 // filter
+                String finalStringToCompare = stringToCompare;
                 List<String> filteredEntries = entries.stream()
-                        .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
-                        .sorted((e1, e2) -> compareEntries(e1, e2, enteredText))
+                        .filter(e -> e.toLowerCase().contains(finalStringToCompare.toLowerCase()))
+                        .sorted((e1, e2) -> compareEntries(e1, e2, finalStringToCompare))
                         .collect(Collectors.toList());
                 if (!filteredEntries.isEmpty()) {
-                    populatePopup(filteredEntries, enteredText);
+                    populatePopup(filteredEntries, stringToCompare);
                     entriesPopup.hide(); // This ensures the down key always works
                     entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
                 } else {

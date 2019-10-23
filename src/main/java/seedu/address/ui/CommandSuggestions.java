@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
