@@ -89,6 +89,7 @@ public class UpdateCommand extends Command {
         if (transactionToEdit instanceof InTransaction) {
             return new InTransaction(updatedAmount, updatedDate, updatedTags);
         } else {
+            System.out.println("out trans");
             return new OutTransaction(updatedAmount, updatedDate, updatedTags);
         }
     }
