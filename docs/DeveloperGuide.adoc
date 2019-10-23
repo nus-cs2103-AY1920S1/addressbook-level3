@@ -135,12 +135,12 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
-The following diagram illustrates the structure of the UI component:
+The following diagram illustrates the structure of the Storage component:
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/storage/Storage.java[`Storage.java`]
 
 The `Storage` component:
 
