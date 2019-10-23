@@ -54,10 +54,6 @@ public class DequeueCommandTest {
 
         assertCommandFailure(dequeueCommand, model,
             String.format(DequeueCommand.MESSAGE_PERSON_NOT_IN_QUEUE, ALICE.getReferenceId()));
-
-        model.enqueuePatient(ALICE.getReferenceId());
-        assertCommandFailure(dequeueCommand, model,
-                String.format(DequeueCommand.MESSAGE_DEQUEUE_PERSON_NOT_FOUND, ALICE.getReferenceId()));
     }
 
     @Test

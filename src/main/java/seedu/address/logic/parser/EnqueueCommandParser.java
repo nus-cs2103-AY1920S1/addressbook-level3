@@ -12,7 +12,7 @@ import seedu.address.model.common.ReferenceId;
 
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new EnqueueCommand object
  */
 public class EnqueueCommandParser implements Parser<ReversibleActionPairCommand> {
 
