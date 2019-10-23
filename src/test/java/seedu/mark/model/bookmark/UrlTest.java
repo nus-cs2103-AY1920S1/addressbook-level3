@@ -41,7 +41,6 @@ public class UrlTest {
         assertFalse(Url.isValidUrl("https://example?.com/path?query")); // '?' symbol in authority
 
         // invalid optional parts
-        assertFalse(Url.isValidUrl("https://example.com//")); // empty path segment
         assertFalse(Url.isValidUrl("https://example.com?")); // empty query
         assertFalse(Url.isValidUrl("https://example.com#")); // empty fragment
         assertFalse(Url.isValidUrl("https://example.com??example")); // double '?' symbol

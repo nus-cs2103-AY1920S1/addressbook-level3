@@ -21,7 +21,7 @@ public class Url {
             + "    - be at least 2 characters long\n"
             + "    - not start or end with a period\n"
             + "3. This can be followed by zero or more path segments. "
-            + "Each path segment begins with a '/' followed by one or more alphanumeric or special characters.\n"
+            + "Each path segment begins with a '/' followed by zero or more alphanumeric or special characters.\n"
             + "4. Next, a URL may contain a query string, which begins with a '?'.\n"
             + "5. It may also contain a fragment after the query string (if present), which begins with a '#'.\n"
             + "6. Finally, a URL can end with an optional slash '/'.\n";
@@ -32,7 +32,7 @@ public class Url {
     private static final String NON_PERIOD_URL_CHARACTERS = "[\\w" + NON_PERIOD_SPECIAL_CHARACTERS + "]";
     private static final String REGEX_URL_AUTHORITY =
             NON_PERIOD_URL_CHARACTERS + URL_CHARACTERS + "*" + NON_PERIOD_URL_CHARACTERS;
-    private static final String REGEX_URL_PATH_SEGMENT = "/" + URL_CHARACTERS + "+";
+    private static final String REGEX_URL_PATH_SEGMENT = "/" + URL_CHARACTERS + "*";
     private static final String REGEX_URL_PATH = "(" + REGEX_URL_PATH_SEGMENT + ")*"; // zero or more path segments
     private static final String REGEX_URL_QUERY = "(\\?" + URL_CHARACTERS + "+)?"; // optional query
     private static final String REGEX_URL_FRAGMENT = "(#" + URL_CHARACTERS + "+)?"; // optional fragment
