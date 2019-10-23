@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.chart.PieChart?>
+
+<?import javafx.geometry.Insets?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
@@ -15,6 +17,14 @@
               minWidth="540.0" prefWidth="540.0" maxWidth="540.0"
               title="Breakdown"
               legendSide="LEFT">
+
+        <padding>
+            <Insets left="15.0" right="15.0"/>
+        </padding>
+
+        <stylesheets>
+            <URL value="@PieChart.css"/>
+        </stylesheets>
 
     </PieChart>
 
