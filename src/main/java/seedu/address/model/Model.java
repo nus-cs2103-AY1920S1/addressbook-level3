@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
@@ -12,6 +13,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 
@@ -183,6 +185,8 @@ public interface Model {
      */
     ObservableList<Question> getFilteredQuizQuestionList();
 
+    void filterQuizResult(QuizResultFilter quizResultFilter);
+
     /**
      * Returns an unmodifiable view of the filtered quiz result list.
      */
@@ -237,7 +241,9 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the pie chart data.
      */
-    ObservableList<PieChart.Data> getStatsChartData();
+    ObservableList<PieChart.Data> getStatsPieChartData();
 
     ObservableList<TempStatsQnsModel> getStatsQnsList();
+
+    ObservableList<XYChart.Data> getStackBarChartData();
 }

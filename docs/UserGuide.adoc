@@ -197,9 +197,9 @@ Format: `quit`
 ==== Get statistics for subjects : `stats`
 
 Returns a pie chart of the number of questions that have been answered correctly and incorrectly.
-You can choose to only get the statistics for a difficulty level by adding an optional `d/`.
-You can even get the combined statistics of more than one subject. +
-Format: `stats s/SUBJECT [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
+You can choose to get the statistics for a difficulty level by adding `d/` or
+get the statistics of different subjects by adding `s/`. +
+Format: `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
 
 ==== Get questions with correct/incorrect answers: `questions`
 Gets all questions that have been answered correctly/incorrectly for a particular subject by using `-c/-i` respectively.
@@ -219,7 +219,8 @@ Format: `overviewn`
 
 ==== Get overview of questions attempted: `overviewq`
 Gets an overview of the types of questions that have been attempted overall.
-A stacked bar graph, sorted by subjects will be returned. +
+A stacked bar graph, sorted by subjects will be returned.
+You can also add a `dt/` field to get questions that you have done within that time period. +
 Format: `overviewq [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks

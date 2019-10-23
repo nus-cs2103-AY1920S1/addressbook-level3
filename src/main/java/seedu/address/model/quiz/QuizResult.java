@@ -1,5 +1,6 @@
 package seedu.address.model.quiz;
 
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.address.model.question.Answer;
@@ -11,7 +12,7 @@ import seedu.address.model.question.QuestionBody;
 public class QuizResult {
     private final Answer answer;
     private final QuestionBody questionBody;
-    private final String quizTime;
+    private final String quizTime; //need to convert to date object
     private final boolean result;
 
     public QuizResult(Answer answer, QuestionBody questionBody, String quizTime, boolean result) {
@@ -35,6 +36,10 @@ public class QuizResult {
 
     public boolean getResult() {
         return result;
+    }
+
+    public boolean isWithinDate(Date start, Date end) { //can either pass it in as a string or as a date
+        return !(quizTime.before(start) || quizTime.after(end));
     }
 
     @Override

@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
@@ -19,6 +20,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 
@@ -201,6 +203,11 @@ public class ModelManager implements Model {
         appData.clearQuizQuestionList();
     }
 
+    @Override
+    public void filterQuizResult(QuizResultFilter quizResultFilter) {
+        appData.filterQuizResult(quizResultFilter);
+    }
+
     //=========== Filtered Note List Accessors =============================================================
 
     /**
@@ -355,10 +362,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<PieChart.Data> getStatsChartData() {
+    public ObservableList<PieChart.Data> getStatsPieChartData() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        // need to change according to difficulty or subjects
         pieChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
         pieChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
         return pieChartData;
+    }
+
+    @Override
+    public ObservableList<XYChart.Data> getStackBarChartData() {
+        ObservableList<XYChart.Data> barChartData = FXCollections.observableArrayList();
+        barChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
+        barChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
+        return barChartData;
     }
 }

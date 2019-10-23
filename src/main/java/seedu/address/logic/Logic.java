@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,7 +41,9 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the pie chart data.
      */
-    ObservableList<PieChart.Data> getStatsChartData();
+    ObservableList<PieChart.Data> getStatsPieChartData();
+
+    ObservableList<XYChart.Data> getStackBarChartData();
 
     ObservableList<TempStatsQnsModel> getStatsQnsList();
 

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -81,8 +82,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<PieChart.Data> getStatsChartData() {
-        return model.getStatsChartData();
+    public ObservableList<PieChart.Data> getStatsPieChartData() {
+        return model.getStatsPieChartData();
+    }
+
+    @Override
+    public ObservableList<XYChart.Data> getStackBarChartData() {
+        return model.getStackBarChartData();
     }
 
     @Override

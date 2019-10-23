@@ -8,6 +8,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizResultFilter;
 
 /**
  * Gets statistics of how well the user has attempted the questions.
@@ -28,18 +29,17 @@ public class GetStatisticsCommand extends Command {
     public static final String MESSAGE_NO_STATISTICS = "There is no available data for computation of "
             + "statistics, try doing some questions.";
 
-    /*private final List subjects;
+    private QuizResultFilter quizResultFilter;
 
-    public GetStatisticsCommand(List subjects) {
-        requireNonNull(subjects);
-        this.subjects = subjects;
-    }*/
+    public GetStatisticsCommand(QuizResultFilter quizResultFilter) {
+        requireNonNull(quizResultFilter);
+        this.quizResultFilter = quizResultFilter;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        //model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
-        //model.setStatistics();
+        model.filterQuizResult(quizResultFilter);
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
         c.setType(STATS);
         return c;

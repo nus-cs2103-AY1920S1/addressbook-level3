@@ -21,6 +21,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.statistics.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.statistics.StackBarChart;
 import seedu.address.ui.statistics.StatsPieChart;
 import seedu.address.ui.statistics.StatsQnsList;
 
@@ -45,6 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatsPieChart statsPieChart;
+    private StackBarChart stackBarChart;
     private StatsQnsList statsQnsList;
 
     @FXML
@@ -211,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
         switch (type) {
         case STATS:
             statsPanelPlaceholder.getChildren().clear();
-            statsPieChart = new StatsPieChart(logic.getStatsChartData(), logic.getTotalQuestionsDone());
+            statsPieChart = new StatsPieChart(logic.getStatsPieChartData(), logic.getTotalQuestionsDone());
             statsPanelPlaceholder.getChildren().add(statsPieChart.getRoot());
             statsPieChart.getChart().getData().forEach(data -> {
                 String value = "" + (int) data.getPieValue();
@@ -228,6 +230,8 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case OVERVIEW:
             statsPanelPlaceholder.getChildren().clear();
+            stackBarChart = new StackBarChart(logic.getStackBarChartData(), logic.getTotalQuestionsDone());
+            statsPanelPlaceholder.getChildren().add(statsPieChart.getRoot());
             break;
         default:
             throw new ParseException("Invalid type: " + type);
