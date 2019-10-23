@@ -21,6 +21,7 @@ public class GuiSettings {
     private static double spacing = 10;
     private static double minHeight = 400;
     private static double minWidth = 400;
+    private static double radius = 5;
 
     // default colours
     private static String primaryTextColour = "#333333";
@@ -91,6 +92,16 @@ public class GuiSettings {
     /** Set the default minimum width of the application window. */
     public static void setMinWidth(double minWidth) {
         GuiSettings.minWidth = minWidth;
+    }
+
+    /** Get the default background radius for UI components in the application. */
+    public static double getRadius() {
+        return radius;
+    }
+
+    /** Set the default background radius for UI components in the application. */
+    public static void setRadius(double radius) {
+        GuiSettings.radius = radius;
     }
 
     /** Get the primary text colour of the application. */

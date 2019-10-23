@@ -2,7 +2,6 @@ package dream.fcard.gui;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -12,13 +11,14 @@ public class FlashCardDisplay extends HBox {
 
     public FlashCardDisplay(String text) {
         super();
-//        this.setMaxWidth();
-//        this.setMinHeight();
 
-        // todo: must figure out how to get card to maintain max width, min height
-
+        // set up dimensions
+        this.setPrefSize(380,200);
         this.setPadding(new Insets(10));
+
+        // set up background colour and radius
         this.setStyle("-fx-background-color:" + GuiSettings.getPrimaryUIColour() +";");
+//        this.setStyle("-fx-background-radius:" + GuiSettings.getRadius() +";");
 
         flashCardText = new Text(text);
 
