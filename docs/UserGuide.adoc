@@ -294,20 +294,20 @@ Also the amount withdrawn is added into your wallet.
 === Recommendations
 
 ==== Recommend
-Users can get a recommendation from the application, based on several factors, summarized
+Users can get a list of recommendations from the application, based on several factors, summarized
 in the tables below.
 
 .Bonuses applied by the recommendation system
 |===
-|Condition 1 |Condition 2 |Bonus/Penalty
+|Condition 1 |Condition 2 |Bonus
 
 .3+|Food tags match the user's liked tags
 |1 or more tags
-|+0.05 plus 0.03 per matching tag
+|+0.05 and +0.03 per matching tag
 |3 or more tags
-|+0.10 plus 0.03 per matching tag
+|+0.10 and +0.03 per matching tag
 |5 or more tags
-|+0.25 plus 0.03 per matching tag
+|+0.25 and +0.03 per matching tag
 |Food category matches the user's liked categories
 |N/A
 |+0.15
@@ -334,18 +334,18 @@ in the tables below.
 
 .Penalties applied by the recommendation system
 |===
-|Condition 1 |Condition 2 |Bonus/Penalty
+|Condition 1 |Condition 2 |Penalty
 
 |Food price is out of the user's current budget
 |N/A
 |Removes the item from the recommendation results
 .3+|Food tags match the user's disliked tags
 |1 or more tags
-|-0.10 minus 0.10 per matching tag
+|-0.10 and -0.10 per matching tag
 |2 or more tags
-|-0.30 minus 0.10 per matching tag
+|-0.30 and -0.10 per matching tag
 |3 or more tags
-|-0.50 minus 0.10 per matching tag
+|-0.50 and -0.10 per matching tag
 |Food category matches the user's disliked categories
 |N/A
 |-0.40
@@ -354,7 +354,7 @@ in the tables below.
 |-0.30
 |Food purchase is found in user's purchase history
 |Within a time period of <2 days
-|Applies a decreasing penalty starting from -10 (just purchased) which diminishes to 0 after 2 days
+|Applies a decreasing penalty starting from -10 (just purchased) and diminishes to 0 after 2 days
 |===
 
 ****
