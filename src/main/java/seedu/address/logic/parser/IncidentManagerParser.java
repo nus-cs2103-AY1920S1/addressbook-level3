@@ -17,10 +17,12 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListIncidentsCommand;
+import seedu.address.logic.commands.ListVehiclesCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.SearchIncidentsCommand;
+import seedu.address.logic.commands.SearchVehiclesCommand;
 import seedu.address.logic.commands.SubmitCommand;
 import seedu.address.logic.commands.SwapCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -70,11 +72,17 @@ public class IncidentManagerParser {
         case SearchIncidentsCommand.COMMAND_WORD:
             return new SearchIncidentsCommandParser().parse(arguments);
 
+        case SearchVehiclesCommand.COMMAND_WORD:
+            return new SearchVehiclesCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
         case ListIncidentsCommand.COMMAND_WORD:
             return new ListIncidentsCommand();
+
+        case ListVehiclesCommand.COMMAND_WORD:
+            return new ListVehiclesCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
