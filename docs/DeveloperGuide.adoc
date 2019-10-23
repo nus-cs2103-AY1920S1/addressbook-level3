@@ -262,6 +262,49 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+[[Implementation-ClosestLocation]]
+=== Closest Common Location(Micro Service)
+Closest common location utilises Google Maps Api to get the closest common location among a group of various location in NUS.
+
+==== Definition
+
+* Due to connectivity constraints, we cannot support location outside of NUS. All locations have to follow the spelling and format in NUSMods.
+* The closest location is the location that has the least average travelling time by car from the various sources.
+* All invalid location are omitted during as the source location will not be considered.
+
+==== Algorithm
+
+. Create a complete graph where the vertices are the different locations in NUS and edges are the respective travelling time by car from location `u` to `v`
+. Represent this graph in a v x v matrix where `i` represents the source location and `j` represent destination location and `distanceMatrix[i][j]` represent the time needed to travel from `i` to `j`
+. To get the closest common location of S1 ... Sn:
+.. Get the rows i = S1 ... Sn
+.. Sum the values of the rows to a new row `totalDistance`
+.. The smallest value in the row is the closest common location
+
+==== Implementation
+
+Overview of the implementation
+
+image::gmaps/GmapsArchitectureDiagram.png[]
+
+There are 3 main aspects to the implementation
+
+. External API
+. Creating the matrix
+. Getting the closest location
+
+===== External API
+To support the lack of internet connection, we preprocess the relevant data and save it into the resources directory.
+
+image::gmaps/ApiDiagram.png[]
+
+==== Creating matrix
+
+This is the sequence diagram for the creation of the matrix
+
+image::gmaps/MatrixCreationSequenceDiagram.png[]
+.png[]
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
