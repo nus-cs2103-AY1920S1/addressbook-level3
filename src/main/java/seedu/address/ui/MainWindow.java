@@ -240,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
         if (!statsWindow.isShowing()) {
             statsWindow.show();
         } else {
-            helpWindow.focus();
+            statsWindow.focus();
         }
     }
 
