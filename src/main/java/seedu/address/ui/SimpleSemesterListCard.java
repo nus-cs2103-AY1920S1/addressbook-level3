@@ -5,9 +5,7 @@ import static java.util.Objects.requireNonNull;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.address.model.semester.Semester;
-import seedu.address.model.tag.Tag;
 
 /**
  * An UI component that displays a simplified semester on the left side of the GUI.
