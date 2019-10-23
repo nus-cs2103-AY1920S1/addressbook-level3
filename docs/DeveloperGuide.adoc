@@ -248,7 +248,9 @@ The priority mode is mainly controlled in the ```ItemModelManager``` and the fol
 * ```ItemModelManager#toggleOnPriorityMode()``` - Helper function to toggle on the priority mode.
 * ```ItemModelManager#toggleOffPriorityMode()``` - Helper function to toggle off the priority mode.
 
-There are two variants to the priority mode, a normal priority mode that is controlled fully by the user and a scheduled priority mode that is triggered by the user but is scheduled to turn off after a specific amount of time. Both implementation uses the same three methods above and their only differences is when they are executed.
+There are two variants to the priority mode, a normal priority mode that is controlled fully by the user and a scheduled priority mode that is triggered by the user but is scheduled to turn off after a specific amount of time. In addition to using the above three methods, the ```ScheduledPriorityMode``` also uses the following method:
+
+* ```ItemModelManager#startTimer(LocalDateTime)``` - Starts a timer to turn off the priority mode.
 
 ==== Design Consideration
 Aspect: How to turn off the priority mode after a fixed time
