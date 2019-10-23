@@ -1,0 +1,30 @@
+@startuml
+
+start
+-Entered next command
+if () then ([valid command])
+
+    if () then ([At least 1 patient in queue])
+        if() then ([Valid room index])
+            if() then ([Doctor is not resting])
+            -Allocate patient to room
+            -Display room
+            else ([Doctor is resting])
+            -Display error message\n "Doctor xx is resting"
+            endif
+
+
+        else ([Invalid room index])
+        -Display error message\n "invalid index given"
+        endif
+
+    else ([[No patient in queue])
+    -Display error message\n "There are no patients in the queue"
+    endif
+
+else ([Invalid command])
+-Invalid command \n message
+endif
+
+stop
+@enduml
