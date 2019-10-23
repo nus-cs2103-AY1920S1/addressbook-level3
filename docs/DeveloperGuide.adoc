@@ -153,6 +153,48 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Add feature
+==== Implementation
+
+The add feature allows the user to add flashcard with compulsory field of `QUESTION` and `ANSWER`.
+ `RATING` and `CATEGORY` are optional fields which the user can add to the flashcard later using the `edit` feature.
+
+[NOTE]
+Following are the prefixes for each field: +
+- q> : `QUESTION` +
+- a> : `ANSWER` +
+- r> : `RATING` +
+- c> : `CATEGORY`
+
+Given below is an example usage scenario of `add` :
+
+The user executes `add q>1+1 a>2 c>math` to add new flashcard.
+
+The following sequence diagram shows how the add operation works:
+
+image::AddSequenceDiagram.png[]
+
+
+The add feature does not allow adding of duplicate flashcards.
+If the flashcard exits in the storage, an error will be shown.
+
+The following activity diagram summarizes what happens when a user executes an add command:
+
+image::AddActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to implement add
+
+* **Alternative 1(current choice):** Use command `add` together with
+prefixes like `q>`, `a>`, `r>` and `c>`
+** pros: Easier to implement.
+** cons: User might miss the prefixes hence adding wrong flashcards
+* **Alternative 2:** Make use of the GUI. after user execute `add` command,
+ an **add flash card window** would pop up and there is segment for individual fields.
+** pros: More user friendly.
+** cons: Harder to implement.
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation

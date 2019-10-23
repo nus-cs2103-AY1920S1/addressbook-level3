@@ -27,7 +27,7 @@ KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study u
 .  Copy the file to the folder you want to use as the home folder for your KFC app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::annotatedUi.png[width="790"]
 
 
 == Features
@@ -35,36 +35,24 @@ image::Ui.png[width="790"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add >QUESTION`, `QUESTION` is a parameter which can be used as `add q>1+1`.
+* Items in square brackets are optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
+* Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
 ====
 
+=== Add new flashcard: `add [q>QUESTION] [q>ANSWER] [c>CATEGORY]...`
 
-=== Start flashcard test: `start`
+You can add a new flashcard with specific question and answer. +
+`add q>What is CS2103T a>Software engineering`
 
-Starts the flashcard test (assuming you are in the category ‘folder’)
-`start`
+You may also specified the category of the flashcard. +
+`add q>What is CS2103T a>Software engineering c>CS2103T`
 
-Starts the flashcard test from any specific category
-`start [category]`
+=== Edit an existing flashcard: `edit [INDEX] {fields wanted to edit}...`
 
-=== Add new category: `cat [name]`
-
-[TIP]
-A person can have any number of categories (including 0)
-
-=== Add new flashcard: `add [category]`
-
-Adds a new flashcard into your specific category/topic.
-`add Math`
-Fill in the question and answer on the card when prompted on the GUI.
-
-=== Edit an existing flashcard: `edit [category] [ID]`
-
-Lists all the flashcards under the specific topic folder.
-`edit Math 10`
+Edit the flashcard with index corresponding to the display list with 1 or multiple fields
+`edit 1 q>1+1`
 
 === Delete entire topic: `delete [category]`
 
@@ -85,6 +73,14 @@ Lists all the flashcards under the specific topic folder.
 
 Lists all the flashcards under the specific topic folder. Each flashcard is color-coded to represent your familiarity with the content.
 `list Math`
+
+=== Start flashcard test: `start`
+
+Starts the flashcard test (assuming you are in the category ‘folder’)
+`start`
+
+Starts the flashcard test from any specific category
+`start [category]`
 
 === Set a reminder for a specific category of flashcards. [coming in v1.3]
 
