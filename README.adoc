@@ -15,10 +15,10 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* MoneyGoWhere is a budgeting application which helps tech-savvy finance-oriented users to store and track their personal finances.
-* It enables users to track their spending, set their financial goals and budgets as well as export their data to a .csv file.
-* It is optimised for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
-* Tech-savvy users who love to type fast will be able to complete tasks faster than traditional GUI apps.
+*MoneyGoWhere* is a personal finance application targeted at students who have yet to earn a stable income.
+It allows students to keep track of all their spending and their related information such as date, cost and tags.
+Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
 
 What are you waiting for? Start tracking your finances now!
 

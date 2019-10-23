@@ -18,9 +18,10 @@ By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-*MoneyGoWhere* is a budgeting application which helps tech-savvy finance-oriented users to store and track their personal finances. It enables users to track their spending, set their financial goals and budgets as well as export their data to a .csv file. +
-
-*MoneyGoWhere* is optimised for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Tech-savvy users who love to type fast will be able to complete tasks faster than traditional GUI apps.  +
+*MoneyGoWhere* is a personal finance application targeted at students who have yet to earn a stable income.
+It allows students to keep track of all their spending and their related information such as date, cost and tags.
+Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
 
 What are you waiting for? Start tracking your finances now!
 
@@ -42,6 +43,28 @@ Tips that can help you better navigate the application.
 Useful information for a deeper understanding of the command.
 ====
 
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `MoneyGoWhere.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for MoneyGoWhere.
+.  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
+
++
+.User Interface of MoneyGoWhere
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* will display the help information.
+.  Some example commands you can try:
+
+* *`list`* : lists all spending
+* **`add`**`n/apple c/2.50 d/yesterday t/fruits r/expensive apple` : adds a spending `Apple` to MoneyGoWhere.
+* **`delete`**`3` : deletes the 3rd spending shown in the current list
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
 [[Features]]
 == Features
 
@@ -57,7 +80,14 @@ Useful information for a deeper understanding of the command.
 === Viewing help : `help`
 
 Shows a list of available commands and their usages. +
+
 Format: `help`
+
+[TIP]
+Optionally, you can press kbd:[F1] or click `help` which can be found on the menu bar at the top left hand corner of the application.
+
+.Accessing Help from Menu Bar
+image::help.png[width="300"]
 
 === Flexible date format
 
@@ -88,12 +118,20 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 ** the monday after/ the monday before
 ** 2 fridays before/ 4 tuesdays after
 
+[NOTE]
+You do not need to specify which date format you would like to use as the application will be able to differentiate it from the input received.
+
+[NOTE]
+The application will also automatically check whether a given date is valid.
+Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019.
+
 === Adding a spending : `add`
 
-Adds a spending to the list +
+Adds a spending to the list when the user incurs a new spending. Key information such as it's name, cost, date, tags (if any) and remarks (if any) are stored. +
+
 Format: `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
-[TIP]
+[NOTE]
 A spending can have any number of tags (including 0).
 
 Examples:
@@ -107,6 +145,7 @@ Examples:
 === Updating a spending : `update`
 
 Updates a spending in the specified index in the list. +
+
 Format: `update i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 ****
@@ -131,6 +170,7 @@ Overwrites existing tags of the tenth spending to `vegetable`.
 === Deleting a spending : `delete`
 
 Deletes a spending in the specified index from the list. +
+
 Format: `delete INDEX`
 
 ****
@@ -142,95 +182,25 @@ Format: `delete INDEX`
 Example:
 
 * `delete 2` +
-Deletes the second spending in the list based on the current results shown.
+Deletes the second spending in the list based on the current list shown.
 
 === Listing all spending : `list`
 
-Displays a list of all spending. +
+Displays a list of all spending and their information such as name, date, cost, tag and remark. +
+
 Format: `list`
 
 [NOTE]
-If no 'SORT_ORDER' is specified, the default sort order is by date in descending order (most recent on top).
-
-Examples:
-
-* `list` +
-Displays the list of all spending sorted by date in descending order (most recent on top).
-
-=== Find by attribute : `find`
-
-Searches for spending based on given keywords, cost range, date range, remarks or tags. +
-At least one search field must be present.
+List is sorted by descending order of date, followed by descending order of cost.
 
 [NOTE]
-When searching for multiple tags, any tag listed will be matched.
+This command is implicitly invoked upon application start up, and can be used to reset the view after find or sort.
 
-[TIP]
-Date range can be input in the following ways: +
-`d/DATE_START d/DATE_END` +
-`d/DATE_START to DATE_END` +
-`d/DATE_START - DATE_END`
-
-[TIP]
-Cost range can be input in the following ways: +
-`c/COST_MIN c/COST_MAX` +
-`c/COST_MIN-COST_MAX`
-
-Format: `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
-
-Example:
-
-* `find n/apple c/1.50-2.00 d/01/09/2019 d/30/09/2019` +
-Returns a list of spending with `apple` keyword within the cost range `1.50` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
-* `find n/Java book c/100.20-150.00 d/01/09/2019 - 30/09/2019` +
-Returns a list of spending with matching the keywords `Java` or `book` within the cost range `100.20` to `150.00` and date range within `01/09/2019` to `30/09/2019`.
-* `find n/apple c/1-2 d/01/09/2019 to 30/09/2019` +
-Returns a list of spending with `apple` keyword within the cost range `1.00` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
-* `find r/breakfast meal` +
-Returns a list of spending with matching the keywords `breakfast` or `meal` in remarks.
-* `find t/food t/leisure` +
-Returns a list of spending with `food` or `leisure` tags.
-
-
-=== Setting monthly budget : `budget`
-Sets a monthly budget for the current month in Singapore dollars. +
-Format: `budget m/MONTHLY_BUDGET` +
-
-[NOTE]
-Overwrites existing budget of current month if budget has already been set.
-
-Example:
-
-* `budget m/500000` +
-Sets a budget of `$500,000` for this month
-
-=== Generating statistics : `stats`
-Returns an overview of the spending which include:
-
-* Total cost  +
-* Budget +
-* Budget remaining +
-* Status (Safe / Deficit)
-* A list of cost and percentage of total cost spent on each tag.
-The list is sorted in descending order based on cost, with the tag with the highest cost incurred at the top.
-* A pie chart summarising the list of cost and percentage of total cost spent on each tag.
-
-Format: `stats d/STARTDATE d/ENDDATE`
-
-****
-* Generates statistics for all spending that fall between and including the STARTDATE and ENDDATE specified.
-* If no STARTDATE and ENDDATE parameters are specified, the statistics generated will be based on the whole list of spending.
-****
-
-Examples:
-
-* `stats d/01/01/2019 d/07/01/2019` +
-Generates statistics for spending that fall between and including 01/01/2019 and 07/01/2019.
-* `stats` +
-Generates statistics for all spending.
 
 === Sorting spending entries : `sort`
-Sorts all spending based on a given order. Note that the input entered is order-sensitive. +
+Sorts all spending based on a given order.
+Note that the input entered is order-sensitive. +
+
 Format: `sort [PREFIX/SORT_ORDER]`
 
 ****
@@ -246,12 +216,143 @@ Sorts current spending displayed by Date in ascending order. If they are the sam
 * `sort n/DESC` +
 Sorts current spending displayed by Name in descending order.
 
+
+=== Find by attribute : `find`
+
+Searches for spending based on given keywords, cost range, date range, remarks or tags. +
+
+
+Format: `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
+
+
+****
+* At least one search field must be present.
+* The search is case-insensitive. For example, `apple` and `Apple` will output the same search results.
+* The order of the keywords do not matter for name and remarks. For example, `ticket concert` will match `concert ticket`.
+* Spending matching at least one keyword will be returned. For example, `Phone` will return `New Phone`, `Phone Bill`.
+* When searching for multiple tags, any tag listed will be matched.
+* Only full words will be matched. For example, `app` will not match `apple`.
+****
+
+[NOTE]
+DATE_START must be earlier or the same as DATE_END.
+
+[NOTE]
+COST_MIN must be smaller or the same as COST_MAX.
+
+[TIP]
+Date range can be input in the following ways: +
+`d/DATE_START d/DATE_END` +
+`d/DATE_START to DATE_END` +
+`d/DATE_START - DATE_END`
+
+[TIP]
+Cost range can be input in the following ways: +
+`c/COST_MIN c/COST_MAX` +
+`c/COST_MIN-COST_MAX`
+
+Example:
+
+* `find n/apple c/1.50-2.00 d/01/09/2019 d/30/09/2019` +
+Returns a list of spending with `apple` keyword within the cost range `1.50` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
+* `find n/Java book c/100.20-150.00 d/01/09/2019 - 30/09/2019` +
+Returns a list of spending with matching the keywords `Java` or `book` within the cost range `100.20` to `150.00` and date range within `01/09/2019` to `30/09/2019`.
+* `find n/apple c/1-2 d/01/09/2019 to 30/09/2019` +
+Returns a list of spending with `apple` keyword within the cost range `1.00` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
+* `find r/breakfast meal` +
+Returns a list of spending with matching the keywords `breakfast` or `meal` in remarks.
+* `find t/food t/leisure` +
+Returns a list of spending with `food` or `leisure` tags.
+
 === Listing all tags : `ltags`
-Displays a list of all available tags. +
+Displays a list of all tags. +
+
 Format: `ltags`
+
+=== Setting monthly budget : `budget`
+Sets a budget for the current month in Singapore dollars. +
+
+Format: `budget m/MONTHLY_BUDGET` +
+
+[NOTE]
+Existing budget of current month is overwritten if budget has already been set.
+
+Example:
+
+* `budget m/500000` +
+Sets a budget of `$500,000` for this month
+
+=== Generating statistics : `stats`
+Returns an overview of the spending which enables the user to analyze what they have spent their money on.
+
+As shown in Figure 3, data include:
+
+* Total cost spent
+* Budget set
+* Budget remaining
+* Status (Safe/Deficit)
+* A list of cost and percentage of total cost spent on each tag.
+The list is sorted in descending order based on cost. The tag with the highest cost incurred will be at the top.
+* A pie chart summarising the list of cost and percentage of total cost spent on each tag.
+
+Format: `stats d/DATE_START d/DATE_END`
+
+****
+* Generates statistics for all spending that fall between and including the DATE_START and DATE_END specified.
+* If no DATE_START and DATE_END parameters are specified, the statistics generated will be based on the whole list of spending.
+****
+
+[NOTE]
+DATE_START must be earlier or the same as DATE_END.
+
+[TIP]
+Date range can be input in the following ways: +
+`d/DATE_START d/DATE_END` +
+`d/DATE_START to DATE_END` +
+`d/DATE_START - DATE_END`
+
+.Output of Statistics
+image::statistics.png[width="600"]
+
+Examples:
+
+* `stats d/01/01/2019 d/07/01/2019` +
+Generates statistics for spending that fall between and including 01/01/2019 and 07/01/2019.
+* `stats` +
+Generates statistics for all spending.
+
+
+=== Graphing the data : `graph`
+Shows the cost spent in the form of a line graph as seen in Figure 4.
+
+Format: `graph d/DATE_START d/DATE_END`
+
+****
+* Generates a graph for all spending that fall between and including the DATE_START and DATE_END specified.
+* If no DATE_START and DATE_END parameters are specified, the statistics generated will be based on the whole list of spending.
+****
+[NOTE]
+DATE_START must be earlier or the same as DATE_END.
+
+[TIP]
+Date range can be input in the following ways: +
+`d/DATE_START d/DATE_END` +
+`d/DATE_START to DATE_END` +
+`d/DATE_START - DATE_END`
+
+.Output of Graph
+image::graph.png[width="500"]
+
+Examples:
+
+* `graph d/01/01/2019 d/07/01/2019` +
+Generates a graph for spending that fall between and including 01/01/2019 and 07/01/2019.
+* `graph` +
+Generates a graph for all spending.
 
 === Importing data : `import`
 Imports data from a CSV file specified by file path. +
+
 Format: `import p/FILE_PATH` +
 
 Examples: +
@@ -262,6 +363,7 @@ Examples: +
 
 === Exporting data : `export`
 Exports data to a CSV file specified by file path. +
+
 Format: export `p/FILE_PATH` +
 
 Examples: +
@@ -272,11 +374,12 @@ Examples: +
 
 === Undoing previous command : `undo`
 Restores the list of spending to the state before the previous undoable command was executed. +
+
 Format: `undo` +
 
 [NOTE]
 ====
-Undoable commands: commands that modifies any of the spending (`add`, `delete` and `update`).
+Undoable commands: commands that modifies any of the spending (`add`, `delete` and `edit`).
 ====
 
 Examples: +
@@ -294,6 +397,7 @@ Examples: +
 
 === Redoing the previously undone command : `redo`
 Reverses the most recent undo command. +
+
 Format: `redo` +
 
 Examples:
@@ -310,23 +414,6 @@ Examples:
 `redo` (reapplies the delete 1 command) +
 `redo` (reapplies the add n/textbook c/100 command)
 
-=== Graphing the data : `graph`
-Shows the spending in the form of a line graph.
-
-Format: `stats d/STARTDATE d/ENDDATE`
-
-****
-* Generates a graph for all spending that fall between and including the STARTDATE and ENDDATE specified.
-* If no STARTDATE and ENDDATE parameters are specified, the statistics generated will be based on the whole list of spending.
-****
-
-Examples:
-
-* `stats d/01/01/2019 d/07/01/2019` +
-Generates a graph for spending that fall between and including 01/01/2019 and 07/01/2019.
-* `stats` +
-Generates a graph for all spending.
-
 === Clear all data : `clear`
 Clears all entries from the application. +
 Format: `clear`
@@ -337,38 +424,45 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+== Glossary
+
+* Spending: An expense incurred by the user.
+* Budget: The maximum amount of money set by the user to spend.
+* Cost: Money spent by the user.
+* Safe: The user has spent less or equal to his budget set.
+* Deficit: The user has spent more than his budget set.
 
 == Command Summary
 
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Feature | Command
+| *Help* | `help` +
 | *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 | *Update* | `update i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
 e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
-| *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
-e.g. `find n/apple orange c/1.00-200 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
 | *List* | `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
 e.g. `list r/01/09/2019-30/09/2019 t/groceries c/20-100 o/ASC`
+| *Sort*| `sort [PREFIX/SORT_ORDER]` +
+e.g. `sort d/DESC c/ASC` +
+| *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
+e.g. `find n/apple orange c/1.00-200 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
+| *List all tags*| `ltags` +
 | *Budget* | `budget m/MONTHLY_BUDGET` +
 e.g. `goal m/1800` +
+| *Generate statistics*| `stats d/STARTDATE d/ENDDATE` +
+e.g. `stats d/01/01/2019 d/07/01/2019` +
+| *Graph*| `graph d/STARTDATE d/ENDDATE` +
+e.g. `graph d/01/01/2019 d/07/01/2019` +
 | *Import data*| `import p/FILE_PATH` +
 e.g. `import p/C:\Users\User\Documents\importfile.csv` +
 | *Export data*| `export p/FILE_PATH` +
 e.g. `export p/C:\Users\User\Documents\importfile.csv` +
-| *Generate statistics*| `stats d/STARTDATE d/ENDDATE` +
-e.g. `stats d/01/01/2019 d/07/01/2019` +
-| *Sort*| `sort [PREFIX/SORT_ORDER]` +
-e.g. `sort d/DESC c/ASC` +
-| *List all tags*| `ltags` +
 | *Undo*| `undo` +
 | *Redo*| `redo` +
-| *Graph*| `graph d/STARTDATE d/ENDDATE` +
-e.g. `graph d/01/01/2019 d/07/01/2019` +
 | *Clear*| `clear` +
 | *Exit*| `exit` +
-| *Help* | `help` +
 |=======================================================================

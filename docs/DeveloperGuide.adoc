@@ -18,7 +18,76 @@ By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+
+=== Prerequisites
+
+. *JDK `11`* or above
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Setting up the project in your computer
+
+. Fork this repo, and clone the fork to your computer
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings.
+
+=== Verifying the setup
+
+. Run the `seedu.moneygowhere.Main` and try a few commands
+. <<Testing,Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
+. Select `Editor` > `Code Style` > `Java`
+. Click on the `Imports` tab to set the order
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `AY1920S1-CS2103T-F13-3/main` repo.
+
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `AY1920S1-CS2103T-F13-3/main`), you should do the following:
+
+. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:https://github.com/AY1920S1-CS2103T-F13-3/main/blob/master/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+
+. Replace the URL in the attribute `repoURL` in link:https://github.com/AY1920S1-CS2103T-F13-3/main/blob/master/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:https://github.com/ay1920s1-cs2103t-f13-3/main/blob/master/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
+==== Getting started with coding
+
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, Section 2.1 Architecture>>.
+
 
 == Design
 
@@ -279,7 +348,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* is finance-oriented
+* students who have yet to earn a stable income
 * has a need to store and track personal finances
 * wants to set a budget
 * prefer desktop apps over other types
@@ -288,7 +357,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 * wishes to import or export their data to a .csv file
 
-*Value proposition*: manage budget quickly compared to a typical mouse/GUI driven app
+*Value proposition*: manage budget quickly compared to a typical mouse/GUI driven app which saves time and makes it more convenient.
 
 [appendix]
 == User Stories
@@ -310,19 +379,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |see the difference between my budget and spending|be aware of my finances
 
-|`* * *` |new user |view more information about a particular command|learn how to various commands
+|`* * *` |new user |view more information about a particular command|learn how to use the command
 
 |`* * *` |user |calculate my total spending |keep track of my total spending
 
 |`* *` |user |import data |have different data from external source
 
-|`* *` |user |export data |view my spending in another application
+|`* *` |user |export data |view my spending in another device
 
 |`* *` |user |undo my previous action | revert my mistakes
 
 |`* *` |user |redo my previous action | move forward in history
 
-|`* *` |financial analyst |view daily/monthly/yearly expenditure |have a projected view of all my spending
+|`* *` |user |view daily/monthly/yearly expenditure |have a projected view of all my spending
 
 |`* *` |advanced user |search partial keywords from the description of my spending |view more refined search results
 
@@ -348,15 +417,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |advanced user |use a shorter version of the command | type faster
 
-|`*` |user who travels often |see the exchange rates of other countries |view my spending with respect to my currency
-
 |`*` |forgetful user |set a reminder |reminded of my payment deadlines
 
-|`*` |housewife |view the cheapest price of an item |improve my savings
-
-|`*` |user who loves rewards |see how much more I should spend |earn rewards from places I spend at
-
-|`*` |investor |see how much I should invest | earn more money
 |=======================================================================
 
 [appendix]
@@ -467,10 +529,20 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to generate statistics.
+1.  User requests to generate statistics for a specific date range.
 2.  MoneyGoWhere generates statistical analysis such as total spending of each tag.
 +
 Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given date range is invalid.
++
+[none]
+** 1a1. MoneyGoWhere shows an error message.
++
+Use case resumes at step 1.
 [none]
 
 '''
@@ -579,11 +651,22 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to display spending in the form of a graph.
+1.  User requests to display spending in the form of a graph for a specific date range.
 2.  MoneyGoWhere displays spending in graph form.
 +
 Use case ends.
+
+*Extensions*
+
 [none]
+* 1a. The given date range is invalid.
++
+[none]
+** 1a1. MoneyGoWhere shows an error message.
++
+Use case resumes at step 1.
+[none]
+
 
 '''
 [discrete]
