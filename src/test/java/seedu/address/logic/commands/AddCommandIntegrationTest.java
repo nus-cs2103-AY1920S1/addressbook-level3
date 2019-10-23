@@ -31,7 +31,7 @@ public class AddCommandIntegrationTest {
 
     //    @Test
     //    public void execute_duplicatePerson_throwsCommandException() {
-    //        Card personInList = model.getWordBank().getCardList().get(0);
+    //        Card personInList = model.toModelType().getCardList().get(0);
     //        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_CARD);
     //    }
 

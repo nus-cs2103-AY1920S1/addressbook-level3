@@ -132,7 +132,7 @@ public class MainApp extends Application {
             Optional<AppSettings> settingsOptional = storage.readAppSettings();
             appSettings = settingsOptional.orElse(new AppSettings());
         } catch (IOException | DataConversionException e) {
-            logger.warning("Welp this sucks.");
+            logger.warning("Init model failed. IO exception.");
         }
         return new ModelManager(wbl, wbStatsList, globalStatistics, userPrefs, appSettings);
     }

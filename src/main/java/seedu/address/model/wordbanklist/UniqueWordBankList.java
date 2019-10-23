@@ -15,14 +15,14 @@ import seedu.address.model.wordbank.WordBank;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
- * A card is considered unique by comparing using {@code Card#isSameMeaning(Card)}. As such, adding and updating of
- * cards uses Card#isSameMeaning(Card) for equality so as to ensure that the person being added or updated is
+ * A card is considered unique by comparing using {@code Card#isSameName(Card)}. As such, adding and updating of
+ * cards uses Card#isSameName(Card) for equality so as to ensure that the person being added or updated is
  * unique in terms of names in UniqueCardList. However, the removal of a card uses Card#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see seedu.address.model.wordbank.WordBank#isSameMeaning(seedu.address.model.wordbank.WordBank)
+ * @see seedu.address.model.wordbank.WordBank#isSameName(seedu.address.model.wordbank.WordBank)
  */
 public class UniqueWordBankList implements Iterable<WordBank> {
 
@@ -35,7 +35,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
      */
     public boolean contains(WordBank toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameMeaning);
+        return internalList.stream().anyMatch(toCheck::isSameName);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
             throw new CardNotFoundException();
         }
 
-        if (!target.isSameMeaning(editedPerson) && contains(editedPerson)) {
+        if (!target.isSameName(editedPerson) && contains(editedPerson)) {
             throw new DuplicateCardException();
         }
 
@@ -139,7 +139,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
     private boolean wordBanksAreUnique(List<WordBank> cards) {
         for (int i = 0; i < cards.size() - 1; i++) {
             for (int j = i + 1; j < cards.size(); j++) {
-                if (cards.get(i).isSameMeaning(cards.get(j))) {
+                if (cards.get(i).isSameName(cards.get(j))) {
                     return false;
                 }
             }

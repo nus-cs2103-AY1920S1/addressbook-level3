@@ -100,9 +100,8 @@ public class LogicManager implements Logic, UiLogicHelper {
             }
             ReadOnlyWordBank wb = model.getWordBank();
 
-            Path wordBankListFilePath = storage.getWordBankListFilePath();
             if (!wb.getName().equals("Empty wordbank")) {
-                storage.saveWordBank(wb, wordBankListFilePath);
+                storage.saveWordBank(wb);
             }
             if (command instanceof CreateCommand) {
                 storage.addWordBank(wb);
@@ -119,8 +118,8 @@ public class LogicManager implements Logic, UiLogicHelper {
                 File dir = ((ImportCommand) command).getDirectory();
                 String wordBankName = ((ImportCommand) command).getWordBankName() + ".json";
                 Path filePath = Paths.get(dir.toString(), wordBankName);
-                WordBank wordBank = (WordBank) storage.getWordBank(filePath).get();
-                storage.saveWordBank(wordBank, wordBankListFilePath);
+                WordBank wordBank = (WordBank) storage.createWordBank(filePath).get();
+                storage.saveWordBank(wordBank);
                 model.getWordBankList().addBank(wordBank);
             }
 

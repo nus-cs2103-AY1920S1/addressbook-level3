@@ -32,7 +32,7 @@ public class EditCommandTest {
     //
     //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
     //
-    //        Model expectedModel = new ModelManager(new WordBank(model.getWordBank()), new UserPrefs());
+    //        Model expectedModel = new ModelManager(new WordBank(model.toModelType()), new UserPrefs());
     //        expectedModel.setCard(model.getFilteredCardList().get(0), editedCard);
     //
     //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -52,7 +52,7 @@ public class EditCommandTest {
     //
     //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
     //
-    //        Model expectedModel = new ModelManager(new WordBank(model.getWordBank()), new UserPrefs());
+    //        Model expectedModel = new ModelManager(new WordBank(model.toModelType()), new UserPrefs());
     //        expectedModel.setCard(lastCard, editedCard);
     //
     //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -65,7 +65,7 @@ public class EditCommandTest {
     //
     //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
     //
-    //        Model expectedModel = new ModelManager(new WordBank(model.getWordBank()), new UserPrefs());
+    //        Model expectedModel = new ModelManager(new WordBank(model.toModelType()), new UserPrefs());
     //
     //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     //    }
@@ -81,7 +81,7 @@ public class EditCommandTest {
     //
     //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
     //
-    //        Model expectedModel = new ModelManager(new WordBank(model.getWordBank()), new UserPrefs());
+    //        Model expectedModel = new ModelManager(new WordBank(model.toModelType()), new UserPrefs());
     //        expectedModel.setCard(model.getFilteredCardList().get(0), editedCard);
     //
     //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -101,7 +101,7 @@ public class EditCommandTest {
     //        showCardAtIndex(model, INDEX_FIRST_PERSON);
     //
     //        // edit person in filtered list into a duplicate in address book
-    //        Card personInList = model.getWordBank().getCardList().get(INDEX_SECOND_PERSON.getZeroBased());
+    //        Card personInList = model.toModelType().getCardList().get(INDEX_SECOND_PERSON.getZeroBased());
     //        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
     //                new EditCardDescriptorBuilder(personInList).build());
     //
@@ -127,7 +127,7 @@ public class EditCommandTest {
     //        showCardAtIndex(model, INDEX_FIRST_PERSON);
     //        Index outOfBoundIndex = INDEX_SECOND_PERSON;
     //        // ensures that outOfBoundIndex is still in bounds of address book list
-    //        assertTrue(outOfBoundIndex.getZeroBased() < model.getWordBank().getCardList().size());
+    //        assertTrue(outOfBoundIndex.getZeroBased() < model.toModelType().getCardList().size());
     //
     //        EditCommand editCommand = new EditCommand(outOfBoundIndex,
     //                new EditCardDescriptorBuilder().withWord(VALID_WORD_BUTTERFREE).build());

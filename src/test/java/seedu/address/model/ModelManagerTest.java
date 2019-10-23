@@ -28,7 +28,7 @@ public class ModelManagerTest {
     //    public void constructor() {
     //        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
     //        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-    //        assertEquals(new WordBank(modelManager.getWordBank().getId()), new WordBank(modelManager.getWordBank()));
+    //        assertEquals(new WordBank(modelManager.toModelType().getId()), new WordBank(modelManager.toModelType()));
     //    }
 
     @Test

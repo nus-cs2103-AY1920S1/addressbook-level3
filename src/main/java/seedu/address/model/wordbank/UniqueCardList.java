@@ -18,13 +18,13 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
  * A card is considered unique by comparing using {@code Card#isSameMeaning(Card)}. As such, adding and updating of
  * cards uses Card#isSameMeaning(Card) for equality so as to ensure that the person being added or updated is
  * unique in terms of names in UniqueCardList. However, the removal of a card uses Card#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * as to ensure that the card with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see seedu.address.model.card.Card#isSameMeaning(seedu.address.model.card.Card)
  */
-public class UniqueCardList implements Iterable<Card> {
+public class  UniqueCardList implements Iterable<Card> {
 
     private final ObservableList<Card> internalList = FXCollections.observableArrayList();
     private final ObservableList<Card> internalUnmodifiableList =
@@ -58,16 +58,13 @@ public class UniqueCardList implements Iterable<Card> {
      */
     public void setCard(Card target, Card editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new CardNotFoundException();
         }
-
         if (!target.isSameMeaning(editedPerson) && contains(editedPerson)) {
             throw new DuplicateCardException();
         }
-
         internalList.set(index, editedPerson);
     }
 

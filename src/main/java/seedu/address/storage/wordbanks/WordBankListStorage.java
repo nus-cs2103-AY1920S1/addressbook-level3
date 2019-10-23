@@ -14,16 +14,18 @@ import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
  */
 public interface WordBankListStorage {
     /**
-     * Returns the word bank list path file.
-     */
-    Path getWordBankListFilePath();
-
-    /**
      * Returns an optional of ReadonlyWordBankList
      *
      * @return Optional of ReadonlyWordBankList
      */
     Optional<ReadOnlyWordBankList> getWordBankList();
+
+    /**
+     * Save a word bank into the default file location.
+     *
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void saveWordBank(ReadOnlyWordBank wordBank) throws IOException;
 
     /**
      * Save a word bank into the file location
@@ -34,7 +36,7 @@ public interface WordBankListStorage {
     void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException;
 
     /**
-     * Add a word bank into the file location
+     * Add a word bank into the word bank list.
      *
      * @param wordBank data. Cannot be null.
      */
@@ -52,5 +54,5 @@ public interface WordBankListStorage {
      *
      * @param wordBankPathFile data. Cannot be null.
      */
-    Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException;
+    Optional<ReadOnlyWordBank> createWordBank(Path wordBankPathFile) throws DataConversionException;
 }

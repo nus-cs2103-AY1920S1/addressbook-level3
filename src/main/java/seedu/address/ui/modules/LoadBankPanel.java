@@ -1,11 +1,15 @@
 package seedu.address.ui.modules;
 
+import java.io.File;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.wordbank.WordBank;
@@ -41,6 +45,21 @@ public class LoadBankPanel extends UiPart<Region> {
             } else {
                 setGraphic(new WordBankCard(wordBank, getIndex() + 1).getRoot());
             }
+        }
+    }
+
+    @FXML
+    public void handleDragOver(DragEvent event) {
+        if (event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+    }
+
+    @FXML
+    public void handleDragDropped(DragEvent event) {
+        List<File> files = event.getDragboard().getFiles();
+        for (File f : files) {
+            System.out.println(f);
         }
     }
 

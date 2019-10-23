@@ -68,12 +68,8 @@ public class StorageManager implements Storage {
     // ================ WordBankList methods ==============================
 
     @Override
-    public Path getWordBankListFilePath() {
-        return wordBankListStorage.getWordBankListFilePath();
-    }
-
-    private void saveWordBank(ReadOnlyWordBank wordBank) throws IOException {
-        saveWordBank(wordBank, getWordBankListFilePath());
+    public void saveWordBank(ReadOnlyWordBank wordBank) throws IOException {
+        wordBankListStorage.saveWordBank(wordBank);
     }
 
     /**
@@ -104,8 +100,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException {
-        return wordBankListStorage.getWordBank(wordBankPathFile);
+    public Optional<ReadOnlyWordBank> createWordBank(Path wordBankPathFile) throws DataConversionException {
+        return wordBankListStorage.createWordBank(wordBankPathFile);
     }
 
 

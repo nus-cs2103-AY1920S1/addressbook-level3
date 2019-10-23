@@ -66,7 +66,7 @@ public class ParserManager {
     private SpecificModeParser currentParser;
 
     public ParserManager () {
-        this.mode = ModeEnum.LOAD;
+        this.mode = ModeEnum.APP;
         this.gameIsOver = true;
         this.switchParser = new SpecificModeParser();
         switchParser.add(HomeCommand.class, null);

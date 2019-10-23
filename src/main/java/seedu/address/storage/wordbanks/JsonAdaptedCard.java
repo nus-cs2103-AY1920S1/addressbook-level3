@@ -43,7 +43,7 @@ class JsonAdaptedCard {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Card} into this class for Jackson use.
      */
     public JsonAdaptedCard(Card source) {
         name = source.getWord().value;
@@ -55,7 +55,7 @@ class JsonAdaptedCard {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted card object into the model's {@code Card} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */

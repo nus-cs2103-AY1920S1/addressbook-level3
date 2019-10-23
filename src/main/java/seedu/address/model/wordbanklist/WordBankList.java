@@ -6,11 +6,12 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by Card#isSameMeaning(Card) comparison)
+ * Duplicates are not allowed (by Card#isSameName(Card) comparison)
  */
 public class WordBankList implements ReadOnlyWordBankList {
 
@@ -80,8 +81,8 @@ public class WordBankList implements ReadOnlyWordBankList {
      * Adds a card to the word bank.
      * A card with the same meaning must not already exist in the word bank.
      */
-    public void addBank(WordBank wordBank) {
-        wordBankList.add(wordBank);
+    public void addBank(ReadOnlyWordBank wordBank) {
+        wordBankList.add((WordBank) wordBank);
     }
 
     //    /**

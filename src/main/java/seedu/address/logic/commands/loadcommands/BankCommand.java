@@ -15,7 +15,7 @@ public class BankCommand extends LoadCommand {
 
     public static final String COMMAND_WORD = "bank";
 
-    public static final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Displaying available wordbanks\n Choose one";
+    public static final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Selected the word bank\n Type start to start game.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Loads the bank identified by the name.\n"

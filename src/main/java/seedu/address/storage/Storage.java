@@ -57,6 +57,6 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     void removeWordBank(String wordBankName);
 
     @Override
-    Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException;
+    Optional<ReadOnlyWordBank> createWordBank(Path wordBankPathFile) throws DataConversionException;
 
 }
