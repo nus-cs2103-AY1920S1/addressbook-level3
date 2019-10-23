@@ -23,7 +23,7 @@ More importantly, Budget Buddy is *optimized for those who prefer to work with a
 while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, Budget Buddy can get your expense management tasks done faster than traditional GUI apps.
 Furthermore, Budget Buddy allows computing students to add their own functions through customized JavaScript files,
-as well as a set of rules to simplify expense tracking.
+as well as a set of rules to simplify expense tracking through automation.
 
 == Quick Start
 
@@ -47,7 +47,7 @@ Displays help. If `command` is specified, view detailed help for that command.
 
 Format: `help [<command]>`
 
-=== Manage defaults : `default`
+=== Managing defaults : `default`
 
 ==== Set default account : `default account`
 
@@ -55,7 +55,7 @@ Sets the default account.
 
 Format: `default account <id>`
 
-=== Manage the main transaction view : `view`
+=== Managing the main transaction view : `view`
 
 ==== Filter transactions : `view filter`
 
@@ -127,7 +127,7 @@ Format: `account delete <id ...>`
 
 === Managing categories : `category`
 
-==== Adding a category
+==== Add a category
 
 Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
 
@@ -170,22 +170,22 @@ If the period is omitted, it defaults to the entire current month.
 
 Format: `budget [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [<amount>|unset]`
 
-==== Viewing budgets
+==== View budgets
 
 To view budgets, omit `[<amount>|unset]` from the command.
 All budgets overlapping the period specified will be displayed.
 
-==== Setting budgets
+==== Set budgets
 
 To set a budget, specify the `[<amount>]`. Note that budgets cannot overlap.
 
-==== Removing budgets
+==== Remove budgets
 
 To unset a budget, specify `[unset]`.
 
 === Goal setting : `goal`
 
-==== Adding a goal : `goal add`
+==== Add a goal : `goal add`
 
 Adds a goal on the specified account to reach the specified amount by the target date or at the end of the specified period.
 
@@ -260,6 +260,41 @@ Format: `loan delete <loan ID ...> <p/person ...>`
 Splits and calculates a group payment, then prints a list of who owes who.
 
 Format: `loan split n/<name> a/<amount paid> ...`
+
+=== Automating with rules: `rule`
+
+==== Add a new rule: `rule add`
+
+Adds a new rule to the rule engine.
+A rule can be formed with both scripts and expressions.
+
+Format: `rule add pred/<expression | script> act/<expression | script>`
+****
+* Expression Format:
+** Predicate: <attribute> <predicate operator> <value>
+** Action: <action operator> <value>
+* Script:
+** Specify name of script.
+****
+
+==== List rules: `rule list`
+
+Displays a list of all rules, sorted by the date a rule was added.
+
+Format: `rule list`
+
+==== Edit a rule: `rule edit`
+
+Edits the specified fields in the rule with the specified ID.
+Both predicate and action can be modified.
+
+Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | script>]
+
+==== Delete a rule: `rule delete`
+
+Deletes a rule with the specified rule ID.
+
+Format: `rule delete <rule ID>`
 
 === Import and export : `import, export`
 
