@@ -142,10 +142,10 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/mark/storage/Storage.java[`Storage.java`]
 
-The `Storage` component:
+The `Storage` component does the following:
 
-* saves `UserPref` objects in json format and reads them back.
-* saves the Mark data in json format and reads it back.
+* Saves `UserPref` objects in json format and reads them back.
+* Saves the Mark data in json format and reads it back.
 
 [[Design-Commons]]
 === Common classes
@@ -260,14 +260,14 @@ Step 1. The user launches the application for the first time. The root `FolderSt
 
 image::FolderStructureState0.png[]
 
-Step 2. The user executes `folder GER1000 p/Work` command to create a new `FolderStructure` in the subfolders of `work`. Starting from the `root`, a depth first search will be performed to locate `work`. When found, `ger1000` will be added to its subfolders.
+Step 2. The user enters a `folder GER1000 p/Work` command to create a new `FolderStructure` in the subfolders of `work`. Starting from the `root`, a depth first search will be performed to locate `work`. When found, `ger1000` will be added to its subfolders.
 
 image::FolderStructureState1.png[]
 
 [NOTE]
 If the parent folder is not provided, the parent folder will default to `root`.
 
-The following sequence diagram shows how in more detail how the execution of `folder GER1000 p/Work` works:
+The following sequence diagram shows in more detail how the execution of `folder GER1000 p/Work` works:
 
 image::FolderSequenceDiagram.png[]
 
@@ -276,7 +276,7 @@ NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) b
 Finally, the user sees his folder added successfully in the folder hierarchy.
 
 ==== Design Considerations
-
+The following are a few design considerations made in deciding how to implement the folders feature:
 ===== Aspect: How the folder hierarchy is saved into storage.
 
 * **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
