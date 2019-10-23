@@ -56,20 +56,20 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
      * The transaction identity of {@code editedTransaction} must not be the same as
      * another existing transaction in the list.
      */
-    public void setTransaction(BankAccountOperation target, BankAccountOperation editedTransaction) {
-        requireAllNonNull(target, editedTransaction);
+    public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
+        requireAllNonNull(transactionTarget, transactionEdit);
 
-        int index = internalList.indexOf(target);
+        int index = internalList.indexOf(transactionTarget);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.equals(editedTransaction) && contains(editedTransaction)) {
+        if (!transactionTarget.equals(transactionEdit) && contains(transactionEdit)) {
             // TODO: throw correct exception
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedTransaction);
+        internalList.set(index, transactionEdit);
     }
 
     /**
