@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+
+participant ":Logic" as Logic LOGIC_COLOR
+participant ":Storage" as Storage STORAGE_COLOR
+participant ":CatalogStorage" as CatalogStorage STORAGE_COLOR
+participant ":FileUtil" as FileUtil COMMONS_COLOR
+participant ":JsonSerializableCatalog" as JsonSerializableCatalog STORAGE_COLOR_T2
+participant ":JsonUtil" as JsonUtil COMMONS_COLOR
+
+Logic -> Storage ++ : saveCatalog(updatedCatalog)
+
+Storage -> CatalogStorage : getCatalogFilePath
+activate CatalogStorage
+CatalogStorage --> Storage
+deactivate CatalogStorage
+
+Storage -> CatalogStorage : saveCatalog
+activate CatalogStorage
+CatalogStorage -> FileUtil : createIfMissing(filePath)
+
+create JsonSerializableCatalog
+CatalogStorage -> JsonSerializableCatalog ++ : new
+return
+
+CatalogStorage -> JsonUtil ++ : saveJsonFile
+JsonUtil -> JsonUtil ++ : serializeObjectToJsonFile
+JsonUtil -> FileUtil : writeToFile
+Storage --> Logic
+return
+
+@enduml

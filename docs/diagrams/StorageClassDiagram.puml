@@ -6,19 +6,35 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface CatalogStorage <<Interface>>
+Interface BorrowerRecordsStorage <<Interface>>
+Interface LoanRecordsStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonCatalogStorage
+Class JsonBorrowerRecordsStorage
+Class JsonLoanRecordsStorage
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager .up.|> Storage
+StorageManager o-down-> UserPrefsStorage
+StorageManager o-right-> CatalogStorage
+StorageManager o-right-> BorrowerRecordsStorage
+StorageManager o-right-> LoanRecordsStorage
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+
+JsonCatalogStorage .up.|> CatalogStorage
+JsonCatalogStorage .down.> JsonSerializableCatalogStorage
+JsonSerializableCatalogStorage ..> JsonSerializableBook
+JsonSerializableBook ..> JsonAdaptedGenre
+
+JsonBorrowerRecordsStorage .up.|> BorrowerRecordsStorage
+JsonBorrowerRecordsStorage .down.> JsonSerializableBorrowerRecords
+JsonSerializableBorrowerRecords .down.>JsonSerializableBorrower
+
+JsonLoanRecordsStorage .up.|> LoanRecordsStorage
+JsonLoanRecordsStorage .down.> JsonSerializableLoanRecords
+JsonSerializableLoanRecords .down.> JsonSerializableLoan
+
 @enduml
