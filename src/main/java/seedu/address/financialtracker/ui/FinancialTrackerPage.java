@@ -23,7 +23,6 @@ import seedu.address.ui.UiPart;
 
 import java.util.logging.Logger;
 
-
 /**
  * The Financial Tracker Window
  */
@@ -103,7 +102,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
-                //handleHelp();
+                // handleHelp();
             }
 
             if (commandResult.isExit()) {

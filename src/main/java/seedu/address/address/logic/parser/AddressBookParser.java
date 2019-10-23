@@ -1,8 +1,5 @@
 package seedu.address.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +16,7 @@ import seedu.address.address.logic.commands.ListCommand;
 import seedu.address.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.commons.core.Messages;
 
 /**
  * Parses user input.
@@ -40,7 +38,7 @@ public class AddressBookParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -78,7 +76,7 @@ public class AddressBookParser {
             return new GoToParser().parse(arguments);
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

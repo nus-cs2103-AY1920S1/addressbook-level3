@@ -1,8 +1,5 @@
 package seedu.address.achievements.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +9,7 @@ import seedu.address.achievements.model.StatisticsModel;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.commands.Command;
+import seedu.address.commons.core.Messages;
 
 /**
  * Parses user input.
@@ -33,7 +31,7 @@ public class AchievementsParser {
     public Command<StatisticsModel> parseCommand(String userInput) throws CommandException, ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -42,7 +40,7 @@ public class AchievementsParser {
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

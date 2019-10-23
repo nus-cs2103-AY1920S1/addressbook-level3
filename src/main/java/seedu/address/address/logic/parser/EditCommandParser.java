@@ -1,7 +1,6 @@
 package seedu.address.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
 import static seedu.address.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -16,13 +15,13 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.address.logic.commands.EditCommand;
-import seedu.address.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.address.model.tag.Tag;
+import seedu.address.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -45,10 +44,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditCommand.EditPersonDescriptor editPersonDescriptor = new EditCommand.EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }

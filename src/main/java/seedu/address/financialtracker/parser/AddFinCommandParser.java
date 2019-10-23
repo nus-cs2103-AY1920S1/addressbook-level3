@@ -19,13 +19,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AddFinCommandParser implements Parser<AddFinCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddFinCommand
-     * and returns an AddFinCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the
+     * AddFinCommand and returns an AddFinCommand object for execution.
+     * 
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFinCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -41,8 +41,8 @@ public class AddFinCommandParser implements Parser<AddFinCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if none of the prefixes contains empty {@code Optional} values
+     * in the given {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
