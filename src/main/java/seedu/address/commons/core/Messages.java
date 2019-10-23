@@ -34,11 +34,12 @@ public class Messages {
     public static final String MESSAGE_UNABLE_TO_LOAD_REFERENCES = "I'm unable to load the following references and "
             + "as such have removed them so they will not cause any errors in the program:\n";
     public static final String MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT = "Oops! For the background command, "
-            + "arguments are only allowed for background images and not background colours.\n%1$s";
+            + "arguments are only allowed for background images and not background colours. "
+            + "Scroll to view details on usage.\n%1$s";
     public static final String MESSAGE_INVALID_BACKGROUND_SIZE = "Oops! The background size settings you entered "
-            + "does not appear to match any known settings.\n%1$s";
+            + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
     public static final String MESSAGE_INVALID_BACKGROUND_REPEAT = "Oops! The background repeat settings you entered "
-            + "does not appear to match any known settings.\n%1$s";
+            + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
     public static final String MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED = "Note: I have loaded a temporary background "
             + "image for you but on the next startup this background image will reset! Do feel free to explore and "
             + "set your own background image and colour amongst other features :)";

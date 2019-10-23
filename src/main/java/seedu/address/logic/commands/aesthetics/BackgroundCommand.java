@@ -71,6 +71,8 @@ public class BackgroundCommand extends Command {
         if (previousBackground.isBackgroundColour()
                 && (newBackground.isEmpty()
                 && !newBackground.getBgSize().isEmpty() || !newBackground.getBgRepeat().isEmpty())) {
+            System.out.println(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT,
+                    BackgroundCommand.MESSAGE_USAGE));
             throw new CommandException(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT, MESSAGE_USAGE));
         }
 

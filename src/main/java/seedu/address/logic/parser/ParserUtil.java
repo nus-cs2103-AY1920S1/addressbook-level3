@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
 
-import java.awt.Image;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.aesthetics.BackgroundCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
@@ -356,17 +357,17 @@ public class ParserUtil {
         if (Colour.isValidColour(trimmedBackground)) {
             return new Background(trimmedBackground);
         } else if (!Background.isValidBackgroundPicPath(trimmedBackground)) {
-            throw new ParseException(Background.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Background.MESSAGE_CONSTRAINTS + "\n" + BackgroundCommand.MESSAGE_USAGE);
         } else if (trimmedBackground.isEmpty()) {
             return new Background("");
         } else {
             try {
                 Image image = ImageIO.read(new File(trimmedBackground));
                 if (image == null) {
-                    throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                    throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE + "\n" + BackgroundCommand.MESSAGE_USAGE);
                 }
             } catch (IOException e) {
-                throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE);
+                throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE + "\n" + BackgroundCommand.MESSAGE_USAGE);
             }
             return new Background(trimmedBackground);
         }
