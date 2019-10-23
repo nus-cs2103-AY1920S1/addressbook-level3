@@ -31,6 +31,7 @@ public class FindMentorCommand extends FindCommand {
 
         List<Mentor> results = model.findMentorByName(name);
         listResults(results, PrefixType.P);
+        model.updateHistory(this);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

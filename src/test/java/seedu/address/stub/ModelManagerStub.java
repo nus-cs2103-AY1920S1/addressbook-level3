@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.ModelManager;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
@@ -235,10 +236,23 @@ public class ModelManagerStub extends ModelManager {
         return mentorToDelete;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof ModelManagerStub)) {
+            return false;
+        }
+        ModelManagerStub model = (ModelManagerStub) other;
+        return this.participantList.equals(model.participantList)
+                && this.mentorList.equals(model.mentorList)
+                && this.teamList.equals(model.teamList);
+    }
+
     /**
      * Placeholder method simulating the updating of ModelHistory
      */
-    public void updateHistory() {
-
+    public void updateHistory(Command c) {
     }
 }

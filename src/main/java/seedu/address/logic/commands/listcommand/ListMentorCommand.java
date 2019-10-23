@@ -22,8 +22,7 @@ public class ListMentorCommand extends ListCommand {
 
         this.displayMentors(model);
 
-        model.updateHistory();
+        model.updateHistory(this);
         return new CommandResult(MESSAGE_SUCCESS, PrefixType.M);
     }
-
 }

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.exceptions.AlfredException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.TeamList;
@@ -17,6 +18,8 @@ public class ModelHistoryRecord {
     private int mListId;
     private int tListId;
 
+    private Command c;
+
     /**
      * Constructor for ModelHistoryRecord. Important to note that a deep copy will be made of
      * each of the EntityLists passed in, so that the EntityLists stored in ModelHistoryRecord
@@ -30,13 +33,14 @@ public class ModelHistoryRecord {
      */
     public ModelHistoryRecord(ParticipantList pList, int pListId,
                               MentorList mList, int mListId,
-                              TeamList tList, int tListId) throws AlfredException {
+                              TeamList tList, int tListId, Command c) throws AlfredException {
         this.pList = pList.copy();
         this.pListId = pListId;
         this.mList = mList.copy();
         this.mListId = mListId;
         this.tList = tList.copy();
         this.tListId = tListId;
+        this.c = c;
     }
 
     public ParticipantList getParticipantList() {
@@ -61,5 +65,9 @@ public class ModelHistoryRecord {
 
     public int getTeamListLastUsedId() {
         return this.tListId;
+    }
+
+    public Command getCommand() {
+        return this.c;
     }
 }

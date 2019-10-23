@@ -58,7 +58,7 @@ public class AddParticipantCommand extends AddCommand {
 
         try {
             model.addParticipant(this.participant);
-            model.updateHistory();
+            model.updateHistory(this);
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PARTICIPANT);
         }
@@ -72,5 +72,4 @@ public class AddParticipantCommand extends AddCommand {
                 || (other instanceof AddParticipantCommand // instanceof handles nulls
                 && participant.equals(((AddParticipantCommand) other).participant));
     }
-
 }

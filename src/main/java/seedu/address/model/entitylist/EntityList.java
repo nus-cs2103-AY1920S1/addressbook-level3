@@ -13,6 +13,8 @@ public abstract class EntityList implements ReadOnlyEntityList {
 
     public abstract boolean contains(Id id);
 
+    public abstract boolean contains(Entity entity);
+
     public abstract ObservableList<? extends Entity> list();
 
     public abstract ObservableList<? extends Entity> getUnmodifiableList();

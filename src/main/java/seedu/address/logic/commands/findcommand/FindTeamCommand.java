@@ -31,6 +31,7 @@ public class FindTeamCommand extends FindCommand {
 
         List<Team> results = model.findTeamByName(name);
         listResults(results, PrefixType.P);
+        model.updateHistory(this);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

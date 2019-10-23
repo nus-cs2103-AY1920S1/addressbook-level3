@@ -13,10 +13,9 @@ import seedu.address.commons.core.LogsCenter;
  * field values is  validated as declared in {@link #isValidName(String)}, immutable.
  */
 public class Name {
-    //Constat
-    public static final String SPECIAL_CHARACTERS = "\\,.-'";
-    private static final String VALIDATION_REGEX =
-            "^[A-Za-z][A-Za-z\\'\\-\\.\\,0-9]+([\\ A-Za-z0-9][A-Za-z\\'\\-\\.\\,0-9]+)*";
+
+    //Constants
+    private static final String SPECIAL_CHARACTERS = ",-.'";
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should adhere to the following constraints:\n"
@@ -25,6 +24,7 @@ public class Name {
                     + "the parentheses (" + SPECIAL_CHARACTERS + "). \n"
                     + "3.Contain at least one character";
 
+    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}" + SPECIAL_CHARACTERS + " ]*";
 
     // Data fields
     public final String fullName;
