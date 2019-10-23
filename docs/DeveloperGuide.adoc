@@ -116,7 +116,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::design/model/ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/model/Model.java[`Model.java`]
 
@@ -126,6 +126,21 @@ The `Model`,
 * stores the AlgoBase data.
 * exposes unmodifiable `ObservableList<Problem>`, `ObservableList<Tag>`, `ObservableList<Plan>`, `ObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+We organize different data classes into packages (e.g. `Problem`), inside which we provide a collection class of that data object (e.g. `UniqueProblemList`) so that `AlgoBase` can manage these data objects without knowing the details of each data class.
+
+.Structure of the Problem Package
+image::design/model/ProblemPackageDiagram.png[]
+
+.Structure of the Plan Package
+image::design/model/PlanPackageDiagram.png[]
+
+.Structure of the Tag Package
+image::design/model/TagPackageDiagram.png[]
+
+.Structure of the Task Package
+image::design/model/TaskPackageDiagram.png[]
+
 //@@author
 
 //@@author jiayushe
@@ -181,9 +196,8 @@ Given below is an example usage scenario and how the mechanism for adding tasks 
 
 The following activity diagram summarizes what happens when a user executes the `AddTask` command:
 
+.Activity Diagram for the Execution of `AddTask` Command
 image::task/AddTaskCommandActivityDiagram.png[]
-
-_Figure 1. Activity Diagram for the Execution of `AddTask` Command_
 
 Step 1. The user launches the application.
 
@@ -195,9 +209,8 @@ After that, `Model#setPlan()` is called to replace the original plan with the up
 
 The following sequence diagram shows how the `addtask` operation works:
 
+.Sequence Diagram for the Execution of `AddTask` Command
 image::task/AddTaskSequenceDiagram.png[]
-
-_Figure 2. Sequence Diagram for the Execution of `AddTask` Command_
 
 ==== Design Considerations
 
@@ -271,9 +284,8 @@ This section will describe in detail the current implementation and design consi
 
 The following activity diagram summarizes what happens when a user executes the find command:
 
+.Activity Diagram for the Execution of `find` Command
 image::find/FindCommandActivityDiagram.png[]
-
-_Figure 1. Activity Diagram for the Execution of `find` Command_
 
 ==== Current Implementation
 
@@ -293,6 +305,26 @@ Additionally, it implements the following operation(s):
 +
 ** `FindProblemDescriptor#isAnyFieldProvided()` - Determines if there is at least one search restriction included in this instance of `FindProblemDescriptor`.
 ** `FindProblemDescriptor#equals(...)` - Two instances of `FindProblemDescriptor` are equal if and only if all of their predicates are equal.
+* `FindCommandParser`
+It validates and parses user input to an instance of `FindCommand`.
+
+[NOTE]
+If the user provides difficulty range as one of the search restrictions, `FindCommandParser` expects the format `LOWER_BOUND \<= difficulty \<= UPPER_BOUND` while `LOWER_BOUND` and `UPPER_BOUND` are valid strings for doubles (i.e. parsable by `Double.parseDouble(...)`).
+
+* `FindCommand`
++
+It creates and stores the `predicate` from an instance of `FindProblemDescriptor`. `predicate` is used to perform the filtering of the displayed problem list when the command is executed.
++
+`predicate` returns true only when the provided problem fulfills all restrictions described by the provided instance of `FindProblemDescriptor`.
++
+Additionally, it implements the following operation(s):
++
+** `FindCommand#execute(...)` - This method overrides `Command#execute(...)`. It filters problems in `filteredProblemList` in `model` with `predicate`.
+** `FindCommand#equals(...)` - Two instances of `FindCommand` are equal if and only if their `predicate` are equal.
+
+.Class Diagram of the Find Feature
+image::find/FindCommandClassDiagram.png[]
+
 * Predicates that implements interface `Predicate<Problem>`
 +
 These are classes that describes whether an instance of `Problem` is considered a match under a certain field with provided keyword(s).
@@ -312,26 +344,9 @@ These are classes that describes whether an instance of `Problem` is considered 
 ** `TagIncludesKeywordsPredicate`
 *** Each keyword will be considered as a tag, and two tags are considered equal only when their names are exactly the same.
 *** It returns true when the provided tags are a subset of the tags of the provided problem.
-* `FindCommandParser`
-It validates and parses user input to an instance of `FindCommand`.
 
-[NOTE]
-If the user provides difficulty range as one of the search restrictions, `FindCommandParser` expects the format `LOWER_BOUND \<= difficulty \<= UPPER_BOUND` while `LOWER_BOUND` and `UPPER_BOUND` are valid strings for doubles (i.e. parsable by `Double.parseDouble(...)`).
-
-* `FindCommand`
-+
-It creates and stores the `predicate` from an instance of `FindProblemDescriptor`. `predicate` is used to perform the filtering of the displayed problem list when the command is executed.
-+
-`predicate` returns true only when the provided problem fulfills all restrictions described by the provided instance of `FindProblemDescriptor`.
-+
-Additionally, it implements the following operation(s):
-+
-** `FindCommand#execute(...)` - This method overrides `Command#execute(...)`. It filters problems in `filteredProblemList` in `model` with `predicate`.
-** `FindCommand#equals(...)` - Two instances of `FindCommand` are equal if and only if their `predicate` are equal.
-
-image::find/FindCommandClassDiagram.png[]
-
-_Figure 2. Class Diagram of the Find Feature_
+.Class Diagram for Predicates in the Find Feature
+image::find/PredicateClassDiagram.png[]
 
 Given below is an example usage scenario and how the find problem mechanism behaves at each step.
 
@@ -344,9 +359,8 @@ If no valid search restriction is provided by the user, `FindCommandParser` will
 
 Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search restrictions.
 
+.Sequence Diagram for the Execution of `find` Command
 image::find/FindCommandSequenceDiagram.png[]
-
-_Figure 3. Sequence Diagram for the Execution of `find` Command_
 
 ==== Design Considerations
 

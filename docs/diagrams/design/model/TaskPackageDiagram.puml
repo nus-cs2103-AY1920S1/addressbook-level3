@@ -1,0 +1,18 @@
+@startuml
+!include ../../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show <<enumeration>> fields
+
+Package Task {
+    Class Task
+}
+
+'Task
+Task *--> "1" Problem
+Task *--> "1" Boolean : isSolved
+Task *--> "1" LocalDateTime : datetime
+
+@enduml
