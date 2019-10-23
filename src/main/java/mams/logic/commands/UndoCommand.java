@@ -8,11 +8,11 @@ import mams.model.Model;
 import mams.model.ReadOnlyMams;
 import mams.storage.JsonMamsStorage;
 
+/**
+ * loads data from mamshistory_undo.json
+ */
 public class UndoCommand extends StoreCommand {
 
-    /**
-     * loads data from mamshistory_undo.json
-     */
     public UndoCommand() {
 
     }
