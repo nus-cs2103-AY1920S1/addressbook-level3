@@ -85,7 +85,7 @@ public class MamsParser {
             return new SetCreditsParser().parse(arguments);
 
         case StoreCommand.COMMAND_UNDO:
-            return new  UndoCommand();
+            return new UndoCommand();
 
         case SaveCommand.COMMAND_STORE:
             return new SaveCommandParser().parse(arguments);

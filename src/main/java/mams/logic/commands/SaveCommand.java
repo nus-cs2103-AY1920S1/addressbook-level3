@@ -1,17 +1,20 @@
 package mams.logic.commands;
 
-import mams.logic.commands.exceptions.CommandException;
-import mams.model.Model;
-import mams.model.ReadOnlyMams;
-import mams.storage.JsonMamsStorage;
-
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import mams.logic.commands.exceptions.CommandException;
+import mams.model.Model;
+import mams.model.ReadOnlyMams;
+import mams.storage.JsonMamsStorage;
+
+/**
+ * saves data under mamshistory_tag.json
+ */
 public class SaveCommand extends StoreCommand {
-    String tag = "";
+    private String tag = "";
 
     public SaveCommand(String tag) {
         this.tag = tag;
@@ -24,14 +27,18 @@ public class SaveCommand extends StoreCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         ReadOnlyMams mamsToSave = model.getMams();
-        JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_"+ this.tag +".json"));
+        JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_" + this.tag + ".json"));
         try {
             history.saveMams(mamsToSave);
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new CommandException("Unable to save");
         }
         return new CommandResult("Save Successful ");
 
+    }
+
+    public String getTag() {
+        return this.tag;
     }
 
     @Override

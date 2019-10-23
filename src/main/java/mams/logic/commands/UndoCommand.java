@@ -1,15 +1,18 @@
 package mams.logic.commands;
 
+import java.nio.file.Paths;
+
 import mams.commons.exceptions.DataConversionException;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 import mams.model.ReadOnlyMams;
 import mams.storage.JsonMamsStorage;
 
-import java.nio.file.Paths;
-
 public class UndoCommand extends StoreCommand {
 
+    /**
+     * loads data from mamshistory_undo.json
+     */
     public UndoCommand() {
 
     }
@@ -21,8 +24,7 @@ public class UndoCommand extends StoreCommand {
         try {
             if (history.readMams().isPresent()) {
                 mamsToReplace = history.readMams().get();
-            }
-            else {
+            } else {
                 throw new DataConversionException(new Exception());
             }
             model.replaceMams(mamsToReplace);
