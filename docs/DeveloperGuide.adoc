@@ -503,13 +503,32 @@ Use case resumes at step 1.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Delete user-defined macros
+
+*MSS*
+
+1.  User requests to remove user-defined macros
+2.  AddressBook removes user-defined macro
+
++
+Use case ends.
+
 *Extensions*
 
 [none]
-* 1a. The command is not defined.
+* 1a. The content of the macro name is empty.
 +
 [none]
 ** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. There exists no such macro.
++
+[none]
+** 1b1. AddressBook shows an error message.
 +
 Use case resumes at step 1.
 
