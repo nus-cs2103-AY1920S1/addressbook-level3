@@ -295,7 +295,7 @@ a serial number. Thus, the user just types in the serial number of the book to b
 locate that book in LiBerry to use its index.
 
 * Whereas, when a borrower comes to return a book, the librarian only sees a limited list of book that was loaned out by
-the borrower on the GUI. Hence, the user need not type the longer serial number to return that book, and instead, types
+the borrower on the GUI. Hence, the librarian need not type the longer serial number to return that book, and instead, types
 its index shown in the GUI list. Likewise, the same idea is applied to renewing books
 
 * When reserving books for borrowers, it is possible that the book is found through the GUI, and thus, index is used. Or,
