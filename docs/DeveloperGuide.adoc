@@ -302,9 +302,64 @@ take some time.
 ==== Proposed Implementation
 ==== Design Considerations
 
-=== Health feature
+=== Health Records feature
+The Health Records feature handles the following:
+
+* Keeping track of the health data recorded by the user
+* Present the data with visual representation of a trend graph that shows the health progress of the user
+
 ==== Proposed Implementation
+The commands that are callable by the user are as followed:
+
+.  `view health` - view the specific type of health records
+.  `add health` - adds a new record respective to the type of health records
+.  `edit health` - edits a existing health record
+.  `delete health` - deletes a existing health record
+
+The class diagram below illustrates the structure of a Health Record class.
+
+image::HealthRecordsClassDiagram.png[]
+
+Each Health Record object consist of a Type, Timestamp and Value. The current implementation stores 6 key areas:
+
+2. Weight
+3. Height
+4. Calories
+5. Glucose
+6. Blood Pressure
+7. Menstrual Cycle (for Females)
+
+[NOTE]
+The types available are stored in a list named `TYPE_UTIL`. This means that the validity check of `Type` Object will be checked against `TYPE_UTIL` list. If type does not exist, the record will fail to construct.
+
+In future implementations (possibly in v2.0), the `TYPE_UTIL` list will accommodate more record types defined by the user. This means that there will not be a restriction imposed in health types that can be recorded. User can create a new health type to start health tracking (eg. Sodium level).
+
+===== `add health` Command
+`add health t/[type] [inputs]` is parsed in the `addHealthCommandParser`. The inputs will first be initialised to its respective objects with underlying validation checks (eg. `Type` object will call for `isValidType()` method to check against `TYPE_UTIL` List). A `Record` object will then be created with the three valid object components.
+
+The sequence diagram below illustrates a sample run of program where `add health` command has been successfully parsed.
+
+image::AddHealthSequenceDiagram.png[]
+
+
 ==== Design Considerations
+
+===== Aspect: Data structure on how the different health types are stored
+
+*  **Alternative 1 (Current Choice)**: Maintain a Map to validate type of health record
+
+    A `HashMap` is used to store the different health types and its respective metric unit (eg. Weight, kg). When a health related command is called, the `TYPE_UTIL` will be accessed and checked against to determine if command is valid.
+
+** Pros: Greater flexibility in the implementation and usage of `TYPE_UTIL` Map. Allow possible extension of having more user defined health types.
+** Cons: Difficult to keep track of each health type and lack of clarity.
+
+
+* **Alternative 2:** Introduce each health type as a Class on its own
+
+** Pros: Clearer distinction and declaration of each health type
+** Cons: Limited to a specific number of health types. User cannot introduce their own health type for record tracking. Requires diligence on developer’s end to introduce new classes for more variations.
+
+
 
 === Diary feature
 ==== Implementation

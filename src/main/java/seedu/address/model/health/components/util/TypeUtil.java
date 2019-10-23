@@ -1,6 +1,7 @@
 package seedu.address.model.health.components.util;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Contains record types available for generating {@code HealthRecords}.
@@ -19,7 +20,7 @@ public class TypeUtil {
     public static final String UNIT_HEIGHT = "cm";
     public static final String UNIT_CALORIES = "kcal";
 
-    public static final HashMap<String, String> TYPE_LIST =
+    public static final Map<String, String> TYPE_LIST =
             new HashMap<>() {{
                 put(TYPE_BLOODPRESSURE, UNIT_BLOODPRESSURE);
                 put(TYPE_GLUCOSE, UNIT_GLUCOSE);

@@ -2,16 +2,11 @@ package seedu.address.model.health.components;
 
 import java.util.Objects;
 
-import seedu.address.logic.parser.DateParser;
-
 /**
  * Represents a Person in Duke Cooks.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Record {
-
-    // Identity fields
-    private final int recordId;
 
     // Data fields
     private final Type type;
@@ -22,24 +17,9 @@ public class Record {
      * Every field must be present and not null.
      */
     public Record(Type type, Value value, Timestamp timestamp) {
-        this.recordId = Objects.hash(timestamp.timestamp, DateParser.getCurrentTimestamp());
         this.type = type;
         this.value = value;
         this.timestamp = timestamp;
-    }
-
-    /**
-     * Preassumptions: valid recordId generated and parse from Json.
-     */
-    public Record(String recordId, Type type, Value value, Timestamp timestamp) {
-        this.recordId = Integer.parseInt(recordId);
-        this.type = type;
-        this.value = value;
-        this.timestamp = timestamp;
-    }
-
-    public int getRecordId() {
-        return recordId;
     }
 
     public Type getType() {
@@ -64,7 +44,7 @@ public class Record {
         }
 
         return otherRecord != null
-                && otherRecord.getRecordId() == getRecordId();
+                && otherRecord.equals(this);
     }
 
     /**
@@ -82,21 +62,22 @@ public class Record {
         }
 
         Record otherRecord = (Record) other;
-        return otherRecord.getRecordId() == getRecordId();
+        return otherRecord.getType() == getType()
+                && otherRecord.getTimestamp() == getTimestamp()
+                && otherRecord.getValue() == getValue();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(recordId, type);
+        return Objects.hash(type, timestamp, value);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getRecordId())
-                .append(" Type: " + getType())
-                .append(" Value: " + getType() + getValue())
+        builder.append("Type: " + getType())
+                .append(" Value: " + getValue())
                 .append(" Timestamp: " + getTimestamp());
         return builder.toString();
     }

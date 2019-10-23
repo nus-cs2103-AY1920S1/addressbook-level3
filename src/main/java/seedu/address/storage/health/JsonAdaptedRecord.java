@@ -16,7 +16,6 @@ class JsonAdaptedRecord {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Record's %s field is missing!";
 
-    private final String recordId;
     private final String type;
     private final String value;
     private final String timestamp;
@@ -25,11 +24,9 @@ class JsonAdaptedRecord {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedRecord(@JsonProperty("recordId") String recordId,
-                             @JsonProperty("type") String type,
+    public JsonAdaptedRecord(@JsonProperty("type") String type,
                              @JsonProperty("value") String value,
                              @JsonProperty("timestamp") String timestamp) {
-        this.recordId = recordId;
         this.type = type;
         this.value = value;
         this.timestamp = timestamp;
@@ -39,7 +36,6 @@ class JsonAdaptedRecord {
      * Converts a given {@code Record} into this class for Jackson use.
      */
     public JsonAdaptedRecord(Record source) {
-        recordId = String.valueOf(source.getRecordId());
         type = source.getType().type;
         value = String.valueOf(source.getValue().value);
         timestamp = source.getTimestamp().timestamp;
@@ -51,11 +47,6 @@ class JsonAdaptedRecord {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Record toModelType() throws IllegalValueException {
-
-        if (recordId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Record.class.getSimpleName()));
-        }
-        final String modelRecordId = recordId;
 
         if (type == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
@@ -82,7 +73,7 @@ class JsonAdaptedRecord {
         }
         final Timestamp modelTimestamp = new Timestamp(timestamp);
 
-        return new Record(modelRecordId, modelType, modelValue, modelTimestamp);
+        return new Record(modelType, modelValue, modelTimestamp);
     }
 
 }

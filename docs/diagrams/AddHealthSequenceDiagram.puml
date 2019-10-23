@@ -1,0 +1,108 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":DukeCooksParser" as DukeCooksParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant ":AddHealthCommandParser" as AddHealthCommandParser LOGIC_COLOR
+participant "d:AddHealthCommand" as AddHealthCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "t:Type" as Type MODEL_COLOR
+participant "dt:Timestamp" as Timestamp MODEL_COLOR
+participant "val:Value" as Value MODEL_COLOR
+participant "r:Record" as Record MODEL_COLOR
+end box
+
+[-> DukeCooksParser : parseCommand("add \n health glucose*")
+activate DukeCooksParser
+
+DukeCooksParser -> AddCommandParser : parse("health glucose *")
+activate AddCommandParser
+
+AddCommandParser -> AddHealthCommandParser :  parse("glucose *")
+activate AddHealthCommandParser
+
+create Type
+AddHealthCommandParser -> Type : new Type("glucose")
+activate Type
+
+Type -> Type : isValidType()
+activate Type
+
+Type --> Type
+deactivate Type
+
+Type --> AddHealthCommandParser : t
+deactivate Type
+
+create Timestamp
+AddHealthCommandParser -> Timestamp : new Timestamp("10/10/2019 12:00")
+activate Timestamp
+
+Timestamp -> Timestamp : isValidDateTime()
+activate Timestamp
+
+Timestamp --> Timestamp
+deactivate Timestamp
+
+Timestamp --> AddHealthCommandParser : dt
+deactivate Timestamp
+
+create Value
+AddHealthCommandParser -> Value : new Value("80")
+activate Value
+
+Value -> Value : isValidNumber()
+activate Value
+
+Value --> Value
+deactivate Value
+
+Value --> AddHealthCommandParser : val
+deactivate Value
+
+create Record
+AddHealthCommandParser -> Record : new Record(t, val, dt)
+activate Record
+
+Record --> AddHealthCommandParser : r
+deactivate Record
+
+create AddHealthCommand
+AddHealthCommandParser -> AddHealthCommand : r
+activate AddHealthCommand
+
+AddHealthCommand --> AddHealthCommandParser : d
+deactivate AddHealthCommand
+
+AddHealthCommandParser --> AddCommandParser : d
+deactivate AddHealthCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddHealthCommandParser -[hidden]-> AddCommandParser
+destroy AddHealthCommandParser
+
+AddCommandParser --> DukeCooksParser : d
+deactivate AddCommandParser
+
+DukeCooksParser -> AddHealthCommand : execute()
+activate AddHealthCommand
+
+Model --> AddHealthCommand
+deactivate Model
+
+create CommandResult
+AddHealthCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddHealthCommand
+deactivate CommandResult
+
+AddHealthCommand --> DukeCooksParser : result
+deactivate AddHealthCommand
+
+[<--DukeCooksParser
+deactivate DukeCooksParser
+@enduml
