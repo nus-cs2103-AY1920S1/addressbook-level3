@@ -325,7 +325,7 @@ Step 2: The user wants to switch to the customer context for customer-focused co
 
 *insert picture of cus being typed in/ class diagram???*
 
-Step 3: The user can now complete the command he/she wants by entering the relevant command shown in the dropdown box. 
+Step 3: The user can now complete the command he/she wants by entering the relevant command shown in the dropdown box.
 
 *insert picture of the ui with the dropdown box*
 
