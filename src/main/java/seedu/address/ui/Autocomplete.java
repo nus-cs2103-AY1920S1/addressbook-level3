@@ -185,7 +185,7 @@ public class Autocomplete extends TextField {
     private void generateArgumentKeywords() {
         argumentKeywords = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         if (tags != null) {
-            argumentKeywords.addAll(tags.toStringList());
+            argumentKeywords.addAll(tags.asListOfStrings());
         }
     }
 }
