@@ -45,7 +45,4 @@ Distance "0..1" -up-> ExerciseDetails
 Sets "0..1" -up-> ExerciseDetails
 Repetitions "0..1" -up-> ExerciseDetails
 
-
-
-
 @enduml
