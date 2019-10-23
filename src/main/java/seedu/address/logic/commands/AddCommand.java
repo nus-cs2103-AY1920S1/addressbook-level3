@@ -106,8 +106,6 @@ public class AddCommand extends UndoableCommand {
         model.addEntity(toAdd);
 
         if (toAdd instanceof Body) {
-            NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd), 5, TimeUnit.SECONDS);
-            
             Body body = (Body) toAdd;
             NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, TimeUnit.SECONDS);
             this.notifCommand = notifCommand;
