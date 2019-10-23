@@ -17,6 +17,7 @@ import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageStub;
 
 class TabCommandTest {
+
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
     private Storage storage = new StorageStub();

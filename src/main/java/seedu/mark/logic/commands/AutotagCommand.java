@@ -44,8 +44,8 @@ public class AutotagCommand extends Command {
 
         model.addTagger(tagger);
         model.applyAllTaggers();
-        model.saveMark(); // TODO: Don't save Mark if no taggers were actually applied
-
+        // TODO: Don't save Mark if no taggers were actually applied
+        model.saveMark(String.format(MESSAGE_AUTOTAG_ADDED, tagger));
         return new CommandResult(String.format(MESSAGE_AUTOTAG_ADDED, tagger));
     }
 
