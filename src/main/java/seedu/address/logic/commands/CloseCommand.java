@@ -28,7 +28,7 @@ public class CloseCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DUPLICATE_EATERY = "This eatery is already closed in the address book.";
+    public static final String MESSAGE_EATERY_ALREADY_CLOSED = "This eatery is already closed in the address book.";
     public static final String MESSAGE_CLOSED_EATERY_SUCCESS = "Closed Eatery: %1$s";
 
     private final Index targetIndex;
@@ -49,12 +49,12 @@ public class CloseCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EATERY_DISPLAYED_INDEX);
         }
-        Eatery eateryToClose = lastShownList.get(targetIndex.getZeroBased());
-        Eatery closedEatery = createClosedEatery(eateryToClose);
 
-        if (eateryToClose.equals(closedEatery) && model.hasExactEatery(eateryToClose)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EATERY);
+        Eatery eateryToClose = lastShownList.get(targetIndex.getZeroBased());
+        if (!eateryToClose.getIsOpen()) {
+            throw new CommandException(MESSAGE_EATERY_ALREADY_CLOSED);
         }
+        Eatery closedEatery = createClosedEatery(eateryToClose);
 
         model.setEatery(eateryToClose, closedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);

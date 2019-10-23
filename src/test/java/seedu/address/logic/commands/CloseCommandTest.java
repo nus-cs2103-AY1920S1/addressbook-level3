@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -51,7 +50,7 @@ public class CloseCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() throws CommandException {
+    public void execute_validIndexFilteredList_success() {
         showEateryAtIndex(model, INDEX_FIRST_EATERY);
 
         model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased());
