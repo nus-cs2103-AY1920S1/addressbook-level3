@@ -90,6 +90,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
         }
     }
 
+
     private List<Event> getRecEvents(Appointment event, String recursiveString, int times) {
         List<Event> eventList = new ArrayList<>();
         Timing timing = event.getEventTiming();
@@ -103,6 +104,11 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
             for (int i = 0; i < times; i++) {
                 eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
                 timing = Timing.getOneMonthLaterTiming(timing);
+            }
+        } else if (recursiveString.equals("d")) {
+            for (int i = 0; i < times; i++) {
+                eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
+                timing = Timing.getOneDayLaterTiming(timing);
             }
         } else {
             for (int i = 0; i < times; i++) {

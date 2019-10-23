@@ -51,6 +51,18 @@ public class DateTime implements Comparable<DateTime> {
         }
         return parsedDateTime;
     }
+    /**
+     * gets another DateTime object which is one day later from current one.
+     *
+     * @param current a given DateTime object
+     * @return a {@code DateTime} new object which is one day later from given one.
+     */
+    public static DateTime plusOneDay(DateTime current) {
+        LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
+                ZoneId.systemDefault());
+        Date currentDate = Date.from(currenLocalDateTime.plusDays(1).atZone(ZoneId.systemDefault()).toInstant());
+        return new DateTime(currentDate);
+    }
 
     /**
      * gets another DateTime object which is one week later from current one.

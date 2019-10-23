@@ -75,7 +75,17 @@ public class Timing implements Comparable<Timing> {
                 && getStartTime().before(other.getEndTime())
                 && other.getStartTime().before(getEndTime());
     }
-
+    /**
+     * gets another Timing object which is one day later from current one.
+     *
+     * @param current a given Timing object
+     * @return a {@code Timing} new object which is one day later from given one.
+     */
+    public static Timing getOneDayLaterTiming(Timing current) {
+        DateTime start = DateTime.plusOneDay(current.getStartTime());
+        DateTime end = DateTime.plusOneDay(current.getEndTime());
+        return new Timing(start, end);
+    }
     /**
      * gets another Timing object which is one week later from current one.
      *
