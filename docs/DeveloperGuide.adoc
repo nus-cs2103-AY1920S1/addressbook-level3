@@ -372,6 +372,68 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Visual Representation of individual's or group's schedule
+A separate class `ScheduleView` will be created to facilitate the creation of the schedule view belonging to individuals and groups.
+Depending on the constructor used in this class, different types of schedules will be shown. There are two types of constructors:
+* `ScheduleView(WeekSchedule weekSchedule)` This constructor is used to construct a schedule view of an individual.
+* `ScheduleView(List<WeekSchedule> weekSchedules, List<String> colors, WeekSchedule freeSchedule)` This constructor is used to construct a schedule view of a group
+
+These methods are used in the MainWindow class, where MainWindow will display instances of ScheduleView when various commands
+are performed.
+
+Given below is an example of how the Nodes (containers) in MainWindow changes with respect to the show command.
+
+Step 1. After the user launches the application, the MainWindow will consist of 4 main Nodes: `CommandBox`, `TabsPanel`, `ResultDisplay` and `DefaultDetailWindow`.
+
+image::VisualRepresentationCD0.png[]
+
+Step 2a. Suppose the user has a friend named Ben in the application. The user executes `show n/ Ben` in order to view Ben's details
+and his schedule. The state of MainWindow will now have another set of 4 Nodes: `CommandBox`, `ResultDisplay`, `ScheduleView` and `PersonDetailCard`.
+
+image::VisualRepresentationCD1.png[]
+
+Step 2b. Alternatively, suppose the user has a group named CS2103T team project. The user executes `show g/ CS2103T team project` in
+order to view the group's schedule and information. The state of MainWindow will now have a different set of 4 Nodes: `CommandBox`, `ScheduleView`,
+`ResultDisplay` and `GroupInformation`
+
+image::VisualRepresentationCD2.png[]
+
+[NOTE]
+If the user keys in a name or group that is not present in the application, a CommandException will be thrown to indicate
+that such name or group is not found in the application.
+
+The following sequence diagram shows how the show command eventually lead to changes in the UI to show the visual representation
+of an individual's or group's schedule.
+
+image::VisualRepresentationSD0.png[]
+image::VisualRepresentationSD1.png[]
+
+==== Design Considerations
+
+===== Aspect: User experience of the schedule view.
+* **Alternative 1 (current choice):** Use a separate container for headers and schedule contents (table cells & blocks).
+** Pros: User can read the schedule in our application a lot more easier.
+** Cons: Duplicated codes in the ScheduleView class to generate the separate containers.
+* **Alternative 2:** A single container to contain the schedule view.
+** Pros: Easier to implement, lesser lines of codes.
+** Cons: UX will decrease due to increase difficulty to read schedules in the application.
+
+===== Aspect: Amount of detail present in schedule view.
+* **Alternative 1:** Enable users to see schedules up to 1 week in advance.
+** Pros: Easy to implement.
+** Cons: Users may experience difficulty to plan meetings 2 or more weeks in advance.
+* **Alternative 2 (current choice):** Enable users to see schedules up to 4 weeks in advance.
+** Pros: Most users will be able to plan most of their meetings. (Up to 1 month in advance).
+** Cons: Slightly more challenging to implement in order to make sure that the schedule view is not cluttered.
+
+===== Aspect: Color schemes for time slot blocks in schedule view.
+* **Alternative 1 (current choice):** Select 10 good contrast colours to dark theme for schedules.
+** Pros: More aesthetically pleasing to the user.
+** Cons: Groups that have more than 10 members will have the same colours for their schedule.
+* **Alternative 2:** Randomly generate colours depending on group size.
+** Pros: All members in a group will very likely have different colours to indicate their schedule.
+** Cons: Schedules with darker colours cannot be seen from a dark theme UI.
+
 [[Implementation-ClosestLocation]]
 === Closest Common Location(Micro Service)
 Closest common location utilises Google Maps Api to get the closest common location among a group of various location in NUS.
@@ -435,6 +497,7 @@ at most 10 x 10 matrix. Construct the n x n matrix by calling google maps Distan
 This is the sequence diagram for when the method `Model.getClosestLocationData` and `Model.getClosestLocationString`
 
 image::gmaps/ClosestLocationSequenceDiagram.png[]
+>>>>>>> 4d908ab81c2bd5e35254b1528ab1e76480b2b893
 
 == Documentation
 

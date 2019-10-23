@@ -10,7 +10,6 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -47,8 +46,8 @@ public class ScheduleView extends UiPart<Region> {
     private List<String> colors;
     private HashMap<DayOfWeek, StackPane> dayTimeslotStackPanes = new HashMap<DayOfWeek, StackPane>();
     private int oneHourLength = 60;
-    private int preferredWidth = 120;
-    private double blockWidth = 120;
+    private int preferredWidth = 140;
+    private double blockWidth = 140;
     private int startTime = 8;
     private int endTime = 20;
     private int currentDay;
@@ -243,12 +242,8 @@ public class ScheduleView extends UiPart<Region> {
         int minutes = durationMinutes % 60;
         double heightOfTimeslot = hours * oneHourLength + (minutes / 60.0) * oneHourLength;
         result.setPrefSize(blockWidth, heightOfTimeslot);
-        //result.setMaxWidth(blockWidth); setsMaxWidth of busy timeslot.
         result.setStyle("-fx-background-color: " + color + "; -fx-border-width: 2; -fx-background-radius: 5;");
-        DropShadow shadow = new DropShadow();
-        shadow.setOffsetX(3);
-        shadow.setOffsetY(3);
-        result.setEffect(shadow);
+        result.setId("colouredTimeslot");
         return result;
     }
 
