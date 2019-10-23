@@ -66,20 +66,29 @@ public class StringUtil {
         }
     }
     /**
-     * Returns true if the actual similarity between {@code string1} and {@code string2}
+     * Returns true if the string similarity between {@code string1} and {@code string2}
      * is greater than {@code requiredSimilarityPercentage}
      * @throws NullPointerException if {@code string1} or {@code string2} is null.
      */
     public static boolean isSimilarWord(String string1, String string2, Double requiredSimilarityPercentage) {
+        double stringSimilarity = calculateStringSimilarity(string1, string2);
+        return stringSimilarity >= requiredSimilarityPercentage;
+    }
+
+    /**
+     * Returns string similarity  between {@code string1} and {@code string2} as a double from 0.0 - 1.0
+     * @throws NullPointerException if {@code string1} or {@code string2} is null.
+     */
+    public static double calculateStringSimilarity(String string1, String string2) {
         requireNonNull(string1);
         requireNonNull(string2);
 
         Integer longerStringLength = Math.max(string1.length(), string2.length());
         Integer levenshteinDistance = calculateLevenshteinDistance(string1, string2);
-
         Double similarityPercentage = ((longerStringLength - levenshteinDistance) / (double) longerStringLength);
-        return similarityPercentage >= requiredSimilarityPercentage;
+        return similarityPercentage;
     }
+
     /**
      * Returns the cost of inserting / deleting / swapping a character. Used in {@code calculateLevenshteinDistance}
      */

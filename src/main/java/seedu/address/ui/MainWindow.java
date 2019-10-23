@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private SlideshowWindow slideShowWindow;
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
+    private EventSchedulePanel eventSchedulePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -59,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane eventSchedulePanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -122,9 +127,6 @@ public class MainWindow extends UiPart<Stage> {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
-        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
 
@@ -136,6 +138,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
+        eventSchedulePanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
     }
 
     /**
@@ -189,6 +194,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Show UI
+     */
     void show() {
         primaryStage.show();
     }
@@ -231,6 +239,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isScheduleChange()) {
+                eventSchedulePanel.updateScheduler();
             }
 
             if (commandResult.isShowStatistic()) {

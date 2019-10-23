@@ -32,15 +32,21 @@ public class CommandResult {
     private final boolean exit;
 
     /**
+     * The application should update the scheduler view
+     */
+    private final boolean scheduleChange;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean showSlideshow, boolean showStatistic,
-        boolean exit) {
+        boolean exit, boolean scheduleChange) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.showSlideshow = showSlideshow;
         this.showStatistic = showStatistic;
         this.exit = exit;
+        this.scheduleChange = scheduleChange;
     }
 
     /**
@@ -48,7 +54,7 @@ public class CommandResult {
      * fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -71,6 +77,10 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isScheduleChange() {
+        return scheduleChange;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -86,12 +96,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
             && showHelp == otherCommandResult.showHelp
             && showSlideshow == otherCommandResult.showSlideshow
-            && exit == otherCommandResult.exit;
+            && exit == otherCommandResult.exit
+            && scheduleChange == otherCommandResult.scheduleChange;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, showSlideshow, exit);
+        return Objects.hash(feedbackToUser, showHelp, showSlideshow, exit, scheduleChange);
     }
 
 }

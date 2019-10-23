@@ -19,7 +19,6 @@ public class StatisticsAddCommand extends StatisticsCommand {
             + "Example: statistics method/auto file/C:\\Users\\MyUser\\Desktop\\SampleData.xlsx\n";
 
     public static final String MESSAGE_SUCCESS = "Statistics Generated";
-    public static final String MESSAGE_DUPLICATE_STATISTICS = "This statistics already been generated";
 
     private final Statistics toAdd;
     /**
@@ -36,7 +35,7 @@ public class StatisticsAddCommand extends StatisticsCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.addStatistics(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true, false, false);
     }
 
     @Override
