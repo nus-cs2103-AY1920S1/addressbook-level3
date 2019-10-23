@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -91,10 +93,28 @@ public class EditCommand extends Command {
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
         TaskStatus updatedTaskStatus = editTaskDescriptor.getTaskStatus().orElse(taskToEdit.getTaskStatus());
+        Instant timeStart;
+
+        if (taskToEdit.getTaskStatus().equals(TaskStatus.UNBEGUN) && updatedTaskStatus.equals(TaskStatus.DOING)) {
+            timeStart = Instant.now();
+        } else {
+            timeStart = editTaskDescriptor.getTimeStart().orElse(taskToEdit.getTimeStart());
+        }
+
+        Instant timeEnd;
+        if (taskToEdit.getTaskStatus().equals(TaskStatus.DOING) && updatedTaskStatus.equals(TaskStatus.DONE)) {
+            timeEnd = Instant.now();
+        } else {
+            timeEnd = editTaskDescriptor.getTimeEnd().orElse(taskToEdit.getTimeEnd());
+        }
+
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
+        Task newTask = new Task(updatedName, updatedTaskStatus, updatedTags);
+        newTask.setTimeStart(timeStart);
+        newTask.setTimeEnd(timeEnd);
 
-        return new Task(updatedName, updatedTaskStatus, updatedTags);
+        return newTask;
 
     }
 
@@ -124,7 +144,8 @@ public class EditCommand extends Command {
         private Name name;
         private TaskStatus taskStatus;
         private Set<Tag> tags;
-        private LocalDateTime deadline;
+        private Instant timeStart;
+        private Instant timeEnd;
 
         public EditTaskDescriptor() {}
 
@@ -136,14 +157,15 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setTaskStatus(toCopy.taskStatus);
             setTags(toCopy.tags);
-            setDeadline(toCopy.deadline);
+            setTimeStart(toCopy.timeStart);
+            setTimeEnd(toCopy.timeEnd);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, taskStatus, tags, deadline);
+            return CollectionUtil.isAnyNonNull(name, taskStatus, tags);
         }
 
         public void setTaskStatus(TaskStatus taskStatus) {
@@ -153,6 +175,7 @@ public class EditCommand extends Command {
         public Optional<TaskStatus> getTaskStatus() {
             return Optional.ofNullable(taskStatus);
         }
+
         public void setName(Name name) {
             this.name = name;
         }
@@ -161,12 +184,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public Optional<LocalDateTime> getDeadline() {
-            return Optional.ofNullable(deadline);
+        public void setTimeStart(Instant start) {
+            this.timeStart = start;
         }
 
-        public void setDeadline(LocalDateTime deadline) {
-            this.deadline = deadline;
+        public Optional<Instant> getTimeStart() {
+            return Optional.ofNullable(timeStart);
+        }
+
+        public void setTimeEnd(Instant end) {
+            this.timeEnd = end;
+        }
+
+        public Optional<Instant> getTimeEnd() {
+            return Optional.ofNullable(timeEnd);
         }
 
         /**
@@ -203,8 +234,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && (getTaskStatus().equals(e.getTaskStatus()))
-                    && getTags().equals(e.getTags())
-                    && getDeadline().equals(e.getDeadline());
+                    && getTags().equals(e.getTags());
         }
     }
 }

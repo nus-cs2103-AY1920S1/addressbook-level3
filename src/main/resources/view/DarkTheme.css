@@ -350,3 +350,8 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.chart-pie-label { /*this is what you need for labels*/
+    -fx-fill: white;
+    -fx-font-size: 1em;
+}
