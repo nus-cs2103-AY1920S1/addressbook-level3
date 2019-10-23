@@ -112,10 +112,10 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 .Interactions inside the Logic Component for the `enqueue 001A` Command
-image::DeleteSequenceDiagram.png[]
+image::EnqueueSequenceDiagram.png[]
 
 .Interactions inside the Logic Component for the `next 1` Command
-image::DeleteSequenceDiagram.png[]
+image::NextSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -140,7 +140,7 @@ image:BetterModelClassDiagram.png[]
 The `QueueManager`,
 
 * stores a `QueueList` object that represents the queue.
-* stores a `UniqueElementList` which contains the list of rooms.
+* stores a `UniqueElementList<Room>` which contains the list of rooms.
 * does not depend on any of the other three components.
 
 .Structure of the QueueManager Component
@@ -256,6 +256,31 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+=== Queue feature
+The queue feature allows the user to enqueue and dequeue a patient from the queue.
+
+* e.g. `enqueue 003A` - Enqueues the patient with reference id 003A.
+* e.g. `next 1` Serves the next patient in queue and allocates him/her to room 1.
+
+==== Current Implementation
+The queue will be displayed in a list.
+
+The following activity diagram summarizes what happens when a user executes an enqueue command:
+
+image::EnqueueActivityDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes an next command:
+
+image::NextActivityDiagram.png[]
+
+Below is an example usage of the queue feature.
+
+Step 1: User enters the `enqueue 001A` command.
+
+Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
+
+Step 3: Patient will then be showed in the queue.
 
 === Logging
 
@@ -451,90 +476,147 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  Doctor in room 1 takes a break
-2.  User requests to avoid directing patients to the doctor in room 1
-3.  System sets the doctor to be on break
+1.  User requests to avoid directing patients to the doctor in room 1
+2.  System sets the doctor to be on break
 
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Doctor is already on break
+* 1a. Doctor is already on break
 +
-** 2a1. System shows an error message.
+** 1a1. System shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 2a. The given index is invalid.
 +
 [none]
-** 3a1. System shows an error message.
+** 2a1. System shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Doctor resumes his/her duty (UC5)
+Pre-condition: Doctor is on break
 
 *MSS*
 
-1.  Doctor in room 1 resumes his/her duty
-2.  User requests to start directing patients to the doctor in room 1
-3.  System sets the doctor to be on duty
+1.  User requests to start directing patients to the doctor in room 1
+2.  System sets the doctor to be on duty
 
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Doctor is already on duty
+* 1a. Doctor is already on duty
 +
-** 2a1. System shows an error message.
+** 1a1. System shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 2a. The given index is invalid.
 +
 [none]
-** 3a1. System shows an error message.
+** 2a1. System shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Change appointment date (UC6)
+Pre-condition: Patient exists in the system
+
+*MSS*
+
+1.  Patient wants to have a new appointment
+2.  User wants to add this appointments for patient
+3.  ClerkPro adds this appointment
+
+Use case ends.
+
+*Extensions*
+
+* 2a. User inputs invalid format
++
+
+** 2a1. ClerkPro requests for correct input format +
+
+** 2a2. User inputs correct format +
++
+
+Steps 2a1-2a2 are repeated until the appointment has the correct format +
+
+Use case resumes at step 2
+
+* 2b. User inputs a appointment which is conflicted with other appointments
++
+
+** 2b1. User ask patient to make provide a new appointment date  +
+
+** 2b2. patient give a new appointment date +
++
+Steps 2b1-2b2 are repeated until the appointment is not conflicted
+
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Change appointment date (UC6)
+=== Use case: Set next appointment (UC7)
+Pre-condition: Patient’s appointment exists
 
 *MSS*
 
-1.  Patient calls to change appointment date
-2.  User checks whether the current appointment can be postponed.
-3.  User checks and updates appointment's appointment time slots.
-4.  ClerkPro updates the appointment date of the patient.
+1.  User checks whether the current appointment can be changed.
+2.  User checks and updates appointment's appointment time slots.
+3.  ClerkPro updates the appointment date of the patient.
 
 Use case ends.
 
 *Extensions*
 
-* 2a. Current appointment date is invalid +
-+
-Use case ends
+* 3a. Current appointment date is invalid format +
 
-* 3a. Appointment date is taken
+** 3a1. ClerkPro requests for correct input format +
+
+** 3a2. User inputs correct format +
 +
-Use case ends
+Steps 2a1-2a2 are repeated until the appointment has the correct format +
+
+
+* 3b. Appointment date is conflict with other appointments +
+
+** 3b1. User ask patient to make a new appointment  +
+
+** 3b2. patient change appointment to another date +
++
+Steps 3b1-3b2 are repeated until the appointment is not conflicted
++
+Use case resumes at step 3
 
 [discrete]
-=== Use case: Set next appointment (UC7)
+=== Use case: Find patients appointment (UC8)
 
 *MSS*
 
-1.  Patient wants to set next appointment
-2.  User requests to set the patient's appointment date
-3.  ClerkPro changes the patient's appointment date
+1.  User requests to find patient's appointment list
+2.  System retrieve and display patient's appointments
 
 Use case ends.
 
+*Extensions*
+
+* 2a. patient is not exist +
+
++
+
+** System displays an error message "No such patient"
+
+Use case ends
+
 [discrete]
-=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC8)
+=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC9)
 Pre-condition: Details of the doctor is already registered in system.
 
 *MSS*
@@ -562,7 +644,7 @@ Use case ends.
 * Use case ends.
 
 [discrete]
-=== Use case: Editing Information in GUI (UC9)
+=== Use case: Editing Information in GUI (UC10)
 
 *Actor:* Clerk
 
@@ -582,7 +664,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: AutoCompleter (UC10)
+=== Use case: AutoCompleter (UC11)
 
 *Actor:* Clerk
 
@@ -601,7 +683,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: History (UC11)
+=== Use case: History (UC12)
 
 *Actor:* Clerk
 

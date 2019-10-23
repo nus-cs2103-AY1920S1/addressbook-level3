@@ -21,7 +21,8 @@ public class SettleAppCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_DUPLICATE_SETTLE = "you have settled this missed appointment already";
-    public static final String MESSAGE_SUCCESS = "this missed appointmeent has been settle: %1$s";
+    public static final String MESSAGE_SUCCESS = "this missed appointmeent has been settled: %1$s";
+    public static final String MESSAGE_SUCCESS_UNDO = "this missed appointmeent has been unsettled: %1$s";
 
 
     private final Event eventToEdit;
@@ -41,16 +42,26 @@ public class SettleAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (eventToEdit == null & editedEvent == null) {
+            model.updateToSettleEventList();
+        } else {
+            if (model.hasExactEvent(editedEvent)) {
+                throw new CommandException(MESSAGE_DUPLICATE_SETTLE);
+            }
 
-        if (model.hasExactEvent(editedEvent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SETTLE);
+            model.deleteEvent(eventToEdit);
+
+            model.addEvent(editedEvent);
+            model.updateToMissedEventList();
+            //or model.updateToSettledEventList();
         }
 
-        model.deleteEvent(eventToEdit);
+        if (eventToEdit.getStatus().isMissed()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
 
-        model.addEvent(editedEvent);
-        model.updateToMissedEventList();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO, editedEvent));
+        }
     }
 
     @Override
