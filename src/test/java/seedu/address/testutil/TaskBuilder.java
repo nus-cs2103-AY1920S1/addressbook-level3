@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import seedu.address.model.note.Note;
-import seedu.address.model.note.Title;
 import seedu.address.model.question.Question;
 import seedu.address.model.task.Heading;
 import seedu.address.model.task.Task;
