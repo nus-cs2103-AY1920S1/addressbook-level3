@@ -235,7 +235,7 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-=== [Proposed] Notification Feature
+=== Notification Feature
 A notification is a message that Mortago will display when the status of a body is automatically updated.
 If the next-of-kin of a body has not been uncontactable for 24 hours, Mortago will prompt the user to contact
 the police for a more thorough investigation and change the status of the body from `ARRIVED` to `CONTACT_POLICE`.
