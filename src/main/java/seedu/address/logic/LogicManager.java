@@ -37,14 +37,13 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final Statistic statistic;
-    private final CommandHistory commandHistory;
+    private final CommandHistory commandHistory = CommandHistory.getCommandHistory();
 
     public LogicManager(Model model, Storage storage, Statistic statistic) {
         this.model = model;
         this.storage = storage;
         this.statistic = statistic;
         addressBookParser = new AddressBookParser();
-        this.commandHistory = new CommandHistory();
     }
 
     @Override
@@ -67,7 +66,7 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
 
         } finally {
-            commandHistory.getCommandHistory().forEach(x -> System.out.println(x));
+            commandHistory.getCommandHistoryList().forEach(x -> System.out.println(x));
 
         }
 

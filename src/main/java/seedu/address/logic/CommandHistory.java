@@ -13,11 +13,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class CommandHistory {
 
+    private static final CommandHistory commandHistory = new CommandHistory();
+
     private final ObservableList<String> historyList = FXCollections.observableArrayList();
     private final ObservableList<String> unmodifiableHistoryList =
             FXCollections.unmodifiableObservableList(historyList);
 
-    public CommandHistory() {
+    private CommandHistory() {
 
     }
 
@@ -50,11 +52,14 @@ public class CommandHistory {
         historyList.setAll(replacement.historyList);
     }
 
+    public static CommandHistory getCommandHistory() {
+        return commandHistory;
+    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<String> getCommandHistory() {
+    public ObservableList<String> getCommandHistoryList() {
         return unmodifiableHistoryList;
     }
 
