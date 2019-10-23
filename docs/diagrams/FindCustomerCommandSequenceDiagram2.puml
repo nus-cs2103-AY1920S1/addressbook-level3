@@ -5,8 +5,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SellerManagerParser" as SellerManagerParser LOGIC_COLOR
 participant ":FindCustomerCommandParser" as FindCustomerCommandParser LOGIC_COLOR
-participant ":CustomerNameContainsKeywordsPredicate" as CustomerNameContainsKeywordsPredicate LOGIC_COLOR
-participant ":EmailContainsKeywordsPredicate" as EmailContainsKeywordsPredicate LOGIC_COLOR
+participant "p1:CustomerNameContainsKeywordsPredicate" as CustomerNameContainsKeywordsPredicate LOGIC_COLOR
+participant "p2:EmailContainsKeywordsPredicate" as EmailContainsKeywordsPredicate LOGIC_COLOR
 participant "c:FindCustomerCommand" as FindCustomerCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -35,7 +35,7 @@ create CustomerNameContainsKeywordsPredicate
 FindCustomerCommandParser -> CustomerNameContainsKeywordsPredicate
 
 activate CustomerNameContainsKeywordsPredicate
-CustomerNameContainsKeywordsPredicate --> FindCustomerCommandParser : predicate
+CustomerNameContainsKeywordsPredicate --> FindCustomerCommandParser : p1
 deactivate CustomerNameContainsKeywordsPredicate
 
 create EmailContainsKeywordsPredicate
@@ -43,7 +43,7 @@ FindCustomerCommandParser -> EmailContainsKeywordsPredicate
 
 
 activate EmailContainsKeywordsPredicate
-EmailContainsKeywordsPredicate --> FindCustomerCommandParser : predicate
+EmailContainsKeywordsPredicate --> FindCustomerCommandParser : p2
 deactivate EmailContainsKeywordsPredicate
 
 create FindCustomerCommand

@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SellerManagerParser" as SellerManagerParser LOGIC_COLOR
 participant ":FindCustomerCommandParser" as FindCustomerCommandParser LOGIC_COLOR
-participant ":CustomerNameContainsKeywordsPredicate" as CustomerNameContainsKeywordsPredicate LOGIC_COLOR
+participant "p:CustomerNameContainsKeywordsPredicate" as CustomerNameContainsKeywordsPredicate LOGIC_COLOR
 participant "c:FindCustomerCommand" as FindCustomerCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -34,7 +34,7 @@ create CustomerNameContainsKeywordsPredicate
 FindCustomerCommandParser -> CustomerNameContainsKeywordsPredicate
 
 activate CustomerNameContainsKeywordsPredicate
-CustomerNameContainsKeywordsPredicate --> FindCustomerCommandParser : predicate
+CustomerNameContainsKeywordsPredicate --> FindCustomerCommandParser : p
 deactivate CustomerNameContainsKeywordsPredicate
 
 create FindCustomerCommand
