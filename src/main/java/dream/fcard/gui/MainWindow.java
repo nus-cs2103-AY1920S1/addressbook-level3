@@ -1,26 +1,19 @@
 package dream.fcard.gui;
 
 import dream.fcard.model.Deck;
-import dream.fcard.model.cards.FlashCard;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainWindow {
+    Gui gui;
     Stage primaryStage;
     Scene scene;
 
@@ -34,46 +27,17 @@ public class MainWindow {
     Text title;
     TextField commandTextField;
     ListView<Deck> deckDisplay;
-    ListView<FlashCard> cardDisplay;
-
-    // colours
-    String primaryTextColour = "#333333";
-    String primaryUIColour = "#ABDFF6";
-    String secondaryUIColour = "#F0ECEB";
-    String tertiaryUIColour = "#6C7476";
-
-    // font styles
-    Font titleBarText = Font.font("Montserrat", FontWeight.BOLD, FontPosture.ITALIC, 36);
-
 
     public MainWindow(Stage primaryStage) {
         this.primaryStage = primaryStage;
 
-        // setup
-        primaryStage.setTitle("FlashCard Pro");
-        primaryStage.setMinHeight(400);
-        primaryStage.setMinWidth(400);
+        initializeStage();
 
-        // initialise containers
-        window = new VBox();
-        titleBar = new VBox(10);
-        windowContents = new VBox(10);
-        commandBoxPlaceholder = new VBox (10);
-
-        // set size of containers
-        titleBar.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        commandBoxPlaceholder.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        VBox.setVgrow(windowContents, Priority.ALWAYS);
-
-        // set padding of containers
-        titleBar.setPadding(new Insets(20));
-        windowContents.setPadding(new Insets(20));
-        commandBoxPlaceholder.setPadding(new Insets(20));
-
-        // set colour of containers
-        titleBar.setStyle("-fx-background-color:" + secondaryUIColour + ";");
-        commandBoxPlaceholder.setStyle("-fx-background-color:" + tertiaryUIColour + ";");
-        windowContents.setStyle("-fx-background-color:#FFFFFF;");
+        // set up containers for UI components
+        initializeContainers(10);
+        setupContainerSizes();
+        setupContainerPaddings(10);
+        setupContainerColours();
 
         // add children to window
         window.getChildren().addAll(titleBar, windowContents, commandBoxPlaceholder);
@@ -81,7 +45,6 @@ public class MainWindow {
         // display window
         scene = new Scene(window, 400, 400);
         primaryStage.setScene(scene);
-//        primaryStage.sizeToScene();
     }
 
     void show() {
@@ -90,19 +53,43 @@ public class MainWindow {
 
     // consider renaming fillInnerParts
     void fillInnerParts() {
-        // create label with appropriate text
-        title = new Text("Welcome!");
-
-        // style label
-        title.setFont(titleBarText);
-        title.setFill(Color.web(primaryTextColour));
-
-        // add label to titleBar
-        titleBar.getChildren().add(title);
+        setTitle("Welcome!");
 
         // add text field to commandBoxPlaceholder
         commandTextField = new TextField("Enter command here...");
         commandBoxPlaceholder.getChildren().add(commandTextField);
+    }
+
+    private void initializeStage() {
+        primaryStage.setTitle("FlashCard Pro");
+        primaryStage.setMinHeight(400);
+        primaryStage.setMinWidth(400);
+    }
+
+    private void initializeContainers(double spacing) {
+        window = new VBox();
+        titleBar = new VBox(spacing);
+        windowContents = new VBox(spacing);
+        commandBoxPlaceholder = new VBox (spacing);
+    }
+
+    private void setupContainerSizes() {
+        titleBar.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        commandBoxPlaceholder.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        VBox.setVgrow(windowContents, Priority.ALWAYS);
+    }
+
+    private void setupContainerPaddings(double padding) {
+        titleBar.setPadding(new Insets(padding));
+        windowContents.setPadding(new Insets(padding));
+        commandBoxPlaceholder.setPadding(new Insets(padding));
+    }
+
+    private void setupContainerColours() {
+        // todo: abstract into UI component setBackgroundColour(String colour) method
+        titleBar.setStyle("-fx-background-color:" + GuiSettings.getSecondaryUIColour() + ";");
+        commandBoxPlaceholder.setStyle("-fx-background-color:" + GuiSettings.getTertiaryUIColour() + ";");
+        windowContents.setStyle("-fx-background-color:#FFFFFF;"); // todo: define another colour
     }
 
     // methods I can consider omitting or refactoring
@@ -110,9 +97,21 @@ public class MainWindow {
         return primaryStage;
     }
 
+    void setTitle(String titleText) {
+        // create label with appropriate text
+        title = new Text(titleText);
+
+        // style label
+        title.setFont(GuiSettings.getTitleTextStyle());
+        title.setFill(Color.web(GuiSettings.getPrimaryTextColour()));
+
+        // add label to titleBar
+        titleBar.getChildren().add(title);
+    }
+
     // private void setAccelerators()
     // private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination)
-    // private void setWindowDefaultSize(GuiSettings guisSettings)
+    // private void setWindowDefaultSize(GuiSettings guiSettings)
 
     // FXML methods
     // public void handleHelp()
