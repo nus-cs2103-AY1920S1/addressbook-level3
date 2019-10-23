@@ -15,6 +15,7 @@ import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -33,6 +34,7 @@ class JsonAdaptedShow {
     private final String description;
     private final int runningTime;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
+    private final String poster;
 
     /**
      * Constructs a {@code JsonAdaptedShow} with the given show details.
@@ -44,7 +46,8 @@ class JsonAdaptedShow {
                            @JsonProperty("watched") boolean isWatched,
                            @JsonProperty("description") String description,
                            @JsonProperty("runningTime") int runningTime,
-                           @JsonProperty("actors") List<JsonAdaptedActor> actors) {
+                           @JsonProperty("actors") List<JsonAdaptedActor> actors,
+                           @JsonProperty("poster") String poster) {
         this.name = name;
         this.type = type;
         this.dateOfRelease = dateOfRelease;
@@ -54,6 +57,7 @@ class JsonAdaptedShow {
         if (actors != null) {
             this.actors.addAll(actors);
         }
+        this.poster = poster;
     }
 
     /**
@@ -69,6 +73,7 @@ class JsonAdaptedShow {
         actors.addAll(source.getActors().stream()
                 .map(JsonAdaptedActor::new)
                 .collect(Collectors.toList()));
+        poster = source.getPoster().getImagePath();
     }
 
     /**
@@ -129,7 +134,7 @@ class JsonAdaptedShow {
         Show show = new Show(modelName, modelDescription, modelIsWatched,
                 modelDateOfRelease, modelRunningTime, modelActors);
         show.setType(type);
+        show.setPoster(new Poster(poster));
         return show;
     }
-
 }

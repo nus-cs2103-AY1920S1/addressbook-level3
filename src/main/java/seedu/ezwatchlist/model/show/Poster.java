@@ -17,6 +17,7 @@ public class Poster {
     private static final String PLACEHOLDER_IMAGE = "poster-placeholder.png";
     private String imageCacheLocation;
     private Image image;
+
     private String imagePath;
 
     /**
@@ -28,6 +29,10 @@ public class Poster {
 
     public Poster(String path) {
         imagePath = path;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     /**
