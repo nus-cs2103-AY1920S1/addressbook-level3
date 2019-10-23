@@ -29,7 +29,7 @@ import seedu.address.model.waste.WasteReport;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook groceryList;
+    private final GroceryList groceryList;
     private final TemplateList templateList;
     private WasteList wasteList;
     private final ShoppingList shoppingList;
@@ -45,25 +45,25 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook groceryList, ReadOnlyUserPrefs userPrefs,
+    public ModelManager(ReadOnlyGroceryList groceryList, ReadOnlyUserPrefs userPrefs,
                         ReadOnlyTemplateList templateList, TreeMap<WasteMonth, WasteList> wasteArchive,
                         ReadOnlyShoppingList shoppingList) {
         super();
         requireAllNonNull(groceryList, userPrefs, templateList);
 
-        logger.fine("Initializing with address book: " + groceryList + " and user prefs " + userPrefs
+        logger.fine("Initializing with grocery list: " + groceryList + " and user prefs " + userPrefs
             + " and template list " + templateList);
 
         WasteList.initialiseWasteArchive();
         WasteList.addWasteArchive(wasteArchive);
 
-        this.groceryList = new AddressBook(groceryList);
+        this.groceryList = new GroceryList(groceryList);
         this.templateList = new TemplateList(templateList);
         this.wasteList = WasteList.getCurrentWasteList();
         this.shoppingList = new ShoppingList(shoppingList);
         this.userPrefs = new UserPrefs(userPrefs);
         this.shownTemplate = new UniqueTemplateItems(new Name("Displayed Template"));
-        filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
+        filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getGroceryList());
         filteredTemplateList = new FilteredList<UniqueTemplateItems>(this.templateList.getTemplateList());
         filteredWasteItems = new FilteredList<GroceryItem>(this.wasteList.getWasteList());
         filteredShoppingItems = new FilteredList<ShoppingItem>(this.shoppingList.getShoppingList());
@@ -72,7 +72,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TemplateList(),
+        this(new GroceryList(), new UserPrefs(), new TemplateList(),
                 new TreeMap<WasteMonth, WasteList>(), new ShoppingList());
     }
 
@@ -112,14 +112,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getGroceryListFilePath() {
+        return userPrefs.getGroceryListFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setGroceryListFilePath(Path groceryListFilePath) {
+        requireNonNull(groceryListFilePath);
+        userPrefs.setGroceryListFilePath(groceryListFilePath);
     }
 
     @Override
@@ -158,12 +158,12 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setGroceryList(ReadOnlyAddressBook groceryList) {
+    public void setGroceryList(ReadOnlyGroceryList groceryList) {
         this.groceryList.resetData(groceryList);
     }
 
     @Override
-    public ReadOnlyAddressBook getGroceryList() {
+    public ReadOnlyGroceryList getGroceryList() {
         return groceryList;
     }
 
@@ -175,24 +175,24 @@ public class ModelManager implements Model {
      */
     public boolean hasGroceryItem(GroceryItem food) {
         requireNonNull(food);
-        return groceryList.hasPerson(food);
+        return groceryList.hasGroceryItem(food);
     }
 
     public void deleteGroceryItem(GroceryItem target) {
-        groceryList.removePerson(target);
+        groceryList.removeGroceryItem(target);
     }
 
     @Override
     public void addGroceryItem(GroceryItem food) {
-        groceryList.addPerson(food);
-        updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
+        groceryList.addGroceryItem(food);
+        updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
     }
 
     @Override
-    public void setGroceryItem(GroceryItem target, GroceryItem editedFood) {
-        requireAllNonNull(target, editedFood);
+    public void setGroceryItem(GroceryItem target, GroceryItem editedGroceryItem) {
+        requireAllNonNull(target, editedGroceryItem);
 
-        groceryList.setGroceryItem(target, editedFood);
+        groceryList.setGroceryItem(target, editedGroceryItem);
     }
 
     //=========== Filtered Person List Accessors =============================================================
