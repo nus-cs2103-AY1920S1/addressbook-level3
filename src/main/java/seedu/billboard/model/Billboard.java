@@ -3,6 +3,7 @@ package seedu.billboard.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.ExpenseList;
 import seedu.billboard.model.tag.Tag;
+import seedu.billboard.model.tag.TagCountManager;
 import seedu.billboard.model.tag.UniqueTagList;
 
 /**
@@ -20,6 +22,7 @@ public class Billboard implements ReadOnlyBillboard {
 
     private final ExpenseList expenses;
     private final UniqueTagList tags;
+    private final TagCountManager count;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +34,7 @@ public class Billboard implements ReadOnlyBillboard {
     {
         expenses = new ExpenseList();
         tags = new UniqueTagList();
+        count = new TagCountManager();
     }
 
     public Billboard() {}
@@ -53,6 +57,15 @@ public class Billboard implements ReadOnlyBillboard {
         this.expenses.setExpenses(expense);
     }
 
+    public void setUniqueTagList(Map<String, Tag> tagList) {
+        this.tags.setList(tagList);
+    }
+
+    public void setCountManager(Map<Tag, Integer> count) {
+        this.count.setCountMap(count);
+    }
+
+
     /**
      * Resets the existing data of this {@code Billboard} with {@code newData}.
      */
@@ -60,6 +73,8 @@ public class Billboard implements ReadOnlyBillboard {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenses());
+        setUniqueTagList(newData.getUniqueTagList());
+        setCountManager(newData.getCountManager());
     }
 
     @Override
@@ -74,6 +89,8 @@ public class Billboard implements ReadOnlyBillboard {
                 .stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
         Billboard billboard = new Billboard();
         billboard.setExpenses(nonArchiveExpenses);
+        billboard.setCountManager(count.getCountMap());
+        billboard.setUniqueTagList(tags.getTagList());
         return billboard;
     }
 
@@ -116,8 +133,36 @@ public class Billboard implements ReadOnlyBillboard {
     }
 
     //// Tag methods
+
+    /**
+     * Retrieve tags to be added to an expense.
+     */
     public Set<Tag> retrieveTags(List<String> toRetrieve) {
         return tags.retrieveTags(toRetrieve);
+    }
+
+    /**
+     * Increment count of tags which will be added to an expense.
+     */
+    public void incrementCount(Set<Tag> toIncrement) {
+        count.incrementAllCount(toIncrement);
+    }
+
+    /**
+     * Decrease count of tags removed from an expense.
+     * Also removes tags whose count is 0 from the unique tag list.
+     */
+    public void decreaseCount(Set<Tag> toDecrease) {
+        count.decreaseAllCount(toDecrease);
+        List<Tag> toRemove = count.removeZeroCount();
+        tags.removeAll(toRemove);
+    }
+
+    /**
+     * Gets a list of unique tag names.
+     */
+    public List<String> getTagNames() {
+        return tags.getTagNames();
     }
 
     //// util methods
@@ -138,6 +183,16 @@ public class Billboard implements ReadOnlyBillboard {
         return other == this // short circuit if same object
                 || (other instanceof Billboard // instanceof handles nulls
                 && expenses.equals(((Billboard) other).expenses));
+    }
+
+    @Override
+    public Map<String, Tag> getUniqueTagList() {
+        return tags.getTagList();
+    }
+
+    @Override
+    public Map<Tag, Integer> getCountManager() {
+        return count.getCountMap();
     }
 
     @Override

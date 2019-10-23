@@ -4,6 +4,7 @@ import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,11 +55,16 @@ public class AddTagCommand extends TagCommand {
         }
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
-        Set<Tag> currTags = expenseToEdit.getTags();
-        Set<Tag> toAdd = model.retrieveTags(tagNames);
-        Set<Tag> mergedSet = getUniqueSet(currTags, toAdd);
+
+        Set<Tag> currentTags = expenseToEdit.getTags();
+        Set<Tag> tagsToAdd = model.retrieveTags(tagNames);
+        Set<Tag> editedTags = combineSets(currentTags, tagsToAdd);
+
+        Set<Tag> tagsToIncrementCount = getUniqueTags(currentTags, tagsToAdd);
+        model.incrementCount(tagsToIncrementCount);
+
         Expense editedExpense = new Expense(expenseToEdit.getName(), expenseToEdit.getDescription(),
-                expenseToEdit.getAmount(), expenseToEdit.getCreated(), mergedSet);
+                expenseToEdit.getAmount(), expenseToEdit.getCreated(), editedTags);
 
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
@@ -67,16 +73,32 @@ public class AddTagCommand extends TagCommand {
     }
 
     /**
-     * Merge 2 sets into 1.
+     * Merge 2 sets into 1 with unique elements.
      * @param setOne first set.
      * @param setTwo second set.
-     * @return Merged set.
+     * @return Merged set with unique elements.
      */
-    private Set<Tag> getUniqueSet(Set<Tag> setOne, Set<Tag> setTwo) {
+    private Set<Tag> combineSets(Set<Tag> setOne, Set<Tag> setTwo) {
+        requireAllNonNull(setOne, setTwo);
         Set<Tag> toReturn = new HashSet<>();
         toReturn.addAll(setOne);
         toReturn.addAll(setTwo);
-        return toReturn;
+        return Collections.unmodifiableSet(toReturn);
+    }
+
+    /**
+     * Return a set consisting of elements in setTwo that are not in setOne.
+     * @param setOne first set.
+     * @param setTwo second set.
+     * @return set of elements in setTwo but not setOne.
+     */
+    private Set<Tag> getUniqueTags(Set<Tag> setOne, Set<Tag> setTwo) {
+        requireAllNonNull(setOne, setTwo);
+        Set<Tag> setOneCopy = new HashSet<>(setOne);
+        Set<Tag> toReturn = new HashSet<>(setTwo);
+        setOneCopy.retainAll(setTwo);
+        toReturn.removeAll(setOneCopy);
+        return Collections.unmodifiableSet(toReturn);
     }
 
     @Override

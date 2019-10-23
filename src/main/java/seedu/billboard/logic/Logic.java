@@ -4,12 +4,14 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.StatisticsType;
 
 /**
  * API of the Logic component
@@ -35,6 +37,11 @@ public interface Logic {
     ObservableList<Expense> getFilteredExpenseList();
 
     /**
+     * Returns an observable view of the selected statistic type.
+     */
+    ObservableData<StatisticsType> getStatisticsType();
+
+    /**
      * Returns the user prefs' billboard file path.
      */
     Path getBillboardFilePath();
@@ -58,5 +65,4 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of archive expenses */
     ObservableList<Expense> getFilteredArchiveExpenseList(String archiveName);
-
 }

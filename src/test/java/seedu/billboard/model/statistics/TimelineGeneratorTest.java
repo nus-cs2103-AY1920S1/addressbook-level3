@@ -3,6 +3,7 @@ package seedu.billboard.model.statistics;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalExpenses.BILLS;
@@ -13,9 +14,8 @@ import static seedu.billboard.testutil.TypicalExpenses.getTypicalExpenses;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Map;
+import java.util.List;
 
-import org.hamcrest.collection.IsMapContaining;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.date.DateInterval;
@@ -24,22 +24,24 @@ import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.TypicalExpenses;
 
+import javafx.util.Pair;
 
-public class StatisticsGeneratorTest {
-    private final StatisticsGenerator statsGenerator = new StatisticsGenerator();
+
+public class TimelineGeneratorTest {
+    private final TimelineGenerator timelineGenerator = new TimelineGenerator();
 
     @Test
     public void generateExpenseTimeline_nullArguments_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> statsGenerator.generateExpenseTimeline(null));
+        assertThrows(NullPointerException.class, () -> timelineGenerator.generate(null));
         assertThrows(NullPointerException.class, () ->
-                statsGenerator.generateExpenseTimeline(null, null));
+                timelineGenerator.generate(null, null));
         assertThrows(NullPointerException.class, () ->
-                statsGenerator.generateExpenseTimeline(Collections.singletonList(TypicalExpenses.BILLS), null));
+                timelineGenerator.generate(Collections.singletonList(TypicalExpenses.BILLS), null));
     }
 
     @Test
     void generateExpenseTimeline_emptyList_returnsEmptyExpenseTimeline() {
-        ExpenseTimeline timeline = statsGenerator.generateExpenseTimeline(new ArrayList<>());
+        ExpenseTimeline timeline = timelineGenerator.generate(new ArrayList<>());
 
         assertThat(timeline, is(instanceOf(EmptyExpenseTimeline.class)));
     }
@@ -48,26 +50,20 @@ public class StatisticsGeneratorTest {
     @Test
     void generateExpenseTimeline_nonEmptyList_returnsCorrectExpenseTimeline() {
         DateInterval interval = DateInterval.MONTH;
-        ExpenseTimeline timeline = statsGenerator.generateExpenseTimeline(getTypicalExpenses(), interval);
+        ExpenseTimeline timeline = timelineGenerator.generate(getTypicalExpenses(), interval);
 
         assertThat(timeline, is(instanceOf(FilledExpenseTimeline.class))); // check type
 
-        assertEquals(new DateRange(BILLS.getCreated().dateTime.toLocalDate(),
-                        GROCERIES.getCreated().dateTime.toLocalDate()),
-                timeline.getDateRange()); // check range
-
         assertEquals(DateInterval.MONTH, timeline.getDateInterval()); // check interval
 
-        // check map
-        Map<DateRange, Amount> actualTimeline = timeline.getTimeline();
-        DateRange billsDateRange = getAdjustedDateRangeWithIntervalFromExpense(BILLS, interval);
-        assertThat(actualTimeline, IsMapContaining.hasEntry(billsDateRange, new Amount("350.25")));
+        // check pairs list
+        List<Pair<DateRange, Amount>> actualTimeline = timeline.getTimelineValues();
 
-        DateRange foodAndMovieDateRange = getAdjustedDateRangeWithIntervalFromExpense(MOVIE, interval);
-        assertThat(actualTimeline, IsMapContaining.hasEntry(foodAndMovieDateRange, new Amount("14.20")));
-
-        DateRange groceriesDateRange = getAdjustedDateRangeWithIntervalFromExpense(GROCERIES, interval);
-        assertThat(actualTimeline, IsMapContaining.hasEntry(groceriesDateRange, new Amount("23.50")));
+        assertThat(actualTimeline, hasItems(
+                new Pair<>(getAdjustedDateRangeWithIntervalFromExpense(BILLS, interval), new Amount("350.25")),
+                new Pair<>(getAdjustedDateRangeWithIntervalFromExpense(MOVIE, interval), new Amount("14.20")),
+                new Pair<>(getAdjustedDateRangeWithIntervalFromExpense(GROCERIES, interval), new Amount("23.50")))
+        );
     }
 
     private DateRange getAdjustedDateRangeWithIntervalFromExpense(Expense expense, DateInterval interval) {

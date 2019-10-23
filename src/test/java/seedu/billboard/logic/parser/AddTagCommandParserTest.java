@@ -13,6 +13,7 @@ import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ public class AddTagCommandParserTest {
         Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + TAG_DESC_DINNER;
         AddTagCommand expectedCommand = new AddTagCommand(INDEX_FIRST_EXPENSE,
-                new ArrayList<>(Arrays.asList(VALID_TAG_DINNER)));
+                new ArrayList<>(Collections.singletonList(VALID_TAG_DINNER)));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // Multiple tags

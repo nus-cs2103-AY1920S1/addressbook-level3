@@ -49,7 +49,6 @@ public class AddArchiveCommandTest {
     public void execute_nullModel_throwsNullPointerException() throws Exception {
         assertThrows(NullPointerException.class, () -> new AddArchiveCommand(VALID_ARCHIVE_TAXES,
                 INDEX_FIRST_EXPENSE).execute(null));
-
     }
 
     @Test

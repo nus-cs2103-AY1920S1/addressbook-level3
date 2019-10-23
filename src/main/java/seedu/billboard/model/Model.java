@@ -7,8 +7,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -84,7 +86,31 @@ public interface Model {
      */
     void setExpense(Expense target, Expense editedExpense);
 
+    /**
+     * Retrieves tags from unique tag list.
+     * @param toRetrieve tags to be retrieved.
+     * @return set of tags retrieved.
+     */
     Set<Tag> retrieveTags(List<String> toRetrieve);
+
+    /**
+     * Decrease count of tags removed from an expense.
+     * Also removes tags whose count is 0.
+     * @param toDecrease tags to decrease count from.
+     */
+    void decreaseCount(Set<Tag> toDecrease);
+
+    /**
+     * Increment counts of tags.
+     * @param toIncrement tags whose count are to be incremented.
+     */
+    void incrementCount(Set<Tag> toIncrement);
+
+    /**
+     * Returns a list of unique tag names.
+     * @return list of unique tag names.
+     */
+    List<String> getTagNames();
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenses();
@@ -95,7 +121,19 @@ public interface Model {
      */
     void updateFilteredExpenses(Predicate<Expense> predicate);
 
-    // ================ Archive methods ==============================
+    // ================ StatisticsGenerator Chart methods ======================
+
+    /**
+     * Returns the statistics type wrapped in an observable wrapper.
+     */
+    ObservableData<StatisticsType> getStatisticsType();
+
+    /**
+     * Sets the observable wrapper to the new statistics type, updating all observers in the process.
+     */
+    void setStatisticsType(StatisticsType type);
+
+    // ================ Archive methods ===============================
 
     /**
      * Returns a list of all existing archive names.
@@ -119,6 +157,12 @@ public interface Model {
      * Returns true if an archive with the same name as {@code archiveName} exists in the archives.
      */
     boolean hasArchive(String archive);
+
+    /**
+     * Deletes the given archive.
+     * The given {@code archiveName} must exist.
+     */
+    void deleteArchive(String archiveName);
 
     /**
      * Deletes the given expense in the given archive.
