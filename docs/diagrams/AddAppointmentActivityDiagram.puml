@@ -1,0 +1,35 @@
+@startuml
+
+start
+-Entered add appointment command
+if () then ([valid command])
+
+    if () then ([valid reference id])
+'    Appointments does not exist
+        if () then ([Appointments does not exist])
+
+            if() then ([Valid idx and timing format])
+                if() then([not conflict])
+                -Appointment's timing changed
+                -Display patient's all upcoming appointments
+                else([else])
+                -Display error message\n to input a non-conflict-timing appointment
+                endif
+
+            else ([Not valid])
+            -Display error message\n to input valid appointment's idx and timing format
+            endif
+        else([else])
+        -Display duplicate error message\n
+        endif
+
+    else ([else])
+    -Display error message\n
+    endif
+
+else ([Invalid command])
+-Invalid command \n message
+endif
+
+stop
+@enduml
