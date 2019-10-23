@@ -25,8 +25,9 @@ public class FieldParser {
     public static final String INVALID_DIRECTION_USAGE = "Note you have entered an invalid direction:\n"
             + "Directions can only be ASC or DESC";
     public static final String INVALID_FIELD_USAGE = "Note you have entered an invalid field:\n";
+
     /**
-     * Parses the given String and returns a SortCommand object for simple execution.
+     * Parses the given String and returns a List of fields for simple execution.
      * @throws ParseException if the String contains duplicate or invalid fields.
      */
     public List<String> parse(String args) throws ParseException {
