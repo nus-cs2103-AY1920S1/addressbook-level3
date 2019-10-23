@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -21,7 +22,7 @@ public class MainWindow {
     // containers
     private VBox window;
     private VBox titleBar;
-    private VBox windowContents;
+    private GridPane windowContents;
     private VBox commandBoxPlaceholder;
 
     // ui components
@@ -58,7 +59,8 @@ public class MainWindow {
 
     // temporary method for testing display of various UI components
     private void testUiComponents() {
-        this.gui.renderCard("lorem ipsum dolor sit amet.");
+        this.gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+//            + "Pellentesque eu placerat urna, eu tincidunt magna.");
     }
 
     private void initializeStage() {
@@ -70,7 +72,7 @@ public class MainWindow {
     private void initializeContainers() {
         window = new VBox();
         titleBar = new VBox(GuiSettings.getSpacing());
-        windowContents = new VBox(GuiSettings.getSpacing());
+        windowContents = new GridPane();
         commandBoxPlaceholder = new VBox (GuiSettings.getSpacing());
     }
 
@@ -82,7 +84,7 @@ public class MainWindow {
 
     private void setupContainerPadding() {
         titleBar.setPadding(new Insets(GuiSettings.getPadding()));
-        windowContents.setPadding(new Insets(GuiSettings.getPadding()));
+        windowContents.setPadding(new Insets(GuiSettings.getPadding())); // vertical spacing between elements
         commandBoxPlaceholder.setPadding(new Insets(GuiSettings.getPadding()));
     }
 
@@ -140,7 +142,7 @@ public class MainWindow {
         titleBar.getChildren().add(title);
     }
 
-    VBox getWindowContents() {
+    GridPane getWindowContents() {
         return this.windowContents;
     }
 

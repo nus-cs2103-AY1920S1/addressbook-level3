@@ -2,17 +2,13 @@ package dream.fcard.gui;
 
 import dream.fcard.model.cards.FlashCard;
 import javafx.scene.Node;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 
 public class Gui {
     // the instance of the main window of the application, containing all UI components
-    MainWindow mainWindow;
+    final MainWindow mainWindow;
 
     public Gui(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
-    }
-
-    void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
 
@@ -39,7 +35,8 @@ public class Gui {
 
     void display(Node node) {
         // get primary display area of MainWindow
-        VBox windowContents = getMainWindow().getWindowContents(); // todo: check coding standards?
+        GridPane windowContents = getMainWindow().getWindowContents(); // todo: check coding standards?
+        GridPane.setConstraints(node, 0,0);
 
         // remove anything currently in the display area
         windowContents.getChildren().clear();
