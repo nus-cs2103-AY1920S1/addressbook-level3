@@ -142,9 +142,10 @@ public class MainWindow extends UiPart<Stage> {
         DisplayTab tagListPanelTab = new DisplayTab(ModelType.TAG.getTabName());
         DisplayTab planListPanelTab = new DisplayTab(ModelType.PLAN.getTabName(), planListPanel);
         DisplayTab taskListPanelTab = new DisplayTab(ModelType.TASK.getTabName(), taskListPanel);
-        DisplayTab findRuleListPaneTab = new DisplayTab(ModelEnum.FINDRULE.getTabName(), findRuleListPanel);
+        DisplayTab findRuleListPaneTab = new DisplayTab(ModelType.FINDRULE.getTabName(), findRuleListPanel);
         return new DisplayTabPane(
-            logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab, findRuleListPaneTab);
+            logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab,
+            findRuleListPaneTab);
     }
 
     /**
