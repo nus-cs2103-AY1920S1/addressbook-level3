@@ -58,21 +58,21 @@ in `lower case` are **key-words** used by the program.
 +
 For example:
 +
-`add t/TASK-TYPE/TASK-DESCRIPTION`
+`add-task t/TASK-TYPE/TASK-DESCRIPTION`
 +
 In this case, `TASK-TYPE` and `TASK-DESCRIPTION` are parameters supplied by
-the user, and `add` is a key-word.
+the user, and `add-task` is a key-word.
 
 2. Items in square brackets `[]` are optional fields with the command.
 +
 For example:
 +
-`add t/TASK-TYPE/TASK-DESCRIPTION [d/DATE]`
+`add-task t/TASK-TYPE/TASK-DESCRIPTION [p/PRIORITY]`
 +
 Can be used
 +
-With a date:: `add t/todo/assignment d/12/03/2019`
-Without a date:: `add t/todo/assignment`
+With a priority level:: `add-task t/todo/assignment p/high`
+Without a priority level:: `add-task t/todo/assignment`
 
 3. Parameters with `...` can be used 0, or any number of items
 +
@@ -80,8 +80,8 @@ For example:
 +
 `[#TAG]...` is an optional parameter that can be used 0 or any number of times.
 +
-Without optional parameter:: `add t/todo/assignment`
-With optional parameter:: `add t/todo/assignment #cs2103t #urgent`
+Without optional parameter:: `add-task t/todo/assignment`
+With optional parameter:: `add-task t/todo/assignment #cs2103t #urgent`
 
 4. Jarvis can parse parameters to commands in *any order*.
 
@@ -90,7 +90,7 @@ surrounded by curly braces, e.g `{param1 | param2}`.
 +
 For example:
 +
-`delete {INDEX | t/TASK-DESCRIPTION}`
+`delete-task {INDEX | t/TASK-DESCRIPTION}`
 +
 With Index:: `delete 2`
 With Task Description:: `delete t/Assignment`
@@ -99,7 +99,7 @@ With Task Description:: `delete t/Assignment`
 +
 For example:
 +
-`add t/todo/assignment d/01/01/1970`
+`add-task t/todo/assignment d/01/01/1970`
 
 ////
 Task Scheduler
@@ -109,16 +109,16 @@ Feature by
 ////
 === Task Scheduler
 
-==== List all tasks: `list`
+==== List all tasks: `list-task`
 Lists tasks in the planner based on the given `DATE` or `#TAG`(s).
 
-Format: `list {d/DATE | #TAG...}`
+Format: `list-task {d/DATE | #TAG...}`
 
 Examples: +
-`list #food #science_club` +
-`list d/10/06/2019`
+`list-task #food #science_club` +
+`list-task d/10/06/2019`
 
-==== Adding a task: `add`
+==== Adding a task: `add-task`
 Adds a task to the planner.
 
 A task must have a:
@@ -126,96 +126,89 @@ A task must have a:
 * `TASK-TYPE`: `todo`, `event` or `deadline`
 * `TASK-DESCRIPTION`: a short description of the task
 
-A task *can* have a:
+A task *can* have the following *attributes*:
 
 * `DATE`
 * `TAG`: any number of tags, such as `#school` or `#cca`
 * `PRIORITY` level: `high`, `medium` or `low`
 * `FREQ` frequency: `daily`, `weekly`, `monthly` or `yearly`
 
-Format: `add t/TASK-TYPE/TASK-DESCRIPTION [d/DATE] [#TAG]... [p/PRIORITY r/FREQ]`
+|===
+| Task Type | Format
+
+|`Todo`
+|`add-task t/todo des/TASK-DESCRIPTION [#TAG]... [p/PRIORITY r/FREQ]`
+
+|`Event`
+|`add-task t/event des/TASK-DESCRIPTION d/START-DATE//END-DATE [#TAG]... [p/PRIORITY r/FREQ]`
+
+|`Deadline`
+|`add-task t/deadline des/TASK-DESCRIPTION d/DUE-DATE [#TAG]... [p/PRIORITY r/FREQ]`
+|===
 
 Examples: +
-`add t/event/my birthday d/10/04/2017 r/yearly` +
+`add t/event/my birthday r/yearly` +
 `add t/deadline/cs2101 assignment d/20/09/2019 p/high`
 
 
-==== Deleting a task: `delete`
+==== Deleting a task: `delete-task`
 Deletes a task from the planner.
 
-Format: `delete {INDEX | t/TASK-DESCRIPTION}`
+Format: `delete-task {INDEX | t/TASK-DESCRIPTION}`
 
 where `INDEX` is the **one-based** index of the task list.
 
 Examples: +
-`delete 3` +
-`delete t/cs2101 assignment`
+`delete-task 3` +
+`delete-task t/cs2101 assignment`
 
 
-==== Finding a task: `find`
+==== Finding a task: `find-task`
 Locates a task from a given `KEYWORD`
 
-Format: `find KEYWORD`
+Format: `find-task KEYWORD`
 
 Examples: +
-`find assignment` +
-`find homework cs ma1101r`
+`find-task assignment` +
+`find-task homework cs ma1101r`
 
 
-==== Editing a task: `edit`
+==== Editing a task: `edit-task`
 Edits the task by `TASK-DESCRIPTION` or `INDEX`.
 
-`NEW-DESCRIPTION` can be a new task description or any of the characteristics
+`NEW-DESCRIPTION` can be a new task description or any of the attributes (refer to 3.2.2 Adding a Task)
 used to create a task.
 
-Format: `edit {t/TASK-DESCRIPTION/NEW-DESCRIPTION | INDEX/NEW-DESCRIPTION}`
+NOTE: `NEW-DESCRIPTION` must be tagged with the attribute prefix. For example, if you want to edit the task description
+or priority level of a task: `edit-task t/taskToBeEdited//des/NEW-TASK-DESCRIPTION p/NEW-PRIORITY-LEVEL`.
+
+Format: `edit-task {t/TASK-DESCRIPTION//NEW-DESCRIPTION | INDEX//NEW-DESCRIPTION}`
 
 Examples: +
-`edit t/project part 1/project part 2` +
-`edit t/project part 1/project part2 d/18/09/2019` +
-`edit 3/r/weekly`
+`edit-task t/project part 1//des/project part 2` +
+`edit-task t/project part 1//des/project part2 d/18/09/2019` +
+`edit-task 3//r/weekly`
 
-
-==== Tagging a task: `#tag`
-Creates a tag. Tags can then be added to different tasks.
-
-Format: `create #TAG...`
-
-Examples: +
-`create #work` +
-`create #play` +
-`create #study`
-
-
-==== Updating a task's status: `done`
-Updates the status of a task. By default on an `add`, all tasks are marked
+==== Updating a task's status: `done-task`
+Updates the status of a task. By default on an `add-task`, all tasks are marked
 as undone, represented by a `[✗]`. Upon finishing the task, the task will be
 represented with a `[✓]`.
 
-Format: `done INDEX`
+Format: `done-task INDEX`
 
 where `INDEX` is the **one-based** index of the task list.
 
 
-==== Clearing entries: `clear`
+==== Clearing entries: `clear-task`
 Clears tasks from the planner. Tasks can be cleared by `#TAG` or `d/DATE`.
-The command `clear` with no parameters succeeding it will result in all tasks
+The command `clear-task` with no parameters succeeding it will result in all tasks
 being cleared.
 
-Format: `clear [#TAG]... [d/DATE]`
+Format: `clear-task [#TAG]... [d/DATE]`
 
 Examples: +
-`clear #school` +
-`clear d/12/09/2019`
-
-
-==== Retrieving statistics: `stats`
-Shows various statistics of the items in the app. This will include statistics
-such as the total number of tasks done, the total number of tasks left and
-blocks of free time.
-
-Format: `stats`
-
+`clear-task #school` +
+`clear-task d/12/09/2019`
 
 ////
 Finance Tracker
