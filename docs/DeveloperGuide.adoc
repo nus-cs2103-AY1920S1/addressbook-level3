@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EateryListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding an `Eatery`).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -123,11 +123,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Eatery>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store all the Tag objects in a static Tag HashMap which resides in the Tag class. An Eatery can reference a Tag object from the static Tag HashMap. This would allow EatMe to only require one Tag object per unique Tag, instead of each Eatery needing their own Tag object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -153,46 +153,116 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::close[]
-=== Close feature
+// tag::add[]
+=== Add Eatery feature
 ==== Implementation
 
-The close mechanism is facilitated by `AddressBook`. It implements ReadOnlyAddressBook with a AddressBook#setEatery() method.
-This method of replacing an Eatery with a modified Eatery (isOpen field set to false) is similar to the edit mechanism of EditCommand.
+The add mechanism is facilitated by `AddressBook`. It implements the following operations:
+
+* `AddressBook#hasEatery()` -- Checks if an Eatery with the same identity as Eatery e exists in the address book.
+* `AddressBook#addEatery()` -- Adds an Eatery to the address book. The eatery must not already exist in the address book.
+
+These operations are exposed in the `Model` interface as `Model#hasEatery()` and `Model#addEatery()` respectively.
+
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial json data stored.
+
+Step 2. The user executes `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` to add a new eatery. The `add` command will call `Model#addEatery()`.
+
+[NOTE]
+If the command is missing a `Name`, `Address`, or `Category` parameter, it will return an error to the user rather than attempting to add the Eatery.
+
+The following sequence diagram shows how the add operation works:
+image:add-sd.PNG[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+image::add-ad.PNG[]
+
+==== Design Considerations
+===== Aspect: How Add executes
+* **Alternative 1 (current choice):** Making Tag field not final.
+** Pros:
+*** Easily implemented.
+*** More user-friendly as users would most likely want to delete or add new tags.
+** Cons: Does not follow the logic of the original Address Book 3 application. More code needs to be refactored.
+
+* **Alternative 2:** Making Tag field final.
+** Pros: Follows the logic of the original Address Book 3 application; don't need to refactor more code.
+** Cons: Not as user-friendly.
+// end ::add[]
+
+// tag::revieweatery[]
+=== [Proposed] Review Eatery feature
+==== Implementation
+
+The review mechanism is facilitated by the existing `AddressBook`.
+It extends `AddressBook` with a review field, stored internally as an array list of reviews along with other
+attributes of an eatery.
+Additionally, it implements the following operations:
+
+* `AddressBook#review()` -- Adds a review to the eatery identified by the user input.
+* `AddressBook#editReview()` -- Edits a previously written review.
+
+Given below is an example usage scenario and how the review mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial json data stored.
+
+Step 2. The user executes `review 1 ...` command to add a review to the first Eatery in the address book. The `review` command will call `Eatery#addReview()`.
+[NOTE]
+If the index given is not a valid index (ie, out of bounds or negative), it will return an error to the user rather than attempting to review the Eatery.
+
+Step 3. The user executes `open 1` to get the complete details of the first Eatery.
+
+Step 4. The user then decides to execute `edit review 1 ...` to edit the first review of the Eatery opened in the previous step. This calls the `EatMe#editcommand()`.
+
+===== Aspect: How review and edit review executes
+
+* **Alternative 1 (current choice):** No further nesting of Review field in Eatery.
+** Pros: Easily implemented.
+** Cons: May be worse OOP model as compared to other commands.
+* **Alternative 2:** Further nesting of Review field in Eatery.
+** Pros: A better OOP model.
+** Cons: May decrease performance and difficult to implement.
+
+* **Current choice:** Store and edit the reviews of an eatery in a list.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: List is not immutable.
+// end::revieweatery[]
+
+// tag::close[]
+=== Close Eatery feature
+==== Implementation
+
+The close mechanism is facilitated by `AddressBook`. It implements ReadOnlyAddressBook interface with the following operation:
+
+* `AddressBook#setEatery()` -- Replaces an Eatery with a modified Eatery specified by the user input.
 
 Given below is an example usage scenario and how the close mechanism behaves at each step.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial json data stored.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial Json data stored.
-
-Step 2. The user executes `close `1 command to close the 1st Eatery in the address book.
+Step 2. The user executes `close 1` command to close the 1st Eatery in the address book.
 [NOTE]
 If the index given is not a valid index (ie, out of bounds or negative), it will return an error to the user rather than attempting to close the Eatery.
 
 Step 3. The address book now returns a success message upon successfully closing the Eatery, and the Eatery will be greyed out [proposed].
 
-Step 4. The user now decides that he wants to close another Eatery.
+Step 4. The user then decides that he wants to close another Eatery.
 [NOTE]
-If the index given points to an Eatery already closed (Ie, 1 in this situation), it will return an error to the user rather than attempting to close the Eatery.
+If the index given points to an Eatery already closed (ie, 1 in this situation), it will return an error to the user rather than attempting to close the Eatery.
 
-The following sequence diagram shows how the undo operation works:
-
+The following sequence diagram shows how the `close` command works:
 image::CloseSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a new CloseCommand:
-
+The following activity diagram summarizes what happens when a user executes a new `close` command:
 image::CloseCommitActivityDiagram.png[]
 
 ==== Design Considerations
-
-===== Aspect: How close executes
-
-* **Alternative 1 (current choice):** Returns a new Eatery with the same fields except the isOpen field.
+===== Aspect: How Close executes
+* **Alternative 1 (current choice):** Returns a new Eatery with identical fields except for the isOpen field.
 ** Pros:
-*** Follows pre-exisitng EditCommand implementation.
+*** Follows pre-exisiting EditCommand implementation.
 *** No need for setter methods.
 ** Cons: Have to return a new object each time a change is made.
 * **Alternative 2:** Setter method for isOpen field of Eatery.
@@ -201,114 +271,46 @@ image::CloseCommitActivityDiagram.png[]
 *** Breaks pre-existing EditCommand implementation.
 *** Need for setter methods.
 
-===== Aspect: Data structure to support the close commands
-
-* **Alternative 1 (current choice):** Use a boolean isOpen field for an Eatery Object to keep track if the Eatery is open or closed.
-** Pros:
-*** Only one saved Json file needed.
-*** Eatery ID easily implemented.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Maintain two lists of Eateries, one for open, another for close.
-** Pros: Closed Eateries kept separate from Open Eateries
+===== Aspect: Data structure to support the Close command
+* **Alternative 1 (current choice):** Uses a boolean value to keep track if the Eatery is reopened or closed.
+** Pros: Easily implemented.
+** Cons: An additional variable to check when executing other commands. Possibility of incorrect manipulation of an Eatery object
+* **Alternative 2:** Maintain two separate lists of Eateries for Reopened and Closed.
+** Pros: Closed Eateries stored apart from Reopened Eateries. Commands executed will only affect Eateries stored in a particular list.
 ** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
 // end::close[]
 
 // tag::modeCommand[]
 === [Proposed] Mode Command feature
-==== Proposed Implementation
-Allows the user to toggle between Main mode and Todo mode. It extends 'Command', and once mode had been switched, will affect all other command functions.
-The mode is determined through the value of a boolean variable named 'isMainMode'.
+==== Implementation
+Allows the user to toggle between Main mode and Todo mode. It extends `Command`, and once the mode has been switched, it will affect all other command functions.
+The mode is determined through the `isMainMode` boolean variable.
 
-Given below is an example usage of how the Mode Command behaved.
+Given below is an example usage scenario and how the mode mechanism behaves at each step.
 
-Step 1: The user launches the application. Data from `addressbook` will be fetched and will be initialised as `Main Mode` by default.
+Step 1: The user launches the application. The `AddressBook` will be will be initialised as the *Main Mode* with the initial json data stored.
 
-Step 2: The user execute `mode` command and the mode of the application will be switched to `todo` mode, displaying items in the `todo` list instead.
+Step 2: The user executes `mode` command to switch EatMe to the *Todo Mode* which displays `Eateries` in the *Todo* list.
 
-Step 3: The user can execute `mode` command again, returning the application to `main` mode, showing the items stored in the `main` list.
+Step 3: The user can execute `mode` command again to switch EatMe back to the *Main Mode* which displays the `Eateries` in the *Main* list.
 
 The following sequence diagram shows how the `mode` command works:
 image::ModeCommandSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user executes a new `mode` command:
 image::ModeCommandActivity.png[]
 
 ==== Design Considerations
-===== Aspect: How Mode execute
-* **Alternative 1 (current choice):** Toggle between mode through a boolean value.
-** Pros: Easy for implementation.
-** Cons: An additional factor to check when executing any other commands; Possibility of mis-manipulation of data.
+===== Aspect: How Mode executes
+* **Current choice:** Toggles between mode through a boolean value.
+** Pros: Easily implemented.
+** Cons: An additional variable to check when executing other commands. Possibility of incorrect manipulation of an Eatery object.
 
 ===== Aspect: Data structure to support Mode Command
-* **Alternative 1 (current choice):** Maintain 2 separate lists for Main mode and Todo Mode.
-** Pros: Data between the 2 modes will be separated apart. Commands executed will only affect data stored in the list for the particular mode.
-** Cons: More effort required for maintenance purposes. Need to make sure that data from main list should not go into todo list, and vice versa
-
+* **Current choice:** Maintains two separate lists of Eateries for Main mode and Todo Mode.
+** Pros: Todo Eateries stored apart from Main Eateries. Commands executed will only affect Eateries stored in a particular list.
+** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
 //end::modeCommand[]
-
-// tag::add[]
-=== Add eatery feature
-==== Implementation
-
-The add mechanism is facilitated by `AddressBook`. It implements the following operations:
-
-* `AddressBook#hasEatery(Eatery e)` -- Checks if an Eatery with the same identity as Eatery e exists in the address book.
-* `AddressBook#addEatery(Eatery e)` -- Adds an Eatery to the address book. The eatery must not already exist in the address book.
-
-These operations are exposed in the `Model` interface as `Model#hasEatery()` and `Model#addEatery()` respectively.
-
-Given below is an example usage scenario and how the add eatery mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the default eateries.
-
-Step 2. The user executes `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` to add a new eatery. The `add` command also calls `Model#addEatery(Eatery e)`.
-
-[NOTE]
-If the command is missing a `Name`, `Address`, or `Category` parameter, the execution of the add command will fail and the application will throw a `ParseException`.
-
-The following sequence diagram shows how the add operation works:
-image:add-sd.PNG[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-image::add-ad.PNG[]
-// end ::add[]
-
-// tag::revieweatery[]
-=== [Proposed] Review eatery
-
-The review mechanism is facilitated by the existing `AddressBook`.
-It extends `AddressBook` with a review field, stored internally as an array list of reviews along with other
-attributes of an eatery.
-Additionally, it implements the following operations:
-
-* `AddressBook#review()` -- Adds a review to the eatery identified by the user  input.
-* `AddressBook#editReview()` -- Edits a previously written review.
-
-
-Given below is an example usage scenario and how the review mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The user adds an eatery to through an `add command`.
-
-Step 2. The user executes `review 1 ...` command to add a review to the 1st eatery in the address book. The `review` command calls `Eatery#addReview()`, causing the application to add a review field correspondingly to the specified eatery.
-
-Step 3. The user executes `open 1` to get the complete details of the 1st eatery.
-
-Ste] 4. The user now decides to execute `edit review 1 ...` to edit the 1st review of the eatery shown on using the `open 1` command in the previous step. This calls the `EatMe#editcommand()`.
-
-===== Aspect: How review and edit review execute
-
-* **Alternative 1 (current choice):** Review field under eatery is not nested further. It adds and modifies review of eateries without created new eatery objects as in the case of edit command.
-** Pros: Easy to implement and is faster.
-** Cons: May have less OOP structure as compared to other commands.
-* **Alternative 2:** Review field is nested further and each addition of review or edit to a review creates a new eatery object with all the reviews.
-** Pros: Is structured in a more OOP manner.
-** Cons: May decrease performance and difficult to implement.
-
-* **Alternative 1 (current choice):** Use a list to store and edit the reviews of an eatery.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: List is not immutable.
-
-// end::revieweatery[]
 
 === Logging
 
@@ -322,7 +324,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
+* `INFO` : Information showing the noteworthy actions by EatMe
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
@@ -492,7 +494,7 @@ Windows, Linux, Unix, OS-X
 Any place that serves food open to the public (ie, restaurants, cafes, roadside, pushcart)
 
 [[category]] Category::
-Broadly containts cuisines (self-explanatory) and eating place (ie, a buffet, fusion)
+Broadly contains cuisines (ie, Chinese, International)
 
 [appendix]
 == Product Survey
@@ -523,7 +525,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
+.. Download the jar file and copy into an empty folder.
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
@@ -535,27 +537,29 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting an Eatery
 
-. Deleting a person while all persons are listed
+. Deleting an `Eatery` while all `Eateries` are listed
 
-.. Prerequisites: List all persons using the list command. Multiple persons in the list.
-.. Test case: delete 1 +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: delete 0 +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: delete, delete x (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all `Eateries` using the list command. Multiple `Eateries` in the list.
+.. Test case: `delete 1` +
+   Expected: First `Eatery` is deleted from the list. Details of the deleted `Eatery` shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No `Eatery` is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size, or x is a non-integer) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+_{ more test cases to be added }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. [Proposed] Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: json file type present in a data file where the EatMe app is.
+.. Test case: Running the application with json file type with incorrect format +
+   Expected: Application starts with a blank `Eatery` list panel. Error details shown in the status message.
 
-_{ more test cases ... }_
+_{ more test cases to be added }_
 
 
 
