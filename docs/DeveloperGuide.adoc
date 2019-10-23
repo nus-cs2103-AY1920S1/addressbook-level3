@@ -269,6 +269,7 @@ Given below is an example usage scenario of how the program functionality when a
 . Storage is updated
 . Done.
 
+==== Design Considerations
 ===== Aspect: Storage of DateTimeMap
 
 * **Alternative 1 (current choice):** Stores the DateTimeMap in an array format that is saved in `eventbook.json`
@@ -284,7 +285,7 @@ Instantiation of the `Event` object when the app is started will be more complic
 However, as we are constrained with not utilizing a DBMS, Alternative 1 is a logically simpler and more efficent solution from a software engineering standpoint.
 
 
-==== Design Considerations
+
 // end::test[]
 
 // tag::test[]
