@@ -279,11 +279,11 @@ Step 1. The user launches the application for the first time. The `VersionedXpir
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th item in the Xpire. The `delete` command calls `Model#commitXpire()`, causing the modified state of the Xpire after the `delete 5` command executes to be saved in the `XpireStateList`, and the `currentStatePointer` is shifted to the newly inserted Xpire state.
+Step 2. The user executes `delete|5` command to delete the 5th item in the Xpire. The `delete` command calls `Model#commitXpire()`, causing the modified state of the Xpire after the `delete|5` command executes to be saved in the `XpireStateList`, and the `currentStatePointer` is shifted to the newly inserted Xpire state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new item. The `add` command also calls `Model#commitXpire()`, causing another modified Xpire state to be saved into the `XpireStateList`.
+Step 3. The user executes `add|Strawberry|3/2/2020|1` to add a new item. The `add` command also calls `Model#commitXpire()`, causing another modified Xpire state to be saved into the `XpireStateList`.
 
 image::UndoRedoState2.png[]
 
@@ -742,6 +742,7 @@ Installability
 .  The software shall be installed from Github, a popular portable medium.
 
 Interoperability
+
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 
 _{More to be added}_

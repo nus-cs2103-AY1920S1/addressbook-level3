@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "add n/David"
+title After command "add|Strawberry|3/2/2020|1"
 
 package States <<rectangle>> {
     class State1 as "__xp0:Xpire__"
