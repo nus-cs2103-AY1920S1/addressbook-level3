@@ -1,7 +1,8 @@
 package seedu.address.model.flashcard;
 
-import java.awt.*;
-
+/**
+ * Enum class for use for remind feature
+ */
 public enum ScheduleIncrement {
     FIRST,
     SECOND,
@@ -23,6 +24,10 @@ public enum ScheduleIncrement {
         FINAL.numberOfDays = 7;
     }
 
+    /**
+     * Get int value of increment
+     * @return int value of increment
+     */
     public int getNumberOfDays() {
         return numberOfDays;
     }
