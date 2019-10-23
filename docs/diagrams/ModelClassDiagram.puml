@@ -5,23 +5,44 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyMark <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Mark
+Class ReadOnlyMark
+Class VersionedMark
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package FolderStructure {
+Class FolderStructure
+}
+
+Package Reminder {
+Class Reminder
+Class Note
+Class ReminderAssociation
+}
+
+Package Autotag {
+Class AutotagController
+Class BookmarkTagger
+Class SelectiveBookmarkTagger
+}
+
+Package Bookmark {
+Class Bookmark
 Class Name
-Class Phone
-Class UniquePersonList
+Class Url
+Class Remark
+Class Folder
+Class UniqueBookmarkList
+}
+
+Package Annotation {
+Class OfflineDocument
 }
 
 Package Tag {
@@ -32,25 +53,43 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
-
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" VersionedMark
 ModelManager o-left-> "1" UserPrefs
+ModelManager --> "*" Bookmark : filtered list
+ModelManager -up-> "1" OfflineDocument
+ModelManager --> "1" Url : < current URL of
+
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Mark .up.|> ReadOnlyMark
+VersionedMark -|> Mark
+VersionedMark *-up-> "*" ReadOnlyMark : contains >
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Mark *--> "1" UniqueBookmarkList
+Mark *-left-> "1" FolderStructure
+Mark *--> "1" ReminderAssociation
+Mark *-left-> "1" AutotagController
 
-ModelManager -->"1" Person : filtered list
+UniqueBookmarkList o--> "*" Bookmark
+Bookmark *--> Name
+Bookmark *--> Url
+Bookmark *--> Remark
+Bookmark *--> Folder
+Bookmark *--> "*" Tag
+
+Name -[hidden]right-> Url
+Url -[hidden]right-> Remark
+Remark -[hidden]right-> Folder
+
+ReminderAssociation o--> "*" Bookmark
+ReminderAssociation o--> "*" Reminder
+Reminder --> Bookmark
+Reminder --> Note
+
+AutotagController o--> "*" SelectiveBookmarkTagger
+SelectiveBookmarkTagger -down-|> BookmarkTagger
+BookmarkTagger --> Tag
+
 @enduml
