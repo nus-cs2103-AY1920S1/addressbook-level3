@@ -11,14 +11,14 @@
 
 //Change to one line later
 My team believes in a right to education for everyone. With a common belief to improve literacy in the world,
-we decided to create a library management system called 'LiBerry' that is free and easy to use for all,
-thereby promoting literacy.
-'LiBerry' is designed for smaller communities where there is a lack of expertise and resources to manage a library.
+we decided to create a library management system called 'LiBerry' that is free and easy to use for all.
+'LiBerry' is designed for smaller communities with a lack of expertise and resources to manage a library.
 This library management system is able to add and remove books to and from the library. It is also able to register
 borrowers and mark a book as loaned to a borrower. On top of it, it is also able to automatically calculate loan
-periods and fines for any overdue loans.
+periods and fines for any overdue loans, as well as generate a loan slip for every loan.
 
 This is what our system looks like:
+
 image::Ui.png[width="150", align="center"]
 
 == Summary of contributions
