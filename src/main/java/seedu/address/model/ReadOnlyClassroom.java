@@ -6,7 +6,7 @@ import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an classroom.
  */
 public interface ReadOnlyClassroom {
 

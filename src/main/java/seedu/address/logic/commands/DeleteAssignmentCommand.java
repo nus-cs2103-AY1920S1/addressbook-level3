@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * Deletes an assignment identified using it's displayed index from the address book.
+ * Deletes an assignment identified using it's displayed index from the classroom.
  */
 public class DeleteAssignmentCommand extends Command {
 
@@ -42,6 +42,7 @@ public class DeleteAssignmentCommand extends Command {
 
         Assignment assignmentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteAssignment(assignmentToDelete);
+        model.saveState();
         return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, assignmentToDelete));
     }
 

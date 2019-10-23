@@ -43,7 +43,7 @@ public interface Logic {
     ObservableList<Reminder> getFilteredReminderList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' classroom file path.
      */
     Path getClassroomFilePath();
 

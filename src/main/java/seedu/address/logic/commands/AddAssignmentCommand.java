@@ -22,7 +22,7 @@ public class AddAssignmentCommand extends Command {
                                                    + "Example: " + COMMAND_WORD + " "
                                                    + PREFIX_ASSIGNMENT + "Math Test ";
     public static final String MESSAGE_SUCCESS = "New assignment added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the classroom";
 
     private final Assignment toAdd;
 
@@ -44,6 +44,7 @@ public class AddAssignmentCommand extends Command {
         }
 
         model.addAssignment(toAdd);
+        model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

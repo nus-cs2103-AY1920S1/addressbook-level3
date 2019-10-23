@@ -7,7 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_NO_ASSIGNMENTS;
 import seedu.address.model.Model;
 
 /**
- * Lists all students in the address book to the user.
+ * Lists all students in the classroom to the user.
  */
 public class ListCommand extends Command {
 

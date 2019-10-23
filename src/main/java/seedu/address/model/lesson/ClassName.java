@@ -3,7 +3,7 @@ package seedu.address.model.lesson;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Class name in the Address Book.
+ * Represents a Class name in the Classroom.
  */
 public class ClassName {
 

@@ -17,12 +17,13 @@ import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the classroom data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Classroom classroom;
+    private final Caretaker caretaker;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private FilteredList<Reminder> filteredReminders;
@@ -35,9 +36,10 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(classroom, userPrefs);
 
-        logger.fine("Initializing with address book: " + classroom + " and user prefs " + userPrefs);
+        logger.fine("Initializing with classroom: " + classroom + " and user prefs " + userPrefs);
 
         this.classroom = new Classroom(classroom);
+        this.caretaker = new Caretaker(new Memento(classroom), this.classroom);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.classroom.getStudentList());
         filteredReminders = new FilteredList<>(this.classroom.getReminderList());
@@ -174,7 +176,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code Caretaker}
      */
     @Override
     public ObservableList<Student> getFilteredStudentList() {
@@ -196,6 +198,34 @@ public class ModelManager implements Model {
     public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);
+    }
+    //=========== Undo and Redo Operations =============================================================
+
+    @Override
+    public ReadOnlyClassroom undo() {
+        return caretaker.undo();
+    }
+
+    @Override
+    public boolean canUndo() {
+        return caretaker.canUndo();
+    }
+
+    @Override
+    public ReadOnlyClassroom redo() {
+        return caretaker.redo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return caretaker.canRedo();
+    }
+
+    @Override
+    public void saveState() {
+        caretaker.saveState();
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override

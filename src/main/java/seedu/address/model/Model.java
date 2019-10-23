@@ -41,17 +41,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' classroom file path.
      */
     Path getClassroomFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' classroom file path.
      */
     void setClassroomFilePath(Path classroomFilePath);
 
     /**
-     * Replaces address book data with the data in {@code classroom}.
+     * Replaces classroom data with the data in {@code classroom}.
      */
     void setClassroom(ReadOnlyClassroom classroom);
 
@@ -59,27 +59,26 @@ public interface Model {
     ReadOnlyClassroom getClassroom();
 
     /**
-     * Returns true if a student with the same identity as {@code student} exists in the address book.
+     * Returns true if a student with the same identity as {@code student} exists in the classroom.
      */
     boolean hasStudent(Student student);
     boolean hasAssignment(Assignment assignment);
     /**
      * Deletes the given student.
-     * The student must exist in the address book.
+     * The student must exist in the classroom.
      */
     void deleteStudent(Student target);
     void deleteAssignment(Assignment target);
     /**
      * Adds the given student.
-     * {@code student} must not already exist in the address book.
+     * {@code student} must not already exist in the classroom.
      */
     void addStudent(Student student);
     void addAssignment(Assignment assignment);
     /**
      * Replaces the given student {@code target} with {@code editedStudent}.
-     * {@code target} must exist in the address book.
-     * The student identity of {@code editedStudent} must not be the same as another existing student in the address
-     * book.
+     * {@code target} must exist in the classroom.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the classroom.
      */
     void setStudent(Student target, Student editedStudent);
     void setAssignment(Assignment target, Assignment editedAssignment);
@@ -100,6 +99,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    ReadOnlyClassroom undo();
+
+    boolean canUndo();
+
+    ReadOnlyClassroom redo();
+
+    boolean canRedo();
+
+    void saveState();
 
     /**
      * Returns the boolean Classroom.isDisplayStudents to determine if students should be displayed.
@@ -123,7 +132,7 @@ public interface Model {
     void addLesson(Lesson lesson);
 
     /**
-     * Returns true if a Lesson with the same identity exists in the addressbook.
+     * Returns true if a Lesson with the same identity exists in the classroom.
      * @param lesson Lesson object.
      */
     boolean hasLesson(Lesson lesson);
