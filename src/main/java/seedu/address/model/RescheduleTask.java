@@ -1,22 +1,24 @@
 package seedu.address.model;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.item.Event;
-import seedu.address.commons.core.item.Item;
-import seedu.address.logic.LogicManager;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.item.Event;
+import seedu.address.commons.core.item.Item;
+import seedu.address.logic.LogicManager;
+
+/**
+ * Task to reschedule an event.
+ */
 public class RescheduleTask extends TimerTask {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-    public ItemModel model;
-
-    Item item;
-    Event event;
-    AutoReschedulePeriod period;
+    private ItemModel model;
+    private Item item;
+    private Event event;
+    private AutoReschedulePeriod period;
 
     public RescheduleTask(Item item, AutoReschedulePeriod period, ItemModel model) {
         this.item = item;
@@ -33,8 +35,14 @@ public class RescheduleTask extends TimerTask {
         return period.getPeriod();
     }
 
+    /**
+     * Executes this task.
+     * Update this event's startDateTime with the new startDateTime, given the period of reccurence.
+     * Update the model with the new item.
+     * Refreshes the view on the Ui to reflect the new startDateTime of this event.
+     */
     public void run() {
-        logger.info( "----------[INFO] " + "Reschedule runs again. Old event: " + event.toString());
+        logger.info("----------[INFO] " + "Reschedule runs again. Old event: " + event.toString());
         Item oldItem = item;
         long period = event.getPeriod().getPeriod();
         LocalDateTime newStart = LocalDateTime.now().plusNanos(Duration.ofMillis(period).toNanos());

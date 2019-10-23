@@ -1,21 +1,28 @@
 package seedu.address.model;
 
+import java.math.BigInteger;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Timer;
+
 import seedu.address.commons.core.item.Event;
 import seedu.address.commons.core.item.Item;
 import seedu.address.model.item.EventList;
 
-import java.math.BigInteger;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Timer;
-
+/**
+ * Manages all the events that are to be rescheduled automatically at each of their given interval period.
+ * Uses a Timer to keep track of when to update the Event's startDateTime.
+ */
 public class AutoRescheduleManager {
-    public static AutoRescheduleManager manager;
-    public static Timer timer;
+    private static AutoRescheduleManager manager;
+    private static Timer timer;
 
     private AutoRescheduleManager() {}
 
+    /**
+     * The only way to get an AutoRescheduleManager object. There should only be one AutoRescheduleManager at any time.
+     * @return the only instance of AutoRescheduleManager
+     */
     public static AutoRescheduleManager getInstance() {
         if (manager == null) {
             manager = new AutoRescheduleManager();
@@ -24,6 +31,12 @@ public class AutoRescheduleManager {
         return manager;
     }
 
+    /**
+     * Initialise this AutoRescheduleManager with all the events that can be rescheduled
+     * Update event times to the latest upcoming one, given their period.
+     * @param eventList of all events in the storage
+     * @param model containing the events
+     */
     public static void initStorageEvents(EventList eventList, ItemModel model) {
         for (Item item : eventList) {
             if (item.hasEvent()) {
@@ -36,7 +49,7 @@ public class AutoRescheduleManager {
                         getInstance().add(task);
                     } else {
                         // event date is before now, but is reschedulable
-                        // modify the event date to the most upcoming one (For loop: event start date + period until time is after now)
+                        // modify the event date to the most upcoming one (Use modulo and add remainder)
                         // add(newEvent)
                         LocalDateTime updatedDateTime = getUpdatedDateTime(event);
                         Event updatedEvent = event.changeStartDateTime(updatedDateTime);
@@ -61,18 +74,23 @@ public class AutoRescheduleManager {
      * @return LocalDateTime representation of the modified time
      */
     private static LocalDateTime getUpdatedDateTime(Event event) {
+        // Use modulo to get the remaining time till the next reschedule time. Add that remaining time to the time now.
         long period = event.getPeriod().getPeriod();
         LocalDateTime startDateTime = event.getStartDateTime();
         long millisDifference = Duration.between(startDateTime, LocalDateTime.now()).toMillis(); // positive difference;
-        BigInteger periodBI = new BigInteger("" + period);
-        BigInteger millisDifferenceBI = new BigInteger("" + millisDifference);
+        BigInteger periodBi = new BigInteger("" + period);
+        BigInteger millisDifferenceBi = new BigInteger("" + millisDifference);
 
-        long millisRemainder = millisDifferenceBI.mod(periodBI).longValue();
+        long millisRemainder = millisDifferenceBi.mod(periodBi).longValue();
         LocalDateTime updatedDateTime = LocalDateTime.now().plusNanos(Duration.ofMillis(millisRemainder).toNanos());
 
         return updatedDateTime;
     }
 
+    /**
+     * Adds a RescheduleTask that is to be rescheduled periodically, to this AutoRescheduleManager.
+     * @param task RescheduleTask to be carried out after reaching an event's startDateTime
+     */
     public void add(RescheduleTask task) {
         try {
             Duration delay = Duration.between(LocalDateTime.now(), task.getStartTime());
@@ -83,6 +101,9 @@ public class AutoRescheduleManager {
         }
     }
 
+    /**
+     * Shutdown the AutoRescheduleManager
+     */
     public void shutdown() {
         timer.cancel();
     }

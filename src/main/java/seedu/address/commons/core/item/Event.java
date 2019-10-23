@@ -39,10 +39,11 @@ public class Event {
     }
 
     public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule) throws IllegalArgumentException {
-        this(startDateTime, duration, false, null);
+        this(startDateTime, duration, isAutoReschedule, null);
     }
 
-    public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule, AutoReschedulePeriod period) throws IllegalArgumentException {
+    public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule,
+                 AutoReschedulePeriod period) throws IllegalArgumentException {
         requireNonNull(startDateTime);
         if (duration != null) {
             this.duration = duration;

@@ -99,6 +99,9 @@ public class LogicManager implements Logic {
         return model.getActiveReminderListProperty();
     }
 
+    /**
+     * Shutdown threads for Reminders and AutoRescheduleManager
+     */
     public final void shutdown() {
         checker.shutdown();
         autoRescheduleManager.shutdown();

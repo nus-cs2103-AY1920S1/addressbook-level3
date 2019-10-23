@@ -47,12 +47,15 @@ public class AddEventCommandParser implements Parser<AddCommand> {
         ItemDescription description = ParserUtil.parseDescription(desc);
         // Event must be present.
         Event event = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get()).get();
-        Optional<Reminder> itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).orElse(null));
-        Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
+        Optional<Reminder> itemReminder = ParserUtil.parseReminder(
+                argMultimap.getValue(PREFIX_REMINDER).orElse(null));
+        Optional<Priority> priority = ParserUtil.parsePriority(
+                argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         try {
-            Optional<AutoReschedulePeriod> reschedulePeriod = ParserUtil.parseReschedule(argMultimap.getValue(PREFIX_AUTO_RESCHEDULE).orElse(null));
+            Optional<AutoReschedulePeriod> reschedulePeriod = ParserUtil.parseReschedule(
+                    argMultimap.getValue(PREFIX_AUTO_RESCHEDULE).orElse(null));
             if (reschedulePeriod.isPresent()) {
                 event = event.setAutoReschedule(true).setReschedulePeriod(reschedulePeriod.get());
             }

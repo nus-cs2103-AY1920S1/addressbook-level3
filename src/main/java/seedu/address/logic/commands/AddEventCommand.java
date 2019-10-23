@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Event;
+import seedu.address.commons.core.item.Item;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 import seedu.address.model.RescheduleTask;
@@ -34,7 +34,7 @@ public class AddEventCommand extends AddCommand {
         if (toAdd.hasAutoReschedule()) {
             Event event = toAdd.getEvent().get();
             RescheduleTask task = new RescheduleTask(toAdd, event.getPeriod(), model);
-            autoRescheduleManager.add(task);
+            AUTO_RESCHEDULE_MANAGER.add(task);
         }
 
         // Notify Ui to change the view the that of the newly added item.
