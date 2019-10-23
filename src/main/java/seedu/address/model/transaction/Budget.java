@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 import seedu.address.model.util.Date;
 
 
@@ -19,27 +19,27 @@ public class Budget {
     private Date deadline;
     private boolean valid;
 
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     public Budget() {
         this.valid = false;
     }
 
     /**
-     * Constructor for Budget with no tags given.
-     * By default, tag is "general"
+     * Constructor for Budget with no categories given.
+     * By default, category is "general"
      */
     public Budget(Amount amount, Date date) {
         this.amount = amount;
         this.deadline = date;
-        this.tags.add(new Tag("general"));
+        this.categories.add(new Category("general"));
         this.valid = true;
     }
 
-    public Budget(Amount amount, Date date, Set<Tag> tags) {
+    public Budget(Amount amount, Date date, Set<Category> categories) {
         this.amount = amount;
         this.deadline = date;
-        this.tags.addAll(tags);
+        this.categories.addAll(categories);
         this.valid = true;
     }
 
@@ -57,8 +57,8 @@ public class Budget {
         return this.deadline;
     }
 
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
 
@@ -68,6 +68,7 @@ public class Budget {
 
     /**
      * Updates the amount of this budget given a new amount.
+     *
      * @param amount
      * @return
      */
@@ -83,6 +84,7 @@ public class Budget {
 
     /**
      * Calculates the new Date given the amount of duration from Today.
+     *
      * @return Date after {@code duration} days from today
      */
     private Date calculateDeadline(int duration) {
@@ -93,6 +95,7 @@ public class Budget {
 
     /**
      * Checks if the given budget is the same Budget object as this budget.
+     *
      * @param otherBudget
      * @return
      */
@@ -102,8 +105,8 @@ public class Budget {
         }
 
         return otherBudget != null
-                && otherBudget.getBudget().equals(getBudget())
-                && otherBudget.getDeadline().equals(getDeadline());
+            && otherBudget.getBudget().equals(getBudget())
+            && otherBudget.getDeadline().equals(getDeadline());
     }
 
     @Override
@@ -113,7 +116,7 @@ public class Budget {
         } else if (obj instanceof Budget) {
             Budget inObj = (Budget) obj;
             return amount.equals(inObj.amount)
-                    && deadline.equals(inObj.deadline);
+                && deadline.equals(inObj.deadline);
         } else {
             return false;
         }

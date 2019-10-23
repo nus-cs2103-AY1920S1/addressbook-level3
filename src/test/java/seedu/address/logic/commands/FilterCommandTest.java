@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.transaction.TransactionContainsTagsPredicate;
+import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 
 
 /**
@@ -28,10 +28,10 @@ public class FilterCommandTest {
 
     @Test
     public void equals() {
-        TransactionContainsTagsPredicate firstPredicate =
-                new TransactionContainsTagsPredicate(Collections.singletonList("first"));
-        TransactionContainsTagsPredicate secondPredicate =
-                new TransactionContainsTagsPredicate(Collections.singletonList("second"));
+        TransactionContainsCategoriesPredicate firstPredicate =
+                new TransactionContainsCategoriesPredicate(Collections.singletonList("first"));
+        TransactionContainsCategoriesPredicate secondPredicate =
+                new TransactionContainsCategoriesPredicate(Collections.singletonList("second"));
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
@@ -56,7 +56,7 @@ public class FilterCommandTest {
     @Test
     public void execute_zeroKeywords_noTransactionFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);
-        TransactionContainsTagsPredicate predicate = preparePredicate(" ");
+        TransactionContainsCategoriesPredicate predicate = preparePredicate(" ");
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -66,7 +66,7 @@ public class FilterCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private TransactionContainsTagsPredicate preparePredicate(String userInput) {
-        return new TransactionContainsTagsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private TransactionContainsCategoriesPredicate preparePredicate(String userInput) {
+        return new TransactionContainsCategoriesPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

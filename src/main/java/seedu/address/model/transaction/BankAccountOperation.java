@@ -2,7 +2,7 @@ package seedu.address.model.transaction;
 
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 import seedu.address.model.util.Date;
 
 /**
@@ -13,7 +13,7 @@ public interface BankAccountOperation {
 
     Amount getAmount();
 
-    Set<Tag> getTags();
+    Set<Category> getCategories();
 
     boolean isSameTransaction(BankAccountOperation transaction);
 
