@@ -14,21 +14,13 @@ public class OutTransaction extends Transaction implements BankAccountOperation 
         super(amount.makeNegative(), date);
     }
 
-<<<<<<< HEAD
-    public OutTransaction(Amount amount, Date date, Set<Tag> tags) {
-        super(amount.makeNegative(), date, tags);
-    }
-
-    public OutTransaction(Amount amount, Date date, Set<Tag> tags, Person personInvolved) {
-        super(amount.makeNegative(), date, tags, personInvolved);
-=======
     public OutTransaction(Amount amount, Date date, Set<Category> categories) {
         super(amount, date, categories);
     }
 
     public OutTransaction(Amount amount, Date date, Set<Category> categories, Person personInvolved) {
         super(amount, date, categories, personInvolved);
->>>>>>> master
+
     }
 
     @Override

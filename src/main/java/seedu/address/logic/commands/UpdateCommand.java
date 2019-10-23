@@ -91,6 +91,7 @@ public class UpdateCommand extends Command {
         if (transactionToEdit instanceof InTransaction) {
             return new InTransaction(updatedAmount, updatedDate, updatedCategories);
         } else {
+            /* transactionToEdit instanceof OutTransaction. Add in more conditionals. */
             return new OutTransaction(updatedAmount, updatedDate, updatedCategories);
         }
     }
