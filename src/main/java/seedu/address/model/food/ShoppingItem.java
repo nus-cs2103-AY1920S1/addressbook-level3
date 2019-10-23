@@ -16,7 +16,6 @@ public class ShoppingItem extends Food {
         super(name, amount);
         bought = false;
         urgent = false;
-        //this.expiryDate = null;
     }
 
     public ShoppingItem(Name name, Amount amount, boolean isBought, boolean isUrgent) {
@@ -25,20 +24,6 @@ public class ShoppingItem extends Food {
         this.urgent = isUrgent;
         //this.expiryDate = null;
     }
-/*
-    /**
-     * Create a new Shopping item with expiry date when it is marked as bought.
-     * @param name Name of shopping item to be added to grocery list
-     * @param amount Amount of the item
-     * @param expiryDate expiry date of the item when it is added to the grocery list
-     */
-    /*public ShoppingItem(Name name, Amount amount, ExpiryDate expiryDate) {
-        super(name, amount);
-        this.bought = true;
-        this.urgent = false;
-        //this.expiryDate = expiryDate;
-    }
-    */
     public boolean isBought() {
         return this.bought;
     }
@@ -46,10 +31,6 @@ public class ShoppingItem extends Food {
     public boolean isUrgent() {
         return this.urgent;
     }
-
-    /*public ExpiryDate getExpiryDate() {
-        return this.expiryDate;
-    }*/
 
     public ShoppingItem setBought(boolean bought) {
         return new ShoppingItem(this.getName(), this.getAmount(), bought, this.isUrgent());

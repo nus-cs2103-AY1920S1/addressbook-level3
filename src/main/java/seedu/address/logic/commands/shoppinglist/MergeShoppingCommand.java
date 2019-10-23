@@ -30,9 +30,9 @@ public class MergeShoppingCommand extends Command {
 
     /**
      * Creates an updated grocery item with the sum of its amount and boughtItem's quantity as quantity
-     * @param boughtItem boughtItem with same name as the groceryItem
-     * @param groceryItem
-     * @return
+     * @param boughtItem with same name as the groceryItem
+     * @param groceryItem whose quantity is to be updated
+     * @return grocery item with updated amount
      */
     private GroceryItem createUpdatedGroceryItem(GroceryItem boughtItem, GroceryItem groceryItem) {
         Name name = boughtItem.getName();
@@ -42,6 +42,11 @@ public class MergeShoppingCommand extends Command {
         return new GroceryItem(name, updatedAmount, expiryDate, tags);
     }
 
+    /**
+     * Deletes or reduces the amount of shopping item according to how much was bought
+     * @param boughtItem according to which shoppingList will be modified
+     * @param model to be changed
+     */
     private void modifyShoppingListAccordingToBoughtItem(GroceryItem boughtItem, Model model) {
         Amount boughtAmount = boughtItem.getAmount();
         List<ShoppingItem> shoppingList = model.getFilteredShoppingList();
@@ -63,6 +68,12 @@ public class MergeShoppingCommand extends Command {
         }
     }
 
+    /**
+     * Adds a new Grocery item or increases the amount of existing grocery item.
+     * This is done according to the item that is bought.
+     * @param boughtItem according to which groceryList will change
+     * @param model to be modified
+     */
     private void modifyGroceryListAccordingToBoughtItem(GroceryItem boughtItem, Model model) {
         boolean toAdd = true;
         List<GroceryItem> groceryList = model.getFilteredGroceryItemList();

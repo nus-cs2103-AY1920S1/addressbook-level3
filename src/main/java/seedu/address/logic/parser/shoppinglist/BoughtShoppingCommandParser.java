@@ -38,8 +38,8 @@ public class BoughtShoppingCommandParser implements Parser<BoughtShoppingCommand
                     BoughtShoppingCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!(argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent() &&
-                argMultimap.getValue(PREFIX_AMOUNT).isPresent())) {
+        if (!(argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()
+                && argMultimap.getValue(PREFIX_AMOUNT).isPresent())) {
             throw new ParseException(BoughtShoppingCommand.MESSAGE_NOT_PROPER);
         }
 

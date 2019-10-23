@@ -182,7 +182,7 @@ public class StorageManager implements Storage {
         shoppingListStorage.saveShoppingList(shoppingList, filePath);
     }
 
-// ================ BoughtList methods ==============================
+    // ================ BoughtList methods ==============================
 
     @Override
     public Path getBoughtListFilePath() {

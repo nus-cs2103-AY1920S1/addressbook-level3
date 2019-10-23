@@ -272,7 +272,7 @@ public interface Model {
      */
     void updateFilteredShoppingList(Predicate<ShoppingItem> predicate);
 
-//=========== BoughtList ==================================================================================
+    //=========== BoughtList ==================================================================================
     /**
      * Returns the user prefs' bought list file path.
      */

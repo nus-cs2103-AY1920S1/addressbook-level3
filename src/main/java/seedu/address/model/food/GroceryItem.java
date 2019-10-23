@@ -48,8 +48,8 @@ public class GroceryItem extends Food {
         if (!(anotherFood instanceof GroceryItem)) {
             return false;
         } else {
-            return this.getName().equals(anotherFood.getName()) &&
-                    this.expiryDate.equals(((GroceryItem) anotherFood).expiryDate);
+            return this.getName().equals(anotherFood.getName())
+                    && this.expiryDate.equals(((GroceryItem) anotherFood).expiryDate);
         }
     }
 
