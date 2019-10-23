@@ -9,6 +9,9 @@ import seedu.sgm.model.food.Gi;
 import seedu.sgm.model.food.Sugar;
 import seedu.sgm.model.food.UniqueFoodList;
 
+/**
+ * Contains utility methods for populating {@code UniqueFoodList} with sample data.
+ */
 public class SampleFoodDataUtil {
 
     private static Food buildNewFood(String foodName, String calorie, String gi, String sugar, String fat,

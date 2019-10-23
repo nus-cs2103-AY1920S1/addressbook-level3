@@ -24,14 +24,6 @@ import seedu.address.model.record.BmiBuilder;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.tag.Tag;
-import seedu.sgm.model.food.Calorie;
-import seedu.sgm.model.food.Fat;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodName;
-import seedu.sgm.model.food.FoodType;
-import seedu.sgm.model.food.Gi;
-import seedu.sgm.model.food.Sugar;
-import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
