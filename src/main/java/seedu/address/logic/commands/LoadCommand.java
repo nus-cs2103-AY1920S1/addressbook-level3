@@ -8,5 +8,4 @@ import seedu.address.model.Model;
  */
 public abstract class LoadCommand extends Command {
     public abstract CommandResult execute(Model model) throws CommandException;
-
 }
