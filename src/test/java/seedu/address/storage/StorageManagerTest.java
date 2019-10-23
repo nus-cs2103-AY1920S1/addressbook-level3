@@ -23,7 +23,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonGroceryListStorage addressBookStorage = new JsonGroceryListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonTemplateListStorage templateListStorage = new JsonTemplateListStorage(getTempFilePath("ac"));
         JsonWasteListStorage wasteListStorage = new JsonWasteListStorage(getTempFilePath("ad"));
@@ -65,7 +65,7 @@ public class StorageManagerTest {
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getGroceryListFilePath());
     }
 
 }

@@ -21,7 +21,7 @@ import seedu.address.model.waste.WasteReport;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<GroceryItem> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<GroceryItem> PREDICATE_SHOW_ALL_GROCERY_ITEMS = unused -> true;
     Predicate<UniqueTemplateItems> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
     Predicate<UniqueTemplateItems> PREDICATE_SHOW_ALL_TEMPLATES_ITEMS = unused -> true;
     Predicate<GroceryItem> PREDICATE_SHOW_ALL_WASTE_ITEMS = unused -> true;
@@ -61,20 +61,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getGroceryListFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setGroceryListFilePath(Path groceryListFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setGroceryList(ReadOnlyAddressBook groceryList);
+    void setGroceryList(ReadOnlyGroceryList groceryList);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getGroceryList();
+    ReadOnlyGroceryList getGroceryList();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

@@ -66,7 +66,7 @@ public class ParserUtil {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
         if (!Amount.isValidAmount(trimmedAmount)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
         return new Amount(trimmedAmount);
     }
@@ -81,7 +81,7 @@ public class ParserUtil {
         requireNonNull(expiryDate);
         String trimmedExpiryDate = expiryDate.trim();
         if (!ExpiryDate.isValidExpiryDate(trimmedExpiryDate)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
         }
         return new ExpiryDate(trimmedExpiryDate);
     }

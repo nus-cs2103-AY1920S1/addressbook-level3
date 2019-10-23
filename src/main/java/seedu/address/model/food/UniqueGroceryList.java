@@ -21,7 +21,7 @@ import seedu.address.model.food.exceptions.FoodNotFoundException;
  *
  * @see Food#isSameFood(Food)
  */
-public class UniqueFoodList implements Iterable<GroceryItem> {
+public class UniqueGroceryList implements Iterable<GroceryItem> {
 
     private final ObservableList<GroceryItem> internalList = FXCollections.observableArrayList();
     private final ObservableList<GroceryItem> internalUnmodifiableList =
@@ -49,15 +49,15 @@ public class UniqueFoodList implements Iterable<GroceryItem> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setPerson(GroceryItem target, GroceryItem editedFood) {
-        requireAllNonNull(target, editedFood);
+    public void setGroceryItem(GroceryItem target, GroceryItem editedGroceryItem) {
+        requireAllNonNull(target, editedGroceryItem);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new FoodNotFoundException();
         }
 
-        internalList.set(index, editedFood);
+        internalList.set(index, editedGroceryItem);
     }
 
     /**
@@ -71,7 +71,7 @@ public class UniqueFoodList implements Iterable<GroceryItem> {
         }
     }
 
-    public void setPersons(UniqueFoodList replacement) {
+    public void setGroceryList(UniqueGroceryList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -80,7 +80,7 @@ public class UniqueFoodList implements Iterable<GroceryItem> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<GroceryItem> foods) {
+    public void setGroceryList(List<GroceryItem> foods) {
         requireAllNonNull(foods);
         internalList.setAll(foods);
     }
@@ -100,8 +100,8 @@ public class UniqueFoodList implements Iterable<GroceryItem> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueFoodList // instanceof handles nulls
-                        && internalList.equals(((UniqueFoodList) other).internalList));
+                || (other instanceof UniqueGroceryList // instanceof handles nulls
+                        && internalList.equals(((UniqueGroceryList) other).internalList));
     }
 
     @Override
