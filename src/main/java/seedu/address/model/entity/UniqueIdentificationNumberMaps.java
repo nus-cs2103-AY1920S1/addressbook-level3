@@ -166,6 +166,10 @@ public class UniqueIdentificationNumberMaps {
         uniqueWorkerMap.clear();
     }
 
+    /**
+     * Returns the entity that belongs to the supplied Identification Number details.
+     * Guarantee: Identification Number is present and will not retrieve a null.
+     */
     public static Entity getMapping(String typeOfEntity, int id) {
         if (typeOfEntity.equals("W")) {
             return uniqueWorkerMap.get(id);

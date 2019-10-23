@@ -17,9 +17,9 @@ import seedu.address.model.Model;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.notif.Notif;
 import seedu.address.ui.NotifWindow;
+import seedu.address.ui.NotificationButton;
 
 //@@author arjavibahety
-
 /**
  * Notifies a user when there is an automatic change in BodyStatus.
  */
@@ -90,6 +90,7 @@ public class NotifCommand extends Command {
                     logger.info("Error updating the body and fridge ");
                 }
             }
+            NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
         });
 
         ses.schedule(changeUi, period, timeUnit);

@@ -200,6 +200,11 @@ public class ModelManager implements Model {
 
         addressBook.setNotif(target, editedNotif);
     }
+
+    @Override
+    public int getNumberOfNotifs() {
+        return filteredNotifs.size();
+    }
     //=========== Filtered Body List Accessors =============================================================
     /**
      * Returns an unmodifiable view of the list of {@code Worker} backed by the internal list of

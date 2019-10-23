@@ -132,13 +132,11 @@ public class ReportGenerator {
                     new PdfPCell(new Paragraph(String.format("%s", body.getCauseOfDeath()))));
         }
         List organList = new List();
-        if (body.getOrgansForDonation().isPresent()) {
-            for (String organ : body.getOrgansForDonation().get()) {
-                organList.add(new ListItem(organ));
-            }
-            if (organList.isEmpty()) {
-                organList.add("No organs for donation.");
-            }
+        for (String organ : body.getOrgansForDonation()) {
+            organList.add(new ListItem(organ));
+        }
+        if (organList.isEmpty()) {
+            organList.add("No organs for donation.");
         }
         PdfPCell cell = new PdfPCell();
         cell.addElement(organList);

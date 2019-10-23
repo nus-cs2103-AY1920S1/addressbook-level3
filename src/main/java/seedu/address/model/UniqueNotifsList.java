@@ -108,7 +108,6 @@ public class UniqueNotifsList {
         internalListNotifs.setAll(notifs);
     }
 
-
     /**
      * Returns the backing Notif list as an unmodifiable {@code ObservableList}.
      */

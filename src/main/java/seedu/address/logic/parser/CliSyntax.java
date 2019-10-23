@@ -20,8 +20,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE_OF_ADMISSION = new Prefix("/doa");
     public static final Prefix PREFIX_NRIC = new Prefix("/nric");
     public static final Prefix PREFIX_RELIGION = new Prefix("/religion");
-    public static final Prefix PREFIX_NAME_NOK = new Prefix("/nameNOK");
-    public static final Prefix PREFIX_PHONE_NOK = new Prefix("/phoneNOK");
+    public static final Prefix PREFIX_NAME_NOK = new Prefix("/NOKname");
+    public static final Prefix PREFIX_PHONE_NOK = new Prefix("/NOKphone");
     public static final Prefix PREFIX_CAUSE_OF_DEATH = new Prefix("/cod");
     public static final Prefix PREFIX_BODY_DETAILS = new Prefix("/details");
     public static final Prefix PREFIX_ORGANS_FOR_DONATION = new Prefix("/organsForDonation");
