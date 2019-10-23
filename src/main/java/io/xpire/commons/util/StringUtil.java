@@ -172,7 +172,6 @@ public class StringUtil {
                 if (i <= limit) {
                     allMatches.putIfAbsent(i, new TreeSet<>());
                     allMatches.get(i).add(s);
-                    System.out.println(s);
                 }
             }
         }
