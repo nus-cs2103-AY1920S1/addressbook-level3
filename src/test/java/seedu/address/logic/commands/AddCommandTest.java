@@ -21,9 +21,10 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.exchangedata.ExchangeData;
+
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.ExpenseBuilder;
 
@@ -83,12 +84,12 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -118,12 +119,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setExpenseList(ReadOnlyExpenseList newData) {
+        public ReadOnlyExpenseList getExpenseList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyExpenseList getExpenseList() {
+        public void setExpenseList(ReadOnlyExpenseList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,12 +139,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setExchangeData(ExchangeData exchangeData) {
+        public ExchangeData getExchangeData() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ExchangeData getExchangeData() {
+        public void setExchangeData(ExchangeData exchangeData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,12 +189,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setBudgetList(ReadOnlyBudgetList newData) {
+        public ReadOnlyBudgetList getBudgetList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyBudgetList getBudgetList() {
+        public void setBudgetList(ReadOnlyBudgetList newData) {
             throw new AssertionError("This method should not be called.");
         }
 

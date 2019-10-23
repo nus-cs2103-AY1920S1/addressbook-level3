@@ -12,10 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetList;
 import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -25,21 +25,22 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ExpenseList expenseList;
-    private ExchangeData exchangeData;
     private final BudgetList budgetList;
     private final UserPrefs userPrefs;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Budget> filteredBudgets;
+    private ExchangeData exchangeData;
 
     /**
      * Initializes a ModelManager with the given expenseList and userPrefs.
      */
-    public ModelManager(ReadOnlyExpenseList expenseList, ReadOnlyBudgetList budgetList, ExchangeData exchangeData, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExpenseList expenseList, ReadOnlyBudgetList budgetList,
+                        ExchangeData exchangeData, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(expenseList, exchangeData, userPrefs);
 
         logger.fine("Initializing with expense list: " + expenseList + ", user prefs " + userPrefs
-                + " budget list: " + budgetList);
+            + " budget list: " + budgetList);
 
         this.expenseList = new ExpenseList(expenseList);
         this.exchangeData = new ExchangeData(exchangeData);
@@ -56,14 +57,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -98,7 +99,7 @@ public class ModelManager implements Model {
         requireNonNull(exchangeDataFilePath);
         userPrefs.setExchangeDataFilePath(exchangeDataFilePath);
     }
-    
+
     public Path getBudgetListFilePath() {
         return userPrefs.getBudgetListFilePath();
     }
@@ -112,23 +113,23 @@ public class ModelManager implements Model {
     //=========== ExpenseList ================================================================================
 
     @Override
-    public void setExpenseList(ReadOnlyExpenseList expenseList) {
-        this.expenseList.resetData(expenseList);
-    }
-
-    @Override
     public ReadOnlyExpenseList getExpenseList() {
         return expenseList;
     }
 
     @Override
-    public void setExchangeData(ExchangeData exchangeData) {
-        this.exchangeData = exchangeData;
+    public void setExpenseList(ReadOnlyExpenseList expenseList) {
+        this.expenseList.resetData(expenseList);
     }
 
     @Override
     public ExchangeData getExchangeData() {
         return exchangeData;
+    }
+
+    @Override
+    public void setExchangeData(ExchangeData exchangeData) {
+        this.exchangeData = exchangeData;
     }
 
     @Override
@@ -195,23 +196,23 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return expenseList.equals(other.expenseList)
-                && exchangeData.equals(other.exchangeData)
-                && userPrefs.equals(other.userPrefs)
-                && filteredExpenses.equals(other.filteredExpenses)
-                && budgetList.equals(other.budgetList)
-                && filteredBudgets.equals(other.filteredBudgets);
+            && exchangeData.equals(other.exchangeData)
+            && userPrefs.equals(other.userPrefs)
+            && filteredExpenses.equals(other.filteredExpenses)
+            && budgetList.equals(other.budgetList)
+            && filteredBudgets.equals(other.filteredBudgets);
     }
 
     //=========== BudgetList ================================================================================
 
     @Override
-    public void setBudgetList(ReadOnlyBudgetList budgetList) {
-        this.budgetList.resetData(budgetList);
+    public ReadOnlyBudgetList getBudgetList() {
+        return budgetList;
     }
 
     @Override
-    public ReadOnlyBudgetList getBudgetList() {
-        return budgetList;
+    public void setBudgetList(ReadOnlyBudgetList budgetList) {
+        this.budgetList.resetData(budgetList);
     }
 
     @Override

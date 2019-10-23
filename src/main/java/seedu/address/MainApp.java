@@ -21,18 +21,16 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.exchangedata.ExchangeData;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.ExchangeDataStorage;
-import seedu.address.storage.ExpenseListStorage;
-import seedu.address.storage.JsonExchangeDataStorage;
 import seedu.address.model.budget.BudgetList;
 import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.util.SampleDataUtil;
 
 import seedu.address.storage.BudgetListStorage;
+import seedu.address.storage.ExchangeDataStorage;
 import seedu.address.storage.ExpenseListStorage;
 import seedu.address.storage.JsonBudgetListStorage;
+import seedu.address.storage.JsonExchangeDataStorage;
 import seedu.address.storage.JsonExpenseListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -66,7 +64,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ExpenseListStorage expenseListStorage = new JsonExpenseListStorage(userPrefs.getExpenseListFilePath());
-        BudgetListStorage budgetListStorage = new JsonBudgetListStorage(userPrefs.getBudgetListFilePath());        
+        BudgetListStorage budgetListStorage = new JsonBudgetListStorage(userPrefs.getBudgetListFilePath());
         ExchangeDataStorage exchangeDataStorage = new JsonExchangeDataStorage(userPrefs.getExchangeDataFilePath());
         storage = new StorageManager(expenseListStorage, budgetListStorage, exchangeDataStorage, userPrefsStorage);
 
