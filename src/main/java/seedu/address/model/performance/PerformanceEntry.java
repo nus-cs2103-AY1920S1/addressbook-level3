@@ -6,14 +6,14 @@ package seedu.address.model.performance;
  */
 public class PerformanceEntry {
     private String date;
-    private double time;
+    private String time;
 
     /**
      * Creates a PerformanceEntry for a member under an event.
      * @param date Date this entry was taken.
      * @param time Timing of this entry.
      */
-    public PerformanceEntry(String date, double time) {
+    public PerformanceEntry(String date, String time) {
         this.date = date;
         this.time = time;
     }
@@ -22,7 +22,7 @@ public class PerformanceEntry {
      * Retrieves the timing of this PerformanceEntry.
      * @return Timing of this PerformanceEntry.
      */
-    public double getTime() {
+    public String getTime() {
         return time;
     }
 }
