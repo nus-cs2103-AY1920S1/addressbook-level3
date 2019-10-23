@@ -140,7 +140,7 @@ image:BetterModelClassDiagram.png[]
 The `QueueManager`,
 
 * stores a `QueueList` object that represents the queue.
-* stores a `UniqueElementList` which contains the list of rooms.
+* stores a `UniqueElementList<Room>` which contains the list of rooms.
 * does not depend on any of the other three components.
 
 .Structure of the QueueManager Component
@@ -572,7 +572,7 @@ Steps 3b1-3b2 are repeated until the appointment is not conflicted
 Use case resumes at step 3
 
 [discrete]
-=== Use case: Find patients appointment (UC5)
+=== Use case: Find patients appointment (UC8)
 
 *MSS*
 
@@ -592,7 +592,7 @@ Use case ends.
 Use case ends
 
 [discrete]
-=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC8)
+=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC9)
 Pre-condition: Details of the doctor is already registered in system.
 
 *MSS*
@@ -620,7 +620,7 @@ Use case ends.
 * Use case ends.
 
 [discrete]
-=== Use case: Editing Information in GUI (UC9)
+=== Use case: Editing Information in GUI (UC10)
 
 *Actor:* Clerk
 
@@ -640,7 +640,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: AutoCompleter (UC10)
+=== Use case: AutoCompleter (UC11)
 
 *Actor:* Clerk
 
@@ -659,7 +659,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: History (UC11)
+=== Use case: History (UC12)
 
 *Actor:* Clerk
 
