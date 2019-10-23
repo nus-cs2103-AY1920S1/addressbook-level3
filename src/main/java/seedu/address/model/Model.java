@@ -25,6 +25,7 @@ public interface Model extends ReferenceIdResolver {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<ReferenceId> PREDICATE_SHOW_ALL_ID = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    Predicate<Room> PREDICATE_SHOW_ALL_ROOMS = unused -> true;
 
 
     //=========== UserPrefs ==================================================================================
@@ -128,29 +129,55 @@ public interface Model extends ReferenceIdResolver {
 
     //=========== Queue Manager ==================================================================================
 
+    /**
+     * Returns the QueueManager
+     */
     QueueManager getQueueManager();
 
+    /**
+     * Removes a patient from the queue with the ReferenceId given
+     */
     void removeFromQueue(ReferenceId target);
 
+    /**
+     * Enqueues a patient to the queue
+     */
     void enqueuePatient(ReferenceId id);
 
+    /**
+     * Enqueues a patient to the queue based on the index given
+     */
     void enqueuePatientToIndex(ReferenceId id, int index);
 
+    /**
+     * Checks if the patient is in queue
+     */
     public boolean isPatientInQueue(ReferenceId id);
 
+    /**
+     * Returns the queueList
+     */
     ObservableList<ReferenceId> getQueueList();
 
-    void serveNextPatient(int index);
+    /**
+     * Adds a new room to the list of rooms
+     */
+    void addRoom(Room room);
 
-    void undoServeNextPatient(int index);
+    /**
+     * Adds a new room to the list of rooms based on the index
+     */
+    void addRoomToIndex(Room room, int indexOfRoom);
 
-    void addRoom(ReferenceId id);
+    /**
+     * Removes a room
+     */
+    void removeRoom(Room target);
 
-    void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom);
-
-    void removeRoom(ReferenceId target);
-
-    public boolean hasRoom(ReferenceId doctorReferenceId);
+    /**
+     * Checks if the room exists
+     */
+    public boolean hasRoom(Room room);
 
     ObservableList<Room> getConsultationRoomList();
 

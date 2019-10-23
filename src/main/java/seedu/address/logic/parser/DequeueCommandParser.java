@@ -16,6 +16,7 @@ import seedu.address.model.common.ReferenceId;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DequeueCommandParser implements Parser<ReversibleActionPairCommand> {
+    public static final String MESSAGE_INVALID_INDEX = "Invalid index given";
 
     private List<ReferenceId> lastShownList;
 
@@ -32,6 +33,9 @@ public class DequeueCommandParser implements Parser<ReversibleActionPairCommand>
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
+            if (lastShownList.size() < index.getOneBased()) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
             ReferenceId personToDequeue = ParserUtil.getEntryFromList(lastShownList, index);
             DequeueCommand dequeueCommand = new DequeueCommand(personToDequeue);
             return new ReversibleActionPairCommand(dequeueCommand,
