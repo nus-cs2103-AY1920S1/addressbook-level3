@@ -16,6 +16,7 @@ import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.purchase.Purchase;
 
+//@@author jon-chua
 /**
  * Represents the Recommendation System of the menu.
  */
@@ -28,6 +29,7 @@ public class RecommendationSystem {
             Comparator.comparingDouble(getInstance()::calculateRecommendation).reversed()
                     .thenComparingDouble(x -> Double.parseDouble(x.getPrice().value));
 
+    // Recommendation system weights
     private static final double LIKED_TAG_WEIGHT = 0.03;
     private static final double LIKED_LOCATION_WEIGHT = 0.10;
     private static final double LIKED_CATEGORY_WEIGHT = 0.15;
@@ -86,115 +88,144 @@ public class RecommendationSystem {
         return recommendationSystem;
     }
 
-    private static BigDecimal calculateIdenticalFoodNegativeWeight(long timeInMillis) {
-        BigDecimal scale = new BigDecimal(1).divide(new BigDecimal(1728000), 20, RoundingMode.HALF_DOWN);
-        BigDecimal intercept = new BigDecimal(10);
-        return new BigDecimal(timeInMillis).multiply(scale).sqrt(new MathContext(20)).subtract(intercept);
-    }
-
     /**
      * Calculates the recommendation value for each Food provided
      */
     public double calculateRecommendation(Food food) {
         double weight = 0;
 
-        // Bonus for liked tags
+        // Bonuses for liked tags, categories and locations
+        weight += getLikedTagBonus(food);
+        weight += getLikedCategoryBonus(food);
+        weight += getLikedLocationBonus(food);
+
+        // Penalties for disliked tags, categories and locations
+        weight += getDislikedTagPenalty(food);
+        weight += getDislikedCategoryPenalty(food);
+        weight += getDislikedLocationPenalty(food);
+
+        // Bonuses for matching tags, categories and locations in purchase history
+        weight += getPurchaseHistoryTagBonus(food);
+        weight += getPurchaseHistoryLocationBonus(food);
+        weight += getPurchaseHistoryCategoryBonus(food);
+
+        // Bonus for purchase of the same food in purchase history
+        weight += getPurchaseHistorySameFoodBonus(food);
+
+        // Penalty for recent (<2 days) purchase of the same food in purchase history
+        weight += getPurchaseHistorySameFoodTimePenalty(food);
+
+        return weight;
+    }
+
+    /**
+     * Calculates the bonus for matching tags in the user's liked tag set
+     */
+    private double getLikedTagBonus(Food food) {
+        double weight = 0;
+
         long numOfLikedTags = userRecommendations.getLikedTags().stream().parallel()
                 .filter(food.getTags().stream()
                         .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
                 .count();
 
         if (numOfLikedTags >= LIKED_TAG_BONUS_HIGH_NUM) {
-            weight += LIKED_TAG_BONUS_HIGH;
+            weight = LIKED_TAG_BONUS_HIGH;
         } else if (numOfLikedTags >= LIKED_TAG_BONUS_MED_NUM) {
-            weight += LIKED_TAG_BONUS_MED;
+            weight = LIKED_TAG_BONUS_MED;
         } else if (numOfLikedTags >= LIKED_TAG_BONUS_LOW_NUM) {
-            weight += LIKED_TAG_BONUS_LOW;
+            weight = LIKED_TAG_BONUS_LOW;
         }
 
-        weight += LIKED_TAG_WEIGHT * numOfLikedTags;
+        return weight + LIKED_TAG_WEIGHT * numOfLikedTags;
+    }
 
-        // Bonus for liked categories
+    /**
+     * Calculates the bonus for matching categories in the user's liked category set
+     */
+    private double getLikedCategoryBonus(Food food) {
         long numOfLikedCategories = userRecommendations.getLikedCategories().stream().parallel()
                 .filter(new Category(food.getCategory().category.toLowerCase())::equals)
                 .count();
 
         if (numOfLikedCategories > 0) {
-            weight += LIKED_CATEGORY_WEIGHT;
+            return LIKED_CATEGORY_WEIGHT;
         }
+        return 0;
+    }
 
-        // Bonus for liked locations
+    /**
+     * Calculates the bonus for matching locations in the user's liked location set
+     */
+    private double getLikedLocationBonus(Food food) {
         long numOfLikedLocations = userRecommendations.getLikedLocations().stream().parallel()
                 .filter(new Location(food.getLocation().location.toLowerCase())::equals)
                 .count();
 
         if (numOfLikedLocations > 0) {
-            weight += LIKED_LOCATION_WEIGHT;
+            return LIKED_LOCATION_WEIGHT;
         }
+        return 0;
+    }
 
-        // Penalty for disliked tags
+    /**
+     * Calculates the penalty for matching tags in the user's disliked tag set
+     */
+    private double getDislikedTagPenalty(Food food) {
+        double weight = 0;
+
         long numOfDislikedTags = userRecommendations.getDislikedTags().stream().parallel()
                 .filter(food.getTags().stream()
                         .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
                 .count();
 
         if (numOfDislikedTags >= DISLIKED_TAG_PENALTY_HIGH_NUM) {
-            weight += DISLIKED_TAG_PENALTY_HIGH;
+            weight = DISLIKED_TAG_PENALTY_HIGH;
         } else if (numOfDislikedTags >= DISLIKED_TAG_PENALTY_MED_NUM) {
-            weight += DISLIKED_TAG_PENALTY_MED;
+            weight = DISLIKED_TAG_PENALTY_MED;
         } else if (numOfDislikedTags >= DISLIKED_TAG_PENALTY_LOW_NUM) {
-            weight += DISLIKED_TAG_PENALTY_LOW;
+            weight = DISLIKED_TAG_PENALTY_LOW;
         }
 
-        weight += DISLIKED_TAG_WEIGHT * numOfDislikedTags;
+        return weight + DISLIKED_TAG_WEIGHT * numOfDislikedTags;
+    }
 
-        // Penalty for disliked categories
+    /**
+     * Calculates the penalty for matching categories in the user's disliked category set
+     */
+    private double getDislikedCategoryPenalty(Food food) {
         long numOfDislikedCategories = userRecommendations.getDislikedCategories().stream().parallel()
                 .filter(new Category(food.getCategory().category.toLowerCase())::equals)
                 .count();
 
         if (numOfDislikedCategories > 0) {
-            weight += DISLIKED_CATEGORY_WEIGHT;
+            return DISLIKED_CATEGORY_WEIGHT;
         }
+        return 0;
+    }
 
-        // Penalty for disliked locations
+    /**
+     * Calculates the penalty for matching locations in the user's disliked location set
+     */
+    private double getDislikedLocationPenalty(Food food) {
         long numOfDislikedLocations = userRecommendations.getDislikedLocations().stream().parallel()
                 .filter(new Location(food.getLocation().location.toLowerCase())::equals)
                 .count();
 
         if (numOfDislikedLocations > 0) {
-            weight += DISLIKED_LOCATION_WEIGHT;
+            return DISLIKED_LOCATION_WEIGHT;
         }
+        return 0;
+    }
 
-        // Calculate bonus for purchases of same food
-        long numOfIdenticalFoodPurchase = purchaseHistory.stream().parallel()
-                .map(Purchase::getPurchasedFood).filter(food::equals).count();
-
-        if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_HIGH_NUM) {
-            weight += IDENTICAL_FOOD_BONUS_HIGH;
-        } else if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_MED_NUM) {
-            weight += IDENTICAL_FOOD_BONUS_MED;
-        } else if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_LOW_NUM) {
-            weight += IDENTICAL_FOOD_BONUS_LOW;
-        }
-
-        // Calculate penalty for recent purchase of similar food
-        long latestTimePurchased = purchaseHistory.stream().parallel()
-                .filter(purchase -> purchase.getPurchasedFood().equals(food))
-                .map(Purchase::getTimeOfPurchaseInMillisSinceEpoch).max(Comparator.naturalOrder()).orElse(-1L);
-
-        long millisSinceLastPurchase = System.currentTimeMillis() - latestTimePurchased;
-
-        if (millisSinceLastPurchase > 0 && millisSinceLastPurchase < JUST_BOUGHT_FOOD_VALIDITY) {
-            weight += calculateIdenticalFoodNegativeWeight(millisSinceLastPurchase).doubleValue();
-        }
-
-        // Calculate bonus for purchases of food with similar tags
+    /**
+     * Calculates the bonus for matching tags in the user's purchase history
+     */
+    private double getPurchaseHistoryTagBonus(Food food) {
         long numberOfMatchedTags = purchaseHistory.stream().parallel()
                 .map(purchase -> purchase.getPurchasedFood().getTags())
                 .map(tagSet -> tagSet.stream()
-                        .map(tag -> new Tag(tag.tagName.toLowerCase())).collect(Collectors.toSet()))
-                .map(tagSet -> tagSet.stream()
+                        .map(tag -> new Tag(tag.tagName.toLowerCase()))
                         .filter(tag -> food.getTags().stream()
                                 .map(foodTag -> new Tag(foodTag.tagName.toLowerCase()))
                                 .collect(Collectors.toSet())
@@ -202,27 +233,73 @@ public class RecommendationSystem {
                 .map(Stream::count)
                 .mapToLong(Long::longValue).sum();
 
-        weight += numberOfMatchedTags * HISTORY_TAG_WEIGHT;
+        return numberOfMatchedTags * HISTORY_TAG_WEIGHT;
+    }
 
-        // Calculate bonus for purchases of food with similar location
+    /**
+     * Calculates the bonus for matching locations in the user's purchase history
+     */
+    private double getPurchaseHistoryLocationBonus(Food food) {
         long numberOfMatchedLocations = purchaseHistory.stream().parallel()
                 .map(purchase -> purchase.getPurchasedFood().getLocation())
                 .map(location -> new Location(location.location.toLowerCase()))
                 .filter(location -> new Location(food.getLocation().location.toLowerCase()).equals(location))
                 .count();
 
-        weight += numberOfMatchedLocations * HISTORY_LOCATION_WEIGHT;
+        return numberOfMatchedLocations * HISTORY_LOCATION_WEIGHT;
+    }
 
-        // Calculate bonus for purchases of food with similar category
+    /**
+     * Calculates the bonus for matching categories in the user's purchase history
+     */
+    private double getPurchaseHistoryCategoryBonus(Food food) {
         long numberOfMatchedCategories = purchaseHistory.stream().parallel()
                 .map(purchase -> purchase.getPurchasedFood().getCategory())
                 .map(category -> new Category(category.category.toLowerCase()))
                 .filter(category -> new Category(food.getCategory().category.toLowerCase()).equals(category))
                 .count();
 
-        weight += numberOfMatchedCategories * HISTORY_CATEGORY_WEIGHT;
+        return numberOfMatchedCategories * HISTORY_CATEGORY_WEIGHT;
+    }
 
-        return weight;
+    /**
+     * Calculates the bonus for purchases of the same food in the user's purchase history
+     */
+    private double getPurchaseHistorySameFoodBonus(Food food) {
+        long numOfIdenticalFoodPurchase = purchaseHistory.stream().parallel()
+                .map(Purchase::getPurchasedFood).filter(food::equals).count();
+
+        if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_HIGH_NUM) {
+            return IDENTICAL_FOOD_BONUS_HIGH;
+        } else if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_MED_NUM) {
+            return IDENTICAL_FOOD_BONUS_MED;
+        } else if (numOfIdenticalFoodPurchase >= IDENTICAL_FOOD_BONUS_LOW_NUM) {
+            return IDENTICAL_FOOD_BONUS_LOW;
+        }
+        return 0;
+    }
+
+    /**
+     * Calculates the penalty for recent purchases of the same food in the user's purchase history
+     * A function that increases from -10 (0ms since last purchase) to 0 (172800000ms = 2 days since last purchase)
+     */
+    private double getPurchaseHistorySameFoodTimePenalty(Food food) {
+        long latestTimePurchased = purchaseHistory.stream().parallel()
+                .filter(purchase -> purchase.getPurchasedFood().equals(food))
+                .map(Purchase::getTimeOfPurchaseInMillisSinceEpoch).max(Comparator.naturalOrder()).orElse(-1L);
+
+        long millisSinceLastPurchase = System.currentTimeMillis() - latestTimePurchased;
+
+        if (millisSinceLastPurchase > 0 && millisSinceLastPurchase < JUST_BOUGHT_FOOD_VALIDITY) {
+            return calculateSameFoodTimePenalty(millisSinceLastPurchase).doubleValue();
+        }
+        return 0;
+    }
+
+    private static BigDecimal calculateSameFoodTimePenalty(long timeInMillis) {
+        BigDecimal scale = BigDecimal.ONE.divide(new BigDecimal(1728000), 10, RoundingMode.HALF_DOWN);
+        BigDecimal intercept = BigDecimal.TEN;
+        return new BigDecimal(timeInMillis).multiply(scale).sqrt(new MathContext(10)).subtract(intercept);
     }
 
     public Comparator<Food> getRecommendationComparator() {
@@ -233,20 +310,12 @@ public class RecommendationSystem {
         }
     }
 
-    public void setRecommendationComparator(Comparator<Food> recommendationComparator) {
-        comparator = recommendationComparator;
-    }
-
     public Predicate<Food> getRecommendationPredicate() {
         if (isInUse()) {
             return predicate;
         } else {
             return DEFAULT_PREDICATE;
         }
-    }
-
-    public void setRecommendationPredicate(Predicate<Food> recommendationPredicate) {
-        predicate = recommendationPredicate;
     }
 
     public boolean isInUse() {

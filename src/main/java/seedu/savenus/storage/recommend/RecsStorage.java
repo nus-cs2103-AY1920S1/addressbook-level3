@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.recommend.UserRecommendations;
 
+//@@author jon-chua
 /**
  * Represents a storage for {@link UserRecommendations}.
  */

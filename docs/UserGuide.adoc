@@ -294,15 +294,74 @@ Also the amount withdrawn is added into your wallet.
 === Recommendations
 
 ==== Recommend
-Allow users to get a recommendation from the application, based on the current budget
-as well as the available food items entries. This also takes into account the
-user's likes and dislikes (see below).
+Users can get a list of recommendations from the application, based on several factors, summarized
+in the tables below.
+
+.Bonuses applied by the recommendation system
+|===
+|Condition 1 |Condition 2 |Bonus
+
+.3+|Food tags match the user's liked tags
+|1 or more tags
+|+0.05 and +0.03 per matching tag
+|3 or more tags
+|+0.10 and +0.03 per matching tag
+|5 or more tags
+|+0.25 and +0.03 per matching tag
+|Food category matches the user's liked categories
+|N/A
+|+0.15
+|Food location matches the user's liked locations
+|N/A
+|+0.10
+|Food tags match the user's tags in purchase history
+|N/A
+|+0.01 per matching tag
+|Food category matches the user's categories in purchase history
+|N/A
+|+0.02
+|Food location matches the user's locations in purchase history
+|N/A
+|+0.03
+.3+|Food purchase is found in user's purchase history
+|2 or more purchases
+|+0.10
+|5 or more purchases
+|+0.30
+|10 or more purchases
+|+0.50
+|===
+
+.Penalties applied by the recommendation system
+|===
+|Condition 1 |Condition 2 |Penalty
+
+|Food price is out of the user's current budget
+|N/A
+|Removes the item from the recommendation results
+.3+|Food tags match the user's disliked tags
+|1 or more tags
+|-0.10 and -0.10 per matching tag
+|2 or more tags
+|-0.30 and -0.10 per matching tag
+|3 or more tags
+|-0.50 and -0.10 per matching tag
+|Food category matches the user's disliked categories
+|N/A
+|-0.40
+|Food location matches the user's disliked locations
+|N/A
+|-0.30
+|Food purchase is found in user's purchase history
+|Within a time period of <2 days
+|Applies a decreasing penalty starting from -10 (just purchased) and diminishes to 0 after 2 days
+|===
 
 ****
 Format: `recommend`
 ****
 [NOTE]
-To clear the recommendations, use the `list` or `add` commands.
+To clear the recommendations, use the `list` or `add` command.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -312,8 +371,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recomme
 
 ==== Adding Likes and Dislikes
 Users can specify their liked and disliked categories, tags and/or locations. The
-recommendation system (as mentioned above) will then be able to generate more
-accurate recommendations with your preferences.
+recommendation system will then be able to generate more accurate recommendations with your preferences.
 
 [TIP]
 Users can provide multiple categories, tags and/or locations with each command.
@@ -444,7 +502,7 @@ later to run the app.
 
 * *Am I able to reset the app and remove all of my data?*
 
-Yes you can do this by using the “clear” command.
+Yes you can do this by using the `clear` command.
 
 * *Does this app support another language?*
 

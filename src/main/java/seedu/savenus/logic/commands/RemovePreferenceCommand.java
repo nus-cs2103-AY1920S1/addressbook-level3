@@ -16,6 +16,7 @@ import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.recommend.RecommendationSystem;
 import seedu.savenus.model.recommend.UserRecommendations;
 
+//@@author jon-chua
 /**
  * Creates a RemovePreferenceCommand that either removes likes or dislikes from the $aveNUS recommendation system.
  */
@@ -63,8 +64,9 @@ public class RemovePreferenceCommand extends Command {
     /**
      * Executes the remove preference command.
      *
-     * @param model  The current model
-     * @param isLike True if adding likes or false if adding dislikes
+     * @param model       The current model
+     * @param isLike      True if adding likes or false if adding dislikes
+     * @param isRemoveAll True if removing all likes and dislikes, false otherwise
      * @return A success message including the list of removed likes and dislikes
      */
     public CommandResult execute(Model model, boolean isLike, boolean isRemoveAll) throws CommandException {
@@ -82,6 +84,7 @@ public class RemovePreferenceCommand extends Command {
         }
 
         if (isLike && !isRemoveAll) {
+            // Throws a command exception if the liked tags, categories or locations to remove are not present
             if (!(userRecommendations.getLikedCategories().containsAll(categoryList)
                     && userRecommendations.getLikedTags().containsAll(tagList)
                     && userRecommendations.getLikedLocations().containsAll(locationList))) {
@@ -91,6 +94,7 @@ public class RemovePreferenceCommand extends Command {
             model.removeLikes(categoryList, tagList, locationList);
             result.append("Removed likes: ");
         } else if (!isLike && !isRemoveAll) {
+            // Throws a command exception if the disliked tags, categories or locations to remove are not present
             if (!(userRecommendations.getDislikedCategories().containsAll(categoryList)
                     && userRecommendations.getDislikedTags().containsAll(tagList)
                     && userRecommendations.getDislikedLocations().containsAll(locationList))) {
