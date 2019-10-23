@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCategoryCommand;
+import seedu.address.logic.commands.AddAutoExpenseCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddExpenseReminderCommand;
 import seedu.address.logic.commands.BudgetListCommand;
@@ -55,9 +56,12 @@ public class AddressBookParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *                      full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException
+     *                            if the user input does not conform the expected
+     *                            format
      */
     public Command parseCommand(String userInput) throws ParseException, IllegalArgumentException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -149,6 +153,9 @@ public class AddressBookParser {
 
         case DeleteExpenseReminderCommand.COMMAND_WORD:
             return new DeleteExpenseReminderCommandParser().parse(arguments);
+
+        case AddAutoExpenseCommand.COMMAND_WORD:
+            return new AddAutoExpenseCommandParser().parse(arguments);
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommandParser().parse(arguments);
