@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.ExpenseReminder;
@@ -32,7 +33,7 @@ public class DeleteExpenseReminderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<ExpenseReminder> lastShownList = model.getFilteredExpenseReminders();
 
@@ -42,6 +43,7 @@ public class DeleteExpenseReminderCommand extends Command {
 
         ExpenseReminder entryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteExpenseReminder(entryToDelete);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
     }
 

@@ -1,7 +1,9 @@
 package seedu.address.model;
 
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.AutoExpense;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
@@ -13,7 +15,7 @@ import seedu.address.model.person.WishReminder;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyAddressBook extends Observable {
 
     /**
      * Returns an unmodifiable view of the persons list. This list will not contain
@@ -26,6 +28,8 @@ public interface ReadOnlyAddressBook {
     ObservableList<Income> getIncomeList();
 
     ObservableList<Wish> getWishList();
+
+    ObservableList<Budget> getBudgetList();
 
     ObservableList<AutoExpense> getAutoExpenseList();
 

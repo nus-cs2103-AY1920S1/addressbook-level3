@@ -7,13 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-
 
 /**
  * Adds a person to the address book.
@@ -50,7 +51,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         String type = toAdd.getType().toLowerCase();
         switch (type) {
@@ -63,10 +64,14 @@ public class AddCommand extends Command {
         case "wish":
             model.addWish((Wish) toAdd);
             break;
+        case "budget":
+            model.addBudget((Budget) toAdd);
+            break;
         default:
             throw new CommandException("command not found");
         }
 
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

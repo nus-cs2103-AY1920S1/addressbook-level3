@@ -94,6 +94,8 @@ public class Entry {
                 return ((Income) this).equals((Income) other);
             } else if (this instanceof Wish) {
                 return ((Wish) this).equals((Wish) other);
+            } else if (this instanceof Budget) {
+                return ((Budget) this).equals((Budget) other);
             } else {
                 return false;
             }
@@ -113,7 +115,7 @@ public class Entry {
         } else if (this instanceof Wish && !(other instanceof Wish)) {
             return false;
         } else {
-            return true;
+            return !(this instanceof Budget) || other instanceof Budget;
         }
     }
 

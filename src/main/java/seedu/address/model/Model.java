@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.AutoExpense;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
@@ -24,6 +25,7 @@ public interface Model {
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
     Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
     Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
+    Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
     Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
     Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
 
@@ -96,6 +98,12 @@ public interface Model {
     void deleteExpenseReminder(ExpenseReminder target);
 
     /**
+     * Deletes the given budget.
+     * The budget must exist in the address book.
+     */
+    void deleteBudget(Budget target);
+
+    /**
      * Deletes the given AutoExpense. The entry must exist in the address book.
      */
     void deleteAutoExpense(AutoExpense target);
@@ -111,6 +119,8 @@ public interface Model {
     void addIncome(Income income);
 
     void addWish(Wish wish);
+
+    void addBudget(Budget budget);
 
     void addAutoExpense(AutoExpense autoExpense);
 
@@ -138,9 +148,13 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
 
+    /** Returns an unmodifiable view of the filtered budget list */
+    ObservableList<Budget> getFilteredBudgets();
+
     /** Returns an unmodifiable view of the filtered expenditure list */
     ObservableList<AutoExpense> getFilteredAutoExpenses();
 
+    /** Returns an unmodifiable view of the filtered expense reminder list */
     ObservableList<ExpenseReminder> getFilteredExpenseReminders();
 
     ObservableList<WishReminder> getFiltereWishReminders();
@@ -157,6 +171,33 @@ public interface Model {
     void updateFilteredIncomes(Predicate<Income> predicate);
 
     void updateFilteredWishes(Predicate<Wish> predicate);
+
+    void updateFilteredBudgets(Predicate<Budget> predicate);
+
+    /**
+     * Returns true if the model has previous finance tracker states to restore.
+     */
+    boolean canUndoAddressBook();
+
+    /**
+     * Returns true if the model has undone finance tracker states to restore.
+     */
+    boolean canRedoAddressBook();
+
+    /**
+     * Restores the model's finance tracker to its previous state.
+     */
+    void undoAddressBook();
+
+    /**
+     * Restores the model's finance tracker to its previously undone state.
+     */
+    void redoAddressBook();
+
+    /**
+     * Saves the current finance tracker state for undo/redo
+     */
+    void commitAddressBook();
 
     void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
 
