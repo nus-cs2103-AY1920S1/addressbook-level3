@@ -153,7 +153,7 @@ Format: `delete <description>`
 
 Example: `delete VisaPOSB`
 
-===  Accessing note directory : `goto file`
+===  Accessing file directory : `goto file`
 
 ==== Encrypting a file : `encrypt`
 
@@ -189,41 +189,84 @@ Example: `find Secret File`
 
 Adds a note to the app.
 
-Format: `add <title>`
+Format: `add <title> <description> <tag> <content> `
 
-Example: `add personal_diary`
+Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
-==== Accessing a note : `open`
+==== Accessing a note : `read`
 
-Opens a note to the app.
+Reads a note in the app.
 
-Format: `open <note>`
+Format: `read <index>`
 
-Example: `open personal_diary`
+Example: `read 1`
+
+****
+* Read note opens a new window that allows you to read and edit easily.
+* Click on save button after editing to save changes made to the content of the note.
+****
 
 ==== Deleting a note: `delete`
 
 Deletes a note as specified by the user.
 
-Format: `delete <note>`
+Format: `delete <index>`
 
-Example: `delete personal_diary`
+Example: `delete 1`
+
+==== Editing a note: `edit`
+
+Edits a note specified by the user.
+
+Format: `edit <index> <Title> <Description> <Tag> <Content>
+
+Example: `edit 1 ti/NewTitle d/NewDescription t/NewTag c/NewContent`
+Example: `edit 1 ti/NewTitle`
+
+****
+* <index> and at least one field is compulsory to successfully edit the note.
+* To edit the content of the note, you can also choose to use the Read command for better usability.
+****
 
 ==== Finding a note: `find`
 
 Finds a note as specified by the user.
 
-Format: `find <note>`
+Format: `find <index>` or `find <Title>`
 
-Example: `find personal_diary`
+Example: `find 1` or `find Personal_diary`
 ****
 * The search is case insensitive. e.g `Personal_diary` will match `personal_diary`
 * Only the description is searched.
 ****
 
+==== Sorting notes: `sortBy`
+
+Sorts notes in ways specified by the user.
+
+Format: `sortBy <sortMethod>`
+
+Example: `sortBy date/`
+
+==== Undo notes action: `undo`
+
+Undo last action on notes.
+
+Format: `undo`
+
+Example: `undo`
+
+==== Redo notes action: `redo`
+
+Redo last undone action on notes.
+
+Format: `redo`
+
+Example: `redo`
+
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the current book user is on. +
 Format: `clear`
 
 === Exiting the program : `exit`
