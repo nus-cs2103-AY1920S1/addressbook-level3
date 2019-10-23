@@ -200,6 +200,11 @@ public class OutCommandTest {
         }
 
         @Override
+        public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public FilteredList<BankAccountOperation> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -212,6 +217,11 @@ public class OutCommandTest {
         @Override
         public ObservableList<Budget> getFilteredBudgetList() {
             return null;
+        }
+
+        @Override
+        public void deleteBudget(Budget budgetToDelete) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

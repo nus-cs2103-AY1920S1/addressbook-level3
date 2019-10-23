@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtInde
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.testutil.TypicalTypes.TYPE_TRANSACTION;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ public class DeleteCommandTest {
         BankAccountOperation transactionToDelete = model
                 .getFilteredTransactionList()
                 .get(INDEX_FIRST_TRANSACTION.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
+        DeleteCommand deleteCommand = new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
@@ -44,7 +45,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(TYPE_TRANSACTION, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
@@ -56,7 +57,7 @@ public class DeleteCommandTest {
         BankAccountOperation transactionToDelete = model
                 .getFilteredTransactionList()
                 .get(INDEX_FIRST_TRANSACTION.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
+        DeleteCommand deleteCommand = new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
@@ -75,21 +76,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of bank account list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getBankAccount().getTransactionHistory().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(TYPE_TRANSACTION, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_TRANSACTION);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(TYPE_TRANSACTION, INDEX_SECOND_TRANSACTION);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_TRANSACTION);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(TYPE_TRANSACTION, INDEX_FIRST_TRANSACTION);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

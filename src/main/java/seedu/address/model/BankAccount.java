@@ -65,6 +65,18 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Replaces the given budget {@code target} in the list with {@code editedBudget}.
+     * {@code target} must exist in the bank account.
+     * The budget identity of {@code editedBudget} must not be the same as
+     * another existing budget in the bank account.
+     */
+    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+        requireNonNull(budgetEdit);
+
+        budgets.setBudget(budgetTarget, budgetEdit);
+    }
+
+    /**
      * Adds a transaction to the bank account.
      * Updates {@code balance} and {@code budgets} respectively.
      *
@@ -93,6 +105,14 @@ public class BankAccount implements ReadOnlyBankAccount {
      */
     public void removeTransaction(BankAccountOperation key) {
         transactions.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code BankAccount}.
+     * {@code key} must exist in the bank account.
+     */
+    public void removeBudget(Budget key) {
+        budgets.remove(key);
     }
 
     /**

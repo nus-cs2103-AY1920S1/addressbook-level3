@@ -21,7 +21,7 @@ import seedu.address.model.transaction.Budget;
 class JsonSerializableBankAccount {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
-    public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_BUDGET = "Transactions list contains duplicate budget(s).";
 
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
@@ -76,7 +76,6 @@ class JsonSerializableBankAccount {
             }
             bankAccount.addBudget(budget);
         }
-
         return bankAccount;
     }
 
