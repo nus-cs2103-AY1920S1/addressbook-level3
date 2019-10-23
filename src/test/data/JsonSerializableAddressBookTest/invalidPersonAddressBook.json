@@ -1,10 +1,13 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+  "persons" : [ {
+    "name" : "caesar",
+    "picture" : "caesar.jspg",
+    "classId" : "No Class Assigned Yet!",
+    "attendance" : "0",
+    "result" : "0",
+    "participation" : "0"
   } ],
-  "earning": [],
-  "tasks": []
+  "earning" : [ ],
+  "commands" : [ ],
+  "tasks" : [ ]
 }

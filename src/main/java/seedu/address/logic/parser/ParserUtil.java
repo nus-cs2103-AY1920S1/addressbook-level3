@@ -5,12 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.WindowView;
 import seedu.address.model.classid.ClassId;
+import seedu.address.model.commands.CommandAction;
+import seedu.address.model.commands.CommandObject;
+import seedu.address.model.commands.CommandWord;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Month;
@@ -30,6 +34,7 @@ import seedu.address.model.task.TaskTime;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_COMMAND = "No such command to be deleted!";
 
     private static int viewIndexNumber;
     /**
@@ -43,6 +48,22 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code commandToCheck} into an {@code CommandObject} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the command does not exist.
+     */
+    public static CommandObject parseCommand(String commandToCheck) throws ParseException {
+        String trimmedCommand = commandToCheck.trim();
+        TreeMap<String, String> commandList = AddressBookParser.getCommandList();
+        if (!commandList.containsKey(trimmedCommand)) {
+            throw new ParseException((MESSAGE_INVALID_COMMAND));
+        } else {
+            return new CommandObject(new CommandWord(trimmedCommand),
+                    new CommandAction(commandList.get(trimmedCommand)));
+        }
     }
 
     /**
@@ -76,10 +97,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String picture} into a {@code Picture}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code Picture} is invalid.
      */
     public static Picture parsePicture(String picture) throws ParseException {
         requireNonNull(picture);
@@ -91,10 +112,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String result} into an {@code Result}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code result} is invalid.
      */
     public static Result parseResult(String result) throws ParseException {
         requireNonNull(result);
@@ -106,10 +127,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String attendance} into an {@code Attendance}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code attendance} is invalid.
      */
     public static Attendance parseAttendance(String attendance) throws ParseException {
         requireNonNull(attendance);
@@ -121,10 +142,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String classId} into an {@code ClassId}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code classId} is invalid.
      */
     public static ClassId parseClassId(String classId) throws ParseException {
         requireNonNull(classId);
@@ -136,10 +157,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String participation} into an {@code Participation}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code participation} is invalid.
      */
     public static Participation parseParticipation(String participation) throws ParseException {
         requireNonNull(participation);
