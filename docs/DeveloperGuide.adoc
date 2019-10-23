@@ -279,6 +279,8 @@ The sequence diagram below demonstrates how the `find` command is executed:
 .Sequence diagram for a find command
 image::FindSequenceDiagram.png[Find Sequence Diagram]
 
+NOTE: The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 The following activity diagram summarises what happens when the user uses the `find` command:
 
 .Activity diagram for a find command
