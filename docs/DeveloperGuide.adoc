@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/exercise/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `ExerciseBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding an exercise).
+.  The command execution can affect the `Model` (e.g. adding an exercise/regime).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -119,10 +119,10 @@ image::BetterModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/exercise/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores a `PropertyManager` object that represents the custom properties defined by the user.
+* stores a `PropertyBook` object that represents the custom properties defined by the user.
 * stores the Exercise Book data.
 * stores the Exercise Database Book Data
 * stores the Regime Book data.
@@ -143,7 +143,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Resource Book data in json format and read it back.
-* can save the Property Manager data in json format and read it back.
+* can save the Property Book data in json format and read it back.
 [NOTE]
 Resource Book data consists of Exercise Book, Regime Book and Schedule Book data
 
@@ -157,7 +157,6 @@ Classes used by multiple components are in the `seedu.exercise.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
 === Undo/Redo feature
 ==== Implementation
 
@@ -207,33 +206,34 @@ at the moment.
 The following two Sequence Diagrams show a sample flow of the execution when an `EditCommand`, which is an
 `UndoableCommand`, has been executed and subsequently undone.
 
-The first diagram describes the process of storing an `EditEvent` to `EventHistory` during the execution of the
+The first diagram (Figure 9) describes the process of storing an `EditEvent` to `EventHistory` during the execution of the
 `EditCommand`. Observe that the `EventPayload` serves as the main channel of communication of data between the
 `Command` and the `Event`.
 
+.The process of storing an `EditEvent` to `EventHistory`
 image::UndoableCommandSequenceDiagram.png[]
 
-The second diagram here describes the process of undoing the `EditCommand` executed above using the `UndoCommand`. The
+The second diagram (Figure 10) here describes the process of undoing the `EditCommand` executed above using the `UndoCommand`. The
 `UndoCommand` will only communicate with the `EventHistory` once to ensure the `EventHistory` takes care of the
 execution and updating of the undo and redo stack it holds internally.
 
+.The process of undoing the `EditCommand`
 image::UndoSequenceDiagram.png[]
 
-Given below is a Class Diagram to show the associations between Event, Command and Model. It is specifically designed
+Given below is a Class Diagram (Figure 11) to show the associations between Event, Command and Model. It is specifically designed
 such that only instances that implement the `Event` and `Command` interface will need to handle the `model` class.
 [NOTE]
 The only commands that implements the `UndoableCommand` are `AddCommand`, `DeleteCommand`, `EditCommand`
 and `ClearCommand` and they each stores an `EventPayload` instance.
 
+.The associations between Event, Command and Model
 image::EventClassDiagram.png[]
 
-
-The following Activity Diagram summarizes what happens when a user enter undoable commands,
+The following Activity Diagram (Figure 12) summarizes what happens when a user enter undoable commands,
 the undo command and the redo command.
 
-image:CommitActivityDiagram.png[]
-
-
+.The workflow when a user enters an undoable command and performs undo/redo
+image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -299,23 +299,6 @@ The Undo/Redo feature implementation is based on the Singleton, Command, and Fac
 ** Suitable for the context of taking in a particular Command and returning a corresponding Event
 ** Reduces coupling between Command classes and Event classes
 
-// end::undoredo[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
 === Resolve feature
 ==== Implementation
 The resolve feature is used when there is a scheduling conflict that happens within ExerHealth. This feature will alter the state of the program. The state is known by `MainApp` and it is either `State.IN_CONFLICT` or `State.NORMAL`. Only when the state is `State.IN_CONFLICT` will `resolve` commands be allowed. The flow of the program for a scheduling conflict is as such:
@@ -332,8 +315,9 @@ Step 3. Upon receipt of the object, `MainWindow` will show the resolve window an
 [NOTE]
 The `ResolveWindow` will block all inputs to `MainWindow` and only allow `resolve` command to be entered.
 
-Shown below is the sequence diagram for when a scheduling conflict happens:
+Shown below is the sequence diagram (Figure 13) for when a scheduling conflict happens:
 
+.Sequence diagram when a scheduling conflict happens
 image::ScheduleConflict.png[]
 
 Step 5. When the user is prompted with the `ResolveWindow`, all the conflicting exercises will be shown in one page. The previously `scheduled regime` on the left and the `conflicting regime` on the right.
@@ -345,12 +329,14 @@ The `ResolveWindow` will only take one valid `resolve` command and `Ui` will clo
 
 Step 7. The `ResolveWindow` then closes upon successful `resolve` and the application continues.
 
-Shown below is the sequence diagram for when a valid resolve command is issued:
+Shown below is the sequence diagram (Figure 14) for when a valid resolve command is issued:
 
+.Sequence diagram when a valid resolve command is issued
 image::ScheduleResolve.png[]
 
-The following activity diagram summarizes what happens when a user enters a `schedule` command:
+The following activity diagram (Figure 15) summarizes what happens when a user enters a `schedule` command:
 
+.Workflow when a user enters a `schedule` command
 image::ScheduleActivityDiagram.png[]
 
 ==== Design Considerations
@@ -370,23 +356,102 @@ image::ScheduleActivityDiagram.png[]
 *** UI required to catch `ScheduleException` and act on that catch which makes the program hard to integrate
 *** Codebase will contain multiple `try/catch` acting like a control flow mechanism
 
+=== Custom feature
+This feature is facilitated by both `PropertyBook` and `CustomProperty`. Whenever a user
+adds a newly defined custom property, a `CustomProperty` object will be created which is stored in
+`PropertyBook`. Its corresponding prefix and full name will be tracked by `PropertyBook` to avoid
+clashes in their uses.
 
-[[Implementation-Configuration]]
-=== Configuration
+==== Current Implementation
+To keep track of the custom properties and its relevant information, the following are used:
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+1. `CUSTOM_PROPERTIES`: A list containing all of the `CustomProperty` objects that
+have been created.
+
+2. `prefixes`: A set containing all of the `Prefix` objects associated with existing exercise's
+properties.
+
+3. `fullNames`: A set containing the full names of the existing exercise's properties.
+
+The following methods are also implemented in `PropertyBook` to aid in the addition of a new custom property:
+
+1. `PropertyBook#isPrefixUsed(Prefix)`: Checks if the given prefix has been used by a property.
+
+2. `PropertyBook#isFullNameUsed(String)`: Checks if the given name has been used by a property.
+
+3. `PropertyBook#addCustomProperty(CustomProperty)`: Adds the new custom property. Each time a custom property is
+added, the prefix set in `Prefix` is also updated.
+
+The first three methods are exposed in the `Model` interface as `Model#isPrefixUsed(Prefix)`,
+`Model#isFullNameUsed(String)` and `Model#addCustomProperty(CustomProperty)` respectively.
+These associations are illustrated in a class diagram (Figure 16).
+
+.Class diagram of the associations of `PropertyBook`
+image::CustomClassDiagram.png[]
+
+The following sequence diagram (Figure 17) illustrates how the custom operation works when a custom
+property is *successfully added*.
+
+.Sequence diagram of a successful addition of a custom property
+image::EditedCustomSequenceDiagram.png[]
+
+However, not all additions of a custom property will be successful. The next activity diagram
+(Figure 18) shows the workflow when a new custom property is defined.
+
+.Activity diagram of the workflow when a new custom property is added
+image::CustomActivityDiagram.png[]
+
+
+==== Design Considerations
+
+===== Aspect: Tracking custom properties
+* **Alternative 1 (Current choice)**: Store the custom properties in a list and store their full
+names and prefixes in a set.
+** Pros: Storing the full names and prefixes separately provides an efficient way to check if a
+full name or a prefix has been used.
+** Cons: It may incur additional memory usage since the full name and prefix of each `CustomProperty`
+object are stored multiple times.
+* **Alternative 2**: Store only a list of custom properties
+** Pros: Less memory used as no duplicates in terms of prefix and full names are stored.
+** Cons: It may require more time to check if a full name or a prefix has been used as one has to
+iterate through the whole list.
+
+Ultimately, Alternative 1 is chosen as it provides a faster way of checking if a full name or a prefix has
+been used. Also, keeping track of the prefixes separately allows us to simply pass them in when adding or
+editing an exercise.
+
+===== Aspect: Representing the custom properties
+* **Alternative 1 (Current choice)**: Represent the custom property as an object that contains
+3 information - its prefix, its name and its parameter type.
+** Pros: This allows us to distinguish custom properties from default properties. Furthermore, these
+objects can be stored in a data structure which can be passed around when adding or editing an exercise.
+** Cons: Each exercise has to store the value of each custom property separately from the custom property
+itself.
+
+* **Alternative 2**: Create a `Property` class which will contain the following information: name, constraint
+message, value and prefix. The default properties will be stored separately in a Java class and will be initialised
+every time the app starts.
+** Pros: This ensures that there is a consistency in terms of how an exercise property is represented
+and it also allows the property value to be stored together.
+** Cons: Methods have to be introduced to identify custom properties from the default ones.
+
+Ultimately, Alternative 1 is selected as we believe it is more important to distinguish the custom properties
+from the default ones. This separation ensures that methods meant to operate on custom properties are unable
+to operate on default properties.
 
 === Statistics
 
 ==== Implementation
 Statistics of exercises will be displayed in charts. Supported chart types are Pie Chart, Line Chart and Bar Chart.
 StatsFactory will create Statistic using given parameters.
-Figure below shows the class diagram of statistics:
+The figure (Figure 19) below shows the class diagram of statistics:
 
+.Class diagram of the classes behind the statistics feature
 image::StatisticClassDiagram.png[]
 
-Figure below shows the activity diagram when user enter a `stats` command:
+The next figure (Figure 20) shows the activity diagram when user enter a `stats` command:
 
+.Workflow when a user enters a `stats` command
 image::StatisticActivityDiagram.png[]
 
 Given below is an example usage scenario of statistics feature.
@@ -399,9 +464,30 @@ Step 3: `Statistic` will process and generate data.
 
 Step 4: Data will be passed back to `Ui` and `Ui` will generate and display chart.
 
-Shown below us the sequence diagram when user enters a valid `stats` command:
+Shown below is the sequence diagram (Figure 21) when user enters a valid `stats` command:
 
+.Sequence diagram of a `stats` command
 image::StatisticSequenceDiagram.png[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -689,7 +775,7 @@ Windows, Linux, Unix, OS-X.
 
 [[regime]] Regime::
 A specific set of exercises that are to be done together. For example,
-a *Legs* regime at the gym can include mutliple exercises such as
+a *Legs* regime at the gym can include multiple exercises such as
 squats, hamstring curl and calf raises.
 
 [[schedule]] Schedule::
@@ -698,6 +784,10 @@ Planning of an exercise on a later day.
 [[property]] Property::
 An attribute of an exercise item. Pre-defined attributes include name,
 quantity, units and calories.
+
+[[prefix]] Prefix::
+The term that comes before each parameter in the command. For example, the
+prefix in `p/Number` is `p/`.
 
 == Instructions for Manual Testing
 

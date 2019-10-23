@@ -17,7 +17,7 @@ import seedu.exercise.model.resource.Schedule;
  * The Storage component is a container that contains all of the different storage for the different resources in
  * ExerHealth.
  */
-public interface Storage extends UserPrefsStorage, PropertyManagerStorage {
+public interface Storage extends UserPrefsStorage, PropertyBookStorage {
 
     // ================ UserPref methods ==============================
     @Override

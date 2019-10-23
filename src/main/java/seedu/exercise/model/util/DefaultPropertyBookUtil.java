@@ -20,22 +20,22 @@ import java.util.Set;
 
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.model.property.PropertyManager;
+import seedu.exercise.model.property.PropertyBook;
 
 /**
- * Contains utility methods for initialising a default {@code PropertyManager}.
+ * Contains utility methods for initialising a default {@code PropertyBook}.
  */
-public class DefaultPropertyManagerUtil {
+public class DefaultPropertyBookUtil {
 
     /**
-     * Creates a new {@code PropertyManager} that contains the default prefixes, default full names and
+     * Creates a new {@code PropertyBook} that contains the default prefixes, default full names and
      * an empty list of default custom properties.
      */
-    public static PropertyManager getDefaultPropertyManager() {
+    public static PropertyBook getDefaultPropertyBook() {
         Set<Prefix> defaultPrefixes = getDefaultPrefixes();
         Set<String> defaultFullNames = getDefaultFullNames();
         List<CustomProperty> defaultCustomProperties = getDefaultCustomProperties();
-        return new PropertyManager(defaultPrefixes, defaultFullNames, defaultCustomProperties);
+        return new PropertyBook(defaultPrefixes, defaultFullNames, defaultCustomProperties);
     }
 
     /**

@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.model.property.PropertyManager;
+import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
@@ -201,22 +201,22 @@ public interface Model {
     void completeSchedule(Schedule schedule);
 
     /**
-     * Returns the {@code PropertyManager} object that is contained in {@code Model}.
+     * Returns the {@code PropertyBook} object that is contained in {@code Model}.
      */
-    PropertyManager getPropertyManager();
+    PropertyBook getPropertyBook();
 
     /**
-     * Returns true if a prefix with the same identity as {@code prefix} is present in the PropertyManager.
+     * Returns true if a prefix with the same identity as {@code prefix} is present in the PropertyBook.
      */
-    boolean isPrefixPresent(Prefix prefix);
+    boolean isPrefixUsed(Prefix prefix);
 
     /**
-     * Returns true if {@code fullName} is present in the PropertyManager.
+     * Returns true if {@code fullName} is present in the PropertyBook.
      */
-    boolean isFullNamePresent(String fullName);
+    boolean isFullNameUsed(String fullName);
 
     /**
-     * Adds the given {@code customProperty} into the PropertyManager.
+     * Adds the given {@code customProperty} into the PropertyBook.
      */
     void addCustomProperty(CustomProperty customProperty);
 

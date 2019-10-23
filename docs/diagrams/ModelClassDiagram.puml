@@ -23,7 +23,7 @@ Package Model <<Rectangle>>{
     }
 
     Package Property {
-        Class PropertyManager
+        Class PropertyBook
     }
 }
 
@@ -33,7 +33,7 @@ HiddenOutside ..> Model
 ModelManager .up.|> Model
 Model .right.> ObservableList
 
-ModelManager o-right-> "1" PropertyManager
+ModelManager o-right-> "1" PropertyBook
 
 Exercise -up-|> "{abstract}\nResource"
 Regime -up-|> "{abstract}\nResource"

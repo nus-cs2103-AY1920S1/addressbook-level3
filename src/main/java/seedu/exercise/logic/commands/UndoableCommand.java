@@ -10,5 +10,5 @@ public interface UndoableCommand {
      *
      * @return command word of the undoable command
      */
-    public abstract String getUndoableCommandWord();
+    String getUndoableCommandWord();
 }

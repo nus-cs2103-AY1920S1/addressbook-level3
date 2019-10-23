@@ -1,7 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
+import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,9 +21,9 @@ public class SuggestBasicCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
             getTypicalExerciseBook(), new ReadOnlyResourceBook<>(), new UserPrefs(),
-            getDefaultPropertyManager());
+            getDefaultPropertyBook());
         expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            model.getDatabaseBook(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyManager());
+            model.getDatabaseBook(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
     }
 
     @Test

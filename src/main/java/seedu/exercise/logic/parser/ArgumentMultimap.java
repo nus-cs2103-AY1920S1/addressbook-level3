@@ -1,6 +1,6 @@
 package seedu.exercise.logic.parser;
 
-import static seedu.exercise.model.property.PropertyManager.getCustomProperties;
+import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
 import java.util.ArrayList;
 import java.util.HashMap;

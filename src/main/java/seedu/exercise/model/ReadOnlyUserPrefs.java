@@ -13,7 +13,7 @@ public interface ReadOnlyUserPrefs {
 
     Path getExerciseBookFilePath();
 
-    Path getPropertyManagerFilePath();
+    Path getPropertyBookFilePath();
 
     Path getRegimeBookFilePath();
 

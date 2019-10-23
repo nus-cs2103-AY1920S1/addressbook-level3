@@ -48,12 +48,12 @@ public class CustomCommand extends Command {
         requireNonNull(model);
 
         String fullName = toAdd.getFullName();
-        if (model.isFullNamePresent(fullName)) {
+        if (model.isFullNameUsed(fullName)) {
             throw new CommandException(MESSAGE_DUPLICATE_FULL_NAME);
         }
 
         Prefix prefix = toAdd.getPrefix();
-        if (model.isPrefixPresent(prefix)) {
+        if (model.isPrefixUsed(prefix)) {
             throw new CommandException(MESSAGE_DUPLICATE_PREFIX_NAME);
         }
 

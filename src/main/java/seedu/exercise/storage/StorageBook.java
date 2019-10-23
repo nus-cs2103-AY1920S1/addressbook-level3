@@ -10,7 +10,7 @@ import seedu.exercise.commons.exceptions.DataConversionException;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.UserPrefs;
-import seedu.exercise.model.property.PropertyManager;
+import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
@@ -19,30 +19,30 @@ import seedu.exercise.storage.bookstorage.ResourceBookStorage;
 /**
  * Manages storage of ExerHealth data in local storage.
  */
-public class StorageManager implements Storage {
+public class StorageBook implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(StorageBook.class);
     private ResourceBookStorage<Exercise> exerciseBookStorage;
     private ResourceBookStorage<Exercise> exerciseDatabase;
     private ResourceBookStorage<Regime> regimeBookStorage;
     private ResourceBookStorage<Schedule> scheduleBookStorage;
     private UserPrefsStorage userPrefsStorage;
-    private PropertyManagerStorage propertyManagerStorage;
+    private PropertyBookStorage propertyBookStorage;
 
 
-    public StorageManager(ResourceBookStorage<Exercise> exerciseBookStorage,
-                          ResourceBookStorage<Exercise> exerciseDatabase,
-                          ResourceBookStorage<Regime> regimeBookStorage,
-                          ResourceBookStorage<Schedule> scheduleBookStorage,
-                          UserPrefsStorage userPrefsStorage,
-                          PropertyManagerStorage propertyManagerStorage) {
+    public StorageBook(ResourceBookStorage<Exercise> exerciseBookStorage,
+                       ResourceBookStorage<Exercise> exerciseDatabase,
+                       ResourceBookStorage<Regime> regimeBookStorage,
+                       ResourceBookStorage<Schedule> scheduleBookStorage,
+                       UserPrefsStorage userPrefsStorage,
+                       PropertyBookStorage propertyBookStorage) {
         super();
         this.exerciseBookStorage = exerciseBookStorage;
         this.exerciseDatabase = exerciseDatabase;
         this.regimeBookStorage = regimeBookStorage;
         this.scheduleBookStorage = scheduleBookStorage;
         this.userPrefsStorage = userPrefsStorage;
-        this.propertyManagerStorage = propertyManagerStorage;
+        this.propertyBookStorage = propertyBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -171,32 +171,32 @@ public class StorageManager implements Storage {
         scheduleBookStorage.saveResourceBook(scheduleBook, filePath);
     }
 
-    // ================ PropertyManager methods ==============================
+    // ================ PropertyBook methods ==============================
     @Override
-    public Path getPropertyManagerFilePath() {
-        return propertyManagerStorage.getPropertyManagerFilePath();
+    public Path getPropertyBookFilePath() {
+        return propertyBookStorage.getPropertyBookFilePath();
     }
 
     @Override
-    public Optional<PropertyManager> readPropertyManager() throws DataConversionException, IOException {
-        return readPropertyManager(propertyManagerStorage.getPropertyManagerFilePath());
+    public Optional<PropertyBook> readPropertyBook() throws DataConversionException, IOException {
+        return readPropertyBook(propertyBookStorage.getPropertyBookFilePath());
     }
 
     @Override
-    public Optional<PropertyManager> readPropertyManager(Path filePath) throws DataConversionException, IOException {
+    public Optional<PropertyBook> readPropertyBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return propertyManagerStorage.readPropertyManager(filePath);
+        return propertyBookStorage.readPropertyBook(filePath);
     }
 
     @Override
-    public void savePropertyManager(PropertyManager propertyManager) throws IOException {
-        savePropertyManager(propertyManager, propertyManagerStorage.getPropertyManagerFilePath());
+    public void savePropertyBook(PropertyBook propertyBook) throws IOException {
+        savePropertyBook(propertyBook, propertyBookStorage.getPropertyBookFilePath());
     }
 
     @Override
-    public void savePropertyManager(PropertyManager propertyManager, Path filePath) throws IOException {
+    public void savePropertyBook(PropertyBook propertyBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        propertyManagerStorage.savePropertyManager(propertyManager, filePath);
+        propertyBookStorage.savePropertyBook(propertyBook, filePath);
     }
 
 }

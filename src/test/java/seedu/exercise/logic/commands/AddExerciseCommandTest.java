@@ -21,7 +21,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.model.property.PropertyManager;
+import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
@@ -211,17 +211,17 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public PropertyManager getPropertyManager() {
+        public PropertyBook getPropertyBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean isPrefixPresent(Prefix prefix) {
+        public boolean isPrefixUsed(Prefix prefix) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean isFullNamePresent(String fullName) {
+        public boolean isFullNameUsed(String fullName) {
             throw new AssertionError("This method should not be called.");
         }
 

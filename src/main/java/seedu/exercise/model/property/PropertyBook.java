@@ -15,19 +15,19 @@ import seedu.exercise.logic.parser.Prefix;
  * Helps to keep track of all the existing prefixes and full names for both default and custom properties.
  * It also helps to keep track of all the existing custom properties that have been defined by the user.
  */
-public class PropertyManager {
+public class PropertyBook {
     private static final List<CustomProperty> CUSTOM_PROPERTIES = new ArrayList<>();
     private final Set<Prefix> prefixes = new HashSet<>();
     private final Set<String> fullNames = new HashSet<>();
 
     /**
-     * Initialises an instance of {@code PropertyManager} object.
+     * Initialises an instance of {@code PropertyBook} object.
      *
-     * @param prefixes         the set of prefixes to be added to the {@code PropertyManager}
-     * @param fullNames        the set of full names to be added to the {@code PropertyManager}
-     * @param customProperties the set of custom properties to be added to the {@code PropertyManager}
+     * @param prefixes         the set of prefixes to be added to the {@code PropertyBook}
+     * @param fullNames        the set of full names to be added to the {@code PropertyBook}
+     * @param customProperties the set of custom properties to be added to the {@code PropertyBook}
      */
-    public PropertyManager(Set<Prefix> prefixes, Set<String> fullNames, List<CustomProperty> customProperties) {
+    public PropertyBook(Set<Prefix> prefixes, Set<String> fullNames, List<CustomProperty> customProperties) {
         setPrefixes(prefixes);
         setFullNames(fullNames);
         setCustomProperties(customProperties);
@@ -43,7 +43,7 @@ public class PropertyManager {
 
     /**
      * Adds in all the custom properties that are present in the given {@code List<CustomProperty> customProperties}
-     * into the PropertyManager only if there are no custom properties present.
+     * into the PropertyBook only if there are no custom properties present.
      *
      * @param customProperties the custom properties to be added
      */
@@ -56,26 +56,26 @@ public class PropertyManager {
     /**
      * Checks if the prefix has already been used by a property.
      */
-    public boolean isPrefixPresent(Prefix prefix) {
+    public boolean isPrefixUsed(Prefix prefix) {
         return prefixes.contains(prefix);
     }
 
     /**
      * Checks if the full name has already been used by a property.
      */
-    public boolean isFullNamePresent(String fullName) {
+    public boolean isFullNameUsed(String fullName) {
         return fullNames.contains(fullName);
     }
 
     /**
-     * Adds the prefix for a newly defined custom property.
+     * Adds the prefix of a newly defined custom property.
      */
     private void addPrefix(Prefix prefix) {
         prefixes.add(prefix);
     }
 
     /**
-     * Adds the full name for a newly defined custom property.
+     * Adds the full name of a newly defined custom property.
      */
     private void addFullName(String fullName) {
         fullNames.add(fullName);
@@ -121,9 +121,13 @@ public class PropertyManager {
         return Collections.unmodifiableSet(fullNames);
     }
 
+    public void updatePropertyPrefixes() {
+        setPrefixesSet(getPrefixes());
+    }
+
     /**
      * Adds in all the full names that are present in the given {@code Set<String> fullNames} object into
-     * the PropertyManager only if there are no full names present.
+     * the PropertyBook only if there are no full names present.
      *
      * @param fullNames the full names to be added
      */
@@ -133,24 +137,17 @@ public class PropertyManager {
         }
     }
 
-    /**
-     * Updates the property prefixes in {@code CliSyntax} class.
-     */
-    public void updatePropertyPrefixes() {
-        setPrefixesSet(getPrefixes());
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
 
-        if (!(other instanceof PropertyManager)) {
+        if (!(other instanceof PropertyBook)) {
             return false;
         }
 
-        PropertyManager anotherManager = (PropertyManager) other;
+        PropertyBook anotherManager = (PropertyBook) other;
         return prefixes.equals(anotherManager.prefixes)
             && fullNames.equals(anotherManager.fullNames);
     }

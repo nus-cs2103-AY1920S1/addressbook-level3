@@ -111,6 +111,6 @@ public class LogicManager implements Logic {
         storage.saveExerciseBook(model.getExerciseBookData());
         storage.saveScheduleBook(model.getAllScheduleData());
         storage.saveRegimeBook(model.getAllRegimeData());
-        storage.savePropertyManager(model.getPropertyManager());
+        storage.savePropertyBook(model.getPropertyBook());
     }
 }

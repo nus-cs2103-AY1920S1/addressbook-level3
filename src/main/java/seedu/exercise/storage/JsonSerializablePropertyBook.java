@@ -1,6 +1,6 @@
 package seedu.exercise.storage;
 
-import static seedu.exercise.model.property.PropertyManager.getCustomProperties;
+import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,30 +15,30 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.model.property.PropertyManager;
+import seedu.exercise.model.property.PropertyBook;
 
 /**
- * A PropertyManager that is serializable to JSON format.
+ * A PropertyBook that is serializable to JSON format.
  */
-@JsonRootName(value = "propertymanager")
-public class JsonSerializablePropertyManager {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "PropertyManager's %s field is missing!";
+@JsonRootName(value = "propertybook")
+public class JsonSerializablePropertyBook {
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "PropertyBook's %s field is missing!";
 
     private final List<String> prefixNames = new ArrayList<>();
     private final List<String> fullNames = new ArrayList<>();
     private final List<JsonAdaptedCustomProperty> customProperties = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializablePropertyManager} from the given parameters.
+     * Constructs a {@code JsonSerializablePropertyBook} from the given parameters.
      *
      * @param prefixNames       a list containing strings that represent the prefix names of the exercise's properties
      * @param fullNames        a list containing strings that represent the full names of the exercise's properties
      * @param customProperties a list containing {@code JsonAdaptedCustomProperty}
      */
     @JsonCreator
-    public JsonSerializablePropertyManager(@JsonProperty("prefixNames") List<String> prefixNames,
-                                           @JsonProperty("fullNames") List<String> fullNames,
-                                           @JsonProperty("customProperties") List<JsonAdaptedCustomProperty>
+    public JsonSerializablePropertyBook(@JsonProperty("prefixNames") List<String> prefixNames,
+                                        @JsonProperty("fullNames") List<String> fullNames,
+                                        @JsonProperty("customProperties") List<JsonAdaptedCustomProperty>
                                                customProperties) {
         if (prefixNames != null) {
             this.prefixNames.addAll(prefixNames);
@@ -54,11 +54,11 @@ public class JsonSerializablePropertyManager {
     }
 
     /**
-     * Converts a given {@code PropertyManager} object into this class for Jackson use.
+     * Converts a given {@code PropertyBook} object into this class for Jackson use.
      *
-     * @param source the {@code PropertyManager} object that is intended to be converted
+     * @param source the {@code PropertyBook} object that is intended to be converted
      */
-    public JsonSerializablePropertyManager(PropertyManager source) {
+    public JsonSerializablePropertyBook(PropertyBook source) {
         Set<Prefix> sourcePrefixes = source.getPrefixes();
         prefixNames.addAll(sourcePrefixes.stream()
             .map(x -> x.getPrefixName())
@@ -74,7 +74,7 @@ public class JsonSerializablePropertyManager {
     }
 
     /**
-     * Returns a {@code Set<Prefix>} object meant for a {@code PropertyManager}.
+     * Returns a {@code Set<Prefix>} object meant for a {@code PropertyBook}.
      *
      * @throws IllegalValueException if there were any data constraints violated
      */
@@ -90,7 +90,7 @@ public class JsonSerializablePropertyManager {
     }
 
     /**
-     * Returns a {@code Set<String>} object meant for a {@code PropertyManager}.
+     * Returns a {@code Set<String>} object meant for a {@code PropertyBook}.
      *
      * @throws IllegalValueException if there were any data constraints violated
      */
@@ -106,7 +106,7 @@ public class JsonSerializablePropertyManager {
     }
 
     /**
-     * Returns a {@code List<CustomProperty>} object meant for a {@code PropertyManager}.
+     * Returns a {@code List<CustomProperty>} object meant for a {@code PropertyBook}.
      *
      * @throws IllegalValueException if there were any data constraints violated
      */
@@ -119,14 +119,14 @@ public class JsonSerializablePropertyManager {
     }
 
     /**
-     * Converts this Jackson-friendly PropertyManager into the model's {@code PropertyManager} object.
+     * Converts this Jackson-friendly PropertyBook into the model's {@code PropertyBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated
      */
-    public PropertyManager toModelManager() throws IllegalValueException {
+    public PropertyBook toModelManager() throws IllegalValueException {
         Set<Prefix> modelPrefixes = toModelPrefixes();
         Set<String> modelFullNames = toModelFullNames();
         List<CustomProperty> modelCustomProperties = toModelCustomProperties();
-        return new PropertyManager(modelPrefixes, modelFullNames, modelCustomProperties);
+        return new PropertyBook(modelPrefixes, modelFullNames, modelCustomProperties);
     }
 }

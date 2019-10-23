@@ -1,0 +1,22 @@
+@startuml
+start
+
+:User defines prefix, full name and
+parameter type of the new custom property;
+
+:Check if prefix, full name and parameter type are valid;
+
+if () then ([all are valid])
+    :Check if prefix and full name are available;
+        if () then([prefix and full name are available])
+            :Update prefix and full name in PropertyBook;
+            :Add new custom property;
+        else ([else])
+            :Inform user that prefix or full name is used;
+        endif
+else ([else])
+    :Inform user that input is invalid;
+endif
+
+stop
+@enduml

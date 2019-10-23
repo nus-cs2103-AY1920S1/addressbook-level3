@@ -1,7 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
+import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.Test;
@@ -25,10 +25,10 @@ public class ClearCommandTest {
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
-            getDefaultPropertyManager());
+            getDefaultPropertyBook());
         Model expectedModel = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
-            getDefaultPropertyManager());
+            getDefaultPropertyBook());
         expectedModel.setExerciseBook(new ReadOnlyResourceBook<>());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

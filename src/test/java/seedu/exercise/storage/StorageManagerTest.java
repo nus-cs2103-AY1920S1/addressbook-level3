@@ -23,7 +23,7 @@ public class StorageManagerTest {
     @TempDir
     public Path testFolder;
 
-    private StorageManager storageManager;
+    private StorageBook storageManager;
 
     @BeforeEach
     public void setUp() {
@@ -42,11 +42,11 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(getTempFilePath("prefs"));
 
-        JsonPropertyManagerStorage propertyManagerStorage =
-            new JsonPropertyManagerStorage(getTempFilePath("pm"));
+        JsonPropertyBookStorage propertyBookStorage =
+            new JsonPropertyBookStorage(getTempFilePath("pm"));
 
-        storageManager = new StorageManager(jsonExerciseBookStorage, allJsonExerciseBookStorage,
-            jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyManagerStorage);
+        storageManager = new StorageBook(jsonExerciseBookStorage, allJsonExerciseBookStorage,
+            jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyBookStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -56,7 +56,7 @@ public class StorageManagerTest {
     @Test
     public void prefsReadSave() throws Exception {
         /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * Note: This is an integration test that verifies the StorageBook is properly wired to the
          * {@link JsonUserPrefsStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
          */
@@ -70,7 +70,7 @@ public class StorageManagerTest {
     @Test
     public void exerciseBookReadSave() throws Exception {
         /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * Note: This is an integration test that verifies the StorageBook is properly wired to the
          * {@link JsonExerciseBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonExerciseBookStorageTest} class.
          */

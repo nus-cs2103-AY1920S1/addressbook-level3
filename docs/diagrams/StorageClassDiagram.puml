@@ -19,23 +19,23 @@ package Storage {
 
     Interface Storage <<Interface>>
     Interface UserPrefsStorage <<Interface>>
-    Interface PropertyManagerStorage <<Interface>>
+    Interface PropertyBookStorage <<Interface>>
 
     Class StorageManager
     Class JsonUserPrefsStorage
-    class JsonPropertyManagerStorage
-    class JsonSerializablePropertyManager
+    class JsonPropertyBookStorage
+    class JsonSerializablePropertyBook
 }
 
 StorageManager .up.|> Storage
 StorageManager o--> "4 " XYZResourceBookStorage
 StorageManager o--> "1" UserPrefsStorage
-StorageManager o-> "1" PropertyManagerStorage
+StorageManager o-> "1" PropertyBookStorage
 
 "{abstract}\nXYZSerializableResourceBook" o-left-> "0...* " "{abstract}\nXYZJsonAdaptedResource"
 XYZResourceBookStorage --> "{abstract}\nXYZSerializableResourceBook"
 
 JsonUserPrefsStorage ..|> UserPrefsStorage
-JsonPropertyManagerStorage ..|> PropertyManagerStorage
-JsonPropertyManagerStorage -up-> JsonSerializablePropertyManager
+JsonPropertyBookStorage ..|> PropertyBookStorage
+JsonPropertyBookStorage -up-> JsonSerializablePropertyBook
 @enduml

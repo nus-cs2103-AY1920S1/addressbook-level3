@@ -10,7 +10,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_BASKETBAL
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
-import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
+import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.exercise.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
 import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
@@ -34,7 +34,7 @@ import seedu.exercise.testutil.exercise.ExerciseBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-        new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyManager());
+        new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -46,7 +46,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(model.getExerciseBookData()),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyManager());
+            new UserPrefs(), getDefaultPropertyBook());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -70,7 +70,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(model.getExerciseBookData()),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyManager());
+            new UserPrefs(), getDefaultPropertyBook());
         expectedModel.setExercise(lastExercise, editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -85,7 +85,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(model.getExerciseBookData()),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyManager());
+            new UserPrefs(), getDefaultPropertyBook());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -104,7 +104,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(model.getExerciseBookData()),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyManager());
+            new UserPrefs(), getDefaultPropertyBook());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

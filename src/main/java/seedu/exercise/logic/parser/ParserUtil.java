@@ -1,7 +1,7 @@
 package seedu.exercise.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.model.property.PropertyManager.getCustomProperties;
+import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -174,7 +174,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses and trims all of the keys in {@code Map<String, String> customProperties}.
+     * Parses and trims all of the values in {@code Map<String, String> customProperties}.
      *
      * @throws ParseException if any of the keys present in {@code customProperties} is invalid.
      */

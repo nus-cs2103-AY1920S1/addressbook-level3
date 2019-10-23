@@ -9,7 +9,7 @@ import static seedu.exercise.logic.commands.CommandTestUtil.DATE_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.NAME_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_AEROBICS;
 import static seedu.exercise.logic.commands.CommandTestUtil.UNIT_DESC_AEROBICS;
-import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
+import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.exercise.TypicalExercises.AEROBICS;
 
@@ -30,9 +30,9 @@ import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.storage.JsonPropertyManagerStorage;
+import seedu.exercise.storage.JsonPropertyBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
-import seedu.exercise.storage.StorageManager;
+import seedu.exercise.storage.StorageBook;
 import seedu.exercise.storage.bookstorage.JsonExerciseBookStorage;
 import seedu.exercise.storage.bookstorage.JsonRegimeBookStorage;
 import seedu.exercise.storage.bookstorage.JsonScheduleBookStorage;
@@ -59,10 +59,10 @@ public class LogicManagerTest {
         JsonScheduleBookStorage jsonScheduleBookStorage =
             new JsonScheduleBookStorage(temporaryFolder.resolve("scheduleBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonPropertyManagerStorage propertyManagerStorage =
-            new JsonPropertyManagerStorage(temporaryFolder.resolve("propertyManager.json"));
-        StorageManager storage = new StorageManager(jsonExerciseBookStorage, allJsonExerciseDatabase,
-            jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyManagerStorage);
+        JsonPropertyBookStorage propertyBookStorage =
+            new JsonPropertyBookStorage(temporaryFolder.resolve("propertyBook.json"));
+        StorageBook storage = new StorageBook(jsonExerciseBookStorage, allJsonExerciseDatabase,
+            jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -97,10 +97,10 @@ public class LogicManagerTest {
             new JsonExerciseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAllExerciseBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        JsonPropertyManagerStorage propertyManagerStorage =
-            new JsonPropertyManagerStorage(temporaryFolder.resolve("ioExceptionPropertyManager.json"));
-        StorageManager storage = new StorageManager(jsonExerciseBookStorage, allJsonExerciseBookStorage,
-            jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyManagerStorage);
+        JsonPropertyBookStorage propertyBookStorage =
+            new JsonPropertyBookStorage(temporaryFolder.resolve("ioExceptionPropertyBook.json"));
+        StorageBook storage = new StorageBook(jsonExerciseBookStorage, allJsonExerciseBookStorage,
+            jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyBookStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -160,7 +160,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyManager());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
