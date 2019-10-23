@@ -48,7 +48,7 @@ public class NewCommand extends Command {
      * @param model
      */
     public void dispatchVehicle(Incident draft, boolean isAuto, Model model) {
-        SearchVehiclesCommand searchVehicle = new SearchVehiclesCommand(draft, isAuto);
+        FindVehiclesCommand searchVehicle = new FindVehiclesCommand(draft, isAuto);
         searchVehicle.execute(model);
     }
 

@@ -16,9 +16,9 @@ import seedu.address.model.vehicle.Vehicle;
  * Finds and lists all incidents in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class SearchVehiclesCommand extends Command {
+public class FindVehiclesCommand extends Command {
 
-    public static final String COMMAND_WORD = "vSearch";
+    public static final String COMMAND_WORD = "find-v";
 
     /**
      * Searches by district now. TODO: search by number and type
@@ -36,7 +36,7 @@ public class SearchVehiclesCommand extends Command {
      * Used only to add vehicles to newly created incidents.
      * @param draft
      */
-    public SearchVehiclesCommand(Incident draft, boolean isAuto) {
+    public FindVehiclesCommand(Incident draft, boolean isAuto) {
         this.draft = draft;
         this.predicate = new DistrictKeywordsPredicate(draft.getDistrict());
         this.isAuto = isAuto;
@@ -46,7 +46,7 @@ public class SearchVehiclesCommand extends Command {
      * Used only when simply listing nearby vehicles.
      * @param districtKeywordsPredicate
      */
-    public SearchVehiclesCommand(DistrictKeywordsPredicate districtKeywordsPredicate) {
+    public FindVehiclesCommand(DistrictKeywordsPredicate districtKeywordsPredicate) {
         this.predicate = districtKeywordsPredicate;
     }
 
@@ -84,7 +84,7 @@ public class SearchVehiclesCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SearchVehiclesCommand // instanceof handles nulls
-                && (draft == ((SearchVehiclesCommand) other).draft)); // state check
+                || (other instanceof FindVehiclesCommand // instanceof handles nulls
+                && (draft == ((FindVehiclesCommand) other).draft)); // state check
     }
 }
