@@ -1,4 +1,5 @@
 = AddressBook Level 3 - Developer Guide
+:nus-mods-api: https://api.nusmods.com/v2/
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -353,6 +354,261 @@ executed commands and inversely executed commands. Move commands from one deque 
 ** Cons: Need to ensure that invertible commands implement their inverse execution correctly.
 
 // end::undoredo[]
+
+// tag::courseplanner[]
+
+=== Course Planner feature
+
+==== Overview
+The Course Planner feature allows the user to track what courses they have
+taken, are taking and plan out what they would want to take after the current
+semester. The program offers updated information on courses offered by NUS,
+along with convenient add, delete and check operations on their course list.
+
+==== Implementation
+
+The Course Planner feature closely follows the extendable OOP solution already
+implemented within AB3. In the Course Planner, the `CoursePlanner` object
+manages all aspects related to this feature. The course list of the user is
+stored internally using a `UniqueCourseList` object, providing an abstraction
+with `add`, `delete` and `getList` operations that are called by
+`CoursePlanner`.
+
+* `Model#getCoursePlanner()` - Gets the `CoursePlanner` instance
+* `Model#lookUpCourse(Course)` - Looks up a course's information
+* `Model#addCourse(Course)` - Adds a course to the user's list
+* `Model#addCourse(Index, Course)` - Adds a course to the user's list at the
+specified index
+* `Model#deleteCourse(Course)` - Deletes the given Course from the user's list
+* `Model#hasCourse(Course)` - Checks if the user has this course in their list
+* `Model#getUnfilteredCourseList()` - Returns an `ObservableList` containing
+the user's list of courses.
+
+===== Course Datasets
+
+Course datasets are taken directly from the {nus-mods-api}[NUSMods API]. They
+conveniently store their data used on their website using the `.json` file
+format. Therefore, all course data within the program are read directly from
+`.json` files using the Jackson JSON API.
+
+Each course, and their data, are given its own file. These files are laid out
+in a `/modinfo` directory within the `resources` folder to be easily
+accessible by the program.
+
+A sample `.json` is given below for a fictional course `AB1234`.
+
+[JSON]
+----
+{
+    "courseCode": "AB1234",
+    "courseCredit": "4",
+    "description": "Course description for AB1234.",
+    "faculty": "A Faculty in NUS",
+    "fulfillRequirements": [
+        "AB2234"
+    ],
+    "preclusion": "AB1231, AB1232",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CD1111",
+                    "XY2222"
+                ]
+            },
+            "EF3333"
+        ]
+    },
+    "title": "Course AB1234's title"
+}
+----
+
+The current codebase requires that every course datafile **must** have the
+following attributes:
+
+* `courseCode`
+* `courseCredit`
+* `title`
+* `faculty`
+* `description`
+
+These attributes are *non-nullable*, as fro the 11000+ course datafiles
+downloaded from NUSMods, all at least have these attributes. The other three:
+`fulfillRequirements`, `preclusion` and `prereqTree` are optional/nullable
+attributes.
+
+[NOTE]
+NUSMods is a popular website officially affiliated with NUS, where
+students are able to look up information about courses and plan their
+school timetable.
+
+==== And-Or Tree
+
+===== Overview
+
+The `AndOrTree` is a tree data structure served by the `andor` package that
+provides an abstraction for processing the prerequisite tree. The prerequisite
+tree (henceforth referred to as `prereqTree`) is an attribute of a `Course`
+that is available in the NUSMod's course dataset.
+
+In order to show the user whether they are able to take a course, we use this
+`prereqTree` attribute that is checked against the user's list of taken courses.
+The `prereqTree` can be either:
+
+1. empty - no prerequisites needed for this course
+2. consist of one element only - only one course is a prerequisite
+3. a nested `json` object - complex prerequisites
+
+In the most complex case, `prereqTree` will be a nested `json` object
+with object keys being either strings `"and"` or `"or"`, while array or
+individual elements mappable strings. The program reads this nested `json`
+object as a string and processes it to form the tree data structure.
+
+An example of a processable json string is as such:
+----
+"prereqTree": {
+    "and": [
+        {
+            "or": [
+                "CD1111",
+                "XY2222"
+            ]
+        },
+        "EF3333"
+    ]
+}
+----
+
+This is compressed to
+
+`"prereqTree": {"and": [{"or": ["CD1111", "XY2222"]},"EF3333"]}"`
+
+===== Methods of the `AndOrTree` class
+
+The following are `public` methods in `AndOrTree`.
+
+* `AndOrTree#buildTree(String, jsonString, Function)`
++
+Builds a tree from the given jsonString. `Function` is a mapper function
+that processes a `String` returns a value of type `R`, where `R` is the
+type of data stored by each node in the tree.
+
+* `AndOrTree#fulfills(Collection)`
++
+Checks if the given `Collection` fulfills the condition specified by this tree.
+`AndOrNode` has its own corresponding `fulfill` that checks its children or
+data against `Collection`
+
+Due to the arbitrary ordering of the tree, `insert()` and `delete()`
+operations commonly found in implementations of standard, ordered trees are
+difficult to implement. Instead, the tree is fully created upon the call to
+`buildTree()` and is then enforced to be immutable once built.
+
+Each node in the tree of type `T` is represented by an `AndOrNode<T>`. Every
+node can either  of these types:
+
+1. `AND` - any subset of elements in a `Collection<T>` must match all children
+of this node
+2. `OR` - any element in a `Collection<T>` must match at least one of the
+children of this node
+3. `DATA` - any element in a  `Collection<T>` must match the data stored in
+this node
+
+The following diagram shows the conditions for which
+`AndOrNode#fulfills(Collection)` returns `true` or `false`.
+
+.AndOrNode Condition Diagram
+image::AndOrNodeConditionDiagram.png[700,700,align=center]
+
+The tree is built recursively using the Jackson JSON API's `JsonNode` class,
+which along with `ObjectMapper()` that can read `json` strings, lets us
+traverse the `json` object tree structure.
+
+The sequence diagram of the tree building process is shown below:
+
+.AndOrTree Sequence Diagram
+image::AndOrSequenceDiagram.png[align=center]
+
+The class looks at each node - checks if its a json Object, json Array or
+a String, and does the appropriate actions and method calls to build the tree.
+
+Other ways of building the tree can be easily extended by overloading the
+`buildTree` method. However, this will not override the immutable properties
+of the tree.
+
+==== Design Considerations
+
+===== Aspect: Storing of Course datasets
+
+* Alternative 1 (current choice): Storing each course as its own file
+
+** Pros:
++
+Fast lookup as the contents of 11000+ files worth of data do not need
+to be scanned directly. Concatenating file paths directly to the file
+is used instead.
+
+** Cons:
++
+Difficult to manage. If we want to modify the datasets in any way, a script
+will have to be written to process every file in the dataset.
+
+* Alternative 2: Storing each course in one, large JSON file
+** Pros:
++
+Easier to manage. Every course can be found in a single file.
+
+** Cons:
++
+A large file will be difficult to view for a developer. It will also have
+a slow performance as the entire file would have to be processed to look up
+one course.
+
+We ultimately went with alternative #1 as once the files were downloaded and
+processed, there was no need to modify them any further. Manual lookup of
+information about a specific  course during development is also much easier
+with such a method.
+
+===== Aspect: `AndOrTree` of fixed type vs `AndOrTree<R>` of generic type `R`
+
+* Alternative 1 (current choice): `AndOrTree` with generics
+** Pros
++
+This makes the tree reusable in the future. The tree will also be able to
+store any data-type which allows for easier unit testing, since it won't be
+dependent on the correctness of the fixed data-type (`Course` in this
+instance), and instead well-tested libraries such as Java's `String` API can
+be used to test the class instead.
+
+** Cons
++
+Due to how the tree is built (i.e from a json string), a
+**mapper function** must be passed into the `buildTree()` method to process the
+string in each node to the generic type of the tree. The function is of a type
+`Function<? super String, ? extends R>`, for a tree of type `R`.
+
+* Alternative 2: `AndOrTree` dependent on `Course` (or any fixed datatype)
+** Pros
++
+There is no need to pass any mapper function into the `buildTree()` method as
+the class will already know how to map each `String` to a type `R`. This
+makes handling exceptions easier as they can be handled directly by the class
+instead of by the caller.
+
+** Cons
++
+This increases coupling between the tree and the fixed data-type used by
+the tree, resulting the correctness of the `AndOrTree` class being dependent
+on the fixed data-type, as there will be no way to stub it.
+The tree will also only be locked to a specific data-type and is
+non-extendable.
+
+We picked alternative #1 as its benefits far outweigh its disadvantages. While
+extendability and resusability of the class is a nice bonus, the decrease in
+coupling and increase in testability was the deciding factor in choosing
+between these two approaches.
+
+// end::courseplanner[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

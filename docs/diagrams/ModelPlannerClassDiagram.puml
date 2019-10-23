@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Planner <<Rectangle>> {
+    Class Planner
+    Class TaskList
+    abstract Class Task
+    Class Event
+    Class Deadline
+    Class Todo
+    Class Priority
+    Class Frequency
+    Class Tag
+}
+
+Planner *--> "1" TaskList
+TaskList o--> "*" Task
+Event -up-|> Task
+Deadline -up-|> Task
+Todo -up-|> Task
+Task *-left-> "*" Tag
+Task *-right-> "0...1" Priority
+Task *-up-> "0...1" Frequency
+
+@enduml
