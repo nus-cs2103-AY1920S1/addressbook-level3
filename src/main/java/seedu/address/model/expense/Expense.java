@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.budget.Budget;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,7 +22,7 @@ public class Expense {
     private final Description description;
     private final Price price;
     private final Timestamp timestamp;
-
+    private String budgetName;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -34,9 +35,10 @@ public class Expense {
         this.uniqueIdentifier = uniqueIdentifier;
         this.tags.addAll(tags);
         this.timestamp = Timestamp.getCurrentTimestamp();
+        this.budgetName = null;
     }
 
-    public Expense(Description description, Price price, Set<Tag> tags, Timestamp timestamp,
+    public Expense(Description description, Price price, Set<Tag> tags, Timestamp timestamp, String budgetName,
                    UniqueIdentifier uniqueIdentifier) {
         requireAllNonNull(description, price, tags, uniqueIdentifier);
         this.description = description;
@@ -44,6 +46,7 @@ public class Expense {
         this.uniqueIdentifier = uniqueIdentifier;
         this.tags.addAll(tags);
         this.timestamp = timestamp;
+        this.budgetName = budgetName;
     }
 
     public Description getDescription() {
@@ -60,6 +63,14 @@ public class Expense {
 
     public UniqueIdentifier getUniqueIdentifier() {
         return uniqueIdentifier;
+    }
+
+    public String getBudgetName() {
+        return budgetName;
+    }
+
+    public void setBudget(Budget budget) {
+        this.budgetName = budget.getDescription().fullDescription;
     }
 
     /**
@@ -98,17 +109,18 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getUniqueIdentifier().equals(getUniqueIdentifier())
-                && otherExpense.getDescription().equals(getDescription())
-                && otherExpense.getPrice().equals(getPrice())
-                && otherExpense.getTimestamp().equals(getTimestamp())
-                && otherExpense.getTags().equals(getTags());
+        return otherExpense.uniqueIdentifier.equals(uniqueIdentifier)
+                && otherExpense.description.equals(description)
+                && otherExpense.price.equals(price)
+                && otherExpense.timestamp.equals(timestamp)
+                && otherExpense.tags.equals(tags)
+                && otherExpense.budgetName.equals(budgetName);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, tags, uniqueIdentifier);
+        return Objects.hash(description, price, timestamp, budgetName, tags, uniqueIdentifier);
     }
 
     @Override

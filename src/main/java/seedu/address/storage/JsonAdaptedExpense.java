@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
@@ -30,6 +31,7 @@ class JsonAdaptedExpense {
     private final String uniqueIdentifier;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String rawTimestamp;
+    private final String budgetName;
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
@@ -39,10 +41,12 @@ class JsonAdaptedExpense {
                               @JsonProperty("price") String price,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                               @JsonProperty("timestamp") String rawTimestamp,
+                              @JsonProperty("budget") String budgetName,
                               @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
         this.description = description;
         this.price = price;
         this.rawTimestamp = rawTimestamp;
+        this.budgetName = budgetName;
         this.uniqueIdentifier = uniqueIdentifier;
 
         if (tagged != null) {
@@ -61,6 +65,7 @@ class JsonAdaptedExpense {
                 .collect(Collectors.toList()));
         uniqueIdentifier = source.getUniqueIdentifier().value;
         rawTimestamp = source.getTimestamp().toString();
+        budgetName = source.getBudgetName();
     }
 
     /**
@@ -115,7 +120,12 @@ class JsonAdaptedExpense {
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 
-        return new Expense(modelDescription, modelPrice, modelTags, modelTimestamp, modelUniqueIdentifier);
+        if (budgetName == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Budget.class.getSimpleName()));
+        }
+
+        return new Expense(modelDescription, modelPrice, modelTags, modelTimestamp, budgetName, modelUniqueIdentifier);
     }
 
 }
