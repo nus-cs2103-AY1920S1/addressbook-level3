@@ -290,6 +290,9 @@ Notes are used in the creation of CheatSheet objects as well as in general use o
 
 ==== Implementation
 
+[NOTE]
+All the operations assume that the user is in the _notes_ mode.
+
 Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
 
 image::samDiagrams/NoteModelClassDiagram.png[]
