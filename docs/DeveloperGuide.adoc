@@ -183,8 +183,8 @@ Classes used by multiple components are in the `seedu.incidentManager.commons` p
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::accessControl[]
-=== [Proposed] Access Control feature
-==== Proposed Implementation
+=== Access Control feature
+==== Implementation
 
 The access control feature is centered around three core concepts:
 
@@ -261,8 +261,8 @@ image::AccessSequenceDiagram.png[]
 // end::accessControl[]
 
 // tag::accountManagement[]
-=== [Proposed] Account Management feature
-==== Proposed Implementation
+=== Account Management feature
+==== Implementation
 
 The account management feature functions as a suite of commands available to the user. The commands available as part of this suite:
 
@@ -335,8 +335,8 @@ The incident fill mechanism is facilitated by ...
 // end::incidentfill[]
 
 // tag::incidentsearch[]
-=== [Proposed] Incident Search feature
-==== Proposed Implementation
+=== Incident Search feature
+==== Implementation
 
 The incident search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
 * Unfiltered - Displays all incidents in `Model`
