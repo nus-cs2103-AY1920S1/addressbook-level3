@@ -28,7 +28,7 @@ public class Entry {
      */
 
     public Entry(Description desc, Date date, Amount amount, Set<Tag> tags) {
-        requireAllNonNull(desc, amount, tags);
+        requireAllNonNull(desc, date, amount, tags);
         this.desc = desc;
         this.amt = amount;
         this.date = date;

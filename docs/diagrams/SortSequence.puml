@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":guiltTripParser" as guiltTripParser LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant "s:SortCommand" as SortCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("sort typ/amount s/ascending")
+activate LogicManager
+
+LogicManager -> guiltTripParser : parseCommand("sort typ/amount s/ascending")
+activate guiltTripParser
+
+create SortCommandParser
+guiltTripParser -> SortCommandParser
+activate SortCommandParser
+
+SortCommandParser --> guiltTripParser
+deactivate SortCommandParser
+
+guiltTripParser -> SortCommandParser : parse("typ/amount s/ascending")
+activate SortCommandParser
+
+create SortCommand
+SortCommandParser -> SortCommand
+activate SortCommand
+
+SortCommand --> SortCommandParser : s
+deactivate SortCommand
+
+SortCommandParser --> guiltTripParser : s
+deactivate SortCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SortCommandParser -[hidden]-> guiltTripParser
+destroy SortCommandParser
+
+guiltTripParser --> LogicManager : s
+deactivate guiltTripParser
+
+LogicManager -> SortCommand : execute()
+activate SortCommand
+
+SortCommand -> Model : sortFilteredEntry(amount,ascending)
+activate Model
+
+Model --> SortCommand
+deactivate Model
+
+create CommandResult
+SortCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SortCommand
+deactivate CommandResult
+
+SortCommand --> LogicManager : result
+deactivate SortCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

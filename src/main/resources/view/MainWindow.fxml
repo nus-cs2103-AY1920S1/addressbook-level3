@@ -16,73 +16,73 @@
 <!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->
 
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="guiltTrip() - your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-  <icons>
-    <Image url="@/images/guiltTrip()_32.png" />
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@ExtensionsDark.css" />
-      </stylesheets>
+    <icons>
+        <Image url="@/images/guiltTrip()_32.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@ExtensionsDark.css" />
+            </stylesheets>
 
-        <HBox fx:id="window" minHeight="1180" prefHeight="1180" maxHeight="1180">
-          <VBox HBox.hgrow="ALWAYS">
-            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-              <Menu mnemonicParsing="false" text="File">
-                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-              </Menu>
-              <Menu mnemonicParsing="false" text="Help">
-                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-              </Menu>
-            </MenuBar>
+            <HBox fx:id="window" minHeight="1180" prefHeight="1180" maxHeight="1180">
+                <VBox HBox.hgrow="ALWAYS">
+                    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                        <Menu mnemonicParsing="false" text="File">
+                            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                        </Menu>
+                    </MenuBar>
 
-            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-              <padding>
-                <Insets bottom="5" left="10" right="10" top="5" />
-              </padding>
-            </StackPane>
+                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                        <padding>
+                            <Insets bottom="5" left="10" right="10" top="5" />
+                        </padding>
+                    </StackPane>
 
-            <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-              <padding>
-                <Insets bottom="10" left="10" right="10" top="10" />
-              </padding>
-              <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-            </VBox>
+                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                        <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    </VBox>
 
-            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-              <padding>
-                <Insets bottom="5" left="10" right="10" top="5" />
-              </padding>
-            </StackPane>
+                    <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                        <padding>
+                            <Insets bottom="5" left="10" right="10" top="5" />
+                        </padding>
+                    </StackPane>
 
-            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-          </VBox>
-            <!-- to contain the side panels in vbox -->
-            <VBox fx:id="sidePanelsPlaceHolder" minWidth="300" prefWidth="300">
-                <VBox fx:id="wishesPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                    <padding>
-                      <Insets bottom="10" left="10" right="10" top="10" />
-                    </padding>
-                    <Label fx:id="wishlistTitle" styleClass="cell_big_label" text="Wishlist" />
-                    <!--<Label styleClass="cell_small_label" text="subtext" />-->
+                    <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                 </VBox>
-                <VBox fx:id="budgetsPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                    <padding>
-                      <Insets bottom="10" left="10" right="10" top="10" />
-                    </padding>
-                    <Label fx:id="budgetTitle" styleClass="cell_big_label" text="Budgets" />
-                    <!--<Label styleClass="cell_small_label" text="subtext" />-->
+                <!-- to contain the side panels in vbox -->
+                <VBox fx:id="sidePanelsPlaceHolder" minWidth="300" prefWidth="300">
+                    <VBox fx:id="wishesPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                        <Label fx:id="wishlistTitle" styleClass="cell_big_label" text="Wishlist" />
+                        <!--<Label styleClass="cell_small_label" text="subtext" />-->
+                    </VBox>
+                    <VBox fx:id="budgetsPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                        <Label fx:id="budgetTitle" styleClass="cell_big_label" text="Budgets" />
+                        <!--<Label styleClass="cell_small_label" text="subtext" />-->
+                    </VBox>
+                    <VBox fx:id="remindersPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                        <Label fx:id="remindersTitle" styleClass="cell_big_label" text="Reminders" />
+                        <!--<Label styleClass="cell_small_label" text="subtext" />-->
+                    </VBox>
                 </VBox>
-                <VBox fx:id="remindersPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                    <padding>
-                      <Insets bottom="10" left="10" right="10" top="10" />
-                    </padding>
-                    <Label fx:id="remindersTitle" styleClass="cell_big_label" text="Reminders" />
-                    <!--<Label styleClass="cell_small_label" text="subtext" />-->
-                </VBox>
-            </VBox>
-        </HBox>
-    </Scene>
-  </scene>
+            </HBox>
+        </Scene>
+    </scene>
 </fx:root>

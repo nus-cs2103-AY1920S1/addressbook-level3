@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.Wish;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class EntryCard extends UiPart<Region> {
+public class WishListCard extends UiPart<Region> {
 
-    private static final String FXML = "EntryListCard.fxml";
+    private static final String FXML = "WishListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class EntryCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Entry entry;
+    public final Wish wish;
 
     @FXML
     private HBox cardPane;
@@ -33,24 +33,24 @@ public class EntryCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label date;
+    private Label time;
     @FXML
     private Label amt;
     @FXML
     private FlowPane tags;
 
-    public EntryCard(Entry entry, int displayedIndex) {
+    public WishListCard(Wish wish, int displayedIndex) {
         super(FXML);
-        this.entry = entry;
+        this.wish = wish;
         id.setText(displayedIndex + ". ");
 
-        String type = entry.getType().toLowerCase();
-        String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;
+        String descWithType = wish.getDesc().fullDesc;
         desc.setText(descWithType);
-        date.setText(entry.getDate().toString());
-        amt.setText("$" + entry.getAmount().value);
 
-        entry.getTags().stream()
+        time.setText(wish.getDate().toString());
+        amt.setText("$" + wish.getAmount().value);
+
+        wish.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -63,13 +63,13 @@ public class EntryCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EntryCard)) {
+        if (!(other instanceof WishListCard)) {
             return false;
         }
 
         // state check
-        EntryCard card = (EntryCard) other;
+        WishListCard card = (WishListCard) other;
         return id.getText().equals(card.id.getText())
-                && entry.equals(card.entry);
+                && wish.equals(card.wish);
     }
 }
