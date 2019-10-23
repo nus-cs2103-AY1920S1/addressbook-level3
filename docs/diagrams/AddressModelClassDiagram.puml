@@ -7,13 +7,11 @@ skinparam classBackgroundColor MODEL_COLOR
 class HiddenOutside #FFFFFF
 
 namespace Model {
-Interface Model <<Interface>>{
-}
 Class ModelManager
-Interface UserPrefsModel <<Interface>>
-Class UserPrefsModelManager
+Interface Model <<Interface>>
 Class ReadOnlyUserPrefs
 Class UserPrefs
+
 }
 
 namespace Address {
@@ -36,81 +34,28 @@ Interface AddressBookModel <<Interface>>
 Class AddressBookModelManager
 Interface ReadOnlyAddressBook <<Interface>>
 Class AddressBook
+Class ReadOnlyAddressBook
 }
 }
 
-
-namespace Achievements {
-namespace Model {
-Interface StatisticsModel <<Interface>>
-Class StatisticsModelManager
-}
-}
-
-namespace Calendar {
-namespace Model {
-}
-}
-
-namespace diaryFeature {
-namespace diaryModel {
-}
-}
-
-namespace FinancialTracker {
-namespace Model {
-}
-}
-
-namespace Itinerary {
-namespace Model {
-}
-}
 
 Interface ObservableList <<Interface>>
-Interface Supplier <<Interface>>
 HiddenOutside ..> Model.Model
+''''''''''LAYOUT''''''''''
+Model.ModelManager .[hidden]down.> Address
+''''''''''''''''''''''''''
+
 
 ''''''''''MODEL''''''''''
-
 ''''''''''Model
 Model.ModelManager .up.|> Model.Model
-Model.Model .left.>Supplier
-
 ''''''''''Model Interface
 Model.Model .down.> Address.Model.AddressBookModel :gets >
-Model.Model .down.> Achievements.Model.StatisticsModel :suppliers >
-Model.Model .down.> Model.UserPrefsModel :gets >
-
 ''''''''''ModelManager Constructor
 ''' composition or aggregation?
 Model.ModelManager o--> "1" Address.Model.AddressBookModel
-Model.ModelManager o--> "1" Model.UserPrefsModel
-Model.ModelManager ..> Achievements.Model.StatisticsModel
-
-
-''''''''''UserPrefsModelManager
-Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
-
 ''''''''''UserPrefs
 Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
-
-''''''''''
-
-''''''''''LAYOUT''''''''''
-Model.ModelManager -[hidden]down-> Model.UserPrefsModel
-Achievements -[hidden]right->Calendar
-Achievements -[hidden]right->diaryFeature
-Achievements -[hidden]right->FinancialTracker
-Achievements -[hidden]right->Itinerary
-Model.UserPrefsModelManager -[hidden]down->Address
-Model.UserPrefsModelManager -[hidden]down->Achievements
-Model.UserPrefsModelManager -[hidden]down->Calendar
-Model.UserPrefsModelManager -[hidden]down->diaryFeature
-Model.UserPrefsModelManager -[hidden]down->FinancialTracker
-Model.UserPrefsModelManager -[hidden]down->Itinerary
-Address -down[hidden]-> Achievements
-''''''''''''''''''''''''''
 
 ''''''''''ADDRESS''''''''''
 ''''''''''AddressBookModel Interface
@@ -118,7 +63,7 @@ Address.Model.AddressBookModel .right.> ObservableList
 Address.Model.AddressBookModelManager .up.|> Address.Model.AddressBookModel
 ''''''''''AddressBookModelManager Constructor
 Address.Model.AddressBookModelManager ..> Address.Model.ReadOnlyAddressBook
-Address.Model.AddressBookModelManager .up.> Model.ReadOnlyUserPrefs
+Address.Model.AddressBookModelManager ..>  Model.ReadOnlyUserPrefs
 Address.Model.AddressBookModelManager -->"1" Address.Model.Person.Person : filtered list
 
 ''''''''''ReadOnlyAddressBook
@@ -137,14 +82,5 @@ Address.Model.Person.Person *--> Address.Model.Person.Remark
 Address.Model.Person.Person *--> Address.Model.Country.Country
 Address.Model.Person.Person *--> "*" Address.Model.Tag.Tag
 
-'''''''''''''''''''''''''''
-
-''''''''''ACHIEVEMENTS''''''''''
-''''''''''StatisticsModel Interface
-Achievements.Model.StatisticsModelManager .up.|> Achievements.Model.StatisticsModel
-''''''''''StatisticsModel Manager
-Achievements.Model.StatisticsModelManager ..> ObservableList
-Achievements.Model.StatisticsModelManager --> "*" Address.Model.Person.Person
-''''''''''''''''''''''''''''''''
 
 @enduml
