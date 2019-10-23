@@ -5,20 +5,18 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import jfxtras.icalendarfx.VElement;
 import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-//import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.ReadOnlyEvents;
-import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
@@ -74,7 +72,7 @@ public class ModelManager implements Model {
                 savedQuizzes, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
-                "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+            "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.groupList = new ListOfGroups();
@@ -143,6 +141,7 @@ public class ModelManager implements Model {
     //endregion
 
     //region FilteredPerson List Accessors
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -268,6 +267,7 @@ public class ModelManager implements Model {
     //endregion
 
     //region Group
+
     /**
      * Creates a group manually.
      */
@@ -287,10 +287,9 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Adds a student to a group.
-     * {@code groupId} Must already exist in the list of groups.
-     * {@code studentNumber} Must already exist in the list of students.
-     * {@code groupIndexNumber} Must already exist in the quiz.
+     * Adds a student to a group. {@code groupId} Must already exist in the list of groups. {@code
+     * studentNumber} Must already exist in the list of students. {@code groupIndexNumber} Must
+     * already exist in the quiz.
      */
     public boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber) {
         int questionIndex = studentNumber - 1;
@@ -341,6 +340,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getAllQuestions() {
+        return savedQuestions.getAllQuestions();
+    }
+
+    @Override
     public Question getQuestion(Index index) {
         return savedQuestions.getQuestion(index);
     }
@@ -348,6 +352,11 @@ public class ModelManager implements Model {
     @Override
     public void setQuestion(Index index, Question question) {
         savedQuestions.setQuestion(index, question);
+    }
+
+    @Override
+    public void setSlideshowQuestions(List<Index> questionsIndexes) {
+        savedQuestions.setSlideshowQuestions(questionsIndexes);
     }
 
     @Override
@@ -376,6 +385,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyQuestions getSavedQuestions() {
         return savedQuestions;
+    }
+
+    @Override
+    public ObservableList<Question> getSlideshowQuestions() {
+        return savedQuestions.getSlideshowQuestionList();
     }
     //endregion
 
@@ -455,8 +469,10 @@ public class ModelManager implements Model {
     //endregion
 
     //region FilteredNote List Accessors
+
     /**
-     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of notes record.
+     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of notes
+     * record.
      */
     @Override
     public ObservableList<Note> getFilteredNotesList() {
@@ -503,13 +519,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getEventRecordFilePath() {
-        return userPrefs.getEventRecordFilePath();
+    public void setEventRecord(ReadOnlyEvents events) {
+        this.eventRecord.resetData(events);
     }
 
     @Override
-    public void setEventRecord(ReadOnlyEvents events) {
-        this.eventRecord.resetData(events);
+    public Path getEventRecordFilePath() {
+        return userPrefs.getEventRecordFilePath();
     }
 
     @Override
@@ -568,8 +584,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+            && userPrefs.equals(other.userPrefs)
+            && filteredPersons.equals(other.filteredPersons);
     }
 
 }

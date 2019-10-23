@@ -1,18 +1,13 @@
 package seedu.address.storage.event;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jfxtras.icalendarfx.properties.component.relationship.UniqueIdentifier;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.RecurrenceType;
-import seedu.address.model.question.McqQuestion;
-import seedu.address.model.question.OpenEndedQuestion;
-import seedu.address.model.question.Question;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Jackson-friendly version of {@link Event}.

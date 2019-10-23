@@ -13,9 +13,12 @@ import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.index.Index;
 
+/**
+ * Stores events and provides functionality to map from events to vEvents.
+ */
 public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VEvent> {
-    private final String DAILY_RRULE_STRING = "FREQ=DAILY;INTERVAL=1";
-    private final String WEEKLY_RRULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
+    private final String dailyRecurRUleString = "FREQ=DAILY;INTERVAL=1";
+    private final String weeklyRecurRuleString = "FREQ=WEEKLY;INTERVAL=1";
     private final ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
     private final ObservableList<VEvent> vEventsUnmodifiableList =
             FXCollections.unmodifiableObservableList(vEvents);
@@ -105,9 +108,9 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         resultVEvent.setSummary(eventToMap.getEventName());
 
         if (eventToMap.getRecurrenceType() == RecurrenceType.DAILY) {
-            resultVEvent.setRecurrenceRule(DAILY_RRULE_STRING);
+            resultVEvent.setRecurrenceRule(dailyRecurRUleString);
         } else if (eventToMap.getRecurrenceType() == RecurrenceType.WEEKLY) {
-            resultVEvent.setRecurrenceRule(WEEKLY_RRULE_STRING);
+            resultVEvent.setRecurrenceRule(weeklyRecurRuleString);
         }
 
         resultVEvent.withCategories(eventToMap.getColorCategory());

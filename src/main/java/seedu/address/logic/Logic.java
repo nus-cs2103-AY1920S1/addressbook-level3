@@ -12,23 +12,28 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.question.Question;
 import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
+import seedu.address.model.student.Student;
 
 /**
  * API of the Logic component
  */
 public interface Logic {
+
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     //region AddressBook
+
     /**
      * Returns the AddressBook.
      *
@@ -36,7 +41,9 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
@@ -45,7 +52,17 @@ public interface Logic {
     Path getAddressBookFilePath();
     //endregion
 
+    //region Questions
+    /**
+     * Returns the list of slideshow questions
+     *
+     * @see seedu.address.model.Model#getSlideshowQuestions()
+     */
+    ObservableList<Question> getSlideshowQuestions();
+    //endregion
+
     //region Statistics
+
     /**
      * Returns the StatisticsRecord.
      *
@@ -53,11 +70,14 @@ public interface Logic {
      */
     ReadOnlyStatisticsRecord getStatisticsRecord();
 
-    /** Returns an unmodifiable view of the processed statistics of students */
+    /**
+     * Returns an unmodifiable view of the processed statistics of students
+     */
     ObservableList<Statistics> getProcessedStatistics();
     //endregion
 
     //region Notes
+
     /**
      * Returns the NotesRecord.
      *
@@ -65,8 +85,17 @@ public interface Logic {
      */
     ReadOnlyNotesRecord getNotesRecord();
 
-    /** Returns an unmodifiable view of the filtered list of notes */
+    /**
+     * Returns an unmodifiable view of the filtered list of notes
+     */
     ObservableList<Note> getFilteredNotesList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of students
+     */
+
+    ObservableList<Student> getFilteredStudentList();
+
 
     /**
      * Returns the user prefs' notes record file path.

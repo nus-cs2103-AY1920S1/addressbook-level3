@@ -42,7 +42,7 @@ class JsonSerializableEvents {
     /**
      * Converts the saved events into the model's {@code eventRecord} object.
      */
-    public EventRecord toModelType() throws IllegalValueException{
+    public EventRecord toModelType() throws IllegalValueException {
         List<Event> eventList = new ArrayList<>();
         for (JsonAdaptedEvent jsonAdaptedEvent : events) {
             Event question = jsonAdaptedEvent.toModelType();

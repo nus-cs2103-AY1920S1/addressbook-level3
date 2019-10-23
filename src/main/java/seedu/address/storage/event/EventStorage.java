@@ -1,15 +1,12 @@
 package seedu.address.storage.event;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.event.EventRecord;
-import seedu.address.model.event.ReadOnlyEvents;
-import seedu.address.model.event.ReadOnlyVEvents;
-import seedu.address.model.question.ReadOnlyQuestions;
-import seedu.address.model.question.SavedQuestions;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.ReadOnlyEvents;
 
 /**
  * Represents a storage for {@link EventRecord}.

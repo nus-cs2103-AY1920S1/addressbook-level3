@@ -19,10 +19,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.event.EventRecord;
-import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.note.NotesRecord;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
@@ -138,7 +138,7 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             if (!studentRecordOptional.isPresent()) {
-                //handle logger.info();
+                logger.info("Student file not found. Will be starting with a student record with a sample student.");
             }
             if (!questionsOptional.isPresent()) {
                 logger.info("Question file not found. Will create an empty one.");
@@ -154,7 +154,7 @@ public class MainApp extends Application {
             }
             initialAddressBook = addressBookOptional
                 .orElseGet(SampleDataUtil::getSampleAddressBook);
-            initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudentRecord);
+            initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudents);
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
             initialEvents = eventsOptional.orElseGet(SampleDataUtil::getSampleEventsList);
             initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);

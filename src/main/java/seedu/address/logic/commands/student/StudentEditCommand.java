@@ -21,10 +21,8 @@ import seedu.address.model.student.Student;
  */
 public class StudentEditCommand extends StudentCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new student\n"
-            + "Parameters:\n"
-            + "name/ [NAME]\n"
-            + "Example: name/ Jeong Sock Hwee\n\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing student\n"
+            + "Full example : student 1 student/newname --> changes student in index 1 to new student with newname\n\n";
 
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

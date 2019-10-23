@@ -13,7 +13,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.event.ReadOnlyEvents;
-import seedu.address.model.question.ReadOnlyQuestions;
 
 /**
  * A class to access Events data stored as a json file on the hard disk.

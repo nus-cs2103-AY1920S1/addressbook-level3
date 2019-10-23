@@ -1,10 +1,11 @@
 package seedu.address.model.event;
 
-import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
-
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
+/**
+ * Represents a event in the njoy assistant
+ * Maps into a vEvent for UI (iCalendarAgenda) rendering and processing
+ */
 public class Event {
     private String eventName;
     private LocalDateTime startDateTime;
