@@ -188,11 +188,11 @@ Examples:
 
 === Judging and Leaderboard Features
 
-==== List Team Ranking: `showLeaderboard`
-Use this command to display the ranking of the teams in the hackathon in descending order of their points.
+==== List Team Ranking: `leaderboard`
+Use this command to display the ranking of the teams in the hackathon in descending order of their points. Once you run this command, Alfred's UI will display a list of all the teams stored within Alfred sorted in descending order of their points.
 
 ==== Get the top k teams: `getTop NUMBER`
-Use this command to list the top k teams in the leaderboard, where k is the number (NUMBER) which you specify.
+Use this command to list the top k teams in the leaderboard, where k is a number (NUMBER) which you specify. Essentially, this command will show you a cropped version of the leaderboard. Upon running this command, Alfed's UI will display a list of top "k" teams based on their current score.
 
 Example:
 
@@ -200,15 +200,40 @@ Example:
 
 * `getTop 20` will display the top 20 teams with the highest points in the hackathon.
 
-==== Update points: `updatePoints TEAM_ID NEW_POINTS`
-Update the team with ID TEAM_ID to have points NEW_POINTS.
+Do note that if you input "k" as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon.
 
-==== Update Winner: `updateWinnerCategiry PRIZE_CATEGORY TEAM_ID`
-Updates the winner of a particular prize category
+==== Add points: `score add TEAM_ID POINTS`
+Adds the value of POINTS to the current score of the team with ID TEAM_ID. Use this command when you want to award a particular team a certain amount of points. 
 
-==== List Prize Categories: `listPrizes`
-Lists the prize categories and their winners (if any)
+Do note that if you try to award more than the maximum amount of points (which is set to 100 points as default), Alfred will not allow it and will display an error message. If the addition of points makes the team's total exceed the maximum, the score will simply be set to the maximum score. 
 
+Example:
+
+* `score add T-1 20` will add 20 points to the score of the team with ID T-1.
+
+* `score add T-5 60` will add 60 points to the score of the team with ID T-5.
+
+==== Subtract points: `score sub TEAM_ID NEW_POINTS`
+Deducts the value of POINTS from the current score of the team with ID TEAM_ID. Use this command when you want to take away a certain amount of points from a particular team. 
+
+Do note that if you try to subtract more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message. If the subtraction of points makes the team's total go below the minimum (which is set to 0 points), the score will simply be set to 0. 
+
+Example:
+
+* `score sub T-1 15` will subtract 20 points from the score of the team with ID T-1.
+
+* `score sub T-5 10` will subtract 10 points from the score of the team with ID T-5.
+
+==== Set points: `score set TEAM_ID NEW_POINTS`
+Sets the score of the team with ID TEAM_ID to a new score NEW_POINTS, regardless of the team's current score. Use this command when you want to set a team's score to an exact score, rather than adding or subtracting points from their current score. 
+
+Do note that if you try to set more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message.  
+
+Example:
+
+* `score set T-1 15` will set the score of the team with ID T-1 as 15.
+
+* `score set T-5 10` will set the score of the team with ID T-5 as 10.
 
 === Bulk Registration: `addBulk PATH_TO_CSV_FILE`
 You may add multiple participants at once into Alfred through the specification of a .csv file
