@@ -14,7 +14,10 @@ import mams.logic.commands.HelpCommand;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.RemoveModCommand;
 import mams.logic.commands.ResolveCommand;
+import mams.logic.commands.SaveCommand;
 import mams.logic.commands.SetCredits;
+import mams.logic.commands.StoreCommand;
+import mams.logic.commands.UndoCommand;
 import mams.logic.commands.ViewCommand;
 import mams.logic.parser.exceptions.ParseException;
 
@@ -80,6 +83,12 @@ public class MamsParser {
 
         case SetCredits.COMMAND_WORD_SET_CREDITS:
             return new SetCreditsParser().parse(arguments);
+
+        case StoreCommand.COMMAND_UNDO:
+            return new  UndoCommand();
+
+        case SaveCommand.COMMAND_STORE:
+            return new SaveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

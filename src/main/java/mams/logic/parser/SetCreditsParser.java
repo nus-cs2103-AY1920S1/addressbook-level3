@@ -17,8 +17,8 @@ import mams.logic.parser.exceptions.ParseException;
 public class SetCreditsParser implements Parser<SetCredits> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddModCommand
-     * and returns an AddModCommand object for execution. (Only argument checking is done here)
+     * Parses the given {@code String} of arguments in the context of the SetCredits
+     * and returns an SetCredits object for execution. (Only argument checking is done here)
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
