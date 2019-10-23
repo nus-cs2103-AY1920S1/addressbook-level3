@@ -8,11 +8,9 @@ import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
@@ -22,7 +20,6 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.order.Order;
 
 /**
@@ -77,10 +74,10 @@ public class EditOrderCommand extends Command {
         Name deliveryman = editedOrder.getDeliveryman();
 
 
-        if (!model.getFilteredRestaurantList().contains(editedOrder.getRestaurant()) ||
-                !model.getFilteredCustomerList().contains(editedOrder.getCustomer()) ||
-                (!deliveryman.equals(null)
-                        && !model.getFilteredDeliverymenList().contains(deliveryman))) {
+        if (!model.getFilteredRestaurantList().contains(editedOrder.getRestaurant())
+                || !model.getFilteredCustomerList().contains(editedOrder.getCustomer())
+                || (!deliveryman.equals(null)
+                && !model.getFilteredDeliverymenList().contains(deliveryman))) {
             throw new CommandException(MESSAGE_INVALID_ORDER);
         }
 

@@ -9,7 +9,6 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.deliverymans.logic.commands.universal.AddOrderCommand;

@@ -12,12 +12,10 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.universal.EditOrderCommand;
 import seedu.deliverymans.logic.parser.ArgumentMultimap;
@@ -80,7 +78,8 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
      * If {@code foods} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero foods.
      */
-    private Optional<Map<Name, Integer>> parseFoodForEdit(Collection<String> foods, Collection<String> quantities) throws ParseException {
+    private Optional<Map<Name, Integer>> parseFoodForEdit(Collection<String> foods,
+                                                          Collection<String> quantities) throws ParseException {
         assert foods != null;
 
         if (foods.isEmpty()) {

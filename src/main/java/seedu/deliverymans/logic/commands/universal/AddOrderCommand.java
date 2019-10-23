@@ -56,8 +56,8 @@ public class AddOrderCommand extends Command {
         Name customerName = toAdd.getCustomer();
         Name restaurantName = toAdd.getRestaurant();
         Map<Name, Integer> foodList = toAdd.getFood();
-        if (!model.getFilteredCustomerList().contains(customerName) ||
-                !model.getFilteredRestaurantList().contains(restaurantName)) {
+        if (!model.getFilteredCustomerList().contains(customerName)
+                || !model.getFilteredRestaurantList().contains(restaurantName)) {
             throw new CommandException(MESSAGE_INVALID_ORDER);
         }
         for (Restaurant restaurant : model.getFilteredRestaurantList()) {

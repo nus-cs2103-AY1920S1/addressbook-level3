@@ -123,6 +123,9 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses {@code String bool} into a {@code boolean}.
+     */
     public static boolean parseBoolean(String bool) throws ParseException {
         requireNonNull(bool);
         String trimmedBool = bool.trim();
@@ -165,6 +168,12 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses a {@code Collection<String> tags} in seconds into a {@code ArrayList<Integer>}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Collection<String> tags} is invalid.
+     */
     public static ArrayList<Integer> parseQuantity(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
         final ArrayList<Integer> tagSet = new ArrayList<>();
