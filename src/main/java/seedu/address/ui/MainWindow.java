@@ -25,9 +25,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
+import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.DefaultStartView;
-import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.util.GroupDetailsExport;
 
 /**
