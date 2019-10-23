@@ -223,14 +223,14 @@ comparison can be done more easily.
 The class diagram below illustrates the relationship between the classes.
 
 .Recommendation class diagram in Model component
-image::RecommendationClassDiagram.png[]
+image::RecommendationClassDiagram.png[width=500]
 
 ==== Adding likes and dislikes
 
 The feature of adding the user's liked and disliked categories, tags and locations was introduced to support the
 recommendation system.
 
-The _UserRecommendations_ class stores the list of user likes and dislikes as a set in lowercase to prevent duplicates.
+The `UserRecommendations` class stores the list of user likes and dislikes as a set in lowercase to prevent duplicates.
 Furthermore, the user's likes and dislikes are integrated with `Storage` for the user's convenience.
 
 The sequence diagram below shows how a sample `like` command is executed:
