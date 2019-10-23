@@ -1,4 +1,4 @@
-= StudyBuddy Pro Level 3 - Developer Guide
+= AddressBook Level 3 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-W13-3/main
+:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team AY1920S1-CS2103T-W13-3`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -91,7 +91,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ActivityWindow`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -127,6 +127,23 @@ NOTE: The lifeline for `DeleteFlashcardCommandParser` should end at the destroy 
 [[Design-Model]]
 === Model component
 
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Address Book data.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+ +
+image:BetterModelClassDiagram.png[]
+
 [[Design-Storage]]
 === Storage component
 
@@ -138,7 +155,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the StudyBuddyBook data in json format and read it back.
+* can save the Address Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -148,6 +165,95 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::undoredo[]
+=== [Proposed] Undo/Redo feature
+==== Proposed Implementation
+
+The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+
+image::UndoRedoState1.png[]
+
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
 
 === Logging
 
@@ -171,14 +277,14 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Tagging Feature
 
-==== Implementation
+==== Current Implementation
 
 ** The current implementation of StudyBuddyItems in StudyBuddyPro is such that it contains a Set of Tags.
 ** The following objects of each individual feature shares similar Tagging behaviour, as shown in the class diagram below.
 
 image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 
-==== Design Considerations
+==== Considerations
 
 ** As explained in the class diagram above, each StudyBuddyItem is limited to a total number of 10 tags.
 ** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
@@ -206,8 +312,6 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 
 === Auto-generated cheatsheet feature
 
-==== Implementation
-
 The auto-generation mechanism is used in the `AddCheatSheetCommand` during creation of the cheatsheet.
 After creation, the cheatsheet is then stored in the `studyBuddy` storage.
 
@@ -225,18 +329,6 @@ The following sequence diagram shows how the undo operation works:
 Assuming that user is already in the _cheatsheet_ mode.
 
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
-
-==== Design Considerations
-===== Aspect:
-
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
-
-==== [Proposed] Future improvements
 
 === Remind Flashcard Feature
 
@@ -288,7 +380,7 @@ deadline.
 
 Notes are used in the creation of CheatSheet objects as well as in general use of StudyBuddyPro.
 
-==== Implementation
+==== Current Implementation
 
 Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
 
@@ -322,7 +414,7 @@ The two main steps of the process are:
 
 The proposed feature involves the application of tags within the Note content.
 
-===== Design Implementation
+===== Proposed Implementation
 
 This feature can be achieved by:
 
@@ -659,6 +751,18 @@ Use case ends.
 
 {Todo delete later}
 
+[discrete]
+=== Use case: Delete person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to delete a specific person in the list
+4.  AddressBook deletes the person
++
+Use case ends.
+
 *Extensions*
 
 [none]
@@ -669,7 +773,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. StudyBuddyBook shows an error message.
+** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
 
@@ -699,7 +803,7 @@ A titled digital 'card' that contains a question (image or text), answer, as wel
 A document that contains the notes the user has specified during creation
 
 [[time-trial]] Time-Trial::
-A mode of answering flashcards in which you must provide the answer within a designated time period.
+A mode of answering flashcards in which you must provide the answer within a deisgnated time period.
 
 
 [appendix]
@@ -740,6 +844,20 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+
+_{ more test cases ... }_
+
+=== Deleting a person
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
 
 _{ more test cases ... }_
 
