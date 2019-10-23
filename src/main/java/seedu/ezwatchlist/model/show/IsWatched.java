@@ -38,6 +38,9 @@ public class IsWatched {
         return true;
     }
 
+    public boolean getIsWatchedBoolean() {
+        return value;
+    }
 
     @Override
     public String toString() {

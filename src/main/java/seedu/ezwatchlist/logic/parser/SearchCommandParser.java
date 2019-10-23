@@ -31,51 +31,51 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TYPE, PREFIX_IS_WATCHED, PREFIX_ACTOR, PREFIX_IS_INTERNAL);
 
-        List<String> name_optional = argMultimap.getAllValues(PREFIX_NAME); // allow multiple values // allow 1 for now
-        Optional<String> type_optional = argMultimap.getValue(PREFIX_TYPE); // at most one value
-        List<String> actor_optional = argMultimap.getAllValues(PREFIX_ACTOR); // allow multiple values
-        Optional<String> is_watched_optional = argMultimap.getValue(PREFIX_IS_WATCHED); // true or false
-        Optional<String> is_internal_optional = argMultimap.getValue(PREFIX_IS_INTERNAL); // true or false
+        List<String> nameList = argMultimap.getAllValues(PREFIX_NAME); // allow multiple values // allow 1 for now
+        Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE); // at most one value
+        List<String> actorList = argMultimap.getAllValues(PREFIX_ACTOR); // allow multiple values
+        Optional<String> isWatchedOptional = argMultimap.getValue(PREFIX_IS_WATCHED); // true or false
+        Optional<String> isInternalOptional = argMultimap.getValue(PREFIX_IS_INTERNAL); // true or false
 
-        parseNameToBeSearched(name_optional);
-        parseTypeToBeSearched(type_optional);
-        parseActorToBeSearched(actor_optional);
-        parseIsWatchedToBeSearched(is_watched_optional);
-        parseIsInternalToBeSearched(is_internal_optional);
+        parseNameToBeSearched(nameList);
+        parseTypeToBeSearched(typeOptional);
+        parseActorToBeSearched(actorList);
+        parseIsWatchedToBeSearched(isWatchedOptional);
+        parseIsInternalToBeSearched(isInternalOptional);
 
         return new SearchCommand(searchShowsHashMap);
     }
 
-    private void parseNameToBeSearched(List<String> name_optional) {
-        searchShowsHashMap.put(KEY_NAME, name_optional);
+    private void parseNameToBeSearched(List<String> nameList) {
+        searchShowsHashMap.put(KEY_NAME, nameList);
     }
 
-    private void parseTypeToBeSearched(Optional<String> type_optional) {
+    private void parseTypeToBeSearched(Optional<String> typeOptional) {
         ArrayList<String> listOfType = new ArrayList<String>(); // Empty if can be of any type
-        if (type_optional.isPresent()) {
-            String type = type_optional.get().trim();
+        if (typeOptional.isPresent()) {
+            String type = typeOptional.get().trim();
             listOfType.add(type);
         }
         searchShowsHashMap.put(KEY_TYPE, listOfType);
     }
 
-    private void parseActorToBeSearched(List<String> actor_optional) {
-        searchShowsHashMap.put(KEY_ACTOR, actor_optional);
+    private void parseActorToBeSearched(List<String> actorList) {
+        searchShowsHashMap.put(KEY_ACTOR, actorList);
     }
 
-    private void parseIsWatchedToBeSearched(Optional<String> is_watched_optional) {
+    private void parseIsWatchedToBeSearched(Optional<String> isWatchedOptional) {
         ArrayList<String> listOfIsWatched = new ArrayList<String>(); // Empty if can be any
-        if (is_watched_optional.isPresent()) { // true or yes || false or no
-            String is_watched = is_watched_optional.get().trim();
+        if (isWatchedOptional.isPresent()) { // true or yes || false or no
+            String is_watched = isWatchedOptional.get().trim();
             listOfIsWatched.add(is_watched);
         }
         searchShowsHashMap.put(KEY_IS_WATCHED, listOfIsWatched);
     }
 
-    private void parseIsInternalToBeSearched(Optional<String> is_internal_optional) {
+    private void parseIsInternalToBeSearched(Optional<String> isInternalOptional) {
         ArrayList<String> listOfIsInternal = new ArrayList<String>(); // Empty if can be any
-        if (is_internal_optional.isPresent()) { // true or yes || false or no
-            String is_internal = is_internal_optional.get().trim();
+        if (isInternalOptional.isPresent()) { // true or yes || false or no
+            String is_internal = isInternalOptional.get().trim();
             listOfIsInternal.add(is_internal);
         }
         searchShowsHashMap.put(KEY_IS_INTERNAL, listOfIsInternal);

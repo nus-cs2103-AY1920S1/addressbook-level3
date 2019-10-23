@@ -28,42 +28,42 @@ public class SearchCommand extends Command {
             + "Example: " + COMMAND_WORD + " Joker";
 
     private final String EMPTY_STRING = "";
-    private List<String> name_list;
-    private List<String> type_list;
-    private List<String> actor_list;
-    private List<String> is_watched_list;
-    private List<String> is_internal_list;
+    private List<String> nameList;
+    private List<String> typeList;
+    private List<String> actorList;
+    private List<String> isWatchedList;
+    private List<String> isInternalList;
 
     List<Show> searchResult = new ArrayList<>();
     public static final String MESSAGE_INVALID_IS_INTERNAL_COMMAND =
             "Invalid input. i/[Option] where option is either true, yes or false, no.";
 
     public SearchCommand(HashMap<String, List<String>> searchShowsHashMap) {
-        name_list = searchShowsHashMap.get("name");
-        type_list = searchShowsHashMap.get("type");
-        actor_list = searchShowsHashMap.get("actor");
-        is_watched_list = searchShowsHashMap.get("is_watched");
-        is_internal_list = searchShowsHashMap.get("is_internal");
+        nameList = searchShowsHashMap.get("name"); // done
+        typeList = searchShowsHashMap.get("type");
+        actorList = searchShowsHashMap.get("actor");
+        isWatchedList = searchShowsHashMap.get("is_watched");
+        isInternalList = searchShowsHashMap.get("is_internal"); // done
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            if (!is_internal_list.isEmpty()) {
-                if (is_internal_list.get(0).equals("true") || is_internal_list.get(0).equals("yes")) {
-                    for (String showName : name_list) {
+            if (requestedIsInternal()) {
+                if (requestedSearchFromInternal()) {
+                    for (String showName : nameList) {
                         addShowFromWatchListIfSameNameAs(showName, model);
                     }
-                } else if (is_internal_list.get(0).equals("false") || is_internal_list.get(0).equals("no")) {
-                    for (String showName : name_list) {
+                } else if (requestedSearchFromOnline()) {
+                    for (String showName : nameList) {
                         addShowFromOnlineIfSameNameAs(showName);
                     }
                 } else {
                     throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
                 }
             } else { // there's no restriction on where to search from
-                for (String showName : name_list) {
+                for (String showName : nameList) {
                     addShowFromWatchListIfSameNameAs(showName, model);
                     addShowFromOnlineIfSameNameAs(showName);
                 }
@@ -78,10 +78,41 @@ public class SearchCommand extends Command {
         }
     }
 
+    private boolean requestedIsInternal() {
+        return !isInternalList.isEmpty();
+    }
+
+    private boolean requestedSearchFromInternal() {
+        return isInternalList.get(0).equals("true") || isInternalList.get(0).equals("yes");
+    }
+
+    private boolean requestedSearchFromOnline() {
+        return isInternalList.get(0).equals("false") || isInternalList.get(0).equals("no");
+    }
+
+    private boolean requestedIsWatched() {
+        return !isWatchedList.isEmpty();
+    }
+
+    private boolean requestedSearchFromWatched() {
+        return isWatchedList.get(0).equals("true") || isWatchedList.get(0).equals("yes");
+    }
+
+    private boolean requestedSearchFromWatchList() {
+        return isInternalList.get(0).equals("false") || isInternalList.get(0).equals("no");
+    }
+
     private void addShowFromWatchListIfSameNameAs(String showName, Model model) {
-        if (!showName.equals(EMPTY_STRING) /*&&  (model.hasShowName(name))*/) {
+        if (!showName.equals(EMPTY_STRING)) {
             List<Show> filteredShowList = model.getShowIfHasName(new Name(showName));
             for (Show show : filteredShowList) {
+                if (requestedIsWatched()) {
+                    if (requestedSearchFromWatched() && !show.isWatched().getIsWatchedBoolean()) {
+                        continue; // skip if request to be watched but show is not watched
+                    } else if (requestedSearchFromWatchList() && show.isWatched().getIsWatchedBoolean()) {
+                        continue; //skip if requested to be in watchlist but show is watched
+                    }
+                }
                 searchResult.add(show);
             }
         }
@@ -92,9 +123,11 @@ public class SearchCommand extends Command {
             List<Movie> movies = new ApiMain().getMovieByName(showName);
             List<TvShow> tvShows = new ApiMain().getTvShowByName(showName);
             for (Movie movie : movies) {
+                // check if need to check if it is isWatched
                 searchResult.add(movie);
             }
             for(TvShow tvShow : tvShows) {
+                // check if need to check if it is isWatched
                 searchResult.add(tvShow);
             }
         }
@@ -104,10 +137,10 @@ public class SearchCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SearchCommand // instanceof handles nulls
-                && name_list.equals(((SearchCommand) other).name_list)
-                && type_list.equals(((SearchCommand) other).type_list)
-                && actor_list.equals(((SearchCommand) other).actor_list)
-                && is_watched_list.equals(((SearchCommand) other).is_watched_list)
-                && is_internal_list.equals(((SearchCommand) other).is_internal_list));
+                && nameList.equals(((SearchCommand) other).nameList)
+                && typeList.equals(((SearchCommand) other).typeList)
+                && actorList.equals(((SearchCommand) other).actorList)
+                && isWatchedList.equals(((SearchCommand) other).isWatchedList)
+                && isInternalList.equals(((SearchCommand) other).isInternalList));
     }
 }
