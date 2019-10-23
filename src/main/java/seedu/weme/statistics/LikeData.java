@@ -32,7 +32,7 @@ public class LikeData {
      */
     public void setLikesByMemeRef(String memeRef, int change) {
         int currLikes = likeMap.getOrDefault(memeRef, 0);
-        likeMap.replace(memeRef, currLikes + change);
+        likeMap.put(memeRef, currLikes + change);
     }
 
     /**
