@@ -2,6 +2,7 @@ package seedu.billboard.model.statistics.formats;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
@@ -18,6 +19,7 @@ public class FilledExpenseBreakdown implements ExpenseBreakdown {
      * @param tagBreakdownValues A map of tags to the list of expenses that are tagged with that specific tag.
      */
     public FilledExpenseBreakdown(Map<Tag, List<Expense>> tagBreakdownValues) {
+        Objects.requireNonNull(tagBreakdownValues);
         this.tagBreakdownValues = tagBreakdownValues;
     }
 

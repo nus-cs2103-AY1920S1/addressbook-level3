@@ -1,4 +1,4 @@
-package seedu.billboard.model.statistics;
+package seedu.billboard.model.statistics.generators;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,7 +25,6 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.EmptyExpenseTimeline;
 import seedu.billboard.model.statistics.formats.ExpenseTimeline;
 import seedu.billboard.model.statistics.formats.FilledExpenseTimeline;
-import seedu.billboard.model.statistics.generators.TimelineGenerator;
 import seedu.billboard.testutil.TypicalExpenses;
 
 import javafx.util.Pair;
@@ -35,7 +34,7 @@ public class TimelineGeneratorTest {
     private final TimelineGenerator timelineGenerator = new TimelineGenerator();
 
     @Test
-    public void generateExpenseTimeline_nullArguments_throwsNullPointerException() {
+    public void generate_nullArguments_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> timelineGenerator.generate(null));
         assertThrows(NullPointerException.class, () ->
                 timelineGenerator.generate(null, null));
@@ -44,7 +43,7 @@ public class TimelineGeneratorTest {
     }
 
     @Test
-    void generateExpenseTimeline_emptyList_returnsEmptyExpenseTimeline() {
+    void generate_emptyList_returnsEmptyExpenseTimeline() {
         ExpenseTimeline timeline = timelineGenerator.generate(new ArrayList<>());
 
         assertThat(timeline, is(instanceOf(EmptyExpenseTimeline.class)));
@@ -52,7 +51,7 @@ public class TimelineGeneratorTest {
 
     // Based of expenses list from {@code TypicalExpenses#getTypicalExpenses}.
     @Test
-    void generateExpenseTimeline_nonEmptyList_returnsCorrectExpenseTimeline() {
+    void generate_nonEmptyList_returnsCorrectExpenseTimeline() {
         DateInterval interval = DateInterval.MONTH;
         ExpenseTimeline timeline = timelineGenerator.generate(getTypicalExpenses(), interval);
 

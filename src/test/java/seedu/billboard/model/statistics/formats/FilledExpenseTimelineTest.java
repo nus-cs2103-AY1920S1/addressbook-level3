@@ -1,4 +1,4 @@
-package seedu.billboard.model.statistics;
+package seedu.billboard.model.statistics.formats;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -7,6 +7,7 @@ import static seedu.billboard.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,6 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
 
 import javafx.util.Pair;
-import seedu.billboard.model.statistics.formats.FilledExpenseTimeline;
 
 public class FilledExpenseTimelineTest {
 
@@ -47,6 +47,16 @@ public class FilledExpenseTimelineTest {
 
         assertThrows(IllegalArgumentException.class, () ->
                 new FilledExpenseTimeline(interval, dateRange.partitionByInterval(interval), aggregateExpenses));
+    }
+
+    @Test
+    public void constructor_nullInputs_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                new FilledExpenseTimeline(null, new ArrayList<>(), new ArrayList<>()));
+        assertThrows(NullPointerException.class, () ->
+                new FilledExpenseTimeline(DateInterval.MONTH, null, new ArrayList<>()));
+        assertThrows(NullPointerException.class, () ->
+                new FilledExpenseTimeline(DateInterval.MONTH, new ArrayList<>(), null));
     }
 
     @Test
