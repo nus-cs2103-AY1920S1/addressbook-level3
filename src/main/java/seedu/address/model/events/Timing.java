@@ -1,6 +1,8 @@
 //shawns version
 package seedu.address.model.events;
 
+import org.assertj.core.util.DateUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -74,6 +76,24 @@ public class Timing implements Comparable<Timing> {
         return other != this
                 && getStartTime().before(other.getEndTime())
                 && other.getStartTime().before(getEndTime());
+    }
+
+    public static Timing getOneWeekLaterTiming(Timing current) {
+        DateTime start = DateTime.plusOneWeek(current.getStartTime());
+        DateTime end = DateTime.plusOneWeek(current.getEndTime());
+        return new Timing(start, end);
+    }
+
+    public static Timing getOneMonthLaterTiming(Timing current) {
+        DateTime start = DateTime.plusOneMonth(current.getStartTime());
+        DateTime end = DateTime.plusOneMonth(current.getEndTime());
+        return new Timing(start, end);
+    }
+
+    public static Timing getOneYearLaterTiming(Timing current) {
+        DateTime start = DateTime.plusOneYear(current.getStartTime());
+        DateTime end = DateTime.plusOneYear(current.getEndTime());
+        return new Timing(start, end);
     }
 
     @Override

@@ -6,9 +6,15 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.CancelAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
@@ -16,9 +22,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Appointment;
+import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
 
+import javax.swing.text.html.Option;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -38,10 +46,10 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_START, PREFIX_END);
+                ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES, PREFIX_START, PREFIX_END);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START, PREFIX_END)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
         }
 
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
@@ -58,9 +66,51 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
             throw new ParseException(String.format(MESSAGE_INVALID_TIMING, AddAppCommand.MESSAGE_USAGE));
         }
 
-        Appointment event = new Appointment(referenceId, timing, new Status());
-        return new ReversibleActionPairCommand(new AddAppCommand(event),
-                new CancelAppCommand(event));
+        Optional<String> recursiveStringOptional = argMultimap.getValue(PREFIX_RECURSIVE);
+        Optional<String> recursiveStringTimesOptional = argMultimap.getValue(PREFIX_RECURSIVE_TIMES);
+
+        if (recursiveStringOptional.isPresent() && recursiveStringTimesOptional.isPresent()) {
+            String recursiveString = recursiveStringOptional.get();
+
+            if (!recursiveString.equals("w") && !recursiveString.equals("m") && !recursiveString.equals("y")) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
+            }
+
+            Index rescursiveTimes = ParserUtil.parseIndex(recursiveStringTimesOptional.get());
+            int times = rescursiveTimes.getZeroBased() + 1;
+            Appointment event = new Appointment(referenceId, timing, new Status());
+            List<Event> eventList = getRecEvents(event, recursiveString, times);
+            //todo new constructors need to edit for addappt and cancelAppt
+            return new ReversibleActionPairCommand(new AddAppCommand(eventList),
+                    new CancelAppCommand(eventList));
+        } else {
+            Appointment event = new Appointment(referenceId, timing, new Status());
+            return new ReversibleActionPairCommand(new AddAppCommand(event),
+                    new CancelAppCommand(event));
+        }
+    }
+
+    private List<Event> getRecEvents(Appointment event, String recursiveString, int times) {
+        List<Event> eventList = new ArrayList<>();
+        Timing timing = event.getEventTiming();
+
+        if (recursiveString.equals("w")) {
+            for (int i = 0; i < times; i++) {
+                timing = Timing.getOneWeekLaterTiming(timing);
+                eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
+            }
+        } else if (recursiveString.equals("m")) {
+            for (int i = 0; i < times; i++) {
+                timing = Timing.getOneMonthLaterTiming(timing);
+                eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
+            }
+        } else {
+            for (int i = 0; i < times; i++) {
+                timing = Timing.getOneYearLaterTiming(timing);
+                eventList.add(new Appointment(event.getPersonId(), timing, new Status()));
+            }
+        }
+        return eventList;
     }
 
     /**

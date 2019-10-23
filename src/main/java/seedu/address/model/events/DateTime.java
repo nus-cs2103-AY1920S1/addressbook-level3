@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -48,6 +51,27 @@ public class DateTime implements Comparable<DateTime> {
             parsedDateTime = null;
         }
         return parsedDateTime;
+    }
+
+    public static DateTime plusOneWeek(DateTime current) {
+        LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
+                ZoneId.systemDefault());
+        Date currentDate = Date.from(currenLocalDateTime.plusWeeks(1).atZone(ZoneId.systemDefault()).toInstant());
+        return new DateTime(currentDate);
+    }
+
+    public static DateTime plusOneMonth(DateTime current) {
+        LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
+                ZoneId.systemDefault());
+        Date currentDate = Date.from(currenLocalDateTime.plusMonths(1).atZone(ZoneId.systemDefault()).toInstant());
+        return new DateTime(currentDate);
+    }
+
+    public static DateTime plusOneYear(DateTime current) {
+        LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
+                ZoneId.systemDefault());
+        Date currentDate = Date.from(currenLocalDateTime.plusYears(1).atZone(ZoneId.systemDefault()).toInstant());
+        return new DateTime(currentDate);
     }
 
     public boolean before(DateTime other) {
