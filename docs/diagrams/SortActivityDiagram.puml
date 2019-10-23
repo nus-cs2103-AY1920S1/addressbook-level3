@@ -8,7 +8,7 @@ start
 if () then ([valid fields present])
     :Determine sort order in parser based on given fields;
     :Update Model based on the sort order;
-else ([else])
+else ([missing or invalid fields])
     :Display error message;
 endif
 stop
