@@ -51,6 +51,7 @@ public class EventCommand extends Command {
         model.addCalendarEntry(toAdd);
         if (toAdd.getAutoReminder().isPresent()) {
             model.addCalendarEntry(toAdd.getAutoReminder().get());
+            model.schedule();
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }

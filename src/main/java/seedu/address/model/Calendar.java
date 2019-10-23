@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.calendar.UniqueCalendarEntryList;
 
 /**
@@ -13,9 +14,11 @@ import seedu.address.model.calendar.UniqueCalendarEntryList;
  */
 public class Calendar implements ReadOnlyCalendar {
     private final UniqueCalendarEntryList calendarEntries;
+    private final UniqueCalendarEntryList pastReminders;
 
     {
         calendarEntries = new UniqueCalendarEntryList();
+        pastReminders = new UniqueCalendarEntryList();
     }
 
     public Calendar() {
@@ -66,6 +69,13 @@ public class Calendar implements ReadOnlyCalendar {
     }
 
     /**
+     * Adds a reminder to the past reminder list. The reminder must not already exist in the past reminder list.
+     */
+    public void addPastReminder(Reminder reminder) {
+        pastReminders.add(reminder);
+    }
+
+    /**
      * Replaces the given calendar entry {@code target} in the list with {@code editedCalendarEntry}. {@code target}
      * must exist in the calendar. The calendar entry identity of {@code editedCalendar} must not be the same as
      * another existing calendar entry in the calendar.
@@ -83,7 +93,9 @@ public class Calendar implements ReadOnlyCalendar {
         calendarEntries.remove(key);
     }
 
-    //// util methods
+    public ObservableList<CalendarEntry> getPastReminderList() {
+        return pastReminders.asUnmodifiableObservableList();
+    }
 
     @Override
     public String toString() {
