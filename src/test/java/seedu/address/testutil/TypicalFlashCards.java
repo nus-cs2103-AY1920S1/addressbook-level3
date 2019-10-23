@@ -79,7 +79,12 @@ public class TypicalFlashCards {
                     .withRating(VALID_RATING_2)
                     .withCatgeories(VALID_CATEGORY_HISTORY, VALID_CATEGORY_LOCATION)
                     .build();
-
+    public static final FlashCard NORATING =
+            new FlashCardBuilder().withQuestion(VALID_QUESTION_1)
+                    .withAnswer(VALID_ANSWER_1)
+                    .withRating("null")
+                    .withCatgeories(VALID_CATEGORY_LOCATION)
+                    .build();
     public static final String KEYWORD_MATCHING_SORT = "sort"; // A keyword that matches MEIER
 
     private TypicalFlashCards() {} // prevents instantiation

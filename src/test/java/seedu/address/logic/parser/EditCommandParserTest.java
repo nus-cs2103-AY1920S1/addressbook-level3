@@ -153,7 +153,7 @@ public class EditCommandParserTest {
 
         // categories
         userInput = targetIndex.getOneBased() + CATEGORY_DESC_HISTORY;
-        descriptor = new EditFlashCardDescriptorBuilder().withCategories(VALID_CATEGORY_LOCATION).build();
+        descriptor = new EditFlashCardDescriptorBuilder().withCategories(VALID_CATEGORY_HISTORY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

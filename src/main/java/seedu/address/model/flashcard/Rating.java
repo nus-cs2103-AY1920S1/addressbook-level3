@@ -19,6 +19,7 @@ public class Rating {
     public static final String GOOD = "good";
     public static final String HARD = "hard";
     public static final String EASY = "easy";
+    public static final String NULL = "null";
 
     public final String value;
 
@@ -37,7 +38,7 @@ public class Rating {
      * Returns true if a given string is a valid rating.
      */
     public static boolean isValidRating(String test) {
-        return test.matches(GOOD) || test.matches(EASY) || test.matches(HARD);
+        return test.matches(GOOD) || test.matches(EASY) || test.matches(HARD) || test.matches(NULL);
     }
 
     @Override

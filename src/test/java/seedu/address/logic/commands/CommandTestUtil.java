@@ -57,10 +57,10 @@ public class CommandTestUtil {
             " " + PREFIX_RATING + VALID_RATING_2;
 
     public static final String CATEGORY_DESC_HISTORY =
-            " " + PREFIX_CATEGORY + VALID_CATEGORY_LOCATION;
+            " " + PREFIX_CATEGORY + VALID_CATEGORY_HISTORY;
 
     public static final String CATEGORY_DESC_LOCATION =
-            " " + PREFIX_CATEGORY + VALID_CATEGORY_HISTORY;
+            " " + PREFIX_CATEGORY + VALID_CATEGORY_LOCATION;
 
     public static final String INVALID_QUESTION_DESC =
             " " + PREFIX_QUESTION + " "; // ' ' not allowed in questions
@@ -69,7 +69,7 @@ public class CommandTestUtil {
             " " + PREFIX_ANSWER + " "; // ' ' not allowed in answers
 
     public static final String INVALID_RATING_DESC =
-            " " + PREFIX_RATING; // empty string not allowed for rating
+            " " + PREFIX_RATING + "fly"; // empty string not allowed for rating
 
     public static final String INVALID_CATEGORY_DESC =
             " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in categories
