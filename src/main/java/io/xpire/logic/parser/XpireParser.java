@@ -3,6 +3,11 @@ package io.xpire.logic.parser;
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+
+import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.commands.AddCommand;
 import io.xpire.logic.commands.CheckCommand;
 import io.xpire.logic.commands.ClearCommand;
@@ -21,6 +26,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
  * Parses user input.
  */
 public class XpireParser {
+
     /**
      * Parses user input into command for execution.
      *
@@ -31,7 +37,7 @@ public class XpireParser {
     public Command parseCommand(String userInput) throws ParseException {
         // Removes leading and trailing white spaces and trailing bars.
         String trimmedUserInput = userInput.trim()
-                .replaceAll("\\|+$", "");
+                                           .replaceAll("\\|+$", "");
 
         String commandWord = trimmedUserInput.split("\\|", 2)[0].trim();
         if (commandWord.isEmpty()) {
@@ -81,8 +87,30 @@ public class XpireParser {
             return new TagCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            return parseUnknownCommandWord(commandWord);
         }
     }
 
+    /**
+     * Parses invalid command words to check if there were any possible input mistakes.
+     *
+     * @param command the invalid command word
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private static Command parseUnknownCommandWord(String command) throws ParseException {
+
+        StringBuilder sb = new StringBuilder(MESSAGE_UNKNOWN_COMMAND);
+        String[] allCommandWords = new String[] {
+            AddCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
+            ClearCommand.COMMAND_WORD, SearchCommand.COMMAND_WORD,
+            ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+            HelpCommand.COMMAND_WORD, SortCommand.COMMAND_WORD,
+            SetReminderCommand.COMMAND_WORD, TagCommand.COMMAND_WORD,
+            CheckCommand.COMMAND_WORD
+        };
+        Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
+        sb.append(StringUtil.findSimilar(command, allCommandsSet, 1));
+        throw new ParseException(sb.toString());
+    }
 }

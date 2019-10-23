@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/io/xpire/Main.java[`Main`] and link:{repoURL}/src/main/java/io/xpire/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -81,7 +81,7 @@ image::UiClassDiagram.png[]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ItemListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/io/xpire/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,11 +96,11 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `XpireParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding an item).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -117,17 +117,17 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/io/xpire/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Xpire data.
+* exposes an unmodifiable `ObservableList<Item>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Xpire`, which `Item` can reference. This would allow `Xpire` to only require one `Tag` object per unique `Tag`, instead of each `Item` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -137,59 +137,165 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/io/xpire/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Xpire data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `io.xpire.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag:tobuylist[]
+=== [Proposed] ToReplenish/ToBuy List
+==== Implementation
+_{Explain here how the ToReplenish/ToBuy List is implemented}_
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+The following sequence diagram shows how the operation works:
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+==== Design Considerations
+
+===== Aspect: How ToReplenish/ToBuy List executes
+
+* **Alternative 1 (current choice):**
+** Pros:
+** Cons:
+
+* **Alternative 2:**
+** Pros:
+** Cons:
+
+===== Aspect: Data structure to store the items
+* **Alternative 1 (current choice):**
+** Pros:
+** Cons:
+
+* **Alternative 2:**
+** Pros:
+** Cons:
+// end::tobuylist[]
+
+// tag:autosort[]
+=== Auto-sorting of items by name then date
+==== Implementation
+The auto-sorting mechanism is facilitated by `SortedUniqueItemList` which replaces `UniqueItemList`.
+
+`SortedUniqueItemList` supports the following new function(s):
+
+* `SortedUniqueItemList#setMethodOfSorting()` -- Specifies the MethodOfSorting and comparator to be used for the list.
+
+In `SortedUniqueItemList`, items are stored in a `SortedList<Item>` and sorted based on the comparator specified.
+
+Given below is an example usage scenario and how the auto-sorting mechanism behaves at each step.
+
+The following sequence diagram shows how the auto-sorting mechanism works:
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+==== Design Considerations
+
+===== Aspect: How auto-sorting executes
+
+* **Alternative 1 (current choice):** Automatic sorting with the addition of every item.
+** Pros: Slightly more efficient algorithm for viewing items in O(1) time.
+** Cons: Slightly less efficient algorithm for adding items.
+
+* **Alternative 2:** Sort only when items are viewed.
+** Pros: Slightly more efficient algorithm for adding items in O(1) time.
+** Cons: Slightly less efficient algorithm for viewing items.
+
+===== Aspect: Data structure to store the auto-sorted items
+* **Alternative 1 (current choice):** `SortedList<Item>`.
+** Pros: Smooth integration with the internal ObservableList. Comparator can also be easily changed when necessary.
+** Cons: Sorted List can only be viewed when `asUnmodifiableObservableList()` in `SortedUniqueItemList` is called.
+
+* **Alternative 2:** `TreeSet<Item>`.
+** Pros: Disallows addition of identical items to the set.
+** Cons: May not be as compatible with the internalList which is of type ObservableList.
+// end::autosort[]
+
+// tag:setreminder[]
+=== Set Reminders for expiring items
+==== Implementation
+_{Explain here how the set reminder feature is implemented}_
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+The following sequence diagram shows how the operation works:
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+==== Design Considerations
+
+===== Aspect: How set reminder executes
+
+* **Alternative 1 (current choice):**
+** Pros:
+** Cons:
+
+* **Alternative 2:**
+** Pros:
+** Cons:
+
+===== Aspect:
+* **Alternative 1 (current choice):**
+** Pros:
+** Cons:
+
+* **Alternative 2:**
+** Pros:
+** Cons:
+
+// end::setreminder[]
+
+// tag::undoredo[]
+=== Undo/Redo feature
+==== Implementation
+
+The undo/redo mechanism is facilitated by `VersionedXpire`.
+It extends `Xpire` with an undo/redo history, stored internally as an `XpireStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedXpire#commit()` -- Saves the current Xpire state in its history.
+* `VersionedXpire#undo()` -- Restores the previous Xpire state from its history.
+* `VersionedXpire#redo()` -- Restores a previously undone Xpire state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitXpire()`, `Model#undoXpire()` and `Model#redoXpire()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedXpire` will be initialized with the initial Xpire state, and the `currentStatePointer` pointing to that single Xpire state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete|5` command to delete the 5th item in the Xpire. The `delete` command calls `Model#commitXpire()`, causing the modified state of the Xpire after the `delete|5` command executes to be saved in the `XpireStateList`, and the `currentStatePointer` is shifted to the newly inserted Xpire state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add|Strawberry|3/2/2020|1` to add a new item. The `add` command also calls `Model#commitXpire()`, causing another modified Xpire state to be saved into the `XpireStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitXpire()`, so the Xpire state will not be saved into the `XpireStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the item was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoXpire()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous Xpire state, and restores the Xpire to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial Xpire state, then there are no previous Xpire states to restore. The `undo` command uses `Model#canUndoXpire()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +303,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoXpire()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the Xpire to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `XpireStateList.size() - 1`, pointing to the latest Xpire state, then there are no undone Xpire states to restore. The `redo` command uses `Model#canRedoXpire()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the Xpire, such as `list`, will usually not call `Model#commitXpire()`, `Model#undoXpire()` or `Model#redoXpire()`. Thus, the `XpireStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitXpire()`. Since the `currentStatePointer` is not pointing at the end of the `XpireStateList`, all Xpire states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -218,18 +324,18 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire Xpire.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the item being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of Xpire states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedXpire`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -240,7 +346,71 @@ image::CommitActivityDiagram.png[]
 
 _{Explain here how the data encryption feature will be implemented}_
 
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+The following sequence diagram shows how the operation works:
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+==== Design Considerations
+
+===== Aspect: How set reminder executes
+
+* **Alternative 1 (current choice):**
+** Pros:
+** Cons:
+
+* **Alternative 2:**
+** Pros:
+** Cons:
+
+===== Aspect:
+* **Alternative 1 (current choice):**
+** Pros:
+** Cons:
+
+* **Alternative 2:**
+** Pros:
+** Cons:
 // end::dataencryption[]
+
+// tag:recommendations[]
+=== Spelling correction with alternative recommendations
+==== Implementation
+The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
+This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
+Relevant functions supporting this operation are implemented in `StringUtil`.
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+The following sequence diagram shows how the sort operation works with recommendations:
+
+The following sequence diagram shows how the search operation works with recommendations:
+
+The following activity diagram summarizes what happens when a user executes an unknown command:
+
+==== Design Considerations
+
+===== Aspect: How recommendations execute
+
+* **Alternative 1 (current choice):** Displays recommendations after user inputs command that fails to produce results.
+** Pros: Simpler and straightforward implementation.
+** Cons: May be less intuitive to the user as opposed to auto-completed commands.
+
+* **Alternative 2:** Auto-completion of commands.
+** Pros: Lowers likelihood of spelling mistakes in user input to begin with.
+** Cons: We must ensure that the structure of every single command and their variations are taken into consideration.
+
+===== Aspect: Data structure to store the recommendations
+* **Alternative 1 (current choice):** Use a TreeMap to store entries that comprise a set of recommendations and their corresponding edit distance.
+** Pros: Entries are automatically sorted by their edit distance, thus words with a smaller edit distance will be recommended first. Duplicate entries are also prohibited.
+** Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Store all possible recommendations in a long list.
+** Pros: Simpler implementation.
+** Cons: Not closely related words may also be recommended to the user.
+
+// end::recommendations[]
 
 === Logging
 
@@ -338,11 +508,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |edit items |can update their details easily when I need to
 
-|`*` |student leader staying on campus |import tracking list into phone via QR Code |can remind my other friends when their items are expiring
+|`*` |user |import tracking list into phone via QR Code |can remind my other friends when their items are expiring
 
-|`*` |chef |track items via recipes |can be reminded of what items are expiring soon and need replenishing
+//|`*` |user |track items via recipes |can be reminded of what items are expiring soon and need replenishing
 
-|`*` |store owners |track items and their quantity |know what items have run out and need replenishing
+|`*` |user |track items and their quantity |know what items have run out and need replenishing
 
 
 |=======================================================================
@@ -391,7 +561,7 @@ Use case ends.
 * 1a. The given index is invalid.
 +
 [none]
-** 1a1. Expire shows an error message.
+** 1a1. Xpire shows an error message.
 +
 Use case resumes at step 1.
 
@@ -572,6 +742,7 @@ Installability
 .  The software shall be installed from Github, a popular portable medium.
 
 Interoperability
+
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 
 _{More to be added}_
