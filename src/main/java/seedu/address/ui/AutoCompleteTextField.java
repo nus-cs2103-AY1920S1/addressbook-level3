@@ -54,27 +54,21 @@ public class AutoCompleteTextField extends TextField {
                     String commandWord = enteredText.substring(0, firstSpace);
                     Optional<Graph> graph = new GraphGenerator().getGraph(commandWord);
                     if (graph.isPresent()) {
-//                        System.out.println(graph);
                         String remaining = enteredText.substring(firstSpace);
                         Node graphNode = graph.get().process(remaining);
                         if (remaining.endsWith(" ")) {
-                            System.out.println("ENDS WITH SPACE");
                             entries.clear();
                             entries.addAll(graphNode.getEdges().keySet());
-                            System.out.println(entries);
                             stringToCompare = "";
                         } else {
-                            System.out.println("ADDING VALUES");
                             entries.clear();
                             entries.addAll(graphNode.getValues());
-                            System.out.println(entries);
                             stringToCompare = graph.get().lastMatchEnd;
                         }
                     }
                 } else {
                     entries.clear();
                     entries.addAll(CommandSuggestions.getSuggestions());
-                    System.out.println(entries);
                 }
 
                 // filter
