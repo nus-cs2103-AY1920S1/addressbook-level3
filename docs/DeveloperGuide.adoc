@@ -103,11 +103,6 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
 [[Design-Model]]
 === Model component
 
@@ -120,30 +115,35 @@ image::ModelClassDiagram.png[]
 image::cards_class_diagram.png[]
 
 
-The `Model`,
+.`FlashCard`,
 
 * There are 3 types of cards used by our App, the `JavascriptCard`, `FrontBackCard` and `MultipleChoiceCard`.
 * `JavascriptCard` and `FrontBackCard` implements from `FlashCard`, an interface class.
 * `MultipleChoiceCard` inherits from `FrontBackCard`.
 * The interface class `FlashCard` also implements `JsonInterface` class to allow loading and saving to Json format.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+.FlashCard Priority
+Each FlashCard has an associated priority level, which the user can indicate his/her value of the importance of the card.
 
-[[Design-Storage]]
-=== Storage component
+The priority levels are described below:
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+| Priority| Value| Intended Action|
+| HIGH_PRIORITY| 10| Valued as important by user, should be tested more often|
+| LOW_PRIORITY| 1| Valued, but less important by user, should be tested less often|
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+The sequence diagram below shows how the `ExamRunner` component can use the `createSubsetForTest()` method in the `Deck` and make use of the priorities associated with the `FlashCards` to create a test that emphasises the `FlashCards` that the user deems as important.
 
-The `Storage` component,
+image::flashcards_priority cards.png[]
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* Constructor of `ExamRunner` is called.
+* In the constructor of `ExamRunner`, a method call is made to `Deck` to create a subset of cards for test.
+* `Deck` processes the method call, responds as such:
+** If there are less than 10 cards in `Deck`, return all the cards.
+** If there are more than 10 cards in `Deck`, return a set of cards with both `HIGH_PRIORITY` and `LOW_PRIORITY` cards, which the proportion is weighted at 60% to 40% ration respectively.
+* `Deck` returns the test set to `ExamRunner`.
+
+[Note]
+The current implementation has yet to handle the situation where `ExamRunner` creates a test set when there are no cards in Deck. This will be implemented before the next code release.
 
 [[Design-Commons]]
 === Common classes
@@ -298,15 +298,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |student with subjects of different language mediums |add flashcards of differing languages  |I can customise my flashcards to the subject I am interested to do
 
-|`* * *` |user creating flash cards |save collections of thematically similar flash cards | I can share my cards easily to other users
+|`* * *` | user| add a new deck| create a new topic collection of flash cards to test myself
+
+|`* * *` | user| add a new card to a deck| include a new question into the topic of the deck to test myself
+
+|`* * *` | user| save my deck of flash cards into my local drive| I can share it with my friends
+
+|`* * *` | user| load my deck of flash cards into the app| I can reuse the deck of cards created
+
+|`* * *` | | |
 
 |`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
 
+|`* * *` |learner who wants to track his/her progress |view the questions I have not done well in| improve my understanding on these concepts tested
+
+|`* * *` |learner who wants to prioritise some test questions over others |set which questions are more important | be exposed to these important questions more in the tests
+
 |`* * *` |beginner user |access a help page |i can learn about the features at a glance
 
-|`* * *` |student who wants to track his/her progress |view the questions I have not done well in| improve my understanding on these concepts tested
+|`* *` |student with subjects of different language mediums |add flashcards of differing languages  |I can customise my flashcards to the subject I am interested to do
+
+|`* *` |user creating flash cards |save collections of thematically similar flash cards | I can share my cards easily to other users
+
 
 |=======================================================================
 
