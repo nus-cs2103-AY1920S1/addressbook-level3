@@ -1,8 +1,8 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.travezy.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.travezy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.COUNTRY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -18,24 +18,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.address.logic.AddressBookLogic;
-import seedu.address.address.logic.AddressBookLogicManager;
-import seedu.address.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
-import seedu.address.address.model.ReadOnlyAddressBook;
-import seedu.address.address.model.person.Person;
-import seedu.address.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
+import seedu.travezy.address.logic.AddressBookLogic;
+import seedu.travezy.address.logic.AddressBookLogicManager;
+import seedu.travezy.address.logic.commands.AddCommand;
+import seedu.travezy.logic.commands.CommandResult;
+import seedu.travezy.address.logic.commands.ListCommand;
+import seedu.travezy.logic.commands.exceptions.CommandException;
+import seedu.travezy.logic.parser.exceptions.ParseException;
+import seedu.travezy.address.model.AddressBookModel;
+import seedu.travezy.address.model.AddressBookModelManager;
+import seedu.travezy.address.model.ReadOnlyAddressBook;
+import seedu.travezy.address.model.person.Person;
+import seedu.travezy.address.storage.JsonAddressBookStorage;
+import seedu.travezy.storage.JsonUserPrefsStorage;
+import seedu.travezy.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.UserPrefsModel;
-import seedu.address.model.UserPrefsModelManager;
+import seedu.travezy.model.UserPrefs;
+import seedu.travezy.model.UserPrefsModel;
+import seedu.travezy.model.UserPrefsModelManager;
 
 public class AddressBookLogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

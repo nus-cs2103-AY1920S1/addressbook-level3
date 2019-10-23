@@ -1,12 +1,14 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.travezy.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
+import seedu.travezy.address.model.AddressBookModel;
+import seedu.travezy.address.model.AddressBookModelManager;
+import seedu.travezy.logic.commands.CommandResult;
+import seedu.travezy.logic.commands.ExitCommand;
 
 public class ExitCommandTest {
     private AddressBookModel addressBookModel = new AddressBookModelManager();

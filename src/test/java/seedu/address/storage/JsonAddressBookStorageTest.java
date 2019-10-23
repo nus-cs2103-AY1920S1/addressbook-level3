@@ -15,10 +15,10 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.address.storage.JsonAddressBookStorage;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.address.model.AddressBook;
-import seedu.address.address.model.ReadOnlyAddressBook;
+import seedu.travezy.address.storage.JsonAddressBookStorage;
+import seedu.travezy.commons.exceptions.DataConversionException;
+import seedu.travezy.address.model.AddressBook;
+import seedu.travezy.address.model.ReadOnlyAddressBook;
 
 public class JsonAddressBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");

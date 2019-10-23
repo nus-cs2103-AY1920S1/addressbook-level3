@@ -4,14 +4,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.address.model.country.Country;
-import seedu.address.address.model.person.Address;
-import seedu.address.address.model.person.Email;
-import seedu.address.address.model.person.Name;
-import seedu.address.address.model.person.Person;
-import seedu.address.address.model.person.Phone;
-import seedu.address.address.model.tag.Tag;
+import seedu.travezy.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.travezy.address.model.country.Country;
+import seedu.travezy.address.model.person.Address;
+import seedu.travezy.address.model.person.Email;
+import seedu.travezy.address.model.person.Name;
+import seedu.travezy.address.model.person.Person;
+import seedu.travezy.address.model.person.Phone;
+import seedu.travezy.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.

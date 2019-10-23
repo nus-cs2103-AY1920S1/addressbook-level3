@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.travezy.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
@@ -15,11 +15,11 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.address.logic.commands.FindCommand;
-import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
-import seedu.address.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.UserPrefs;
+import seedu.travezy.address.logic.commands.FindCommand;
+import seedu.travezy.address.model.AddressBookModel;
+import seedu.travezy.address.model.AddressBookModelManager;
+import seedu.travezy.address.model.person.NameContainsKeywordsPredicate;
+import seedu.travezy.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel) for {@code FindCommand}.

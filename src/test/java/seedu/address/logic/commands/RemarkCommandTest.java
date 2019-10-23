@@ -13,17 +13,17 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.address.logic.commands.ClearCommand;
-import seedu.address.address.logic.commands.RemarkCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.address.model.AddressBook;
-import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
-import seedu.address.address.model.person.Person;
-import seedu.address.address.model.person.Remark;
+import seedu.travezy.address.logic.commands.ClearCommand;
+import seedu.travezy.address.logic.commands.RemarkCommand;
+import seedu.travezy.commons.core.Messages;
+import seedu.travezy.commons.core.index.Index;
+import seedu.travezy.address.model.AddressBook;
+import seedu.travezy.address.model.AddressBookModel;
+import seedu.travezy.address.model.AddressBookModelManager;
+import seedu.travezy.address.model.person.Person;
+import seedu.travezy.address.model.person.Remark;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.model.UserPrefs;
+import seedu.travezy.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel) and unit tests for RemarkCommand.

@@ -8,10 +8,10 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.address.logic.commands.ListCommand;
-import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.travezy.address.logic.commands.ListCommand;
+import seedu.travezy.address.model.AddressBookModel;
+import seedu.travezy.address.model.AddressBookModelManager;
+import seedu.travezy.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel) and unit tests for ListCommand.

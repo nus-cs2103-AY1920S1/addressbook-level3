@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.travezy.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -13,13 +13,14 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.address.model.country.Country;
-import seedu.address.address.model.person.Address;
-import seedu.address.address.model.person.Email;
-import seedu.address.address.model.person.Name;
-import seedu.address.address.model.person.Phone;
-import seedu.address.address.model.tag.Tag;
+import seedu.travezy.logic.parser.ParserUtil;
+import seedu.travezy.logic.parser.exceptions.ParseException;
+import seedu.travezy.address.model.country.Country;
+import seedu.travezy.address.model.person.Address;
+import seedu.travezy.address.model.person.Email;
+import seedu.travezy.address.model.person.Name;
+import seedu.travezy.address.model.person.Phone;
+import seedu.travezy.address.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

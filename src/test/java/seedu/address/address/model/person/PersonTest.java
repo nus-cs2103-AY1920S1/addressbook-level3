@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
+import seedu.travezy.address.model.person.Person;
 
 public class PersonTest {
 

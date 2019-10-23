@@ -11,13 +11,13 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.address.logic.commands.DeleteCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
-import seedu.address.address.model.person.Person;
-import seedu.address.model.UserPrefs;
+import seedu.travezy.address.logic.commands.DeleteCommand;
+import seedu.travezy.commons.core.Messages;
+import seedu.travezy.commons.core.index.Index;
+import seedu.travezy.address.model.AddressBookModel;
+import seedu.travezy.address.model.AddressBookModelManager;
+import seedu.travezy.address.model.person.Person;
+import seedu.travezy.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the AddressBookModel, UndoCommand and RedoCommand) and unit tests for
