@@ -319,6 +319,7 @@ Below is another diagram to show you how `find-c n/Alice e/alex` runs in the pro
 
 image::FindCustomerCommandSequenceDiagram2.png[]
 
+Notice that chaining takes place by instantializing instances of XYZContainsKeywordsPredicates.
 
 
 ==== Design Considerations / Alternative designs considered
@@ -344,7 +345,6 @@ as one would need to understand the parsing.
 * **Alternative 2:** Single predicate.
 ** Pros: Less code written in total.
 ** Cons: Harder to maintain.
-
 
 
 
