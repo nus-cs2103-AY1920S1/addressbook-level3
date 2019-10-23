@@ -755,6 +755,66 @@ JARVIS.
 
 // end::financetracker[]
 
+// tag::planner[]
+=== Planner Feature
+
+==== Overview
+
+The planner feature in JARVIS enables users to easily organise and manage their different
+tasks in school. Users will be able to keep track of tasks they have done, and tasks they
+have yet to do.
+
+There are three types of tasks in the planner:
+
+* `Todo`: Tasks with a description only
+* `Event`: Tasks with a start and end date
+* `Deadline`: Tasks with a due date
+
+Users can `Tag` these tasks to sort them into different categories, as well as add `Priority` and
+`Frequency` levels to them.
+
+==== Implementation
+
+The `Planner` contains a `TaskList`, which in turn, contains a number of tasks a user has. A simple
+outline of the `Planner` can be seen in Fig 11 below.
+
+.Overview of the entire Planner
+image::plannermodel.png[align=left]
+
+JARVIS' `Model` extends `PlannerModel` which facilitates all operations necessary to carry out commands
+by the user.
+
+* `Model#getPlanner()` -- Returns an instance of a `Planner`.
+
+* `Model#addTask(int zeroBasedIndex, Task task` -- Adds a `Task` to the planner at the specified `Index`.
+
+* `Model#addTask(Task t)` -- Adds a `Task` to the `Planner`. Since no `Index` is specified, the `Task` is
+appended to the end of the `TaskList`.
+
+* `Model#deleteTask(Index index)` -- Deletes the `Task` at the specified `Index` from the `Planner`.
+
+* `Model#deleteTask(Task t)` -- Deletes the specified `Task` from the `Planner`.
+
+* `Model#size()` -- Returns the total number of `Task` objects in the `Planner`.
+
+* `Model#hasTask(Task t)` -- Checks if a given `Task` is already in the `Planner`.
+
+* `Model#getTasks()` -- Returns the `TaskList` in the `Planner`.
+
+
+==== Design Considerations
+
+===== Aspect: Task Descriptions in a Task
+* **Alternative 1 (Current choice):** As a string attribute in `Task`
+** Pros: Intuitive, easy to implement, less code required
+** Cons: Provides a lower level of abstraction, especially when `edit-task` command is implemented
+
+* **Alternative 2:** Building a separate `TaskDescription` class
+** Pros: Higher level of abstraction
+** Cons: More code, will take time to replace current methods that deal with String `TaskDes` directly
+
+// end:: planner[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
