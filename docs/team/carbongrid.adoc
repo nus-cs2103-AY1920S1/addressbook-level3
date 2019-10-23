@@ -13,7 +13,7 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 == Summary of contributions
 
-* *Major enhancement*: *Major Rework on User Interface (UI) to be capable of full traversal with just keyboard while supporting AutoComplete for the Command Line Interface (CLI), and OmniPanel*
+* *Major enhancement*: *Major Rework on User Interface (UI) to be capable of full traversal with just keyboard while supporting AutoComplete for the Command Line Interface (CLI), and OmniPanel.*
 ** What it does: reduces the mental workload of the user from having to carefully type commands and double checking the typed command or the user guide for supported commands and parameters.
 ** Justification: This feature enhances the user experience significantly because it provides optimal focus on primary tasks at hand to reduce visual and cognitive expenditure.
 ** Highlights: This enhancement affects interaction against existing UI components as the traversal have to be critically handled from component to component.
@@ -21,11 +21,12 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 * *Minor enhancement*: added history for the CLI that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com/AY1920S1-CS2103T-T09-3/main/blob/master/src/test/java/seedu/address/MainAppTest.java[Test code]]
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com/AY1920S1-CS2103T-T09-3/main/blob/master/src/test/java/seedu/address/MainAppTest.java[MainAppTest.java]]
 
 * *Other contributions*:
 
 ** Project management:
+*** Gradle updating & Config for Headed UI Test
 *** Dependencies management and version bumping after compatibility checks.
 ** Enhancements to existing features:
 *** Implemented TestFX for minimalistic GUI testing to increase coverage from 56.193% to 73.193% (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71])
@@ -48,9 +49,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+// include::../UserGuide.adoc[tag=delete]
 
 == Contributions to the Developer Guide
 
@@ -58,6 +57,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=autocomplete]

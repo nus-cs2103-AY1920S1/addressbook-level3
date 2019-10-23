@@ -248,14 +248,18 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::autocomplete[]
 
-_{Explain here how the data encryption feature will be implemented}_
+=== AutoComplete
 
-// end::dataencryption[]
+We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique alphabets used, m is length of longest word stored.
+
+image::AutoCompleteSequenceDiagram.png[]
+
+// end::autocomplete[]
 
 === Queue feature
 The queue feature allows the user to enqueue and dequeue a patient from the queue.
@@ -644,27 +648,7 @@ Use case ends.
 * Use case ends.
 
 [discrete]
-=== Use case: Editing Information in GUI (UC10)
-
-*Actor:* Clerk
-
-*Guarantees:*
-
-1. Information is edited after change is completed in GUI.
-
-*MSS:*
-
-1. Clerk selects the tabs of information (e.g Patients, Appointments) that requires modification.
-2. Clerk selects an item in the list of information.
-3. Clerk selects an attribute of the item.
-4. Clerk modifies the attribute.
-5. Clerk completes the modificatigit on.
-6. ClerkPro stores the change and displays the new information.
-
-Use case ends.
-
-[discrete]
-=== Use case: AutoCompleter (UC11)
+=== Use case: AutoCompleter (UC10)
 
 *Actor:* Clerk
 
@@ -683,7 +667,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: History (UC12)
+=== Use case: History (UC11)
 
 *Actor:* Clerk
 
