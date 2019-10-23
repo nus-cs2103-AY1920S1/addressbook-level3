@@ -44,6 +44,16 @@ public class GroceryItem extends Food {
     }
 
     @Override
+    public boolean isSameFood(Food anotherFood) {
+        if (!(anotherFood instanceof GroceryItem)) {
+            return false;
+        } else {
+            return this.getName().equals(anotherFood.getName()) &&
+                    this.expiryDate.equals(((GroceryItem) anotherFood).expiryDate);
+        }
+    }
+
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Name:")
