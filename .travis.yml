@@ -5,11 +5,9 @@ matrix:
 services:
   - xvfb
 
-before_install:
-  - sudo apt install openjfx
-
-install: true
-
+before_script:
+  - export DISPLAY=:99.0
+  - 
 script: >-
     ./config/travis/run-checks.sh &&
     ./gradlew clean checkstyleMain checkstyleTest test coverage coveralls asciidoctor
