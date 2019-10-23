@@ -279,7 +279,7 @@ NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted 
 //TODO: <may not do> object diagram showing only paragraph and annotation for all three above?
 The edit operation can modify the content of the `AnnotationNote`, colour of `Highlight` and re-link a `stray note` to a `TrueParagraph`.
 The former two is simply done by changing the fields in `Annotation` of the `Paragraph` in query.
-To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` is replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
+To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
 
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
