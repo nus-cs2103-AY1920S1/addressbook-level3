@@ -235,6 +235,75 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::displayschedule[]
+=== [Proposed] Display Schedule feature
+==== Proposed Implementation
+
+The Display Schedule Feature is implemented to allow users to view all dates and the specific events for those dates listed.
+The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a new Object - `DistinctDate`, as well as
+an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
+
+It processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
+process through these events to create specific `DistinctDate` Objects which stores a list of events which occurs on the date
+they are representing. These DistinctDate Objects are then used to be represented on the GUI.
+
+Additionally, The DistinctDateProcessor contains the following operations:
+
+* `generateDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
+* `generateListOfEventForDate(LocalDate date, Model model)` -- Takes in a `LocalDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
+* `generateDateList(Model model)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
+
+
+Given below is an example usage scenario and how the display schedule mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `distinctDatesList` will be initialized based on the initial event book state.
+
+image::DisplayScheduleState0.png[]
+
+Step 2. The user executes `add_ev n/Free Cofee ...` to add a new event into the list. The distinctDatesList will be flushed.
+
+image::DisplayScheduleState1.png[]
+
+[NOTE]
+If a command that alters the eventBook will cause the distinctDatesList to be flushed. User will be required to input "display_schedule" command again to generate the new list of schedule.
+
+Step 3. The user executes `display_schedule` to see all dates and the respective events on those dates. The distinctDateList will be generated again based on the current list of events in the EventList.
+
+image::DisplayScheduleState2.png[]
+
+
+Step 4. The user now decides to close the app, the current state of the eventBook and AddressBook will be stored, however the DistinctDateList would not.
+
+image::DisplayScheduleState3.png[]
+
+[NOTE]
+Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when it is called upon or when the application starts.
+
+The following sequence diagram shows how the undo operation works:
+
+image::DisplayScheduleSequenceDiagram.png[]
+
+NOTE: The lifeline for `DisplayScheduleCommand` ends at the destroy marker (X).
+
+
+==== Design Considerations
+
+===== Aspect: How Display Schedule executes
+
+* **Alternative 1 (current choice):** Generates and Processes the DistinctDate Object upon start up and command call.
+** Pros: Easy to implement and requires less Storage Capacity.
+** Cons: May have performance issues in terms of speed and time Complexity. The program will have to iterate through the entire list of events, whenever display_schedule command is called.
+* **Alternative 2:** Creates and Stores the DistinctDate object whenever a new event is added.
+** Pros: Will require less processing, Do not have to create a new list of DistinctDate object everytime it is called
+** Cons: May have performance issues in terms of Storage needed, requires new storage unit to store a new entity which is not as important.
+Can cause speed and time complexity issues as well, Whenever edits are made to the existing eventList - add_ev, delete_ev etc
+the program is required to process through all DistinctDate Object to make the neccesary changes.
+
+* **Decision:** Alternative 1
+** Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
+Processing is only done when it is needed.
+// end::displayschedule[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
