@@ -1,10 +1,10 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import static java.util.Objects.requireNonNull;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -63,6 +63,7 @@ class JsonAdaptedBudget {
      * Converts a given {@code Budget} into this class for Jackson use.
      */
     public JsonAdaptedBudget(Budget source) {
+        requireNonNull(source);
         description = source.getDescription().fullDescription;
         amount = source.getAmount().value;
         startDate = source.getStartDate().toString();
