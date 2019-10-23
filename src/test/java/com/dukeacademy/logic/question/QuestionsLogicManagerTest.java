@@ -117,8 +117,8 @@ class QuestionsLogicManagerTest {
         Question question0 = questionsObservableList.get(0);
         Question question2 = questionsObservableList.get(2);
 
-        assertEquals(typicalQuestions.get(0), question0);
-        assertEquals(typicalQuestions.get(2), question2);
+        assertTrue(typicalQuestions.get(0).checkContentsEqual(question0));
+        assertTrue(typicalQuestions.get(2).checkContentsEqual(question2));
     }
 
     @Test
@@ -259,7 +259,7 @@ class QuestionsLogicManagerTest {
         }
 
         return IntStream.range(0, observableList.size())
-                .mapToObj(i -> observableList.get(i).equals(questionList.get(i)))
+                .mapToObj(i -> observableList.get(i).checkContentsEqual(questionList.get(i)))
                 .reduce((x, y) -> x && y).get();
     }
 

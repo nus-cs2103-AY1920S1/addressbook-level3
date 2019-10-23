@@ -39,7 +39,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     private CompilerEnvironment compilerEnvironment;
     private TestExecutor testExecutor;
     private boolean isClosed;
-    private ProgramSubmissionChannel submissionChannel;
+    private UserProgramChannel submissionChannel;
 
     /**
      * Constructor.
@@ -120,7 +120,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
-    public void setUserProgramSubmissionChannel(ProgramSubmissionChannel channel) {
+    public void setUserProgramSubmissionChannel(UserProgramChannel channel) {
         this.submissionChannel = channel;
     }
 

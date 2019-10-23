@@ -1,7 +1,9 @@
 package com.dukeacademy.model.question;
 
 import java.util.Collection;
+import java.util.stream.IntStream;
 
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,7 +17,8 @@ public class StandardQuestionBank implements QuestionBank {
     private final ObservableList<Question> unmodifiableQuestionList =
             FXCollections.unmodifiableObservableList(questionList);
 
-    public StandardQuestionBank() {}
+    public StandardQuestionBank() {
+    }
 
     public StandardQuestionBank(Collection<Question> questions) {
         this();
@@ -52,6 +55,17 @@ public class StandardQuestionBank implements QuestionBank {
     @Override
     public void replaceQuestion(int id, Question question) {
         this.questionList.set(id, question);
+    }
+
+    @Override
+    public void replaceQuestion(Question oldQuestion, Question newQuestion) {
+        int oldQuestionIndex = IntStream.range(0, questionList.size() - 1)
+                .filter(i -> questionList.get(i).equals(oldQuestion))
+                .findFirst()
+                .orElseThrow(QuestionNotFoundException::new);
+
+        questionList.remove(oldQuestionIndex);
+        questionList.add(newQuestion);
     }
 
     @Override

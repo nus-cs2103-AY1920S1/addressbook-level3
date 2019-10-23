@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.entities.Status;
@@ -20,6 +21,7 @@ import com.dukeacademy.model.question.entities.Topic;
 public class Question {
     public static final String TITLE_VALIDATION_REGEX = "[^\\s].*";
 
+    private final UUID uuid;
     private final String title;
     private final Status status;
     private final Difficulty difficulty;
@@ -37,6 +39,7 @@ public class Question {
             throw new IllegalArgumentException();
         }
 
+        this.uuid = UUID.randomUUID();
         this.title = title;
         this.status = status;
         this.difficulty = difficulty;
@@ -91,16 +94,19 @@ public class Question {
         return title.matches(TITLE_VALIDATION_REGEX);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Question) {
-            Question other = (Question) o;
+    public boolean checkContentsEqual(Question other) {
             return other.getTitle().equals(this.title)
                     && other.getStatus().equals(this.status)
                     && other.getDifficulty().equals(this.difficulty)
                     && other.getTopics().equals(this.topics)
                     && other.getTestCases().equals(this.testCases)
                     && other.getUserProgram().equals(this.userProgram);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Question) {
+            return this.uuid.equals(((Question) o).uuid);
         }
 
         return false;

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.model.question.entities.Difficulty;
@@ -103,6 +104,26 @@ public class StandardQuestionBankTest {
         originalBankList.remove(1);
         originalBankList.add(1, newQuestion);
         assertTrue(this.matchListData(questionObservableList, originalBankList));
+    }
+
+
+    @Test
+    void replaceQuestionWithOldQuestion() {
+        ObservableList<Question> questionObservableList = standardQuestionBank.getReadOnlyQuestionListObservable();
+        List<Question> mockQuestions = this.getMockQuestionData();
+        this.standardQuestionBank.setQuestions(mockQuestions);
+        Question oldQuestion = questionObservableList.get(1);
+
+        Question newQuestion = this.getMockQuestion("123");
+        this.standardQuestionBank.replaceQuestion(oldQuestion, newQuestion);
+
+        mockQuestions.remove(1);
+        mockQuestions.add(newQuestion);
+        assertTrue(this.matchListData(questionObservableList, mockQuestions));
+
+        Question testQuestion = this.getMockQuestion("abc");
+        assertThrows(QuestionNotFoundException.class, () -> this.standardQuestionBank
+                .replaceQuestion(testQuestion, testQuestion));
     }
 
     @Test

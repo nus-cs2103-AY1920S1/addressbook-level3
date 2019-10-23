@@ -246,7 +246,7 @@ class ProgramSubmissionLogicManagerTest {
     void setAndSubmitUserProgramSubmissionChannel() throws IOException {
         TestListener<TestResult> resultListener = new TestListener<>();
         this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
-        FibMockProgramSubmissionChannel channel = new FibMockProgramSubmissionChannel();
+        FibMockUserProgramChannel channel = new FibMockUserProgramChannel();
         this.programSubmissionLogicManager.setUserProgramSubmissionChannel(channel);
 
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");

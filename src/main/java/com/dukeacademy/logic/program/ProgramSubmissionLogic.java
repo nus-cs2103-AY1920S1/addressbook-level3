@@ -42,7 +42,7 @@ public interface ProgramSubmissionLogic {
      * Sets a channel which allows the logic instance to retrieve user programs for submission.
      * @param channel The channel to be set.
      */
-    public void setUserProgramSubmissionChannel(ProgramSubmissionChannel channel);
+    public void setUserProgramSubmissionChannel(UserProgramChannel channel);
 
     /**
      * Retrieves a user program from the submission channel and tests it against the current question being handled
