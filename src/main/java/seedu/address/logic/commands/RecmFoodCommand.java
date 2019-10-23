@@ -24,7 +24,7 @@ public class RecmFoodCommand extends Command {
             + "-p: protein recommendations\n"
             + "-s: snack recommendations\n"
             + "-m: meal recommendations\n"
-            + "Usage:" + COMMAND_WORD + "[-FLAG]... [FOOD_NAME]";
+            + "Usage:" + COMMAND_WORD + "[-FLAG]... [fn/FOOD_NAME]";
 
     private final FoodTypeIsWantedPredicate typePredicate;
     private final Predicate<Food> namePredicate;
