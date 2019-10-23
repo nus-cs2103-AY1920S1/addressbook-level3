@@ -187,27 +187,32 @@ These operations are exposed in the `Model` interface as `Model#updateFilteredFo
 
 Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
 
-Step 1. The user launches the application and enter `recmf` Command for the first time and . The `foodlist.json` storage file will be initialized with the pre-loaded food data.
+Step 1. The user launches the application and enter `recmf` Command for the first time and . The `foodlist.json` storage file will be initialized with the pre-loaded food data from `SampleFoodDataUtil`.
 
-Step 2. The user executes `recmf -f -sv` command.  calls
+Step 2. The user executes `recmf -f -sv` command. `IsWantedTypePredicate` will be applied on the food list to select specified types.
 
 [NOTE]
 If no flag is specified, `RecmFoodCommandParser#getParsedFlags()` will return all flags to show to full content of foods.
 
-Step 3.
+Step 3. The user executes `recmf fn/Cherry`. Similar to step 2, `FoodNameContainsKeywordPredicate` will be applied.
 
-Step 4. The user executes `recmf sort/calorie`
+Step 4. The user executes `recmf sort/calorie`.
 
-Step 5. The user feels the database is insufficient and wants to add a new food by executing `addfood (FOOD INFO)`.
+[NOTE]
+Collectively, Step 2 to 4 have similar underlying logic implementation and Ui updates. The whole food list wil be iterated through to get a filter or reordered food list.
 
-* The following sequence diagram shows how the food recommendation operation works: `recmf -f fn/Cherry`
+Step 5. The user feels the database is insufficient and wants to add a new food by executing `addfood (FOOD INFO)`. The `foodlist.json` storage file will be immediately updated if the execution is successful.
+
+* The following sequence diagram shows how the typical food recommendation operation works: `recmf -f fn/Cherry`
 
 image::RecmFoodSequenceDiagram.png[]
 
 [NOTE]
 The lifeline for `RecmFoodCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-* The following activity diagram summarizes what happens when a user executes `recmf` :
+* The following activity diagram summarizes what happens when a user executes `addfood` command.
+
+image::AddFoodActivityDiagram.png[]
 
 ==== Design Considerations
 
