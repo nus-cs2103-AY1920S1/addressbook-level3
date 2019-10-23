@@ -96,9 +96,8 @@ public class ImageRetrieval {
                 parent.mkdirs();
             }
 
-            Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION + File.separator +
-                    fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png"));
-          
+            Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION + File.separator
+                    + fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png"));
         } catch (FileAlreadyExistsException f) {
             System.err.println("Duplicate image");
         } catch (IOException e) {
