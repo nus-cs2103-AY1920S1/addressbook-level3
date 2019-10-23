@@ -111,6 +111,12 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+.Interactions inside the Logic Component for the `enqueue 001A` Command
+image::DeleteSequenceDiagram.png[]
+
+.Interactions inside the Logic Component for the `next 1` Command
+image::DeleteSequenceDiagram.png[]
+
 [[Design-Model]]
 === Model component
 
@@ -130,6 +136,15 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+
+The `QueueManager`,
+
+* stores a `QueueList` object that represents the queue.
+* stores a `UniqueElementList` which contains the list of rooms.
+* does not depend on any of the other three components.
+
+.Structure of the QueueManager Component
+image:QueueManagerClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -388,7 +403,7 @@ Use case resumes at step 2.
 
 1.  Patient wants to leave
 2.  User requests to remove patient from the queue
-3.  System removes the person from queue
+3.  System removes the patient from queue
 
 Use case ends.
 
@@ -407,7 +422,86 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Change appointment date (UC3)
+=== Use case: Serve next patient (UC3)
+
+*MSS*
+
+1.  Patient exits from room 1
+2.  User requests to allocate patient into room 1
+3.  System removes the patient from queue and allocates him/her to room 1
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Doctor is resting
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Doctor takes a break (UC4)
+
+*MSS*
+
+1.  Doctor in room 1 takes a break
+2.  User requests to avoid directing patients to the doctor in room 1
+3.  System sets the doctor to be on break
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Doctor is already on break
++
+** 2a1. System shows an error message.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Doctor resumes his/her duty (UC5)
+
+*MSS*
+
+1.  Doctor in room 1 resumes his/her duty
+2.  User requests to start directing patients to the doctor in room 1
+3.  System sets the doctor to be on duty
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Doctor is already on duty
++
+** 2a1. System shows an error message.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Change appointment date (UC6)
 
 *MSS*
 
@@ -429,7 +523,7 @@ Use case ends
 Use case ends
 
 [discrete]
-=== Use case: Set next appointment (UC4)
+=== Use case: Set next appointment (UC7)
 
 *MSS*
 
@@ -440,7 +534,7 @@ Use case ends
 Use case ends.
 
 [discrete]
-=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC5)
+=== Use case: Indicate that a doctor is on-duty and able to tend to patients (UC8)
 Pre-condition: Details of the doctor is already registered in system.
 
 *MSS*
@@ -468,7 +562,7 @@ Use case ends.
 * Use case ends.
 
 [discrete]
-=== Use case: Editing Information in GUI (UC6)
+=== Use case: Editing Information in GUI (UC9)
 
 *Actor:* Clerk
 
@@ -488,7 +582,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: AutoCompleter (UC7)
+=== Use case: AutoCompleter (UC10)
 
 *Actor:* Clerk
 
@@ -507,7 +601,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: History (UC8)
+=== Use case: History (UC11)
 
 *Actor:* Clerk
 

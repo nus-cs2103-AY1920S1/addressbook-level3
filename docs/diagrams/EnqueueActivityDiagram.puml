@@ -13,7 +13,7 @@ if () then ([valid command])
         -ReferenceId \n not found message
         endif
 
-    else ([[Patient in queue])
+    else ([Patient in queue])
     -Display error message\n "person already in queue"
     endif
 
