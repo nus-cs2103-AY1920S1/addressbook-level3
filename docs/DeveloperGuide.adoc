@@ -153,6 +153,33 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::undobyreverse[]
+=== [Implemented] Undo Feature
+==== Current Implementation Logic
+
+The undo function uses the revert command method without using states and history, unlike the proposed method.
+This is because an issue was encountered with referencing lists and firing reminders multiple times when the state history method was used.
+
+In this implementation, the commands that can be undone; that is, all the commands except `UndoCommand`, `ExitCommand`,
+`UpCommand` and `DownCommand` now extend from an abstract class `UndoableCommand`, which is a subclass of Command.
+Subclasses of `UndoableCommand` must implement a method `reverse(ItemModel model)`, which should do the exact opposite
+of the `execute(ItemModel model)` in that Command.
+
+The command execution history is stored in a stack, which is maintained in `ElisaCommandHistory`.
+
+Below is a possible usage scenario and the app behaviour.
+
+Step 1. The user executes `task eat`. A task with description "eat" is added and then the command is pushed into the commands stack.
+
+image::UndoStackStep1.png[]
+
+Step 2. The user realises that adding the task was a mistake, and decides to undo by entering `undo` into ELISA. The `undo` command
+will pop the `AddTaskCommand` from the stack and reverse the effects of that command, in this case by deleting the task "eat" from the `TaskList`.
+
+image::UndoStackStep2.png[]
+
+Step 3. After successful execution of the `UndoCommand` a confirmation message is displayed in the chat box.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -378,17 +405,42 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |add a new task |
+|`* * *` |user |add a new task | record tasks that need to be done 'some day'
 
 |`* * *` |user |mark a task as done | keep track of my remaining tasks
 
 |`* * *` |user |delete a task |remove tasks that I no longer need
 
+|`* * *` |student |add deadline to a task |remember my task deadlines
+
+|`* * *` |user |find upcoming tasks |decide what needs to be done
+
 |`* * *` |user |find a task by description |find only the tasks that are relevant to me at that point in time
+
+|`* * *` |new user |view more information about a command |learn how to use various commands
+
+|`* * *` |forgetful student |be reminded of deadlines |remember to complete them before they are due
+
+|`* * *` |user |type my commands in the text |use the app without needing the mouse
+
+|`* * *` |user |use the undo function |reverse any changes I made by mistake
 
 |`* *` |busy student |see my reminders as notifications|be reminded of them even in other applications
 
 |`* *` |user with many tasks |sort tasks by priority |identify which tasks require my immediate attention
+
+|`* *` |student |turn on priority mode |focus on only one pressing issue at a time
+
+|`* *` |user |have a software that saves after every action |will not lose information even if I close the program by accident
+
+|`* *` |user |look at a summary of all deadlines in the calendar |see when I am free
+
+|`* *` |user |edit the date of a deadline |fix my mistakes if I type the wrong command
+
+|`*` |stressed student |ask ELISA to tell a joke |feel less stressed when my assistant has a sense of humour
+
+|`*` |user |colour code my calendar events |easily categorise and differentiate between them
+
 |=======================================================================
 
 _{More to be added}_
@@ -493,6 +545,59 @@ Use case resumes at step 2.
 2. ELISA shows the reminder list.
 3. User enters command to sort reminders by date and time.
 4. ELISA shows the updated list of reminders sorted by date and time.
+
+[discrete]
+=== Use Case 005: Search for a task by its description
+
+*MSS*
+
+1. User enters the command to show the task list.
+2. ELISA shows the reminder list.
+3. User enters command to find all matching tasks with the given search term(s)
+4. ELISA shows a list of tasks with descriptions matching the search term(s)
+
+*Extensions*
+
+* 4a. There are no matching tasks
++
+** 4a1. ELISA shows that there are 0 items listed
++
+Use case ends.
+
+[discrete]
+=== Use Case 006: Undo the last command
+
+*MSS*
+
+1. User enters the undo command.
+2. ELISA reverts the last executed command.
+3. ELISA displays a confirmation message.
+
+*Extensions*
+
+* 2a. There are no commands to be undone
++
+** 2a1. ELISA displays an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 007: Using Priority Mode
+
+*MSS*
+
+1. User enters the command to enter priority mode.
+2. ELISA hides all tasks except the one with the highest priority.
+3. User enters command to set that task as done once they finish it.
+4. ELISA shows the next highest priority task.
+
+*Extensions*
+
+* 1a. User is not viewing the task list
++
+** 1a1. ELISA displays an error message
++
+Use case ends.
 
 _{More to be added}_
 
