@@ -12,10 +12,10 @@ import seedu.address.model.lesson.exceptions.DuplicateLessonException;
 import seedu.address.model.lesson.exceptions.LessonNotFoundException;
 
 /**
- * A list of students that enforces uniqueness between its elements and does not allow nulls.
+ * A list of lessons that enforces uniqueness between its elements and does not allow nulls.
  * A lesson is considered unique by comparing using {@code lesson#isSameLesson(lesson)}. As such, adding and
  * updating of lessons uses lesson#isSameLesson(lesson) for equality so as to ensure that the lesson being added
- * or updated is unique in terms of identity in the UniqueLessonLIst. However, the removal of a lesson uses
+ * or updated is unique in terms of identity in the UniqueLessonList. However, the removal of a lesson uses
  * lesson#equals(Object) so as to ensure that the lesson with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
