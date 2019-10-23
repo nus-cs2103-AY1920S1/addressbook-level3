@@ -56,8 +56,12 @@ public class BioPane extends UiPart<Region> {
             String emergencyHp = listToString(user.getEmergencyContacts());;
             String medicalCondition = listToString(user.getMedicalConditions());
             String address = user.getAddress().toString();
-            String fontColourToString = fontColour.toString();
-            String bg = background.toString();
+            String fontColourToString = background.showDefaultBackground()
+                    ? "yellow"
+                    : fontColour.toString();
+            String bg = background.showDefaultBackground()
+                    ? "Temporary Background"
+                    : background.toString();
             String bgSize = background.getBgSize();
             String bgRepeat = background.getBgRepeat();
             String myGoals = listToString(user.getGoals());

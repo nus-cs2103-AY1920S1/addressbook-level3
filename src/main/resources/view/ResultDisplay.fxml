@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <HBox fx:id="placeHolder" HBox.hgrow="ALWAYS" alignment="TOP_LEFT" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-<ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="true" styleClass="profile-scroll" HBox.hgrow="ALWAYS">
+<ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="false" styleClass="profile-scroll" HBox.hgrow="ALWAYS">
   <content>
     <VBox maxHeight="Infinity">
       <children>

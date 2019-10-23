@@ -21,6 +21,7 @@ public class Background {
 
     private String bgSize;
     private String bgRepeat;
+    private boolean showDefaultBackground = false;
 
     /**
      * Constructs a {@code Background}.
@@ -123,6 +124,21 @@ public class Background {
     public boolean isEmpty() {
         return (backgroundColour == null || backgroundColour.isEmpty())
                 && (backgroundPicPath == null || backgroundPicPath.isEmpty());
+    }
+
+    /**
+     * Returns whether or not to show the default background if this object is used to set the background.
+     */
+    public boolean showDefaultBackground() {
+        return showDefaultBackground;
+    }
+
+    /**
+     * Sets whether or not to show the default background if this object is used to set the background.
+     * @param showDefaultBackground Boolena used to set whether the default background is to be shown.
+     */
+    public void setShowDefaultBackground(boolean showDefaultBackground) {
+        this.showDefaultBackground = showDefaultBackground;
     }
 
     @Override

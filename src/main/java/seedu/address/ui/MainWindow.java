@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
+import static seedu.address.commons.core.Messages.MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
 import static seedu.address.ui.DisplayPaneType.BACKGROUND;
 import static seedu.address.ui.DisplayPaneType.BIO;
@@ -31,6 +32,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.aesthetics.Background;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
@@ -226,8 +228,11 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         displayWelcomeMessage(resultDisplay);
         displayInvalidReferences(resultDisplay);
+        if (logic.getBackground().showDefaultBackground()) {
+            resultDisplay.appendNewLineInFeedBackToUser();
+            resultDisplay.appendFeedbackToUser(MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED);
+        }
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -259,8 +264,17 @@ public class MainWindow extends UiPart<Stage> {
      * @param guiSettings
      */
     private void setBackground(GuiSettings guiSettings) {
-        styleManager.setBackground(guiSettings.getBackground());
-        System.out.println(scene.getStylesheets());
+        Background background = guiSettings.getBackground();
+        if (background.showDefaultBackground()) {
+            styleManager.setBackground(new Background("transparent"));
+            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + "/images/SpaceModified.jpg" + "'); "
+                    + "-fx-background-position: center center; "
+                    + "-fx-background-repeat: no-repeat;"
+                    + "-fx-background-size: cover;");
+            styleManager.setFontColour("yellow");
+        } else {
+            styleManager.setBackground(guiSettings.getBackground());
+        }
     }
 
     /**

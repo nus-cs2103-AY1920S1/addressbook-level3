@@ -24,8 +24,8 @@ public class BioTable extends UiPart<Region> {
 
     private static final String FXML = "BioTable.fxml";
     private static final List<String> FIELD_LABELS = new ArrayList<>(List.of("Name:", "NRIC:", "Gender:", "DOB:",
-            "HP:", "Emergency HP:", "Medical Condition:", "Address:", "DP Path:", "Background:", "Background Size:",
-            "Background Repeat:", "Font Colour:", "My Goals:", "Other Bio Info"));
+            "HP:", "Emergency HP:", "Medical Condition:", "Address:", "DP Path:", "Font Colour:", "Background:",
+            "Background Size:", "Background Repeat:", "My Goals:", "Other Bio Info"));
     private ObservableList<BioTableFieldDataPair> list;
 
     @FXML

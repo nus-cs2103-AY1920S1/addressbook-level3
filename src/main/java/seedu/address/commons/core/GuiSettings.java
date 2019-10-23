@@ -34,6 +34,7 @@ public class GuiSettings implements Serializable {
     private String background;
     private String backgroundSize;
     private String backgroundRepeat;
+    private boolean showDefaultBackground = false;
 
     private Map<String, String> fieldsContainingInvalidReferences = new LinkedHashMap<>();
 
@@ -45,6 +46,7 @@ public class GuiSettings implements Serializable {
         background = DEFAULT_BACKGROUND;
         backgroundSize = DEFAULT_BACKGROUND_SIZE;
         backgroundRepeat = DEFAULT_BACKGROUND_REPEAT;
+        showDefaultBackground = true;
     }
 
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
@@ -55,6 +57,7 @@ public class GuiSettings implements Serializable {
         this.backgroundSize = DEFAULT_BACKGROUND_SIZE;
         this.backgroundRepeat = DEFAULT_BACKGROUND_REPEAT;
         windowCoordinates = new Point(xPosition, yPosition);
+        showDefaultBackground = true;
     }
 
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition,
@@ -95,6 +98,7 @@ public class GuiSettings implements Serializable {
         if (background == null
                 || background.isEmpty()) {
             setDefaultBackground();
+            showDefaultBackground = true;
         } else if (!Colour.isValidColour(background)) {
             try {
                 Image image = ImageIO.read(new File(background));
@@ -105,15 +109,18 @@ public class GuiSettings implements Serializable {
                 System.out.println("here");
                 fieldsContainingInvalidReferences.put(LABEL_BACKGROUND, background);
                 setDefaultBackground();
+                showDefaultBackground = true;
             }
         }
 
         if (!Background.isValidBackgroundSize(backgroundSize)
                 || !Background.isValidBackgroundRepeat(backgroundRepeat)) {
             setDefaultBackground();
+            showDefaultBackground = true;
         }
 
         Background background = new Background(this.background);
+        background.setShowDefaultBackground(showDefaultBackground);
 
         if (!background.isBackgroundColour()) {
             background.setBgSize(backgroundSize.equals("") ? DEFAULT_BACKGROUND_SIZE : backgroundSize);
@@ -122,6 +129,8 @@ public class GuiSettings implements Serializable {
             background.setBgSize("");
             background.setBgRepeat("");
         }
+
+        System.out.println(showDefaultBackground);
         return background;
     }
 
