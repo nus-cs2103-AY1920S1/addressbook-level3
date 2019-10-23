@@ -202,7 +202,7 @@ public class ParserUtil {
                 listOfWeeks.add(new Week(i));
             }
             return listOfWeeks;
-        } else if (weeks.toLowerCase().equals("even")) { // weeks 2, 4, 6, 8, 10, 12
+        } else if (weeks.toLowerCase().equals("even")) { // weeks 4, 6, 8, 10, 12
             for (int i = 4; i <= 12; i += 2) {
                 listOfWeeks.add(new Week(i));
             }

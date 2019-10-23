@@ -51,15 +51,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user; e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Parameters can be in any order e.g. if the command specifies `n/NAME e/EMAIL`, `e/EMAIL n/NAME` is also acceptable.
+* Inputs for parameters (apart from student names) are case-insensitive; e.g. `addModule m/Cs1010s` saves the module as "CS1010S" and `m/cs1010s` will subsequently refer to the same module.
+* Command names are also case-insensitive; e.g. `addTutorial` and `addtutorial`  are equivalent.
+* Longer commands can be truncated; e.g. `delstu`  can be entered instead of `deleteStudent`.
 ====
 
 === Viewing Help : `help`
 
 Format: `help`
 
-=== Adding a Mdule: `addModule`
+=== Adding a Module: `addModule`
 
 Adds a module to T.A.rence. +
 Format: `addModule m/MODULE_CODE`
@@ -80,22 +83,39 @@ Example:
 
 * `addTutorial tn/Tutorial-01 st/1300 dur/60 d/Mon w/1,2,3 m/CS1010S`
 
-Explanation: Adds a tutorial slot called `Tutorial-01` which starts at `1300`, lasts for `60` minutes,
-             occurs every `Mon` during weeks `1,2,3` into module `CS1010`.
+Explanation: Adds a tutorial called Tutorial-01 which starts at 1PM, lasts for 60 minutes,
+             and occurs every Monday during weeks 1,2, and 3 into module CS1010.
+
+****
+Other input options for `weeks` field:
+
+* `w/even` - weeks 4, 6, 8, 10, 12
+* `w/odd` - weeks 3, 5, 7, 9, 11, 13
+* `w/x-y` - weeks x to y inclusive, where x and y are integers from 1 to 13 inclusive
+
+Omit `w/` field for the default tutorial weeks (3-13 inclusive).
+****
 
 === Adding a Student : `addStudent`
 
 Adds a student into a specified tutorial. +
 Pre-condition: Module and tutorial slot must already exist inside the application.
 
-Format: `addStudent n/NAME e/EMAIL mat/MATRICULATION_NUMBER nusid/NUSNET_ID tn/TUTORIAL_NAME m/MODULE_CODE`
+Format: `addStudent n/NAME e/EMAIL tn/TUTORIAL_NAME m/MODULE_CODE`
 
 Example:
 
-* `addStudent n/Bob e/bob@gmail.com mat/A1234567Z1 nusid/E1234567 m/CS1010S tn/Tutorial-01`
+* `addStudent n/Bob e/bob@gmail.com m/CS1010S tn/Tutorial-01`
 
-Explanation: Adds a student called 'Bob'; with matriculation number `A1234567Z1 and NUS ID `E1234567` into the
-             tutorial slot called `Tutorial-01` for module `CS1O1O`.
+Explanation: Adds a student named Bob into Tutorial-01 under module CS1010.
+
+****
+Optionally, the student's matriculation number and/or NUSNET ID can also be specified and saved:
+
+`addStudent n/Bob e/bob@gmail.com m/CS1010S tn/Tutorial-01 A0123456X E9876543`
+
+No prefixes are needed for these additional fields.
+****
 
 === Adding an Assignment : `addAssignment` [coming in v2.0]
 
@@ -208,14 +228,38 @@ Format: `exit`
 
 === Saving the data [coming in v2.0]
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+All data in T.A.rence is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+== Enhancements
+
+T.A.rence contains a few input correction features to enhance usability.
+
+=== Autocorrect
+
+If invalid parameters are detected in the command input, T.A.rence tries to suggest similar alternatives that can be selected and run without having to retype the entire command.
+
+E.g. given input
+
+`addTutorial tn/Tut01 m/GET1000 ...`
+
+T.A.rence might respond:
+
+`No such module found. Did you mean: 1. GER1000`
+
+Entering the number 1 runs the command `addTutorial tn/Tut01 m/GER1000 ...`.
+
+
+=== Autocomplete
+
+Similar to other CLI programs such as Windows' Command Prompt and MacOS' Terminal, pressing the "TAB" key will autofill the current field with data from the application. Pressing "TAB" repeatedly cycles through the different possible values.
+
+E.g.: with `addTutorial m/GE` in the input box, pressing "TAB" changes the value to `addTutorial m/GER1000`, `addTutorial m/GEQ1000`, etc., depending on which modules beginning with "GE" were previously added to the application.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous T.A.rence folder.
 
 == Command Summary
 
