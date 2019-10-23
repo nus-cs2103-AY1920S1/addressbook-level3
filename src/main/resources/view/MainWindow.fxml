@@ -14,10 +14,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root maxHeight="520.0" maxWidth="1500.0" minHeight="510.0" minWidth="1000.0" resizable="false" title="FlashMind" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="720.0" maxWidth="1500.0" minHeight="510.0" minWidth="1000.0" resizable="false" title="FlashMind" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
-         <HBox maxHeight="500.0" maxWidth="700.0" minHeight="420.0" minWidth="400.0" prefHeight="683.0" prefWidth="400.0">
+         <HBox maxHeight="700.0" maxWidth="700.0" minHeight="420.0" minWidth="400.0" prefHeight="683.0" prefWidth="400.0">
             <children>
                <VBox>
                   <children>

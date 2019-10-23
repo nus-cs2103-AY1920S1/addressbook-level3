@@ -48,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private StackPane viewFlashcardListPanelPlaceholder;
+
+    @FXML
     private StackPane statisticsDisplayPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
