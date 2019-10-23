@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_ENGAGEMENT_SUCCESS_SUCCESS = "Deleted appointment: %1$s";
+    public static final String MESSAGE_DELETE_ENGAGEMENT_SUCCESS = "Deleted appointment: %1$s";
 
     private final Index targetIndex;
 
@@ -43,8 +43,8 @@ public class DeleteCommand extends Command {
         Engagement engagementToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEngagement(engagementToDelete);
         model.saveEngagementList();
-        return new CommandResult(String.format(DeleteCommand.
-                MESSAGE_DELETE_ENGAGEMENT_SUCCESS_SUCCESS, engagementToDelete));
+        return new CommandResult(String.format(DeleteCommand
+                .MESSAGE_DELETE_ENGAGEMENT_SUCCESS, engagementToDelete));
     }
 
     @Override

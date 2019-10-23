@@ -8,6 +8,7 @@ import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.engagement.Engagement;
+
 import javafx.collections.ObservableList;
 
 /**

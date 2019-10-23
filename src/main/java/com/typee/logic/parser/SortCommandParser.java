@@ -4,6 +4,9 @@ import com.typee.commons.core.Messages;
 import com.typee.logic.commands.SortCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses a sort command and returns a {@code SortCommand} object
+ */
 public class SortCommandParser implements Parser<SortCommand> {
 
     private String trimmedArgs;
@@ -18,6 +21,11 @@ public class SortCommandParser implements Parser<SortCommand> {
         return new SortCommand(ParserUtil.parseComparator(parseOrder()));
     }
 
+    /**
+     * Parses user command and returns a formulated ordering method
+     * @return {@code String} of formulated ordering method
+     * @throws ParseException if the input format is incorrect
+     */
     private String parseOrder() throws ParseException {
         switch (Order.valueOf(trimmedArgs.toUpperCase())) {
 
@@ -51,6 +59,9 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 }
 
+/**
+ * Specifies expected user input format
+ */
 enum Order {
     STARTA, STARTD, ENDA, ENDD, NAMEA, NAMED, PRIORITYA, PRIORITYD
 }

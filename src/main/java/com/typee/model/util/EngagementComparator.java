@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 import com.typee.model.engagement.Engagement;
 
+/**
+ * Specifies and implements comparators for each comparable property of {@code Engagement}
+ */
 public enum EngagementComparator implements Comparator<Engagement> {
     START_TIME {
         @Override
@@ -54,12 +57,12 @@ public enum EngagementComparator implements Comparator<Engagement> {
         }
     };
 
+    public static final String MESSAGE_PROPERTY_CONSTRAINTS =
+            "Please enter a proper ordering method. Please try: e.g. sort start_time";
+
     public static EngagementComparator getComparator(String order)
             throws IllegalArgumentException {
         return EngagementComparator.valueOf(order.toUpperCase());
     }
-
-    public static final String MESSAGE_PROPERTY_CONSTRAINTS =
-            "Please enter a proper ordering method. Please try: e.g. sort start_time";
 
 }
