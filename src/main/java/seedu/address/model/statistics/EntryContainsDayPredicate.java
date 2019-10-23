@@ -2,7 +2,9 @@ package seedu.address.model.statistics;
 
 import seedu.address.model.person.Entry;
 
-public class EntryContainsDayPredicate {
+import java.util.function.Predicate;
+
+public class EntryContainsDayPredicate implements Predicate<Entry> {
 
     private int dayFromUser;
 

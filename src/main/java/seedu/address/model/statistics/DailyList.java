@@ -16,7 +16,7 @@ import seedu.address.model.person.Income;
  * Guarantees: dateOfList cannot be changed.
  */
 public class DailyList {
-    private ObservableList<Expense> listOfExpenses;
+    private FilteredList<Entry> listOfExpenses;
     private ObservableList<Income> listOfIncomes;
     private final LocalDate dateOfRecord;
     private double totalExpense;
@@ -33,7 +33,7 @@ public class DailyList {
     }
 
     public DailyList() {
-        listOfExpenses = FXCollections.observableArrayList();;
+        listOfExpenses = new FilteredList(FXCollections.observableArrayList());
         listOfIncomes = FXCollections.observableArrayList();
         dateOfRecord = LocalDate.now();
         System.out.println(dateOfRecord);
@@ -47,7 +47,7 @@ public class DailyList {
         }
     }
 
-    public ObservableList<Expense> getListOfExpenses() {
+    public ObservableList<Entry> getListOfExpenses() {
         return listOfExpenses;
     }
 

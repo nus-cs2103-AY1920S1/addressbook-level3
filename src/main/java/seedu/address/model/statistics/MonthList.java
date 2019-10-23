@@ -15,7 +15,7 @@ import seedu.address.model.util.EntryComparator;
 public class MonthList {
 
     private ObservableMap<Integer, DailyList> dailyRecord;
-    private FilteredList<Expense> filteredListForMonth;
+    private FilteredList<Entry> filteredListForMonth;
     private SortType sortByTime = new SortType("Time");
     private SortSequence sortByDesc = new SortSequence("Descending");
     private Month month;
@@ -41,9 +41,9 @@ public class MonthList {
             } catch (DateTimeException e) {
                 continue;
             }
-            FilteredList<Entry> filteredListByDay = filteredListForMonth.filtered(EntryContainsDayPredicate(i));
+            FilteredList<Entry> filteredListByDay = filteredListForMonth.filtered(new EntryContainsDayPredicate(i));
             DailyList dailyList = new DailyList(filteredListByDay, LocalDate.of(year, month.getValue(), i));
-            monthExpenseTotal = monthExpenseTotal + dailyList.getTotalExpense()
+            monthExpenseTotal = monthExpenseTotal + dailyList.getTotalExpense();
             dailyRecord.put(i,dailyList);
         }
     }

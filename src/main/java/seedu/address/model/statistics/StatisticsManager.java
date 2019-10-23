@@ -28,7 +28,8 @@ public class StatisticsManager {
 
     private void initRecords(FilteredList<Entry> filteredList, int month, int currentYear) {
         for (int i = 1; i <= month; i++) {
-            FilteredList<Expense> filteredByMonth = filteredList.setPredicate(new EntryTimeContainsPredicate(i));
+            FilteredList<Entry> filteredByMonth = filteredList;
+            filteredByMonth.setPredicate(new EntryTimeContainsPredicate(i));
             MonthList monthToCompare = new MonthList(filteredByMonth, Month.of(month), currentYear);
             monthlyRecord.put(i, monthToCompare);
         }
