@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.util.Date;
@@ -32,9 +32,9 @@ public class SetCommandParser implements Parser<SetCommand> {
 
         Amount budget = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Category> categoryList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Budget newBudget = new Budget(budget, date, tagList);
+        Budget newBudget = new Budget(budget, date, categoryList);
 
         return new SetCommand(newBudget);
 

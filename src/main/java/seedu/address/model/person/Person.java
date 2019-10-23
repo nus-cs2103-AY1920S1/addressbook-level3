@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Split;
 
@@ -25,20 +25,20 @@ public class Person {
 
     // Data fields
     private final Optional<Address> address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     private Amount balance;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Category> categories) {
+        requireAllNonNull(name, phone, email, address, categories);
         this.name = name;
         this.phone = Optional.of(phone);
         this.email = Optional.of(email);
         this.address = Optional.of(address);
-        this.tags.addAll(tags);
+        this.categories.addAll(categories);
         this.balance = new Amount(0);
     }
 
@@ -74,8 +74,8 @@ public class Person {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
     /**
@@ -123,13 +123,13 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getCategories().equals(getCategories());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, categories);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class Person {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        getCategories().forEach(builder::append);
         return builder.toString();
     }
 

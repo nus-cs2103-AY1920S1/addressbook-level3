@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Date;
 
 /**
@@ -18,16 +18,16 @@ public abstract class Transaction implements UndoableAction {
     protected Person peopleInvolved;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     public Transaction(Amount amount, Date date) {
         this.amount = amount;
         this.date = date;
     }
 
-    public Transaction(Amount amount, Date date, Set<Tag> tags) {
+    public Transaction(Amount amount, Date date, Set<Category> categories) {
         this(amount, date);
-        this.tags.addAll(tags);
+        this.categories.addAll(categories);
     }
 
     public Transaction(Amount amount, Date date, Person personInvolved) {
@@ -35,9 +35,9 @@ public abstract class Transaction implements UndoableAction {
         this.peopleInvolved = personInvolved;
     }
 
-    public Transaction(Amount amount, Date date, Set<Tag> tags, Person personInvolved) {
+    public Transaction(Amount amount, Date date, Set<Category> categories, Person personInvolved) {
         this(amount, date);
-        this.tags.addAll(tags);
+        this.categories.addAll(categories);
         this.peopleInvolved = personInvolved;
     }
 
@@ -51,11 +51,11 @@ public abstract class Transaction implements UndoableAction {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
 

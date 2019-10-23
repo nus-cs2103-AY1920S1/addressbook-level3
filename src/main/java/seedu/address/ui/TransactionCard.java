@@ -35,9 +35,9 @@ public class TransactionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         amount.setText(transaction.getAmount().toString());
         date.setText(transaction.getDate().toString());
-        transaction.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        transaction.getCategories().stream()
+                .sorted(Comparator.comparing(category -> category.categoryName))
+                .forEach(category -> tags.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Transaction}'s {@code Tag} matches the {@code Tag} given.
+ * Tests that a {@code Transaction}'s {@code Category} matches the {@code Category} given.
  */
 public class TransactionContainsTagsPredicate implements Predicate<BankAccountOperation> {
 
@@ -23,16 +23,16 @@ public class TransactionContainsTagsPredicate implements Predicate<BankAccountOp
     }
 
     /**
-     * Checks if a {@code Tag} exists in {@code Transaction}'s set of {@code Tag}s.
+     * Checks if a {@code Category} exists in {@code Transaction}'s set of {@code Category}s.
      *
      * @param transaction {@code Transaction} to be checked.
-     * @param keyTag      Tag to be found in {@code Transaction}
+     * @param keyTag      Category to be found in {@code Transaction}
      */
     private boolean isTagInsideTags(BankAccountOperation transaction, String keyTag) {
         return transaction
-                .getTags()
+                .getCategories()
                 .stream()
-                .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.getTagName(), keyTag));
+                .anyMatch(category -> StringUtil.containsWordIgnoreCase(category.getCategoryName(), keyTag));
     }
 
     @Override

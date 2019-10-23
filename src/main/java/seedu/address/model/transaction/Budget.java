@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 import seedu.address.model.util.Date;
 
 
@@ -19,7 +19,7 @@ public class Budget {
     private Date deadline;
     private boolean valid;
 
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     public Budget() {
         this.valid = false;
@@ -32,14 +32,14 @@ public class Budget {
     public Budget(Amount amount, Date date) {
         this.amount = amount;
         this.deadline = date;
-        this.tags.add(new Tag("general"));
+        this.categories.add(new Category("general"));
         this.valid = true;
     }
 
-    public Budget(Amount amount, Date date, Set<Tag> tags) {
+    public Budget(Amount amount, Date date, Set<Category> categories) {
         this.amount = amount;
         this.deadline = date;
-        this.tags.addAll(tags);
+        this.categories.addAll(categories);
         this.valid = true;
     }
 
@@ -57,8 +57,8 @@ public class Budget {
         return this.deadline;
     }
 
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
 

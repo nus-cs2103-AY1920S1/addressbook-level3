@@ -34,9 +34,9 @@ public class BudgetCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         amount.setText(budget.getBudget().toString());
         date.setText(budget.getDeadline().toString());
-        budget.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        budget.getCategories().stream()
+                .sorted(Comparator.comparing(category -> category.categoryName))
+                .forEach(category -> tags.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override

@@ -125,7 +125,7 @@ public class ModelManagerTest {
         final List<String> tags = ALICE
                 .getTags()
                 .stream()
-                .map(tag -> tag.getTagName())
+                .map(tag -> tag.getCategoryName())
                 .collect(Collectors.toList());
         modelManager.updateFilteredTransactionList(new TransactionContainsTagsPredicate(tags));
         assertFalse(modelManager.equals(new ModelManager(bankAccount, userPrefs)));

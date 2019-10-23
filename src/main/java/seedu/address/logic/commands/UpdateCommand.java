@@ -16,7 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.InTransaction;
@@ -84,12 +84,13 @@ public class UpdateCommand extends Command {
 
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
-        Set<Tag> updatedTags = updateTransactionDescriptor.getTags().orElse(transactionToEdit.getTags());
+        Set<Category> updatedCategories = updateTransactionDescriptor
+                .getCategories().orElse(transactionToEdit.getCategories());
 
         if (transactionToEdit instanceof InTransaction) {
-            return new InTransaction(updatedAmount, updatedDate, updatedTags);
+            return new InTransaction(updatedAmount, updatedDate, updatedCategories);
         } else {
-            return new OutTransaction(updatedAmount, updatedDate, updatedTags);
+            return new OutTransaction(updatedAmount, updatedDate, updatedCategories);
         }
     }
 
@@ -101,7 +102,7 @@ public class UpdateCommand extends Command {
         // TODO: Add name object
         private Amount amount;
         private Date date;
-        private Set<Tag> tags;
+        private Set<Category> categories;
 
         public UpdateTransactionDescriptor() {}
 
@@ -112,14 +113,14 @@ public class UpdateCommand extends Command {
         public UpdateTransactionDescriptor(UpdateCommand.UpdateTransactionDescriptor toCopy) {
             setAmount(toCopy.amount);
             setDate(toCopy.date);
-            setTags(toCopy.tags);
+            setCategories(toCopy.categories);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, date, tags);
+            return CollectionUtil.isAnyNonNull(amount, date, categories);
         }
 
         public void setAmount(Amount amount) {
@@ -142,8 +143,8 @@ public class UpdateCommand extends Command {
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setCategories(Set<Category> categories) {
+            this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
 
         /**
@@ -151,8 +152,8 @@ public class UpdateCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Category>> getCategories() {
+            return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
         }
 
         @Override
@@ -172,7 +173,7 @@ public class UpdateCommand extends Command {
 
             return getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
-                    && getTags().equals(e.getTags());
+                    && getCategories().equals(e.getCategories());
         }
     }
 

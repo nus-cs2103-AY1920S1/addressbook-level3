@@ -124,7 +124,7 @@ public class CommandTestUtil {
         final List<String> tags = transaction
                 .getTags()
                 .stream()
-                .map(tag -> tag.getTagName())
+                .map(tag -> tag.getCategoryName())
                 .collect(Collectors.toList());
         model.updateFilteredTransactionList(new TransactionContainsTagsPredicate(tags));
 
