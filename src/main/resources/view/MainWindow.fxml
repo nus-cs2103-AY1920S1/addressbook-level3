@@ -60,15 +60,26 @@
           <TabPane fx:id="tabPane" minWidth="500.0" prefWidth="500.0">
             <tabs>
               <Tab fx:id="templateListPage" text="Template List">
-                <VBox fx:id="templateList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                  <children>
-                    <Label text="Template List" />
-                  </children>
-                  <padding>
-                    <Insets bottom="10" left="10" right="10" top="10" />
-                  </padding>
-                  <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                </VBox>
+                <SplitPane dividerPositions="0.3492462311557789" focusTraversable="true" prefWidth="50.0">
+                  <VBox fx:id="templateList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <children>
+                      <Label text="Template List" />
+                    </children>
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  </VBox>
+                  <VBox fx:id="templateItem" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <children>
+                      <Label text="Template Item" />
+                    </children>
+                    <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                    </padding>
+                    <StackPane fx:id="templateItemPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  </VBox>
+                </SplitPane>
               </Tab>
               <Tab fx:id="wasteListPage" text="Waste List">
                 <VBox fx:id="wasteList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">

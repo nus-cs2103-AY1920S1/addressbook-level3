@@ -22,7 +22,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.food.NameContainsKeywordsPredicate;
 
-public class AddressBookParserTest {
+public class GroceryListParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
 

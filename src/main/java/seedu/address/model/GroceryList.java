@@ -7,15 +7,15 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.GroceryItem;
-import seedu.address.model.food.UniqueFoodList;
+import seedu.address.model.food.UniqueGroceryList;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class GroceryList implements ReadOnlyGroceryList {
 
-    private final UniqueFoodList persons;
+    private final UniqueGroceryList groceryList;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,15 +25,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueFoodList();
+        groceryList = new UniqueGroceryList();
     }
 
-    public AddressBook() {}
+    public GroceryList() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public GroceryList(ReadOnlyGroceryList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -44,17 +44,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<GroceryItem> foods) {
-        this.persons.setPersons(foods);
+    public void setGroceryList(List<GroceryItem> groceryList) {
+        this.groceryList.setGroceryList(groceryList);
     }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyGroceryList newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setGroceryList(newData.getGroceryList());
     }
 
     //// person-level operations
@@ -62,17 +62,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson(GroceryItem food) {
-        requireNonNull(food);
-        return persons.contains(food);
+    public boolean hasGroceryItem(GroceryItem groceryItem) {
+        requireNonNull(groceryItem);
+        return groceryList.contains(groceryItem);
     }
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(GroceryItem p) {
-        persons.add(p);
+    public void addGroceryItem(GroceryItem p) {
+        groceryList.add(p);
     }
 
     /**
@@ -80,42 +80,41 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setGroceryItem(GroceryItem target, GroceryItem editedFood) {
-        requireNonNull(editedFood);
+    public void setGroceryItem(GroceryItem target, GroceryItem editedGroceryItem) {
+        requireNonNull(editedGroceryItem);
 
-        persons.setPerson(target, editedFood);
+        groceryList.setGroceryItem(target, editedGroceryItem);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Food key) {
-        persons.remove(key);
+    public void removeGroceryItem(Food key) {
+        groceryList.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        return groceryList.asUnmodifiableObservableList().size() + " grocery items";
     }
 
     @Override
-    public ObservableList<GroceryItem> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<GroceryItem> getGroceryList() {
+        return groceryList.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof GroceryList // instanceof handles nulls
+                && groceryList.equals(((GroceryList) other).groceryList));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return groceryList.hashCode();
     }
 }
