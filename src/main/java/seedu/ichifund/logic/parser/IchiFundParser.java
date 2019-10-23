@@ -37,7 +37,7 @@ public class IchiFundParser {
 
     private final ArrayList<FeatureParser> featureParsers;
     private FeatureParser currentFeatureParser;
-    private SimpleObjectProperty<Integer> currentParserManagerIndex;
+    private SimpleObjectProperty<Integer> currentFeatureParserIndex;
 
     public IchiFundParser() {
         featureParsers = new ArrayList<>();
@@ -47,7 +47,7 @@ public class IchiFundParser {
         featureParsers.add(new LoanFeatureParser());
         featureParsers.add(new AnalyticsFeatureParser());
         currentFeatureParser = featureParsers.get(0);
-        currentParserManagerIndex = new SimpleObjectProperty<>(currentFeatureParser.getTabIndex());
+        currentFeatureParserIndex = new SimpleObjectProperty<>(currentFeatureParser.getTabIndex());
     }
 
     /**
@@ -109,7 +109,7 @@ public class IchiFundParser {
         for (FeatureParser featureParser : featureParsers) {
             if (featureParser.getTabSwitchCommandWord().equals(commandWord)) {
                 isTabSwitchCommand = true;
-                setParserManager(featureParser.getTabIndex());
+                setFeatureParser(featureParser.getTabIndex());
             }
         }
 
@@ -120,14 +120,14 @@ public class IchiFundParser {
         return new EmptyCommand();
     }
 
-    public void setParserManager(int index) {
+    public void setFeatureParser(int index) {
         FeatureParser featureParser = featureParsers.get(index);
         assert(featureParser.getTabIndex() == index);
         currentFeatureParser = featureParser;
-        currentParserManagerIndex.setValue(currentFeatureParser.getTabIndex());
+        currentFeatureParserIndex.setValue(currentFeatureParser.getTabIndex());
     }
 
-    public ObservableValue<Integer> getCurrentParserManagerIndex() {
-        return currentParserManagerIndex;
+    public ObservableValue<Integer> getCurrentFeatureParserIndex() {
+        return currentFeatureParserIndex;
     }
 }
