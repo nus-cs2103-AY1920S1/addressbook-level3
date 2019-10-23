@@ -5,8 +5,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +14,6 @@ import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskForNote;
 
 /**
  * A utility class containing a list of {@code Note}, {@code Question} and other objects to be used in tests.
@@ -74,7 +71,8 @@ public class TypicalAppData {
     public static final Task CONAN_TASK_DEFAULT = new TaskBuilder().build();
     public static final Task CONAN_TASK_FOR_NOTE = new TaskBuilder().withNote(CONAN).build();
     public static final Task CONAN_TASK_FOR_QUESTION = new TaskBuilder().withQuestion(CONAN_QUESTION).build();
-    public static final Task CONAN_TASK_MODIFIED_DATE = new TaskBuilder().withNote(CONAN).withDate("06/08/2019").build();
+    public static final Task CONAN_TASK_MODIFIED_DATE = new TaskBuilder()
+            .withNote(CONAN).withDate("06/08/2019").build();
     public static final Task CONAN_TASK_MODIFIED_TIME = new TaskBuilder().withNote(CONAN).withTime("1400").build();
     public static final Task CONAN_TASK_DONE = new TaskBuilder().withNote(CONAN).withStatus(true).build();
 
