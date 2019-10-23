@@ -89,8 +89,7 @@ public class JsonAdaptedRecsTest {
         JsonAdaptedRecs recs =
                 new JsonAdaptedRecs(LIKED_CATEGORY_SET_STRING, LIKED_TAG_SET_STRING, LIKED_LOCATION_SET_STRING,
                         LIKED_CATEGORY_SET_STRING, DISLIKED_TAG_SET_STRING, DISLIKED_LOCATION_SET_STRING);
-        String expectedMessage =
-                String.format(JsonAdaptedRecs.DUPLICATE_ENTRY_OPPOSING_FOUND, Location.class.getSimpleName());
+        String expectedMessage = JsonAdaptedRecs.DUPLICATE_ENTRY_OPPOSING_FOUND;
         assertThrows(IllegalValueException.class, expectedMessage, recs::toModelType);
     }
 
@@ -126,8 +125,7 @@ public class JsonAdaptedRecsTest {
         JsonAdaptedRecs recs =
                 new JsonAdaptedRecs(LIKED_CATEGORY_SET_STRING, LIKED_TAG_SET_STRING, LIKED_LOCATION_SET_STRING,
                         DISLIKED_CATEGORY_SET_STRING, DISLIKED_TAG_SET_STRING, LIKED_LOCATION_SET_STRING);
-        String expectedMessage =
-                String.format(JsonAdaptedRecs.DUPLICATE_ENTRY_OPPOSING_FOUND, Location.class.getSimpleName());
+        String expectedMessage = JsonAdaptedRecs.DUPLICATE_ENTRY_OPPOSING_FOUND;
         assertThrows(IllegalValueException.class, expectedMessage, recs::toModelType);
     }
 
@@ -163,8 +161,7 @@ public class JsonAdaptedRecsTest {
         JsonAdaptedRecs recs =
                 new JsonAdaptedRecs(LIKED_CATEGORY_SET_STRING, LIKED_TAG_SET_STRING, LIKED_LOCATION_SET_STRING,
                         DISLIKED_CATEGORY_SET_STRING, LIKED_TAG_SET_STRING, DISLIKED_LOCATION_SET_STRING);
-        String expectedMessage =
-                String.format(JsonAdaptedRecs.DUPLICATE_ENTRY_OPPOSING_FOUND, Location.class.getSimpleName());
+        String expectedMessage = JsonAdaptedRecs.DUPLICATE_ENTRY_OPPOSING_FOUND;
         assertThrows(IllegalValueException.class, expectedMessage, recs::toModelType);
     }
 }
