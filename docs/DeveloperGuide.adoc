@@ -298,48 +298,7 @@ Use Case: user adds an expense
 . The user types listAutoExpenditure.
 . GuiltTrip lists all the current automatically recurring expenditures.
 
-=== Use Case 09: Edit a recurring expenditure item
-
-Format: editAutoExpenditure: <index> [--freq <frequency>] [--desc <description>] [--amt <expenditure>] +
-Examples:
-
-* editAutoExpenditure 1 --freq month
-* editAutoExpenditure 1 --desc spotify family --amt 14.99
-
-deleteAutoExpenditure: deletes a current automatically recurring expenditure at the given index. +
-Format: deleteAutoExpenditure <index>
-
-=== Use Case 10: Add a new budget for expenditure
-
-. User adds a budget
-. GuiltTrip creates a
-addBudget: adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month +
-Format: addBudget --desc <description> --amt <budget> --period <period> [--tag <tag>] +
-Examples:
-
-* addBudget --desc food budget --period day --amt 200 --tag food
-* addBudget --desc entertainment budget --amt 300
-
-=== Use Case 11: List existing budgets
-
-listBudget: lists all the current budgets the user has. +
-Format: listBudget
-
-editBudget: edits a current budget's description, amount or tag (if applicable) at the given index. +
-Format: editBudget --index <index> [--desc <description>] [--amt <budget>] [--tag <tag>]  +
-Examples:
-
-* editBudget 1 --desc fooooood budget
-* editBudget 2 --desc lunch budget --amt 150
-* editBudget 2 --tag fun
-
-deleteBudget: deletes a current budget at the given index. +
-Format: deleteBudget <index> +
-Example:
-
-* deleteBudget 2
-
-=== Use Case 12: Set TrackerReminder
+=== Use Case 09: Set TrackerReminder
 
 ==== MSS
 
@@ -353,7 +312,7 @@ Use case ends.
 . 1a. user does not indicate if he wants to track entries with keywords or tags.
 Reminder tracks all entries.
 
-=== Use Case 13: Set DateReminder
+=== Use Case 10: Set DateReminder
 
 ==== MSS
 
@@ -396,8 +355,3 @@ Use case ends
 
 [appendix]
 == Glossary
-
-* Category - Income, Expense, Wishlist, Budget +
-* Entry - any item in a category +
-* Tag - label(s) attached to an entry
-
