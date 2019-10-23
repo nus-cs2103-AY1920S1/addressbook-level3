@@ -4,8 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
+
 import io.xpire.commons.core.Messages;
 import io.xpire.model.item.Name;
 import io.xpire.model.tag.Tag;
