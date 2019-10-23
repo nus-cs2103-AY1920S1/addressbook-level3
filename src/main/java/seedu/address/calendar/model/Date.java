@@ -103,37 +103,6 @@ public class Date {
 
         return new Date(givenDay, monthVal, yearVal);
     }
-    /*
-    public static boolean isValid(String dateString) {
-        final Matcher matcher = DATE_FORMAT.matcher(dateString.trim());
-        if (!matcher.matches()) {
-            return false;
-        }
-
-        String dayOfWeek = matcher.group(DAY_OF_WEEK_KEY);
-        String dayOfMonth = matcher.group(DAY_OF_MONTH_KEY);
-        String month = matcher.group(MONTH_KEY);
-        String year = matcher.group(YEAR_KEY);
-
-        try {
-            DayOfWeek.valueOf(dayOfWeek);
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-
-        if (!MonthOfYear.isValidMonthStr(month)) {
-            return false;
-        }
-
-        if (!isValidYear(year)) {
-            return false;
-        }
-
-        if (!isValidDay(dayOfWeek, dayOfMonth, month, year)) {
-            return false;
-        }
-        return true;
-    }*/
 
     String asString() {
         return toString();
@@ -147,21 +116,6 @@ public class Date {
         }
         return true;
     }
-    /*
-    private static boolean isValidDay(String dayOfWeek, String dayOfMonth, String month, String year) {
-        DayOfWeek dayOfWeekVal = DayOfWeek.valueOf(dayOfWeek);
-        MonthOfYear monthVal = MonthOfYear.valueOf(month);
-        Year yearVal = new Year(Integer.parseInt(year));
-        int dayOfMonthVal = Integer.parseInt(dayOfMonth);
-
-        if (dayOfMonthVal < 0 || dayOfMonthVal > monthVal.getNumDaysInMonth(yearVal)) {
-            return false;
-        }
-
-        Month desiredMonth = new Month(monthVal, yearVal);
-        Day givenDay = new Day(dayOfWeekVal, dayOfMonthVal);
-        return desiredMonth.getDay(dayOfMonthVal).equals(givenDay);
-    }*/
 
     @Override
     public String toString() {
