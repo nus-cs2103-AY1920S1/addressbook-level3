@@ -29,8 +29,33 @@ public class StatusManager {
     public StatusManager(UniqueDeliverymanList deliverymenList) {
         deliverymen = deliverymenList;
         statuses = new UniqueStatusList();
+        initDeliverymenList(deliverymenList);
+        initStatusLists();
     }
 
+    public void initDeliverymenList(UniqueDeliverymanList deliverymenList) {
+        for (Deliveryman man: deliverymenList) {
+            deliverymen.add(man);
+        }
+    }
+
+    public void initStatusLists() {
+        for (Deliveryman man: deliverymen) {
+            switch (man.getStatus().getDescription()) {
+                case "AVAILABLE":
+                    availableMen.add(man);
+                    break;
+                case "UNAVAILABLE":
+                    availableMen.add(man);
+                    break;
+                case "DELIVERING":
+                    deliveringMen.add(man);
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
     public void addAvailableMan(Deliveryman deliveryman) {
         availableMen.add(deliveryman);
     }
