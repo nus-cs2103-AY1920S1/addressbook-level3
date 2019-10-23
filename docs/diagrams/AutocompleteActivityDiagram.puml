@@ -1,0 +1,14 @@
+@startuml
+
+(*)  --> "user input"
+if "listener detects input change" then
+--> [Yes] "initialize AC model"
+--> "get suggestions based on truncated input"
+--> "display the result on listview"
+--> (*)
+else
+--> [No] "display empty listview"
+--> (*)
+endif
+
+@enduml

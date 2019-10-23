@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+'participant ":QueryCard" as QueryCard UI_COLOR
+'participant ":TextField" as TextField UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":AutoComplete" as AutoComplete LOGIC_COLOR
+participant ":BinarySearch" as BinarySearch LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":AutoCompleteModel" as AutoCompleteModel MODEL_COLOR
+participant ":Word" as Word MODEL_COLOR
+end box
+
+[-> CommandBox : autoCompleteListener()
+activate CommandBox
+
+[-> CommandBox : userInput
+
+CommandBox -> AutoComplete : initAc()
+activate AutoComplete
+
+AutoComplete -> AutoComplete : importDictionary(file)
+AutoComplete -> AutoComplete : data
+
+create AutoCompleteModel
+AutoComplete -> AutoCompleteModel : data
+activate AutoCompleteModel
+
+AutoCompleteModel -> AutoComplete
+deactivate AutoCompleteModel
+deactivate AutoComplete
+
+CommandBox -> AutoComplete : getSuggestions(userInput)
+activate AutoComplete
+
+AutoComplete -> AutoCompleteModel : allMatches(userInput)
+activate AutoCompleteModel
+
+create Word
+AutoCompleteModel -> Word : userInput, weight
+activate Word
+
+Word -> AutoCompleteModel
+deactivate Word
+
+AutoCompleteModel -> BinarySearch : firstIndexOf(userInput)
+activate BinarySearch
+
+BinarySearch -> AutoCompleteModel : index1
+deactivate BinarySearch
+
+AutoCompleteModel -> BinarySearch : lastIndexOf(userInput)
+activate BinarySearch
+
+BinarySearch -> AutoCompleteModel : index2
+deactivate BinarySearch
+
+AutoCompleteModel -> AutoComplete : matchedResults
+deactivate AutoCompleteModel
+
+AutoComplete -> CommandBox : matchedResults
+deactivate AutoComplete
+
+CommandBox ->[ : display()
+deactivate CommandBox
+@enduml

@@ -33,7 +33,7 @@ public class AutoComplete {
      * @param is path for the library of words
      * @return the suggestions to be shown in textField
      */
-    private static Word[] readWordsFromFile(InputStream is) {
+    private static Word[] importDictionary(InputStream is) {
         Word[] queries = null;
         try {
             is.mark(0);
@@ -74,7 +74,7 @@ public class AutoComplete {
      */
     public static void initAc() {
         InputStream in = MainApp.class.getResourceAsStream("/data/vocabulary.txt");
-        Word[] data = readWordsFromFile(in);
+        Word[] data = importDictionary(in);
         acModel = new AutoCompleteModel(data);
     }
 
