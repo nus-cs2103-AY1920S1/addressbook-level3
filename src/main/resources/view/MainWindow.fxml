@@ -60,7 +60,7 @@
                      <VBox prefHeight="200.0" prefWidth="100.0">
                         <children>
                            <AnchorPane fx:id="editorPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="410.0" />
-                           <AnchorPane fx:id="runCodeResultPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="410.0" />
+                           <AnchorPane fx:id="codeResultPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="410.0" />
                         </children>
                      </VBox>
                      <VBox prefHeight="200.0" prefWidth="100.0">

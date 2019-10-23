@@ -1,6 +1,10 @@
 package com.dukeacademy.ui;
 
 import java.nio.file.Path;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.GuiSettings;
@@ -12,7 +16,6 @@ import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.program.TestCaseResult;
-import com.dukeacademy.model.question.entities.TestCase;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private Editor editorPanel;
-    private RunCodeResult runCodeResultPanel;
+    private CodeResultPanel codeResultPanel;
     private ProfilePage profilePage;
 
     @FXML
@@ -66,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane editorPlaceholder;
 
     @FXML
-    private AnchorPane runCodeResultPlaceholder;
+    private AnchorPane codeResultPanelPlaceholder;
 
     @FXML
     private AnchorPane profilePlaceholder;
@@ -88,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
     }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -148,13 +152,17 @@ public class MainWindow extends UiPart<Stage> {
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
         programSubmissionLogic.setUserProgramSubmissionChannel(editorPanel::getUserProgram);
 
-        // Passing in sample test case and sample test case result into the constructor of RunCodeResult.
-        // The sample problem in this context is an adder function.
-        // Test case given is 1, 1. Expected result is 2, from 1 + 1.
-        runCodeResultPanel = new RunCodeResult(new TestCase("1 1", "2"),
-                TestCaseResult.getFailedTestCaseResult("1 1", "2", "3"));
-        runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
+        List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
+        sampleTestCaseResults.add(
+                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz", "Fizz"));
+        sampleTestCaseResults.add(
+                TestCaseResult.getFailedTestCaseResult("25", "Buzz", "FizzBuzz"));
+        sampleTestCaseResults.add(
+                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz", "FizzBuzz"));
 
+        codeResultPanel = new CodeResultPanel(sampleTestCaseResults);
+        codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
+      
         profilePage = new ProfilePage();
         profilePlaceholder.getChildren().add(profilePage.getRoot());
     }
@@ -204,8 +212,8 @@ public class MainWindow extends UiPart<Stage> {
         return editorPanel;
     }
 
-    public RunCodeResult getRunCodeResultPanel() {
-        return runCodeResultPanel;
+    public CodeResultPanel getRunCodeResultPanel() {
+        return codeResultPanel;
     }
 
     public ProfilePage getProfilePage() {
