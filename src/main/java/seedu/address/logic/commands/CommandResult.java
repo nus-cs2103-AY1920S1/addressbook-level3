@@ -68,7 +68,6 @@ public class CommandResult {
     }
 
 
-
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, {@code forcePanelChange},
      * {@code panelName}, and other fields set to their default value.
@@ -111,6 +110,7 @@ public class CommandResult {
     public boolean isStatistic() {
         return statistic;
     }
+
 
     public List<String> getNames() {
         return names;
