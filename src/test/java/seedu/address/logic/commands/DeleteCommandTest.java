@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -28,7 +29,7 @@ import seedu.address.model.food.GroceryItem;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteArchive(), getTypicalShoppingList());
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -38,7 +39,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, foodToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
-                model.getWasteArchive(), model.getShoppingList());
+                model.getWasteArchive(), model.getShoppingList(), model.getBoughtList());
         expectedModel.deleteGroceryItem(foodToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -62,7 +63,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, foodToDelete);
 
         Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
-                model.getWasteArchive(), model.getShoppingList());
+                model.getWasteArchive(), model.getShoppingList(), model.getBoughtList());
         expectedModel.deleteGroceryItem(foodToDelete);
         showNoPerson(expectedModel);
 

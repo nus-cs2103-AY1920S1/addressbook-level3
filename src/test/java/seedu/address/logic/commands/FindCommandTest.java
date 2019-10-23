@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.address.testutil.TypicalGroceryItems.CARL;
 import static seedu.address.testutil.TypicalGroceryItems.ELLE;
 import static seedu.address.testutil.TypicalGroceryItems.FIONA;
@@ -28,9 +29,9 @@ import seedu.address.model.food.NameContainsKeywordsPredicate;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteArchive(), getTypicalShoppingList());
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteArchive(), getTypicalShoppingList());
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
 
     @Test
     public void equals() {

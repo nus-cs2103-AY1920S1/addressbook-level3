@@ -117,13 +117,15 @@ public class ModelManagerTest {
         TreeMap<WasteMonth, WasteList> differentWasteArchive = new TreeMap<>();
         ShoppingList shoppingList = new ShoppingListBuilder().withShoppingItem(CAKE).withShoppingItem(DATES).build();
         ShoppingList differentShoppingList = new ShoppingList();
+        AddressBook boughtList = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook differentBoughtList = new AddressBook();
 
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, templateList, wasteArchive, shoppingList);
+        modelManager = new ModelManager(addressBook, userPrefs, templateList, wasteArchive, shoppingList, boughtList);
         ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, templateList,
-                wasteArchive, shoppingList);
+                wasteArchive, shoppingList, boughtList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -137,17 +139,21 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, templateList, wasteArchive,
-                differentShoppingList)));
+                shoppingList, boughtList)));
 
         // different templateList -> returns false
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, differentTemplateList,
-                differentWasteArchive, differentShoppingList)));
+                differentWasteArchive, shoppingList, boughtList)));
+
+        // different shoppingList -> returns false
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, templateList,
+                wasteArchive, differentShoppingList, boughtList)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredGroceryItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, templateList, wasteArchive,
-                shoppingList)));
+                shoppingList, boughtList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
@@ -156,6 +162,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, templateList, wasteArchive,
-                shoppingList)));
+                shoppingList, boughtList)));
     }
 }
