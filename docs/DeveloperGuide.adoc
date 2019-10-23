@@ -271,7 +271,7 @@ NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` s
 For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.
 If the user requests to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
 If the user requested to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
-Otherwise, if the user requested to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
+Otherwise, if the user requests to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
 
 NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. `PhantomParagraph` is a temporary holding place for a `stray note` and does not contain content from the `cache`.
 
