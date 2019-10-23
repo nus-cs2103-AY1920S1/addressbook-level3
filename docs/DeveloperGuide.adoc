@@ -354,6 +354,148 @@ executed commands and inversely executed commands. Move commands from one deque 
 
 // end::undoredo[]
 
+//tag::financetracker[]
+
+=== Finance Tracker feature
+
+==== Overview
+The Finance Tracker feature allows the user to track what purchases they have made for the month
+and the list of installments that they have subscribed to. Such installments would be added to
+their purchases once a month. The user can store the information of the description and the amount of both
+purchases and installments. Furthermore, the user can set a monthly limit to keep track of his expenses
+for the month.
+
+==== Implementation
+
+The Finance Tracker feature closely follows the extendable OOP solution already
+implemented within AB3. In the Finance Tracker, the `Installment` objects (containing
+`InstallmentDescription` and `InstallmentMoneyPaid` objects) and the `Purchase` objects (containing
+'PurchaseDescription' and `PurchaseMoneySpent` objects) manage most aspects related to this feature.
+The finance tracker mechanism is facilitated by `FinanceTrackerModel`.
+
+`Model#getFinanceTracker()` - Gets the `FinanceTracker` instance
+`Model#getPurchase(index)` - Retrieves the purchase at that index
+`Model#updateFilteredPurchaseList(Predicate)` - Updates the filter of the purchase list with the predicate
+`Model#getFilteredPurchaseList()` - Retrieves the list of purchases with current predicate applied
+`Model#addPurchase(Purchase)` - Adds a single use payment
+`Model#deletePurchase(index)` - Deletes single use payment at that index
+`Model#getInstallment(index)` - Retrieves the installment at that index
+`Model#updateFilteredInstallmentList(Predicate)` - Updates the filter of the installment list with the predicate
+`Model#getFilteredInstallmentList()` - Retrieves the list of installments with current predicate applied
+`Model#addInstallment(Installment)` - Adds an installment
+`Model#deleteInstallment(index)` - Deletes installment at that index
+`Model#hasInstallment(Installment)` - Checks for the existence of the same installment in the finance tracker
+`Model#setInstallment(Installment, Installment)` - Replaces an existing installment with a new installment for editing
+`Model#setMonthlyLimit(MonthlyLimit)` - Sets the monthly limit for spending
+`Model#getMonthlyLimit()` - Retrieves the monthly limit if it has been set by user
+
+==== Installments
+
+Installments are added by the user to the FinanceTracker and are stored in an `InstallmentList`. The current
+codebase requires that all installments **must** have the following attributes:
+
+* `InstallmentDescription`
+* `InstallmentMoneyPaid`
+
+These attributes are *non-nullable**.
+
+==== Purchases
+
+Purchases are added by the user to the FinanceTracker and are stored in a `PurchaseList`. The current
+codebase requires that all purchases **must** have the following attributes:
+
+* `PurchaseDescription`
+* `PurchaseMoneySpent`
+
+These attributes are *non-nullable**.
+
+==== Command Execution
+
+For brevity's sake, we will illustrate only 1 specific command and its execution on model.
+The following activity diagram illustrates how an `Installment` is edited when a user types
+in a `edit-install` command:
+
+Step 1. The user launches the application for the first time. The `FinanceTracker` is initialized. Assume
+that a valid `Installment` has already been added to the `InstallmentList` in `FinanceTracker`.
+
+Step 2. The user executes `edit-install 1 d/student-price Spotify subscription a/7.50` command
+to edit both the description and money spent on the existing Installment in the FinanceTracker. An
+`EditInstallmentCommandParser` object is created and its `#parse` method is called. The parse method returns
+a new `EditInstallmentCommand` object.
+
+Step 3. The `EditInstallmentCommand` object is executed on the model. The `EditInstallmentCommand#execute`
+method is called, and this will create a new `Installment` object from the existing installment
+but with all the edited fields changed. In this method, `Model#setInstallment(Installment, Installment)`
+method is called.
+
+[NOTE]
+The `EditInstallmentCommand#execute` method first checks for whether the index is within the size
+of InstallmentList.
+
+Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the methods in the `FinanceTracker` class.
+As such, the `FinanceTracker#setInstallment(Installment, Installment)` method is called. This in turns calls
+the `#InstallmentList#setInstallment(Installment, Installment)` method.
+
+Step 5. This `#InstallmentList#setInstallment(Installment, Installment)` method first finds the `Installment`
+based on its corresponding index. Then, it sets the edited installment at the index found earlier.
+
+[NOTE]
+TLDR: The calling of the `#setInstallment` method at the `FinanceTracker` level triggers a cascading series of
+`#setInstallment` method which culminates in target installment being edited with the corresponding fields.
+
+==== Design Considerations
+
+==== Aspect: Whether to encapsulate fields for `Installment` and `Purchase` objects.
+
+* *Alternative 1 (Current choice):* Encapsulate fields into separate classes.
+
+** Pros:
+
+Increases OOP to allow better manipulation of objects and makes objects more extensible.
+
+** Cons:
+
+More code needed.
+
+* *Alternative 2:* Use primitive Java data types for fields in `Installment` and `Purchase` objects.
+
+** Pros:
+
+Less code needed.
+
+** Cons:
+
+Less extensible as all data contained is primitive.
+
+We ultimately went with alternative #1 as it allowed us to better practice OOP, providing a clear modular structure
+for abstracting data types in which implementation details are hidden. Furthermore, it would make the codebase easier
+to maintain. The objects created can also be reused across the application.
+
+==== Aspect: Whether `ObservableList`s should be used for `InstallmentList` and `PurchaseList`.
+
+* *Alternative 1 (Current choice):* Implement them as `ObservableList`.
+
+** Pros:
+
+Easier to manipulate for JavaFx.
+
+** Cons:
+
+Potentially complicated nesting when passing arguments to it
+
+* *Alternative 2:* Implement them as normal `List`s e.g. `ArrayList`.
+
+** Pros:
+
+Does not require predicates to be passed in.
+
+** Cons:
+
+Might be more complicated when rendering in Javafx.
+
+We ultimately went with alternative #1 as it provided better support for rendering when implementing the Ui of
+JARVIS.
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

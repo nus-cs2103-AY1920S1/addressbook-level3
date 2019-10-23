@@ -38,7 +38,7 @@ public interface FinanceTrackerModel {
     void updateFilteredPurchaseList(Predicate<Purchase> predicate);
 
     /**
-     * Retrieves list of all purchases
+     * Retrieves list of purchases with current predicate applied
      *
      * @return ObservableList
      */

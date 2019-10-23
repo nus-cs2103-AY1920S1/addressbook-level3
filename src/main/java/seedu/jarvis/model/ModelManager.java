@@ -245,7 +245,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Retrieves list of all purchases
+     * Retrieves list of all purchases with current predicate applied
      *
      * @return ObservableList
      */
@@ -295,7 +295,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Retrieves list of all installments.
+     * Retrieves list of all installments with current predicate applied
      *
      * @return ObservableList
      */
