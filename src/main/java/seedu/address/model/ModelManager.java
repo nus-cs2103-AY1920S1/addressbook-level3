@@ -311,12 +311,13 @@ public class ModelManager implements Model {
         phoneBook.set(target, editedPhone);
 
         // cascade
+
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
             if (order.getPhone().equals(target)) {
                 Order editedOrder = new Order(order.getId(), order.getCustomer(), editedPhone,
                         order.getPrice(), order.getStatus(), order.getSchedule(), order.getTags());
-                orderBook.set(order, editedOrder);
+                setOrder(order, editedOrder);
                 break;
             }
         }
@@ -363,7 +364,9 @@ public class ModelManager implements Model {
 
         // cascade
         Optional<Schedule> targetSchedule = target.getSchedule();
-        targetSchedule.ifPresent(scheduleBook::remove);
+        if (targetSchedule.isPresent() && hasSchedule(targetSchedule.get())) {
+            deleteSchedule(targetSchedule.get());
+        }
     }
 
     @Override
@@ -419,6 +422,7 @@ public class ModelManager implements Model {
         scheduleBook.remove(target);
         setCalendarDate(target.getCalendar());
 
+
         // cascade
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
@@ -426,7 +430,7 @@ public class ModelManager implements Model {
                 if (schedule.equals(target)) {
                     Order editedOrder = new Order(order.getId(), order.getCustomer(), order.getPhone(),
                             order.getPrice(), Status.UNSCHEDULED, Optional.empty(), order.getTags());
-                    orderBook.set(order, editedOrder);
+                    setOrder(order, editedOrder);
                 }
             });
         }

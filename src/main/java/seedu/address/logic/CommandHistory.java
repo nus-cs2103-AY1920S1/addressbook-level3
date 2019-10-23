@@ -17,6 +17,14 @@ public class CommandHistory {
     private final ObservableList<String> unmodifiableHistoryList =
             FXCollections.unmodifiableObservableList(historyList);
 
+    public CommandHistory() {
+
+    }
+
+    public CommandHistory(CommandHistory commandHistory) {
+        setList(commandHistory);
+    }
+
     /**
      * Adds an {code commandString} string to the list.
      */
