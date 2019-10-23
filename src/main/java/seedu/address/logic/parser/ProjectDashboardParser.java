@@ -24,6 +24,7 @@ import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
+import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
@@ -133,6 +134,9 @@ public class ProjectDashboardParser {
 
         case RemoveMemberFromTaskCommand.COMMAND_WORD:
             return new RemoveMemberFromTaskParser().parse(arguments);
+
+        case GeneratePDFCommand.COMMAND_WORD:
+            return new GeneratePDFCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
