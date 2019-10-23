@@ -67,3 +67,4 @@ deactivate CancelAppCommand
 [<--LogicManager
 deactivate LogicManager
 @enduml
+
