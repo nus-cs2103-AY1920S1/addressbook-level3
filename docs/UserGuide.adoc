@@ -277,7 +277,7 @@ Examples:
 * allocate 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
 
-==== Fetch Full Details of an Event: `fetch_ev`
+==== Fetch Full Details of an Event: `fetch_ev` (also a GUI feature)
 
 Fetches an event by displaying a pop-up window with full details of the event.
 
@@ -289,10 +289,16 @@ Event Format: `fetch_ev EVENT_INDEX`
 ****
 Examples:
 
-* `fetch_ev 3` +
-Returns the 3rd event from the event list
+* `fetch_ev 2` +
+Returns the 2rd event from the event list
 
+Alternatively, simply double-click the event card in the list.
 
+image::BeforeFetch.png[width="790"]
+
+After double-clicking, this should show:
+
+image::AfterFetch.png[width="790"]
 === Finance Management
 
 ==== Generate Employee Payslip: `pay [coming in v2.0]`

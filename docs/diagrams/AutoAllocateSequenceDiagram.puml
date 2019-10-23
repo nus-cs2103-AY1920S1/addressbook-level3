@@ -38,6 +38,22 @@ deactivate AddressBookParser
 LogicManager -> AutoAllocateCommand : execute()
 activate AutoAllocateCommand
 
+AutoAllocateCommand -> AutoAllocateCommand : getManpowerNeededByEvent(event)
+activate AutoAllocateCommand
+
+AutoAllocateCommand -> Event : getManpowerNeeded()
+activate Event
+Event --> AutoAllocateCommand :
+deactivate Event
+
+AutoAllocateCommand -> Event : getCurrentManpowerCount()
+activate Event
+Event --> AutoAllocateCommand :
+deactivate Event
+
+AutoAllocateCommand -> AutoAllocateCommand : result
+deactivate AutoAllocateCommand
+
 AutoAllocateCommand -> AutoAllocateCommand : createAvailableEmployeeList(model, event)
 activate AutoAllocateCommand
 
@@ -59,23 +75,7 @@ deactivate Event
 AutoAllocateCommand -> AutoAllocateCommand : result
 deactivate AutoAllocateCommand
 
-AutoAllocateCommand -> AutoAllocateCommand : getManpowerNeededByEvent(event)
-activate AutoAllocateCommand
 
-AutoAllocateCommand -> Event : getManpowerNeeded()
-activate Event
-Event --> AutoAllocateCommand :
-deactivate Event
-
-AutoAllocateCommand -> Event : getCurrentManpowerCount()
-activate Event
-Event --> AutoAllocateCommand :
-deactivate Event
-
-
-
-AutoAllocateCommand -> AutoAllocateCommand : result
-deactivate AutoAllocateCommand
 
 AutoAllocateCommand -> Event : allocateEmployee()
 activate Event

@@ -46,7 +46,7 @@ public class AutoAllocateCommand extends Command {
     /**
      * @param eventIndex of the event in the filtered event list to edit
      * @param manpowerCountToAdd for the event
-     * @param tagList list of tags to filter the employees to add
+     * @param tagList list of tags to filter the list of available employees
      */
     public AutoAllocateCommand(Index eventIndex, Integer manpowerCountToAdd, Set<Tag> tagList) {
         requireNonNull(eventIndex);

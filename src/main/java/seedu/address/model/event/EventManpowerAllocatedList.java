@@ -1,17 +1,17 @@
 package seedu.address.model.event;
 
-import seedu.address.model.employee.Employee;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.address.model.employee.Employee;
+
 /**
  * List of employees allocated as manpower for the Event.
  */
 public class EventManpowerAllocatedList {
-    public List<String> manpowerList;
+    private List<String> manpowerList;
 
     /**
      * Constructs a {@code Name}.
