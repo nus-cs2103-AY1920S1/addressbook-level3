@@ -4,10 +4,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.util.FileUtil.isFileExists;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FILE_PATH_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FILE_PATH_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_2;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
@@ -15,11 +16,11 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.FilePath;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.category.Category;
+import seedu.address.model.export.DocumentPath;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -27,17 +28,17 @@ import seedu.address.model.category.Category;
 public class ExportCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    private FilePath firstFilePath = new FilePath(VALID_FILE_PATH_1);
-    private FilePath secondFilePath = new FilePath(VALID_FILE_PATH_2);
-    private FilePath thirdFilePath = new FilePath(VALID_FILE_PATH_2);
+    private DocumentPath firstDocumentPath = new DocumentPath(VALID_DOCUMENT_PATH_1);
+    private DocumentPath secondDocumentPath = new DocumentPath(VALID_DOCUMENT_PATH_2);
+    private DocumentPath thirdDocumentPath = new DocumentPath(VALID_DOCUMENT_PATH_2);
     private Category firstCategory = new Category(VALID_CATEGORY_HISTORY);
     private Category secondCategory = new Category(VALID_CATEGORY_LOCATION);
     private Category thirdCategory = new Category(VALID_CATEGORY_LOCATION);
 
-    private ExportCommand firstCommand = new ExportCommand(firstCategory, firstFilePath);
-    private ExportCommand secondCommand = new ExportCommand(secondCategory, secondFilePath);
-    private ExportCommand thirdCommand = new ExportCommand(thirdCategory, thirdFilePath);
-    private ExportCommand fourthCommand = new ExportCommand(firstCategory, secondFilePath);
+    private ExportCommand firstCommand = new ExportCommand(firstCategory, firstDocumentPath);
+    private ExportCommand secondCommand = new ExportCommand(secondCategory, secondDocumentPath);
+    private ExportCommand thirdCommand = new ExportCommand(thirdCategory, thirdDocumentPath);
+    private ExportCommand fourthCommand = new ExportCommand(firstCategory, secondDocumentPath);
 
     @Test
     public void equals() {
@@ -65,28 +66,29 @@ public class ExportCommandTest {
     public void execute_validInput_fileCreated() {
         String expectedMessage = String.format(
                 ExportCommand.MESSAGE_EXPORT_SUCCESS,
-                firstFilePath
+                firstDocumentPath.toAbsolutePathString()
         );
 
-        deleteFileIfExists(firstFilePath);
+        deleteFileIfExists(firstDocumentPath);
         assertCommandSuccess(firstCommand, model, expectedMessage, model);
-        assertTrue(isFilePresent(firstFilePath));
-        deleteFileIfExists(firstFilePath);
+        assertTrue(isFilePresent(firstDocumentPath));
+        deleteFileIfExists(firstDocumentPath);
     }
 
-    private boolean isFilePresent(FilePath filePath) {
-        File file = new File(filePath.toString());
-        return file.exists();
+    private boolean isFilePresent(DocumentPath documentPath) {
+        return isFileExists(
+                documentPath.getPath()
+        );
     }
 
-    private void deleteFile(FilePath filePath) {
-        File file = new File(filePath.toString());
+    private void deleteFile(DocumentPath documentPath) {
+        File file = new File(documentPath.toString());
         file.delete();
     }
 
-    private void deleteFileIfExists(FilePath filePath) {
-        if (isFilePresent(filePath)) {
-            deleteFile(filePath);
+    private void deleteFileIfExists(DocumentPath documentPath) {
+        if (isFilePresent(documentPath)) {
+            deleteFile(documentPath);
         }
     }
 

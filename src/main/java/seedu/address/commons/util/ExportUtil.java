@@ -10,7 +10,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import seedu.address.model.FilePath;
+import seedu.address.model.export.DocumentPath;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
@@ -21,13 +21,13 @@ import seedu.address.model.flashcard.Question;
 public class ExportUtil {
 
     /**
-     * Exports a List of FlashCards to a file at the given FilePath.
+     * Exports a List of FlashCards to a file at the given DocumentPath.
      *
      * @param cards List of FlashCards
-     * @param filePath FilePath to export the FlashCards to
+     * @param documentPath DocumentPath to export the FlashCards to
      * @throws IOException If an error arises in writing to the File.
      */
-    public static void exportFlashCards(List<FlashCard> cards, FilePath filePath) throws IOException {
+    public static void exportFlashCards(List<FlashCard> cards, DocumentPath documentPath) throws IOException {
         XWPFDocument doc = new XWPFDocument();
 
         for (FlashCard card : cards) {
@@ -35,7 +35,7 @@ public class ExportUtil {
         }
 
         try {
-            writeDocumentToFile(doc, filePath);
+            writeDocumentToFile(doc, documentPath);
         } catch (IOException e) {
             throw e;
         }
@@ -70,15 +70,15 @@ public class ExportUtil {
     }
 
     /**
-     * Writes a given XWPFDocument to a File at the given FilePath.
+     * Writes a given XWPFDocument to a File at the given DocumentPath.
      *
      * @param doc XWPFDocument to write.
-     * @param filePath File to write the document to.
+     * @param documentPath File to write the document to.
      * @throws IOException If there is an error in writing to the File.
      */
-    private static void writeDocumentToFile(XWPFDocument doc, FilePath filePath) throws IOException {
+    private static void writeDocumentToFile(XWPFDocument doc, DocumentPath documentPath) throws IOException {
         try {
-            FileOutputStream out = new FileOutputStream(filePath.toString());
+            FileOutputStream out = new FileOutputStream(documentPath.toString());
             doc.write(out);
             out.close();
             doc.close();
