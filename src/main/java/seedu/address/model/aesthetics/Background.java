@@ -79,7 +79,7 @@ public class Background {
      */
     public void merge(Background oldBackground) {
         if (!this.isBackgroundColour && !oldBackground.isBackgroundColour) {
-            if ((this.backgroundPicPath == null || this.backgroundPicPath.equals("")) 
+            if ((this.backgroundPicPath == null || this.backgroundPicPath.equals(""))
                     && oldBackground.backgroundPicPath != null) {
                 this.backgroundPicPath = oldBackground.backgroundPicPath;
             }
@@ -102,7 +102,7 @@ public class Background {
     }
 
     public String getBgRepeat() {
-        return  bgRepeat;
+        return bgRepeat;
     }
 
     public void setBgSize(String bgSize) {
@@ -151,9 +151,9 @@ public class Background {
         if (this == other) {
             return true;
         } else if (other instanceof Background) {
-            
+
             Background otherBackground = (Background) other;
-            
+
             boolean sameBackgroundColour = this.backgroundColour == null
                     ? otherBackground.backgroundColour == null
                     : otherBackground.backgroundColour != null

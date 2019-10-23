@@ -101,7 +101,7 @@ public class BioTable extends UiPart<Region> {
             text.wrappingWidthProperty().bind(column.widthProperty());
             text.textProperty().bind(cell.itemProperty());
             text.getStyleClass().add("table-cell-text");
-            return cell ;
+            return cell;
         });
     }
 

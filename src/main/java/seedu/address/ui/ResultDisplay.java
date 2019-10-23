@@ -27,15 +27,26 @@ public class ResultDisplay extends UiPart<Region> {
         resultDisplay.setText(feedbackToUser);
     }
 
+    /**
+     * Concatenates the given String to the end of this feedback.
+     * @param feedbackToUser String to be concantenated to the end of this feedback
+     */
     public void appendFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         setFeedbackToUser(getFeedbackToUser().concat(feedbackToUser));
     }
 
+    /**
+     * Adds a new line to this feedback.
+     */
     public void appendNewLineInFeedBackToUser() {
         appendFeedbackToUser(NEW_LINE_CHAR);
     }
 
+    /**
+     * Adds a given number new lines to this feedback;
+     * @param n Integer number representing number of lines to be appended.
+     */
     public void appendNewLineInFeedBackToUser(int n) {
         for (int i = 0; i < n; i++) {
             appendNewLineInFeedBackToUser();

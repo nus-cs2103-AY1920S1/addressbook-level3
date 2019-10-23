@@ -19,14 +19,18 @@ public class BackgroundCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Background has been set!";
     public static final String MESSAGE_CURRENT_BACKGROUND = "Your current background is: ";
     public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Sets the background of this application "
-            + "using either CSS colour names, hexadecimal alphanumeric characters representing rgb colours or " 
+            + "using either CSS colour names, hexadecimal alphanumeric characters representing rgb colours or "
             + "a file path specifying the image to be used.\n\n"
-            + "Parameter: COLOUR or PATH [wrap/]\n\n"
+            + "Currently known background size inputs: auto, cover, contain\n"
+            + "Currently known background repeat inputs: repeat-x, repeat-y, repeat, space, round, no-repeat\n\n"
+            + "Parameter: COLOUR or PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT]\n\n"
             + "Example: background turquoise\n"
-            + "Example background #00FF00"
-            + "Example background /Users/Bob/bg.jpg wrap/cover";
+            + "Example: background #00FF00\n"
+            + "Example: background /Users/Bob/bg.jpg s/cover\n"
+            + "Example: background r/no-repeat\n"
+            + "Example: background";
     private static final String MESSAGE_NO_CHANGE = "The colour, path, or wrap settings you've keyed in is "
-            + "no different from what has already been set in your current settings! As such, there's nothing " 
+            + "no different from what has already been set in your current settings! As such, there's nothing "
             + "for me to update :)";
 
     private Background background;
@@ -64,10 +68,10 @@ public class BackgroundCommand extends Command {
 
         StringBuilder updateMessage = new StringBuilder();
 
-        if (previousBackground.isBackgroundColour() &&
-                (newBackground.isEmpty()
-                        && !newBackground.getBgSize().isEmpty() || !newBackground.getBgRepeat().isEmpty())) {
-            throw new CommandException(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT);
+        if (previousBackground.isBackgroundColour()
+                && (newBackground.isEmpty()
+                && !newBackground.getBgSize().isEmpty() || !newBackground.getBgRepeat().isEmpty())) {
+            throw new CommandException(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT, MESSAGE_USAGE));
         }
 
         background.merge(previousBackground);
@@ -76,9 +80,6 @@ public class BackgroundCommand extends Command {
             throw new CommandException(MESSAGE_NO_CHANGE);
         }
         model.setBackground(newBackground);
-
-        System.out.println("new" + newBackground + newBackground.getBgSize() + newBackground.getBgRepeat());
-        System.out.println("old" + previousBackground + previousBackground.getBgSize() + previousBackground.getBgRepeat());
 
         if (!newBackground.isBackgroundColour() && !previousBackground.isBackgroundColour()) {
             if (!newBackground.getBackgroundPicPath().equals(previousBackground.getBackgroundPicPath())) {

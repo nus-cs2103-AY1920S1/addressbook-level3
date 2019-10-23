@@ -371,7 +371,6 @@ public class ParserUtil {
             return new Background(trimmedBackground);
         }
     }
-    
 
     //=========== Food Map =============================================================
     /**

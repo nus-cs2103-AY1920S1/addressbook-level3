@@ -310,7 +310,7 @@ public interface Model {
      * Returns the font colour to be set for this app.
      */
     Colour getFontColour();
-    
+
     /**
      * Sets the font colour of this application and saves it to the user preferences file.
      */
@@ -324,6 +324,6 @@ public interface Model {
     /**
      * Sets the background of this application and saves it to the user preferences file.
      */
-    void setBackground(Background Background);
+    void setBackground(Background background);
 
 }

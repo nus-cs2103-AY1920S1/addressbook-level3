@@ -2,7 +2,8 @@ package seedu.address.commons.core;
 
 import static seedu.address.model.aesthetics.AestheticFieldName.LABEL_BACKGROUND;
 
-import java.awt.*;
+import java.awt.Image;
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -106,7 +107,6 @@ public class GuiSettings implements Serializable {
                     throw new IOException();
                 }
             } catch (IOException e) {
-                System.out.println("here");
                 fieldsContainingInvalidReferences.put(LABEL_BACKGROUND, background);
                 setDefaultBackground();
                 showDefaultBackground = true;
@@ -130,7 +130,6 @@ public class GuiSettings implements Serializable {
             background.setBgRepeat("");
         }
 
-        System.out.println(showDefaultBackground);
         return background;
     }
 

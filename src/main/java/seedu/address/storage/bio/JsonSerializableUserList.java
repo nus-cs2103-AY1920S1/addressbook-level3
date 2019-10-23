@@ -21,9 +21,9 @@ import seedu.address.model.bio.UserList;
 class JsonSerializableUserList {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Users list contains duplicate user(s).";
+    private static List<Map<String, String>> listOfFieldsContainingInvalidReferences = new ArrayList<>();
 
     private final List<JsonAdaptedUser> users = new ArrayList<>();
-    private static List<Map<String, String>> listOfFieldsContainingInvalidReferences = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableUserList} with the given users.

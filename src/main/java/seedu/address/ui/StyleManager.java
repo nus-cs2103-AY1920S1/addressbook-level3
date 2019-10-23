@@ -117,7 +117,7 @@ public class StyleManager {
         }
         return lineReadFromReader;
     }
-    
+
     /**
      * Sets the font colour of this style manager's scene.
      * @param fontColour String representation of a CSS font colour.
@@ -203,9 +203,9 @@ public class StyleManager {
     private void ignoreUntilNextField(BufferedReader br, String initialLine) throws IOException {
         boolean foundOpeningCurlyBraces = initialLine.contains("{");
         boolean foundClosingCurlyBraces = initialLine.contains("}");
-        
+
         String lineConsumed;
-        
+
         while (!foundOpeningCurlyBraces && (lineConsumed = br.readLine()) != null) {
             if (lineConsumed.contains("{")) {
                 foundOpeningCurlyBraces = true;
@@ -230,7 +230,6 @@ public class StyleManager {
 
         File file = new File(filePath);
 
-        System.out.println("Setting");
         if (this.background == null || !this.background.equals(background)) {
             mainWindowPlaceholder.setStyle("-fx-background-image: url('" + file.toURI().toString() + "'); "
                     + "-fx-background-position: center center; "
@@ -239,7 +238,7 @@ public class StyleManager {
             this.background = background;
         }
     }
-    
+
     /**
      * Sets the background of this style manager's scene.
      * @param background String representation of a CSS background.

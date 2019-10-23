@@ -21,7 +21,8 @@ public class FontColourCommand extends Command {
             + "using either CSS colour names or hexadecimal alphanumeric characters representing rgb colours.\n\n"
             + "Parameter: COLOUR\n\n"
             + "Example: fontcolour turquoise\n"
-            + "Example fontcolour #00FF00";
+            + "Example: fontcolour #00FF00"
+            + "Example: fontcolour";
     private static final String MESSAGE_NO_CHANGE = "The colour that you've keyed in is no different from "
             + "what has already been set in your current settings! As such, there's nothing for me to update :)";
 

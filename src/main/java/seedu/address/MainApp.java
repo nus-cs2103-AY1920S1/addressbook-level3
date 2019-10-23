@@ -56,16 +56,16 @@ public class MainApp extends Application {
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
+    private static final String LABEL_BIO_DATA_TYPE = "bio";
+    private static final String LABEL_CALENDAR_DATA_TYPE = "calendar";
+    private static final String LABEL_FOOD_DATA_TYPE = "food list";
+    private static final String LABEL_RECORD_DATA_TYPE = "record list";
+
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
     protected Config config;
-
-    private static final String LABEL_BIO_DATA_TYPE = "bio";
-    private static final String LABEL_FOOD_DATA_TYPE = "food list";
-    private static final String LABEL_RECORD_DATA_TYPE = "record list";
-    private static final String LABEL_CALENDAR_DATA_TYPE = "calendar";
 
     @Override
     public void init() throws Exception {
@@ -131,7 +131,8 @@ public class MainApp extends Application {
      * @throws IOException
      * @throws DataConversionException
      */
-    private Optional<? extends ReadOnlyData> getOptionalData(String dataType) throws IOException, DataConversionException {
+    private Optional<? extends ReadOnlyData> getOptionalData(String dataType) throws IOException,
+            DataConversionException {
         switch (dataType) {
         case LABEL_BIO_DATA_TYPE: return storage.readUserList();
         case LABEL_FOOD_DATA_TYPE: return storage.readFoodList();

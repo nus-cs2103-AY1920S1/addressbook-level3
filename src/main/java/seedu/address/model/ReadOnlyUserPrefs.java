@@ -33,6 +33,6 @@ public interface ReadOnlyUserPrefs extends ReadOnlyData {
     /**
      * Sets the background of this application and saves it to the user preferences file.
      */
-    void setBackground(Background Background);
+    void setBackground(Background background);
 
 }

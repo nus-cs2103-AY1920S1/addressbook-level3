@@ -24,7 +24,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -42,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String MESSAGE_CANNOT_LOAD_WINDOW = "Unable to load window. :(";
+    private static final String TEMPORARY_BACKGROUND_PATH = "/images/SpaceModified.jpg";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -90,7 +90,6 @@ public class MainWindow extends UiPart<Stage> {
         styleManager = new StyleManager(scene, mainWindowPlaceholder);
         setFontColour(logic.getGuiSettings());
         setBackground(logic.getGuiSettings());
-        System.out.println(Font.getFamilies());
         //        String fontPath = Main.class.getResource("/fonts/Tahu!.ttf").toExternalForm();
         //        Font font = Font.loadFont(fontPath, 10);
         styleManager.setFontFamily("Futura");
@@ -179,7 +178,7 @@ public class MainWindow extends UiPart<Stage> {
 
             sb.append(getMessageForInvalidReferencesInMap(guiFieldsContainingInvalidReferences));
 
-            for (Map<String, String>  map : listOfFieldsContainingInvalidReferences) {
+            for (Map<String, String> map : listOfFieldsContainingInvalidReferences) {
                 sb.append(getMessageForInvalidReferencesInMap(map));
             }
         }
@@ -229,7 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         displayWelcomeMessage(resultDisplay);
         displayInvalidReferences(resultDisplay);
         if (logic.getBackground().showDefaultBackground()) {
-            resultDisplay.appendNewLineInFeedBackToUser();
+            resultDisplay.appendNewLineInFeedBackToUser(2);
             resultDisplay.appendFeedbackToUser(MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED);
         }
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -267,7 +266,7 @@ public class MainWindow extends UiPart<Stage> {
         Background background = guiSettings.getBackground();
         if (background.showDefaultBackground()) {
             styleManager.setBackground(new Background("transparent"));
-            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + "/images/SpaceModified.jpg" + "'); "
+            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + TEMPORARY_BACKGROUND_PATH + "'); "
                     + "-fx-background-position: center center; "
                     + "-fx-background-repeat: no-repeat;"
                     + "-fx-background-size: cover;");

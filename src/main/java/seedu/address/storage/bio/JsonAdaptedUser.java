@@ -2,7 +2,7 @@ package seedu.address.storage.bio;
 
 import static seedu.address.model.bio.BioFieldName.LABEL_DP_PATH;
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +36,7 @@ import seedu.address.model.bio.User;
 class JsonAdaptedUser {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "User's %s field is missing!";
+    private static Map<String, String> fieldsContainingInvalidReferences = new LinkedHashMap<>();
 
     private final String name;
     private final String dpPath;
@@ -49,8 +50,6 @@ class JsonAdaptedUser {
     private final String address;
     private final List<JsonAdaptedGoals> goals = new ArrayList<>();
     private final String otherInfo;
-
-    private static Map<String, String> fieldsContainingInvalidReferences = new LinkedHashMap<>();
 
     /**
      * Constructs a {@code JsonAdaptedUser} with the given user details.
