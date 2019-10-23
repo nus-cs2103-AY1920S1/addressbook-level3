@@ -204,8 +204,8 @@ public class Incident {
     }
 
     /**
-     * Returns true if both Vehicles of the same VehicleType have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two Vehicles.
+     * Returns true if both Incidents have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two Incidents.
      */
     public boolean isSameIncident(Incident otherIncident) {
         if (otherIncident == this) {
@@ -228,8 +228,8 @@ public class Incident {
     }
 
     /**
-     * Returns true if both Vehicles have the same identity and data fields.
-     * This defines a stronger notion of equality between two Vehicles.
+     * Returns true if both Incidents have the same identity and data fields.
+     * This defines a stronger notion of equality between two Incidents.
      */
     @Override
     public boolean equals(Object other) {

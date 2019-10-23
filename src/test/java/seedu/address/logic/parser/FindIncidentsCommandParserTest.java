@@ -7,25 +7,25 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.SearchIncidentsCommand;
+import seedu.address.logic.commands.FindIncidentsCommand;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.DescriptionKeywordsPredicate;
 
-public class SearchIncidentsCommandParserTest {
+public class FindIncidentsCommandParserTest {
 
-    private SearchIncidentsCommandParser parser = new SearchIncidentsCommandParser();
+    private FindIncidentsCommandParser parser = new FindIncidentsCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                SearchIncidentsCommand.MESSAGE_USAGE));
+                FindIncidentsCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        SearchIncidentsCommand expectedSearchIncidentsCommand =
-                new SearchIncidentsCommand(new DescriptionKeywordsPredicate(new Description("test")));
+        FindIncidentsCommand expectedSearchIncidentsCommand =
+                new FindIncidentsCommand(new DescriptionKeywordsPredicate(new Description("test")));
         assertParseSuccess(parser, " " + SEARCH_PREFIX_DESCRIPTION + "test", expectedSearchIncidentsCommand);
     }
 
