@@ -1,7 +1,7 @@
 package mams.logic.commands;
 
-import static mams.logic.parser.CliSyntax.PREFIX_APPEALID;
-import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
+import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ public abstract class ClashCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks timetable clashes "
             + "by the 2 module codes or 1 appeal ID or 1 student matric number."
             + "\nExample: " + COMMAND_WORD + " "
-            + PREFIX_MODULE_CODE + "CS1010 " + PREFIX_MODULE_CODE + "CS2030 "
+            + PREFIX_MODULE + "CS1010 " + PREFIX_MODULE + "CS2030 "
             + "\nor " + COMMAND_WORD + " "
-            + PREFIX_APPEALID + "c00001"
+            + PREFIX_APPEAL + "c00001"
             + "\nor " + COMMAND_WORD + " "
             + PREFIX_STUDENT + "A0111234X";
 
