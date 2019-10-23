@@ -55,7 +55,8 @@ public class AddCommand extends Command {
 
         if (isMissingUrl) {
             Url toAddUrl = model.getCurrentUrl();
-            toAdd = new Bookmark(toAdd.getName(), toAddUrl, toAdd.getRemark(), toAdd.getFolder(), toAdd.getTags());
+            toAdd = new Bookmark(toAdd.getName(), toAddUrl, toAdd.getRemark(), toAdd.getFolder(),
+                    toAdd.getTags(), toAdd.getCachedCopies());
         }
 
         if (model.hasBookmark(toAdd)) {

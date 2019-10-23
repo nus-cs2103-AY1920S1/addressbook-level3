@@ -35,6 +35,10 @@ public class BookmarkListPanel extends UiPart<Region> {
 
         // Whenever selection changes, update the current bookmark url
         bookmarkListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Do nothing when selection is cleared
+            if (newValue == null) {
+                return;
+            }
             logger.info("Selection in bookmark list panel changed to: " + newValue);
             currentBookmarkUrlChangeHandler.accept(newValue.getUrl());
             mainWindow.handleSwitchToOnline();
@@ -59,6 +63,11 @@ public class BookmarkListPanel extends UiPart<Region> {
                         break;
                     }
                     index++;
+                }
+                // If the current url does not correspond to any bookmark, clear the selection and return
+                if (index == currentBookmarkList.size()) {
+                    bookmarkListView.getSelectionModel().clearSelection();
+                    return;
                 }
                 bookmarkListView.scrollTo(index);
                 bookmarkListView.getSelectionModel().clearAndSelect(index);
