@@ -30,19 +30,14 @@ This Developer Guide (DG) is written for anyone who wishes to contribute to our 
 
 If you wish to know more details about StudyBuddy Pro, please do not hesitate to contact us!
 
-=== Callouts Signs and Syntax
+=== Callouts Signs
 
-Do refer to signs below that will be used across the documents for references. These will prove to be useful when you are reading this document.
+Do refer to the signs below that will be used across the documents for references. These will prove to be useful when you are reading this document.
 
-[%header, cols=2]
-|===
-| Signs/Syntax
-| Explanations
-
-| [WARNING]
-| Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
-|===
-.Table title
+[WARNING]
+====
+Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+====
 
 
 [IMPORTANT]
@@ -57,18 +52,24 @@ Indicates information that are note-worthy. Do read them for more information an
 
 [TIP]
 ====
-Indicates additional information that are helpful. Not to worry, tips can be good to know but are not vital.
+Indicates additional information that are helpful. Fret not, tips can be good to know but are not vital.
 ====
 
-[`exampleCommand`]
+=== Syntax
 
-====
+Do refer to the syntax below that will be used across the documents for references. These will prove to be useful when you are reading this document.
 
-====
+.Syntax Table
+[options = "header"]
+|===
+| Syntax | Usage
+| *`exampleCommand`*  | Indicates technical terms like _commands_, _classes_ and _methods_
+| link:#1[link] | Indicates internal/external links
+|===
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+Do refer to the guide <<SettingUp#, here>> to set up our StudyBuddy Pro on your device(s)!
 
 == Design
 
@@ -106,7 +107,7 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component in _Figure 2_ defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -121,6 +122,11 @@ In each mode, the users will interact with only the modes' commands, unless it i
 - `switch fc` - switches to flashcard mode
 - `switch cs` - switches to cheatsheet mode
 - `switch notes` - switches to notes mode
+
+The following is an Activity Diagram that describes the execution of the `switch` command.
+
+.Activity Diagram of `Switch` command execution
+image::jasmineDiagrams/SwitchActivityDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -166,16 +172,32 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Assuming that the user is in _flashcard_ mode.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+[IMPORTANT]
+====
+Assuming that the user is in the _flashcard_ mode.
+====
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteFlashcardCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+IMPORTANT
+====
+The lifeline for `DeleteFlashcardCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+====
 
 [[Design-Model]]
 === Model component
+
+.Structure of the Model Component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the StudyBuddyBook data.
 
 [[Design-Storage]]
 === Storage component
@@ -193,7 +215,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.studybuddy.commons` package.
 
 == Implementation
 
@@ -417,7 +439,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* is a computer science student in NUS
+* is a Computer Science major student in NUS
 * is a visual learner that benefits from using flashcards
 * can benefit from better organization of notes
 * prefer desktop apps over other types
