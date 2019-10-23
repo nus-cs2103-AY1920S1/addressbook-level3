@@ -187,16 +187,17 @@ This section describes some noteworthy details on how certain features are imple
 
 The access control feature is centered around three core concepts:
 
-* (1) Command Restrictions: Restriction of access to commands until after identity is verified
-* (2) Identity Verification: Verification of identity via unique credentials and a confidential password
-* (3) Account Management Restrictions: Access level restrictions for commands affecting other accounts
+1. Command Restrictions: Restriction of access to commands until after identity is verified
+2. Identity Verification: Verification of identity via unique credentials and a confidential key
+3. Account Management Restrictions: Access level restrictions for commands affecting other accounts
 
 ===== Command Restrictions
 
 Prior to login, the user is only granted access to the `Login`, `Add`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
 
 [NOTE]
-The guard statement throws a command exception if the following conditions are met: `!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand || command instanceof ExitCommand)`
+The guard statement throws a command exception if the following conditions are met: +
+`!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand || command instanceof ExitCommand)`
 
 Activity Diagram for illustration:
 
@@ -209,7 +210,7 @@ Users are required to login via the `Login` command with a `Username` and `Passw
 [NOTE]
 Session details are displayed on the status bar in the GUI to reflect whether a user is logged in, and the username as well as time logged in if a user is logged in.
 
-Uniqueness of username is ensured by preventing duplicates during the account creation (`AddCommand`) and account update (`UpdateCommand`) processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
+Uniqueness of username is ensured by preventing duplicates during the account creation [`AddCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
 
 ===== Account Management Restrictions
 
