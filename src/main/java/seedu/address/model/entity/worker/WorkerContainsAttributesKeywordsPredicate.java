@@ -6,7 +6,9 @@ import seedu.address.logic.parser.Prefix;
 
 import javax.swing.*;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -18,25 +20,135 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
  */
 public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Worker> {
     private final ArgumentMultimap argumentMultimap;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    ArgumentMultimap workerMap = new ArgumentMultimap();
 
     public WorkerContainsAttributesKeywordsPredicate(ArgumentMultimap argumentMultimap) {
         this.argumentMultimap = argumentMultimap;
     }
+    public void addNameToWorkerMap(Worker worker) {
+        try {
+            if (worker.getName().toString().equals("")) {
+                workerMap.put(PREFIX_NAME, "");
+            } else {
+                workerMap.put(PREFIX_NAME, worker.getName().toString());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception found in name.");
+        }
+    }
+
+    public void addSexToWorkerMap(Worker worker) {
+        try {
+            if (worker.getSex().toString().equals("")) {
+                workerMap.put(PREFIX_SEX, "");
+            } else {
+                workerMap.put(PREFIX_SEX, worker.getSex().toString());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception found in sex.");
+        }
+    }
+
+    public void addDobToWorkerMap(Worker worker) {
+        try {
+            if (worker.getDateOfBirth().isEmpty()) {
+                workerMap.put(PREFIX_DATE_OF_BIRTH, "");
+            } else {
+                workerMap.put(PREFIX_DATE_OF_BIRTH, formatter.format(worker.getDateOfBirth()));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception found in DOB.");
+        }
+    }
+
+    public void addPhoneNumberToWorkerMap(Worker worker) {
+        try {
+            if (worker.getPhone() == null) {
+                workerMap.put(PREFIX_PHONE_NUMBER, "");
+            } else {
+                workerMap.put(PREFIX_PHONE_NUMBER, formatter.format(worker.getPhone()));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception found in DOD.");
+        }
+    }
+
+    public void addDateJoinedToWorkerMap(Worker worker) {
+        try {
+            if (worker.getDateJoined() == null) {
+                workerMap.put(PREFIX_DATE_JOINED, "");
+            } else {
+                workerMap.put(PREFIX_DATE_JOINED, formatter.format(worker.getDateJoined()));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception found in DOA.");
+        }
+    }
+
+
+    public void addDesignationToWorkerMap(Worker worker) {
+        try {
+            if (worker.getDesignation().isEmpty()) {
+                workerMap.put(PREFIX_DESIGNATION, "");
+            } else {
+                workerMap.put(PREFIX_DESIGNATION, worker.getDesignation().get());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception found in NRIC.");
+        }
+    }
+
+
+    public void addEmploymentStatusToWorkerMap(Worker worker) {
+        try {
+            if (worker.getEmploymentStatus().isEmpty()) {
+                workerMap.put(PREFIX_EMPLOYMENT_STATUS, "");
+            } else {
+                workerMap.put(PREFIX_EMPLOYMENT_STATUS, worker.getEmploymentStatus().get());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception found in religion.");
+        }
+    }
+
 
     @Override
     public boolean test(Worker worker) {
-        boolean workerMatch = workerMatch(argumentMultimap, worker, PREFIX_NAME,
-                PREFIX_PHONE_NUMBER, PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION,
-                PREFIX_EMPLOYMENT_STATUS);
-        return workerMatch;
+        addDobToWorkerMap(worker);
+        addNameToWorkerMap(worker);
+        addSexToWorkerMap(worker);
+        addDateJoinedToWorkerMap(worker);
+        addDesignationToWorkerMap(worker);
+        addEmploymentStatusToWorkerMap(worker);
+        addPhoneNumberToWorkerMap(worker);
+        return check();
     }
 
-    /**
-     * Returns true if any of the prefixes contains non-empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean workerMatch(ArgumentMultimap argumentMultimap, Worker worker, Prefix... prefixes) {
-        return true;
+    private boolean check() {
+        boolean pass = true;
+        try {
+            for (Map.Entry<Prefix, List<String>> entry : argumentMultimap.getMap().entrySet()) {
+                if (entry.getValue() != null && !entry.getKey().toString().equals("") &&
+                        !entry.getKey().equals(PREFIX_FLAG)) {
+                    if (!workerMap.getValue(entry.getKey()).get().equals(entry.getValue().get(0))) {
+                        pass = false;
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception in comparing maps");
+        }
+        return pass;
     }
 
     @Override

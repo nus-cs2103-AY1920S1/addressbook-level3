@@ -195,8 +195,6 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
 
     @Override
     public boolean test(Body body) {
-        boolean pass = true;
-
         addCauseOfDeathToBodyMap(body);
         addDoaToBodyMap(body);
         addDobToBodyMap(body);
@@ -210,22 +208,23 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         addRelationshipToBodyMap(body);
         addReligionToBodyMap(body);
         addSexToBodyMap(body);
+        return check();
+    }
 
+    private boolean check() {
+        boolean pass = true;
         try {
             for (Map.Entry<Prefix, List<String>> entry : argumentMultimap.getMap().entrySet()) {
-                if (entry.getValue() != null && !entry.getKey().toString().equals("") && !entry.getKey().equals(PREFIX_FLAG)) {
-                    System.out.println(entry.getKey().toString());
+                if (entry.getValue() != null && !entry.getKey().toString().equals("") &&
+                        !entry.getKey().equals(PREFIX_FLAG)) {
                     if (entry.getKey().equals(PREFIX_ORGANS_FOR_DONATION)) {
                         if (!entry.getValue().containsAll(bodyMap.getMap().get(PREFIX_ORGANS_FOR_DONATION))) {
                             pass = false;
-                            System.out.println(entry.getKey().toString());
-                            System.out.println("organ");
+                            break;
                         }
                     } else if (!bodyMap.getValue(entry.getKey()).get().equals(entry.getValue().get(0))) {
                         pass = false;
-                        System.out.println(bodyMap.getValue(entry.getKey()).get());
-                        System.out.println(entry.getValue().get(0));
-                        System.out.println("not organ");
+                        break;
                     }
                 }
             }
