@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.calendar.person.Task;
-import seedu.address.model.calendar.person.UniqueTaskList;
+import seedu.address.model.calendar.task.Task;
+import seedu.address.model.calendar.task.UniqueTaskList;
 
 /**
  * Wraps all data at the address-book level

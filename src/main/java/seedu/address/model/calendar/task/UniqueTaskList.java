@@ -1,4 +1,4 @@
-package seedu.address.model.calendar.person;
+package seedu.address.model.calendar.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.calendar.person.exceptions.DuplicateTaskException;
-import seedu.address.model.calendar.person.exceptions.TaskNotFoundException;
+import seedu.address.model.calendar.task.exceptions.DuplicateTaskException;
+import seedu.address.model.calendar.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -20,7 +20,7 @@ import seedu.address.model.calendar.person.exceptions.TaskNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Task#isSamePerson(Task)
+ * @see Task#isSameTask(Task)
  */
 public class UniqueTaskList implements Iterable<Task> {
 
@@ -33,7 +33,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean contains(Task toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameTask);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
 
-        if (!target.isSamePerson(editedTask) && contains(editedTask)) {
+        if (!target.isSameTask(editedTask) && contains(editedTask)) {
             throw new DuplicateTaskException();
         }
 
@@ -127,7 +127,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private boolean personsAreUnique(List<Task> tasks) {
         for (int i = 0; i < tasks.size() - 1; i++) {
             for (int j = i + 1; j < tasks.size(); j++) {
-                if (tasks.get(i).isSamePerson(tasks.get(j))) {
+                if (tasks.get(i).isSameTask(tasks.get(j))) {
                     return false;
                 }
             }

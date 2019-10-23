@@ -1,4 +1,4 @@
-package seedu.address.model.calendar.person;
+package seedu.address.model.calendar.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,30 +10,35 @@ import java.util.Set;
 import seedu.address.model.calendar.tag.TaskTag;
 
 /**
- * Represents a Task in the taskPlace book.
+ * Represents a Task in the CalendarAddressbook.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {
 
     // Identity fields
     private final TaskTitle taskTitle;
-    private final TaskTime taskTime;
+    private final TaskDay taskDay;
     private final TaskDescription taskDescription;
 
     // Data fields
-    private final TaskPlace taskPlace;
+    private final TaskDeadline taskDeadline;
+    private final TaskTime taskTime;
     private final Set<TaskTag> taskTags = new HashSet<>();
+
+
 
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskTitle taskTitle, TaskTime taskTime, TaskDescription taskDescription, TaskPlace taskPlace,
-                Set<TaskTag> taskTags) {
-        requireAllNonNull(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
+    public Task(TaskTitle taskTitle, TaskDay taskDay, TaskDescription taskDescription, TaskDeadline taskDeadline,
+                TaskTime taskTime, Set<TaskTag> taskTags) {
+        this.taskDeadline = taskDeadline;
+        requireAllNonNull(taskTitle, taskDay);
+        // requireAllNonNull(taskTitle, taskDay, taskDescription, taskTime, taskTags);
         this.taskTitle = taskTitle;
-        this.taskTime = taskTime;
+        this.taskDay = taskDay;
         this.taskDescription = taskDescription;
-        this.taskPlace = taskPlace;
+        this.taskTime = taskTime;
         this.taskTags.addAll(taskTags);
     }
 
@@ -41,16 +46,20 @@ public class Task {
         return taskTitle;
     }
 
-    public TaskTime getTaskTime() {
-        return taskTime;
+    public TaskDay getTaskDay() {
+        return taskDay;
     }
 
     public TaskDescription getTaskDescription() {
         return taskDescription;
     }
 
-    public TaskPlace getTaskPlace() {
-        return taskPlace;
+    public TaskDeadline getTaskDeadline() {
+        return taskDeadline;
+    }
+
+    public TaskTime getTaskTime() {
+        return taskTime;
     }
 
     /**
@@ -62,17 +71,18 @@ public class Task {
     }
 
     /**
-     * Returns true if both persons of the same taskTitle have at least one other identity field that is the same.
+     * Returns true if both task of the same taskTitle have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Task otherTask) {
+    public boolean isSameTask(Task otherTask) {
         if (otherTask == this) {
             return true;
         }
 
         return otherTask != null
                 && otherTask.getTaskTitle().equals(getTaskTitle())
-                && (otherTask.getTaskTime().equals(getTaskTime())
+                && (otherTask.getTaskDay().equals(getTaskDay())
+                && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 || otherTask.getTaskDescription().equals(getTaskDescription()));
     }
 
@@ -92,28 +102,31 @@ public class Task {
 
         Task otherTask = (Task) other;
         return otherTask.getTaskTitle().equals(getTaskTitle())
-                && otherTask.getTaskTime().equals(getTaskTime())
+                && otherTask.getTaskDay().equals(getTaskDay())
+                && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 && otherTask.getTaskDescription().equals(getTaskDescription())
-                && otherTask.getTaskPlace().equals(getTaskPlace())
+                && otherTask.getTaskTime().equals(getTaskTime())
                 && otherTask.getTaskTags().equals(getTaskTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
+        return Objects.hash(taskTitle, taskDay, taskDescription, taskTime, taskTags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTaskTitle())
-                .append(" TaskTime: ")
-                .append(getTaskTime())
-                .append(" TaskDescription: ")
+                .append(" Time: ")
+                .append(getTaskDay())
+                .append(" Description: ")
                 .append(getTaskDescription())
+                .append(" Deadline: ")
+                .append(getTaskDeadline())
                 .append(" Address: ")
-                .append(getTaskPlace())
+                .append(getTaskTime())
                 .append(" Tags: ");
         getTaskTags().forEach(builder::append);
         return builder.toString();

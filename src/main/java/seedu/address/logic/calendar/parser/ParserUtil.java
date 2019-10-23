@@ -9,11 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.person.TaskDescription;
-import seedu.address.model.calendar.person.TaskPlace;
-import seedu.address.model.calendar.person.TaskTime;
-import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
+import seedu.address.model.calendar.task.TaskDay;
+import seedu.address.model.calendar.task.TaskDeadline;
+import seedu.address.model.calendar.task.TaskDescription;
+import seedu.address.model.calendar.task.TaskTime;
+import seedu.address.model.calendar.task.TaskTitle;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -41,43 +42,43 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static TaskTitle parseName(String name) throws ParseException {
+    public static TaskTitle parseTitle(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!TaskTitle.isValidName(trimmedName)) {
+        if (!TaskTitle.isValidTitle(trimmedName)) {
             throw new ParseException(TaskTitle.MESSAGE_CONSTRAINTS);
         }
         return new TaskTitle(trimmedName);
     }
 
     /**
-     * Parses a {@code String phone} into a {@code TaskTime}.
+     * Parses a {@code String phone} into a {@code TaskDay}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static TaskTime parsePhone(String phone) throws ParseException {
+    public static TaskDay parseTime(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!TaskTime.isValidPhone(trimmedPhone)) {
-            throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
+        if (!TaskDay.isValidDay(trimmedPhone)) {
+            throw new ParseException(TaskDay.MESSAGE_CONSTRAINTS);
         }
-        return new TaskTime(trimmedPhone);
+        return new TaskDay(trimmedPhone);
     }
 
     /**
-     * Parses a {@code String address} into an {@code TaskPlace}.
+     * Parses a {@code String address} into an {@code TaskTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static TaskPlace parseAddress(String address) throws ParseException {
+    public static TaskTime parsePlace(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!TaskPlace.isValidAddress(trimmedAddress)) {
-            throw new ParseException(TaskPlace.MESSAGE_CONSTRAINTS);
+        if (!TaskTime.isValidTime(trimmedAddress)) {
+            throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
         }
-        return new TaskPlace(trimmedAddress);
+        return new TaskTime(trimmedAddress);
     }
 
     /**
@@ -86,13 +87,28 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static TaskDescription parseEmail(String email) throws ParseException {
+    public static TaskDescription parseDescription(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!TaskDescription.isValidEmail(trimmedEmail)) {
+        if (!TaskDescription.isValidDescription(trimmedEmail)) {
             throw new ParseException(TaskDescription.MESSAGE_CONSTRAINTS);
         }
         return new TaskDescription(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String deadline} into an {@code TaskDeadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code deadline} is invalid.
+     */
+    public static TaskDeadline parseDeadline(String deadline) throws ParseException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
+        if (!TaskDeadline.isValidDeadline(trimmedDeadline)) {
+            throw new ParseException(TaskDeadline.MESSAGE_CONSTRAINTS);
+        }
+        return new TaskDeadline(trimmedDeadline);
     }
 
     /**
