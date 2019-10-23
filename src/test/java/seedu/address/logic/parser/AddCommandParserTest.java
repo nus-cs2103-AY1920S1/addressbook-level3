@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.travezy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COUNTRY_DESC_AMY;
@@ -34,14 +34,14 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.travezy.address.logic.commands.AddCommand;
-import seedu.travezy.address.logic.parser.AddCommandParser;
-import seedu.travezy.address.model.person.Address;
-import seedu.travezy.address.model.person.Email;
-import seedu.travezy.address.model.person.Name;
-import seedu.travezy.address.model.person.Person;
-import seedu.travezy.address.model.person.Phone;
-import seedu.travezy.address.model.tag.Tag;
+import seedu.address.address.logic.commands.AddCommand;
+import seedu.address.address.logic.parser.AddCommandParser;
+import seedu.address.address.model.person.Address;
+import seedu.address.address.model.person.Email;
+import seedu.address.address.model.person.Name;
+import seedu.address.address.model.person.Person;
+import seedu.address.address.model.person.Phone;
+import seedu.address.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {

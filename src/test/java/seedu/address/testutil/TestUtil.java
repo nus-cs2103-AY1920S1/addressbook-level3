@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import seedu.travezy.commons.core.index.Index;
-import seedu.travezy.address.model.AddressBookModel;
-import seedu.travezy.address.model.person.Person;
+import seedu.address.commons.core.index.Index;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.person.Person;
 
 /**
  * A utility class for test cases.

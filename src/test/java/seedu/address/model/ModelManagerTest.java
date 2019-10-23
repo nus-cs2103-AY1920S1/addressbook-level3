@@ -5,11 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.travezy.commons.core.GuiSettings;
-import seedu.travezy.address.model.AddressBook;
-import seedu.travezy.address.model.AddressBookModel;
-import seedu.travezy.address.model.AddressBookModelManager;
-import seedu.travezy.model.*;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.address.model.AddressBook;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.AddressBookModelManager;
 
 public class ModelManagerTest {
     private UserPrefsModel userPrefsModel = new UserPrefsModelManager();

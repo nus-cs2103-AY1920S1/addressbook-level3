@@ -2,27 +2,26 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.travezy.address.logic.commands.Command;
-import seedu.travezy.address.logic.commands.EditCommand;
-import seedu.travezy.commons.core.index.Index;
-import seedu.travezy.logic.commands.CommandResult;
-import seedu.travezy.logic.commands.exceptions.CommandException;
-import seedu.travezy.address.model.AddressBook;
-import seedu.travezy.address.model.AddressBookModel;
-import seedu.travezy.address.model.person.NameContainsKeywordsPredicate;
-import seedu.travezy.address.model.person.Person;
+import seedu.address.address.logic.commands.Command;
+import seedu.address.address.logic.commands.EditCommand;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.address.model.AddressBook;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**

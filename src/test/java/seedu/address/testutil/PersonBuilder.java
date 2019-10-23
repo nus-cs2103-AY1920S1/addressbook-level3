@@ -3,15 +3,15 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.travezy.address.model.country.Country;
-import seedu.travezy.address.model.person.Address;
-import seedu.travezy.address.model.person.Email;
-import seedu.travezy.address.model.person.Name;
-import seedu.travezy.address.model.person.Person;
-import seedu.travezy.address.model.person.Phone;
-import seedu.travezy.address.model.person.Remark;
-import seedu.travezy.address.model.tag.Tag;
-import seedu.travezy.address.model.util.SampleDataUtil;
+import seedu.address.address.model.country.Country;
+import seedu.address.address.model.person.Address;
+import seedu.address.address.model.person.Email;
+import seedu.address.address.model.person.Name;
+import seedu.address.address.model.person.Person;
+import seedu.address.address.model.person.Phone;
+import seedu.address.address.model.person.Remark;
+import seedu.address.address.model.tag.Tag;
+import seedu.address.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.

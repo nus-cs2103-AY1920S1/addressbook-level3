@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.travezy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -8,9 +8,9 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.travezy.address.logic.commands.FindCommand;
-import seedu.travezy.address.logic.parser.FindCommandParser;
-import seedu.travezy.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.address.logic.commands.FindCommand;
+import seedu.address.address.logic.parser.FindCommandParser;
+import seedu.address.address.model.person.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 

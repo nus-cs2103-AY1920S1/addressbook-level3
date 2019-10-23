@@ -10,22 +10,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.travezy.commons.core.GuiSettings;
-import seedu.travezy.address.logic.AddressBookLogic;
-import seedu.travezy.address.model.AddressBook;
-import seedu.travezy.address.model.AddressBookModel;
-import seedu.travezy.address.model.AddressBookModelManager;
-import seedu.travezy.logic.LogicManager;
-import seedu.travezy.address.storage.JsonAddressBookStorage;
-import seedu.travezy.storage.JsonUserPrefsStorage;
-import seedu.travezy.storage.StorageManager;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.address.model.AddressBook;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.AddressBookModelManager;
+import seedu.address.logic.LogicManager;
+import seedu.address.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.travezy.model.Model;
-import seedu.travezy.model.ModelManager;
-import seedu.travezy.model.UserPrefs;
-import seedu.travezy.model.UserPrefsModel;
-import seedu.travezy.model.UserPrefsModelManager;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.UserPrefsModel;
+import seedu.address.model.UserPrefsModelManager;
 
 public class LogicManagerTest {
     @TempDir

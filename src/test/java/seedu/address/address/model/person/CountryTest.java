@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.travezy.address.model.country.Country;
+import seedu.address.address.model.country.Country;
 
 public class CountryTest {
 

@@ -7,9 +7,7 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.travezy.commons.core.GuiSettings;
-import seedu.travezy.model.UserPrefs;
-import seedu.travezy.model.UserPrefsModelManager;
+import seedu.address.commons.core.GuiSettings;
 
 public class UserPrefsModelManagerTest {
 

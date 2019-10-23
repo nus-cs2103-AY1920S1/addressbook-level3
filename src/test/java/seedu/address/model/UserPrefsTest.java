@@ -3,7 +3,6 @@ package seedu.address.model;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import seedu.travezy.model.UserPrefs;
 
 public class UserPrefsTest {
 

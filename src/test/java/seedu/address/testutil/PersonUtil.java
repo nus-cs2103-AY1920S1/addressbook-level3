@@ -1,18 +1,18 @@
 package seedu.address.testutil;
 
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.travezy.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_COUNTRY;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.travezy.address.logic.commands.AddCommand;
-import seedu.travezy.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.travezy.address.model.person.Person;
-import seedu.travezy.address.model.tag.Tag;
+import seedu.address.address.logic.commands.AddCommand;
+import seedu.address.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.address.model.person.Person;
+import seedu.address.address.model.tag.Tag;
 
 /**
  * A utility class for Person.

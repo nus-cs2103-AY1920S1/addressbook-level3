@@ -3,7 +3,7 @@ package seedu.address.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.travezy.address.model.AddressBookModel.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.address.model.AddressBookModel.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -14,13 +14,11 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.travezy.address.model.AddressBook;
-import seedu.travezy.address.model.AddressBookModelManager;
-import seedu.travezy.commons.core.GuiSettings;
-import seedu.travezy.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.travezy.model.UserPrefs;
-import seedu.travezy.model.UserPrefsModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.UserPrefsModelManager;
 
 public class AddressBookModelManagerTest {
 

@@ -7,7 +7,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;
-import seedu.travezy.commons.util.StringUtil;
 
 public class StringUtilTest {
 

@@ -275,7 +275,14 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 == Features
 
-=== Itinerary Feature
+[[Features-Calendar]]
+
+TravEzy has several features which are listed below.
+Each of these features have their own design and implementation logic.
+
+=== Calendar
+
+=== Itinerary
 
 The itinerary feature in TravEzy allows users to organize their events by giving a certain time they planned to
 finish each event.
@@ -408,6 +415,16 @@ Running through all the events in the event list will ensure that all the events
 
 This sequential approach in implementing the `SearchCommand` will ensure that all the current events are being looked through
 based on the specific search condition and only the filtered list will be given as a result.
+
+=== Financial Tracker
+
+=== Diary
+
+
+=== Address Book
+
+
+=== Achievements
 
 == Documentation
 

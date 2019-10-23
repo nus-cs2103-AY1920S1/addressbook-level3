@@ -14,13 +14,12 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import seedu.travezy.address.logic.commands.AddCommand;
-import seedu.travezy.logic.commands.CommandResult;
-import seedu.travezy.logic.commands.exceptions.CommandException;
-import seedu.travezy.address.model.AddressBook;
-import seedu.travezy.address.model.AddressBookModel;
-import seedu.travezy.address.model.ReadOnlyAddressBook;
-import seedu.travezy.address.model.person.Person;
+import seedu.address.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.address.model.AddressBook;
+import seedu.address.address.model.AddressBookModel;
+import seedu.address.address.model.ReadOnlyAddressBook;
+import seedu.address.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
