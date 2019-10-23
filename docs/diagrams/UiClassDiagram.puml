@@ -16,7 +16,9 @@ Class BookmarkCard
 Class StatusBarFooter
 Class CommandBox
 package TabView <<Rectangle>>{
-Class HiddenModel #FFFFFF
+Class OfflinePanel
+Class BrowserPanel
+Class DashboardPanel
 }
 }
 
@@ -38,7 +40,9 @@ MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> BookmarkListPanel
 MainWindow *-down-> StatusBarFooter
-MainWindow *-down-> TabView
+MainWindow *-down-> BrowserPanel
+MainWindow *-down-> DashboardPanel
+MainWindow *-down-> OfflinePanel
 
 BookmarkListPanel -down-> BookmarkCard
 
@@ -50,6 +54,9 @@ BookmarkListPanel --|> UiPart
 BookmarkCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+OfflinePanel -down-|> UiPart
+BrowserPanel -down-|> UiPart
+DashboardPanel -down-|> UiPart
 
 BookmarkCard ..> Model
 TabView ..> Model

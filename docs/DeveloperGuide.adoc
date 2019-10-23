@@ -247,11 +247,13 @@ image::CommitActivityDiagram.png[]
 === [Proposed] Annotation feature
 ==== Proposed Implementation
 The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
-Such an offline document is represented by `OfflineDocument`, which contains `Paragraph`s. As each annotation is targeted to an entire paragraph,
+Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. As each annotation is targeted to an entire paragraph,
 we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
 
-The following object diagram shows a state where an `OfflineDocument`  object contains an annotated `Paragraph`:
+The following class diagram shows the structure of the `OfflineDocument` which supports annotations:
 //TODO: draw object diagram of this possible state
+.Structure of `OfflineDocument` designed to support annotations.
+//image::AnnotationOfflineDocumentClassDiagram.png[]
 
 
 There are three parts to the annotation feature:
