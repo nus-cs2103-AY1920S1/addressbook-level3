@@ -33,8 +33,8 @@ public abstract class MultiLoanCommand extends Command {
     private List<Index> loanIndices;
     private List<Person> persons;
 
-    private List<Index> hitLoanIndices;
-    private List<Index> missingLoanIndices;
+    protected List<Index> hitLoanIndices;
+    protected List<Index> missingLoanIndices;
 
     /**
      * Constructs a command capable of targeting multiple loans to act upon.
@@ -98,12 +98,9 @@ public abstract class MultiLoanCommand extends Command {
      * @param operation A `Consumer` that takes an index, gets the loan with that index, and acts on the loan.
      */
     protected void actOnTargetLoans(List<Index> targetLoanIndices, Consumer<Index> operation) {
-        int indicesProcessed = 0;
-        targetLoanIndices.sort(new Index.SortDescending()); // indices MUST be sorted before iteration
         for (Index index : targetLoanIndices) {
             try {
-                operation.accept(Index.fromZeroBased(index.getZeroBased() - indicesProcessed));
-                indicesProcessed++;
+                operation.accept(index);
                 hitLoanIndices.add(index);
             } catch (LoanNotFoundException e) {
                 missingLoanIndices.add(index);

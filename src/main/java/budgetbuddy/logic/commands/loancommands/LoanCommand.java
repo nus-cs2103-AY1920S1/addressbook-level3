@@ -35,7 +35,7 @@ public class LoanCommand extends Command {
             + PREFIX_DESCRIPTION + "Weed money. "
             + PREFIX_DATE + "4/12/2020";
 
-    public static final String MESSAGE_SUCCESS = "New loan added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New loan added:\n%1$s";
 
     private final Loan toAdd;
 
@@ -49,7 +49,7 @@ public class LoanCommand extends Command {
         requireAllNonNull(model, model.getLoansManager());
 
         model.getLoansManager().addLoan(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.LOAN);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getEssentialInfo()), CommandCategory.LOAN);
     }
 
     @Override
