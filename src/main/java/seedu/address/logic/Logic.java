@@ -46,6 +46,13 @@ public interface Logic {
     ReadOnlyDataBook<Order> getOrderBook();
 
     /**
+     * Returns the ArchivedOrder DataBook.
+     *
+     * @see seedu.address.model.Model#getOrderBook()
+     */
+    ReadOnlyDataBook<Order> getArchivedOrderBook();
+
+    /**
      * Returns the Phone DataBook.
      *
      * @see seedu.address.model.Model#getPhoneBook()
@@ -65,7 +72,7 @@ public interface Logic {
     ObservableList<Order> getFilteredOrderList();
 
     /** Returns an unmodifiable view of the filtered list of order */
-    ObservableList<Order> getArchivedFilteredOrderList();
+    ObservableList<Order> getFilteredArchivedOrderList();
 
     /** Returns an unmodifiable view of the filtered list of schedule */
     ObservableList<Schedule> getFilteredScheduleList();

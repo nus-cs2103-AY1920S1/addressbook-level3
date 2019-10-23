@@ -98,9 +98,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SellerManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a customer/phone/order/schedule).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -255,6 +255,7 @@ image::statsOverallClassDiagram.png[]
 
 Below is a more in-depth explanation at each step:
 
+
 step 1: User inputs a stats command e.g `generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13`.
 
 The commandBox executes it and the `MainWindow` runs its `executeCommand(commandText)` method.
@@ -277,6 +278,7 @@ step 3: After the logic component completes it execution and return a `CommandRe
 
 This then results in the `statsPayload` class being passed to `Logic` class and subsequently the `statistics` module,
 where the appropriate calculation will take place.
+
 
 step 4: `Statistic Manager` calculates the date
 
@@ -349,6 +351,21 @@ This implementation was however changed because we thought that the date shown o
 Hence, we decided to use a listener instead.
 `CalendarDate` is then placed in `Model` so that it can be edited right away while the Model executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
+
+=======
+=== Find Customer/Phone feature
+
+The find feature allows the user to find the order according to its data field or without any data field.
+
+* e.g. `find-c n/Alice` -- allows the user to find the customer with customer name "Alice".
+* e.g. `find-c Alice` -- would allow the user to find the customer with any data field that matches "Alice".
+
+
+==== Current Implementation
+
+In order to implement the find function, we decided to create a predicate for each field.
+
+=======
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -424,7 +441,7 @@ image::CommitActivityDiagram.png[]
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Pros: Easy to implement.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.

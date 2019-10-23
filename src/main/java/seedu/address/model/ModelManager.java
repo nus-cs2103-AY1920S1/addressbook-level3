@@ -35,11 +35,13 @@ public class ModelManager implements Model {
     private final DataBook<Phone> phoneBook;
     private final DataBook<Order> orderBook;
     private final DataBook<Schedule> scheduleBook;
+    private final DataBook<Order> archivedOrderBook;
 
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Phone> filteredPhones;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Schedule> filteredSchedules;
+    private final FilteredList<Order> filteredArchivedOrders;
 
     private final UserPrefs userPrefs;
     private final CalendarDate calendarDate;
@@ -61,11 +63,13 @@ public class ModelManager implements Model {
         this.phoneBook = new DataBook<>();
         this.orderBook = new DataBook<>();
         this.scheduleBook = new DataBook<>();
+        this.archivedOrderBook = new DataBook<>();
 
         this.filteredCustomers = new FilteredList<>(this.customerBook.getList());
         this.filteredPhones = new FilteredList<>(this.phoneBook.getList());
         this.filteredOrders = new FilteredList<>(this.orderBook.getList());
         this.filteredSchedules = new FilteredList<>(this.scheduleBook.getList());
+        this.filteredArchivedOrders = new FilteredList<>(this.archivedOrderBook.getList());
 
         this.calendarDate = new CalendarDate(Calendar.getInstance());
     }
@@ -76,7 +80,7 @@ public class ModelManager implements Model {
 
     public ModelManager(ReadOnlyDataBook<Customer> customerBook, ReadOnlyDataBook<Phone> phoneBook,
                         ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Schedule> scheduleBook,
-                        ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyDataBook<Order> archivedOrderBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(customerBook, phoneBook, orderBook, scheduleBook, userPrefs);
 
@@ -86,6 +90,7 @@ public class ModelManager implements Model {
         this.phoneBook = new DataBook<>(phoneBook);
         this.orderBook = new DataBook<>(orderBook);
         this.scheduleBook = new DataBook<>(scheduleBook);
+        this.archivedOrderBook = new DataBook<>(archivedOrderBook);
 
         this.userPrefs = new UserPrefs(userPrefs);
         this.calendarDate = new CalendarDate(Calendar.getInstance());
@@ -94,6 +99,7 @@ public class ModelManager implements Model {
         this.filteredPhones = new FilteredList<>(this.phoneBook.getList());
         this.filteredOrders = new FilteredList<>(this.orderBook.getList());
         this.filteredSchedules = new FilteredList<>(this.scheduleBook.getList());
+        this.filteredArchivedOrders = new FilteredList<>(this.archivedOrderBook.getList());
 
         this.addressBook = new AddressBook();
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -483,6 +489,60 @@ public class ModelManager implements Model {
         return calendarDate;
     }
 
+    //=========== Order DataBook ================================================================================
+
+    @Override
+    public void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook) {
+        this.archivedOrderBook.resetData(archivedOrderBook);
+    }
+
+    @Override
+    public ReadOnlyDataBook<Order> getArchivedOrderBook() {
+        return archivedOrderBook;
+    }
+
+    @Override
+    public boolean hasArchivedOrder(Order archivedOrder) {
+        requireNonNull(archivedOrder);
+        return archivedOrderBook.has(archivedOrder);
+    }
+
+    @Override
+    public void deleteArchivedOrder(Order target) {
+        archivedOrderBook.remove(target);
+
+    }
+
+    @Override
+    public void addArchivedOrder(Order archivedOrder) {
+        archivedOrderBook.add(archivedOrder);
+        updateFilteredArchivedOrderList(PREDICATE_SHOW_ALL_ORDER);
+    }
+
+    @Override
+    public void setArchivedOrder(Order target, Order editedArchived) {
+        requireAllNonNull(target, editedArchived);
+
+        archivedOrderBook.set(target, editedArchived);
+    }
+
+    //=========== Filtered Order List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code ArchivedOrder} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Order> getFilteredArchivedOrderList() {
+        return filteredArchivedOrders;
+    }
+
+    @Override
+    public void updateFilteredArchivedOrderList(Predicate<Order> predicate) {
+        requireNonNull(predicate);
+        filteredArchivedOrders.setPredicate(predicate);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -502,11 +562,13 @@ public class ModelManager implements Model {
                 && phoneBook.equals(other.phoneBook)
                 && orderBook.equals(other.orderBook)
                 && scheduleBook.equals(other.scheduleBook)
+                && archivedOrderBook.equals(other.archivedOrderBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCustomers.equals(other.filteredCustomers)
                 && filteredPhones.equals(other.filteredPhones)
                 && filteredOrders.equals(other.filteredOrders)
-                && filteredSchedules.equals(other.filteredSchedules);
+                && filteredSchedules.equals(other.filteredSchedules)
+                && filteredArchivedOrders.equals(other.filteredArchivedOrders);
     }
 
 }

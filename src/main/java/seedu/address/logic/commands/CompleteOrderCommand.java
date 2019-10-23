@@ -58,9 +58,12 @@ public class CompleteOrderCommand extends Command {
         Set<Tag> tags = orderToComplete.getTags();
         Order completedOrder = new Order(id, customer, phone, price, Status.COMPLETED, schedule, tags);
 
-        model.setOrder(orderToComplete, completedOrder);
 
-        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete), UiChange.ORDER);
+        model.addArchivedOrder(completedOrder);
+        model.deletePhone(phone);
+
+        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete),
+                UiChange.ARCHIVED_ORDER);
     }
 
     @Override
