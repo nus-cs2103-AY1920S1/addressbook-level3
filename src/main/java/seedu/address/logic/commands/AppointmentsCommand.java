@@ -49,7 +49,7 @@ public class AppointmentsCommand extends NonActionableCommand {
         }
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
+                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }
 
     /**
