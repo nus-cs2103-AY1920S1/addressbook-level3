@@ -78,6 +78,11 @@ public interface Model {
     void updateOngoingVisit(Visit updatedVisit);
 
     /**
+     * Cancel the ongoing visit if there is an ongoing visit.
+     */
+    void cancelOngoingVisit();
+
+    /**
      * Set the ongoing visit of person in the model to null.
      */
     void unsetOngoingVisit();

@@ -143,6 +143,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void cancelOngoingVisit() {
+        Optional<Visit> optionalVisit = getOngoingVisit();
+        if (optionalVisit.isPresent()) {
+            unsetOngoingVisit();
+            Visit visit = optionalVisit.get();
+            visit.getPatient().removeVisit(visit, this);
+        }
+    }
+
+    @Override
     public void unsetOngoingVisit() {
         ongoingVisitList.clear();
         stagedAddressBook.unsetOngoingVisit();
