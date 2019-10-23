@@ -43,6 +43,7 @@ public class AddCommandIntegrationTest {
     }
 
     //@@author ambervoong
+    /*
     @Test
     public void undo_previouslyExecuted_success() throws CommandException {
         ClearCommand clearCommand = new ClearCommand();
@@ -60,6 +61,7 @@ public class AddCommandIntegrationTest {
         String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, TYPICAL_BODY);
         assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
     }
+    */
 
     @Test
     public void undo_notExecutedBefore_undoFailureException() {
