@@ -324,13 +324,14 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 When a book is successfully loaned out by a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
 to the number of loans in the `LoanRecords` object in the model. The `startDate` is also automatically set to today's date.
 The `endDate` is automatically set according to the loan period set in the user settings. This `Loan` object is added to
-`LoanRecords`.
+`LoanRecords` through the call to `Model#addLoan(loan)`.
 
 The new `Borrower` instance is created by copying the details of the borrower from the original object, and also with this `Loan`
-object being added into its `currentLoanList`. The new `Book` instance is also created by copying the details of the original
-book object, and likewise, with this `Loan` object added into it. The new borrower object then replaces the old borrower
-object in the `BorrowerRecords` object in the model. Likewise, the new book object also replaces the old book object
-in the `Catalog` object in the model. These were done to support immutability of the objects.
+object being added into its `currentLoanList`. The new borrower object then replaces the old borrower object in the
+`BorrowerRecords` object in the model. These two steps are done through the method call to `Model#servingBorrowerNewLoan(loan)`.
+The new `Book` instance is also created by copying the details of the original book object, and likewise, with this `Loan` object added into it.
+Similarly, the new book object also replaces the old book object in the `Catalog` object in the model through the call to
+`Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support immutability of the objects.
 
 ===== Returning
 
@@ -339,7 +340,8 @@ When a loaned out book is successfully returned by a borrower, the associated `L
 object, the `returnDate` is added according to today's date. The `remainingFineAmount` of this loan object is also
 calculated based on the fine amount set in the user settings.
 
-Similarly, the creation of new objects for replacement are also done to support immutability.
+Similarly, the creation of new objects for replacement are also done to support immutability. They are supported by the
+methods `Model#setBook(bookToBeReturned, returnedBook)` and `Model#servingBorrowerReturnLoan(returningLoan)`.
 
 ===== Renewing
 
