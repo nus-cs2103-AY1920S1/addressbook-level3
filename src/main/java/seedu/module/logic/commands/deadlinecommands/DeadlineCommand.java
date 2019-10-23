@@ -1,4 +1,4 @@
-package seedu.module.logic.commands.deadlineCommands;
+package seedu.module.logic.commands.deadlinecommands;
 
 import static seedu.module.logic.parser.CliSyntax.PREFIX_ACTION;
 import static seedu.module.logic.parser.CliSyntax.PREFIX_DESCRIPTION;

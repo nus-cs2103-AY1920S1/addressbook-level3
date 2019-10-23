@@ -58,5 +58,3 @@ public class ArgumentMultimap {
         return getValue(new Prefix("")).orElse("");
     }
 }
-
-

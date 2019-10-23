@@ -13,6 +13,8 @@ public class TrackedModule implements Module, Trackable {
     private final ArchivedModule archivedModule;
     private List<Deadline> deadlineList = new ArrayList<>();
 
+    private List<Link> links = new ArrayList<>();
+
     /**
      * Every field must be present and not null.
      */
@@ -49,6 +51,10 @@ public class TrackedModule implements Module, Trackable {
         this.deadlineList.add(deadline);
     }
 
+    public List<Link> getLink() {
+        return links;
+    }
+
     /**
      * Returns true if both modules of the same name have the same identity field.
      * This defines a weaker notion of equality between two modules.
@@ -60,6 +66,28 @@ public class TrackedModule implements Module, Trackable {
 
         return otherTrackedModule != null
                 && otherTrackedModule.getModuleCode().equals(getModuleCode());
+    }
+
+    /**
+     * Adds a link to the List of links in this module.
+     * @param link link to add
+     */
+    public void addLink(Link link) {
+        this.links.add(link);
+    }
+
+    /**
+     * Returns true if there exists a link with the same title
+     * @param link
+     * @return
+     */
+    public boolean hasLinkTitle(Link link) {
+        for (Link l: links) {
+            if (link.name.equals(l.name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

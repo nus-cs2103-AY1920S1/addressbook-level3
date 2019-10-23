@@ -37,5 +37,3 @@ public class Prefix {
         return otherPrefix.getPrefix().equals(getPrefix());
     }
 }
-
-

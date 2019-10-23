@@ -5,7 +5,7 @@ import static seedu.module.logic.parser.CliSyntax.PREFIX_ACTION;
 import static seedu.module.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.module.logic.parser.CliSyntax.PREFIX_TIME;
 
-import seedu.module.logic.commands.deadlineCommands.DeadlineCommand;
+import seedu.module.logic.commands.deadlinecommands.DeadlineCommand;
 import seedu.module.logic.parser.exceptions.ParseException;
 
 /**

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox id="mainPanel" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="mainPanel" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -28,6 +29,12 @@
                <Text fx:id="description" styleClass="text-bright" text="\$description" />
             </children>
          </TextFlow>
+         <HBox alignment="BOTTOM_LEFT">
+            <children>
+               <Label styleClass="label-bright" text="Links: " />
+               <FlowPane fx:id="links" alignment="BOTTOM_LEFT" />
+            </children>
+         </HBox>
         </VBox>
       <rowConstraints>
          <RowConstraints />

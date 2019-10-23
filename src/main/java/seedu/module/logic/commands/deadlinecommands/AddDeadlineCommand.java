@@ -1,4 +1,4 @@
-package seedu.module.logic.commands.deadlineCommands;
+package seedu.module.logic.commands.deadlinecommands;
 import java.util.List;
 
 import seedu.module.commons.core.Messages;

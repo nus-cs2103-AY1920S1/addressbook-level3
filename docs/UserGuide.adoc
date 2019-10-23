@@ -221,8 +221,41 @@ Deletes deadline task numbered from the respective module.
 
 Example: `deadline cs2103t a/delete l/2`
 
-=== Listing all tracked modules : `list`
+=== Manage links in modules: `link`
 
+==== `add`
+
+Format: `link MODULE_CODE a/add t/LINK_TITLE l/LINK_URL`
+
+Adds link provided to the respective module.
+
+Example: `link cs1231 a/add t/course website l/https://www.comp.nus.edu.sg/~cs1231/`
+
+==== `edit`
+
+Format: `link MODULE_CODE a/edit t/LINK_TITLE [nt/EDITED_TITLE nl/EDITED_LINK]`
+
+Edits the link identified by its current title for the respective module.
+
+Example: `link cs1231 a/edit t/course website nt/module website`
+
+==== `go`
+
+Format: `link MODULE_CODE a/go t/LINK_TITLE`
+
+Launches the link in the user system's default browser.
+
+Example: `link cs1231 a/go t/module website`
+
+==== `delete`
+
+Format: `link MODULE_CODE a/delete t/LINK_TITLE`
+
+Deletes the link with the given link title in the respective module.
+
+Example: `link cs1231 a/delete t/module website`
+
+=== Listing all modules : `list`
 Shows a list of all current tracked modules. +
 Format: `list`
 
