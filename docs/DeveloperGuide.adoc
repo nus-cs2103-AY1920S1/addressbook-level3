@@ -293,9 +293,12 @@ from StackOverflow with the tag ProgrammingHelp. A `SelectiveBookmarkTagger` is 
 image::AutotagState1.png[]
 
 The following sequence diagram shows how the `autotag` command works.
+__(The sequence diagram will be improved in future versions of the Developer Guide.)__
 
-// TODO: make sequence diagram
+// TODO: improve sequence diagram
 image::AutotagSequenceDiagram.png[]
+
+NOTE: The lifeline for `AutotagCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, it reaches the end of this diagram.
 
 Now, autotags will be applied whenever a bookmark is added or modified.
 
@@ -307,6 +310,7 @@ image::AutotagState2.png[]
 The following activity diagram summarizes what happens when a user executes a `*autotag*` command:
 
 // TODO: make activity diagram
+.The activity diagram has not been created yet
 image::AutotagActivityDiagram.png[]
 
 ==== Design Considerations
