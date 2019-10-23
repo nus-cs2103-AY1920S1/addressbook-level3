@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.model.mapping.Mapping;
 
@@ -24,6 +25,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Inventory> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Mapping> PREDICATE_SHOW_ALL_MAPPINGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -211,4 +214,7 @@ public interface Model {
 
     void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask);
 
+    Statistics getStatistics();
+
+    void setStatistics(Statistics newStats);
 }

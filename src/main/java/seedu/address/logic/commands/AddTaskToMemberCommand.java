@@ -25,12 +25,14 @@ public class AddTaskToMemberCommand extends Command {
             + "by the index number used in the displayed task list, to the member indicated "
             + "by the member ID. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TASK_INDEX + "TASK_INDEX"
+            + PREFIX_TASK_INDEX + "TASK_INDEX "
             + PREFIX_MEMBER_ID + "MEMBER_ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_INDEX + " 2 "
-            + PREFIX_MEMBER_ID + " JD";
+            + PREFIX_TASK_INDEX + "2 "
+            + PREFIX_MEMBER_ID + "JD";
 
+    public static final String MESSAGE_SUCCESS = "New mapping added: %1$s";
+    public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
     public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
 
     private final Index taskId;
@@ -63,7 +65,7 @@ public class AddTaskToMemberCommand extends Command {
         Member involvedMember = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
-            if (lastShownMemberList.get(i).getId() == memberId) {
+            if (lastShownMemberList.get(i).getId().equals(memberId)) {
                 contains = true;
                 involvedMember = lastShownMemberList.get(i);
                 break;
@@ -76,6 +78,11 @@ public class AddTaskToMemberCommand extends Command {
 
         Task taskToAdd = lastShownTaskList.get(taskId.getZeroBased());
         Mapping mappingToAdd = createMapping(involvedMember, taskToAdd);
+
+        if(model.hasMapping(mappingToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MAPPING);
+        }
+
         model.addMapping(mappingToAdd);
 
         return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedMember));

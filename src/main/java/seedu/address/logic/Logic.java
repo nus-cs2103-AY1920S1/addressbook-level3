@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.member.Member;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 
 /**
@@ -69,4 +70,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    public Statistics getStatistics();
 }

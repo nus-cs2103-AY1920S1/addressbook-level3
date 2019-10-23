@@ -19,6 +19,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -87,6 +88,11 @@ public class ProjectDashboardParserTest {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
 
+    @Test
+    public void parseCommand_getStats() throws Exception {
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD) instanceof GetStatisticsCommand);
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD  + " 3") instanceof GetStatisticsCommand);
+    }
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
