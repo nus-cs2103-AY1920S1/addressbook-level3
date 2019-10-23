@@ -53,7 +53,10 @@ When you enter a command that is not used by the feature, the following message 
 
 image::InapplicableCommand.png[]
 
-In this case, `expenditure`, a command for the "Analytics".
+In this case, `expenditure`, a command for the "Analytics", is not recognised as the application is currently
+is the "Transactions" tab.
+
+=== Switching tabs
 
 We offer three modes for you to switch tab:
 
@@ -75,6 +78,7 @@ The global commands and shortcut keys are summarized in the table below:
 
 To use the global command, simply enter the command as you would for any other
 command, and the application automatically switches to the appropriate tab.
+These commands are recognised regardless of which tab you are currently using.
 
 [[Features]]
 == Features
