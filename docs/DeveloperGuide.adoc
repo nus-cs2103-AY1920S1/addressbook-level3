@@ -133,7 +133,18 @@ The `Model`,
 * Model is the bridge between Logic and Storage and provides an abstraction of how the data is stored in memory.
 * It exposes a `ReadableEntityList` which only has the list method to remind Logic that the data given should not be modified.
 * The UI can be bound to these lists so that it automatically updates when the contents of the list change.
+* At the heart of the model are observable lists which allow for the dynamic updating of the UI.
 * The `Model` interface also serves as an API through which controller can edit the data stored in memory.
+
+`ModelManager`
+* ModelManager implements all the methods exposed by the Model Interface. At its heart, it only contains 3 `EntityLists`
+, 3 `FilteredLists` and a `UserPrefs` Object and does all the validation logic needed for the application
+
+.Simple Illustration of ModelManager
+image::ModelManagerClassDiagram.png[]
+
+.EntityList simplified structure
+image::EntityListClassDiagram.png[]
 
 
 [[Design-Storage]]
@@ -558,22 +569,21 @@ _{ more test cases ... }_
 
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a Participant while all participants are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Prerequisites: List all participants using the `list participants` command. Multiple participants in the list.
+.. Test case: `delete participant P-1` +
+   Expected: Participant with id P-1. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete participant P-101212323` +
+   Expected: No participant is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Prerequisites: Create a JSON with corrupted data, or any data at all
+.. Test case: Start the application. Logger should  kindly inform you that the storage files
+are corrupted and hence it defaults to using empty lists.

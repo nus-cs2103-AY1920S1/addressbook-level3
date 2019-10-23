@@ -69,7 +69,7 @@ For example in the case of `add {mentor/participant/list}`, you can choose to ty
 * Type your commands in the textbox displayed on the Alfred UI. After you are done typing the command, press ENTER on your keyboard to execute the command.
 ====
 
-=== Viewing help : `help`
+=== Viewing help : `help` (Coming in v1.3)
 
 This command displays a help page in a separate pop-up window. Should you require further information,
 the pop-up window also includes links to further references and documentation. +
@@ -242,6 +242,13 @@ Example:
 
 * `addBulk C:\User\Hackathon2019\participant.csv` will import data from the participant.csv file into Alfred.
 
+=== Help command (Coming in v1.3)
+
+The help command will list down all the commands you need to use this
+application properly!
+
+Simply run `help`.
+
 === Seating: `locate {PARTICIPANT/TEAM}` (Coming in v2.0)
 Find where a particular participant or team is seated.
 
@@ -250,6 +257,7 @@ Examples:
 * `locate n/Brian` will tell you where the participant Brian is seated.
 
 * `locate n/GenericTeamName` will tell you where the team GenericTeamName is seated.
+
 
 === Swag (Coming in v2.0)
 ==== Add Swag: `add swag DESCRIPTION QUANTITY`
