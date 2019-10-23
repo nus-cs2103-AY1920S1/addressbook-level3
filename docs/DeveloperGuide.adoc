@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+== Developer Guide
+=======
 = guiltTrip() - Developer Guide
+>>>>>>> c02ab6600907c091df79d84666367c8c13d126ef
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,6 +11,76 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+<<<<<<< HEAD
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+== Logic component
+
+.Structure of the Logic Component
+image::LogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+== Statistics component
+
+.Structure of the Statistics Component
+image::StatisticsClass.png[]
+
+.  `Statistics` contains an ObservableMap of `MonthlyList` class.
+.  `MonthlyList` contains an ObservableMap of `DailyList` class.
+.  `DailyList` contains an ObservableMap of `CategoryList` class.
+.  These lists are populated when the guiltTrip() is started up and the content is retrieved from Storage.
+.  Any added entries are updated in the `CategoryList` and `DailyList` classes.
+
+=== Features
+==== Data Presentation
+===== Sort Command
+====== Implementation
+The sort command extends the Command class. It works on the SortedList by adding a Comparator to the List. By default, the EntryList is sorted by date.
+
+. The user executes the command `sort typ/Expense s/ascending`
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `SortCommand` object which is executed by the `LogicManager`.
+.  The `SortCommand` calls the `Model` 's sortFilteredEntryList to sort the list of entries.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  `Logic` returns the `CommandResult` object.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("sort typ/Expense s/ascending")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::SortSequence.png[]
+
+===== ViewHistory Command
+====== Implementation
+The viewHistory command extends the Command class. It calls methods from the Statistics Manager which handles the calculation of the statistics and returns it to the user.
+
+. The user executes the command `viewHistory typ/Expense`
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `viewHistoryCommand` object which is executed by the `LogicManager`.
+.  The `viewHistoryCommand` calls the `Model` 's generateHistory method which calls on the `StatisticsManager` generateHistory method to calculate the statistics for that type.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  `Logic` returns the `CommandResult` object.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewHistory typ/Expense")` API call.
+
+.Interactions Inside the Logic Component for the `viewHistory typ/Expense` Command
+image::viewHistorySequenceDiagram.png[]
+=======
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -78,6 +152,7 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
+>>>>>>> c02ab6600907c091df79d84666367c8c13d126ef
 === Target User Profile
 
 Youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending.

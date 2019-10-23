@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Arrays;
+
 /**
  * Represents a SortType in the finance manager.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -10,13 +12,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class SortType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Sort Type should only be either amount, description, time or tags";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String[] VALIDATIONLIST = new String[]{"amount", "description" , "time" , "tags"};
 
     public final String fullType;
 
@@ -25,7 +27,7 @@ public class SortType {
      *
      * @param desc A valid name.
      */
-    public SortType(String fullType) {
+    public SortType(String fullType) throws IllegalArgumentException {
         requireNonNull(fullType);
         checkArgument(isValidDescription(fullType), MESSAGE_CONSTRAINTS);
         this.fullType = fullType;
@@ -35,7 +37,7 @@ public class SortType {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidDescription(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return Arrays.stream(VALIDATIONLIST).anyMatch(t -> t.equalsIgnoreCase(test));
     }
 
 

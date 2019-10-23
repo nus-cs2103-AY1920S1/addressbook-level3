@@ -30,8 +30,8 @@ import seedu.address.model.util.EntryComparator;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private final SortType sortByDescription = new SortType("description");
-    private final SortSequence sortByAsc = new SortSequence("ascending");
+    private final SortType sortByTime = new SortType("time");
+    private final SortSequence sortByAsc = new SortSequence("descending");
     private final UserPrefs userPrefs;
     private final FilteredList<Entry> filteredEntries;
     private final FilteredList<Expense> filteredExpenses;
@@ -62,7 +62,7 @@ public class ModelManager implements Model {
         filteredBudgets = new FilteredList<>(versionedAddressBook.getBudgetList());
         filteredAutoExpenses = new FilteredList<>(versionedAddressBook.getAutoExpenseList());
         sortedEntryList = new SortedList<>(versionedAddressBook.getEntryList());
-        sortedEntryList.setComparator(new EntryComparator(sortByDescription, sortByAsc));
+        sortedEntryList.setComparator(new EntryComparator(sortByTime, sortByAsc));
         filteredEntries = new FilteredList<>(sortedEntryList);
         filteredExpenseReminders = new FilteredList<>(versionedAddressBook.getExpenseReminderList());
         filteredWishReminders = new FilteredList<>(versionedAddressBook.getWishReminderList());
@@ -202,14 +202,14 @@ public class ModelManager implements Model {
         } else if (entry instanceof Budget) {
             versionedAddressBook.addBudget((Budget) entry);
         }
-        sortFilteredEntry(sortByDescription, sortByAsc);
+        sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addExpense(Expense expense) {
         versionedAddressBook.addExpense(expense);
-        sortFilteredEntry(sortByDescription, sortByAsc);
+        sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         expenseTrackers.track(filteredExpenses);
         versionedAddressBook.updateExpenseReminders();
@@ -218,14 +218,14 @@ public class ModelManager implements Model {
     @Override
     public void addIncome(Income income) {
         versionedAddressBook.addIncome(income);
-        sortFilteredEntry(sortByDescription, sortByAsc);
+        sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addWish(Wish wish) {
         versionedAddressBook.addWish(wish);
-        sortFilteredEntry(sortByDescription, sortByAsc);
+        sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
