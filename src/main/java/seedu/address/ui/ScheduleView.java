@@ -16,16 +16,16 @@ public class ScheduleView extends UiPart<Region> {
 
     private static final String FXML = "ScheduleView.fxml";
 
-    private List<List<String>> titles;
-    private List<ObservableList<ObservableList<String>>> scheduleList; // Excluding titles
+    private List<String> titles;
+    private ObservableList<ObservableList<String>> schedule; // Excluding titles
 
     @FXML
     private TableView tableView;
 
-    ScheduleView(List<List<String>> titles, List<ObservableList<ObservableList<String>>> scheduleList) {
+    ScheduleView(List<String> titles, ObservableList<ObservableList<String>> schedule) {
         super(FXML);
         this.titles = titles;
-        this.scheduleList = scheduleList;
+        this.schedule = schedule;
         initialise();
     }
 
@@ -33,26 +33,18 @@ public class ScheduleView extends UiPart<Region> {
      * Allow the creation of table.
      */
     private void initialise() {
-        // Currently the code here will only retrieve the first list of titles.
-        for (int i = 0; i < titles.get(0).size(); i++) {
+        for (int i = 0; i < this.titles.size(); i++) {
             final int finalIdx = i;
             TableColumn<ObservableList<String>, String> column =
                     new TableColumn<ObservableList<String>, String>(
-                            titles.get(0).get(i)
+                            this.titles.get(i)
                     );
             column.setCellValueFactory(param ->
                     new ReadOnlyObjectWrapper<>(param.getValue().get(finalIdx))
             );
             this.tableView.getColumns().add(column);
-            this.tableView.setColumnResizePolicy(this.tableView.CONSTRAINED_RESIZE_POLICY);
+            this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         }
-
-        // the data of the schedule now excludes the titles, so titles is not in the first row of data returned anymore
-        for (int i = 0; i < this.scheduleList.get(0).size(); i++) {
-            this.tableView.getItems().add(
-                    this.scheduleList.get(0).get(i)
-            );
-        }
+        this.tableView.setItems(this.schedule);
     }
 }
-

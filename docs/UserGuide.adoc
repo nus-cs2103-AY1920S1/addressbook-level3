@@ -105,6 +105,17 @@ Notes:
 
 === UI Display
 
+==== Viewing Schedules
+When the Scheduler starts, interview schedules will be displayed for you. The data will be displayed in a table format,
+with each table representing the schedule for each day. In the first column, the date of that interview schedule will be
+displayed, the rest of the columns are the departments and the name of their respective person in charge. Subsequent rows
+will be be displayed by showing the time slot first, with the person allocated to that time slot. If there are no interviewee
+occupying that time slot, it will be displayed as "0".
+
+A sample output of the Schedule UI is shown below:
+
+image::Ui/Schedule.png[width="500", align="left"]
+
 ==== Viewing details of interviewees
 You can to view the list of interviewees and the following information:
 1. Name
@@ -124,18 +135,6 @@ image::Ui/Interviewee.png[width="500", align="left"]
 
 In this screen, you can edit, add or delete interviewees accordingly by using the other features explained in
 this User Guide.
-
-==== Display weekly schedule
-Display the interviews that has been scheduled by the application. Allows you to have an weekly overview of
-interviews during that week by typing the following command +
-Format:  `display date DATE (eg. 24/06/2019)`
-
-Doing so will allow the scheduler to show the timetable for that week.
-
-image::Ui/Timetable.png[width="500", align="left"]
-
-The timetable will also show the availability of the interviewer and block out the time slots when the interviewer
-is unavailable.
 
 ==== Differentiating the importance of timetable slots through colours `[Coming in v2.0]`
 As you can see from the timetable above, there are 2 different colours of time slots. This is implemented so you
@@ -250,9 +249,6 @@ Format: `record rank`
 
 |Display list of interviewers/interviewees
 |`display interviewees`
-
-|Display weekly schedule
-|`display date DATE`
 
 |Get interview schedule for interviewer/interviewee
 |`get NAME` +

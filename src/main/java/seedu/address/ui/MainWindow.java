@@ -34,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ScheduleView scheduleView;
+    private ScheduleViewPanel scheduleViewPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -109,8 +109,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        scheduleView = new ScheduleView(logic.getTitlesLists(), logic.getObservableLists());
-        schedulePanelPlaceholder.getChildren().add(scheduleView.getRoot());
+        scheduleViewPanel = new ScheduleViewPanel(logic.getTitlesLists(), logic.getObservableLists());
+        schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -164,6 +164,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public ScheduleViewPanel getScheduleViewPanel() {
+        return scheduleViewPanel;
     }
 
     /**
