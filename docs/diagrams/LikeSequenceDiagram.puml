@@ -1,0 +1,116 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":PreferenceCommandParser" as PreferenceCommandParser LOGIC_COLOR
+participant "d:LikeCommand" as LikeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":UserRecommendations" as UserRecommendations MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+participant ":JsonRecsStorage" as JsonRecsStorage STORAGE_COLOR
+participant ":JsonSerializableRecs" as JsonSerializableRecs STORAGE_COLOR
+participant ":JsonAdaptedRecs" as JsonAdaptedRecs STORAGE_COLOR
+end box
+
+legend bottom
+Legend:
+* CS: categorySet
+* TS: tagSet
+* LS: locationSet
+end legend
+
+[-> LogicManager : execute("like c/Western")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("like c/Western")
+activate SaveNusParser
+
+create PreferenceCommandParser
+SaveNusParser -> PreferenceCommandParser
+activate PreferenceCommandParser
+
+PreferenceCommandParser --> SaveNusParser
+deactivate PreferenceCommandParser
+
+SaveNusParser -> PreferenceCommandParser : parse("c/Western", true)
+activate PreferenceCommandParser
+
+create LikeCommand
+PreferenceCommandParser -> LikeCommand
+activate LikeCommand
+
+LikeCommand --> PreferenceCommandParser : d
+deactivate LikeCommand
+
+PreferenceCommandParser --> SaveNusParser : d
+deactivate PreferenceCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+PreferenceCommandParser -[hidden]-> SaveNusParser
+destroy PreferenceCommandParser
+
+SaveNusParser --> LogicManager : d
+deactivate SaveNusParser
+
+LogicManager -> LikeCommand : execute()
+activate LikeCommand
+
+LikeCommand -> Model : addLikes(CS, TS, LS)
+activate Model
+
+Model --> UserRecommendations : addLikes(CS, TS, LS)
+activate UserRecommendations
+
+UserRecommendations --> Model
+deactivate UserRecommendations
+
+Model --> LikeCommand
+deactivate Model
+
+create CommandResult
+LikeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> LikeCommand
+deactivate CommandResult
+
+LikeCommand --> LogicManager : result
+deactivate LikeCommand
+
+LogicManager -> Storage : saveRecs(model.getRecommendationSystem().getUserRecommendations())
+activate Storage
+
+Storage -> JsonRecsStorage : saveRecs(recs)
+activate JsonRecsStorage
+
+create JsonSerializableRecs
+JsonRecsStorage -> JsonSerializableRecs
+activate JsonSerializableRecs
+
+create JsonAdaptedRecs
+JsonSerializableRecs -> JsonAdaptedRecs
+activate JsonAdaptedRecs
+
+JsonAdaptedRecs --> JsonSerializableRecs
+deactivate JsonAdaptedRecs
+
+JsonSerializableRecs --> JsonRecsStorage
+deactivate JsonSerializableRecs
+
+JsonRecsStorage --> Storage
+deactivate JsonRecsStorage
+
+Storage --> LogicManager
+deactivate Storage
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
