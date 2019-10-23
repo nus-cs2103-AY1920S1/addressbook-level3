@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -202,6 +203,8 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
             availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getFilteredStatusList());
             statisticsPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
+            Button button1 = new Button("UNUSED");
+            statisticsPlaceholder.getChildren().add(button1);
             break;
         case RESTAURANT:
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
