@@ -21,7 +21,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
     private final UniqueLessonList lessons;
-    //private final ArrayList<InvalidationListener> invalidationListenersList = new ArrayList<>();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
