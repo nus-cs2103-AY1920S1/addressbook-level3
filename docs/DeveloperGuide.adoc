@@ -262,8 +262,32 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+== Features
+
+[[Features-Calendar]]
+
+TravEzy has several features which are listed below.
+Each of these features have their own design and implementation logic.
+
+=== Calendar
+
+
+=== Itinerary
+
+
 === Financial Tracker
 ==== Expense Statistics
+
+
+=== Diary
+
+
+=== Address Book
+
+
+=== Achievements
+
+
 
 
 == Documentation
