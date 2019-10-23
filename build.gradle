@@ -106,6 +106,7 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
+
 task(guiTests)
 task(nonGuiTests)
 
@@ -163,7 +164,7 @@ test {
         }
 
         if (runGuiTests) {
-            test.include 'systemtests/**'
+            //test.include 'systemtests/**'
             test.include 'seedu/address/ui/**'
         }
 
