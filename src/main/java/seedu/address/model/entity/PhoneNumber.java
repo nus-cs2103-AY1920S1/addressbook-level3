@@ -43,7 +43,7 @@ public class PhoneNumber {
             return false;
         }
         PhoneNumber that = (PhoneNumber) o;
-        return Objects.equals(phoneNumber, that.phoneNumber);
+        return phoneNumber.equals(that.phoneNumber);
     }
 
     @Override
@@ -67,6 +67,11 @@ public class PhoneNumber {
         boolean isDigits = (pattern.matcher(phoneNumber).matches());
 
         return isLengthEight && isDigits && isFirstDigitCorrect;
+    }
+
+    @Override
+    public String toString() {
+        return getPhoneNumber();
     }
 }
 

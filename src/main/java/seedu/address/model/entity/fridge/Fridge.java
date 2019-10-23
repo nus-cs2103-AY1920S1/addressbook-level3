@@ -1,7 +1,9 @@
 package seedu.address.model.entity.fridge;
 
 import java.util.Objects;
+import java.util.Optional;
 
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 
@@ -10,34 +12,28 @@ import seedu.address.model.entity.body.Body;
  * Represents a fridge entry in Mortago.
  * Guarantees: fridgeIdNum and status are guaranteed to be present and not null
  */
-public class Fridge {
+public class Fridge implements Entity {
 
     // Identity field
-    private final IdentificationNumber fridgeIdNum;
+    private IdentificationNumber fridgeIdNum;
 
     // Data field
-    private Body body;
+    private Optional<Body> body;
     private FridgeStatus fridgeStatus;
 
-    public Fridge() {
-        this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
-        this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        this.body = null;
-    }
+    //@@author ambervoong
+    private int bodyId;
+    //@@author
 
-    public Fridge(boolean isTestFridge) {
-        if (isTestFridge) {
-            fridgeIdNum = IdentificationNumber.customGenerateId("F", 1);
-        } else {
-            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
-        }
+    public Fridge() {
+        this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
         this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        this.body = null;
+        this.body = Optional.ofNullable(null);
     }
 
     public Fridge(Body body) {
-        this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
-        this.body = body;
+        this.fridgeIdNum = IdentificationNumber.generateNewFridgeId(this);
+        this.body = Optional.ofNullable(body);
         if (body == null) {
             this.fridgeStatus = FridgeStatus.UNOCCUPIED;
         } else {
@@ -45,21 +41,30 @@ public class Fridge {
         }
     }
 
-    public Fridge(Body body, boolean isTestFridge) {
-        if (isTestFridge) {
-            this.fridgeIdNum = IdentificationNumber.customGenerateId("F", 1);
-        } else {
-            this.fridgeIdNum = IdentificationNumber.generateNewFridgeId();
-        }
-        this.body = body;
-        if (body == null) {
-            this.fridgeStatus = FridgeStatus.UNOCCUPIED;
-        } else {
-            this.fridgeStatus = FridgeStatus.OCCUPIED;
+    //@@author ambervoong
+    private Fridge(boolean wasStored) {
+        if (!wasStored) {
+            fridgeIdNum = IdentificationNumber.customGenerateId("F", 1);
         }
     }
+    //@@author
 
-    public IdentificationNumber getFridgeIdNum() {
+    /**
+     * Generates a new Fridge with a custom ID. Only used for creating a Fridge from storage.
+     * @param id ID of the stored Fridge.
+     * @return Fridge
+     */
+    public static Fridge generateNewStoredFridge(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException();
+        }
+        Fridge fridge = new Fridge(true);
+        fridge.fridgeIdNum = IdentificationNumber.generateNewFridgeId(fridge, id);
+        return fridge;
+    }
+    //@@author
+
+    public IdentificationNumber getIdNum() {
         return fridgeIdNum;
     }
 
@@ -67,7 +72,7 @@ public class Fridge {
         return fridgeStatus;
     }
 
-    public Body getBody() {
+    public Optional<Body> getBody() {
         return body;
     }
 
@@ -76,7 +81,7 @@ public class Fridge {
     }
 
     public void setBody(Body body) {
-        this.body = body;
+        this.body = Optional.ofNullable(body);
         if (body == null) {
             setFridgeStatus(FridgeStatus.UNOCCUPIED);
         } else {
@@ -84,19 +89,34 @@ public class Fridge {
         }
     }
 
+    //@@author ambervoong
+    public int getBodyId() {
+        return bodyId;
+    }
+
+    public void setBodyId(int bodyId) {
+        this.bodyId = bodyId;
+    }
+    //@@author
+
     /**
      * Returns true if both fridge have the same identity fields.
      * This defines a weaker notion of equality between two fridges.
      */
-    public boolean isSameFridge(Fridge otherFridge) {
+    public boolean isSameFridge(Object otherFridge) {
         if (otherFridge == this) {
             return true;
+        } else if (otherFridge instanceof Fridge) {
+            return otherFridge != null
+                && ((Fridge) otherFridge).getIdNum() == getIdNum();
+        } else {
+            return false;
         }
-
-        return otherFridge != null
-                && otherFridge.getFridgeIdNum() == getFridgeIdNum();
     }
 
+    public boolean isSameEntity(Object otherFridge) {
+        return isSameFridge(otherFridge);
+    }
     /**
      * Returns true if both fridge have the same identity and data fields.
      * This defines a stronger notion of equality between two fridges.
@@ -112,15 +132,15 @@ public class Fridge {
         }
 
         Fridge otherFridge = (Fridge) other;
-        return otherFridge.getFridgeIdNum().toString().equals(getFridgeIdNum().toString())
-                && otherFridge.getFridgeStatus() == getFridgeStatus()
-                && otherFridge.getBody() == getBody();
+        return otherFridge.getIdNum().toString().equals(getIdNum().toString())
+                && otherFridge.getFridgeStatus().equals(getFridgeStatus())
+                && otherFridge.getBody().equals(getBody());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(fridgeIdNum);
+        return Objects.hash(getIdNum());
     }
 
     @Override
@@ -128,17 +148,18 @@ public class Fridge {
         final StringBuilder builder = new StringBuilder();
         if (getBody() != null) {
             builder.append(" Fridge ID: ")
-                    .append(getFridgeIdNum())
+                    .append(getIdNum())
                     .append(" Status: ")
                     .append(getFridgeStatus())
                     .append(" Body: ")
                     .append(getBody());
         } else {
             builder.append(" Fridge ID: ")
-                    .append(getFridgeIdNum())
+                    .append(getIdNum())
                     .append(" Status: ")
                     .append(getFridgeStatus());
         }
         return builder.toString();
     }
 }
+//@@author

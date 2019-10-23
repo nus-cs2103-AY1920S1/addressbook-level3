@@ -232,6 +232,106 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::statistics[]
+=== [Proposed] Statistics feature
+==== Proposed Implementation
+
+The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
+
+//end::statistics[]
+=== Notification Feature
+A notification is a message that Mortago will display when the status of a body is automatically updated.
+If the next-of-kin of a body has not been uncontactable for 24 hours, Mortago will prompt the user to contact
+the police for a more thorough investigation and change the status of the body from `ARRIVED` to `CONTACT_POLICE`.
+
+==== Current Implementation
+Given below is the execution process of the `NotificationCommand`:
+
+1. The user executes `add -b /name John ...` to add a new body to Mortago.
+2. The add command also created a new new `Notif` using this body as the parameter.
+3. The add command instantiates a new`NotifCommand` with `Notif`, `period`, `unit` as parameters.
+`period` is a static final integer initialized for 10 seconds and `unit` is static final TimeUnit set at TimeUnit.SECONDS.
+4. `NotifCommand` creates a new static `ScheduledExecutorService` which is scheduled to update the `BodyStatus` to
+`CONTACT_POLICE` if there is no change in its status for the specified `period` using the `UpdateCommand`.
+5. After the `BodyStatus` is updated, a `NotifWindow` will be shown to alert the user of the automatic update in
+`BodyStatus`.
+
+.Notification Command Sequence Diagram
+image::NotifCommandSequenceDiagram.png[]
+
+.ChangeUI function Sequence Diagram
+image::ChangeUiFnSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to delay change in BodyStatus
+* **Alternative 1 (current choice):** Use `ScheduledExecutorService`.
+** Pros: Does not depend on thread synchronization and avoids the need to deal with threads directly.
+** Cons: May cause memory leaks if cache is not cleared.
+
+* **Alternative 2:** Use `Thread.sleep`
+** Pros: Straightforward way to delay a thread.
+** Cons: May quickly run into OutOfMemory error.
+
+==== Aspect: How to reflect change in BodyStatus on UI
+* **Alternative 1 (current choice):** Use `UpdateCommand`.
+** Pros: Easy to implement.
+** Cons: Increases `NotifCommand`'s dependency.
+
+* **Alternative 2: Directly make changes to the model.
+** Pros: Does not increase dependency .
+** Cons: Cause a lot of repetition of code.
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
+
+// tag::genpdf[]
+=== Generate PDF feature
+==== Implementation
+
+The generate PDF feature is facilitated by `ReportGenerator`.
+It extends `Mortago` with the ability to create a report, supported by iText external library.
+Additionally, it implements the following operations:
+
+* `ReportGenerator#generate(body)` -- Creates report in a PDF file for the specific body.
+* `ReportGenerator#generateAll()` -- Creates report in a PDF file for all bodies registered in Mortago.
+
+The following sequence diagram shows how the execute operation works:
+
+image::GenReportSequenceDiagram.png[]
+
+NOTE: The lifeline for `GenReportCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creates the document.
+
+The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID>` command:
+
+image::GenReportActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How generate report executes
+
+* **Alternative 1 (current choice):** Creates a PDF file.
+** Pros: Implementation is easy.
+** Cons: Implementation must ensure that each individual body attribute is correct.
+* **Alternative 2:** Creates a Word Document file.
+** Pros: Implementation allows user to edit the contents of the report.
+** Cons: Implementation defeats the purpose of being automated.
+
+===== Aspect: How report is formatted
+
+* **Alternative 1 (current choice):** Uses tables to organise related details in the report.
+** Pros: Implementation allows report to be organised, increases readability for user.
+** Cons: Implementation is tedious.
+* **Alternative 2:** Lists all attributes in the report without any formatting.
+** Pros: Implementation is easy.
+** Cons: Implementation decreases readability for user.
+// end::genpdf[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -287,61 +387,59 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |mortuary manager |keep track of all bodies and fridges in a single dashboard using the dashboard command |look out for any outstanding work and keep myself up to speed
 
-|`* * *` |mortuary manager |have a dynamically updated dashboard |reduce errors as compared to updating manually
+|`* * *` |mortuary manager |have a dynamically updated dashboard |reduce errors as compared to manually updating a whiteboard
 
-|`* * *` |mortuary manager |sort the bodies by certain characteristics using the `sort` command |view bodies of a speciic category and generate statistics easily
+|`* * *` |mortuary manager |key new bodies into the system |keep track of them
 
-|`* * *` |mortuary manager |filter the bodies by certain characteristics using `filter` command |view bodies of a certain category and generate statistics easily
+|`* * *` |mortuary manager |sort the bodies by certain characteristics |view bodies of a speciic category and generate statistics easily
 
-|`* * *` |mortuary manager |update the status of each and every worker, body and fridge with the `update <body/worker/fridge ID> <attribute>:<status>` command |know when (date & time) was each step of the process completed and the findings of each process (eg. cause of death)
+|`* * *` |mortuary manager |filter the bodies by certain characteristics |view bodies of a certain category and generate statistics easily
 
-|`* * *` |mortuary manager |delete a worker, body and fridge with the `delete <body/worker/fridge ID>` command |remove a worker when he quits, remove a wrong entry of the body, or remove a fridge
+|`* * *` |mortuary manager |update the status of each and every worker, body and fridge |know when (date & time) was each step of the process completed and the findings of each process (eg. cause of death)
 
-|`* * *` |mortuary manager |key new bodies into the system with the `add` command |keep track of them
+|`* * *` |mortuary manager |delete a worker, body and fridge |remove a worker when he quits, remove a wrong entry of the body, or remove a fridge
 
-|`* * *` |mortuary manager |switch between the dashboard and the detail views with the `tab __` command |view information in an appropriate format
+|`* * *` |mortuary manager |switch between the dashboard and the detail views |view information in an appropriate format
 
-|`* * *` |mortuary manager |view all free and vacant fridges with the `fridges` command |keep track of the overall vacancy of the morgue
+|`* * *` |mortuary manager |view all free and vacant fridges |keep track of the overall vacancy of the morgue
 
-|`* * *` |mortuary manager |view all registered bodies with the `bodies` command |view all bodies in the morgue
+|`* * *` |mortuary manager |view all registered bodies |view all bodies in the morgue
 
-|`* * *` |mortuary manager |view all registered body parts with the `bodyparts` command |view all body parts in the morgue
+|`* * *` |mortuary manager |view all registered body parts |view all body parts in the morgue
 
-|`* * *` |mortuary manager |view all the commands the app has with the `help` command |look at all the commands in one go
+|`* * *` |mortuary manager |view all the commands the app is capable of |look at all the commands in one go
 
-|`* * *` |mortuary manager |view emergency with the `hotlines` command |be efficient and respond quickly to emergencies
+|`* * *` |mortuary manager |view emergency hotlines |be efficient and respond quickly to emergencies
 
-|`* * *` |mortuary manager |read up on the use of a specific command of the app with the `help <CommandName>` command |understand a specific command which the app offers in more detail
+|`* * *` |mortuary manager |read up on the use of a specific command of the app |understand a specific command which the app offers in more detail
 
-|`* *` |mortuary manager |be alerted to bodies unclaimed after 24hours using the `alerts` command |know when to start the administrative process for donation to medical research
+|`* *` |mortuary manager |be alerted to bodies unclaimed after 24hours |know when to start the administrative process for donation to medical research
 
-|`* *` |mortuary manager |receive routine reports from the app automatically using the `genReport <body ID>` command |need not manually write in each and every single report
+|`* *` |mortuary manager |receive routine reports from the app automatically |need not manually write in each and every single report
 
-|`* *` |mortuary manager |view past reports with the command `reports` and individual reports with `report <body ID>` |easily obtain past reports for my own reference / authorities / other party
+|`* *` |mortuary manager |assign workers to tasks |know who was responsible for a task
 
-|`* *` |mortuary manager |assign workers to tasks using the `tagw` command |know who was responsible for a task
+|`* *` |mortuary manager |can undo my previous tasks |conveniently undo any wrong commands
 
-|`* *` |mortuary manager |can undo my previous tasks with the `undo` command |conveniently undo any wrong commands
+|`* *` |mortuary manager |redo my previous tasks |conveniently redo any undone commands
 
-|`* *` |mortuary manager |redo my previous tasks with the `redo` command |conveniently redo any undone commands
+|`* *` |mortuary manager |add new or existing workers |keep track of all the workers in the mortuary
 
-|`* *` |mortuary manager |add new or existing workers into the system with the flag -w (eg. `add -w`) command |keep track of all the workers in the mortuary
-
-|`* *` |mortuary manager |add new or existing fridge into the system with the flag -f (eg. `add -f`) command |keep track of all the fridges in the mortuary
+|`* *` |mortuary manager |add new or existing fridge |keep track of all the fridges in the mortuary
 
 |`* *` |mortuary manager |be able to see a history of changes |know if anything was inputted wrongly in the past
 
-|`* *` |mortuary manager |create mortuary bills with the app automatically using the `genBill` command |need not manually write in each and every single bill
+|`* *` |mortuary manager |create mortuary bills with the app automatically |need not manually write in each and every single bill
 
-|`* *` |mortuary manager |view past reports with the command `bills` and individual reports with `bill [body ID]` |easily obtain past bills for my own reference / authorities / third party
+|`* *` |mortuary manager |view bills for past reports and individual reports |easily obtain past bills for my own reference / authorities / third party
 
-|`* *` |mortuary manager |archive processed cases on a regular interval with command `archive` |review past cases when such a need arises
+|`* *` |mortuary manager |archive processed cases on a regular interval |review past cases when such a need arises
 
-|`* *` |mortuary manager |add comments and feedback to workplace processes with the `feedback` command |review these feedback and improve on them
+|`* *` |mortuary manager |add comments and feedback to workplace processes |review these feedback and improve on them
 
-|`*` |mortuary manager |feel happy when I see a beautifully designed dashboard |keep my mood up throughout the day
+|`* *` |mortuary manager |feel happy when I see a beautifully designed dashboard |keep my mood up throughout the day
 
-|`*` |mortuary manager |make sure that everything is organised and in order |be praised by my higher ups
+|`* *` |mortuary manager |make sure that everything is organised and in order |be praised by my higher ups
 |=======================================================================
 
 _{More to be added}_
