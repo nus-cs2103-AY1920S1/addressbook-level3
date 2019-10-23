@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.diaryCommands.DiaryCommand;
 import seedu.address.diaryfeature.diaryModel.DiaryList;
 import seedu.address.diaryfeature.diaryParser.DiaryParser;
-import seedu.address.logic.AddressBookLogic;
+import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;

@@ -1,17 +1,20 @@
 package seedu.address.itinerary.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.itinerary.commands.EditCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.itinerary.commands.EditCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.commons.core.Messages;
+
+/**
+ * Parses input arguments and creates a new EditCommand object
+ */
 public class EditCommandParser implements Parser<EditCommand> {
 
     /**
@@ -22,14 +25,15 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE,
+                        PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION);
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
         EditCommand.EditEventDescriptor editEventDescriptor = new EditCommand.EditEventDescriptor();
@@ -46,7 +50,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editEventDescriptor.setLocation(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editEventDescriptor.setDescription(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+            editEventDescriptor.setDescription(ParserUtil
+                    .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
         if (!editEventDescriptor.isAnyFieldEdited()) {

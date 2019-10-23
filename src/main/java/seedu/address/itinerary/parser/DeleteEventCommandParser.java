@@ -3,8 +3,7 @@ package seedu.address.itinerary.parser;
 import seedu.address.commons.core.index.Index;
 import seedu.address.itinerary.commands.DeleteEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -22,7 +21,7 @@ public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
             return new DeleteEventCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE), pe);
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE), pe);
         }
     }
 

@@ -4,59 +4,173 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
-package Logic {
-
-package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
-}
-
-package Command {
-Class XYZCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
-}
-
+namespace Logic {
 Interface Logic <<Interface>>
 Class LogicManager
+namespace Commands {
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+class XYZCommand
+}
+namespace Parser {
+Interface Parser <<Interface>>
+Class ArgumentMultimap
+Class ArgumentTokenizer
+class XYZCommandParser
+}
 }
 
-package Model{
+namespace Storage {
+}
+
+namespace Model{
 Class HiddenModel #FFFFFF
 }
 
+
+namespace Achievements {
+namespace Logic {
+interface AchievementsLogic <<interface>>
+Class AchievementsLogicManager
+namespace Commands {
+class XYZCommand
+}
+namespace Parser {
+class AchievementsParser
+class XYZCommandParser
+}
+}
+}
+
+namespace Address {
+namespace Model {
+class AddressBookModel
+}
+namespace Logic {
+Interface AddressBookLogic <<interface>>
+Class AddressBookLogicManager
+namespace Commands {
+class Command
+class XYZCommand
+}
+namespace Parser {
+class AddressBookParser
+class XYZCommandParser
+}
+}
+}
+
+
+
+'Interface AddressBookLogic <<Interface>> {
+'Class AddressBookLogicManager
+'}
+'
+'Interface StatisticsBookLogic <<Interface>> {
+'Class StatisticsLogicManager
+'}
+
+
+
+
+
+
+
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+''''''''''LOGIC''''''''''
+HiddenOutside ..> Logic.Logic
+Logic.Logic .left.> Storage
+Logic.Logic .down.> Address.Logic.AddressBookLogic
+Logic.Logic .down.> Achievements.Logic.AchievementsLogic
+Logic.LogicManager .up.|> Logic.Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+''''''''''Command
+Logic.Commands.Command .up.> Logic.Commands.CommandResult
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
+''''''''''XYZ Command
+Logic.Commands.XYZCommand -up-|> Logic.Commands.Command
 
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+''''''''''Logic Manager
+Logic.LogicManager o-right-> "1" Storage
+Logic.LogicManager .left.> Model
+Logic.LogicManager *-down-> "1" Address.Logic.AddressBookLogic :gets >
+Logic.LogicManager *-down-> "1" Achievements.Logic.AchievementsLogic :gets >
 
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+''''''''''Parser
+Logic.Parser.XYZCommandParser .up.|> Logic.Parser.Parser
+'''''''''''''''''''''''''''''''''
+
+''''''''''LAYOUT''''''''''
+Logic.LogicManager .[hidden]left.> Storage
+Logic.LogicManager .[hidden]down.> Achievements
+Logic.LogicManager .[hidden]down.> Address
+Logic.LogicManager .[hidden]down.> Logic.Commands
+Logic.Commands.Command .[hidden]down.> Achievements
+Logic.Commands.Command .[hidden]down.> Address
+Logic.Commands .[hidden]left.> Logic.Parser
+''''''''''''''''''''''''''
+
+
+''''''''''ADDRESS''''''''''
+''''''''''Logic
+Address.Logic.AddressBookLogic .up.> Storage
+Address.Logic.AddressBookLogic .up.> Logic.Commands.CommandResult
+''''''''''
+
+''''''''''Logic Manager
+Address.Logic.AddressBookLogicManager .up.|> Address.Logic.AddressBookLogic
+Address.Logic.AddressBookLogicManager o--> "1" Storage
+Address.Logic.AddressBookLogicManager o--> "1" Address.Model.AddressBookModel
+Address.Logic.AddressBookLogicManager -down-> "1" Address.Logic.Parser.AddressBookParser
+
+Address.Logic.AddressBookLogicManager .up.> Logic.Commands.CommandResult
+Address.Logic.AddressBookLogicManager .down.> Address.Logic.Commands.Command :executes >
+
+''''''''''Command
+Address.Logic.Commands.Command -up-|> Logic.Commands.Command
+
+''''''''''XYZCommand
+Address.Logic.Commands.XYZCommand -up-|> Address.Logic.Commands.Command
+
+''''''''''Parser
+Address.Logic.Parser.AddressBookParser .down.> Address.Logic.Parser.XYZCommandParser
+
+''''''''''XYZParser
+Address.Logic.Parser.XYZCommandParser .left.> Address.Logic.Commands.XYZCommand :creates >
+Address.Logic.Parser.XYZCommandParser .up.> Logic.Parser.Parser
+Address.Logic.Parser.XYZCommandParser .up.> Logic.Parser.ArgumentMultimap
+Address.Logic.Parser.XYZCommandParser .up.> Logic.Parser.ArgumentTokenizer
+Address.Logic.Parser.XYZCommandParser ..> Address.Logic.Parser.ParserUtil
+Address.Logic.Parser.XYZCommandParser ..> Address.Logic.Parser.CliSyntax
+Address.Logic.Parser.ParserUtil .down.> Address.Logic.Parser.Prefix
+
+
+
+
+
+'LogicManager .up.|> Logic
+'LogicManager -->"1" AddressBookParser
+'AddressBookParser .left.> XYZCommandParser: creates >
+'
+'XYZCommandParser ..> XYZCommand : creates >
+'XYZCommandParser ..|> Parser
+'XYZCommandParser ..> ArgumentMultimap
+'XYZCommandParser ..> ArgumentTokenizer
+'ArgumentTokenizer .left.> ArgumentMultimap
+'XYZCommandParser ..> CliSyntax
+'CliSyntax ..> Prefix
+'XYZCommandParser ..> ParserUtil
+'ParserUtil .down.> Prefix
+'ArgumentTokenizer .down.> Prefix
+'XYZCommand -up-|> Command
+'LogicManager .left.> Command : executes >
+'
+'LogicManager --> Model
+'Command .right.> Model
+'note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+'
+'Logic ..> CommandResult
+'LogicManager .down.> CommandResult
+'Command .up.> CommandResult
+'CommandResult -[hidden]-> Parser
 @enduml

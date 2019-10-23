@@ -31,10 +31,10 @@ public enum MonthOfYear {
         return numericalVal;
     }
 
-    int getNumDaysInMonth(int year) {
+    public int getNumDaysInMonth(Year year) {
         if (numericalVal == 2) {
             // if it is February
-            return isLeapYear(year) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
+            return isLeapYear(year.getNumericalValue()) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
         }
         return numDaysInMonth;
     }
@@ -54,7 +54,7 @@ public enum MonthOfYear {
         return NUM_MONTHS_IN_YEAR;
     }
 
-    static MonthOfYear convertJavaMonth(int javaMonth) {
+    public static MonthOfYear convertJavaMonth(int javaMonth) {
         return MonthOfYear.values()[javaMonth];
     }
 
@@ -89,5 +89,38 @@ public enum MonthOfYear {
         }
 
         return monthOfYear.get();
+    }
+
+    @Override
+    public String toString() {
+        switch(this) {
+        case JANUARY:
+            return "January";
+        case FEBRUARY:
+            return "February";
+        case MARCH:
+            return "March";
+        case APRIL:
+            return "April";
+        case MAY:
+            return "May";
+        case JUNE:
+            return "June";
+        case JULY:
+            return "July";
+        case AUGUST:
+            return "August";
+        case SEPTEMBER:
+            return "September";
+        case OCTOBER:
+            return "October";
+        case NOVEMBER:
+            return "November";
+        case DECEMBER:
+            return "December";
+        }
+
+        assert false : "Month of year should be valid";
+        return ""; // this should not be returned
     }
 }

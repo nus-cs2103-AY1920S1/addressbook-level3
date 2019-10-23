@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.address.storage.AddressBookStorage;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.main.model.ReadOnlyUserPrefs;
-import seedu.main.model.UserPrefs;
+import seedu.address.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
