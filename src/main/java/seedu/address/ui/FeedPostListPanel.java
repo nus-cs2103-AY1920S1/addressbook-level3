@@ -42,6 +42,13 @@ public class FeedPostListPanel extends UiPart<Region> {
         observableFeedList.addListener(listener);
     }
 
+    /**
+     * Detects the changes made in a `ListChangeListener.Change` object and updates the post list accordingly.
+     * If feeds are added, trigger a thread to fetch its posts. If feeds are removed, remove all its posts from the
+     * feed list.
+     * @param feedPostList Observable list of feed posts
+     * @param change Object representing a change in the feed list
+     */
     private void updatePosts(ObservableList<FeedPost> feedPostList, ListChangeListener.Change<? extends Feed> change) {
         change.next();
         List<Feed> added = change.getAddedSubList().stream().filter(Objects::nonNull).collect(Collectors.toList());
@@ -57,6 +64,11 @@ public class FeedPostListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Fires off a thread that fetches posts from a list of feeds and adds them to the post list.
+     * @param feedPostList Observable list of feed posts.
+     * @param feedList List of input feeds.
+     */
     private void fetchPosts(ObservableList<FeedPost> feedPostList, List<Feed> feedList) {
         Runnable feedPostFetch = () -> {
             for (Feed feed : feedList) {
