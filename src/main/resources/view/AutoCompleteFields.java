@@ -1,4 +1,4 @@
-package view; 
+package view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,9 +10,9 @@ import org.controlsfx.control.textfield.TextFields;
 
 public class AutoCompleteFields implements Initializable {
 
-    @FXML 
+    @FXML
     private AnchorPane root;
-    @FXML 
+    @FXML
     private TextField input;
 
     @Override
