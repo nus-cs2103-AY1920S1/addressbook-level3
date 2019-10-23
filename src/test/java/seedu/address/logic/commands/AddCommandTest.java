@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 import seedu.address.testutil.StudentBuilder;
 
@@ -174,6 +175,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Student> getFilteredStudentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Reminder> getFilteredReminderList() {
             throw new AssertionError("This method should not be called.");
         }
 
