@@ -20,6 +20,7 @@ import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -48,7 +49,7 @@ public class EditTripFieldCommand extends Command {
             + PREFIX_BUDGET + "3000";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
-    public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
+    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditTripDescriptor editTripDescriptor;
 
@@ -118,7 +119,7 @@ public class EditTripFieldCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditTripDescriptor(EditTripDescriptor toCopy) {
+        EditTripDescriptor(EditTripDescriptor toCopy) {
             name = toCopy.getName();
             startDate = toCopy.getStartDate();
             endDate = toCopy.getEndDate();
@@ -148,7 +149,7 @@ public class EditTripFieldCommand extends Command {
          * @param oldDescriptor Old {@code EditTripDescriptor} to use.
          * @param newDescriptor New {@code EditTripDescriptor} to use.
          */
-        public EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
+        EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
             this();
             newDescriptor.name.ifPresentOrElse(this::setName, () ->
                     oldDescriptor.name.ifPresent(this::setName));
@@ -176,7 +177,8 @@ public class EditTripFieldCommand extends Command {
         public Trip buildTrip() {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
                 return new Trip(name.get(), startDate.get(), endDate.get(),
-                        destination.get(), totalBudget.get(), new DayList(), new ExpenditureList(), diary);
+                        destination.get(), totalBudget.get(), new DayList(),
+                        new ExpenditureList(), diary, new InventoryList());
             } else {
                 throw new NullPointerException();
             }
@@ -212,7 +214,7 @@ public class EditTripFieldCommand extends Command {
             }
 
             return new Trip(tripName, startDate, endDate, destination, budget,
-                    trip.getDayList(), trip.getExpenditureList(), diary);
+                    trip.getDayList(), trip.getExpenditureList(), diary, trip.getInventoryList());
         }
 
         /**

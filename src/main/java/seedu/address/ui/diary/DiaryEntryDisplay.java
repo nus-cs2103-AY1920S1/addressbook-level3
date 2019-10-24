@@ -7,10 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -21,32 +19,30 @@ import seedu.address.ui.UiPart;
 /**
  * Custom JavaFX component controller for displaying the text of a diary entry.
  */
-public class DiaryEntryDisplay extends UiPart<VBox> {
-    private static final String FXML = "diary/DiaryTextFlow.fxml";
+class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
+    private static final String FXML = "diary/DiaryEntryDisplay.fxml";
 
     private static final Pattern IMAGE_SEPARATOR_PATTERN = Pattern.compile(
             "(?<pretext>[^<]*)(?<imagetag><images\\s*(?<position>([a-z]*[A-Z]*)*)"
                     + "(?<numbers>([^>][0-9]*[\\s]*)*)>)(?<posttext>.*)");
     private static final String IMAGE_POSITION_LEFT_PATTERN = "left";
 
-    private Logger logger = LogsCenter.getLogger(DiaryEntryDisplay.class);
+    private final Logger logger = LogsCenter.getLogger(DiaryEntryDisplay.class);
     private PhotoList photoList;
 
-    private ObservableList<CharSequence> diaryTextLines;
-
-    @FXML
-    private ListView<CharSequence> diaryTextLinesList;
-
-    DiaryEntryDisplay(ObservableList<CharSequence> diaryTextLines, PhotoList photoList) {
+    DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
         super(FXML);
-        this.photoList = photoList;
+        this.photoList = new PhotoList();
+        getRoot().setItems(observableParagraphs);
+        getRoot().setCellFactory(listViewCell -> new DiaryTextLineCell());
+    }
 
-        diaryTextLinesList.setItems(diaryTextLines);
-        diaryTextLinesList.setCellFactory(listViewCell -> new DiaryTextLineCell());
+    void setPhotoList(PhotoList photoList) {
+        this.photoList = photoList;
     }
 
     /**
-     * {@link ListCell} to use for the cell factory of the {@code diaryTextLinesList}.
+     * {@link ListCell} to use for the cell factory of the {@code ListView}.
      */
     private class DiaryTextLineCell extends ListCell<CharSequence> {
         @Override
@@ -81,7 +77,6 @@ public class DiaryEntryDisplay extends UiPart<VBox> {
                 }
             }
             setGraphic(diaryLine.getRoot());
-            diaryLine.getRoot().prefWidthProperty().bind(getRoot().widthProperty());
         }
 
         /**

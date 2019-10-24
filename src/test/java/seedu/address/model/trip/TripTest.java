@@ -100,7 +100,7 @@ public class TripTest {
 
         // different total budget -> returns false
         editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Budget(VALID_TOTAL_BUDGET_BALI)).build();
-        assertTrue(TRIP_A.equals(editedTripA));
+        assertFalse(TRIP_A.equals(editedTripA));
 
         // different daylist -> returns false
         DayList days = new DayList();

@@ -72,10 +72,13 @@ public class Expenditure {
     public boolean isSameExpenditure(Expenditure otherExpenditure) {
         if (otherExpenditure == this) {
             return true;
-        } else {
+        } else if (otherExpenditure == null) {
+            return false;
+        } else if (otherExpenditure instanceof Expenditure) {
             return otherExpenditure.getName().equals(getName())
-                    && otherExpenditure.getDayNumber().equals(getDayNumber())
-                    && otherExpenditure.getBudget().equals(getBudget());
+                    && otherExpenditure.getDayNumber().get().equals(getDayNumber().get());
+        } else {
+            return false;
         }
     }
 

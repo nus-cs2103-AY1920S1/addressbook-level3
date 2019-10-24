@@ -1,0 +1,88 @@
+@startuml
+!include style.puml
+
+box Ui
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":DiaryPage" as DiaryPage UI_COLOR
+participant ":DiaryEntryDisplay" as DiaryEntryDisplay UI_COLOR
+participant ":DiaryGallery" as DiaryGallery UI_COLOR
+participant ":DiaryEntryEditBox" as DiaryEntryEditBox UI_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "p:PageStatus" as PageStatus MODEL_COLOR
+participant "d:DiaryEntry" as DiaryEntry MODEL_COLOR
+participant "e:EditDiaryEntryDescriptor" as EditDiaryEntryDescriptor MODEL_COLOR
+end box
+
+[-> MainWindow : executeCommand("...user input...")
+activate MainWindow
+
+MainWindow -> DiaryPage : fillPage()
+activate DiaryPage
+
+DiaryPage -> Model : getPageStatus()
+activate Model
+Model --> DiaryPage : p
+deactivate Model
+
+DiaryPage -> PageStatus : getDiaryEntry()
+activate PageStatus
+PageStatus --> DiaryPage : d
+deactivate PageStatus
+
+alt currentEntry == null
+DiaryPage --> MainWindow
+
+else
+DiaryPage -> PageStatus : getEditDiaryEntryDescriptor()
+activate PageStatus
+PageStatus --> DiaryPage : e
+deactivate PageStatus
+
+alt e == null (i.e. the state of the edited text is empty, and the edit box is not shown)
+
+DiaryPage -> DiaryEntry : getPhotoList()
+activate DiaryEntry
+DiaryEntry -> DiaryPage : photoList
+deactivate DiaryEntry
+
+DiaryPage -> DiaryEntry : getDiaryText()
+activate DiaryEntry
+DiaryEntry -> DiaryPage : diaryText
+deactivate DiaryEntry
+
+DiaryPage -> DiaryEntryDisplay : setPhotoList(photoList)
+DiaryPage -> DiaryEntryEditBox : setText(diaryText)
+
+DiaryPage -> DiaryPage : swapRightToGallery()
+
+else e != null && editBox is being displayed in ui
+
+DiaryPage -> EditDiaryEntryDescriptor : getDiaryText()
+activate EditDiaryEntryDescriptor
+EditDiaryEntryDescriptor -> DiaryPage : editDiaryText
+deactivate EditDiaryEntryDescriptor
+
+DiaryPage -> DiaryEntryEditBox : setText(editDiaryText)
+
+else e != null && editBox is not being displayed in ui
+
+DiaryPage -> DiaryPage : swapRightToEditBox()
+
+end
+
+DiaryPage -> DiaryPage : fillButtonBar()
+activate DiaryPage
+DiaryPage --> DiaryPage
+deactivate DiaryPage
+
+DiaryPage --> MainWindow
+deactivate DiaryPage
+
+end
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

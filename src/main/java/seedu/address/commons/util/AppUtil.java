@@ -53,4 +53,15 @@ public class AppUtil {
             throw new IllegalArgumentException(errorMessage);
         }
     }
+
+    /**
+     * Checks for null equality or object equality between two {@link Object}s.
+     *
+     * @param obj1 First object to check.
+     * @param obj2 Second object to check.
+     * @return True if both objects are null or {@code obj1.equals(obj2) == true}.
+     */
+    public static boolean isBothNullOrEqual(Object obj1, Object obj2) {
+        return obj1 == null ? obj2 == null : obj1.equals(obj2);
+    }
 }

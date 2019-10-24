@@ -12,6 +12,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -23,8 +25,8 @@ import seedu.address.storage.diary.JsonAdaptedDiary;
 /**
  * Jackson friendly version of {@code Trip}.
  */
-public class JsonAdaptedTrip {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Trip's %s field is missing!";
+class JsonAdaptedTrip {
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Trip's %s field is missing!";
 
     private final String name;
     private final LocalDateTime startDate;
@@ -34,6 +36,9 @@ public class JsonAdaptedTrip {
     private final JsonAdaptedDiary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
     private final List<JsonAdaptedExpenditure> expenditureList = new ArrayList<>();
+
+    //Added by Karan Dev Sapra
+    private final List<JsonAdaptedInventory> inventoryList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedTrip} with the given trip details.
@@ -47,7 +52,8 @@ public class JsonAdaptedTrip {
             @JsonProperty("totalBudget") Double totalBudget,
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
             @JsonProperty("expenditureList")List<JsonAdaptedExpenditure> expenditureList,
-            @JsonProperty("diary") JsonAdaptedDiary diary) {
+            @JsonProperty("diary") JsonAdaptedDiary diary,
+            @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -60,6 +66,10 @@ public class JsonAdaptedTrip {
             this.expenditureList.addAll(expenditureList);
         }
         this.diary = diary;
+
+        if (inventoryList != null) {
+            this.inventoryList.addAll(inventoryList);
+        }
     }
 
     /**
@@ -82,6 +92,12 @@ public class JsonAdaptedTrip {
                 .collect(Collectors.toList())
         );
         this.diary = new JsonAdaptedDiary(source.getDiary());
+
+        this.inventoryList.addAll(source.getInventoryList()
+                .asUnmodifiableObservableList()
+                .stream().map(JsonAdaptedInventory::new)
+                .collect(Collectors.toList())
+        );
     }
 
     /**
@@ -92,6 +108,7 @@ public class JsonAdaptedTrip {
     public Trip toModelType() throws IllegalValueException {
         final List<Day> days = new ArrayList<>();
         final List<Expenditure> expenditures = new ArrayList<>();
+        final List<Inventory> inventories = new ArrayList<>();
 
         for (JsonAdaptedDay day : dayList) {
             days.add(day.toModelType());
@@ -99,6 +116,10 @@ public class JsonAdaptedTrip {
 
         for (JsonAdaptedExpenditure expenditure : expenditureList) {
             expenditures.add(expenditure.toModelType());
+        }
+
+        for (JsonAdaptedInventory inventory : inventoryList) {
+            inventories.add(inventory.toModelType());
         }
 
         Diary diary = this.diary.toModelType();
@@ -147,7 +168,10 @@ public class JsonAdaptedTrip {
         ExpenditureList modelExpenditureList = new ExpenditureList();
         modelExpenditureList.set(expenditures);
 
+        InventoryList modelInventoryList = new InventoryList();
+        modelInventoryList.set(inventories);
+
         return new Trip(modelName, modelStartDate, modelEndDate,
-                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList, diary);
+                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList, diary, modelInventoryList);
     }
 }

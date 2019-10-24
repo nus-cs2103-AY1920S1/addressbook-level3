@@ -21,9 +21,9 @@ public class DeleteTripCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a trip from TravelPal.\n"
             + "Parameters: INDEX (must be a positive integer)";
 
-    public static final String MESSAGE_DELETE_TRIP_FAILURE = "Failed to delete your trip, "
+    private static final String MESSAGE_DELETE_TRIP_FAILURE = "Failed to delete your trip, "
             + "the index you specified is likely out of bounds!";
-    public static final String MESSAGE_DELETE_TRIP_SUCCESS = "Deleted your trip : %1$s!";
+    private static final String MESSAGE_DELETE_TRIP_SUCCESS = "Deleted your trip : %1$s!";
 
     private final Index indexToDelete;
 

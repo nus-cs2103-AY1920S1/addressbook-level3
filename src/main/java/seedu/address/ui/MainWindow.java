@@ -10,6 +10,9 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -26,8 +29,9 @@ import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
 import seedu.address.ui.diary.DiaryPage;
+import seedu.address.ui.expenditure.DailyExpenditurePage;
 import seedu.address.ui.expenditure.EditExpenditurePage;
-import seedu.address.ui.expenditure.ExpensesPage;
+import seedu.address.ui.expenditure.ExpensesListPage;
 import seedu.address.ui.inventory.InventoryPage;
 import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.itinerary.EditDayPage;
@@ -114,6 +118,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        //Set 'F1' accelerator to move keyboard focus back to cli input
+        setAccelerator(KeyCombination.keyCombination("F1"), commandBox::requestFocus);
     }
 
     /**
@@ -233,7 +240,10 @@ public class MainWindow extends UiPart<Stage> {
             newPage = new ItineraryPage(this, logic, model);
             break;
         case EXPENSE_MANAGER:
-            newPage = new ExpensesPage(this, logic, model);
+            newPage = new ExpensesListPage(this, logic, model);
+            break;
+        case EXPENSE_MANAGER_DAYS:
+            newPage = new DailyExpenditurePage(this, logic, model);
             break;
         case ADD_EXPENDITURE:
             newPage = new EditExpenditurePage(this, logic, model);
@@ -309,20 +319,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    //setAccelerator code from AB3 for opening help window
-    /*
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
     /**
-     * Sets the accelerator of a MenuItem.
+     * Sets an accelerator the application.
      * @param keyCombination the KeyCombination value of the accelerator
-     *//*
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-    /*
-        *
+     */
+    private void setAccelerator(KeyCombination keyCombination, Runnable keyCombinationExecutor) {
+        getRoot().getScene().getAccelerators().put(keyCombination, keyCombinationExecutor);
+
+        /*
          * TODO: the code below can be removed once the bug reported here
          * https://bugs.openjdk.java.net/browse/JDK-8131666
          * is fixed in later version of SDK.
@@ -337,13 +341,12 @@ public class MainWindow extends UiPart<Stage> {
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          *
-        /*
+         */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
+                keyCombinationExecutor.run();
                 event.consume();
             }
         });
     }
-    */
 }

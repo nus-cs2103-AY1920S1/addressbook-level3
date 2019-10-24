@@ -15,7 +15,7 @@ public class DiaryEntry {
     private static final int MAX_DIARY_TEXT_DISPLAY_LENGTH = 30;
 
     private final Index dayIndex;
-    private String diaryText;
+    private final String diaryText;
     private final PhotoList photoList;
 
     /**
