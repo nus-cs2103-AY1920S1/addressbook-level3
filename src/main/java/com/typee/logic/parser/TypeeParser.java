@@ -14,6 +14,7 @@ import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.ListCommand;
 import com.typee.logic.commands.RedoCommand;
+import com.typee.logic.commands.SortCommand;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.parser.exceptions.ParseException;
@@ -77,6 +78,9 @@ public class TypeeParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

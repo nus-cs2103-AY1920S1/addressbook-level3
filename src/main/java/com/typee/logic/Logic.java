@@ -37,6 +37,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of engagements */
     ObservableList<Engagement> getFilteredEngagementList();
 
+    /** Returns an unmodifiable view of the sorted list of engagements */
+    ObservableList<Engagement> getSortedEngagementList();
+
     /** Returns an unmodifiable view of tabs in Typee */
     ObservableList<Tab> getTabList() throws DataConversionException;
 
