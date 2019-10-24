@@ -1,6 +1,5 @@
 package seedu.ezwatchlist.model.show;
 
-import seedu.ezwatchlist.commons.util.AppUtil;
 
 /**
  * Represents a Show's name in the watchlist.
