@@ -4,8 +4,9 @@
 box Logic LOGIC_COLOR_T1
 participant ":AddCommand" as AddCommand LOGIC_COLOR
 participant "notifCommand:NotifCommand" as NotifCommand LOGIC_COLOR
-participant "ses:ScheduledExecutorService" as ScheduledExecutorService LOGIC_COLOR
 end box
+
+participant "ses:ScheduledExecutorService" as ScheduledExecutorService LOGIC_COLOR
 
 box Model MODEL_COLOR_T1
 participant "model:Model" as Model MODEL_COLOR
@@ -58,9 +59,11 @@ activate AddCommand
 
         NotifCommand -> NotifCommand :startSesChangeBodyStatusUi()
         activate NotifCommand
+        ref over NotifCommand, ScheduledExecutorService : Runnable changeUI
         NotifCommand -> ScheduledExecutorService :schedule(changeUI, NOTIF_PERIOD, NOTIF_TIME_UNIT)
         activate ScheduledExecutorService
         ScheduledExecutorService --> NotifCommand
+
         deactivate ScheduledExecutorService
 
         deactivate NotifCommand
@@ -70,7 +73,6 @@ activate AddCommand
 
 
 deactivate AddCommand
-
 
 
 @enduml

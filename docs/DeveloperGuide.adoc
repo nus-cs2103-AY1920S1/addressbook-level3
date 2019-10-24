@@ -64,15 +64,15 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete -b 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete -b 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
@@ -89,7 +89,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -104,15 +104,15 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete -b 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete -b 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -132,7 +132,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -145,7 +145,7 @@ The `Storage` component,
 * can save the Address Book data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common Classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -237,7 +237,7 @@ before each test to reset the `HashMaps`.
 // end::uniqueIdentificationNumber[]
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo Feature
 ==== Implementation
 
 The core of undo/redo is placed in the undo/redo history of `ModelManager`. Its mechanism uses the Command design pattern,
@@ -358,7 +358,7 @@ image::ChangeUiFnSequenceDiagram.png[]
 ** Cons: Cause a lot of repetition of code.
 
 // tag::genpdf[]
-=== Generate PDF feature
+=== Generate PDF Feature
 ==== Implementation
 
 The generate PDF feature is facilitated by `ReportGenerator`.
@@ -628,7 +628,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Mortago` and the *Actor* is the `mortuary manager`, unless specified otherwise)
 
 [discrete]
 === Use case: View dashboard
@@ -715,7 +715,7 @@ Use case ends.
 === Use case: Filter entries
 *MSS*
 
-1.  Mortuary manage switches to the desired view (bodies or workers).
+1.  Mortuary manager switches to the desired view (bodies or workers).
 2.  Mortuary manager specifies criteria for filter.
 3.  Mortago shows a list of entries that matches the criteria.
 +
@@ -732,7 +732,7 @@ Use case ends.
 === Use case: Sort entries
 *MSS*
 
-1.  Mortuary manage switches to the desired view (bodies or workers).
+1.  Mortuary manager switches to the desired view (bodies or workers).
 2.  Mortuary manager specifies criteria for sorting.
 3.  Mortago shows a list of entries sorted according to the specified criteria.
 +
@@ -836,8 +836,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to hold up to 1000 bodies without a noticeable sluggishness in performance for typical usage.
+.  A mortuary manager with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -849,6 +849,12 @@ Windows, Linux, Unix, OS-X
 
 [[body]] Body::
 A corpse
+
+[[worker]] Worker::
+An employee in the mortuary
+
+[[fridge]] Fridge::
+A fridge used to store a body in the mortuary
 
 [[command-line-interface]] Command-Line-Interface (CLI)::
 A text-based user interface (UI) used to view and manage computer files
@@ -897,21 +903,21 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Body
 
-. Deleting a person while all persons are listed
+. Deleting a body while all bodies are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all bodies using the `list -b` command. Multiple bodies in the list.
+.. Test case: `delete -b 1` +
+   Expected: Body with body ID number 1 is deleted from the list. Details of the deleted body shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete -b 0` +
+   Expected: No body is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete -b`, `delete -b x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 
