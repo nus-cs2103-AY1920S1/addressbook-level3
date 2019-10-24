@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -53,6 +54,7 @@ public class FinanceTrackerTest {
         Purchase addedPurchase = financeTracker.getPurchase(4);
         assertEquals(new PurchaseStub().getDescription(), addedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), addedPurchase.getMoneySpent());
+        assertEquals(new PurchaseStub().getDateOfPurchase(), addedPurchase.getDateOfPurchase());
         assertEquals(4, financeTracker.getTotalPurchases());
     }
 
@@ -70,6 +72,7 @@ public class FinanceTrackerTest {
         Purchase deletedPurchase = financeTracker.deleteSinglePurchase(2);
         assertEquals(new PurchaseStub().getDescription(), deletedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), deletedPurchase.getMoneySpent());
+        assertEquals(new PurchaseStub().getDateOfPurchase(), deletedPurchase.getDateOfPurchase());
         assertEquals(2, financeTracker.getTotalPurchases());
     }
 
@@ -205,7 +208,8 @@ public class FinanceTrackerTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super(new PurchaseDescription("lunch at deck"), new PurchaseMoneySpent("5.00"));
+            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"),
+                    LocalDate.parse("10/04/2019", Purchase.getDateFormat()));
         }
     }
 

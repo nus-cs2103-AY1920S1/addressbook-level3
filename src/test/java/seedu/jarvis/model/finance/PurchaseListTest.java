@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,15 +37,23 @@ public class PurchaseListTest {
 
     @Test
     public void getPurchase_normalInput_retrievedCorrectly() {
-        assertEquals(new PurchaseStub().getDescription(), purchaseList.getPurchase(1).getDescription());
-        assertEquals(new PurchaseStub().getMoneySpent(), purchaseList.getPurchase(1).getMoneySpent());
+        assertEquals(new PurchaseStub().getDescription(), purchaseList.getPurchase(1)
+                .getDescription());
+        assertEquals(new PurchaseStub().getMoneySpent(), purchaseList.getPurchase(1)
+                .getMoneySpent());
+        assertEquals(new PurchaseStub().getDateOfPurchase(), purchaseList.getPurchase(1)
+                .getDateOfPurchase());
     }
 
     @Test
     public void addPurchase_normalInput_addedCorrectly() {
         purchaseList.addSinglePurchase(new PurchaseStub());
-        assertEquals(new PurchaseStub().getDescription(), purchaseList.getPurchase(1).getDescription());
-        assertEquals(new PurchaseStub().getMoneySpent(), purchaseList.getPurchase(1).getMoneySpent());
+        assertEquals(new PurchaseStub().getDescription(), purchaseList.getPurchase(4)
+                .getDescription());
+        assertEquals(new PurchaseStub().getMoneySpent(), purchaseList.getPurchase(4)
+                .getMoneySpent());
+        assertEquals(new PurchaseStub().getDateOfPurchase(), purchaseList.getPurchase(4)
+                .getDateOfPurchase());
         assertEquals(4, purchaseList.getNumPurchases());
     }
 
@@ -74,6 +84,7 @@ public class PurchaseListTest {
         Purchase removedPurchase = purchaseList.deletePurchase(3);
         assertEquals(new PurchaseStub().getDescription(), removedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), removedPurchase.getMoneySpent());
+        assertEquals(new PurchaseStub().getDateOfPurchase(), removedPurchase.getDateOfPurchase());
         assertEquals(2, purchaseList.getNumPurchases());
     }
 
@@ -127,7 +138,8 @@ public class PurchaseListTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"));
+            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"),
+                    LocalDate.parse("10/04/2019", Purchase.getDateFormat()));
         }
     }
 }

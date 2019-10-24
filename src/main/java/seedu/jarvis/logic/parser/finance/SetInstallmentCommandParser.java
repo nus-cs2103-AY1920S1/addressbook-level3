@@ -10,7 +10,6 @@ import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
-import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.financetracker.installment.Installment;
@@ -38,11 +37,11 @@ public class SetInstallmentCommandParser implements Parser<SetInstallmentCommand
                     SetInstallmentCommand.MESSAGE_USAGE));
         }
 
-        InstallmentDescription description = ParserUtil
+        InstallmentDescription description = FinanceParserUtil
                 .parseInstallmentDescription(argMultimap
                         .getValue(PREFIX_DESCRIPTION)
                         .get());
-        InstallmentMoneyPaid subscriptionFee = ParserUtil
+        InstallmentMoneyPaid subscriptionFee = FinanceParserUtil
                 .parseInstallmentMoneySpent(argMultimap
                         .getValue(PREFIX_MONEY)
                         .get());

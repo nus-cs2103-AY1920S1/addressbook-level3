@@ -26,6 +26,7 @@ public class SetPaidCommand extends Command {
             + PREFIX_MONEY + "9.50 ";
 
     public static final String MESSAGE_SUCCESS = "New purchase added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PURCHASE = "This purchase already exists in the finance tracker";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Payment: %1$s";
     public static final String MESSAGE_INVERSE_PURCHASE_NOT_FOUND = "Payment already deleted: %1$s";
@@ -65,14 +66,21 @@ public class SetPaidCommand extends Command {
     }
 
     /**
-     * Adds {@code Purchase} to the finance tracker.
+     * Adds {@code Purchase} to the finance tracker, if the purchase does not already exist in finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} that purchase was added successfully.
+     * @throws CommandException if there is already a {@code Purchase} matching the purchase to be added to the
+     * finance tracker.
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasPurchase(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PURCHASE);
+        }
+
         model.addPurchase(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

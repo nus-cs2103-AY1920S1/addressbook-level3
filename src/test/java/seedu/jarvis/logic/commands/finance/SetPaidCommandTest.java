@@ -9,6 +9,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
@@ -61,7 +63,7 @@ public class SetPaidCommandTest {
     }
 
     @Test
-    public void execute_purchaseAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_purchaseAcceptedByModel_addSuccessful() throws CommandException {
         ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
         Purchase validPurchase = new PurchaseBuilder().build();
 
@@ -69,6 +71,16 @@ public class SetPaidCommandTest {
 
         assertEquals(String.format(SetPaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPurchase), modelStub.purchasesAdded);
+    }
+
+    @Test
+    public void execute_purchaseAlreadyExists_throwsCommandException() {
+        ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
+        modelStub.addPurchase(new PurchaseStub());
+
+        SetPaidCommand setPaidCommand = new SetPaidCommand(new PurchaseStub());
+
+        assertThrows(CommandException.class, () -> setPaidCommand.execute(modelStub));
     }
 
     /**
@@ -145,6 +157,12 @@ public class SetPaidCommandTest {
         }
 
         @Override
+        public boolean hasPurchase(Purchase purchase) {
+            requireNonNull(purchase);
+            return purchasesAdded.contains(purchase);
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
@@ -152,7 +170,8 @@ public class SetPaidCommandTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"));
+            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"),
+                    LocalDate.parse("10/04/2019", Purchase.getDateFormat()));
         }
     }
 }

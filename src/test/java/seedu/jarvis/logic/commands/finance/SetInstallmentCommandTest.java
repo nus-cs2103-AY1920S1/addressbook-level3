@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
@@ -63,7 +64,7 @@ public class SetInstallmentCommandTest {
     }
 
     @Test
-    public void execute_installmentAcceptedByModel_addSuccessful() {
+    public void execute_installmentAcceptedByModel_addSuccessful() throws CommandException {
         ModelStubAcceptingInstallmentAdded modelStub = new ModelStubAcceptingInstallmentAdded();
         Installment validInstallment = new InstallmentBuilder().build();
 
@@ -72,6 +73,16 @@ public class SetInstallmentCommandTest {
         assertEquals(String.format(SetInstallmentCommand.MESSAGE_SUCCESS, validInstallment),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validInstallment), modelStub.installmentsAdded);
+    }
+
+    @Test
+    public void execute_installmentAlreadyExists_throwsCommandException() {
+        ModelStubAcceptingInstallmentAdded modelStub = new ModelStubAcceptingInstallmentAdded();
+        modelStub.addInstallment(new InstallmentStub());
+
+        SetInstallmentCommand setInstallmentCommand = new SetInstallmentCommand(new InstallmentStub());
+
+        assertThrows(CommandException.class, () -> setInstallmentCommand.execute(modelStub));
     }
 
     /**
