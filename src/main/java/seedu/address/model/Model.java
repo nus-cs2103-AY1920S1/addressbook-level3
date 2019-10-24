@@ -134,6 +134,8 @@ public interface Model {
 
     boolean gameIsOver();
 
+    boolean bankLoaded();
+
     Game getGame();
 
 

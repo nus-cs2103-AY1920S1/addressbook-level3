@@ -257,6 +257,21 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::settings[]
+=== Settings
+==== Implementation
+`AppSettings` was a class that was created to be integrated into the `Model` of the app. It currently contains these functionalities:
+
+* `difficulty [EASY/MEDIUM/HARD]` to change the difficulty of the game.
+* `hints [ON/OFF]` to turn hints on or off.
+* `theme [DARK/LIGHT]` to change the theme of the app. Currently only supporting dark and light themes.
+
+This feature provides the user an interface to make their own changes to the state of the machine. The settings set by the user will also be saved to a `.json` file under `data/appsettings.json`.
+
+
+
+// end::settings[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

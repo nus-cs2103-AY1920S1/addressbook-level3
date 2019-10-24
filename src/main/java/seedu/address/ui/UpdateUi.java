@@ -22,27 +22,22 @@ public class UpdateUi {
     /**
      * Updates the {@code ModularDisplay} in {@code MainWindow}.
      *
-     * @param command The command that triggers the update.
+     * @param modeEnum The mode that the app is currently in.
      * @param modularDisplayPlaceholder {@code modularDisplayPlaceholder} in {@code MainWindow} that gets updated.
      */
-    public void updateModularDisplay(String command, ModeEnum modeEnum, StackPane modularDisplayPlaceholder) {
-        String firstArg = command.split(" ")[0];
-        if (firstArg.equals("load")) {
-            modularDisplay.swapToBanks(modularDisplayPlaceholder);
-        } else if (firstArg.equals("bank")) {
-            modularDisplay.swapToBankDisplay(modularDisplayPlaceholder);
-        } else if (firstArg.equals("list")) {
-            modularDisplay.swapToList(modularDisplayPlaceholder);
-        } else if (firstArg.equals("skip")) {
-
-        } else if (modeEnum.equals(ModeEnum.SETTINGS)) {
-            modularDisplay.swapToSettings(modularDisplayPlaceholder);
-        } else {
-            if (modeEnum.equals(ModeEnum.GAME)) {
-                // Swapping to load display by default disabled when in game mode (by Yida).
-                return;
-            }
-            modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
+    public void updateModularDisplay(ModeEnum modeEnum, StackPane modularDisplayPlaceholder) {
+        switch (modeEnum) {
+            case OPEN:
+                modularDisplay.swapToBankDisplay(modularDisplayPlaceholder);
+                break;
+            case HOME:
+                modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
+                break;
+            case SETTINGS:
+                modularDisplay.swapToSettings(modularDisplayPlaceholder);
+                break;
+            default:
+                break;
         }
     }
 
