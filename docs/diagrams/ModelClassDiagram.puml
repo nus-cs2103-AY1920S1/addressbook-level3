@@ -24,6 +24,16 @@ Class Phone
 Class UniquePersonList
 }
 
+Package Project {
+Class UniqueProjectList
+Class Task
+Class Description
+Class Meeting
+Class Title
+Class Project
+Class Finance
+}
+
 Package Tag {
 Class Tag
 }
@@ -48,9 +58,25 @@ Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
 
+AddressBook *--> "1" UniqueProjectList
+UniqueProjectList o--> "*" Project
+Project *--> "*" Task
+Project *--> "*" Meeting
+Project *--> "*" Person
+Project *--> "1" Title
+Project *--> "1" Description
+Project *--> "*" Finance
+
+
+
+
+
+
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-ModelManager -->"1" Person : filtered list
+ModelManager ->"1" Person : filtered list
+ModelManager -->"1" Project : filtered list
+
 @enduml
