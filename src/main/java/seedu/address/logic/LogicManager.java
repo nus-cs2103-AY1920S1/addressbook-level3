@@ -70,6 +70,8 @@ public class LogicManager implements Logic, UiLogicHelper {
         2 user modes: Game mode and Normal mode
         */
 
+        parserManager.updateState(model.bankLoaded(), model.gameIsOver());
+
         Command command = parserManager.parseCommand(commandText);
 
         /*
@@ -82,7 +84,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
         commandResult = command.execute(model);
 
-        parserManager.updateState(model.gameIsOver());
+        parserManager.updateState(model.bankLoaded(), model.gameIsOver());
 
         // todo need to save wordbankstatistics after deletion.
         // todo possible solution -> just save on every command like how the word bank is saved.
@@ -166,8 +168,12 @@ public class LogicManager implements Logic, UiLogicHelper {
     @Override
     public void saveUpdatedWbStatistics(GameStatistics gameStatistics) throws CommandException {
         try {
-            requireNonNull(model.getWordBankStatistics());
-            WordBankStatistics currWbStats = model.getWordBankStatistics();
+            WordBankStatistics currWbStats;
+            if (model.getWordBankStatistics() == null) {
+                currWbStats = WordBankStatistics.getEmpty("sample");
+            } else {
+                currWbStats = model.getWordBankStatistics();
+            }
             currWbStats.update(gameStatistics, model.getCurrentGameDifficulty());
 
             Path targetPath = Path.of(model.getUserPrefs().getDataFilePath().toString(), "wbstats",

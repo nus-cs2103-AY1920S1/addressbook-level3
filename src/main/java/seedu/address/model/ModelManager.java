@@ -301,6 +301,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean bankLoaded() {
+        return !wordBank.getName().equals("Empty wordbank");
+    }
+
+    @Override
     public void setWordBankStatistics(WordBankStatistics wordBankStats) {
         this.wordBankStatistics = wordBankStats;
     }

@@ -103,6 +103,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean bankLoaded() {
+            return false;
+        }
+
+        @Override
         public AppSettings getAppSettings() {
             return null;
         }

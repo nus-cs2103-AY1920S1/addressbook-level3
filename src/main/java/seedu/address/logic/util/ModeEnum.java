@@ -5,9 +5,9 @@ package seedu.address.logic.util;
  */
 public enum ModeEnum {
 
-    APP {
+    OPEN {
         public String toString() {
-            return "home";
+            return "open";
         }
     },
     GAME {
@@ -15,9 +15,9 @@ public enum ModeEnum {
             return "game";
         }
     },
-    LOAD {
+    HOME {
         public String toString() {
-            return "load";
+            return "home";
         }
     },
     SETTINGS {

@@ -222,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             throw new IllegalStateException("gameStatistics in gameManager should not be null when game"
                     + "is finished");
         }
+
         modularDisplay.swapToGameResult(modularDisplayPlaceholder, appManager.getGameStatistics(),
                 appManager.getActiveWordBankStatistics());
     }
@@ -240,7 +241,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             //Updates the Ui.
-            updateUi.updateModularDisplay(commandText, uiLogicHelper.getMode(), modularDisplayPlaceholder);
+            updateUi.updateModularDisplay(uiLogicHelper.getMode(), modularDisplayPlaceholder);
 
             updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
 

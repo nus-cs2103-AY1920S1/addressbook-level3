@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="660.0" minWidth="900" onCloseRequest="#handleExit" title="Dukemon" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="660.0" minWidth="900" onCloseRequest="#handleExit" title="Dukemon" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -56,10 +55,6 @@
                </children>
             </HBox>
       </VBox>
-         <stylesheets>
-            <URL value="@DarkTheme.css" />
-            <URL value="@Extensions.css" />
-         </stylesheets>
     </Scene>
   </scene>
 </fx:root>
