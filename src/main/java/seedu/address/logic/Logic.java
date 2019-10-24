@@ -63,7 +63,9 @@ public interface Logic {
      */
     ObservableList<BinItem > getFilteredBinItemList();
 
-    /** Returns an unmodifiable view of the previously entered commands */
+    /**
+     * Returns an unmodifiable view of the previously entered commands
+     */
     ObservableList<Pair<String, String>> getHistoryList();
 
     /**

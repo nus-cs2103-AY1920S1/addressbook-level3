@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
@@ -30,6 +31,7 @@ public class ModelManager implements Model {
 
     private final StatefulAddressBook statefulAddressBook;
     private final UserPrefs userPrefs;
+    private final CommandHistory commandHistory;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Policy> filteredPolicies;
     private final FilteredList<BinItem> filteredBinItems;
@@ -46,6 +48,7 @@ public class ModelManager implements Model {
 
         this.statefulAddressBook = new StatefulAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.commandHistory = new CommandHistory();
         filteredPersons = new FilteredList<>(this.statefulAddressBook.getPersonList());
         filteredPolicies = new FilteredList<>(this.statefulAddressBook.getPolicyList());
         filteredBinItems = new FilteredList<>(this.statefulAddressBook.getBinItemList());
@@ -285,6 +288,18 @@ public class ModelManager implements Model {
         return result;
     }
 
+    //=========== Command History ============================================================================
+
+    @Override
+    public ObservableList<Pair<String, String>> getHistoryList() {
+        return commandHistory.getHistory();
+    }
+
+    @Override
+    public void addCommandToHistory(String commandWord, String commandText) {
+        commandHistory.addCommand(commandWord, commandText);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     // TODO: delete
@@ -312,6 +327,8 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Policy} backed by the internal list of

@@ -37,6 +37,7 @@ import seedu.address.logic.commands.ListBinCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
 import seedu.address.logic.commands.RestoreCommand;
+import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -95,10 +96,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
 
-        Optional<String> commandWord = addressBookParser.getCommandWord(commandText);
-        if (commandWord.isPresent()) {
-            commandHistory.addCommand(commandWord.get(), commandText);
-        }
+        addCommandToHistory(command, commandText);
         commandResult = command.execute(model);
 
         try {
@@ -117,10 +115,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText, isSystemInput);
 
-        Optional<String> commandWord = addressBookParser.getCommandWord(commandText);
-        if (commandWord.isPresent()) {
-            commandHistory.addCommand(commandWord.get(), commandText);
-        }
+        addCommandToHistory(command, commandText);
         commandResult = command.execute(model);
 
         try {
@@ -148,6 +143,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Pair<String, String>> getHistoryList() {
+        return model.getHistoryList();
+    }
+
+    @Override
     public ObservableList<BinItem> getFilteredBinItemList() {
         return model.getFilteredBinItemList();
     }
@@ -165,10 +165,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableMap<String, Integer> getGenderBreakdown() {
         return model.getGenderBreakdown();
-    }
-
-    public ObservableList<Pair<String, String>> getHistoryList() {
-        return commandHistory.getHistory();
     }
 
     @Override
@@ -201,5 +197,17 @@ public class LogicManager implements Logic {
         boolean suggestionOn = addressBookParser.isSuggestionOn();
         UserSettings userSettings = new UserSettings(suggestionOn);
         model.setUserSettings(userSettings);
+    }
+
+    /**
+     * Adds the command to the command history list of tjhe model.
+     */
+    private void addCommandToHistory(Command command, String commandText) throws ParseException {
+        // to prevent adding invalid commands and adding to history during merging
+        Optional<String> commandWord = addressBookParser.getCommandWord(commandText);
+
+        if (commandWord.isPresent() && !(command instanceof SuggestionCommand)) {
+            model.addCommandToHistory(commandWord.get(), commandText);
+        }
     }
 }
