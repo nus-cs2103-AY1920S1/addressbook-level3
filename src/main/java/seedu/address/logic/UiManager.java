@@ -15,6 +15,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.ui.ColorTheme;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UserOutput;
@@ -48,8 +49,22 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
         try {
             mainWindow = new MainWindow(primaryStage, commandInput -> {
                 // TODO: Temporary command
-                if (commandInput.equals("view")) {
-                    this.mainWindow.toggleView();
+                if (commandInput.equals("calendar")) {
+                    this.mainWindow.viewCalendar();
+                } else if (commandInput.equals("list")) {
+                    this.mainWindow.viewList();
+                } else if (commandInput.equals("log")) {
+                    this.mainWindow.viewLog();
+                } else if (commandInput.equals("day")) {
+                    // TODO: ADD a command for changing for parsing the day, month and year.
+                    this.mainWindow.viewDay(5, 11, 2019);
+                } else if (commandInput.equals("week")) {
+                    this.mainWindow.viewWeek(1, 11, 2019);
+                } else if (commandInput.equals("month")) {
+                    this.mainWindow.viewMonth(11, 2019);
+                } else if (commandInput.equals("calendar 11/2019")) {
+                    // No need for day
+                    this.mainWindow.changeCalendarScreenDate(11, 2019);
                 } else {
                     // Notify listeners of new command input.
                     this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
@@ -109,7 +124,7 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
     }
 
     @Override
-    public void onUserOutput(UserOutput output) {
-        this.mainWindow.onUserOutput(output);
+    public void onUserOutput(UserOutput output, ColorTheme result) {
+        this.mainWindow.onUserOutput(output, result);
     }
 }

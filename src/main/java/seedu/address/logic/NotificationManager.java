@@ -1,66 +1,41 @@
 package seedu.address.logic;
 
-import java.util.logging.Logger;
-
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.events.ReadOnlyEventList;
-import seedu.address.notification.EventNotificationThread;
-import seedu.address.notification.Notification;
-import seedu.address.notification.SystemTrayCommunicator;
-
+import seedu.address.logic.notification.NotificationChecker;
+import seedu.address.logic.notification.NotificationCheckingThread;
+import seedu.address.model.ModelManager;
+import seedu.address.ui.systemtray.PopupListener;
+import seedu.address.ui.systemtray.SystemTrayCommunicator;
 
 /**
- * The implementing class of the Notification interface.
+ * A class that manages the multi-threading operations necessary for posting notifications.
  */
-public class NotificationManager implements Notification {
-    private static final Logger logger = LogsCenter.getLogger(NotificationManager.class);
-
-    private EventNotificationThread currentEventNotificationThread;
+public class NotificationManager {
+    private NotificationCheckingThread notificationCheckingThread;
     private SystemTrayCommunicator systemTrayCommunicator;
 
-    /**
-     * Generates a new NotificationManager.
-     */
-    public NotificationManager() {
+    public NotificationManager(ModelManager modelManager) {
+        NotificationChecker notificationChecker = new NotificationChecker(modelManager);
+
+        notificationCheckingThread = new NotificationCheckingThread(notificationChecker);
         systemTrayCommunicator = new SystemTrayCommunicator();
-        systemTrayCommunicator.initialise();
+        notificationCheckingThread.addPopupListener(new PopupListener(systemTrayCommunicator));
+        notificationCheckingThread.setDaemon(true);
+        notificationCheckingThread.start();
     }
 
     /**
-     * Updates the queue of notifications to be posted.
-     *
-     * @param readOnlyEventList The list of events for which notifications should be posted
+     * Switches off notifications.
      */
-    public void updateNotificationQueue(ReadOnlyEventList readOnlyEventList) {
-        interruptExistingThread();
-        createNewThread(readOnlyEventList);
+    public void switchOffNotifications() {
+        notificationCheckingThread.switchOffNotifications();
+        systemTrayCommunicator.switchOffNotifications();
     }
 
     /**
-     * Interrupts any ongoing threads so that the program may shutdown gracefully.
+     * Switches on notifications.
      */
-    public void shutDown() {
-        interruptExistingThread();
-    }
-
-    /**
-     * Interrupts the currentEventNotificationThread if it exists, and does nothing otherwise.
-     */
-    private void interruptExistingThread () {
-        if (currentEventNotificationThread != null) {
-            logger.info("Attempting to interrupt current EventNotificationThread.");
-            currentEventNotificationThread.interrupt();
-        }
-    }
-
-    /**
-     * Generates and starts a new EventNotificationThread.
-     *
-     * @param readOnlyEventList The ReadOnlyEventList through which notifications can be generated.
-     */
-    private void createNewThread(ReadOnlyEventList readOnlyEventList) {
-        currentEventNotificationThread = new EventNotificationThread(systemTrayCommunicator, readOnlyEventList);
-        currentEventNotificationThread.setDaemon(true);
-        currentEventNotificationThread.start();
+    public void switchOnNotifications() {
+        notificationCheckingThread.switchOnNotifications();
+        systemTrayCommunicator.switchOnNotifications();
     }
 }

@@ -4,9 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<javafx.scene.layout.HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<javafx.scene.layout.HBox fx:id="logBoxBase" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="box" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #151515; -fx-background-radius: 12; -fx-background-insets: 0 -10;" text="Label" textFill="WHITE" wrapText="true" HBox.hgrow="ALWAYS">
+      <Label fx:id="box" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Label" textFill="WHITE" wrapText="true" HBox.hgrow="ALWAYS">
          <HBox.margin>
             <Insets left="10.0" />
          </HBox.margin>

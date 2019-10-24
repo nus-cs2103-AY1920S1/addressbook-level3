@@ -70,19 +70,64 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Main structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is contains 3 main view parts - `CalendarPanel`, `ListPanel`, `LogPanel`. It also holds several other UI parts e.g. `PopUpPanel` and `Command Box`. Every one of the UI classes will abstract from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework, and layout of these UI parts are defined in `.fxml` files which are found in the `src/main/resources/view` folder. One example of the layout would be: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`], whose FXML link is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+
+The `UI` component does the following:
+
+* Executes user two different types commands using the `Logic` component.
+** One command, when executed, affect the actual Events.
+** The other command is executed to change the view of the UI. There are currently 3 main views in the application: `CalendarPanel`, `ListPanel`, `LogPanel`.
+* It listens for any changes in the list of events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/EventListListener.java[`EventListListener`].
+* It also listens for the output to the user with another listener: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/listeners/UserOutputListener.java[`UserOutputListener`].
+
+==== Calendar UI View
+
+.Structure of the Calendar UI View
+image::UiCalendarClassDiagram.png[]
+
+The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays two UI parts of the Calendar: `CalendarScreen` and `TimelineView`.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarScreen.java[`CalendarScreen`] is the screen which displays the calendar of a certain month and year to the user. It contains 6 x 7 instance of `CalendarGridDay`, which displays the days of the month.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineView.java[`TimelineView`] is the screen which displays the timeline using 3 different classes which abstract from `TimelineView`.
+
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineDayView.java[`TimelineDayView`] displays the timeline of a particular day in a certain month and year.
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineWeekView.java[`TimelineWeekView`] displays the timeline of a particular week. The week is according to the `CalendarScreen`, where each row represents a week of a month.
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineMonthView.java[`TimelineMonthView`] displays the timeline of a particular month in a certain year.
+
+Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of EventCards for displaying the event name and date.
+
+==== List UI View
+
+.Structure of the List UI View
+image::UiListClassDiagram.png[]
+
+The List View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/ListPanel.java[`ListPanel`] which contains two lists views, `EventListView` and `TaskListView`
+
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/EventListView.java[`EventListView`] displays the list of Events containing every piece of information of the Events.
+
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task. [__To be implemented__]
+
+Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card`, but it will not be held in the `CardHolder`.
+
+==== Log UI View
+
+.Structure of the Log UI View
+image::UiLogClassDiagram.png[]
+
+The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains several instances of `LogBox`.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogBox.java[`LogBox`] displays literal information back to the user when it is called by `MainWindow` when it listens for a command.
 
 [[Design-Logic]]
 === Logic component
@@ -140,6 +185,35 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+[[Design-Notification]]
+=== Notification System
+(Picture: Notification System)
+
+Notifications are handled through the NotificationManager, itself found in the Logic component. There does not exist a singular Notification component. Rather, functional classes for the Notification System are have been split across the Logic and UI components, depending on their functionality.
+
+==== Logic Classes
+Logic classes are reponsible for deciding if a notification should be posted. As with other components, their functionality is accessed through the `NotificationManager` class. The `NotificationManager` class maintains a reference to a `NotificationCheckingThread` as well as a `SystemTrayCommunicator`.
+
+The logic classes of the Notification System can be found under the `notification` package under the `Logic` component.
+
+- The `NotificationCheckingThread` is a daemon thread that runs in parallel with the main application. It checks for new notifications to post every minute.
+- The `NotificationChecker` is responsible for checking `Model` for any notifications that need to be posted.
+
+
+==== UI Classes
+UI classes are responsible for displaying notifications.
+
+The UI classes of the Notification System can be found under the `systemtray` package under the `ui` component.
+
+- The `PopupListener` class is the main channel of communication between the logic and UI classes. When a notification needs to be posted, it will relay the information from the logic to UI classes.
+
+- The `SystemTrayCommunicator` handles posting notifications and displaying the app's icon on the System Tray.
+
+- The `PopupNotification` class carries the information that will be posted on a popup notification.
+
+- The `NotificationClickActionListener` is called when the user clicks on a popup notification.
+
+
 [[Design-Commons]]
 === Common classes
 
@@ -153,47 +227,39 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `UndoableHistory`.
-It contains an undo/redo history, stored internally as an `eventListStateList` and a `currentStateIndex`.
-`UndoableHistory` also contains a `mainEventList`, which is the `EventList` that the GUI is in sync with.
-
-It is important that the `Model` works only with the `mainEventList` (and not duplicates) for this reason.
-This `mainEventList` is updated every time an undo or redo occurs.
-
+The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `UndoableHistory#commit()` -- Creates a deep-copy of the `mainEventList` state and saves that copy to its history.
-* `UndoableHistory#undo()` -- Retrieve `mainEventList` 's previous state data from its duplicate and restore `mainEventList`
-* `UndoableHistory#redo()` -- Retrieve `mainEventList` 's future state data from its duplicate and restore `mainEventList`
-* `UndoableHistory#clearFutureHistory()` -- Delete all duplicates of `mainEventList` that occur after the index given by the `currentStateIndex`
-in `eventListStateList`
+* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitToHistory()`, `Model#undoFromHistory()` and `Model#redoFromHistory()`, and `Model#clearFutureHistory()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UndoableHistory` will be initialized with the initial `mainEventList`. A duplicate of `mainEventList` will be added to `eventListStateList`
-and the `currentStateIndex` will point to that single `EventList` state in the list.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete_event 5` command to delete the 5th event in the event list. The `delete` command calls `Model#commitToHistory()`, causing the modified state of the event list after the `delete 5` command executes to be saved in the `eventListStateList`, and the `currentStatePointer` is shifted to the newly inserted event list state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add_task “Celebrate Horo’s Birthday”` to add a new task. The `add` command also calls `Model#commitToHistory()`, causing another modified event list state to be saved into the `eventListStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitToHistory()`, so the event list state will not be saved into the `eventListStateList`.
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the task was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoFromHistory()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous event list state, and restores the event list to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStateIndex` is 0, pointing to the initial event list state, then there are no previous event list states to restore. The `undo` command uses `Model#canUndoHistory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -201,17 +267,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoFromHistory()`, which shifts the `currentStateIndex` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
-If the `currentStateIndex` is `eventListStateList.size() - 1`, pointing to the latest event list state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoHistory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the event list, such as `list`, will usually not call `Model#commitToHistory()`, `Model#undoFromHistory()` or `Model#redoFromHistory()`. Thus, the `eventListStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#clearFutureHistory` and then Model#commitToHistory()`.
-Since the `currentStateIndex` is not pointing at the end of the `eventListStateList`, all event list states after the `currentStateIndex` will be purged. We designed it this way because it no longer makes sense to redo the `add_task “Celebrate Horo’s Birthday”` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -287,10 +352,10 @@ Refer to the guide <<DevOps#, here>>.
 * is a student
 * has a need to manage their Events and Tasks for visualization.
 * requires reminders for their Events and Tasks.
-* prefer desktop apps over other types.
-* can type fast.
-* prefers typing over mouse input.
-* is reasonably comfortable using CLI apps.
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
 
 *Value proposition*: manage Reminders as well as viewing Events and Tasks much faster than a typical mouse/GUI driven app
 
@@ -368,6 +433,7 @@ Use case ends.
 * 1a. The user adds additional sub-commands to the Task command
 +
 Use case ends.
+
 
 * 2a. The given add Task command is of the wrong format.
 +
@@ -522,6 +588,21 @@ Cons:
 
 * Lack of visualization of the Events and Tasks
 * Parsing english language makes it slower to type with a longer requirement as compared to CLI styled commands
+
+*Google Calendar*
+
+Company: Google
+
+Pros:
+
+* A Calendar application that is capable of storing Events and Tasks as well.
+* Mostly uses GUI for interaction with user instead of having CLI, favouring to the common crowd.
+
+Cons:
+
+* Mostly uses GUI for interaction with user instead of having CLI, which does not favour those who prefers CLI.
+* It requires an account to be usable.
+* The desktop version requires a browser, which in turn requires Internet and hence not offline.
 
 [appendix]
 == Instructions for Manual Testing
