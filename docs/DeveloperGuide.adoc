@@ -347,7 +347,7 @@ This `DeadlineCommand` is returned back to `LogicManager` and is executed by cal
 === Inventory Tab
 
 This tab will help to keep records of all items currently in the club’s possession.
-Each item will require an input of its description, category, quantity, and cost per unit. Optionally, if the item is meant for 
+Each item will require an input of its description, category, quantity, and cost per unit. Optionally, if the item is meant for
 sale, the price can be inputted as well.
 
 This is the overall Class Diagram of this tab:
@@ -359,14 +359,14 @@ image::InventoryTabClassDiagram.png[]
 ==== Add Item Feature
 This features allows the adding of items to the inventory.
 
-When adding a new item, the user is required to input the description, category, quantity and cost per unit of the item. 
-The only attribute that is optional is the price. 
+When adding a new item, the user is required to input the description, category, quantity and cost per unit of the item.
+The only attribute that is optional is the price.
 
-For an input to be valid, it must contain all four of the previously mentioned attributes, and the input for each attribute 
-must be of the correct type. For example, quantity and cost must be numbers. However, the attributes can be inputted in any 
-order. 
+For an input to be valid, it must contain all four of the previously mentioned attributes, and the input for each attribute
+must be of the correct type. For example, quantity and cost must be numbers. However, the attributes can be inputted in any
+order.
 
-The following sequence diagram shows how an add command works with the description, category, quantity, cost and price fields 
+The following sequence diagram shows how an add command works with the description, category, quantity, cost and price fields
 present:
 
 .Sequence Diagram of Add Command in Inventory Tab (inventory package)
@@ -379,10 +379,10 @@ The following activity diagram displays the process of adding a new item to the 
 
 image::InventoryAddCommandActivityDiagram.png[]
 
-As shown above, the input will be evaluated for its validity. If the input is not valid, the user will be informed through Leo 
+As shown above, the input will be evaluated for its validity. If the input is not valid, the user will be informed through Leo
 that the command was in an invalid format and reminded of the correct format.
 
-Otherwise, the user will be informed through Leo that their input was successful, and the item will immediately be displayed in 
+Otherwise, the user will be informed through Leo that their input was successful, and the item will immediately be displayed in
 the Table of the UI.
 
 ==== Delete Item Feature
