@@ -16,7 +16,9 @@ public class TypicalIndexes {
     public static final Index INDEX_FIRST_INSTALLMENT = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_INSTALLMENT = Index.fromOneBased(2);
 
+    public static final Index INDEX_FIRST_COURSE = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_COURSE = Index.fromOneBased(2);
+
     public static final Index INDEX_FIRST_CCA = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_CCA = Index.fromOneBased(2);
-
 }

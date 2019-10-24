@@ -116,7 +116,6 @@ NOTE: The lifeline for `DeleteAddressCommandParser` should end at the destroy ma
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
 image::ModelDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -156,90 +155,15 @@ Classes used by multiple components are in the `seedu.jarvis.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-
 === Undo/Redo Feature
 ==== Overview
 The application should be able to undo and redo changes made by commands to give the user more flexibility in their inputs.
 Undo and redo operations should also be undo or redo multiple commands in a command.
+In the event that a undo/redo command that comprises of multiple undo/redo operations fails at any point, all changes made
+by the command should be rolled back. This is reflected in the Activity Diagram below:
+
+.Activity Diagram for undo and redo commands
+image::UndoRedoActivityDiagram.png[]
 
 Therefore there is a need to remember commands that change the state of the `Model`. Commands that just render a view without
 actually changing the application should not be stored as it does not make sense to undo or redo them.
@@ -251,6 +175,11 @@ We will distinguish these types of commands into two categories, *invertible com
 [NOTE]
 Undo and redo commands will be considered non-invertible commands even though they technically change the state of the `Model`.
 The reason is that they are commands facilitating the undo and redo operation, thus they should not be stored.
+
+The following activity diagram illustrates how commands are remembered when a user types in a command:
+
+.Activity Diagram for how commands are remembered after their successful execution
+image::CommandActivityDiagram.png[]
 
 ==== Implementation
 The undo/redo feature mechanism is facilitated by `HistoryManager`. `HistoryManager` remembers *invertible commands*. These commands are stored internally in
@@ -281,12 +210,21 @@ Commands support the given operations to mutate the state of the `Model` and to 
 * `Command#execute(Model)` -- Executes the command on the given `Model`.
 * `Command#executeInverse(Model)` -- Executes on the given `Model` such that it will undo whatever changes were made when `Command#execute(Model)` was called.
 
-The following activity diagram illustrates how commands are remembered when a user types in a command:
+Below is a class diagram between `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`.
 
-image::CommandActivityDiagram.png[]
+.Class Diagram for `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`
+image::HistoryManagerClassDiagram.png[]
 
 Undo and redo operations are executed with `UndoCommand` and `RedoCommand`. These commands store an integer value referencing the number of commands to undo or redo,
-represented by `UndoCommand#numberOfTimes` and `RedoCommand#numberOfTimes`.
+represented by `UndoCommand#numberOfTimes` and `RedoCommand#numberOfTimes`. The Class Diagram below shows details about `UndoCommand` and `RedoCommand`.
+
+.Class Diagram for `UndoCommand`, `RedoCommand` and `Command`
+image::UndoRedoCommandClassDiagram.png[]
+
+Below is a Sequence Diagram of how an `UndoCommand` executes in the program. `RedoCommand` follows a similar process.
+
+.Sequence Diagram for `UndoCommand`
+image::UndoCommandSequenceDiagram.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
@@ -344,61 +282,18 @@ This means that all potential redo actions are cleared.
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
-* *Alternative 1:* Use a list to store the history of `Model` states.
+* *Alternative 1:* Use a `List` to store the history of `Model` states.
 Maintain a pointer to point to the current version of `Model`, and shift the pointer along the list to facilitate undo/redo operations.
 ** Pros: Simple implementation.
 ** Cons: Expensive on storage as multiple copies of `Model` is stored.
 * *Alternative 2:* Implement invertible commands whereby they support their inverse execution. Use two `Deque` data structures to store the history of commands, to represent
 executed commands and inversely executed commands. Move commands from one deque to another and executing/inversely executing them to facilitate undo/redo operations.
 ** Pros: Storage efficient, as application only needs to keep track of invertible commands, and do not need to store multiple copies of `Model`.
-** Cons: Need to ensure that invertible commands implement their inverse execution correctly.
+** Cons: Implementation is more complex.
 
 // end::undoredo[]
 
-<<<<<<< HEAD
-=== CcaTracker Feature
-==== Overview
-The application is able to track Ccas. Each user can have multiple Ccas and each Cca can have multiple equipments
-needed. In addition, the application is able to track the progress of each person in their Ccas. Hence, there is a
-need to represent the CcaTracker as a list of Ccas on which the application can perform create, read, update and delete
-operations on each Cca.
-
-==== Implementation
-The `CcaTracker` mechanism is facilitated by `CcaTrackerModel`.
-
-`Model` supports operations to facilitate
-cca tracking capabilities by extending the `CcaTrackerModel` which has the following operations:
-
-* `Model#containsCca(Cca cca)` -- Checks if the `CcaTracker` contains the given cca.
-* `Model#addCca(Cca cca)` -- Adds a `Cca` to the `CcaTracker`.
-* `Model#removeCca(Cca cca)` -- Removes a `Cca` from the `CcaTracker`.
-* `Model#updateCca(Cca toBeUpdatedCca, Cca updatedCca)` -- Updates a `Cca` in the `CcaTracker`.
-* `Model#getCcaTracker()` -- Gets the `CcaTracker` instance.
-* `Model#getNumberOfCcas()` -- Returns the number of `Ccas` currently in the `CcaTracker`.
-* `Model#getCca(Index index)` -- Gets the `Cca` instance by its index in the `CcaTracker`.
-* `Model#updateFilteredCcaList(Predicate<Cca> predicate)` -- Updates the `FilteredCcaList` by passing it a predicate.
-* `Model#getFilteredCcaList()` -- Returns an instance of the `FilteredCcaList`
-* `Model#addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList)` - Adds `CcaProgressList` to the target `Cca`.
-* `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
-
-CcaTracker has 7 specific commands that support the given operations to mutate the state of the `Model`. Each command is
-represented as seperate class:
-
-* `AddCcaCommand` -- Adds a `Cca` to the `CcaTracker`.
-* `DeleteCcaCommand` -- Deletes a `Cca` from the `CcaTracker`.
-* `EditCcaCommand` -- Edits the selected `Cca` in the `CcaTracker`.
-* `FindCcaCommand` -- Finds a `Cca` from the `CcaTracker` based on the keywords specified .
-* `ListCcaCommand` -- Lists all the `Cca` from the `CcaTracker`.
-* `AddProgressCommand` -- Adds a progress tracker to a cca.
-* `IncreaseProgressCommand` -- Increments the progress level of a cca.
-
-
-For brevity's sake, we will illustrate only 1 specific command and its execution on model.
-The following activity diagram illustrates how a `Cca`'s progress is incremented when a user types in a
-`increase-progress` command:
-=======
 // tag::courseplanner[]
-
 === Course Planner feature
 
 ==== Overview
@@ -712,11 +607,50 @@ appended to the end of the `TaskList`.
 
 // end:: planner[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
->>>>>>> upstream/master
 
-Given below is an example usage scenario of how increase-progress mechanism behaves.
+// tag:: ccatracker[]
+=== CcaTracker Feature
+==== Overview
+The application is able to track Ccas. Each user can have multiple Ccas and each Cca can have multiple equipments
+needed. In addition, the application is able to track the progress of each person in their Ccas. Hence, there is a
+need to represent the CcaTracker as a list of Ccas on which the application can perform create, read, update and delete
+operations on each Cca.
+
+==== Implementation
+The `CcaTracker` mechanism is facilitated by `CcaTrackerModel`.
+
+`Model` supports operations to facilitate
+cca tracking capabilities by extending the `CcaTrackerModel` which has the following operations:
+
+* `Model#containsCca(Cca cca)` -- Checks if the `CcaTracker` contains the given cca.
+* `Model#addCca(Cca cca)` -- Adds a `Cca` to the `CcaTracker`.
+* `Model#removeCca(Cca cca)` -- Removes a `Cca` from the `CcaTracker`.
+* `Model#updateCca(Cca toBeUpdatedCca, Cca updatedCca)` -- Updates a `Cca` in the `CcaTracker`.
+* `Model#getCcaTracker()` -- Gets the `CcaTracker` instance.
+* `Model#getNumberOfCcas()` -- Returns the number of `Ccas` currently in the `CcaTracker`.
+* `Model#getCca(Index index)` -- Gets the `Cca` instance by its index in the `CcaTracker`.
+* `Model#updateFilteredCcaList(Predicate<Cca> predicate)` -- Updates the `FilteredCcaList` by passing it a predicate.
+* `Model#getFilteredCcaList()` -- Returns an instance of the `FilteredCcaList`
+* `Model#addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList)` - Adds `CcaProgressList` to the target `Cca`.
+* `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
+
+CcaTracker has 7 specific commands that support the given operations to mutate the state of the `Model`. Each command is
+represented as seperate class:
+
+* `AddCcaCommand` -- Adds a `Cca` to the `CcaTracker`.
+* `DeleteCcaCommand` -- Deletes a `Cca` from the `CcaTracker`.
+* `EditCcaCommand` -- Edits the selected `Cca` in the `CcaTracker`.
+* `FindCcaCommand` -- Finds a `Cca` from the `CcaTracker` based on the keywords specified .
+* `ListCcaCommand` -- Lists all the `Cca` from the `CcaTracker`.
+* `AddProgressCommand` -- Adds a progress tracker to a cca.
+* `IncreaseProgressCommand` -- Increments the progress level of a cca.
+
+
+For brevity's sake, we will illustrate only 1 specific command and its execution on model.
+The following activity diagram illustrates how a `Cca`'s progress is incremented when a user types in a
+`increase-progress` command:
+
+Given below is an example usage scenario of how the increase-progress mechanism behaves.
 
 Step 1. The user launches the application for the first time. The `CcaTracker` is initialized. Assume that a `Cca` has
 already been added to the Cca and that a progress tracker has already been set for that `Cca`.
@@ -763,6 +697,7 @@ within `Cca`.
 * *Alternative 2:* Implement CcaProgressList as a normal `List` e.g. `ArrayList` .
 ** Pros: Does not require predicates to be passed in.
 ** Cons: Might be more complicated when rendering in Javafx.
+// end::ccatracker[]
 
 === Logging
 
