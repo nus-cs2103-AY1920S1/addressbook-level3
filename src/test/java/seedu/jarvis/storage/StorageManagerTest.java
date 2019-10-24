@@ -3,6 +3,8 @@ package seedu.jarvis.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.cca.TypicalCcas.getTypicalCcaTracker;
+import static seedu.jarvis.testutil.history.TypicalCommands.getTypicalHistoryManager;
 
 import java.nio.file.Path;
 
@@ -13,8 +15,11 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 
@@ -30,7 +35,9 @@ public class StorageManagerTest {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonHistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(getTempFilePath("hm"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage);
+        JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(getTempFilePath("ct"));
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
+                ccaTrackerStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -69,4 +76,29 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getAddressBookFilePath());
     }
 
+    @Test
+    public void historyManagerReadSave() throws Exception {
+        HistoryManager original = getTypicalHistoryManager();
+        storageManager.saveHistoryManager(original);
+        HistoryManager retrieved = storageManager.readHistoryManager().get();
+        assertEquals(original, new HistoryManager(retrieved));
+    }
+
+    @Test
+    public void getHistoryManagerFilePath() {
+        assertNotNull(storageManager.getHistoryManagerFilePath());
+    }
+
+    @Test
+    public void ccaTrackerReadSave() throws Exception {
+        CcaTracker original = getTypicalCcaTracker();
+        storageManager.saveCcaTracker(original);
+        CcaTracker retrieved = storageManager.readCcaTracker().get();
+        assertEquals(original, new CcaTracker(retrieved));
+    }
+
+    @Test
+    public void getCcaTrackerFilePath() {
+        assertNotNull(storageManager.getCcaTrackerFilePath());
+    }
 }

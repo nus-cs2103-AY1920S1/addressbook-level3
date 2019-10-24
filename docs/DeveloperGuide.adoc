@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Jarvis - Developer Guide
 :nus-mods-api: https://api.nusmods.com/v2/
 :site-section: DeveloperGuide
 :toc:
@@ -13,9 +13,74 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T10-1`      Since: `Aug 2019`      Licence: `MIT`
+
+////
+Please follow this style rules
+
+1.
+Any line must be strictly less than 80 characters width. Exceptions being
+tables or image captions.
+
+(Why: Display vs physical lines using hjkl on vim makes long lines very mafan)
+
+2.
+Captions are as such
+
+.The caption
+image::LinkToDiagram.png[]
+
+Ensure you use this notation so that Figure numbers are automatically added.
+It is also preferable not to reference figure numbers at all.
+
+3.
+Indent long lines in lists appropriately ->
+
+* Very long line Very long line Very long line Very long line Very long line
+  Very long line
+^^
+indented
+
+4.
+Entire paragraphs should be typed out as entire paragraphs.
+
+So, instead of:
+
+This is the first sentence.
+This is the second sentence of the paragraph that is very long and will
+overrun the character limit.
+But is still in the same paragraph.
+
+Do this:
+
+This is the first sentence. This is the second sentence of the graph that is
+very long and will overrun the character limit. But is still in one paragraph.
+
+(Why: when I read, it looks like separate lines but is actually not.)
+
+5.
+Keep opening and closing backticks on the same line while conforming within
+the character limit.
+
+do this:
+
+Long line Long line Long line Long line Long line Long line Long
+`Backticked word`
+
+instead of:
+
+Long line Long line Long line Long line Long line Long line Long `Backticked
+word`
+
+(This is to preserve syntax highlighting, so I can see if backticked words
+or anything aren't properly escaped or formatted)
+
+6.
+Use macros as much as possible, see preamble.
+
+////
 
 == Setting up
 
@@ -29,35 +94,43 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the
+App. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+`Main` has two classes called
+link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and
+link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`].
+They are responsible for,
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+* At app launch: Initializes the components in the correct sequence, and
+  connects them up with each other.
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At shut down: Shuts down the components and invokes cleanup method where
+  necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+<<Design-Commons,*`Commons`*>> represents a collection of classes used byx
+multiple other components. The following class plays an important role at the
+architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : Used by many classes to write log messages to the App's log
+  file.
 
 The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the
+  hard disk.
 
 Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines
+it's API in the `Logic.java` interface and exposes its functionality using
+the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -65,7 +138,8 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each
+other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
@@ -80,14 +154,22 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`,
+`ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these,
+including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are
+defined in matching `.fxml` files that are in the `src/main/resources/view`
+folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`]
+is specified in
+link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to `Model` data so that the UI can be updated with the
+  modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -99,18 +181,23 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `JarvisParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+. `Logic` uses the `JarvisParser` class to parse the user command.
+. This results in a `Command` object which is executed by the `LogicManager`.
+. The command execution can affect the `Model` (e.g. adding a person).
+. The result of the command execution is encapsulated as a `CommandResult`
+  object which is passed back to the `Ui`.
+. In addition, the `CommandResult` object can also instruct the `Ui` to
+  perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic`
+component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteAddressCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteAddressCommandParser` should end at the destroy
+marker (X) but due to a limitation of PlantUML, the lifeline reaches the end
+of diagram.
 
 [[Design-Model]]
 === Model component
@@ -142,196 +229,285 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book, History Manager, Finance Tracker, Cca Tracker, Course Planner and Planner
-data in json format and read it back.
+* can save the Address Book, History Manager, Finance Tracker, Cca Tracker,
+Course Planner and Planner data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.jarvis.commons` package.
 
-== Implementation==== Implementation
+== Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features are
+implemented.
 
-// tag::undoredo[]
-=== Undo/Redo Feature
+=== Undo / Redo Feature
+
 ==== Overview
-The application should be able to undo and redo changes made by commands to give the user more flexibility in their inputs.
-Undo and redo operations should also be undo or redo multiple commands in a command.
-In the event that a undo/redo command that comprises of multiple undo/redo operations fails at any point, all changes made
-by the command should be rolled back. This is reflected in the Activity Diagram below:
+The application should be able to undo and redo changes made by commands to
+give the user more flexibility in their inputs. Undo and redo operations
+should also be undo or redo multiple commands in a command. In the event that
+a undo/redo command that comprises of multiple undo/redo operations fails at
+any point, all changes made by the command should be rolled back. This is
+reflected in the Activity Diagram below:
 
 .Activity Diagram for undo and redo commands
 image::UndoRedoActivityDiagram.png[]
 
-Therefore there is a need to remember commands that change the state of the `Model`. Commands that just render a view without
-actually changing the application should not be stored as it does not make sense to undo or redo them.
-We will distinguish these types of commands into two categories, *invertible commands* and *non-invertible commands*.
+Therefore there is a need to remember commands that change the state of the
+`Model`. Commands that just render a view without actually changing the
+application should not be stored as it does not make sense to undo or redo
+them. We will distinguish these types of commands into two categories,
+*invertible commands* and *non-invertible commands*.
 
-* *Invertible commands* -- commands that mutate the state of the `Model` and should be stored for undo/redo functions.
-* *Non-invertible commands* -- commands that do not mutate the state of the `Model` and should not be stored for undo/redo functions.
+* *Invertible commands* -- commands that mutate the state of the `Model` and
+  should be stored for undo/redo functions.
+
+* *Non-invertible commands* -- commands that do not mutate the state of the
+  `Model` and should not be stored for undo/redo functions.
 
 [NOTE]
-Undo and redo commands will be considered non-invertible commands even though they technically change the state of the `Model`.
-The reason is that they are commands facilitating the undo and redo operation, thus they should not be stored.
+Undo and redo commands will be considered non-invertible commands even though
+they technically change the state of the `Model`. The reason is that they are
+commands facilitating the undo and redo operation, thus they should not be
+stored.
 
-The following activity diagram illustrates how commands are remembered when a user types in a command:
+The following activity diagram illustrates how commands are remembered when a
+user types in a command:
 
 .Activity Diagram for how commands are remembered after their successful execution
 image::CommandActivityDiagram.png[]
 
 ==== Implementation
-The undo/redo feature mechanism is facilitated by `HistoryManager`. `HistoryManager` remembers *invertible commands*. These commands are stored internally in
-two `CommandDeque` objects, `executedCommands` and `inverselyExecutedCommands`. `CommandDeque` serve as custom `Deque`
-data structure, which stores the latest added command to the top.
+The undo/redo feature mechanism is facilitated by `HistoryManager`.
+`HistoryManager` remembers *invertible commands*. These commands are stored
+internally in two `CommandDeque` objects, `executedCommands` and
+`inverselyExecutedCommands`. `CommandDeque` serve as custom `Deque` data
+structure, which stores the latest added command to the top.
 
-An undo operation would comprise of taking the latest executed command from `executedCommands`, inversely executing it, and adding it to
-`inverselyExecutedCommands`. A redo operation would comprise of a taking the latest inversely executed command from
-`inverselyExecutedCommands`, executing it, and adding it to `executedCommands`.
+An undo operation would comprise of taking the latest executed command from
+`executedCommands`, inversely executing it, and adding it to
+`inverselyExecutedCommands`. A redo operation would comprise of a taking the
+latest inversely executed command from `inverselyExecutedCommands`, executing
+it, and adding it to `executedCommands`.
 
-`Model` supports operations to facilitate
-undo and redo capabilities by extending the `HistoryModel` which has the following operations:
+`Model` supports operations to facilitate undo and redo capabilities by
+extending the `HistoryModel` which has the following operations:
 
 * `Model#getHistoryManager()` -- Gets the `HistoryManager` instance.
-* `Model#setHistoryManager(HistoryManager)` -- Resets the `HistoryManager` data to the given `HistoryManager` in the argument.
-* `Model#getAvailableNumberOfExecutedCommands()` -- Gets the maximum available number of commands that can be undone.
-* `Model#getAvailableNumberOfInverselyExecutedCommands()` -- Gets the maximum available number of commands that can be redone.
-* `Model#canRollback()` -- Checks if it is possible to undo a command at the given state.
-* `Model#canCommit()` -- Checks if it is possible to redo a command at the given state.
-* `Model#rememberExecutedCommand(Command)` -- Remembers the given `Command` and stores it in `executedCommands` to facilitate undo capability for this command.
-* `Model#rememberInverselyExecutedCommand(Command)` -- Remembers the given `Command` and stores it in `inverselyExecutedCommands` to facilitate redo capability for this command.
-* `Model#rollback()` -- Inversely executes the latest command stored in `executedCommands` to revert the changes of the latest executed command made onto `Model`.
-* `Model#commit()` -- Executes the latest undone command stored in `inverselyExecutedCommands` to reapply the changes that were made onto `Model` by the latest undone command.
 
-Commands support the given operations to mutate the state of the `Model` and to check if they should be stored for undo/redo function:
+* `Model#setHistoryManager(HistoryManager)` -- Resets the `HistoryManager`
+  data to the given `HistoryManager` in the argument.
 
-* `Command#hasInverseExecution()` -- Checks if the command's execution mutates the state of the `Model`, which is used to determine if the command should be remembered by `HistoryManager`.
+* `Model#getAvailableNumberOfExecutedCommands()` -- Gets the maximum available
+  number of commands that can be undone.
+
+* `Model#getAvailableNumberOfInverselyExecutedCommands()` -- Gets the maximum
+  available number of commands that can be redone.
+
+* `Model#canRollback()` -- Checks if it is possible to undo a command at the
+  given state.
+
+* `Model#canCommit()` -- Checks if it is possible to redo a command at the
+  given state.
+
+* `Model#rememberExecutedCommand(Command)` -- Remembers the given `Command`
+  and stores it in `executedCommands` to facilitate undo capability for this
+  command.
+
+* `Model#rememberInverselyExecutedCommand(Command)` -- Remembers the given
+  `Command` and stores it in `inverselyExecutedCommands` to facilitate redo
+  capability for this command.
+
+* `Model#rollback()` -- Inversely executes the latest command stored in
+  `executedCommands` to revert the changes of the latest executed command
+  made onto `Model`.
+
+* `Model#commit()` -- Executes the latest undone command stored in
+  `inverselyExecutedCommands` to reapply the changes that were made onto
+  `Model` by the latest undone command.
+
+Commands support the given operations to mutate the state of the `Model` and
+to check if they should be stored for undo/redo function:
+
+* `Command#hasInverseExecution()` -- Checks if the command's execution mutates
+  the state of the `Model`, which is used to determine if the command should
+  be remembered by `HistoryManager`.
+
 * `Command#execute(Model)` -- Executes the command on the given `Model`.
-* `Command#executeInverse(Model)` -- Executes on the given `Model` such that it will undo whatever changes were made when `Command#execute(Model)` was called.
 
-Below is a class diagram between `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`.
+* `Command#executeInverse(Model)` -- Executes on the given `Model` such that
+  it will undo whatever changes were made when `Command#execute(Model)` was
+  called.
+
+Below is a class diagram between `Model`, `ModelManager`, `HistoryManager`,
+`CommandDeque` and `Command`.
 
 .Class Diagram for `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`
 image::HistoryManagerClassDiagram.png[]
 
-Undo and redo operations are executed with `UndoCommand` and `RedoCommand`. These commands store an integer value referencing the number of commands to undo or redo,
-represented by `UndoCommand#numberOfTimes` and `RedoCommand#numberOfTimes`. The Class Diagram below shows details about `UndoCommand` and `RedoCommand`.
+Undo and redo operations are executed with `UndoCommand` and `RedoCommand`
+These commands store an integer value referencing the number of commands to
+undo or redo, represented by `UndoCommand#numberOfTimes` and
+`RedoCommand#numberOfTimes`. The Class Diagram below shows details about
+`UndoCommand` and `RedoCommand`.
 
 .Class Diagram for `UndoCommand`, `RedoCommand` and `Command`
 image::UndoRedoCommandClassDiagram.png[]
 
-Below is a Sequence Diagram of how an `UndoCommand` executes in the program. `RedoCommand` follows a similar process.
+Below is a Sequence Diagram of how an `UndoCommand` executes in the program.
+`RedoCommand` follows a similar process.
 
 .Sequence Diagram for `UndoCommand`
 image::UndoCommandSequenceDiagram.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
-Step 1. The user launches the application for the first time. The `HistoryManager` is initialized.
-`HistoryManager#executedCommands` and `HistoryManager#inverselyExecutedCommands` are empty.
+Step 1. The user launches the application for the first time. The
+`HistoryManager` is initialized. `HistoryManager#executedCommands` and
+`HistoryManager#inverselyExecutedCommands` are empty.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book.
-A `DeleteAddressCommand` is created and executed in `LogicManager#execute(String)`.
-Since `DeleteCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
+Step 2. The user executes `delete 5` command to delete the 5th person in the
+address book. A `DeleteAddressCommand` is created and executed in
+`LogicManager#execute(String)`. Since `DeleteCommand` is an invertible
+command, `HistoryManager` remembers the command, adding it to
+`HistoryManager#executedCommands`.
 
 Step 3. The user executes `add n/David ...` to add a new person.
-A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
-Since `AddAddressCommand` is an invertible command, `HistoryManager` remembers the command, adding it to `HistoryManager#executedCommands`.
+A `AddAddressCommand` is created and executed in
+`LogicManager#execute(String)`. Since `AddAddressCommand` is an invertible
+command, `HistoryManager` remembers the command, adding it to
+`HistoryManager#executedCommands`.
 
 [NOTE]
-If a invertible command execution fails, `HistoryManager` will not remember it, therefore it will not be stored for undo/redo capabilities.
+If a invertible command execution fails, `HistoryManager` will not remember
+it, therefore it will not be stored for undo/redo capabilities.
 
-Step 4. The user now decides that the last two commands entered was a mistake, and decides to undo those commands by executing the `undo` command by typing in the command `undo r/2`.
-An `UndoCommand` is created and executed in `LogicManager#execute(String)` to undo the latest two commands.
-The command will call `Model#rollback()` two times. During each `Model#rollback()` call, the `Model` will call `HistoryManager` to take the latest command
-from `HistoryManager#executedCommands` and call `Command#executeInverse(Model)` on the `Model`, undoing the changes made to `Model` by the command, before adding it to
-`HistoryManager#inverselyExecutedCommands`. After the `undo` command execution is complete, the `Model` state is reverted to what it was before the two undone commands were executed.
+Step 4. The user now decides that the last two commands entered was a mistake,
+and decides to undo those commands by executing the `undo` command by typing
+in the command `undo r/2`. An `UndoCommand` is created and executed in
+`LogicManager#execute(String)` to undo the latest two commands. The command
+will call `Model#rollback()` two times. During each `Model#rollback()` call,
+the `Model` will call `HistoryManager` to take the latest command from
+`HistoryManager#executedCommands` and call `Command#executeInverse(Model)` on
+the `Model`, undoing the changes made to `Model` by the command, before adding
+it to `HistoryManager#inverselyExecutedCommands`. After the `undo` command
+execution is complete, the `Model` state is reverted to what it was before the
+two undone commands were executed.
 
 [NOTE]
-`undo`/`redo` commands can undo/redo one or more commands. To undo/redo one command, entering `undo`/`redo` is equivalent to entering  `undo 1`/`redo 1`.
+`undo`/`redo` commands can undo/redo one or more commands. To undo/redo one
+command, entering `undo`/`redo` is equivalent to entering  `undo 1`/`redo 1`.
 
 [NOTE]
-If an `undo`/`redo` command is given to undo/redo more commands than available, the operation will fail and no `undo`/`redo` is applied at all.
-This check is enforced by `Model#getAvailableNumberOfExecutedCommands()`, `Model#getAvailableNumberOfInverselyExecutedCommands()`, `Model#canRollback()` and `Model#canCommit()`.
+If an `undo`/`redo` command is given to undo/redo more commands than
+available, the operation will fail and no `undo`/`redo` is applied at all.
+This check is enforced by `Model#getAvailableNumberOfExecutedCommands()`,
+`Model#getAvailableNumberOfInverselyExecutedCommands()`, `Model#canRollback()`
+and `Model#canCommit()`.
 
-Step 5. The user then decides to execute the command `list`. `list` command is a *non-invertible command*. Therefore, it will not be stored by `HistoryManager` after its execution.
+Step 5. The user then decides to execute the command `list`. `list` command
+is a *non-invertible command*. Therefore, it will not be stored by
+`HistoryManager` after its execution.
 
-Step 6. The user decides to redo the last command that was undone by executing a `redo` command by typing in the command `redo`.
-A `RedoCommand` is created and executed in `LogicManager#execute(String)` to redo the latest undo.
-The command will call `Model#commit()` once. `Model` will call `HistoryManager` to take the latest command from `HistoryManager#inverselyExecutedCommands`
-and call `Command#execute(Model)` on the `Model`, reapplying the changes that were made by the command, before adding it to `HistoryManager#executedCommands`.
-After the `redo` command execution is complete, the `Model` has the changes made by the latest the command that was redone.
+Step 6. The user decides to redo the last command that was undone by executing
+a `redo` command by typing in the command `redo`. A `RedoCommand` is created
+and executed in `LogicManager#execute(String)` to redo the latest undo. The
+command will call `Model#commit()` once. `Model` will call `HistoryManager`
+to take the latest command from `HistoryManager#inverselyExecutedCommands`
+and call `Command#execute(Model)` on the `Model`, reapplying the changes that
+were made by the command, before adding it to
+`HistoryManager#executedCommands`. After the `redo` command execution is
+complete, the `Model` has the changes made by the latest the command that was
+redone.
 
 Step 7. The user executes `add n/John ...` to add a new person.
-A `AddAddressCommand` is created and executed in `LogicManager#execute(String)`.
-The `HistoryManager` clears all commands stored in `HistoryManager#inverselyExecutedCommands`.
-Similar to `Step 3`, `HistoryManager` remembers this command.
+A `AddAddressCommand` is created and executed in
+`LogicManager#execute(String)`. The `HistoryManager` clears all commands
+stored in `HistoryManager#inverselyExecutedCommands`. Similar to `Step 3`,
+`HistoryManager` remembers this command.
 
 [NOTE]
-Whenever a new invertible command is executed that is not currently in `HistoryManager`, it will clear all the commands that are stored in `HistoryManager#inverselyExecutedCommands`.
-This means that all potential redo actions are cleared.
+Whenever a new invertible command is executed that is not currently in
+`HistoryManager`, it will clear all the commands that are stored in
+`HistoryManager#inverselyExecutedCommands`. This means that all potential
+redo actions are cleared.
 
 ==== Design Considerations
+
 ===== Aspect: How undo & redo executes
 * *Alternative 1:* Saves the entire `Model`.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
+
 * *Alternative 2:* Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being
+   deleted).
+** Cons: We must ensure that the implementation of each individual command
+   are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 * *Alternative 1:* Use a `List` to store the history of `Model` states.
-Maintain a pointer to point to the current version of `Model`, and shift the pointer along the list to facilitate undo/redo operations.
+Maintain a pointer to point to the current version of `Model`, and shift the
+pointer along the list to facilitate undo/redo operations.
+
 ** Pros: Simple implementation.
 ** Cons: Expensive on storage as multiple copies of `Model` is stored.
-* *Alternative 2:* Implement invertible commands whereby they support their inverse execution. Use two `Deque` data structures to store the history of commands, to represent
-executed commands and inversely executed commands. Move commands from one deque to another and executing/inversely executing them to facilitate undo/redo operations.
-** Pros: Storage efficient, as application only needs to keep track of invertible commands, and do not need to store multiple copies of `Model`.
+
+* *Alternative 2:* Implement invertible commands whereby they support their
+  inverse execution. Use two `Deque` data structures to store the history of
+  commands, to represent executed commands and inversely executed commands.
+  Move commands from one deque to another and executing/inversely executing
+  them to facilitate undo/redo operations.
+** Pros: Storage efficient, as application only needs to keep track of
+   invertible commands, and do not need to store multiple copies of `Model`.
 ** Cons: Implementation is more complex.
-
-// end::undoredo[]
-
-// tag::courseplanner[]
 
 === Course Planner feature
 
 ==== Overview
-The Course Planner feature allows the user to track what courses they have
-taken, are taking and plan out what they would want to take after the current
-semester. The program offers updated information on courses offered by NUS,
-along with convenient add, delete and check operations on their course list.
+The Course Planner feature allows the user to track what courses they
+
+1. Have taken
+2. Are taking, and
+3. Want to take
+
+The feature offers updated information on courses offered by NUS, along with
+convenient add, delete and check operations on the user's course list.
 
 ==== Implementation
 
-The Course Planner feature closely follows the extendable OOP solution already
-implemented within AB3. In the Course Planner, the `CoursePlanner` object
+The Course Planner feature closely follows the extendable OOP solution
+implemented within Jarvis. Within `model`, the `CoursePlanner` class
 manages all aspects related to this feature. The course list of the user is
 stored internally using a `UniqueCourseList` object, providing an abstraction
-with `add`, `delete` and `getList` operations that are called by
+with `add`, `delete` and `getCourseList` operations that are called by
 `CoursePlanner`.
 
 * `Model#getCoursePlanner()` - Gets the `CoursePlanner` instance
 * `Model#lookUpCourse(Course)` - Looks up a course's information
 * `Model#addCourse(Course)` - Adds a course to the user's list
 * `Model#addCourse(Index, Course)` - Adds a course to the user's list at the
-specified index
+  specified index
 * `Model#deleteCourse(Course)` - Deletes the given Course from the user's list
 * `Model#hasCourse(Course)` - Checks if the user has this course in their list
 * `Model#getUnfilteredCourseList()` - Returns an `ObservableList` containing
-the user's list of courses.
+  the user's list of courses
+* `Model#getCourseText()` - Returns a `CourseText` object
+
+.Course Model Class Diagram
+image::ModelCoursePlannerClassDiagram.png[]
 
 ===== Course Datasets
 
-Course datasets are taken directly from the {nus-mods-api}[NUSMods API]. They
-conveniently store their data used on their website using the `.json` file
-format. Therefore, all course data within the program are read directly from
-`.json` files using the Jackson JSON API.
+Course data-sets are taken directly from the {nus-mods-api}[NUSMods API]. These
+data-sets are stored using the `.json` file format on NUSMod's API. Therefore,
+all course data within Jarvis is read directly from `.json` files using the
+Jackson JSON API.
 
 Each course, and their data, are given its own file. These files are laid out
-in a `/modinfo` directory within the `resources` folder to be easily
-accessible by the program.
+in `/modinfo` within `/resources` to be easily accessible by the program.
 
 A sample `.json` is given below for a fictional course `AB1234`.
 
@@ -370,39 +546,82 @@ following attributes:
 * `faculty`
 * `description`
 
-These attributes are *non-nullable*, as fro the 11000+ course datafiles
-downloaded from NUSMods, all at least have these attributes. The other three:
-`fulfillRequirements`, `preclusion` and `prereqTree` are optional/nullable
-attributes.
+These attributes are *non-nullable*, this is as from the 11000+ course
+datafiles downloaded from NUSMods, all at least have these attributes. The
+other three: `fulfillRequirements`, `preclusion` and `prereqTree` are
+optional, nullable attributes.
 
 [NOTE]
 NUSMods is a popular website officially affiliated with NUS, where
 students are able to look up information about courses and plan their
-school timetable.
+school timetable. This makes its data-set a reliable source of course
+information.
 
 ==== And-Or Tree
 
 ===== Overview
 
-The `AndOrTree` is a tree data structure served by the `andor` package that
-provides an abstraction for processing the prerequisite tree. The prerequisite
-tree (henceforth referred to as `prereqTree`) is an attribute of a `Course`
-that is available in the NUSMod's course dataset.
+The `AndOrTree<R>` is a tree data structure served by the `util/andor`
+package that provides an abstraction for processing the prerequisite tree.
+The prerequisite tree (henceforth referred to as `prereqTree`) is an attribute
+of a `Course` that is available in the NUSMod's course data-set.
 
-In order to show the user whether they are able to take a course, we use this
-`prereqTree` attribute that is checked against the user's list of taken courses.
-The `prereqTree` can be either:
+===== The `AndOrTree` Class
 
-1. empty - no prerequisites needed for this course
-2. consist of one element only - only one course is a prerequisite
-3. a nested `json` object - complex prerequisites
+The following are `public` methods in `AndOrTree`.
 
-In the most complex case, `prereqTree` will be a nested `json` object
-with object keys being either strings `"and"` or `"or"`, while array or
-individual elements mappable strings. The program reads this nested `json`
-object as a string and processes it to form the tree data structure.
+* `buildTree(String, Function<String, ? extends R>)`
++
+Builds a tree from the given jsonString. `Function` is a mapper function
+that processes a `String` and returns a value of type `R`, where `R` is the
+type of data stored by each node in the tree.
 
-An example of a processable json string is as such:
+* `fulfills(Collection<R>)`
++
+Checks if the given `Collection` of type `R` fulfills the condition
+specified by this tree. `AndOrNode` has its own corresponding `fulfill` that
+checks its children or data against `Collection`.
+
+Due to the arbitrary ordering of the tree, `insert()` and `delete()`
+operations commonly found in implementations of ordered trees are
+difficult to implement. Instead, the tree is fully created upon the call to
+`buildTree()` and is then enforced to be immutable once built. This is
+reflected in the class' lack of mutator methods.
+
+===== The `AndOrNode` Class
+
+Each node in the tree of type `R` is represented by an `AndOrNode<R>`. Every
+node can either  of these types:
+
+1. `AND`
++
+Any subset of elements in a `Collection<R>` must match all children
+of this node.
+
+2. `OR`
++
+Any element in a `Collection<R>` must match at least one of the
+children of this node
+
+3. `DATA`
++
+Any element in a  `Collection<R>` must match the data stored in
+this node
+
+The following class diagram demonstrates the structure of the `AndOrNode`
+`abstract class` and its sub-classes.
+
+.AndOrNode Inheritance Diagram
+image::AndOrNodeInheritanceClassDiagram.png[800, 600]
+
+Using this format, `AndOrNode#createNode(T,String)` is able to instantiate
+all instances of its sub-class, thus the caller will not need to know the
+different types of nodes there are.
+
+====== Building of the `AndOrTree`
+
+As mentioned above, we use the `prereqTree` attribute in order to build
+the tree. An example of a processable json string is as such:
 ----
 "prereqTree": {
     "and": [
@@ -417,59 +636,30 @@ An example of a processable json string is as such:
 }
 ----
 
-This is compressed to
+This can be read as:
 
-`"prereqTree":{"and":[{"or":["CD1111","XY2222"]},"EF3333"]}`
+----
+To take AB1234, you require...
+|
+└ all of
+  ├── one of
+  |   ├─ "CD1111"
+  |   └─ "XY2222"
+  └─ "EF3333"
+----
 
-===== Methods of the `AndOrTree` class
+This means that to take the fictional course `AB1234`, a user would have to
+complete `EF3333`, **and** either `CD1111` or `XY2222`.
 
-The following are `public` methods in `AndOrTree`.
+The `buildTree()` method takes in the `json` string as an input. A root
+`JsonNode` object is created, and the tree is built recursively from
+the root. The sequence diagram of the tree building process is shown below:
 
-* `AndOrTree#buildTree(String, Function<String, ? extends R>)`
-+
-Builds a tree from the given jsonString. `Function` is a mapper function
-that processes a `String` and returns a value of type `R`, where `R` is the
-type of data stored by each node in the tree, and therefore the overall
-type of the tree.
+.buildTree() Sequence Diagram
+image::AndOrSequenceDiagramSimplified.png[]
 
-* `AndOrTree#fulfills(Collection<? super R>)`
-+
-Checks if the given `Collection` of type `? super R` fulfills the condition
-specified by this tree. `AndOrNode` has its own corresponding `fulfill` that
-checks its children or data against `Collection`
-
-Due to the arbitrary ordering of the tree, `insert()` and `delete()`
-operations commonly found in implementations of standard, ordered trees are
-difficult to implement. Instead, the tree is fully created upon the call to
-`buildTree()` and is then enforced to be immutable once built.
-
-Each node in the tree of type `T` is represented by an `AndOrNode<T>`. Every
-node can either  of these types:
-
-1. `AND` - any subset of elements in a `Collection<T>` must match all children
-of this node
-2. `OR` - any element in a `Collection<T>` must match at least one of the
-children of this node
-3. `DATA` - any element in a  `Collection<T>` must match the data stored in
-this node
-
-The following diagram shows the conditions for which
-`AndOrNode#fulfills(Collection)` returns `true` or `false`.
-
-.AndOrNode Condition Diagram
-image::AndOrNodeConditionDiagram.png[600,600,align=center]
-
-The tree is built recursively using the Jackson JSON API's `JsonNode` class,
-which along with `ObjectMapper()` that can read `json` strings, lets us
-traverse the `json` object tree structure.
-
-The sequence diagram of the tree building process is shown below:
-
-.AndOrTree Sequence Diagram
-image::AndOrSequenceDiagram.png[align=center]
-
-The class looks at each node - checks if its a json Object, json Array or
-a String, and does the appropriate actions and method calls to build the tree.
+The class looks at each node - checks if its is an `Object`, `Array` or
+a `String`, and does the appropriate actions and function calls.
 
 Other ways of building the tree can be easily extended by overloading the
 `buildTree` method. However, this will not override the immutable properties
@@ -477,64 +667,61 @@ of the tree.
 
 ==== Design Considerations
 
-===== Aspect: Storing of Course datasets
+===== Aspect: Storing of Course data-sets
 
-* Alternative 1 (current choice): Storing each course as its own file
-
-** Pros:
+* **Alternative 1**: Storing each course in one, large JSON file
+** **Pros:**
 +
-Fast lookup as the contents of 11000+ files worth of data do not need
-to be scanned directly. Concatenating file paths directly to the file
-is used instead.
+Easier to manage. Every course can be found in a single file. The code need
+not deal with `FileNotFoundException` or `IOException` as the single file
+is guaranteed to exist.
 
-** Cons:
-+
-Difficult to manage. If we want to modify the datasets in any way, a script
-will have to be written to process every file in the dataset.
-
-* Alternative 2: Storing each course in one, large JSON file
-** Pros:
-+
-Easier to manage. Every course can be found in a single file.
-
-** Cons:
+** **Cons:**
 +
 A large file will be difficult to view for a developer. It will also have
-a slow performance as the entire file would have to be processed to look up
+slow performance as the entire file would have to be processed to look up
 one course.
++
+A developer may also:
++
+1. Store the whole file in a buffer for faster lookup, but this may be
+   time-consuming and troublesome to implement.
++
+2. Process the whole file and create all `Course` objects upon start-up.
+   However, due to the large number of course files (11000+), this may have
+   significant memory overhead.
 
-We ultimately went with alternative #1 as once the files were downloaded and
-processed, there was no need to modify them any further. Manual lookup of
-information about a specific  course during development is also much easier
-with such a method.
+* **Current Choice**: Storing each course as its own file
+** **Pros:**
++
+Fast lookup as the contents of 11000+ files worth of data do not need
+to be scanned directly. Fast, `String` concatenation of file paths directly
+to the file is used instead.
+
+** **Cons:**
++
+Difficult to manage. If we want to modify the data-sets in any way, a script
+will have to be written to process every file in the dataset, unless a
+developer wants to manually change all files.
+
+We did not go with alternative 1 as once the files were downloaded and
+processed, there was no need to modify them any further. Processing, or
+loading inside a buffer, of very large text files will likely significantly
+hamper performance for little benefit. Manual lookup information about a
+specific course during development is also much easier with such a method.
 
 ===== Aspect: `AndOrTree` of fixed type vs `AndOrTree<R>` of generic type `R`
 
-* Alternative 1 (current choice): `AndOrTree` with generics
-** Pros
-+
-This makes the tree reusable in the future. The tree will also be able to
-store any data-type which allows for easier unit testing, since it won't be
-dependent on the correctness of the fixed data-type (`Course` in this
-instance), and instead well-tested libraries such as Java's `String` API can
-be used to test the class instead.
 
-** Cons
-+
-Due to how the tree is built (i.e from a json string), a
-**mapper function** must be passed into the `buildTree()` method to process the
-string in each node to the generic type of the tree. The function is of a type
-`Function<? super String, ? extends R>`, for a tree of type `R`.
-
-* Alternative 2: `AndOrTree` dependent on `Course` (or any fixed datatype)
-** Pros
+* **Alternative 1**: `AndOrTree` dependent on `Course` (or any fixed datatype)
+** **Pros:**
 +
 There is no need to pass any mapper function into the `buildTree()` method as
 the class will already know how to map each `String` to a type `R`. This
 makes handling exceptions easier as they can be handled directly by the class
 instead of by the caller.
 
-** Cons
+** **Cons:**
 +
 This increases coupling between the tree and the fixed data-type used by
 the tree, resulting the correctness of the `AndOrTree` class being dependent
@@ -542,53 +729,91 @@ on the fixed data-type, as there will be no way to stub it.
 The tree will also only be locked to a specific data-type and is
 non-extendable.
 
-We picked alternative #1 as its benefits far outweigh its disadvantages. While
-extendability and resusability of the class is a nice bonus, the decrease in
-coupling and increase in testability was the deciding factor in choosing
-between these two approaches.
+* **Current choice**: `AndOrTree` with generics
+** **Pros:**
++
+This makes the tree reusable in the future. The tree will also be able to
+store any data-type which allows for easier unit testing, since it won't be
+dependent on the correctness of the fixed data-type (`Course` in this
+instance), and instead well-tested libraries such as Java's `String` API can
+be used to test the class instead.
 
-// end::courseplanner[]
+** **Cons:**
++
+Due to how the tree is built (i.e from a json string), a
+**mapper function** must be passed into the `buildTree()` method to process the
+string in each node to the generic type of the tree. The function should be of
+a type `Function<String, ? extends R>`, for a tree of type `R`.
 
-// tag::financetracker[]
+Due to its benefits far outweighing its disadvantages, we picked out
+current choice. While extendability and resusability of the class is a nice
+bonus, the decrease in coupling and increase in testability was the deciding
+factor in choosing between these two approaches. Furthermore, behaviour of the
+class can be easily extended by either inheritance, or overloading of the
+`buildTree()` method.
 
 === Finance Tracker feature
 
 ==== Overview
-The Finance Tracker feature allows the user to track what purchases they have made for the month
-and the list of installments that they have subscribed to. Such installments would be added to
-their purchases once a month. The user can store the information of the description and the amount of both
-purchases and installments. Furthermore, the user can set a monthly limit to keep track of his expenses
-for the month.
+The Finance Tracker feature allows the user to track what purchases they have
+made for the month and the list of installments that they have subscribed to.
+Such installments would be added to their purchases once a month. The user
+can store the information of the description and the amount of both purchases
+and installments. Furthermore, the user can set a monthly limit to keep track
+of his expenses for the month.
 
 ==== Implementation
 
 The Finance Tracker feature closely follows the extendable OOP solution already
-implemented within AB3. In the Finance Tracker, the `Installment` objects (containing
-`InstallmentDescription` and `InstallmentMoneyPaid` objects) and the `Purchase` objects (containing
-'PurchaseDescription' and `PurchaseMoneySpent` objects) manage most aspects related to this feature.
+implemented within AB3. In the Finance Tracker, the `Installment` objects
+(containing `InstallmentDescription` and `InstallmentMoneyPaid` objects) and
+the `Purchase` objects (containing `PurchaseDescription` and
+`PurchaseMoneySpent` objects) manage most aspects related to this feature.
 
 The finance tracker mechanism is facilitated by `FinanceTrackerModel`.
 
-`Model#getFinanceTracker()` - Gets the `FinanceTracker` instance
-`Model#getPurchase(index)` - Retrieves the purchase at that index
-`Model#updateFilteredPurchaseList(Predicate)` - Updates the filter of the purchase list with the predicate
-`Model#getFilteredPurchaseList()` - Retrieves the list of purchases with current predicate applied
-`Model#addPurchase(Purchase)` - Adds a single use payment
-`Model#deletePurchase(index)` - Deletes single use payment at that index
-`Model#getInstallment(index)` - Retrieves the installment at that index
-`Model#updateFilteredInstallmentList(Predicate)` - Updates the filter of the installment list with the predicate
-`Model#getFilteredInstallmentList()` - Retrieves the list of installments with current predicate applied
-`Model#addInstallment(Installment)` - Adds an installment
-`Model#deleteInstallment(index)` - Deletes installment at that index
-`Model#hasInstallment(Installment)` - Checks for the existence of the same installment in the finance tracker
-`Model#setInstallment(Installment, Installment)` - Replaces an existing installment with a new installment for editing
-`Model#setMonthlyLimit(MonthlyLimit)` - Sets the monthly limit for spending
-`Model#getMonthlyLimit()` - Retrieves the monthly limit if it has been set by user
+* `Model#getFinanceTracker()` - Gets the `FinanceTracker` instance
+
+* `Model#getPurchase(index)` - Retrieves the purchase at that index
+
+* `Model#updateFilteredPurchaseList(Predicate)` - Updates the filter of the
+  purchase list with the predicate
+
+* `Model#getFilteredPurchaseList()` - Retrieves the list of purchases with
+  current predicate applied
+
+* `Model#addPurchase(Purchase)` - Adds a single use payment
+
+* `Model#deletePurchase(index)` - Deletes single use payment at that index
+
+* `Model#getInstallment(index)` - Retrieves the installment at that index
+
+* `Model#updateFilteredInstallmentList(Predicate)` - Updates the filter of the
+  installment list with the predicate
+
+* `Model#getFilteredInstallmentList()` - Retrieves the list of installments
+  with current predicate applied
+
+* `Model#addInstallment(Installment)` - Adds an installment
+
+* `Model#deleteInstallment(index)` - Deletes installment at that index
+
+* `Model#hasInstallment(Installment)` - Checks for the existence of the same
+  installment in the finance tracker
+
+* `Model#setInstallment(Installment, Installment)` - Replaces an existing
+  installment with a new installment for editing
+
+* `Model#setMonthlyLimit(MonthlyLimit)` - Sets the monthly limit for spending
+
+* `Model#getMonthlyLimit()` - Retrieves the monthly limit if it has been set
+  by user
 
 ==== Installments
 
-Installments are added by the user to the FinanceTracker and are stored in an `InstallmentList`. The current
-codebase requires that all installments **must** have the following attributes:
+Installments are added by the user to the FinanceTracker and are stored in an
+`InstallmentList`. The current codebase requires that all installments
+**must** have the following attributes:
 
 * `InstallmentDescription`
 * `InstallmentMoneyPaid`
@@ -597,8 +822,9 @@ These attributes are *non-nullable**.
 
 ==== Purchases
 
-Purchases are added by the user to the FinanceTracker and are stored in a `PurchaseList`. The current
-codebase requires that all purchases **must** have the following attributes:
+Purchases are added by the user to the FinanceTracker and are stored in a
+`PurchaseList`. The current codebase requires that all purchases **must** have
+the following attributes:
 
 * `PurchaseDescription`
 * `PurchaseMoneySpent`
@@ -607,37 +833,45 @@ These attributes are *non-nullable**.
 
 ==== Command Execution
 
-For brevity's sake, we will illustrate only 1 specific command and its execution on model.
-The following activity diagram illustrates how an `Installment` is edited when a user types
-in a `edit-install` command:
+For brevity's sake, we will illustrate only 1 specific command and its
+execution on model. The following activity diagram illustrates how an
+`Installment` is edited when a user types in a `edit-install` command:
 
-Step 1. The user launches the application for the first time. The `FinanceTracker` is initialized. Assume
-that a valid `Installment` has already been added to the `InstallmentList` in `FinanceTracker`.
+Step 1. The user launches the application for the first time. The
+`FinanceTracker` is initialized. Assume that a valid `Installment` has already
+been added to the `InstallmentList` in `FinanceTracker`.
 
-Step 2. The user executes `edit-install 1 d/student-price Spotify subscription a/7.50` command
-to edit both the description and money spent on the existing Installment in the FinanceTracker. An
-`EditInstallmentCommandParser` object is created and its `#parse` method is called. The parse method returns
-a new `EditInstallmentCommand` object.
+Step 2. The user executes
+`edit-install 1 d/student-price Spotify subscription a/7.50`
+command to edit both the description and money spent on the existing
+Installment in the FinanceTracker. An `EditInstallmentCommandParser` object is
+created and its `#parse` method is called. The parse method returns a new
+`EditInstallmentCommand` object.
 
-Step 3. The `EditInstallmentCommand` object is executed on the model. The `EditInstallmentCommand#execute`
-method is called, and this will create a new `Installment` object from the existing installment
-but with all the edited fields changed. In this method, `Model#setInstallment(Installment, Installment)`
-method is called.
-
-[NOTE]
-The `EditInstallmentCommand#execute` method first checks for whether the index is within the size
-of InstallmentList.
-
-Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the methods in the `FinanceTracker` class.
-As such, the `FinanceTracker#setInstallment(Installment, Installment)` method is called. This in turns calls
-the `#InstallmentList#setInstallment(Installment, Installment)` method.
-
-Step 5. This `#InstallmentList#setInstallment(Installment, Installment)` method first finds the `Installment`
-based on its corresponding index. Then, it sets the edited installment at the index found earlier.
+Step 3. The `EditInstallmentCommand` object is executed on the model. The
+`EditInstallmentCommand#execute` method is called, and this will create a new
+`Installment` object from the existing installment but with all the edited
+fields changed. In this method,
+`Model#setInstallment(Installment, Installment)` method is called.
 
 [NOTE]
-TLDR: The calling of the `#setInstallment` method at the `FinanceTracker` level triggers a cascading series of
-`#setInstallment` method which culminates in target installment being edited with the corresponding fields.
+The `EditInstallmentCommand#execute` method first checks for whether the
+index is within the size of InstallmentList.
+
+Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the
+methods in the `FinanceTracker` class. As such, the
+`FinanceTracker#setInstallment(Installment, Installment)` method is called.
+This in turns calls the
+`#InstallmentList#setInstallment(Installment, Installment)` method.
+
+Step 5. This `#InstallmentList#setInstallment(Installment, Installment)`
+method first finds the `Installment` based on its corresponding index. Then,
+it sets the edited installment at the index found earlier.
+
+[NOTE]
+TLDR: The calling of the `#setInstallment` method at the `FinanceTracker`
+level triggers a cascading series of `#setInstallment` method which culminates
+in target installment being edited with the corresponding fields.
 
 ==== Design Considerations
 
@@ -647,13 +881,15 @@ TLDR: The calling of the `#setInstallment` method at the `FinanceTracker` level 
 
 ** Pros:
 
-Increases OOP to allow better manipulation of objects and makes objects more extensible.
+Increases OOP to allow better manipulation of objects and makes objects more
+extensible.
 
 ** Cons:
 
 More code needed.
 
-* *Alternative 2:* Use primitive Java data types for fields in `Installment` and `Purchase` objects.
+* *Alternative 2:* Use primitive Java data types for fields in `Installment`
+and `Purchase` objects.
 
 ** Pros:
 
@@ -663,11 +899,14 @@ Less code needed.
 
 Less extensible as all data contained is primitive.
 
-We ultimately went with alternative #1 as it allowed us to better practice OOP, providing a clear modular structure
-for abstracting data types in which implementation details are hidden. Furthermore, it would make the codebase easier
-to maintain. The objects created can also be reused across the application.
+We ultimately went with alternative #1 as it allowed us to better practice
+OOP, providing a clear modular structure for abstracting data types in which
+implementation details are hidden. Furthermore, it would make the codebase
+easier to maintain. The objects created can also be reused across the
+application.
 
-==== Aspect: Whether `ObservableList`s should be used for `InstallmentList` and `PurchaseList`.
+==== Aspect: Whether `ObservableList`s should be used for `InstallmentList`
+and `PurchaseList`.
 
 * *Alternative 1 (Current choice):* Implement them as `ObservableList`.
 
@@ -689,19 +928,16 @@ Does not require predicates to be passed in.
 
 Might be more complicated when rendering in Javafx.
 
-We ultimately went with alternative #1 as it provided better support for rendering when implementing the Ui of
-JARVIS.
+We ultimately went with alternative #1 as it provided better support for
+rendering when implementing the Ui of JARVIS.
 
-// end::financetracker[]
-
-// tag::planner[]
 === Planner Feature
 
 ==== Overview
 
-The planner feature in JARVIS enables users to easily organise and manage their different
-tasks in school. Users will be able to keep track of tasks they have done, and tasks they
-have yet to do.
+The planner feature in JARVIS enables users to easily organise and manage
+their different tasks in school. Users will be able to keep track of tasks
+they have done, and tasks they have yet to do.
 
 There are three types of tasks in the planner:
 
@@ -709,34 +945,39 @@ There are three types of tasks in the planner:
 * `Event`: Tasks with a start and end date
 * `Deadline`: Tasks with a due date
 
-Users can `Tag` these tasks to sort them into different categories, as well as add `Priority` and
-`Frequency` levels to them.
+Users can `Tag` these tasks to sort them into different categories, as well
+as add `Priority` and `Frequency` levels to them.
 
 ==== Implementation
 
-The `Planner` contains a `TaskList`, which in turn, contains a number of tasks a user has. A simple
-outline of the `Planner` can be seen in Fig 11 below.
+The `Planner` contains a `TaskList`, which in turn, contains a number of tasks
+a user has. A simple outline of the `Planner` can be seen below.
 
 .Overview of the entire Planner
 image::plannermodel.png[align=left]
 
-JARVIS' `Model` extends `PlannerModel` which facilitates all operations necessary to carry out commands
-by the user.
+JARVIS' `Model` extends `PlannerModel` which facilitates all operations
+necessary to carry out commands by the user.
 
 * `Model#getPlanner()` -- Returns an instance of a `Planner`.
 
-* `Model#addTask(int zeroBasedIndex, Task task` -- Adds a `Task` to the planner at the specified `Index`.
+* `Model#addTask(int zeroBasedIndex, Task task` -- Adds a `Task` to the
+  planner at the specified `Index`.
 
-* `Model#addTask(Task t)` -- Adds a `Task` to the `Planner`. Since no `Index` is specified, the `Task` is
-appended to the end of the `TaskList`.
+* `Model#addTask(Task t)` -- Adds a `Task` to the `Planner`. Since no `Index`
+  is specified, the `Task` is appended to the end of the `TaskList`.
 
-* `Model#deleteTask(Index index)` -- Deletes the `Task` at the specified `Index` from the `Planner`.
+* `Model#deleteTask(Index index)` -- Deletes the `Task` at the specified
+  `Index` from the `Planner`.
 
-* `Model#deleteTask(Task t)` -- Deletes the specified `Task` from the `Planner`.
+* `Model#deleteTask(Task t)` -- Deletes the specified `Task` from the
+  `Planner`.
 
-* `Model#size()` -- Returns the total number of `Task` objects in the `Planner`.
+* `Model#size()` -- Returns the total number of `Task` objects in the
+  `Planner`.
 
-* `Model#hasTask(Task t)` -- Checks if a given `Task` is already in the `Planner`.
+* `Model#hasTask(Task t)` -- Checks if a given `Task` is already in the
+  `Planner`.
 
 * `Model#getTasks()` -- Returns the `TaskList` in the `Planner`.
 
@@ -745,123 +986,178 @@ appended to the end of the `TaskList`.
 
 ===== Aspect: Task Descriptions in a Task
 * **Alternative 1 (Current choice):** As a string attribute in `Task`
+
 ** Pros: Intuitive, easy to implement, less code required
-** Cons: Provides a lower level of abstraction, especially when `edit-task` command is implemented
+
+** Cons: Provides a lower level of abstraction, especially when `edit-task`
+   command is implemented
 
 * **Alternative 2:** Building a separate `TaskDescription` class
-** Pros: Higher level of abstraction
-** Cons: More code, will take time to replace current methods that deal with String `TaskDes` directly
 
-// end:: planner[]
+** Pros: Higher level of abstraction
+
+** Cons: More code, will take time to replace current methods that deal with
+   String `TaskDes` directly
 
 === CcaTracker Feature
+
 ==== Overview
-The application is able to track Ccas. Each user can have multiple Ccas and each Cca can have multiple equipments
-needed. In addition, the application is able to track the progress of each person in their Ccas. Hence, there is a
-need to represent the CcaTracker as a list of Ccas on which the application can perform create, read, update and delete
-operations on each Cca.
+The application is able to track Ccas. Each user can have multiple Ccas and
+each Cca can have multiple equipments needed. In addition, the application is
+able to track the progress of each person in their Ccas. Hence, there is a
+need to represent the CcaTracker as a list of Ccas on which the application
+can perform create, read, update and delete operations on each Cca.
 
 ==== Implementation
 The `CcaTracker` mechanism is facilitated by `CcaTrackerModel`.
 
 `Model` supports operations to facilitate
-cca tracking capabilities by extending the `CcaTrackerModel` which has the following operations:
+cca tracking capabilities by extending the `CcaTrackerModel` which has the
+following operations:
 
-* `Model#containsCca(Cca cca)` -- Checks if the `CcaTracker` contains the given cca.
+* `Model#containsCca(Cca cca)` -- Checks if the `CcaTracker` contains the
+  given cca.
+
 * `Model#addCca(Cca cca)` -- Adds a `Cca` to the `CcaTracker`.
+
 * `Model#removeCca(Cca cca)` -- Removes a `Cca` from the `CcaTracker`.
-* `Model#updateCca(Cca toBeUpdatedCca, Cca updatedCca)` -- Updates a `Cca` in the `CcaTracker`.
+
+* `Model#updateCca(Cca toBeUpdatedCca, Cca updatedCca)` -- Updates a `Cca` in
+  the `CcaTracker`.
+
 * `Model#getCcaTracker()` -- Gets the `CcaTracker` instance.
-* `Model#getNumberOfCcas()` -- Returns the number of `Ccas` currently in the `CcaTracker`.
-* `Model#getCca(Index index)` -- Gets the `Cca` instance by its index in the `CcaTracker`.
-* `Model#updateFilteredCcaList(Predicate<Cca> predicate)` -- Updates the `FilteredCcaList` by passing it a predicate.
+
+* `Model#getNumberOfCcas()` -- Returns the number of `Ccas` currently in the
+  `CcaTracker`.
+
+* `Model#getCca(Index index)` -- Gets the `Cca` instance by its index in the
+  `CcaTracker`.
+
+* `Model#updateFilteredCcaList(Predicate<Cca> predicate)` -- Updates the
+  `FilteredCcaList` by passing it a predicate.
+
 * `Model#getFilteredCcaList()` -- Returns an instance of the `FilteredCcaList`
-* `Model#addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList)` - Adds `CcaProgressList` to the target `Cca`.
+
+* `Model#addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList)` -
+  Adds `CcaProgressList` to the target `Cca`.
+
 * `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
 
-CcaTracker has 7 specific commands that support the given operations to mutate the state of the `Model`. Each command is
-represented as seperate class:
+CcaTracker has 7 specific commands that support the given operations to mutate
+the state of the `Model`. Each command is represented as seperate class:
 
 * `AddCcaCommand` -- Adds a `Cca` to the `CcaTracker`.
+
 * `DeleteCcaCommand` -- Deletes a `Cca` from the `CcaTracker`.
+
 * `EditCcaCommand` -- Edits the selected `Cca` in the `CcaTracker`.
-* `FindCcaCommand` -- Finds a `Cca` from the `CcaTracker` based on the keywords specified .
+
+* `FindCcaCommand` -- Finds a `Cca` from the `CcaTracker` based on the
+  keywords specified .
+
 * `ListCcaCommand` -- Lists all the `Cca` from the `CcaTracker`.
+
 * `AddProgressCommand` -- Adds a progress tracker to a cca.
+
 * `IncreaseProgressCommand` -- Increments the progress level of a cca.
 
 
-For brevity's sake, we will illustrate only 1 specific command and its execution on model.
-The following activity diagram illustrates how a `Cca`'s progress is incremented when a user types in a
-`increase-progress` command:
+For brevity's sake, we will illustrate only 1 specific command and its
+execution on model. The following activity diagram illustrates how a `Cca`'s
+progress is incremented when a user types in a `increase-progress` command:
 
-Given below is an example usage scenario of how increase-progress mechanism behaves.
+Given below is an example usage scenario of how increase-progress mechanism
+behaves.
 
-Step 1. The user launches the application for the first time. The `CcaTracker` is initialized. Assume that a `Cca` has
-already been added to the Cca and that a progress tracker has already been set for that `Cca`.
+Step 1. The user launches the application for the first time. The `CcaTracker`
+is initialized. Assume that a `Cca` has already been added to the Cca and that
+a progress tracker has already been set for that `Cca`.
 
-Step 2. The user executes `increase-progress 1` command to increment the progress of the 1st `Cca` in the CcaTracker.
-A `IncreaseProgressCommandParser` object is created and its `#parse` method is called. The parse method returns a new
-`IncreaseProgressCommand` object.
+Step 2. The user executes `increase-progress 1` command to increment the
+progress of the 1st `Cca` in the CcaTracker. A `IncreaseProgressCommandParser`
+object is created and its `#parse` method is called. The parse method returns
+a new `IncreaseProgressCommand` object.
 
-Step 3. The `IncreaseProgressCommand` object is then executed on model. The `IncreaseProgressCommand#execute` method is
-called and in this method, the `Model#increaseProgress` method is called.
-
-[NOTE]
-The `IncreaseProgressCommand#execute` method first checks for whether the index is within the size of CcaList.
-
-Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the methods in the `CcaTracker` class. As such,
-the `CcaTracker#increaseProgress` method is called. This in turn calls the `CcaList#increaseProgress` method. This
-method first finds the `Cca` based on its corresponding index. Then, it calls the `Cca#increaseProgress` method.
-
-Step 5. This in turn calls the `CcaProgress#increaseProgress` method that calls `CcaCurrentProgress#increaseProgress`
-method. At long last, the final `#increaseProgress` method in the `CcaCurrentProgress` instance is called and the
-`currentProgress` counter is incremented by 1.
+Step 3. The `IncreaseProgressCommand` object is then executed on model. The
+`IncreaseProgressCommand#execute` method is called and in this method, the
+`Model#increaseProgress` method is called.
 
 [NOTE]
-TLDR: The calling of the `#increaseProgress` method at the `CcaTracker` level triggers a cascading series of
-`#increaseProgress` methods which culminates in the `currentProgress` variable being incremented by 1.
+The `IncreaseProgressCommand#execute` method first checks for whether the
+index is within the size of CcaList.
+
+Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the
+methods in the `CcaTracker` class. As such, the `CcaTracker#increaseProgress`
+method is called. This in turn calls the `CcaList#increaseProgress` method.
+This method first finds the `Cca` based on its corresponding index. Then, it
+calls the `Cca#increaseProgress` method.
+
+Step 5. This in turn calls the `CcaProgress#increaseProgress` method that
+calls `CcaCurrentProgress#increaseProgress` method. At long last, the final
+`#increaseProgress` method in the `CcaCurrentProgress` instance is called and
+the `currentProgress` counter is incremented by 1.
+
+[NOTE]
+TLDR: The calling of the `#increaseProgress` method at the `CcaTracker` level
+triggers a cascading series of `#increaseProgress` methods which culminates in
+the `currentProgress` variable being incremented by 1.
 
 ==== Design Considerations
+
 ===== Aspect: Whether to have subclasses for each type of cca.
-* *Alternative 1 (Current choice):* Instantiate a generic `CcaProgress` for each `Cca`  .
+
+* *Alternative 1 (Current choice):* Instantiate a generic `CcaProgress` for
+  each `Cca`.
 ** Pros: Less code needed.
 ** Cons: Less extensible as CcaProgress is now limited to a list of strings.
 
-* *Alternative 2:* Implement `CcaProgress` as a parent class. Create classes such as SportProgress/PerformingArtsProgress
-that extend from CcaProgress for each type of `Cca`
+* *Alternative 2:* Implement `CcaProgress` as a parent class. Create classes
+  such as SportProgress/PerformingArtsProgress that extend from CcaProgress
+  for each type of `Cca`
 ** Pros: Easier to extend functionality for each type of cca.
-** Cons: Does not significantly extend functionality for this version of Jarvis.
+** Cons: Does not significantly extend functionality for this version of
+   Jarvis.
 
 ===== Aspect: Whether to use observable list for `CcaProgressList`
-* *Alternative 1 (Current choice):* Implement CcaProgressList as an `ObservableList` .
-** Pros: Easier to manipulate for JavaFx.
-** Cons: Potentially complicated nesting when passing arguments to it as CcaProgressList is nested several classes
-within `Cca`.
 
-* *Alternative 2:* Implement CcaProgressList as a normal `List` e.g. `ArrayList` .
+* *Alternative 1 (Current choice):* Implement CcaProgressList as an
+  `ObservableList` .
+** Pros: Easier to manipulate for JavaFx.
+** Cons: Potentially complicated nesting when passing arguments to it as
+   CcaProgressList is nested several classes within `Cca`.
+
+* *Alternative 2:* Implement CcaProgressList as a normal `List` e.g.
+  `ArrayList`.
 ** Pros: Does not require predicates to be passed in.
 ** Cons: Might be more complicated when rendering in Javafx.
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging. The `LogsCenter` class
+is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The logging level can be controlled using the `logLevel` setting in the
+  configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)`
+  which will log messages according to the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `SEVERE` : Critical problem detected which may possibly cause the
+  termination of the application
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `FINE` : Details that is not usually noteworthy but may be useful in
+  debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
+
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g user prefs file
+location, logging level) through the configuration file (default:
+`config.json`).
 
 == Documentation
 
@@ -888,12 +1184,14 @@ Refer to the guide <<DevOps#, here>>.
 * has to manage a significant number of tasks
 * has a tight budget
 
-*Value proposition*: optimised for NUS students who have busy schedules and a tight budget
+*Value proposition*: optimised for NUS students who have busy schedules and a
+tight budget
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low
+(unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -984,11 +1282,19 @@ Use case resumes at step 1.
 [appendix]
 == Non Functional Requirements
 
-.  JARVIS should work on any mainstream OS as long as it has Java 12 or above installed.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  JARVIS should respond within two seconds.
-.  JARVIS should be usable by a novice who has never used a command line interface.
-.  JARVIS should be able to work without any internet connection.
+. JARVIS should work on any mainstream OS as long as it has Java 11 or
+  above installed.
+
+. A user with above average typing speed for regular English text (i.e. not
+  code, not system admin commands) should be able to accomplish most of the
+  tasks faster using commands than using the mouse.
+
+. JARVIS should respond within two seconds.
+
+. JARVIS should be usable by a novice who has never used a command line
+  interface.
+
+. JARVIS should be able to work without any internet connection.
 
 [appendix]
 == Glossary
@@ -1022,19 +1328,24 @@ Cons:
 Given below are instructions to test the app manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on;
+testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
+
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The window size may
+   not be optimum.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to an optimum size. Move the window to a different
+   location. Close the window.
+
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
@@ -1044,20 +1355,26 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: List all persons using the `list` command. Multiple persons
+   in the list.
 
-_{ more test cases ... }_
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted
+   contact shown in the status message. Timestamp in the status bar is updated.
+
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message.
+   Status bar remains the same.
+
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is
+   larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. _{explain how to simulate a missing/corrupted file and the expected
+  behavior}_
 
 _{ more test cases ... }_

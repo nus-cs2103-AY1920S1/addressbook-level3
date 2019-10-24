@@ -1,0 +1,33 @@
+@startuml
+Package AndOrNode <<Rectangle>> {
+    abstract class AndOrNode<T> {
+        # List<AndOrNode> children
+        # void insert(T)
+        # {abstract} Optional<T> getData()
+        + {abstract} AndOrNode createNode(T, String)
+        # {abstract} boolean fulfills(Collection<T>)
+        + {abstract} String toString()
+    }
+    class DataNode<T> {
+        # boolean fulfills(Collection<T>)
+        # Optional<T> getData()
+        + String toString()
+    }
+    abstract class NoDataNode<T> {
+        # Optional<T> getData()
+    }
+    class AndNode<T> {
+        # boolean fulfills(Collection<T>)
+        + String toString()
+    }
+    class OrNode<T> {
+        # boolean fulfills(Collection<T>)
+        + String toString()
+    }
+}
+
+AndOrNode <|-- DataNode
+AndOrNode <|-- NoDataNode
+NoDataNode <|-- AndNode
+NoDataNode <|-- OrNode
+@enduml

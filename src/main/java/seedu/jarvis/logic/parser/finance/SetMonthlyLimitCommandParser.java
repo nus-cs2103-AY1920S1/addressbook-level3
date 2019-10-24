@@ -9,7 +9,6 @@ import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
-import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.financetracker.MonthlyLimit;
@@ -35,7 +34,7 @@ public class SetMonthlyLimitCommandParser implements Parser<SetMonthlyLimitComma
                     SetMonthlyLimitCommand.MESSAGE_USAGE));
         }
 
-        MonthlyLimit limitAmount = ParserUtil.parseMonthlyLimit(argMultimap.getValue(PREFIX_MONEY).get());
+        MonthlyLimit limitAmount = FinanceParserUtil.parseMonthlyLimit(argMultimap.getValue(PREFIX_MONEY).get());
 
         return new SetMonthlyLimitCommand(limitAmount);
     }

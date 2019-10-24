@@ -8,10 +8,12 @@ import java.util.logging.Logger;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.exceptions.DataConversionException;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.AddressBookStorage;
+import seedu.jarvis.storage.cca.CcaTrackerStorage;
 import seedu.jarvis.storage.history.HistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 
@@ -24,14 +26,16 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private HistoryManagerStorage historyManagerStorage;
+    private CcaTrackerStorage ccaTrackerStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          HistoryManagerStorage historyManagerStorage) {
+                          HistoryManagerStorage historyManagerStorage, CcaTrackerStorage ccaTrackerStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.historyManagerStorage = historyManagerStorage;
+        this.ccaTrackerStorage = ccaTrackerStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -143,4 +147,68 @@ public class StorageManager implements Storage {
     public void saveHistoryManager(HistoryManager historyManager, Path filePath) throws IOException {
         historyManagerStorage.saveHistoryManager(historyManager, filePath);
     }
+
+    // ================ CcaTracker methods ===============================
+
+
+    /**
+     * Gets the file path of the data file for {@code CcaTracker}.
+     *
+     * @return File path of the data file for {@code CcaTracker}.
+     */
+    @Override
+    public Path getCcaTrackerFilePath() {
+        return ccaTrackerStorage.getCcaTrackerFilePath();
+    }
+
+    /**
+     * Returns {@code CcaTracker} data.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
+     * @return {@code CcaTracker} data, or {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    @Override
+    public Optional<CcaTracker> readCcaTracker() throws DataConversionException, IOException {
+        return ccaTrackerStorage.readCcaTracker(ccaTrackerStorage.getCcaTrackerFilePath());
+    }
+
+    /**
+     * Returns {@code CcaTracker} data.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
+     * @param filePath {@code Path} to read {@code CcaTracker} data.
+     * @return {@code CcaTracker} data, or {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    @Override
+    public Optional<CcaTracker> readCcaTracker(Path filePath) throws DataConversionException, IOException {
+        return ccaTrackerStorage.readCcaTracker(filePath);
+    }
+
+    /**
+     * Saves the given {@link CcaTracker} to the storage.
+     *
+     * @param ccaTracker {@code CcaTracker} to be saved, which cannot be null.
+     * @throws IOException If there was any problem writing to the file.
+     */
+    @Override
+    public void saveCcaTracker(CcaTracker ccaTracker) throws IOException {
+        ccaTrackerStorage.saveCcaTracker(ccaTracker, ccaTrackerStorage.getCcaTrackerFilePath());
+    }
+
+    /**
+     * Saves the given {@link CcaTracker} to the storage.
+     *
+     * @param ccaTracker {@code CcaTracker} to be saved, which cannot be null.
+     * @param filePath   {@code Path} to read {@code CcaTracker} data.
+     * @throws IOException If there was any problem writing to the file.
+     */
+    @Override
+    public void saveCcaTracker(CcaTracker ccaTracker, Path filePath) throws IOException {
+        ccaTrackerStorage.saveCcaTracker(ccaTracker, filePath);
+    }
+
 }

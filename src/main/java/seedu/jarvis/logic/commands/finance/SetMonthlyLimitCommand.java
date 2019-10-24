@@ -29,8 +29,11 @@ public class SetMonthlyLimitCommand extends Command {
     public static final String MESSAGE_SET_LIMIT_SUCCESS = "Edited installment: %1$s";
     public static final String MESSAGE_NOT_SET = "At least one value to set must be provided.";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final String MESSAGE_INVERSE_SUCCESS_RESET = "Monthly limit has been reset";
 
+    public static final boolean HAS_INVERSE = true;
+
+    private MonthlyLimit originalLimit;
     private final MonthlyLimit toSet;
 
     /**
@@ -72,13 +75,35 @@ public class SetMonthlyLimitCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getMonthlyLimit().isPresent()) {
+            originalLimit = model.getMonthlyLimit().get();
+        }
+
         model.setMonthlyLimit(toSet);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toSet));
     }
 
+    /**
+     * Reverts the {@code MonthlyLimit} from the finance tracker that was set by this command's execution
+     * if there was a monthly limit that existed before in the finance tracker
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} that MonthlyLimit was reset if it existed before,
+     * else {@code CommandResult} that there was no MonthlyLimit and it would be set to null
+     * @throws CommandException
+     */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (!originalLimit.equals(null)) {
+            model.setMonthlyLimit(originalLimit);
+        } else {
+            model.setMonthlyLimit(new MonthlyLimit("0.0"));
+        }
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_RESET, originalLimit));
     }
 
     @Override

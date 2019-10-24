@@ -27,7 +27,7 @@ public class JsonHistoryManagerStorageTest {
     /**
      * Saves {@code historyManager} at the specified {@code filePath}.
      */
-    private void saveAddressBook(HistoryManager historyManager, String filePath) {
+    private void saveHistoryManager(HistoryManager historyManager, String filePath) {
         try {
             new JsonHistoryManagerStorage(Paths.get(filePath))
                     .saveHistoryManager(historyManager, addToTestDataPathIfNotNull(filePath));
@@ -68,7 +68,7 @@ public class JsonHistoryManagerStorageTest {
 
     @Test
     public void saveHistoryManager_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new HistoryManager(), null));
+        assertThrows(NullPointerException.class, () -> saveHistoryManager(new HistoryManager(), null));
     }
 
 }
