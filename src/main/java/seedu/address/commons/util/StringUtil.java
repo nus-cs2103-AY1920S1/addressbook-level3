@@ -95,6 +95,7 @@ public class StringUtil {
     private static int costOfSubstitution(char a, char b) {
         return a == b ? 0 : 1;
     }
+
     /**
      * Returns the smallest value from a variable amount of int.
      * Returns Integer.MAXVALUE as default value

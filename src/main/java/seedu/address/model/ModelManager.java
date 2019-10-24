@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
+import org.apache.commons.math3.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -543,6 +544,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public VEvent getVEvent(Index index) {
+        return eventRecord.getVEvent(index);
+    }
+
+    @Override
     public void deleteVEvent(VEvent vEvent) {
         eventRecord.deleteVEvent(vEvent);
     }
@@ -558,6 +564,7 @@ public class ModelManager implements Model {
         eventRecord.setVEvent(target, editedVEvent);
     }
 
+
     @Override
     public String getVEventSummary() {
         return eventRecord.getVEventSummary();
@@ -567,6 +574,16 @@ public class ModelManager implements Model {
     public ObservableList<VEvent> getVEventList() {
         return eventRecord.getVEventList();
     }
+
+    @Override
+    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
+        return eventRecord.findVEventsIndex(desiredEventName);
+    }
+
+    @Override
+    public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
+        return eventRecord.findMostSimilarVEvent(desiredEventName);
+    };
     //endregion
 
     @Override

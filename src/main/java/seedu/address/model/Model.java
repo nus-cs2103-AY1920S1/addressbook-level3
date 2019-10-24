@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
+import org.apache.commons.math3.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.ReadOnlyEvents;
@@ -367,7 +368,10 @@ public interface Model {
     void addVEvent(VEvent vEvent);
     void setVEvent(VEvent target, VEvent editedVEvent);
     String getVEventSummary();
+    VEvent getVEvent(Index index);
+    List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName);
     ObservableList<VEvent> getVEventList();
+    Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
     //endregion
 
     //region Statistics

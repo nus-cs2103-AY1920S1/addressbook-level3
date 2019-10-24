@@ -11,10 +11,10 @@ import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+
 /**
  * Creates a new event to be added to the event list.
  */
-
 public class EventAddCommand extends EventCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new event\n"
@@ -24,10 +24,10 @@ public class EventAddCommand extends EventCommand {
             + "endDateTime/ [ENDDATETIME]\n"
             + "recur/ [DAILY/WEEKLY/NONE]\n"
             + "color/ [0 - 23]\n"
-            + "Example: event eventName/ cs2100 lecture startDateTime/ 2019-10-21T14:00 "
-            + "endDateTime/ 2019-10-21T15:00 recur/ none color/1";
+            + "Example: event eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
+            + "endDateTime/2019-10-21T15:00 recur/none color/1";
 
-    private final String uniqueIdentifier = "njoyassistant";
+    private static final String UNIQUE_IDENTIFIER = "njoyassistant";
     private final String weeklyRecurrenceRule = "FREQ=WEEKLY;INTERVAL=1";
     private final String dailyRecurrenceRule = "FREQ=DAILY;INTERVAL=1";
 
@@ -113,7 +113,7 @@ public class EventAddCommand extends EventCommand {
         vEvent.setDateTimeStart(startDateTime);
         vEvent.setDateTimeEnd(endDateTime);
 
-        vEvent.setUniqueIdentifier(uniqueIdentifier);
+        vEvent.setUniqueIdentifier(UNIQUE_IDENTIFIER);
 
         if (recurTypeString.equals("weekly")) {
             vEvent.setRecurrenceRule(weeklyRecurrenceRule);
@@ -128,9 +128,17 @@ public class EventAddCommand extends EventCommand {
         colorCategoryList.add(colorCategory);
         vEvent.setCategories(colorCategoryList);
 
-        model.addVEvent(vEvent);
-        return new CommandResult(generateSuccessMessage(vEvent),
-                false, false, false, false, true);
+
+        if (model.hasVEvent(vEvent)) {
+            return new CommandResult("Will Result in duplicate VEvent being created");
+        } else {
+            model.addVEvent(vEvent);
+
+
+            return new CommandResult(generateSuccessMessage(vEvent),
+                    false, false, false, false,
+                    true, false);
+        }
     }
 
     /**
