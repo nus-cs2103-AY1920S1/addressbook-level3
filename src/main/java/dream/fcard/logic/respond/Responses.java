@@ -3,6 +3,8 @@ package dream.fcard.logic.respond;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.exceptions.DeckNotFoundException;
+import dream.fcard.util.FileReadWrite;
 
 /**
  * Enum of regex and response function pairs used by Responder to evaluate input.
@@ -12,8 +14,8 @@ enum Responses {
         System.out.println("Current command is HELP");
         /*Print out "Available commands are:\n" +
                 "Help [Command]\n" +
-                "Import filepath/FILEPATH\n" +
-                "Export filepath/FILEPATH\n" +
+                "Import FILEPATH\n" +
+                "Export deck/ DECK_NAME path/ DIRECTORY_PATH\n" +
                 "Stats [deck/DECK_NAME]\n" +
                 "View [deck/DECK_NAME]\n" +
                 "Create deck/DECK_NAME\n" +
@@ -45,9 +47,19 @@ enum Responses {
     }),
     EXPORT("(?i)^e(xport)?(\\s)+deck/(\\s)*.+(\\s)+path/(\\s)*.+", (commandInput, programState) -> {
         System.out.println("Current command is EXPORT");
-        //Deck newDeck = programState.getDecks().get(*whichever deck*);
-        //*Export newDeck to filepath*
-        return true; // capture is valid, end checking other commands
+
+        String[] parts = commandInput.split("deck/")[1].split("path/");
+        String deckName = parts[0].trim();
+        String pathName = parts[1].trim();
+
+        try {
+            Deck d = programState.getDeck(deckName);
+            FileReadWrite.write(FileReadWrite.resolve(pathName, "./" + d.getName() + ".json"), d.toJson().toString());
+        } catch (DeckNotFoundException e) {
+            System.out.println("Deck does not exist");
+        }
+
+        return true;
     }),
     EXPORT_NO_PATH("(?i)^e(xport)?(\\s)+deck/(\\s)*.+", (commandInput, programState) -> {
         System.out.println("No path specified, e.g. export deck/ deckName path/ ~/Desktop");
