@@ -1,19 +1,27 @@
 package seedu.address.storage;
 
-
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.Attendance;
 
+/**
+ * A class to access Attendance data stored as a json file on the hard disk.
+ */
 public class JsonAttendanceStorage implements AttendanceStorage {
 
-    Path path;
+    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+
+    private Path path;
 
     public JsonAttendanceStorage(Path path) {
         this.path = path;
@@ -25,13 +33,25 @@ public class JsonAttendanceStorage implements AttendanceStorage {
     }
 
     @Override
-    public Optional<Attendance> readAttendance() throws DataConversionException, IOException {
+    public Optional<Attendance> readAttendance() throws DataConversionException {
         return readAttendance(this.path);
     }
 
     @Override
-    public Optional<Attendance> readAttendance(Path filePath) throws DataConversionException, IOException {
-        return JsonUtil.readJsonFile(filePath, Attendance.class);
+    public Optional<Attendance> readAttendance(Path filePath) throws DataConversionException {
+        requireNonNull(filePath);
+
+        Optional<JsonAttendance> jsonAttendance = JsonUtil.readJsonFile(filePath, JsonAttendance.class);
+        if (!jsonAttendance.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonAttendance.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
     }
 
     @Override
@@ -45,6 +65,6 @@ public class JsonAttendanceStorage implements AttendanceStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(attendance, filePath);
+        JsonUtil.saveJsonFile(new JsonAttendance(attendance), filePath);
     }
 }
