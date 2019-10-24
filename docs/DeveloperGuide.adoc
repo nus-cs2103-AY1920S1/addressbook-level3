@@ -195,8 +195,18 @@ image::ItineraryEdit4.png[]
 
 Upon completion of the edit, the user is returned to the `TripPage/DaysPage/EventsPage` depending on where the user entered the edit page from.
 
-=== [Itinerary] Navigation feature
-==== Proposed Implementation
+=== [Itinerary] Delete Trip/Day/Event
+==== Implementation
+Deletion of `Trip/Day/Event` is facilitated by `PageStatus`. `PageStatus` stores the current state of execution of the user program.
+Upon initial startup of the program `Model` is initialized with `PageStatus` with the `PageType` set to enum `PageType#TRIP_MANAGER`. This indicates the current page displayed to the user. `PageStatus` is initialized with empty references to the `Trip/Day/Event` the user executes an action for.
+
+Step 1. When the user launches the application. `PageStatus` is initialized along with other `Model` components with empty references.
+
+Step 2. The user enters the `DaysPage/EventsPage` using the goto command. This instantiates a new `PageStatus` object from the the existing `PageStatus` with a modified `Day/Page`, providing the context for subsequent actions. Below is an example execution of the command:
+
+Step 3. The user is now on the `TripManager/DaysPage/EventsPage`, the user can execute the `delete` command in accordance to the display ordered index on any of the aforementioned pages.
+
+When the command `delete <index>` is executed, the
 
 
 // tag::undoredo[]
