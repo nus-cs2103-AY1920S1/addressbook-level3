@@ -13,7 +13,6 @@ import java.util.StringJoiner;
 public class DisplayIndicator {
 
     public static final String DATA_TYPE = "Indicator";
-    public static final String CONTACT_LIST_GROWTH_RATE = "contact-list-growth-rate";
     public static final String POLICY_POPULARITY_BREAKDOWN = "policy-popularity-breakdown";
     public static final String AGE_GROUP_BREAKDOWN = "age-group-breakdown";
     public static final String GENDER_BREAKDOWN = "gender-breakdown";
@@ -39,7 +38,6 @@ public class DisplayIndicator {
     private static Set<String> initializeValidDisplayIndicators() {
         HashSet<String> result = new HashSet<>();
         result.add(POLICY_POPULARITY_BREAKDOWN);
-        result.add(CONTACT_LIST_GROWTH_RATE);
         result.add(AGE_GROUP_BREAKDOWN);
         result.add(GENDER_BREAKDOWN);
         return result;
