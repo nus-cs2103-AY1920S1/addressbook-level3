@@ -9,7 +9,6 @@ import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +24,6 @@ import seedu.billboard.logic.commands.ListCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.MultiArgPredicate;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 import seedu.billboard.testutil.ExpenseBuilder;
 import seedu.billboard.testutil.ExpenseUtil;
