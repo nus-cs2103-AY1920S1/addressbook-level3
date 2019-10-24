@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":XpireParser" as XpireParser LOGIC_COLOR
+participant ":SetReminderCommandParser" as SetReminderCommandParser LOGIC_COLOR
+participant "s:SetReminderCommand" as SetReminderCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Xpire" as Xpire MODEL_COLOR
+end box
+
+[-> LogicManager : execute("set reminder|1|1")
+activate LogicManager
+
+LogicManager -> XpireParser : parseCommand("set reminder|1|1")
+activate XpireParser
+
+create SetReminderCommandParser
+XpireParser -> SetReminderCommandParser
+activate SetReminderCommandParser
+
+SetReminderCommandParser --> XpireParser
+deactivate SetReminderCommandParser
+
+XpireParser -> SetReminderCommandParser : parse("1|1")
+activate SetReminderCommandParser
+
+create SetReminderCommand
+SetReminderCommandParser -> SetReminderCommand
+activate SetReminderCommand
+
+SetReminderCommand --> SetReminderCommandParser : s
+deactivate SetReminderCommand
+
+SetReminderCommandParser --> XpireParser : s
+deactivate SetReminderCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SetReminderCommandParser -[hidden]-> XpireParser
+destroy SetReminderCommandParser
+
+XpireParser --> LogicManager : s
+deactivate XpireParser
+
+LogicManager -> SetReminderCommand : execute()
+activate SetReminderCommand
+
+SetReminderCommand -> Model : setItem(1,1)
+activate Model
+
+Model --> Xpire : setItem(1,1)
+activate Xpire
+
+Xpire --> Model
+deactivate Xpire
+
+Model --> SetReminderCommand
+deactivate Model
+
+create CommandResult
+SetReminderCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SetReminderCommand
+deactivate CommandResult
+
+SetReminderCommand --> LogicManager : result
+deactivate SetReminderCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

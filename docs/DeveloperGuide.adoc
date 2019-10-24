@@ -237,13 +237,30 @@ The following activity diagram summarizes what happens when a user executes a ne
 // tag:setreminder[]
 === Set Reminders for expiring items
 ==== Implementation
-_{Explain here how the set reminder feature is implemented}_
+The set reminder function is facilitated by `FilteredItemList`, in which the old item will
+be replaced by a new one with its `reminderThreshold` field updated. It is activated using the command `set reminder`.
 
-Given below is an example usage scenario and how the mechanism behaves at each step.
+You can refer to the example usage scenario given below to see what happens at each stage of the execution.
+
+Scenario: the user wants to activate a reminder for an item with index 1 in the current view of the list
+1 day before its expiry date.
+
+Step 1:
+
+Step 2:
+
+Step 3:
+
+Step 4:
+
+The reminder is now set up and is reflected in the UI like this:
 
 The following sequence diagram shows how the operation works:
 
-The following activity diagram summarizes what happens when a user executes a new command:
+.SetReminderSequenceDiagram
+image::SetReminderSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a set reminder command:
 
 ==== Design Considerations
 
