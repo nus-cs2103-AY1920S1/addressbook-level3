@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TEST_PARAMETERS;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +69,7 @@ public class BodyBuilder {
         causeOfDeath = DEFAULT_CAUSE_OF_DEATH;
         organsForDonation = Arrays.asList(DEFAULT_ORGANS_FOR_DONATION.split(" "));
         bodyStatus = DEFAULT_BODY_STATUS;
-        fridgeId = IdentificationNumber.customGenerateId("F", DEFAULT_FRIDGE_ID);
+        fridgeId = null;
 
         nextOfKin = new Name(DEFAULT_NEXT_OF_KIN);
         relationship = DEFAULT_RELATIONSHIP;
@@ -88,18 +90,18 @@ public class BodyBuilder {
     public BodyBuilder(Body bodyToCopy) {
         name = bodyToCopy.getName();
         sex = bodyToCopy.getSex();
-        nric = bodyToCopy.getNric();
-        religion = bodyToCopy.getReligion();
-        causeOfDeath = bodyToCopy.getCauseOfDeath();
+        nric = bodyToCopy.getNric().orElse(null);
+        religion = bodyToCopy.getReligion().orElse(null);
+        causeOfDeath = bodyToCopy.getCauseOfDeath().orElse(null);
         organsForDonation = bodyToCopy.getOrgansForDonation();
-        bodyStatus = bodyToCopy.getBodyStatus();
-        fridgeId = bodyToCopy.getFridgeId();
-        nextOfKin = bodyToCopy.getNextOfKin();
-        relationship = bodyToCopy.getRelationship();
-        kinPhoneNumber = bodyToCopy.getKinPhoneNumber();
+        bodyStatus = bodyToCopy.getBodyStatus().orElse(null);
+        fridgeId = bodyToCopy.getFridgeId().orElse(null);
+        nextOfKin = bodyToCopy.getNextOfKin().orElse(null);
+        relationship = bodyToCopy.getRelationship().orElse(null);
+        kinPhoneNumber = bodyToCopy.getKinPhoneNumber().orElse(null);
 
-        dateOfDeath = bodyToCopy.getDateOfDeath();
-        dateOfBirth = bodyToCopy.getDateOfBirth();
+        dateOfDeath = bodyToCopy.getDateOfDeath().orElse(null);
+        dateOfBirth = bodyToCopy.getDateOfBirth().orElse(null);
         dateOfAdmission = bodyToCopy.getDateOfAdmission();
     }
 
@@ -107,15 +109,19 @@ public class BodyBuilder {
      * Sets the {@code Name} of the {@code Body} that we are building.
      */
     public BodyBuilder withName(String name) {
-        this.name = new Name(name);
+        try {
+            this.name = ParserUtil.parseName(name);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
     /**
      * Sets the {@code sex} of the {@code Body} that we are building.
      */
-    public BodyBuilder withSex(Sex sex) {
-        this.sex = sex;
+    public BodyBuilder withSex(String sex) {
+        this.sex = Sex.valueOf(sex);
         return this;
     }
 
@@ -123,7 +129,11 @@ public class BodyBuilder {
      * Sets the {@code nric} of the {@code Body} that we are building.
      */
     public BodyBuilder withNric(String nric) {
-        this.nric = new Nric(nric);
+        try {
+            this.nric = ParserUtil.parseNric(nric);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -131,31 +141,40 @@ public class BodyBuilder {
      * Sets the {@code causeOfDeath} of the {@code Body} that we are building.
      */
     public BodyBuilder withCauseOfDeath(String causeOfDeath) {
-        this.causeOfDeath = causeOfDeath;
+        this.causeOfDeath = ParserUtil.parseStringFields(causeOfDeath);
         return this;
     }
 
     /**
      * Sets the list of {@code organsForDonation} of the {@code Body} that we are building.
      */
-    public BodyBuilder withOrgansForDonation(List<String> organsForDonation) {
-        this.organsForDonation = organsForDonation;
+    public BodyBuilder withOrgansForDonation(String organsForDonation) {
+        this.organsForDonation = ParserUtil.parseOrgansForDonation(organsForDonation);
         return this;
     }
 
     /**
      * Sets the {@code status} of the {@code Body} that we are building.
      */
-    public BodyBuilder withStatus(BodyStatus bodyStatus) {
-        this.bodyStatus = bodyStatus;
+    public BodyBuilder withStatus(String bodyStatus) {
+        try {
+            this.bodyStatus = ParserUtil.parseBodyStatus(bodyStatus);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
+
         return this;
     }
 
     /**
      * Sets the {@code fridgeId} of the {@code Body} that we are building.
      */
-    public BodyBuilder withFridgeId(int fridgeId) {
-        this.fridgeId = IdentificationNumber.customGenerateId("F", fridgeId);
+    public BodyBuilder withFridgeId(String fridgeId) {
+        try {
+            this.fridgeId = ParserUtil.parseIdentificationNumber(fridgeId);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -163,7 +182,11 @@ public class BodyBuilder {
      * Sets the {@code nextOfKin} of the {@code Body} that we are building.
      */
     public BodyBuilder withNextOfKin(String nextOfKin) {
-        this.nextOfKin = new Name(nextOfKin);
+        try {
+            this.nextOfKin = ParserUtil.parseName(nextOfKin);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -171,15 +194,19 @@ public class BodyBuilder {
      * Sets the next-of-kin {@code relationship} of the {@code Body} that we are building.
      */
     public BodyBuilder withRelationship(String relationship) {
-        this.relationship = relationship;
+        this.relationship = ParserUtil.parseStringFields(relationship);
         return this;
     }
 
     /**
      * Sets the {@code religion} of the {@code Body} that we are building.
      */
-    public BodyBuilder withReligion(Religion religion) {
-        this.religion = religion;
+    public BodyBuilder withReligion(String religion) {
+        try {
+            this.religion = ParserUtil.parseReligion(religion);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -187,7 +214,11 @@ public class BodyBuilder {
      * Sets the {@code kinPhoneNumber} of the {@code Body} that we are building.
      */
     public BodyBuilder withKinPhoneNumber(String kinPhoneNumber) {
-        this.kinPhoneNumber = new PhoneNumber(kinPhoneNumber);
+        try {
+            this.kinPhoneNumber = ParserUtil.parsePhoneNumber(kinPhoneNumber);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -232,7 +263,7 @@ public class BodyBuilder {
      * @return
      */
     public Body build() {
-        return new Body(true, 1, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
+        return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
                 kinPhoneNumber);
     }
@@ -242,7 +273,7 @@ public class BodyBuilder {
      * @return
      */
     public Body build(int id) {
-        return new Body(true, id, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
+        return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
                 kinPhoneNumber);
     }

@@ -11,9 +11,14 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GenReportCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -50,6 +55,9 @@ public class AddressBookParser {
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);
 
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -65,8 +73,24 @@ public class AddressBookParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case UndoCommand.COMMAND_WORD: // Fallthrough
+
+        case UndoCommand.SHORTCUT_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+
+        case RedoCommand.SHORTCUT_WORD: // Fallthrough
+            return new RedoCommand();
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case FilterCommand.COMMAND_WORD:
+            return new FilterCommandParser().parse(arguments);
+
+        case GenReportCommand.COMMAND_WORD:
+            return new GenReportCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

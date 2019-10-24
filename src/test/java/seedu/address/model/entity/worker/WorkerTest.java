@@ -2,6 +2,7 @@ package seedu.address.model.entity.worker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.entity.Sex.FEMALE;
 import static seedu.address.testutil.TypicalWorkers.ALICE;
@@ -15,6 +16,7 @@ import static seedu.address.testutil.WorkerBuilder.DEFAULT_PHONE;
 import static seedu.address.testutil.WorkerBuilder.DEFAULT_SEX;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +24,8 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
+import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.person.Name;
 import seedu.address.testutil.WorkerBuilder;
 
@@ -29,30 +33,50 @@ class WorkerTest {
 
     @SuppressWarnings("checkstyle:Regexp")
     @Test
-    public void isSamePerson() {
+    public void isSameWorker() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(ALICE.isSameWorker(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(ALICE.isSameWorker(null));
 
         // different person entirely -> returns false
-        assertFalse(ALICE.isSamePerson(BENSON));
+        assertFalse(ALICE.isSameWorker(BENSON));
 
-        // different phone and email -> returns false
+        // different phone -> returns true
         Worker editedAlice = new WorkerBuilder(ALICE).withPhone(WorkerBuilder.DEFAULT_PHONE).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameWorker(editedAlice));
 
         // different name -> returns false
         editedAlice = new WorkerBuilder(ALICE).withName(DEFAULT_NAME).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameWorker(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new WorkerBuilder(ALICE).withDateJoined(WorkerBuilder.DEFAULT_DATE_JOINED)
             .withDateOfBirth(WorkerBuilder.DEFAULT_DATE_OF_BIRTH)
             .withEmploymentStatus(WorkerBuilder.DEFAULT_EMPLOYMENT_STATUS).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameWorker(editedAlice));
     }
+
+    //@@author ambervoong
+    @Test
+    void generateNewStoredWorker_correctParameters_success() throws ParseException {
+        Name name = new Name(DEFAULT_NAME);
+        Date dateJoined = ParserUtil.parseDate("01/11/2019");
+        Worker actual = Worker.generateNewStoredWorker(name, Sex.MALE, dateJoined, 5);
+        assertEquals(IdentificationNumber.customGenerateId("W", 5), actual.getIdNum());
+        assertEquals(name, actual.getName());
+        assertEquals(Optional.empty(), actual.getPhone());
+    }
+
+    @Test
+    void generateNewStoredBody_wrongParameters_failure() throws ParseException {
+        Name name = new Name(DEFAULT_NAME);
+        Date dateJoined = ParserUtil.parseDate("01/11/2019");
+        assertThrows(IllegalArgumentException.class, () -> Worker.generateNewStoredWorker(name,
+                Sex.MALE, dateJoined, -1));
+    }
+    //@@author
 
     @Test
     public void equals() {
@@ -90,34 +114,43 @@ class WorkerTest {
 
     @Test
     void gettersAndSetters_correct() throws ParseException {
-        assertEquals(IdentificationNumber.customGenerateId("W", 1), ALICE.getWorkerIdNum());
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        assertEquals(IdentificationNumber.customGenerateId("W", 1),
+                new WorkerBuilder().build().getIdNum());
         Worker testWorker = new WorkerBuilder().build();
 
+        // Name
         assertEquals(new Name(DEFAULT_NAME), testWorker.getName());
 
+        // Date
         Date newDate = ParserUtil.parseDate("2/2/2000");
         testWorker.setDateJoined(newDate);
         assertEquals(newDate, testWorker.getDateJoined());
         testWorker.setDateOfBirth(newDate);
-        assertEquals(newDate, testWorker.getDateOfBirth());
+        assertEquals(newDate, testWorker.getDateOfBirth().get());
 
+        // Designation
         testWorker.setDesignation("manager");
-        assertEquals("manager", testWorker.getDesignation());
+        assertEquals("manager", testWorker.getDesignation().get());
 
+        // Phone number
         PhoneNumber newPhone = new PhoneNumber("90000001");
         testWorker.setPhone(newPhone);
-        assertEquals(newPhone, testWorker.getPhone());
+        assertEquals(newPhone, testWorker.getPhone().get());
 
+        // Sex
         testWorker.setSex(FEMALE);
         assertEquals(FEMALE, testWorker.getSex());
 
+        // Employment status
         testWorker.setEmploymentStatus("Test status");
-        assertEquals("Test status", testWorker.getEmploymentStatus());
+        assertEquals("Test status", testWorker.getEmploymentStatus().get());
     }
 
     @Test
     void toString_correct() throws ParseException {
-        assertEquals(DEFAULT_NAME + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        assertEquals(DEFAULT_NAME + " Worker ID: W00001" + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
                 + " Date of Birth: " + ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH)
                 + " Date Joined: " + ParserUtil.parseDate(DEFAULT_DATE_JOINED)
                 + " Designation: " + DEFAULT_DESIGNATION + " Employment Status: " + DEFAULT_EMPLOYMENT_STATUS,

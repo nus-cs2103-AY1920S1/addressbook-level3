@@ -10,6 +10,7 @@ import seedu.address.model.Model;
  * Lists all bodies in Mortago to the manager.
  */
 public class ListBodyCommand extends ListCommand {
+
     public static final String MESSAGE_SUCCESS = "Listed all bodies";
 
     @Override
@@ -18,5 +19,11 @@ public class ListBodyCommand extends ListCommand {
         model.updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
         return new CommandResult(MESSAGE_SUCCESS);
 
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListBodyCommand); // instanceof handles nulls
     }
 }

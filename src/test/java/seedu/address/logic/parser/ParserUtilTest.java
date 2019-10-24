@@ -6,9 +6,11 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Nric;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -42,6 +45,7 @@ public class ParserUtilTest {
     private static final String VALID_SEX = "male";
     private static final String VALID_NRIC = "S1234567A";
     private static final String VALID_ID = "F01";
+    private static final String VALID_ORGANS_FOR_DONATION = "kidney, cornea";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -234,4 +238,29 @@ public class ParserUtilTest {
     public void parseIdentificationNumber_invalidId_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseIdentificationNumber(INVALID_ID));
     }
+
+    @Test
+    public void parseOrgansForDonation_validString_returnListOfOrgans() throws Exception {
+        List<String> expectedListOfOrgans = new ArrayList<String>();
+        expectedListOfOrgans.add("kidney");
+        expectedListOfOrgans.add("cornea");
+        assertEquals(expectedListOfOrgans, ParserUtil.parseOrgansForDonation(VALID_ORGANS_FOR_DONATION));
+
+    }
+
+    //@@author ambervoong
+    @Test
+    public void parseFridgeStatus_validString_returnFridgeStatus () throws ParseException {
+        assertEquals(FridgeStatus.OCCUPIED, ParserUtil.parseFridgeStatus("occupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("unoccupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("Unoccupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("unoccUPied"));
+    }
+
+    @Test
+    public void parseFridgeStatus_invalidString_throwParseException () throws ParseException {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFridgeStatus("melonelon"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseFridgeStatus(""));
+    }
+    //@@author
 }

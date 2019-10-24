@@ -104,4 +104,9 @@ public class Nric {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return nric;
+    }
 }

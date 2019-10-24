@@ -38,8 +38,8 @@ public class WorkerCard extends UiPart<Region> {
         super(FXML);
         this.worker = worker;
         id.setText(displayedIndex + ". ");
-        name.setText(worker.getName().fullName);
-        workerId.setText(worker.getWorkerIdNum().toString());
+        name.setText(worker.getName().toString());
+        workerId.setText(worker.getIdNum().toString());
         dateJoined.setText(worker.getDateJoined().toString());
     }
 

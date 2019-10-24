@@ -4,12 +4,15 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -25,20 +28,37 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final int MINIMUM_HEIGHT = 650;
+    private static final int MINIMUM_WIDTH = 1250;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
     private ReadOnlyAddressBook readOnlyAddressBook;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private WorkerListPanel workerListPanel;
-    private BodyListPanel bodyListPanel;
     private LineChartPanel lineChartPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private BodyMasterDetailPane bodyMasterDetailPane;
+    private NotificationButton notificationButton;
+    private CommandBox commandBox;
+
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Button minimiseButton;
+
+    @FXML
+    private Button maximiseButton;
+
+    @FXML
+    private Button exitButton;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,12 +70,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane workerListPanelPlaceholder;
-
-    @FXML
-    private StackPane bodyListPanelPlaceholder;
-
-    @FXML
     private StackPane lineChartPanelPlaceholder;
 
     @FXML
@@ -63,6 +77,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane bodyMasterListPlaceholder;
+
+    @FXML
+    private StackPane notificationButtonPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -73,6 +93,8 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        setWindowCloseHandler();
+        setMenuBarHandlers();
 
         setAccelerators();
 
@@ -120,15 +142,9 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillInnerParts() throws java.text.ParseException {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        workerListPanel = new WorkerListPanel(logic.getFilteredWorkerList());
-        workerListPanelPlaceholder.getChildren().add(workerListPanel.getRoot());
-
-        bodyListPanel = new BodyListPanel(logic.getFilteredBodyList());
-        bodyListPanelPlaceholder.getChildren().add(bodyListPanel.getRoot());
 
         lineChartPanel = new LineChartPanel(logic.getAddressBook().getBodyList());
         lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
@@ -136,11 +152,38 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
+                logic.selectedBodyProperty(), logic::setSelectedBody),
+                new BodyCardSelected(logic.selectedBodyProperty()));
+        bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
+
+        notificationButton = NotificationButton.getInstanceOfNotifButton();
+        notificationButtonPlaceholder.getChildren().add(notificationButton.getRoot());
+
+
+    }
+
+    private void setMenuBarHandlers() {
+        menuBar.setOnMousePressed((event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        menuBar.setOnMouseDragged((event) -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        setMaximiseButtonHandler();
+        setMinimiseButtonHandler();
+        ResizableWindow.enableResizableWindow(primaryStage, MINIMUM_WIDTH, MINIMUM_HEIGHT,
+                Double.MAX_VALUE, Double.MAX_VALUE);
     }
 
     /**
@@ -153,6 +196,38 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    /**
+     * Sets the application to exit when the user presses the default OS close button.
+     */
+    private void setWindowCloseHandler() {
+        primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, e -> handleExit());
+    }
+
+    /**
+     * Sets the minimising handler for minimise button.
+     */
+    private void setMinimiseButtonHandler() {
+        minimiseButton.setOnMouseClicked(click ->
+            primaryStage.setIconified(true)
+        );
+    }
+
+    /**
+     * Sets the maximising and restoring handler for maximise button
+     * Change button images respectively via css.
+     */
+    private void setMaximiseButtonHandler() {
+        maximiseButton.setOnMouseClicked(click -> {
+            primaryStage.setMaximized(true);
+            maximiseButton.setId("restoreButton");
+        });
+
+        maximiseButton.setOnMousePressed(click -> {
+            primaryStage.setMaximized(false);
+            maximiseButton.setId("maximiseButton");
+        });
     }
 
     /**
@@ -181,10 +256,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**

@@ -2,7 +2,13 @@ package seedu.address.model.entity;
 
 //@@author shaoyi1997
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
+
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.worker.Worker;
 
 /**
  * Represents the ID number of each entity.
@@ -17,49 +23,66 @@ public class IdentificationNumber {
     private static final String ID_PREFIX_WORKER = "W";
     private static final String ID_PREFIX_FRIDGE = "F";
 
-    private static int countOfBodies = 0;
-    private static int countOfWorkers = 0;
-    private static int countOfFridges = 0;
+    private static UniqueIdentificationNumberMaps uniqueIds = new UniqueIdentificationNumberMaps();
 
     private int idNum;
+
     private String typeOfEntity;
 
-    // todo: check for duplicates
-    protected IdentificationNumber(String typeOfEntity) {
-        this.typeOfEntity = typeOfEntity;
-        switch (typeOfEntity) {
-        case ID_PREFIX_BODY:
-            countOfBodies++;
-            idNum = countOfBodies;
-            break;
-        case ID_PREFIX_WORKER:
-            countOfWorkers++;
-            idNum = countOfWorkers;
-            break;
-        case ID_PREFIX_FRIDGE:
-            countOfFridges++;
-            idNum = countOfFridges;
-            break;
-        default:
-            throw new IllegalArgumentException("Invalid entity type");
+    protected IdentificationNumber(Entity entity) {
+        requireNonNull(entity);
+        idNum = uniqueIds.addEntity(entity);
+        if (entity instanceof Worker) {
+            typeOfEntity = "W";
+        } else if (entity instanceof Body) {
+            typeOfEntity = "B";
+        } else {
+            typeOfEntity = "F";
         }
     }
+
+    //@@author ambervoong
+    protected IdentificationNumber(Entity entity, int id) {
+        requireNonNull(entity);
+        idNum = id;
+        UniqueIdentificationNumberMaps.addEntity(entity, id);
+        if (entity instanceof Worker) {
+            typeOfEntity = "W";
+        } else if (entity instanceof Body) {
+            typeOfEntity = "B";
+        } else {
+            typeOfEntity = "F";
+        }
+    }
+    //@@author
 
     private IdentificationNumber(String typeOfEntity, int idNum) {
         this.typeOfEntity = typeOfEntity;
         this.idNum = idNum;
     }
 
-    public static IdentificationNumber generateNewBodyId() {
-        return new IdentificationNumber(ID_PREFIX_BODY);
+    public static IdentificationNumber generateNewBodyId(Body body) {
+        return new IdentificationNumber(body);
     }
 
-    public static IdentificationNumber generateNewWorkerId() {
-        return new IdentificationNumber(ID_PREFIX_WORKER);
+    public static IdentificationNumber generateNewBodyId(Body body, int id) {
+        return new IdentificationNumber(body, id);
     }
 
-    public static IdentificationNumber generateNewFridgeId() {
-        return new IdentificationNumber(ID_PREFIX_FRIDGE);
+    public static IdentificationNumber generateNewWorkerId(Worker worker) {
+        return new IdentificationNumber(worker);
+    }
+
+    public static IdentificationNumber generateNewWorkerId(Worker worker, int id) {
+        return new IdentificationNumber(worker, id);
+    }
+
+    public static IdentificationNumber generateNewFridgeId(Fridge fridge) {
+        return new IdentificationNumber(fridge);
+    }
+
+    public static IdentificationNumber generateNewFridgeId(Fridge fridge, int id) {
+        return new IdentificationNumber(fridge);
     }
 
     public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
@@ -74,10 +97,14 @@ public class IdentificationNumber {
     /**
      * Checks if given {@code String id} is a valid identification number.
      */
-    public static boolean isValidIdentificationNumber(String id) {
-        String idPrefix = id.charAt(0) + "";
+    public static boolean isValidIdentificationNumber(String fullIdString) {
+        int idLength = fullIdString.length();
+        if (idLength < 3) {
+            return false;
+        }
+        String idPrefix = fullIdString.charAt(0) + "";
         if (isValidIdPrefix(idPrefix)) {
-            int numberLength = id.substring(1).length();
+            int numberLength = idLength - 1;
             switch (idPrefix) {
             case ID_PREFIX_BODY:
                 return numberLength == 8;
@@ -93,25 +120,32 @@ public class IdentificationNumber {
     }
 
     /**
-     * Checks if a given {@code IdentificationNumber id} already exists.
-     * @param id
-     * @return
+     * Checks if given {@code String fullIdString} already exists in Mortago.
      */
-    public static boolean isExistingidentificationNumber(IdentificationNumber id) {
-        if (isValidIdentificationNumber(id.toString())) {
-            String idPrefix = id.toString().charAt(0) + "";
-            switch (idPrefix) {
-            case ID_PREFIX_BODY:
-                return id.getIdNum() <= countOfBodies;
-            case ID_PREFIX_WORKER:
-                return id.getIdNum() <= countOfWorkers;
-            case ID_PREFIX_FRIDGE:
-                return id.getIdNum() <= countOfFridges;
-            default:
-                return false;
-            }
+    public static boolean isExistingIdentificationNumber(String fullIdString) {
+        String typeOfEntity = fullIdString.charAt(0) + "";
+        int idNum = Integer.parseInt(fullIdString.substring(1));
+        switch (typeOfEntity) {
+        case ID_PREFIX_BODY:
+            return uniqueIds.containsBodyId(idNum);
+        case ID_PREFIX_FRIDGE:
+            return uniqueIds.containsFridgeId(idNum);
+        case ID_PREFIX_WORKER:
+            return uniqueIds.containsWorkerId(idNum);
+        default:
+            return false;
         }
-        return false;
+    }
+
+    /**
+     * Checks if given {@code IdentificationNumber id} already exists in Mortago.
+     */
+    public static boolean isExistingIdentificationNumber(IdentificationNumber id) {
+        return isExistingIdentificationNumber(id.toString());
+    }
+
+    public String getTypeOfEntity() {
+        return typeOfEntity;
     }
 
     public int getIdNum() {
@@ -137,28 +171,27 @@ public class IdentificationNumber {
         return typeOfEntity + paddedId;
     }
 
-    public static void decrementCountOfBodies() {
-        countOfBodies--;
+    /**
+     * Removes the mapping of the Id Number to its entity in the respective UniqueEntityList.
+     */
+    public void removeMapping() {
+        switch (typeOfEntity) {
+        case ID_PREFIX_BODY:
+            uniqueIds.removeBodyId(idNum);
+            break;
+        case ID_PREFIX_WORKER:
+            uniqueIds.removeWorkerId(idNum);
+            break;
+        case ID_PREFIX_FRIDGE:
+            uniqueIds.removeFridgeId(idNum);
+            break;
+        default:
+            return;
+        }
     }
 
-    public static void decrementCountOfWorkers() {
-        countOfWorkers--;
-    }
-
-    public static void decrementCountOfFridges() {
-        countOfFridges--;
-    }
-
-    public static void resetCountOfBodies() {
-        countOfBodies = 0;
-    }
-
-    public static void resetCountOfWorkers() {
-        countOfWorkers = 0;
-    }
-
-    public static void resetCountOfFridges() {
-        countOfFridges = 0;
+    public Entity getMapping() {
+        return uniqueIds.getMapping(typeOfEntity, idNum);
     }
 
 

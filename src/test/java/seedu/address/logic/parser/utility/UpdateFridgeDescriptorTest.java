@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalBodies.ALICE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
@@ -31,13 +32,17 @@ class UpdateFridgeDescriptorTest {
 
     @Test
     void apply_fieldsPresent_success() {
+        Body dummyAlice = new BodyBuilder(ALICE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Fridge fridge = new FridgeBuilder().build();
-
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Body body = new BodyBuilder(ALICE).build();
         UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
-        descriptor.setBody(body);
+        descriptor.setBodyId(body.getIdNum());
+        descriptor.setNewBody(body);
         descriptor.setFridgeStatus(FridgeStatus.OCCUPIED);
 
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Fridge fridgeCopy = new FridgeBuilder().build();
         fridgeCopy.setBody(body);
         fridgeCopy.setFridgeStatus(FridgeStatus.OCCUPIED);
@@ -48,11 +53,16 @@ class UpdateFridgeDescriptorTest {
     @Test
     void apply_allFieldsNotPresent_success() {
         //  Success because apply does not check whether fields are present or not.
+        Body dummyAlice = new BodyBuilder(ALICE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+
         Fridge fridge = new FridgeBuilder().build();
         Body body = new BodyBuilder(ALICE).build();
         UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
-        descriptor.setBody(body);
+        descriptor.setNewBody(body);
+        descriptor.setBodyId(body.getIdNum());
 
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Fridge fridgeCopy = new FridgeBuilder().build();
         fridgeCopy.setBody(body);
 
@@ -63,8 +73,8 @@ class UpdateFridgeDescriptorTest {
     void getSetBody() {
         Body body = new BodyBuilder(ALICE).build();
         UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
-        descriptor.setBody(body);
-        assertEquals(descriptor.getBody().get(), body);
+        descriptor.setBodyId(body.getIdNum());
+        assertEquals(descriptor.getBodyId().get(), body.getIdNum());
     }
 
     @Test
@@ -72,6 +82,14 @@ class UpdateFridgeDescriptorTest {
         UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
         descriptor.setFridgeStatus(FridgeStatus.OCCUPIED);
         assertEquals(descriptor.getFridgeStatus().get(), FridgeStatus.OCCUPIED);
+    }
+
+    @Test
+    void getSetNewBody() {
+        Body body = new BodyBuilder().build();
+        UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
+        descriptor.setNewBody(body);
+        assertEquals(descriptor.getNewBody().get(), body);
     }
 
     @Test

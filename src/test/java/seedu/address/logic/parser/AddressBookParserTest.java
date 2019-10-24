@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -25,10 +26,13 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListBodyCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListWorkerCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.BodyBuilder;
@@ -59,12 +63,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand bodyCommand = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + FIRST_BODY_ID_NUM.toString());
-        assertEquals(new DeleteCommand(FIRST_BODY_ID_NUM), bodyCommand);
+                DeleteCommand.COMMAND_WORD + " " + PREFIX_FLAG + "b "
+                        + FIRST_BODY_ID_NUM.getIdNum());
+        assertEquals(new DeleteCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "b"), bodyCommand);
 
         DeleteCommand workerCommand = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + FIRST_WORKER_ID_NUM.toString());
-        assertEquals(new DeleteCommand(FIRST_WORKER_ID_NUM), workerCommand);
+                DeleteCommand.COMMAND_WORD + " " + PREFIX_FLAG + "b "
+                        + FIRST_WORKER_ID_NUM.getIdNum());
+        assertEquals(new DeleteCommand(Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()), "w"), workerCommand);
 
         // todo add parser test for fridge class
     }
@@ -82,6 +88,7 @@ public class AddressBookParserTest {
     //@@author ambervoong
     @Test
     public void parseCommand_update() throws Exception {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Body body = new BodyBuilder().build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
         descriptor.setSex(Sex.MALE);
@@ -89,7 +96,24 @@ public class AddressBookParserTest {
                 + PREFIX_FLAG + "b "
                 + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                 + PREFIX_SEX + " male");
-        assertEquals(new UpdateCommand(body.getBodyIdNum(), descriptor), command);
+        assertEquals(new UpdateCommand(body.getIdNum(), descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.SHORTCUT_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 1") instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.SHORTCUT_WORD + " 1") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.SHORTCUT_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 1") instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.SHORTCUT_WORD + " 1") instanceof RedoCommand);
+
     }
     //@@author
 
