@@ -137,7 +137,7 @@ public class BankAccount implements ReadOnlyBankAccount {
     /**
      * Updates each budget in {@code budgets} when OutTransaction is made.
      *
-     * @param txn Transaction can be either InTransaction or OutTransaction.
+     * @payram txn Transaction can be either InTransaction or OutTransaction.
      */
     private void updateBudgets(BankAccountOperation txn) {
         if (txn instanceof OutTransaction) {

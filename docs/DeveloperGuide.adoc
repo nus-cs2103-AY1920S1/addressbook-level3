@@ -425,6 +425,37 @@ The sequence diagram below demonstrates how the `project [DATE]` command is hand
 .Sequence Diagram of Project Command
 image::Project.png[ProjectCommand Sequence Diagram]
 
+==== Future Enhancements
+
+===== Graphical Representation
+In future updates, the _user's_ balance projection will be displayed as a linear graph plotted against time, up until
+the date specified by the user in the command.
+
+===== Projection by Category
+In future updates, the _user_ will be able to customise projections beyond specifying a single date.
+Some possible customizations include solely projection _income_ / _outflow_ amounts, and filtered
+projections based on _categories_. For instance, `project d/22112019 c/Food -o` will project the
+_user's_ spending (or outflow, as denoted by the `-o` flag) on Food (specified by the `c/Food` tag)
+up until the 22nd of November, 2019 (specified by the `d/22112019` tag).
+
+==== Design Considerations
+The project command has multiple possible implementations as to how the projection may be computed.
+In the current implementation, the projected amount is calculated via the following equation:
+
+_Projected Balance = Current Balance - [(Past Income - Past Outflow) / Total Days Elapsed] *
+Days Until Date of Projection_
+
+While this algorithm allows for simple and fast computation, it does not hedge against one-time big purchases.
+For example, if the user were to buy a computer, his outflow projection is likely to be proportionally
+larger in the short run.
+
+==== Alternative Implementations
+===== Linear Regression
+In light of the above-mentioned limitation, a possible algorithm to be used is the
+https://en.wikipedia.org/wiki/Gradient_descent#targetText=Gradient%20descent%20is%20a%20first,function%20at%20the%20current%20point[_Gradient Descent_]
+algorithm in finding a best fit projection line for the user's balance. However, this will increase the
+computational cost of the `project` function significantly, causing _PalPay_ to run slower overall.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
