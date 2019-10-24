@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -135,7 +135,7 @@ public class CatalogParserTest {
     @Test
     public void parseCommand_serve() throws Exception {
         assertTrue(parser.parseCommand(
-                ServeCommand.COMMAND_WORD + " " + PREFIX_BORROWER_ID + VALID_BORROWER_ID)
+                ServeCommand.COMMAND_WORD + " " + PREFIX_BORROWER_ID + VALID_BORROWER_ID_1)
                 instanceof ServeCommand);
     }
 

@@ -98,12 +98,17 @@ public class Loan {
                 && otherLoan.getBookSerialNumber().equals(bookSerialNumber)
                 && otherLoan.getBorrowerId().equals(borrowerId)
                 && otherLoan.getStartDate().equals(startDate)
-                && otherLoan.getDueDate().equals(dueDate);
+                && otherLoan.getDueDate().equals(dueDate)
+                && (otherLoan.getReturnDate() == null || otherLoan.getReturnDate().equals(returnDate))
+                && otherLoan.getRenewCount() == renewCount
+                && otherLoan.getRemainingFineAmount() == remainingFineAmount
+                && otherLoan.getPaidFineAmount() == paidFineAmount;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(loanId, bookSerialNumber, borrowerId, startDate, dueDate);
+        return Objects.hash(loanId, bookSerialNumber, borrowerId, startDate, dueDate, returnDate,
+                renewCount, remainingFineAmount, paidFineAmount);
     }
 
     @Override

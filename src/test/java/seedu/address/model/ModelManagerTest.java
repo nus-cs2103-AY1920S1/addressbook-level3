@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
 
@@ -158,7 +158,7 @@ public class ModelManagerTest {
 
         LoanId loanId = new LoanId(VALID_LOAN_ID);
         Book toBeLoaned = new BookBuilder(BOOK_1).build();
-        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID_1);
         Loan loan = new Loan(loanId, toBeLoaned.getSerialNumber(), currentBorrowerId,
                 DateUtil.getTodayMinusDays(31), DateUtil.getTodayMinusDays(1));
         Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
@@ -180,7 +180,7 @@ public class ModelManagerTest {
         // Book on loan but not overdue
         LoanId loanId = new LoanId(VALID_LOAN_ID);
         Book toBeLoaned = new BookBuilder(BOOK_1).build();
-        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID_1);
         Loan loan = new Loan(loanId, toBeLoaned.getSerialNumber(), currentBorrowerId,
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
         modelManager.addLoan(loan);
