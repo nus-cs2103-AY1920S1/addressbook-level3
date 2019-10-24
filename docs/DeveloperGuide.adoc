@@ -235,33 +235,56 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== [Proposed] Engagement Report Generation
-==== Proposed Implementation
+=== Engagement Report Generation
 This feature allows user to generate a pre-selected engagement in to a report and save it as a document file. The document file will be created in a .pdf format.
 
+==== Implementation Structure
+
+.PdfCommand Implementation Class Diagram
+image::PdfCommandClassDiagram.png[]
+
 1. The feature will be implemented as an additional type of Command; `PdfCommand`
-* Proposed syntax of the PdfCommand is as follow: `pdf i/[engagementList_index] to/[Person] from/[Person]`
-1. Util class `PdfUtil` can be implemented for handling all pdf document creation related methods.
-* It will be able to generate a full report document based on the `Engagement` as input.
-* Util class will use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`.
-1. `Report` class needs to be implemented in order to model all necessary properties that has to be in the document.
+* Proposed syntax of the PdfCommand is as follow: `pdf i/[engagementList_index] to/[Person] from/[Person]`.
+1. Util class `PdfUtil` will be implemented for handling all pdf document creation related methods.
+a. Able to generate a full report document based on the `Engagement` as input.
+b. Use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`. Document template will follow general email format:
+Receiver, Content contained in a table, Sender and signature with address and company logo (Refer to Figure 10).
+1. To fulfill the document format, `Report` class needs to be implemented in order to model all necessary properties that has to be in the document. It 3 following properties;
+* `engagement`: specific engagement information to include in the document
+* `to`: A `Person` who is receiving the document
+* `from`: A `Person` who is either a receptionist or a secretary who is sending the document.
 
-image::pdf-report/Report_ClassDiagram.png[]
-
-
+.sample document template
+image::interview_template.png[width="75%"]
 
 ==== UI Design
+`ReportWindow` will be the UI container which helps the user to interact using `PdfCommand`. UI will consist of 2 main scrollable panes; Engagement list with index numbers,
+and the directory explorer for `reports/` as a item list.
 
+===== UI Components & Features
+Table below explains the components that are included in the `ReportWindow` with its purpose and features.
+.Report Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
 
+| `EngagementList`
+| Scrollable Stack Pane
+| Displays the sorted engagement list
+| To guide user to help recognize the list index number that the user wants to generate document from.
 
-===== Aspect: How System generates a Report document file
+| `File_Explorer`
+| Scrollable Stack Pane
+|
+1. Displays the list of document generated previously and stored under the directory `reports/`.
+
+2. Each list item is clickable with a MouseClick action of opening the document.
+| To allow user to manage documents more time efficiently.
+|===
+
 
 === Logging
 

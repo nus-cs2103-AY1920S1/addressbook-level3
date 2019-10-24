@@ -1,0 +1,8 @@
+@startuml
+
+class PdfUtil {
+    ~ generateReport(engagement: Engagement): void
+    ~ createTable(attendees: Attendees): void
+}
+
+@enduml
