@@ -19,7 +19,7 @@ import seedu.address.model.GroceryList;
 import seedu.address.model.ReadOnlyGroceryList;
 
 public class JsonGroceryListStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonGroceryListStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
 
     @TempDir
     public Path testFolder;
