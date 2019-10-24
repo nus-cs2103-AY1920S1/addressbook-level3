@@ -25,6 +25,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
@@ -146,6 +149,9 @@ public class ProjectDashboardTest {
         private final ObservableList<Member> members = FXCollections.observableArrayList();
         private final ObservableList<Inventory> inventories = FXCollections.observableArrayList();
         private final ObservableList<Mapping> mappings = FXCollections.observableArrayList();
+        private final ObservableList<InvMemMapping> invMemMappings = FXCollections.observableArrayList();
+        private final ObservableList<InvTasMapping> invTasMappings = FXCollections.observableArrayList();
+        private final ObservableList<TasMemMapping> tasMemMappings = FXCollections.observableArrayList();
         private final HashMap<Task, ObservableList<Member>> memberByTask = new HashMap<>();
 
         private final ObservableList<Task> tasksNotStarted = FXCollections.observableArrayList();
@@ -194,6 +200,21 @@ public class ProjectDashboardTest {
         @Override
         public HashMap<Task, ObservableList<Member>> listMemberByTask() {
             return memberByTask;
+        }
+
+        @Override
+        public ObservableList<InvMemMapping> getInvMemMappingList() {
+            return invMemMappings;
+        }
+
+        @Override
+        public ObservableList<InvTasMapping> getInvTasMappingList() {
+            return invTasMappings;
+        }
+
+        @Override
+        public ObservableList<TasMemMapping> getTasMemMappingList() {
+            return tasMemMappings;
         }
     }
 

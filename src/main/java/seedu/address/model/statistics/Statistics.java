@@ -64,9 +64,9 @@ public class Statistics {
         for(Member member: members) {
             int numTasks = 0;
             for(Mapping mapping : mappings) {
-                if(mapping.hasMember(member)) {
-                    numTasks++;
-                }
+//                if(mapping.hasMember(member)) {
+//                    numTasks++;
+//                }
             }
             portionMemberByTasks.put(member, numTasks);
         }
