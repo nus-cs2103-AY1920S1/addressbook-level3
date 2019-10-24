@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -50,9 +51,9 @@ public class JsonSerializableStandardQuestionBankTest {
      */
     private boolean checkQuestionBanksEqual(StandardQuestionBank bank1, StandardQuestionBank bank2) {
         SortedList<Question> list1 = bank1.getReadOnlyQuestionListObservable()
-                .sorted((q1, q2) -> q1.getTitle().compareTo(q2.getTitle()));
+                .sorted(Comparator.comparing(Question::getTitle));
         SortedList<Question> list2 = bank2.getReadOnlyQuestionListObservable()
-                .sorted((q1, q2) -> q1.getTitle().compareTo(q2.getTitle()));
+                .sorted(Comparator.comparing(Question::getTitle));
 
         if (list1.size() != list2.size()) {
             return false;
@@ -63,7 +64,7 @@ public class JsonSerializableStandardQuestionBankTest {
         }
 
         return IntStream.range(0, list1.size())
-                .mapToObj(i -> list1.get(i).equals(list2.get(i)))
+                .mapToObj(i -> list1.get(i).checkContentsEqual(list2.get(i)))
                 .reduce((x, y) -> x && y).get();
     }
 }

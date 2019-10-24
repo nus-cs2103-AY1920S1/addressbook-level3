@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
+
+import com.dukeacademy.observable.Observable;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,8 +34,15 @@ public class Editor extends UiPart<Region> {
     @FXML
     private TextArea textOutput;
 
-    public Editor() {
+    public Editor(Observable<Question> questionObservable) {
         super(FXML);
+
+        questionObservable.addListener(question -> {
+            if (question != null) {
+                UserProgram savedProgram = question.getUserProgram();
+                this.textOutput.setText(savedProgram.getSourceCode());
+            }
+        });
     }
 
     /**

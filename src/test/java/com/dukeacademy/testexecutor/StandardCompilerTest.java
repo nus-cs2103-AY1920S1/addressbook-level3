@@ -46,6 +46,8 @@ class StandardCompilerTest {
 
     private UserProgram invalidProgram = new UserProgram("InvalidTest", "FooBar");
 
+    private UserProgram emptyProgram = new UserProgram("Empty", "");
+
     @BeforeEach
     public void initializeTest() {
         standardCompiler = new StandardCompiler();
@@ -82,6 +84,11 @@ class StandardCompilerTest {
 
         assertFalse(invalidClassFilePath.toFile().exists());
 
+        JavaFile emptyJavaFile = this.createJavaFile(emptyProgram);
+        assertThrows(CompilerException.class, () -> standardCompiler.compileJavaFile(emptyJavaFile));
+        Path emptyClassFilePath = environmentPath.resolve(emptyProgram.getClassName() + ".class");
+
+        assertFalse(emptyClassFilePath.toFile().exists());
     }
 
     /**
@@ -91,7 +98,7 @@ class StandardCompilerTest {
      * @throws JavaFileCreationException if file creation fails.
      */
     private JavaFile createJavaFile(UserProgram program) throws IOException, JavaFileCreationException {
-        String path = environmentPath.resolve(program.getClassName() + ".java").toUri().getPath();
+        String path = environmentPath.resolve(program.getClassName() + ".java").toString();
         File file = new File(path);
 
         boolean isFileCreated = file.createNewFile();
@@ -104,13 +111,13 @@ class StandardCompilerTest {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             Writer fileWriter = new OutputStreamWriter(fileOutputStream);
 
-            fileWriter.write(program.getSourceCodeAsString());
+            fileWriter.write(program.getSourceCode());
 
             fileWriter.close();
         } catch (IOException e) {
             throw new JavaFileCreationException("Unable to create file.");
         }
 
-        return new JavaFile(program.getClassName(), environmentPath.toUri().getPath());
+        return new JavaFile(program.getClassName(), environmentPath.toString());
     }
 }

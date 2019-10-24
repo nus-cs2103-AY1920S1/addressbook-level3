@@ -20,7 +20,7 @@ public class JsonAdaptedUserProgram {
 
     public JsonAdaptedUserProgram(UserProgram userProgram) {
         this.className = userProgram.getClassName();
-        this.sourceCode = userProgram.getSourceCodeAsString();
+        this.sourceCode = userProgram.getSourceCode();
     }
 
     public UserProgram toModel() {

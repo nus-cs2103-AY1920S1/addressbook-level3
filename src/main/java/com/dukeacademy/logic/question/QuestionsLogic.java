@@ -51,11 +51,18 @@ public interface QuestionsLogic {
     Question getQuestion(int index);
 
     /**
-     * Sets the question corresponding to the index in the list returned by getFilteredQUestionsList to a new question.
+     * Sets the question corresponding to the index in the list returned by getFilteredQuestionsList to a new question.
      * @param index the index of the question to be replaced.
      * @param newQuestion the new question.
      */
     void setQuestion(int index, Question newQuestion);
+
+    /**
+     * Replaces the old question with a new question.
+     * @param oldQuestion the old question to be replaced.
+     * @param newQuestion the new question.
+     */
+    void replaceQuestion(Question oldQuestion, Question newQuestion);
 
     /**
      * Deletes the question corresponding to the index in the list returned by getFilteredQuestionsList.

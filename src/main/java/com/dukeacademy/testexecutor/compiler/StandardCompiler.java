@@ -39,6 +39,7 @@ public class StandardCompiler implements Compiler {
             // canonical name and class path
             return new ClassFile(javaFile.getCanonicalName(), javaFile.getClassPath());
         } catch (FileNotFoundException e) {
+            logger.info("Compilation failed to create class file");
             throw new CompilerException(MESSAGE_COMPILER_FAILED + " Could not retrieve Class file.");
         }
     }

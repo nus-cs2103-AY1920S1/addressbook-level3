@@ -2,6 +2,7 @@ package com.dukeacademy.testexecutor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ import com.dukeacademy.testexecutor.compiler.StandardCompiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
 import com.dukeacademy.testexecutor.executor.ProgramExecutor;
 import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
@@ -36,7 +39,7 @@ class TestExecutorTest {
 
     @BeforeEach
     public void initialize() throws CompilerEnvironmentException {
-        CompilerEnvironment environment = new StandardCompilerEnvironment(tempFolder.resolve("test").toUri().getPath());
+        CompilerEnvironment environment = new StandardCompilerEnvironment(tempFolder.resolve("test").toString());
         Compiler compiler = new StandardCompiler();
         ProgramExecutor executor = new StandardProgramExecutor();
 
@@ -44,7 +47,8 @@ class TestExecutorTest {
     }
 
     @Test
-    public void runTestCasesFib() throws IOException, TestExecutorException {
+    public void runTestCasesFib() throws IOException, TestExecutorException,
+            IncorrectClassNameException, EmptyUserProgramException {
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -62,7 +66,8 @@ class TestExecutorTest {
     }
 
     @Test
-    public void runTestCasesDuplicates() throws IOException, TestExecutorException {
+    public void runTestCasesDuplicates() throws IOException, TestExecutorException,
+            IncorrectClassNameException, EmptyUserProgramException {
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "duplicates");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -80,7 +85,8 @@ class TestExecutorTest {
     }
 
     @Test
-    public void runTestCaseNestedClass() throws IOException, TestExecutorException {
+    public void runTestCaseNestedClass() throws IOException, TestExecutorException,
+            IncorrectClassNameException, EmptyUserProgramException {
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "nested");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -98,7 +104,8 @@ class TestExecutorTest {
     }
 
     @Test
-    public void runIncorrectProgram() throws IOException, TestExecutorException {
+    public void runIncorrectProgram() throws IOException, TestExecutorException,
+            IncorrectClassNameException, EmptyUserProgramException {
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "incorrect");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -119,18 +126,40 @@ class TestExecutorTest {
     }
 
     @Test
-    public void testCompileError() throws TestExecutorException {
-        UserProgram program = new UserProgram("CompileError", "foobar");
+    public void testCompileError() throws TestExecutorException, IncorrectClassNameException,
+            EmptyUserProgramException {
+        UserProgram program = new UserProgram("CompileError", "public class CompileError {\n"
+                + "Scanner sc;\n"
+                + "}");
         TestResult result = executor.runTestCases(new ArrayList<>(), program);
         assertTrue(result.getCompileError().isPresent());
 
-        UserProgram program1 = new UserProgram("CompileError", "public class CompilerErrors { }");
+        UserProgram program1 = new UserProgram("CompileError", "public class CompileError {\n"
+                + "package abc = 123;\n"
+                + "}");
         TestResult result1 = executor.runTestCases(new ArrayList<>(), program1);
         assertTrue(result1.getCompileError().isPresent());
     }
 
     @Test
-    public void testRuntimeError() throws IOException, TestExecutorException {
+    public void testEmptyProgramException() {
+        assertThrows(EmptyUserProgramException.class, () -> executor
+                .runTestCases(new ArrayList<>(), new UserProgram("Main", "")));
+    }
+
+    @Test
+    public void testIncorrectClassNameException() {
+        UserProgram invalidProgram = new UserProgram("Main", "public class Man {}");
+        assertThrows(IncorrectClassNameException.class, () -> executor.runTestCases(new ArrayList<>(), invalidProgram));
+        UserProgram invalidProgram1 = new UserProgram("Main", "public class Test "
+                + "{ public class Main { } }");
+        assertThrows(IncorrectClassNameException.class, () -> executor
+                .runTestCases(new ArrayList<>(), invalidProgram1));
+    }
+
+    @Test
+    public void testRuntimeError() throws IOException, TestExecutorException,
+            IncorrectClassNameException, EmptyUserProgramException {
         Path programPath = Paths.get("src", "test", "data",
                 "TestPrograms", "errors", "indexoutofbounds.txt");
         UserProgram program = new UserProgram("Main", Files.readString(programPath));
@@ -208,4 +237,27 @@ class TestExecutorTest {
     }
 
 
+    @Test
+    void checkClassNameMatch() {
+        String validProgramCode = "class Main { }";
+        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode)));
+
+        String validProgramCode1 = "public class Main {}";
+        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode1)));
+
+        String validProgramCode2 = "class test {} \n public class Main{}";
+        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode2)));
+
+        String validProgramCode3 = "class test { public class Main { } } class Main {}";
+        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode3)));
+
+        String validProgramCode4 = "public class Main { public class Main { } ";
+        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode4)));
+
+        String invalidProgramCode = "public class Man {}";
+        assertFalse(executor.checkClassNameMatch(new UserProgram("Main", invalidProgramCode)));
+
+        String invalidProgramCode1 = "public class Man { public class Main { }}";
+        assertFalse(executor.checkClassNameMatch(new UserProgram("Main", invalidProgramCode1)));
+    }
 }

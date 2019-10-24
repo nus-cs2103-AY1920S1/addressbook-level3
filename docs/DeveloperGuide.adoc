@@ -325,6 +325,33 @@ an `FileNotFoundException` is thrown during instantiation.
 image::TestExecutorSequenceDiagram.png[align:center]
 ====
 
+==== Implementation details
+The implementations of `CompilerEnvironment`, `Compiler` and `ProgramExecutor` used in the application are as follows:
+
+* *StandardCompilerEnvironment* - this implementation utilizes Java11's native Files library to handle creation, deletion and writing of files.
+
+    - Creates a temporary folder when instantiated at the file path injected through its constructor.
+
+    - All files are created in this temporary folder.
+
+    - The temporary folder is deleted in the `close()` method.
+
+    - When tasked to create a new file, it first creates an empty file in the temporary folder before writing the contents of the user's program to the file
+
+* *StandardCompiler* - this implementation utilizes Java11's native JavaCompiler library to programmatically compile Java files.
+
+    - Compile errors recorded by the `DiagnosticsListener` class from the compilation task is parsed and rethrown as `CompilerException` and `CompileContentException`.
+    - `CompilerException` represents compile errors caused by the JavaCompiler library while `CompileContentException` represents errors caused by the user's program.
+
+* *StandardProgramExecutor* - this implementation utilizes Java11's native Runtime class to execute programs programatically.
+
+    - To execute a program, `exec(String command)` of the Runtime instance is called.
+    - A command to compile the specified `ClassFile` is generated using its class path and canonical name attributes.
+    - The method returns a `Process` instance that executes the program on a separate thread.
+    - `StandardProgramExecutor` accesses the input stream of the process and feeds the program the necessary inputs.
+    - `StandardProgramExecutor` access the output and error stream of the process and collects any produced output or errors.
+    - The process is destroyed and the collected output and errors and packaged as a `ProgramOutput` instance.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

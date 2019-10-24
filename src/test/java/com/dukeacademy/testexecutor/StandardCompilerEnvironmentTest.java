@@ -32,7 +32,7 @@ class StandardCompilerEnvironmentTest {
     @BeforeEach
     public void initializeTest() throws CompilerEnvironmentException {
         environmentPath = temporaryFolder.resolve("compiler");
-        compilerEnvironment = new StandardCompilerEnvironment(environmentPath.toUri().getPath());
+        compilerEnvironment = new StandardCompilerEnvironment(environmentPath.toString());
     }
 
     @Test
@@ -43,7 +43,7 @@ class StandardCompilerEnvironmentTest {
 
         JavaFile createdJavaFile = compilerEnvironment.createJavaFile(program);
         assertEquals("Test", createdJavaFile.getCanonicalName());
-        assertEquals(environmentPath.toUri().getPath(), createdJavaFile.getClassPath());
+        assertEquals(environmentPath.toString(), createdJavaFile.getClassPath());
 
         Path javaFilePath = environmentPath.resolve(fileName + ".java");
 
@@ -62,7 +62,7 @@ class StandardCompilerEnvironmentTest {
 
         JavaFile createdJavaFile1 = compilerEnvironment.createJavaFile(program1);
         assertEquals("foo.bar.Test", createdJavaFile1.getCanonicalName());
-        assertEquals(environmentPath.toUri().getPath(), createdJavaFile1.getClassPath());
+        assertEquals(environmentPath.toString(), createdJavaFile1.getClassPath());
 
         Path javaFilePath1 = environmentPath.resolve("foo").resolve("bar").resolve("Test.java");
 

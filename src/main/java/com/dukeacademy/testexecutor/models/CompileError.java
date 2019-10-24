@@ -13,4 +13,13 @@ public class CompileError {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof CompileError) {
+            return ((CompileError) o).errorMessage.equals(this.errorMessage);
+        } else {
+            return false;
+        }
+    }
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 /**
  * Standard implementation of the observable interface.
+ *
  * @param <T>
  */
 public class StandardObservable<T> implements Observable<T> {

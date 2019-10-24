@@ -2,7 +2,6 @@ package com.dukeacademy.logic.commands;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.commons.util.StringUtil;
@@ -39,18 +38,16 @@ public class CommandParser {
             String commandWord = StringUtil.getFirstWord(commandText);
             String commandArguments = StringUtil.removeFirstWord(commandText);
 
-            return Optional.ofNullable(this.commandFactoryMap.get(commandWord))
-                    .map(supplier -> {
-                        try {
-                            return supplier.getCommand(commandArguments);
-                        } catch (InvalidCommandArgumentsException e) {
-                            return null;
-                        }
-                    })
-                    .orElseThrow(() -> new ParseException("Invalid command entered."));
+            CommandSupplier supplier = this.commandFactoryMap.get(commandWord);
+            if (supplier == null) {
+                throw new ParseException("Command word not recognized.");
+            }
 
-        } catch (IllegalValueException e) {
+            return supplier.getCommand(commandArguments);
+        } catch (InvalidCommandArgumentsException e) {
             throw new ParseException("Invalid command entered.");
+        } catch (IllegalValueException e) {
+            throw new ParseException(e.getMessage());
         }
     }
 }

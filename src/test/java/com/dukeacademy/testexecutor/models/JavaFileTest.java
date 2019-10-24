@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,7 +18,7 @@ class JavaFileTest {
 
     @Test
     public void testFileExists() throws IOException {
-        String basePath = tempFolder.toUri().getPath();
+        String basePath = tempFolder.toString();
 
         tempFolder.resolve("Foo.java").toFile().createNewFile();
         JavaFile file = new JavaFile("Foo", basePath);
@@ -39,14 +38,14 @@ class JavaFileTest {
 
     @Test
     public void testFileDoesNotExist() {
-        String basePath = tempFolder.toUri().getPath();
+        String basePath = tempFolder.toString();
 
         assertThrows(FileNotFoundException.class, () -> new ClassFile("Foobar", basePath));
     }
 
     @Test
     public void testEquality() throws IOException {
-        String basePath = tempFolder.toUri().getPath();
+        String basePath = tempFolder.toString();
         tempFolder.resolve("nested").toFile().mkdir();
         tempFolder.resolve("nested").resolve("Foo.java").toFile().createNewFile();
 
@@ -62,13 +61,12 @@ class JavaFileTest {
 
     @Test
     void getAbsolutePath() throws IOException {
-        String basePath = tempFolder.toUri().getPath();
 
         tempFolder.resolve("nested").toFile().mkdir();
         tempFolder.resolve("nested").resolve("Bar.java").toFile().createNewFile();
-        JavaFile file = new JavaFile("nested.Bar", basePath);
+        JavaFile file = new JavaFile("nested.Bar", tempFolder.toString());
 
-        String expectedPath = basePath + "nested" + File.separator + "Bar.java";
+        String expectedPath = tempFolder.resolve("nested").resolve("Bar.java").toString();
         assertEquals(expectedPath, file.getAbsolutePath());
     }
 }

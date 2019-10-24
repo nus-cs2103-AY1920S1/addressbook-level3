@@ -1,7 +1,7 @@
 {
   "questions" : [ {
     "title" : "Two Number Adder",
-    "status" : "PASSED",
+    "status" : "NEW",
     "difficulty" : "EASY",
     "topics" : ["OTHERS"],
     "testCases" : [ {
@@ -14,11 +14,11 @@
       }],
     "userProgram" : {
       "className": "Adder",
-      "sourceCode": "public class Adder { public static void main(String[] args) { } }"
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
     "title" : "Valid Sudoku",
-    "status" : "PASSED",
+    "status" : "NEW",
     "difficulty" : "MEDIUM",
     "topics" : ["OTHERS", "ARRAY", "DYNAMIC_PROGRAMMING"],
     "testCases" : [ {
@@ -31,11 +31,11 @@
       }],
     "userProgram" : {
       "className": "Sudoku",
-      "sourceCode": "public class Sudoku { public static void main(String[] args) { } }"
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
     "title" : "Palindrome Number",
-    "status" : "PASSED",
+    "status" : "NEW",
     "difficulty" : "EASY",
     "topics" : ["OTHERS", "RECURSION"],
     "testCases" : [ {
@@ -48,7 +48,7 @@
       }],
     "userProgram" : {
       "className": "Palindrome",
-      "sourceCode": "public class Palindrome { public static void main(String[] args) { } }"
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
     "title" : "Swap nodes in pairs",
@@ -65,11 +65,11 @@
       }],
     "userProgram" : {
       "className": "NodePairs",
-      "sourceCode": ""
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
     "title" : "Merge k Sorted Lists",
-    "status" : "ATTEMPTED",
+    "status" : "NEW",
     "difficulty" : "HARD",
     "topics" : ["SORTING", "LINKED_LIST"],
     "testCases" : [ {
@@ -82,7 +82,7 @@
       }],
     "userProgram" : {
       "className": "Merge",
-      "sourceCode": "public class Merge { public static void main(String[] args) { } }"
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }]
 }
