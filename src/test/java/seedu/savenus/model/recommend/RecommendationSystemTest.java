@@ -227,16 +227,6 @@ public class RecommendationSystemTest {
     }
 
     @Test
-    public void justPurchased() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder()
-                .purchaseHistoryNum(IDENTICAL_FOOD_BONUS_LOW_NUM)
-                .mostRecentPurchaseTime(JUST_PURCHASED).build();
-
-        double value = initializeAndGetValue(rec);
-        Assertions.assertTrue(value <= -9);
-    }
-
-    @Test
     public void food_nullFood_throws() {
         assertThrows(NullPointerException.class, () ->
                 RecommendationSystem.getInstance().calculateRecommendation(null));
