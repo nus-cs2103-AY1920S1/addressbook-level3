@@ -1,0 +1,33 @@
+package seedu.billboard.logic.parser;
+
+import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_INTERVAL;
+
+import seedu.billboard.commons.core.date.DateInterval;
+import seedu.billboard.logic.commands.DisplayStatsCommand;
+import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.statistics.formats.StatisticsFormat;
+import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
+
+/**
+ * Parses input arguments and creates a new DisplayStatsCommand object
+ */
+public class DisplayStatsCommandParser implements Parser<DisplayStatsCommand> {
+    @Override
+    public DisplayStatsCommand parse(String userInput) throws ParseException {
+        String formatString = userInput.trim().split("\\s")[0];
+
+        StatisticsFormat formatChosen = StatisticsFormat.formatFromName(formatString)
+                .orElseThrow(() -> new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayStatsCommand.MESSAGE_USAGE)));
+
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(userInput, formatChosen.getOptionsPrefixes());
+
+        DateInterval newInterval = argMultimap.getValue(PREFIX_INTERVAL)
+                .flatMap(DateInterval::intervalFromName)
+                .orElse(null);
+
+        StatisticsFormatOptions newOptions = StatisticsFormatOptions.withOptions(newInterval);
+        return new DisplayStatsCommand(formatChosen, newOptions);
+    }
+}
