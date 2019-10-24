@@ -12,6 +12,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.Mapping;
 
 /**
  * The API of the Model component.
@@ -27,7 +28,7 @@ public interface Model {
     Predicate<Inventory> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Inventory> PREDICATE_SHOW_ALL_MAPPINGS = unused -> true;
+    Predicate<Mapping> PREDICATE_SHOW_ALL_MAPPINGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

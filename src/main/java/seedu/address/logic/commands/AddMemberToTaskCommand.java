@@ -10,7 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
@@ -56,11 +56,13 @@ public class AddMemberToTaskCommand extends Command {
 
         boolean contains = false;
         Member memberToAdd = null;
+        Integer memberIndex = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
             if (lastShownMemberList.get(i).getId() == memberId) {
                 contains = true;
                 memberToAdd = lastShownMemberList.get(i);
+                memberIndex = i;
                 break;
             }
         }
@@ -70,7 +72,7 @@ public class AddMemberToTaskCommand extends Command {
         }
 
         Task involvedTask = lastShownTaskList.get(taskId.getZeroBased());
-        Mapping mappingToAdd = createMapping(memberToAdd, involvedTask);
+        TasMemMapping mappingToAdd = createMapping(taskId.getZeroBased(), memberIndex);
         model.addMapping(mappingToAdd);
         return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedTask));
     }
@@ -79,11 +81,8 @@ public class AddMemberToTaskCommand extends Command {
      * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
      * where TaskStatus is updated to 'In Progress".
      */
-    private static Mapping createMapping(Member involvedMember, Task taskToAdd) {
-        assert taskToAdd != null;
-        assert involvedMember != null;
-
-        return new Mapping(involvedMember, taskToAdd);
+    private static TasMemMapping createMapping(int taskIndex, int memberIndex) {
+        return new TasMemMapping(taskIndex, memberIndex);
     }
 
     @Override

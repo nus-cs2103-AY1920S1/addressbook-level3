@@ -18,6 +18,7 @@ import seedu.address.model.member.MemberId;
 import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.task.Task;
 
 //import seedu.address.model.task.NameContainsKeywordsPredicate;
@@ -298,15 +299,38 @@ public class ModelManager implements Model {
     //=========== ProjectDashboard (mapping) ===============================================
 
     @Override
-    public void addMapping(Mapping mapping) {
+    public void addMapping(InvMemMapping mapping) {
         projectDashboard.addMapping(mapping);
         updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
     }
 
     @Override
-    public void deleteMapping(Mapping mapping) {
+    public void addMapping(InvTasMapping mapping) {
+        projectDashboard.addMapping(mapping);
+        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
+    }
+
+    @Override
+    public void addMapping(TasMemMapping mapping) {
+        projectDashboard.addMapping(mapping);
+        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
+    }
+
+    @Override
+    public void deleteMapping(InvMemMapping mapping) {
         projectDashboard.removeMapping(mapping);
     }
+
+    @Override
+    public void deleteMapping(InvTasMapping mapping) {
+        projectDashboard.removeMapping(mapping);
+    }
+
+    @Override
+    public void deleteMapping(TasMemMapping mapping) {
+        projectDashboard.removeMapping(mapping);
+    }
+
 
     @Override
     public boolean hasMapping(InvTasMapping mapping) {

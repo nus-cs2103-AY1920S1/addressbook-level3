@@ -15,6 +15,7 @@ import seedu.address.model.member.MemberId;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.UniqueMappingManager;
 import seedu.address.model.member.UniqueMemberList;
 
@@ -84,9 +85,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public void setMappings(List<InvMemMapping> invMemMappings,
                             List<InvTasMapping> invTasMappings,
                             List<TasMemMapping> tasMemMappings) {
-        this.mappings.setMappings(invMemMappings);
-        this.mappings.setMappings(invTasMappings);
-        this.mappings.setMappings(tasMemMappings);
+        this.mappings.setInvMemMappings(invMemMappings);
+        this.mappings.setInvTasMappings(invTasMappings);
+        this.mappings.setTasMemMappings(tasMemMappings);
     }
 
     /**

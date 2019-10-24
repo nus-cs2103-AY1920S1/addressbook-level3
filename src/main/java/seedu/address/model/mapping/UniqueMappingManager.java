@@ -109,11 +109,11 @@ public class UniqueMappingManager {
 
 
     public ObservableList<Integer> getMembersMappedToTask(int taskIndex) {
-        tasMemMappingList.getMembersMappedToTask(taskIndex);
+        return tasMemMappingList.getMembersMappedToTask(taskIndex);
     }
 
     public ObservableList<Integer> getTasksMappedToMember(int memberIndex) {
-        tasMemMappingList.getTasksMappedToMember(memberIndex);
+        return tasMemMappingList.getTasksMappedToMember(memberIndex);
     }
 
     /**
@@ -148,17 +148,17 @@ public class UniqueMappingManager {
         tasMemMappingList.setMappings(replacement);
     }
 
-    public void setMappings(List<InvMemMapping> replacement) {
+    public void setInvMemMappings(List<InvMemMapping> replacement) {
         requireNonNull(replacement);
         invMemMappingList.setMappings(replacement);
     }
 
-    public void setMappings(List<InvTasMapping> replacement) {
+    public void setInvTasMappings(List<InvTasMapping> replacement) {
         requireNonNull(replacement);
         invTasMappingList.setMappings(replacement);
     }
 
-    public void setMappings(List<TasMemMapping> replacement) {
+    public void setTasMemMappings(List<TasMemMapping> replacement) {
         requireNonNull(replacement);
         tasMemMappingList.setMappings(replacement);
     }

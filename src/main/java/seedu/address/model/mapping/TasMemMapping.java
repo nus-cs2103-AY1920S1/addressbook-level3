@@ -22,7 +22,7 @@ public class TasMemMapping extends Mapping{
     }
 
     public boolean hasMember(int memberIndex) {
-        return this.memberIndex = memberIndex;
+        return this.memberIndex == memberIndex;
     }
 
     public int getTaskIndex() {
@@ -30,7 +30,7 @@ public class TasMemMapping extends Mapping{
     }
 
     public boolean hasTask(int taskIndex) {
-        return this.taskIndex = taskIndex;
+        return this.taskIndex == taskIndex;
     }
 
     /**
