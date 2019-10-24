@@ -66,7 +66,7 @@ Examples:
 * `addperson -n Catherine -em catherineCanCook@imail.com`
 * `addperson -n John Doe -em JohnDoe@imail.com -c 23F6B742CE`
 
-=== Adding a person: `addgroup`
+=== Adding a group: `addgroup`
 
 Adds a group to the address book +
 Format: `addgroup -g GROUP_NAME [-r GROUP_REMARK]`
