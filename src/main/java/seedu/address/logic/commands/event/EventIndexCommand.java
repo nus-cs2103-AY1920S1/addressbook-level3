@@ -1,15 +1,16 @@
 package seedu.address.logic.commands.event;
 
-import jfxtras.icalendarfx.components.VEvent;
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import org.apache.commons.math3.util.Pair;
+
+import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Returns the index of event
@@ -70,7 +71,7 @@ public class EventIndexCommand extends EventCommand {
     }
 
     /**
-     * Formats a Pair<Index, VEvent> to a presentable form
+     * Formats a Index, VEvent pair to a presentable form
      *
      * @param indexVEventPair the index, vEvent pair that is to be shown to the user
      */
@@ -78,7 +79,8 @@ public class EventIndexCommand extends EventCommand {
         Index vEventIndex = indexVEventPair.getKey();
         VEvent vEvent = indexVEventPair.getValue();
         return String.format("Index: %d | event name: %s | start datetime: %s | end datetime: %s\n",
-                vEventIndex.getOneBased(), vEvent.getSummary().getValue(), vEvent.getDateTimeStart().getValue().toString(),
+                vEventIndex.getOneBased(), vEvent.getSummary().getValue(),
+                vEvent.getDateTimeStart().getValue().toString(),
                 vEvent.getDateTimeEnd().getValue().toString());
     }
 

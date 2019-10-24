@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import org.apache.commons.math3.util.Pair;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
-import org.apache.commons.math3.util.Pair;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -35,7 +37,6 @@ import seedu.address.model.statistics.StatisticsRecord;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
-
 
 /**
  * Represents the in-memory model of the address book data.
@@ -564,6 +565,11 @@ public class ModelManager implements Model {
         eventRecord.setVEvent(target, editedVEvent);
     }
 
+    @Override
+    public void setVEvent(Index index, VEvent editedVEvent) {
+        requireAllNonNull(index, editedVEvent);
+        eventRecord.setVEvent(index, editedVEvent);
+    }
 
     @Override
     public String getVEventSummary() {

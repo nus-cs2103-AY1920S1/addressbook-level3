@@ -11,11 +11,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GET_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 
-
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.event.*;
+import seedu.address.logic.commands.event.EventCommand;
+import seedu.address.logic.commands.event.EventAddCommand;
+import seedu.address.logic.commands.event.EventDeleteCommand;
+import seedu.address.logic.commands.event.EventEditCommand;
+import seedu.address.logic.commands.event.EventIndexCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -64,7 +67,7 @@ public class EventCommandParser implements Parser<EventCommand> {
             return indexOfCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(index, argMultimap);
-        }else {
+        } else {
             return addCommand(argMultimap);
         }
     }

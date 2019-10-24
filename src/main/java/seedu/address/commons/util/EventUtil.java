@@ -1,15 +1,19 @@
 package seedu.address.commons.util;
 
+import java.time.LocalDateTime;
+
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.RecurrenceType;
 
-import java.time.LocalDateTime;
-
+/**
+ * EventUtil contains methods for manipulation of Event and VEvents
+ */
 public class EventUtil {
-    private final static String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
-    private final static String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
+    private static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
+    private static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
 
     /**
      * Maps a event to VEvent
@@ -58,5 +62,24 @@ public class EventUtil {
         resultEvent.setColorCategory(colorCategory);
 
         return resultEvent;
+    }
+
+    /**
+     *
+     * @param recurrenceString
+     * @return returns a RecurrenceRule object which is used to configure VEVents
+     * @throws IllegalValueException
+     */
+    public static RecurrenceRule stringToRecurrenceRule(String recurrenceString) throws IllegalValueException {
+        recurrenceString = recurrenceString.toLowerCase();
+        if (recurrenceString.equals("weekly")) {
+            return RecurrenceRule.parse(recurrenceString);
+        } else if (recurrenceString.equals("daily")) {
+            return RecurrenceRule.parse(recurrenceString);
+        } else if (recurrenceString.equals("none")) {
+            return new RecurrenceRule();
+        } else {
+            throw new IllegalValueException("recurrence string type is not valid. value passedL " + recurrenceString);
+        }
     }
 }

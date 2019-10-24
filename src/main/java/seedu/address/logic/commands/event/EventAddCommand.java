@@ -27,7 +27,7 @@ public class EventAddCommand extends EventCommand {
             + "Example: event eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
             + "endDateTime/2019-10-21T15:00 recur/none color/1";
 
-    private static final String UNIQUE_IDENTIFIER = "njoyassistant";
+    public static final String UNIQUE_IDENTIFIER = "njoyassistant";
     private final String weeklyRecurrenceRule = "FREQ=WEEKLY;INTERVAL=1";
     private final String dailyRecurrenceRule = "FREQ=DAILY;INTERVAL=1";
 

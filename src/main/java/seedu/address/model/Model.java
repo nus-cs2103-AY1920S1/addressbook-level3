@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.apache.commons.math3.util.Pair;
+
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
-import org.apache.commons.math3.util.Pair;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.ReadOnlyEvents;
@@ -367,6 +369,7 @@ public interface Model {
     void deleteVEvent(VEvent vEvent);
     void addVEvent(VEvent vEvent);
     void setVEvent(VEvent target, VEvent editedVEvent);
+    void setVEvent(Index index, VEvent editedVEvent);
     String getVEventSummary();
     VEvent getVEvent(Index index);
     List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName);

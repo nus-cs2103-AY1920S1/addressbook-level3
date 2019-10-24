@@ -3,28 +3,30 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.math3.util.Pair;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
-import org.apache.commons.math3.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.EventUtil;
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.model.event.exceptions.DuplicateVEventException;
 import seedu.address.model.event.exceptions.VEventNotFoundException;
+
 
 /**
  * Stores events and provides functionality to map from events to vEvents.
  * VEvents with the same eventName, startDateTime and endDateTime are not allowed.
  */
 public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VEvent> {
-    private final static String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
-    private final static String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
+    private static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
+    private static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
     private final ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
     private final ObservableList<VEvent> vEventsUnmodifiableList =
             FXCollections.unmodifiableObservableList(vEvents);

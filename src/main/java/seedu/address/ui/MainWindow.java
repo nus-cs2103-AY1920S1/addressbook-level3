@@ -59,9 +59,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-//    @FXML
-//    private StackPane eventSchedulePanelPlaceholder;
-
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 

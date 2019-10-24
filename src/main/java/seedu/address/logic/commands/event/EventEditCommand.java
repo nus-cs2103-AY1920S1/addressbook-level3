@@ -1,21 +1,21 @@
 package seedu.address.logic.commands.event;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.question.QuestionCommand;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.question.McqQuestion;
-import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.Question;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
 
 /**
  * Edits the events details in the events record.
@@ -57,37 +57,50 @@ public class EventEditCommand extends EventCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-//        if (index.getZeroBased() >= model.getVEventList().size()) {
-//            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-//        }
-//
-//        //map vEvent to event type for ease of referencing and DRY principle
-//        VEvent vEventObject = model.getVEvent(index);
-//        Event eventObject = EventUtil.vEventToEventMapper(vEventObject);
-//
-//        String eventName = (!this.eventName.isBlank())
-//                ? this.eventName
-//                : eventObject.getEventName();
-//        RecurrenceRule recurrenceRule = (!this.recurTypeString.isBlank())
-//                ? this.recurTypeString
-//                : eventObject.getRecurrenceType().toString().toLowerCase();
-//        String colorNumberString = (!this.colorNumberString.isBlank())
-//                ? this.eventName
-//                : eventObject.getColorCategory();
-//        LocalDateTime startDateTime = (!this.startDateTimeString.isBlank())
-//                ? LocalDateTime.parse(this.startDateTimeString)
-//                : eventObject.getStartDateTime();
-//        LocalDateTime endDateTimeString = (!this.endDateTimeString.isBlank())
-//                ? LocalDateTime.parse(this.endDateTimeString)
-//                : eventObject.getEndDateTime();
-//
-//        vEventObject = new VEvent();
-//        vEventObject.setSummary(eventName);
-//        vEventObject.setDateTimeStart(startDateTime);
-//        vEventObject.setDateTimeEnd(endDateTime);
-//
-//
-//        model.setQuestion(index, questionObj);
+        if (index.getZeroBased() >= model.getVEventList().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+
+        //map vEvent to event type for ease of referencing and DRY principle
+        VEvent vEventObject = model.getVEvent(index);
+        Event eventObject = EventUtil.vEventToEventMapper(vEventObject);
+
+        String eventName = (!this.eventName.isBlank())
+                ? this.eventName
+                : eventObject.getEventName();
+        String colorNumberString = (!this.colorNumberString.isBlank())
+                ? this.eventName
+                : eventObject.getColorCategory();
+        LocalDateTime startDateTime = (!this.startDateTimeString.isBlank())
+                ? LocalDateTime.parse(this.startDateTimeString)
+                : eventObject.getStartDateTime();
+        LocalDateTime endDateTime = (!this.endDateTimeString.isBlank())
+                ? LocalDateTime.parse(this.endDateTimeString)
+                : eventObject.getEndDateTime();
+        RecurrenceRule recurrenceRule;
+        if (this.recurTypeString.isBlank()) {
+            recurrenceRule = vEventObject.getRecurrenceRule();
+        } else {
+            try {
+                recurrenceRule = EventUtil.stringToRecurrenceRule(this.recurTypeString);
+            } catch (IllegalValueException ex) {
+                throw new CommandException(ex.toString());
+            }
+        }
+
+        vEventObject = new VEvent();
+        vEventObject.setSummary(eventName);
+        vEventObject.setDateTimeStart(startDateTime);
+        vEventObject.setDateTimeEnd(endDateTime);
+        vEventObject.setUniqueIdentifier(EventAddCommand.UNIQUE_IDENTIFIER);
+        vEventObject.setRecurrenceRule(recurrenceRule);
+
+        Categories colorCategory = new Categories(colorNumberString);
+        ArrayList<Categories> colorCategoryList = new ArrayList<>();
+        colorCategoryList.add(colorCategory);
+        vEventObject.setCategories(colorCategoryList);
+
+        model.setVEvent(index, vEventObject);
 
         return new CommandResult("stubbed event edit success message");
     }
@@ -115,12 +128,13 @@ public class EventEditCommand extends EventCommand {
             return false;
         }
 
-        // state check
-//        EventEditCommand e = (EventEditCommand) other;
-//        return index.equals(e.index)
-//            && question.equals(e.question)
-//            && answer.equals(e.answer)
-//            && type.equals(e.type);
-        return true;
+        //state check
+        EventEditCommand e = (EventEditCommand) other;
+        return index.equals(e.index)
+            && eventName.equals(e.eventName)
+            && startDateTimeString.equals(e.startDateTimeString)
+            && endDateTimeString.equals(e.endDateTimeString)
+            && recurTypeString.equals(e.recurTypeString)
+            && colorNumberString.equals(e.colorNumberString);
     }
 }
