@@ -45,8 +45,14 @@ Context-specific commands are commands which are only applicable for a specific 
 
 **Command Format**
 
-* Words in curly brackets are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`, `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be replaced. `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
-* Items with `…` after them can be used multiple times e.g. `[f/FOOD]...` can be used 1 or more: `f/3 Piece Chicken Meal`, `f/Pepperoni Pizza f/Char Kway Teow` etc.
+* Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`, `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be replaced. 
+
+> `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
+
+* Items with `…` after them can be used multiple times e.g. `f/FOOD...` can be used 1 or more: `f/3 Piece Chicken Meal`, `f/Pepperoni Pizza f/Char Kway Teow` etc.
+
+* Items with `[]` are optional and can be ommitted e.g. `[t/TAG]`
+
 // end::features[]
 
 // tag::universalCommand[]
@@ -56,34 +62,84 @@ These are general commands to assist you in controlling the app, which are not d
 
 ==== Viewing help `-help`
 
-Generates a list of commands and tips for you.
+This generates a list of commands and tips for you.
 
 Format: `-help`
 
-- Context specific: -help {context}
-- Example: -help customer
-- Context specific commands: -help -cxt {context} -cmd {command}
-- Example: -help -cxt customer -cmd sort
+- Help with a specific context: `-help CONTEXT`
+
+> `-help customer`
+
+- Help with a specific context command: `-help cxt/CONTEXT cmd/COMMAND`
+
+> `-help -cxt customer -cmd sort`
 
 ==== Switching context
 
-Switches to a specific context for targeted commands
+This switches to a specific context for you to enter targeted commands. The list of contexts include: customer, deliveryman and restaurant. By default, the application will be in the universal context upon startup.
 
-Format: -{context}
+===== Switching to customer context `-customer`
+This switches to the customer context for you to enter customer-specific commands.
 
-Example: -switch restaurant
+Format: `-customer`
 
-==== Viewing order summary
+===== Switching to restaurant context `-restaurant`
+This switches to the restaurant context for you to enter restaurant-specific commands.
 
-Views the current order summary
+Format: `-restaurant`
 
-Format: -summary
+===== Switching to deliveryman context `-deliveryman`
+This switches to the deliveryman context for you to enter deliveryman-specific commands.
 
-==== Exiting program
+Format: `-deliveryman`
 
-Exits the program
+==== Adding of orders `-add_order`
+This adds a new order to the database to be processed. The deliveryman to deliver the order will be allocated automatically based on the internal algorithms.
 
-Format: -exit
+Format: `-add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+
+> `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
+
+Requirements:
+* A valid customer `c/CUSTOMER`, restaurant `r/RESTAURANT` and restaurant menu item `f/FOOD` must be provided and exists currently in the database.
+* The quantity of food to be delivered also be provided and be greater than 0.
+
+==== Editing of orders `-edit_order`
+This enables you to edit an order. The order to edit will have to be specified by its index when you are entering the command.
+
+You can change:
+*The customer who made the order
+*The restaurant and/or food ordered
+*The quantity of the food ordered
+*The deliveryman to deliver the order
+*The delivery status of the order
+
+Format: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
+
+> `-edit_order i/1337 d/John Doe completed/true`
+
+Requirements:
+* The index `i/INDEX` provided must be within the order list size and be greater than or equals to 0.
+* A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
+* Optional items with '[]' tags may be ommitted e.g. `[r/RESTAURANT]`. However at least 1 tag has to be present for the order to be edited.
+* Delivery status `completed/DELIVERY_STATUS` must be true or false, if present.
+
+==== Deleting of orders `-delete_order`
+This enables you to delete an unwanted/cancelled order in the database by its index.
+
+Format: `-delete_order INDEX`
+
+> `-delete_order 3`
+
+==== Viewing order summary `-order_summary`
+This brings up the current order summary for your viewing.
+
+Format: `-order_summary`
+
+==== Exiting program `-exit`
+This exits the program.
+
+Format: `-exit`
 
 // end::universalCommand[]
 // tag::customerCommand[]
@@ -255,12 +311,15 @@ Example: -status Stanley Tay
 **Command:** format
 
 * Universal commands
-- View help: -help
-- View order summary: -summary
-- Switch to restaurant context: -restaurant
-- Switch to customer context: -customer
-- Switch to deliverymen context: -deliverymen
-- Exit application: -exit
+- View help: `-help`
+- View order summary: `-order_summary`
+- Add order: `-add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+- Edit order: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
+- Delete order: `-delete_order INDEX`
+- Switch to restaurant context: `-restaurant`
+- Switch to customer context: `-customer`
+- Switch to deliverymen context: `-deliverymen`
+- Exit application: `-exit`
 
 * Customer commands
 - List customers: -list
@@ -269,7 +328,6 @@ Example: -status Stanley Tay
 - Edit specific customer info: -edit -n {customer name} {info type} -d {description}
 - Sort customer to info type: -sort {info type}
 - Show order history of customer: -history {customer name}
-- Add order: -order {customer name} -r {restaurant name} -m {menu item}
 - Delete customer: -delete {customer name}
 
 * Restaurant commands
@@ -277,7 +335,6 @@ Example: -status Stanley Tay
 - Enter specific restaurant: -enter {restaurant}
 - Add food item: -add {item}
 - Remove food item: -remove {item}
-- View order: -orders
 - Add Rating from Customer: -rate {rating}
 - ChefHat Food Item: -chefhat {item}
 
