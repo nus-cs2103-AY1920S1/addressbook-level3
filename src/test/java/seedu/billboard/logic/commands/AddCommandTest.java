@@ -259,11 +259,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableData<StatisticsType> getStatsType() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public HashMap<String, FilteredList<Expense>> getFilteredArchives() {
             throw new AssertionError("This method should not be called.");
         }

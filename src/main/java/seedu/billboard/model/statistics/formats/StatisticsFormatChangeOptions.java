@@ -1,7 +1,5 @@
 package seedu.billboard.model.statistics.formats;
 
-
-import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 import seedu.billboard.commons.core.date.DateInterval;
