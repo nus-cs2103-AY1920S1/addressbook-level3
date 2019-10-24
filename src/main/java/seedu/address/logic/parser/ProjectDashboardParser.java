@@ -24,8 +24,8 @@ import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
-import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.GeneratePDFCommand;
+import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -62,12 +62,21 @@ public class ProjectDashboardParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
+        // TASK
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
 
         case DeleteTaskCommand.COMMAND_WORD:
             return new DeleteTaskCommandParser().parse(arguments);
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
         case DoingTaskCommand.COMMAND_WORD:
             return new DoingTaskCommandParser().parse(arguments);
@@ -77,7 +86,7 @@ public class ProjectDashboardParser {
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
-
+        // MEMBER
         case AddMemberCommand.COMMAND_WORD:
             return new AddMemberCommandParser().parse(arguments);
 
@@ -92,40 +101,7 @@ public class ProjectDashboardParser {
 
         case ListMemberCommand.COMMAND_WORD:
             return new ListMemberCommand();
-
-        case ListInventoryCommand.COMMAND_WORD:
-            return new ListInventoryCommand();
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        case HomeCommand.COMMAND_WORD:
-            return new HomeCommand();
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case AddInventoryCommand.COMMAND_WORD:
-            return new AddInventoryCommandParser().parse(arguments);
-
-        case EditInventoryCommand.COMMAND_WORD:
-            return new EditInventoryCommandParser().parse(arguments);
-
-        case DeleteInventoryCommand.COMMAND_WORD:
-            return new DeleteInventoryCommandParser().parse(arguments);
-
+        // ASSOCIATION
         case AddTaskToMemberCommand.COMMAND_WORD:
             return new AddTaskToMemberParser().parse(arguments);
 
@@ -137,15 +113,39 @@ public class ProjectDashboardParser {
 
         case RemoveMemberFromTaskCommand.COMMAND_WORD:
             return new RemoveMemberFromTaskParser().parse(arguments);
+        // INVENTORY
+        case ListInventoryCommand.COMMAND_WORD:
+            return new ListInventoryCommand();
 
+        case AddInventoryCommand.COMMAND_WORD:
+            return new AddInventoryCommandParser().parse(arguments);
+
+        case EditInventoryCommand.COMMAND_WORD:
+            return new EditInventoryCommandParser().parse(arguments);
+
+        case DeleteInventoryCommand.COMMAND_WORD:
+            return new DeleteInventoryCommandParser().parse(arguments);
+
+        case GeneratePDFCommand.COMMAND_WORD:
+            return new GeneratePDFCommand();
+        // STATS
         case GetStatisticsCommand.COMMAND_WORD_MEMBER:
             return new GetStatisticsCommand();
 
         case GetStatisticsCommand.COMMAND_WORD_TASK:
             return new GetStatisticsCommand();
+        // UNIVERSAL
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-        case GeneratePDFCommand.COMMAND_WORD:
-            return new GeneratePDFCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        case HomeCommand.COMMAND_WORD:
+            return new HomeCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
