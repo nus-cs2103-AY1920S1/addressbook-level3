@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="DeliveryMANS" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -51,11 +52,11 @@
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
 
 		  <StackPane VBox.vgrow="NEVER" fx:id="statisticsPlaceholder" styleClass="stack-pane"
-                     minHeight="300" prefHeight="300" maxHeight="300">
+                     minHeight="300" prefHeight="300" maxHeight="300" >
 		    <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
