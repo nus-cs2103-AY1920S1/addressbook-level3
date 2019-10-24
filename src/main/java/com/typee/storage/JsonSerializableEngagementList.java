@@ -27,7 +27,7 @@ class JsonSerializableEngagementList {
      * Constructs a {@code JsonSerializableEngagementList} with the given engagements.
      */
     @JsonCreator
-    public JsonSerializableEngagementList(@JsonProperty("persons") List<JsonAdaptedEngagement> engagements) {
+    public JsonSerializableEngagementList(@JsonProperty("engagements") List<JsonAdaptedEngagement> engagements) {
         this.engagements.addAll(engagements);
     }
 

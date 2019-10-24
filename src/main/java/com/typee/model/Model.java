@@ -1,6 +1,7 @@
 package com.typee.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import com.typee.commons.core.GuiSettings;
@@ -91,6 +92,10 @@ public interface Model {
      */
 
     void updateFilteredEngagementList(Predicate<Engagement> predicate);
+
+    void updateSortedEngagementList(Comparator<Engagement> comparator);
+
+    ObservableList<Engagement> getSortedEngagementList();
 
     boolean hasNoUndoableCommand();
 

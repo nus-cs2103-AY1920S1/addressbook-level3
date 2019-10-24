@@ -29,7 +29,7 @@ public class DeleteCommandTest {
         Engagement engagementToDelete = model.getFilteredEngagementList().get(INDEX_FIRST_ENGAGEMENT.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ENGAGEMENT);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, engagementToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENGAGEMENT_SUCCESS, engagementToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getEngagementList(), new UserPrefs());
 
@@ -44,7 +44,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredEngagementList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENGAGEMENT_DISPLAYED_INDEX);
     }
 
     @Test
@@ -52,7 +52,8 @@ public class DeleteCommandTest {
         CommandTestUtil.showEngagementAtIndex(model, INDEX_FIRST_ENGAGEMENT);
         Engagement engagementToDelete = model.getFilteredEngagementList().get(INDEX_FIRST_ENGAGEMENT.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ENGAGEMENT);
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, engagementToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENGAGEMENT_SUCCESS,
+                engagementToDelete);
         Model expectedModel = new ModelManager(model.getEngagementList(), new UserPrefs());
         expectedModel.deleteEngagement(engagementToDelete);
         expectedModel.saveEngagementList();
@@ -70,7 +71,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENGAGEMENT_DISPLAYED_INDEX);
     }
 
     @Test
