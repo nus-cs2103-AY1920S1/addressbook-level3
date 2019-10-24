@@ -81,6 +81,13 @@ public class UniqueTagList {
         return Collections.unmodifiableSet(toReturn);
     }
 
+    public UniqueTagList getClone() {
+        Map<String, Tag> clonedMap = new HashMap<>(tagList);
+        UniqueTagList clonedList = new UniqueTagList();
+        clonedList.setTagList(clonedMap);
+        return clonedList;
+    }
+
     /**
      * Removes mapping of specified tag name and its corresponding tag.
      * Tag name must exist in the list.
@@ -106,7 +113,7 @@ public class UniqueTagList {
      * Sets current map to the one specified in the argument.
      * @param tagList to replace the current map.
      */
-    public void setList(Map<String, Tag> tagList) {
+    public void setTagList(Map<String, Tag> tagList) {
         requireNonNull(tagList);
         this.tagList = new HashMap<>(tagList);
     }
@@ -127,6 +134,7 @@ public class UniqueTagList {
         List<String> tagNames = new ArrayList<>(tagList.keySet());
         Collections.sort(tagNames);
         return List.copyOf(tagNames);
+
     }
 
     @Override

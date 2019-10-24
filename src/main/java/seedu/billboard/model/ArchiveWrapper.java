@@ -43,12 +43,16 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
 
     }
 
+    public ArchiveWrapper(HashMap<String, Archive> archiveList) {
+        this.archiveList.putAll(archiveList);
+    }
+
     //==================== HashMap Overwrite operations ====================
 
     /**
      * Replaces the contents of the archives with {@code newArchives}.
      */
-    public void setArchiveList(List<Archive> newArchiveList) {
+    private void setArchiveList(List<Archive> newArchiveList) {
         archiveList.clear();
         for (Archive archive : newArchiveList) {
             archiveList.put(archive.getArchiveName(), archive);
@@ -83,7 +87,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         archiveList.put(newArchive.getArchiveName(), newArchive);
     }
 
-    public void removeArchive(String targetArchiveName) {
+    void removeArchive(String targetArchiveName) {
         archiveList.remove(targetArchiveName);
     }
 
@@ -111,7 +115,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
      * Removes {@code key} from the given archive.
      * The given {@code archiveName} must exist.
      */
-    public void removeArchiveExpense(String archiveName, Expense key) {
+    void removeArchiveExpense(String archiveName, Expense key) {
         archiveList.get(archiveName).remove(key);
     }
 
@@ -141,12 +145,19 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         List<Archive> archives = getArchiveList();
         for (Archive archive : archives) {
             List<Expense> toBeCopied = archive.asUnmodifiableObservableList();
-            for (Expense expense : toBeCopied) {
-                expenses.add(expense);
-            }
+            expenses.addAll(toBeCopied);
         }
 
         return expenses;
+    }
+
+    @Override
+    public ArchiveWrapper getClone() {
+        return new ArchiveWrapper((HashMap<String, Archive>) archiveList.clone());
+    }
+
+    void setArchives(ReadOnlyArchiveWrapper archives) {
+        setArchiveList(archives.getArchiveList());
     }
 
     @Override
@@ -166,4 +177,6 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     public int hashCode() {
         return archiveList.hashCode();
     }
+
+
 }

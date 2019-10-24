@@ -10,6 +10,7 @@ import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveExpenses
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveWrapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class ArchiveWrapperTest {
 
     @Test
     public void constructor_nullExpenseList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ArchiveWrapper(null));
+        assertThrows(NullPointerException.class, () -> new ArchiveWrapper((HashMap<String, Archive>) null));
     }
 
     // reset tests =============================================================================
@@ -126,6 +127,13 @@ public class ArchiveWrapperTest {
         ArchiveWrapper newData = new ArchiveWrapper(new ArrayList<>());
         archiveWrapper.resetData(newData);
         assertEquals(new HashSet<>(), newData.getArchiveNames());
+    }
+
+    @Test
+    public void getClone_success() {
+        ArchiveWrapper aw = getTypicalArchiveWrapper();
+        ArchiveWrapper cloned = aw.getClone();
+        assertTrue(aw.equals(cloned));
     }
 
 }

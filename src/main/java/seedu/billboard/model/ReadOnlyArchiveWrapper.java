@@ -25,4 +25,6 @@ public interface ReadOnlyArchiveWrapper {
      * Returns a list containing all archived expenses.
      */
     List<Expense> getExpenseList();
+
+    ReadOnlyArchiveWrapper getClone();
 }

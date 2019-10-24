@@ -3,10 +3,12 @@ package seedu.billboard.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.history.CommandHistory;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -26,6 +28,15 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.setOnKeyPressed(e -> {
+            if (e.getCode().equals(KeyCode.UP)) {
+                commandTextField.setText(CommandHistory.peekNextCmd());
+
+            } else if (e.getCode().equals(KeyCode.DOWN)) {
+                commandTextField.setText(CommandHistory.peekPreviousCmd());
+            }
+            commandTextField.end();
+        });
     }
 
     /**
@@ -34,6 +45,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
+            CommandHistory.addCmdHistory(commandTextField.getText());
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
