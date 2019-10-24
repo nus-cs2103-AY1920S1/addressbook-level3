@@ -40,7 +40,7 @@ activate XWPFDocument
 ExportUtil <-- XWPFDocument : document
 deactivate XWPFDocument
 
-loop for each FlashCard in list
+loop while there are still FlashCards to write
     ExportUtil -> XWPFDocument : createParagraph()
     activate XWPFDocument
 

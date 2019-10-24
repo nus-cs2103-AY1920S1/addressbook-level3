@@ -11,7 +11,7 @@ if () then ([file path is valid])
     if () then ([else])
         repeat
             :Write FlashCard to document;
-        repeat while () is ([more FlashCards])
+        repeat while () is ([more FlashCards\nto write])
         ->[all FlashCards written];
     else ([no FlashCards to be written])
     endif
