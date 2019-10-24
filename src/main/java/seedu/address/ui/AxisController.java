@@ -11,7 +11,6 @@ import seedu.address.logic.Logic;
  * Controller for charts with X-Y axis.
  */
 public abstract class AxisController extends DisplayController {
-    private static final String FXML = "BarChartView.fxml";
     private static final String POLICY_POPULARITY_XAXIS = "Policy Type";
     private static final String POLICY_POPULARITY_YAXIS = "Number of policies sold";
 

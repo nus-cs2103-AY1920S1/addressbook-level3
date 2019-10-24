@@ -2,20 +2,20 @@
 !include style.puml
 
 Participant ":UI" as ui UI_COLOR
-Participant ":DisplayController" as display_controller STORAGE_COLOR
+Participant ":BarChartController" as barchart_controller STORAGE_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> display_controller ** : DisplayController(Logic, DisplayIndicator)
-activate display_controller STORAGE_COLOR
-display_controller -> display_controller++ : setPPB()
+ui -[UI_COLOR]> barchart_controller ** : new Bar Chart
+activate barchart_controller STORAGE_COLOR
+barchart_controller -> barchart_controller++ : Initialises attributes of chart
+barchart_controller -[STORAGE_COLOR]> logic: get PPB
 note right: PPB := Policy Popularity Breakdown
-display_controller -[STORAGE_COLOR]> logic: getPPB()
 
 activate logic LOGIC_COLOR
-logic -[LOGIC_COLOR]> model: getPPB()
+logic -[LOGIC_COLOR]> model: get PPB
 
 activate model MODEL_COLOR
 model -[MODEL_COLOR]> model:
@@ -23,11 +23,13 @@ model -[MODEL_COLOR]> model:
 model -[MODEL_COLOR]-> logic : PPB
 deactivate model
 
-logic -[LOGIC_COLOR]-> display_controller : PPB
+logic -[LOGIC_COLOR]-> barchart_controller : PPB
 deactivate logic
 
-return done
-display_controller -[STORAGE_COLOR]-> ui
-deactivate display_controller
+return
+barchart_controller -> barchart_controller++ : Sets attributes of chart
+return
+barchart_controller -[STORAGE_COLOR]-> ui
+deactivate barchart_controller
 
 @enduml

@@ -318,26 +318,28 @@ The view is facilitated by the associated FXML. These views share a common
 CSS, and also have their individual CSS file.
 
 [NOTE]
-In the event a controller cannot display a particular indicator, it will throw a `parseException` error,
-which provides suggestions of which visual controllers are supported by the particular indicator.
+Notice that every controller needs to implement every indicator. In the event a controller cannot display a particular
+indicator, it will throw a `parseException` error, which provides suggestions of which visual controllers are supported
+by the particular indicator.
 
 
 Given below is an example usage scenario and how the display mechanism behaves at each step.
 
 Step 1. The user executes the `display i/policy-popularity-breakdown f/barchart` command to display the policy
-popularity breakdown indicator in piechart format. The execution of a `display` command determines
-what will be shown (the `displayIndicator`) and how it will be shown `displayFormat`.
+popularity breakdown indicator in bar chart format. The execution of a `display` command determines
+what will be shown (`displayIndicator`) and how it will be shown (`displayFormat`).
 
-Step 2. `displayFormat` specifies that the controller `BarChartVisual` will be instantiated.
+Step 2. `displayFormat` specifies that the controller `BarChartController` will be instantiated.
 This controller will be instantiated with the arguments `logic` and `displayIndicator`.
 
-Step 3. The barchart controller sets the variables of its associated FXML in its construction. This is done by
-calling the `Visual#setAttributes()` method. Within this method, the controller utilises the display indicator
-`policy-popularity-breakdown` to call the method `Logic#getPolicyPopularityBreakdown()`,
-which returns the data in the model it needs. The controller then calls `Visual#castData`, which will cast the model’s data
-type to the data type supported by bar charts. `Visual#setAttributes` also sets the chart title and axis titles.
+Step 3. The bar chart controller initialises all the attributes of its associated FXML in its construction.
+Let us take a  closer look at the initialisation of the `series` attribute. The controller utilises the display
+indicator `policy-popularity-breakdown` to retrieve the data in the model it needs. The controller
+then casts the model’s data type to the data type supported by bar charts. The result is assigned to `series` attribute.
 
-Step 4. Finally, the `MainWindow` calls `Visual#getRoot()` and displays the view.
+Step 4. The bar chart controller then sets all the attributes of its associated FXML.
+
+Step 5. Finally, the `MainWindow` calls `DisplayController#getRoot()` and displays the view.
 
 The following sequence diagram shows how the `display` operation works:
 
