@@ -11,7 +11,6 @@ import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
-import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
@@ -38,11 +37,11 @@ public class SetPaidCommandParser implements Parser<SetPaidCommand> {
                     SetPaidCommand.MESSAGE_USAGE));
         }
 
-        PurchaseDescription description = ParserUtil
+        PurchaseDescription description = FinanceParserUtil
                 .parsePurchaseDescription(argMultimap
                         .getValue(PREFIX_DESCRIPTION)
                         .get());
-        PurchaseMoneySpent moneySpent = ParserUtil
+        PurchaseMoneySpent moneySpent = FinanceParserUtil
                 .parsePurchaseAmount(argMultimap
                         .getValue(PREFIX_MONEY)
                         .get());
