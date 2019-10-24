@@ -211,20 +211,20 @@ public interface Model {
 
     /**
      * Returns true if the given {@code ProblemSearchRule} has the same identity as one that exists in the AlgoBase.
-     * @param rule
+     * @param rule the rule to be matched
      */
     boolean hasFindRule(ProblemSearchRule rule);
 
     /**
      * Adds the given rule into AlgoBase.
-     * @param rule
+     * @param rule the rule to be added
      */
     void addFindRule(ProblemSearchRule rule);
 
     /**
      * Deletes the given rule into AlgoBase.
      * The given {@code ProblemSearchRule} must exist in the AlgoBase.
-     * @param rule
+     * @param rule the rule to be deleted
      */
     void deleteFindRule(ProblemSearchRule rule);
 
@@ -233,8 +233,8 @@ public interface Model {
      * {@code target} must exist in the algobase.
      * The identity of {@code editedRule} must not be the same as another existing {@code ProblemSearchRule}
      * in the algobase.
-     * @param target
-     * @param editedRule
+     * @param target the rule to be edited
+     * @param editedRule the edited rule
      */
     void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule);
 

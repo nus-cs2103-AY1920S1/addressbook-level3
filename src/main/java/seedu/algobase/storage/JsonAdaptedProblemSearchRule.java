@@ -134,4 +134,5 @@ public class JsonAdaptedProblemSearchRule {
         return new ProblemSearchRule(name, namePredicate, authorPredicate,
             descriptionPredicate, sourcePredicate, difficultyPredicate, tagPredicate);
     }
+
 }

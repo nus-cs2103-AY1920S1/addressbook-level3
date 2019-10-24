@@ -112,11 +112,11 @@ public class FindProblemDescriptor {
                 getDifficultyPredicate().orElse(DEFAULT_DIFFICULTY_PREDICATE);
         TagIncludesKeywordsPredicate tagPredicate = getTagPredicate().orElse(DEFAULT_TAG_PREDICATE);
         return namePredicate
-                .and(authorPredicate)
-                .and(descriptionPredicate)
-                .and(sourcePredicate)
-                .and(difficultyPredicate)
-                .and(tagPredicate);
+            .and(authorPredicate)
+            .and(descriptionPredicate)
+            .and(sourcePredicate)
+            .and(difficultyPredicate)
+            .and(tagPredicate);
     }
 
     @Override
@@ -135,10 +135,10 @@ public class FindProblemDescriptor {
         FindProblemDescriptor e = (FindProblemDescriptor) other;
 
         return getNamePredicate().equals(e.getNamePredicate())
-                && getAuthorPredicate().equals(e.getAuthorPredicate())
-                && getDescriptionPredicate().equals(e.getDescriptionPredicate())
-                && getSourcePredicate().equals(e.getSourcePredicate())
-                && getDifficultyPredicate().equals(e.getDifficultyPredicate())
-                && getTagPredicate().equals(e.getTagPredicate());
+            && getAuthorPredicate().equals(e.getAuthorPredicate())
+            && getDescriptionPredicate().equals(e.getDescriptionPredicate())
+            && getSourcePredicate().equals(e.getSourcePredicate())
+            && getDifficultyPredicate().equals(e.getDifficultyPredicate())
+            && getTagPredicate().equals(e.getTagPredicate());
     }
 }
