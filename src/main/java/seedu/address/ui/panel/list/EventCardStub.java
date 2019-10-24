@@ -32,8 +32,8 @@ public class EventCardStub extends UiPart<Region> {
     public EventCardStub(EventSource eventSource, int displayedIndex, UiParser uiParser) {
         super(FXML);
         this.eventSource = eventSource;
-        name.setText(displayedIndex + ". " + eventSource.getDescription().toString());
-        dateTime.setText(uiParser.parseDateToString(eventSource.getStartDateTime().getDateTime()));
+        name.setText(displayedIndex + ". " + eventSource.getDescription());
+        dateTime.setText(uiParser.parseDateToString(eventSource.getStartDateTime().toInstant()));
     }
 
     @Override

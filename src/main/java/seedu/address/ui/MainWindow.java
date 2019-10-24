@@ -2,17 +2,20 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -32,8 +35,9 @@ import seedu.address.ui.panel.log.LogPanel;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener {
-    public static final int WIDTH_PADDING = 20;
+
     private static final String FXML = "MainWindow.fxml";
+    private static final String WELCOME_MESSAGE = "Welcome to Horo";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -46,7 +50,6 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     private CalendarPanel calendarPanel;
     private LogPanel logPanel;
     private CommandBox commandBox;
-    private HelpWindow helpWindow;
 
     @FXML
     private StackPane popUpPanel;
@@ -75,12 +78,14 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         this.uiParser = new UiParser();
 
         setWindowDefaultSize(new GuiSettings());
-
-        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public void show() {
+        primaryStage.show();
     }
 
     /**
@@ -119,6 +124,9 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         // Set the stage width and height
         primaryStage.setMaxWidth(screenWidth);
         primaryStage.setMaxHeight(screenHeight);
+
+        addResizingListeners();
+        welcomeMessage();
     }
 
     /**
@@ -134,35 +142,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
-    public void show() {
-        primaryStage.show();
-    }
-
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        // logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
-    }
-
-    /**
-     * Temporary method to view the calendar
+     * Changes the View Panel to show the Calendar Panel.
      */
     public void viewCalendar() {
         calendarPanel.getRoot().setVisible(true);
@@ -172,7 +152,42 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Temporary method to view the event list
+     * Changes the View Panel to show the Calendar Panel of a certain day.
+     *
+     * @param day The given day.
+     * @param month The given month.
+     * @param year The given year.
+     */
+    public void viewDay(int day, int month, int year) {
+        calendarPanel.changeToDayView(day, month, year);
+        viewCalendar();
+    }
+
+    /**
+     * Changes the View Panel to show the Calendar Panel of a certain week.
+     *
+     * @param week The given day.
+     * @param month The given month.
+     * @param year The given year.
+     */
+    public void viewWeek(int week, int month, int year) {
+        calendarPanel.changeToWeekView(week, month, year);
+        viewCalendar();
+    }
+
+    /**
+     * Changes the View Panel to show the Calendar Panel of a certain month.
+     *
+     * @param month The given month.
+     * @param year The given year.
+     */
+    public void viewMonth(int month, int year) {
+        calendarPanel.changeToMonthView(month, year);
+        viewCalendar();
+    }
+
+    /**
+     * Changes the View Panel to show the List Panel.
      */
     public void viewList() {
         calendarPanel.getRoot().setVisible(false);
@@ -182,7 +197,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Temporary method to view the event list
+     * Changes the View Panel to show the Log Panel.
      */
     public void viewLog() {
         calendarPanel.getRoot().setVisible(false);
@@ -192,20 +207,44 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Creates a pop-up of the output using the same LogBox in the LogPanel
+     * Creates a pop-up of the output using the same LogBox in the LogPanel and animates it.
      */
     private void createOutputLogBox(String feedbackToUser, String color) {
         requireNonNull(feedbackToUser);
-        PopUpBox popUpBox = new PopUpBox(feedbackToUser, color);
         popUpPanel.getChildren().clear();
-        popUpPanel.getChildren().add(popUpBox.getRoot());
-
-        Timeline beat = new Timeline(
-                new KeyFrame(Duration.seconds(2.5), event -> popUpPanel.getChildren().clear())
+        PopUpBox popUpBox = new PopUpBox(feedbackToUser, color);
+        Region popUpBoxRoot = popUpBox.getRoot();
+        Timeline popUpAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(0), event -> {
+                    popUpPanel.getChildren().add(popUpBoxRoot);
+                    popUpBoxRoot.setTranslateY(popUpBoxRoot.getTranslateY() - 40);
+                    TranslateTransition translateTransition =
+                            new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
+                    double initialPos = popUpBoxRoot.getTranslateY();
+                    translateTransition.setFromY(initialPos);
+                    translateTransition.setToY(initialPos + 40);
+                    translateTransition.setCycleCount(1);
+                    translateTransition.setAutoReverse(true);
+                    translateTransition.setDuration(new Duration(250));
+                    translateTransition.play();
+                }),
+                new KeyFrame(Duration.seconds(3), event -> {
+                    TranslateTransition translateTransition =
+                            new TranslateTransition(Duration.seconds(1), popUpBoxRoot);
+                    double initialPos = popUpBoxRoot.getTranslateY();
+                    translateTransition.setFromY(initialPos);
+                    translateTransition.setToY(initialPos - 40);
+                    translateTransition.setCycleCount(1);
+                    translateTransition.setAutoReverse(true);
+                    translateTransition.setDuration(new Duration(250));
+                    translateTransition.play();
+                }),
+                new KeyFrame(Duration.seconds(4), event -> {
+                    popUpPanel.getChildren().remove(popUpBoxRoot);
+                })
         );
-        beat.setCycleCount(Timeline.INDEFINITE);
-        beat.play();
-
+        popUpAnimation.setCycleCount(1);
+        popUpAnimation.play();
     }
 
     /**
@@ -219,6 +258,8 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
             return "-logBoxColor";
         case FAILURE:
             return "-errorColor";
+        case WELCOME:
+            return "-welcomeColor";
         default:
             // Not suppose to happen;
             return "-logBoxColor";
@@ -226,17 +267,32 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
-     * Changes of the timeline of the calendar
+     * Changes of the calendar screen of the calendar
      */
-    public void changeTimelineDate(Instant dateTime) {
-        calendarPanel.changeTimelineDate(dateTime);
+    public void changeCalendarScreenDate(int month, int year) {
+        calendarPanel.changeCalendarScreenDate(month, year);
+        viewCalendar();
     }
 
     /**
-     * Changes of the calendar screen of the calendar
+     * Adds Listeners that re-sizes the calendar panel when the width has been changed.
      */
-    public void changeCalendarScreenDate(Instant dateTime) {
-        calendarPanel.changeCalendarScreenDate(dateTime);
+    private void addResizingListeners() {
+        primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue,
+                                Number oldSceneWidth,
+                                Number newSceneWidth) {
+                calendarPanel.resizeTimelineView();
+            }
+        });
+    }
+
+    /**
+     * Prints the welcome message.
+     */
+    private void welcomeMessage() {
+        onUserOutput(new UserOutput(WELCOME_MESSAGE), ColorTheme.WELCOME);
     }
 
     @Override

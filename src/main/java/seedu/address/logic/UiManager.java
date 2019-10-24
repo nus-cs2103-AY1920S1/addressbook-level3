@@ -1,8 +1,5 @@
 package seedu.address.logic;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -52,27 +49,22 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
         try {
             mainWindow = new MainWindow(primaryStage, commandInput -> {
                 // TODO: Temporary command
-                if (commandInput.equals("view_calendar")) {
+                if (commandInput.equals("calendar")) {
                     this.mainWindow.viewCalendar();
-                } else if (commandInput.equals("view_list")) {
+                } else if (commandInput.equals("list")) {
                     this.mainWindow.viewList();
-                } else if (commandInput.equals("view_log")) {
+                } else if (commandInput.equals("log")) {
                     this.mainWindow.viewLog();
-                } else if (commandInput.equals("change_timeline")) {
-                    // TODO: Add a parser that parse the user input into DateTime class or Instant class
-                    // Then I'll parse the Instant into day, month, year
-                    // This is to change the timeline date
-                    // Changes the calendar date as well
-                    LocalDate date = LocalDate.parse("2019-11-18");
-                    Instant dateTime = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-                    this.mainWindow.changeTimelineDate(dateTime);
-                } else if (commandInput.equals("change_calendar")) {
-                    // TODO: Add a parser that parse the user input into DateTime class or Instant class
-                    // The day doesn't matter for this, only need month and year
-                    // This is to change the calendar date
-                    LocalDate date = LocalDate.parse("2019-11-18");
-                    Instant dateTime = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-                    this.mainWindow.changeCalendarScreenDate(dateTime);
+                } else if (commandInput.equals("day")) {
+                    // TODO: ADD a command for changing for parsing the day, month and year.
+                    this.mainWindow.viewDay(5, 11, 2019);
+                } else if (commandInput.equals("week")) {
+                    this.mainWindow.viewWeek(1, 11, 2019);
+                } else if (commandInput.equals("month")) {
+                    this.mainWindow.viewMonth(11, 2019);
+                } else if (commandInput.equals("calendar 11/2019")) {
+                    // No need for day
+                    this.mainWindow.changeCalendarScreenDate(11, 2019);
                 } else {
                     // Notify listeners of new command input.
                     this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));

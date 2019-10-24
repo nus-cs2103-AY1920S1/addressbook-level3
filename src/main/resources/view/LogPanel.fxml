@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -7,7 +8,10 @@
    <children>
       <ScrollPane fx:id="scrollLog" fitToWidth="true">
          <content>
-            <VBox fx:id="boxLog" />
+            <VBox fx:id="boxLog">
+               <padding>
+                  <Insets left="10.0" />
+               </padding></VBox>
          </content>
       </ScrollPane>
    </children>
