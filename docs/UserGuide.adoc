@@ -324,15 +324,35 @@ Examples:
 
 == Command Summary
 
-* *Add* `add -n NAME -p PHONE_NUMBER -em EMAIL -a ADDRESS [-t TAG]...` +
-e.g. `add -n James Ho -p 22224444 -em jamesho@example.com -a 123, Clementi Rd, 1234665 -t friend -t colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [-n NAME] [-p PHONE_NUMBER] [-em EMAIL] [-a ADDRESS] [-t TAG]...` +
-e.g. `edit 2 -n James Lee -em jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *List/Show All Persons* : `list`
+* *Add Person* `addperson -n NAME [-p PHONE] [-em EMAIL] [-a ADDRESS] [-r REMARK] [-tag TAG]... [-c NUS_MOD_LINK]` +
+e.g. `add -n James Ho -p 22224444 -em jamesho@example.com -a 123, Clementi Rd, 1234665 -r Always helpful -t friend -t colleague`
+* *Edit Person* : `editperson -ed PERSON_NAME [-n NEW_NAME] [-p PHONE] [-em EMAIL] [-a ADDRESS] [-t TAG]...` +
+e.g. `editperson -n James Lee -em jameslee@example.com`
+* *Delete Person* : `delete -n NAME` +
+e.g. `deleteperson -n Benedict`
+* *Find Person* : `findperson -n KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
+* *Add Event to Person's Schedule* : `addevent -n NAME -e EVENT_NAME -t START_DATE-END_DATE-LOCATION` +
+e.g. `addevent -n John -e CS2103T Lecture -t 18102019:1600-18102019:1800-i3`
+* *Show Person Details and Schedule* : `show -n NAME` +
+e.g. `show -n James Lee`
+* *Add Group* `addgroup -g GROUP_NAME [-r GROUP_REMARK]` +
+e.g. `addgroup -g CS2103 -r Project Group`
+* *Add Person to Group* : `addtogroup -n NAME -g GROUP_NAME` +
+e.g. `addtogroup -n John -g CS2103`
+* *Edit Group* `editgroup -ed GROUP_NAME [-g NEW_GROUP_NAME] [-r REMARK] [-d DESCRIPTION]` +
+e.g. `editgroup -ed CS2103 -g CS3203 -r Project Discussion Group`
+* *Delete Group* : `deletegroup -g GROUP_NAME` +
+e.g. `deleteperson -n CS2103`
+* *Find Group* : `findgroup -g GROUP_NAME` +
+e.g. `findgroup -g CS2103`
+* *Show Group Details and Schedule* : `show -g GROUP_NAME` +
+e.g. `show -g CS2030 T2`
+* *Export Visual Representation* : `export-vr [-n NAME]… [-g GROUP_NAME]…` +
+e.g. `export-vr -g TimeBook`
+* *Closest Location* : `closestlocation -l LOCATIONA LOCATIONB ...` +
+e.g. `closestlocation -l LT16 LT15 AS5`
 * *Help* : `help`
-* *Closes Location* : `closestlocation -l LOCATIONA LOCATIONB ...`
+* *Clear* : `clear`
+* *Exit* : `exit`
