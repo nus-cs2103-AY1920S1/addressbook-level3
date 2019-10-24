@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_ADD_EVENT_SUCCESS;
+import static seedu.address.commons.core.Messages.MESSAGE_DAY_VIEW_SUCCESS;
 
 import java.util.Objects;
 
-import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.DateTime;
 import seedu.address.ui.UserOutput;
 
@@ -13,7 +13,7 @@ import seedu.address.ui.UserOutput;
  */
 public class DayViewCommand extends Command {
 
-    private final Model model;
+    private final ModelManager model;
 
     DayViewCommand(DayViewCommandBuilder builder) {
         DateTime start = Objects.requireNonNull(builder.getStart());
@@ -21,12 +21,12 @@ public class DayViewCommand extends Command {
         this.model = builder.getModel();
     }
 
-    public static CommandBuilder newBuilder(Model model) {
+    public static CommandBuilder newBuilder(ModelManager model) {
         return new DayViewCommandBuilder(model).init();
     }
 
     @Override
     public UserOutput execute() {
-        return new UserOutput(String.format(MESSAGE_ADD_EVENT_SUCCESS));
+        return new UserOutput(String.format(MESSAGE_DAY_VIEW_SUCCESS));
     }
 }

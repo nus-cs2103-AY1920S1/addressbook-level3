@@ -24,4 +24,6 @@ public class Messages {
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Events edited: %s";
     public static final String MESSAGE_UNDO_SUCCESS = "Previous command has been undone!";
     public static final String MESSAGE_REDO_SUCCESS = "Previous undone command has been redone!";
+
+    public static final String MESSAGE_DAY_VIEW_SUCCESS = "Changed Day to: %s";
 }
