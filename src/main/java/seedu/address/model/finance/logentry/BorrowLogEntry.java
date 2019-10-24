@@ -49,11 +49,11 @@ public class BorrowLogEntry extends LogEntry {
         return deadline;
     }
 
-    public boolean getIsRepaid() {
+    public boolean isRepaid() {
         return isRepaid;
     }
 
-    public void setRepaid() {
+    public void setAsRepaid() {
         isRepaid = true;
     }
 
@@ -75,7 +75,7 @@ public class BorrowLogEntry extends LogEntry {
                 && otherLogEntry.getCategories().equals(getCategories())
                 && otherLogEntry.getFrom().equals(getFrom())
                 && otherLogEntry.getDeadline().equals(getDeadline())
-                && (otherLogEntry.getIsRepaid() == getIsRepaid());
+                && (otherLogEntry.isRepaid() == isRepaid());
     }
 
     @Override

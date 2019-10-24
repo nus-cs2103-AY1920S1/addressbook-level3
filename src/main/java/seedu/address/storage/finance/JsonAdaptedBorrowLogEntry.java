@@ -57,7 +57,7 @@ class JsonAdaptedBorrowLogEntry extends JsonAdaptedLogEntry {
         logEntryType = source.getLogEntryType();
         from = source.getFrom().name;
         deadline = source.getDeadline().value;
-        isRepaid = Boolean.toString(source.getIsRepaid());
+        isRepaid = Boolean.toString(source.isRepaid());
     }
 
     /**
@@ -136,7 +136,7 @@ class JsonAdaptedBorrowLogEntry extends JsonAdaptedLogEntry {
             throw new IllegalValueException("Field 'isValid' is in wrong format, should either be true or false!");
         }
         if (isRepaid.equals("true")) {
-            newLogEntry.setRepaid();
+            newLogEntry.setAsRepaid();
         }
         return newLogEntry;
     }

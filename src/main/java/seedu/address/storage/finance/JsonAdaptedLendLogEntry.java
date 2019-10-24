@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
@@ -25,6 +26,8 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
 
     private final String logEntryType;
     private final String to;
+    private final String deadline;
+    private final String isRepaid;
 
     /**
      * Constructs a {@code JsonAdaptedLendLogEntry} with the given log entry details.
@@ -36,10 +39,14 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
                                    @JsonProperty("transactionMethod") String tMethod,
                                    @JsonProperty("categories") List<JsonAdaptedCategory> categories,
                                    @JsonProperty("logEntryType") String logEntryType,
-                                   @JsonProperty("to") String to) {
+                                   @JsonProperty("to") String to,
+                                   @JsonProperty("deadline") String deadline,
+                                   @JsonProperty("isRepaid") String isRepaid) {
         super(amount, tDate, desc, tMethod, categories);
         this.logEntryType = logEntryType;
         this.to = to;
+        this.deadline = deadline;
+        this.isRepaid = isRepaid;
     }
 
     /**
@@ -49,6 +56,8 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
         super(source);
         logEntryType = source.getLogEntryType();
         to = source.getTo().name;
+        deadline = source.getDeadline().value;
+        isRepaid = Boolean.toString(source.isRepaid());
     }
 
     /**
@@ -110,8 +119,27 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
         }
         final Person modelPerson = new Person(to);
 
-        return new LendLogEntry(modelAmount, modelTransactionDate, modelDescription,
-                modelTransactionMethod, modelLogEntryCategories, modelPerson);
+        if (deadline == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Deadline.class.getSimpleName()));
+        }
+        if (!Deadline.isValidDeadline(deadline)) {
+            throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        final Deadline modelDeadline = new Deadline(deadline);
+
+        LendLogEntry newLogEntry = new LendLogEntry(modelAmount, modelTransactionDate,
+                modelDescription, modelTransactionMethod, modelLogEntryCategories, modelPerson,
+                modelDeadline);
+
+        if (!isRepaid.equals("true") && !isRepaid.equals("false")) {
+            throw new IllegalValueException("Field 'isValid' is in wrong format, should either be true or false!");
+        }
+        if (isRepaid.equals("true")) {
+            newLogEntry.setAsRepaid();
+        }
+
+        return newLogEntry;
     }
 
 }
