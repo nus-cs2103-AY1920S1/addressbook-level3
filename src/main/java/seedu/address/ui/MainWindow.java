@@ -161,11 +161,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleFetch(Integer index) {
+        if (fetchWindow != null) {
+            fetchWindow.hide();
+        }
         fetchWindow = new FetchWindow(logic, index);
         //fetchWindow.getRoot().setScene();
         fetchWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!fetchWindow.isShowing()) {
-            //fetchWindow.hide();
             fetchWindow.show();
         } else {
             fetchWindow.focus();
@@ -185,7 +187,9 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        fetchWindow.hide();
+        if (fetchWindow != null) {
+            fetchWindow.hide();
+        }
         helpWindow.hide();
         primaryStage.hide();
     }
