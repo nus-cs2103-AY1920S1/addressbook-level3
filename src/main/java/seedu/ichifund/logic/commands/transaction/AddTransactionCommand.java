@@ -23,6 +23,7 @@ import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
@@ -94,7 +95,8 @@ public class AddTransactionCommand extends Command {
         Category category = this.category.orElseGet(context::getCategory);
         Date date = generateDate(context);
         TransactionType transactionType = this.transactionType.orElseGet(context::getTransactionType);
-        return new Transaction(description, amount, category, date, transactionType);
+        RepeaterUniqueId repeaterUniqueId = new RepeaterUniqueId("");
+        return new Transaction(description, amount, category, date, transactionType, repeaterUniqueId);
     }
 
     /**

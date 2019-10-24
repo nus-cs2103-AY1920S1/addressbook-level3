@@ -9,6 +9,7 @@ import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 
 /**
  * Represents a Transaction in IchiFund.
@@ -20,18 +21,20 @@ public class Transaction implements Comparable<Transaction> {
     private final Category category;
     private final Date date;
     private final TransactionType transactionType;
+    private final RepeaterUniqueId repeaterUniqueId;
 
     /**
      * Every field must be present and not null.
      */
     public Transaction(Description description, Amount amount, Category category, Date date,
-                       TransactionType transactionType) {
+                       TransactionType transactionType, RepeaterUniqueId repeaterUniqueId) {
         requireAllNonNull(description, amount, category);
         this.amount = amount;
         this.description = description;
         this.category = category;
         this.date = date;
         this.transactionType = transactionType;
+        this.repeaterUniqueId = repeaterUniqueId;
     }
 
     public Description getDescription() {
@@ -54,6 +57,10 @@ public class Transaction implements Comparable<Transaction> {
         return transactionType;
     }
 
+    public RepeaterUniqueId getRepeaterUniqueId() {
+        return repeaterUniqueId;
+    }
+
     public boolean isExpenditure() {
         return transactionType.isExpenditure();
     }
@@ -68,6 +75,10 @@ public class Transaction implements Comparable<Transaction> {
 
     public boolean isIn(Category category) {
         return getCategory().equals(category);
+    }
+
+    public boolean isFromRepeater() {
+        return !repeaterUniqueId.isEmpty();
     }
 
     @Override
@@ -85,13 +96,14 @@ public class Transaction implements Comparable<Transaction> {
                 && otherTransaction.getAmount().equals(getAmount())
                 && otherTransaction.getCategory().equals(getCategory())
                 && otherTransaction.getDate().equals(getDate())
-                && otherTransaction.getTransactionType().equals(getTransactionType());
+                && otherTransaction.getTransactionType().equals(getTransactionType())
+                && otherTransaction.getRepeaterUniqueId().equals(getRepeaterUniqueId());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, amount, category, date, transactionType);
+        return Objects.hash(description, amount, category, date, transactionType, repeaterUniqueId);
     }
 
     @Override
@@ -105,7 +117,9 @@ public class Transaction implements Comparable<Transaction> {
                 .append(" Date: ")
                 .append(getDate())
                 .append(" Transaction Type: ")
-                .append(getTransactionType());
+                .append(getTransactionType())
+                .append(" Repeater Unique Id: ")
+                .append(getRepeaterUniqueId());
         return builder.toString();
     }
 

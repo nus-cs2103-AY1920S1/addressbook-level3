@@ -4,12 +4,10 @@ import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_DAY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_YEAR;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH_END_OFFSET;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH_START_OFFSET;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_DAY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_YEAR;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
@@ -50,13 +48,13 @@ public class AddRepeaterCommandParser implements Parser<AddRepeaterCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_CATEGORY,
                         PREFIX_TRANSACTION_TYPE, PREFIX_MONTH_START_OFFSET, PREFIX_MONTH_END_OFFSET,
-                        PREFIX_START_DAY, PREFIX_START_MONTH, PREFIX_START_YEAR,
-                        PREFIX_END_DAY, PREFIX_END_MONTH, PREFIX_END_YEAR);
+                        PREFIX_START_MONTH, PREFIX_START_YEAR,
+                        PREFIX_END_MONTH, PREFIX_END_YEAR);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_CATEGORY,
                         PREFIX_TRANSACTION_TYPE, PREFIX_MONTH_START_OFFSET, PREFIX_MONTH_END_OFFSET,
-                        PREFIX_START_DAY, PREFIX_START_MONTH, PREFIX_START_YEAR,
-                        PREFIX_END_DAY, PREFIX_END_MONTH, PREFIX_END_YEAR)
+                        PREFIX_START_MONTH, PREFIX_START_YEAR,
+                        PREFIX_END_MONTH, PREFIX_END_YEAR)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddRepeaterCommand.MESSAGE_USAGE));
@@ -73,15 +71,13 @@ public class AddRepeaterCommandParser implements Parser<AddRepeaterCommand> {
         MonthOffset monthEndOffset = ParserUtil.parseMonthOffset(argMultimap
                 .getValue(PREFIX_MONTH_END_OFFSET).get());
 
-        Day startDay = ParserUtil.parseDay(argMultimap.getValue(PREFIX_START_DAY).get());
         Month startMonth = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_START_MONTH).get());
         Year startYear = ParserUtil.parseYear(argMultimap.getValue(PREFIX_START_YEAR).get());
-        Date startDate = constructDate(startDay, startMonth, startYear);
+        Date startDate = constructDate(new Day("1"), startMonth, startYear);
 
-        Day endDay = ParserUtil.parseDay(argMultimap.getValue(PREFIX_END_DAY).get());
         Month endMonth = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_END_MONTH).get());
         Year endYear = ParserUtil.parseYear(argMultimap.getValue(PREFIX_END_YEAR).get());
-        Date endDate = constructDate(endDay, endMonth, endYear);
+        Date endDate = constructDate(new Day("1"), endMonth, endYear);
 
         Repeater repeater = new Repeater(uniqueId, description, amount, category, transactionType,
                 monthStartOffset, monthEndOffset, startDate, endDate);

@@ -7,6 +7,7 @@ import seedu.ichifund.commons.exceptions.IllegalValueException;
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
@@ -22,6 +23,7 @@ public class JsonAdaptedTransaction {
     private final String category;
     private final JsonAdaptedDate date;
     private final String transactionType;
+    private final String repeaterUniqueId;
 
     /**
      * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
@@ -30,12 +32,14 @@ public class JsonAdaptedTransaction {
     public JsonAdaptedTransaction(@JsonProperty("description") String description,
                                   @JsonProperty("amount") String amount, @JsonProperty("category") String category,
                                   @JsonProperty("date") JsonAdaptedDate date,
-                                  @JsonProperty("transactionType") String transactionType) {
+                                  @JsonProperty("transactionType") String transactionType,
+                                  @JsonProperty("repeaterUniqueId") String repeaterUniqueId) {
         this.description = description;
         this.amount = amount;
         this.category = category;
         this.date = date;
         this.transactionType = transactionType;
+        this.repeaterUniqueId = repeaterUniqueId;
     }
 
     /**
@@ -47,6 +51,7 @@ public class JsonAdaptedTransaction {
         this.category = source.getCategory().toString();
         this.date = new JsonAdaptedDate(source.getDate());
         this.transactionType = source.getTransactionType().toString();
+        this.repeaterUniqueId = source.getRepeaterUniqueId().toString();
     }
 
     /**
@@ -94,6 +99,16 @@ public class JsonAdaptedTransaction {
         }
         final TransactionType modelTransactionType = new TransactionType(transactionType);
 
-        return new Transaction(modelDescription, modelAmount, modelCategory, modelDate, modelTransactionType);
+        if (repeaterUniqueId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    RepeaterUniqueId.class.getSimpleName()));
+        }
+        if (!RepeaterUniqueId.isValidRepeaterUniqueId(repeaterUniqueId)) {
+            throw new IllegalValueException(RepeaterUniqueId.MESSAGE_CONSTRAINTS);
+        }
+        final RepeaterUniqueId modelRepeaterUniqueId = new RepeaterUniqueId(repeaterUniqueId);
+
+        return new Transaction(modelDescription, modelAmount, modelCategory, modelDate, modelTransactionType,
+                modelRepeaterUniqueId);
     }
 }

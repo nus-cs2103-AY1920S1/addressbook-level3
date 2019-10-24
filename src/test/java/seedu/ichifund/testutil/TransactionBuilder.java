@@ -3,6 +3,7 @@ package seedu.ichifund.testutil;
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
@@ -86,7 +87,7 @@ public class TransactionBuilder {
     }
 
     public Transaction build() {
-        return new Transaction(description, amount, category, date, transactionType);
+        return new Transaction(description, amount, category, date, transactionType, new RepeaterUniqueId(""));
     }
 
 }

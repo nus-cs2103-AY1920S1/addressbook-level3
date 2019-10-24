@@ -4,12 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_DAY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_YEAR;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH_END_OFFSET;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH_START_OFFSET;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_DAY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_YEAR;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
@@ -36,10 +34,8 @@ public class AddRepeaterCommand extends Command {
             + PREFIX_TRANSACTION_TYPE + "TRANSACTION_TYPE "
             + PREFIX_MONTH_START_OFFSET + "MONTH_START_OFFSET "
             + PREFIX_MONTH_END_OFFSET + "MONTH_END_OFFSET "
-            + PREFIX_START_DAY + "START_DAY "
             + PREFIX_START_MONTH + "START_MONTH "
             + PREFIX_START_YEAR + "START_YEAR "
-            + PREFIX_END_DAY + "END_DAY "
             + PREFIX_END_MONTH + "END_MONTH "
             + PREFIX_END_YEAR + "END_YEAR "
             + "Example: " + COMMAND_WORD + " "
@@ -49,10 +45,8 @@ public class AddRepeaterCommand extends Command {
             + PREFIX_TRANSACTION_TYPE + "exp "
             + PREFIX_MONTH_START_OFFSET + "3 "
             + PREFIX_MONTH_END_OFFSET + "2 "
-            + PREFIX_START_DAY + "1 "
             + PREFIX_START_MONTH + "1 "
             + PREFIX_START_YEAR + "2019 "
-            + PREFIX_END_DAY + "31 "
             + PREFIX_END_MONTH + "12 "
             + PREFIX_END_YEAR + "2025";
 
@@ -71,13 +65,36 @@ public class AddRepeaterCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        // Get current repeater unique id.
+        RepeaterUniqueId repeaterUniqueId = model.getCurrentRepeaterUniqueId();
+
+        // Add associated transactions.
+        /*
+        boolean isStartMonth = true;
+        boolean isEndMonth = false;
+        int currentMonth = toAdd.getStartDate().getMonth().monthNumber;
+        int currentYear = toAdd.getStartDate().getYear().yearNumber;
+        int endMonth = toAdd.getEndDate().getMonth().monthNumber;
+        int endYear = toAdd.getEndDate().getYear().yearNumber;
+
+        while (currentYear <= endYear && currentMonth <= endMonth) {
+
+        }
+        */
+
+
+        // Add repeater.
         model.addRepeater(new Repeater(
-                    model.getCurrentRepeaterUniqueId(),
+                    repeaterUniqueId,
                     toAdd.getDescription(), toAdd.getAmount(), toAdd.getCategory(),
                     toAdd.getTransactionType(), toAdd.getMonthStartOffset(), toAdd.getMonthEndOffset(),
                     toAdd.getStartDate(), toAdd.getEndDate()));
+
+        // Update current repeater unique id.
         model.setCurrentRepeaterUniqueId(new RepeaterUniqueId(String.valueOf(
-                    model.getCurrentRepeaterUniqueId().id + 1)));
+                    repeaterUniqueId.id + 1)));
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
