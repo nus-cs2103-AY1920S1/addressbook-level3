@@ -325,49 +325,43 @@ Example: +
 Unarchives the record at the 5th index in the “2018 expenses” archive +
 {nbsp} +
 
-=== Displaying of statistics: `show-stats`
+=== Displaying of statistics: `display-stats`
 
-. _Display graph overview of expenses: show-stats graph_ +
-Displays a graph overview of specified expenses across a specified range of dates. +
+. _Display timeline overview of expenses: display-stats timeline_ +
+Displays a timeline overview of the currently displayed expenses. The expenses over a
+specified time period are aggregated and added as a data point on the timeline. +
 {nbsp} +
 Usage:
 
- show-stats graph [OPTIONS]
+ show-stats timeline [OPTIONS]
 +
 Options:
 
-* `--tags`, `-t`: Shows statistics only for expenses with specified tag. Multiple tags can be added separated by commas. Default: none
-* `--start-date`: Shows statistics only for expenses after the specified date. Default: earliest date an expense was added.
-* `--end-date`: Shows statistics only for expenses before the specified date. Default: current date
-* `--filters`: Shows statistics for statistics that match the specified filters. Default: none +
+* `interval/`: Specifies the date interval to be used to split the expenses into groups by.
+Supported date intervals include 'day', 'week', 'month' and 'year'.
 {nbsp} +
 
 +
 Example: +
-`show-stats graph --start-date 01/01/2019 --end-date 01/02/2019 --tags bills,groceries` +
-Displays a graph overview of expenses from 01/01/2019 to 01/02/2019 that contain the tags “bills” and “groceries”. +
+`show-stats timeline interval/week` +
+Displays a timeline overview of the displayed expenses with the expenses being grouped into weeks. +
 {nbsp} +
 
 . _Display breakdown of expenses: show-stats breakdown_ +
-Displays a breakdown of specified expenses for specified expenses over a specified range of dates. +
+Displays a breakdown of expenses by tag for the currently displayed expenses. The total
+expenses per tag are totalled and displayed in a pie chart. +
 {nbsp} +
 Usage:
 
- show-stats breakdown [OPTIONS]
+ show-stats breakdown
 +
-Options:
 
-* `--type`: Specify display type, which includes `text` and `pie-chart`. Default: pie-chart
-* `--tags`: Shows statistics only for expenses with specified tag. Multiple tags can be added separated by commas. Default: none
-* `--start-date`: Shows statistics only for expenses after the specified date. Default: earliest date an expense was added.
-* `--end-date`: Shows statistics only for expenses before the specified date. Default: current date
-* `--filters`: Shows statistics for statistics that match the specified filters. Default: none +
 {nbsp} +
 
 +
 Example: +
-`show-stats breakdown --type text` +
-Shows a breakdown of all expenses in text form. +
+`show-stats breakdown` +
+Shows a pie chart breakdown by tag of all currently displayed expenses. +
 {nbsp} +
 
 === Undo and Redo: `undo/redo`
