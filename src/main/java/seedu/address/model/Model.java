@@ -146,6 +146,11 @@ public interface Model {
     void updateFilteredFileList(Predicate<EncryptedFile> predicate);
 
     /**
+     * Returns the user prefs' file book file path.
+     */
+    Path getFileBookFilePath();
+
+    /**
      * Returns the user prefs' card book file path.
      */
     Path getCardBookFilePath();

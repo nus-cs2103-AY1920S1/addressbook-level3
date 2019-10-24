@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Mode;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -58,10 +59,18 @@ public interface Logic {
     ObservableList<EncryptedFile> getFilteredFileList();
 
     /**
+     * Returns the user prefs' file book file path.
+     */
+    Path getFileBookFilePath();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
 
+    /**
+     * Returns the user prefs' note book file path.
+     */
     Path getNoteBookFilePath();
 
 
@@ -91,9 +100,9 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
 
-    void setMode(String newMode);
+    void setMode(Mode newMode);
 
-    String getMode();
+    Mode getMode();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Password> getFilteredPasswordList();

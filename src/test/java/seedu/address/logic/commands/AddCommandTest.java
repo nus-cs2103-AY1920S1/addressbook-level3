@@ -202,6 +202,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getFileBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCardBookFilePath(Path cardBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
