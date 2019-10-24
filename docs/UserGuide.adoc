@@ -45,7 +45,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list -b`* : lists all bodies
 * *`workers`* : switches to the workers tab
-* **`add -w`**`/firstName John /lastName Doe /dob 17-05-1980` :
+* **`add -w`**`/name John Doe /dob 17-05-1980` :
 adds a worker named John Doe (with his date of birth) to the management system.
 * **`delete -w`**`2` : deletes the worker with staff ID W000002
 * *`exit`* : exits the app
@@ -597,7 +597,7 @@ Example:
 ==== View admission statistics
 View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
 
-The line-chart is on the main page of the application and is automatically updated.
+The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
 No user command is needed to display it.
 
 * `assign /bodyId 2 /staffId 1 /task send blood sample to lab for analysis` +
