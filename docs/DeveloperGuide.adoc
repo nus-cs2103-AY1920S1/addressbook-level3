@@ -230,7 +230,8 @@ which passes this string (named commandText) to the Logic component by calling L
 
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `save` command is shown below.
 
-
+.Sequence diagram for sample save command
+image::SaveSequenceDiagram.png[]
 
 === Recommendation feature
 

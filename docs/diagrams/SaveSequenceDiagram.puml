@@ -9,5 +9,99 @@ participant "d:SaveCommand" as SaveCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
+box Model MODEL_LOGIC_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":SavingsAccount" as SavingsAccount MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+participant ":JsonSavingsStorage" as JsonSavingsStorage STORAGE_COLOR
+participant ":JsonSerializableSavingsAccount" as JsonSerializableSavingsAccount STORAGE_COLOR
+participant ":JsonAdaptedSavings" as JsonAdaptedSavings STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("save 10.00")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("save 10.00")
+activate SaveNusParser
+
+create SaveCommandParser
+SaveNusParser -> SaveCommandParser
+activate SaveCommandParser
+
+SaveCommandParser --> SaveNusParser
+deactivate SaveCommandParser
+
+SaveNusParser -> SaveCommandParser : parse("10.00")
+activate SaveCommandParser
+
+create SaveCommand
+SaveCommandParser -> SaveCommand
+activate SaveCommand
+
+SaveCommand --> SaveCommandParser : d
+deactivate SaveCommand
+
+SaveCommandParser --> SaveNusParser : d
+deactivate SaveCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SaveCommandParser -[hidden]-> SaveNusParser
+destroy SaveCommandParser
+
+SaveNusParser --> LogicManager : d
+deactivate SaveNusParser
+
+LogicManager -> SaveCommand : execute()
+activate SaveCommand
+
+SaveCommand -> Model : addToSavings(Savings savings)
+activate Model
+
+Model --> SaveCommand
+deactivate Model
+
+create CommandResult
+SaveCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SaveCommand
+deactivate CommandResult
+
+SaveCommand --> LogicManager : result
+deactivate SaveCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+LogicManager -> Storage : saveSavingsAccount(model.getSavingsAccount())
+activate Storage
+
+Storage -> JsonSavingsStorage : saveSavingsAccount(ReadOnlySavingsAccount savingsAccount)
+activate JsonSavingsStorage
+
+create JsonSerializableSavingsAccount
+JsonSavingsStorage -> JsonSerializableSavingsAccount
+activate JsonSerializableSavingsAccount
+
+create JsonAdaptedSavings
+JsonSerializableSavingsAccount -> JsonAdaptedSavings
+activate JsonAdaptedSavings
+
+JsonAdaptedSavings --> JsonSerializableSavingsAccount
+deactivate JsonAdaptedSavings
+
+JsonSerializableSavingsAccount --> JsonSavingsStorage
+deactivate JsonSerializableSavingsAccount
+
+JsonSavingsStorage --> Storage
+deactivate JsonSavingsStorage
+
+Storage --> LogicManager
+deactivate Storage
+
+[<--LogicManager
+deactivate LogicManager
 
 @enduml
