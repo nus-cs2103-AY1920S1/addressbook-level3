@@ -65,13 +65,24 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
+    public Pane loadMemberStats() {
+        userViewNavigator.loadMemberStatsView(logic);
+        return userViewController.getCurrentView();
+    }
+
     /**
+<<<<<<< HEAD
      * Shows the user the list of inventories.
      *
      * @return the task list pane
      */
     public Pane loadInventories() {
         userViewNavigator.loadInventoriesListView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    public Pane loadTaskStats() {
+        userViewNavigator.loadTaskStatsView(logic);
         return userViewController.getCurrentView();
     }
 }

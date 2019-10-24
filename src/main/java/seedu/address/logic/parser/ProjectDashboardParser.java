@@ -24,6 +24,7 @@ import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
+import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
@@ -138,6 +139,12 @@ public class ProjectDashboardParser {
 
         case RemoveMemberFromTaskCommand.COMMAND_WORD:
             return new RemoveMemberFromTaskParser().parse(arguments);
+
+        case GetStatisticsCommand.COMMAND_WORD_MEMBER:
+            return new GetStatisticsCommand();
+
+        case GetStatisticsCommand.COMMAND_WORD_TASK:
+            return new GetStatisticsCommand();
 
         case GeneratePDFCommand.COMMAND_WORD:
             return new GeneratePDFCommand();
