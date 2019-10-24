@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `SC09-F14-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -268,19 +268,26 @@ This feature allows user to generate a pre-selected engagement in to a report an
 .PdfCommand Implementation Class Diagram
 image::PdfCommandClassDiagram.png[]
 
-1. The feature will be implemented as an additional type of Command; `PdfCommand`
-* Proposed syntax of the PdfCommand is as follow: `pdf i/[engagementList_index] to/[Person] from/[Person]`.
-1. Util class `PdfUtil` will be implemented for handling all pdf document creation related methods.
-a. Able to generate a full report document based on the `Engagement` as input.
-b. Use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`. Document template will follow general email format:
-Receiver, Content contained in a table, Sender and signature with address and company logo (Refer to Figure 12).
-1. To fulfill the document format, `Report` class needs to be implemented in order to model all necessary properties that has to be in the document. It 3 following properties;
-* `engagement`: specific engagement information to include in the document
-* `to`: A `Person` who is receiving the document
-* `from`: A `Person` who is either a receptionist or a secretary who is sending the document.
+The feature will be implemented as an additional type of Command; `PdfCommand`
 
-.sample document template
-image::interview_template.png[width="75%"]
+* Proposed syntax of the PdfCommand is as follow: `pdf i/[engagementList_index] to/[Person] from/[Person]`.
+
+Util class `PdfUtil` will be implemented for handling all pdf document creation related methods.
+
+.PdfUtil Class Diagram
+image::PdfUtilClassDiagram.png[align="center"]
+
+PdfUtil class will be implemented under `util` package and it will be able to deliver few essential features
+that are necessary for document creation.
+
+** Able to generate a full report document based on the `Engagement` as input.
+** Use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`. Document template will follow general email format:
+Receiver, Content contained in a table, Sender and signature with address and company logo (Refer to Figure 12).
+To fulfill the document format, `Report` class needs to be implemented in order to model all necessary properties that has to be in the document. It 3 following properties;
+
+***  `engagement`: specific engagement information to include in the document
+*** `to`: A `Person` who is receiving the document
+*** `from`: A `Person` who is either a receptionist or a secretary who is sending the document.
 
 ==== UI Design
 `ReportWindow` will be the UI container which helps the user to interact using `PdfCommand`. UI will consist of 2 main scrollable panes; Engagement list with index numbers,

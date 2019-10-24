@@ -1,8 +1,11 @@
 @startuml
-
-class PdfUtil {
-    ~ generateReport(engagement: Engagement): void
-    ~ createTable(attendees: Attendees): void
+package util {
+    class PdfUtil {
+        ~ generateReport(engagement: Engagement): void
+        ~ initDocument(): Document
+        ~ addHeader(document: Document): Document
+        ~ addContent(document: Document, engagement:Engagement): Document
+        ~ addParagraph(document: Document, engagement:Engagement): Document
+    }
 }
-
 @enduml
