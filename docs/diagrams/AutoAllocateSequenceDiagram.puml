@@ -29,7 +29,7 @@ activate AutoAllocateCommand
 AutoAllocateCommand --> AutoAllocateCommandParser
 deactivate AutoAllocateCommand
 
-AutoAllocateCommandParser -> AddressBookParser : a
+AutoAllocateCommandParser --> AddressBookParser : a
 deactivate AutoAllocateCommandParser
 
 AddressBookParser --> LogicManager : a
@@ -51,7 +51,7 @@ activate Event
 Event --> AutoAllocateCommand :
 deactivate Event
 
-AutoAllocateCommand -> AutoAllocateCommand : result
+AutoAllocateCommand --> AutoAllocateCommand : result
 deactivate AutoAllocateCommand
 
 AutoAllocateCommand -> AutoAllocateCommand : createAvailableEmployeeList(model, event)
@@ -72,7 +72,7 @@ activate Event
 Event --> AutoAllocateCommand :
 deactivate Event
 
-AutoAllocateCommand -> AutoAllocateCommand : result
+AutoAllocateCommand --> AutoAllocateCommand : result
 deactivate AutoAllocateCommand
 
 

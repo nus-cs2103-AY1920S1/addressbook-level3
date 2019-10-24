@@ -179,7 +179,7 @@ through all the stored data and generate the statistics data whenever it is quer
 === Auto allocation feature
 ==== Implementation
 
-The `AutoAllocateCommand` has a auto-allocation mechanism which is facilitated by methods in `Event`.
+The `AutoAllocateCommand` has an auto-allocation mechanism which is facilitated by methods in `Event`.
 The `AutoAllocateCommand` takes in three arguments:
 
 1.  `eventIndex` - index of event in the displayed event list
@@ -238,7 +238,7 @@ image::AutoAllocateSequenceDiagram.png[]
 NOTE: The lifeline for `AutoAllocateCommand` should end at the destroy marker (X) but due to a limitation of
 PlantUML, the lifeline reaches the end of diagram.
 
-The following activity diagram summarizes what happens when a user successfully executes a `AutoAllocateCommand`:
+The following activity diagram summarizes what happens *after* a user successfully executes an `AutoAllocateCommand`:
 
 ._Activity Diagram of the AutoAllocate Command_
 image::AutoAllocateActivityDiagram.png[]
@@ -250,10 +250,10 @@ image::AutoAllocateActivityDiagram.png[]
 * **Alternative 1 (current choice):** Saves only the `Employee#EmployeeId` associated with the event.
 ** Pros: Easy to implement. Will use less memory.
 ** Cons: Future accesses require more time.
-* **Alternative 2:** Saves all fields of `Employee` associated with the event..
+* **Alternative 2:** Saves all fields of `Employee` associated with the event.
 ** Pros: Easy retrieval in the future.
 ** Cons: Changes in `Employee` attributes have to be reflected in the event. This meant that `EditCommand` and
-`DeleteCommand` have to be heavily modified.
+`DeleteCommand` for `Employee` have to be heavily modified.
 
 ===== Aspect: Allocation of manpower when demand exceeds supply.
 
