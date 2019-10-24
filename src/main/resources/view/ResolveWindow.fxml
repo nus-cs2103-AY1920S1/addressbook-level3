@@ -9,7 +9,7 @@
 
 <?import javafx.scene.image.Image?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
-         xmlns:fx="http://javafx.com/fxml/1" title = "Resolve" onCloseRequest="#hideAndClearText">
+         xmlns:fx="http://javafx.com/fxml/1" title = "Resolve" onCloseRequest="#hideAndClearPanels">
     <icons>
         <Image url="@/images/ExerHealth.png"/>
     </icons>

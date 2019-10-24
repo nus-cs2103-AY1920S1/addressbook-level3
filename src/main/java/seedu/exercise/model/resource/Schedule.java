@@ -26,11 +26,13 @@ public class Schedule extends Resource {
         return regime;
     }
 
+    public String getRegimeName() {
+        return regime.getRegimeName().toString();
+    }
+
     public List<Exercise> getExercises() {
         return regime.getRegimeExercises().asUnmodifiableObservableList();
     }
-
-
 
     /**
      * Returns true if both {@code schedules} have the same date

@@ -1,8 +1,10 @@
 package seedu.exercise.ui;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import seedu.exercise.model.resource.Exercise;
 
 /**
  * Controller for panel which has two text area stacked horizontally.
@@ -11,37 +13,34 @@ public class LeftRightPanel extends UiPart<Region> {
 
     private static final String FXML = "LeftRightPanel.fxml";
 
-    @FXML
-    private TextArea leftPanel;
+    private ExerciseListPanel leftPanel;
+    private ExerciseListPanel rightPanel;
 
     @FXML
-    private TextArea rightPanel;
+    private StackPane leftPanelPlaceholder;
+
+    @FXML
+    private StackPane rightPanelPlaceholder;
 
     public LeftRightPanel() {
         super(FXML);
     }
 
-    /**
-     * Sets the left panel's text
-     * @param text Text to display on left panel
-     */
-    public void setLeftPanelText(String text) {
-        leftPanel.setText(text);
+    public void setLeftPanel(ObservableList<Exercise> leftExercise) {
+        leftPanel = new ExerciseListPanel(leftExercise);
+        leftPanelPlaceholder.getChildren().add(leftPanel.getRoot());
     }
 
-    /**
-     * Sets the right panel's text
-     * @param text Text to display on right panel
-     */
-    public void setRightPanelText(String text) {
-        rightPanel.setText(text);
+    public void setRightPanel(ObservableList<Exercise> rightExercise) {
+        rightPanel = new ExerciseListPanel(rightExercise);
+        rightPanelPlaceholder.getChildren().add(rightPanel.getRoot());
     }
 
     /**
      * Clears text for both left and right text areas
      */
-    public void clearAllText() {
-        leftPanel.setText("");
-        rightPanel.setText("");
+    public void clearAll() {
+        leftPanel = null;
+        rightPanel = null;
     }
 }

@@ -3,11 +3,14 @@ package seedu.exercise.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.exceptions.DuplicateResourceException;
 import seedu.exercise.model.exceptions.ResourceNotFoundException;
 import seedu.exercise.model.resource.Resource;
@@ -103,6 +106,15 @@ public class UniqueResourceList<T extends Resource> implements Iterable<T> {
             throw new DuplicateResourceException();
         }
         internalList.setAll(replacement);
+    }
+
+    public List<T> getAllResourcesIndex(Collection<Index> indexes) {
+        List<T> resultingList = new ArrayList<>();
+        List<T> unmodifiableList = asUnmodifiableObservableList();
+        for (Index index : indexes) {
+            resultingList.add(unmodifiableList.get(index.getZeroBased()));
+        }
+        return resultingList;
     }
 
     /**

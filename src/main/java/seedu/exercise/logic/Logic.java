@@ -4,10 +4,12 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
+import seedu.exercise.commons.core.State;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.ReadOnlyResourceBook;
+import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
@@ -77,4 +79,10 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Returns the conflict that needs to be resolved in {@code Model}.
+     *
+     * This method should only be called when {@code MainApp}'s state is {@link State#IN_CONFLICT}.
+     */
+    Conflict getConflict();
 }

@@ -1,12 +1,17 @@
 package seedu.exercise.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
+import seedu.exercise.commons.core.State;
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.parser.Prefix;
+import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.CustomProperty;
+import seedu.exercise.model.property.Name;
 import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
@@ -199,6 +204,34 @@ public interface Model {
      * @param schedule to complete
      */
     void completeSchedule(Schedule schedule);
+
+    /**
+     * Resolves a conflict based on the indexes provided by user.
+     *
+     * The state of the program must be {@link State#IN_CONFLICT} before calling this method.
+     * The state of the program is not changed after execution of the method. Only command subclasses
+     * can change {@code MainApp}'s state.
+     *
+     * If both list of indexes are empty, the {@code regimeName} provided
+     * will be taken as the resolved schedule and the non-mentioned name is discarded.
+     *
+     */
+    void resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict);
+
+    /**
+     * Returns the conflict that is currently happening.
+     *
+     * The state of the program must be {@link State#IN_CONFLICT} before calling this method.
+     * Only then will a conflict be available for fetching from the {@code Model}.
+     */
+    Conflict getConflict();
+
+    /**
+     * Sets the current conflicting schedule to {@code conflict}
+     *
+     * The state of the program must be {@link State#IN_CONFLICT} before calling this method.
+     */
+    void setConflict(Conflict conflict);
 
     /**
      * Returns the {@code PropertyBook} object that is contained in {@code Model}.

@@ -1,12 +1,17 @@
 package seedu.exercise.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.exercise.commons.core.GuiSettings;
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.Logic;
 import seedu.exercise.logic.commands.CommandResult;
+import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.parser.exceptions.ParseException;
 
 /**
  * Controller for resolving schedule conflicts.
@@ -21,10 +26,13 @@ public class ResolveWindow extends UiPart<Stage> {
 
     private static final String FXML = "ResolveWindow.fxml";
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     private Logic logic;
 
     private LeftRightPanel leftRightPanel;
     private ResultDisplay resultDisplay;
+    private ResultDisplay mainWindowDisplay;
     private Stage parent;
 
     @FXML
@@ -37,10 +45,11 @@ public class ResolveWindow extends UiPart<Stage> {
     private StackPane leftRightPanelPlaceHolder;
 
 
-    public ResolveWindow(Stage root, Logic logic) {
+    public ResolveWindow(Stage root, Logic logic, ResultDisplay mainWindowDisplay) {
         super(FXML, root);
         parent = getRoot();
         this.logic = logic;
+        this.mainWindowDisplay = mainWindowDisplay;
 
         blockEvents(root);
         fillInnerParts();
@@ -49,8 +58,8 @@ public class ResolveWindow extends UiPart<Stage> {
         centerWindow();
     }
 
-    public ResolveWindow(Logic logic) {
-        this(new Stage(), logic);
+    public ResolveWindow(Logic logic, ResultDisplay mainWindowDisplay) {
+        this(new Stage(), logic, mainWindowDisplay);
     }
 
     /**
@@ -68,20 +77,21 @@ public class ResolveWindow extends UiPart<Stage> {
     /**
      * Hides the window and clears the text in LeftRightPanel
      *
-     * @see LeftRightPanel#clearAllText()
+     * @see LeftRightPanel#clearAll()
      */
-    public void hideAndClearText() {
+    public void hideAndClearPanels() {
+        leftRightPanel.clearAll();
+        resultDisplay.setFeedbackToUser("");
         parent.hide();
-        leftRightPanel.clearAllText();
     }
 
     public void focus() {
         getRoot().requestFocus();
     }
 
-    public void setLeftRightText(String leftPanelText, String rightPanelText) {
-        leftRightPanel.setLeftPanelText(leftPanelText);
-        leftRightPanel.setRightPanelText(rightPanelText);
+    public void setLeftRightPanel() {
+        leftRightPanel.setLeftPanel(logic.getConflict().getScheduledUnmodifiableExerciseList());
+        leftRightPanel.setRightPanel(logic.getConflict().getConflictedUnmodifiableExerciseList());
     }
 
     private void setWindowSize(GuiSettings guiSettings) {
@@ -126,14 +136,22 @@ public class ResolveWindow extends UiPart<Stage> {
      * @param commandText user input
      * @return Result from executing a valid command
      */
-    private CommandResult execute(String commandText) {
-        if (commandText.equals("resolve")) {
-            hideAndClearText();
-            return new CommandResult("Resolved", false, false);
-        } else {
-            CommandResult result = new CommandResult("Not resolve command", false, false);
-            resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
-            return result;
+    private CommandResult execute(String commandText) throws CommandException, ParseException {
+        try {
+            CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (!commandResult.isShowResolve()) {
+                mainWindowDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                this.hideAndClearPanels();
+            }
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
         }
     }
 }

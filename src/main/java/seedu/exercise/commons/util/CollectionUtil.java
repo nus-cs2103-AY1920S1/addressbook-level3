@@ -2,8 +2,10 @@ package seedu.exercise.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -31,5 +33,19 @@ public class CollectionUtil {
      */
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
+    }
+
+    /**
+     * Appends two list together into a new list.
+     */
+    public static <T> List<T> append(List<T> first, List<T> second) {
+        requireAllNonNull(first, second);
+        List<T> result = new ArrayList<>(first);
+        result.addAll(second);
+        return result;
+    }
+
+    public static <T> boolean areListsEmpty(List<T> first, List<T> second) {
+        return first.isEmpty() && second.isEmpty();
     }
 }
