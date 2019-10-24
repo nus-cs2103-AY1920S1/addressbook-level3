@@ -18,7 +18,7 @@ By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-*MoneyGoWhere* is a personal finance application targeted at students who have yet to earn a stable income.
+*MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
 It allows students to keep track of all their spending and their related information such as date, cost and tags.
 Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
 With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
@@ -48,7 +48,7 @@ Useful information for a deeper understanding of the command.
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MoneyGoWhere.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for MoneyGoWhere.
-.  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
+.  Double-click the file to start the app. The GUI should appear in a few seconds as shown in `Figure 1`.
 
 +
 .User Interface of MoneyGoWhere
@@ -86,43 +86,48 @@ Format: `help`
 [TIP]
 Optionally, you can press kbd:[F1] or click `help` which can be found on the menu bar at the top left hand corner of the application.
 
+The following image shows how the help bar can be accessed:
+
+[.text-center]
 .Accessing Help from Menu Bar
 image::help.png[width="300"]
 
-=== Flexible date format
+Help can be accessed from the menu bar by clicking on the `Help` button.
+
+=== Flexible date formats
 
 Whenever a particular command requires a `DATE` field, you can choose either of the following formats.
 
-* Formal Dates
+* *Formal Dates*
 ** 1978-01-28
 ** 1984/04/02
 ** 1/02/1980
 ** 26/2/2019
-* Relaxed Dates
+* *Relaxed Dates*
 ** The 31st of April in the year 2008
 ** Fri, 21 Nov 1997
 ** Jan 21,'97
 ** jan 1st
 ** february twenty-eight
-* Relative Dates
+* *Relative Dates*
 ** next thursday/ last wednesday
 ** today/ tomorrow/ yesterday
 ** next week/ next month / next year
 ** 3 days from now
 ** three weeks ago
-* Date Alternatives
+* *Date Alternatives*
 ** next wed or thurs
 ** oct 3rd or 4th
-* Prefixes
+* *Prefixes*
 ** day after/ the day before
 ** the monday after/ the monday before
 ** 2 fridays before/ 4 tuesdays after
 
 [NOTE]
-You do not need to specify which date format you would like to use as the application will be able to differentiate it from the input received.
+You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received.
 
 [NOTE]
-The application will also automatically check whether a given date is valid.
+MoneyGoWhere will also automatically check whether a given date is valid.
 Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019.
 
 === Adding a spending : `add`
@@ -256,7 +261,7 @@ COST_MIN must be smaller or the same as COST_MAX.
 
 ****
 
-Example:
+Examples:
 
 * `find n/apple c/1.50-2.00 d/01/09/2019 d/30/09/2019` +
 Returns a list of spending with `apple` keyword within the cost range `1.50` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
@@ -275,7 +280,7 @@ Displays a list of all tags. +
 Format: `ltags`
 
 === Setting monthly budget : `budget`
-Sets a monthly budget for the current month in Singapore dollars. +
+Sets a budget for the current month in Singapore dollars. +
 Format: `budget MONTHLY_BUDGET` +
 
 [NOTE]
@@ -459,15 +464,18 @@ Format: `exit`
 
 == Glossary
 
-* Spending: An expense incurred by the user.
 * Budget: The maximum amount of money set by the user to spend.
+** Safe: The user has spent less or equal to his budget set.
+** Deficit: The user has spent more than his budget set.
 * Cost: Money spent by the user.
-* Safe: The user has spent less or equal to his budget set.
-* Deficit: The user has spent more than his budget set.
+* Spending: An expense incurred by the user.
 
 == Command Summary
 
-[width="100%",cols="20%,<30%",options="header",]
+Listed below is a summary of all available commands.
+
+.Command Summary table
+[width="100%",cols="20%,<30%",options="header"]
 |=======================================================================
 |Feature | Command
 | *Help* | `help` +
@@ -505,3 +513,5 @@ e.g. `dreminder 2`
 | *Clear*| `clear` +
 | *Exit*| `exit` +
 |=======================================================================
+
+The command summary above displays all commands available in MoneyGoWhere.

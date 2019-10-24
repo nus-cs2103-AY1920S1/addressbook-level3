@@ -161,6 +161,9 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
+
+The following class diagram shows the structure of the Logic component.
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -183,6 +186,8 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
+The following class diagram shows the structure of the Model component.
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
@@ -202,6 +207,8 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+
+The following class diagram below displays the structure of the Storage Component.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -293,6 +300,260 @@ Alternative 1 was chosen due to the ease of implementation.
 As the current statistics feature does not require a large amount of data, the number of method calls is not too large.
 Alternative 2 requires a change in the architecture which may result in higher complexity.
 
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+
+[[Implementation-Find]]
+=== Find feature
+
+The find feature allows the user to search for a spending based on specified field. If search results are too broad, fields may be combined to increase specificity.
+
+For example, `find n/Apple c/2.50-3.00` will find an `Apple` of cost range $`2.50` to $`3.00`.
+
+==== Implementation
+
+Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user.
+
+The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
+
+The sequence diagram below demonstrates how the `find` command is executed:
+
+.Sequence diagram for an example `find` command
+image::FindSequenceDiagram.png[Find Sequence Diagram,width=75%]
+
+The following steps explain the sequence diagram:
+
+1. The user enters `find n/apple`.
+2. `LogicManager` calls `SpendingBookParser#parseCommand()`.
+3. `FindCommandParser` is created and validates user input, creating a list of `predicates`.
+4. `FindCommand` receives `predicates` and stores it in a list.
+5. On `execute()`, `predicates` are reduced and `Model#updateFilteredSpendingList(predicate)` is called to refresh the displayed list.
+
+NOTE: The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+To summarise what happens when the user uses the `find` command, the following activity diagram is shown below:
+
+.Activity diagram for an example `find` command
+image::FindActivityDiagram.png[Find Activity Diagram,width=75%]
+
+The following steps explain the activity diagram:
+
+1. The user executes the `find` command.
+2. If there are valid inputs, each field from the input is saved as predicates into a predicate list.
+3. Else, there are two cases.
+.. If there is an invalid field, display an error message for the invalid field.
+.. If there is a missing field, display an error message for the missing field.
+
+==== Design Considerations
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 |Alternative 2
+
+|How find is executed
+|Save all predicates to a list +
+Pros: Easy to implement +
+Cons: All fields require a predicate
+|Search the underlying list directly without using a predicate +
+Pros: Able to manipulate object easily +
+Cons: Poor abstraction
+
+|===
+
+[[Implementation-Sort]]
+=== Sort feature
+
+The sort feature allows users to sort all currently displayed Spending entries automatically. The default sorting sequence is by Date, followed by Cost. Both are in descending order.
+
+The user may choose to modify how the displayed entries are sorted using the `sort` command.
+
+For example, `sort n/ASC d/DESC` applies sorting by name in ascending order, followed by Date in descending order. This applies to any future commands entered.
+
+==== Implementation
+
+The sorting feature is supported by `SpendingComparator`, a custom comparator to facilitate different sort ordering, and implements the following operation:
+
+* `updateSortedSpendingList(comparator)` -- Updates the sorted spending list with a new comparator.
+
+This operation is exposed in the `Model` interface as `Model#updateSortedSpendingList(comparator)`.
+
+At a high level view, `SpendingComparator` and `SortField` interacts in the manner shown below.
+
+.High-level view of package interaction
+image::SortPackageDiagram.png[Sort Package Diagram]
+
+The sequence diagram below demonstrates how the `sort` command is executed:
+
+.Sequence diagram for an example `sort` command
+image::SortSequenceDiagram.png[Sort Sequence Diagram,width=75%]
+
+The following steps explain the sequence diagram:
+
+1. The user enters `sort n/ASC`.
+2. `LogicManager` calls `SpendingBookParser#parseCommand()`.
+3. `SortCommandParser` is created and validates user input, creating a set of `fields`.
+4. `SortCommand` receives `fields` and stores it.
+5. On `execute()`, `fields` are passed into a `SpendingComparator` object and `Model#updateSortedSpendingList(comparator)` is called to refresh the displayed list.
+
+NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram summarises what happens when the user uses the `sort` command:
+
+.Activity diagram for an example `sort` command
+image::SortActivityDiagram.png[Sort Activity Diagram,width=75%]
+
+The following steps explain the activity diagram:
+
+1. The user executes the `sort` command.
+2. If there are valid fields from the input, each field is saved into a list and determines sort order for `Model`.
+3. Else, there are two cases.
+.. If there is an invalid field, display an error message for the invalid field.
+.. If there is a missing field, display an error message for the missing field.
+
+==== Design Considerations
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 |Alternative 2
+
+|How sort is executed
+|Set a new comparator +
+Pros: Easy to implement +
+Cons: None
+|Sort the underlying list without a comparator +
+Pros: Able to manipulate objects directly +
+Cons: Poor abstraction
+
+|Method design for sort
+|Create filtered list from sorted list +
+Pros: Easy to implement +
+Cons: Minor structure changes
+|Create sorted list from filtered list +
+Pros: Able to test large sorting side effects +
+Cons: Large code structure changes
+
+|===
+
+// tag::reminder[]
+=== Reminder feature
+
+With this reminder feature, users can set the reminders of their tasks with deadlines and delete them when completed.
+
+==== Implementation
+
+A reminder is constructed with
+
+* Deadline `d/DATE`
+* Reminder Message `m/MESSAGE`
+
+The recorded reminders sorted with deadline in descending order, are displayed on the User Interface(UI) for notification.
+
+This feature is implemented with the following operations:
+
+* Adding a reminder `reminder d/DATE m/MESSAGE` +
+e.g. `reminder d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
+
+* Deleting a reminder `dreminder INDEX` +
+e.g. `dreminder 1` - delete the first reminder in the reminder list shown in UI.
+
+Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
+
+.Activity diagram for adding a reminder
+image::AddReminderActivityDiagram.png[width=75%]
+
+[NOTE]
+In the above diagram, it can be seen that respective error messages will be shown for invalid inputs.
+
+Shown below is the sequence diagram containing the interactions between respective components in MoneyGoWHere when user inputs `AddReminderCommand`.
+
+.Sequence diagram while user attempts to add a new reminder
+image::AddReminderSequenceDiagram.png[width=75%]
+
+[NOTE]
+The above sequence diagram demonstrates how a new reminder is constructed from valid user input.
+
+Following is the activity diagram including the series of actions performed by MoneyGoWhere when it receives `DeleteReminderCommand`
+
+.Activity diagram for removing a reminder
+image::DeleteReminderActivityDiagram.png[width=75%]
+
+[NOTE]
+The negative index from user input will leads to invalid command format error.
+
+The below sequence diagram summarize the interactions between different components when user enter `DeleteReminderCommand`.
+
+.Sequence diagram while user attempt to remove a reminder
+image::DeleteReminderSequenceDiagram.png[width=75%]
+
+[NOTE]
+The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
+
+=== Import Feature
+==== Implementation
+The Import feature allows our users to import data from a comma-separated values (`.csv`) files.
+It allows users who would like to add their spending in bulk.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the
+`execute("import p/validSpending.csv")`
+
+.Interactions Inside the Logic Component for the `import` Command
+image::ImportSequenceDiagram.png[width=75%]
+
+//When a user gives an `import` command, the application will start processing the request by calling the `LogicManager`.
+//It will then call the `SpendingBookParser`, which parses the command string.
+//It then creates and calls the respective command parser, which in this case is `ImportCommandParser`.
+//This parser will then strip the attributes given in the command string into a key-value map with the prefix, `p/` as the key and `validSpending.csv` as the value.
+
+The Import Feature has one main component, which is the `ImportCommand.java` file. This file contains the main logic behind the feature.
+The `ImportCommand#readSpendingFromCsv()` method utilises the `FasterXML/jackson` library to read in `.csv` files and convert it into maps of objects.
+The maps will then be processed and parsed into `Spending` objects which will be added into a `Spending` list.
+Those maps that do not pass the parse conditions will then be thrown as an exception and its message will be saved inside an error list.
+After all the maps are processed, the application will then go through the valid spending list and save them by calling the `Model#addSpending()` method.
+Following that, the application will then prints an output, showing the result of the command execution.
+
+The following activity diagram summarizes what happens when a user executes an import command:
+
+.Import Feature Activity Diagram
+image::ImportActivityDiagram.png[width=25%]
+
+When a user calls the `import` command and inputs a valid `.csv` file, the application will read and parses all the data inside the file and save them to the `SpendingBookList` and `moneygowhere.json`.
+
+==== CSV File Format and Constraints
+In order for data to be imported into MoneyGoWhere, it must be in a properly formatted CSV file.
+There should be 5 columns specified for `Name`, `Cost`, `Date`, `Tag` and `Remark`
+
+Header Constraints
+
+* The first row is considered a column header and is required.
+
+Cell Formatting
+
+* There should not be any leading and trailing spaces in a cell.
+* To specify a comma within a cell, the value of the cell should be inside double quotes. Eg:
+** "yummy, juicy"
+** "fresh, clean"
+* To specify double quotes within a cell, in addition to start and end double quotes, escape the double quote with another double quote. Eg:
+** """yummy"", ""juicy"""
+** """fresh"", ""clean"""
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -381,228 +642,6 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
-
-[[Implementation-Find]]
-=== Find feature
-
-The find feature allows the user to search for a spending based on specified field. If search results are too broad, fields may be combined to increase specificity.
-
-For example, `find n/Apple c/2.50-3.00` will find an `Apple` of cost range `2.00` to `3.00`.
-
-==== Implementation
-
-Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user.
-
-The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
-
-The sequence diagram below demonstrates how the `find` command is executed:
-
-.Sequence diagram for an example find command
-image::FindSequenceDiagram.png[Find Sequence Diagram]
-
-NOTE: The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The following activity diagram summarises what happens when the user uses the `find` command:
-
-.Activity diagram for an example find command
-image::FindActivityDiagram.png[Find Activity Diagram]
-
-==== Design Considerations
-
-[width="90%", cols="1,2,2", options="header",]
-|===
-|Aspect |Alternative 1 |Alternative 2
-
-|How find is executed
-|Save all predicates to a list +
-Pros: Easy to implement +
-Cons: All fields require a predicate
-|Search the underlying list directly without using a predicate +
-Pros: Able to manipulate object easily +
-Cons: Poor abstraction
-
-|===
-
-[[Implementation-Sort]]
-=== Sort feature
-
-The sort feature allows users to sort all currently displayed Spending entries automatically. The default sorting sequence is by Date, followed by Cost. Both are in descending order.
-
-The user may choose to modify how the displayed entries are sorted using the `sort` command.
-
-For example, `sort n/ASC d/DESC` applies sorting by name in ascending order, followed by Date in descending order. This applies to any future commands entered.
-
-==== Implementation
-
-The sorting feature is supported by `SpendingComparator`, a custom comparator to facilitate different sort ordering, and implements the following operation:
-
-* `updateSortedSpendingList(comparator)` -- Updates the sorted spending list with a new comparator.
-
-This operation is exposed in the `Model` interface as `Model#updateSortedSpendingList(comparator)`.
-
-At a high level view, `SpendingComparator` and `SortField` interacts in the manner shown below.
-
-.High-level view of package interaction
-image::SortPackageDiagram.png[Sort Package Diagram]
-
-The sequence diagram below demonstrates how the `sort` command is executed:
-
-.Sequence diagram for an example sort command
-image::SortSequenceDiagram.png[Sort Sequence Diagram]
-
-NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The following activity diagram summarises what happens when the user uses the `sort` command:
-
-.Activity diagram for an example sort command
-image::SortActivityDiagram.png[Sort Activity Diagram]
-
-==== Design Considerations
-
-[width="90%", cols="1,2,2", options="header",]
-|===
-|Aspect |Alternative 1 |Alternative 2
-
-|How sort is executed
-|Set a new comparator +
-Pros: Easy to implement +
-Cons: None
-|Sort the underlying list without a comparator +
-Pros: Able to manipulate objects directly +
-Cons: Poor abstraction
-
-|Method design for sort
-|Create filtered list from sorted list +
-Pros: Easy to implement +
-Cons: Minor structure changes
-|Create sorted list from filtered list +
-Pros: Able to test large sorting side effects +
-Cons: Large code structure changes
-
-|===
-
-// tag::reminder[]
-=== Reminder feature
-
-With this reminder feature, users can set the reminders of their tasks with deadlines and delete them when completed.
-
-==== Implementation
-
-A reminder is constructed with
-
-* Deadline `d/DATE`
-* Reminder Message `m/MESSAGE`
-
-The recorded reminders sorted with deadline in descending order, are displayed on the User Interface(UI) for notification.
-
-This feature is implemented with the following operations:
-
-* Adding a reminder `reminder d/DATE m/MESSAGE` +
-e.g. `reminder d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
-
-* Deleting a reminder `dreminder INDEX` +
-e.g. `dreminder 1` - delete the first reminder in the reminder list shown in UI.
-
-Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
-
-.Activity diagram for adding a reminder
-image::AddReminderActivityDiagram.png[]
-
-[NOTE]
-In the above diagram, it can be seen that respective error messages will be shown for invalid inputs.
-
-Shown below is the sequence diagram containing the interactions between respective components in MoneyGoWHere when user inputs `AddReminderCommand`.
-
-.Sequence diagram while user attempts to add a new reminder
-image::AddReminderSequenceDiagram.png[]
-
-[NOTE]
-The above sequence diagram demonstrates how a new reminder is constructed from valid user input.
-
-Following is the activity diagram including the series of actions performed by MoneyGoWhere when it receives `DeleteReminderCommand`
-
-.Activity diagram for removing a reminder
-image::DeleteReminderActivityDiagram.png[]
-
-[NOTE]
-The negative index from user input will leads to invalid command format error.
-
-The below sequence diagram summarize the interactions between different components when user enter `DeleteReminderCommand`.
-
-.Sequence diagram while user attempt to remove a reminder
-image::DeleteReminderSequenceDiagram.png[]
-
-[NOTE]
-The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
-
-=== Import Feature
-==== Implementation
-The Import feature allows our users to import data from a comma-separated values (`.csv`) files.
-It allows users who would like to add their spending in bulk.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the
-`execute("import p/validSpending.csv")`
-
-.Interactions Inside the Logic Component for the `import` Command
-image::ImportSequenceDiagram.png[]
-
-//When a user gives an `import` command, the application will start processing the request by calling the `LogicManager`.
-//It will then call the `SpendingBookParser`, which parses the command string.
-//It then creates and calls the respective command parser, which in this case is `ImportCommandParser`.
-//This parser will then strip the attributes given in the command string into a key-value map with the prefix, `p/` as the key and `validSpending.csv` as the value.
-
-The Import Feature has one main component, which is the `ImportCommand.java` file. This file contains the main logic behind the feature.
-The `ImportCommand#readSpendingFromCsv()` method utilises the `FasterXML/jackson` library to read in `.csv` files and convert it into maps of objects.
-The maps will then be processed and parsed into `Spending` objects which will be added into a `Spending` list.
-Those maps that do not pass the parse conditions will then be thrown as an exception and its message will be saved inside an error list.
-After all the maps are processed, the application will then go through the valid spending list and save them by calling the `Model#addSpending()` method.
-Following that, the application will then prints an output, showing the result of the command execution.
-
-The following activity diagram summarizes what happens when a user executes an import command:
-
-.Import Feature Activity Diagram
-image::ImportActivityDiagram.png[]
-
-When a user calls the `import` command and inputs a valid `.csv` file, the application will read and parses all the data inside the file and save them to the `SpendingBookList` and `moneygowhere.json`.
-
-==== CSV File Format and Constraints
-In order for data to be imported into MoneyGoWhere, it must be in a properly formatted CSV file.
-There should be 5 columns specified for `Name`, `Cost`, `Date`, `Tag` and `Remark`
-
-Header Constraints
-
-* The first row is considered a column header and is required.
-
-Cell Formatting
-
-* There should not be any leading and trailing spaces in a cell.
-* To specify a comma within a cell, the value of the cell should be inside double quotes. Eg:
-** "yummy, juicy"
-** "fresh, clean"
-* To specify double quotes within a cell, in addition to start and end double quotes, escape the double quote with another double quote. Eg:
-** """yummy"", ""juicy"""
-** """fresh"", ""clean"""
 
 == Documentation
 

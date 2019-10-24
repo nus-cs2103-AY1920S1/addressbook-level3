@@ -9,9 +9,9 @@ if () then ([valid fields present])
     :Determine sort order in parser based on given fields;
     :Update Model based on the sort order;
 else ([else])
- if () then([invalid field present])
+ if () then([invalid field])
     :Display error message for invalid field;
- else ([missing field present])
+ else ([missing field])
     :Display error message for missing field;
  endif
 endif
