@@ -12,9 +12,11 @@ import javafx.scene.text.TextFlow;
  * UI component representing an individual FlashCard to be displayed in the application.
  */
 public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
-    private Text flashCardText;
+
     private static double maxWidth = GuiSettings.getMinWidth() - 2 * GuiSettings.getPadding();
     private static double textMaxWidth = GuiSettings.getMinWidth() - 4 * GuiSettings.getPadding();
+
+    private Text flashCardText;
 
     /**
      * Creates a new instance of FlashCardDisplay with the given text.
@@ -30,7 +32,7 @@ public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
 
         // set up background colour and radius
         this.setStyle("-fx-background-color:" + GuiSettings.getPrimaryUiColour() + ";");
-//        this.setStyle("-fx-background-radius:" + GuiSettings.getRadius() +";");
+        //this.setStyle("-fx-background-radius:" + GuiSettings.getRadius() +";");
 
         flashCardText = new Text(text);
 

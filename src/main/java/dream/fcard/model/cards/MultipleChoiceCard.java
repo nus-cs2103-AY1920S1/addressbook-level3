@@ -117,8 +117,7 @@ public class MultipleChoiceCard extends FrontBackCard {
 
     /**
      * Render the front of card to GUI node.
-     *
-     * @return Node of front of card.
+     *.
      */
     //@@author huiminlim
     @Override

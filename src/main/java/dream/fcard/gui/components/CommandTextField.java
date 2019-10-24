@@ -31,7 +31,7 @@ public class CommandTextField extends TextField implements UiComponent<TextField
         //this.setStyle("-fx-control-inner-background:" + GuiSettings.getTertiaryUiColour() + ";");
         //this.setStyle("-fx-text-fill:#FFFFFF;");
 
-        this.setStyle("-fx-text-fill:" + GuiSettings.getPrimaryTextColour() +";");
+        this.setStyle("-fx-text-fill:" + GuiSettings.getPrimaryTextColour() + ";");
         this.setFont(GuiSettings.getCommandTextStyle());
 
         this.setOnAction((event) -> {

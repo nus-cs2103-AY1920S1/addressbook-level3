@@ -19,7 +19,7 @@ public class CommandTextFieldPlaceholder extends VBox implements UiComponent<VBo
         // set background colour
         this.setStyle("-fx-background-color:" + GuiSettings.getTertiaryUiColour() + ";"); // temporary
         // todo: abstract into UI component setBackgroundColour(String colour) method
-//        commandBoxPlaceholder.setStyle("-fx-background-color:#FFFFFF;");
+        //this.setStyle("-fx-background-color:#FFFFFF;");
     }
 
     public void add(Node node) {

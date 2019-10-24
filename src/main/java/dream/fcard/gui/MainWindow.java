@@ -71,7 +71,7 @@ public class MainWindow {
      */
     private void testUiComponents() {
         Gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-//        Gui.renderCard("Pellentesque eu placerat urna, eu tincidunt magna.");
+        //Gui.renderCard("Pellentesque eu placerat urna, eu tincidunt magna.");
     }
 
     /**
