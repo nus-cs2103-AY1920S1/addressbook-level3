@@ -42,7 +42,6 @@ public class ModelManager implements Model {
 
     /**
      * Initializes a ModelManager with the given catalog, loan records, borrower records and userPrefs.
-     * TODO change
      */
     public ModelManager(ReadOnlyCatalog catalog,
                         ReadOnlyLoanRecords loanRecords,
@@ -64,7 +63,7 @@ public class ModelManager implements Model {
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
 
-        this.servingBorrower = Optional.empty(); // TODO
+        this.servingBorrower = Optional.empty();
     }
 
     public ModelManager() {
@@ -152,6 +151,14 @@ public class ModelManager implements Model {
     public void addLoan(Loan loan) {
         requireNonNull(loan);
         loanRecords.addLoan(loan);
+    }
+
+    /**
+     * @param loan
+     */
+    @Override
+    public void updateReturnedLoan(Loan loan) {
+        // TODO updateReturnedLoan in loanRecords
     }
 
     //=========== Catalog ===============================================================================

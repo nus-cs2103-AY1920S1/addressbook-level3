@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing LiBerry ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -82,11 +82,12 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * Returns a {@code ModelManager} with the data from {@code storage}'s catalog, borrower records, loan records
+     * and {@code userPrefs}. <br>
      *
      *     TODO edit this
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * The data from the sample catalog will be used instead if {@code storage}'s catalog is not found,
+     * or an empty catalog will be used instead if errors occur when reading {@code storage}'s catalog.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
 
@@ -216,13 +217,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting LiBerry " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Catalog ] =============================");
+        logger.info("============================ [ Stopping LiBerry ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

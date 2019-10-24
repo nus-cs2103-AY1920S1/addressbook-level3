@@ -108,7 +108,10 @@ public interface Model {
     /** Returns the LoanRecords*/
     ReadOnlyLoanRecords getLoanRecords();
 
+    /** Adds a new Loan to LaanRecords */
     void addLoan(Loan loan);
+
+    void updateReturnedLoan(Loan loan);
 
     // ================================================================ BorrowerRecords
 
