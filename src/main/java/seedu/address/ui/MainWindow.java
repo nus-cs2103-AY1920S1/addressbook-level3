@@ -14,10 +14,22 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.item.Item;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DownCommandResult;
+import seedu.address.logic.commands.UpCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.item.CalendarList;
+import seedu.address.model.item.EventList;
+import seedu.address.model.item.ReminderList;
+import seedu.address.model.item.TaskList;
+import seedu.address.model.item.VisualizeList;
+
+
+
+
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
  * and space where other JavaFX elements can be placed.
@@ -78,11 +90,11 @@ public class MainWindow extends UiPart<Stage> {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
                         try {
-                            logic.execute("show " + t1.getId());
+                            logic.getModel().setVisualList(t1.getId());
                             updatePanels();
-                        } catch (CommandException e) {
-                            e.printStackTrace();
                         } catch (ParseException e) {
+                            e.printStackTrace();
+                        } catch (IllegalValueException e) {
                             e.printStackTrace();
                         }
                     }
@@ -156,24 +168,55 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the view.
      *
-     * @param targetView
+     * @param list
      */
-    private void handleSwitchView(String targetView) {
-        switch (targetView) {
-        case "T":
+    private void handleSwitchView(VisualizeList list) {
+        if (list instanceof TaskList) {
             viewsPlaceholder.getSelectionModel().select(0);
-            break;
-        case "E":
+        } else if (list instanceof EventList) {
             viewsPlaceholder.getSelectionModel().select(1);
-            break;
-        case "R":
+        } else if (list instanceof ReminderList) {
             viewsPlaceholder.getSelectionModel().select(2);
-            break;
-        case "C":
+        } else if (list instanceof CalendarList) {
             viewsPlaceholder.getSelectionModel().select(3);
+        }
+    }
+
+    /**
+     * Scrolls the target pane up
+     *
+     * @param pane
+     */
+    private void scrollUp(String pane) {
+        switch(pane) {
+        case "resultDisplay":
+            resultDisplay.scrollUp();
+            break;
+        case "tabPane":
+            eventListPanel.scrollUp();
+            taskListPanel.scrollUp();
+            reminderListPanel.scrollUp();
             break;
         default:
+        }
+    }
+
+    /**
+     * Scrolls the target pane down
+     *
+     * @param pane
+     */
+    private void scrollDown(String pane) {
+        switch(pane) {
+        case "resultDisplay":
+            resultDisplay.scrollDown();
             break;
+        case "tabPane":
+            eventListPanel.scrollDown();
+            taskListPanel.scrollDown();
+            reminderListPanel.scrollDown();
+            break;
+        default:
         }
     }
 
@@ -217,14 +260,24 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setMessageFromUser(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult)) {
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            }
 
             if (commandResult.isExit()) {
                 handleExit();
             }
 
-            if (commandResult.isSwitchViews()) {
-                handleSwitchView(commandResult.getTargetView().trim());
+            handleSwitchView(logic.getVisualList());
+
+            if (commandResult instanceof UpCommandResult) {
+                scrollUp(commandResult.getPane());
+                return commandResult;
+            }
+
+            if (commandResult instanceof DownCommandResult) {
+                scrollDown(commandResult.getPane());
+                return commandResult;
             }
 
             updatePanels();

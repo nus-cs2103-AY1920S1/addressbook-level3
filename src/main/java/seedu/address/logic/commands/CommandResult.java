@@ -8,35 +8,26 @@ import java.util.Objects;
  * Represents the result of a command execution.
  */
 public class CommandResult {
-
-    private final String feedbackToUser;
-
-    private final boolean switchViews;
-    private final String targetView;
-
-    private final boolean undo;
+    protected String pane = "";
+    protected final String feedbackToUser;
 
     /**
      * Help information should be shown to the user.
      */
-    private final boolean showHelp;
+    protected final boolean showHelp;
 
     /**
      * The application should exit.
      */
-    private final boolean exit;
+    protected final boolean exit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sViews,
-                         String targetView, boolean undo) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.switchViews = sViews;
-        this.targetView = targetView;
-        this.undo = undo;
     }
 
     /**
@@ -44,19 +35,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, null, false);
-    }
-
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, null, false);
-    }
-
-    public CommandResult(String feedbackToUser, boolean undo) {
-        this(feedbackToUser, false, false, false, null, undo);
-    }
-
-    public CommandResult(String feedbackToUser, String targetView) {
-        this(feedbackToUser, false, false, true, targetView, false);
+        this(feedbackToUser, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -69,18 +48,6 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
-    }
-
-    public boolean isSwitchViews() {
-        return switchViews;
-    }
-
-    public boolean isUndo() {
-        return undo;
-    }
-
-    public String getTargetView() {
-        return targetView;
     }
 
     @Override
@@ -104,5 +71,7 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
-
+    public String getPane() {
+        return this.pane;
+    }
 }

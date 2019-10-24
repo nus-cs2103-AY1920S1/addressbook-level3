@@ -1,12 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,7 +31,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing item in the item list.
  */
-public class EditCommand extends Command {
+public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -41,14 +39,12 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TASK_DESCRIPTION + "TASK DESCRIPTION] "
-            + "[" + PREFIX_EVENT_DESCRIPTION + "EVENT DESCRIPTION] "
-            + "[" + PREFIX_REMINDER_DESCRIPTION + "REMINDER DESCRIPTION] "
+            + "[" + PREFIX_DESCRIPTION + " DESCRIPTION] "
             + "[" + PREFIX_REMINDER + "REMINDER] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_TASK_DESCRIPTION + "DRINK WATER "
+            + PREFIX_DESCRIPTION + "DRINK WATER "
             + PREFIX_PRIORITY + "HIGH";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
@@ -57,6 +53,9 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;
+
+    private Item oldItem;
+    private Item editedItem;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -80,11 +79,17 @@ public class EditCommand extends Command {
         }
 
         Item oldItem = lastShownList.get(index.getZeroBased());
+        this.oldItem = oldItem;
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
+        this.editedItem = editedItem;
 
         model.replaceItem(oldItem, editedItem);
-        //model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.replaceItem(editedItem, oldItem);
     }
 
     /**
@@ -147,6 +152,16 @@ public class EditCommand extends Command {
             itemBuilder.setReminder(updatedReminder.get());
         }
 
+        if (editItemDescriptor.getHasDeleteTask()) {
+            itemBuilder.setTask(null);
+        }
+        if (editItemDescriptor.getHasDeleteEvent()) {
+            itemBuilder.setEvent(null);
+        }
+        if (editItemDescriptor.getHasDeleteReminder()) {
+            itemBuilder.setReminder(null);
+        }
+
         Item updatedItem;
         try {
             updatedItem = itemBuilder.build();
@@ -167,6 +182,9 @@ public class EditCommand extends Command {
         private Reminder reminder;
         private Priority priority;
         private Set<Tag> tags;
+        private boolean hasDeleteTask = false;
+        private boolean hasDeleteEvent = false;
+        private boolean hasDeleteReminder = false;
 
         public EditItemDescriptor() {}
 
@@ -181,6 +199,9 @@ public class EditCommand extends Command {
             setReminder(toCopy.reminder);
             setPriority(toCopy.priority);
             setTags(toCopy.tags);
+            setHasDeleteTask(toCopy.hasDeleteTask);
+            setHasDeleteEvent(toCopy.hasDeleteEvent);
+            setHasDeleteReminder(toCopy.hasDeleteReminder);
         }
 
         /**
@@ -246,5 +267,38 @@ public class EditCommand extends Command {
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
+
+        public boolean hasAnyDelete() {
+            return (hasDeleteEvent || hasDeleteReminder || hasDeleteTask);
+        }
+
+        public void setHasDeleteTask(boolean bool) {
+            this.hasDeleteTask = bool;
+        }
+
+        public boolean getHasDeleteTask() {
+            return this.hasDeleteTask;
+        }
+
+        public void setHasDeleteEvent(boolean bool) {
+            this.hasDeleteEvent = bool;
+        }
+
+        public boolean getHasDeleteEvent() {
+            return this.hasDeleteEvent;
+        }
+
+        public void setHasDeleteReminder(boolean bool) {
+            this.hasDeleteReminder = bool;
+        }
+
+        public boolean getHasDeleteReminder() {
+            return this.hasDeleteReminder;
+        }
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

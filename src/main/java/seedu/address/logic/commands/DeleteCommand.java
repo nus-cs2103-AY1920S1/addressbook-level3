@@ -6,13 +6,14 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.item.Item;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ItemIndexWrapper;
 import seedu.address.model.ItemModel;
 import seedu.address.model.item.VisualizeList;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -24,6 +25,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
 
     private final Index targetIndex;
+    private ItemIndexWrapper deleted;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -38,8 +40,15 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        deleted = model.getIndices(targetIndex.getZeroBased());
+
         Item itemDeleted = model.deleteItem(targetIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemDeleted));
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.addItem(deleted);
     }
 
     @Override
@@ -47,5 +56,10 @@ public class DeleteCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

@@ -37,6 +37,11 @@ public class AddReminderCommand extends AddCommand {
         }
 
         //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), SHOW_REMINDER_VIEW);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

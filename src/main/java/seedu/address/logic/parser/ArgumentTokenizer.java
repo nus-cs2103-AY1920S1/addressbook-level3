@@ -103,7 +103,15 @@ public class ArgumentTokenizer {
             // Extract and store prefixes and their arguments
             Prefix argPrefix = prefixPositions.get(i).getPrefix();
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
-            argMultimap.put(argPrefix, argValue);
+
+
+            if (argPrefix.equals(CliSyntax.PREFIX_DELETE_TASK)
+                    || argPrefix.equals(CliSyntax.PREFIX_DELETE_EVENT)
+                    || argPrefix.equals(CliSyntax.PREFIX_DELETE_REMINDER)) {
+                argMultimap.put(argPrefix, "Dummy Value"); // so that .isPresent() would return true
+            } else {
+                argMultimap.put(argPrefix, argValue);
+            }
         }
 
         return argMultimap;

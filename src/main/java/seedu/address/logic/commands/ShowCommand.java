@@ -4,11 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * Switches the current view to the desired view.
  */
-public class ShowCommand extends Command {
+public class ShowCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "show";
     public static final String TASK_VIEW_COMMAND = "T";
@@ -25,6 +26,7 @@ public class ShowCommand extends Command {
 
     private final String targetView;
     private final String targetList;
+    private VisualizeList beforeSwitch;
 
     public ShowCommand(String unprocessedView) {
         String targetView = unprocessedView.toUpperCase();
@@ -35,8 +37,10 @@ public class ShowCommand extends Command {
             this.targetList = TASK_VIEW_COMMAND; //"TASK"
             break;
         case EVENT_VIEW_COMMAND:
-        case CALENDAR_VIEW_COMMAND:
             this.targetList = EVENT_VIEW_COMMAND; //"EVENT"
+            break;
+        case CALENDAR_VIEW_COMMAND:
+            this.targetList = CALENDAR_VIEW_COMMAND; //"CALENDAR"
             break;
         case REMINDER_VIEW_COMMAND:
             this.targetList = REMINDER_VIEW_COMMAND; //"REMINDER"
@@ -49,12 +53,22 @@ public class ShowCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
+        beforeSwitch = model.getVisualList().deepCopy();
         try {
             model.setVisualList(targetList); // should be T/E/R
         } catch (Exception e) {
             throw new CommandException("Show command format is incorrect. It should be \"show T\"");
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetView), targetView);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetView));
+    }
+
+    @Override
+    public void reverse(ItemModel model) throws CommandException {
+        model.setVisualizeList(beforeSwitch);
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }
-
