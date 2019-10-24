@@ -289,6 +289,46 @@ Back Command that calls `resetPredicate()`.
 === Members Tab
 
 === Reimbursement Tab
+This tab will help to show records of reimbursements
+that treasurer needs to pay to a person.
+
+Each reimbursement record is auto extracted from transactions.
+
+The user can add deadline to a reimbursement, mark a reimbursement,
+find a reimbursement and sort reimbursements.
+
+This is the overall Class Diagram of this tab:
+
+.Class Diagram of Reimbursement Tab (reimbursement package)
+
+image::ReimbursementTabClassDiagram.png[]
+
+==== Deadline Command feature
+The deadline command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
+person package which the `AddressBook` implementation is contained in.
+Deadline field should be provided in a valid date format. The
+person's name inputted has to match a name already existing in the `Reimbursement` which is shown in our Reimbursement
+Tab.
+
+The following sequence diagram shows how the deadline command works:
+
+.Sequence Diagram of Deadline Command in Reimbursement Tab (deadline package)
+
+image::ReimbursementTabDeadlineCommandSequenceDiagram.png[]
+
+
+As shown, when a user wants to add a deadline to a reimbursement by specifying
+the person's name. The `DeadlineCommandParser` gets the person from `PersonModel` based on
+person's name and creates a `DeadlineCommand` with person and deadline information.
+This `DeadlineCommand` is returned back to `LogicManager` and is executed by calling `addDeadline` method in
+`ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and saves it.
+
+==== Done Command feature
+
+==== Find Command feature
+
+==== Sort Command feature
+
 
 === Inventory Tab
 
