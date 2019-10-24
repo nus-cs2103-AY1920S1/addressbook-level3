@@ -1,4 +1,5 @@
 @startuml
+
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
@@ -8,17 +9,21 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Interface CommandAllocator <<Interface>>
+Class AlfredParser
 Class XYZCommandParser
 Class CliSyntax
-Class ParserUtil
+Class AlfredParserUtil
 Class ArgumentMultimap
 Class ArgumentTokenizer
 Class Prefix
+Class XYZCommandAllocator
 }
 
 package Command {
+Class "{abstract}\nABCCommand" as ABCCommand
 Class XYZCommand
+Class EntityCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
@@ -35,28 +40,35 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" AlfredParser
+AlfredParser .left.> XYZCommandParser: creates >
+XYZCommandAllocator .left.> XYZCommandParser: creates >
+AlfredParser .right.> XYZCommandAllocator: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
+XYZCommandParser  ..|> Parser
+XYZCommandAllocator ..|> CommandAllocator
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
 ArgumentTokenizer .left.> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
+XYZCommandParser ..> AlfredParserUtil
+AlfredParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note left of ABCCommand: ABCCommand = Commands which extend Abstract Command\n class directly, such as AddCommand, ViewCommand etc. \nand are themselves declared abstract
+note left of EntityCommand: EntityCommand = Specific Entity commands, \nsuch as AddParticipantCommand or DeleteTeamCommand
+note left of XYZCommand: XYZCommand = Commands which extend Abstract Command\n class directly, such as SetScoreCommand \nand which no other classes extend from
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
 Command .up.> CommandResult
+ABCCommand -up-|> Command
+EntityCommand -up-|> ABCCommand
 CommandResult -[hidden]-> Parser
 @enduml

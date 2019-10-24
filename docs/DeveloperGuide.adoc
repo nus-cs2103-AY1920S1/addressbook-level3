@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Alfred The Hackathon Butler - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,6 +15,13 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master
 
 By: `Team Alfred`      Since: `Sept 2019`      Licence: `MIT`
+
+
+== Introduction
+
+Alfred is a desktop application to help Hackathons' Human Resource Managers organise a Hackathon event more efficiently and in an organized fashion. Currently, hackathon organizers have to keep track of various different groups of individuals on several different platforms in order to organize this single event. Alfred allows them to ease the  a hackathon's organization by bringing in all those platforms into a single app, thereby offering them greater orderliness and convenience in organizing their event.
+
+Any help on the development of Alfred would be greatly appreciated, and there are a couple of ways in which you could; either by contributing to Alfred's codebase by expanding its features or, testing and improving it's current features. This guide seeks to not only kick-start your journey as a contributor to Alfred by quickly getting you up to speed with how Alfred's codebase and inner workings function, but also hopes serve as a useful reference to current contributors in times or confusion or difficulties.
 
 == Setting up
 
@@ -84,14 +91,14 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EntityListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Looks at the prefix type given in the CommandResult(returned after every Command is executed), as displays the specific EntityListPanel respectively.
 
 [[Design-Logic]]
 === Logic component
@@ -105,18 +112,20 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  `Logic` uses the `AlfredParser` class to parse the user command.
+.  This can result in one of two possibilities:
+* a new `CommandAllocator` object is created to allocate the user input to appropriate entity-specific `Parser`. The `CommandAllocator` 's `allocate` method then returns a new Command object which is executed by the LogicManager, or
+* the appropriate `Parser` is directly called if no specifying is required and returns a new  `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a participant or deleting a team).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete participant P-1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteParticipantCommandParser` and `DeleteCommandAllocator` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -149,22 +158,34 @@ image::EntityListClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
-NOTE: To be updated with the later milestones.
+The Storage component transforms the AB3 implementation in order to support the storage of the 3 main EntityLists (ParticipantList, MentorList and TeamList), as these form the bulk of our data. In future versions, Storage would need to be udpated to support other data for Alfred as well (such as Food and Swag, which are scheduled for release in v2.0).
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::AlfredStorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/AlfredStorage.java[`AlfredStorage.java`]
 
-The `Storage` component,
+The `Storage` component:
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `ParticipantList` data in json format and read it back.
+* can save the `MentorList` data in json format and read it back.
+* can save the `TeamList` data in json format and read it back.
+
+Details:
+
+* Each Entity has a class to deal with it (i.e. for Participant, you have `ParticipantListStorage`, `JsonParticipantListStorage` etc.). Hence, for the rest of this explanation, Entity will be used as a generic term for Participants/Mentors/Teams.
+* The class implementing the `EntityListStorage` is `JsonTeamEntityStorage`. This class is responsible for providing the read/save functionality for the entire EntityList to `AlfredStorageManager`.
+* In order to save the entire `EntityList` in JSON, the class `JsonSerializableEntityList` implements the logic for serialization. This is achieved by converting the `EntityList` to a `List<JsonAdaptedEntity>`.
+* In order to save each individual Entity, the Entity is in turn converted to a `JsonAdaptedEntity` object, which has methods for converting the serialized object back into an Entity object for `AlfredStorage` to return to `ModelManager`.
+
+
+
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -174,88 +195,94 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is faciliated by `ModelHistoryManager`.
+The `ModelHistoryManager` object keeps track of the state of the data in `ModelManager` at the end of the execution of each command. It keep a deep copy of all the EntityList data.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+Whenever the `undo` command is invoked, `ModelHistoryManager` returns a `ModelHistoryRecord` which contains the state of the data prior to the execution of the previous command. The EntityLists contained within `ModelHistoryRecord` are then used by the `ModelManager` for its operations.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-NOTE: To be updated with the later milestones.
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+//It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+//Additionally, it implements the following operations:
+//
+//* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+//* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+//* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+//
+//These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+//
+//Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+//
+//Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+//
+//image::UndoRedoState0.png[]
+//
+//Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+//
+//image::UndoRedoState1.png[]
+//
+//Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+//
+//image::UndoRedoState2.png[]
+//
+//[NOTE]
+//If a command fails its execution, it will not call `Model#commit
+//()`, so the address book state will not be saved into the `addressBookStateList`.
+//
+//Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+//
+//image::UndoRedoState3.png[]
+//
+//[NOTE]
+//If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+//
+//The following sequence diagram shows how the undo operation works:
+//
+//image::UndoSequenceDiagram.png[]
+//
+//NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+//
+//The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+//
+//[NOTE]
+//If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+//
+//Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+//
+//image::UndoRedoState4.png[]
+//
+//Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+//
+//image::UndoRedoState5.png[]
+//
+//The following activity diagram summarizes what happens when a user executes a new command:
+//
+//image::CommitActivityDiagram.png[]
+//
+//==== Design Considerations
+//
+//NOTE: To be updated with the later milestones.
+//
+//===== Aspect: How undo & redo executes
+//
+//* **Alternative 1 (current choice):** Saves the entire address book.
+//** Pros: Easy to implement.
+//** Cons: May have performance issues in terms of memory usage.
+//* **Alternative 2:** Individual command knows how to undo/redo by itself.
+//** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+//** Cons: We must ensure that the implementation of each individual command are correct.
+//
+//===== Aspect: Data structure to support the undo/redo commands
+//
+//* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+//** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+//** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+//* **Alternative 2:** Use `HistoryManager` for undo/redo
+//** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+//** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates //Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+//// end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
@@ -458,10 +485,28 @@ Steps 1a1-1a2 are repeated until the index is found in the list of Entities.
 +
 Use case resumes from step 4.
 
-=== Use case: Find the top scoring Teams for each category
+=== Use case: Find the top scoring K Teams
+*MSS*
+1. User requests the top scoring K Teams, with K being the user input.
+2. HackathonManager displays the top K teams with their respective scores.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user input K is more than total number of Teams or a negative or invalid integer.
++
+[none]
+** 1a1. HackathonManager shows an error message.
+** 1a2. User re-enters command with new user input of value K.
+Steps 1a1-1a2 are repeated until K is within the total number of Teams.
++
+Use case resumes from step 2.
 
 
-=== Use case: Find the top scoring Teams for each category
+
+
+=== Use case: Find the ranking of all Teams
 
 *MSS*
 
@@ -567,7 +612,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Participant
 
 . Deleting a Participant while all participants are listed
 

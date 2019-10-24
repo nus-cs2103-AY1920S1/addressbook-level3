@@ -23,8 +23,8 @@ public class Id {
             + "    -contain only digits from 0 to 9\n";
 
 
-    private static final String NUMBER_REGEX = "^\\d+$";
-    private static final String ID_REGEX = "^(?i)(M-|P-|T-)(?-i)\\d+$";
+    private static final String NUMBER_REGEX = "^[1-9]\\d*$";
+    private static final String ID_REGEX = "^(?i)(M-|P-|T-)(?-i)[1-9]\\d*$";
 
     // Data fields
     private PrefixType prefix;

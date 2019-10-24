@@ -9,10 +9,9 @@ Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
+Class EntityListPanel
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
 Class StatusBarFooter
 Class CommandBox
 }
@@ -33,25 +32,34 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> EntityListPanel
 
-PersonListPanel -down-> PersonCard
 
+ParticipantListPanel -up-|> EntityListPanel
+TeamListPanel-up-|> EntityListPanel
+MentorListPanel-up-|> EntityListPanel
+
+EntityListPanel -right[hidden] StatusBarFooter
+
+ParticipantListPanel -down-> EntityCard
+TeamListPanel -down-> EntityCard
+MentorListPanel -down-> EntityCard
+EntityCard ..> Model
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+StatusBarFooter -|> UiPart
+HelpWindow -down-|> UiPart
+EntityListPanel --|> UiPart
+EntityCard-|> UiPart
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

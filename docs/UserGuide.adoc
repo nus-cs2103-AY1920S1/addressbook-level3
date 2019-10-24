@@ -1,9 +1,11 @@
 = Alfred - The Hackathon Butler User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 3
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -96,6 +98,7 @@ Use this command to add a new entity for Alfred to keep track of. +
 ****
 
 ==== Adding a Participant: `add participant [PARAMETERS]`
+
 Use this command to add a new Participant to Alfred to keep track of for your hackathon.
 
 ****
@@ -128,6 +131,7 @@ Examples:
 * `add mentor n/Doctor Batman p/91236549 e/bruce@gmail.com o/Google s/Augmented Reality`
 
 ==== Adding a Team: `add team [PARAMETERS]`
+
 Use this command to add a new Team to Alfred to keep track of for your hackathon.
 ****
 * Teams have the fields "Name", "Project name" and "Table Number" which you must provide.
@@ -274,6 +278,11 @@ Use this command to list the top k teams in the leaderboard, where k is a number
 * If you input `NUMBER` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon in descending order of their points.
 ****
 
+****
+
+* If you input `NUMBER` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon in descending order of their points.
+****
+
 Example:
 
 * `getTop 5` will display the top 5 teams with the highest points in the hackathon.
@@ -281,6 +290,7 @@ Example:
 * `getTop 20` will display the top 20 teams with the highest points in the hackathon.
 
 ==== Add points: `score add TEAM_ID POINTS`
+
 Adds the value of POINTS to the current score of the team with ID TEAM_ID.
 
 ****
@@ -476,6 +486,7 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 ****
 
 
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -483,20 +494,42 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 
 == Command Summary
 
-* *Add* `add {participant/mentor/team} [PARAMETERS]` +
-e.g. `add participant n/James Ho p/97654321 e/jamesho@example.com`
-* *Edit* : `edit {participant/mentor/team} ID [PARAMETERS]` +
-e.g. `edit participant P-1 n/NewName`
-* *List* : `list {participants/mentors/teams}`
-* *Delete* : `delete {participant/mentor/team} ID` +
-e.g. `delete participant P-1`
-* *Find* : `find{Participant/Mentor/Team} [KEYWORD]` +
-e.g. `findParticipant n/James`
-* *Command History* `history`
-* *Undo* `undo`
-* *Redo* `redo`
-* *Team Ranking* `leaderboard`
-* *Get Top Teams* `getTop NUMBER`
-* *Add Points* `score add TEAM_ID POINTS`
-* *Bulk Registration* `addBulk PATH_TO_CSV_FILE`
-* *Help* : `help`
+
+[width="100%",cols="2%,<50%,<50%,<90%",options="header",]
+|=======================================================================
+|Command |Function |Format|Example
+|Add an Entity|Add an Entity for Alfred to keep track |`add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`| *Participant:* `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`
+
+|Update an Entity|Edits an entity based on the supplied parameter values |`edit {mentor/participant/team} ID [PARAMETERS]` | *Participant:* `edit participant P01 n/NewParticipantName` *Team:* `edit team T01 n/NewTeamName pn/New Project Name` *Mentor:* `edit participant P01 n/NewMentorName`
+
+|List all Entities |Shows a list of all the entities corresponding to the entity type |`list {mentors/teams/participants}`| *Participant:* `list participants` *Team:* `list teams` *Mentor:* `list mentors`
+
+|Deleting an Entity |Deletes an Entity, so that Alfred will no longer keep track of that Entity | `delete {participant/mentor/team} ID` | *Participant:* `delete participant P-1` *Team:* `delete team T-1` *Mentor:* `delete mentor M-1`
+
+|Finding an Entity |Searches for Entities by their name|`find {mentor/team/participant} NAME` | *Participant:* `find participant n/John Doe` *Team:* `find team n/FutureHackathonWinner` *Mentor:* `find mentor n/Joshua Wong`
+|List Team rankings|Displays the ranking of the teams in the Hackathon in descending order of their points |`leaderboard`| *Team:* `leaderboard`
+
+|Get the top k teams |List the top k teams in the leaderboard, where k is a number (NUMBER) which you specify |`getTop NUMBER` | *Team:* `getTop 5`
+
+|Add points to a Team |Adds the value of POINTS to the current score of the team with TEAM_ID|`score add TEAM_ID POINTS` | *Team:* `score add T-1 20`
+
+|Subtracts points from a Team |Deducts the value of POINTS from the current score of the team with TEAM_ID |`score sub TEAM_ID NEW_POINTS`| *Team:* `score sub T-1 15`
+|Sets points of a Team |Sets the score of the team with TEAM_ID to a new score NEW_POINT |`score sub TEAM_ID NEW_POINTS` | *Team:* `score set T-1 15`
+|Bulk registration|Adds multiple participants at once into Alfred through the specification of a .csv file | `addBulk PATH_TO_CSV_FILE`| `addBulk C:\User\Hackathon2019\participant.csv` will import data from the participant.csv file into Alfred
+
+|Add a schedule for a Team |Adds a time slot where the Team of TEAM_ID meets with Mentor of MENTOR_ID |`addSchedule TIME TEAM_ID MENTOR_ID` | `addSchedule 1/2/2019 1400 T-1 M-1` the specified Mentor will meet with Team on 1st February 2019 2pm
+
+|Update schedule of a Team |Updates the existing schedule of SCHEDULE_ID of a Team of  TEAM_ID. New schedule will be added if the Team does not have an existing schedule of SCHEDULE_ID | `updateSchedule SCHEDULE_ID TIME TEAM_ID MENTOR_ID` | `updateSchedule S01 1/2/2019 1400 T-1 M-1` Schedule S01 of T-1 will be updated to meet with Mentor M-1 at 1st February 2pm
+
+|Delete a schedule for a Team |Deletes a time slot where the of SCHEDULE_ID |`deleteSchedule SCHEDULE_ID` | `deleteSchedule S-1`
+
+|Add addFoodCompany and Inventory|Adds a Food with COMPANY_NAME, INVENTORY_QUANTITY and CATERING_TIME|`addFoodCompany cn/COMPANY_NAME pax/INVENTORY QUANTITY t/CATERING_TIME`| `addFood cn/Neo's Garden pax/100 t/1/2/2019 1400`
+
+|Marked Food as received|Marks a Food with COMPANY_NAME and CATERING_TIME as received| `receivedFood cn/COMPANY_NAME pax/INVENTORY_QUANTITY` | `receiveFood cn/Neo's Garden pax/100`
+
+|List all Food |Lists the inventory of Food |`list food`| `list food`
+
+|Add User to WaitList |Adds a prospective Participant by USER_ID to Waitlist | `addToWaitList USER_ID` | `addToWaitList U-1`
+
+|Remove a User from WaitList |Removes a prospective Participant by USER_ID from Waitlist | `removeFromWaitList USER_ID` | `removeFromWaitList U-1`
+|List all User in WaitList |Lists all prospective Participant in Waitlist | `listWaitList` | `listWaitList`
