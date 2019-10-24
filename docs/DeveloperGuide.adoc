@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Moolah Level 3 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -452,7 +452,7 @@ Given below is an example usage scenario and how the `stats` command word is han
 
 Step 1. The user enters the command `stats sd/01-10-2019 ed/01-11-2019` to visualise the total percentage of each category
 as a percentage of total expenditure across all categories, in the primary budget.
-The command is received by `MooLahParser`, which then creates a `StatsCommandParser` object,
+The command is received by `AddressBookParser`, which then creates a `StatsCommandParser` object,
 to subsequently help to parse the input by the user.
 
 Step 2. The newly created `StatsCommandParser` calls `parse("stats sd/01-10-2019 ed/01-11-2019")`,
@@ -713,6 +713,7 @@ to enter the command as well as a more functional input field.
 // end::SyntaxAutofill[]
 
 
+>>>>>>> b0c4666f38acaeadcb6dd43f2515a6f6dfae140f
 // category::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -919,7 +920,7 @@ Use case resumes at step 4.
 *MSS*
 
 1.  User requests to see reminders.
-2.  AddressBook shows a list of reminders.
+2.  Moolah shows a list of reminders.
 +
 Use case ends.
 
