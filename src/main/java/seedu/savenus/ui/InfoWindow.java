@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.InfoCommand;
+import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.model.info.AddInfo;
 import seedu.savenus.model.info.AutoSortInfo;
 import seedu.savenus.model.info.BudgetInfo;
@@ -24,6 +25,7 @@ import seedu.savenus.model.info.FindInfo;
 import seedu.savenus.model.info.HelpInfo;
 import seedu.savenus.model.info.InfoInfo;
 import seedu.savenus.model.info.ListInfo;
+import seedu.savenus.model.info.MakeSortInfo;
 import seedu.savenus.model.info.RecommendInfo;
 import seedu.savenus.model.info.SaveInfo;
 import seedu.savenus.model.info.SortInfo;
@@ -205,6 +207,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(ListInfo.INFORMATION);
             usageExample.setText(ListInfo.USAGE);
             output.setText(ListInfo.OUTPUT);
+            break;
+        case InfoCommand.MAKE_SORT_INFO :
+            commandWord.setText(MakeSortInfo.COMMAND_WORD);
+            infoMessage.setText(MakeSortInfo.INFORMATION);
+            usageExample.setText(MakeSortInfo.USAGE);
+            output.setText(MakeSortInfo.OUTPUT);
             break;
         case InfoCommand.RECOMMEND_INFO :
             commandWord.setText(RecommendInfo.COMMAND_WORD);

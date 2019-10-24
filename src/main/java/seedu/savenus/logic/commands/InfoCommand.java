@@ -46,6 +46,8 @@ public class InfoCommand extends Command {
 
     public static final String LIST_INFO = COMMAND_INDICATOR + ListCommand.COMMAND_WORD;
 
+    public static final String MAKE_SORT_INFO = COMMAND_INDICATOR + MakeSortCommand.COMMAND_WORD;
+
     public static final String RECOMMEND_INFO = COMMAND_INDICATOR + RecommendCommand.COMMAND_WORD;
 
     public static final String SAVE_INFO = COMMAND_INDICATOR + SaveCommand.COMMAND_WORD;
@@ -101,6 +103,8 @@ public class InfoCommand extends Command {
             return new CommandResult(INFO_INFO);
         case ListCommand.COMMAND_WORD :
             return new CommandResult(LIST_INFO);
+        case MakeSortCommand.COMMAND_WORD :
+            return new CommandResult(MAKE_SORT_INFO);
         case RecommendCommand.COMMAND_WORD :
             return new CommandResult(RECOMMEND_INFO);
         case SaveCommand.COMMAND_WORD :
