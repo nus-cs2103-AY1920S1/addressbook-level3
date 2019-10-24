@@ -17,6 +17,7 @@ import seedu.ezwatchlist.logic.Logic;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.statistics.Statistics;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Statistics statistics;
 
     // Independent Ui parts residing in this Ui container
     private ShowListPanel showListPanel;
@@ -50,13 +52,14 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane contentPanelPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic, Statistics statistics) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.primaryStage.setTitle("Ezwatchlist");
+        this.statistics = statistics;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -111,7 +114,7 @@ public class MainWindow extends UiPart<Stage> {
         showListPanel = new ShowListPanel(logic.getFilteredShowList());
         watchedPanel = new WatchedPanel(logic.getWatchedList());
         searchPanel = new SearchPanel(logic.getSearchResultList());
-        statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
+        statisticsPanel = new StatisticsPanel(statistics.getForgotten());
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

@@ -11,6 +11,7 @@ import seedu.ezwatchlist.MainApp;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.commons.util.StringUtil;
 import seedu.ezwatchlist.logic.Logic;
+import seedu.ezwatchlist.statistics.Statistics;
 
 /**
  * The manager of the UI component.
@@ -24,10 +25,12 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
+    private Statistics statistics;
 
-    public UiManager(Logic logic) {
+    public UiManager(Logic logic, Statistics statistics) {
         super();
         this.logic = logic;
+        this.statistics = statistics;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, logic, statistics);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
