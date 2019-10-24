@@ -25,6 +25,11 @@ public class JsonHistoryManagerStorage implements HistoryManagerStorage {
         this.filepath = filepath;
     }
 
+    /**
+     * Gets the file path of the data file for {@code HistoryManager}.
+     *
+     * @return File path of the data file for {@code HistoryManager}.
+     */
     public Path getHistoryManagerFilePath() {
         return filepath;
     }

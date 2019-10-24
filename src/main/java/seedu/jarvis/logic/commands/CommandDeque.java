@@ -6,14 +6,13 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
 
 /**
  * A deque of commands that does not allow nulls.
  *
- * The front of the deque stores the latest commands, while the back of the deque stores the oldest commands.
+ * The back of the deque stores the latest commands, while the front of the deque stores the oldest commands.
  * The deque is kept within the size given by the value of limit, if the deque exceeds the
  * size, it will remove commands till it is within the size limit, removing the oldest commands first.
  */
@@ -21,8 +20,8 @@ public class CommandDeque {
     /** Size limit of the maximum possible number of commands to store. */
     private static final int SIZE_LIMIT = 10;
     /**
-     * Deque to store commands. Deque is used to facilitate adding new commands to the start of the deque, and deleting
-     * old commands from the back of the deque.
+     * Deque to store commands. Deque is used to facilitate adding new commands to the back of the deque, and deleting
+     * old commands from the front of the deque.
      */
     private Deque<Command> commands;
 
@@ -47,7 +46,7 @@ public class CommandDeque {
     /**
      * Gets a {@code List} of all commands being stored in the {@code CommandDeque}.
      * The commands in the list are ordered chronologically to when they were inserted into the {@code CommandDeque},
-     * with the latest command being at the start of the list and the oldest command being at the end of the list.
+     * with the latest command being at the back of the list and the oldest command being at the front of the list.
      *
      * @return {@code List} of all the commands being stored in the {@code CommandDeque}.
      */
@@ -94,7 +93,7 @@ public class CommandDeque {
     }
 
     /**
-     * Gets the most recent {@code Command} added to {@code CommandDeque} which is at the front of the deque.
+     * Gets the most recent {@code Command} added to {@code CommandDeque} which is at the back of the {@code Deque}.
      * Throws a {@code CommandNotFoundException} which extends from {@code RuntimeException} if the {@code CommandDeque}
      * is empty before getting the latest {@code Command}.
      *
@@ -104,7 +103,7 @@ public class CommandDeque {
         if (isEmpty()) {
             throw new CommandNotFoundException();
         }
-        return commands.getFirst();
+        return commands.getLast();
     }
 
     /**
@@ -116,12 +115,12 @@ public class CommandDeque {
      */
     public void addLatestCommand(Command command) {
         requireNonNull(command);
-        commands.addFirst(command);
+        commands.addLast(command);
         trimSize();
     }
 
     /**
-     * Deletes the latest {@code Command} in {@code CommandDeque}.
+     * Deletes the latest {@code Command} in {@code CommandDeque} which is at the back of the {@code Deque}.
      * Throws a {@code CommandNotFoundException} which extends from {@code RuntimeException} if the {@code CommandDeque}
      * is empty before deleting the latest {@code Command}.
      *
@@ -132,11 +131,11 @@ public class CommandDeque {
         if (isEmpty()) {
             throw new CommandNotFoundException(); // RuntimeException
         }
-        return commands.removeFirst();
+        return commands.removeLast();
     }
 
     /**
-     * Deletes the oldest {@code Command} in {@code CommandDeque}.
+     * Deletes the oldest {@code Command} in {@code CommandDeque} which is at the front of the {@code Deque}.
      * Throws a {@code CommandNotFoundException} which extends from {@code RuntimeException} if the {@code CommandDeque}
      * is empty before deleting the oldest {@code Command}.
      *
@@ -146,7 +145,7 @@ public class CommandDeque {
         if (isEmpty()) {
             throw new CommandNotFoundException();
         }
-        return commands.removeLast();
+        return commands.removeFirst();
     }
 
     /**
@@ -179,12 +178,6 @@ public class CommandDeque {
         }
 
         // checks that each command in the deque are equal to each other taking into account relative positioning.
-        CommandDeque other = (CommandDeque) obj;
-        if (getSize() != other.getSize()) {
-            return false;
-        }
-        ArrayList<Command> list1 = new ArrayList<>(commands);
-        ArrayList<Command> list2 = new ArrayList<>(other.commands);
-        return IntStream.range(0, getSize()).allMatch(index -> list1.get(index).equals(list2.get(index)));
+        return getCommands().equals(((CommandDeque) obj).getCommands());
     }
 }

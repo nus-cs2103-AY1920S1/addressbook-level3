@@ -56,4 +56,5 @@ public interface HistoryManagerStorage {
      * @throws IOException If there was any problem writing to the file.
      */
     void saveHistoryManager(HistoryManager historyManager, Path filePath) throws IOException;
+
 }
