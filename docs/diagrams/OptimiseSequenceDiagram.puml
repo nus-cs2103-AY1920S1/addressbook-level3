@@ -1,0 +1,82 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":PlannerParser" as PlannerParser LOGIC_COLOR
+participant ":OptimiseCommandParser" as OptimiseCommandParser LOGIC_COLOR
+participant ":OptimiseBudgetCommand" as OptimiseBudgetCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":Day" as Day MODEL_COLOR
+end box
+
+[-> LogicManager : execute('optimise budget d/1')
+activate LogicManager
+
+LogicManager -> PlannerParser : parseCommand('optimise budget d/1')
+activate PlannerParser
+
+create OptimiseCommandParser
+PlannerParser -> OptimiseCommandParser
+activate OptimiseCommandParser
+
+OptimiseCommandParser --> PlannerParser
+deactivate OptimiseCommandParser
+
+PlannerParser -> OptimiseCommandParser : parse('budget d/1')
+activate OptimiseCommandParser
+
+OptimiseCommandParser -> OptimiseCommandParser : parseBudget('d/1')
+activate OptimiseCommandParser
+
+create OptimiseBudgetCommand
+OptimiseCommandParser -> OptimiseBudgetCommand
+activate OptimiseBudgetCommand
+
+OptimiseBudgetCommand --> OptimiseCommandParser
+deactivate OptimiseBudgetCommand
+
+OptimiseCommandParser -> OptimiseCommandParser
+deactivate OptimiseCommandParser
+
+OptimiseCommandParser --> PlannerParser
+deactivate OptimiseCommandParser
+
+OptimiseCommandParser -[hidden]-> PlannerParser
+destroy OptimiseCommandParser
+
+PlannerParser --> LogicManager
+deactivate PlannerParser
+
+LogicManager -> OptimiseBudgetCommand : execute
+activate OptimiseBudgetCommand
+
+OptimiseBudgetCommand -> ModelManager : getFilteredItinerary()
+activate ModelManager
+
+ModelManager --> OptimiseBudgetCommand
+deactivate ModelManager
+
+OptimiseBudgetCommand -> Day : optimiseBudget()
+activate Day
+
+Day --> OptimiseBudgetCommand
+deactivate Day
+
+OptimiseBudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> OptimiseBudgetCommand : commandResult
+deactivate CommandResult
+
+OptimiseBudgetCommand --> LogicManager : commandResult
+deactivate OptimiseBudgetCommand
+
+[<-LogicManager : commandResult
+deactivate LogicManager
+
+@enduml

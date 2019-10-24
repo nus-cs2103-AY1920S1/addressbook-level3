@@ -99,18 +99,18 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `PlannerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a contact).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add activity n/Climb Fuji a/Mount Fuji")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `add activity n/Climb Fuji a/Mount Fuji` Command
+image::AddSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -242,6 +242,53 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+=== [Proposed] Schedule optimisation
+==== Proposed Implementation
+
+The proposed schedule optimisation feature utilises `TimeTable` and allows the user to schedule multiple activities within the same time slot. The following command is supported:
+
+* optimise budget INDEX_OF_DAY -- optimises and brings activities with the lowest cost into focus. This operation supports activities with or without a cost. Activities without a cost has a default cost of $0.00.
+
+
+Given below is a sample usage of the proposed feature:
+
+Step 1. User adds an activity with a cost:
+
+* `add activity n/lunch a/KFC c/5.00`
+
+Step 2. User adds another activity without a cost:
+
+* `add activity n/go for a walk a/park`
+
+Step 3. User schedules the first activity into a day:
+
+* `schedule activity 1 st/1300 et/1400 d/1`
+
+Step 4. User schedules the second activity into the same day:
+
+* `schedule activity 2 st/1300 et/1400 d/1`
+
+Step 6. User executes `optimise budget` command. The activities in that day would be shown in a way such that the activities with the lowest costs are in focus.
+
+Shown below is a summary of the execution of the command.
+
+image::OptimiseSequenceDiagram.png[]
+
+==== Design considerations
+Aspect: How version comparison is executed:
+
+* Alternative 1(current choice): user overload each time slot.
+
+** Pros: User can save time by overloading a single day's schedule.
+
+** Cons: UI might get very cluttered when a single time slot has too many activities.
+
+* Alternative 2: user create copies of each day and choose which they prefer.
+
+** Pros: UI is neater, each day would not look too crammed.
+
+** Cons: May have a lot of permutations which is tedious for user to optimise.
 
 === Logging
 
