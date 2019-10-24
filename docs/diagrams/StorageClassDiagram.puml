@@ -63,39 +63,39 @@ Interface Storage <<Interface>>
 Class StorageManager
 Class JsonMenuStorage
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> MenuStorage
-StorageManager o--> PurchaseHistoryStorage
-StorageManager o--> CustomSortStorage
-StorageManager o-right-> SavingsStorage
-StorageManager o-left-> RecsStorage
+StorageManager .up.|> Storage
+StorageManager o-down-> UserPrefsStorage
+StorageManager o-down-> MenuStorage
+StorageManager o-down-> PurchaseHistoryStorage
+StorageManager o-down-> CustomSortStorage
+StorageManager o-down-> SavingsStorage
+StorageManager o-down-> RecsStorage
 StorageManager o-down-> WalletStorage
 
-JsonPurchaseHistoryStorage .left.|> PurchaseHistoryStorage
+JsonPurchaseHistoryStorage .up.|> PurchaseHistoryStorage
 JsonPurchaseHistoryStorage .down.> JsonSerializablePurchase
 JsonSerializablePurchase .down.> JsonAdaptedPurchase
 
-JsonWalletStorage .left.|> WalletStorage
+JsonWalletStorage .up.|> WalletStorage
 JsonWalletStorage .down.> JsonSerializableWallet
-JsonSerializableWallet .right.> JsonAdaptedWallet
+JsonSerializableWallet .down.> JsonAdaptedWallet
 
-JsonSavingsStorage .left.|> SavingsStorage
+JsonSavingsStorage .up.|> SavingsStorage
 JsonSavingsStorage .down.> JsonSerializableSavingsAccount
-JsonSerializableSavingsAccount .right.> JsonAdaptedSavings
+JsonSerializableSavingsAccount .down.> JsonAdaptedSavings
 
-JsonRecsStorage .left.|> RecsStorage
+JsonRecsStorage .up.|> RecsStorage
 JsonRecsStorage .down.> JsonSerializableRecs
-JsonSerializableRecs .right.> JsonAdaptedRecs
+JsonSerializableRecs .down.> JsonAdaptedRecs
 
-JsonCustomSortStorage .left.|> CustomSortStorage
+JsonCustomSortStorage .up.|> CustomSortStorage
 
 JsonCustomSortStorage .down.> JsonSerializableCustomSort
-JsonSerializableCustomSort .right.> JsonAdaptedCustomSort
+JsonSerializableCustomSort .down.> JsonAdaptedCustomSort
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonMenuStorage .left.|> MenuStorage
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+JsonMenuStorage .up.|> MenuStorage
 JsonMenuStorage .down.> JsonSerializableMenu
 JsonSerializableMenu .down.> JsonSerializableFood
-JsonSerializableFood .right.> JsonAdaptedTag
+JsonSerializableFood .down.> JsonAdaptedTag
 @enduml
