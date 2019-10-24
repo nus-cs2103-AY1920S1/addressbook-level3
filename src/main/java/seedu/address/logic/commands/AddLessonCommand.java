@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

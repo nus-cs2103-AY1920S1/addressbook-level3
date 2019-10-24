@@ -13,10 +13,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ClassroomParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.lesson.Lesson;
 import seedu.address.model.ReadOnlyClassroom;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.scheduler.Reminder;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
 

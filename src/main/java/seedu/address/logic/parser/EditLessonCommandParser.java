@@ -3,9 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.EditLessonCommand.EditLessonDescriptor;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditLessonCommand;
@@ -30,7 +30,8 @@ public class EditLessonCommandParser implements Parser<EditLessonCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditLessonCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditLessonCommand.MESSAGE_USAGE), pe);
         }
 
         EditLessonDescriptor editLessonDescriptor = new EditLessonDescriptor();
