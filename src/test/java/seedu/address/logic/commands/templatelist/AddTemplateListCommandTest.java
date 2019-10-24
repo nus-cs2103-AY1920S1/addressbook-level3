@@ -1,13 +1,13 @@
 package seedu.address.logic.commands.templatelist;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Predicate;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.templatelist.template.AddTemplateItemCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGroceryList;
@@ -34,27 +35,27 @@ import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
 import seedu.address.model.waste.WasteReport;
 import seedu.address.testutil.TemplateItemBuilder;
+import seedu.address.testutil.UniqueTemplateItemsBuilder;
 
 
 public class AddTemplateListCommandTest {
 
     @Test
-    public void constructor_nullTemplateItem_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddTemplateItemCommand(null, null));
+    public void constructor_nullTemplate_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddTemplateListCommand(null));
     }
 
-    /**
     @Test
-    public void execute_templateItemAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTemplateItemAdded modelStub = new ModelStubAcceptingTemplateItemAdded();
-        TemplateItem validTemplateItem = new TemplateItemBuilder().build();
+    public void execute_templateAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingTemplateAdded modelStub = new ModelStubAcceptingTemplateAdded();
+        UniqueTemplateItems validTemplate = new UniqueTemplateItemsBuilder(new Name("Weekly Necessities")).build();
 
-        CommandResult commandResult = new AddTemplateItemCommand(validTemplateItem).execute(modelStub);
+        CommandResult commandResult = new AddTemplateListCommand(validTemplate).execute(modelStub);
 
-        assertEquals(String.format(AddTemplateItemCommand.MESSAGE_SUCCESS, validTemplateItem),
+        assertEquals(String.format(AddTemplateListCommand.MESSAGE_SUCCESS, validTemplate),
             commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validTemplateItem), modelStub.templateItemsAdded);
-    }**/
+        assertEquals(Arrays.asList(validTemplate), modelStub.templatesAdded);
+    }
 
     @Test
     public void equals() {
@@ -367,36 +368,36 @@ public class AddTemplateListCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single template.
      */
-    private class ModelStubWithTemplateItem extends ModelStub {
-        private final TemplateItem templateItem;
+    private class ModelStubWithTemplate extends ModelStub {
+        private final UniqueTemplateItems template;
 
-        ModelStubWithTemplateItem(TemplateItem templateItem) {
-            requireNonNull(templateItem);
-            this.templateItem = templateItem;
+        ModelStubWithTemplate(UniqueTemplateItems template) {
+            requireNonNull(template);
+            this.template = template;
         }
 
-        public boolean hasTemplateItem(TemplateItem templateItem) {
-            requireNonNull(templateItem);
-            return this.templateItem.isSameFood(templateItem);
+        public boolean hasTemplate(UniqueTemplateItems template) {
+            requireNonNull(template);
+            return this.template.isSameTemplate(template);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingTemplateItemAdded extends ModelStub {
-        final ArrayList<TemplateItem> templateItemsAdded = new ArrayList<>();
+    private class ModelStubAcceptingTemplateAdded extends ModelStub {
+        final ArrayList<UniqueTemplateItems> templatesAdded = new ArrayList<>();
 
-        public boolean hasTemplateItem(TemplateItem templateItem) {
-            requireNonNull(templateItem);
-            return templateItemsAdded.stream().anyMatch(templateItem::isSameFood);
+        public boolean hasTemplate(UniqueTemplateItems template) {
+            requireNonNull(template);
+            return templatesAdded.stream().anyMatch(template::isSameTemplate);
         }
 
-        public void addTemplateItem(TemplateItem templateItem) {
-            requireNonNull(templateItem);
-            templateItemsAdded.add(templateItem);
+        public void addTemplate(UniqueTemplateItems template) {
+            requireNonNull(template);
+            templatesAdded.add(template);
         }
 
         public ReadOnlyTemplateList getTemplateList() {

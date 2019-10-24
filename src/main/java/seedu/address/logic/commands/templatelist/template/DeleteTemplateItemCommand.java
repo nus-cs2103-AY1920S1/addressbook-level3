@@ -47,7 +47,7 @@ public class DeleteTemplateItemCommand extends Command {
         }
         UniqueTemplateItems templateToEdit = lastShownList.get(targetTemplateIndex.getZeroBased());
         if (targetItemIndex.getZeroBased() >= templateToEdit.getSize()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
         }
 
         TemplateItem itemToDelete = templateToEdit.get(targetItemIndex.getZeroBased());

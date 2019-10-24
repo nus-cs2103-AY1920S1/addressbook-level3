@@ -1,10 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +7,8 @@ import java.util.List;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
+
+import static seedu.address.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code TemplateItem} objects to be used in tests.
@@ -33,18 +30,16 @@ public class TypicalTemplateItems {
             .withAmount("1L").build();
 
     // Manually added
-    public static final TemplateItem CHEESE = (TemplateItem) new TemplateItemBuilder().withName("Cheddar Cheese")
-            .withAmount("300g").build();
+    public static final TemplateItem Eggplant = (TemplateItem) new TemplateItemBuilder().withName("Eggplant")
+            .withAmount("3units").build();
     public static final TemplateItem JUICE = (TemplateItem) new TemplateItemBuilder().withName("Apple Juice")
             .withAmount("300ml").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final TemplateItem AMY = new TemplateItemBuilder().withName(VALID_NAME_AMY)
-            .withAmount(VALID_AMOUNT_AMY).build();
-    public static final TemplateItem BOB = new TemplateItemBuilder().withName(VALID_NAME_BOB)
-            .withAmount(VALID_AMOUNT_BOB).build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final TemplateItem CHEESE = new TemplateItemBuilder().withName(VALID_NAME_CHEESE)
+            .withAmount(VALID_AMOUNT_CHEESE).build();
+    public static final TemplateItem TOMATO_JUICE = new TemplateItemBuilder().withName(VALID_NAME_TOMATO_JUICE)
+            .withAmount(VALID_AMOUNT_TOMATO_JUICE).build();
 
     private TypicalTemplateItems() {} // prevents instantiation
 
