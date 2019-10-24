@@ -151,7 +151,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::addBook[]
+//tag::addBook[]
 === Add book feature
 ==== Implementation
 
@@ -163,10 +163,12 @@ Additionally, it implements the following operation:
 
 Given below is an activity diagram of a book being added to the catalog.
 
-image::AddBookActivityDiagram.png[]
+.Activity Diagram for adding a book
+image::AddBookActivityDiagram.png[width=300, align=center]
 
 Given below is a class diagram of a book after being added to the catalog.
 
+.Class Diagram for `Book`
 image::BookClassDiagram.png[]
 
 ==== Design Considerations
@@ -198,22 +200,33 @@ We need to come up with a solution to give us "B00001" in the given example.
 * **Alternative 2:** Use brute force to start iterating from "B00001" to obtain the first unused serial number.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
-// end::addbook[]
+//end::addBook[]
 
 // tag::printLoanSlip[]
-=== [Proposed] Print loan slip feature
+=== Generate Loan Slip feature
 ==== Proposed Implementation
 
 The printing of loan slip feature is facilitated by `LoanSlipIUtil`.
 Essentially, it implements the following operations:
 
-* `LoanSlipUtil#mountLoanSlip()` -- Mounts a loan slip in preparation for generation of loan slip in pdf form.
-* `LoanSlipUtil#unmountLoanSlip()` -- Unmounts a loan slip ,usually after generating a pdf version of it.
+* `LoanSlipUtil#mountLoan()` -- Mounts a loan slip in preparation for generation of loan slip in pdf form.
+* `LoanSlipUtil#unmountLoan()` -- Unmounts a loan slip ,usually after generating a pdf version of it.
 * `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loan slip in the loan_slips folder.
 
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
 
+.Sequence Diagram for the generation of a loan slip
 image::LoanSlipGeneration.png[]
+
+The following describes the sequence of events displayed in the figure above.
+
+* The `LoanCommand` is executed
+* The `LoanCommand` retrieves the `Book` and the `Borrower`
+* The `LoanCommand` creates a new `Loan`
+* The `LoanCommand` mounts the new loan in `LoanSlipUtil`
+* The `Storage` component creates and save a new `LoanSlipDocument` in a saved folder
+* The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately
+* The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
 
 ==== Design Considerations
 
@@ -223,17 +236,19 @@ image::LoanSlipGeneration.png[]
 ** Pros: Will be straightforward to implement.
 ** Cons: The `Logic` component and the `LoanCommand` object needs to have knowledge on all individual methods of `LoanSlipDocument` to be able to create a loan slip.
 * **Alternative 2 (current choice):** Create a Facade class `LoanSlipUtil` to facilitate creation of `LoanSlipDocument`.
-** Pros: The `Logic` component and the `LoanCommand` object can now use the full functionality of `LoanSlipDocument` via the static class `LoanSlipUtil` without knowing `LoanSlipDocument`'s internal implementation.
+** Pros: The `Logic` component and the `LoanCommand` object can now use the full functionality of `LoanSlipDocument` via the static class `LoanSlipUtil` without knowing the internal implementation of `LoanSlipDocument`.
 ** Cons: There is more code to be written and we must consider how to save state within a static class such that it can be continually reused.
+
+I have decided to go with Alternative 2. The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*. It also *decouples* the code, making it easier to modify in the future.
 
 ===== Aspect: Implementation to allow extension (loan multiple books at one go).
 
 * **Alternative 1 (current choice):** Mount a loan in `LoanSlipUtil` for each book.
-** Pros: Will be easy to extend in the future as we can just mount multiple loans using `LoanSlipUtil` before generating all loans in a single Loan Slip.
+** Pros: Will be easy to extend in the future as we can just mount multiple loans using `LoanSlipUtil` before generating all loans in a single loan slip.
 ** Cons: Will require more code when mounting loans in the Facade class.
 * **Alternative 2:** Re-create `LoanSlipDocument` whenever a new loan comes in.
 ** Pros: Will only need to make adjustments to `Logic` component to contain an `Optional<LoanSlipDocument>` field and update accordingly whenever a new `Loan` comes in.
-** Cons: Violates Single Responsibility Principle as the Logic class will now have to change if we change the implementation of LoanSlipDocument.
+** Cons: Violates Single Responsibility Principle as the Logic class will now have to change if we change the implementation of `LoanSlipDocument`.
 // end::printLoanSlip[]
 
 === Logging

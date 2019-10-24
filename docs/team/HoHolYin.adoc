@@ -1,4 +1,4 @@
-=Ho Hol Yin - Project Portfolio
+= Ho Hol Yin - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -10,77 +10,126 @@
 == About the Project
 
 //Change to one line later
-My team believes in a right to education for everyone. With a common belief to improve literacy in the world,
-we decided to create a library management system called 'LiBerry' that is free and easy to use for all.
-'LiBerry' is designed for smaller communities with a lack of expertise and resources to manage a library.
-This library management system is able to add and remove books to and from the library. It is also able to register
-borrowers and mark a book as loaned to a borrower. On top of it, it is also able to automatically calculate loan
-periods and fines for any overdue loans, as well as generate a loan slip for every loan.
+With a common belief to improve literacy in the world, my team decided to create a library management system called
+'LiBerry' that is free and easy to use. 'LiBerry' is designed for small communities with a lack of expertise and
+resources to manage a library.
 
-This is what our system looks like:
+This library management system is able to:
 
-image::Ui.png[width="150", align="center"]
+* Add books to the library
+* Remove books from the library
+* Register borrowers
+* Mark a book as loaned to a borrower
+* Calculate loan periods and fines for any overdue loans
+
+This is what the main page of our system looks like:
+
+.Graphical user interface for LiBerry
+image::Ui.png[]
 
 == Summary of contributions
+|===
+|_This section shows a summary of my coding, documentation, and other helpful contributions to the team project._
+|===
 
-* *Major enhancement*: Implemented the ability to *add books*
-** What it does: allows the user to add books to the system.
-** Justification: This feature is the core functionality of any library management system and will greatly enhance the efficiency of the system if implemented and designed well.
-** Highlights: This feature is challenging to implement as it will require us to store the books and their serial numbers in an efficient way due to the following 4 requirements:
-*** We want our system to be able to *support up to 10,000 books*
-*** We require all books to have a *unique serial number* tagged to it
-*** We allow librarians to assign new books *any valid serial number* should they wish so.
-*** We want all input commands to return results in *less than 1 second*
-** Credits: This feature is adapted from the 'add person' feature from Address Book 3. However, we have made many changes to it to allow books to, for example, be loaned out or tagged with a unique serial number.
+* *Major enhancement*: The ability to *automatically generate loan slips in pdf* for every loan.
+** What it does: Allows the librarian to print the generated loan slip for the borrower.
+** Justification: Since our target group is small impoverished communities, it is unlikely they will have internet access to check the status of their loans. Therefore, it will be suitable to provide them with a printed version of the loan.
+** Highlights: This feature is challenging to implement as it will require us to create a new pdf document from scratch. On top of that, this document will have to be suitably styled as a loan slip using information from the loan.
+** Credits: This feature is made possible with the 'iText 7' library. However, it was still required of me to understand the API well and in depth such that I can apply it appropriately to the context of our project.
+
+
+image::LoanSlip.png[width=350, align=center]
 
 * *Minor enhancement*:
+** Implemented the ability to *add books*
 ** Implemented the ability to *delete books*
-** Implemented the ab
+** Implemented the ability to *display information* about a book
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed the release of `v1.3` on GitHub. In `v1.3`, we have the following additional features:
+**** Pay fines
+**** Renew loans
+**** Generate loan slip
+**** Edit Borrower details
+**** Search overdue books and books that are on loan
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+*** Optimised the generation of a new serial number when a new book is added
+**** Done through Pull Request https://github.com/AY1920S1-CS2103T-F13-1/main/pull/118[#118]. This enhancement allows the system to efficiently locate and allocate the smallest available serial number to the new book.
+*** Made the `Book` Object immutable in preparation for the undo/redo feature in the future
+**** Done through Pull Request https://github.com/AY1920S1-CS2103T-F13-1/main/pull/147[#147]. This modification allows the system to track the different states of the system throughout its usage. This is required in order to implement the undo/redo function.
+
+** Documentation:
+*** Wrote the https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Model[documentation] for the `Model` component of the system.
+*** Described the https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/docs/DeveloperGuide.adoc#generate-loan-slip-feature['Generate Loan Slip'] feature and its design considerations.
+
+** Community:
+*** https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49/files/22e0d669e265d0f2835df4e4a2d0f15a57b05795[Reviewed](with non-trivial comments) a Pull Request from another group
+*** Contributed to forum discussions as a group (Shared a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] on how to check code coverage when running tests)
+*** https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49/files/22e0d669e265d0f2835df4e4a2d0f15a57b05795[Reported] bugs and suggestions for other teams in the class.
+
+** Tools:
+*** Integrated a third party library (iText 7) to the project in https://github.com/AY1920S1-CS2103T-F13-1/main/pull/150[this] Pull Request
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_This section outlines my contributions to the team's User Guide. The following are excerpts from the 'LiBerry' User Guide. These excerpts show the additions I made for the 'Add Book' and 'Loan' feature. In the 'Loan' feature, my contributions include only the loan slip portion._
 |===
+==== Add Book Feature
+****
+Adding a book: `add`
 
-//include::../UserGuide.adoc[tag=delete]
+Adds a new book to library records. +
+Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]`
+
+[TIP]
+A book can have any number of genres (including 0)
+
+[TIP]
+You do not need to specify the serial number if you wish so. +
+LiBerry will then auto-generate a valid serial number for the new book.
+
+Examples:
+
+* `add t/Harry Botter and the Baby's Potty a/Raylei Jolking sn/B02010 g/children`
+* `add t/Inferno a/Tande g/classic g/epic`
+****
+==== Loan Book Feature
+****
+Loaning book(s): `loan`
+
+Loan book(s) by their serial number +
+Format: `loan sn/BOOK_SN...`
+
+Examples:
+
+* `loan sn/B00041` +
+Loans the book with serial number B00041
+* `loan sn/B00201 sn/B02929 sn/B00203` +
+Loans the books with serial numbers B00201, B02929 and B00203
+
+Upon loaning a book, a printable loan slip in pdf format will be generated.
+
+.Printable PDF version of a Loan Slip
+image::LoanSlip.png[width=250, align=center]
+****
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_This section highlights my contributions to the Developer Guide. The following are excerpts from the 'LiBerry' Developer Guide. These excerpts show the additions I have made for the 'Add Book' and 'Generate Loan Slip' feature._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=addBook]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=printLoanSlip]
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
