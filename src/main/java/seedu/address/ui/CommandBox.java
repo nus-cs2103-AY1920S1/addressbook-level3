@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.ReadOnlyModulePlanner;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -26,10 +26,10 @@ public class CommandBox extends UiPart<Region> {
 
     private Autocomplete autocomplete;
 
-    public CommandBox(CommandExecutor commandExecutor, StudyPlan activeStudyPlan) {
+    public CommandBox(CommandExecutor commandExecutor, ReadOnlyModulePlanner modulePlanner) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        autocomplete = new Autocomplete(activeStudyPlan);
+        autocomplete = new Autocomplete(modulePlanner);
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         autocomplete.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         autocomplete.setId("commandTextField");
@@ -90,4 +90,10 @@ public class CommandBox extends UiPart<Region> {
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
+    /**
+     * Resets the autocomplete when there is a change in active study plan.
+     */
+    public void handleChangeOfActiveStudyPlan() {
+        autocomplete.handleChangeOfActiveStudyPlan();
+    }
 }

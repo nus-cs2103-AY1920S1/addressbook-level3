@@ -485,6 +485,84 @@ the necessary information.
 ** Pros: The module manager does not need to persistently hold on to the same list of `ModuleInfo` objects.
 ** Cons: It performs the same reading action multiple times, which could lead to slowdowns.
 
+=== Autocomplete
+
+==== Implementation
+
+image::AutocompleteClassDiagram.png[]
+
+The autocompletion of keywords is facilitated by `Autocomplete`, which inherits from `Textfield`.
+When the `MainWindow` is created, a `CommandBox` is created and added to the GUI.
+The `CommandBox` holds an `Autocomplete`.
+`CommandBox` attaches a `keyEvent` listener to `Autocomplete` that listens for the `TAB` key press,
+which starts the autocomplete process.
+
+`Autocomplete` holds two sets of keywords, a set for commands and a set for arguments.
+These keywords are represented as `SortedSet<String>`.
+Within each input, the first word will be autocompleted with the set for commands,
+while subsequent words (separated by spaces) will be autocompleted with the set for arguments.
+
+`Autocomplete` is constructed with a `ReadOnlyModulePlanner`.
+It is used to create the keyword sets.
+
+The following sequence diagram shows the creation of Autocomplete:
+
+image::AutocompleteSequenceDiagram.png[]
+
+`Autocomplete` holds the following public operations:
+
+- `Autocomplete#handleAutocomplete` -- Handles the entire autocomplete process based on the current text.
+
+- `Autocomplete#handleChangeOfActiveStudyPlan` -- Resets the argument keywords when there is a
+change in the active study plan.
+
+Given below is an example usage scenario of the `Autocomplete#handleAutocomplete()` operation
+and how the autocomplete mechanism behaves at each step for commands.
+
+Step 1. The user enters the beginning of a command into the GUI text field, for example "addt" for `addtag`.
+The user then presses the activation key `TAB` with begins the autocomplete process.
+The `KeyEvent` listener calls the `Autocomplete#handleAutocomplete()` operation.
+
+Step 2: The text in the text field is checked.
+As it is the first word, the keywords set for commands is used.
+`Autocomplete#completeInput(String input, SortedSet<String> keywords, String currentText)` is called to proceed with the
+completion of input.
+
+Step 3: This method finds search results, which is a subset from the keywords set for commands that begin with the input.
+There are two possible scenarios that are described in Steps 4 and 5.
+
+Step 4: If there is only one search result, the input text is changed to the search result
+and the caret is positioned at the end of the line.
+
+Step 5: If there is more than one search result, a menu will be created for the user to make a selection.
+This method will call the `populateMenu(List<String> searchResult)` method, and then show the menu if it is not showing.
+Then, focus will be requested from the first menu item in the menu. The `populateMenu(List<String> searchResult)`
+populates a `ContextMenu` with `CustomMenuItem`, which correspond to each search result.
+On action of the menu item, either through clicking or pressing the key `ENTER` while it is focused,
+the input text is changed to the search result and the caret is positioned at the end of the line.
+
+The autocomplete mechanism behaves similarly for arguments, except the argument set of keywords will be used.
+
+The following activity diagram shows how the autocomplete works:
+
+image::AutocompleteActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How arguments are completed
+
+* **Alternative 1 (current choice)**: All arguments including tags and module codes are checked for
+together.
+
+** Pros: Easy to implement.
+** Cons: User may want to only be autocompleting for tags, but module codes appear as well.
+
+* **Alternative 2**: Arguments are identified as tags or module codes and  autocompleted based on
+the command.
+** Pros: User can autocomplete without undesired suggestions.
+** Cons: The command will have to be parsed upon autocomplete call, which will
+take more time and alter the structure of parsing commands.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

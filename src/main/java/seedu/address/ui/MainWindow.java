@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private SemesterListPanel semesterListPanel;
     private ResultDisplay resultDisplay;
+    private CommandBox commandBox;
 
     @FXML
     private Label title;
@@ -97,7 +98,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, sp);
+        commandBox = new CommandBox(this::executeCommand, logic.getModulePlanner());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -160,9 +161,7 @@ public class MainWindow extends UiPart<Stage> {
                     semesterListPanelPlaceholder.getChildren().remove(0);
                     semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
                     title.setText(sp.getTitle().toString());
-                    commandBoxPlaceholder.getChildren().remove(0);
-                    CommandBox commandBox = new CommandBox(this::executeCommand, sp);
-                    commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+                    commandBox.handleChangeOfActiveStudyPlan();
                 }
             }
 

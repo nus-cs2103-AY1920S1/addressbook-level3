@@ -48,7 +48,7 @@ public class HelpCommand extends Command {
             + "viewalltags - Viewing all tags\n"
             + "newtag - Creating new tags\n"
             + "renametag - Renaming an existing tag\n"
-            + "tag - Tagging modules\n"
+            + "addtag - Tagging modules\n"
             + "removetag - Removing a tag from a module\n"
             + "removeall - Removing a tag from all modules\n"
             + "deletetag - Deleting tags\n"

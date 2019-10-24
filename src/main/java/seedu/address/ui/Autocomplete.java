@@ -37,7 +37,7 @@ import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
-import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -50,13 +50,15 @@ public class Autocomplete extends TextField {
     private SortedSet<String> argumentKeywords;
     private UniqueTagList tags;
     private ContextMenu keywordMenu;
+    private ReadOnlyModulePlanner modulePlanner;
 
     /**
      * Constructs a textfield that can handle autocompletion.
      */
-    public Autocomplete(StudyPlan activeStudyPlan) {
+    public Autocomplete(ReadOnlyModulePlanner modulePlanner) {
         super();
-        tags = activeStudyPlan.getTags();
+        this.modulePlanner = modulePlanner;
+        tags = modulePlanner.getActiveTags();
         tags.asUnmodifiableObservableList().addListener((ListChangeListener<Tag>) change
             -> generateArgumentKeywords());
         generateCommandKeywords();
@@ -150,7 +152,7 @@ public class Autocomplete extends TextField {
      * Generates the sorted set of required command keywords.
      */
     private void generateCommandKeywords() {
-        commandKeywords = new TreeSet<>();
+        commandKeywords = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         commandKeywords.add(AddModuleCommand.COMMAND_WORD);
         commandKeywords.add(BlockCurrentSemesterCommand.COMMAND_WORD);
         commandKeywords.add(DeleteModuleCommand.COMMAND_WORD);
@@ -187,5 +189,16 @@ public class Autocomplete extends TextField {
         if (tags != null) {
             argumentKeywords.addAll(tags.asListOfStrings());
         }
+        argumentKeywords.addAll(modulePlanner.getModuleCodes());
+    }
+
+    /**
+     * Resets the argument keywords when there is a change in the active study plan.
+     */
+    public void handleChangeOfActiveStudyPlan() {
+        tags = modulePlanner.getActiveStudyPlan().getTags();
+        tags.asUnmodifiableObservableList().addListener((ListChangeListener<Tag>) change
+            -> generateArgumentKeywords());
+        generateArgumentKeywords();
     }
 }

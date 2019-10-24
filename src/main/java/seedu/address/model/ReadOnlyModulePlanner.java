@@ -1,8 +1,11 @@
 package seedu.address.model;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.versiontracking.VersionTrackingManager;
 
 /**
@@ -30,4 +33,13 @@ public interface ReadOnlyModulePlanner {
      * Returns the current semester of this module planner.
      */
     SemesterName getCurrentSemester();
+
+    /**
+     * Returns the modules info.
+     */
+    ModulesInfo getModulesInfo();
+
+    UniqueTagList getActiveTags();
+
+    List<String> getModuleCodes();
 }

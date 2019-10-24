@@ -131,6 +131,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
+     * Returns the current active tags.
+     */
+    public UniqueTagList getActiveTags() {
+        return activeStudyPlan.getTags();
+    }
+
+    /**
      * Activates the study plan with the given index, and returns the active study plan populated with relevant
      * details.
      */
@@ -271,6 +278,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public ModulesInfo getModulesInfo() {
         return modulesInfo;
+    }
+
+    /**
+     * Returns a list of strings of the module codes.
+     */
+    public List<String> getModuleCodes() {
+        return modulesInfo.getModuleCodeStrings();
     }
 
     /**
