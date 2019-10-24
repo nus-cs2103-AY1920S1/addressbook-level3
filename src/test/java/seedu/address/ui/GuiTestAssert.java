@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.cards.CustomerCardHandle;
+import guitests.guihandles.cards.OrderCardHandle;
 import guitests.guihandles.cards.PersonCardHandle;
 import guitests.guihandles.panels.PersonListPanelHandle;
 
 import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
 /**
@@ -51,6 +53,20 @@ public class GuiTestAssert {
         assertEquals(expectedCustomer.getTags().stream().map(tag -> tag.tagName).sorted().collect(Collectors.toList()),
                 actualCard.getTags());
     }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedOrder}.
+     */
+    public static void assertCardDisplaysOrder(Order expectedOrder, OrderCardHandle actualCard) {
+        assertEquals(expectedOrder.getCustomer().getCustomerName(), actualCard.getCustomerName());
+        assertEquals(expectedOrder.getCustomer().getContactNumber().value, actualCard.getContactNumber());
+        assertEquals(expectedOrder.getPrice().value, actualCard.getOrderPrice());
+        assertEquals(expectedOrder.getStatus().toString(), actualCard.getOrderStatus());
+        assertEquals(expectedOrder.getTags().stream().map(tag -> tag.tagName).sorted().collect(Collectors.toList()),
+                actualCard.getTags());
+    //havent added phone equals here
+    }
+
 
     /**
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and

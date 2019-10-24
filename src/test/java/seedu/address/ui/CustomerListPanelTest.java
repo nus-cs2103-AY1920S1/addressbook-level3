@@ -63,8 +63,8 @@ public class CustomerListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code customerCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * Returns a list of customers containing {@code customerCount} persons that is used to populate the
+     * {@code CustomerListPanel}.
      */
     private ObservableList<Customer> createBackingList(int customerCount) {
         ObservableList<Customer> backingList = FXCollections.observableArrayList();

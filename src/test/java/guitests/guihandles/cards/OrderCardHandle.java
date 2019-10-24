@@ -81,7 +81,7 @@ public class OrderCardHandle extends NodeHandle<Node> {
         return customerNameLabel.getText();
     }
     public String getPhoneId() {
-        return phoneNameLabel.getText();
+        return idLabel.getText();
     }
 
     public String getPhoneName() {

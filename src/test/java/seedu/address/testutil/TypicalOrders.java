@@ -61,7 +61,7 @@ public class TypicalOrders {
     }
 
     public static List<Order> getTypicalOrders() {
-        return new ArrayList<>(Arrays.asList(ORDERONE, ORDERTWO, ORDERTHREE, VIPORDER));
+        return new ArrayList<>(Arrays.asList(ORDERONE, ORDERTWO, ORDERTHREE));
     }
 
 }
