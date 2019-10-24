@@ -436,6 +436,105 @@ The following activity diagram summarizes what happens when a user executes a ne
 ** Pros: More flexible scheduling without concerning date and less scheduled tasks.
 ** Cons: May cause overhead due to frequently updating.
 
+=== Personalised User Experience Feature
+
+To personalise the diabetic user’s the experience in using the SugarMummy app, several sub-features are used,
+including:
+
+* Addition, editing and clearing of the user’s biography
+* Customisation of font and `background` colour, with the ability to set as `background` image for `background` as well.
+* Display of motivational quotes for the user (initialisation phase; in progress)
+* `Achievements` to be shown to the user upon achieving a milestone.
+
+==== Overview
+* The `User` class is used to represent a diabetic user. A diabetic user is composed of the `Name`, `ProfileDesc`, `DisplayPicPath`, `Nric`, `Gender`, `Phone`, `MedicalCondition`, `Address`, `Goal` and `OtherBioInfo` classes.
+* A `User` is currently defined to be able to have more than one `Phone`, `MedicalCondition` and `Goal`. As such, these classes inherit the `ListableField` Interface.
+* The structure of a `User` and its interactions are shown as follows:
+
+image::UserModelClassDiagram.png[]
+
+
+* A `User` implements `ListableField` by storing them in a java `List`.
+* A `User` that is created is added to a `UserList`. Although not more than one `User` can be added in current versions so as to enhance personalisation for the, future developers may decide to repurpose the app to allow more users, and their corresponding biographies represented by the `bio` fields, to the `UserList`.
+* Other personalisation features such as `fontcolour`, `background` and `achievements` are currently represented by independent classes `Colour`, `Background` and `Achievement` respectively on their own, representing the model as their name describes.
+* The `Colour` feature allows for either enumeration of colour names or hexadecimal colour codes to be used to set colour. `Background` is associated to `Colour` as an argument for `Background` could simply be a colour. It depends on the static method isValid`Colour`(String test) method to determine if it’s argument is a `Colour`
+* The `AddBioParser` and `EditBioParser` is currently used to parse command arguments given by the user and allows adding of specific biography fields, whereas the `FontColour` and `Background` parsers are used to parse arguments for other personalisation features for font colours and `background` respectively.
+* The `Ui` for personalisation is separated into distinct parts. `User`’s biography information and achievements page are components on their own in the `Ui`’s `MainDisplayPane` – switched when required, whereas `background` and `fontcolour` do not have a designated `Ui` window, but instead changes the attributes for the entire application by modifying the CSS file used itself.
+* All command words in this program, not restricted to this feature alone, are not case sensitive and implemented under `SugarMummyParser`.
+
+==== Implementation
+===== Biography
+The biography feature is supported by the `addbio`, `editbio` and `clrbio` commands. Each command adheres to the main flow of information used by this application. In other words, when a command is received, the command is first parsed by `SugarMummyParser`, and to individual parsers where required, before return a `Command` object. The `Command` object is then executed by `Logic`, during which it updates `Model`, and after which Storage is updated `Logic`, before the feedback from the ``CommandResult`` returned by the `Command` object is shown to the user back at the `Ui`.
+
+* The following are possible scenarios for each of the following types of command words.
+
+** Scenario 1: User keys in `addbio n/testMinimal p/91234567 e/81234567 /testMedicalCondition`
+** Scenario 2: User keys in `editbio p/2/91234567`
+** Scenario 3: User keys in `bio`
+** Scenario 4: User keys in `clrbio`
+
+* In all scenarios, `SugarMummyParser` responds to the command word via a series of switch cases. As mentioned above, `addbio` and `editbio` will AddCommandParser and `EditCommandParser` respectively.
+
+* A key difference between the parsers for `addbio` and `editbio` is that the former requires `Name`, Contact Number, Emergency Contact, and `MedicalCondition` to be compulsory whereas `editbio` requires at least one argument denoting the `User`’s biography field to be changed. Furthermore, `EditCommandParser` determines whether or not subarguments for fields of `ListableField` type contain the format `INDEX/`, denoting the particular number in the list to be changed.
+* `CommandParser` then  returns an `AddBioCommand` object that stores the `User` to be created. `EditCommandParser` on the other hand creates an `EditBioCommand` object that stores an `EditedUserDescription` containing information on which fields are edited to be edited. A `List` of `HashMaps` that maps indexes to `ListableField`s is usedin `EditedUserDescription` to denote changes to be made within each `ListableField`. When executed by `Logic` afterwards, the `AddBioCommand` creates the `User` to be stored in model whereas the `EditBioCommand` creates a new `User` based on information in `EditedUserDescription`. A `UserList` is used in the `Model` to store Users. At any point of time when a user attempts to access biography information, `Logic` accesses the `UserList` from `Model` to display information. In order to be able to display the same information upon startup, `Logic` saves this `UserList` to the storage after execution of each command.
+* For the `bio` and `clrbio` commands, the implementations are relatively more straightforward. A BioCommand returned by `SugarMummyParser` simply overrides the `getDisplayPaneType()` of the `Command` object (that each `Command` object contains) so that back at `Ui`, `Ui` knows to display the `BioPane` of the `Ui` in the `MainDisplayPane` part of the window. This is also done for all other biography-related commands so after each biography-related command, the `BioPane` is displayed.  A `DisplayPane` is stored in the form of an enumeration as the type of display would be predefined to all it’s accessors. The `ClearBioCommand` simply clears the `UserList` stored in the model upon execution.
+* In the cases of `bio` and `clrbio` commands, `SugarMummyParser` requires non-null arguments just as it does for other single-word commands such as `exit`.
+* Each `Command` returns a ``CommandResult`` to logic containing feedback to be displayed to the user. Any exception that is thrown to the user is caught back at `Ui` `Ui`. Feedback is displayed to the user using the `ResultsDisplayPane`. The display of user biography is implemented using JavaFX `TableView`. If the `DisplayPicPath` of a `User` is unchanged, the `Ui` does not reload the image, so as to optimise performance of the program. If an entire pane is left unchanged, the pane is not reloaded, even upon execution of commands that are used to display the pane, unless explicitly indicated in the `getNewPaneIsToBeCreated()` method of the. `Command`. Caching is implemented using a `HashMap` that maps `DisplayPane` enumerations to the corresponding `UiPart` representing the respective pane.
+* An illustration of how the information flows for the `editbio` command (Scenario 2) is shown as follows:
+
+image::EditBioSequenceDiagram.png[]
+
+* The rest of the biography commands follow a similar logic, with key differences in the parser and command steps as described above.  Validation within parsers are done via the `ParserUtil` class.
+
+===== Aesthetics
+The aesthetics aspects of the application help to support the feature of personalised user experience and are implemented using the command words “`fontcolour`” and “`background`” respectively.
+
+* Possible valid usages are as follows:
+** Scenario 1: User keys in `fontcolour`
+** Scenario 2: User keys in `fontcolour white`
+** Scenario 3: User keys in `fontcolour #FFFF00`
+** Scenario 4: User keys in `bg`
+** Scenario 5: User keys in `bg #000000`
+** Scenario 6: User keys in `bg blue`
+** Scenario 7: User keys in `bg /Users/John/displayPicture.jpg s/cover`
+** Scenario 8: User keys in `bg r/no-repeat`
+
+* As mentioned above, `Colour` and `Background` are independent classes, and `Colour` makes use of enumerations of colour codes and colour names to determine validity of the colours.
+* Upon receival of the command “`fontcolour`”, if `fontcolour` has no arguments (checked by `FontColourParser`), a new `FontColourCommand` with no arguments is returned, and upon execution return a `CommandResult` that shows the existing font used via access of `Model` (logic is similar to the ones for biography) Otherwise if arguments are received, validity of the arguments is checked against, and if the colour is a valid `Colour`, it is set in `Model` and saved to Storage. `FontColourCommand` overrides the `getDisplayPane()` to return the `DisplayPane.COLOUR` enumeration. i.e. the `MainDisplayPane` is unchanged in `Ui`, and only font colours change.
+* `Background` on the other hand, checks for additional possible arguments. First of all, as observed in Scenarios 6 and 7, an argument could either represent a `Colour` or a path leading to an image to be used to set the background picture (this is similar to the `DisplayPicPath` of `bio` field). Thus, `BackgroundParser` first determines if the argument received is a colour. If so it returns a `BackgroundCommand` storing a `Background` that has a `background` colour attribute. Otherwise, it checks, via `ParserUtil` , whether or not the argument before valid prefixes (preamble) is a valid file path. If so, a `Background` that has a `backgroundPicPath` attribute is used to create the `BackgroundCommand`. Otherwise a parse exception is returned. Possible arguments that a `background` command can have include the size and repeat feature, corresponding to CSS `background` attributes. In current versions of the program, the program allows for fixed constants of this features to be used, that are stored in `Background`ImageArgs class and used by the `Background` model for validation. `Background``Command` overrides the `getDisplayPane()` to return `DisplayPane.BACKGROUND` enumeration. i.e. the `MainDisplayPane` is unchanged in `Ui`, and only the `background` changes. Similar to font colour, the command word on its own simply displays to the user current `background` settings.
+
+* An illustration of the logic for handling a `background` command is shown as follows:
+
+image::BackgroundActivityDiagram.png[]
+
+* For both `fontcolour` and `background` commands, the StyleManager class of `Ui` is used to set the user’s intention of `fontcolour` and `background` (if parsing is successful). The way StyleManager sets the `background` is by making a copy of the existing StyleSheet used, modifying the required fields and setting it to the StyleSheets of the scene, internally.
+
+===== Achievements
+
+* A diabetic user’s `Achievements` is supported by the `achvm` command, that displays the list of user’s achievements. Similar to how `bio` is implemented, `SugarMummyParser` returns an `AchievementsCommand` that overrides the `getDisplayPane()` method to return  `DisplayPane.ACHVM` – such that `Ui` of `Ui` sets the children of the `MainDisplayPane` node to be the `AchievementsPane`. Each `Achievement` is represented using an `ImageView` in JavaFX `TilePane` so that all images are of the same size.
+* Although this feature has yet to be fully implemented, the feature is intended to be implemented by checking user records (eg. average) in the `Model` after each related field is modified (eg. food / sugar level). Where appropriate at certain milestones, the `AchievementsList` of the user in `Model` and Storage will be updated. A feedback will be shown to the user to indicate the achievement of the milestone so that the user can check his/ her ``Achievements``. Upon each `achvm` call, `Ui` fetches the `Achievements` from model and displays the corresponding image in the `AchievementsPane`. Ideally, if the `AchievementsPane` is unchanged, the pane should not reload so as to optimise performance of the program and minimise unnecessary access and loading of images. This could be implemented using a flag in `Model` indicating whether or not the `Achievements` is to be reloaded when rendering the `Ui`.
+
+===== Motivation
+
+* Motivational aspects of the application are to be supported using motivational quotes. Although this subfeature of personalised user experience has yet to be implemented, implementation is intended to be done by storing preset quotes in a data structure such as an enumeration. In current versions of the application, it is likely that the user will have refrained access to modifying the list.
+
+==== Design Considerations
+
+===== Number of Users
+* It could be argued that multiple user support is not required and thus a `UserList` should not be used to store data. However, the intention is to leave it open to future developers to decide on whether to include multiple user support for the application, as the choice of a fully personalised experience for diabetic patients versus functionality for multiple users (having diabetes and using the same app), as well as the possibilities of such scenarios are debatable. Furthermore, our user stories appear to suggest the desire for a more personalised application.
+* In the strict case of single-user support that leaves the app less open to such modification, the alternative would be to simply implement and store the `User` in `Model`, rather than the `UserList`.
+
+===== `Background` Sub-Argument Values
+* The use of `enum` is a possibility to implement `static final background` sub-argument values (eg, `auto` of attribute `background` size). However considerations that eventually led against this idea included the possibility of values that are not in proper `String` format that may not be able to be directly enumerated (leading to the required use of additional lengthy switch cases). Additionally other `background` fields may be added by future developers  and it would be more concise to have them all in a single class rather than as separate enumerations.
+
+===== `Command` Classification
+* It is possible to separate the commands for  `fontcolour` and `background` into different commands (eg. addfontcolour, editfontcolour, showfontcolour, `clrfontcolour`). However, this is likely unnecessary as this will not only require the end user to type more words, but also introduce redundancy (eg. ``clrfontcolour`` could simply be `fontcolour` black and this is not hard to achieve the same effects as `clrfontcolour`, which also adds a restrictive definition on what the default colour to the user upon clearing settings should be).
+
+===== Modification of Application Style Dynamically
+* An alternative idea to achieving font colours and backgrounds throughout the entire app was to visit each child node recursively and set the colours and backgrounds if the nodes are of specific instances with these attributes (eg. `Label` which has textfill attribute). However this idea was quickly aborted as the `TableView` implemented only renders headers after the scene has been set and to include such a case in thet recursive solution adds significant complexity to the program on top of the possibility of severely breaking abstraction.
+
+===== Use of `Label` instead of `TextArea` Nodes
+* The `ResultDisplay` was originally implanted as a `TextArea` but was eventually replaced with a `Label` which achieves similarly results. The reasoning for this change was the inability to or difficulty in setting the `background` of `TextArea`, even via CSS. A `Label` serves as a perfect alternative since in the case both are non-editable to the user.
 
 == Documentation
 
