@@ -10,6 +10,8 @@ import seedu.address.calendar.model.Month;
 import seedu.address.calendar.model.MonthOfYear;
 import seedu.address.calendar.model.Year;
 import seedu.address.calendar.parser.CalendarParser;
+import seedu.address.calendar.storage.CalendarStorage;
+import seedu.address.calendar.storage.JsonCalendarStorage;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,11 +20,18 @@ import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 import seedu.address.ui.UiPart;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
 public class CalendarPage extends UiPart<Scene> implements Page {
     private static final String FXML = "CalendarPage.fxml";
     private static final PageType pageType = PageType.CALENDAR;
+    private static final String FILE_OPS_ERROR_MESSAGE = "Unable to save calendar";
 
     private ResultDisplay resultDisplay;
+
+    private Calendar calendar;
+    private CalendarStorage calendarStorage;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -35,11 +44,15 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     @FXML
     VBox resultDisplayPlaceholder;
 
-    private Calendar calendar;
-
     public CalendarPage() {
         super(FXML);
         calendar = new Calendar();
+        calendarStorage = new JsonCalendarStorage(Paths.get("data" , "calendar.json"));
+        try {
+            calendar.updateCalendar(calendarStorage.readCalendar().get());
+        } catch(Exception e) {
+            System.out.println(e);
+        }
         fillInnerParts();
     }
 
@@ -117,11 +130,15 @@ public class CalendarPage extends UiPart<Scene> implements Page {
                 calendar.completeVisibleUpdates();
             }
 
+            calendarStorage.saveCalendar(calendar.getCalendar());
+
             resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
             return commandResult;
         } catch (ParseException e) {
             resultDisplay.setDisplayText(e.getMessage());
             throw e;
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
     }
 }

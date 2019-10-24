@@ -11,7 +11,7 @@ public class Date {
     private static final String DAY_OF_MONTH_KEY = "dayOfMonth";
     private static final String MONTH_KEY= "month";
     private static final String YEAR_KEY = "year";
-    private static final String DATE_PATTERN= "(?<" + DAY_OF_WEEK_KEY + ">\\S{3})\\p{,}\\s(?<" + DAY_OF_MONTH_KEY + ">"
+    private static final String DATE_PATTERN= "(?<" + DAY_OF_WEEK_KEY + ">\\S{3})\\,\\s(?<" + DAY_OF_MONTH_KEY + ">"
             + "\\d{1,3})\\s(?<" + MONTH_KEY + ">\\S{3,})\\s(?<" + YEAR_KEY + ">\\d{4})";
     private static final Pattern DATE_FORMAT = Pattern.compile(DATE_PATTERN);
 
@@ -58,9 +58,9 @@ public class Date {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
-        String dayOfWeek = matcher.group(DAY_OF_WEEK_KEY);
+        String dayOfWeek = matcher.group(DAY_OF_WEEK_KEY).toUpperCase();
         String dayOfMonth = matcher.group(DAY_OF_MONTH_KEY);
-        String month = matcher.group(MONTH_KEY);
+        String month = matcher.group(MONTH_KEY).toUpperCase();
         String year = matcher.group(YEAR_KEY);
 
         try {

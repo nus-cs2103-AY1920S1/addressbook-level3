@@ -38,10 +38,10 @@ public class JsonSerializableCalendar {
      * @throws IllegalValueException
      */
     public ReadOnlyCalendar toModelType() throws IllegalValueException {
-        List<Event> events = new ArrayList<>();
-        for (JsonAdaptedEvent jsonAdaptedEvent : this.events) {
-            events.add(jsonAdaptedEvent.toModelType());
+        List<Event> copyOfEvents = new ArrayList<>();
+        for (JsonAdaptedEvent jsonAdaptedEvent : events) {
+            copyOfEvents.add(jsonAdaptedEvent.toModelType());
         }
-        return new ReadOnlyCalendar(events);
+        return new ReadOnlyCalendar(copyOfEvents);
     }
 }

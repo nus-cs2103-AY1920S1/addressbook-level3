@@ -57,4 +57,12 @@ public class Calendar {
         List<Event> eventsCopy = List.copyOf(events);
         return new ReadOnlyCalendar(eventsCopy);
     }
+
+    // todo: update
+    public void updateCalendar(ReadOnlyCalendar readOnlyCalendar) {
+        events.clear();
+        readOnlyCalendar.getEventList()
+                .stream()
+                .forEach(e -> events.add(e));
+    }
 }

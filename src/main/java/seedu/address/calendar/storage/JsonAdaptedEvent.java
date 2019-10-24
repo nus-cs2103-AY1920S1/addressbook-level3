@@ -60,7 +60,6 @@ public class JsonAdaptedEvent {
         }
 
         final Date startDate = Date.getInstanceFromString(this.startDate);
-
         final Optional<Date> endDate;
         if (this.endDate == null) {
             endDate = Optional.empty();
