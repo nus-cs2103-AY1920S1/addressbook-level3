@@ -175,10 +175,10 @@ public class Activity {
      * @throws PersonNotInActivityException if any person is not found
      */
     public void addExpense(Expense expense) throws PersonNotInActivityException {
-
         int payer = expense.getPersonId();
         int payerPos = participantIds.indexOf(payer);
         int[] involved = expense.getInvolved();
+        // Lookup table mapping id to index in the array participantIds.
         int[] positionMask;
         double amount = expense.getAmount().value;
 
@@ -190,19 +190,19 @@ public class Activity {
             positionMask = IntStream.of(involved)
                 .map(x -> participantIds.indexOf(x))
                 .toArray();
-            if (!IntStream.of(positionMask).allMatch(x -> x >= 0)) {
-                throw new PersonNotInActivityException();
-            }
-
         } else {
             involved = participantIds.stream()
                     .mapToInt(x -> x)
                     .filter(x -> x != payer)
                     .toArray();
+            expense.setInvolved(involved);
             positionMask = IntStream.of(involved)
                 .map(x -> participantIds.indexOf(x))
                 .toArray();
-            expense.setInvolved(involved);
+        }
+
+        if (!IntStream.of(positionMask).allMatch(x -> x >= 0)) {
+            throw new PersonNotInActivityException();
         }
 
         expenses.add(expense);
@@ -263,15 +263,56 @@ public class Activity {
     }
 
     /**
-     * Soft deletes an expense within an activity
+     * Soft deletes an expense within this activity.
      * @param positions The 0-indexed expense number to delete
      */
     public void deleteExpense(int ... positions) {
         for (int i = 0; i < positions.length; i++) {
-            if (positions[i] > 0 && positions[i] <= expenses.size()) {
-                expenses.get(positions[i] - 1).delete();
-            } // if beyond range not implemented yet
+            Expense expense;
+            if (positions[i] < 0 && positions[i] > expenses.size()) {
+                return;
+                // TODO: beyond range?
+            }
+
+            expense = expenses.get(positions[i] - 1);
+            expense.delete();
+            deleteExpense(expense);
         }
+    }
+
+    /**
+     * Soft deletes an expense within this activity.
+     * @param expense The expense to delete. If expense is not in this activity,
+     * no errors will be thrown. Suggest to use the varags version instead if you
+     * want bounds checking.
+     */
+    public void deleteExpense(Expense expense) throws PersonNotInActivityException {
+        int payer = expense.getPersonId();
+        int payerPos = participantIds.indexOf(payer);
+        int[] involved = expense.getInvolved();
+        int[] positionMask;
+        double amount = expense.getAmount().value;
+
+        if (!hasPerson(expense.getPersonId())) {
+            throw new PersonNotInActivityException();
+        }
+        assert involved != null : "Involved should have been initialized by addExpense";
+
+        positionMask = IntStream.of(involved)
+            .map(x -> participantIds.indexOf(x))
+            .toArray();
+        if (!IntStream.of(positionMask).allMatch(x -> x >= 0)) {
+            throw new PersonNotInActivityException();
+        }
+
+        // We update the balance sheet
+        double splitAmount = amount / (involved.length + 1);
+
+        // Revert the change made by addExpense
+        IntStream.of(positionMask)
+                .forEach(x -> debtMatrix
+                        .get(x).set(payerPos,
+                                debtMatrix.get(x).get(payerPos) - splitAmount));
     }
 
     @Override
