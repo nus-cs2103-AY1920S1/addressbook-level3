@@ -11,14 +11,17 @@ import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 
-
+/**
+ * Jackson-friendly version of {@link CcaProgress}.
+ */
 public class JsonAdaptedCcaProgress {
     private final List<JsonAdaptedCcaMilestone> ccaProgressList = new ArrayList<>();
     private final JsonAdaptedCcaCurrentProgress ccaCurrentProgress;
 
     @JsonCreator
     public JsonAdaptedCcaProgress(@JsonProperty("ccaProgressList") List<JsonAdaptedCcaMilestone> ccaProgressList,
-                                  @JsonProperty("ccaCurrentProgress") JsonAdaptedCcaCurrentProgress ccaCurrentProgress) {
+                                  @JsonProperty("ccaCurrentProgress") JsonAdaptedCcaCurrentProgress
+                                          ccaCurrentProgress) {
         if (ccaProgressList != null) {
             this.ccaProgressList.addAll(ccaProgressList);
         }

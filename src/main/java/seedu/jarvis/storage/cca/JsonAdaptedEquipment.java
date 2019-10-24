@@ -1,8 +1,8 @@
 package seedu.jarvis.storage.cca;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.cca.Equipment;
 

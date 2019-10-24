@@ -3,12 +3,11 @@ package seedu.jarvis.testutil.cca;
 import static seedu.jarvis.testutil.cca.TypicalEquipmentList.CANOEING_EQUIPMENT_LIST;
 import static seedu.jarvis.testutil.cca.TypicalEquipmentList.GUITAR_ENSEMBLE_EQUIPMENT_LIST;
 
-import seedu.jarvis.model.cca.Cca;
-import seedu.jarvis.model.cca.CcaTracker;
-
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaTracker;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.

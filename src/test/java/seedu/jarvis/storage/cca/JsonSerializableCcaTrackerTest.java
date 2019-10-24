@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.util.JsonUtil;
 import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.storage.address.JsonSerializableAddressBook;
 import seedu.jarvis.testutil.cca.TypicalCcas;
 
 /**
