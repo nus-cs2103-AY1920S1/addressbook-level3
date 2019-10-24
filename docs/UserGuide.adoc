@@ -31,6 +31,23 @@ For those of you who are type fast, SecureIT can get can manage your confidentia
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
+== Basic Information
+This following guide will teach you how you can use `SecureIT` to keep track of your confidential information so you will never have to worry about your information ever again.
+
+Confused? You refer to <<Quick Start>> for a simple set-up.
+
+If you are overwhelmed by all the instructions and don't know which one to use, our <<CheatSheet of commands>> is here to help you.
+
+The following list of icons below will assist you to understand our material:
+
+
+
+[cols="3,40"]
+|========
+|Icon | Meaning
+a|image::tip.png[width = "25"] | Some tips to familiarise with the commands
+a|image::warning.png[width = "25"] | Warning! Danger zone. Make sure you know what you are doing
+|========
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
