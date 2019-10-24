@@ -168,8 +168,11 @@ Cons: Might not be as OOP as other designs.
 
 The Reminder mechanism is facilitated by the Reminder class. Each Reminder object consists of a Condition class object which represents a set of conditions to be met. When all conditions are met, the reminder is activated and its message is displayed under the Reminder Pannel. The following class diagram helps to show how the classes are related.
 
+image::ReminderClassDiagram.png[]
+
 When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed, the ConditionList object is updated to see if any conditions have been met. 
 
+image::ReminderSequenceDiagram.png[]
 
 ==== Design Considerations
 
