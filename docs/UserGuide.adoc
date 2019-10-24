@@ -132,36 +132,6 @@ Create a new deck of flashcards
 
 Format: `create deck/DECK_NAME`
 
-****
-* Creates a deck of cards with a series of prompt steps:
-
-`create japanese`
-
-`Let’s begin creating the deck ‘Japanese’. When done, simply type ‘quit’!`
-
-`Type the front of your 1st card…`
-
-`apple`
-
-`Type the back of your 1st card…`
-
-`ringo`
-
-`Type the front of your 2nd card…`
-
-`watermelon`
-
-`Type the back of your 2nd card…`
-
-`suika`
-
-`Type the back of your 3rd card…`
-
-`quit`
-
-`You have created the deck ‘Japanese’ with a total of 2 cards!`
-****
-
 === Start test with flashcards : `test`
 
 Starts a test with a deck of flashcards, with the choice of a timed or untimed test
