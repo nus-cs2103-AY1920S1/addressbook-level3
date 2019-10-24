@@ -105,7 +105,7 @@ The following activity diagram summarizes what happens to the `UI`
 when a user executes a new command:
 
 .Flow of Events within `UI`
-image::UiUpdateBookListActivityDiagram.png[]
+image::UiUpdateBookListActivityDiagram.png[width=270]
 {nbsp} +
 
 [[Design-Logic]]
@@ -188,13 +188,13 @@ Additionally, it implements the following operation:
 Given below is an activity diagram of a book being added to the catalog.
 
 .Activity Diagram for adding a book
-image::AddBookActivityDiagram.png[width=300, align=center]
+image::AddBookActivityDiagram.png[width=270]
 {nbsp} +
 
 Given below is a class diagram of a book after being added to the catalog.
 
 .Class Diagram for `Book`
-image::BookClassDiagram.png[]
+image::BookClassDiagram.png[width=400]
 {nbsp} +
 
 ==== Design Considerations
