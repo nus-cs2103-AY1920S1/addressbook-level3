@@ -15,6 +15,7 @@ import seedu.module.commons.core.GuiSettings;
 import seedu.module.commons.core.LogsCenter;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.Module;
+import seedu.module.model.module.SameModuleCodePredicate;
 import seedu.module.model.module.TrackedModule;
 
 /**
@@ -143,6 +144,18 @@ public class ModelManager implements Model {
         filteredTrackedModules.setPredicate(predicate);
     }
 
+    /**
+     * Finds and returns an {@literal Optional<TrackedModule>} from filteredArchivedModules based on the predicate.
+     * Returns an empty Optional if the module is not found.
+     */
+    @Override
+    public Optional<TrackedModule> findTrackedModule(SameModuleCodePredicate predicate) {
+        Optional<TrackedModule> foundModule = filteredTrackedModules.stream()
+                .filter(predicate)
+                .findFirst();
+        return foundModule;
+    }
+
     //=========== Filtered ArchivedModule List Accessors =============================================================
 
     /**
@@ -158,6 +171,18 @@ public class ModelManager implements Model {
     public void updateFilteredArchivedModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredArchivedModules.setPredicate(predicate);
+    }
+
+    /**
+     * Finds and returns an {@literal Optional<ArchivedModule>} from filteredArchivedModules based on the predicate.
+     * Returns an empty Optional if the module is not found.
+     */
+    @Override
+    public Optional<ArchivedModule> findArchivedModule(SameModuleCodePredicate predicate) {
+        Optional<ArchivedModule> foundModule = filteredArchivedModules.stream()
+                .filter(predicate)
+                .findFirst();
+        return foundModule;
     }
 
     //=========== Displayed List Accessors =============================================================

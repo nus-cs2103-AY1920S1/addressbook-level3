@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.module.commons.core.GuiSettings;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.Module;
+import seedu.module.model.module.SameModuleCodePredicate;
 import seedu.module.model.module.TrackedModule;
 
 /**
@@ -122,6 +123,7 @@ public interface Model {
 
     /**
      * Sets the active module that will be viewed by the user.
+     *
      * @param toDisplay the module to be displayed
      */
     void setDisplayedModule(Module toDisplay);
@@ -132,5 +134,17 @@ public interface Model {
      * The module identity of {@code editedModule} must not be the same as another existing module in the module book.
      */
     void setModule(TrackedModule target, TrackedModule editedModule);
+
+    /**
+     * Finds and returns an  {@literal Optional<ArchivedModule>} from filteredArchivedModules based on the predicate.
+     */
+    Optional<ArchivedModule> findArchivedModule(SameModuleCodePredicate predicate);
+
+    /**
+     * Finds and returns an {@literal Optional<TrackedModule>} from filteredTrackedModules based on the predicate.
+     */
+    Optional<TrackedModule> findTrackedModule(SameModuleCodePredicate predicate);
+
+
 }
 

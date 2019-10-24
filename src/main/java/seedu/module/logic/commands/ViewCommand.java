@@ -2,11 +2,10 @@ package seedu.module.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Predicate;
-
 import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.Model;
 import seedu.module.model.module.Module;
+import seedu.module.model.module.SameModuleCodePredicate;
 
 /**
  * Views a Module identified by the module code. The viewed module could either be a tracked module
@@ -28,30 +27,25 @@ public class ViewCommand extends Command {
     private final String moduleCode;
 
     public ViewCommand(String moduleCode) {
-        this.moduleCode = moduleCode.toUpperCase();
+        this.moduleCode = moduleCode;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Predicate<Module> findModulePredicate = module -> module.getModuleCode().equals(moduleCode);
+        SameModuleCodePredicate findModulePredicate = new SameModuleCodePredicate(moduleCode);
 
         model.updateFilteredArchivedModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
-        Module toDisplay = model.getFilteredModuleList().stream()
-            .filter(findModulePredicate)
-            .map(module -> (Module) module)
-            .findFirst()
-            .or(() -> model.getFilteredArchivedModuleList().stream()
-                .filter(findModulePredicate)
-                .findFirst())
-            .orElseThrow(()
-                -> new CommandException(MESSAGE_MODULE_NOT_FOUND));
+        Module toDisplay = model.findTrackedModule(findModulePredicate)
+                .map(module -> (Module) module)
+                .or(() -> model.findArchivedModule(findModulePredicate))
+                .orElseThrow(() -> new CommandException(MESSAGE_MODULE_NOT_FOUND));
 
         model.setDisplayedModule(toDisplay);
         return new CommandResult(String.format(MESSAGE_VIEW_MODULE_SUCCESS, moduleCode),
-            false, true, false);
+                false, true, false);
     }
 
     @Override

@@ -1,196 +1,93 @@
-// package seedu.module.logic.commands;
+package seedu.module.logic.commands;
 
-// import static java.util.Objects.requireNonNull;
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import static seedu.module.testutil.Assert.assertThrows;
+import static seedu.module.logic.commands.AddCommand.MESSAGE_DUPLICATE_MODULE;
+import static seedu.module.logic.commands.AddCommand.MESSAGE_MODULE_NOT_FOUND;
+import static seedu.module.logic.commands.AddCommand.MESSAGE_SUCCESS;
+import static seedu.module.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.module.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-// import java.nio.file.Path;
-// import java.util.ArrayList;
-// import java.util.Arrays;
-// import java.util.function.Predicate;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-// import org.junit.jupiter.api.Test;
+import seedu.module.model.Model;
+import seedu.module.model.ModelManager;
+import seedu.module.model.ModuleBook;
+import seedu.module.model.module.ArchivedModule;
+import seedu.module.model.module.ArchivedModuleList;
+import seedu.module.model.module.SameModuleCodePredicate;
+import seedu.module.model.module.TrackedModule;
+import seedu.module.testutil.ArchivedModuleBuilder;
 
-// import javafx.collections.ObservableList;
-// import seedu.module.commons.core.GuiSettings;
-// import seedu.module.logic.commands.exceptions.CommandException;
-// import seedu.module.model.Model;
-// import seedu.module.model.ModuleBook;
-// import seedu.module.model.ReadOnlyModuleBook;
-// import seedu.module.model.ReadOnlyUserPrefs;
-// import seedu.module.model.module.Module;
-// import seedu.module.testutil.PersonBuilder;
+public class AddCommandTest {
+    private final String moduleCode = "CS2103T";
+    private Model model = new ModelManager();
+    private Model expectedModel = new ModelManager();
 
-// public class AddCommandTest {
 
-//     @Test
-//     public void constructor_nullPerson_throwsNullPointerException() {
-//         assertThrows(NullPointerException.class, () -> new AddCommand(null));
-//     }
+    @BeforeEach
+    public void beforeEach() {
+        model = new ModelManager();
+        expectedModel = new ModelManager();
+    }
 
-//     @Test
-//     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-//         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-//         Module validModule = new PersonBuilder().build();
+    @Test
+    public void execute_addValidModule_success() {
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
+        ArchivedModuleList listOfArchivedModules = new ArchivedModuleList();
+        listOfArchivedModules.add(archivedModule);
+        ModuleBook moduleBook = new ModuleBook(listOfArchivedModules);
+        model.setModuleBook(moduleBook);
+        expectedModel.setModuleBook(moduleBook);
+        TrackedModule trackedModule = new TrackedModule(archivedModule);
+        expectedModel.addModule(trackedModule);
 
-//         CommandResult commandResult = new AddCommand(validModule).execute(modelStub);
+        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS, trackedModule),
+                false, false, false);
+        AddCommand addCommand = new AddCommand(new SameModuleCodePredicate(moduleCode));
+        assertCommandSuccess(addCommand, model, expectedCommandResult, expectedModel);
+    }
 
-//         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validModule),
-//              commandResult.getFeedbackToUser());
-//         assertEquals(Arrays.asList(validModule), modelStub.personsAdded);
-//     }
+    @Test
+    public void execute_addLowerCaseModule_success() {
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
+        ArchivedModuleList listOfArchivedModules = new ArchivedModuleList();
+        listOfArchivedModules.add(archivedModule);
+        ModuleBook moduleBook = new ModuleBook(listOfArchivedModules);
+        model.setModuleBook(moduleBook);
+        expectedModel.setModuleBook(moduleBook);
+        TrackedModule trackedModule = new TrackedModule(archivedModule);
+        expectedModel.addModule(trackedModule);
 
-//     @Test
-//     public void execute_duplicatePerson_throwsCommandException() {
-//         Module validModule = new PersonBuilder().build();
-//         AddCommand addCommand = new AddCommand(validModule);
-//         ModelStub modelStub = new ModelStubWithPerson(validModule);
+        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS, trackedModule),
+                false, false, false);
+        AddCommand addCommand = new AddCommand(new SameModuleCodePredicate(moduleCode.toLowerCase()));
+        assertCommandSuccess(addCommand, model, expectedCommandResult, expectedModel);
+    }
 
-//         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MODULE,
-//            () -> addCommand.execute(modelStub));
-//     }
+    @Test
+    public void execute_addInvalidModule_throwsCommandException() {
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
+        ArchivedModuleList listOfArchivedModules = new ArchivedModuleList();
+        listOfArchivedModules.add(archivedModule);
+        ModuleBook moduleBook = new ModuleBook(listOfArchivedModules);
+        model.setModuleBook(moduleBook);
 
-//     @Test
-//     public void equals() {
-//         Module alice = new PersonBuilder().withName("Alice").build();
-//         Module bob = new PersonBuilder().withName("Bob").build();
-//         AddCommand addAliceCommand = new AddCommand(alice);
-//         AddCommand addBobCommand = new AddCommand(bob);
+        AddCommand addCommand = new AddCommand(new SameModuleCodePredicate("INVALID"));
+        assertCommandFailure(addCommand, model, MESSAGE_MODULE_NOT_FOUND);
+    }
 
-//         // same object -> returns true
-//         assertTrue(addAliceCommand.equals(addAliceCommand));
+    @Test
+    public void execute_addDuplicateModule_throwsCommandException() {
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
+        ArchivedModuleList listOfArchivedModules = new ArchivedModuleList();
+        listOfArchivedModules.add(archivedModule);
+        ModuleBook moduleBook = new ModuleBook(listOfArchivedModules);
+        model.setModuleBook(moduleBook);
+        TrackedModule trackedModule = new TrackedModule(archivedModule);
+        model.addModule(trackedModule);
 
-//         // same values -> returns true
-//         AddCommand addAliceCommandCopy = new AddCommand(alice);
-//         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addCommand = new AddCommand(new SameModuleCodePredicate(archivedModule.getModuleCode()));
+        assertCommandFailure(addCommand, model, MESSAGE_DUPLICATE_MODULE);
+    }
 
-//         // different types -> returns false
-//         assertFalse(addAliceCommand.equals(1));
-
-//         // null -> returns false
-//         assertFalse(addAliceCommand.equals(null));
-
-//         // different person -> returns false
-//         assertFalse(addAliceCommand.equals(addBobCommand));
-//     }
-
-//     /**
-//      * A default model stub that have all of the methods failing.
-//      */
-//     private class ModelStub implements Model {
-//         @Override
-//         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public ReadOnlyUserPrefs getUserPrefs() {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public GuiSettings getGuiSettings() {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public void setGuiSettings(GuiSettings guiSettings) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public Path getAddressBookFilePath() {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public void setAddressBookFilePath(Path addressBookFilePath) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public void addModule(Module module) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public void setAddressBook(ReadOnlyModuleBook newData) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public ReadOnlyModuleBook getAddressBook() {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public boolean hasModule(Module module) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public void deleteModule(Module target) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public void setModule(Module target, Module editedModule) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public ObservableList<Module> getFilteredModuleList() {
-//             throw new AssertionError("This method should not be called.");
-//         }
-
-//         @Override
-//         public void updateFilteredModuleList(Predicate<Module> predicate) {
-//             throw new AssertionError("This method should not be called.");
-//         }
-//     }
-
-//     /**
-//      * A Model stub that contains a single person.
-//      */
-//     private class ModelStubWithPerson extends ModelStub {
-//         private final Module module;
-
-//         ModelStubWithPerson(Module module) {
-//             requireNonNull(module);
-//             this.module = module;
-//         }
-
-//         @Override
-//         public boolean hasModule(Module module) {
-//             requireNonNull(module);
-//             return this.module.isSameModule(module);
-//         }
-//     }
-
-//     /**
-//      * A Model stub that always accept the person being added.
-//      */
-//     private class ModelStubAcceptingPersonAdded extends ModelStub {
-//         final ArrayList<Module> personsAdded = new ArrayList<>();
-
-//         @Override
-//         public boolean hasModule(Module module) {
-//             requireNonNull(module);
-//             return personsAdded.stream().anyMatch(module::isSameModule);
-//         }
-
-//         @Override
-//         public void addModule(Module module) {
-//             requireNonNull(module);
-//             personsAdded.add(module);
-//         }
-
-//         @Override
-//         public ReadOnlyModuleBook getAddressBook() {
-//             return new ModuleBook();
-//         }
-//     }
-
-// }
+}
