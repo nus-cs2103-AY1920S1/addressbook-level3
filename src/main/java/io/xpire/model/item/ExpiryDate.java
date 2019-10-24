@@ -61,6 +61,10 @@ public class ExpiryDate {
         return DateUtil.convertDateToString(this.date, DATE_FORMAT);
     }
 
+    public String toStringWithCountdown() {
+        return String.format("%s (%s)", this.toString(), this.getStatus(DateUtil.getCurrentDate()));
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
