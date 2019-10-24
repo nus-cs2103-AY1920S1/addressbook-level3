@@ -41,8 +41,8 @@ public class ReminderCard extends UiPart<Region> {
         this.lesson = lesson;
         id.setText(displayedIndex + ". ");
         className.setText(lesson.getName().className);
-        startTime.setText(lesson.getStartTime().getTime().toString());
-        endTime.setText(lesson.getEndTime().getTime().toString());
+        startTime.setText(lesson.getStartTime().getStringTime());
+        endTime.setText(lesson.getEndTime().getStringTime());
     }
 
     @Override

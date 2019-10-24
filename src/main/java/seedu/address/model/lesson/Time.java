@@ -20,6 +20,10 @@ public class Time {
         return this.time;
     }
 
+    public String getStringTime() {
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy h:mm a");
