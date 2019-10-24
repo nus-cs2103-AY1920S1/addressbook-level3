@@ -420,7 +420,92 @@ This process is further illustrated in the following sequence diagram:
 image::AddBudgetSequenceDiagram.png[]
 // end::budgetadd[]
 
-// tag::undoredo[]
+=== Analytics
+
+// tag::analyticsexpenditure[]
+==== View expenditure trend
+
+The view expenditure trend feature allows the user to view monthly expenditure trend for a year.
+This feature is facilitated by `AnalyticsFeatureParser`, `ExpenditureTrendCommandParser`, and `ExpenditureTrendCommand`.
+The argument supported by this feature is:
+
+- `Year` (optional)
+
+===== Implementation
+
+When the user input the `expenditure` command in the Analytics tab, the following chain of operations occurs:
+
+1. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+2. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `ExpenditureTrendCommandParser`.
+
+3. `ExpenditureTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+4. This arguments will be tokenized and the respective models for each argument are created.
+
+5. If the parsing of all arguments are successful, a new `ExpenditureTrendCommand` is returned back to `LogicManager`.
+
+6. The `LogicManager` executes `ExpenditureTrendCommand#execute()`.
+
+7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
+// end::analyticsexpenditure[]
+
+// tag::analyticsincome[]
+==== View income trend
+
+The view income trend feature allows the user to view monthly income trend for a year.
+This feature is facilitated by `AnalyticsFeatureParser`, `IncomeTrendCommandParser`, and `IncomeTrendCommand`.
+The argument supported by this feature is:
+
+- `Year` (optional)
+
+===== Implementation
+
+When the user input the `income` command in the Analytics tab, the following chain of operations occurs:
+
+1. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+2. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `IncomeTrendCommandParser`.
+
+3. `IncomeTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+4. This arguments will be tokenized and the respective models for each argument are created.
+
+5. If the parsing of all arguments are successful, a new `IncomeTrendCommand` is returned back to `LogicManager`.
+
+6. The `LogicManager` executes `IncomeTrendCommand#execute()`.
+
+7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
+// end::analyticsincome[]
+
+// tag::analyticsbalance[]
+==== View balance trend
+
+The view balance trend feature allows the user to view monthly balance trend for a year.
+This feature is facilitated by `AnalyticsFeatureParser`, `BalanceTrendCommandParser`, and `BalanceTrendCommand`.
+The argument supported by this feature is:
+
+- `Year` (optional)
+
+===== Implementation
+
+When the user input the `balance` command in the Analytics tab, the following chain of operations occurs:
+
+1. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+2. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `BalanceTrendCommandParser`.
+
+3. `BalanceTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+4. This arguments will be tokenized and the respective models for each argument are created.
+
+5. If the parsing of all arguments are successful, a new `BalanceTrendCommand` is returned back to `LogicManager`.
+
+6. The `LogicManager` executes `BalanceTrendCommand#execute()`.
+
+7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
+// end::analyticsbalance[]
+
 === [Demo] Use this as template for your section
 ==== Proposed Implementation
 ===== Test
