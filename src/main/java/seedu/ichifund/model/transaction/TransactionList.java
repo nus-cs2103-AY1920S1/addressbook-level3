@@ -3,7 +3,6 @@ package seedu.ichifund.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
-import javax.swing.text.html.Option;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
