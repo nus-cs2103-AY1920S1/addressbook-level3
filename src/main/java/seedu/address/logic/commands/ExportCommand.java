@@ -37,6 +37,7 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Export success! File written to: ";
     public static final String MESSAGE_FAILURE = "Export failed.";
+    public static final String MESSAGE_EMPTY = "Nothing to export!";
     public static final String MESSAGE_FILE_EXISTS =
             "File name already in use. Please delete the existing file or use a new file name";
 
@@ -61,6 +62,10 @@ public class ExportCommand extends Command {
         requireNonNull(model);
 
         List<Person> lastShownList = model.getStagedPersonList();
+
+        if (lastShownList.isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY);
+        }
 
         // Selectively export if indexes are provided
         if (targetIndexes.isPresent()) {

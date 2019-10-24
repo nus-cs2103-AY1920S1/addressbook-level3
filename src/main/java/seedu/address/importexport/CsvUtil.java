@@ -52,9 +52,10 @@ public class CsvUtil {
         if (FileUtil.isFileExists(writePath)) {
             throw new ExportingException(MESSAGE_OVERRIDING_FORBIDDEN);
         }
+        String toWrite = getCsvStringFromPersons(persons);
         FileUtil.createFile(writePath);
         logger.info("Writing export data to: " + writePath);
-        FileUtil.writeToFile(writePath, getCsvStringFromPersons(persons));
+        FileUtil.writeToFile(writePath, toWrite);
         return pathString;
     }
 
@@ -125,7 +126,7 @@ public class CsvUtil {
     /**
      * Converts a {@Code JsonAdaptedPerson} read from a csv file into a {@Code Person} object
      */
-    public static Person convertToPerson(JsonAdaptedPerson person) throws IllegalValueException {
+    private static Person convertToPerson(JsonAdaptedPerson person) throws IllegalValueException {
         return person.toModelType();
     }
 
@@ -133,7 +134,7 @@ public class CsvUtil {
      * Converts a list of {@Code JsonAdaptedPerson} objects read from a csv file
      * into a list of {@Code Person} objects
      */
-    public static List<Person> convertImportedPersonsToPersonList(List<JsonAdaptedPerson> persons)
+    private static List<Person> convertImportedPersonsToPersonList(List<JsonAdaptedPerson> persons)
             throws IllegalValueException {
         List<Person> newPersonList = new ArrayList<>();
         for (JsonAdaptedPerson person : persons) {
