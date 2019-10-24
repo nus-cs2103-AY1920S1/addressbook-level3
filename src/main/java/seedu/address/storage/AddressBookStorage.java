@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.task.TaskManager;
@@ -56,11 +57,13 @@ public interface AddressBookStorage {
      * @param taskManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                         CustomerManager customerManager) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAddressBook, TaskManager)
+     * @see #saveAddressBook(ReadOnlyAddressBook, TaskManager, CustomerManager)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager, Path filePath) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                         CustomerManager customerManager, Path filePath) throws IOException;
 
 }

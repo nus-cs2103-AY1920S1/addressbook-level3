@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,7 +16,6 @@ import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerManager;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -172,6 +170,9 @@ public class ModelManager implements Model {
     }
 
     // =========== Customer Manager ===========================================================================
+    public boolean hasCustomer(Customer customer) {
+        return customerManager.hasPerson(customer);
+    }
 
     public boolean hasCustomer(int customerId) {
         return customerManager.hasCustomer(customerId);
@@ -181,14 +182,33 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
+    public void addCustomer(Customer customer) {
+        customerManager.addPerson(customer);
+    }
+
+    public void deleteCustomer(Customer customer) {
+        customerManager.removePerson(customer);
+    }
+
     // =========== Driver Manager ===========================================================================
+    public boolean hasDriver(Driver driver) {
+        return driverManager.hasPerson(driver);
+    }
 
     public boolean hasDriver(int driverId) {
         return driverManager.hasDriver(driverId);
+    };
+
+    public Driver getDriver(int driverId) {
+        return driverManager.getDriver(driverId);
     }
 
-    public Optional<Driver> getDriver(int driverId) {
-        return driverManager.getDriver(driverId);
+    public void addDriver(Driver driver) {
+        driverManager.addDriver(driver);
+    }
+
+    public void deleteDriver(Driver driver) {
+        driverManager.deleteDriver(driver);
     }
 
     // =========== Filtered Person List Accessors =============================================================

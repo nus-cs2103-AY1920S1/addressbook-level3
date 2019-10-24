@@ -71,7 +71,7 @@ public class FreeCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Driver driver = model.getDriver(driverId).get();
+        Driver driver = model.getDriver(driverId);
         Task task = model.getTask(taskId);
 
         freeDriverFromTask(driver, task);

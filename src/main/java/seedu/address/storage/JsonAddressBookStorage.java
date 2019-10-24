@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.task.TaskManager;
 
@@ -67,8 +68,9 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException {
-        saveAddressBook(addressBook, taskManager, filePath);
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                                CustomerManager customerManager) throws IOException {
+        saveAddressBook(addressBook, taskManager, customerManager, filePath);
     }
 
     /**
@@ -89,10 +91,13 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager, Path filePath)
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                                CustomerManager customerManager, Path filePath)
             throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
+        requireNonNull(taskManager);
+        requireNonNull(customerManager);
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
@@ -100,6 +105,9 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         // Save task manager as json
         // temp
         JsonUtil.saveJsonFile(new JsonSerializableTaskManager(taskManager), Paths.get("data", "taskManager.json"));
+        // Save customer manager as json
+        JsonUtil.saveJsonFile(new JsonSerializableCustomerManager(customerManager),
+                Paths.get("data", "customerManager.json"));
     }
 
 }

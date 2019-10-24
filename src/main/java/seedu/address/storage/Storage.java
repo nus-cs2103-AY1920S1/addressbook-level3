@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
@@ -31,6 +32,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                         CustomerManager customerManager) throws IOException;
 
 }

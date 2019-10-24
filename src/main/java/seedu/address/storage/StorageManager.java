@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
@@ -73,17 +74,19 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-    // Includes saving task manager
+    // Includes saving task manager & customer manager
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException {
-        saveAddressBook(addressBook, taskManager, addressBookStorage.getAddressBookFilePath());
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                                CustomerManager customerManager) throws IOException {
+        saveAddressBook(addressBook, taskManager, customerManager, addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager, Path filePath)
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                                CustomerManager customerManager, Path filePath)
             throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, taskManager, filePath);
+        addressBookStorage.saveAddressBook(addressBook, taskManager, customerManager, filePath);
     }
 
 }

@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -118,14 +117,25 @@ public interface Model {
 
     // customer manager
 
-    boolean hasCustomer(int customerId);
+    boolean hasCustomer(Customer customer);
 
+    boolean hasCustomer(int customerId);
 
     Customer getCustomer(int customerId);
 
+    void addCustomer(Customer customer);
+
+    void deleteCustomer(Customer customer);
+
     // driver manager
+
+    boolean hasDriver(Driver driver);
 
     boolean hasDriver(int driverId);
 
-    Optional<Driver> getDriver(int driverId);
+    Driver getDriver(int driverId);
+
+    void addDriver(Driver driver);
+
+    void deleteDriver(Driver driver);
 }

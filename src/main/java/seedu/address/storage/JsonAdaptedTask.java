@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.Description;
 import seedu.address.model.DriverManager;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerManager;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Schedule;
 import seedu.address.model.task.Task;
@@ -147,7 +147,7 @@ public class JsonAdaptedTask {
         task.setCustomer(modelCustomer);
 
         if (driverId != null) {
-            Optional<Driver> driverOptional = driverManager.getDriver(Integer.parseInt(driverId));
+            Optional<Driver> driverOptional = driverManager.getOptionalDriver(Integer.parseInt(driverId));
             if (driverOptional.isEmpty()) {
                 throw new IllegalValueException(Driver.MESSAGE_INVALID_ID);
             }
@@ -171,7 +171,7 @@ public class JsonAdaptedTask {
             task.setStatus(TaskStatus.ON_GOING);
 
             //if status is ongoing, then load the eventTime to driver schedule
-            Driver driver = driverManager.getDriver(Integer.parseInt(driverId)).get();
+            Driver driver = driverManager.getDriver(Integer.parseInt(driverId));
             Schedule driverSchedule = driver.getSchedule();
             driverSchedule.add(EventTime.parse(duration));
         } else {

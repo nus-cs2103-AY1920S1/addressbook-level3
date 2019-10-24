@@ -70,7 +70,7 @@ public class AssignCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Driver driver = model.getDriver(driverId).get();
+        Driver driver = model.getDriver(driverId);
         Task task = model.getTask(taskId);
 
         // check current time against system time

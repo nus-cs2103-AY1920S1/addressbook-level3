@@ -1,6 +1,6 @@
-package seedu.address.model.person;
+package seedu.address.model;
 
-import seedu.address.model.EntityManager;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
