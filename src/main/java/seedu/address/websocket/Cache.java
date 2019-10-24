@@ -117,27 +117,6 @@ public class Cache {
     }
 
     /**
-     * Load json from file in resources
-     * @param path file name to load from
-     * @return an Optional containing a JSONObject or empty.
-     */
-    private static Object loadFullPath(String path) {
-        requireNonNull(path);
-        Object response = null;
-        JSONParser parser;
-        parser = new JSONParser();
-        try (Reader reader = new FileReader(path)) {
-            response = parser.parse(reader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return response;
-    }
-
-
-    /**
      * Load json from file in cache folder
      * @param pathName file name to load from
      * @return an Optional containing a JSONObject or empty.
