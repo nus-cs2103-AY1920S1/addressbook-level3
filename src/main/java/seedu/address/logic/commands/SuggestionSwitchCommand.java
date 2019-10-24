@@ -24,16 +24,16 @@ public class SuggestionSwitchCommand extends Command {
     private static final String SWITCH_ON = "on";
     private static final String SWITCH_OFF = "off";
 
-    private boolean on;
+    private boolean isOn;
 
-    public SuggestionSwitchCommand(boolean on) {
-        this.on = on;
+    public SuggestionSwitchCommand(boolean isOn) {
+        this.isOn = isOn;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandWordException {
         requireNonNull(model);
-        if (on) {
+        if (isOn) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, SWITCH_ON));
         } else {
             return new CommandResult(String.format(MESSAGE_SUCCESS, SWITCH_OFF));
@@ -41,6 +41,13 @@ public class SuggestionSwitchCommand extends Command {
     }
 
     public boolean isOn() {
-        return on;
+        return isOn;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SuggestionSwitchCommand // instanceof handles nulls
+                && isOn == ((SuggestionSwitchCommand) other).isOn); // state check
     }
 }
