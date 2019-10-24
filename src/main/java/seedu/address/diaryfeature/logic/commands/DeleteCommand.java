@@ -18,7 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class DeleteCommand extends Command<DiaryModel> {
 
-    public static final String COMMAND_WORD = "delete entry";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the diary entry identified by the index number used in the displayed diary entry list.\n"
@@ -41,7 +41,7 @@ public class DeleteCommand extends Command<DiaryModel> {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        DiaryEntry entryToDelete = model.deleteDiaryEntry(targetIndex.getZeroBased());
+        DiaryEntry entryToDelete = model.deleteDiaryEntry(targetIndex.getOneBased());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, entryToDelete));
     }
 

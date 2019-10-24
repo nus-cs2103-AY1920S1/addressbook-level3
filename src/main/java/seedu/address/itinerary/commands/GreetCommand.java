@@ -4,8 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import seedu.address.itinerary.model.Model;
-import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.Model.Event.Event;
+import seedu.address.itinerary.Model.Model;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 

@@ -10,8 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.itinerary.Model.Model;
 import seedu.address.itinerary.commands.Command;
-import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.parser.ItineraryParser;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;

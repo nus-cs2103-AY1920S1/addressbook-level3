@@ -9,13 +9,13 @@ import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
+import seedu.address.itinerary.Model.Event.Date;
+import seedu.address.itinerary.Model.Event.Description;
+import seedu.address.itinerary.Model.Event.Event;
+import seedu.address.itinerary.Model.Event.Location;
+import seedu.address.itinerary.Model.Event.Time;
+import seedu.address.itinerary.Model.Event.Title;
 import seedu.address.itinerary.commands.AddEventCommand;
-import seedu.address.itinerary.model.event.Date;
-import seedu.address.itinerary.model.event.Description;
-import seedu.address.itinerary.model.event.Event;
-import seedu.address.itinerary.model.event.Location;
-import seedu.address.itinerary.model.event.Time;
-import seedu.address.itinerary.model.event.Title;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 

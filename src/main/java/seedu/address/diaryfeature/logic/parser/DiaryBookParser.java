@@ -32,7 +32,7 @@ public class DiaryBookParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "help"));
+            throw new ParseException(String.format(matcher.toString()));
         }
 
         final String commandWord = matcher.group("commandWord");

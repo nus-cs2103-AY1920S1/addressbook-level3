@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.itinerary.model.Model;
-import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.Model.Event.Event;
+import seedu.address.itinerary.Model.Model;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 

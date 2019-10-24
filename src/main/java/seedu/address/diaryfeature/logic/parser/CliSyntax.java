@@ -8,8 +8,8 @@ import seedu.address.logic.parser.Prefix;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_TITLE = new Prefix("title/");
-    public static final Prefix PREFIX_DATE = new Prefix("date/");
+    public static final Prefix PREFIX_TITLE = new Prefix("t/");
+    public static final Prefix PREFIX_DATE = new Prefix("d/");
 
 
 }

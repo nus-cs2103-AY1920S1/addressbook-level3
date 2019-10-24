@@ -18,7 +18,7 @@ import seedu.address.address.ui.PersonListPanel;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.diaryfeature.diaryUI.DiaryPage;
+import seedu.address.diaryfeature.ui.DiaryPage;
 import seedu.address.financialtracker.ui.FinancialTrackerPage;
 import seedu.address.itinerary.ui.ItineraryPage;
 import seedu.address.logic.Logic;

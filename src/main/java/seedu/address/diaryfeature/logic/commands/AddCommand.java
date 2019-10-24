@@ -14,13 +14,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class AddCommand extends Command<DiaryModel> {
 
-    public static final String COMMAND_WORD = "add entry";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry to the diaryBook. ";
 
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This entry already exists in the diaryBook";
 
     private final DiaryEntry toAdd;
 
@@ -37,7 +36,7 @@ public class AddCommand extends Command<DiaryModel> {
         requireNonNull(model);
 
         model.addDiaryEntry(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
     @Override

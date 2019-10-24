@@ -1,4 +1,4 @@
-package seedu.address.itinerary.model.event;
+package seedu.address.itinerary.Model.Event;
 
 import static java.util.Objects.requireNonNull;
 
