@@ -29,7 +29,8 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
 public class JsonSerializableHistoryManager {
 
     public static final String MESSAGE_ERROR_CONVERTING_HISTORY_MANAGER = "Error converting HistoryManager";
-    public static final String MESSAGE_INVALID_COMMAND = "Invalid Command";
+    public static final String MESSAGE_INVALID_COMMAND = "Unknown Command";
+    public static final String MESSAGE_COMMAND_MISMATCH = "Error mapping command";
 
     private final List<JsonAdaptedCommand> executedCommands = new ArrayList<>();
     private final List<JsonAdaptedCommand> inverselyExecutedCommands = new ArrayList<>();
@@ -95,17 +96,21 @@ public class JsonSerializableHistoryManager {
      * objects.
      */
     private JsonAdaptedCommand convertToJsonAdaptedCommand(Command command) throws InvalidCommandToJsonException {
-        switch (command.getCommandWord()) {
-        case AddAddressCommand.COMMAND_WORD:
-            return new JsonAdaptedAddAddressCommand(command);
-        case ClearAddressCommand.COMMAND_WORD:
-            return new JsonAdaptedClearAddressCommand(command);
-        case DeleteAddressCommand.COMMAND_WORD:
-            return new JsonAdaptedDeleteAddressCommand(command);
-        case EditAddressCommand.COMMAND_WORD:
-            return new JsonAdaptedEditAddressCommand(command);
-        default:
-            throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
+        try {
+            switch (command.getCommandWord()) {
+            case AddAddressCommand.COMMAND_WORD:
+                return new JsonAdaptedAddAddressCommand((AddAddressCommand) command);
+            case ClearAddressCommand.COMMAND_WORD:
+                return new JsonAdaptedClearAddressCommand((ClearAddressCommand) command);
+            case DeleteAddressCommand.COMMAND_WORD:
+                return new JsonAdaptedDeleteAddressCommand((DeleteAddressCommand) command);
+            case EditAddressCommand.COMMAND_WORD:
+                return new JsonAdaptedEditAddressCommand((EditAddressCommand) command);
+            default:
+                throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
+            }
+        } catch (ClassCastException cce) {
+            throw new InvalidCommandToJsonException(MESSAGE_COMMAND_MISMATCH);
         }
     }
 

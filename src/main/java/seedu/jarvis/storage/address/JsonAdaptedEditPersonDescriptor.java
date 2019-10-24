@@ -1,4 +1,4 @@
-package seedu.jarvis.storage.history.commands.address;
+package seedu.jarvis.storage.address;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,7 +16,6 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.storage.address.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link EditPersonDescriptor}

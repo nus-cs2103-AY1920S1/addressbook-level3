@@ -23,6 +23,27 @@ public class JsonCcaTrackerStorageTest {
     @TempDir
     public Path testFolder;
 
+    @Test
+    public void readCcaTracker_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readCcaTracker(null));
+    }
+
+    @Test
+    public void read_missingFile_emptyResult() throws Exception {
+        assertFalse(readCcaTracker("NonExistentFile.json").isPresent());
+    }
+
+    @Test
+    public void read_notJsonFormat_exceptionThrown() {
+        assertThrows(DataConversionException.class, () -> readCcaTracker("notJsonFormatCcaTracker.json"));
+    }
+
+    @Test
+    public void saveCcaTracker_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveCcaTracker(new CcaTracker(), null));
+    }
+
+
     /**
      * Saves {@code ccaTracker} at the specified {@code filePath}.
      */
@@ -47,26 +68,6 @@ public class JsonCcaTrackerStorageTest {
      */
     private Path addToTestDataPathIfNotNull(String filePath) {
         return filePath != null ? TEST_DATA_FOLDER.resolve(filePath) : null;
-    }
-
-    @Test
-    public void readCcaTracker_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readCcaTracker(null));
-    }
-
-    @Test
-    public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readCcaTracker("NonExistentFile.json").isPresent());
-    }
-
-    @Test
-    public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readCcaTracker("notJsonFormatCcaTracker.json"));
-    }
-
-    @Test
-    public void saveCcaTracker_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveCcaTracker(new CcaTracker(), null));
     }
 
 }
