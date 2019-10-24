@@ -1,0 +1,8 @@
+@startuml
+(*)  --> "User executes AddEarningsCommand"
+If "input is valid"
+--> "Generate respective object
+parameters for Earnings object"
+--> "Create Earnings Object"
+-->(*)
+@enduml
