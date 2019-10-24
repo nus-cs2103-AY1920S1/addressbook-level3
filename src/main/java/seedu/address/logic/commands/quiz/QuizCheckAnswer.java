@@ -53,9 +53,9 @@ public class QuizCheckAnswer extends Command {
             QuizResult quizResult = new QuizResult(answer, questionBody, subject, difficulty, getQuizTime(), result);
 
             model.addQuizResult(quizResult);
-            model.removeOneQuizQuestion();
 
             if (result) {
+                model.removeOneQuizQuestion();
                 return new CommandResult(ANSWER_CORRECT, 4);
             } else {
                 return new CommandResult(ANSWER_WRONG, 4);
