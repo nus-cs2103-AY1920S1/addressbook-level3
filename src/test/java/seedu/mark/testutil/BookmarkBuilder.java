@@ -1,9 +1,12 @@
 package seedu.mark.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
@@ -26,6 +29,7 @@ public class BookmarkBuilder {
     private Remark remark;
     private Set<Tag> tags;
     private Folder folder;
+    private List<CachedCopy> cachedCopies;
 
     public BookmarkBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +37,7 @@ public class BookmarkBuilder {
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
         folder = new Folder(DEFAULT_FOLDER);
+        cachedCopies = new ArrayList<>();
     }
 
     /**
@@ -44,6 +49,7 @@ public class BookmarkBuilder {
         remark = bookmarkToCopy.getRemark();
         tags = new HashSet<>(bookmarkToCopy.getTags());
         folder = bookmarkToCopy.getFolder();
+        cachedCopies = new ArrayList<>(bookmarkToCopy.getCachedCopies());
     }
 
     /**
@@ -86,8 +92,16 @@ public class BookmarkBuilder {
         return this;
     }
 
+    /**
+     * Adds a {@code CachedCopy} to the {@code Bookmark} that we are building.
+     */
+    public BookmarkBuilder withCachedCopy(CachedCopy cachedCopy) {
+        this.cachedCopies.add(cachedCopy);
+        return this;
+    }
+
     public Bookmark build() {
-        return new Bookmark(name, url, remark, folder, tags);
+        return new Bookmark(name, url, remark, folder, tags, cachedCopies);
     }
 
 }

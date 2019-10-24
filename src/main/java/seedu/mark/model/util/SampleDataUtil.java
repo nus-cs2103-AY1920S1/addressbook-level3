@@ -30,27 +30,27 @@ public class SampleDataUtil {
             new Bookmark(new Name("Luminus"), new Url("https://luminus.nus.edu.sg/"),
                     new Remark("Announcements, course materials"),
                     new Folder(GENERAL),
-                    getTagSet("NUS")),
+                    getTagSet("NUS"), new ArrayList<>()),
             new Bookmark(new Name("NUSMods"), new Url("https://nusmods.com/"),
                     new Remark("Timetable planning"),
                     new Folder(GENERAL),
-                    getTagSet("NUS")),
+                    getTagSet("NUS"), new ArrayList<>()),
             new Bookmark(new Name("CS2103T Website"), new Url("https://nus-cs2103-ay1920s1.github.io/website/"),
                     new Remark("Learning materials for Software Engineering"),
                     new Folder(SCHOOL),
-                    getTagSet("NUS", "CS2103T")),
+                    getTagSet("NUS", "CS2103T"), new ArrayList<>()),
             new Bookmark(new Name("Facebook"), new Url("https://www.facebook.com/"),
                     new Remark("-"),
                     new Folder(ENTERTAINMENT),
-                    getTagSet("SocialMedia")),
+                    getTagSet("SocialMedia"), new ArrayList<>()),
             new Bookmark(new Name("Reddit"), new Url("https://www.reddit.com/"),
                 new Remark(Remark.DEFAULT_VALUE),
                     new Folder(ENTERTAINMENT),
-                    getTagSet("SocialMedia")),
+                    getTagSet("SocialMedia"), new ArrayList<>()),
             new Bookmark(new Name("McDelivery"), new Url("https://www.mcdelivery.com.sg/sg/"),
                     new Remark(Remark.DEFAULT_VALUE),
                     new Folder(Folder.DEFAULT_FOLDER_NAME),
-                    getTagSet("Food"))
+                    getTagSet("Food"), new ArrayList<>())
         };
     }
 

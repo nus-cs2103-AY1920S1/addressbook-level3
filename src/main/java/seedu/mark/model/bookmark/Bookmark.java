@@ -2,8 +2,10 @@ package seedu.mark.model.bookmark;
 
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,17 +25,19 @@ public class Bookmark {
     private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
     private final Folder folder;
+    private final List<CachedCopy> cachedCopies = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Bookmark(Name name, Url url, Remark remark, Folder folder, Set<Tag> tags) {
-        requireAllNonNull(name, url, remark, folder, tags);
+    public Bookmark(Name name, Url url, Remark remark, Folder folder, Set<Tag> tags, List<CachedCopy> cachedCopies) {
+        requireAllNonNull(name, url, remark, folder, tags, cachedCopies);
         this.name = name;
         this.url = url;
         this.remark = remark;
         this.tags.addAll(tags);
         this.folder = folder;
+        this.cachedCopies.addAll(cachedCopies);
     }
 
     public Name getName() {
@@ -59,6 +63,11 @@ public class Bookmark {
     public Folder getFolder() {
         return folder;
     }
+
+    public List<CachedCopy> getCachedCopies() {
+        return Collections.unmodifiableList(cachedCopies);
+    }
+
     /**
      * Returns true if both bookmarks have the same name or the same url.
      * This defines a weaker notion of equality between two bookmarks.
@@ -92,13 +101,14 @@ public class Bookmark {
                 && otherBookmark.getUrl().equals(getUrl())
                 && otherBookmark.getRemark().equals(getRemark())
                 && otherBookmark.getTags().equals(getTags())
-                && otherBookmark.getFolder().equals(getFolder());
+                && otherBookmark.getFolder().equals(getFolder())
+                && otherBookmark.getCachedCopies().equals(getCachedCopies());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, url, remark, tags, folder);
+        return Objects.hash(name, url, remark, tags, folder, cachedCopies);
     }
 
     @Override

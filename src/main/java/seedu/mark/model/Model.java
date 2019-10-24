@@ -210,4 +210,14 @@ public interface Model {
      */
     void updateDocument(OfflineDocument doc);
 
+    /**
+     * Updates the specified bookmark to be the one to display its cache
+     */
+    void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache);
+
+    /**
+     * Returns the observable of the bookmark with its cache currently displayed.
+     * @return the observable bookmark property
+     */
+    SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 }

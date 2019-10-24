@@ -197,6 +197,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Paragraph> getObservableDocument() {
         throw new AssertionError("This method should not be called.");
     }
