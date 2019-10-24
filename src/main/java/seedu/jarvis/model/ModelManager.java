@@ -286,8 +286,8 @@ public class ModelManager implements Model {
      * @param purchase to be deleted
      */
     @Override
-    public void deletePurchase(Purchase purchase) {
-        financeTracker.deleteSinglePurchase(purchase);
+    public Purchase deletePurchase(Purchase purchase) {
+        return financeTracker.deleteSinglePurchase(purchase);
     }
 
 
@@ -361,8 +361,8 @@ public class ModelManager implements Model {
      * @param installment
      */
     @Override
-    public void deleteInstallment(Installment installment) {
-        financeTracker.deleteInstallment(installment);
+    public Installment deleteInstallment(Installment installment) {
+        return financeTracker.deleteInstallment(installment);
     }
 
     /**

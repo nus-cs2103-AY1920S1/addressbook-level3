@@ -71,7 +71,7 @@ public interface FinanceTrackerModel {
      *
      * @param purchase to be deleted
      */
-    void deletePurchase(Purchase purchase);
+    Purchase deletePurchase(Purchase purchase);
 
     /**
      * Checks for the existence of the purchase.
@@ -128,7 +128,7 @@ public interface FinanceTrackerModel {
      *
      * @param installment to be deleted
      */
-    void deleteInstallment(Installment installment);
+    Installment deleteInstallment(Installment installment);
 
     /**
      * Checks for the existence of the same installment in the finance tracker.
