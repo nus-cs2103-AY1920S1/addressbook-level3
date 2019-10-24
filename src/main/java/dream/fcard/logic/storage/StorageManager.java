@@ -78,6 +78,14 @@ public class StorageManager {
     }
 
     /**
+     * Returns value of current root.
+     * @return  root directory
+     */
+    public static String getRoot() {
+        return root;
+    }
+
+    /**
      * Write a deck into decks storage.
      * @param deck  deck object to write
      */
@@ -94,7 +102,7 @@ public class StorageManager {
     public static ArrayList<Deck> loadDecks() {
         resolveRoot();
         String path = FileReadWrite.resolve(root, decksSubDir);
-        System.out.println(path);
+
         if (!FileReadWrite.fileExists(path)) {
             return new ArrayList<>();
         }
@@ -115,7 +123,7 @@ public class StorageManager {
      * @param filePath  Must be valid existing filepath to a deck json file.
      * @return          deck object
      */
-    private static Deck loadDeck(String filePath) {
+    public static Deck loadDeck(String filePath) {
         try {
             return parseDeckJsonFile(FileReadWrite.read(filePath));
         } catch (FileNotFoundException e) {

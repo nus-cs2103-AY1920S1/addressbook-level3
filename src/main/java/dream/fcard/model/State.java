@@ -35,6 +35,14 @@ public class State {
     }
 
     /**
+     * Adds a deck object to decks list.
+     * @param deck  deck object
+     */
+    public void addDeck(Deck deck) {
+        decks.add(deck);
+    }
+
+    /**
      * Removes the deck from the decks list, if there is a deck with a matching name.
      * Else, throw exception when no deck with matching name is found.
      */
@@ -58,6 +66,14 @@ public class State {
             throw new DeckNotFoundException("Deck not found - " + name);
         }
         return decks.get(indexOfDeck);
+    }
+
+    /**
+     * Replace all decks with a new set of decks. Used by `root` command.
+     * @param newDecks  new decks
+     */
+    public void reloadAllDecks(ArrayList<Deck> newDecks) {
+        decks = newDecks;
     }
 
     /**
