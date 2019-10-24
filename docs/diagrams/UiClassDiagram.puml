@@ -9,11 +9,15 @@ Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
+Class TaskListPanel
+Class TaskListCard
+Class EventListPanel
+Class EventListCard
+Class ReminderListPanel
+Class ReminderListCard
+Class ElisaDialogBox
+Class UserDialogBox
 Class CommandBox
 }
 
@@ -30,31 +34,37 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> TaskListPanel
+MainWindow *-down-> EventListPanel
+MainWindow *-down-> ReminderListPanel
 
-PersonListPanel -down-> PersonCard
+ResultDisplay *-down-> ElisaDialogBox
+ResultDisplay *-down-> UserDialogBox
 
-MainWindow -left-|> UiPart
+TaskListPanel -down-> TaskListCard
+EventListPanel -down-> EventListCard
+ReminderListPanel -down-> ReminderListCard
+
+
+MainWindow --|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+TaskListPanel --|> UiPart
+TaskListCard --|> UiPart
+EventListPanel --|> UiPart
+EventListCard --|> UiPart
+ReminderListPanel --|> UiPart
+ReminderListCard --|> UiPart
 
-PersonCard ..> Model
+TaskListCard ..> Model
+EventListCard ..> Model
+ReminderListCard ..> Model
+
 UiManager -right-> Logic
-MainWindow -left-> Logic
+MainWindow -right-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
-
-MainWindow -[hidden]-|> UiPart
 @enduml
