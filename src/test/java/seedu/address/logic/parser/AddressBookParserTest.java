@@ -22,6 +22,9 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.visit.BeginVisitCommand;
+import seedu.address.logic.commands.visit.CancelOngoingVisitCommand;
+import seedu.address.logic.commands.visit.FinishOngoingVisitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -86,6 +89,27 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_beginVisit() throws Exception {
+        BeginVisitCommand command = (BeginVisitCommand) parser.parseCommand(
+                BeginVisitCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new BeginVisitCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_cancelOngoingVisit() throws Exception {
+        assertTrue(parser.parseCommand(CancelOngoingVisitCommand.COMMAND_WORD) instanceof CancelOngoingVisitCommand);
+        assertTrue(parser.parseCommand(CancelOngoingVisitCommand.COMMAND_WORD + " 3")
+                instanceof CancelOngoingVisitCommand);
+    }
+
+    @Test
+    public void parseCommand_finishOngoingVisit() throws Exception {
+        assertTrue(parser.parseCommand(FinishOngoingVisitCommand.COMMAND_WORD) instanceof FinishOngoingVisitCommand);
+        assertTrue(parser.parseCommand(FinishOngoingVisitCommand.COMMAND_WORD + " 3")
+                instanceof FinishOngoingVisitCommand);
     }
 
     @Test

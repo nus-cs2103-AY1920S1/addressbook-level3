@@ -99,7 +99,7 @@ public class JsonAdaptedVisit {
                 throw new IllegalValueException(EndDateTime.MESSAGE_CONSTRAINTS);
             }
             //Other constraints e.g. EndDateTime cannot be earlier than startDateTime
-            if (!EndDateTime.isValidEndDateTime(endDateTime, startDateTime)) {
+            if (!EndDateTime.isValidEndDateTime(startDateTime, endDateTime)) {
                 throw new IllegalValueException(END_DATE_EARLIER_THAN_START_DATE);
             }
             modelEndDateTime = new EndDateTime(endDateTime);
