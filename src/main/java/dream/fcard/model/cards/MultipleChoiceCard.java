@@ -63,10 +63,12 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     * @param frontString
-     * @param backString
-     * @param choicesArg
-     * @throws DuplicateInChoicesException
+     * Constructor of MCQ card, with front, back string, choices and priority level.
+     *
+     * @param frontString String of front text of card.
+     * @param backString  String of back text of card.
+     * @param choicesArg  Choices available for user to choose.
+     * @throws DuplicateInChoicesException Throw exception when duplicates exist in choices.
      */
     //@@author huiminlim
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg, int priorityLevel)
@@ -93,7 +95,9 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     * @return
+     * Returns JsonValue of flashcard.
+     *
+     * @return JsonValue of flashcard.
      */
     @Override
     public JsonValue toJson() {
@@ -114,7 +118,9 @@ public class MultipleChoiceCard extends FrontBackCard {
     }
 
     /**
-     * @return
+     * Render the front of card to GUI node.
+     *
+     * @return Node of front of card.
      */
     //@@author huiminlim
     @Override
@@ -127,6 +133,8 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
+     * Evaluates if user input answer is correct.
+     *
      * @param in input
      * @return
      * @throws IndexNotFoundException
@@ -205,8 +213,8 @@ public class MultipleChoiceCard extends FrontBackCard {
     /**
      * Edits one of string in choices, given new text and index.
      *
-     * @param indexProvided     Integer index of targeted choice to edit.
-     * @param newChoice String text of new choice option to replace current choice.
+     * @param indexProvided Integer index of targeted choice to edit.
+     * @param newChoice     String text of new choice option to replace current choice.
      * @throws IndexNotFoundException If index >= number of choices or < 0.
      */
     //@author huiminlim
@@ -226,7 +234,6 @@ public class MultipleChoiceCard extends FrontBackCard {
      * Checks if the given choice index provided by the user is correct.
      * Note: the user provided index is 1-based indexing.
      * Valid indexes include 1, 2, 3, ..., choices.
-     *
      *
      * @param choiceIndex
      * @return boolean true if not in valid range, false if in valid range.
