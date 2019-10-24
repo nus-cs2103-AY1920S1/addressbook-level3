@@ -68,7 +68,7 @@ Examples:
 
 === Adding a group: `addgroup`
 
-Adds a group to the address book +
+Adds a group to the TimeBook +
 Format: `addgroup -g GROUP_NAME [-r GROUP_REMARK]`
 
 Examples:
@@ -78,12 +78,12 @@ Examples:
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the timebook. +
+Shows a list of all persons in the TimeBook. +
 Format: `list`
 
 === Editing a person : `editperson`
 
-Edits an existing person in the timebook. +
+Edits an existing person in the TimeBook. +
 Format: `editperson -ed PERSON_NAME [-n NEW_NAME] [-p PHONE] [-em EMAIL] [-a ADDRESS] [-t TAG]...`
 
 ****
@@ -103,7 +103,7 @@ Edits the name `Betsy` to be `Betsy Crower` and clears all existing tags.
 
 === Editing a group : `editgroup`
 
-Edits an existing group in the address book. +
+Edits an existing group in the TimeBook. +
 Format: `editgroup -ed GROUP_NAME [-g NEW_GROUP_NAME] [-r REMARK] [-d DESCRIPTION]`
 
 ****
@@ -143,7 +143,7 @@ Format: `findgroup -g GROUP_NAME`
 // tag::delete[]
 === Deleting a person : `deleteperson`
 
-Deletes the specified person from TimeBook. +
+Deletes the specified person from the TimeBook. +
 Format: `delete-person -n NAME`
 
 ****
@@ -154,7 +154,7 @@ Format: `delete-person -n NAME`
 Examples:
 
 * `deleteperson -n Benedict` +
-Deletes the person named `Benedict` from TimeBook.
+Deletes the person named `Benedict` from the TimeBook.
 
 === Deleting a group : `deletegroup`
 
@@ -186,7 +186,7 @@ There is no need to save manually.
 
 === Add Event: `addevent`
 
-Adds an event to a person in TimeBook. Only events without clashes in the person's existing schedule can be added to TimeBook.
+Adds an event to a person in the TimeBook. Only events without clashes in the person's existing schedule can be added to TimeBook.
 Can be used to mark a person as unavailable either on one-off dates or on a particular day every week. +
 Format:
 
@@ -204,7 +204,7 @@ Examples:
 
 === Delete schedule: `delete-schedule`
 
-Delete all schedule data of the specified person from TimeBook +
+Delete all schedule data of the specified person from the TimeBook +
 Format:
 
 * `delete-schedule -n NAME` +
@@ -215,7 +215,7 @@ Examples:
 
 === Add to Group: `addtogroup`
 
-Adds a person specified by 'NAME' into a group specified by 'GROUP_NAME' in TimeBook.
+Adds a person specified by 'NAME' into a group specified by 'GROUP_NAME' in the TimeBook.
 Format:
 
 * `addtogroup -n NAME -g GROUP_NAME`
@@ -251,7 +251,7 @@ Format:
 * `show -n NAME` +
 
 === Delete schedule: `deleteschedule`
-Delete all schedule data of the specified person from TimeBook +
+Delete all schedule data of the specified person from the TimeBook +
 Format:
 
 * `deleteschedule -n NAME` +
