@@ -82,11 +82,14 @@ image::UiClassDiagram.png[]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FoodListPanel`, `PurchaseListPanel`, `SavingsHistoryPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
+There are pop-up windows that appeared when the calls the `InfoCommand` or `HelpCommand` which is a new window with their own stages. The CSS files for each pop-up windows is taken from the `MainWindow` which ensures that they always match the theme of the `MainWindow` should the user decide to switch the theme while either pop-up window is open.
+
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/savenus/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
+* Responds to the user's keyboard and mouse input.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
@@ -372,13 +375,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of food items
-* has trouble tracking expenditure over a period of time
-* wants meal recommendations within their specified budget
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a need to manage a significant number of food items
+* Has trouble tracking expenditure over a period of time
+* Wants to know how much money they have saved
+* Wants meal recommendations within their specified budget
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Reasonably comfortable using CLI apps
+* Able to read graphs and data.
 
 *Value proposition*: manage expenditure and get recommendations faster than a typical mouse/GUI driven app
 
