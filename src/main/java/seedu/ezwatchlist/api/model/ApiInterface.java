@@ -31,5 +31,5 @@ public interface ApiInterface {
     /**
      * Checks if the api is connected to the internet.
      */
-    public boolean isApiConnected();
+    public boolean isConnected();
 }
