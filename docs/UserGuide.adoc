@@ -157,20 +157,40 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 
 === Assign a task to a driver: `assign`
 
-Assign an existing task a driver. +
-Format: `assign TASK_INDEX DRIVER_INDEX`
+Assign an existing task a driver with a proposed time. +
+Format: `assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM`
 
 ****
-* If the driver is not available for that task, an error message will be shown.
-* The indices refer to the numbers shown in the displayed lists.
+* You cannot assign a time that clashes with the driver's existing schedule, or is outside their working hours
+* If there is an earlier time slot that the driver is available,
+the program will suggest the earlier time slot +
+    - Use `assign force` to dismiss the suggestion and add the proposed time to the task
+* The ID is a positive integer
 ****
 
 Examples:
 
-* `assign 1 3` +
-Assigns the task at index 1 to the driver at index 3.
+* `assign t/1 d/1 at/900-1200` +
+Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.
 
-// end::delete[]
+* `assign force t/2 d/1 at/1600-1700` +
+Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.
+
+
+=== Unschedule a task: `free`
+
+Remove the time slot and driver from a task, and free the driver from this time slot in their schedule. +
+Format: `free t/TASK_ID`
+
+****
+* You cannot free a task that has no driver or time slot assigned to it.
+****
+
+Examples:
+
+* `free t/1` +
+Remove the assigned driver and time slot from the task, and free the driver's schedule.
+
 
 === Exiting the program : `exit`
 

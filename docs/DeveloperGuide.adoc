@@ -156,6 +156,54 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Task Scheduling
+
+==== Design Considerations
+* A `Schedule` should be a collection of non-overlapping `EventTime` object, and is always sorted
+* Should be able to notify the user if a better time slot is available, while giving users the liberty to exercise
+their own judgments
+
+
+==== Implementation
+
+Every `Driver` keeps track of a `Schedule` class, which is backed by a naturally sorted, TreeSet of `EventTime` objects.
+
+Before a new `EventTime` is added to the schedule, the method checks against the set of object to ensure
+the addition will not result in overlapping `EventTime` in the schedule. This operation works in logarithmic time
+thanks to the tree structure.
+
+In order to better utilise a driver, we implement a method to suggest an earlier alternative
+time slot in a schedule. When adding a time to a schedule, this method will:
+
+* Calculate the duration of proposed `EventTime`
+* Perform a linear greedy search in the schedule, to find the first slot that can fit the duration
+
+[NOTE]
+Since the schedule guarantees no overlapping `EventTime`, there is no complication in handling the start and end times.
+
+In order to enforce the optimised scheduling method above, the program will block every `assign` command that has a
+suboptimal proposed time, unless the user uses the `force` argument. Moreover, the `assign` and `free` command are the
+only commands that modify the `Driver` and `EventTime` attributes of a `Task`, so that all drivers will have an
+optimised schedule, unless `force assign` is used.
+
+The following activity diagram summarizes the checks happened when user executes an `assign` command.
+
+image::AssignActivityDiagram.png[]
+
+After the above checks has passed, `assign` command will:
+
+* Set the `Driver` and `EventTime` attributes in the `Task`
+* Add the proposed `EventTime` to the `Driver`'s `Schedule`
+
+
+Similarly, calling `free` command will:
+
+* Remove the existing `EventTime` from the `Driver`'s `Schedule`
+* Set the `Driver` and `EventTime` attributes to `null`
+
+
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
