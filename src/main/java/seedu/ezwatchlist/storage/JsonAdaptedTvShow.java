@@ -1,5 +1,11 @@
 package seedu.ezwatchlist.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -15,13 +21,10 @@ import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.TvSeason;
 import seedu.ezwatchlist.model.show.TvShow;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-public class JsonAdaptedTvShow extends JsonAdaptedItem{
+/**
+ * Jackson-friendly version of {@link TvShow}.
+ */
+public class JsonAdaptedTvShow {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
 
@@ -38,7 +41,7 @@ public class JsonAdaptedTvShow extends JsonAdaptedItem{
     private final List<JsonAdaptedTvSeason> tvSeasons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedShow} with the given show details.
+     * Constructs a {@code JsonAdaptedShows} with the given show details.
      */
     @JsonCreator
     public JsonAdaptedTvShow(@JsonProperty("name") String name,
@@ -141,10 +144,10 @@ public class JsonAdaptedTvShow extends JsonAdaptedItem{
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
         }
-        if (!RunningTime.isValidRunningTime(runningTime )) {
+        if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final RunningTime modelRunningTime = new RunningTime(runningTime );
+        final RunningTime modelRunningTime = new RunningTime(runningTime);
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
 

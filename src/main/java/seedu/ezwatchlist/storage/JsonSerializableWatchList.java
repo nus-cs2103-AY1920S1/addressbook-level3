@@ -1,9 +1,7 @@
 package seedu.ezwatchlist.storage;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,13 +22,13 @@ class JsonSerializableWatchList {
     public static final String MESSAGE_DUPLICATE_SHOW = "Show list contains duplicate show(s).";
     public static final String MESSAGE_INVALID_SHOW_TYPE = "Show list contains shows of unacceptable type.";
 
-    private JsonAdaptedShow shows;
+    private JsonAdaptedShows shows;
 
     /**
      * Constructs a {@code JsonSerializableWatchList} with the given shows.
      */
     @JsonCreator
-    public JsonSerializableWatchList(@JsonProperty("shows") JsonAdaptedShow shows) {
+    public JsonSerializableWatchList(@JsonProperty("shows") JsonAdaptedShows shows) {
         this.shows = shows;
     }
 
@@ -50,7 +48,7 @@ class JsonSerializableWatchList {
                 tvShows.add(new JsonAdaptedTvShow(show));
             }
         }
-        shows = new JsonAdaptedShow(tvShows, movies);
+        shows = new JsonAdaptedShows(tvShows, movies);
     }
 
     /**
@@ -61,7 +59,7 @@ class JsonSerializableWatchList {
     public WatchList toModelType() throws IllegalValueException {
         WatchList watchList = new WatchList();
         List<Show> list = shows.toModelType();
-        for(Show show : list) {
+        for (Show show : list) {
             if (watchList.hasShow(show)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_SHOW);
             }

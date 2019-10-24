@@ -1,6 +1,5 @@
 package seedu.ezwatchlist.model.show;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -158,7 +157,7 @@ public abstract class Show {
             return true;
         }
 
-        if (!(other instanceof TvShow || other instanceof Movie || other instanceof Show)) {
+        if (!(other instanceof Show)) {
             return false;
         }
 

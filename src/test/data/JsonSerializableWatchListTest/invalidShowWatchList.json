@@ -1,13 +1,27 @@
 {
-  "shows": [
-    {
-      "name": "",
-      "dateOfRelease": "4 October 2019",
-      "description": "In Gotham City mentally troubled comedian Arthur Fleck embarks on a downward spiral of social revolution and bloody crime This path brings him face to face with his infamous alter ego The Joker",
-      "runningTime": 122,
-      "actors": [],
-      "type": "Movie",
-      "isWatched": false
-    }
-  ]
+  "shows" : {
+    "tvShows" : [ {
+      "name" : "",
+      "type" : "Tv Show",
+      "dateOfRelease" : "2008-01-20",
+      "description" : "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+      "runningTime" : 20,
+      "actors" : [ ],
+      "poster" : "BreakingBad.png",
+      "numOfEpisodesWatched" : 0,
+      "totalNumOfEpisodes" : 0,
+      "tvSeasons" : [ ],
+      "isWatched" : false
+    } ],
+    "movies" : [ {
+      "name" : "El Camino: A Breaking Bad Movie",
+      "type" : "Movie",
+      "dateOfRelease" : "2019-10-11",
+      "description" : "In the wake of his dramatic escape from captivity, Jesse Pinkman must come to terms with his past in order to forge some kind of future.",
+      "runningTime" : 123,
+      "actors" : [ ],
+      "poster" : "ElCaminoABreakingBadMovie.png",
+      "isWatched" : false
+    } ]
+  }
 }

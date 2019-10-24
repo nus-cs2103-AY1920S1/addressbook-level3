@@ -1,27 +1,18 @@
 package seedu.ezwatchlist.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
-import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.IsWatched;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Poster;
-import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
 
 /**
- * Jackson-friendly version of {@link Show}.
+ * Jackson-friendly version of list of shows.
  */
-class JsonAdaptedShow {
+class JsonAdaptedShows {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
 
@@ -29,11 +20,11 @@ class JsonAdaptedShow {
     private final List<JsonAdaptedMovie> movies = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedShow} with the given show details.
+     * Constructs a {@code JsonAdaptedShows} with the given show details.
      */
     @JsonCreator
-    public JsonAdaptedShow(@JsonProperty("tvShows")  List<JsonAdaptedTvShow> tvShows,
-                           @JsonProperty("movies")  List<JsonAdaptedMovie> movies) {
+    public JsonAdaptedShows(@JsonProperty("tvShows") List<JsonAdaptedTvShow> tvShows,
+                            @JsonProperty("movies") List<JsonAdaptedMovie> movies) {
         if (tvShows != null) {
             this.tvShows.addAll(tvShows);
         }
@@ -45,7 +36,7 @@ class JsonAdaptedShow {
     /**
      * Converts a given {@code Show} into this class for Jackson use.
      */
-    public JsonAdaptedShow(List<Show> source) {
+    public JsonAdaptedShows(List<Show> source) {
         for (Show show : source) {
             if (show.getType().equals("Movie")) {
                 movies.add(new JsonAdaptedMovie(show));

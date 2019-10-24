@@ -1,5 +1,11 @@
 package seedu.ezwatchlist.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -7,12 +13,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.show.Episode;
 import seedu.ezwatchlist.model.show.TvSeason;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link TvSeason}.

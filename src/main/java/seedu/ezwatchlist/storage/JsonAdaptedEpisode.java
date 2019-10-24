@@ -19,7 +19,8 @@ class JsonAdaptedEpisode {
      * Constructs a {@code JsonAdaptedEpisode} with the given episode details.
      */
     @JsonCreator
-    public JsonAdaptedEpisode(@JsonProperty("name") String episodeName,@JsonProperty("episode number") int episodeNum) {
+    public JsonAdaptedEpisode(@JsonProperty("name") String episodeName,
+                              @JsonProperty("episode number") int episodeNum) {
         this.episodeName = episodeName;
         this.episodeNum = episodeNum;
     }

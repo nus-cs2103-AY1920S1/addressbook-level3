@@ -1,5 +1,10 @@
 package seedu.ezwatchlist.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,12 +19,10 @@ import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-public class JsonAdaptedMovie extends JsonAdaptedItem {
+/**
+ * Jackson-friendly version of {@link Movie}.
+ */
+public class JsonAdaptedMovie {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
 
@@ -118,10 +121,10 @@ public class JsonAdaptedMovie extends JsonAdaptedItem {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
         }
-        if (!RunningTime.isValidRunningTime(runningTime )) {
+        if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final RunningTime modelRunningTime = new RunningTime(runningTime );
+        final RunningTime modelRunningTime = new RunningTime(runningTime);
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
 

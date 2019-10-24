@@ -84,9 +84,9 @@ public class UniqueShowList implements Iterable<Show> {
         requireNonNull(actorSet);
         Show movie = new Movie(new Name(), new Description(), new IsWatched(), new Date(), new RunningTime(), actorSet);
         Show tvShow = new TvShow(new Name(), new Description(), new IsWatched(),
-                new Date(), new RunningTime(), actorSet,0, 0, new ArrayList<>());
-        return internalList.stream().anyMatch(movie::hasActorWithName) ||
-                internalList.stream().anyMatch(tvShow::hasActorWithName);
+                new Date(), new RunningTime(), actorSet, 0, 0, new ArrayList<>());
+        return internalList.stream().anyMatch(movie::hasActorWithName)
+                || internalList.stream().anyMatch(tvShow::hasActorWithName);
     }
 
     /**

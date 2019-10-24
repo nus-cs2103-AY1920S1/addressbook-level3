@@ -256,7 +256,7 @@ public class SearchCommand extends Command {
      * @return True if user requests to search for tv series or movies only.
      */
     private boolean requestedType() {
-        return !typeList.isEmpty();
+        return typeList.size() != 2;
     }
 
     /**
