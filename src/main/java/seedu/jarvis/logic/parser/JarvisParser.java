@@ -149,8 +149,7 @@ public class JarvisParser {
         case AddProgressCommand.COMMAND_WORD:
             return new AddProgressCommandParser().parse(arguments);
 
-        case IncreaseProgressCommand
-                .COMMAND_WORD:
+        case IncreaseProgressCommand.COMMAND_WORD:
             return new IncreaseProgressCommandParser().parse(arguments);
 
         case AddTaskCommand.COMMAND_WORD:
