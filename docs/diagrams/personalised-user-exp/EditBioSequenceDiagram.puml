@@ -67,7 +67,7 @@ Model --> EditBioCommand
 deactivate Model
 
 create CommandResult
-EditBioCommand -> CommandResult
+EditBioCommand -> CommandResult : new CommandResult(\nfeedbackToUser)
 activate CommandResult
 
 CommandResult --> EditBioCommand

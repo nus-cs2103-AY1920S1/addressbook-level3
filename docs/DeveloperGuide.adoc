@@ -456,7 +456,7 @@ image::UserModelClassDiagram.png[]
 
 * A `User` implements `ListableField` by storing them in a java `List`.
 * A `User` that is created is added to a `UserList`. Although not more than one `User` can be added in current versions so as to enhance personalisation for the, future developers may decide to repurpose the app to allow more users, and their corresponding biographies represented by the `bio` fields, to the `UserList`.
-* Other personalisation features such as font colour, `background` and achievements are currently represented by independent classes `Colour`, `Background` and `Achievement` respectively on their own, representing the model as their name describes.
+* Other personalisation features such as `fontcolour`, `background` and `achievements` are currently represented by independent classes `Colour`, `Background` and `Achievement` respectively on their own, representing the model as their name describes.
 * The `Colour` feature allows for either enumeration of colour names or hexadecimal colour codes to be used to set colour. `Background` is associated to `Colour` as an argument for `Background` could simply be a colour. It depends on the static method isValid`Colour`(String test) method to determine if it’s argument is a `Colour`
 * The `AddBioParser` and `EditBioParser` is currently used to parse command arguments given by the user and allows adding of specific biography fields, whereas the `FontColour` and `Background` parsers are used to parse arguments for other personalisation features for font colours and `background` respectively.
 * The `Ui` for personalisation is separated into distinct parts. `User`’s biography information and achievements page are components on their own in the `Ui`’s `MainDisplayPane` – switched when required, whereas `background` and `fontcolour` do not have a designated `Ui` window, but instead changes the attributes for the entire application by modifying the CSS file used itself.
@@ -507,7 +507,7 @@ The aesthetics aspects of the application help to support the feature of persona
 
 image::BackgroundActivityDiagram.png[]
 
-* For both font colour and `background` commands, the StyleManager class of `Ui` is used to set the user’s intention of colour and `background` (if parsing is successful). The way StyleManager sets the `background` is by making a copy of the existing StyleSheet used, modifying the required fields and setting it to the StyleSheets of the scene, internally.
+* For both `fontcolour` and `background` commands, the StyleManager class of `Ui` is used to set the user’s intention of `fontcolour` and `background` (if parsing is successful). The way StyleManager sets the `background` is by making a copy of the existing StyleSheet used, modifying the required fields and setting it to the StyleSheets of the scene, internally.
 
 ===== Achievements
 
