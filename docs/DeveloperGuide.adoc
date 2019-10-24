@@ -311,17 +311,17 @@ instance, which provides the data the controller needs.
 The controller is facilitated by an abstract class `DisplayController`, which extends `UIPart<Region>`.
 Every supported format controller extends this abstract class.
 
-(Purpose: Show OOP solution)
-(TODO: show class diagram)
+The following class diagram shows the OOP solution for `display`:
 
-The view is facilitated by the associated FXML. These views share a common
-CSS, and also have their individual CSS file.
+image::DisplayClassDiagram.png[]
 
 [NOTE]
-Notice that every controller needs to implement every indicator. In the event a controller cannot display a particular
+Every controller needs to support every indicator. In the event a controller cannot display a particular
 indicator, it will throw a `parseException` error, which provides suggestions of which visual controllers are supported
 by the particular indicator.
 
+The view is facilitated by the associated FXML. These views share a common
+CSS, and also have their individual CSS file.
 
 Given below is an example usage scenario and how the display mechanism behaves at each step.
 
@@ -330,26 +330,23 @@ popularity breakdown indicator in bar chart format. The execution of a `display`
 what will be shown (`displayIndicator`) and how it will be shown (`displayFormat`).
 
 Step 2. `displayFormat` specifies that the controller `BarChartController` will be instantiated.
-This controller will be instantiated with the arguments `logic` and `displayIndicator`.
 
-Step 3. The bar chart controller initialises all the attributes of its associated FXML in its construction.
+Step 3. The `BarChartController` initialises all the attributes of its associated FXML in its construction.
 Let us take a  closer look at the initialisation of the `series` attribute. The controller utilises the display
 indicator `policy-popularity-breakdown` to retrieve the data in the model it needs. The controller
 then casts the model’s data type to the data type supported by bar charts. The result is assigned to `series` attribute.
+
+The following sequence diagram shows the interaction between UI, Controller and Model for steps 2 and 3:
+
+image::DisplaySequenceDiagram.png[]
 
 Step 4. The bar chart controller then sets all the attributes of its associated FXML.
 
 Step 5. Finally, the `MainWindow` calls `DisplayController#getRoot()` and displays the view.
 
-The following sequence diagram shows how the `display` operation works:
-
-(Purpose: Show interaction between UI, Controller, Model)
-image::MergeSequenceDiagram.png[]
-
 The following activity diagram summarizes what happens when a user executes the display command:
 
-(Purpose: Show logic flow of UI)
-image::MergeActivityDiagram.png[]
+image::DisplayActivityDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: How should controllers interact with model
@@ -365,13 +362,13 @@ to the instantiation of a controller.)
 
 ===== Aspect: OOP solution for visual controllers
 
-* **Alternative 1 (current choice):** Visual controllers to extend from abstract class `visual`
-** Pros: Allows visual controller subclasses to share code.
-* **Alternative 2:** Visual controllers to implement interface `visual`
+* **Alternative 1 (current choice):** Display controllers to extend from abstract class `DisplayController`
+** Pros:
+*** Allows display controller subclasses to share code. (refer to class diagram above)
+*** Subclasses have many common methods (`initIndicators(Logic)`)
+* **Alternative 2:** Display controllers to implement interface `DisplayController`
 ** Pros: Satisfies the can-do relationship of an interface.
-** Cons: These methods are used internally in the construction of the controller; they have private access modifiers.
-Using an interface entails that these methods have access modifiers other than private instead,
-which violates the Law of Demeter.
+** Cons: Restricted to public access modifiers. This violates Law of Demeter.
 
 
 // tag::dataencryption[]
