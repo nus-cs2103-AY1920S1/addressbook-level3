@@ -304,6 +304,91 @@ The user can also abort the command by entering a special string. In this case, 
 ** Pros: Easily handles preambles and allows greater extensibility of the prompt feature, e.g. can have the user fix incorrect commands
 ** Cons: Requires changing every `Parser` class, decreases maintainability in the long run
 
+=== [Proposed] Group Contacts feature
+==== Proposed Implementation
+
+The grouping feature is facilitated by `GroupBook` an additional Model component in addition to the current `AddressBook`.
+It extends the functionality of `AddressBook` by providing a way to group contacts together into unique `Group` classes
+identified by their `GroupName`. This allows users to form more natural associations of
+contacts such as "BTS-members". Identifying which contacts are group members of a `Group` is done by
+storing a record of their `ContactId` in the `Group`.
+Additionally, `GroupManager` extends Tagline with the following operations:
+
+* `GroupManager#getGroupBook()` -- Retrieves a view only version of the groups for storing data after app quits.
+* `GroupManager#deleteGroup()` -- Deletes a group from the list of groups currently available.
+* `GroupManager#addGroup()` -- Adds a group to the list of groups currently available.
+* `GroupManager#setGroup()` -- Replaces a group in the list of groups with another group.
+* `GroupManager#getFilteredGroupList()` -- Returns a view only list of groups containing a subset of available Groups.
+* `GroupManager#updateFilteredGroupList()` -- Specifies which groups will be retrieved by `GroupManager#getFilteredGroupList()`.
+
+The above operations are exposed in the `Model` interface by their respective method names.
+
+* `GroupCommand#findOneGroup()` -- Retrieves one Group with name matching the exact provided String.
+* `GroupCommand#verifyMemberIdWithModel()` -- Compares members currently in a group with contacts in `AddressBook` and returns only those found in `AddressBook`.
+* `GroupCommand#setDifference()` -- Used to get contactids specified which do not exist in `AddressBook`.
+
+These above are static utility functions which form the underlying structure of how a `GroupCommand` works.
+
+Given below is an example usage scenario on how a typical lifecycle of a `Group` behaves at each step.
+With emphasis on showing the effects of `FindGroupCommand` as an example of a `GroupCommand`.
+
+Step 1. The user initially has several contacts in `AddressBook`.
+
+.Simplified state of relevant Model components initially
+image::GroupContactsState0.png[]
+
+Step 2. Wishing to better organize her contacts into groups, the user executes `group create BTS` calling
+ `CreateGroupCommand`. to create a new `Group` instance with no members.
+
+.State after Group "BTS" is created
+image::GroupContactsState1.png[]
+
+Step 3. The user then executes `group add BTS --i 00001 --i 00002 --i 0003 --i 0004`
+ calling the `addMembersToGroupCommand` to add several contacts to the group. Only the String
+ representation of the `ContactId` will be stored in the `Group`.
+
+.State after four contacts are added into Group "BTS"
+image::GroupContactsState2.png[]
+
+Step 4. The user may wish to remove some contacts calling `contact delete --i 0003`
+ which then deletes the `Contact` with contactId of 3. However, this does not remove the contact's id from
+ the memberId attribute in the `Group` the contact was in. This step does not involve `GroupModel` in any way.
+
+.State after contact with contactId = 00003 is deleted
+image::GroupContactsState3.png[]
+
+Step 5. The user executes `group find BTS` to call up all members on the `Group` and view the `Contact` profiles.
+ This calls `FindGroupCommand` which then updates the `Group` ensuring that all memberIds correspond to an existing
+ `ContactId` found in `AddressBook`. The contacts of the group are also displayed to the user.
+
+.State after user views contacts of Group "BTS"
+image::GroupContactsState4.png[]
+
+The following sequence diagram summarizes what happens when a user executes a `FindGroupCommand` which
+ which updates the `Group`:
+
+.Sequence diagram of executing `FindGroupCommand` to view contacts in a `Group`
+image::GroupSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How groups stores contacts
+
+* **Alternative 1:** Stores `ContactId` class in a `Collection` in `Group`
+** Pros: Easy to get `ContactId` from `Group` to retrieve `Contact` classes from `Addressbook`.
+** Cons: Increases coupling to implementation of `Contact`. Storage and retrieval after reloading the app would also
+ cause new instances of `ContactId` to be created when loading `Group` or would require more complicated
+ loading of `Group` from storage having to happen after `AddressBook` is loaded and having to reference
+ `Contact` classes to ensure the same `ContactId` class is referenced by both `Contact` and `Group` it is in.
+* **Alternative 2 (current choice):** Stores `Collection` of Strings which are able to uniquely identify `Contact`.
+** Pros: Group classes are less coupled to implementation of `Contact`. Simpler to load `Group` classes from storage.
+ due to not needing to check and obtain a reference to `ContactId`. User input is also parsed as Strings.
+** Cons: Deciding when to check if members are still part of a `Group` since it need not be done at loading time.
+ While it is more flexible, can be a potential source of confusion as it may be possible to forget to update
+ the members in `Group`.
+
+// end::groupcontacts[]
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
