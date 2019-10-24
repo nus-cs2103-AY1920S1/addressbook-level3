@@ -1,5 +1,7 @@
 package seedu.address.ui.systemtray;
 
+import java.util.Objects;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -19,5 +21,15 @@ public class PopupNotification {
         requireAllNonNull(name, description);
         this.name = name;
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof PopupNotification) {
+            PopupNotification other = (PopupNotification) obj;
+            return Objects.equals(this.name, other.name)
+                    && Objects.equals(this.description, other.description);
+        }
+        return false;
     }
 }
