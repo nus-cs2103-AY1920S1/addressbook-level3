@@ -71,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'ClerkPro_v1.2.1.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -137,9 +137,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'ClerkPro',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T09-3/main'
     ]
 
     options['template_dirs'].each {
