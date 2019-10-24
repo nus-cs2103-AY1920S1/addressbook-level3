@@ -262,6 +262,38 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Home Page
+
+The home page of Duke Academy is the main page that the user sees upon app initialization. Not only does it provide an
+introduction and greeting to the user, it also functions as a personal dashboard.
+
+As a personal dashboard, it presents the user with essential information about his personal progress and learning
+journey.
+
+Here are three main pieces of information presented to the user:
+1. Number of questions completed`
+2. Questions that user is still working on
+3. Questions that user chose to bookmark for personal reference
+
+To obtain these three pieces of information, we first obtain the `ObservableList` that represents all questions in the
+storage. We can obtain this `ObservableList`, from `QuestionLogic`, through a method named `getFilteredQuestionsList()`.
+
+The controller class for Home Page, `HomePage.java` has a constructor that takes in this `ObservableList`. Through
+helper methods within the controller class, we can do some processing to the `ObservableList` and easily generate the
+three pieces of data.
+
+These pieces of information will then be displayed on the Home Page through standard JavaFX controls.
+
+=== Code Result Panel
+
+The code result panel is a panel below the editor that shows the evaluation of the user's program against the specified
+test cases in the question.
+
+It takes in a `List` of `TestCaseResults` which contains useful information about how the user's program fared against
+the various test cases.
+
+These information are then displayed on the Code Result Panel through standard JavaFX controls.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
