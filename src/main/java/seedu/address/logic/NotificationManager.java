@@ -23,11 +23,17 @@ public class NotificationManager {
         notificationCheckingThread.start();
     }
 
+    /**
+     * Switches off notifications.
+     */
     public void switchOffNotifications() {
         notificationCheckingThread.switchOffNotifications();
         systemTrayCommunicator.switchOffNotifications();
     }
 
+    /**
+     * Switches on notifications.
+     */
     public void switchOnNotifications() {
         notificationCheckingThread.switchOnNotifications();
         systemTrayCommunicator.switchOnNotifications();

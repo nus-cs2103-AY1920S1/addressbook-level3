@@ -9,7 +9,13 @@ import seedu.address.commons.core.Version;
 import seedu.address.logic.CommandManager;
 import seedu.address.logic.NotificationManager;
 import seedu.address.logic.UiManager;
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.NotificationOffCommand;
+import seedu.address.logic.commands.NotificationOnCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.ModelManager;
 import seedu.address.model.undo.UndoRedoManager;
 

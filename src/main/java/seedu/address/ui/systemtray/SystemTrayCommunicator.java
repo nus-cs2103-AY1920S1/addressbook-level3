@@ -68,17 +68,28 @@ public class SystemTrayCommunicator {
         }
     }
 
+    /**
+     * Tells the System Tray Communicator that notifications are switched off.
+     */
     public void switchOnNotifications() {
+        // This is purely a cosmetic change
         notificationsSwitchedOn = true;
         resetToolTipMessage();
     }
 
+    /**
+     * Tells the SystemTrayCommunicator that notifications are switched off.
+     */
     public void switchOffNotifications() {
+        // This is purely a cosmetic change
         notificationsSwitchedOn = false;
         resetToolTipMessage();
     }
 
-    public void resetToolTipMessage() {
+    /**
+     * Changes the tooltip message based on whether notifications are switched on or off.
+     */
+    private void resetToolTipMessage() {
         if (notificationsSwitchedOn) {
             trayIcon.setToolTip(NOTIFICATIONS_ON_TOOLTIP);
         } else {
