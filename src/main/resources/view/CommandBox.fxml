@@ -3,7 +3,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."/>
-</StackPane>
+<?import javafx.scene.control.Button?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.layout.HBox?>
+<HBox styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="What can I do for you?" HBox.hgrow="ALWAYS"/>
+  <Button fx:id="sendButton" alignment="BOTTOM_CENTER" contentDisplay="GRAPHIC_ONLY"
+          maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="40.0" prefWidth="30.0" onAction="#handleCommandEntered">
+    <graphic>
+      <FontAwesomeIconView fill="#3083cc" glyphName="PAPER_PLANE" size="25"/>
+    </graphic>
+  </Button>
+</HBox>
 

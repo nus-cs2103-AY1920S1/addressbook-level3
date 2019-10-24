@@ -9,25 +9,37 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.StackPane?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="20" prefWidth="200"/>
         </columnConstraints>
-        <VBox id="labels" fx:id="labels" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox id="labels" fx:id="labels" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0" >
             <padding>
-                <Insets top="5" right="5" bottom="5" left="15" />
+                <Insets top="5" right="5" bottom="5" left="15"/>
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+            <HBox id="entity_details" spacing="5" alignment="CENTER_LEFT">
+                <Label id="index" fx:id="index"></Label>
+                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
             </HBox>
-            <FlowPane fx:id="tags" />
+            <FlowPane id="tags"/>
         </VBox>
+        <StackPane alignment="CENTER">
+            <children>
+                <ImageView id="idIcon" fx:id="idIcon"  fitHeight="70.0" fitWidth="70.0" opacity="0.65"/>
+                <VBox id="idDetails" prefHeight="70.0" prefWidth="70.0" alignment="CENTER">
+                    <children>
+                    <Label text="ID:"/>
+                    <Label id="id" fx:id="id"/>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
     </GridPane>
+
+
 </HBox>

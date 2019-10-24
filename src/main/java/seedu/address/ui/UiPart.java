@@ -17,7 +17,7 @@ public abstract class UiPart<T> {
     /** Resource folder where FXML files are stored. */
     public static final String FXML_FILE_FOLDER = "/view/";
 
-    private final FXMLLoader fxmlLoader = new FXMLLoader();
+    private FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**
      * Constructs a UiPart with the specified FXML file URL.
@@ -42,6 +42,7 @@ public abstract class UiPart<T> {
     public UiPart(URL fxmlFileUrl, T root) {
         loadFxmlFile(fxmlFileUrl, root);
     }
+
 
     /**
      * Constructs a UiPart with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
