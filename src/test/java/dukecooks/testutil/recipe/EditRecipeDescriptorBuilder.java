@@ -42,6 +42,20 @@ public class EditRecipeDescriptorBuilder {
     }
 
     /**
+     * Returns an {@code EditRecipeDescriptor} with fields containing {@code recipe}'s details
+     */
+    public EditRecipeDescriptorBuilder(Recipe recipeFrom, Recipe recipeTo) {
+        descriptor = new EditRecipeCommand.EditRecipeDescriptor();
+        descriptor.setName(recipeTo.getName());
+        descriptor.addIngredients(recipeTo.getIngredients());
+        descriptor.removeIngredients(recipeFrom.getIngredients());
+        descriptor.setCalories(recipeTo.getCalories());
+        descriptor.setCarbs(recipeTo.getCarbs());
+        descriptor.setFats(recipeTo.getFats());
+        descriptor.setProtein(recipeTo.getProtein());
+    }
+
+    /**
      * Sets the {@code Name} of the {@code EditRecipeDescriptor} that we are building.
      */
     public EditRecipeDescriptorBuilder withName(String name) {
@@ -50,12 +64,24 @@ public class EditRecipeDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code ingredients} into a {@code Set<Ingredient>} and set it to the {@code EditRecipeDescriptor}
+     * Parses the {@code ingredients} to be added into a {@code Set<Ingredient>}
+     * and set it to the {@code EditRecipeDescriptor}
      * that we are building.
      */
-    public EditRecipeDescriptorBuilder withIngredients(String... ingredients) {
+    public EditRecipeDescriptorBuilder withIngredientsToAdd(String... ingredients) {
         Set<Ingredient> ingredientSet = Stream.of(ingredients).map(Ingredient::new).collect(Collectors.toSet());
         descriptor.addIngredients(ingredientSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code ingredients} for removal into a {@code Set<Ingredient>}
+     * and set it to the {@code EditRecipeDescriptor}
+     * that we are building.
+     */
+    public EditRecipeDescriptorBuilder withIngredientsToRemove(String... ingredients) {
+        Set<Ingredient> ingredientSet = Stream.of(ingredients).map(Ingredient::new).collect(Collectors.toSet());
+        descriptor.removeIngredients(ingredientSet);
         return this;
     }
 

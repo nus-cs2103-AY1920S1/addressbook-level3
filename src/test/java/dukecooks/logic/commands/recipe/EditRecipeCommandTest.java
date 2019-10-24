@@ -4,6 +4,8 @@ import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
@@ -29,13 +31,15 @@ public class EditRecipeCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Recipe editedRecipe = new RecipeBuilder().build();
-        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(editedRecipe).build();
-        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(TypicalIndexes.INDEX_FIRST_RECIPE, descriptor);
 
         String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
+
+        EditRecipeCommand.EditRecipeDescriptor descriptor =
+                new EditRecipeDescriptorBuilder(model.getFilteredRecipeList().get(0), editedRecipe).build();
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(TypicalIndexes.INDEX_FIRST_RECIPE, descriptor);
 
         CommandTestUtil.assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
     }
@@ -51,7 +55,11 @@ public class EditRecipeCommandTest {
 
         EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder()
                 .withName(CommandTestUtil.VALID_NAME_BURGER)
-                .withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+                .withIngredientsToAdd(CommandTestUtil.VALID_INGREDIENT_BURGER)
+                .withIngredientsToRemove(lastRecipe.getIngredients().stream().map(i
+                    -> String.valueOf(i).replace("[", "").replace("]", ""))
+                        .collect(Collectors.toList()).toArray(new String[lastRecipe.getIngredients().size()]))
+                        .build();
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(indexLastRecipe, descriptor);
 
         String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);

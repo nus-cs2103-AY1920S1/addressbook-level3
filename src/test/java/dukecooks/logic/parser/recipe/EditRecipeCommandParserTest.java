@@ -84,7 +84,7 @@ public class EditRecipeCommandParserTest {
                  + CommandTestUtil.NAME_DESC_FISH + CommandTestUtil.INGREDIENT_DESC_FISH;
 
         EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(FISH)
-                .withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER, CommandTestUtil.VALID_INGREDIENT_FISH)
+                .withIngredientsToAdd(CommandTestUtil.VALID_INGREDIENT_BURGER, CommandTestUtil.VALID_INGREDIENT_FISH)
                 .build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
 
@@ -104,7 +104,15 @@ public class EditRecipeCommandParserTest {
 
         // ingredients
         userInput = targetIndex.getOneBased() + CommandTestUtil.INGREDIENT_DESC_FISH;
-        descriptor = new EditRecipeDescriptorBuilder().withIngredients(CommandTestUtil.VALID_INGREDIENT_FISH).build();
+        descriptor = new EditRecipeDescriptorBuilder().withIngredientsToAdd(CommandTestUtil.VALID_INGREDIENT_FISH)
+                .build();
+        expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
+        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+
+        // remove ingredients
+        userInput = targetIndex.getOneBased() + CommandTestUtil.REMOVEINGREDIENT_DESC_FISH;
+        descriptor = new EditRecipeDescriptorBuilder().withIngredientsToRemove(CommandTestUtil.VALID_INGREDIENT_FISH)
+                .build();
         expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -141,7 +149,7 @@ public class EditRecipeCommandParserTest {
                 + CommandTestUtil.INGREDIENT_DESC_BURGER;
 
         EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder()
-                .withIngredients(CommandTestUtil.VALID_INGREDIENT_FISH, CommandTestUtil.VALID_INGREDIENT_BURGER)
+                .withIngredientsToAdd(CommandTestUtil.VALID_INGREDIENT_FISH, CommandTestUtil.VALID_INGREDIENT_BURGER)
                 .build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
 
@@ -153,7 +161,7 @@ public class EditRecipeCommandParserTest {
         Index targetIndex = TypicalIndexes.INDEX_THIRD_RECIPE;
         String userInput = targetIndex.getOneBased() + INGREDIENT_EMPTY;
 
-        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withIngredients()
+        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withIngredientsToAdd()
                 .build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
 

@@ -33,7 +33,7 @@ public class EditRecipeDescriptorTest {
         Assertions.assertFalse(CommandTestUtil.DESC_FISH.equals(editedAmy));
 
         // different ingredients -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(CommandTestUtil.DESC_FISH).withIngredients(CommandTestUtil
+        editedAmy = new EditRecipeDescriptorBuilder(CommandTestUtil.DESC_FISH).withIngredientsToAdd(CommandTestUtil
                 .VALID_INGREDIENT_BURGER).build();
         Assertions.assertFalse(CommandTestUtil.DESC_FISH.equals(editedAmy));
     }

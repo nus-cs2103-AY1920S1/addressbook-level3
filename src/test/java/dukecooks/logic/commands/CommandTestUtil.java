@@ -14,6 +14,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEINGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
@@ -106,6 +107,8 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BURGER = " " + PREFIX_NAME + VALID_NAME_BURGER;
     public static final String INGREDIENT_DESC_FISH = " " + PREFIX_INGREDIENT + VALID_INGREDIENT_FISH;
     public static final String INGREDIENT_DESC_BURGER = " " + PREFIX_INGREDIENT + VALID_INGREDIENT_BURGER;
+    public static final String REMOVEINGREDIENT_DESC_FISH = " " + PREFIX_REMOVEINGREDIENT + VALID_INGREDIENT_FISH;
+    public static final String REMOVEINGREDIENT_DESC_BURGER = " " + PREFIX_REMOVEINGREDIENT + VALID_INGREDIENT_BURGER;
     public static final String CALORIES_DESC_FISH = " " + PREFIX_CALORIES + VALID_CALORIES_FISH;
     public static final String CALORIES_DESC_BURGER = " " + PREFIX_CALORIES + VALID_CALORIES_BURGER;
     public static final String CARBS_DESC_FISH = " " + PREFIX_CARBS + VALID_CARBS_FISH;
@@ -161,12 +164,12 @@ public class CommandTestUtil {
         DESC_AMY_DIARY = new EditDiaryDescriptorBuilder().withName(VALID_NAME_AMY_DIARY).build();
         DESC_BOB_DIARY = new EditDiaryDescriptorBuilder().withName(VALID_NAME_BOB_DIARY).build();
         DESC_FISH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
-                .withIngredients(VALID_INGREDIENT_FISH)
+                .withIngredientsToAdd(VALID_INGREDIENT_FISH)
                 .withCalories(VALID_CALORIES_FISH).withCarbs(VALID_CARBS_FISH)
                 .withFats(VALID_FATS_FISH).withProtein(VALID_PROTEIN_FISH)
                 .build();
         DESC_BURGER = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BURGER)
-                .withIngredients(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_FISH)
+                .withIngredientsToAdd(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_FISH)
                 .withCalories(VALID_CALORIES_BURGER).withCarbs(VALID_CARBS_BURGER)
                 .withFats(VALID_FATS_BURGER).withProtein(VALID_PROTEIN_BURGER)
                 .build();
