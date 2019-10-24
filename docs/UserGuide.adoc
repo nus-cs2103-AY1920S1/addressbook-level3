@@ -332,17 +332,17 @@ If dates are to be specified, only dates of format `DD-MM-YYYY` will be recognis
 ==== Add an expenditure: `spend`
 Record down an entry of spending. By default, the date of spending will be set to the day the entry was added. Otherwise, this can be specified through an optional parameter. Other details regarding the expenditure can also be included.
 
-Format: `*spend* amt\AMOUNT [day\DAY_OF_SPENDING] [item\DESCRIPTION] [cat\CATEGORY(s)] [place\PLACE] [met\TRANSACTION_METHOD]` +
-e.g. `spend 2.80 item\Yong Tau Foo cat\Food School place\Frontier met\cash`
+Format: `*spend* <amt>AMOUNT <day>TRANSACTION_DATE <item>DESCRIPTION <met>TRANSACTION_METHOD <place>PLACE [<cat>CATEGORY]...` +
+e.g. `spend <amt>2.80 <day>15-10-2019 <item>Yong Tau Foo <met>Cash <place>Frontier`
 
 ==== Add an income: `income`
 
 Record down an entry of incoming money. Source of income can also be specified.
 
-Format: `*income* AMOUNT [day\DAY_OF_SPENDING] [item\DESCRIPTION] [cat\CATEGORY(S)] [from\ORIGIN] [met\TRANSACTION_METHOD]` +
-e.g. `income amt\800 item\student assistant from\NUS met\bank transfer`
+Format: `*income* <amt>AMOUNT <day>TRANSACTION_DATE <item>DESCRIPTION <met>TRANSACTION_METHOD <from>SOURCE_OF_INCOME [<cat>CATEGORY]...` +
+e.g. `income <amt>300 <day>09-08-2019 <item>GST Voucher <met>Bank credit <from>Govt`
 
-==== Add category: `add cat`
+==== Add category: `add cat` [To be implemented]
 Add a new category to list of exisiting categories. Note that category name is not case-sensitive.
 
 Format: `*add cat* NEW_CATEGORY` +
@@ -351,55 +351,55 @@ e.g. `add cat Hobby`
 ==== Add an entry of borrowed money: `borrow`
 Record down an entry of money borrowed from someone but not yet repaid. By default, the date the money was borrowed is set to the day the entry was recorded.
 
-Format: `*borrow* AMOUNT from\PERSON_BORROWED_FROM [day\DATE_BORROWED]` +
-e.g. `borrow 1.20 from\mom`
+Format: `*borrow* <amt>AMOUNT <day>DATE_BORROWED <item>DESCRIPTION <met>TRANSACTION_METHOD <from>PERSON_BORROWED_FROM <deadline>DATE_TO_RETURN_BY [<cat>CATEGORY]...` +
+e.g. `borrow <amt>2 <day>09-08-2019 <item>Dilys egg tarts <met>Cash <from>Classmate <deadline>31-12-2019`
 
 ==== Add an entry of lent money: `lend`
 Record down an entry of money lent to someone.
 
-Format: `*lend* AMOUNT to\PERSON_LENT_TO` [day\DATE_LENT]` +
-e.g. `lend 5 to\sister`
+Format: `*lend*  <amt>AMOUNT <day>DATE_LENT <item>DESCRIPTION <met>TRANSACTION_METHOD <to>PERSON_LENT_TO <deadline>DATE_TO_REMIND [<cat>CATEGORY]...` +
+e.g. `lend <amt>1 <day>08-08-2019 <item>HL Choco milk <met>Cash <to>Brother <deadline>12-12-2019`
 
-==== List out finances: `list`
+==== List out finances: `list` [To be implemented]
 List out all entries in recorded down. By default, all entries will be ordered chronologically, according to the day the entry is linked to (e.g. the day of spending etc). Entries are indexed chronologically as well.
 
 To sort or filter, and do more advance searches through the list, additional parameters can be specified.
 
 Attributes that can be *sorted by* are: `day`, `amt` +
-Attributes that can *filtered by* are: `spend`, `income`, `borrow`, `lent`
+Attributes that can *filtered by* are: `spend`, `income`, `borrow`, `lend`
 
-Format: `*list* [sort\SORT_TYPE(s)] [filter\FILTER_TYPE(s)]`[find\KEYWORD(S)] [cat\ CATEGORY(s)] +
-e.g. `list filter\spend cat\food`
+Format: `*list* [<sort>SORT_TYPE(s)] [<filter>FILTER_TYPE(s)]`[<find>KEYWORD(S)] [<cat> CATEGORY(s)] +
+e.g. `list <filter>spend <cat>food`
 
-==== List out categories
+==== List out categories [To be implemented]
 List out available categories.
 
 Format: `*list cat*`
 
-==== Edit an entry: `edit`
+==== Edit an entry: `edit` [To be implemented]
 Edit an entry previously entered by index of entry in listed listed out by `list`. Note that the newly-entered information will overwrite the details at the attribute. For example, if there were categories `food` and `hobby` linked to the entry at index 5 of the list, command `edit 5 cat\pet` will delete the previous two categories and replace them with a single category `pet.`
 
 Format: `*edit* INDEX [amt\NEW_AMOUNT] [item\NEW_DESCRIPTION] [cat\NEW_CATEGORY] [place\NEW_PLACE] [met\NEW_METHOD]` +
 e.g. `edit 2 amt\5.1`
 
-==== Delete entry/entries: `delete`
+==== Delete entry/entries: `delete` [To be implemented]
 Delete an entry or multiple entries by their index in the list. Note: the indices do not have to be ordered.
 
 Format: `*delete* INDEX [MORE_INDEXES]` +
 e.g. `delete 5 4 1`
 
-==== Show summary of finances: `stats`
+==== Show summary of finances: `stats` [To be implemented]
 Shows an overview of the state of expenses and incomes.
 
 Format: `*stats*`
 
-==== Set a budget: `budget`
+==== Set a budget: `budget` [To be implemented]
 Set a budget, which by default is for the current month. This can be further specified for a specified time period (i.e. duration) or category of spending. A reminder is shown when this budget is about to be exceeded or has exceeded.
 
-Format: `*budget* amt\AMOUNT [dur\NUM_DAYS] [cat\CATEGORY]` +
-e.g. `budget amt\30 dur\7 cat\food`
+Format: `*budget* <amt>AMOUNT [<dur>NUM_DAYS] [<cat>CATEGORY]` +
+e.g. `budget <amt>30 <dur>7 <cat>food`
 
-==== Export summary of finances: `export`
+==== Export summary of finances: `export` [To be implemented]
 Exports a file and saves it to hard disk.
 
 Format: `*export*`
