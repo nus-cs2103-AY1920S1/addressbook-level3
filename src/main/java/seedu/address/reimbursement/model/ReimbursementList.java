@@ -28,7 +28,7 @@ public class ReimbursementList {
         list = new ArrayList<>();
         ArrayList<Transaction> pendingList = checkStatus(transList);
         for (Transaction trans : pendingList) {
-            if(trans.getAmount() < 0) {
+            if (trans.getAmount() < 0) {
                 Reimbursement newRecord = new Reimbursement(trans);
                 merge(newRecord);
             }
