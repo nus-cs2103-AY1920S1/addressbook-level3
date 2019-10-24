@@ -4,36 +4,38 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_PLACE;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TO;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
 
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
 import seedu.address.model.finance.logentry.LogEntry;
 
-
 /**
- * Adds an entry of expenditure to the finance log.
+ * Adds an entry of lend (instance of lending) to the finance log.
  */
-public class SpendCommand extends Command {
+public class LendCommand extends Command {
 
-    public static final String COMMAND_WORD = "spend";
+    public static final String COMMAND_WORD = "lend";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of expenditure to the finance log. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of lending to the finance log. "
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_DAY + "TRANSACTION_DATE "
+            + PREFIX_DAY + "DATE_LENT "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_TRANSACTION_METHOD + "TRANSACTION_METHOD "
-            + PREFIX_PLACE + "PLACE "
+            + PREFIX_TO + "PERSON_LENT_TO "
+            + PREFIX_DEADLINE + "DATE_TO_REMIND "
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_AMOUNT + "2.80 "
-            + PREFIX_DAY + "15-10-2019 "
-            + PREFIX_DESCRIPTION + "Yong Tau Foo "
+            + PREFIX_AMOUNT + "1 "
+            + PREFIX_DAY + "08-08-2019 "
+            + PREFIX_DESCRIPTION + "HL Choco milk "
             + PREFIX_TRANSACTION_METHOD + "Cash "
-            + PREFIX_PLACE + "Frontier";
+            + PREFIX_TO + "Brother "
+            + PREFIX_DEADLINE + "12-12-2019";
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s \n";
 
@@ -42,7 +44,7 @@ public class SpendCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code LogEntry}
      */
-    public SpendCommand(LogEntry logEntry) {
+    public LendCommand(LogEntry logEntry) {
         requireNonNull(logEntry);
         toAdd = logEntry;
     }
@@ -58,7 +60,7 @@ public class SpendCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SpendCommand // instanceof handles nulls
-                && toAdd.equals(((SpendCommand) other).toAdd));
+                || (other instanceof LendCommand // instanceof handles nulls
+                && toAdd.equals(((LendCommand) other).toAdd));
     }
 }
