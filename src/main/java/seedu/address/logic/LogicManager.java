@@ -234,7 +234,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     @Override
     public boolean hintsAreEnabled() {
-        return model.hintsAreEnabled();
+        return model.getHintsEnabled();
     }
 
     @Override

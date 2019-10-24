@@ -29,6 +29,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String FIRST_MESSAGE_LOAD_BANK = "Welcome! Start by loading a bank:"
+            + "\n eg. bank sample";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -138,9 +140,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        //Setting modularDisplay to load mode by default.
         modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
+
+        //Set up the resultDisplay (main feedback for commands).
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        //Give user instruction to load a bank when first starting up the app.
+        resultDisplay.setFeedbackToUser(FIRST_MESSAGE_LOAD_BANK);
 
         //Set up timer display
         timerDisplay = new TimerDisplay();
@@ -166,7 +174,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //Assigns only after initialisation.
-        this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
+        updateUi = new UpdateUi(modularDisplay, currentModeFooter);
         updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
     }
 

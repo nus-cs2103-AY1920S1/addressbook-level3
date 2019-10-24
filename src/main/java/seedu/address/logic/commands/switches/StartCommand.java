@@ -14,7 +14,6 @@ import java.util.Optional;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 import seedu.address.model.appsettings.DifficultyEnum;
@@ -28,24 +27,28 @@ import seedu.address.model.wordbanklist.WordBankList;
 public class StartCommand extends SwitchCommand {
 
     public static final String COMMAND_WORD = "start";
+
+    static final String MESSAGE_TOO_FEW_CARDS = "There are too few cards: ";
+    static final String MESSAGE_TOO_FEW_CANNOT_START =
+            "Cannot start the game! (Needs least 3 cards per Game)";
+    static final String MESSAGE_WORDBANK_NOT_LOADED = "You have not loaded a wordBank!";
+
+    private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
+            + " (Use 'stop' to terminate) Guess the word:";
+
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Starts the word bank identified by the index number used in the displayed card list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
-            + " (Use 'stop' to terminate) Guess the word:";
 
-    private Optional<DifficultyEnum> difficulty = Optional.empty();
-
-    public StartCommand() {
-        difficulty = Optional.empty();
-    }
+    private Optional<DifficultyEnum> difficulty;
 
     public StartCommand(Optional<DifficultyEnum> difficulty) {
         this.difficulty = difficulty;
     }
 
-    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
+    public ModeEnum getNewMode(ModeEnum old) {
         return ModeEnum.GAME;
     }
 
@@ -55,7 +58,7 @@ public class StartCommand extends SwitchCommand {
     public CommandResult execute(Model model) throws CommandException {
 
         if (model.getWordBank() == null) {
-            throw new CommandException("You have not loaded a wordBank!");
+            throw new CommandException(MESSAGE_WORDBANK_NOT_LOADED);
         }
 
         if (!model.gameIsOver()) {
@@ -67,6 +70,12 @@ public class StartCommand extends SwitchCommand {
         String wordBankName = model.getWordBank().getName();
         WordBankList wbList = model.getWordBankList();
         WordBank wordBank = wbList.getWordBank(wordBankName);
+
+        // Check size of WordBank, if less than 3 cards, cannot start game.
+        if (wordBank.size() < 3) {
+            throw new CommandException(MESSAGE_TOO_FEW_CARDS + wordBank.size()
+            + "\n" + MESSAGE_TOO_FEW_CANNOT_START);
+        }
 
         if (difficulty.isPresent()) {
             Game newGame = new Game(wordBank, x -> Collections.shuffle(x), difficulty.get());

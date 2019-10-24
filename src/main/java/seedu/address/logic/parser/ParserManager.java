@@ -119,8 +119,8 @@ public class ParserManager {
 
 
     /**
-     * Sets new state within parsermanager if command was successful.
-     * @param command
+     * Updates the current state of the Model and ParserManager based on whether
+     * {@code bankLoaded} is true, and whether {@code gameIsOver}.
      */
     public void updateState(boolean bankLoaded, boolean gameIsOver) {
         this.bankLoaded = bankLoaded;
