@@ -1,0 +1,104 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddTaskCommandParser" as AddTaskCommandParser LOGIC_COLOR
+participant "atc:AddTaskCommand" as AddTaskCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "taskToAdd:Task" as Task LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CustomerManager" as CustomerManager MODEL_COLOR
+participant ":TaskManager" as TaskManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addT g/50 stacks of A4 paper c/3 dt/10/12/2019")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("addT g/50 stacks of A4 paper c/3 dt/10/12/2019")
+activate AddressBookParser
+
+create AddTaskCommandParser
+AddressBookParser -> AddTaskCommandParser
+activate AddTaskCommandParser
+
+AddTaskCommandParser --> AddressBookParser
+deactivate AddTaskCommandParser
+
+AddressBookParser -> AddTaskCommandParser : parse("addT g/50 stacks of A4 paper c/3 dt/10/12/2019")
+activate AddTaskCommandParser
+
+create Task
+AddTaskCommandParser -> Task : new Task("50 stacks of A4 paper", 10/12/2019)
+activate Task
+
+Task --> AddTaskCommandParser : taskToAdd
+deactivate Task
+
+create AddTaskCommand
+AddTaskCommandParser -> AddTaskCommand : new AddTaskCommand(taskToAdd, 3)
+activate AddTaskCommand
+
+AddTaskCommand --> AddTaskCommandParser : atc
+deactivate AddTaskCommand
+
+AddTaskCommandParser --> AddressBookParser : atc
+deactivate AddTaskCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddTaskCommandParser -[hidden]-> AddressBookParser
+destroy AddTaskCommandParser
+
+AddressBookParser --> LogicManager : atc
+deactivate AddressBookParser
+
+LogicManager -> AddTaskCommand : execute()
+activate AddTaskCommand
+
+AddTaskCommand -> Model : getCustomer(3)
+activate Model
+
+
+Model -> CustomerManager : getCustomer(3)
+activate CustomerManager
+
+CustomerManager --> Model : customer
+deactivate CustomerManager
+
+Model --> AddTaskCommand : customer
+deactivate Model
+
+AddTaskCommand -> Task : setCustomer(customer)
+activate Task
+
+Task --> AddTaskCommand
+deactivate Task
+
+AddTaskCommand -> Model : addTask(taskToAdd)
+activate Model
+
+Model -> TaskManager : addTask(taskToAdd)
+activate TaskManager
+
+TaskManager --> Model
+deactivate TaskManager
+
+Model --> AddTaskCommand
+deactivate Model
+
+create CommandResult
+AddTaskCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTaskCommand
+deactivate CommandResult
+
+AddTaskCommand --> LogicManager : result
+deactivate AddTaskCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

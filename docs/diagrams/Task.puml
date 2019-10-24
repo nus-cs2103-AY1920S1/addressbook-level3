@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR_T3
+skinparam classBackgroundColor MODEL_COLOR
+show members
+
+class Task {
+    <color:#white>taskId : int
+    <color:#white>description : Description
+    <color:#white>date : LocalDate
+    <color:#white>customer : Customer
+    <color:#white>driver : Optional<Driver>
+    <color:#white>eventTime : Optional<EventTime>
+}
+
+note right: date - date of delivery \neventTime - duration taken to delivery
+@enduml

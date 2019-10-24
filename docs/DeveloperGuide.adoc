@@ -136,13 +136,16 @@ image:BetterModelClassDiagram.png[]
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
+.Structure of the CentralManager
+image::CentralManager.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* uses CentralManager to consolidate all the managers' data that needs to be saved. (e.g. Task Manager's data)
+* can save the Central Manager data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -261,6 +264,42 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Task Feature (E.g. Add Delivery Task)
+==== Implementation
+The *Add Delivery Task* feature adds a new task into a task list. +
+It uses the `AddTaskCommand`, which extends `Command`, to add a `Task` into the `TaskManager`.
+`AddTaskCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddTaskCommand` to execute.
+'AddTaskCommand' requires the following fields: `Task`, `customerId`.
+The attributes of Task is as follows:
+
+.Class Diagram of Task class.
+image::Task.png[]
+
+As seen in the above class diagram, `driver` and `eventTime` are optional fields that are not mandatory when adding a task.
+They will be assigned subsequently using `assign` command. (Refer to Assign feature)
+The mandatory fields for users are: 'description', 'date' and 'Customer'.
+After the validation is completed, `AddTaskCommand` will fetch `Customer` using the `customerId` through the `CustomerManager`.
+A unique id will also be allocated to the task for differentiation.
+
+The following sequence diagram shows how the add task operation works:
+
+.Sequence Diagram of adding a task.
+image::AddTaskCommand.png[]
+
+[NOTE]
+The flow of how the task is being accessed and  managed as shown above is the same for other task related command such as Edit and Delete.
+
+==== Design Considerations
+
+===== Aspect: Usage of universal Command word
+
+* **Alternative 1 (current choice):** Have a individual command word for add task (`addT`)
+** Pros: Easy to implement and increases clarity for users.
+** Cons: Increases the number of commands.
+* **Alternative 2:** Combine `AddTaskCommand` with other `add` commands
+** Pros: Will use only 1 universal `add` command for adding any entities. (Task, Customer and Driver)
+** Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.
 
 == Documentation
 

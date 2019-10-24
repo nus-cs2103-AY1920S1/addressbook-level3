@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+Class CentralManager
+Class CustomerManager
+Class DriverManager
+Class TaskManager
+class IdManager
+
+CentralManager ..> CustomerManager
+CentralManager ..> DriverManager
+CentralManager ..> TaskManager
+CentralManager .right.> IdManager
+note right of IdManager: To keep track of \n ID used so far. \n E.g. task ID, customerID
+@enduml

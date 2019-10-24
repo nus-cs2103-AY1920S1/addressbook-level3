@@ -52,7 +52,8 @@ e.g. typing help and pressing Enter will open the help window.
 *Command Format*
 
 * [action] [parameter 1] [parameter 2] [parameter 3]
-* Parameter consists of a delimiter and a word. For example, to tag a person on index 1: `edit 1 t/ College`
+* Parameter consists of a delimiter and a word. +
+For example, to edit the description of the delivery task (Task ID:3) : `editT 3 g/50 packs of frozen chicken`
 * Commands are case sensitive
 * Order of parameter is can be reordered freely.
 ====
@@ -176,9 +177,58 @@ Assigns the task at index 1 to the driver at index 3.
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Add a delivery task: `addT`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Adds a delivery task to the task manager. +
+Format: `addT [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
+
+****
+* DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* All fields are compulsory.
+****
+
+Examples:
+
+* `addT g/100 frozon boxes of red grouper c/13 dt/10/12/2019`
+* `addT g/1x washing machine c/10 dt/12/1/2020`
+
+=== Edits a delivery task : `editT`
+
+Edits a existing delivery task in the task manager. +
+Format: `editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
+
+****
+* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* Only indicate fields that you want to change.
+****
+
+Examples:
+
+* `editT 3 g/50 frozen boxes of catfish` +
+Edits the description of the task (Task ID: 3) to be `50 frozen boxes of catfish`.
+* `editT 5 c/2 dt/10/12/2019` +
+Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer (Customer ID: 2)` and `10/12/2019` respectively.
+
+=== Deletes a delivery task / driver / customer: `del`
+
+Deletes a task / driver / customer from its respective managers. +
+Format: `del [c/CUSTOMER ID]` | `del [t/DRIVER ID]` | `del [t/TASK ID]`
+
+****
+* Cannot delete a delivery task that is on-going. Remove the driver from the task first before deleting.
+* Cannot delete a driver that is assigned to a on-going task. Remove the driver from the task first before deleting.
+****
+
+Examples:
+
+* `del t/1` +
+Deletes task (Task ID: 1) from the task manager.
+* `del d/2` +
+Deletes driver (Driver ID: 2) from the driver manager.
+
+== Saving the data
+
+Deliveria data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
