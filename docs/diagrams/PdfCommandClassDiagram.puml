@@ -1,0 +1,42 @@
+@startuml
+package ui {
+    class ReportWindow
+    class Tab
+    class MainWindow
+    abstract class UiPart<Region>
+}
+
+package logic.commands {
+    abstract class Command
+    class PdfCommand
+}
+package logic.parser {
+    interface Parser
+    class PdfCommandParser
+    class TypeeParser
+}
+
+package model {
+    class Report
+    class Person
+    class Engagement
+}
+package util {
+    class PdfUtil
+}
+UiPart <|-- Tab
+UiPart <|-- MainWindow
+UiPart <|-- ReportWindow
+MainWindow *-- Tab
+MainWindow ..> ReportWindow
+MainWindow ..> TypeeParser
+Command <|-- PdfCommand
+Report --> Engagement
+Report --> Person
+Engagement -> Person
+Parser <|.. PdfCommandParser
+PdfCommand ..> PdfUtil
+PdfCommand -> Report
+TypeeParser ..> PdfCommandParser
+PdfCommandParser ..> PdfCommand
+@enduml
