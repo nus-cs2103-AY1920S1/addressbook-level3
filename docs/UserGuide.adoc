@@ -110,8 +110,18 @@ Shows the calendar filled with all dealines in the month. The calendar will be s
 
 `calendar`
 
-=== Get the full list of commands: `help`
+=== Export FlashCards to a document file: `export c>[CATEGORY] p>[FILE_PATH]`
 
+Exports all FlashCards in the supplied category to an external document (`.docx`) file. 
+Each FlashCard will be represented as a question-and-answer pair. 
+The document file will be created at the supplied file path.
+
+Note: the given file path is required to end with `.docx` - this is because we currently only support
+exporting to document files. 
+
+`export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
+
+=== Get the full list of commands: `help`
 
 `help`
 
