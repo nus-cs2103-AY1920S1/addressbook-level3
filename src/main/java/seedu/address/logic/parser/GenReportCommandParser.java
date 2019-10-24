@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author bernicechio
 /**
- * Parses input bodyID and creates a new GenReportCommand object.
+ * Parses input workerID and creates a new GenReportCommand object.
  */
 public class GenReportCommandParser implements Parser<GenReportCommand> {
 

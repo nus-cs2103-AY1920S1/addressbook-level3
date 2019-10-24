@@ -467,7 +467,7 @@ All entries will be sorted and grouped according to their statuses.
 * `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
 
-==== Filter body entries entries: `filter` `[coming in v2.0]`
+==== Filter body entries: `filter` `[coming in v2.0]`
 Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
 
 All attributes of a body entry can be filtered. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.

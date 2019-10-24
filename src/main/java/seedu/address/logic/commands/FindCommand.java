@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.entity.body.BodyNameContainsKeywordsPredicate;
 import seedu.address.model.entity.worker.WorkerNameContainsKeywordsPredicate;
 
-
+//@@author dalisc
 /**
  * Finds and lists all entries in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
