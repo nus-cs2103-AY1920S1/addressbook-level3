@@ -1,6 +1,10 @@
 package seedu.address.statistics;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 import static seedu.address.testutil.TypicalCards.CHARIZARD;
@@ -14,6 +18,10 @@ import seedu.address.model.game.Guess;
 
 public class GameStatisticsTest {
 
+    @Test
+    public void constructor() {
+        assertThrows(NullPointerException.class, () -> new GameStatisticsBuilder(null));
+    }
     @Test
     public void getScore() {
         GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
@@ -53,5 +61,34 @@ public class GameStatisticsTest {
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("butterfree"), 31),
                 FLAREON);
         assertEquals(0.095, gameStats.build().getSecTaken(), 1e-9);
+    }
+
+    @Test
+    public void isAllCorrect() {
+        GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
+        gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 10), ABRA);
+        gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("butterfree"), 10),
+                BUTTERFREE);
+        assertTrue(gameStats.build().isAllCorrect());
+
+        gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 10), BUTTERFREE);
+        assertFalse(gameStats.build().isAllCorrect());
+
+        GameStatisticsBuilder gameStats1 = new GameStatisticsBuilder("pokemon");
+        gameStats1.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 10), ABRA);
+        gameStats1.addDataPoint(GameDataPoint.createGuessData(new Guess("butterfree"), 10),
+                BUTTERFREE);
+        gameStats1.addDataPoint(GameDataPoint.createSkipData(10), ABRA);
+        assertFalse(gameStats1.build().isAllCorrect());
+    }
+
+    @Test
+    public void equals() {
+        GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
+        gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 10), ABRA);
+        gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("butterfree"), 10),
+                BUTTERFREE);
+        assertEquals(gameStats, gameStats);
+        assertNotEquals(gameStats, 1);
     }
 }

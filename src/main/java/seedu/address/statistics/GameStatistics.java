@@ -4,6 +4,8 @@ import java.util.List;
 
 import seedu.address.model.card.Card;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents the statistics of a single game.
  */
@@ -18,6 +20,10 @@ public class GameStatistics {
 
     public GameStatistics(String title, int score, double secTaken,
                           List<Card> correctCards, List<Card> wrongCards) {
+        requireAllNonNull(title, correctCards, wrongCards);
+        if (score < ScoreData.MIN_SCORE || score > ScoreData.MAX_SCORE) {
+            throw new IllegalArgumentException("Score must be within bound as specified in ScoreData");
+        }
         this.title = title;
         this.score = score;
         this.secTaken = secTaken;
@@ -51,7 +57,26 @@ public class GameStatistics {
         return wrongCards;
     }
 
-    public boolean allCorrect() {
+    public boolean isAllCorrect() {
         return getWrongCards().isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof GameStatistics)) {
+            return false;
+        }
+
+        GameStatistics otherGameStats = (GameStatistics) other;
+        return title.equals(otherGameStats.getTitle())
+                && score == otherGameStats.getScore()
+                && grade.equals(otherGameStats.getGrade())
+                && secTaken == otherGameStats.getSecTaken()
+                && correctCards.equals(otherGameStats.getCorrectCards())
+                && wrongCards.equals(otherGameStats.getWrongCards());
     }
 }

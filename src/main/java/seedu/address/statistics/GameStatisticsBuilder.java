@@ -35,6 +35,11 @@ public class GameStatisticsBuilder {
      */
     public void addDataPoint(GameDataPoint gameDataPoint, Card card) {
         if (data.containsKey(card)) {
+            List<GameDataPoint> dataPoints = data.get(card);
+            if (dataPoints.get(dataPoints.size() - 1).getMillisTaken() > gameDataPoint.getMillisTaken()) {
+                throw new IllegalArgumentException("The data point to add on a card must have larger millis "
+                        + "taken compared to the previously added one.");
+            }
             data.get(card).add(gameDataPoint);
         } else {
             List<GameDataPoint> gameDataPointList = new ArrayList<>();
@@ -71,7 +76,6 @@ public class GameStatisticsBuilder {
      * The scoring system can be flexible.
      */
     private int getScore() {
-        // todo implement this method properly
         int correctAnswer = (int) data.keySet()
                 .stream()
                 .filter(x -> {
@@ -81,10 +85,6 @@ public class GameStatisticsBuilder {
                 .count();
         int score = (int) Math.round(((double) correctAnswer) / data.size() * ScoreData.MAX_SCORE);
         return score;
-    }
-
-    private ScoreGrade getScoreGrade() {
-        return ScoreGrade.getGrade(getScore());
     }
 
     /**
@@ -121,6 +121,10 @@ public class GameStatisticsBuilder {
     private GameDataPoint getLastDataPoint(Card card) {
         List<GameDataPoint> dataPoints = data.get(card);
         return dataPoints.get(dataPoints.size() - 1);
+    }
+
+    public int size() {
+        return data.size();
     }
 
     @Override

@@ -46,7 +46,7 @@ public class WordBankStatistics {
      */
     public void update(GameStatistics gameStats, DifficultyEnum difficultyEnum) {
         ++gamesPlayed;
-        if (gameStats.allCorrect()) {
+        if (gameStats.isAllCorrect()) {
             // update fastestClear if necessary
             fastestClear = fastestClear.map(aDouble -> Math.min(aDouble, gameStats.getSecTaken()))
                     .or(() -> Optional.of(gameStats.getSecTaken()));

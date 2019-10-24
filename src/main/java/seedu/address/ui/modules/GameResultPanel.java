@@ -112,13 +112,13 @@ public class GameResultPanel extends UiPart<Region> {
                         : " - ");
         if (wbStatistics.getFastestClear().isPresent()
             && wbStatistics.getFastestClear().get().equals(gameStatistics.getSecTaken())
-            && gameStatistics.allCorrect()) {
+            && gameStatistics.isAllCorrect()) {
             // reach fastest clear, give some visual feedback
             fastestClearText.setStyle("-fx-text-fill: yellow; -fx-font-size: 16pt");
         }
 
         // init wrongAnswersBox
-        if (gameStatistics.allCorrect()) {
+        if (gameStatistics.isAllCorrect()) {
             wrongAnswersBox.setMaxHeight(0);
             gameFeedbackHeader.setText("Good Job! You answered everything correctly!");
         } else {

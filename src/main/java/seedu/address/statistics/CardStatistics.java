@@ -1,5 +1,7 @@
 package seedu.address.statistics;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents the statistics of a card.
  */
@@ -10,6 +12,14 @@ public class CardStatistics {
     private int numCorrect;
 
     public CardStatistics(String cardId, int numShown, int numCorrect) {
+        if (numShown < 0 || numCorrect < 0) {
+            throw new IllegalArgumentException("Integer arguments should be positive.");
+        }
+        if (numCorrect > numShown) {
+            throw new IllegalArgumentException("Number of correct guesses should be at most the number"
+                + "the card has been shown.");
+        }
+        requireNonNull(cardId);
         this.cardId = cardId;
         this.numShown = numShown;
         this.numCorrect = numCorrect;
@@ -40,6 +50,22 @@ public class CardStatistics {
     public void addCorrect() {
         ++numCorrect;
         ++numShown;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof CardStatistics)) {
+            return false;
+        }
+
+        CardStatistics other = (CardStatistics) obj;
+        return getCardId().equals(other.getCardId())
+                && getNumShown() == other.getNumShown()
+                && getNumCorrect() == other.getNumCorrect();
     }
 
     @Override

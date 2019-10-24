@@ -15,6 +15,10 @@ public enum ScoreGrade {
         this.minScore = minScore;
     }
 
+    public int getMinScore() {
+        return minScore;
+    }
+
     static ScoreGrade getGrade(int grade) {
         return Arrays.stream(ScoreGrade.values())
                 .filter(x -> grade >= x.minScore)
