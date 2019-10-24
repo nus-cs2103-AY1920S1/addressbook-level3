@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":MoneyGoWhereParser" as MoneyGoWhereParser LOGIC_COLOR
+participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
 participant ":AddReminderCommandParser" as AddReminderCommandParser LOGIC_COLOR
 participant "a:AddReminderCommand" as AddReminderCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -19,17 +19,17 @@ end box
 [-> LogicManager : execute("reminder d/today m/Pay bill")
 activate LogicManager
 
-LogicManager -> MoneyGoWhereParser : parseCommand("reminder d/today m/Pay bill")
-activate MoneyGoWhereParser
+LogicManager -> SpendingBookParser : parseCommand("reminder d/today m/Pay bill")
+activate SpendingBookParser
 
 create AddReminderCommandParser
-MoneyGoWhereParser -> AddReminderCommandParser
+SpendingBookParser -> AddReminderCommandParser
 activate AddReminderCommandParser
 
-AddReminderCommandParser --> MoneyGoWhereParser
+AddReminderCommandParser --> SpendingBookParser
 deactivate AddReminderCommandParser
 
-MoneyGoWhereParser -> AddReminderCommandParser : parse("d/today m/Pay bill")
+SpendingBookParser -> AddReminderCommandParser : parse("d/today m/Pay bill")
 activate AddReminderCommandParser
 
 create Reminder
@@ -60,14 +60,14 @@ activate AddReminderCommand
 AddReminderCommand --> AddReminderCommandParser : a
 deactivate AddReminderCommand
 
-AddReminderCommandParser --> MoneyGoWhereParser : a
+AddReminderCommandParser --> SpendingBookParser : a
 deactivate AddReminderCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 AddReminderCommandParser -[hidden]-> AddReminderCommandParser
 destroy AddReminderCommandParser
 
-MoneyGoWhereParser --> LogicManager : a
-deactivate MoneyGoWhereParser
+SpendingBookParser --> LogicManager : a
+deactivate SpendingBookParser
 
 LogicManager -> AddReminderCommand : execute()
 activate AddReminderCommand
