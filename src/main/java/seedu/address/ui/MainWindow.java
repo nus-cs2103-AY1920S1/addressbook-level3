@@ -1,7 +1,17 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
+import static seedu.address.commons.core.Messages.MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED;
+import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
+import static seedu.address.ui.DisplayPaneType.BACKGROUND;
+import static seedu.address.ui.DisplayPaneType.BIO;
+import static seedu.address.ui.DisplayPaneType.COLOUR;
 
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -11,8 +21,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -20,6 +31,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.aesthetics.Background;
+import seedu.sgm.model.food.exception.FoodNotSuitableException;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
@@ -29,20 +42,25 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String MESSAGE_CANNOT_LOAD_WINDOW = "Unable to load window. :(";
+    private static final String TEMPORARY_BACKGROUND_PATH = "/images/SpaceModified.jpg";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private StyleManager styleManager;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
+    private ReminderListPanel reminderListPanel;
 
     @FXML
     private Scene scene;
+
+    @FXML
+    private VBox mainWindowPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -54,8 +72,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane mainDisplayPanePlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private HBox resultDisplayPlaceholder;
 
+    @FXML
+    private StackPane reminderListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -71,14 +91,24 @@ public class MainWindow extends UiPart<Stage> {
 
         mainDisplayPane = new MainDisplayPane(logic);
         helpWindow = new HelpWindow();
+        styleManager = new StyleManager(scene, mainWindowPlaceholder);
+        setFontColour(logic.getGuiSettings());
+        setBackground(logic.getGuiSettings());
+        //        String fontPath = Main.class.getResource("/fonts/Tahu!.ttf").toExternalForm();
+        //        Font font = Font.loadFont(fontPath, 10);
+        styleManager.setFontFamily("Futura");
+    }
+
+    /**
+     * Constructor that displays an initial background image;
+     */
+    public MainWindow(Stage primaryStage, Logic logic, String imagePath) {
+        this(primaryStage, logic);
+        showInitialBackground(mainDisplayPanePlaceholder, imagePath);
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     private void setAccelerators() {
@@ -117,10 +147,70 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Returns messages for invalid references in a given map.
+     * @param fieldsContainingInvalidReferences Map that contains field and invalid reference pairs.
+     * @return Messages for invalid references in a given map.
      */
-    void fillInnerParts(String imagePath) {
+    private String getMessageForInvalidReferencesInMap(Map<String, String> fieldsContainingInvalidReferences) {
+        StringBuilder sb = new StringBuilder();
+        for (String fieldLabels : fieldsContainingInvalidReferences.keySet()) {
+            String field = fieldLabels;
+            String invalidReference = fieldsContainingInvalidReferences.get(field);
+            sb.append("- ").append(invalidReference).append(" of field ").append(field).append("\n");
+        }
+        return sb.toString();
+    }
 
+
+    /**
+     * Displays invalid references to the user if any.
+     * Clears the list of invalid references after displaying to the user so the message would not be displayed again
+     * during the next startup.
+     * @param resultDisplay ResultDisplay object that is used to display information to user.
+     */
+    private void displayInvalidReferences(ResultDisplay resultDisplay) {
+        List<Map<String, String>> listOfFieldsContainingInvalidReferences = logic
+                .getListOfFieldsContainingInvalidReferences();
+        Map<String, String> guiFieldsContainingInvalidReferences =
+                logic.getGuiSettings().getFieldsContainingInvalidReferences();
+
+        StringBuilder sb = new StringBuilder();
+
+        if (!listOfFieldsContainingInvalidReferences.isEmpty() || !guiFieldsContainingInvalidReferences.isEmpty()) {
+            resultDisplay.appendNewLineInFeedBackToUser(2);
+            sb.append(MESSAGE_UNABLE_TO_LOAD_REFERENCES);
+
+            sb.append(getMessageForInvalidReferencesInMap(guiFieldsContainingInvalidReferences));
+
+            for (Map<String, String> map : listOfFieldsContainingInvalidReferences) {
+                sb.append(getMessageForInvalidReferencesInMap(map));
+            }
+        }
+        resultDisplay.appendFeedbackToUser(sb.toString().trim());
+        listOfFieldsContainingInvalidReferences.clear();
+    }
+
+    /**
+     * Displays the welcome message to the user.
+     * @param resultDisplay ResultDisplay object that is used to display information to user.
+     */
+    private void displayWelcomeMessage(ResultDisplay resultDisplay) {
+        if (!logic.getFilteredUserList().isEmpty()) {
+            String name = logic.getFilteredUserList().get(0).getName().toString();
+            resultDisplay.appendFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
+                    + "assist you today?");
+        } else {
+            resultDisplay.appendFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
+                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
+        }
+    }
+
+    /**
+     * Displays the main background to the user.
+     * @param mainDisplayPanePlaceholder MainDisplayPaneholder containing background to be displayed.
+     * @imagePath String representation of path to background image to be displayed to the user upon startup.
+     */
+    private void showInitialBackground(StackPane mainDisplayPanePlaceholder, String imagePath) {
         //        ImageView imageView = new ImageView(imagePath);
         //        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
         //        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
@@ -131,12 +221,27 @@ public class MainWindow extends UiPart<Stage> {
                 + "-fx-background-position: center center; "
                 + "-fx-background-repeat: no-repeat;"
                 + "-fx-background-size: contain;");
+    }
 
+    /**
+     * Fills up intiial placeholders of this window.
+     * @imagePath String representation of path to background image to be displayed to the user upon startup.
+     */
+    void fillInnerParts() throws URISyntaxException {
         resultDisplay = new ResultDisplay();
+        displayWelcomeMessage(resultDisplay);
+        displayInvalidReferences(resultDisplay);
+        if (logic.getBackground().showDefaultBackground()) {
+            resultDisplay.appendNewLineInFeedBackToUser(2);
+            resultDisplay.appendFeedbackToUser(MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED);
+        }
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getPastReminderList());
+        reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        logic.schedule();
     }
 
     /**
@@ -152,6 +257,34 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the font colour based on {@code guiSettings}.
+     *
+     * @param guiSettings
+     */
+    private void setFontColour(GuiSettings guiSettings) {
+        styleManager.setFontColour(guiSettings.getFontColour());
+    }
+
+    /**
+     * Sets the background based on {@code guiSettings}.
+     *
+     * @param guiSettings
+     */
+    private void setBackground(GuiSettings guiSettings) {
+        Background background = guiSettings.getBackground();
+        if (background.showDefaultBackground()) {
+            styleManager.setBackground(new Background("transparent"));
+            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + TEMPORARY_BACKGROUND_PATH + "'); "
+                    + "-fx-background-position: center center; "
+                    + "-fx-background-repeat: no-repeat;"
+                    + "-fx-background-size: cover;");
+            styleManager.setFontColour("yellow");
+        } else {
+            styleManager.setBackground(guiSettings.getBackground());
+        }
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -162,24 +295,65 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
+
+    /**
+     * Returns the pane to be displayed depending on the type of pane to be displayed and whether the GUI has
+     * been modified.
+     * If the GUI has been modified, then the BIO page needs to reload to display the update if the current
+     * pane displayed happens to be so.
+     * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
+     * @param guiIsModified Boolean indicating whether the GUI has been modified.
+     * @return
+     */
+    private DisplayPaneType getPaneToDisplay(DisplayPaneType displayPaneType, boolean guiIsModified) {
+        if (guiIsModified && mainDisplayPane.getCurrPaneType() == BIO) {
+            return BIO;
+        } else if (guiIsModified) {
+            return null;
+        } else {
+            return displayPaneType;
+        }
+    }
+
+    /**
+     * Modifies the GUI based on the displayPaneType and returns true if the GUI has been modified
+     * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
+     * @return Boolean indicating whether the GUI has been modified.
+     */
+    private boolean guiIsModified(DisplayPaneType displayPaneType) {
+        if (displayPaneType == COLOUR) {
+            setFontColour(logic.getGuiSettings());
+            return true;
+        } else if (displayPaneType == BACKGROUND) {
+            setBackground(logic.getGuiSettings());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Switches the main display pane to the specified UI part.
      */
     public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
-        if (!displayPaneType.equals(mainDisplayPane.getCurrPaneType()) || newPaneIsToBeCreated) {
-            mainDisplayPanePlaceholder.setBackground(Background.EMPTY);
+        if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
+            throw new NullPointerException();
+        } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
+            DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
+            if (paneToDisplay == null) {
+                return;
+            }
+            newPaneIsToBeCreated = ((displayPaneType == COLOUR || displayPaneType == BACKGROUND)
+                    && paneToDisplay == BIO) || newPaneIsToBeCreated;
+            mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(displayPaneType, newPaneIsToBeCreated).getRoot()));
+                .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
         }
     }
 
     void show() {
         primaryStage.show();
-    }
-
-    public void hide() {
-        getRoot().hide();
     }
 
     /**
@@ -188,14 +362,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour(), logic.getBackground());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
@@ -218,6 +388,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
                 return commandResult;
+
             } else {
                 try {
                     switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getnewPaneIsToBeCreated());
@@ -233,6 +404,10 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        } catch (FoodNotSuitableException e) {
+            logger.info("Not suitable food input: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

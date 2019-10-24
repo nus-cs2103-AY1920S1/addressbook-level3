@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_ARGUMENTS_MUST_BE_EMPTY;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -12,7 +13,6 @@ import seedu.address.logic.commands.AverageCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EventCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -21,18 +21,23 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecmFoodCommand;
 import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.achvm.AchvmCommand;
+import seedu.address.logic.commands.aesthetics.BackgroundCommand;
+import seedu.address.logic.commands.aesthetics.FontColourCommand;
 import seedu.address.logic.commands.bio.AddBioCommand;
 import seedu.address.logic.commands.bio.BioCommand;
 import seedu.address.logic.commands.bio.ClearBioCommand;
 import seedu.address.logic.commands.bio.EditBioCommand;
+import seedu.address.logic.parser.aesthetics.BackgroundCommandParser;
+import seedu.address.logic.parser.aesthetics.FontColourCommandParser;
 import seedu.address.logic.parser.bio.AddBioCommandParser;
 import seedu.address.logic.parser.bio.EditBioCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.sgm.model.food.exception.FoodNotSuitableException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class SugarMummyParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -46,7 +51,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException, FoodNotSuitableException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -59,8 +64,8 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        //        case EditCommand.COMMAND_WORD:
+        //            return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -74,25 +79,12 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case BioCommand.COMMAND_WORD:
-            return new BioCommand();
-
-        case AddBioCommand.COMMAND_WORD:
-            return new AddBioCommandParser().parse(arguments);
-
-        case EditBioCommand.COMMAND_WORD:
-            return new EditBioCommandParser().parse(arguments);
-
-        case ClearBioCommand.COMMAND_WORD:
-            return new ClearBioCommand();
-
-        case AchvmCommand.COMMAND_WORD:
-            return new AchvmCommand();
-
         case ExitCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
             return new HelpCommand();
 
         case AverageCommand.COMMAND_WORD:
@@ -110,8 +102,50 @@ public class AddressBookParser {
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments);
 
+        //=========== User List =============================================================
+
+        case BioCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new BioCommand();
+
+        case AddBioCommand.COMMAND_WORD:
+            return new AddBioCommandParser().parse(arguments);
+
+        case EditBioCommand.COMMAND_WORD:
+            return new EditBioCommandParser().parse(arguments);
+
+        case ClearBioCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new ClearBioCommand();
+
+        //=========== Achievements =============================================================
+
+        case AchvmCommand.COMMAND_WORD:
+            requireEmptyArguments(arguments);
+            return new AchvmCommand();
+
+        //=========== Aesthetics =============================================================
+
+        case FontColourCommand.COMMAND_WORD:
+            return new FontColourCommandParser().parse(arguments);
+
+        case BackgroundCommand.COMMAND_WORD:
+            return new BackgroundCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Ensures commands not meant to have trailing arguments do not have any.
+     * Trailing spaces following commands are fine and would have been trimmed off automatically by the program.
+     * @param arguments Argument inputs keyed in by the user following the command.
+     * @throws ParseException If there are additional arguments after the command.
+     */
+    private void requireEmptyArguments(String arguments) throws ParseException {
+        if (!arguments.isEmpty()) {
+            throw new ParseException(MESSAGE_ARGUMENTS_MUST_BE_EMPTY);
         }
     }
 

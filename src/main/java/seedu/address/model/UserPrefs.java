@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.aesthetics.Background;
+import seedu.address.model.aesthetics.Colour;
 
 /**
  * Represents User's preferences.
@@ -18,6 +20,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path userListFilePath = Paths.get("data", "userList.json");
     private Path foodListFilePath = Paths.get("data", "foodlist.json");
     private Path recordListFilePath = Paths.get("data", "recordlist.json");
+    private Path eventListFilePath = Paths.get("data", "eventlist.json");
+    private Path reminderListFilePath = Paths.get("data", "reminderlist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -60,6 +64,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    //=========== User List =============================================================
+
     public Path getUserListFilePath() {
         return userListFilePath;
     }
@@ -69,12 +75,49 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.userListFilePath = userListFilePath;
     }
 
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public Colour getFontColour() {
+        return new Colour(this.guiSettings.getFontColour());
+    }
+
+    @Override
+    public void setFontColour(Colour fontColour) {
+        requireNonNull(fontColour);
+        this.guiSettings.setFontColour(fontColour);
+    }
+
+    @Override
+    public Background getBackground() {
+        return this.guiSettings.getBackground();
+    }
+
+    @Override
+    public void setBackground(Background background) {
+        requireNonNull(background);
+        this.guiSettings.setBackground(background);
+    }
+
+    //=========== Food Map =============================================================
+
+
     public Path getFoodListFilePath() {
         return foodListFilePath;
     }
 
+    //=========== Records =============================================================
+
     public Path getRecordListFilePath() {
         return recordListFilePath;
+    }
+
+    public Path getEventListFilePath() {
+        return eventListFilePath;
+    }
+
+    public Path getReminderListFilePath() {
+        return reminderListFilePath;
     }
 
     public void setFoodListFilePath(Path foodListFilePath) {
@@ -84,7 +127,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setRecordListFilePath(Path recordListFilePath) {
         this.recordListFilePath = recordListFilePath;
     }
-
 
     @Override
     public boolean equals(Object other) {

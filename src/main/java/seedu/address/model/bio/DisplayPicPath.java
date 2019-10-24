@@ -12,10 +12,6 @@ public class DisplayPicPath {
     public static final String MESSAGE_CONSTRAINTS = "Display picture path can take any values that represents a valid "
             + "path to an image.";
 
-    /*
-     * The first character of the displayPicPath must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
     public static final String VALIDATION_REGEX = "^$|[^\\s].*";
 
     public final String displayPicPath;
@@ -32,7 +28,7 @@ public class DisplayPicPath {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid display pic path.
      */
     public static boolean isValidDisplayPicPath(String test) {
         return test.matches(VALIDATION_REGEX);

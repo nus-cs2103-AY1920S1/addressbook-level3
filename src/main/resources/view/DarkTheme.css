@@ -182,6 +182,7 @@
 
 .result-display .label {
     -fx-text-fill: black !important;
+    -fx-background-color: transparent;
 }
 
 .profile-name {
@@ -200,11 +201,21 @@
 
 .bio-table {
     -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+
 }
 
 .bio-table .table-row-cell {
     -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+
 }
+
+.bio-table .table-cell .table-cell-text {
+    -fx-fill: white ;
+    -fx-font-family: "Segoe UI Light";
+}
+
 
 .field-column {
     -fx-font-family: "Arial" !important;
@@ -213,6 +224,13 @@
     -fx-font-weight: bold !important;
     -fx-text-fill: white !important;
 }
+
+.data-column {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-text-fill: white !important;
+}
+
 
 .field-column .label {
     -fx-font-family: "Arial" !important;
@@ -351,7 +369,7 @@
     -fx-text-fill: white;
 }
 
-.profile-scroll {
+.profile-scroll, .calendar-scroll{
     -fx-background: transparent !important;
     -fx-background-color: transparent !important;
     -fx-border-color: transparent !important;

@@ -8,7 +8,7 @@ import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Record;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code BloodSugarRecord}.
  */
 public class BloodSugarRecordCard extends UiPart<Region> {
 
@@ -41,8 +41,8 @@ public class BloodSugarRecordCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         String recordType = record.getClass().getSimpleName();
         this.recordType.setText(recordType);
-        dateTime.setText(record.getDateTime().toString());
-        concentration.setText(record.getConcentration().toString());
+        dateTime.setText("DateTime: " + record.getDateTime().toString());
+        concentration.setText("Concentration: " + record.getConcentration().toString());
     }
 
     @Override

@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.StackPane?>
-
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" text="Hi Amy! How are you feeling, and how can SugarMummy assist you today?" wrapText="true" editable="false" styleClass="result-display"/>
-</StackPane>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<HBox fx:id="placeHolder" HBox.hgrow="ALWAYS" maxHeight="Infinity" VBox.vgrow="ALWAYS" alignment="TOP_LEFT" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+<ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="false" styleClass="profile-scroll" maxHeight="Infinity" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+  <content>
+    <VBox VBox.vgrow="ALWAYS">
+      <children>
+        <Label fx:id="resultDisplay" minHeight="100" maxHeight="Infinity" alignment="TOP_LEFT" styleClass="result-display" textAlignment="LEFT" wrapText="true"/>
+      </children>
+      <padding>
+        <Insets left="10.0" />
+      </padding>
+    </VBox>
+  </content>
+</ScrollPane>
+</children>
+<padding>
+<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+</padding>
+</HBox>

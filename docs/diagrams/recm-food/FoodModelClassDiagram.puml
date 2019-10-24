@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+enum FoodType <<enumeration>>
+Class "{abstract}\nNutritionValue" as NutritionValue
+
+UniqueFoodList o-right-> Food
+
+Food *--> FoodName
+Food *--> Calorie
+Food *--> Gi
+Food *--> Sugar
+Food *--> Fat
+Food *--> FoodType
+
+Calorie -down-|> NutritionValue
+Gi -down-|> NutritionValue
+Sugar -down-|> NutritionValue
+Fat -down-|> NutritionValue
+
+enum FoodType {
+    NON_STARCHY_VEGETABLE
+    STARCHY_VEGETABLE
+    FRUIT
+    PROTEIN
+    SNACK
+    MEAL
+}
+show FoodType fields
+@enduml

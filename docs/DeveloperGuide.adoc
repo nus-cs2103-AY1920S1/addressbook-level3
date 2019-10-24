@@ -153,94 +153,209 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Average graph feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The average graph shows how the average blood sugar level or weight of users change over time.
+Daily, weekly, monthly average are supported.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+==== Implementation
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The average graph is implemented by `AverageMap` and the average values are stored
+internally as `internalAverageMap`. Additionally, it implements the following method:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* `AverageMap#calculateAverage()` - calculates and stores the average values needed by the user.
+* `AverageMap#asUnmodifiableObservableMap()` - returns an read only version of `internalAverageMap`.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
-image::UndoRedoState0.png[]
+These operations are exposed in the `Model` interface as `Model#calculateAverageMap()` and
+`Model#getAverageMap()` respectively.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Below is an example usage scenario and how average graph is created.
 
-image::UndoRedoState1.png[]
+Step 1. The user launches the application for the first time. The `AverageMap` will be
+initialized and `internalAverageMap` will be empty.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 2. The user enters `average a/daily rt/bloodsugar` in SugarMummy to get daily average blood sugar.
+The average command then call for `Model#calculateAverageMap()` which updates the `internalAverageMap` with
+new average values.
 
-image::UndoRedoState2.png[]
+The following sequence diagram shows how the average operation works:
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+.Sequence diagram of how average command calculates average values.
+image::AverageSequenceDiagram.png[]
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+NOTE: Step 2a. If the user enters `average a/daily rt/bloodsugar` and there is no data available,
+then the command will fail to execute. This step is illustrated in the activity diagram below.
 
-image::UndoRedoState3.png[]
+.Activity diagram of user enter an average command.
+image::AverageCommandFailureActivityDiagram.png[]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Step 3. `Ui` receives average command result from `LogicManager` and creates a new `AverageGraphPanel`.
+It then display the `AverageGraphPanel`.
 
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+.Sequence diagram of how `Ui` displays average graph.
+image::AverageGraphUiSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Data structure for `internalAverageMap`.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Use `observableMap<LocalDate, Double>` where key is the
+time period records are from and value is the average values.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Lower level of abstraction.
+* **Alternative 2:** Use `observableList<Average>` where we store each average values in an
+`Average` class.
+** Pros: Higher level of abstraction.
+** Cons: More codes to write.
 
-===== Aspect: Data structure to support the undo/redo commands
+// tag::recmf[]
+=== Food Recommendation Feature
+The food recommendation feature externally shows a filtered food list in the form of cards. Internally, it mainly consists of three parts:
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* Food Model: holds data for a certain food
+* Predicates: indicates the filters that the user wants to apply on partial presentation of the foods
+* Unique Food List: holds the collection of all foods
+
+==== Overview
+* Internal Data Structure
++
+The `UniqueFoodList` is the main model that contains all the foods and interacts with logic and UI. It exposes an
+unmodifiable `ObservableList<Food>` that associates the UI display of food recommendations.
+
+image::FoodModelClassDiagram.png[]
+
+* Parsers
+** `RecmFoodCommandParser` specifies the filters applied on the food list. Filters are implemented by two `Predicate` and are based on `Flag` and / or `FoodName`.
+** `AddFoodCommandParser` specifies and checks each fields of a new input food.
+
+* UI: Two main components are `FoodCard`, which shows the food information, and `FoodFlowPanel`: holds all the cards. It is nested in a `Scrollable` One highlight of the design is the background color usage for food name. Different colors are corresponding to different types of foods.
+
+==== Implementation
+
+The food recommendation mechanism majorly implements the following operations:
+
+* `SugarMummy#recmf()` -- Recommends a list of foods to the user.
+* `SugarMummy#sort()` -- Sorts the recommendations in ascending or descending order in terms of food name or calorie, gi, sugar, and fat values.
+* `SugarMummy#addfood()` -- Inputs new foods into the database for future recommendations.
+
+These operations are exposed in the `Model` interface as `Model#updateFilteredFoodList()`, `Model#sortFilteredFoodList()`, `Model#addFood()` respectively.
+
+Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
+
+Step 1. The user launches the application and enter `recmf` Command for the first time and . The `foodlist.json` storage file will be initialized with the pre-loaded food data from `SampleFoodDataUtil`.
+
+Step 2. The user executes `recmf -f -sv` command. `IsWantedTypePredicate` will be applied on the food list to select specified types.
+
+[NOTE]
+If no flag is specified, `RecmFoodCommandParser#getParsedFlags()` will return all flags to show to full content of foods.
+
+Step 3. The user executes `recmf fn/Cherry`. Similar to step 2, `FoodNameContainsKeywordPredicate` will be applied.
+
+Step 4. The user executes `recmf sort/calorie`.
+
+[NOTE]
+Collectively, Step 2 to 4 have similar underlying logic implementation and Ui updates. The whole food list wil be iterated through to get a filter or reordered food list.
+
+Step 5. The user feels the database is insufficient and wants to add a new food by executing `addfood (FOOD INFO)`. The `foodlist.json` storage file will be immediately updated if the execution is successful.
+
+* The following sequence diagram shows how the typical food recommendation operation works: `recmf -f fn/Cherry`
+
+image::RecmFoodSequenceDiagram.png[]
+
+[NOTE]
+The lifeline for `RecmFoodCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+* The following activity diagram summarizes what happens when a user executes `addfood` command.
+
+image::AddFoodActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How recommendations are presented to user
+
+* **Alternative 1 (current choice):** Shows the user a pane of cards. Different types are indicated by the different background colors of the food names.
+** Pros: Easy to implement.
+** Cons:
+* **Alternative 2:** Use several scrollable horizontal list views to hold different food type.
+** Pros:
+*** The content is more organized and the user does not need to specify food types in the filter.
+*** The food card for different food types can be more targeted. For example, for most proteins, the sugar and gi of value 0 can be omitted while protein values can be added.
+** Cons: The operations targeting at the whole list, such as filtering based on food names, need to be applied repeatedly for each food list.
+
+===== Aspect: Data structure to support the recmf command
+
+* **Alternative 1 (current choice):** Use a list to store all the foods
+** Pros: The logic can be easily understood.
+** Cons:
+* **Alternative 2:** Use a map that maps different food types to corresponding food list
+** Pros:
+** Cons:
+
+===== Aspect: New food data input from user
+
+* **Alternative 1 (current choice):** Require inputs for all fields (e.g. calorie, gi...).
+** Pros: It is easy for data manipulation. Specifically, this prevents some foods from permanently having empty fields. Additionally, this may further hinder the data usage for data analysis.
+** Cons: Some data may not be currently available while the user still to want to record a new food by simply inputting the food name.
+* **Alternative 2: ** Allow temporarily empty fields and use a separate list to hold such incomplete inputs.
+** Pros: This provides the user with more freedom and flexibility of entering data.
+** Cons: Every change or manipulation on food data needs to be applied on two lists. Transferring data from one list to the other may also be error-prone.
 
 // tag::dataencryption[]
+
 === [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Future Development Direction
 
-// end::dataencryption[]
+** Larger database for food recommendations
+To increase the usability of food recommendations, it is suggested to have more food data at the beginning instead of depending on user inputs. Ideally, the recommendation data can be connected to online database for dynamic updates while can have local storage for offline operations.
+
+** Diet records and analysis
+The current food models can be utilized to help record daily diets. This would allow the user to have an overview of his food consuming statistics. Therefore, some suggestions can be proposed to help diabetes users regulate and plan their diets.
+// end::recmf[]
+
+=== [Proposed] Data log feature
+==== Proposed Implementation
+The multi-record data logging mechanism is facilitated by a new Record package containing  BloodSugar and Bmi classes that extend an abstract Record class. Add, list and delete command classes and parsers are modified to accommodate multiple record types. Multi-record data is stored internally as a recordList where members are Records.
+
+It implements the following operations:
+* `Model#addRecord()` — Adds a record to the record list. 
+* `Model#deleteRecord()` — Deletes a record from the record list. 
+* `Model#getUniqueRecordListObject()` — Retrieves all records in record list. 
+These operations are exposed in the `Model` interface as `Model#addRecord()`, `Model#deleteRecord()` and `Model#getUniqueRecordListObject()` respectively.
+Given below is an example usage scenario and how the data log feature behaves at each step.
+Step 1. The user launches the application for the first time. If `recordList.json` is not found in `/data`, a `recordList.json` will be produced from `SampleDataUtil#getSampleRecords()`. Otherwise, the recordList will be loaded from `recordList.json` using `UniqueRecordList#setRecord(<List>)` and checked for inconsistencies e.g. missing fields, invalid fields. If invalid fields or missing consequential fields that must be used (e.g. `BloodSugar`’s `Concentration` field is consequential while its `Height` and `Weight` fields are not) are detected, an Exception is thrown and `recordList.json` start from scratch. Otherwise, inconsequential fields will be automatically repopulated on saving to the `recordList.json` in any command.
+
+Step 2. The user executes list command to list all records. `Model#getUniqueRecordListObject()` is called and `DisplayPaneType` is set to LIST. `MainDisplayPane#get()` determines the type of window to show based on `DisplayPaneType`. A new `RecordListPanel` is created and populates each `ListViewCell` with `BloodSugarRecordCard` and `BmiRecordCard`. Data used to populate the `RecordCards` is passed in through `RecordListPanel`’s constructor, as an `ObservableList` containing `BloodSugar` and `Bmi` objects.
+
+Step 3. The user executes `add rt/BMI h/1 w/1 dt/2019-09-09 12:12` command to create a `Bmi` record with height 1, weight 1 at date 2019-09-09 and time 12:12. The add command is first parsed by `AddressBookParser` then parsed by `AddCommandParser`. In `AddCommandParser`, we first parse for standard `Record`-class-level field like `DateTime` before parsing for the relevant `Bmi`-related CLI-arguments defined in `CliSyntax`. Individual field parsing is done inside `ParserUtil`. Either a complete `BloodSugar` or `Bmi` Object is returned otherwise a `ParseException` will be thrown. Note that `BloodSugar` and `Bmi` Objects are `Record` Objects. In `AddCommand`, this `Record` Object is first checked against the model whether the model contains such a `Record` (defined as same date time in `Record.java`). If there is no duplicate, it is added to the `Model#addRecord()` in turn calling `ModelManager#addRecord()` to call `add()` operation on the list. We reuse similar code to step 2 to display the result of the add.
+
+image::AddSequenceDiagram.png[]
+
+Step 4. The user now decides that adding the record was a mistake, and decides to delete that record. The delete command is first parsed by `AddressBookParser` then parsed by `DeleteCommandParser`. In `DeleteCommandParser`, we use `ParseUtil` to check whether the index is a positive number, otherwise a `ParseException` will be thrown. `DeleteCommand` receives the positive index and checks whether the positive index indexes a record. `DeleteCommand` will call `Model#deleteRecord()`, which will call `Model#deleteRecord()` and call `ModelManager#deleteRecord()` performing a `remove()` operation on the list.
+
+Step 5. After command has executed in `LogicManager`, we attempt to write the recordList in memory to `recordList.json` on disk using `Storage#saveRecordList()`. The command result is returned to `MainWindow` which calls `MainDisplayPane` in step 2 using `MainWindow#switchToMainDisplayPane()`. This lists out the updated record list in the UI (step 2).
+
+
+==== Design Considerations
+==== Aspect: Commands and parsers implementation
+* **Alternative 1 (current choice):** Parse for new record type X within existing add, list, delete commands and their parsers
+** Pros: Easy to implement as long as record type X inherits from Record. AddCommand, ListCommand and DeleteCommand classes remain very similar to their original implementations. 
+** Cons: Harder to debug when parsing fails because XCommandParser classes are responsible for checking for presence of multiple fields of multiple record types. Parsing may become complicated if the order of parsing fields becomes important. 
+* **Alternative 2:** Create separate AddX, ListX, DeleteX, AddXParser, ListXParser, DeleteXParser for each new record type X introduced
+** Pros: Each parser is responsible for parsing only record type X’s fields. This narrows down the scope of debugging should parsing fail. 
+** Cons: Accommodating a new record type involves creating at least 6 additional classes just for operations on data classes. Data classes required to represent the data include: Bmi class with Height and Weight class. 
+
+==== Aspect: Data Structure for managing multiple record types
+* **Alternative 1 (current choice):** Use a single list to store multiple record types.
+
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. Simpler to implement.
+
+** Cons: Must conduct type checks when retrieving from list. When a new record type is added, all type checks in different places must be updated. 
+* **Alternative 2:** Use separate lists to store different record types.
+** Pros: Do not need to perform type checks when retrieving from list. 
+** Cons: Listing all records together becomes difficult, must build a new list from all separate lists. Each class must reference a different kind of list.
+
 
 === Logging
 
@@ -261,6 +376,165 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Calendar feature
+==== Implementation
+
+The calendar feature works along with a scheduler. Calendar stores internally a `calendarEntries` list and a `pastReminders` list.
+Calendar entries consists of reminders and events. Past reminders list is dynamically determined by time and all reminders in this
+list is shown to the user. The scheduler acts as a wrapper for the Java ScheduledExecutorService, which updates past reminder list at specific time.
+It implements the following operations:
+
+* 'Calendar#addCalendarEntry' -- Adds a new calendar entry to the calendar.
+* 'Calendar#addPastReminder' -- Adds a reminder to the past reminders list.
+* 'Calendar#getCalendarEntryList' -- Gets a list of calendar entries.
+* 'Calendar#getPastReminderList' -- Gets a list of past reminders.
+* 'Calendar#schedule' -- Schedules a series of upcoming reminders.
+
+These operations are exposed in the `Model` interface as `Model#addCalendarEntry()`, `Model#addPastReminder()`,
+ `Model#getFilteredCalendarEntryList()`, `Model#getPastReminderList` and `Model#schedule` respectively.
+
+Given below is an example usage scenario and how the calendar behaves at each step.
+
+Step 1. The user launches the application for the first time on Dec 14 2019 09:00(local time). The `Calendar` will be initialized with the initial calendar state, which includes an empty calendar
+entry list and an empty past reminder list.
+
+Step 2. The user executes `reminder d/insulin injection dt/2019-12-14 17:30 r/daily` command to add a new reminder of 'insulin inject' at 17:30 every day. The `reminder` command calls `Model#addCalendarEntry()`,
+causing the modified state of the calendar after the reminder command executes to be saved in the `calendarEntries` list. Subsequently, it calls `Model#schedule()` which forces the scheduler to update the upcoming
+reminders.
+
+Step 3. The user executes `event d/meeting dt/2019-12-14 14:30 tp/00:30` command to add an new event with an auto reminder scheduled 30 minutes
+before the event. It calls `Model#addCalendarEntry()`, causing a new event as well as a new reminder saved in the `calendarEntries` list. Subsequently, it calls `Model#schedule()` which forces the scheduler to
+update the upcoming reminders.
+
+[NOTE]
+If an event or reminder command fails its execution, it will not call `Model#addCalendarEntry()`, so the calendar state will not be saved into the `calendarEntryList`.
+
+Step 4. At 14:00, a scheduled task is executed to call `Model#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
+
+Step 5. At 17:30, a scheduled task is executed to call `Model#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+==== Design Considerations
+
+===== Aspect: How scheduler updates upcoming reminders
+
+* **Alternative 1 (current choice):** Cancels all scheduled reminders and reschedule according to the updated reminder entries.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of time.
+* **Alternative 2:** Updates scheduled reminders according to the newly added reminder.
+** Pros: Will has less repeated work.
+** Cons: More work to do on deciding which tasks to cancel.
+
+===== Aspect: Period of updating scheduler.
+
+* **Alternative 1 (current choice):** Updates scheduler at 23:59(local time) every day.
+** Pros: Easy to implement.
+** Cons: May have a large number of scheduled tasks which will not be executed before the applicaion is closed.
+* **Alternative 2:** Updates scheduler every hour.
+** Pros: More flexible scheduling without concerning date and less scheduled tasks.
+** Cons: May cause overhead due to frequently updating.
+
+=== Personalised User Experience Feature
+
+To personalise the diabetic user’s the experience in using the SugarMummy app, several sub-features are used,
+including:
+
+* Addition, editing and clearing of the user’s biography
+* Customisation of font and `background` colour, with the ability to set as `background` image for `background` as well.
+* Display of motivational quotes for the user (initialisation phase; in progress)
+* `Achievements` to be shown to the user upon achieving a milestone.
+
+==== Overview
+* The `User` class is used to represent a diabetic user. A diabetic user is composed of the `Name`, `ProfileDesc`, `DisplayPicPath`, `Nric`, `Gender`, `Phone`, `MedicalCondition`, `Address`, `Goal` and `OtherBioInfo` classes.
+* A `User` is currently defined to be able to have more than one `Phone`, `MedicalCondition` and `Goal`. As such, these classes inherit the `ListableField` Interface.
+* The structure of a `User` and its interactions are shown as follows:
+
+image::UserModelClassDiagram.png[]
+
+
+* A `User` implements `ListableField` by storing them in a java `List`.
+* A `User` that is created is added to a `UserList`. Although not more than one `User` can be added in current versions so as to enhance personalisation for the, future developers may decide to repurpose the app to allow more users, and their corresponding biographies represented by the `bio` fields, to the `UserList`.
+* Other personalisation features such as `fontcolour`, `background` and `achievements` are currently represented by independent classes `Colour`, `Background` and `Achievement` respectively on their own, representing the model as their name describes.
+* The `Colour` feature allows for either enumeration of colour names or hexadecimal colour codes to be used to set colour. `Background` is associated to `Colour` as an argument for `Background` could simply be a colour. It depends on the static method isValid`Colour`(String test) method to determine if it’s argument is a `Colour`
+* The `AddBioParser` and `EditBioParser` is currently used to parse command arguments given by the user and allows adding of specific biography fields, whereas the `FontColour` and `Background` parsers are used to parse arguments for other personalisation features for font colours and `background` respectively.
+* The `Ui` for personalisation is separated into distinct parts. `User`’s biography information and achievements page are components on their own in the `Ui`’s `MainDisplayPane` – switched when required, whereas `background` and `fontcolour` do not have a designated `Ui` window, but instead changes the attributes for the entire application by modifying the CSS file used itself.
+* All command words in this program, not restricted to this feature alone, are not case sensitive and implemented under `SugarMummyParser`.
+
+==== Implementation
+===== Biography
+The biography feature is supported by the `addbio`, `editbio` and `clrbio` commands. Each command adheres to the main flow of information used by this application. In other words, when a command is received, the command is first parsed by `SugarMummyParser`, and to individual parsers where required, before return a `Command` object. The `Command` object is then executed by `Logic`, during which it updates `Model`, and after which Storage is updated `Logic`, before the feedback from the ``CommandResult`` returned by the `Command` object is shown to the user back at the `Ui`.
+
+* The following are possible scenarios for each of the following types of command words.
+
+** Scenario 1: User keys in `addbio n/testMinimal p/91234567 e/81234567 /testMedicalCondition`
+** Scenario 2: User keys in `editbio p/2/91234567`
+** Scenario 3: User keys in `bio`
+** Scenario 4: User keys in `clrbio`
+
+* In all scenarios, `SugarMummyParser` responds to the command word via a series of switch cases. As mentioned above, `addbio` and `editbio` will AddCommandParser and `EditCommandParser` respectively.
+
+* A key difference between the parsers for `addbio` and `editbio` is that the former requires `Name`, Contact Number, Emergency Contact, and `MedicalCondition` to be compulsory whereas `editbio` requires at least one argument denoting the `User`’s biography field to be changed. Furthermore, `EditCommandParser` determines whether or not subarguments for fields of `ListableField` type contain the format `INDEX/`, denoting the particular number in the list to be changed.
+* `CommandParser` then  returns an `AddBioCommand` object that stores the `User` to be created. `EditCommandParser` on the other hand creates an `EditBioCommand` object that stores an `EditedUserDescription` containing information on which fields are edited to be edited. A `List` of `HashMaps` that maps indexes to `ListableField`s is usedin `EditedUserDescription` to denote changes to be made within each `ListableField`. When executed by `Logic` afterwards, the `AddBioCommand` creates the `User` to be stored in model whereas the `EditBioCommand` creates a new `User` based on information in `EditedUserDescription`. A `UserList` is used in the `Model` to store Users. At any point of time when a user attempts to access biography information, `Logic` accesses the `UserList` from `Model` to display information. In order to be able to display the same information upon startup, `Logic` saves this `UserList` to the storage after execution of each command.
+* For the `bio` and `clrbio` commands, the implementations are relatively more straightforward. A BioCommand returned by `SugarMummyParser` simply overrides the `getDisplayPaneType()` of the `Command` object (that each `Command` object contains) so that back at `Ui`, `Ui` knows to display the `BioPane` of the `Ui` in the `MainDisplayPane` part of the window. This is also done for all other biography-related commands so after each biography-related command, the `BioPane` is displayed.  A `DisplayPane` is stored in the form of an enumeration as the type of display would be predefined to all it’s accessors. The `ClearBioCommand` simply clears the `UserList` stored in the model upon execution.
+* In the cases of `bio` and `clrbio` commands, `SugarMummyParser` requires non-null arguments just as it does for other single-word commands such as `exit`.
+* Each `Command` returns a ``CommandResult`` to logic containing feedback to be displayed to the user. Any exception that is thrown to the user is caught back at `Ui` `Ui`. Feedback is displayed to the user using the `ResultsDisplayPane`. The display of user biography is implemented using JavaFX `TableView`. If the `DisplayPicPath` of a `User` is unchanged, the `Ui` does not reload the image, so as to optimise performance of the program. If an entire pane is left unchanged, the pane is not reloaded, even upon execution of commands that are used to display the pane, unless explicitly indicated in the `getNewPaneIsToBeCreated()` method of the. `Command`. Caching is implemented using a `HashMap` that maps `DisplayPane` enumerations to the corresponding `UiPart` representing the respective pane.
+* An illustration of how the information flows for the `editbio` command (Scenario 2) is shown as follows:
+
+image::EditBioSequenceDiagram.png[]
+
+* The rest of the biography commands follow a similar logic, with key differences in the parser and command steps as described above.  Validation within parsers are done via the `ParserUtil` class.
+
+===== Aesthetics
+The aesthetics aspects of the application help to support the feature of personalised user experience and are implemented using the command words “`fontcolour`” and “`background`” respectively.
+
+* Possible valid usages are as follows:
+** Scenario 1: User keys in `fontcolour`
+** Scenario 2: User keys in `fontcolour white`
+** Scenario 3: User keys in `fontcolour #FFFF00`
+** Scenario 4: User keys in `bg`
+** Scenario 5: User keys in `bg #000000`
+** Scenario 6: User keys in `bg blue`
+** Scenario 7: User keys in `bg /Users/John/displayPicture.jpg s/cover`
+** Scenario 8: User keys in `bg r/no-repeat`
+
+* As mentioned above, `Colour` and `Background` are independent classes, and `Colour` makes use of enumerations of colour codes and colour names to determine validity of the colours.
+* Upon receival of the command “`fontcolour`”, if `fontcolour` has no arguments (checked by `FontColourParser`), a new `FontColourCommand` with no arguments is returned, and upon execution return a `CommandResult` that shows the existing font used via access of `Model` (logic is similar to the ones for biography) Otherwise if arguments are received, validity of the arguments is checked against, and if the colour is a valid `Colour`, it is set in `Model` and saved to Storage. `FontColourCommand` overrides the `getDisplayPane()` to return the `DisplayPane.COLOUR` enumeration. i.e. the `MainDisplayPane` is unchanged in `Ui`, and only font colours change.
+* `Background` on the other hand, checks for additional possible arguments. First of all, as observed in Scenarios 6 and 7, an argument could either represent a `Colour` or a path leading to an image to be used to set the background picture (this is similar to the `DisplayPicPath` of `bio` field). Thus, `BackgroundParser` first determines if the argument received is a colour. If so it returns a `BackgroundCommand` storing a `Background` that has a `background` colour attribute. Otherwise, it checks, via `ParserUtil` , whether or not the argument before valid prefixes (preamble) is a valid file path. If so, a `Background` that has a `backgroundPicPath` attribute is used to create the `BackgroundCommand`. Otherwise a parse exception is returned. Possible arguments that a `background` command can have include the size and repeat feature, corresponding to CSS `background` attributes. In current versions of the program, the program allows for fixed constants of this features to be used, that are stored in `Background`ImageArgs class and used by the `Background` model for validation. `Background``Command` overrides the `getDisplayPane()` to return `DisplayPane.BACKGROUND` enumeration. i.e. the `MainDisplayPane` is unchanged in `Ui`, and only the `background` changes. Similar to font colour, the command word on its own simply displays to the user current `background` settings.
+
+* An illustration of the logic for handling a `background` command is shown as follows:
+
+image::BackgroundActivityDiagram.png[]
+
+* For both `fontcolour` and `background` commands, the StyleManager class of `Ui` is used to set the user’s intention of `fontcolour` and `background` (if parsing is successful). The way StyleManager sets the `background` is by making a copy of the existing StyleSheet used, modifying the required fields and setting it to the StyleSheets of the scene, internally.
+
+===== Achievements
+
+* A diabetic user’s `Achievements` is supported by the `achvm` command, that displays the list of user’s achievements. Similar to how `bio` is implemented, `SugarMummyParser` returns an `AchievementsCommand` that overrides the `getDisplayPane()` method to return  `DisplayPane.ACHVM` – such that `Ui` of `Ui` sets the children of the `MainDisplayPane` node to be the `AchievementsPane`. Each `Achievement` is represented using an `ImageView` in JavaFX `TilePane` so that all images are of the same size.
+* Although this feature has yet to be fully implemented, the feature is intended to be implemented by checking user records (eg. average) in the `Model` after each related field is modified (eg. food / sugar level). Where appropriate at certain milestones, the `AchievementsList` of the user in `Model` and Storage will be updated. A feedback will be shown to the user to indicate the achievement of the milestone so that the user can check his/ her ``Achievements``. Upon each `achvm` call, `Ui` fetches the `Achievements` from model and displays the corresponding image in the `AchievementsPane`. Ideally, if the `AchievementsPane` is unchanged, the pane should not reload so as to optimise performance of the program and minimise unnecessary access and loading of images. This could be implemented using a flag in `Model` indicating whether or not the `Achievements` is to be reloaded when rendering the `Ui`.
+
+===== Motivation
+
+* Motivational aspects of the application are to be supported using motivational quotes. Although this subfeature of personalised user experience has yet to be implemented, implementation is intended to be done by storing preset quotes in a data structure such as an enumeration. In current versions of the application, it is likely that the user will have refrained access to modifying the list.
+
+==== Design Considerations
+
+===== Number of Users
+* It could be argued that multiple user support is not required and thus a `UserList` should not be used to store data. However, the intention is to leave it open to future developers to decide on whether to include multiple user support for the application, as the choice of a fully personalised experience for diabetic patients versus functionality for multiple users (having diabetes and using the same app), as well as the possibilities of such scenarios are debatable. Furthermore, our user stories appear to suggest the desire for a more personalised application.
+* In the strict case of single-user support that leaves the app less open to such modification, the alternative would be to simply implement and store the `User` in `Model`, rather than the `UserList`.
+
+===== `Background` Sub-Argument Values
+* The use of `enum` is a possibility to implement `static final background` sub-argument values (eg, `auto` of attribute `background` size). However considerations that eventually led against this idea included the possibility of values that are not in proper `String` format that may not be able to be directly enumerated (leading to the required use of additional lengthy switch cases). Additionally other `background` fields may be added by future developers  and it would be more concise to have them all in a single class rather than as separate enumerations.
+
+===== `Command` Classification
+* It is possible to separate the commands for  `fontcolour` and `background` into different commands (eg. addfontcolour, editfontcolour, showfontcolour, `clrfontcolour`). However, this is likely unnecessary as this will not only require the end user to type more words, but also introduce redundancy (eg. ``clrfontcolour`` could simply be `fontcolour` black and this is not hard to achieve the same effects as `clrfontcolour`, which also adds a restrictive definition on what the default colour to the user upon clearing settings should be).
+
+===== Modification of Application Style Dynamically
+* An alternative idea to achieving font colours and backgrounds throughout the entire app was to visit each child node recursively and set the colours and backgrounds if the nodes are of specific instances with these attributes (eg. `Label` which has textfill attribute). However this idea was quickly aborted as the `TableView` implemented only renders headers after the scene has been set and to include such a case in thet recursive solution adds significant complexity to the program on top of the possibility of severely breaking abstraction.
+
+===== Use of `Label` instead of `TextArea` Nodes
+* The `ResultDisplay` was originally implanted as a `TextArea` but was eventually replaced with a `Label` which achieves similarly results. The reasoning for this change was the inability to or difficulty in setting the `background` of `TextArea`, even via CSS. A `Label` serves as a perfect alternative since in the case both are non-editable to the user.
 
 == Documentation
 

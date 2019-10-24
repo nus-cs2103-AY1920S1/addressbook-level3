@@ -2,21 +2,21 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a date and a time.
  */
 public class DateTime {
 
-    public static final String VALIDATION_REGEX_STRING = "yyyy-MM-dd HH:mm";
-    public static final SimpleDateFormat VALIDATION_REGEX = new SimpleDateFormat(VALIDATION_REGEX_STRING);
+    public static final String VALIDATION_PATTERN_STRING = "yyyy-MM-dd HH:mm";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(VALIDATION_PATTERN_STRING);
     public static final String MESSAGE_CONSTRAINTS = "DateTime should be in the format: yyyy-MM-dd HH:mm and it "
             + "should contain valid number";
 
@@ -32,11 +32,8 @@ public class DateTime {
 
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
-        if (isValidDateTime(dateTime)) {
-            this.date = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
-            this.time = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(VALIDATION_REGEX_STRING));
-        } else {
-        }
+        this.date = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER).toLocalDate();
+        this.time = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER).toLocalTime();
     }
 
     public DateTime(LocalDateTime localDateTime) {
@@ -50,9 +47,9 @@ public class DateTime {
      */
     public static boolean isValidDateTime(String test) {
         try {
-            VALIDATION_REGEX.parse(test);
+            LocalDateTime.parse(test, DATE_TIME_FORMATTER);
             return true;
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
@@ -92,6 +89,39 @@ public class DateTime {
     }
 
     /**
+     * Returns true if current date time is before the given date time.
+     */
+    public boolean isBeforeDateTime(DateTime dateTime) {
+        return LocalDateTime.of(date, time).isBefore(LocalDateTime.of(dateTime.date, dateTime.time));
+    }
+
+    /**
+     * Returns true if current time is between the given time.
+     */
+    public boolean isBetweenTime(DateTime startingDateTime, DateTime endingDateTime) {
+        return (time.isAfter(startingDateTime.getTime()) || time.equals(startingDateTime.getTime()))
+                && (time.isBefore(endingDateTime.getTime()) || time.equals(endingDateTime.getTime()));
+    }
+
+    /**
+     * Returns true if current date and time is between the given date and time.
+     */
+    public boolean isBetweenDateTime(DateTime startingDateTime, DateTime endingDateTime) {
+        LocalDateTime thisDateTime = toLocalDateTime();
+        LocalDateTime starting = startingDateTime.toLocalDateTime();
+        LocalDateTime ending = endingDateTime.toLocalDateTime();
+        return (thisDateTime.isAfter(starting) || time.equals(starting))
+                && (thisDateTime.isBefore(ending) || thisDateTime.equals(ending));
+    }
+
+    /**
+     * Returns a LocalDateTime object representing the dateTime object.
+     */
+    public LocalDateTime toLocalDateTime() {
+        return LocalDateTime.of(date, time);
+    }
+
+    /**
      * Returns true if both date and time are same.
      */
     @Override
@@ -115,7 +145,8 @@ public class DateTime {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMM dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.of(date, time).format(formatter);
     }
+
 }

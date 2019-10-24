@@ -23,6 +23,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.aesthetics.Background;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
@@ -208,11 +210,6 @@ class ReminderCommandTest {
         }
 
         @Override
-        public void deleteFood(Food food) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public UniqueFoodList getUniqueFoodListObject() {
             throw new AssertionError("This method should not be called.");
         }
@@ -307,12 +304,32 @@ class ReminderCommandTest {
         }
 
         @Override
+        public void addPastReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<CalendarEntry> getPastReminderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void schedule() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void stopAllReminders() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -332,6 +349,30 @@ class ReminderCommandTest {
         public SimpleStringProperty getAverageType() {
             throw new AssertionError("This method should not be called.");
         }
+
+        //=========== Aesthetics =============================================================
+
+        @Override
+        public Colour getFontColour() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFontColour(Colour fontColour) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Background getBackground() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBackground(Background background) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=========== Records =============================================================
 
         @Override
         public SimpleStringProperty getRecordType() {
@@ -388,6 +429,10 @@ class ReminderCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public void schedule() {
         }
     }
 

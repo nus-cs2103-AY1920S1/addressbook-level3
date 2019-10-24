@@ -14,9 +14,13 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.aesthetics.Background;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.calendar.Reminder;
+import seedu.address.model.calendar.Scheduler;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
@@ -43,6 +47,8 @@ public class ModelManager implements Model {
     private final FilteredList<Record> filteredRecordList;
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
+    private final FilteredList<CalendarEntry> pastReminderList;
+    private final Scheduler scheduler;
     private final AverageMap averageMap;
 
     /**
@@ -68,6 +74,8 @@ public class ModelManager implements Model {
         this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
         this.calendar = new Calendar(calendar);
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
+        this.pastReminderList = new FilteredList<>(this.calendar.getPastReminderList());
+        this.scheduler = new Scheduler();
         this.averageMap = new AverageMap();
     }
 
@@ -253,7 +261,11 @@ public class ModelManager implements Model {
     @Override
     public void addCalendarEntry(CalendarEntry calendarEntry) {
         calendar.addCalendarEntry(calendarEntry);
+    }
 
+    @Override
+    public void addPastReminder(Reminder reminder) {
+        calendar.addPastReminder(reminder);
     }
 
     @Override
@@ -265,6 +277,21 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<CalendarEntry> getFilteredCalendarEntryList() {
         return filteredCalenderEntryList;
+    }
+
+    @Override
+    public ObservableList<CalendarEntry> getPastReminderList() {
+        return pastReminderList;
+    }
+
+    @Override
+    public void schedule() {
+        scheduler.schedule(this);
+    }
+
+    @Override
+    public void stopAllReminders() {
+        scheduler.stopAll();
     }
 
     @Override
@@ -280,6 +307,28 @@ public class ModelManager implements Model {
     }
 
 
+    //=========== Aesthetics =============================================================
+
+    @Override
+    public Colour getFontColour() {
+        return userPrefs.getFontColour();
+    }
+
+    @Override
+    public void setFontColour(Colour fontColour) {
+        userPrefs.setFontColour(fontColour);
+    }
+
+    @Override
+    public Background getBackground() {
+        return userPrefs.getBackground();
+    }
+
+    @Override
+    public void setBackground(Background background) {
+        userPrefs.setBackground(background);
+    }
+
     //=========== Food Map =============================================================
 
     //addFood() Function
@@ -289,11 +338,6 @@ public class ModelManager implements Model {
     public boolean hasFood(Food food) {
         requireNonNull(food);
         return foodList.contains(food);
-    }
-
-    @Override
-    public void deleteFood(Food food) {
-        foodList.remove(food);
     }
 
     @Override
@@ -393,4 +437,5 @@ public class ModelManager implements Model {
     public ObservableMap<LocalDate, Double> getAverageMap() {
         return averageMap.asUnmodifiableObservableMap();
     }
+
 }

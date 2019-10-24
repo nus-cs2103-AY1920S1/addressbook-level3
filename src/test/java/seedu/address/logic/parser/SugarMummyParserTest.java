@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,9 +31,9 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Concentration;
 
-public class AddressBookParserTest {
+public class SugarMummyParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final SugarMummyParser parser = new SugarMummyParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -58,8 +58,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_RECORD), command);
     }
 
     //    @Test
@@ -74,7 +74,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(ExitCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
@@ -88,19 +88,19 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(HelpCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
     public void parseCommand_bio() throws Exception {
         assertTrue(parser.parseCommand(BioCommand.COMMAND_WORD) instanceof BioCommand);
-        assertTrue(parser.parseCommand(BioCommand.COMMAND_WORD + " 3") instanceof BioCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(BioCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
     public void parseCommand_achvm() throws Exception {
         assertTrue(parser.parseCommand(AchvmCommand.COMMAND_WORD) instanceof AchvmCommand);
-        assertTrue(parser.parseCommand(AchvmCommand.COMMAND_WORD + " 3") instanceof AchvmCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(AchvmCommand.COMMAND_WORD + " 3"));
     }
 
     @Test

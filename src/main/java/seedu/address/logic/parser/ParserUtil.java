@@ -6,9 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,9 +15,12 @@ import javax.imageio.ImageIO;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.aesthetics.BackgroundCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
+import seedu.address.model.aesthetics.Background;
+import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
 import seedu.address.model.bio.DisplayPicPath;
@@ -328,6 +328,51 @@ public class ParserUtil {
         }
     }
 
+    //=========== Aesthetics =============================================================
+
+    /**
+     * Parses a {@code String colour} into a {@code Colour}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code colour} is invalid.
+     */
+    public static Colour parseColour(String colour) throws ParseException {
+        requireNonNull(colour);
+        String trimmedColour = colour.trim();
+        if (!Colour.isValidColour(trimmedColour)) {
+            throw new ParseException(Colour.MESSAGE_CONSTRAINTS);
+        }
+        return new Colour(trimmedColour);
+    }
+
+    /**
+     * Parses a {@code String background} into a {@code Background}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code background} is invalid.
+     */
+    public static Background parseBackground(String background) throws ParseException {
+        requireNonNull(background);
+        String trimmedBackground = background.trim();
+        if (Colour.isValidColour(trimmedBackground)) {
+            return new Background(trimmedBackground);
+        } else if (!Background.isValidBackgroundPicPath(trimmedBackground)) {
+            throw new ParseException(Background.MESSAGE_CONSTRAINTS + "\n" + BackgroundCommand.MESSAGE_USAGE);
+        } else if (trimmedBackground.isEmpty()) {
+            return new Background("");
+        } else {
+            try {
+                Image image = ImageIO.read(new File(trimmedBackground));
+                if (image == null) {
+                    throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE + "\n" + BackgroundCommand.MESSAGE_USAGE);
+                }
+            } catch (IOException e) {
+                throw new ParseException(MESSAGE_UNABLE_TO_LOAD_IMAGE + "\n" + BackgroundCommand.MESSAGE_USAGE);
+            }
+            return new Background(trimmedBackground);
+        }
+    }
+
     //=========== Food Map =============================================================
     /**
      * Parses a {@code String name} into a {@code FoodName}. Leading and trailing whitespaces will be trimmed.
@@ -451,10 +496,7 @@ public class ParserUtil {
         if (!DateTime.isValidDateTime(trimmedDateTime)) {
             throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
         }
-
-        LocalDate ld = LocalDate.parse(dateTime, DateTimeFormatter.ofPattern(DateTime.VALIDATION_REGEX_STRING));
-        LocalTime lt = LocalTime.parse(dateTime, DateTimeFormatter.ofPattern(DateTime.VALIDATION_REGEX_STRING));
-        return new DateTime(ld, lt);
+        return new DateTime(dateTime);
     }
 
     /**

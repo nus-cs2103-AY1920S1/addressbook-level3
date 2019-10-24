@@ -24,6 +24,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_GOALS = new Prefix("goal/");
     public static final Prefix PREFIX_OTHER_BIO_INFO = new Prefix("o/");
 
+    // Aesthetics Prefixes
+    public static final Prefix PREFIX_BG_SIZE = new Prefix("s/");
+    public static final Prefix PREFIX_BG_REPEAT = new Prefix("r/");
+
     // Record Prefixes
     public static final Prefix PREFIX_RECORDTYPE = new Prefix("rt/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");

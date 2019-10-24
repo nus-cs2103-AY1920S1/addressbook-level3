@@ -51,7 +51,7 @@ public class EditBioCommand extends Command {
 
     public static final String COMMAND_WORD = "editbio";
 
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Edits the user's bio "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Edits the user's biography "
             + "either by overwriting all existing values, OR by specifying positive indexes for individual values for "
             + "fields that can hold multiple values. Fields that can hold multiple values are limited to "
             + "contact numbers, emergency contacts, medical conditions and goals.\n"
@@ -98,7 +98,7 @@ public class EditBioCommand extends Command {
         requireNonNull(model);
         List<User> lastShownList = model.getFilteredUserList();
 
-        try {
+        if (!lastShownList.isEmpty()) {
             User userToEdit = lastShownList.get(0);
             User editedUser = createEditedUser(userToEdit, editUserDescriptor);
 
@@ -132,9 +132,10 @@ public class EditBioCommand extends Command {
                     ? MESSAGE_NO_CHANGE
                     : String.format(MESSAGE_EDIT_USER_SUCCESS,
                     String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())));
-        } catch (IndexOutOfBoundsException e) {
+        } else {
             throw new CommandException(MESSAGE_BIOGRAPHY_DOES_NOT_EXIST);
         }
+
     }
 
     /**

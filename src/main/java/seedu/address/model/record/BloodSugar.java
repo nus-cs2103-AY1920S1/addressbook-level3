@@ -9,7 +9,8 @@ import seedu.address.model.DateTime;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class BloodSugar extends Record {
-    public static final String MESSAGE_CONSTRAINTS = "BloodSugar can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "BloodSugar can take any postitive values, "
+        + "and it should not be blank";
 
     private final Concentration concentration;
 

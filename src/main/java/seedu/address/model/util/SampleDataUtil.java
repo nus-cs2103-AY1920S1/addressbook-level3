@@ -24,9 +24,6 @@ import seedu.address.model.record.BmiBuilder;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.tag.Tag;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodBuilder;
-import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -55,29 +52,6 @@ public class SampleDataUtil {
         };
     }
 
-    public static Food[] getSampleFoods() {
-        return new Food[]{
-        new FoodBuilder().build(),
-        new FoodBuilder().withFoodName("Potatodfafadfafadf").withFoodType("sv").build(),
-        new FoodBuilder().withFoodName("Banana").withFoodType("f").build(),
-        new FoodBuilder().withFoodName("Chicken").withFoodType("p").build(),
-        new FoodBuilder().withFoodName("Potato chips").withFoodType("s").build(),
-        new FoodBuilder().withFoodName("Chicken Rice").withFoodType("m").build(),
-        new FoodBuilder().withFoodName("Broccoli2").build(),
-        new FoodBuilder().withFoodName("Potato2").withFoodType("sv").build(),
-        new FoodBuilder().withFoodName("Banana2").withFoodType("f").build(),
-        new FoodBuilder().withFoodName("Chicken2").withFoodType("p").build(),
-        new FoodBuilder().withFoodName("Potato chips2").withFoodType("s").build(),
-        new FoodBuilder().withFoodName("Chicken Rice2").withFoodType("m").build(),
-        new FoodBuilder().withFoodName("Broccoli3").build(),
-        new FoodBuilder().withFoodName("Potato3").withFoodType("sv").build(),
-        new FoodBuilder().withFoodName("Banana3").withFoodType("f").build(),
-        new FoodBuilder().withFoodName("Chicken3").withFoodType("p").build(),
-        new FoodBuilder().withFoodName("Potato chips3").withFoodType("s").build(),
-        new FoodBuilder().withFoodName("Chicken Rice3").withFoodType("m").build()
-        };
-    }
-
     public static Record[] getSampleRecords() {
         return new Record[]{
             new BmiBuilder().build(),
@@ -103,18 +77,18 @@ public class SampleDataUtil {
 
     public static CalendarEntry[] getSampleCalendarEntry() {
         Event appointmentEvent = new Event(new Description("Appointment"),
-                new DateTime(LocalDateTime.of(2019, 11, 30, 14, 0)));
+            new DateTime(LocalDateTime.of(2019, 11, 30, 14, 0)));
         appointmentEvent.setEndingDateTime(new DateTime(LocalDateTime.of(2019, 11, 30, 15, 40)));
 
         Event dinnerEvent = new Event(new Description("Dinner"), new DateTime(LocalDateTime.of(2020, 1, 1, 18, 0)));
 
         return new CalendarEntry[]{
             new Reminder(new Description("Insulin injection"), new DateTime(LocalDateTime.of(2020, 2, 1, 11, 30)),
-                    Repetition.Daily),
+                Repetition.Daily),
             new Reminder(new Description("Medicine"), new DateTime(LocalDateTime.of(2020, 1, 2, 19, 10)),
-                    Repetition.Daily),
+                Repetition.Daily),
             new Reminder(new Description("Buy medicine"), new DateTime(LocalDateTime.of(2019, 12, 2, 15, 0)),
-                    Repetition.Once),
+                Repetition.Once),
             appointmentEvent,
             dinnerEvent
         };
@@ -128,14 +102,6 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
-    public static UniqueFoodList getSampleFoodList() {
-        UniqueFoodList sampleFl = new UniqueFoodList();
-        for (Food sampleFood : getSampleFoods()) {
-            sampleFl.add(sampleFood);
-        }
-        return sampleFl;
-    }
-
     public static UniqueRecordList getSampleRecordList() {
         UniqueRecordList sampleRl = new UniqueRecordList();
         for (Record sampleRecord : getSampleRecords()) {
@@ -146,7 +112,7 @@ public class SampleDataUtil {
 
     public static Calendar getSampleCalendar() {
         Calendar sampleCalendar = new Calendar();
-        for (CalendarEntry calendarEntry: getSampleCalendarEntry()) {
+        for (CalendarEntry calendarEntry : getSampleCalendarEntry()) {
             sampleCalendar.addCalendarEntry(calendarEntry);
         }
         return sampleCalendar;

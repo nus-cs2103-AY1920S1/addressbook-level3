@@ -2,6 +2,8 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -26,17 +28,19 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private JsonFoodListStorage jsonFoodListStorage;
     private JsonRecordListStorage jsonRecordListStorage;
+    private JsonCalendarStorage calendarStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
                           UserListStorage userListStorage, JsonFoodListStorage jsonFoodListStorage,
-                          JsonRecordListStorage jsonRecordListStorage) {
+                          JsonRecordListStorage jsonRecordListStorage, JsonCalendarStorage calendarStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userListStorage = userListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.jsonFoodListStorage = jsonFoodListStorage;
         this.jsonRecordListStorage = jsonRecordListStorage;
+        this.calendarStorage = calendarStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -171,7 +175,41 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyCalendar> readCalendarEntryList() {
-        return Optional.empty();
+    public List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
+        return userListStorage.getListOfFieldsContainingInvalidReferences();
+    }
+
+    // ===================== Calendar ======================
+    @Override
+    public Path getEventFilePath() {
+        return calendarStorage.getEventFilePath();
+    }
+
+    @Override
+    public Path getReminderFilePath() {
+        return calendarStorage.getReminderFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyCalendar> readCalendar() throws DataConversionException, IOException {
+        return readCalendar(calendarStorage.getEventFilePath(), calendarStorage.getReminderFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyCalendar> readCalendar(Path eventFilePath, Path reminderFilePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + eventFilePath + " and " + reminderFilePath);
+        return calendarStorage.readCalendar(eventFilePath, reminderFilePath);
+    }
+
+    @Override
+    public void saveCalendar(ReadOnlyCalendar calendar) throws IOException {
+        saveCalendar(calendar, calendarStorage.getEventFilePath(), calendarStorage.getReminderFilePath());
+    }
+
+    @Override
+    public void saveCalendar(ReadOnlyCalendar calendar, Path eventFilePath, Path reminderFilePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + eventFilePath + " and " + reminderFilePath);
+        calendarStorage.saveCalendar(calendar, eventFilePath, reminderFilePath);
     }
 }

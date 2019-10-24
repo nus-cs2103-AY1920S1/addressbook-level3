@@ -10,8 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Height {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Height should only contain numeric characters and at most a single decimal,"
-            + " and it should not be blank";
+        "Height should only contain positive real number";
     public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
     private final double height;
 
@@ -28,7 +27,7 @@ public class Height {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Weight // instanceof handles nulls
+            || (other instanceof Height // instanceof handles nulls
             && height == ((Height) other).height); // state check
     }
 

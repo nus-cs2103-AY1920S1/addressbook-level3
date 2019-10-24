@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EventCommand;
 import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
@@ -32,13 +31,13 @@ public class ReminderCommandParser implements Parser<ReminderCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CALENDAR_DESCRIPTION, PREFIX_DATETIME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_CALENDAR_DESCRIPTION).get());
         DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
         Repetition repetition = ParserUtil
-                .parseRepetition(argMultimap.getValue(PREFIX_CALENDAR_REPETITION).orElse("none"));
+                .parseRepetition(argMultimap.getValue(PREFIX_CALENDAR_REPETITION).orElse("once"));
 
         Reminder reminder = new Reminder(description, dateTime, repetition);
 

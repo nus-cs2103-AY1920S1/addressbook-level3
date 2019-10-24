@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import seedu.address.model.record.UniqueRecordList;
 
 /**
- * Represents the specific version {@code JsonGeneralStorage} about food list.
+ * Represents the specific version {@code JsonGeneralStorage} about record list.
  */
 public class JsonRecordListStorage extends JsonGeneralStorage<UniqueRecordList, JsonSerializableRecordList> {
 

@@ -9,7 +9,8 @@ import seedu.address.model.DateTime;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Bmi extends Record {
-    public static final String MESSAGE_CONSTRAINTS = "Bmi can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Bmi can take any positive values,"
+        + " and it should not be blank";
 
     private final Height height;
     private final Weight weight;
