@@ -47,4 +47,19 @@ public class ResponsesTest {
         FileReadWrite.delete(root);
         // cleanup
     }
+
+    @Test
+    void importNoPathTest() {
+        assertEquals(true, Responses.IMPORT_NO_PATH.call("import", new State()));
+    }
+
+    @Test
+    void exportNoPathTest() {
+        assertEquals(true, Responses.EXPORT_NO_PATH.call("export deck/ test", new State()));
+    }
+
+    @Test
+    void exportNoDeckTest() {
+        assertEquals(true, Responses.EXPORT_NO_DECK.call("export", new State()));
+    }
 }

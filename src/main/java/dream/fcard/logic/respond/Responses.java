@@ -39,11 +39,23 @@ enum Responses {
         }
         return true;
     }),
-    EXPORT("(?i)^(export)?(\\s)+(filepath/[\\w\\p{Punct}]+){1}(\\s)*", (commandInput, programState) -> {
+    IMPORT_NO_PATH("(?i)^i(mport)?(\\s)*", (commandInput, programState) -> {
+        System.out.println("No path specified, e.g. import ~/Desktop/file.json");
+        return true;
+    }),
+    EXPORT("(?i)^e(xport)?(\\s)+deck/(\\s)*.+(\\s)+path/(\\s)*.+", (commandInput, programState) -> {
         System.out.println("Current command is EXPORT");
         //Deck newDeck = programState.getDecks().get(*whichever deck*);
         //*Export newDeck to filepath*
         return true; // capture is valid, end checking other commands
+    }),
+    EXPORT_NO_PATH("(?i)^e(xport)?(\\s)+deck/(\\s)*.+", (commandInput, programState) -> {
+        System.out.println("No path specified, e.g. export deck/ deckName path/ ~/Desktop");
+        return true;
+    }),
+    EXPORT_NO_DECK("(?i)^e(xport)?.*", (commandInput, programState) -> {
+        System.out.println("No deck specified, e.g. export deck/ deckName path/ ~/Desktop");
+        return true;
     }),
     STATS("(?i)^(stats)?(\\s)*(deck/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
         System.out.println("Current command is STATS");
