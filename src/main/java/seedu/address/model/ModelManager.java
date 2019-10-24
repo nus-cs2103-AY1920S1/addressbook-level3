@@ -133,11 +133,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean getHintsEnabled() {
-        return false;
-    }
-
-    @Override
     public void setHintsEnabled(boolean enabled) {
         requireNonNull(enabled);
         appSettings.setHintsEnabled(enabled);
@@ -162,9 +157,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hintsAreEnabled() {
-        return true;
-        //        return difficulty.hintsAreEnabled();
+    public boolean getHintsEnabled() {
+        return appSettings.getHintsEnabled();
     }
 
     //=========== UserPrefs ==================================================================================

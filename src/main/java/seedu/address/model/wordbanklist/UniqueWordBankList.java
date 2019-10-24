@@ -31,7 +31,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains a card with the same meaning.
+     * Returns true if the list contains a wordBank with the same name.
      */
     public boolean contains(WordBank toCheck) {
         requireNonNull(toCheck);
