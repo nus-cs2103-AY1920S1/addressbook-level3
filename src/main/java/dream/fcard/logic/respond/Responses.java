@@ -33,7 +33,7 @@ enum Responses {
             StorageManager.provideRoot(path);
             programState.reloadAllDecks(StorageManager.loadDecks());
             System.out.println("Successfully changed root");
-        }else {
+        } else {
             System.out.println("argument is not a valid directory");
         }
         return true;
