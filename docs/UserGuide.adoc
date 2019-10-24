@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= TimeBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,27 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-4/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3). TimeBook is a scheduler application that aims to help busy NUS undergraduates keep track of the schedules of the user and his or her friends. It also can find the common free time and venues among the user and his or her friends. TimeBook will have the following features: 
+
+.  A graphical user interface (GUI) but most of the interactions with the application would happen using command line interface (CLI).
+.  Allows users to add the schedules of his or her friends and organise them into groups.
+.  Deconflict different schedules of different people and different groups to find the common free time among them.
+.  Integration with NUSmods API to allow users to enter their NUSmods timetable link to add it to their schedule.
+.  Integration with Google Maps API to allow the application to evaluate the best venue for the group to meet up during the free time in their schedules.
+
+TimeBook is for users who *prefer to use a desktop app for managing thier schedules*. More importantly, TimeBook is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TimeBook can get your schedule management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `timebook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your TimeBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +41,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`addperson`* `n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the TimeBook.
+* *`deleteperson`* `n/John Doe` : deletes the person named `John Doe` from TimeBook.
+* *`addgroup`* `g/CS2103` : adds a new group called `CS2103` to the TimeBook.
+* *`addtogroup`* `n/John Doe` `g/CS2103` : Adds a person `John Doe` into the group `CS2103`.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
