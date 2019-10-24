@@ -7,19 +7,19 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 //@@author keiteo
 public class StartCommandTest {
 
-    private AddressBookParser addressBookParser = new AddressBookParser();
+    private KeyboardFlashCardsParser keyboardFlashCardsParser = new KeyboardFlashCardsParser();
     private Model model = new ModelManager();
 
     @Test
     public void execute_noFlashCards_success() {
-        Command startCommand = new StartCommand(addressBookParser);
+        Command startCommand = new StartCommand(keyboardFlashCardsParser);
         try {
             CommandResult result = startCommand.execute(model);
             assertEquals(StartCommand.MESSAGE_NO_FLASHCARDS, result.getFeedbackToUser());
@@ -31,7 +31,7 @@ public class StartCommandTest {
     @Test
     public void execute_unableToFindTag_success() {
         String tagToFind = "thisTagDoesNotExist";
-        Command startCommand = new StartCommand(addressBookParser, tagToFind);
+        Command startCommand = new StartCommand(keyboardFlashCardsParser, tagToFind);
         try {
             CommandResult result = startCommand.execute(model);
             assertEquals(StartCommand.MESSAGE_NO_FLASHCARDS, result.getFeedbackToUser());
@@ -45,16 +45,16 @@ public class StartCommandTest {
         // assertTrue/False is used instead of assertEquals/NotEquals to specifically test equals()
         // but please correct me if assertEquals is actually using the class equals method
 
-        Command noTag = new StartCommand(addressBookParser);
-        Command tag = new StartCommand(addressBookParser, "tag");
+        Command noTag = new StartCommand(keyboardFlashCardsParser);
+        Command tag = new StartCommand(keyboardFlashCardsParser, "tag");
 
         // same object -> returns true
         assertTrue(noTag.equals(noTag));
         assertTrue(tag.equals(tag));
 
         // same values -> returns true
-        Command noTagCopy = new StartCommand(addressBookParser);
-        Command tagCopy = new StartCommand(addressBookParser, "tag");
+        Command noTagCopy = new StartCommand(keyboardFlashCardsParser);
+        Command tagCopy = new StartCommand(keyboardFlashCardsParser, "tag");
         assertTrue(noTag.equals(noTagCopy));
         assertTrue(tag.equals(tagCopy));
 
@@ -67,12 +67,12 @@ public class StartCommandTest {
         assertFalse(tag.equals(null));
 
         // different tags -> returns false
-        Command anotherTag = new StartCommand(addressBookParser, "anotherTag");
+        Command anotherTag = new StartCommand(keyboardFlashCardsParser, "anotherTag");
         assertFalse(tag.equals(noTag));
         assertFalse(tag.equals(anotherTag));
 
         // different abp object
-        Command diffAbp = new StartCommand(new AddressBookParser());
+        Command diffAbp = new StartCommand(new KeyboardFlashCardsParser());
         assertFalse(noTag.equals(diffAbp));
     }
 }
