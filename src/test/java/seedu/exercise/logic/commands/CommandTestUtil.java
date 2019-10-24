@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CUSTOM_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_FULL_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_PARAMETER_TYPE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 import static seedu.exercise.testutil.Assert.assertThrows;
@@ -68,6 +71,33 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditExerciseDescriptor DESC_AEROBICS;
     public static final EditCommand.EditExerciseDescriptor DESC_BASKETBALL;
+
+    public static final String VALID_PREFIX_NAME_RATING = "a";
+    public static final String VALID_PREFIX_NAME_REMARK = "b";
+    public static final String VALID_PREFIX_NAME_ENDDATE = "c";
+    public static final String VALID_FULL_NAME_RATING = "Rating";
+    public static final String VALID_FULL_NAME_REMARK = "Remark";
+    public static final String VALID_FULL_NAME_ENDDATE = "End date";
+    public static final String VALID_PARAMETER_TYPE_RATING = "Number";
+    public static final String VALID_PARAMETER_TYPE_REMARK = "Text";
+    public static final String VALID_PARAMETER_TYPE_ENDDATE = "Date";
+
+    public static final String PREFIX_NAME_DESC_RATING = " " + PREFIX_CUSTOM_NAME + VALID_PREFIX_NAME_RATING;
+    public static final String PREFIX_NAME_DESC_REMARK = " " + PREFIX_CUSTOM_NAME + VALID_PREFIX_NAME_REMARK;
+    public static final String PREFIX_NAME_DESC_ENDDATE = " " + PREFIX_CUSTOM_NAME + VALID_PREFIX_NAME_ENDDATE;
+    public static final String FULL_NAME_DESC_RATING = " " + PREFIX_FULL_NAME + VALID_FULL_NAME_RATING;
+    public static final String FULL_NAME_DESC_REMARK = " " + PREFIX_FULL_NAME + VALID_FULL_NAME_REMARK;
+    public static final String FULL_NAME_DESC_ENDDATE = " " + PREFIX_FULL_NAME + VALID_FULL_NAME_ENDDATE;
+    public static final String PARAMETER_TYPE_DESC_RATING = " " + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_RATING;
+    public static final String PARAMETER_TYPE_DESC_REMARK = " " + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_REMARK;
+    public static final String PARAMETER_TYPE_DESC_ENDDATE = " " + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_ENDDATE;
+
+    public static final String INVALID_PREFIX_NAME_DESC = " "
+            + PREFIX_CUSTOM_NAME + "r r"; // whitespace not allowed in short name
+    public static final String INVALID_FULL_NAME_DESC = " "
+            + PREFIX_FULL_NAME + "R3mark"; //'3' not allowed in full name
+    public static final String INVALID_PARAMETER_TYPE_DESC = " "
+            + PREFIX_PARAMETER_TYPE + "integer"; //integer not allowed in parameter type
 
     static {
         DESC_AEROBICS = new EditExerciseDescriptorBuilder().withName(VALID_NAME_AEROBICS)

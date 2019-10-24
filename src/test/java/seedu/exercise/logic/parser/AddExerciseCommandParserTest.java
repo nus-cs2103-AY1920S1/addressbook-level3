@@ -110,8 +110,6 @@ public class AddExerciseCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExerciseCommand.MESSAGE_USAGE);
 
-        System.out.println(CATEGORY_DESC_EXERCISE + VALID_NAME_BASKETBALL + VALID_DATE_BASKETBALL
-            + VALID_CALORIES_BASKETBALL + VALID_QUANTITY_BASKETBALL + UNIT_DESC_BASKETBALL);
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BASKETBALL + CATEGORY_DESC_EXERCISE + DATE_DESC_BASKETBALL
             + CALORIES_DESC_BASKETBALL + QUANTITY_DESC_BASKETBALL + UNIT_DESC_BASKETBALL, expectedMessage);
