@@ -50,10 +50,10 @@ public class HelpCommand extends Command {
             }
             String commandPrompt = "Available commands are: " + commandWords.toString() + "\n"
                 + "More information can be found in the popup window.";
-            return new CommandResult(commandPrompt, true, false);
+            return new CommandResult(commandPrompt, true, false, false);
         } else {
             String commandUsage = getClassStringField(commandClass, "MESSAGE_USAGE");
-            return new CommandResult(commandUsage, false, false);
+            return new CommandResult(commandUsage);
         }
     }
 

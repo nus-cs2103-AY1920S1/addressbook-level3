@@ -28,7 +28,7 @@ class HelpCommandTest {
     void constructor_nullCommandClassWithListingAllCommands_success() {
         HelpCommand command = new HelpCommand(null, true);
         assertCommandSuccess(command, model,
-            new CommandResult(EXPECTED_COMMAND_LIST, true, false), expectedModel);
+            new CommandResult(EXPECTED_COMMAND_LIST, true, false, false), expectedModel);
     }
 
     @Test
