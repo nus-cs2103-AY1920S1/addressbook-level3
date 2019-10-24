@@ -8,6 +8,9 @@ public class Messages {
     //Command messages
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_LOANSTATE_CONSTRAINTS = "Only 1 of -available / -loaned / -overdue flags can "
+            + "be used at any time";
+    public static final String MESSAGE_INVALID_DISPLAY_LIMIT = "Display limit must be a positive integer!";
 
     //Book messages
     public static final String MESSAGE_DUPLICATE_BOOK = "Serial number provided is already in use!";

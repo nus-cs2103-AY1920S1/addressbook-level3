@@ -26,6 +26,7 @@ public class BookPredicate implements Predicate<Book> {
     private String serialNumber;
     private Set<Genre> genres;
     private Flag loanState;
+    private int displayLimit = -1;
 
     public BookPredicate() {
         this.title = null;
@@ -68,7 +69,12 @@ public class BookPredicate implements Predicate<Book> {
                 || (loanState == Flag.OVERDUE && !book.isOverdue())) {
             return false;
         }
-        return true;
+
+        if (displayLimit > 0) {
+            displayLimit--;
+            return true;
+        }
+        return displayLimit == -1;
     }
 
     /**
@@ -132,8 +138,19 @@ public class BookPredicate implements Predicate<Book> {
         return this;
     }
 
+    /**
+     * add loan state predicate to the book predicate
+     *
+     * @param loanState
+     */
     public BookPredicate setLoanState(Flag loanState) {
         this.loanState = loanState;
+        return this;
+    }
+
+    public BookPredicate setDisplayLimit(int displayLimit) {
+        assert(displayLimit > 0);
+        this.displayLimit = displayLimit;
         return this;
     }
 

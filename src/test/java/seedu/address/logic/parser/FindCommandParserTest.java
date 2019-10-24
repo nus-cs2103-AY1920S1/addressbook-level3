@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.book.BookPredicate;
 
@@ -62,7 +63,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_duplicateLoanState_throwsParseException() {
         assertParseFailure(parser, FindCommand.COMMAND_WORD + " -loaned -available",
-                FindCommand.MESSAGE_LOANSTATE_CONSTRAINTS);
+                Messages.MESSAGE_LOANSTATE_CONSTRAINTS);
     }
 
 }

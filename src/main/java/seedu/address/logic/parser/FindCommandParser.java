@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DISPLAY_LIMIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.BookPredicate;
@@ -38,11 +40,26 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        int displayLimit;
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_SERIAL_NUMBER, PREFIX_AUTHOR,
                         PREFIX_GENRE, PREFIX_FLAG);
 
         BookPredicate predicate = new BookPredicate();
+
+        if (!argMultimap.getPreamble().equals("")) {
+            try {
+                displayLimit = Integer.parseInt(argMultimap.getPreamble());
+                if (displayLimit < 1) {
+                    throw new NumberFormatException();
+                }
+                predicate.setDisplayLimit(displayLimit);
+            } catch (NumberFormatException nfe) {
+                throw new ParseException(MESSAGE_INVALID_DISPLAY_LIMIT, nfe);
+            }
+        }
+
 
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
             predicate.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()).value);
@@ -103,7 +120,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 .filter(flag -> flag == Flag.AVAILABLE || flag == Flag.OVERDUE || flag == Flag.LOANED)
                 .collect(Collectors.toList());
         if (loanStates.size() > 1) {
-            throw new ParseException(FindCommand.MESSAGE_LOANSTATE_CONSTRAINTS);
+            throw new ParseException(Messages.MESSAGE_LOANSTATE_CONSTRAINTS);
         } else {
             return Optional.of(loanStates.get(0));
         }
