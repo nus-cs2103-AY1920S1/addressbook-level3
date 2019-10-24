@@ -171,14 +171,19 @@ The module view feature is facilitated by `displayedModule` in `ModelManager`. T
 
 The following sequence diagram shows how the module view feature is executed.
 
+.Module View Sequence Diagram
 image::ModuleViewSequenceDiagram.png[]
 
 [NOTE]
-The `BackCommand` mostly follows the same sequence as described above, except that it sets the displayed module to `null`.
+The `BackCommand` mostly follows the same sequence as described above, except that it does not need to find any module, and sets the displayed module to `null`.
 
 The following sequence diagram shows how the `ViewCommand` attempts to find the module from the `Model`.
 
+.Reference Diagram for finding a matching module
 image::ModuleViewSequenceDiagram_FindModule.png[]
+
+[NOTE]
+`TrackedModule` composes of an `ArchivedModule`. If a `TrackedModule` is found, it is guaranteed the corresponding `ArchivedModule` can be found.
 
 ==== Design Considerations
 

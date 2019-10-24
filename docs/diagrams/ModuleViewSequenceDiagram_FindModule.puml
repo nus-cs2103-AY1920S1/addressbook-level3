@@ -7,6 +7,8 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant "tml:TrackedModuleList" as TrackedModuleList MODEL_COLOR
+participant "aml:TrackedModuleList" as ArchivedModuleList MODEL_COLOR
 end box
 
 activate ViewCommand
@@ -14,14 +16,27 @@ activate ViewCommand
 ViewCommand -> Model : getFilteredModuleList()
 activate Model
 
-Model --> ViewCommand : Tracked Module List
+Model --> ViewCommand : tml
+deactivate Model
+
+ViewCommand -> TrackedModuleList : Find matching module
+activate TrackedModuleList
+
+TrackedModuleList --> ViewCommand : Module
+deactivate TrackedModuleList
 
 opt module not found
 
     ViewCommand -> Model : getFilteredArchivedModuleList()
-    Model --> ViewCommand : Archived Module List
+    activate Model
+    Model --> ViewCommand : aml
     deactivate Model
 
+    ViewCommand -> ArchivedModuleList : Find matching module
+    activate ArchivedModuleList
+
+    ArchivedModuleList --> ViewCommand : Module
+    deactivate ArchivedModuleList
 end
 
 @enduml

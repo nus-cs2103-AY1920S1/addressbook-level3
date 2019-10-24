@@ -9,6 +9,7 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ViewCommandParser" as ViewCommandParser LOGIC_COLOR
 participant ":ViewCommand" as ViewCommand LOGIC_COLOR
 end box
 
@@ -22,7 +23,20 @@ activate MainWindow
 MainWindow -> LogicManager : executeCommand("view cs2103t")
 activate LogicManager
 
-LogicManager -> ViewCommand ** : create and execute
+LogicManager -> ViewCommandParser ** : parse("view cs2103t")
+activate ViewCommandParser
+
+ViewCommandParser -> ViewCommand **
+activate ViewCommand
+
+ViewCommand --> ViewCommandParser
+deactivate ViewCommand
+
+ViewCommandParser --> LogicManager : ViewCommand
+deactivate ViewCommandParser
+destroy ViewCommandParser
+
+LogicManager -> ViewCommand : execute()
 activate ViewCommand
 
 ref over ViewCommand, Model : find matching module
