@@ -10,7 +10,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
 participant ":StatsCommandParser" as StatsCommandParser LOGIC_COLOR
-participant "d:StatsCommand" as StatsCommand LOGIC_COLOR
+participant ":StatsCommand" as StatsCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -57,6 +57,7 @@ LogicManager -> StatsCommand : getStatsData()
 activate StatsCommand
 
 StatsCommand -> Model : getFilteredSpendingList(predicate)
+activate Model
 
 Model --> StatsCommand
 deactivate Model
