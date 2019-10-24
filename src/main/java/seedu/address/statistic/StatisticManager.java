@@ -33,7 +33,7 @@ public class StatisticManager implements Statistic {
                                                                                 StatsPayload statsPayload) {
         //filter the list of orders to be only the orders within the starting and ending date.
         //dummy data here to test, should be passing orderBook straight in
-        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(SampleDataUtil.getSampleOrderBook(),
+        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
 
@@ -57,7 +57,7 @@ public class StatisticManager implements Statistic {
                                                                      StatsPayload statsPayload) {
         //filter the list of orders to be only the orders within the starting and ending date.
         //dummy data here to test, should be passing orderBook straight in
-        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(SampleDataUtil.getSampleOrderBook(),
+        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
 

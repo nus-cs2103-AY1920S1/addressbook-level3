@@ -15,8 +15,10 @@ Class CustomerCard
 Class CustomerListPanel
 Class OrderCard
 Class OrderListPanel
+Class ArchivedOrderListPanel
 Class PhoneCard
 Class PhoneListPanel
+
 Class CalendarPanel
 Class StatusBarFooter
 Class CommandBox
@@ -44,13 +46,16 @@ MainWindow *-down-> ResultDisplay
 MainWindow *-down-> TabPanel
 MainWindow *-down-> StatusBarFooter
 
+
 TabPanel *-down-> CustomerListPanel
 TabPanel *-down-> PhoneListPanel
+TabPanel *-down-> ArchivedOrderListPanel
 TabPanel *-down-> OrderListPanel
 TabPanel *-down-> CalendarPanel
 
 CustomerListPanel -down-> CustomerCard
 PhoneListPanel -down-> PhoneCard
+ArchivedOrderListPanel -down->OrderCard
 OrderListPanel -down-> OrderCard
 
 MainWindow -left-|> UiPart

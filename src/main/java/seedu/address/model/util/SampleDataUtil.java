@@ -127,10 +127,10 @@ public class SampleDataUtil {
 
     public static Schedule[] getSampleSchedule() {
         return new Schedule[] {
-            new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Kovan"),
-                        getTagSet("Rush")),
-            new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Orchard"),
-                        getTagSet("Office"))
+            new Schedule(UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66"), Calendar.getInstance(),
+                    new Venue("Kovan"), getTagSet("Rush")),
+            new Schedule(UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66"), Calendar.getInstance(),
+                    new Venue("Orchard"), getTagSet("Office"))
         };
     }
 

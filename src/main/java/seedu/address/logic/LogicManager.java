@@ -37,6 +37,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final Statistic statistic;
+    private final CommandHistory commandHistory = CommandHistory.getCommandHistory();
 
     public LogicManager(Model model, Storage storage, Statistic statistic) {
         this.model = model;
@@ -50,17 +51,23 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+
 
         try {
+            Command command = addressBookParser.parseCommand(commandText);
+            commandResult = command.execute(model);
             storage.saveCustomerBook(model.getCustomerBook());
             storage.savePhoneBook(model.getPhoneBook());
             storage.saveScheduleBook(model.getScheduleBook());
             storage.saveOrderBook(model.getOrderBook());
             storage.saveArchivedOrderBook(model.getArchivedOrderBook());
+            commandHistory.add(commandText);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+
+        } finally {
+            commandHistory.getCommandHistoryList().forEach(x -> System.out.println(x));
+
         }
 
         return commandResult;
