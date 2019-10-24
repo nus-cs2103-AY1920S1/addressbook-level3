@@ -467,7 +467,23 @@ such as `BreakdownGenerator` and `TimelineGenerator` extend `StatisticsGenerator
 statistic type with data processed to fit the chart that displays them.
 
 ==== Proposed Implementation
-The displaying of charts
+The chart feature can be roughly described as two separate parts: the displaying of the chart itself and the functionality to
+switch between arbitrary charts. They will be discussed separately.
+
+===== Displaying of charts
+The charts display statistics pertaining to whatever expenses are currently being listed in the `MainWindow`, and are updated live
+as the expenses being displayed change. This functionality is largely done by making use of the Observer pattern. An observable view of
+a list is provided by the `Logic`. The `MainWindow` has a reference to `Logic`, and passes a reference to the `ObservableList`
+of `Expense` to the `ChartBox` when instantiating it. Changes made to the list of expenses are thus propagated to `ChartBox`.
+
+The `ChartBox` itself instantiates and displays an `ExpenseChart`, and passes the list of expenses to it. The `ExpenseChart`
+takes that list of expenses and generates the statistics to be displayed using its own `StatisticsGenerator`. In this manner,
+changes to the list of expenses are propagated to the display. An example of how this works can be seen in the sequence diagram
+below, in the example where the user changes the displayed expenses by using the `ListCommand`.
+
+.Structure of the Statistics Generation Component
+image::DisplayStatisticsSequenceDiagram.png[]
+
 
 === Logging
 
