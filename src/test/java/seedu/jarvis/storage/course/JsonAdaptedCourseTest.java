@@ -5,6 +5,7 @@ import static seedu.jarvis.testutil.course.TypicalCourses.CS1010;
 import static seedu.jarvis.testutil.course.TypicalCourses.CS3230;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.jarvis.model.course.Course;
 
 /**
