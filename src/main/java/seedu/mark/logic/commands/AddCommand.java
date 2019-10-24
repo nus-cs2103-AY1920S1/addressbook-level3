@@ -36,6 +36,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New bookmark added: %1$s";
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "This bookmark already exists in Mark";
+    public static final String MESSAGE_MISSING_URL = "Failed to obtain the URL of the current page.";
 
     private Bookmark toAdd;
     private boolean hasNoUrl;
@@ -64,6 +65,9 @@ public class AddCommand extends Command {
 
         if (hasNoUrl) {
             Url urlToAdd = model.getCurrentUrl();
+            if (urlToAdd == null) {
+                throw new CommandException(MESSAGE_MISSING_URL);
+            }
             toAdd = new Bookmark(toAdd.getName(), urlToAdd, toAdd.getRemark(), toAdd.getFolder(),
                     toAdd.getTags(), toAdd.getCachedCopies());
         }

@@ -93,7 +93,7 @@ public class AddCommandParserTest {
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_THIS
                         + REMARK_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedBookmark));
+                new AddCommand(expectedBookmark, true));
     }
 
     @Test

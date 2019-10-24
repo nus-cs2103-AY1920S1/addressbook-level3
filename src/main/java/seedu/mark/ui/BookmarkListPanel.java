@@ -46,7 +46,6 @@ public class BookmarkListPanel extends UiPart<Region> {
 
         // Whenever current bookmark url changes, update the selection
         currentBookmarkUrl.addListener((observable, oldValue, newValue) -> {
-            logger.info("Current bookmark url changed to: " + newValue);
             Bookmark selectedBookmark = bookmarkListView.getSelectionModel().getSelectedItem();
             // Early return if the url change is due to change of selection
             if (selectedBookmark != null && selectedBookmark.getUrl().equals(newValue)) {
