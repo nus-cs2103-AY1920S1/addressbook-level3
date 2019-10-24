@@ -46,6 +46,9 @@ public class CollectionUtil {
                 return false;
             }
         }
+        if (itemBIterator.hasNext()) {
+            return false;
+        }
         return true;
     }
 
