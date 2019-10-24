@@ -12,12 +12,12 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Scheduler;
 
 /**
- * Adds a lesson to the address book.
+ * Adds a lesson to the classroom.
  */
 public class AddLessonCommand extends Command {
 
     public static final String COMMAND_WORD = "addlesson";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson to the classroom. "
             + "Parameters: "
             + PREFIX_LESSONNAME + "NAME "
             + PREFIX_STARTTIME + "START DATE "
@@ -30,7 +30,7 @@ public class AddLessonCommand extends Command {
             + PREFIX_REPEAT + "repeat";
 
     public static final String MESSAGE_SUCCESS = "New lesson added: %1$s";
-    public static final String MESSAGE_DUPLICATE_LESSON = "This lesson already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_LESSON = "This lesson already exists in the classroom";
 
     private final Lesson toAdd;
 

@@ -15,13 +15,14 @@ import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the classroom level
  * Duplicates are not allowed (by .isSameStudent comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class Classroom implements ReadOnlyClassroom {
 
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
+    private boolean isDisplayStudents = true;
     private final UniqueLessonList lessons;
     private final UniqueReminderList reminders;
 
@@ -39,13 +40,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         reminders = new UniqueReminderList();
     }
 
-    public AddressBook() {
-    }
+    public Classroom() {}
 
     /**
-     * Creates an AddressBook using the Students in the {@code toBeCopied}
+     * Creates an Classroom using the Students in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public Classroom(ReadOnlyClassroom toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -65,9 +65,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Classroom} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyClassroom newData) {
         requireNonNull(newData);
         setStudents(newData.getStudentList());
         setAssignments(newData.getAssignmentList());
@@ -77,7 +77,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// student-level operations
 
     /**
-     * Returns true if a student with the same identity as {@code student} exists in the address book.
+     * Returns true if a student with the same identity as {@code student} exists in the classroom.
      */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
@@ -93,16 +93,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a student to the address book.
-     * The student must not already exist in the address book.
+     * Adds a student to the classroom.
+     * The student must not already exist in the classroom.
      */
     public void addStudent(Student p) {
         students.add(p);
     }
 
     /**
-     * Adds an assignment to the address book.
-     * The assignment must not already exist in the address book.
+     * Adds an assignment to the classroom.
+     * The assignment must not already exist in the classroom.
      */
     public void addAssignment(Assignment p) {
         assignments.add(p);
@@ -110,9 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given student {@code target} in the list with {@code editedStudent}.
-     * {@code target} must exist in the address book.
-     * The student identity of {@code editedStudent} must not be the same as another existing student in the address
-     * book.
+     * {@code target} must exist in the classroom.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the classroom.
      */
     public void setStudent(Student target, Student editedStudent) {
         requireNonNull(editedStudent);
@@ -122,43 +121,54 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given assignment {@code target} in the list with {@code editedAssignment}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the classroom.
      * The assignment identity of {@code editedAssignment} must not be the same as another existing assignment in the
-     * address book.
+     * classroom.
      */
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireNonNull(editedAssignment);
 
         assignments.setAssignment(target, editedAssignment);
-
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Classroom}.
+     * {@code key} must exist in the classroom.
      */
     public void removeStudent(Student key) {
         students.remove(key);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Classroom}.
+     * {@code key} must exist in the classroom.
      */
     public void removeAssignment(Assignment key) {
         assignments.remove(key);
     }
 
+    public boolean isDisplayStudents() {
+        return this.isDisplayStudents;
+    }
+
+    public void displayStudents() {
+        this.isDisplayStudents = true;
+    }
+
+    public void displayAssignments() {
+        this.isDisplayStudents = false;
+    }
+
     /**
-     * Adds a lessons to the address book.
-     * The lesson must not already exist in the address book.
+     * Adds a lessons to the classroom.
+     * The lesson must not already exist in the classroom.
      */
     public void addLesson(Lesson p) {
         lessons.add(p);
     }
 
     /**
-     * Returns true if a lesson with the same identity as {@code lesson} exists in the address book.
+     * Returns true if a lesson with the same identity as {@code lesson} exists in the classroom.
      */
     public boolean hasLesson(Lesson lesson) {
         requireNonNull(lesson);
@@ -210,6 +220,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return reminders.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Assignment> getAssignmentList() {
         return assignments.asUnmodifiableObservableList();
     }
@@ -222,8 +233,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && students.equals(((AddressBook) other).students));
+                || (other instanceof Classroom // instanceof handles nulls
+                && students.equals(((Classroom) other).students));
     }
 
     @Override
