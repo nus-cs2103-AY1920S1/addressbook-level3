@@ -1,10 +1,19 @@
 @startuml
-(*)  --> "check input"
-If "input is verbose" then
---> [Yes] "turn on verbosity"
---> "run command"
-else
---> "run command"
-Endif
--->(*)
+!pragma useVerticalIf on
+start
+:User executes display command;
+
+    :Check display format;
+    if() then([Is Bar Chart])
+    :Create Bar Chart;
+    elseif() then([Is Pie Chart])
+    :Create Pie Chart;
+    elseif() then([Is Line Chart])
+    :Create Line Chart;
+    else ([else])
+    :Throws exception;
+    endif
+    :Displays chart;
+
+stop
 @enduml
