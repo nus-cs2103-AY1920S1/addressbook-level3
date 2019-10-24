@@ -356,6 +356,20 @@ Below are a few design considerations of the autocomplete commands feature.
 ** Cons: Inefficient and slow searching, because of the need to iterate through the entire list of commands, while calling ‘.substring()’ and ‘.contains()’ methods.
 
 // end::autocomplete commands[]
+// tag::orders[]
+=== Order Manager
+Order Manager is an address book of Orders, with some basic functions similar to that of a normal address book such as add, edit, delete and list. Additionally, Order Manager has some useful functions specifically catered towards the ease of management of orders.
+
+Firstly, the automated allocation of deliveryman once new orders are added. When a new order is created on the database, a deliveryman will be assigned to deliver the order based on whether he/she is present as well as whether he/she is currently preoccupied with delivering another order. This helps to ease the burden on the user as they would not need to manually allocate deliverymen to the orders. However, the feature to manually allocate is still present if the user wishes to do so.
+
+Secondly, the order manager allows for sorting of orders, based on date, customer, restaurant, menu or even deliveryman, depending on what information the user wishes to see. This allows for better management
+
+==== Implementation
+*insert class diagram here*
+
+*explains commands here, add ,del, edit, list, sort*
+
+// end::orders[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
