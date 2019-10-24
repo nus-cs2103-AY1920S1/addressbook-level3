@@ -153,6 +153,35 @@ Classes used by multiple components are in the `organice.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Matching feature
+This section describes how the matching feature is implemented.
+
+Matching is done by accessing `Patient` and `Donor` in `ModelManager`, then creating
+`MatchedPatient` and `MatchedDonor` objects to store the match results. The `MatchedPatient` and `MatchedDonor` objects
+are stored in a separate `listOfMatches` list.
+
+To facilitate the matching, the following methods were added to `ModelManager`:
+
+* `ModelManager#matchDonors(Patient patient)` -- Matches all Donors in ORGANice with the specified Patient.
+For each Donor that matches the Patient, a `MatchedDonor` objected is created and stored.
+* `ModelManager#matchPatients()` -- Matches all Donors with all Patients.
+
+After matching the patients and donors, the `MainWindow` decides which list to display via the `CommandResult#isMatch`
+method.
+
+==== Design considerations
+===== Aspect: Bugs introduced
+This section explains why the current implementation is chosen.
+Previously, the matching feature was implemented by storing match results in the
+`Patient` and `Donor` objects.
+
+Each `Patient` and `Donor` has a `isMatch()` method, which checks if the match results should be displayed
+or if the `Patient` and `Donor` attributes should be displayed. The match results will be displayed when `isMatch()`
+evaluates to `true`.
+
+It was discovered that there were many bugs introduced via this approach. The root cause of the bugs could not be
+identified.
+
 // tag::formmode[]
 === Add person `Form` mode feature
 ==== Implementation

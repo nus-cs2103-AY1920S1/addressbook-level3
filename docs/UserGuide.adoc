@@ -287,20 +287,43 @@ Deletes a person with the NRIC S98654322D in ORGANice.
 // end::delete[]
 === Detecting matches: `match`
 
-Currently, ORGANice only supports kidney matching. Refer to <<FAQ>> to know the
+Currently, ORGANice only supports kidney matching. Refer to <<FAQ>> for a better understanding of the
 procedure for kidney matching.
 
 This command displays a list of patient-donor pairs that passes both the blood type and tissue
 typing tests. +
 
-To get a list of patients and their number of matches, the format is: `match ic/all`
+There are two types of match commands. The following list explains each type of match command and describes the result
+of executing each type of command:
 
-To get a list of potential matches a patient has with a donor, the format is: `match ic/**NRIC**`
+* To get a list of patients and their number of matches, the format is: `match ic/all`
+* To get a list of potential matches a patient has with a donor, the format is: `match ic/**NRIC**`
 
 Each match is accompanied by a success rate number,
 which indicates the degree of compatibility
 between the patient and donor. +
-This is so that the doctors can schedule for cross matching between the patient-donor pair.
+
+==== Matching a specific patient
+For example, a user wants to match a specific patient called "John Doe" and his NRIC is "S1234568R".
+
+. Type `match ic/S1234568R` in the command box and press Enter.
+
+. The list of donors and their success rate are displayed as shown in the screenshot below.
++
+image::MatchingDonorsDisplayed.png[width=790]
++
+
+
+==== Matching all patients to all donors
+For example, a user wants to find how many donors matches each patient in ORGANice.
+
+. Type `match ic/all` in the command box and press Enter.
+
+. The list of patients and the number of matching donors each patient have are displayed in the screenshot below.
++
+image::Patient Matches Displayed.png[width=790]
++
+
 
 Matches can be sorted. Refer to <<Sorting matches>> for more information.
 
