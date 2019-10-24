@@ -24,7 +24,7 @@ public class AddNotesCommand extends Command {
             + PREFIX_MODULE_CODE + "CS2103T "
             + PREFIX_CONTENT + "Checking for project meeting time ";
 
-    public static final String MESSAGE_SUCCESS = "New note added: \n";
+    public static final String MESSAGE_SUCCESS = "New note added: \n + %1$s";
     public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in the address book";
 
     private final Notes toAdd;
