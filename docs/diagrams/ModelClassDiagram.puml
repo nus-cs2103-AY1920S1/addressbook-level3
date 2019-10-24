@@ -3,45 +3,76 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam genericDisplay old
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class EntityManager<T extends Person>
+Interface ReadOnlyEntityManager<T extends Person><<Interface>>
+
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
+Class CustomerManager
+Class TaskManager
+Class DriverManager
+
+Package Task {
+Class Task
+Class TaskList
+
+}
+
+TaskList *--> "*" Task
+
 Package Person {
 Class Person
+Class Driver
+Class EventTime
+Class Schedule
+Class Customer
 Class Address
 Class Email
 Class Name
 Class Phone
-Class UniquePersonList
+Class UniqueEntityList<T extends Person>
 }
 
 Package Tag {
 Class Tag
 }
 }
-
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+CustomerManager --|> EntityManager
+DriverManager --|> EntityManager
+TaskManager o--> "1" TaskList
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" CustomerManager
+ModelManager o--> "1" DriverManager
+ModelManager o--> "1" TaskManager
+
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
+Driver --|> Person
+Customer --|> Person
+
+Task *--> Customer
+Task *--> Driver
+Task *--> EventTime
+Driver *--> "1" Schedule
+Schedule *--> "*" EventTime
+
+EntityManager *--> "1" UniqueEntityList
+EntityManager ..|> ReadOnlyEntityManager
+UniqueEntityList *--> "*" Person
 Person *--> Name
 Person *--> Phone
 Person *--> Email

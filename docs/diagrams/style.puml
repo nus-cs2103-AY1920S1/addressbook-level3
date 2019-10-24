@@ -31,6 +31,7 @@
 !define STORAGE_COLOR_T3 #806600
 !define STORAGE_COLOR_T2 #544400
 
+
 !define USER_COLOR #000000
 
 skinparam BackgroundColor #FFFFFFF
@@ -45,6 +46,7 @@ skinparam Class {
     FontName Arial
 }
 
+
 skinparam Actor {
     BorderColor USER_COLOR
     Color USER_COLOR
@@ -58,6 +60,7 @@ skinparam Sequence {
     BoxFontColor #FFFFFF
     FontName Arial
 }
+
 
 skinparam Participant {
     FontColor #FFFFFFF
