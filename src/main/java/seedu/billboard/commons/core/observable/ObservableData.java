@@ -62,4 +62,13 @@ public class ObservableData<T> {
             observer.onChanged(value);
         }
     }
+
+    public Set<Observer<? super T>> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(Set<Observer<? super T>> observers) {
+        this.observers.addAll(observers);
+    }
+
 }

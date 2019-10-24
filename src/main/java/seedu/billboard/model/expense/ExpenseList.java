@@ -128,4 +128,12 @@ public class ExpenseList implements Iterable<Expense> {
         }
         return true;
     }
+
+    public ExpenseList getClone() {
+        ExpenseList clonedList = new ExpenseList();
+        for (Expense e : this.internalList) {
+            clonedList.add(e);
+        }
+        return clonedList;
+    }
 }
