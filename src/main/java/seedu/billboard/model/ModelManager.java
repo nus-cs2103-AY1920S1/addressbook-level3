@@ -289,19 +289,10 @@ public class ModelManager implements Model {
     public void setModel(Model model) {
         this.billboard.setBillboard((Billboard) model.getBillboard());
         this.archives.setArchives(model.getArchives());
-        this.statsType.setObservers(model.getStatsType().getObservers());
-        this.statsType.setValue(model.getStatsType().getValue());
+        this.statsType.setObservers(model.getStatisticsFormat().getObservers());
+        this.statsType.setValue(model.getStatisticsFormat().getValue());
         this.filteredArchives.clear();
         this.filteredArchives.putAll(model.getFilteredArchives());
-    }
-
-    /**
-     * Getter of statsType.
-     * @return ObservableData a model.
-     */
-    @Override
-    public ObservableData<StatisticsType> getStatsType() {
-        return statsType;
     }
 
     /**

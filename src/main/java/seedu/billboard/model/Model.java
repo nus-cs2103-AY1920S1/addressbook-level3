@@ -206,12 +206,6 @@ public interface Model {
     void setModel(Model model);
 
     /**
-     * Getter of statsType.
-     * @return ObservableData the statesType.
-     */
-    ObservableData<StatisticsType> getStatsType();
-
-    /**
      * Getter of filteredArchives.
      * @return HashMap the filteredArchives.
      */

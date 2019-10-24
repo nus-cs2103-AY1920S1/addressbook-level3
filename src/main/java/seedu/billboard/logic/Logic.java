@@ -39,7 +39,7 @@ public interface Logic {
     /**
      * Returns an observable view of the selected statistic type.
      */
-    ObservableData<StatisticsFormat> getStatisticsType();
+    ObservableData<StatisticsFormat> getStatisticsFormat();
 
     /**
      * Returns the user prefs' billboard file path.
