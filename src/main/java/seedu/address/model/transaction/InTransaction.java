@@ -19,7 +19,7 @@ public class InTransaction extends Transaction implements BankAccountOperation {
     }
 
     public InTransaction(Amount amount, Date date, Description description,
-                 Set<Category> categories, Person personInvolved) {
+                         Set<Category> categories, Person personInvolved) {
         super(amount, date, description, categories, personInvolved);
     }
 
@@ -36,8 +36,9 @@ public class InTransaction extends Transaction implements BankAccountOperation {
         } else if (obj instanceof InTransaction) {
             InTransaction inObj = (InTransaction) obj;
             return super.amount.equals(inObj.amount)
-                    && super.date.equals(inObj.date)
-                    && super.peopleInvolved.equals(inObj.peopleInvolved);
+                && super.date.equals(inObj.date)
+                // && super.peopleInvolved.equals(inObj.peopleInvolved) // TODO: CONFIRM?
+                && super.description.equals(inObj.description);
         } else {
             return false;
         }

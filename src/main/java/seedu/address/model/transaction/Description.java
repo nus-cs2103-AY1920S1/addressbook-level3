@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
+        "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -36,4 +36,20 @@ public class Description {
         return test.matches(VALIDATION_REGEX);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof Description // instanceof handles nulls
+            && fullDescription.equals(((Description) other).fullDescription)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return fullDescription.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return fullDescription;
+    }
 }

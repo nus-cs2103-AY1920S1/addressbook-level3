@@ -39,9 +39,13 @@ public class BankAccount implements ReadOnlyBankAccount {
      */
     public void resetData(ReadOnlyBankAccount newData) {
         requireNonNull(newData);
-
+        setBalance(newData.getBalance());
         setTransactions(newData.getTransactionHistory());
         setBudgets(newData.getBudgetHistory());
+    }
+
+    public void setBalance(Amount balance) {
+        this.balance.setAmount(balance);
     }
 
     public void setTransactions(List<BankAccountOperation> transactionHistory) {
@@ -105,6 +109,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      */
     public void removeTransaction(BankAccountOperation key) {
         transactions.remove(key);
+        this.balance = this.balance.subtractAmount(key.getAmount());
     }
 
     /**
@@ -178,8 +183,9 @@ public class BankAccount implements ReadOnlyBankAccount {
         }
 
         BankAccount otherBankAccount = (BankAccount) other;
-        return this.balance.equals(otherBankAccount.balance)
-            && this.transactions.equals(otherBankAccount.transactions);
+        return this.transactions.equals(otherBankAccount.transactions)
+            && this.budgets.equals(otherBankAccount.budgets)
+            && this.balance.equals(otherBankAccount.balance);
     }
 
     // TODO: implement stub

@@ -72,31 +72,42 @@ class JsonAdaptedTransaction {
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
+                Description.class.getSimpleName()));
         }
+
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+
+        final Description modelDescription = new Description(description);
 
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
         if (!Amount.isValidAmount(Double.parseDouble(amount))) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
+
         final Amount modelAmount = new Amount(Double.parseDouble(amount));
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
 
+        if (!Date.isValidDate(date)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        }
+
+        final Date modelDate = new Date(date);
+
         final Set<Category> modelCategories = new HashSet<>(transactionCategories);
 
         if ((Double.parseDouble(amount)) < 0) {
             /* if amount is negative */
-            return new OutTransaction(new Amount(Double.parseDouble(amount))
-                    .makeNegative(), new Date(date), new Description(description), modelCategories);
+            return new OutTransaction(modelAmount.makeNegative(), modelDate, modelDescription, modelCategories);
         } else {
             /* if amount is positive */
-            return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date),
-                    new Description(description), modelCategories);
+            return new InTransaction(modelAmount, modelDate, modelDescription, modelCategories);
         }
     }
 

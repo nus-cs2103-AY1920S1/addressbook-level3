@@ -38,7 +38,7 @@ public abstract class Transaction implements UndoableAction {
     }
 
     public Transaction(Amount amount, Date date, Description description,
-               Set<Category> categories, Person personInvolved) {
+                       Set<Category> categories, Person personInvolved) {
         this(amount, date, description);
         this.categories.addAll(categories);
         this.peopleInvolved = personInvolved;
@@ -75,8 +75,9 @@ public abstract class Transaction implements UndoableAction {
         }
 
         return otherTransaction != null
-                && otherTransaction.getAmount().equals(getAmount())
-                && otherTransaction.getDate().equals(getDate());
+            && otherTransaction.getAmount().equals(getAmount())
+            && otherTransaction.getDate().equals(getDate())
+            && otherTransaction.getDescription().equals(getDescription());
     }
 
     @Override

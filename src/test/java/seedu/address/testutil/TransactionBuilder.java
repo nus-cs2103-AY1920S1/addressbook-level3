@@ -18,7 +18,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class TransactionBuilder {
 
-    public static final String DEFAULT_AMOUNT = "1";
+    public static final String DEFAULT_AMOUNT = "100";
     public static final String DEFAULT_DATE = "10102019";
     public static final String DEFAULT_CATEGORY = "category";
     public static final String DEFAULT_DESCRIPTION = "milk";
@@ -28,7 +28,7 @@ public class TransactionBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
-    private Description desription;
+    private Description description;
     private Amount amount;
     private Date date;
     private Set<Category> categories;
@@ -36,7 +36,7 @@ public class TransactionBuilder {
     public TransactionBuilder() {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
         date = new Date(DEFAULT_DATE);
-        desription = new Description(DEFAULT_DESCRIPTION);
+        description = new Description(DEFAULT_DESCRIPTION);
         categories = new HashSet<>();
         categories.add(new Category(DEFAULT_CATEGORY));
     }
@@ -47,6 +47,7 @@ public class TransactionBuilder {
     public TransactionBuilder(Transaction transactionToCopy) {
         amount = transactionToCopy.getAmount();
         date = transactionToCopy.getDate();
+        description = transactionToCopy.getDescription();
         categories = new HashSet<>(transactionToCopy.getCategories());
     }
 
@@ -68,10 +69,18 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code date} of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withDate(String date) {
         this.date = new Date(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code description} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withDescription(String description) {
+        this.description = new Description(description);
         return this;
     }
 
@@ -80,9 +89,9 @@ public class TransactionBuilder {
      */
     public BankAccountOperation build() {
         if (amount.isNegative()) {
-            return new OutTransaction(amount, date, desription, categories);
+            return new OutTransaction(amount, date, description, categories);
         } else {
-            return new InTransaction(amount, date, desription, categories);
+            return new InTransaction(amount, date, description, categories);
         }
     }
 }

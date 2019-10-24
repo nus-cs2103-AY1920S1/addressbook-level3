@@ -195,7 +195,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSwitchTab(Tab tab) {
-        System.out.println(tab);
         switch (tab) {
 
         case TRANSACTION:
