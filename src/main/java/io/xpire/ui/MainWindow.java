@@ -36,11 +36,16 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+    private CardListPanel cardListPanel;
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane cardListPanelPlaceholder;
 
     @FXML
     private StackPane itemListPanelPlaceholder;
@@ -109,8 +114,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        itemListPanel = new ItemListPanel(logic.getFilteredItemList());
-        itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+        // itemListPanel = new ItemListPanel(logic.getFilteredItemList());
+        // itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+
+        cardListPanel = new CardListPanel(logic.getFilteredItemList());
+        cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -187,6 +195,9 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            cardListPanel.displayItem(logic.getFilteredItemList());
+            cardListPanelPlaceholder.getChildren().remove(cardListPanel.getRoot());
+            cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
             //handleResult(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {

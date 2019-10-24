@@ -18,9 +18,15 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.list-header {
+    -fx-font-size: 15pt;
+    -fx-text-fill: #eee;
     -fx-opacity: 1;
 }
 
@@ -87,48 +93,43 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.list-view {
+.scroll-pane {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background: derive(#1d1d1d, 20%);
 }
 
-.list-cell {
+#cardPane {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0px, 2px;
 }
 
-.list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+.card {
+    -fx-background-color:  #515658;
+    -fx-background-radius: 15px;
 }
 
-.list-cell:filled:odd {
-    -fx-background-color: #515658;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
-.list-cell:filled:selected #cardPane {
+.card:focused {
+    -fx-background-color: #5d9091;
     -fx-border-color: #3e7b91;
+    -fx-border-radius: 15px;
     -fx-border-width: 1;
 }
 
-.list-cell .label {
+#cardPane .label {
     -fx-text-fill: white;
 }
 
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
+    -fx-font-size: 11px;
     -fx-text-fill: #010504;
 }
 
@@ -138,8 +139,6 @@
 
 .pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -149,7 +148,7 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 10pt;
     -fx-text-fill: white;
 }
 
@@ -161,7 +160,8 @@
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-padding: 4px;
-    -fx-pref-height: 30px;
+    -fx-pref-height: 18px;
+    -fx-font-size: 11px;
 }
 
 .status-bar-with-border {
@@ -197,7 +197,7 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
@@ -265,7 +265,7 @@
 }
 
 .dialog-pane > *.label.content {
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
@@ -275,7 +275,7 @@
 }
 
 .dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 18px;
+    -fx-font-size: 15px;
     -fx-font-style: italic;
     -fx-fill: white;
     -fx-text-fill: white;
@@ -287,7 +287,7 @@
 
 .scroll-bar .thumb {
     -fx-background-color: derive(#1d1d1d, 50%);
-    -fx-background-insets: 3;
+    -fx-background-insets: 2;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -300,11 +300,11 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 1 5 1 5;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+    -fx-padding: 5 1 5 1;
 }
 
 #cardPane {
@@ -324,23 +324,23 @@
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 
-#filterField, #itemListPanel, #itemWebpage {
+#filterField, #cardListPanel, #itemWebpage {
     -fx-box-border: transparent;
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-radius: 0;
 }
 
-.text-area {
-    -fx-background-insets: 0;
-    -fx-background-color: transparent, transparent, transparent, transparent;
+#resultDisplayPlaceholder {
+    -fx-border-color: #666 transparent transparent transparent;
+    -fx-border-width: 2px;
 }
 
 #tags {
@@ -352,7 +352,14 @@
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
+    -fx-border-radius: 3;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 10;
+}
+
+.panel-header {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
 }
