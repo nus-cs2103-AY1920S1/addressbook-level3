@@ -14,7 +14,7 @@ import seedu.ezwatchlist.model.actor.Actor;
  * Represents a Show in the watchlist.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Show {
+public abstract class Show {
 
     private String type;
 
@@ -77,17 +77,11 @@ public class Show {
         return runningTime;
     }
 
-    public int getNumOfEpisodesWatched() {
-        return 0;
-    }
+    public abstract int getNumOfEpisodesWatched();
 
-    public int getTotalNumOfEpisodes() {
-        return 0;
-    }
+    public abstract int getTotalNumOfEpisodes();
 
-    public List<TvSeason> getTvSeasons(){
-        return new ArrayList<TvSeason>();
-    }
+    public abstract List<TvSeason> getTvSeasons();
 
     /**
      * Returns an immutable actor set, which throws {@code UnsupportedOperationException}

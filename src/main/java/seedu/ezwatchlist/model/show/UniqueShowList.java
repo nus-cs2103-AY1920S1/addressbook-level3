@@ -44,9 +44,12 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public boolean hasShowName(Name showName) {
         requireNonNull(showName);
-        Show show = new Show(showName, new Description(), new IsWatched(false), new Date(),
+        Show movie = new Movie(showName, new Description(), new IsWatched(false), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
-        return internalList.stream().anyMatch(show::isSameName);
+        Show tvShow = new TvShow(showName, new Description(), new IsWatched(false), new Date(),
+                new RunningTime(), new HashSet<>(new ArrayList<>()),
+                0, 0, new ArrayList<>());
+        return internalList.stream().anyMatch(movie::isSameName) && internalList.stream().anyMatch(tvShow::isSameName);
     }
 
     /**
@@ -54,9 +57,13 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public List<Show> getShowIfSameNameAs(Name showName) {
         requireNonNull(showName);
-        Show currentShow = new Show(showName, new Description(), new IsWatched(false), new Date(),
+        Show currentMovie = new Movie(showName, new Description(), new IsWatched(false), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
-        return internalList.stream().filter(show -> show.isSameName(currentShow)).collect(Collectors.toList());
+        Show currentTvShow = new TvShow(showName, new Description(), new IsWatched(false), new Date(),
+                new RunningTime(), new HashSet<>(new ArrayList<>()),
+                0, 0, new ArrayList<>());
+        return internalList.stream().filter(show -> show.isSameName(currentMovie) || show.isSameName(currentTvShow)
+        ).collect(Collectors.toList());
     }
 
     /**
