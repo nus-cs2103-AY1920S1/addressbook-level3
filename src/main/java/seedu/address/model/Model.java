@@ -91,6 +91,11 @@ public interface Model {
     void addReminder(Reminder reminder);
 
     /**
+     * Shows the list of reminders.
+     */
+    String getReminders();
+
+    /**
      * Adds a given alias into the alias table.
      * @param alias Alias name
      * @param aliasTo Alias value
