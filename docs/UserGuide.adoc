@@ -98,6 +98,7 @@ Use this command to add a new entity for Alfred to keep track of. +
 ****
 
 ==== Adding a Participant: `add participant [PARAMETERS]`
+
 Use this command to add a new Participant to Alfred to keep track of for your hackathon.
 
 ****
@@ -130,6 +131,7 @@ Examples:
 * `add mentor n/Doctor Batman p/91236549 e/bruce@gmail.com o/Google s/Augmented Reality`
 
 ==== Adding a Team: `add team [PARAMETERS]`
+
 Use this command to add a new Team to Alfred to keep track of for your hackathon.
 ****
 * Teams have the fields "Name", "Project name" and "Table Number" which you must provide.
@@ -276,6 +278,11 @@ Use this command to list the top k teams in the leaderboard, where k is a number
 * If you input `NUMBER` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon in descending order of their points.
 ****
 
+****
+
+* If you input `NUMBER` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon in descending order of their points.
+****
+
 Example:
 
 * `getTop 5` will display the top 5 teams with the highest points in the hackathon.
@@ -283,6 +290,7 @@ Example:
 * `getTop 20` will display the top 20 teams with the highest points in the hackathon.
 
 ==== Add points: `score add TEAM_ID POINTS`
+
 Adds the value of POINTS to the current score of the team with ID TEAM_ID.
 
 ****

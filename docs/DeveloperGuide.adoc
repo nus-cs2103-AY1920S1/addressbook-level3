@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Alfred The Hackathon Butler - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,6 +15,13 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master
 
 By: `Team Alfred`      Since: `Sept 2019`      Licence: `MIT`
+
+
+== Introduction
+
+Alfred is a desktop application to help Hackathons' Human Resource Managers organise a Hackathon event more efficiently and in an organized fashion. Currently, hackathon organizers have to keep track of various different groups of individuals on several different platforms in order to organize this single event. Alfred allows them to ease the  a hackathon's organization by bringing in all those platforms into a single app, thereby offering them greater orderliness and convenience in organizing their event.
+
+Any help on the development of Alfred would be greatly appreciated, and there are a couple of ways in which you could; either by contributing to Alfred's codebase by expanding its features or, testing and improving it's current features. This guide seeks to not only kick-start your journey as a contributor to Alfred by quickly getting you up to speed with how Alfred's codebase and inner workings function, but also hopes serve as a useful reference to current contributors in times or confusion or difficulties.
 
 == Setting up
 
@@ -105,18 +112,20 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  `Logic` uses the `AlfredParser` class to parse the user command.
+.  This can result in one of two possibilities:
+* a new `CommandAllocator` object is created to allocate the user input to appropriate entity-specific `Parser`. The `CommandAllocator` 's `allocate` method then returns a new Command object which is executed by the LogicManager, or
+* the appropriate `Parser` is directly called if no specifying is required and returns a new  `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a participant or deleting a team).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete participant P-1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteParticipantCommandParser` and `DeleteCommandAllocator` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -272,7 +281,7 @@ Whenever the `undo` command is invoked, `ModelHistoryManager` returns a `ModelHi
 //// end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
