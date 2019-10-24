@@ -8,10 +8,13 @@ start
 if () then ([file path is valid])
     :Obtain the desired FlashCards;
     :Create a new document;
-    repeat
-        :Write FlashCard to document;
-    repeat while () is ([more FlashCards])
-    ->[all FlashCards written];
+    if () then ([else])
+        repeat
+            :Write FlashCard to document;
+        repeat while () is ([more FlashCards])
+        ->[all FlashCards written];
+    else ([no FlashCards to be written])
+    endif
     :Save document to given file path;
     :Display success message;
 else ([else])
