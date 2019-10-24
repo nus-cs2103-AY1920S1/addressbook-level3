@@ -30,6 +30,10 @@ public class Date implements Comparable<Date> {
         this.year = year;
     }
 
+    public static Date getCurrent() {
+        return new Date(Day.getCurrent(), Month.getCurrent(), Year.getCurrent());
+    }
+
     public Month getMonth() {
         return month;
     }

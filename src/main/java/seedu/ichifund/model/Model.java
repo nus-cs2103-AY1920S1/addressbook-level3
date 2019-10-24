@@ -122,12 +122,16 @@ public interface Model {
      */
     void setTransaction(Transaction target, Transaction editedTransaction);
 
-    /** Returns an unmodifiable view of the filtered transaction list */
+    /** Returns an unmodifiable view of the filtered transaction list. */
     ObservableList<Transaction> getFilteredTransactionList();
 
     TransactionContext getTransactionContext();
 
+    /** Sets the transactionContext and updates the filtered transaction list accordingly */
     void setTransactionContext(TransactionContext transactionContext);
+
+    /** Updates transactionContext to show a transaction.  */
+    void updateTransactionContext(Transaction transaction);
 
     /**
      * Returns true if a repeater with the same identity as {@code repeater} exists in the fund book.

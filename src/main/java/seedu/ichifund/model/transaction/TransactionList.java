@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.transaction.exceptions.TransactionNotFoundException;
 
 /**
@@ -25,7 +26,7 @@ public class TransactionList implements Iterable<Transaction> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Adds a transaction to the list.
+     * Adds a transaction to the list and sorts the list.
      */
     public void add(Transaction toAdd) {
         requireNonNull(toAdd);
@@ -87,12 +88,18 @@ public class TransactionList implements Iterable<Transaction> {
         return internalList.iterator();
     }
 
+    /** Returns the latest transaction earlier than the current time */
     public Optional<Transaction> getLatestTransaction() {
-        if (internalList.size() == 0) {
-            return Optional.empty();
-        } else {
-            return Optional.of(internalList.sorted().get(0));
+        internalList.sort(Comparator.naturalOrder());
+
+        // Searches for first transaction that is earlier than current time
+        for (Transaction transaction : internalList) {
+            if (transaction.getDate().compareTo(Date.getCurrent()) >= 0) {
+                return Optional.of(transaction);
+            }
         }
+
+        return Optional.empty();
     }
 
     @Override
