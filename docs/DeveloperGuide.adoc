@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g. CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter`, `ChartBox` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +87,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Has a specialized `Chart` component that deals specifically with the generation and rendering of charts onto the `MainWindow`.
+
 
 [[Design-Logic]]
 === Logic component
@@ -438,6 +440,26 @@ image::AddTagActivityDiagram.png[]
 *** Since implementation of Billboard objects are immutable, there is a constant need to update the `Expense` by replacing it with the updated `Expense` even after executing non-tag related commands.
 
 // end::tagging[]
+
+=== Statistics
+The statistics module is in charge of generating statistics from the currently displayed expenses and rendering it onto the main window.
+There are 2 components that help to do this - the chart component and the statistics generator component.
+[[Design-Ui-Chart]]
+==== Chart component
+
+[[fig-ChartClassDiagram]]
+.Structure of the Chart Component
+image::ChartClassDiagram.png[]
+
+There is a special `Chart` component that deals with the generation and rendering of specific charts based on user input and the expenses being displayed.
+Every concrete chart type, eg. `ExpenseTimelineChart`, `ExpenseBreakdownChart`, extends from `ExpenseChart`.
+The `ChartBox` is the main orchestrating class. It is updated on the selected `StatisticsFormat` and `StatisticsFormatOptions` by the `MainWindow`
+These are classes that represent user decisions on what to be displayed. Upon being updated, it creates the appropriate
+`ExpenseChart` to display the selected statistic with the currently displayed expenses. The concrete `ExpenseCharts` get the formatted statistics from the
+`StatisticsGenerator` component.
+
+==== Statistics Generation Component
+.Structure of the Statistics Generation Component
 
 === Logging
 
