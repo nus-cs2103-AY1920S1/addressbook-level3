@@ -104,7 +104,7 @@ Edits the name `Betsy` to be `Betsy Crower` and clears all existing tags.
 === Editing a group : `editgroup`
 
 Edits an existing group in the address book. +
-Format: `editgroup -ed GROUP_NAME [-g GROUP_NAME] [-r GROUP_REMARK]`
+Format: `editgroup -ed GROUP_NAME [-g NEW_GROUP_NAME] [-r REMARK] [-d DESCRIPTION]`
 
 ****
 * Edits the group specified by `GROUP_NAME`.
