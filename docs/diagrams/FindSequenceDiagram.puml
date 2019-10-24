@@ -6,7 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
 participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
 participant "f:FindCommand" as FindCommand LOGIC_COLOR
-participant ":SpendingPredicateList" as SpendingPredicateList LOGIC_COLOR
+participant ":List<Predicate<Spending>>" as SpendingPredicateList LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -58,7 +58,7 @@ deactivate SpendingBookParser
 LogicManager -> FindCommand : execute()
 activate FindCommand
 
-FindCommand -> FindCommand : reduce()
+FindCommand -> FindCommand : predicates.reduce(Predicate::and)
 activate FindCommand
 
 FindCommand --> FindCommand : predicate
