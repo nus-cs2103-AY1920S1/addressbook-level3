@@ -154,37 +154,46 @@ Classes used by multiple components are in the `io.xpire.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag:tobuylist[]
-=== [Proposed] ToReplenish/ToBuy List
+
+=== [Proposed] Replenish List
 ==== Implementation
-_{Explain here how the ToReplenish/ToBuy List is implemented}_
+//{Explain here how the ToReplenish/ToBuy List is implemented}_
+Items are added to the replenish list by the user using the replenish command.
+When an item expires, the item is automatically tagged as "expired".
+This enables the user to search for a list of expired items by searching for the "expired" tag.
+With this, the user is able to view the list of expired items and decide which items to add to the replenish list.
+On the other hand, when an item has run out, the user is prompted to replenish the item using the replenish command.
 
-Given below is an example usage scenario and how the mechanism behaves at each step.
+image::ItemManagerClassDiagram.png[]
 
-The following sequence diagram shows how the operation works:
+//Given below is an example usage scenario and how the mechanism behaves at each step.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+//The following sequence diagram shows how the operation works:
+
+//The following activity diagram summarizes what happens when a user executes a new command:
 
 ==== Design Considerations
 
-===== Aspect: How ToReplenish/ToBuy List executes
+===== Aspect: How item is added to the replenish list
 
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice): Once an item expires or runs out,
+the user is prompted to shift the item to the replenish list by typing the replenish command and item index.**
+** Pros: User has flexibility in deciding what to add to the replenish list.
+** Cons: User has to manually type in a short command to add an item to the replenish list.
 
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 2: Once an item expires or runs out, item is transferred to the replenish list.**
+** Pros: User need not manually key in item details to transfer it to the replenish list.
+** Cons: User may not want the item in the list and as such would expect a delete functionality for the to-replenish list.
+//
+//===== Aspect: Data structure to store the items
+//* **Alternative 1 (current choice):**
+//** Pros:
+//** Cons:
+//
+//* **Alternative 2:**
+//** Pros:
+//** Cons:
 
-===== Aspect: Data structure to store the items
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-
-* **Alternative 2:**
-** Pros:
-** Cons:
-// end::tobuylist[]
 
 // tag:autosort[]
 === Auto-sorting of items by name then date
@@ -258,6 +267,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 ** Cons:
 
 // end::setreminder[]
+
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -788,13 +798,13 @@ _{More to be added}_
 
 |FXML |XML-based user interface markup language for defining user interface of a JaxaFX application
 
-|JavaFX |Software platform for creating and delivering desktop applications and rich Internet applications
-
-|JSON |An open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types
-
 |ItemCard |UI component that displays information on an item
 
 |CardListPanel |UI component that displays list of items
+
+|JavaFX |Software platform for creating and delivering desktop applications and rich Internet applications
+
+|JSON |An open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types
 
 |Logic |Handles user input for the application and returns the application's output
 

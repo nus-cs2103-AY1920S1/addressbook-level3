@@ -46,6 +46,9 @@ public class QuantityTest {
 
         //input is a character -> returns false
         assertFalse(Quantity.isValidInputQuantity("a"));
+
+        //input is greater than maximum allowed value
+        assertFalse(Quantity.isValidInputQuantity("100001"));
     }
 
     @Test
@@ -64,6 +67,9 @@ public class QuantityTest {
 
         //input is a character -> returns false
         assertFalse(Quantity.isValidQuantity("a"));
+
+        //input is greater than maximum allowed value
+        assertFalse(Quantity.isValidQuantity("100001"));
     }
 
     @Test
