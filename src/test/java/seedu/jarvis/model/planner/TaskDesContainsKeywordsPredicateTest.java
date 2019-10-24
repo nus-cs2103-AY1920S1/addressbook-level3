@@ -1,7 +1,9 @@
 package seedu.jarvis.model.planner;
 
-import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.model.planner.tasks.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,12 +11,16 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.planner.tasks.Todo;
+
+
+
 
 class TaskDesContainsKeywordsPredicateTest {
 
     @Test
-    void test_nameContains_Keywords_returnsTrue() {
+    void test_nameContainsKeywords_returnsTrue() {
         //One keyword
         TaskDesContainsKeywordsPredicate predicate = new TaskDesContainsKeywordsPredicate(
                                                             Collections.singletonList("read"));

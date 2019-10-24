@@ -1,5 +1,17 @@
 package seedu.jarvis.logic.commands.planner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
@@ -9,20 +21,9 @@ import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
-import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 import seedu.jarvis.model.userprefs.UserPrefs;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 class FindTaskCommandTest {
 
@@ -35,7 +36,8 @@ class FindTaskCommandTest {
     }
 
     /**
-     * Verifies that checking {@code FindTaskCommand} for the availability of the inverse execution returns false.
+     * Verifies that checking {@code FindTaskCommand} for the availability of the inverse
+     * execution returns false.
      */
     @Test
     void hasInverseExecution() {
@@ -47,8 +49,8 @@ class FindTaskCommandTest {
 
     @Test
     void execute_zeroKeywords_noTaskFound() {
-        Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
+                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
                 model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
                 model.getPlanner(), model.getCoursePlanner());
@@ -63,8 +65,8 @@ class FindTaskCommandTest {
 
     @Test
     void execute_multipleKeywords_multiplePersonsFound() {
-        Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
+                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
                 model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
                 model.getPlanner(), model.getCoursePlanner());

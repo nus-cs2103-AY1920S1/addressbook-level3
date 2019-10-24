@@ -1,16 +1,15 @@
 package seedu.jarvis.logic.parser.planner;
 
-import seedu.jarvis.logic.commands.planner.FindTaskCommand;
-import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import seedu.jarvis.logic.commands.planner.FindTaskCommand;
+import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
 
 class FindTaskCommandParserTest {
 
