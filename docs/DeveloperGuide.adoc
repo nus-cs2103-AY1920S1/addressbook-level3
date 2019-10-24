@@ -28,6 +28,8 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
+{nbsp} +
+
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
@@ -60,6 +62,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
+{nbsp} +
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -68,6 +71,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `add t/Animal Farm a/George` command
 image::AddBook.png[]
+{nbsp} +
 
 The sections below give more details of each component.
 
@@ -76,6 +80,7 @@ The sections below give more details of each component.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
+{nbsp} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -94,12 +99,14 @@ The exact command entered is `add t/Animal Farm a/George`.
 
 .Interactions Inside the UI Component for the `add t/Animal Farm a/George` Command
 image::UiAddBookSequenceDiagram.png[]
+{nbsp} +
 
 The following activity diagram summarizes what happens to the `UI`
 when a user executes a new command:
 
 .Flow of Events within `UI`
 image::UiUpdateBookListActivityDiagram.png[]
+{nbsp} +
 
 [[Design-Logic]]
 === Logic component
@@ -107,6 +114,7 @@ image::UiUpdateBookListActivityDiagram.png[]
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
+{nbsp} +
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -121,6 +129,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `add t/Animal Farm a/George` Command
 image::AddBookLogicSequenceDiagram.png[]
+{nbsp} +
 
 NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -129,6 +138,7 @@ NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) b
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
+{nbsp} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -147,6 +157,7 @@ The `Model`,
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
+{nbsp} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -178,11 +189,13 @@ Given below is an activity diagram of a book being added to the catalog.
 
 .Activity Diagram for adding a book
 image::AddBookActivityDiagram.png[width=300, align=center]
+{nbsp} +
 
 Given below is a class diagram of a book after being added to the catalog.
 
 .Class Diagram for `Book`
 image::BookClassDiagram.png[]
+{nbsp} +
 
 ==== Design Considerations
 
@@ -219,7 +232,7 @@ We need to come up with a solution to give us "B00001" in the given example.
 === Generate Loan Slip feature
 ==== Proposed Implementation
 
-The printing of loan slip feature is facilitated by `LoanSlipIUtil`.
+The printing of loan slip feature is facilitated by `LoanSlipUtil`.
 Essentially, it implements the following operations:
 
 * `LoanSlipUtil#mountLoan()` -- Mounts a loan slip in preparation for generation of loan slip in pdf form.
@@ -230,6 +243,7 @@ Given below is the sequence diagram of the generation of loan slip during the lo
 
 .Sequence Diagram for the generation of a loan slip
 image::LoanSlipGeneration.png[]
+{nbsp} +
 
 The following describes the sequence of events displayed in the figure above.
 
@@ -329,6 +343,7 @@ This feature is mainly facilitated by the `Loan` association class between a `Bo
 just after a book is loaned out can be seen below.
 
 image::LoanObjectDiagram.png[width="880"]
+{nbsp} +
 
 In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
 The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
@@ -347,6 +362,7 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 The following activity diagram summarizes what happens when a user enters a loan command:
 
 image::LoaningActivityDiagram.png[width="650"]
+{nbsp} +
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
 they are not shown.
@@ -368,6 +384,7 @@ Similarly, the new book object also replaces the old book object in the `Catalog
 The following activity diagram summarizes what happens when a user enters a return command:
 
 image::ReturningActivityDiagram.png[width="820"]
+{nbsp} +
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
 they are not shown.
@@ -551,7 +568,9 @@ I submit a book title query
 
 The use case diagram below illustrates the main use cases of LiBerry.
 
+.General Use Cases for LiBerry
 image::UseCases.png[width="330"]
+{nbsp} +
 
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
 
