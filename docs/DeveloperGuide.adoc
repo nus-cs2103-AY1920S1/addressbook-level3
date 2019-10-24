@@ -471,6 +471,29 @@ The parsing of the `BookPredicate` object is done with the help of the `Argument
 then extracts all the values from the `ArgumentMultimap` prefix by prefix and building the predicate through functions
 such as `setTitle()`, `setGenres()` etc.
 
+//tag::registerBorrower[]
+=== Register borrower feature
+==== Implementation
+The `register` borrower feature is facilitated by `BorrowerRecords`. The BorrowerRecords stores a list of borrowers,
+representing the borrowers registered into the library system. The command to register a borrower into the library
+system is as followed: +
+
+`register n/NAME p/PHONE_NUMBER e/EMAIL`
+
+==== Design Considerations
+===== Aspect: Generating a unique borrower ID
+Every time a new borrower is being registered, the system will automatically generate a borrower ID for the borrower
+which the borrower will have to use every time the borrower borrows books from the library.
+Initially, what we proposed is that, every time a new borrower is being registered into the system, we find the size of
+the list of borrowers, we add 1 and set it as the borrower ID of the new borrower.
+
+Eg: There are 100 borrowers in the system. The new borrower's ID will be "K0101".
+
+However, we decided to implement a new function, which is to allow borrowers to be removed from the library system.
+Therefore, this method does not work anymore. So we decided to change to generate the new ID based on the first-found
+available ID.
+//end::registerBorrower[]
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
