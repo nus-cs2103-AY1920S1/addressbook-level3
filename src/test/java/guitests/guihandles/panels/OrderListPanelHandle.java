@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import guitests.guihandles.NodeHandle;
-import guitests.guihandles.cards.OrderCardHandle;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.order.Order;
@@ -22,26 +21,6 @@ public class OrderListPanelHandle extends NodeHandle<ListView<Order>> {
 
     public OrderListPanelHandle(ListView<Order> orderListPanelNode) {
         super(orderListPanelNode);
-    }
-
-    /**
-     * Returns a handle to the selected {@code OrderCardHandle}.
-     * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
-     */
-    public OrderCardHandle getHandleToSelectedCard() {
-        List<Order> selectedOrderList = getRootNode().getSelectionModel().getSelectedItems();
-
-        if (selectedOrderList.size() != 1) {
-            throw new AssertionError("Order list size expected 1.");
-        }
-
-        return getAllCardNodes().stream()
-                .map(OrderCardHandle::new)
-                .filter(handle -> handle.equals(selectedOrderList.get(0)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
     }
 
     /**
@@ -99,18 +78,6 @@ public class OrderListPanelHandle extends NodeHandle<ListView<Order>> {
         getRootNode().getSelectionModel().select(index);
     }
 
-    /**
-     * Returns the order card handle of a order associated with the {@code index} in the list.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
-     */
-    public OrderCardHandle getOrderCardHandle(int index) {
-        System.out.println("$$" + getOrder(0));
-        return getAllCardNodes().stream()
-                .map(OrderCardHandle::new)
-                .filter(handle -> handle.equals(getOrder(index)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
-    }
 
     private Order getOrder(int index) {
         return getRootNode().getItems().get(index);
