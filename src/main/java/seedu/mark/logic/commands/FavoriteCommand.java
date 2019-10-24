@@ -21,12 +21,13 @@ public class FavoriteCommand extends Command {
     public static final String COMMAND_ALIAS = "fav";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Favorites the bookmark identified by the index number used in the displayed bookmark list.\n"
+            + ": Adds a 'Favorite' tag to the bookmark identified by the index number used in the displayed "
+            + "bookmark list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_FAVORITE_BOOKMARK_SUCCESS = "Add to my favorites: %1$s";
-    public static final String MESSAGE_FAVORITE_BOOKMARK_DUPLICATE = "This bookmark already exists in your favorites";
+    public static final String MESSAGE_FAVORITE_BOOKMARK_SUCCESS = "Bookmark added to Favorites: %1$s";
+    public static final String MESSAGE_FAVORITE_BOOKMARK_DUPLICATE = "This bookmark already exists in Favorites";
 
     private static final Tag favTag = new Tag("Favorite");
 

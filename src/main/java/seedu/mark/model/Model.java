@@ -73,7 +73,7 @@ public interface Model {
     void deleteBookmark(Bookmark target);
 
     /**
-     * Favorites the given bookmark.
+     * Tags the given bookmark as a favorite bookmark.
      * The bookmark must exist in Mark.
      */
     void favoriteBookmark(Bookmark target);

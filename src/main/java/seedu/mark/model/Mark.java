@@ -193,7 +193,7 @@ public class Mark implements ReadOnlyMark {
     //// favorite operations
 
     /**
-     * Favorites the specified bookmark.
+     * Tags the specified bookmark as a favorite bookmark.
      *
      * @param bookmark the bookmark to be added to the favorites
      */
