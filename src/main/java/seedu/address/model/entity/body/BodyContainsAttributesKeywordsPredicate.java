@@ -198,7 +198,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
             if (body.getOrgansForDonation().isEmpty()) {
                 bodyMap.put(PREFIX_ORGANS_FOR_DONATION, "");
             } else {
-                body.getOrgansForDonation().get().forEach((organ) -> bodyMap.put(PREFIX_ORGANS_FOR_DONATION, organ));
+                body.getOrgansForDonation().forEach((organ) -> bodyMap.put(PREFIX_ORGANS_FOR_DONATION, organ));
             }
         } catch (Exception e) {
             System.out.println(e);
