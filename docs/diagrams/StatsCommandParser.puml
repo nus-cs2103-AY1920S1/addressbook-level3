@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+
+participant ":StatsCommandParser" as StatsCommandParser LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":StatsCommand" as StatsCommand LOGIC_COLOR
+
+end box
+
+note left of StatsCommandParser:  **sd** create StatsCommand with start date and end date
+
+-> StatsCommandParser : parse("stats \n sd/01-10-2019 \n ed/01-11-2019)
+activate StatsCommandParser
+
+StatsCommandParser -> ArgumentTokenizer : tokenize("sd/01-10-2019 ed/01-11-2019",\n PREFIX_START_DATE, \n PREFIX_END_DATE)
+activate ArgumentTokenizer
+
+ArgumentTokenizer --> StatsCommandParser : argMultimap
+deactivate ArgumentTokenizer
+
+StatsCommandParser -> StatsCommandParser: isStartPresent = argMultimap.getValue(PREFIX_START_DATE).isPresent();
+
+StatsCommandParser -> StatsCommandParser: isEndPresent = argMultimap.getValue(PREFIX_END_DATE).isPresent();
+
+
+alt both present
+
+    StatsCommandParser -> ParserUtil : parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get())
+    activate ParserUtil
+
+    ParserUtil --> StatsCommandParser: startDate
+    deactivate ParserUtil
+
+    StatsCommandParser -> ParserUtil : parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get())
+    activate ParserUtil
+
+    ParserUtil --> StatsCommandParser: endDate
+    deactivate ParserUtil
+
+else isStartPresent
+    StatsCommandParser -> ParserUtil : parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get())
+    activate ParserUtil
+
+    ParserUtil --> StatsCommandParser: startDate
+    deactivate ParserUtil
+
+    StatsCommandParser -> StatsCommandParser: createForwardTimestamp(startDate)
+
+    else isEndPresent
+    StatsCommandParser -> ParserUtil : parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get())
+    activate ParserUtil
+
+    ParserUtil --> StatsCommandParser: endDate
+    deactivate ParserUtil
+
+    StatsCommandParser -> StatsCommandParser: createBackwardTimestamp(endDate)
+
+else nonePresent
+     StatsCommandParser -> ParserUtil : getCurrentTimestamp()
+     activate ParserUtil
+
+     ParserUtil --> StatsCommandParser: endDate
+     deactivate ParserUtil
+
+     StatsCommandParser -> StatsCommandParser: createBackwardTimestamp(endDate)
+
+end
+
+create StatsCommand
+
+StatsCommandParser -> StatsCommand : StatsCommand(startDate, endDate)
+activate StatsCommand
+
+StatsCommand --> StatsCommandParser
+deactivate StatsCommand
+
+<-- StatsCommandParser
+destroy StatsCommandParser
+
+@enduml

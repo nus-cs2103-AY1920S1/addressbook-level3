@@ -1,4 +1,4 @@
-= NUSpend - User Guide
+= MooLah - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,13 +18,13 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-NUSpend is for those who *prefer to use a desktop app for tracking expenses*. More importantly, NUSpend is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, NUSpend can get your expense management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+MooLah is for those who *prefer to use a desktop app for tracking expenses*. More importantly, MooLah is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MooLah can get your expense management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `NUSpend.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your NUSpend.
+.  Download the latest `moolah_v1.2.1.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for `MooLah`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -49,9 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in UPPER_CASE are the parameters to be supplied by the user
   e.g. in `add p/PRICE`, `PRICE` is a parameter which can be used as `add p/2.50`
 * Items in square brackets are optional
-  e.g `p/PRICE [c/CATEGORY]` can be used as`d/Chicken Rice /p2.50 c/Food` or as `d/Chicken Rice /p2.50`
-* Items with `...` after them can be used multiple times including zero times
-  e.g. `[c/CATEGORY]...` can be used as `[blank]` (i.e. 0 times), `c/Food`, `c/Food c/Tasty`
+  e.g `d/DESCRIPTION p/PRICE c/CATEGORY [t/DATE] can be used as 'add d/Chicken Rice p/2.50 c/Food' or
+'add d/Chicken Rice p/2.50 c/Food t/25-01'
 * Parameters can be in any order e.g. `add p/PRICE d/DESCRIPTION`, `add d/DESCRIPTION p/PRICE` are both acceptable.
 ====
 
@@ -68,10 +67,10 @@ If not, an expense is added instead.
 Upon launch, Moolah will remind the user of upcoming events (7 days or below), and also ask users whether they wish
 to automatically add expenses corresponding to transpired events.
 
-Format: `add d/DESCRIPTION p/PRICE c/CATEGORY t/TIMESTAMP ...`
+Format: `add d/DESCRIPTION p/PRICE c/CATEGORY [t/TIMESTAMP]`
 
 [TIP]
-* The timestamp field is optional.
+* An expense must have exactly 1 category
 * If a time is not specified, an expense will be added with its date being the current system date.
 
 Examples:
@@ -265,52 +264,44 @@ There is no need to save manually.
 ==== Summary : `stats`
 Produces statistics regarding the user’s expenses.
 
-The statistics include all categories of items, with the number of entries, the total amount spent and the percentage composition of the total expenditure.
+The statistics is in the form of a pie chart, where every piece represents the combined expenditure of all expenses
+under the category, taken as a percentage of the total expenditure in the budget the command was called.
 
-Format: `stats [start/START_DATE] [end/END_DATE]`
-[where dates are in DD-MM-YYYY format]
+Format: `stats [sd/START_DATE] [ed/END_DATE]`
+
+- Date formats accepted include `DD-MM-YYYY` or `DD-MM`, where the year will be taken as the current year if it is not specified.
 
 - `START_DATE` will be checked to be earlier than `END_DATE`
 
-- If `START_DATE` is specified but `END_DATE` is empty, statistics is calculated from one month after `START_DATE`(or part thereoff)
+- If `START_DATE` is specified but `END_DATE` is empty, statistics is calculated from one month after `START_DATE`
 
-- If `START_DATE` is empty but `END_DATE` is specified, statistics is calculated from one month before `START_DATE`(or part thereoff)
+- If `START_DATE` is empty but `END_DATE` is specified, statistics is calculated from one month before `START_DATE`
+
+- If both `START_DATE` and `END_DATE` are empty, statistics is calculated from one month before the current date.
 
 Example:
 `stats`
-`stats end/12-12-2018`
-`stats start/11-11-2018 end/12-12-2018`
+`stats sd/12-12-2018`
+`stats sd/11-11-2018 ed/12-12-2018`
 
 ==== Compare : `statscompare`
-Produces and displays statistics regarding the user’s finance for 2 time periods. The statistics include all categories of items, the number of entries and the total amount spent and the percentage composition of the total, stated as a difference using second period – first period
+Produces and displays statistics regarding the user’s finance for 2 time periods.
+The statistics include all categories of items, the number of entries and the total expenditure of all expenses under the category.
+The number under each cell represents the difference using `second period – first period`.
 
-Format: `statscompare start1/START_DATE_1 end1/END_DATE start2/START_DATE_2 end2/END_DATE_2`
+Format: `statscompare sd1/START_DATE_1 sd2/END_DATE pr/PERIOD`
 
-- Support similar constraints like basic stats command for 1 period
+- Date formats accepted include `DD-MM-YYYY` or `DD-MM`, where the year will be taken as the current year if it is not specified.
 
-- If only 1 valid period is given, then the functionality is similar to `stats START_DATE END_DATE`
+- `PERIOD` takes in either of the following keywords: week, month, year
+
+NOTE[Work in progress]:
+- day is ideally recognised as a keyword to `PERIOD`
+
+- If day is given as a keyword under `PERIOD`, statistics will be calculated from 12:00am of the day till 11:59pm of the same day
 
 Examples:
-`statscompare start1/01-01-2019 end1/01-02-2019 start2/01-01-2019 end2/01-02-2019`
-
-==== Visualize: `visual`
-Generates pie chart for spending in different categories. The pie chart also shows the percentage composition of the total expenditure in text.
-
-Format: `visual [start/START_DATE] [end/END_DATE]`
-[where dates are in dd-MM-yyyy format]
-
-- `START_DATE` will be checked to be earlier than `END_DATE`
-
-- If `START_DATE` is specified but `END_DATE` is empty, statistics is calculated from one month after `START_DATE`(or part thereoff)
-
-- If `START_DATE` is empty but `END_DATE` is specified, statistics is calculated from one month before `START_DATE`(or part thereoff)
-
-- If both `START_DATE` and `END_DATE` are empty, statistics is calculated from the start of this month till today.
-
-Example:
-`visual`
-`visual end/12-12-2018`
-`visual start/11-11-2018 end/12-12-2018`
+`statscompare sd1/01-01-2019 sd2/01-02-2019 pr/month`
 
 === Exiting the program : `exit`
 
@@ -319,7 +310,7 @@ Format: `exit`
 
 === Saving the data
 
-NUSpend data are saved in the hard disk automatically after any command that changes the data. +
+MooLah data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 === Encrypting data files `[coming in v2.0]`
@@ -332,7 +323,7 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous NUSpend folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MooLah folder.
 
 == Command Summary
 
@@ -340,7 +331,7 @@ There is no need to save manually.
 e.g. `add d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
 * *Clear all expenses* : `clear`
 * *Compare statistics* : `statscompare start1/START_DATE_1 end1/END_DATE start2/START_DATE_2 end2/END_DATE_2` +
-e.g. `statscompare start1/01-01-2019 end1/01-02-2019 start2/01-01-2019 end2/01-02-2019`
+e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
 * *Create alias* : `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
 * *Create new budget* : `budget n/BUDGET_NAME a/BUDGET_AMOUNT t/BUDGET_PERIOD d/BUDGET_START_DATE [p/IS_PRIMARY]` +
@@ -364,9 +355,8 @@ e.g. `remind Brian’s birthday 04/06/2020 14 DAYS`
 e.g. `switchbudget General Expense`
 * *Undo* : `undo`
 * *View statistics* : `stats [start/START_DATE] [end/END_DATE]` +
-e.g. `stats start/11-11-2018 end/12-12-2018`
-* *Visualize* : `visual [start/START_DATE] [end/END_DATE]` +
-e.g. `visual start/11-11-2018 end/12-12-2018`
+e.g. `stats sd/11-11-2018 ed/12-12-2018`
+
 
 
 
