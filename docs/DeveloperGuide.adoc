@@ -235,6 +235,31 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Tab Switch Feature
+Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. System UI structure is generally divided into 2 parts;
+
+==== Implementation Structure
+
+.TabCommand Implementation Class Diagram
+image::TabCommandClassDiagram.png[]
+
+1. `MainWindow` which contains necessary text input for `Command` inputs and output display for displaying the `CommandResult`
+1. Window component, which is a type of `VBox`, that acts as a container for other different UI windows.
+1. Tab Menu List, which displays the name of the tab/menus, which has respective separate UI windows. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
+* Upon first startup of the system, by system default, system will display the `EngagementList` window.
+1. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner. Below is the class diagram for `Tab` class
+
+[.text-center]
+.Tab Class Diagram
+image::TabClassDiagram.png[align="center"]
+
+From figure 9, MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property.
+The method will compare the `Tab` in `CommandResult` and once there is a matching result, the method will load the respective fxml file in the MainWindow to display the respective feature window.
+Below is the basic activity diagram of fetchTabInformation method
+
+.fetchTabInformation method Activity Diagram
+image::fetchTabInformationActivityDiagram.png[align="center"]
+
 === Engagement Report Generation
 This feature allows user to generate a pre-selected engagement in to a report and save it as a document file. The document file will be created in a .pdf format.
 
@@ -248,7 +273,7 @@ image::PdfCommandClassDiagram.png[]
 1. Util class `PdfUtil` will be implemented for handling all pdf document creation related methods.
 a. Able to generate a full report document based on the `Engagement` as input.
 b. Use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`. Document template will follow general email format:
-Receiver, Content contained in a table, Sender and signature with address and company logo (Refer to Figure 10).
+Receiver, Content contained in a table, Sender and signature with address and company logo (Refer to Figure 12).
 1. To fulfill the document format, `Report` class needs to be implemented in order to model all necessary properties that has to be in the document. It 3 following properties;
 * `engagement`: specific engagement information to include in the document
 * `to`: A `Person` who is receiving the document
@@ -263,6 +288,7 @@ and the directory explorer for `reports/` as a item list.
 
 ===== UI Components & Features
 Table below explains the components that are included in the `ReportWindow` with its purpose and features.
+
 .Report Window UI Components
 [%header, cols=4*]
 |===
@@ -337,7 +363,7 @@ Refer to the guide <<DevOps#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
