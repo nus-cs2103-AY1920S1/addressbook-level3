@@ -29,6 +29,10 @@ public class QuizQuestionList implements Iterable<Question> {
         return internalList.get(index);
     }
 
+    public int getSize() {
+        return modifiableList.size();
+    }
+
     /**
      * Gets one question from the list and return a new list contains this question.
      */

@@ -273,6 +273,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public int getSize() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void clearTaskList() {
             throw new AssertionError("This method should not be called.");
         }

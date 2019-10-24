@@ -224,6 +224,10 @@ public class AppData implements ReadOnlyAppData {
         quiz.removeOneQuizQuestion();
     }
 
+    public int getSize() {
+        return quiz.getSize();
+    }
+
     /**
      * Returns an answer for the question in quiz with specific {@code index}.
      */

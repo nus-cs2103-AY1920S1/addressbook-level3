@@ -186,6 +186,11 @@ public interface Model {
      */
     ObservableList<Question> getOneQuizQuestionAsList();
 
+    /**
+     * Return the number of remaining quiz questions.
+     */
+    int getSize();
+
     Question getOneQuizQuestion();
 
     void removeOneQuizQuestion();

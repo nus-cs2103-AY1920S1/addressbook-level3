@@ -20,8 +20,8 @@ import seedu.address.model.quiz.QuizResult;
  * Checks the quiz answer input by users.
  */
 public class QuizCheckAnswer extends Command {
-    public static final String ANSWER_CORRECT = "The answer is correct!";
-    public static final String ANSWER_WRONG = "The answer is wrong!";
+    public static final String ANSWER_CORRECT = "The answer is correct! Well done!";
+    public static final String ANSWER_WRONG = "The answer is wrong! Please try again.";
 
     public static final String EMPTY_QUESTION = "You have answered all questions!";
 

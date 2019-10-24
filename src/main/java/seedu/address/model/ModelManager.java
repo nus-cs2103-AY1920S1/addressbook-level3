@@ -198,6 +198,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int getSize() {
+        return appData.getSize();
+    }
+
+    @Override
     public Answer showQuizAnswer() {
         return appData.showQuizAnswer();
     }
