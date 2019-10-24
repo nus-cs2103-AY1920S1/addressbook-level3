@@ -1,0 +1,55 @@
+@startuml
+autoactivate on
+
+box TreeBuilder
+participant ":AndOrTree" as AndOrTree
+participant ":AndOrNode" as AndOrNode
+participant ":AndNode" as AndNode
+participant ":OrNode" as OrNode
+participant ":DataNode" as DataNode
+end box
+
+[-> AndOrTree : buildTree(rootData, jsonString, function)
+    AndOrTree -> AndOrTree : buildTreeHelper(jsonNode, currNode, function)
+        alt isObject
+            AndOrTree -> AndOrNode : createNode(null, type)
+                alt isAndNode
+                    create AndNode
+                    AndOrNode -> AndNode
+                        return newNode
+                else isOrNode
+                    create OrNode
+                    AndOrNode -> OrNode
+                        return newNode
+                end
+                return newNode
+
+
+            loop for child in jsonNode
+                AndOrTree -> AndOrTree : buildTreeHelper(child, newNode)
+                return
+                |||
+            end
+
+        else isArray
+
+            loop for child in array
+                AndOrTree -> AndOrTree : buildTreeHelper(child, currNode)
+                    return
+                |||
+            end
+
+        else else
+
+            AndOrTree -> AndOrNode : createNode(data)
+                create DataNode
+                AndOrNode -> DataNode : DataNode(data)
+                    return newNode
+                return newNode
+                |||
+
+        end
+        return
+[<--AndOrTree : tree
+
+@enduml
