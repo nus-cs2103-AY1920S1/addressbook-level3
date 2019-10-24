@@ -3,6 +3,7 @@ package seedu.address.model.food;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import seedu.address.model.food.exceptions.FoodNotFoundException;
  *
  * @see Food#isSameFood(Food)
  */
-public class UniqueTemplateItems implements Iterable<TemplateItem> {
+public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<UniqueTemplateItems> {
 
     private final ObservableList<TemplateItem> internalList = FXCollections.observableArrayList();
     private final ObservableList<TemplateItem> internalUnmodifiableList =
@@ -55,6 +56,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
             throw new DuplicateFoodException();
         }
         internalList.add(toAdd);
+        Collections.sort(internalList);
     }
 
     /**
@@ -76,6 +78,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
         }
 
         internalList.set(index, editedFood);
+        Collections.sort(internalList);
     }
 
     /**
@@ -92,6 +95,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
     public void setTemplateItems(UniqueTemplateItems replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        Collections.sort(internalList);
     }
 
     /**
@@ -105,6 +109,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
         }
 
         internalList.setAll(foods);
+        Collections.sort(internalList);
     }
 
     /**
@@ -182,5 +187,13 @@ public class UniqueTemplateItems implements Iterable<TemplateItem> {
         builder.append(getSize());
         builder.append(" items.");
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(UniqueTemplateItems other) {
+        String thisName = this.getName().toString();
+        String otherName = other.getName().toString();
+
+        return thisName.compareTo(otherName);
     }
 }

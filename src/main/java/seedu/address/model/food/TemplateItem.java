@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a TemplateList item in the template list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class TemplateItem {
+public class TemplateItem implements Comparable<TemplateItem> {
 
     // Identity fields
     private final Name name;
@@ -60,4 +60,12 @@ public class TemplateItem {
         return builder.toString();
     }
 
+
+    @Override
+    public int compareTo(TemplateItem other) {
+        String thisName = this.getName().toString();
+        String otherName = this.getName().toString();
+
+        return thisName.compareTo(otherName);
+    }
 }

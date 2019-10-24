@@ -3,6 +3,7 @@ package seedu.address.model.food;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
             throw new DuplicateTemplateException();
         }
         internalList.add(toAdd);
+        Collections.sort(internalList);
     }
 
     /**
@@ -66,11 +68,13 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
         }
 
         internalList.set(index, editedTemplate);
+        Collections.sort(internalList);
     }
 
     public void setTemplates(UniqueTemplateList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        Collections.sort(internalList);
     }
 
     /**
@@ -83,6 +87,7 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
             throw new DuplicateTemplateException();
         }
         internalList.setAll(templates);
+        Collections.sort(internalList);
     }
 
     /**
@@ -95,7 +100,6 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
             throw new TemplateNotFoundException();
         }
     }
-
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
