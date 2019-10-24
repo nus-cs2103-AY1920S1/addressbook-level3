@@ -70,7 +70,7 @@ public class EditWishCommand extends Command {
         List<Wish> lastShownList = model.getFilteredWishes();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Wish entryToEdit = lastShownList.get(index.getZeroBased());

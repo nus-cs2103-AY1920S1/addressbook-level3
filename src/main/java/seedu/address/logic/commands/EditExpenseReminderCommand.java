@@ -65,7 +65,7 @@ public class EditExpenseReminderCommand extends Command {
         List<ExpenseReminder> lastShownList = model.getFilteredExpenseReminders();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         ExpenseReminder entryToEdit = lastShownList.get(index.getZeroBased());

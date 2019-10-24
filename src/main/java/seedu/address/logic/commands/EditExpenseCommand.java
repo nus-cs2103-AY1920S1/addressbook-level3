@@ -69,7 +69,7 @@ public class EditExpenseCommand extends Command {
         List<Expense> lastShownList = model.getFilteredExpenses();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Expense entryToEdit = lastShownList.get(index.getZeroBased());
