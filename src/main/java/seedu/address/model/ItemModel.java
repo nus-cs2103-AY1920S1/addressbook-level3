@@ -100,6 +100,8 @@ public interface ItemModel {
 
     public JokeList getJokeList();
 
+    public String getJoke();
+
     //Bryan Reminder
     ActiveRemindersList getActiveReminderListProperty();
 

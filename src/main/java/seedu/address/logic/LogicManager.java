@@ -38,7 +38,7 @@ public class LogicManager implements Logic {
     public LogicManager(ItemModel model, Storage storage) {
         this.storage = storage;
         this.model = model;
-        addressBookParser = new AddressBookParser(model.getElisaCommandHistory(), model.getJokeList());
+        addressBookParser = new AddressBookParser(model.getElisaCommandHistory());
 
         //Create new thread class to check
         /*

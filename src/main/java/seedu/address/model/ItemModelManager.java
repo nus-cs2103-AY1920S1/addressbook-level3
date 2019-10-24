@@ -297,6 +297,10 @@ public class ItemModelManager implements ItemModel {
         return jokeList;
     }
 
+    public String getJoke() {
+        return jokeList.getJoke();
+    }
+
     /**
      * Remove an item from the current list.
      * @param index the item to be removed from the current list

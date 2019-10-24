@@ -24,7 +24,6 @@ import seedu.address.logic.commands.UpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.ElisaCommandHistory;
-import seedu.address.model.JokeList;
 
 /**
  * Parses user input.
@@ -38,11 +37,9 @@ public class AddressBookParser {
             Pattern.compile("(?<commandWord>\\S+)(?<description>[^-]*)(?<flags>.*)");
 
     private ElisaCommandHistory elisaCommandHistory;
-    private JokeList jokeList;
 
-    public AddressBookParser(ElisaCommandHistory elisaCommandHistory, JokeList jokeList) {
+    public AddressBookParser(ElisaCommandHistory elisaCommandHistory) {
         this.elisaCommandHistory = elisaCommandHistory;
-        this.jokeList = jokeList;
     }
 
     /**
@@ -104,7 +101,7 @@ public class AddressBookParser {
             return new DoneCommandParser().parse(description, flags);
 
         case JokeCommand.COMMAND_WORD:
-            return new JokeCommand(jokeList);
+            return new JokeCommand();
         /*
         case ShowCommand.COMMAND_WORD:
             return new ShowCommand(description);
