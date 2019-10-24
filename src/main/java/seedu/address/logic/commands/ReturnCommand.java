@@ -67,17 +67,17 @@ public class ReturnCommand extends Command {
             throw new CommandException(String.format(MESSAGE_BOOK_NOT_ON_LOAN, bookToBeReturned));
         }
 
-        Loan returningLoan = bookToBeReturned.getLoan().get();
+        Loan loanToBeReturned = bookToBeReturned.getLoan().get();
         LocalDate returnDate = DateUtil.getTodayDate();
-        int fineAmount = DateUtil.getNumOfDaysOverdue(returningLoan.getDueDate(), returnDate)
+        int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
                 * model.getUserSettings().getFineIncrement();
-        Loan returnedLoan = new Loan(returningLoan.getLoanId(), returningLoan.getBookSerialNumber(),
-                returningLoan.getBorrowerId(), returningLoan.getStartDate(), returningLoan.getDueDate(),
-                returnDate, returningLoan.getRenewCount(), fineAmount, 0);
+        Loan returnedLoan = new Loan(loanToBeReturned.getLoanId(), loanToBeReturned.getBookSerialNumber(),
+                loanToBeReturned.getBorrowerId(), loanToBeReturned.getStartDate(), loanToBeReturned.getDueDate(),
+                returnDate, loanToBeReturned.getRenewCount(), fineAmount, 0);
 
         Borrower servingBorrower = model.getServingBorrower();
         // check if servingBorrower has this Book loaned
-        if (!servingBorrower.hasCurrentLoan(returningLoan)) {
+        if (!servingBorrower.hasCurrentLoan(loanToBeReturned)) {
             throw new CommandException(String.format(MESSAGE_NOT_LOANED_BY_BORROWER,
                     servingBorrower, bookToBeReturned));
         }
@@ -89,10 +89,10 @@ public class ReturnCommand extends Command {
         model.setBook(bookToBeReturned, returnedBook);
 
         // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
-        model.servingBorrowerReturnLoan(returningLoan, returnedLoan);
+        model.servingBorrowerReturnLoan(loanToBeReturned, returnedLoan);
 
         // update Loan in LoanRecords with returnDate and remainingFineAmount
-        model.updateLoan(returningLoan, returnedLoan);
+        model.updateLoan(loanToBeReturned, returnedLoan);
 
         // TODO: add fine amount here to show users
         return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,

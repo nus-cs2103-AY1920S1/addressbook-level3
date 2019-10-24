@@ -341,21 +341,21 @@ public class ModelManager implements Model {
     /**
      * Moves
      *
-     * @param returningLoan {@code Loan} object in servingBorrower's currentLoanList.
+     * @param loanToBeReturned {@code Loan} object in servingBorrower's currentLoanList.
      * @param returnedLoan Updated {@code Loan} object to be added to servingBorrower's returnedLoanList.
      */
     @Override
-    public void servingBorrowerReturnLoan(Loan returningLoan, Loan returnedLoan) {
+    public void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan) {
         if (!isServeMode()) {
             throw new NotInServeModeException();
         }
 
         Borrower serving = servingBorrower.get();
 
-        assert serving.hasCurrentLoan(returningLoan) : "Borrower does not have the loan to be returned.";
+        assert serving.hasCurrentLoan(loanToBeReturned) : "Borrower does not have the loan to be returned.";
 
         Borrower loanReturnedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
-                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(returningLoan),
+                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(loanToBeReturned),
                 serving.getAddedReturnedLoanList(returnedLoan));
         borrowerRecords.setBorrower(serving, loanReturnedBorrower);
 

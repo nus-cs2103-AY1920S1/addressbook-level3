@@ -279,7 +279,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void servingBorrowerReturnLoan(Loan returningLoan, Loan returnedLoan) {
+        public void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan) {
             throw new AssertionError("This method should not be called.");
         }
 

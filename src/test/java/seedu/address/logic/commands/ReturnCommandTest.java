@@ -54,8 +54,6 @@ class ReturnCommandTest {
 
         ReturnCommand returnCommand = new ReturnCommand(INDEX_FIRST_BOOK);
 
-        //        Book returnedBook = new Book(BOOK_7.getTitle(), BOOK_7.getSerialNumber(),
-        //                BOOK_7.getAuthor(), null, BOOK_7.getGenres());
         Book returnedBook = new BookBuilder(BOOK_7).withLoan(null).build();
 
         String actualMessage;

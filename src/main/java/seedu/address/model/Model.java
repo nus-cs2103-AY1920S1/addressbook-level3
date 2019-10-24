@@ -108,7 +108,7 @@ public interface Model {
     /** Returns the LoanRecords*/
     ReadOnlyLoanRecords getLoanRecords();
 
-    /** Adds a new Loan to LaanRecords */
+    /** Adds a new Loan to LoanRecords */
     void addLoan(Loan loan);
 
     void updateLoan(Loan existingLoan, Loan returnedLoan);
@@ -155,7 +155,7 @@ public interface Model {
 
     void servingBorrowerNewLoan(Loan newLoan);
 
-    void servingBorrowerReturnLoan(Loan returningLoan, Loan returnedLoan);
+    void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan);
 
     boolean hasBorrowerId(BorrowerId borrowerId);
 
