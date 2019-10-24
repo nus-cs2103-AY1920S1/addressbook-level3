@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class DiaryBookParser {
 
+
     /**
      * Used for initial separation of command word and args.
      */
