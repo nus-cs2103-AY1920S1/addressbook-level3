@@ -27,12 +27,14 @@ public class DiaryModel {
     }
 
 
-    public void deleteDiaryEntry(int target) {
-        diaryBook.deleteDiaryEntry(target);
+    public DiaryEntry deleteDiaryEntry(int target) {
+
+        return diaryBook.deleteDiaryEntry(target);
     }
 
-    public void addDiaryEntry(DiaryEntry diaryEntry) {
-        diaryBook.addDiaryEntry(diaryEntry);
+    public DiaryEntry addDiaryEntry (DiaryEntry diaryEntry) {
+
+        return diaryBook.addDiaryEntry(diaryEntry);
     }
 
 

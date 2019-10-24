@@ -12,12 +12,16 @@ public class DiaryEntryList {
     private final ObservableList<DiaryEntry> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(entries);
 
-    public void addDiaryEntry(DiaryEntry entry) {
+    public DiaryEntry addDiaryEntry(DiaryEntry entry) {
+
         entries.add(entry);
+        return entry;
     }
 
-    public void deleteDiaryEntry(int index) {
-        entries.remove(index - 1);
+    public DiaryEntry deleteDiaryEntry(int index) {
+
+        DiaryEntry removed = entries.remove(index - 1);
+        return removed;
     }
 
     public int getSize() {

@@ -26,8 +26,9 @@ public class DiaryBook {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addDiaryEntry(DiaryEntry p) {
-        entries.addDiaryEntry(p);
+    public DiaryEntry addDiaryEntry(DiaryEntry p) {
+
+        return entries.addDiaryEntry(p);
     }
 
 
@@ -35,8 +36,9 @@ public class DiaryBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void deleteDiaryEntry(int x) {
-        entries.deleteDiaryEntry(x);
+    public DiaryEntry deleteDiaryEntry(int x) {
+
+        return entries.deleteDiaryEntry(x);
     }
 
     //// util methods
@@ -44,7 +46,6 @@ public class DiaryBook {
     @Override
     public String toString() {
         return entries.asUnmodifiableObservableList().size() + " entries";
-        // TODO: refine later
     }
 
     public ObservableList<DiaryEntry> getDiaryEntryList() {
