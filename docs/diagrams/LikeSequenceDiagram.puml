@@ -19,9 +19,6 @@ end box
 
 box Storage STORAGE_COLOR_T1
 participant ":Storage" as Storage STORAGE_COLOR
-participant ":JsonRecsStorage" as JsonRecsStorage STORAGE_COLOR
-participant ":JsonSR" as JsonSR STORAGE_COLOR
-participant ":JsonAR" as JsonAR STORAGE_COLOR
 end box
 
 legend top
@@ -29,8 +26,6 @@ Legend:
 * CS: categorySet
 * TS: tagSet
 * LS: locationSet
-* JsonSR: JsonSerializableRecs
-* JsonAR: JsonAdaptedRecs
 end legend
 
 [-> LogicManager : execute("like c/Thai")
@@ -92,26 +87,6 @@ deactivate LikeCommand
 
 LogicManager -> Storage : saveRecs(model.getRecommendationSystem().getUserRecommendations())
 activate Storage
-
-Storage -> JsonRecsStorage : saveRecs(recs)
-activate JsonRecsStorage
-
-create JsonSR
-JsonRecsStorage -> JsonSR
-activate JsonSR
-
-create JsonAR
-JsonSR -> JsonAR
-activate JsonAR
-
-JsonAR --> JsonSR
-deactivate JsonAR
-
-JsonSR --> JsonRecsStorage
-deactivate JsonSR
-
-JsonRecsStorage --> Storage
-deactivate JsonRecsStorage
 
 Storage --> LogicManager
 deactivate Storage

@@ -277,9 +277,9 @@ more accurately.
 
 With the recommendation feature, a new set of classes were added.
 
-A singleton class `RecommendationSystem` encapsulates
-the methods and classes related to this feature. This `RecommendationSystem` class implements the interface `Recommender`
-which specifies the behaviour of the system, which include the ability to generate recommendation values.
+A singleton class `RecommendationSystem` encapsulates the methods and classes related to this feature.
+This `RecommendationSystem` class implements the interface `Recommender` which specifies the behaviour of the system,
+and include the ability to generate recommendation values.
 
 Additionally, the `RecommendationSystem` class also contains a class `UserRecommendations`, which include the likes and
 dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
@@ -329,8 +329,7 @@ A similar execution sequence is performed for a dislike command by replacing ins
 After customizing the user's likes and dislikes, users can obtain a personalized list of recommendations
 using the `recommend` command.
 
-Each food is passed to the recommendation system and it calculates the
-recommendation value based on the table below:
+Each food is passed to the recommendation system and it calculates the recommendation value based on the tables below:
 
 include::UserGuide.adoc[tag=recommendationbonus]
 
@@ -338,10 +337,10 @@ include::UserGuide.adoc[tag=recommendationbonus]
 
 include::UserGuide.adoc[tag=recommendationpenalty]
 
-The sequence diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
+The activity diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
 recommendation value:
 
-.Sequence diagram for `calculateRecommendation`
+.Activity diagram for `calculateRecommendation`
 image::RecValueActivityDiagram.png[width=600]
 
 The calculated recommendation values are used to sort the food items when the `recommend` command
