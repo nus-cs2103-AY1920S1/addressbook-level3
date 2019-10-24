@@ -36,7 +36,7 @@ public interface Storage extends GroceryListStorage, UserPrefsStorage, TemplateL
     Optional<ReadOnlyGroceryList> readGroceryList() throws DataConversionException, IOException;
 
     @Override
-    void saveGroceryList(ReadOnlyGroceryList addressBook) throws IOException;
+    void saveGroceryList(ReadOnlyGroceryList groceryList) throws IOException;
 
     @Override
     Path getTemplateListFilePath();

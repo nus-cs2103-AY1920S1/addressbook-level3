@@ -66,7 +66,7 @@ public interface Model {
     /**
      * Sets the user prefs' address book file path.
      */
-    void setGroceryListFilePath(Path addressBookFilePath);
+    void setGroceryListFilePath(Path groceryListFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.

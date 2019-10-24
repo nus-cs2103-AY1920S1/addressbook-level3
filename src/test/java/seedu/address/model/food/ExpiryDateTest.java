@@ -21,6 +21,8 @@ public class ExpiryDateTest {
 
     @Test
     public void isValidExpiryDate() {
+        // TODO
+
         // null expiry date
         assertThrows(NullPointerException.class, () -> ExpiryDate.isValidExpiryDate(null));
 
@@ -47,8 +49,6 @@ public class ExpiryDateTest {
         assertFalse(ExpiryDate.isValidExpiryDate("2019.12.28")); // wrong format
 
         // valid expiry date
-        assertTrue(ExpiryDate.isValidExpiryDate("20-02-2019")); // hyphen format
         assertTrue(ExpiryDate.isValidExpiryDate("03/05/2008")); // forward slash format
-        assertTrue(ExpiryDate.isValidExpiryDate("05.08.2018")); // period format
     }
 }

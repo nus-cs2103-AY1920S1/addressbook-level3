@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.GroceryList;
 import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.food.GroceryItem;
-import seedu.address.storage.JsonAdaptedFood;
+import seedu.address.storage.JsonAdaptedGroceryItem;
 
 /**
  * An Immutable GroceryList that is serializable to JSON format.
@@ -22,13 +22,13 @@ class JsonSerializableBoughtList {
 
     public static final String MESSAGE_DUPLICATE_BOUGHT_ITEMS = "Bought list contains duplicate grocery_items(s).";
 
-    private final List<JsonAdaptedFood> boughtItems = new ArrayList<>();
+    private final List<JsonAdaptedGroceryItem> boughtItems = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableBoughtList(@JsonProperty("boughtItems") List<JsonAdaptedFood> boughtItems) {
+    public JsonSerializableBoughtList(@JsonProperty("boughtItems") List<JsonAdaptedGroceryItem> boughtItems) {
         this.boughtItems.addAll(boughtItems);
     }
 
@@ -39,7 +39,7 @@ class JsonSerializableBoughtList {
      */
     public JsonSerializableBoughtList(ReadOnlyGroceryList source) {
         boughtItems.addAll(source.getGroceryList().stream()
-                .map(JsonAdaptedFood::new).collect(Collectors.toList()));
+                .map(JsonAdaptedGroceryItem::new).collect(Collectors.toList()));
     }
 
     /**
@@ -49,12 +49,12 @@ class JsonSerializableBoughtList {
      */
     public GroceryList toModelType() throws IllegalValueException {
         GroceryList groceryList = new GroceryList();
-        for (JsonAdaptedFood jsonAdaptedFood : boughtItems) {
+        for (JsonAdaptedGroceryItem jsonAdaptedFood : boughtItems) {
             GroceryItem groceryItem = jsonAdaptedFood.toModelType();
-            if (groceryList.hasPerson(groceryItem)) {
+            if (groceryList.hasGroceryItem(groceryItem)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOUGHT_ITEMS);
             }
-            groceryList.addPerson(groceryItem);
+            groceryList.addGroceryItem(groceryItem);
         }
         return groceryList;
     }

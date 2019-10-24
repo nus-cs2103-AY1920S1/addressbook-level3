@@ -65,7 +65,11 @@ public class JsonGroceryListStorage implements GroceryListStorage {
     }
 
     /**
+<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonGroceryListStorage.java
      * Similar to {@link #saveGroceryList(ReadOnlyGroceryList, Path)}.
+=======
+     * Similar to {@link #saveGroceryList(ReadOnlyGroceryList)}.
+>>>>>>> master:src/main/java/seedu/address/storage/JsonGroceryListStorage.java
      *
      * @param filePath location of the data. Cannot be null.
      */

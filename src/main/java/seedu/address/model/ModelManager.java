@@ -121,9 +121,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setGroceryListFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setGroceryListFilePath(addressBookFilePath);
+    public void setGroceryListFilePath(Path groceryListFilePath) {
+        requireNonNull(groceryListFilePath);
+        userPrefs.setGroceryListFilePath(groceryListFilePath);
     }
 
     @Override
@@ -190,24 +190,24 @@ public class ModelManager implements Model {
      */
     public boolean hasGroceryItem(GroceryItem food) {
         requireNonNull(food);
-        return groceryList.hasPerson(food);
+        return groceryList.hasGroceryItem(food);
     }
 
     public void deleteGroceryItem(GroceryItem target) {
-        groceryList.removePerson(target);
+        groceryList.removeGroceryItem(target);
     }
 
     @Override
     public void addGroceryItem(GroceryItem food) {
-        groceryList.addPerson(food);
+        groceryList.addGroceryItem(food);
         updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
     }
 
     @Override
-    public void setGroceryItem(GroceryItem target, GroceryItem editedFood) {
-        requireAllNonNull(target, editedFood);
+    public void setGroceryItem(GroceryItem target, GroceryItem editedGroceryItem) {
+        requireAllNonNull(target, editedGroceryItem);
 
-        groceryList.setGroceryItem(target, editedFood);
+        groceryList.setGroceryItem(target, editedGroceryItem);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -485,16 +485,16 @@ public class ModelManager implements Model {
      */
     public boolean hasBoughtItem(GroceryItem food) {
         requireNonNull(food);
-        return boughtList.hasPerson(food);
+        return boughtList.hasGroceryItem(food);
     }
 
     public void deleteBoughtItem(GroceryItem target) {
-        boughtList.removePerson(target);
+        boughtList.removeGroceryItem(target);
     }
 
     @Override
     public void addBoughtItem(GroceryItem food) {
-        boughtList.addPerson(food);
+        boughtList.addGroceryItem(food);
         updateFilteredBoughtItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
     }
 

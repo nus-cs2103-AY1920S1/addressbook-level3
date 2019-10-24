@@ -33,7 +33,7 @@ public class UseGroceryCommand extends Command {
             + "by the index number used in the displayed grocery list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: glist " + COMMAND_WORD + " 1 a/100g";
 
     public static final String MESSAGE_USE_GROCERY_ITEM_SUCCESS = "Used grocery item: %1$s";
     public static final String MESSAGE_NOT_USED = "At least amount field must be provided.";
@@ -59,7 +59,7 @@ public class UseGroceryCommand extends Command {
         List<GroceryItem> lastShownList = model.getFilteredGroceryItemList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_GROCERY_ITEM_DISPLAYED_INDEX);
         }
 
         GroceryItem groceryItemToUse = lastShownList.get(index.getZeroBased());

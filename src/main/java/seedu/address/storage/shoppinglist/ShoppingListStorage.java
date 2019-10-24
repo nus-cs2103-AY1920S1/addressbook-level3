@@ -5,10 +5,15 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.GroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 
 /**
+<<<<<<< HEAD
  * Represents a storage for {@link seedu.address.model.GroceryList}.
+=======
+ * Represents a storage for {@link GroceryList}.
+>>>>>>> master
  */
 public interface ShoppingListStorage {
 

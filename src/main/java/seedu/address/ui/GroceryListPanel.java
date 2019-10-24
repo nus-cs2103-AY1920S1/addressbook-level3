@@ -17,14 +17,14 @@ import seedu.address.model.food.GroceryItem;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class GroceryListPanel extends UiPart<Region> {
+    private static final String FXML = "GroceryListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(GroceryListPanel.class);
 
     @FXML
     private ListView<GroceryItem> personListView;
 
-    public PersonListPanel(ObservableList<GroceryItem> foodList) {
+    public GroceryListPanel(ObservableList<GroceryItem> foodList) {
         super(FXML);
         personListView.setItems(foodList);
         personListView.setCellFactory(listView -> new PersonListViewCell());

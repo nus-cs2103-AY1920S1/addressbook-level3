@@ -65,7 +65,7 @@ public class EditCommand extends Command {
         List<GroceryItem> lastShownList = model.getFilteredGroceryItemList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_GROCERY_ITEM_DISPLAYED_INDEX);
         }
 
         GroceryItem foodToEdit = lastShownList.get(index.getZeroBased());

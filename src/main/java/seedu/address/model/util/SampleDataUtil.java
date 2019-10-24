@@ -31,25 +31,25 @@ public class SampleDataUtil {
     // ============================= Grocery Item Sample List ============================= //
     public static GroceryItem[] getSampleGroceryItems() {
         return new GroceryItem[] {
-            new GroceryItem(new Name("Minced beef"), new Amount("300g"), new ExpiryDate("30.09.2019"),
+            new GroceryItem(new Name("Minced beef"), new Amount("300g"), new ExpiryDate("30/09/2019"),
                     getTagSet("meat")),
-            new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20.11.2019"),
+            new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20/11/2019"),
                     getTagSet("dish", "dinner")),
-            new GroceryItem(new Name("Apples"), new Amount("6units"), new ExpiryDate("15.10.2019"),
+            new GroceryItem(new Name("Apples"), new Amount("6units"), new ExpiryDate("15/10/2019"),
                     getTagSet("healthy", "fruit")),
-            new GroceryItem(new Name("Orange juice"), new Amount("500ml"), new ExpiryDate("22.11.2019"),
+            new GroceryItem(new Name("Orange juice"), new Amount("500ml"), new ExpiryDate("22/11/2019"),
                     getTagSet("juice", "diet")),
-            new GroceryItem(new Name("Green tea latte"), new Amount("10units"), new ExpiryDate("30.10.2019"),
+            new GroceryItem(new Name("Green tea latte"), new Amount("10units"), new ExpiryDate("30/10/2019"),
                     getTagSet("drink", "boba"))
         };
     }
 
     public static ReadOnlyGroceryList getSampleGroceryList() {
-        GroceryList sampleAb = new GroceryList();
+        GroceryList sampleGl = new GroceryList();
         for (GroceryItem groceryItem : getSampleGroceryItems()) {
-            sampleAb.addPerson(groceryItem);
+            sampleGl.addGroceryItem(groceryItem);
         }
-        return sampleAb;
+        return sampleGl;
     }
 
     /**
@@ -253,7 +253,7 @@ public class SampleDataUtil {
     public static ReadOnlyGroceryList getSampleBoughtList() {
         GroceryList sampleAb = new GroceryList();
         for (GroceryItem boughtItem : getSampleBoughtItems()) {
-            sampleAb.addPerson(boughtItem);
+            sampleAb.addGroceryItem(boughtItem);
         }
         return sampleAb;
     }

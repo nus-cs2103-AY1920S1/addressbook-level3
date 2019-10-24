@@ -14,30 +14,35 @@ import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.food.GroceryItem;
 
 /**
+<<<<<<< HEAD
  * An Immutable GroceryList that is serializable to JSON format.
+=======
+ * An Immutable AddressBook that is serializable to JSON format.
+>>>>>>> master
  */
 @JsonRootName(value = "grocerylist")
 class JsonSerializableGroceryList {
 
-    public static final String MESSAGE_DUPLICATE_GROCERY_ITEM = "Grocery list contains duplicate grocery item(s).";
+    public static final String MESSAGE_DUPLICATE_GROCERY_ITEM = "Grocery list contains duplicate grocery item(s)";
 
-    private final List<JsonAdaptedFood> groceryItems = new ArrayList<>();
+    private final List<JsonAdaptedGroceryItem> grocerylist = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableGroceryList(@JsonProperty("groceryItems") List<JsonAdaptedFood> groceryItems) {
-        this.groceryItems.addAll(groceryItems);
+    public JsonSerializableGroceryList(@JsonProperty("grocerylist") List<JsonAdaptedGroceryItem> grocerylist) {
+        this.grocerylist.addAll(grocerylist);
     }
 
     /**
-     * Converts a given {@code ReadOnlyGroceryList} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableGroceryList(ReadOnlyGroceryList source) {
-        groceryItems.addAll(source.getGroceryList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
+        grocerylist.addAll(source.getGroceryList().stream()
+                .map(JsonAdaptedGroceryItem::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +52,12 @@ class JsonSerializableGroceryList {
      */
     public GroceryList toModelType() throws IllegalValueException {
         GroceryList groceryList = new GroceryList();
-        for (JsonAdaptedFood jsonAdaptedFood : groceryItems) {
-            GroceryItem food = jsonAdaptedFood.toModelType();
-            if (groceryList.hasPerson(food)) {
+        for (JsonAdaptedGroceryItem jsonAdaptedGroceryItem : this.grocerylist) {
+            GroceryItem groceryItem = jsonAdaptedGroceryItem.toModelType();
+            if (groceryList.hasGroceryItem(groceryItem)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_GROCERY_ITEM);
             }
-            groceryList.addPerson(food);
+            groceryList.addGroceryItem(groceryItem);
         }
         return groceryList;
     }

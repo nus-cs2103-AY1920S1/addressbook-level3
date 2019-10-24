@@ -38,7 +38,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonGroceryListStorage groceryListStorage =
-                new JsonGroceryListStorage(temporaryFolder.resolve("groceryList.json"));
+                new JsonGroceryListStorage(temporaryFolder.resolve("grocerylist.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonTemplateListStorage templateListStorage =
                 new JsonTemplateListStorage(temporaryFolder.resolve("templateList.json"));
@@ -59,7 +59,6 @@ public class LogicManagerTest {
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
-    // TODO: shd be glist delete 9 and so on. Write test cases for each list
     /*@Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";

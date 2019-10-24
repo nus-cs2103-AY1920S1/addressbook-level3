@@ -4,26 +4,26 @@ import seedu.address.model.GroceryList;
 import seedu.address.model.food.GroceryItem;
 
 /**
- * A utility class to help with building GroceryList objects.
+ * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code GroceryList ab = new GroceryListBuilder().withPerson("John", "Doe").build();}
+ *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
-public class GroceryListBuilder {
+public class AddressBookBuilder {
 
     private GroceryList groceryList;
 
-    public GroceryListBuilder() {
+    public AddressBookBuilder() {
         groceryList = new GroceryList();
     }
 
-    public GroceryListBuilder(GroceryList groceryList) {
+    public AddressBookBuilder(GroceryList groceryList) {
         this.groceryList = groceryList;
     }
 
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
-    public GroceryListBuilder withPerson(GroceryItem food) {
+    public AddressBookBuilder withPerson(GroceryItem food) {
         groceryList.addGroceryItem(food);
         return this;
     }

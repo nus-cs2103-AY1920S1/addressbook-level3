@@ -5,10 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.GroceryList;
 import seedu.address.model.ReadOnlyGroceryList;
 
 /**
- * Represents a storage for {@link seedu.address.model.GroceryList}.
+ * Represents a storage for {@link GroceryList}.
  */
 public interface GroceryListStorage {
 
@@ -18,7 +19,11 @@ public interface GroceryListStorage {
     Path getGroceryListFilePath();
 
     /**
+<<<<<<< HEAD:src/main/java/seedu/address/storage/GroceryListStorage.java
      * Returns GroceryList data as a {@link ReadOnlyGroceryList}.
+=======
+     * Returns AddressBook data as a {@link ReadOnlyGroceryList}.
+>>>>>>> master:src/main/java/seedu/address/storage/GroceryListStorage.java
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -38,8 +43,8 @@ public interface GroceryListStorage {
     void saveGroceryList(ReadOnlyGroceryList groceryList) throws IOException;
 
     /**
-     * @see #saveGroceryList(ReadOnlyGroceryList, Path)
+     * @see #saveGroceryList(ReadOnlyGroceryList)
      */
-    void saveGroceryList(ReadOnlyGroceryList addressBook, Path filePath) throws IOException;
+    void saveGroceryList(ReadOnlyGroceryList groceryList, Path filePath) throws IOException;
 
 }

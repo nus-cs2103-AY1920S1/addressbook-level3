@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private GroceryListPanel groceryListPanel;
     private TemplateListPanel templateListPanel;
     private TemplateItemPanel templateItemPanel;
     private WasteListPanel wasteListPanel;
@@ -139,8 +139,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredGroceryItemList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        groceryListPanel = new GroceryListPanel(logic.getFilteredGroceryItemList());
+        personListPanelPlaceholder.getChildren().add(groceryListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -223,8 +223,8 @@ public class MainWindow extends UiPart<Stage> {
         tabPane.getSelectionModel().select(shoppingListPage);
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public GroceryListPanel getGroceryListPanel() {
+        return groceryListPanel;
     }
 
     public TemplateListPanel getTemplateListPanel() {
@@ -291,11 +291,10 @@ public class MainWindow extends UiPart<Stage> {
      * Resets the templateListPanel to show the templateItemPanel whenever a templateItem command is executed
      */
     private void displayTemplateItemPanel() {
-        // To be improved, work on adding the name of the template as well
         Name templateName = logic.getNameTemplateToBeShown();
         templateItemPanel = new TemplateItemPanel(logic.getFilteredTemplateToBeShown(), templateName.toString());
-        templateListPanelPlaceholder.getChildren().add(templateItemPanel.getRoot());
-        logger.info("Showing template panel instead of templatelist.");
+        templateItemPanelPlaceholder.getChildren().add(templateItemPanel.getRoot());
+        logger.info("Showing template panel instead of templateList.");
     }
 
 }

@@ -19,7 +19,11 @@ activate model MODEL_COLOR
 model -[MODEL_COLOR]-> logic
 deactivate model
 
+<<<<<<< HEAD
 logic -[LOGIC_COLOR]> storage : saveGroceryList(groceryList)
+=======
+logic -[LOGIC_COLOR]> storage : saveAddressBook(groceryList)
+>>>>>>> master
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file
