@@ -245,7 +245,6 @@ _{More to be added}_
 
 [discrete]
 === Use case: Create a deck of cards
-
 *MSS*
 
 1. Learner creates a new empty deck and specifies the name of the deck of cards.
@@ -272,7 +271,6 @@ Use case ends.
 
 [discrete]
 === Use case: Start a untimed test
-
 *MSS*
 
 1. Learner starts untimed test with a deck of cards by specifying deck name.
@@ -362,6 +360,7 @@ Use case ends.
 [discrete]
 === Use case: Untimed Test with a deck of Multiple Choice Cards 
 *MSS*
+
 1. User enters command to start test on a deck.
 (System creates a test subset)
 2. System gets the deck the user wants to test on.
@@ -453,6 +452,7 @@ Use case ends.
 [discrete]
 === Use case: Creating a Multiple Choice Card 
 *MSS*
+
 1. User enters command to create a MCQ Card to a deck.
 2. System starts MCQ Card creation.
 3. System stores MCQ card in deck.
