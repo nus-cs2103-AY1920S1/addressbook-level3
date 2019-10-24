@@ -58,11 +58,17 @@ Examples:
 * `add d/Meeting on Monday`
 Adds an appointment with the description `Meeting on Monday` to the appointment manager.
 
-=== Listing all appointments : `list`
+=== Sorting all appointments : `sort`
 
-Shows a list of all appointments in the address book. +
-Format: `list`
+Sorts the list of all appointments in the appointment list by the order specified by user. +
+Orders supported: `type_ascending`, `type_descending`, `start_ascending`, `start_descending` +
+`end_ascending`, `end_descending`, `priority_ascending`, `priority_descending` +
+Format: `sort ORDER` +
 
+Examples:
+
+* `sort start_ascending` +
+Sorts the list displayed in ascending order of start time.
 
 === Editing an appointment : `edit`
 
