@@ -179,14 +179,35 @@ After entering an attribute, the system will prompt the user input for another a
 
 Format: `add t/**TYPE**`
 
-ORGANice will prompt the user to type in each attribute, one by one.
+When the user type in the command above, a form will be displayed. For example, if a user wants to add a patient,
+type `add t/patient` to the command box. The form will be as below:
 
-In the display box, there will be a form that reflects the attributes typed by the user.
+image::form.png[width="790"]
 
-After the inputs are added, ORGANice will display a template that shows what the user data will look like
-if the changes are finalised. Press the Enter key to confirm the changes.
+ORGANice will prompt the user to type in each attribute, one by one until all the fields are filled.
 
+For example, when a user wants to add a patient, the display box will prompt the user to enter the patient's name.
+For the user to add a patient that is named "John Doe", type `John Doe` and then press enter.
+After entering the name, the patient's name will be displayed in the form, as shown below.
 
+image::nameField.png[width="790"]
+
+Inputs for each attribute will be checked, if it is a valid input then the user input will automatically reflected
+on the form, if it is not valid, ORGANice will show a warning to the user.
+
+The following screenshot shows the warning that ORGANice will give to the user if the input is not valid:
+
+image::wrongInput.png[width="790"]
+
+After all of the attributes have been specified, the user can type `/done` to add the person to the ORGANice list of persons
+or `/abort` if the user decided not to add the person into the list.
+
+image::allField.png[width="790"]
+
+When the user typed `/done` the UI will changed back to it's original state and shows a success message suggesting that
+the user has successfully added a new person into the list.
+
+image::addSuccess.png[width="790"]
 
 === Listing persons : `list`
 
