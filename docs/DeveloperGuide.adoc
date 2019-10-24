@@ -262,6 +262,72 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== GroceryList Feature
+
+=== WasteList Feature
+
+=== Edit Template Item feature
+The edit template item mechanism is facilitated by `UniqueTemplateItems`, `TemplateList` and `TemplateToBeShown`.
+
+The `TemplateList` is an observable list of `UniqueTemplateItems` while the UniqueTemplateItems contains an observable list
+of template items. The `TemplateToBeShown` is a instance of the `UniqueTemplateItems` that is used to show the current template
+that is visible on the user interface.
+
+To edit the individual templates stored in the `TemplateList`, the command retrieves the template as well as the item to be edited.
+Retrieving the existing item allows for retrieval of unchanged data field. The template item at the specified index will then be
+overwritten with a new edited TemplateItem.
+
+Similarly, the `UniqueTemplateItems` object at the specified index will also be overwritten by a new `UniqueTemplateItems`
+containing the edited template item with unchanged template items already transferred into the new `UniqueTemplateItems` object.
+The model is updated with the new `TemplateList`, as well as the new `TemplateToBeShown`.
+
+The creation of new objects to override the previous is necessary as template items and templates are stored as immutable objects in the `UniqueTemplateItems`
+and `TemplateList` respectively, and therefore cannot be edited directly.
+
+* `Model#getFilteredTemplateList()` -- Gets an unmodifiable template list.
+* `Model#setTemplate()` -- Replaces the previous template object with the new template object.
+* `Model#setShownTemplate()` -- Replaces the previous templateToBeShown with the new template so that the edited template is visible in the UI.
+
+These operations are exposed in the `Model` interface as `Model#getFilteredTemplateList()`, `Model#setTemplate()`
+`Model#setShownTemplate()` and `Model#updateFilteredTemplateToBeShown()` respectively.
+
+NOTE: When the user launches the application for the first time. The `TemplateToBeShown` will be initialized however it will not
+be visible until a templateItemCommand is executed. This can be done using an AddTemplateItemCommand, a DeleteTemplateItemCommand,
+a ListTemplateItemCommand, or an EditTemplateItemCommand.
+
+The following activity diagram summarizes what happens when a user executes a new command related to managing of template items:
+
+image::TemplateItemCommandUIActivityDiagram.png[]
+
+The following sequence diagram shows how the edit template item operation works for the logic component:
+
+image::EditTemplateItemSequenceDiagram2.png[]
+
+Due to lack of space, please refer to the below list for args1, args2, args3, args4 shown in the diagram above.
+
+* args1: "tlist template edit 1 i/1 a/2units"
+* args2: "template edit 1 i/1 a/2units"
+* args3: "edit 1 i/1 a/2units"
+* args4: "1 i/1 a/2units"
+
+NOTE: The lifeline for `TemplateListParser`, `TemplateItemParser`,
+`EditTemplateItemCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+==== Design Considerations
+Aspect: How edit command is parsed
+
+* Alternative 1 (current choice): Create a separate parser just for template item management
+    * Pros: Easy to implement. Parser structure follows the same structure as the model. More OOP.
+    * Cons: May be confusing to differentiate between TemplateItemParser and TemplateListParser.
+* Alternative 2: The TemplateListParser is able to distinguish between template and template item management
+    * Pros: Less confusing as there is only one parser managing the template list.
+    * Cons: Implementation of the commands becomes more complicated. Less OOP.
+* Alternative 3: The TemplateItemParser is at the same hierarchy as the TemplateListParser instead of inside.
+    * Pros: The user command can be shorter. E.g. "template edit ..." instead of "tlist template edit ..."
+    * Cons: Not as obvious to the user that both commands involve the same template list.
+
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
