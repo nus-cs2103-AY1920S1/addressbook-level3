@@ -17,7 +17,7 @@ import seedu.address.model.visual.DisplayIndicator;
  * An UI component that displays the policy popularity breakdown in the display panel.
  */
 public class BarChartVisual extends UiPart<Region> {
-    private static final String FXML = "BarChartVisual.fxml";
+    private static final String FXML = "BarChartView.fxml";
     private static final String POLICY_POPULARITY_XAXIS = "Policy Type";
     private static final String POLICY_POPULARITY_YAXIS = "Number of policies sold";
 

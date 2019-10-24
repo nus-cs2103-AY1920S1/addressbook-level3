@@ -236,18 +236,20 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isDisplay()) {
                 DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
                 DisplayFormat displayFormat = commandResult.getDisplayFormat();
+                DisplayController displayController = null;
 
                 displayPlaceHolder.getChildren().clear();
                 switch (displayFormat.value) {
                 case DisplayFormat.PIECHART:
-                    displayPlaceHolder.getChildren().add(new PieChartVisual(logic, displayIndicator).getRoot());
+                    displayController = new PieChartController(logic, displayIndicator);
                     break;
                 case DisplayFormat.BARCHART:
-                    displayPlaceHolder.getChildren().add(new BarChartVisual(logic, displayIndicator).getRoot());
+                    displayController = new BarChartController(logic, displayIndicator);
                     break;
                 default:
                     throw new ParseException(DisplayFormat.getMessageConstraints());
                 }
+                displayPlaceHolder.getChildren().add(displayController.getRoot());
             }
 
             if (commandResult.isExpandPerson()) {
