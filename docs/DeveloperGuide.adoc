@@ -277,7 +277,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | user| load my deck of flash cards into the app| I can reuse the deck of cards created
 
-|`* * *` | | 
+|`* * *` | |
 
 |`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
 
@@ -293,9 +293,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 | `* * *`| user| view the list of flashcards in a deck| remember the material at the back of the flashcard
 
-| `* * *`| user| edit the front and/or back of the flashcard in a deck| 
+| `* * *`| user| edit the front and/or back of the flashcard in a deck|
 
-| `* * *`| user| delete a flashcard from a deck| 
+| `* * *`| user| delete a flashcard from a deck|
 
 | `* * *`| user| view the decks of flashcards in my library| I know what are the decks available for my usage
 
@@ -307,7 +307,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 | `* * *`| user| restore my library state of my previous session| continue using FlashCard Pro without much time wasted
 
-| `* * *`| user attempting a test| view my score after the test| 
+| `* * *`| user attempting a test| view my score after the test|
 
 | `* * *`| user who attempted a test| track my progress across mutliple test| monitor my attempts and correctness
 
