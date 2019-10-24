@@ -123,6 +123,7 @@ public class AddTransactionCommand extends Command {
         TransactionContext context = model.getTransactionContext();
         Transaction toAdd = generateTransaction(context);
         model.addTransaction(toAdd);
+        model.updateTransactionContext(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

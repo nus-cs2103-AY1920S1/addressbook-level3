@@ -68,12 +68,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableValue<Integer> getCurrentFeatureParserIndex() {
-        return ichiFundParser.getCurrentParserManagerIndex();
+        return ichiFundParser.getCurrentFeatureParserIndex();
     }
 
     @Override
     public void setFeatureParser(int index) {
-        ichiFundParser.setParserManager(index);
+        ichiFundParser.setFeatureParser(index);
     }
 
     @Override
