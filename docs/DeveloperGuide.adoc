@@ -18,6 +18,12 @@ By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
+=== LiBerry
+
+=== Purpose
+
+=== Legend
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
