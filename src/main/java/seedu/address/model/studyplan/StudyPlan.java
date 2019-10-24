@@ -424,27 +424,6 @@ public class StudyPlan implements Cloneable {
     }
 
     /**
-     * Deletes all the modules inside a semester of the current active study plan.
-     */
-    public void deleteAllModulesInSemester(SemesterName semesterName) {
-        Semester toDelete = null;
-        Iterator<Semester> iterator = semesters.iterator();
-        while (iterator.hasNext()) {
-            Semester semester = iterator.next();
-            if (semester.getSemesterName().equals(semesterName)) {
-                toDelete = semester;
-            }
-        }
-
-        if (toDelete == null) {
-            throw new SemesterNotFoundException();
-        }
-
-        // delete all modules inside this semester
-        toDelete.clearAllModules();
-    }
-
-    /**
      * Returns true if both study plans of the same index have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two study plans.
      */

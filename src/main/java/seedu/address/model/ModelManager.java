@@ -146,13 +146,6 @@ public class ModelManager implements Model {
         modulePlanner.changeActiveStudyPlanTitle(title);
     }
 
-    @Override
-    public void deleteAllModulesInSemester(SemesterName semesterName) {
-        requireNonNull(semesterName);
-
-        modulePlanner.deleteAllModulesInSemester(semesterName);
-    }
-
     //=========== Version Tracking ============================================================================
 
     @Override
