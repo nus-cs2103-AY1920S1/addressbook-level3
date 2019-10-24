@@ -104,7 +104,7 @@ public class CalendarPanel extends UiPart<Region> {
         double height = calendarGrid.getHeight();
         double maxHeight = height / 7;
 
-        int offset = firstDay -1;
+        int offset = firstDay - 1;
         int lblCount = 1;
 
         for (int i = 0; i < 7; i++) {
