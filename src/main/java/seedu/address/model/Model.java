@@ -70,6 +70,10 @@ public interface Model {
      */
     void addPerson(Person person);
 
+    Person selectPerson();
+
+    void storePerson(Person person);
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -77,6 +81,9 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Reorders the address book in alphabetical order according to person's name.
+     */
     void sortAddressBookByName();
 
     /** Returns an unmodifiable view of the filtered person list */

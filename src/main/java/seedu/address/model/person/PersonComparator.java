@@ -16,6 +16,8 @@ public class PersonComparator implements Comparator<Person> {
      */
     @Override
     public int compare(Person p1, Person p2) {
-        return p1.getName().toString().compareToIgnoreCase(p2.getName().toString());
+        String person1Name = p1.getName().toString();
+        String person2Name = p2.getName().toString();
+        return person1Name.compareToIgnoreCase(person2Name);
     }
 }

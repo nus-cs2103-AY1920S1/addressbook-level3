@@ -79,6 +79,11 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
+    public Person getPerson(Person person) {
+        requireNonNull(person);
+        return internalList.get(1);
+    }
+
     public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

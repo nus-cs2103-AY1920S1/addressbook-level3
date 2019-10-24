@@ -18,7 +18,7 @@ public class TrainingCommandParser implements Parser<TrainingCommand> {
         try {
             List<Index> indexList = new LinkedList<>();
             String[] indexes = userInput.trim().split("\\s+");
-            for (String arguments : indexes) {
+            for (String arguments: indexes) {
                 Index index = ParserUtil.parseIndex(arguments);
                 indexList.add(index);
             }
@@ -27,6 +27,5 @@ public class TrainingCommandParser implements Parser<TrainingCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrainingCommand.MESSAGE_USAGE), pe);
         }
-
     }
 }

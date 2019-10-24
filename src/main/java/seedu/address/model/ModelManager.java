@@ -24,6 +24,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final Attendance attendance;
     private final FilteredList<Person> filteredPersons;
+    private Person selectedPerson;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -116,6 +118,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person selectPerson() {
+        return selectedPerson;
+    }
+
+    public void storePerson(Person person) {
+        selectedPerson = person;
+    }
+
     public void sortAddressBookByName() {
         this.addressBook.sortByName();
     }

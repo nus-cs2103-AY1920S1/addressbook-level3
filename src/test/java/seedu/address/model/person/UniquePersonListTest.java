@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -168,6 +169,9 @@ public class UniquePersonListTest {
         uniquePersonList.add(BOB);
         uniquePersonList.add(ALICE);
         uniquePersonList.sortByName(NAME_COMPARATOR);
+        Iterator<Person> iterator = uniquePersonList.iterator();
+        assertTrue(ALICE.isSamePerson(iterator.next()));
+        assertTrue(BOB.isSamePerson(iterator.next()));
     }
 
     @Test
