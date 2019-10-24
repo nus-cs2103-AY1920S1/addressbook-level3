@@ -33,4 +33,5 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Usage: python shuffling_renamer.py <folder_name_containing_images>")
         sys.exit()
-    seq_rename_all_files(sys.argv[1]) 
+    seq_rename_all_files(sys.argv[1])
+
