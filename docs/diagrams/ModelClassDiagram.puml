@@ -26,17 +26,6 @@ Class CustomSort
 Class FoodComparator
 }
 
-Package Food {
-Class Food
-Class Description
-Class Category
-Class "Opening Hours"
-Class Name
-Class Price
-Class UniqueFoodList
-Class Restrictions
-}
-
 Package Savings {
 Interface ReadOnlySavingsAccount <<Interface>>
 Class SavingsAccount
@@ -73,17 +62,13 @@ Model .right.> ObservableList
 ModelManager o--> "1" Menu
 ModelManager o--> "1" PurchaseHistory
 ModelManager o--> "1" Wallet
-ModelManager o--> "1" CustomSorter
 ModelManager o--> "1" SavingsAccount
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-CustomSorter *--> "1" FoodComparator
-
 PurchaseHistory .up.|> ReadOnlyPurchaseHistory
 PurchaseHistory *--> "1" PurchaseHistoryList
 PurchaseHistoryList o--> "*" Purchase
-Purchase *--> Food
 Purchase *--> TimeOfPurchase
 
 Wallet *--> DaysToExpire
@@ -94,19 +79,4 @@ SavingsAccount .up.|> ReadOnlySavingsAccount
 SavingsAccount *--> "1" SavingsHistory
 SavingsHistory o--> "0..*" Savings
 
-Menu *--> "1" UniqueFoodList
-UniqueFoodList o--> "*" Food
-Food *--> Name
-Food *--> Price
-Food *--> Description
-Food *--> Category
-Food *--> "Opening Hours"
-Food *--> "*" Tag
-Food *--> Restrictions
-
-Name -[hidden]right-> Price
-Price -[hidden]right-> Description
-Description -[hidden]right-> Category
-
-ModelManager -->"1" Food : filteredList
 @enduml
