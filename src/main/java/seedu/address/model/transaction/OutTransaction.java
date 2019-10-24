@@ -10,16 +10,17 @@ import seedu.address.model.util.Date;
  * Handles out transactions.
  */
 public class OutTransaction extends Transaction implements BankAccountOperation {
-    public OutTransaction(Amount amount, Date date) {
-        super(amount.makeNegative(), date);
+    public OutTransaction(Amount amount, Date date, Description description) {
+        super(amount.makeNegative(), date, description);
     }
 
-    public OutTransaction(Amount amount, Date date, Set<Category> categories) {
-        super(amount.makeNegative(), date, categories);
+    public OutTransaction(Amount amount, Date date, Description description, Set<Category> categories) {
+        super(amount.makeNegative(), date, description, categories);
     }
 
-    public OutTransaction(Amount amount, Date date, Set<Category> categories, Person personInvolved) {
-        super(amount.makeNegative(), date, categories, personInvolved);
+    public OutTransaction(Amount amount, Date date, Description description,
+                  Set<Category> categories, Person personInvolved) {
+        super(amount.makeNegative(), date, description, categories, personInvolved);
 
     }
 

@@ -10,16 +10,17 @@ import seedu.address.model.util.Date;
  * Handles in transactions.
  */
 public class InTransaction extends Transaction implements BankAccountOperation {
-    public InTransaction(Amount amount, Date date) {
-        super(amount, date);
+    public InTransaction(Amount amount, Date date, Description description) {
+        super(amount, date, description);
     }
 
-    public InTransaction(Amount amount, Date date, Set<Category> categories) {
-        super(amount, date, categories);
+    public InTransaction(Amount amount, Date date, Description description, Set<Category> categories) {
+        super(amount, date, description, categories);
     }
 
-    public InTransaction(Amount amount, Date date, Set<Category> categories, Person personInvolved) {
-        super(amount, date, categories, personInvolved);
+    public InTransaction(Amount amount, Date date, Description description,
+                 Set<Category> categories, Person personInvolved) {
+        super(amount, date, description, categories, personInvolved);
     }
 
     @Override

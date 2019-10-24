@@ -14,6 +14,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.Transaction;
@@ -26,6 +27,7 @@ class JsonAdaptedTransaction {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
+    private final String description;
     private final String amount;
     private final String date;
     private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
@@ -34,8 +36,10 @@ class JsonAdaptedTransaction {
      * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
      */
     @JsonCreator
-    public JsonAdaptedTransaction(@JsonProperty("amount") String amount, @JsonProperty("date") String date,
+    public JsonAdaptedTransaction(@JsonProperty("description") String description,
+                                  @JsonProperty("amount") String amount, @JsonProperty("date") String date,
                                   @JsonProperty("tagged") List<JsonAdaptedCategory> tagged) {
+        this.description = description;
         this.amount = amount;
         this.date = date;
         if (tagged != null) {
@@ -47,6 +51,7 @@ class JsonAdaptedTransaction {
      * Converts a given {@code Transaction} into this class for Jason use.
      */
     public JsonAdaptedTransaction(BankAccountOperation source) {
+        description = source.getDescription().toString();
         amount = source.getAmount().toString();
         date = source.getDate().toString();
         tagged.addAll(source.getCategories().stream()
@@ -63,6 +68,11 @@ class JsonAdaptedTransaction {
         final List<Category> transactionCategories = new ArrayList<>();
         for (JsonAdaptedCategory category : tagged) {
             transactionCategories.add(category.toModelType());
+        }
+
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
 
         if (amount == null) {
@@ -82,10 +92,11 @@ class JsonAdaptedTransaction {
         if ((Double.parseDouble(amount)) < 0) {
             /* if amount is negative */
             return new OutTransaction(new Amount(Double.parseDouble(amount))
-                    .makeNegative(), new Date(date), modelCategories);
+                    .makeNegative(), new Date(date), new Description(description), modelCategories);
         } else {
             /* if amount is positive */
-            return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date), modelCategories);
+            return new InTransaction(new Amount(Double.parseDouble(amount)), new Date(date),
+                    new Description(description), modelCategories);
         }
     }
 

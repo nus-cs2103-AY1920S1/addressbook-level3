@@ -18,8 +18,8 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     private final List<Amount> splitAmounts;
     private final UniquePersonList peopleInvolved;
 
-    public Split(Amount amount, Date date, List<Integer> shares, UniquePersonList people) {
-        super(amount, date);
+    public Split(Amount amount, Date date, Description description, List<Integer> shares, UniquePersonList people) {
+        super(amount, date, description);
         requireAllNonNull(amount, date, shares, people);
         this.peopleInvolved = people;
         int denominator = shares.stream().mapToInt(i -> i).sum();
@@ -60,7 +60,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
         while (personInvolvedIterator.hasNext()) {
             Amount expenditure = amountIterator.next();
             Person person = personInvolvedIterator.next();
-            LendMoney transaction = new LendMoney(person, expenditure);
+            LendMoney transaction = new LendMoney(person, expenditure, this.description);
             newBalance = transaction.handleBalance(newBalance, peopleInLedger);
         }
         return newBalance;

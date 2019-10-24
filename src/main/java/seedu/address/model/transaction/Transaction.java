@@ -15,28 +15,31 @@ public abstract class Transaction implements UndoableAction {
 
     protected Amount amount;
     protected Date date;
+    protected Description description;
     protected Person peopleInvolved;
 
     // Data fields
     private final Set<Category> categories = new HashSet<>();
 
-    public Transaction(Amount amount, Date date) {
+    public Transaction(Amount amount, Date date, Description description) {
         this.amount = amount;
         this.date = date;
+        this.description = description;
     }
 
-    public Transaction(Amount amount, Date date, Set<Category> categories) {
-        this(amount, date);
+    public Transaction(Amount amount, Date date, Description description, Set<Category> categories) {
+        this(amount, date, description);
         this.categories.addAll(categories);
     }
 
-    public Transaction(Amount amount, Date date, Person personInvolved) {
-        this(amount, date);
+    public Transaction(Amount amount, Date date, Description description, Person personInvolved) {
+        this(amount, date, description);
         this.peopleInvolved = personInvolved;
     }
 
-    public Transaction(Amount amount, Date date, Set<Category> categories, Person personInvolved) {
-        this(amount, date);
+    public Transaction(Amount amount, Date date, Description description,
+               Set<Category> categories, Person personInvolved) {
+        this(amount, date, description);
         this.categories.addAll(categories);
         this.peopleInvolved = personInvolved;
     }
@@ -58,6 +61,9 @@ public abstract class Transaction implements UndoableAction {
         return Collections.unmodifiableSet(categories);
     }
 
+    public Description getDescription() {
+        return description;
+    }
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
