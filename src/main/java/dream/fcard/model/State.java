@@ -80,6 +80,9 @@ public class State {
      * Returns the index of a deck given the deck name, if a deck with matching name exists.
      * Else, return -1 if no deck with matching name is found.
      *
+     * Note: this method is only used internally for State processing.
+     * Should not be confused with user seen indexes, since this is 0-based index.
+     *
      * @return index
      */
     private int getDeckIndex(String name) {
