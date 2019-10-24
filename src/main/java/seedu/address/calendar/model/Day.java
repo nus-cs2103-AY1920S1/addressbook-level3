@@ -31,10 +31,6 @@ public class Day {
         return dayOfMonth;
     }
 
-    DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
     /**
      * Returns day of week as a meaningful numerical value that is one-based.
      * @return day of week as a meaningful numerical value that is one-based

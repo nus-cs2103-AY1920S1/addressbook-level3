@@ -1,7 +1,7 @@
 package seedu.address.calendar.parser;
 
+import seedu.address.calendar.model.DateUtil;
 import seedu.address.calendar.model.Day;
-import seedu.address.calendar.model.Month;
 import seedu.address.calendar.model.MonthOfYear;
 import seedu.address.calendar.model.Year;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,7 +26,7 @@ public class DayParser {
             throw new ParseException(MESSAGE_INVALID_DAY_RANGE_ERROR);
         }
 
-        Day day = new Month(monthOfYear, year).getDay(dayOfMonth);
+        Day day = DateUtil.getDay(dayOfMonth, monthOfYear, year);
 
         return day;
     }

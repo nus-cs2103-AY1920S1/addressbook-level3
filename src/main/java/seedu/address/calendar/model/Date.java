@@ -93,9 +93,9 @@ public class Date {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
-        Month desiredMonth = new Month(monthVal, yearVal);
         Day givenDay = new Day(dayOfWeekVal, dayOfMonthVal);
-        boolean isValidDay = desiredMonth.getDay(dayOfMonthVal).equals(givenDay);
+
+        boolean isValidDay = DateUtil.getDay(dayOfMonthVal, monthVal, yearVal).equals(givenDay);;
 
         if (!isValidDay) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);

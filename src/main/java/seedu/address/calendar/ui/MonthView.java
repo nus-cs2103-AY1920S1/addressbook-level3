@@ -58,11 +58,4 @@ class MonthView {
 
         return monthView;
     }
-
-    Label generateMonthLabel() {
-        String unformattedMonthLabel = month.getMonthOfYear().toString();
-        String formattedMonthLabel = unformattedMonthLabel.charAt(0)
-                + unformattedMonthLabel.substring(1).toLowerCase();
-        return new Label(formattedMonthLabel);
-    }
 }
