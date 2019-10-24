@@ -6,17 +6,17 @@ import static seedu.address.commons.util.FileUtil.writeToFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
-import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
 
 /**
  * Class responsible for exporting Horo's tasks and events into an .ics file.
  */
 public class IcsExporter {
-    private EventList eventList;
+    private List<EventSource> eventList;
 
-    public IcsExporter(EventList eventList) {
+    public IcsExporter(List<EventSource> eventList) {
         requireNonNull(eventList);
         this.eventList = eventList;
     }
@@ -39,7 +39,7 @@ public class IcsExporter {
         StringBuilder stringBuilder = new StringBuilder("BEGIN:VCALENDAR");
         String prodId = "-//Horo//Exported Calendar// v1.0//EN";
         stringBuilder.append("\n").append(prodId);
-        for (EventSource eventSource : eventList.getReadOnlyList()) {
+        for (EventSource eventSource : eventList) {
             stringBuilder.append("\n").append(eventSource.toIcsString());
         }
         stringBuilder.append("\n").append("END:VCALENDAR");

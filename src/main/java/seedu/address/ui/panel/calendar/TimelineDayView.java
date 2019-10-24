@@ -82,4 +82,14 @@ public class TimelineDayView extends TimelineView {
         Integer[] dayMonthYear = getUiParser().getDateToNumbers(event.getStartDateTime().toInstant());
         return dayMonthYear[0].equals(day) && dayMonthYear[1].equals(month) && dayMonthYear[2].equals(year);
     }
+
+    @Override
+    public void onEventListChange(List<EventSource> events) {
+        resetTimeline();
+        for (EventSource event : events) {
+            if (sameDay(event)) {
+                addEventCard(event);
+            }
+        }
+    }
 }

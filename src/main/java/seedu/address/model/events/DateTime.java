@@ -23,7 +23,8 @@ public class DateTime implements Comparable<DateTime> {
         new DateTimeParser(DateTimeFormatter.ofPattern(USER_DATE_TIME_PATTERN)
             .withZone(TIMEZONE));
     private static final InstantComposer USER_COMPOSER =
-        new InstantComposer(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        new InstantComposer(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+            .withZone(TIMEZONE));
 
     private static final DateTimeFormatter ICS_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
         .withZone(ZoneId.of("UTC"));

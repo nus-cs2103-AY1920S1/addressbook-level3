@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.ModelManager;
 import seedu.address.ui.systemtray.PopupListener;
 import seedu.address.ui.systemtray.PopupNotification;
 
@@ -17,10 +16,11 @@ public class NotificationCheckingThread extends Thread {
 
     private ArrayList<PopupListener> popupListeners = new ArrayList<>();
 
-    private ModelManager modelManager;
+    private NotificationChecker notificationChecker;
 
-    public NotificationCheckingThread(ModelManager modelManager) {
-        this.modelManager = modelManager;
+    // TODO: Up to you how you want to get NotificationChecker into the Thread
+    public NotificationCheckingThread(NotificationChecker notificationChecker) {
+        this.notificationChecker = notificationChecker;
     }
 
     public void addPopupListener(PopupListener popupListener) {
@@ -31,7 +31,7 @@ public class NotificationCheckingThread extends Thread {
     public void run() {
         try {
             while (true) {
-                ArrayList<PopupNotification> notifications = modelManager.getListOfPopupNotifications();
+                ArrayList<PopupNotification> notifications = notificationChecker.getListOfPopupNotifications();
 
                 for (PopupNotification pn : notifications) {
                     for (PopupListener popupListener : popupListeners) {
