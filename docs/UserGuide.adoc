@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-3/main
 
 By: `CS2103T-T12-3`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -35,7 +35,7 @@ Note the following symbols and formatting used in this document
 [horizontal]
 
 IMPORTANT:: This symbol indicates important information
-`undo`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
+`mark-up`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
 command line and executed by the application.
 
 == Quick Start
