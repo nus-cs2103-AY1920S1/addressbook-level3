@@ -330,30 +330,36 @@ _{More to be added}_
 (For all use cases below, the *System* is the `ORGANice` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete patient/donor/doctor
+=== Use case: Add patient/donor/doctor in a form mode
 
-*MSS*
+*MSS:*
 
-1.  User requests to list patients/donors/doctors
-2.  ORGANice shows a list of patients/donors/doctors
-3.  User requests to delete a specific patient/donor/doctor in the list
-4.  ORGANice deletes the patient/donor/doctor
+1.  User requests to add a patient/doctor/donor in a form mode.
+2.  ORGANice shows a form depending on the type of person specified by the User.
+3.  OGRANice prompts the User to type in the required attributes one at a time.
+4.  User inputs in the attribute of the person prompted by ORGANice.
 +
+[none]Steps 3-4 are repeated until the user has inputted all the required attributes for a specific type of person.
+5.  ORGANice prompts the User to confirm the attributes of the person.
+6.  User confirms the attributes specified.
+7.  ORGANice adds the person to the list.
+
+
 Use case ends.
 
-*Extensions*
+*Extensions:*
 
+4a. The attribute that the User tries to input is not valid.
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
+* 4a1. ORGANice shows a warning to the User and specifies the pattern of a valid input.
+* 4a2. User inputs a new value for the attribute.
+* Steps 4a1-4a2 are repeated until the input data is valid for the current attribute prompted by ORGANice.
+* Use case resumes from step 3 if there are more attributes to fill in, if not it will resumes from step 5.
 
-* 3a. The given NRIC is invalid.
-+
+*a. At any time, User chooses to abort the form.
 [none]
-** 3a1. ORGANice shows an error message.
-+
-Use case resumes at step 2.
+* *a1. ORGANice nullifies the form.
+* Use case ends.
 
 === Use case: Match a patient and a donor
 
