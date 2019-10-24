@@ -188,6 +188,21 @@ image::ApplyAliasActivityDiagram.png[]
 [NOTE]
 An unfortunate side effect to matching the longest matching macro increases the time complexity of this operation to O(n) from O(1) if we used wholesale matching instead.
 
+=== Follow-up and Reminders feature
+==== Implementation
+Both mechanisms are facilitated by the `Reminder` class.
+
+It implements the following operations:
+
+* `Reminder#addReminder(reminder)` -- Adds a new reminder.
+* `Reminder#getReminders()` -- Retrieves the reminders for output.
+
+These operations are exposed in the `Model` interface as `Model#addReminder(reminder)` and `Model#getReminders()` respectively.
+
+The following sequence diagram shows how adding a follow-up or reminder works:
+
+image::AddReminderSequenceDiagram.png[]
+
 // EXAMPLE TO BE REMOVED AFTER DG is finished for v1.3
 
 // tag::undoredo[]
@@ -398,9 +413,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |record down details of each <<visitation,visitation>> |keep track of the patients situation
 
+|`* * *` |user |set follow-up reminders |check in on my patients after some time or when their medication runs out
+
 |`* * *` |user |have daily reminders of important deadlines |keep track of appointments and visitations easily
 
-|`* * *` |user |set follow-up reminders |check in on my patients after some time or when their medication runs out
+|`* * *` |user |see list of reminders |keep track of what I need to keep track
 
 |`* * *` |user |have <<user-defined-macros,user-defined macros>> |streamline my diagnosis documentation
 
@@ -612,27 +629,6 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: View reminders
-
-*MSS*
-
-1.  User starts up AddressBook
-2.  Reminders are displayed
-
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2. No reminders are set to show
-+
-[none]
-** 2a. AddressBook shows no reminder message.
-+
-Use case ends.
-
-[discrete]
 === Use case: View follow-up reminders
 
 *MSS*
@@ -649,7 +645,49 @@ Use case ends.
 * 2. No reminders are scheduled for the day
 +
 [none]
-** 2a. AddressBook shows no reminder message.
+** 2a. AddressBook shows no reminder message
++
+Use case ends.
+
+[discrete]
+=== Use case: View reminders
+
+*MSS*
+
+1.  User starts up AddressBook
+2.  Reminders are displayed
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No reminders are set to show
++
+[none]
+** 2a. AddressBook shows no reminder message
++
+Use case ends.
+
+[discrete]
+=== Use case: Open Message of the Day
+
+*MSS*
+
+1. User requests to open Message of the Day
+2. Message of the Day prompt opens with Follow-Up and Reminders details
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No follow-up or reminders active
++
+[none]
+** 2a. Message of the Day window shows no active follow-up or reminders
 +
 Use case ends.
 
