@@ -234,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the stats window or focuses on it if it's already opened.
      */
     @FXML
-    private void handleStats(CommandResult commandResult) {
+    private void displayStats(CommandResult commandResult) {
         this.statsWindow = new StatsWindow(commandResult.getNames(),
                 commandResult.getPercentages(), commandResult.getTitle());
         if (!statsWindow.isShowing()) {
@@ -287,7 +287,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isStatistic()) {
-                handleStats(commandResult);
+                displayStats(commandResult);
             }
 
             return commandResult;
