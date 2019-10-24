@@ -310,7 +310,7 @@ e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
 * *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
-* *Loan book(s)* : `loan sn/BOOK_SN` +
+* *Loan book* : `loan sn/BOOK_SN` +
 e.g. `loan sn/B00201`
 * *Renew book(s)* : `renew INDEX… [-all]`
 * *Return book(s)* : `return INDEX… [-all]`

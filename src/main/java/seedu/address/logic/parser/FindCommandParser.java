@@ -3,14 +3,17 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -37,7 +40,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_SERIAL_NUMBER, PREFIX_AUTHOR,
-                        PREFIX_GENRE);
+                        PREFIX_GENRE, PREFIX_FLAG);
 
         BookPredicate predicate = new BookPredicate();
 
@@ -55,6 +58,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         parseGenresForFind(argMultimap.getAllValues(PREFIX_GENRE)).ifPresent(predicate::setGenres);
+
+        parseLoanStateForFind(argMultimap.getAllValues(PREFIX_FLAG)).ifPresent(predicate::setLoanState);
 
         if (!predicate.isValid()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -77,6 +82,31 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         Collection<String> genreSet = genres.size() == 1 && genres.contains("") ? Collections.emptySet() : genres;
         return Optional.of(ParserUtil.parseGenres(genreSet));
+    }
+
+    /**
+     * Parses {@code Collection<String> flags} into a {@code Set<Flag>} if {@code flags} is non-empty.
+     * Automatically converts lowercase {@code flagNames} to UPPERCASE
+     * If {@code flags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Flag>} containing zero flags.
+     */
+    private Optional<Flag> parseLoanStateForFind(Collection<String> flags) throws ParseException {
+        requireNonNull(flags);
+
+        if (flags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<Flag> flagSet = flags.size() == 1 && flags.contains("") ? Collections.emptySet()
+                : ParserUtil.parseFlags(flags);
+
+        List<Flag> loanStates = flagSet.stream()
+                .filter(flag -> flag == Flag.AVAILABLE || flag == Flag.OVERDUE || flag == Flag.LOANED)
+                .collect(Collectors.toList());
+        if (loanStates.size() > 1) {
+            throw new ParseException(FindCommand.MESSAGE_LOANSTATE_CONSTRAINTS);
+        } else {
+            return Optional.of(loanStates.get(0));
+        }
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.parser.Flag;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -24,16 +25,19 @@ public class BookPredicate implements Predicate<Book> {
     private String author;
     private String serialNumber;
     private Set<Genre> genres;
+    private Flag loanState;
 
     public BookPredicate() {
         this.title = null;
         this.author = null;
         this.serialNumber = null;
         this.genres = null;
+        this.loanState = null;
     }
 
     public boolean isValid() {
-        return title != null || author != null || serialNumber != null || genres != null;
+        return title != null || author != null || serialNumber != null || genres != null
+                || loanState != null;
     }
 
     @Override
@@ -57,6 +61,11 @@ public class BookPredicate implements Predicate<Book> {
         if (genres != null
                 && !genres.stream()
                 .allMatch(keyword -> book.getGenres().contains(keyword))) {
+            return false;
+        }
+        if ((loanState == Flag.AVAILABLE && book.isCurrentlyLoanedOut())
+                || (loanState == Flag.LOANED && !book.isCurrentlyLoanedOut())
+                || (loanState == Flag.OVERDUE && !book.isOverdue())) {
             return false;
         }
         return true;
@@ -123,6 +132,11 @@ public class BookPredicate implements Predicate<Book> {
         return this;
     }
 
+    public BookPredicate setLoanState(Flag loanState) {
+        this.loanState = loanState;
+        return this;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -130,6 +144,7 @@ public class BookPredicate implements Predicate<Book> {
                 && (title == null || title.equals(((BookPredicate) other).title)) // state check
                 && (author == null || author.equals(((BookPredicate) other).author)) // state check
                 && (serialNumber == null || serialNumber.equals(((BookPredicate) other).serialNumber)) // state check
-                && (genres == null || genres.equals(((BookPredicate) other).genres))); // state check
+                && (genres == null || genres.equals(((BookPredicate) other).genres)) // state check
+                && (loanState == null || loanState.equals(((BookPredicate) other).loanState)));
     }
 }

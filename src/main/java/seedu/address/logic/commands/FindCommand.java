@@ -20,7 +20,11 @@ public class FindCommand extends Command {
             + "[-overdue]/[-loaned]/[-available] } [NUMBER]\n"
             + "Example: " + COMMAND_WORD + " g/mystery g/children -available";
 
+    public static final String MESSAGE_LOANSTATE_CONSTRAINTS = "Only 1 of -available / -loaned / -overdue flags can "
+            + "be used at any time";
+
     private final BookPredicate predicate;
+    private final int showLimit = 0;
 
     public FindCommand(BookPredicate predicate) {
         this.predicate = predicate;
