@@ -1,0 +1,8 @@
+@startuml
+class UserProgram {
+    -String className
+    -String sourceCode
+    + String : getClassName()
+    + String : getSourceCode()
+}
+@enduml

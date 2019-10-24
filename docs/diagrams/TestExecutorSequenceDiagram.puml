@@ -1,0 +1,35 @@
+@startuml
+[-> TestExecutor:runTestCases
+activate TestExecutor
+
+TestExecutor -> CompileEnvironment:createJavaFile
+activate CompileEnvironment
+CompileEnvironment -> TestExecutor:JavaFile
+deactivate CompileEnvironment
+
+TestExecutor -> CompileEnvironment:clearEnvironment
+activate CompileEnvironment
+deactivate CompileEnvironment
+
+TestExecutor -> Compiler:compileJavaFile
+activate Compiler
+Compiler -> TestExecutor:ClassFile
+deactivate Compiler
+
+loop test cases
+TestExecutor -> ProgramExecutor:executeProgram with input
+activate ProgramExecutor
+ProgramExecutor -> TestExecutor:ProgramOutput
+deactivate ProgramExecutor
+TestExecutor -> TestExecutor:mapTestCaseResult
+activate TestExecutor
+deactivate TestExecutor
+
+end
+
+TestExecutor -> TestExecutor:packageTestResult
+activate TestExecutor
+
+[<-TestExecutor:TestResult
+deactivate TestExecutor
+@enduml

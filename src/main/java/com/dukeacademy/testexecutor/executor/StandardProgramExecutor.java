@@ -99,6 +99,9 @@ public class StandardProgramExecutor implements ProgramExecutor {
         programOutput = reader.lines().reduce(programOutput, ProgramOutput::appendNewLine,
                 ProgramOutput::appendNewLine);
 
+        // Important to kill the asynchronous process
+        process.destroy();
+
         return programOutput;
     }
 
