@@ -15,14 +15,14 @@ public class ExamRunner implements Exam {
     private final int deckSize;
     private final Scanner scanner;
     private Deck deck;
-    private int score;
+    private Result result;
     private boolean examOngoing;
 
     public ExamRunner(Deck deck) {
         this.deck = deck;
         this.deckSize = deck.getCards().size();
         this.scanner = new Scanner(System.in);
-        this.score = 0;
+        this.result = new Result(deckSize);
     }
 
     /**
@@ -43,10 +43,9 @@ public class ExamRunner implements Exam {
                 FlashCard nextCard = deck.getCards().get(0);
                 System.out.println(nextCard.getFront());
                 String answer = promptUserInput();
-                if (nextCard.evaluate(answer)) {
-                    this.score++;
-                }
+                result.mark(nextCard.evaluate(answer));
                 System.out.println(nextCard.getBack());
+                deck.getCards().remove(0);
             } catch (IndexOutOfBoundsException | IndexNotFoundException e) {
                 this.examOngoing = false;
 
