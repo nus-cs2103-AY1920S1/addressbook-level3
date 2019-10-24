@@ -351,6 +351,35 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Delete Reminder
+
+*MSS*
+
+1.  User requests to list reminders
+2.  TutorAid shows a list of reminders
+3.  User requests to delete a specific reminder in the list
+4.  TutorAid deletes the reminder
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+[none]
+** 2a1. TutorAid tells user that there are no reminders.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TutorAid shows an error message.
++
+Use case resumes at step 2.
+
 _{More to be added}_
 
 [appendix]
