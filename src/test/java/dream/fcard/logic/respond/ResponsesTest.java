@@ -17,7 +17,7 @@ import dream.fcard.util.FileReadWrite;
 public class ResponsesTest {
     @Test
     void rootTest() {
-        String path = FileReadWrite.normalizePath("~/Desktop");
+        String path = FileReadWrite.normalizePath("~");
         Responses.ROOT.call("root " + path, new State());
         assertEquals(path, StorageManager.getRoot());
     }
