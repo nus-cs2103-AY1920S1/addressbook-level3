@@ -12,28 +12,29 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 
 /**
  * A class to access GroceryList data stored as a json file on the hard disk.
  */
-public class JsonShoppingItemStorage implements ShoppingListStorage {
+public class JsonBoughtItemStorage implements BoughtListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonShoppingItemStorage.class);
 
     private Path filePath;
 
-    public JsonShoppingItemStorage(Path filePath) {
+    public JsonBoughtItemStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getShoppingListFilePath() {
+    public Path getBoughtListFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyShoppingList> readShoppingList() throws DataConversionException {
-        return readShoppingList(filePath);
+    public Optional<ReadOnlyGroceryList> readBoughtList() throws DataConversionException {
+        return readBoughtList(filePath);
     }
 
     /**
@@ -42,17 +43,17 @@ public class JsonShoppingItemStorage implements ShoppingListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyShoppingList> readShoppingList(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyGroceryList> readBoughtList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableShoppingList> jsonShoppingList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableShoppingList.class);
-        if (!jsonShoppingList.isPresent()) {
+        Optional<JsonSerializableBoughtList> jsonBoughtList = JsonUtil.readJsonFile(
+                filePath, JsonSerializableBoughtList.class);
+        if (!jsonBoughtList.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonShoppingList.get().toModelType());
+            return Optional.of(jsonBoughtList.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,8 +61,8 @@ public class JsonShoppingItemStorage implements ShoppingListStorage {
     }
 
     @Override
-    public void saveShoppingList(ReadOnlyShoppingList shoppingList) throws IOException {
-        saveShoppingList(shoppingList, filePath);
+    public void saveBoughtList(ReadOnlyGroceryList boughtList) throws IOException {
+        saveBoughtList(boughtList, filePath);
     }
 
     /**
@@ -69,12 +70,12 @@ public class JsonShoppingItemStorage implements ShoppingListStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveShoppingList(ReadOnlyShoppingList shoppingList, Path filePath) throws IOException {
-        requireNonNull(shoppingList);
+    public void saveBoughtList(ReadOnlyGroceryList boughtList, Path filePath) throws IOException {
+        requireNonNull(boughtList);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableShoppingList(shoppingList), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableBoughtList(boughtList), filePath);
     }
 
 }

@@ -24,7 +24,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.waste.WasteMonth;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code GroceryList} with sample data.
  */
 public class SampleDataUtil {
 
@@ -233,4 +233,29 @@ public class SampleDataUtil {
         }
         return sampleSl;
     }
+
+    // ============================= Bought Item Sample List ============================= //
+    public static GroceryItem[] getSampleBoughtItems() {
+        return new GroceryItem[] {
+            new GroceryItem(new Name("Minced beef"), new Amount("300g"), new ExpiryDate("30.09.2019"),
+                    getTagSet()),
+            new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20.11.2019"),
+                    getTagSet()),
+            new GroceryItem(new Name("Apples"), new Amount("6units"), new ExpiryDate("15.10.2019"),
+                    getTagSet()),
+            new GroceryItem(new Name("Orange juice"), new Amount("500ml"), new ExpiryDate("22.11.2019"),
+                    getTagSet()),
+            new GroceryItem(new Name("Green tea latte"), new Amount("10units"), new ExpiryDate("30.10.2019"),
+                    getTagSet())
+        };
+    }
+
+    public static ReadOnlyGroceryList getSampleBoughtList() {
+        GroceryList sampleAb = new GroceryList();
+        for (GroceryItem boughtItem : getSampleBoughtItems()) {
+            sampleAb.addGroceryItem(boughtItem);
+        }
+        return sampleAb;
+    }
+
 }

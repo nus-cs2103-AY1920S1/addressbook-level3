@@ -57,26 +57,26 @@ public class JsonGroceryListStorageTest {
     /*@Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        GroceryList original = getTypicalAddressBook();
-        JsonGroceryListStorage jsonAddressBookStorage = new JsonGroceryListStorage(filePath);
+        GroceryList original = getTypicalGroceryList();
+        JsonGroceryListStorage jsonGroceryListStorage = new JsonGroceryListStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveGroceryList(original, filePath);
-        ReadOnlyGroceryList readBack = jsonAddressBookStorage.readGroceryList(filePath).get();
-        //assertEquals(original, new AddressBook(readBack));
+        jsonGroceryListStorage.saveGroceryList(original, filePath);
+        ReadOnlyGroceryList readBack = jsonGroceryListStorage.readGroceryList(filePath).get();
+        //assertEquals(original, new GroceryList(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addGroceryItem(HOON);
-        original.removeGroceryItem(ALICE);
-        jsonAddressBookStorage.saveGroceryList(original, filePath);
-        readBack = jsonAddressBookStorage.readGroceryList(filePath).get();
-        //assertEquals(original, new AddressBook(readBack));
+        original.addPerson(HOON);
+        original.removePerson(ALICE);
+        jsonGroceryListStorage.saveGroceryList(original, filePath);
+        readBack = jsonGroceryListStorage.readGroceryList(filePath).get();
+        //assertEquals(original, new GroceryList(readBack));
 
         // Save and read without specifying file path
-        original.addGroceryItem(IDA);
-        jsonAddressBookStorage.saveGroceryList(original); // file path not specified
-        readBack = jsonAddressBookStorage.readGroceryList().get(); // file path not specified
-        //assertEquals(original, new AddressBook(readBack));
+        original.addPerson(IDA);
+        jsonGroceryListStorage.saveGroceryList(original); // file path not specified
+        readBack = jsonGroceryListStorage.readGroceryList().get(); // file path not specified
+        //assertEquals(original, new GroceryList(readBack));
 
     }*/
 
@@ -88,10 +88,10 @@ public class JsonGroceryListStorageTest {
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyGroceryList addressBook, String filePath) {
+    private void saveAddressBook(ReadOnlyGroceryList groceryList, String filePath) {
         try {
             new JsonGroceryListStorage(Paths.get(filePath))
-                    .saveGroceryList(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveGroceryList(groceryList, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

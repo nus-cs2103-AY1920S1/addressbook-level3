@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
+import static seedu.address.testutil.TypicalGroceryItems.getTypicalGroceryList;
 import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.address.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -20,8 +21,8 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-                getTypicalWasteArchive(), getTypicalShoppingList());
+        model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
+                getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
     }
 
     /*@Test

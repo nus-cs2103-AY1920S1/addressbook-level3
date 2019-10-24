@@ -14,7 +14,11 @@ import seedu.address.model.ReadOnlyGroceryList;
 import seedu.address.model.food.GroceryItem;
 
 /**
+<<<<<<< HEAD
+ * An Immutable GroceryList that is serializable to JSON format.
+=======
  * An Immutable AddressBook that is serializable to JSON format.
+>>>>>>> master
  */
 @JsonRootName(value = "grocerylist")
 class JsonSerializableGroceryList {

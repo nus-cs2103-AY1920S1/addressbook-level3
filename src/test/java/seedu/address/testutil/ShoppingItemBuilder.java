@@ -4,7 +4,6 @@ import seedu.address.model.food.Amount;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.ShoppingItem;
 
-//will change this later to account for bought items
 /**
  * A utility class to help with building Person objects.
  */

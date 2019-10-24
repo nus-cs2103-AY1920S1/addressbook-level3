@@ -28,7 +28,7 @@ public class GroceryListTest {
 
     /*@Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        GroceryList newData = getTypicalAddressBook();
+        GroceryList newData = getTypicalGroceryList();
         groceryList.resetData(newData);
         assertEquals(newData, groceryList);
     }*/
@@ -40,9 +40,9 @@ public class GroceryListTest {
         GroceryItem editedAlice = new GroceryItemBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<GroceryItem> newFoods = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newFoods);
+        GroceryListStub newData = new GroceryListStub(newFoods);
 
-        assertThrows(DuplicateFoodException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateFoodException.class, () -> groceryList.resetData(newData));
     }
 
      */
@@ -77,7 +77,7 @@ public class GroceryListTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyGroceryList whose persons list can violate interface constraints.
      */
     private static class GroceryListStub implements ReadOnlyGroceryList {
         private final ObservableList<GroceryItem> foods = FXCollections.observableArrayList();
