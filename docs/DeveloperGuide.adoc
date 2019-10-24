@@ -323,6 +323,24 @@ The UI classes of the Notification System can be found under the `systemtray` pa
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+[[Design-Ics]]
+=== Ics Component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
+
+The ICS component is made up of two parts: ICS file importer, and ICS file exporter.
+
+The file importer makes use of a custom parser that converts files with the `.ics` file extension
+to `EventSource` objects in Horo.
+
+The file exporter takes the `EventSource` objects stored in the `Model` singleton object and
+generates ICS String representations of them. Check out the
+link:https://en.wikipedia.org/wiki/ICalendar[ICalendar Wiki Page] for more information on the specifications.
+
+
+* Can export Horo's save data as a file.
+* Can import other Horo's save data from a `.ics` file.
+
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
