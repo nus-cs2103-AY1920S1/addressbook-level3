@@ -15,10 +15,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
+import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.statistics.StatisticsType;
+import seedu.billboard.model.statistics.formats.StatisticsFormat;
+import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -30,9 +32,10 @@ public class ModelManager implements Model {
     private final Billboard billboard;
     private final ArchiveWrapper archives;
     private final UserPrefs userPrefs;
-    private final ObservableData<StatisticsType> statsType;
     private final FilteredList<Expense> filteredExpense;
     private final HashMap<String, FilteredList<Expense>> filteredArchives;
+    private ObservableData<StatisticsFormat> statsFormat;
+    private ObservableData<StatisticsFormatOptions> statsOptions;
 
     /**
      * Initializes a ModelManager with the given billboard and userPrefs.
@@ -46,13 +49,15 @@ public class ModelManager implements Model {
         this.archives = new ArchiveWrapper(archiveExpenses);
         this.billboard = new Billboard(noArchiveExpensesBillboard);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.statsType = new ObservableData<>();
-        this.statsType.setValue(StatisticsType.TIMELINE); // default stats type
+        this.statsFormat = new ObservableData<>();
+        this.statsFormat.setValue(StatisticsFormat.TIMELINE); // default stats type
+        this.statsOptions = new ObservableData<>();
+        this.statsOptions.setValue(StatisticsFormatOptions.withOptions(DateInterval.MONTH)); // default interval
 
         logger.fine("Initializing with billboard: " + billboard
                 + " and archives: " + archives
                 + "and user prefs: " + userPrefs
-                + "and default stats type: " + statsType.getValue());
+                + "and default stats type: " + statsFormat.getValue());
 
         filteredExpense = new FilteredList<>(this.billboard.getExpenses());
 
@@ -259,14 +264,26 @@ public class ModelManager implements Model {
         filteredArchives.get(archiveName).setPredicate(predicate);
     }
 
-    //=========== StatisticsGenerator Chart Methods =============================================================
+    //=========== Statistics Chart Methods =============================================================
 
-    public ObservableData<StatisticsType> getStatisticsType() {
-        return statsType;
+    @Override
+    public ObservableData<StatisticsFormat> getStatisticsFormat() {
+        return statsFormat;
     }
 
-    public void setStatisticsType(StatisticsType type) {
-        statsType.setValue(type);
+    @Override
+    public void setStatisticsFormat(StatisticsFormat format) {
+        statsFormat.setValue(format);
+    }
+
+    @Override
+    public ObservableData<StatisticsFormatOptions> getStatisticsFormatOptions() {
+        return statsOptions;
+    }
+
+    @Override
+    public void setStatisticsFormatOptions(StatisticsFormatOptions options) {
+        statsOptions.setValue(options);
     }
 
     //=========== Clone Methods =============================================================
@@ -290,19 +307,10 @@ public class ModelManager implements Model {
     public void setModel(Model model) {
         this.billboard.setBillboard((Billboard) model.getBillboard());
         this.archives.setArchives(model.getArchives());
-        this.statsType.setObservers(model.getStatsType().getObservers());
-        this.statsType.setValue(model.getStatsType().getValue());
         this.filteredArchives.clear();
         this.filteredArchives.putAll(model.getFilteredArchives());
-    }
-
-    /**
-     * Getter of statsType.
-     * @return ObservableData a model.
-     */
-    @Override
-    public ObservableData<StatisticsType> getStatsType() {
-        return statsType;
+        this.statsFormat = model.getStatisticsFormat();
+        this.statsOptions = model.getStatisticsFormatOptions();
     }
 
     /**

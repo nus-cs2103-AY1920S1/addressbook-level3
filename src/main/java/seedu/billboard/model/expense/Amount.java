@@ -9,13 +9,17 @@ import java.text.DecimalFormat;
  */
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
-            "Amount should only contain a float number and it should not be blank";
+            "Amount should only contain a BigDecimal and it should not be blank";
 
 
     public final BigDecimal amount;
 
     public Amount(String amount) {
         this.amount = new BigDecimal(amount);
+    }
+
+    public Amount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     /**

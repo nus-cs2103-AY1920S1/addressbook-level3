@@ -1,4 +1,4 @@
-package seedu.billboard.model.statistics;
+package seedu.billboard.model.statistics.formats;
 
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -26,7 +26,7 @@ public class FilledExpenseTimeline implements ExpenseTimeline {
     private final List<List<Expense>> aggregateExpenses;
 
     /**
-     * Creates a new ExpenseTimeline with the given parameters.
+     * Creates a new FilledExpenseTimeline with the given parameters.
      *
      * @param dateInterval      The level of "granularity" that the aggregate expenses are shown in.
      * @param timelineIntervals List of the various date ranges for each interval in the timeline.
