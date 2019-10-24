@@ -28,7 +28,7 @@
             </HBox>
             <StackedBarChart fx:id="individualCards" alternativeRowFillVisible="false" categoryGap="20.0" legendSide="TOP" minHeight="400.0" title="Statistics for individual cards">
               <xAxis>
-                <CategoryAxis label="Card name" prefHeight="39.0" prefWidth="928.0" fx:id="xAxis" />
+                <CategoryAxis fx:id="xAxis" />
               </xAxis>
               <yAxis>
                 <NumberAxis fx:id="yAxis" label="Attempts" minorTickCount="0" minorTickLength="0.0" minorTickVisible="false" prefHeight="206.0" prefWidth="57.0" side="LEFT" tickLabelGap="0.0" tickUnit="0.0" upperBound="10.0" />

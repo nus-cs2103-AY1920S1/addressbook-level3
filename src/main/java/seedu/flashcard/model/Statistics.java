@@ -1,10 +1,11 @@
-package seedu.flashcard.model.flashcard;
+package seedu.flashcard.model;
 
 import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
-
+import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.Score;
 
 
 /**
@@ -20,13 +21,6 @@ public class Statistics {
     private XYChart.Series<String, Number> wrongSeries;
 
     public Statistics() {
-        totalCorrect = 0;
-        totalWrong = 0;
-        totalAttempted = 0;
-        totalUnattempted = 0;
-        unattemptedList = new ArrayList<>();
-        correctSeries = new XYChart.Series<>();
-        wrongSeries = new XYChart.Series<>();
     }
 
     /**
@@ -34,6 +28,7 @@ public class Statistics {
      * @param target list of flashcard to be calculated
      */
     public void calculate (ObservableList<Flashcard> target) {
+        reset();
         for (Flashcard flashcard : target) {
             Score score = flashcard.getScore();
             totalCorrect += score.getCorrectAnswers();
@@ -53,6 +48,19 @@ public class Statistics {
             wrongSeries.setName("wrong");
             wrongSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().toString(), score.getWrongAnswers()));
         }
+    }
+
+    /**
+     * resets variables for new calculation
+     */
+    private void reset() {
+        totalCorrect = 0;
+        totalWrong = 0;
+        totalAttempted = 0;
+        totalUnattempted = 0;
+        unattemptedList = new ArrayList<>();
+        correctSeries = new XYChart.Series<>();
+        wrongSeries = new XYChart.Series<>();
     }
 
     /**
