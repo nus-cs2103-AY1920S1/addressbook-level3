@@ -1,17 +1,21 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNotEmpty;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
 
 public class CollectionUtilTest {
     @Test
@@ -135,5 +139,30 @@ public class CollectionUtilTest {
 
         // empty list and list with elements
         assertIllegalArgumentExceptionThrown(Collections.emptyList(), List.of(new Object()));
+    }
+
+    @Test
+    void createUnmodifiableObservableList() {
+        // null parameter
+        assertThrows(NullPointerException.class, () -> {
+            CollectionUtil.createUnmodifiableObservableList(null);
+        });
+
+        final List<Object> validList = new ArrayList<>();
+        validList.add(new Object());
+        final ObservableList<Object> objectObservableList = CollectionUtil.createUnmodifiableObservableList(validList);
+
+        // new ObservableList contains the same objects as the passed in List
+        assertEquals(validList, objectObservableList);
+
+        // verify that the new ObservableList cannot be added to
+        assertThrows(UnsupportedOperationException.class, () -> {
+            objectObservableList.add(new Object());
+        });
+
+        // verify that the new ObservableList cannot be removed from
+        assertThrows(UnsupportedOperationException.class, () -> {
+            objectObservableList.remove(0);
+        });
     }
 }
