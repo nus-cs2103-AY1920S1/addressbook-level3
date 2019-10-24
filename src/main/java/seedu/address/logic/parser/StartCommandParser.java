@@ -10,21 +10,21 @@ import seedu.address.logic.commands.StartCommand;
  */
 public class StartCommandParser implements Parser<StartCommand> {
 
-    private final AddressBookParser addressBookParser;
+    private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
-    StartCommandParser(AddressBookParser addressBookParser) {
-        this.addressBookParser = addressBookParser;
+    StartCommandParser(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
     /**
      * Parses the given {@code String} of arguments in the context of the StartCommand
      * and returns a StartCommand object for execution.
      */
     public StartCommand parse(String args) {
-        requireNonNull(addressBookParser);
+        requireNonNull(keyboardFlashCardsParser);
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            return new StartCommand(addressBookParser);
+            return new StartCommand(keyboardFlashCardsParser);
         }
-        return new StartCommand(addressBookParser, trimmedArgs);
+        return new StartCommand(keyboardFlashCardsParser, trimmedArgs);
     }
 }
