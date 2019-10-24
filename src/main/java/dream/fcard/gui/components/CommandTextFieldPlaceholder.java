@@ -6,7 +6,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+/**
+ * UI component representing the placeholder for the command text field.
+ */
 public class CommandTextFieldPlaceholder extends VBox implements UiComponent<VBox> {
+
+    /**
+     * Creates a new instance of CommandTextFieldPlaceholder().
+     */
     public CommandTextFieldPlaceholder() {
         super();
 
