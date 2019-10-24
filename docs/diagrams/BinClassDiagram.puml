@@ -1,0 +1,34 @@
+@startuml
+
+interface Binnable
+
+class AddressBook
+class BinItem
+class UniqueBinItemList
+class Person
+class Policy
+
+AddressBook *--> UniquePersonList
+AddressBook *--> UniquePolicyList
+AddressBook *--> UniqueBinItemList
+
+UniqueBinItemList o--> "*" BinItem
+
+BinItem *--> "1" Binnable
+
+Binnable <|.. Person
+Binnable <|.. Policy
+
+UniquePersonList o----> Person
+UniquePolicyList o----> Policy
+
+class AddressBook {
++cleanUp()
+}
+
+class BinItem {
+-dateDeleted:LocalDateTime
+-expiryDate:LocalDateTime
+}
+
+@enduml
