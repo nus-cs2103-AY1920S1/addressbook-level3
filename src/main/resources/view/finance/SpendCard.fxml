@@ -18,7 +18,7 @@
       <VBox alignment="CENTER" id="entryTypeCol">
         <Label text="spend" styleClass="entry_type_label" />
       </VBox>
-      <VBox spacing="2">
+      <VBox>
         <padding>
           <Insets top="5" right="5" bottom="5" left="15" />
         </padding>
