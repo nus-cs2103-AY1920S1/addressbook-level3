@@ -346,17 +346,8 @@ This `DeadlineCommand` is returned back to `LogicManager` and is executed by cal
 
 === Inventory Tab
 
-This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
-cost of buying items to sell.
-
-Each transaction will require an input of its date, description, category, amount
-and member that is accountable for it.
-
-Revenue from each cashier checkout will also be automatically inputted as
-a positive transaction in this tab with the person being the cashier. The inputted transactions that corresponds to
-a spending will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
-
-
+This tab will help to keep records of all items currently in the club’s possession.
+Each item will require an input of its description, category, quantity, and cost per unit. Optionally, if the item is meant for sale, the price can be inputted as well.
 This is the overall Class Diagram of this tab:
 
 .Class Diagram of Inventory Tab (inventory package)
@@ -373,7 +364,8 @@ For an input to be valid, it must contain all four of the previously mentioned a
 must be of the correct type. For example, quantity and cost must be numbers. However, the attributes can be inputted in any 
 order. 
 
-The following sequence diagram shows how an add command works with the description, category, quantity, cost and price fields present:
+The following sequence diagram shows how an add command works with the description, category, quantity, cost and price fields 
+present:
 
 .Sequence Diagram of Add Command in Inventory Tab (inventory package)
 
@@ -385,11 +377,11 @@ The following activity diagram displays the process of adding a new item to the 
 
 image::InventoryAddCommandActivityDiagram.png[]
 
-As shown above, the input will be evaluated for its validity. If the input is not valid, the user will be informed through Leo that 
-the command was in an invalid format and reminded of the correct format.
+As shown above, the input will be evaluated for its validity. If the input is not valid, the user will be informed through Leo 
+that the command was in an invalid format and reminded of the correct format.
 
-Otherwise, the user will be informed through Leo that their input was successful, and the item will immediately be displayed in the
-Table of the UI.
+Otherwise, the user will be informed through Leo that their input was successful, and the item will immediately be displayed in 
+the Table of the UI.
 
 ==== Delete Item Feature
 
