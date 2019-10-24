@@ -233,6 +233,37 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Timed/Untimed Test
+==== Proposed Implementation
+
+The timed/untimed test is a exam mechanism facilitated by the `ExamRunner` class which extends from the `Exam` interface.
+
+Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step.
+
+Step 1. User keys in the command `test <duration> <deck name>` (Eg. test 120 German)
+
+Step 2. If `<duration>` is 0, untimed test will be initiated. Else, a timed test will be initiated.
+
+Step 3. User will be showed the card front, and prompted for a String answer.
+
+Step 4. Answer will be evaluated against the card back, and if it is correct, score will be updated.
+
+The following activity diagram displays the action flow of the test mechanism.
+
+image::ExamRunnerActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: how the timed/untimed test mechanism works
+
+* **Alternative 1:** Use forEach or while loops to iterate through the deck
+** Pros: Ensures that the entire deck will be iterated through
+** Cons: Limited control wihtin the loop
+
+* **Alternative 2: (Current Choice)** Use a nextCard method that the GUI can trigger on click
+** Pros: High amount of control as every individual card can be controlled.
+** Cons: More code for a relatively small function
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
