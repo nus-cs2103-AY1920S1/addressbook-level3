@@ -154,11 +154,15 @@ public class ModelManager implements Model {
     }
 
     /**
-     * @param loan
+     * Replaces an existing {@code Loan} object in LoanRecords with an edited one.
+     *
+     * @param existingLoan Existing {@code Loan} object to be replaced.
+     * @param updatedLoan Updated {@code Loan} object.
      */
     @Override
-    public void updateReturnedLoan(Loan loan) {
-        // TODO updateReturnedLoan in loanRecords
+    public void updateLoan(Loan existingLoan, Loan updatedLoan) {
+        requireAllNonNull(existingLoan, updatedLoan);
+        loanRecords.updateLoan(existingLoan, updatedLoan);
     }
 
     //=========== Catalog ===============================================================================
@@ -330,17 +334,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void servingBorrowerReturnLoan(Loan returnedLoan) {
+    public void servingBorrowerReturnLoan(Loan returningLoan, Loan returnedLoan) {
         if (!isServeMode()) {
             throw new NotInServeModeException();
         }
 
         Borrower serving = servingBorrower.get();
 
-        assert serving.hasCurrentLoan(returnedLoan) : "Borrower does not have the loan to be returned.";
+        assert serving.hasCurrentLoan(returningLoan) : "Borrower does not have the loan to be returned.";
 
         Borrower loanReturnedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
-                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(returnedLoan),
+                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(returningLoan),
                 serving.getAddedReturnedLoanList(returnedLoan));
         borrowerRecords.setBorrower(serving, loanReturnedBorrower);
 

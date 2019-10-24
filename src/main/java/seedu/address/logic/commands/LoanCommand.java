@@ -4,8 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
-import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
+
+import java.time.LocalDate;
 
 import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.commons.util.DateUtil;
@@ -29,7 +30,7 @@ public class LoanCommand extends Command {
             + "Parameters: " + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_SERIAL_NUMBER + "B00001";
 
-    public static final String MESSAGE_SUCCESS = "Book: %1$s loaned to Borrower: %2$s";
+    public static final String MESSAGE_SUCCESS = "Book: %1$s\nloaned to\nBorrower: %2$s";
 
     private final SerialNumber toLoan;
 
@@ -66,9 +67,9 @@ public class LoanCommand extends Command {
         }
 
         Borrower servingBorrower = model.getServingBorrower();
+        LocalDate dueDate = DateUtil.getTodayPlusDays(model.getUserSettings().getLoanPeriod());
         Loan loan = new Loan(LoanIdGenerator.generateLoanId(), toLoan, servingBorrower.getBorrowerId(),
-                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
-        // TODO READ FROM MODEL->USERSETTINGS instead!!
+                DateUtil.getTodayDate(), dueDate);
         Book loanedOutBook = new Book(bookToBeLoaned.getTitle(), bookToBeLoaned.getSerialNumber(),
                 bookToBeLoaned.getAuthor(), loan, bookToBeLoaned.getGenres());
 

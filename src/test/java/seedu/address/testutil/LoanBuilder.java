@@ -13,7 +13,7 @@ import seedu.address.model.loan.LoanId;
 /**
  * A utility class to help with building Loan objects.
  */
-public class LoanBuilder {
+public class LoanBuilder { // TODO: UPDATE
 
     public static final String DEFAULT_LOAN_ID = "L000001";
     public static final String DEFAULT_START_DATE = "2019-10-13";

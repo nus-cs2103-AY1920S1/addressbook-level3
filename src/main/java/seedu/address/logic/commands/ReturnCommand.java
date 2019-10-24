@@ -6,9 +6,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.FineUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -26,7 +29,7 @@ public class ReturnCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_SUCCESS = "Book: %1$s returned by Borrower: %2$s";
+    public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s";
 
     private final Index index;
 
@@ -64,8 +67,13 @@ public class ReturnCommand extends Command {
             throw new CommandException(String.format(MESSAGE_BOOK_NOT_ON_LOAN, bookToBeReturned));
         }
 
-        //is there a way to split this up so that we follow Law of demeter?
         Loan returningLoan = bookToBeReturned.getLoan().get();
+        LocalDate returnDate = DateUtil.getTodayDate();
+        int fineAmount = DateUtil.getNumOfDaysOverdue(returningLoan.getDueDate(), returnDate)
+                * model.getUserSettings().getFineIncrement();
+        Loan returnedLoan = new Loan(returningLoan.getLoanId(), returningLoan.getBookSerialNumber(),
+                returningLoan.getBorrowerId(), returningLoan.getStartDate(), returningLoan.getDueDate(),
+                returnDate, returningLoan.getRenewCount(), fineAmount, 0);
 
         Borrower servingBorrower = model.getServingBorrower();
         // check if servingBorrower has this Book loaned
@@ -79,10 +87,16 @@ public class ReturnCommand extends Command {
 
         // update Book in model to have Loan removed
         model.setBook(bookToBeReturned, returnedBook);
-        // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
-        model.servingBorrowerReturnLoan(returningLoan);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower));
+        // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
+        model.servingBorrowerReturnLoan(returningLoan, returnedLoan);
+
+        // update Loan in LoanRecords with returnDate and remainingFineAmount
+        model.updateLoan(returningLoan, returnedLoan);
+
+        // TODO: add fine amount here to show users
+        return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
+                FineUtil.centsToDollarString(fineAmount)));
     }
 
     @Override
