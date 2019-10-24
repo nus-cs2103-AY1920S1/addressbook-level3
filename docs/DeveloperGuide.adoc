@@ -155,6 +155,8 @@ This section describes some noteworthy details on how certain features are imple
 
 === Earnings Feature
 
+==== Add Earnings
+
 The `add_earnings` command allows for tutors to add their earnings into TutorAid.
 
 The format for the `add_earnings` command is as follows:
@@ -190,7 +192,32 @@ DD/MM/YYYY.
 
 * `AddEarningsCommandParser` would then return a `AddEarningsCommand` object with the parameter, `Earnings` object.
 
-*Example*
+The following activity diagram summarizes what happens when a user executes a new command.
+
+image::AddEarningsActivityDiagram.png[]
+
+*Example Scenerio*
+
+
+* Step 1: The user enters `add_earnings d/04/08/2019 c/CS1231 amt/50.00` to add an earning for teaching classes.
+This adds an `Earnings` object that the user has earned by teaching a CS1231 class on 4th August 2019. The user has
+earned $50.00.
+
+* Step 2: `LogicManager` would use `AddressBookParser#parse()` to parse input from the user.
+
+* Step 3: `AddressBookParser` would match the command word given by the user with the correct command. In this example,
+the given command is `add_earnings`, thus, `AddEarningsCommandParser` object would be created with the user's input.
+
+* Step 4: `AddEarningsCommandParser` performs a validation check on each of the respective objects through
+`AddEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseDate()`, `ParserUtil#parseClassId()` and
+`ParserUtil#parseAmount()`. It would then return a `AddEarningsCommand` object with an `Earnings` object.
+
+* Step 5: `LogicManager` would execute `AddEarningsCommand#execute`. In this particular method, the `Earnings` object will be
+check with the rest of the prior `Earnings` object, to ensure that there is no duplicate `Earnings` object. If there are no similar
+`Earnings` object with the same parameters created previously, it would then be added into the earnings list.
+
+* Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
+object have been successfully added.
 
 
 // tag::undoredo[]
