@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="eventCardBase" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox style="-fx-background-color: transparent;">
+         <children>
+            <StackPane alignment="TOP_LEFT">
+               <children>
+                  <Label fx:id="eventCardName" text="\$EventName" wrapText="true">
+                     <StackPane.margin>
+                        <Insets left="15.0" />
+                     </StackPane.margin></Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="2.0" top="5.0" />
+               </VBox.margin>
+            </StackPane>
+            <StackPane alignment="TOP_LEFT">
+               <children>
+                  <Label fx:id="eventCardDate" text="\$EventDate" wrapText="true">
+                     <StackPane.margin>
+                        <Insets left="15.0" />
+                     </StackPane.margin></Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </StackPane>
+         </children>
+      </VBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</StackPane>

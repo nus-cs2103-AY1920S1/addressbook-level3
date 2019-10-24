@@ -3,12 +3,11 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox style="-fx-background-color: #2E2E2E;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="logPanelBase" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fx:id="scrollLog" style="-fx-background-color: #2E2E2E;">
+      <ScrollPane fx:id="scrollLog" fitToWidth="true">
          <content>
-            <VBox fx:id="boxLog" style="-fx-background-color: #2E2E2E;" />
+            <VBox fx:id="boxLog" />
          </content>
       </ScrollPane>
    </children>

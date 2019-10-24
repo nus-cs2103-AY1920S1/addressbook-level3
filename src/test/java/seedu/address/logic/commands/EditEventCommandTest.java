@@ -9,12 +9,9 @@ import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_REMIND
 import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_START_DATE_TIME;
 import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_TAGS;
 
-import java.time.Instant;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
@@ -55,10 +52,12 @@ class EditEventCommandTest {
         String[] indexes = new String[]{"1", "2", "3"};
         assertDoesNotThrow(() -> {
 
-            Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("c", new DateTime(Instant.now())));
+            ModelManager model = new ModelManager();
+            model.addEvents(
+                EventSource.newBuilder("a", DateTime.now()).build(),
+                EventSource.newBuilder("b", DateTime.now()).build(),
+                EventSource.newBuilder("c", DateTime.now()).build()
+            );
 
             Command command = EditEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])
@@ -66,11 +65,11 @@ class EditEventCommandTest {
                 .acceptSentence(indexes[2])
                 .build();
 
-            assertEquals(model.getEventList().getReadOnlyList().size(), 3);
+            assertEquals(model.getEventList().size(), 3);
 
             // TODO: Equality test
             command.execute();
-            assertEquals(model.getEventList().getReadOnlyList().size(), 3);
+            assertEquals(model.getEventList().size(), 3);
         });
     }
 
@@ -79,8 +78,8 @@ class EditEventCommandTest {
         String[] indexes = new String[]{"-1", "0", "1"};
         for (String index : indexes) {
             assertThrows(CommandException.class, () -> {
-                Model model = new ModelManager();
-                assertEquals(model.getEventList().getReadOnlyList().size(), 0);
+                ModelManager model = new ModelManager();
+                assertEquals(model.getEventList().size(), 0);
 
                 Command command = EditEventCommand.newBuilder(model)
                     .acceptSentence(index)
@@ -95,10 +94,12 @@ class EditEventCommandTest {
     void execute_editMultipleInvalidIndex_failed() {
         String[] indexes = new String[]{"1", "2", "3"};
         assertThrows(CommandException.class, () -> {
-            Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
-            assertEquals(model.getEventList().getReadOnlyList().size(), 2);
+            ModelManager model = new ModelManager();
+            model.addEvents(
+                EventSource.newBuilder("a", DateTime.now()).build(),
+                EventSource.newBuilder("b", DateTime.now()).build()
+            );
+            assertEquals(model.getEventList().size(), 2);
 
             Command command = EditEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])

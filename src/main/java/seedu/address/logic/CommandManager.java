@@ -13,6 +13,7 @@ import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.logic.parser.CommandKeywordParser;
 import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.ColorTheme;
 import seedu.address.ui.UserOutput;
 import seedu.address.ui.listeners.UserOutputListener;
 
@@ -51,10 +52,10 @@ public class CommandManager implements CommandInputListener {
         try {
             Command command = this.commandParser.parse(input);
             UserOutput output = command.execute();
-            userOutputListeners.forEach(l -> l.onUserOutput(output));
+            userOutputListeners.forEach(l -> l.onUserOutput(output, ColorTheme.SUCCESS));
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + input);
-            userOutputListeners.forEach(l -> l.onUserOutput(new UserOutput(e.getMessage())));
+            userOutputListeners.forEach(l -> l.onUserOutput(new UserOutput(e.getMessage()), ColorTheme.FAILURE));
         }
     }
 }
