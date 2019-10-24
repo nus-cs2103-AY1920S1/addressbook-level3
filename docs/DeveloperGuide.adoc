@@ -305,6 +305,8 @@ In the code base, Persons represent user accounts. See person model for more inf
 
 The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
 
+image::NewDraftSequenceDiagram.png[]
+
 ==== Design Considerations
 
 ===== Aspect: How incident draft creation executes
