@@ -30,28 +30,28 @@ public class SortCommandParser implements Parser<SortCommand> {
         try {
             switch (Order.valueOf(trimmedArgs.toUpperCase())) {
 
-            case STARTA:
+            case START_ASCENDING:
                 return "START_TIME";
 
-            case STARTD:
+            case START_DESCENDING:
                 return "START_TIME_REVERSE";
 
-            case ENDA:
+            case END_ASCENDING:
                 return "END_TIME";
 
-            case ENDD:
+            case END_DESCENDING:
                 return "END_TIME_REVERSE";
 
-            case NAMEA:
+            case NAME_ASCENDING:
                 return "ALPHABETICAL";
 
-            case NAMED:
+            case NAME_DESCENDING:
                 return "ALPHABETICAL_REVERSE";
 
-            case PRIORITYA:
+            case PRIORITY_ASCENDING:
                 return "PRIORITY";
 
-            case PRIORITYD:
+            case PRIORITY_DESCENDING:
                 return "PRIORITY_REVERSE";
 
             default:
@@ -67,5 +67,6 @@ public class SortCommandParser implements Parser<SortCommand> {
  * Specifies expected user input format
  */
 enum Order {
-    STARTA, STARTD, ENDA, ENDD, NAMEA, NAMED, PRIORITYA, PRIORITYD
+    START_ASCENDING, START_DESCENDING, END_ASCENDING, END_DESCENDING, NAME_ASCENDING, NAME_DESCENDING,
+    PRIORITY_ASCENDING, PRIORITY_DESCENDING
 }
