@@ -135,7 +135,6 @@ public class TaskList {
      * @return a {@code TaskList} of all the tasks in the planner that match
      * any of the given keywords
      */
-    //TODO test
     public TaskList find(TaskDesContainsKeywordsPredicate predicate) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
         for (Task t : tasks) {

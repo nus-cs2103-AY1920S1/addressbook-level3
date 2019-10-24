@@ -2,14 +2,19 @@ package seedu.jarvis.model.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
+
+import java.util.function.Predicate;
 
 /**
  * Represents the planner feature in JARVIS
  */
 public class Planner {
-    protected TaskList taskList;
+    private TaskList taskList;
+    private FilteredList<Task> filteredTaskList;
 
     /**
      * Constructs an empty planner
@@ -134,15 +139,21 @@ public class Planner {
     }
 
     /**
-     * Looks through all the tasks in the planner to find the tasks that
-     * match the keywords in the predicate
+     * Updates the {@code filteredTaskList} according to the given {@code Predicate}
      *
-     * @param predicate contains a list of keywords
-     * @return a {@code TaskList} of all the tasks in the planner that match
-     * any of the given keywords
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredTaskList}
      */
-    //TODO test
-    public TaskList find(TaskDesContainsKeywordsPredicate predicate) {
-        return taskList.find(predicate);
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+
+        filteredTaskList.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
+     * of {@code Planner}
+     */
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTaskList;
     }
 }

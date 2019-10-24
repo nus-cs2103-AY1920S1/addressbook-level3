@@ -676,17 +676,25 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Looks through all the tasks in the planner to find the tasks that
-     * match the keywords in the predicate
+     * Updates the {@code filteredTaskList} in the {@code Planner} according to the
+     * given {@code Predicate}
      *
-     * @param predicate contains a list of keywords
-     * @return a {@code TaskList} of all the tasks in the planner that match
-     * any of the given keywords
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredTaskList}
      */
     @Override
-    public TaskList find(TaskDesContainsKeywordsPredicate predicate) {
-        return planner.find(predicate);
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        planner.updateFilteredTaskList(predicate);
     }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
+     * of {@code Planner}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return planner.getFilteredTaskList();
+    }
+
 
     //=========== Course Planner ========================================================
 

@@ -82,7 +82,6 @@ public abstract class Task {
      * Retrieves the task description of a task
      * @return the task description of a particular task
      */
-    //TODO test
     public String getTaskDes() {
         return taskDes;
     }

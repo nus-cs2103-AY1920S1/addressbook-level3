@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -124,5 +126,19 @@ class PlannerTest {
         testPlanner.addTask(new Todo("study"));
 
         assertEquals(3, testPlanner.size());
+    }
+
+    @Test
+    void getFilteredTaskList() {
+        Planner planner = new Planner();
+        planner.addTask(new Todo("borrow book"));
+        planner.addTask(new Todo("read book"));
+
+        TaskDesContainsKeywordsPredicate predicate = new TaskDesContainsKeywordsPredicate(
+                                                            Arrays.asList("borrow"));
+
+        planner.updateFilteredTaskList(predicate);
+
+        assertEquals(1, planner.getFilteredTaskList().size());
     }
 }

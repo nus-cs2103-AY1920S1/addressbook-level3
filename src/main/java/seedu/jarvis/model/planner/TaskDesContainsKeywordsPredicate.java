@@ -10,7 +10,6 @@ import java.util.function.Predicate;
  * Tests that the task description of a {@code Task} matches any of
  * the keywords given.
  */
-//TODO tests
 public class TaskDesContainsKeywordsPredicate implements Predicate<Task> {
     private final List<String> keywords;
 

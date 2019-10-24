@@ -13,7 +13,6 @@ import static java.util.Objects.requireNonNull;
  * keywords.
  * Keyword matching is case insensitive.
  */
-//TODO tests
 public class FindTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "find-task";
@@ -64,14 +63,13 @@ public class FindTaskCommand extends Command {
      * @return {@code Model} of the number of {@code Task} matching the {@code Predicate}.
      * @throws CommandException
      */
-    //TODO test
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.find(predicate);
+        model.updateFilteredTaskList(predicate);
 
-        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.find(predicate).size()));
+        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()));
     }
 
     /**

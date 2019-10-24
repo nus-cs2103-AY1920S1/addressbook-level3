@@ -1,7 +1,10 @@
 package seedu.jarvis.model.planner;
 
+import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
+
+import java.util.function.Predicate;
 
 /**
  * The API of the PlannerModel component
@@ -78,12 +81,15 @@ public interface PlannerModel {
     int size();
 
     /**
-     * Looks through all the tasks in the planner to find the tasks that
-     * match the keywords in the predicate
+     * Updates the {@code filteredTaskList} according to the given {@code Predicate}
      *
-     * @param predicate contains a list of keywords
-     * @return a {@code TaskList} of all the tasks in the planner that match
-     * any of the given keywords
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredTaskList}
      */
-    TaskList find(TaskDesContainsKeywordsPredicate predicate);
+    void updateFilteredTaskList(Predicate<Task> predicate);
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
+     * of {@code Planner}
+     */
+    ObservableList<Task> getFilteredTaskList();
 }

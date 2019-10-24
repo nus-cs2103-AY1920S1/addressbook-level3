@@ -12,7 +12,6 @@ import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 /**
  * Parses input arguments and creates a new FindTaskCommand object
  */
-//TODO tests
 public class FindTaskCommandParser implements Parser<FindTaskCommand> {
 
     /**
