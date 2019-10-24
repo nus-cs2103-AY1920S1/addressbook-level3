@@ -9,6 +9,8 @@ import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.UniqueCommandsList;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.UniqueEarningsList;
+import seedu.address.model.note.Notes;
+import seedu.address.model.note.UniqueNotesList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.reminder.Reminder;
@@ -27,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueCommandsList commands;
     private final TaskList tasks;
     private final UniqueReminderList reminder;
+    private final UniqueNotesList notes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -41,6 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         commands = new UniqueCommandsList();
         tasks = new TaskList();
         reminder = new UniqueReminderList();
+        notes = new UniqueNotesList();
 
     }
 
@@ -71,8 +75,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setEarnings(List<Earnings> earnings) {
         this.earning.setEarnings(earnings);
     }
-
-
 
     /**
      * Replaces the given earnings {@code target} in the list with {@code editedPerson}.
@@ -258,6 +260,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     //// util methods
 
+    /**
+     * Add note into address book.
+     * @param e notes.
+     */
+    public void addNotes(Notes e) {
+        notes.add(e);
+    }
+
+    /**
+     * Returns true if a code with the same identity as {@code note} exists in the address book.
+     * @param note Note.
+     * @return true of false if the notes is available.
+     */
+    public boolean hasNotes(Notes note) {
+        requireNonNull(note);
+        return notes.contains(note);
+    }
+
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";
@@ -287,6 +307,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Reminder> getReminderList() {
         return reminder.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Notes> getNotesList() {
+        return notes.asUnmodifiableObservableList();
     }
 
     @Override

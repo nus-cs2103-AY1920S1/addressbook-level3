@@ -19,6 +19,8 @@ import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Month;
 import seedu.address.model.earnings.Week;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.ModuleCode;
 import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Participation;
@@ -26,7 +28,6 @@ import seedu.address.model.person.Picture;
 import seedu.address.model.person.Result;
 import seedu.address.model.task.Marking;
 import seedu.address.model.task.TaskTime;
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -271,5 +272,35 @@ public class ParserUtil {
             throw new ParseException(Week.MESSAGE_CONSTRAINTS);
         }
         return new Week(trimmedWeek);
+    }
+
+    /**
+     * Parses a {@code String code} into an {@code ModuleCode}.
+     * @param code String of module code.
+     * @return ModuleCode.
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static ModuleCode parseModuleCode(String code) throws ParseException {
+        requireNonNull(code);
+        String trimmedCode = code.trim();
+        if (!ModuleCode.isValidModuleCode(trimmedCode)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new ModuleCode(trimmedCode);
+    }
+
+    /**
+     * Parses a {@code String content} into an {@code Content}.
+     * @param content String of content.
+     * @return Content.
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static Content parseContent(String content) throws ParseException {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Content(trimmedContent);
     }
 }

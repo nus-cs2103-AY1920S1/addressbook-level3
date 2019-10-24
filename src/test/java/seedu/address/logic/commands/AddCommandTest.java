@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -168,6 +169,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addNotes(Notes notes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -184,6 +190,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasEarnings(Earnings earnings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNotes(Notes notes) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -219,6 +230,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredNotesList(Predicate<Notes> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
