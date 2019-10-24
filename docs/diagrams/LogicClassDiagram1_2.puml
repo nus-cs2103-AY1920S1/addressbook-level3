@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+'hacky workaround to allow arrow going into Logic pkg
+Class HiddenOutside #FFFFFF
+'classes and interfaces used in Logic
+package Logic {
+    Interface Logic <<interface>>
+    Class LogicManager
+    package Parser {
+        Interface Parser <<interface>>
+        Class AddressBookParser
+        Class XYZCommandParser
+        Class CliSyntax
+        Class ParserUtil
+        Class ArgumentMultimap
+        Class ArgumentTokenizer
+        Class Prefix
+        package "exceptions (Parser)" {
+            Class ParseException
+        }
+    }
+    package Commands {
+        Class XYZCommand
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+        package "exceptions (Commands)" {
+            Class CommandException
+        }
+    }
+}
+package Model {
+    Class HiddenModel #FFFFFF
+}
+
+'mapping and arrows
+HiddenOutside .down.> Logic
+
+'mapping and arrows for Parser
+LogicManager .up.|> Logic
+LogicManager -down-> AddressBookParser
+AddressBookParser .down.> XYZCommandParser: creates >
+XYZCommandParser .right.> ParseException
+XYZCommandParser -up-|> Parser
+XYZCommandParser .down.> ArgumentMultimap
+XYZCommandParser .down.> ArgumentTokenizer
+XYZCommandParser .down.> CliSyntax
+XYZCommandParser .down.> ParserUtil
+ArgumentTokenizer .left.> ArgumentMultimap
+ArgumentTokenizer .down.> Prefix
+CliSyntax .down.> Prefix
+ParserUtil .down.> Prefix
+note left of XYZCommandParser: XYZ can be Add, Edit, Email, Find or Import
+
+'mapping and arrows for Commands
+Logic .down.> CommandResult
+LogicManager .down.>CommandResult: executes >
+Command .up.> CommandResult
+XYZCommand -up-|> Command
+XYZCommand .right.> CommandException: throws >
+CommandResult ..> Model
+note right of XYZCommand: XYZ can be Import, Email, Add, Edit, Delete, Find, List, Exit or Help
+
+'mapping and arrows from Parser to Commands
+XYZCommandParser ..> XYZCommand: creates >
+
+@enduml

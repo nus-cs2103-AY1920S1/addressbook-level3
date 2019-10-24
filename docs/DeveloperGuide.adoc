@@ -155,7 +155,40 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Coming soon in v1.3] Scheduling Algorithm
+=== Logic
+Users should be able to manually key in input (i.e add interviewers and interviewees). We therefore changed the Logic
+package accordingly to suit our needs.
+
+Below is the *Class diagram* `(as of v1.2)`:
+
+image::LogicClassDiagram1_2.png[]
+
+==== Add Interviewee/Interviewer feature
+The add command is facilitated by the `AddCommandParser` class. It extends `AddCommandParser` by allowing it to parse
+prefixes specific to our Scheduler app, namely:
+
+* r/ROLE
+* f/FACULTY
+* ep/PERSONAL_EMAIL and ew/NUS_WORK_EMAIL
+* y/YEAR_OF_STUDY
+* d/DEPARTMENT
+* s/SLOT
+
+This command also requires access to the Model package, where the AddressBook implementation lives, as well as the
+Storage package, where the `JsonSerializableAddressBook` implementation lives. Consequently, the following json-friendly
+classes were added:
+
+* JsonAdaptedInterviewee, JsonAdaptedInterviewer, JsonAdaptedDepartment, JsonAdaptedSlot
+
+The following *sequence diagram* describes how the add command works when adding an interviewee:
+
+image::AddSequenceDiagram.png[]
+
+The following activity diagram shows the steps needed to add a new interviewee:
+
+image::AddActivityDiagram_1_2.png[]
+
+=== [coming soon in v1.3] scheduling algorithm
 The scheduling of interviews is essentially a https://www.geeksforgeeks.org/maximum-bipartite-matching/[maximum bipartite matching problem].
 The application is trying to find the **maximum number of matching** between available interview slots
 and interviewees.

@@ -27,7 +27,7 @@ public class AddCommand extends Command {
             + PREFIX_ROLE + "ROLE "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_ADDRESS + "ADDRESS " // TODO: Delet dis address field
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_FACULTY + "FACULTY] "
             + "[" + PREFIX_YEAR_OF_STUDY + "YEAR OF STUDY] "
