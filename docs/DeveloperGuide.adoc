@@ -263,6 +263,11 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== UI
+The GUI of the application is started up by the `UiManager` class, when the application is initialised.
+The `GUI` class handles operations on the GUI, such as rendering nodes to the application window,
+and passing user command input to the `Responder` class.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
