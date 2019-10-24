@@ -33,7 +33,7 @@ class JsonAdaptedShow {
      */
     @JsonCreator
     public JsonAdaptedShow(@JsonProperty("tvShows")  List<JsonAdaptedTvShow> tvShows,
-                           @JsonProperty("tvShows")  List<JsonAdaptedMovie> movies) {
+                           @JsonProperty("movies")  List<JsonAdaptedMovie> movies) {
         if (tvShows != null) {
             this.tvShows.addAll(tvShows);
         }

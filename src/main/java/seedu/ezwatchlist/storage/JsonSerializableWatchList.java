@@ -24,14 +24,14 @@ class JsonSerializableWatchList {
     public static final String MESSAGE_DUPLICATE_SHOW = "Show list contains duplicate show(s).";
     public static final String MESSAGE_INVALID_SHOW_TYPE = "Show list contains shows of unacceptable type.";
 
-    private final List<JsonAdaptedShow> shows = new ArrayList<>();
+    private JsonAdaptedShow shows;
 
     /**
      * Constructs a {@code JsonSerializableWatchList} with the given shows.
      */
     @JsonCreator
-    public JsonSerializableWatchList(@JsonProperty("shows") List<JsonAdaptedShow> shows) {
-        this.shows.addAll(shows);
+    public JsonSerializableWatchList(@JsonProperty("shows") JsonAdaptedShow shows) {
+        this.shows = shows;
     }
 
     /**
@@ -50,7 +50,7 @@ class JsonSerializableWatchList {
                 tvShows.add(new JsonAdaptedTvShow(show));
             }
         }
-        shows.set(0, new JsonAdaptedShow(tvShows, movies));
+        shows = new JsonAdaptedShow(tvShows, movies);
     }
 
     /**
@@ -60,14 +60,12 @@ class JsonSerializableWatchList {
      */
     public WatchList toModelType() throws IllegalValueException {
         WatchList watchList = new WatchList();
-        for (JsonAdaptedShow jsonAdaptedShow : shows) {
-            List<Show> list = jsonAdaptedShow.toModelType();
-            for(Show show : list) {
-                if (watchList.hasShow(show)) {
-                    throw new IllegalValueException(MESSAGE_DUPLICATE_SHOW);
-                }
-                watchList.addShow(show);
+        List<Show> list = shows.toModelType();
+        for(Show show : list) {
+            if (watchList.hasShow(show)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_SHOW);
             }
+            watchList.addShow(show);
         }
         return watchList;
     }
