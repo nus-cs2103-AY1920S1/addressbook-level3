@@ -219,146 +219,67 @@ Feature by
 === Finance Tracker
 
 
-==== Add a single-use payment: `pay`
-Adds a single use payment to the finance tracker. The amount spent will be
+==== Add a single-use purchase: `add-paid`
+Adds a single use purchase to the finance tracker. The amount spent will be
 added to the current spending to keep track of the budget set by the user.
 
-Payments can be added either by a tag, or to a person.
+Payments have to be added with a description and a payment amount.
 
-Format: `pay a/AMOUNT {#TAG | n/PERSON}`
-
-Examples: +
-`pay a/30 #food` +
-`pay a/30 n/jessica`
-
-
-==== Delete a payment: `pay-delete`
-Deletes payments in the list of payments tracked by Jarvis.
-
-Format: `pay delete INDEX`
-
-where `INDEX` is the **one-based** index of the payment list.
-
-
-==== Setting Instalments: `install-set`
-Sets instalments, such as a subscription to a service that is paid monthly.
-The amount is assumed to be deducted on the first of every month.
-
-Format: `instal set n/ITEM a/AMOUNT`
+Format: `pay d/PURCHASE-DESCRIPTION a/AMOUNT`
 
 Examples: +
-`instal set n/Spotify a/10` +
-`instal set n/Netflix a/5`
+`pay d/lunch at the Deck a/4.50` +
+`pay d/paid Jessica for milk tea a/2.0`
 
 
-==== Edit Instalments: `install-edit`
-Edits the instalments in the list of existing instalments.
+==== Delete a purchase: `delete-paid`
+Deletes a single use purchase from the list of purchases tracked by Jarvis.
 
-Format: `instal edit INDEX {n/ITEM | a/AMOUNT}`
+Format: `delete-paid INDEX`
+
+where `INDEX` is the **one-based** index of the purchases list.
+
+
+==== Setting an installment: `add-install`
+Sets an installment, which is a subscription to a service that is paid monthly.
+The amount is assumed to be deducted on the first of every month. Each installment
+must contain a description and a subscription fee.
+
+Format: `add-install d/INSTALLMENT-DESCRIPTION a/AMOUNT`
 
 Examples: +
-`instal edit 1 a/10` +
-`instal edit 2 n/Spotify-Family`
+`add-install n/Spotify a/9.50` +
+`add-install n/Netflix a/13.0`
 
 
-==== Delete Instalments: `install-delete`
-Deletes instalments in the list of existing instalments
+==== Edit an installment: `edit-install`
+Edits an existing installment in the list of existing installments.
+
+Format: `edit-install INDEX {d/INSTALLMENT-DESCRIPTION | a/AMOUNT}`
+
+Examples: +
+`edit-install 1 a/10` +
+`edit-install 2 d/Spotify-Family`
+
+
+==== Delete an installment: `delete-install`
+Deletes an installment in the list of existing installments.
 
 Format: `instal delete INDEX`
-
-
-==== Listing Instalments: `install-list`
-Shows all instalments that the user has subscribed to.
-
-Format: `instal list`
-
-
-==== Listing Expenditures: `expenses-list`
-Shows all payments that the user has made this month.
-
-Format: `expenses list`
 
 
 ==== Setting Monthly Limit: `set-monthly`
 Sets a monthly budget limit. From the monthly limit, the program will
 automatically calculate your weekly and daily limit.
 
-Format: `set monthly a/AMOUNT`
+Format: `set-limit a/AMOUNT`
 
 Examples: +
-`set monthly a/300`
+`set-limit a/300`
 
-
-==== Compare Expenditure between Two Months: `compare`
-Shows a comparison of expenditure between the two given months.
-
-Format: `compare m/DATE m/DATE`
-
-Example: +
-`compare m/Jan2019 m/Feb2019`
-
-
-==== Estimating Remaining Budget: `est`
-Estimates the amount of money that can be spent for
-
-1. the current day
-2. the current month
-
-Format: `est {day | month}`
-
-The amount shown takes the amount spent for the current day or month, and
-minuses it from the user's monthly limit. If no monthly limit has been
-specified, the program will show:
+If no monthly limit has been specified, the program will show:
 
 `Oops, there does not seem to be a monthly limit.`
-
-
-==== Adding owed amounts: `owe` & `debt`
-`owe`: saves a payment owed by someone else to the user. +
-`debt`: saves a payment owed by the user to someone else.
-
-Format: `owe n/PERSON a/AMOUNT` or `debt n/PERSON a/AMOUNT`
-
-
-==== Splitting a Tab: `tab`
-Divides and tracks a tab for a bill. All names are input to Jarvis will
-then have a separate tab
-
-Format: `tab a/AMOUNT n/PERSON...`
-
-Examples: +
-`tab a/20 n/Alice n/Bob n/Charlie`
-
-
-==== Mark a debt as paid: `paid debt`
-Marks a payment owed by the user to someone else as paid. Payment is identified
-by its index in the list of debts. Once marked as paid, the corresponding
-amount will be added to spending amount. The debt will be removed form the
-list of debts and added t othe list of payments.
-
-Format: `paid debt INDEX`
-
-where `INDEX` is the **one-based** index of the payment list.
-
-Example: +
-`paid tab 1`
-
-
-==== Listing Debts
-Shows all debts that user owes or is owed.
-
-Format: `list debts`
-
-
-==== Loans: `set loans`
-Set loans with interest per annum.
-
-Format: `set loan a/TOTAL [i/INTEREST]`
-
-where `INTEREST` is in `% per annum`
-
-Example: +
-`set loan a/10000 i/3.7`
 
 
 ==== Export to File: `export`
@@ -372,21 +293,6 @@ Examples: +
 
 This will create a file called `expenditures.csv` in the current directory,
 containing all expenditures.
-
-
-==== Track Income: `income`
-Enables additional budgeting options when monthly income is specified.
-
-Format: `income a/AMOUNT`
-
-Example: +
-`income a/3000`
-
-
-==== Display as Graph: `graph`
-Show detailed statistics about your expenditures.
-
-Format: `graph`
 
 
 ////
