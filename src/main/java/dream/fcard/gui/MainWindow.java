@@ -20,6 +20,7 @@ public class MainWindow {
     Gui gui;
     private Stage primaryStage;
     private Scene scene;
+    private State state;
 
     // containers
     private VBox window;
@@ -119,16 +120,15 @@ public class MainWindow {
         commandTextField.setStyle("-fx-text-fill:" + GuiSettings.getPrimaryTextColour() +";");
         commandTextField.setFont(GuiSettings.getCommandTextStyle());
 
-        // todo: set on action
-//        commandTextField.setOnAction(() -> {
-//            try {
-////                Responder.takeInput(commandTextField.getText());
-//                // reset text field
-//                commandTextField.setText("");
-//            } catch (Exception e) {
-//                // todo: temporary haxx, don't know what exceptions yet
-//            }
-//        });
+        commandTextField.setOnAction((event) -> {
+            try {
+                Responder.takeInput(commandTextField.getText(), this.state);
+                // reset text field
+                commandTextField.setText("");
+            } catch (Exception e) {
+                // todo: temporary haxx, don't know what exceptions yet
+            }
+        });
 
         commandBoxPlaceholder.getChildren().add(commandTextField);
     }
