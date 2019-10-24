@@ -134,6 +134,8 @@ public class ModelManager implements Model {
         userPrefs.addReminder(type, description, days);
     }
 
+    // Merge Trick
+
     @Override
     public void addAlias(String alias, String aliasTo) {
         userPrefs.addAlias(alias, aliasTo);
