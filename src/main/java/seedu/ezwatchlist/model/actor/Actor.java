@@ -38,6 +38,9 @@ public class Actor {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getActorName() {
+        return actorName;
+    }
 
     @Override
     public String toString() {
