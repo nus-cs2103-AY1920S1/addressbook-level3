@@ -31,13 +31,12 @@ public class ChartBox extends UiPart<Region> {
     public ChartBox(ObservableList<Expense> expenses, ObservableData<StatisticsFormat> statsType,
                     ObservableData<StatisticsFormatOptions> statsOptions) {
         super(FXML);
-
         this.expenses = expenses;
         this.dateInterval = new ObservableData<>();
         dateInterval.setValue(DateInterval.MONTH);
 
         statsType.observe(this::onStatsTypeChanged);
-        statsOptions.observe(this::onStatsFormatOptionsChanged);
+        statsOptions.observe(options -> options.getNewDateInterval().ifPresent(dateInterval::setValue));
     }
 
     /**
@@ -61,9 +60,5 @@ public class ChartBox extends UiPart<Region> {
         }
 
         chartContainer.getChildren().add(currentChart.getRoot());
-    }
-
-    private void onStatsFormatOptionsChanged(StatisticsFormatOptions options) {
-
     }
 }

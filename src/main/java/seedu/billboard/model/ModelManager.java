@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
+import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
@@ -51,7 +52,7 @@ public class ModelManager implements Model {
         this.statsFormat = new ObservableData<>();
         this.statsFormat.setValue(StatisticsFormat.TIMELINE); // default stats type
         this.statsOptions = new ObservableData<>();
-        this.statsOptions.setValue(StatisticsFormatOptions.emptyOption());
+        this.statsOptions.setValue(StatisticsFormatOptions.withOptions(DateInterval.MONTH)); // default interval
 
         logger.fine("Initializing with billboard: " + billboard
                 + " and archives: " + archives
