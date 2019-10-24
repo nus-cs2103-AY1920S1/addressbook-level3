@@ -67,18 +67,17 @@ public class CalendarPanel extends UiPart<Region> {
             }
             agenda.appointments().addAll(
                     new Agenda.AppointmentImplLocal()
-                            .withStartLocalDateTime(scheduleToLocalDateTime(schedule))
-                            .withEndLocalDateTime(scheduleToLocalDateTime(schedule).plusHours(1))
+                            .withStartLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()))
+                            .withEndLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()).plusHours(1))
                             .withSummary("Order " + orderIndex)
             );
         }
     }
 
     /**
-     * Helper method to convert the calendar attribute in the schedule object into LocalDateTime object
+     * Helper method to convert the calendar object into LocalDateTime object
      */
-    private LocalDateTime scheduleToLocalDateTime(Schedule schedule) {
-        Calendar calendar = schedule.getCalendar();
+    private LocalDateTime calendarToLocalDateTime(Calendar calendar) {
         int year = calendar.get(Calendar.YEAR);
         // offset to 1-based
         int month = calendar.get(Calendar.MONTH) + 1;
@@ -96,11 +95,7 @@ public class CalendarPanel extends UiPart<Region> {
      * Switch the agenda view according to the date input by the user
      */
     private void setAgendaView(Calendar calendar) {
-        int year = calendar.get(Calendar.YEAR);
-        // offset to 1-based
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int date = calendar.get(Calendar.DAY_OF_MONTH);
-        LocalDateTime localDateTime = LocalDateTime.of(year, month, date, 0, 0);
+        LocalDateTime localDateTime = calendarToLocalDateTime(calendar);
         agenda.setDisplayedLocalDateTime(localDateTime);
     }
 
