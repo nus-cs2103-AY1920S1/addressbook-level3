@@ -67,7 +67,7 @@ public class AddCcaCommand extends Command {
         }
 
         model.addCca(toAddCca);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAddCca));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAddCca), true);
     }
 
     @Override

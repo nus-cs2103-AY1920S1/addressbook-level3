@@ -1,9 +1,13 @@
 package seedu.jarvis.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,7 +20,10 @@ import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.appstatus.PageType;
 import seedu.jarvis.ui.address.PersonListPanel;
+import seedu.jarvis.ui.template.Page;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,6 +37,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Model model;
+    private CommandUpdater commandUpdater;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -55,12 +64,17 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    @FXML
+    private StackPane contentPlaceholder;
+
+
+    public MainWindow(Stage primaryStage, Logic logic, Model model) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.model = model;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -112,8 +126,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+//        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+//        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
 //        tabbedDisplay = new TabbedDisplay();
 //        tabbedDisplayPlaceholder.getChildren().add(tabbedDisplay.getRoot());
@@ -191,11 +205,71 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.doSwitchPage()) {
+                handleSwitch();
+            }
+
+            commandUpdater.executeUpdateCallback();
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Retrieves the {@code Page} type and attempts to switch the content in
+     * {@code contentPlaceholder} with it.
+     * TODO
+     */
+    private void handleSwitch() {
+        PageType currentPageType = model.getPageStatus().getPageType();
+        Page<? extends Node> newPage;
+
+        switch (currentPageType) {
+            case TRIP_MANAGER:
+                newPage = new TripsPage(this, logic, model);
+                break;
+
+            default:
+                resultDisplay.setFeedbackToUser(
+                        String.format(MESSAGE_PAGE_NOT_IMPLEMENTED, currentPageType.toString()));
+                return;
+        }
+
+        switchContent(newPage);
+        this.commandUpdater = newPage::fillPage;
+    }
+
+    /**
+     * Functional interface for allowing custom operations to occur after a command is executed.
+     */
+    @FunctionalInterface
+    public interface CommandUpdater {
+        void executeUpdateCallback();
+    }
+
+    /**
+     * Switches the content in the {@code contentPlaceholder} {@code StackPane}.
+     *
+     * @param page The {@code Page} to switch to.
+     */
+    private void switchContent(Page<? extends Node> page) {
+        setWindowDefaultSize(model.getGuiSettings());
+        Node pageNode = page.getRoot();
+
+        //Removed transition!! Now the new page just appears.
+        List<Node> currentChildren = contentPlaceholder.getChildren();
+        int numChildren = currentChildren.size();
+        assert numChildren == 0 || numChildren == 1;
+
+        contentPlaceholder.getChildren().add(pageNode);
+
+        if (numChildren == 1) {
+            Node previousPage = currentChildren.get(0);
+            currentChildren.remove(previousPage);
         }
     }
 }
