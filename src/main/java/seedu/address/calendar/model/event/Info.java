@@ -1,4 +1,5 @@
 package seedu.address.calendar.model.event;
+
 import static java.util.Objects.requireNonNull;
 
 public class Info {

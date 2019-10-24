@@ -4,14 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.address.calendar.commands.Command;
+import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
+import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.date.Year;
-import seedu.address.calendar.parser.CalendarParser;
 import seedu.address.calendar.storage.CalendarStorage;
 import seedu.address.calendar.storage.JsonCalendarStorage;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,6 +23,7 @@ import seedu.address.ui.UiPart;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 public class CalendarPage extends UiPart<Scene> implements Page {
     private static final String FXML = "CalendarPage.fxml";
@@ -32,6 +34,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
 
     private Calendar calendar;
     private CalendarStorage calendarStorage;
+    private CalendarLogic calendarLogic;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -48,11 +51,19 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         super(FXML);
         calendar = new Calendar();
         calendarStorage = new JsonCalendarStorage(Paths.get("data" , "calendar.json"));
+
         try {
+            Optional<ReadOnlyCalendar> calendarOptional = calendarStorage.readCalendar();
             calendar.updateCalendar(calendarStorage.readCalendar().get());
-        } catch(Exception e) {
-            System.out.println(e);
+        } catch (DataConversionException e) {
+            System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
+            // todo: what to do about data?
+        } catch (IOException e) {
+            System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
+            // todo: what to do about data?
         }
+        calendarLogic = new CalendarLogic(calendar, calendarStorage);
+
         fillInnerParts();
     }
 
@@ -121,16 +132,13 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            Command command = (new CalendarParser()).parseCommand(commandText);
-            CommandResult commandResult = command.execute(calendar);
+            CommandResult commandResult = calendarLogic.executeCommand(commandText);
 
-            if (calendar.hasVisibleUpdates()) {
-                Month updatedMonth = calendar.getMonth();
+            if (calendarLogic.hasVisibleUpdates()) {
+                Month updatedMonth = calendarLogic.getVisibleMonth();
                 updateCalendarPage(updatedMonth);
-                calendar.completeVisibleUpdates();
+                calendarLogic.completeVisibleUpdates();
             }
-
-            calendarStorage.saveCalendar(calendar.getCalendar());
 
             resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
             return commandResult;

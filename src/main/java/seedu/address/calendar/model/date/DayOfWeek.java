@@ -22,18 +22,6 @@ public enum DayOfWeek {
         return numericalVal;
     }
 
-    static DayOfWeek of(int numericalVal) {
-        Optional<DayOfWeek> desiredDay = Stream.of(DayOfWeek.values())
-                .filter(d -> d.numericalVal == numericalVal)
-                .findAny();
-
-        if (desiredDay.isEmpty()) {
-            assert true : "All days should be represented by some value between 0 and 6 inclusive";
-        }
-
-        return desiredDay.get();
-    }
-
     @Override
     public String toString() {
         switch(this) {

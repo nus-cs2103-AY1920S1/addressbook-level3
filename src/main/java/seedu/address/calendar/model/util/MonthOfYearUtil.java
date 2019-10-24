@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 public class MonthOfYearUtil {
     private static int NUM_MONTHS_IN_YEAR = 12;
-    private static int DAYS_IN_FEB_LEAP = 29;
 
     static int getNumMonthsInYear() {
         return NUM_MONTHS_IN_YEAR;

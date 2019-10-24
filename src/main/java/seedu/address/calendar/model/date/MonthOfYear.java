@@ -28,10 +28,6 @@ public enum MonthOfYear {
         return numericalVal;
     }
 
-    private int getNumDaysInMonth() {
-        return numDaysInMonth;
-    }
-
     public int getNumDaysInMonth(Year year) {
         if (numericalVal == 2) {
             // if it is February

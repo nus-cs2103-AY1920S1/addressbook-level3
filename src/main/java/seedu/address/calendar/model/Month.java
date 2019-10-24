@@ -12,12 +12,10 @@ public class Month {
     private MonthOfYear monthOfYear;
     private List<Day> days;
     private Year year;
-    private int daysInMonth;
 
     public Month(MonthOfYear monthOfYear, Year year) {
         this.monthOfYear = monthOfYear;
         this.year = year;
-        this.daysInMonth = DateUtil.getNumDaysInMonth(monthOfYear, year);
         days = DateUtil.getDaysOfMonth(monthOfYear, year);
     }
 
@@ -25,7 +23,6 @@ public class Month {
         this.monthOfYear = monthOfYear;
         this.year = year;
         this.days = days;
-        this.daysInMonth = DateUtil.getNumDaysInMonth(monthOfYear, year);
     }
 
     public Year getYear() {
