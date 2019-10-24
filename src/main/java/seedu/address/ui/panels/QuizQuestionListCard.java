@@ -19,14 +19,11 @@ public class QuizQuestionListCard extends PanelComponent<Region> {
     @FXML
     private Label subject;
     @FXML
-    private Label id;
-    @FXML
     private Label questionBody;
 
-    public QuizQuestionListCard(Question question, int displayedIndex) {
+    public QuizQuestionListCard(Question question) {
         super(FXML);
         this.question = question;
-        id.setText(displayedIndex + ". ");
         subject.setText(question.getSubject().toString());
         questionBody.setText(question.getQuestionBody().toString());
     }
@@ -45,7 +42,6 @@ public class QuizQuestionListCard extends PanelComponent<Region> {
 
         // state check
         QuizQuestionListCard card = (QuizQuestionListCard) other;
-        return id.getText().equals(card.id.getText())
-                && question.equals(card.question);
+        return question.equals(card.question);
     }
 }

@@ -38,7 +38,7 @@ public class QuizQuestionListPanel extends PanelComponent<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new QuizQuestionListCard(question, getIndex() + 1).getRoot());
+                setGraphic(new QuizQuestionListCard(question).getRoot());
             }
         }
     }
