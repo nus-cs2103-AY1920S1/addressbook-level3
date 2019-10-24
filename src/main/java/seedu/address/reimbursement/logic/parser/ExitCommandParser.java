@@ -12,7 +12,7 @@ import seedu.address.util.Prefix;
 /**
  * Parses Exit commands.
  */
-public class ExitCommandParser implements SortParser<ExitCommand> {
+public class ExitCommandParser implements SimpleParser<ExitCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
