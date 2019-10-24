@@ -6,14 +6,12 @@ import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook
 import static seedu.jarvis.testutil.history.TypicalCommands.getTypicalHistoryManager;
 
 import java.nio.file.Path;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.jarvis.commons.core.GuiSettings;
-import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.history.HistoryManager;
