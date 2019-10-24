@@ -1,19 +1,20 @@
 package seedu.jarvis.storage.cca;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static seedu.jarvis.testutil.Assert.assertThrows;
+import static seedu.jarvis.testutil.cca.TypicalEquipments.BOAT;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.cca.Equipment;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.cca.TypicalEquipments.BOAT;
-
 /**
  * Tests the behaviour of {@code JsonAdaptedEquipment}.
  */
 public class JsonAdaptedEquipmentTest {
-    private final Equipment VALID_EQUIPMENT = BOAT;
+    private static final Equipment VALID_EQUIPMENT = BOAT;
 
     @Test
     public void toModelType_validEquipmentName_returnsEquipment() throws Exception {

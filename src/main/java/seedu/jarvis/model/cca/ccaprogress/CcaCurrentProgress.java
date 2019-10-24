@@ -15,6 +15,20 @@ public class CcaCurrentProgress {
     private int currentProgress = 0;
 
     /**
+     * Gets the integer value maximum progress.
+     */
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+
+    /**
+     * Gets the integer value of current progress.
+     */
+    public int getCurrentProgress() {
+        return currentProgress;
+    }
+
+    /**
      * Increments the current progress by 1.
      */
     public void increaseProgress() {
@@ -40,8 +54,16 @@ public class CcaCurrentProgress {
      * @param maxProgress needed.
      */
     public void setMaxProgress(int maxProgress) {
-        requireNonNull(maxProgress);
         this.maxProgress = maxProgress;
+    }
+
+    /**
+     * Sets the current progress.
+     *
+     * @param currentProgress to be updated.
+     */
+    public void setCurrentProgress(int currentProgress) {
+        this.currentProgress = currentProgress;
     }
 
     /**
