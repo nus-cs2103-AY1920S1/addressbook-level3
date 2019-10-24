@@ -278,7 +278,15 @@ Examples:
 
 === Get Closest Location: `closestlocation`
 
-Get the closest common location. +
+This command is used to get the closest common location among a list of locations you entered.
+
+Boundaries of this command:
+
+. We define closest common location as the location that requires the least average time to travel to from the
+locations stated in the list.
+. We only support locations that are from NUSMods. Any other location would be voided and not be taken into
+consideration for the computation of the closest location.
+
 Format:
 
 * `closestlocation l/ LOCATIONA LOCATIONB ...` +
@@ -287,6 +295,31 @@ Examples:
 
 * `closestlocation l/LT16 LT15 AS5`
 
+=== Show Free Time slot `show-freetime`
+
+*Overview*
+When the command is executed a popup will appear that shows the closest common location for a particular free time slot in a group.
+
+image::FreeTimePopup.png[]
+
+_Description_
+
+There are three main information that you will see when you execute the command.
+
+. The Closest common location will be shown on the top right corner.
+. The picture on google maps of the closest common location will be shown below the header.
+. The full details of will be shown on the left side of the popup.
+.. Second and third closest location will be shown
+.. The average time to reach the location for the various choices
+.. A list of voided location that TimeBook does not support
+
+Format:
+
+* `show-freetime g/ XXXX id/ XXX` +
+
+Examples:
+
+* `show-freetime g/ CS2103T id/2`
 
 == FAQ
 
