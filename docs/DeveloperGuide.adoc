@@ -185,7 +185,7 @@ Details:
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -225,7 +225,8 @@ Whenever the `undo` command is invoked, `ModelHistoryManager` returns a `ModelHi
 //image::UndoRedoState2.png[]
 //
 //[NOTE]
-//If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+//If a command fails its execution, it will not call `Model#commit
+()`, so the address book state will not be saved into the `addressBookStateList`.
 //
 //Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 //
