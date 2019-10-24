@@ -104,7 +104,7 @@ public class CalendarPanel extends UiPart<Region> {
         double height = calendarGrid.getHeight();
         double maxHeight = height / 7;
 
-        int offset = firstDay;
+        int offset = firstDay -1;
         int lblCount = 1;
 
         for (int i = 0; i < 7; i++) {
@@ -129,7 +129,7 @@ public class CalendarPanel extends UiPart<Region> {
                 VBox vPane = new VBox();
                 vPane.getStyleClass().add("calendar_pane");
                 GridPane.setVgrow(vPane, Priority.ALWAYS);
-                if (lblCount < daysInMonth) {
+                if (lblCount <= daysInMonth) {
                     vPane.setId(Integer.toString(lblCount));
                     Label lbl = new Label(Integer.toString(lblCount));
                     lbl.setPadding(new Insets(5));
