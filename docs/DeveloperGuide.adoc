@@ -14,11 +14,21 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
 
-By: `Team SE-EDU`      Since: `August 2019`      Licence: `NUS`
+By: `Team AY1920S1-CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
+
+== Introduction
+
+=== Software overview
+
+*DeliveryMANs* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANs* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
+
+=== Purpose
+
+This document has been created to explain the software architecture and implementations of *DeliveryMANs*. The intended audience for this document are software testers and future developers.
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+To setup *DeliveryMANs* on your system, please refer to the user guide <<UserGuide#Quick-start, here>>.
 
 == Design
 
@@ -61,6 +71,18 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
+In addition, there are 4 different contexts that the App has:
+
+* `Universal`/`Order`
+* `Customer`
+* `Restaurant`
+* `Deliverymen`
+
+Each context will allow the application the execute commands in the context the application is currently in. For example, `Customer` commands can only be executed in the `Customer` context. This is to allow separation between the 4 contexts, and also the 4 databases the App has. The `Universal` context will also execute commands pertaining to `Order`.
+
+Because of this, the context are interchangeable in the diagrams below (and the one above) as changing the context will not change how the application is structured. For example, when the diagram is shown in a `Customer` context, it will also apply in a `Restaurant` context.
+
+However, there are differences between the 4 different context that will be explained in the <<Design-Model,*`Model`*>> section.
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -79,7 +101,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,7 +120,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `CustomerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -122,8 +144,8 @@ image::ModelArchitecture_alternative_.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the customer, restaurant, deliverymen and order data.
+* exposes an unmodifiable `ObservableList<>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -142,12 +164,12 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the customer, restaurant, deliverymen and order data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.deliverymans.commons` package.
 
 == Implementation
 
@@ -357,6 +379,20 @@ Below are a few design considerations of the autocomplete commands feature.
 ** Cons: Inefficient and slow searching, because of the need to iterate through the entire list of commands, while calling ‘.substring()’ and ‘.contains()’ methods.
 
 // end::autocomplete commands[]
+// tag::orders[]
+=== Order Manager
+Order Manager is an address book of Orders, with some basic functions similar to that of a normal address book such as add, edit, delete and list. Additionally, Order Manager has some useful functions specifically catered towards the ease of management of orders.
+
+Firstly, the automated allocation of deliveryman once new orders are added. When a new order is created on the database, a deliveryman will be assigned to deliver the order based on whether he/she is present as well as whether he/she is currently preoccupied with delivering another order. This helps to ease the burden on the user as they would not need to manually allocate deliverymen to the orders. However, the feature to manually allocate is still present if the user wishes to do so.
+
+Secondly, the order manager allows for sorting of orders, based on date, customer, restaurant, menu or even deliveryman, depending on what information the user wishes to see. This allows for better management
+
+==== Implementation
+*insert class diagram here*
+
+*explains commands here, add ,del, edit, list, sort*
+
+// end::orders[]
 
 // tag::deliverymen statistics
 === [Proposed] Deliverymen salary adjustment feature
