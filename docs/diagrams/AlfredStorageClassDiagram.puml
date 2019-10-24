@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+'Declaration of Classes
+Package " "<<Rectangle>>{
+    Interface AlfredStorage <<Interface>>
+    Interface ParticipantListStorage <<Interface>>
+    Interface MentorListStorage <<Interface>>
+    Interface TeamListStorage <<Interface>>
+    Interface UserPrefsStorage <<Interface>>
+
+    Class AlfredStorageManager
+    Class JsonParticipantListStorage
+    Class JsonMentorListStorage
+    Class JsonTeamListStorage
+    Class JsonUserPrefsStorage
+
+    Class JsonSerializableParticipantList
+    Class JsonSerializableMentorList
+    Class JsonSerializableTeamList
+
+    Class JsonAdaptedParticipant
+    Class JsonAdaptedMentor
+    Class JsonAdaptedTeam
+}
+Class ModelManager MODEL_COLOR
+
+ModelManager -right-> AlfredStorage
+
+AlfredStorageManager .up.|> AlfredStorage
+AlfredStorageManager o--> UserPrefsStorage
+AlfredStorageManager o--> ParticipantListStorage
+AlfredStorageManager o--> MentorListStorage
+AlfredStorageManager o--> TeamListStorage
+
+JsonParticipantListStorage .up.|> ParticipantListStorage
+JsonMentorListStorage .up.|> MentorListStorage
+JsonTeamListStorage .up.|> TeamListStorage
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+
+JsonParticipantListStorage .down.> JsonSerializableParticipantList
+JsonMentorListStorage .down.> JsonSerializableMentorList
+JsonTeamListStorage .down.> JsonSerializableTeamList
+
+JsonSerializableParticipantList .down.> JsonAdaptedParticipant
+JsonSerializableMentorList .down.> JsonAdaptedMentor
+JsonSerializableTeamList .down.> JsonAdaptedTeam
+
+JsonAdaptedTeam -right-> JsonAdaptedMentor
+@enduml
