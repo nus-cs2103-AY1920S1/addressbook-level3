@@ -9,9 +9,12 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+/**
+ * Shows a bar to the user to indicate current progress through quiz.
+ */
 public class ProgressIndicatorBar extends UiPart<Region> {
     private static final String FXML = "ProgressIndicatorBar.fxml";
-    private final static int DEFAULT_LABEL_PADDING = 5;
+    private static final int DEFAULT_LABEL_PADDING = 5;
     private final ReadOnlyDoubleProperty workDone;
     private final double totalWork;
 
@@ -24,9 +27,10 @@ public class ProgressIndicatorBar extends UiPart<Region> {
     private final String labelFormatSpecifier;
 
 
-    public ProgressIndicatorBar(final ReadOnlyDoubleProperty workDone, final double totalWork, final String labelFormatSpecifier) {
+    public ProgressIndicatorBar(final ReadOnlyDoubleProperty workDone, final double totalWork,
+                                final String labelFormatSpecifier) {
         super(FXML);
-        this.workDone  = workDone;
+        this.workDone = workDone;
         this.totalWork = totalWork;
         this.labelFormatSpecifier = labelFormatSpecifier;
 
@@ -43,7 +47,9 @@ public class ProgressIndicatorBar extends UiPart<Region> {
         pane.getChildren().setAll(bar, text);
     }
 
-    // synchronizes the progress indicated with the work done.
+    /**
+     * Synchronizes the progress indicated with the work done.
+     */
     private void syncProgress() {
         if (workDone == null || totalWork == 0) {
             text.setText("");
@@ -54,6 +60,6 @@ public class ProgressIndicatorBar extends UiPart<Region> {
         }
 
         bar.setMinHeight(text.getBoundsInLocal().getHeight() + DEFAULT_LABEL_PADDING * 2);
-        bar.setMinWidth (text.getBoundsInLocal().getWidth()  + DEFAULT_LABEL_PADDING * 2);
+        bar.setMinWidth (text.getBoundsInLocal().getWidth() + DEFAULT_LABEL_PADDING * 2);
     }
 }

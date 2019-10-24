@@ -1,11 +1,8 @@
 package seedu.revision.logic.parser.quiz;
 
-
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.quiz.McqInputCommand;
-
 import seedu.revision.logic.parser.QuizParser;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;

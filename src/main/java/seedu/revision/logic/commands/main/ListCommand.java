@@ -1,10 +1,9 @@
 package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
-
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all questions which belong to the "
             + "specified category and difficulty (case-insensitive, optional) "
             + "and displays them as a list with index numbers.\n"
-            +"Parameters: "
+            + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_DIFFICULTY + "DIFFICULTY "
             + "Example: " + COMMAND_WORD

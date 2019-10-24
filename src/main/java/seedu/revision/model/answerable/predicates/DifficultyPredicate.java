@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 
-
+/**
+ * Tests that a {@code Answerable}'s {@code difficulty} matches the difficulty given.
+ */
 public class DifficultyPredicate implements Predicate<Answerable> {
     private final Difficulty level;
 

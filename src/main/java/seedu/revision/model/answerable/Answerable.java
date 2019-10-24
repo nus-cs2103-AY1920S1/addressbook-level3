@@ -5,7 +5,6 @@ import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -19,15 +18,15 @@ import seedu.revision.model.category.Category;
  */
 public abstract class Answerable {
 
-    protected final Question question;
-    protected final Difficulty difficulty;
+    private static final Logger logger = Logger.getLogger(Answerable.class.getName());
 
-    protected final ArrayList<Answer> correctAnswerList;
-    protected final ArrayList<Answer> wrongAnswerList;
-    protected final ArrayList<Answer> combinedAnswerList;
-    protected final Set<Category> categories = new HashSet<>();
+    private final Question question;
+    private final Difficulty difficulty;
 
-    private final static Logger logger = Logger.getLogger(Answerable.class.getName());
+    private final ArrayList<Answer> correctAnswerList;
+    private final ArrayList<Answer> wrongAnswerList;
+    private final ArrayList<Answer> combinedAnswerList;
+    private final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -69,6 +68,11 @@ public abstract class Answerable {
         return Collections.unmodifiableSet(categories);
     }
 
+    /**
+     * Returns true if question has been answered correctly and false if it has been answered wrongly.
+     * @param selectedAnswer answer
+     * @return true if correct or false if wrong
+     */
     public boolean isCorrect(Answer selectedAnswer) {
         if (correctAnswerList.contains(selectedAnswer)) {
             logger.info("correct answer selected");
@@ -78,7 +82,6 @@ public abstract class Answerable {
         return false;
     }
 
-  
     /**
      * Returns true if both answerables with the same question have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two answerables.

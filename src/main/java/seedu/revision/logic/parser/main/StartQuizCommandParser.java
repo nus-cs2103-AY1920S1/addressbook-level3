@@ -1,6 +1,9 @@
 package seedu.revision.logic.parser.main;
 
-import seedu.revision.logic.commands.main.ListCommand;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_MODE;
+
 import seedu.revision.logic.commands.main.StartQuizCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
@@ -12,10 +15,6 @@ import seedu.revision.model.answerable.predicates.CategoryPredicate;
 import seedu.revision.model.answerable.predicates.DifficultyPredicate;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.Mode;
-
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_MODE;
 
 /**
  * Parses input arguments and creates a new StartQuizCommand object

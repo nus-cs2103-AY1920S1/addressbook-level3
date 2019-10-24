@@ -9,6 +9,9 @@ import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 
+/**
+ * User inputs that answer the MCQ questions in the quiz session.
+ */
 public class McqInputCommand extends Command {
 
     public static final String MESSAGE_USAGE = "Input can only be A, B, C, or D (case insensitive)";
@@ -45,9 +48,9 @@ public class McqInputCommand extends Command {
         }
 
         requireNonNull(selectedAnswer);
-        String result  = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
+        String result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
 
-        return new CommandResult(result , false, false);
+        return new CommandResult(result, false, false);
     }
 
 

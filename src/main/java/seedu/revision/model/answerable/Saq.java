@@ -1,10 +1,9 @@
 package seedu.revision.model.answerable;
 
-import seedu.revision.model.category.Category;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
+
+import seedu.revision.model.category.Category;
 
 /**
  * Represents a Answerable in the Test Bank.
@@ -21,6 +20,11 @@ public class Saq extends Answerable {
         super(question, correctAnswerList, new ArrayList<>(), difficulty, categories);
     }
 
+    /**
+     * Returns an entire text string of the answerable (question with all possible answers,
+     * difficulty level and categories)
+     * @return answerable string
+     */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: SAQ ")
@@ -33,4 +37,5 @@ public class Saq extends Answerable {
         getCategories().forEach(builder::append);
         return builder.toString();
     }
+
 }

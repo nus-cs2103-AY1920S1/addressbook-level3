@@ -5,6 +5,10 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 
+/**
+ * Inherits Logic interface. Added functionality to original Logic interface.
+ * Specifically used to start the quiz session.
+ */
 public interface QuizLogic extends Logic {
     /**
      * Executes the command and returns the result.

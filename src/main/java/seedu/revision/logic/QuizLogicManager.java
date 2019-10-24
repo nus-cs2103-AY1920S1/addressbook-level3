@@ -1,6 +1,5 @@
 package seedu.revision.logic;
 
-
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
@@ -8,11 +7,11 @@ import javafx.collections.ObservableList;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.commands.Command;
-import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.main.ListCommand;
-import seedu.revision.logic.parser.quiz.QuizParser;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.logic.parser.quiz.QuizParser;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
@@ -25,7 +24,7 @@ import seedu.revision.storage.Storage;
 public class QuizLogicManager implements QuizLogic {
     private final Logger logger = LogsCenter.getLogger(MainLogicManager.class);
 
-    protected final Model model;
+    private final Model model;
     private final Storage storage;
     private final QuizParser quizParser;
 
@@ -35,7 +34,14 @@ public class QuizLogicManager implements QuizLogic {
         quizParser = new QuizParser();
     }
 
-
+    /**
+     * Quiz session in operation. Takes in user input and determines command to execute.
+     * @param commandText The command as entered by the user.
+     * @param currentAnswerable The current question to be responded to.
+     * @return commandResult to be executed.
+     * @throws ParseException
+     * @throws CommandException
+     */
     public CommandResult execute(String commandText, Answerable currentAnswerable)
             throws ParseException, CommandException {
         //Logging, safe to ignore
