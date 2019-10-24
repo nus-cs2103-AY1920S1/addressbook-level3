@@ -157,6 +157,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteLesson(Lesson target) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void setStudent(Student target, Student editedStudent) {
             throw new AssertionError("This method should not be called.");
         }
@@ -164,6 +169,11 @@ public class AddCommandTest {
         @Override
         public void setAssignment(Assignment target, Assignment editedAssignment) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setLesson(Lesson target, Lesson editedLesson) {
+            throw new AssertionError("This method should not be called");
         }
 
         @Override
@@ -192,6 +202,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Lesson> getFilteredLessonList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void updateFilteredStudentList(Predicate<Student> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -199,6 +214,11 @@ public class AddCommandTest {
         @Override
         public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLessonList(Predicate<Lesson> predicate) {
+            throw new AssertionError("This method should not be called");
         }
 
         @Override

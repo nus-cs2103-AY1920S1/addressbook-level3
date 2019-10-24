@@ -28,6 +28,7 @@ public class ModelManager implements Model {
     private final FilteredList<Student> filteredStudents;
     private FilteredList<Reminder> filteredReminders;
     private final FilteredList<Assignment> filteredAssignments;
+    private final FilteredList<Lesson> filteredLessons;
 
     /**
      * Initializes a ModelManager with the given classroom and userPrefs.
@@ -41,9 +42,11 @@ public class ModelManager implements Model {
         this.classroom = new Classroom(classroom);
         this.caretaker = new Caretaker(new Memento(classroom), this.classroom);
         this.userPrefs = new UserPrefs(userPrefs);
+
         filteredStudents = new FilteredList<>(this.classroom.getStudentList());
         filteredReminders = new FilteredList<>(this.classroom.getReminderList());
         filteredAssignments = new FilteredList<>(this.classroom.getAssignmentList());
+        filteredLessons = new FilteredList<>(this.classroom.getLessonList());
     }
 
     public ModelManager() {
@@ -157,6 +160,7 @@ public class ModelManager implements Model {
         classroom.displayAssignments();
     }
 
+    @Override
     public void addLesson(Lesson lesson) {
         classroom.addLesson(lesson);
     }
@@ -168,6 +172,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteLesson(Lesson target) {
+        classroom.removeLesson(target);
+    }
+
+    @Override
+    public void setLesson(Lesson target, Lesson editedLesson) {
+        requireAllNonNull(target, editedLesson);
+
+        classroom.setLesson(target, editedLesson);
+    }
+
     public ObservableList<Reminder> getFilteredReminderList() {
         return filteredReminders;
     }
@@ -189,6 +204,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Lesson> getFilteredLessonList() {
+        return filteredLessons;
+    }
+
+    @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
@@ -200,6 +220,11 @@ public class ModelManager implements Model {
         filteredAssignments.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredLessonList(Predicate<Lesson> predicate) {
+        requireNonNull(predicate);
+        filteredLessons.setPredicate(predicate);
+    }
     //=========== Undo and Redo Operations =============================================================
 
     @Override
@@ -227,6 +252,7 @@ public class ModelManager implements Model {
         caretaker.saveState();
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
     }
 
     @Override

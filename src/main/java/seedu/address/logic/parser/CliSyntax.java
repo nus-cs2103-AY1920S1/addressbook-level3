@@ -17,6 +17,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_MARKS = new Prefix("g/");
     public static final Prefix PREFIX_GRADES = new Prefix("g/");
     public static final Prefix PREFIX_LESSONNAME = new Prefix("l/");
-    public static final Prefix PREFIX_TIME = new Prefix("t/");
+    public static final Prefix PREFIX_STARTTIME = new Prefix("st/");
+    public static final Prefix PREFIX_ENDTIME = new Prefix("et/");
+    public static final Prefix PREFIX_REPEAT = new Prefix("r/");
 
 }

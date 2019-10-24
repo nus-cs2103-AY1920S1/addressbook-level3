@@ -15,7 +15,7 @@ public class ClassName {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    private final String className;
+    public final String className;
 
     public ClassName(String className) {
         requireNonNull(className);

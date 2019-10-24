@@ -3,28 +3,15 @@ package seedu.address.storage;
 /*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
-=======
-
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static seedu.address.testutil.Assert.assertThrows;
->>>>>>> origin/master
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 //import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.Classroom;
-import seedu.address.testutil.TypicalStudents;
-=======
 //import seedu.address.commons.exceptions.IllegalValueException;
 //import seedu.address.commons.util.JsonUtil;
 //import seedu.address.model.Classroom;
 //import seedu.address.testutil.TypicalStudents;
->>>>>>> origin/master
 
 public class JsonSerializableClassroomTest {
 

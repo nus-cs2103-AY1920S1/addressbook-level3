@@ -61,7 +61,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane reminderListPanelPlaceHolder;
+    private StackPane reminderListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -132,8 +132,8 @@ public class MainWindow extends UiPart<Stage> {
 
         combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
-        //reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
-        //reminderListPanelPlaceHolder.getChildren().add(reminderListPanel.getRoot());
+        reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

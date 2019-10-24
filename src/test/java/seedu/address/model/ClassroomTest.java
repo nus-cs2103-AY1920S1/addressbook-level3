@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.exceptions.DuplicateStudentException;
@@ -92,6 +93,7 @@ public class ClassroomTest {
         private final ObservableList<Student> students = FXCollections.observableArrayList();
         private final ObservableList<Reminder> reminders = FXCollections.observableArrayList();
         private final ObservableList<Assignment> assignments = FXCollections.observableArrayList();
+        private final ObservableList<Lesson> lessons = FXCollections.observableArrayList();
 
         ClassroomStub(Collection<Student> students) {
             this.students.setAll(students);
@@ -106,6 +108,12 @@ public class ClassroomTest {
         public ObservableList<Reminder> getReminderList() {
             return reminders;
         }
+
+        @Override
+        public ObservableList<Lesson> getLessonList() {
+            return lessons;
+        }
+
         @Override
         public ObservableList<Assignment> getAssignmentList() {
             return assignments;

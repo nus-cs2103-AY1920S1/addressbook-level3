@@ -17,6 +17,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+    Predicate<Lesson> PREDICATE_SHOW_ALL_LESSONS = unused -> true;
     Predicate<Student> PREDICATE_SHOW_NO_STUDENTS = used -> false;
     Predicate<Assignment> PREDICATE_SHOW_NO_ASSIGNMENTS = used -> false;
 
@@ -87,6 +88,7 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
+    ObservableList<Lesson> getFilteredLessonList();
 
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
@@ -99,6 +101,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    void updateFilteredLessonList(Predicate<Lesson> predicate);
 
     ReadOnlyClassroom undo();
 
@@ -127,7 +131,7 @@ public interface Model {
 
     /**
      * Adds the given lesson.
-     * @param lesson Lesson object.
+     * @param lesson lesson object.
      */
     void addLesson(Lesson lesson);
 
@@ -138,7 +142,21 @@ public interface Model {
     boolean hasLesson(Lesson lesson);
 
     /**
-     * returns an unmodifiable view of the filtered
+     * Deletes the given lesson.
+     * The lesson must exist in the address book.
+     */
+    void deleteLesson(Lesson target);
+
+    /**
+     * Replaces the given lesson {@code target} with {@code editedLesson}.
+     * {@code target} must exist in the address book.
+     * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
+     * book.
+     */
+    void setLesson(Lesson target, Lesson editedLesson);
+
+    /**
+     * returns an unmodifiable view of the filtered reminder list.
      * @return Ob
      */
     ObservableList<Reminder> getFilteredReminderList();

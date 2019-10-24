@@ -9,7 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyClassroom;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.scheduler.Reminder;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
 /**
@@ -40,7 +40,7 @@ public interface Logic {
     ObservableList<Assignment> getFilteredAssignmentList();
 
     /** Returns an unmodifiable view of the filtered list of reminders */
-    ObservableList<Reminder> getFilteredReminderList();
+    ObservableList<Lesson> getFilteredLessonList();
 
     /**
      * Returns the user prefs' classroom file path.

@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,10 +20,14 @@ public class AddLessonCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson to the classroom. "
             + "Parameters: "
             + PREFIX_LESSONNAME + "NAME "
-            + PREFIX_TIME + "DATE "
+            + PREFIX_STARTTIME + "START DATE "
+            + PREFIX_ENDTIME + "END DATE "
+            + "[" + PREFIX_REPEAT + "repeat] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_LESSONNAME + "Math 4E7 "
-            + PREFIX_TIME + "14/07/2020 1200 ";
+            + PREFIX_STARTTIME + "14/07/2020 1200 "
+            + PREFIX_ENDTIME + "14/07/2020 1400"
+            + PREFIX_REPEAT + "repeat";
 
     public static final String MESSAGE_SUCCESS = "New lesson added: %1$s";
     public static final String MESSAGE_DUPLICATE_LESSON = "This lesson already exists in the classroom";

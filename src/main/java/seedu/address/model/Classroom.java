@@ -71,6 +71,7 @@ public class Classroom implements ReadOnlyClassroom {
         requireNonNull(newData);
         setStudents(newData.getStudentList());
         setAssignments(newData.getAssignmentList());
+        setLessons(newData.getLessonList());
     }
 
     //// student-level operations
@@ -174,6 +175,33 @@ public class Classroom implements ReadOnlyClassroom {
         return lessons.contains(lesson);
     }
 
+    /**
+     * Replaces the given lesson {@code target} in the list with {@code editedLesson}.
+     * {@code target} must exist in the address book.
+     * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
+     * book.
+     */
+    public void setLesson(Lesson target, Lesson editedLesson) {
+        requireNonNull(editedLesson);
+
+        lessons.setLesson(target, editedLesson);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeLesson(Lesson key) {
+        lessons.remove(key);
+    }
+
+    /**
+     * Replaces the contents of the lesson list with {@code lessons}.
+     * {@code lessons} must not contain duplicate lessons.
+     */
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons.setLessons(lessons);
+    }
     //// util methods
 
     @Override
@@ -195,6 +223,11 @@ public class Classroom implements ReadOnlyClassroom {
     @Override
     public ObservableList<Assignment> getAssignmentList() {
         return assignments.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Lesson> getLessonList() {
+        return lessons.asUnmodifiableObservableList();
     }
 
     @Override
