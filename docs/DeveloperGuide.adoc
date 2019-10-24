@@ -170,13 +170,49 @@ an interviewee matches an interview slot if **all** the criteria below are fulfi
 **Brief Explanation of the Algorithm** +
 Include an **activity diagram** here to summarise the algorithm.
 
-
 The proposed implementation of this algorithm is to encapsulate the logic of the algorithm into a `command` class under the
 `logic` component, possibly with the help of some auxiliary classes. the command is then invoked when the user key in the relevant
 command keyword (refer user guide).
 
 when the scheduling algorithm has finished running, it will update the data in the `schedule` objects to reflect the
 scheduled time slots, which the changes will be reflected in ui.
+
+
+=== Display Schedule Feature
+==== Proposed Implementation
+
+The display schedule feature extends Scheduler to display multiple tables of schedule per day. It is a component in the "MainWindow" class
+stored in a "ScheduleViewPanel" class. Within the "ScheduleViewPanel" class, objects of "ScheduleView" class are stored into the panel.
+
+ScheduleViewPanel implements the following function:
+*`fillPanel()` -- Fill the ScheduleView component with the schedule tables for each day.
+
+Given below is an example scenario of what will be displayed to the user.
+
+Step 1. The user launches the application. The Ui will start and the MainWindow will be displayed first.
+
+Step 2. MainWindow will call all the children such as the HelpWindow, CommandBox, Result Display, StatusBarFooter and ScheduleViewPanel.
+
+Step 3. Once ScheduleViewPanel is called, it will take in a list of titles and ObservableList data from the Logic class. The list of titles
+consist of the title column for each schedule table and the ObservableList data consists of the time slots allocated to each interviewee.
+
+Step 4. ScheduleViewPanel will call the ScheduleView class to fill each table and populate each table with the data given by the Logic class.
+
+Step 5. ScheduleView will have a .fxml file of a table and it will first be filled with the column titles, followed by the time slots and the
+interviewee allocated to each time slots. The slot that has no interviewee will be displayed as "0".
+
+Step 6. Once the data is populated, the MainWindow will display the schedules of each day arranged in a table format.
+
+Step 7. Once User imports a new .csv file, it will call the RefreshListener Interface. RefreshListenerManager will then take in the new titles and
+list of ObservableList of interviewee.
+
+Step 8. The RefreshListenerManager will call the MainWindow to refresh the ScheduleViewPanel.
+
+Step 9. ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+=======
 
 === Logging
 
@@ -187,7 +223,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
-
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
