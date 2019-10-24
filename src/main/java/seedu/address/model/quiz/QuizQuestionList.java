@@ -34,8 +34,10 @@ public class QuizQuestionList implements Iterable<Question> {
      */
     public ObservableList<Question> getOneQuizQuestionAsList() {
         ObservableList<Question> oneQuestionList = FXCollections.observableArrayList();
-        Question question = modifiableList.get(0);
-        oneQuestionList.add(question);
+        if (modifiableList.size() > 0) {
+            Question question = modifiableList.get(0);
+            oneQuestionList.add(question);
+        }
         return oneQuestionList;
     }
 

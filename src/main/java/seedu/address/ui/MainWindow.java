@@ -198,6 +198,7 @@ public class MainWindow extends UiPart<Stage> {
         questionListPanelPlaceholder.getChildren().clear();
         questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
     }
 
     /**

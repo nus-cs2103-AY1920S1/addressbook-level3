@@ -14,7 +14,6 @@ public class QuizShowAnswerCommand extends Command {
     public static final String COMMAND_WORD = "show";
 
     public static final String MESSAGE_SUCCESS = "The answer is: %1$s";
-    public static final String INDEX_EXCEED_RANGE = "The index input is out of the range of quiz questions!";
 
     @Override
     public CommandResult execute(Model model) {

@@ -213,7 +213,7 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public boolean checkQuizAnswer(int index, Answer answer) {
+        public boolean checkQuizAnswer(Answer answer) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -258,6 +258,21 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public ObservableList<Question> getOneQuizQuestionAsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Question getOneQuizQuestion() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeOneQuizQuestion() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void clearTaskList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -268,7 +283,7 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public Answer showQuizAnswer(int index) {
+        public Answer showQuizAnswer() {
             throw new AssertionError("This method should not be called.");
         }
 

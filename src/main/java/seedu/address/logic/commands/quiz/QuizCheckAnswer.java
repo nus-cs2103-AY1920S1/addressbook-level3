@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,6 +22,8 @@ import seedu.address.model.quiz.QuizResult;
 public class QuizCheckAnswer extends Command {
     public static final String ANSWER_CORRECT = "The answer is correct!";
     public static final String ANSWER_WRONG = "The answer is wrong!";
+
+    public static final String EMPTY_QUESTION = "You have answered all questions!";
 
     private final Answer answer;
 
@@ -44,25 +44,24 @@ public class QuizCheckAnswer extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-//        List<Question> listShownList = model.getFilteredQuizQuestionList();
-//        if (index >= listShownList.size()) {
-//            throw new CommandException(Messages.MESSAGE_INVALID_QUIZ_QUESTION_DISPLAYED_INDEX);
-//        }
+        try {
+            boolean result = model.checkQuizAnswer(answer);
+            Question question = model.getOneQuizQuestion();
+            QuestionBody questionBody = question.getQuestionBody();
+            Subject subject = question.getSubject();
+            Difficulty difficulty = question.getDifficulty();
+            QuizResult quizResult = new QuizResult(answer, questionBody, subject, difficulty, getQuizTime(), result);
 
-        boolean result = model.checkQuizAnswer(answer);
-        Question question = model.getOneQuizQuestion();
-        QuestionBody questionBody = question.getQuestionBody();
-        Subject subject = question.getSubject();
-        Difficulty difficulty = question.getDifficulty();
-        QuizResult quizResult = new QuizResult(answer, questionBody, subject, difficulty, getQuizTime(), result);
+            model.addQuizResult(quizResult);
+            model.removeOneQuizQuestion();
 
-        model.addQuizResult(quizResult);
-        model.removeOneQuizQuestion();
-
-        if (result) {
-            return new CommandResult(ANSWER_CORRECT, 4);
-        } else {
-            return new CommandResult(ANSWER_WRONG, 4);
+            if (result) {
+                return new CommandResult(ANSWER_CORRECT, 4);
+            } else {
+                return new CommandResult(ANSWER_WRONG, 4);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(EMPTY_QUESTION);
         }
     }
 }

@@ -154,16 +154,11 @@ There is a built-in Test mode in NUStudy for you to take a revision test based o
 ==== Enter quiz mode : `quiz`
 
 Enters quiz mode for you to answer questions. +
-Format: `quiz [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT`
 
 ==== Answer the quiz question : `type answer` +
 Answers the specified question. +
-Format: `INDEX:ANSWER`
-
-==== Change the difficulty: : `change -dif`
-
-Changes the level of difficulty of questions. +
-Format: `change -dif d/DIFFICULTY`
+Format: `ANSWER`
 
 ==== Set mixed difficulty : `mix -dif`
 
@@ -172,20 +167,10 @@ Format: +
 `mix -dif [d/DIFFICULTY1] [n/NUMBER1] [d/DIFFICULTY2] [n/NUMBER2] [d/DIFFICULTY3] [n/NUMBER3]...` +
 `mix -dif all n/NUMBER`
 
-==== Change the subject : `change -s`
-
-Changes the subject of questions. +
-Format: `change -s SUBJECT [MORE_SUBJECTS]`
-
 ==== Show an answer : `show`
 
-Shows an answer for a question with specific index. +
-Format: `show INDEX`
-
-==== Mark a question: `mark`
-
-Marks the current question to a special list. +
-Format: `mark`
+Shows an answer for the displayed quiz question. +
+Format: `show`
 
 ==== Exit test mode : `quit`
 
