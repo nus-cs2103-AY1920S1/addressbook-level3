@@ -233,7 +233,14 @@ public class AutoCompletePanel extends UiPart<Region> {
         }
     }
 
-    public LinkedList<AutoCompleteWord> getMatchedWordsList() {
-        return matchedAutoCompleteWords;
+    public String getCombinedMatchedWords() {
+        StringBuilder combinedMatchedWords = new StringBuilder();
+        for (AutoCompleteWord autoCompleteWord : matchedAutoCompleteWords) {
+            combinedMatchedWords
+                    .append(autoCompleteWord.getSuggestedWord())
+                    .append(autoCompleteWord.getConnectorChar());
+        }
+        combinedMatchedWords.append(getSelected().getSuggestedWord());
+        return combinedMatchedWords.toString();
     }
 }

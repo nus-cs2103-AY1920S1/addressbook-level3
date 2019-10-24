@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import seedu.address.autocomplete.AutoCompleteWord;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -83,7 +82,6 @@ public class CommandBox extends UiPart<Region> {
 
     public void setOnButtonPressedListener() {
         commandTextField.setOnKeyPressed(event -> {
-            int newIndex;
             switch (event.getCode()) {
             case UP:
                 autoCompletePanel.setSelected(autoCompletePanel.getSelectedIndex() - 1);
@@ -95,17 +93,9 @@ public class CommandBox extends UiPart<Region> {
                 break;
             case RIGHT:
                 try {
-                    StringBuilder textInTextField = new StringBuilder();
-                    for (AutoCompleteWord autoCompleteWord : autoCompletePanel.getMatchedWordsList()) {
-                        textInTextField
-                                .append(autoCompleteWord.getSuggestedWord())
-                                .append(autoCompleteWord.getConnectorChar());
-                    }
-                    textInTextField.append(autoCompletePanel.getSelected().getSuggestedWord());
-                    commandTextField.setText(textInTextField.toString());
+                    commandTextField.setText(autoCompletePanel.getCombinedMatchedWords());
                     commandTextField.positionCaret(commandTextField.getText().length());
-
-                    autoCompletePanel.updateListView(textInTextField.toString());
+                    autoCompletePanel.updateListView(autoCompletePanel.getCombinedMatchedWords());
 
                 } catch (NullPointerException e) {
                     logger.info("Nothing is selected thus right key does not work");
