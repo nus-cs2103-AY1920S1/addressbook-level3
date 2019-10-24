@@ -1,5 +1,8 @@
 package seedu.address.calendar.model;
 
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.MonthOfYear;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,7 @@ public class Calendar {
         Year currentYear = new Year(currentDate.get(java.util.Calendar.YEAR));
 
         int currentUnformattedMonth = currentDate.get(java.util.Calendar.MONTH);
-        MonthOfYear currentMonth = MonthOfYear.convertJavaMonth(currentUnformattedMonth);
+        MonthOfYear currentMonth = DateUtil.convertJavaMonth(currentUnformattedMonth);
 
         monthShown = new Month(currentMonth, currentYear);
         hasVisibleUpdates = false;

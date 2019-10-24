@@ -2,6 +2,7 @@ package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.AddCommitmentCommand;
 import seedu.address.calendar.model.*;
+import seedu.address.calendar.model.util.MonthOfYear;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;

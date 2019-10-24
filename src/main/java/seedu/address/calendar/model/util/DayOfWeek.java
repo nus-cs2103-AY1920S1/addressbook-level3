@@ -1,9 +1,9 @@
-package seedu.address.calendar.model;
+package seedu.address.calendar.model.util;
 
 import java.util.Optional;
 import java.util.stream.Stream;
 
-enum DayOfWeek {
+public enum DayOfWeek {
     SUN(0),
     MON(1),
     TUE(2),

@@ -1,4 +1,7 @@
-package seedu.address.calendar.model;
+package seedu.address.calendar.model.util;
+
+import seedu.address.calendar.model.Day;
+import seedu.address.calendar.model.Year;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +10,37 @@ import java.util.stream.IntStream;
 public class DateUtil {
     private static int FIRST_DAY_OF_MONTH = 1;
 
-    /* The following deals with more specific month-related methods. */
+    /* The following is used for year-related purposes. */
+    public static int getNumericalVal(DayOfWeek dayOfWeek) {
+        return dayOfWeek.getNumericalVal();
+    }
+
+    /* The following is used for month-related purposes. */
+    public static MonthOfYear convertJavaMonth(int javaMonth) {
+        return MonthOfYear.convertJavaMonth(javaMonth);
+    }
+
+    public static boolean isValidMonthStr(String month) {
+        return MonthOfYear.isValidMonthStr(month);
+    }
+
+    public static int getNumDaysInMonth(MonthOfYear monthOfYear, Year year) {
+        return monthOfYear.getNumDaysInMonth(year);
+    }
+
+    public static boolean isValidMonthNum(int montNum) {
+        return MonthOfYear.isValidMonthNum(montNum);
+    }
+
+    public static MonthOfYear convertStrToMonth(String monthStr) {
+        return MonthOfYear.convertStrToMonth(monthStr);
+    }
+
+    public static MonthOfYear convertNumToMonth(int zeroBasedMonth) {
+        return  MonthOfYear.convertNumToMonth(zeroBasedMonth);
+    }
+
+    /* The following is used for more specific month-and-day-related purposes. */
 
     public static List<Day> getDaysOfMonth(MonthOfYear monthOfYear, Year year) {
         int monthOfYearAsInt = monthOfYear.getNumericalVal();

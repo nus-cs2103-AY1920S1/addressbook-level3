@@ -7,7 +7,7 @@ public class Year {
         this.year = year;
     }
 
-    int getNumericalValue() {
+    public int getNumericalValue() {
         return year;
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.MonthOfYear;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.Optional;
@@ -47,20 +48,20 @@ class MonthParser {
         // assumes that user represents Jan with 1, Feb with 2, etc.
         int zeroBasedMonth = Integer.parseInt(monthNum) - 1;
 
-        if (!MonthOfYear.isValidMonthNum(zeroBasedMonth)) {
+        if (!DateUtil.isValidMonthNum(zeroBasedMonth)) {
             throw new ParseException(MONTH_ERROR_MESSAGE);
         }
 
-        MonthOfYear month = MonthOfYear.convertNumToMonth(zeroBasedMonth);
+        MonthOfYear month = DateUtil.convertNumToMonth(zeroBasedMonth);
         return month;
     }
 
     private MonthOfYear convertMonthStr(String monthStr) throws ParseException {
-        if (!MonthOfYear.isValidMonthStr(monthStr)) {
+        if (!DateUtil.isValidMonthStr(monthStr)) {
             throw new ParseException(MONTH_ERROR_MESSAGE);
         }
 
-        MonthOfYear month = MonthOfYear.convertStrToMonth(monthStr);
+        MonthOfYear month = DateUtil.convertStrToMonth(monthStr);
         return month;
     }
 }

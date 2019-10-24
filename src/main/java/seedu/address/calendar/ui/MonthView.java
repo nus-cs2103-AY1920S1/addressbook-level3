@@ -50,10 +50,10 @@ class MonthView {
 
         days.forEach(day -> {
             DayView dayView = new DayView(day.getDayOfMonth());
-            int firstDayOfWeekAsNum = firstDay.getDayOfWeekZeroIndex();
+            int firstDayOfWeekAsNum = firstDay.getDayOfWeekZeroIndex() - 1;
             int rowIndex = (firstDayOfWeekAsNum + day.getDayOfMonth()) / 7;
             int shiftedRowIndex = rowIndex < 5 ? rowIndex : 0;
-            monthView.add(dayView.getRoot(), day.getDayOfWeekOneBased(), shiftedRowIndex);
+            monthView.add(dayView.getRoot(), day.getDayOfWeekZeroIndex(), shiftedRowIndex);
         });
 
         return monthView;

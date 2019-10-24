@@ -1,7 +1,7 @@
 package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.ShowCommand;
-import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.util.MonthOfYear;
 import seedu.address.calendar.model.Year;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;

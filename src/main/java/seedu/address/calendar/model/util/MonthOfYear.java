@@ -1,4 +1,6 @@
-package seedu.address.calendar.model;
+package seedu.address.calendar.model.util;
+
+import seedu.address.calendar.model.Year;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -31,7 +33,7 @@ public enum MonthOfYear {
         return numericalVal;
     }
 
-    public int getNumDaysInMonth(Year year) {
+    int getNumDaysInMonth(Year year) {
         if (numericalVal == 2) {
             // if it is February
             return isLeapYear(year.getNumericalValue()) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
@@ -54,19 +56,19 @@ public enum MonthOfYear {
         return NUM_MONTHS_IN_YEAR;
     }
 
-    public static MonthOfYear convertJavaMonth(int javaMonth) {
+    static MonthOfYear convertJavaMonth(int javaMonth) {
         return MonthOfYear.values()[javaMonth];
     }
 
-    public static boolean isValidMonthNum(int monthNum) {
+    static boolean isValidMonthNum(int monthNum) {
         return monthNum < MonthOfYear.values().length;
     }
 
-    public static MonthOfYear convertNumToMonth(int monthNum) {
+    static MonthOfYear convertNumToMonth(int monthNum) {
         return convertJavaMonth(monthNum);
     }
 
-    public static boolean isValidMonthStr(String monthStr) {
+    static boolean isValidMonthStr(String monthStr) {
         return Stream.of(MonthOfYear.values())
                 .anyMatch(month -> {
                     String monthLowerCase = month.toString().toLowerCase();
@@ -75,7 +77,7 @@ public enum MonthOfYear {
                 });
     }
 
-    public static MonthOfYear convertStrToMonth(String monthStr) {
+    static MonthOfYear convertStrToMonth(String monthStr) {
         Optional<MonthOfYear> monthOfYear = Stream.of(MonthOfYear.values())
                 .filter(month -> {
                     String monthLowerCase = month.toString().toLowerCase();

@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
-import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.util.MonthOfYear;
 import seedu.address.calendar.model.Year;
 import seedu.address.calendar.parser.CalendarParser;
 import seedu.address.calendar.storage.CalendarStorage;

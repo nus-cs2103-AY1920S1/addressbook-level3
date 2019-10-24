@@ -1,5 +1,8 @@
 package seedu.address.calendar.model;
 
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.MonthOfYear;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -12,7 +15,7 @@ public class Month {
     public Month(MonthOfYear monthOfYear, Year year) {
         this.monthOfYear = monthOfYear;
         this.year = year;
-        this.daysInMonth = monthOfYear.getNumDaysInMonth(year);
+        this.daysInMonth = DateUtil.getNumDaysInMonth(monthOfYear, year);
         days = DateUtil.getDaysOfMonth(monthOfYear, year);
     }
 
@@ -20,7 +23,7 @@ public class Month {
         this.monthOfYear = monthOfYear;
         this.year = year;
         this.days = days;
-        this.daysInMonth = monthOfYear.getNumDaysInMonth(year);
+        this.daysInMonth = DateUtil.getNumDaysInMonth(monthOfYear, year);
     }
 
     public Year getYear() {

@@ -1,11 +1,12 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.model.DateUtil;
+import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.calendar.model.Day;
-import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.util.MonthOfYear;
 import seedu.address.calendar.model.Year;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.sql.Date;
 import java.util.Optional;
 
 public class DayParser {
@@ -22,7 +23,7 @@ public class DayParser {
     }
 
     private Day parse(int dayOfMonth, MonthOfYear monthOfYear, Year year) throws ParseException {
-        if (dayOfMonth < 0 || dayOfMonth > monthOfYear.getNumDaysInMonth(year)) {
+        if (dayOfMonth < 0 || dayOfMonth > DateUtil.getNumDaysInMonth(monthOfYear, year)) {
             throw new ParseException(MESSAGE_INVALID_DAY_RANGE_ERROR);
         }
 
@@ -39,7 +40,7 @@ public class DayParser {
         MonthOfYear monthOfYear = month.orElseGet(() -> {
             java.util.Calendar currentDate = java.util.Calendar.getInstance();
             int currentMonth = currentDate.get(java.util.Calendar.MONTH);
-            return MonthOfYear.convertJavaMonth(currentMonth);
+            return DateUtil.convertJavaMonth(currentMonth);
         });
 
         Year yearValue = year.orElseGet(() -> {

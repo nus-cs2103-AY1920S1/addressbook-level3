@@ -1,5 +1,8 @@
 package seedu.address.calendar.model;
 
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.DayOfWeek;
+import seedu.address.calendar.model.util.MonthOfYear;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.Optional;
@@ -39,7 +42,7 @@ public class Date {
 
         if (month.isEmpty()) {
             int currentUnformattedMonth = currentDate.get(java.util.Calendar.MONTH);
-            this.month = MonthOfYear.convertJavaMonth(currentUnformattedMonth);
+            this.month = DateUtil.convertJavaMonth(currentUnformattedMonth);
         } else {
             this.month = month.get();
         }
@@ -69,7 +72,7 @@ public class Date {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
-        if (!MonthOfYear.isValidMonthStr(month)) {
+        if (!DateUtil.isValidMonthStr(month)) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
@@ -89,7 +92,7 @@ public class Date {
         Year yearVal = new Year(Integer.parseInt(year));
         int dayOfMonthVal = Integer.parseInt(dayOfMonth);
 
-        if (dayOfMonthVal < 0 || dayOfMonthVal > monthVal.getNumDaysInMonth(yearVal)) {
+        if (dayOfMonthVal < 0 || dayOfMonthVal > DateUtil.getNumDaysInMonth(monthVal, yearVal)) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
