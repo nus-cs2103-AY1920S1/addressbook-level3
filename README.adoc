@@ -1,4 +1,4 @@
-= NUSpend
+= MooLah
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/ay1920s1-cs2103t-t11-1/main[image:https://travis-ci.org/ay1920s1-cs2103t-t11-1/main.svg?branch=master[Build Status]]
@@ -11,9 +11,9 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* Our unique expense tracker app, NUSpend, is is tailored to students from National University of Singapore.
+* Our unique expense tracker app, MooLah, is is tailored to students from National University of Singapore.
 It helps users cultivate good financial management habits through tracking their expenses and setting periodical budgets.
-With NUSpend, you can spend smart and save smart.
+With MooLah, you can spend smart and save smart.
 * This is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
 == Site Map
