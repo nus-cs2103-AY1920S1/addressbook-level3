@@ -154,8 +154,6 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction transaction) {
         fundBook.addTransaction(transaction);
-        TransactionContext newContext = getTransactionContext().getAccommodatingContext(transaction);
-        setTransactionContext(newContext);
     }
 
     @Override
@@ -248,6 +246,12 @@ public class ModelManager implements Model {
     public void setTransactionContext(TransactionContext transactionContext) {
         this.transactionContext.setValue(transactionContext);
         updateFilteredTransactionList(transactionContext.getPredicate());
+    }
+
+    @Override
+    public void updateTransactionContext(Transaction transaction) {
+        TransactionContext newContext = getTransactionContext().getAccommodatingContext(transaction);
+        setTransactionContext(newContext);
     }
 
     /**
