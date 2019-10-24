@@ -38,7 +38,7 @@ public class ContactListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ContactListCard(contact, getIndex() + 1).getRoot());
+                setGraphic(new ContactListCard(contact).getRoot());
             }
         }
     }

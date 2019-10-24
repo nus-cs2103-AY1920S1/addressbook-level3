@@ -92,6 +92,10 @@ public class TypicalNotes {
             .withTitle(TITLE_EARTH)
             .withContent(CONTENT_EARTH).withTimeCreated(TIMECREATED_EARTH)
             .withTimeLastUpdated(TIMELASTUPDATED_EARTH).build();
+    public static final Note EARTH_NO_TITLE = new NoteBuilder().withNoteId(NOTEID_EARTH)
+            .withTitle("")
+            .withContent(CONTENT_EARTH).withTimeCreated(TIMECREATED_EARTH)
+            .withTimeLastUpdated(TIMELASTUPDATED_EARTH).build();
 
     // Manually added - Note's details found in {@code NoteCommandTestUtil}
     public static final Note PROTECTOR = new NoteBuilder().withNoteId(VALID_NOTEID_PROTECTOR)

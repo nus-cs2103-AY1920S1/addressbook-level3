@@ -87,7 +87,7 @@ public class ChatPaneTest {
     /**
      * Types a command in the command text field.
      */
-    void typeCommand(FxRobot robot, String command) {
+    private void typeCommand(FxRobot robot, String command) {
         TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
         robot.clickOn(textField);
         robot.interact(() -> textField.setText(command));
@@ -96,7 +96,7 @@ public class ChatPaneTest {
     /**
      * Enters a command into the command text field and sends it with the Enter key.
      */
-    void enterCommand(FxRobot robot, String command) {
+    private void enterCommand(FxRobot robot, String command) {
         typeCommand(robot, command);
         robot.type(KeyCode.ENTER);
     }
@@ -104,10 +104,10 @@ public class ChatPaneTest {
     /**
      * Enters a command into the command text field and sends it by pressing the button.
      */
-    void buttonCommand(FxRobot robot, String command) {
+    private void buttonCommand(FxRobot robot, String command) {
         typeCommand(robot, command);
         Button button = robot.lookup(".commandSendButton").queryButton();
-        robot.interact(() -> button.fire());
+        robot.interact(button::fire);
     }
 
     @Test

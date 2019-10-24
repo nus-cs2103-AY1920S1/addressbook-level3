@@ -11,7 +11,9 @@ import tagline.model.note.Note;
  */
 public class NoteListCard extends UiPart<Region> {
 
+    public static final String UNTITLED_NOTE_STRING = "Untitled Note";
     private static final String FXML = "NoteListCard.fxml";
+
     public final Note note;
 
     @FXML
@@ -31,7 +33,7 @@ public class NoteListCard extends UiPart<Region> {
         id.setText("#" + note.getNoteId().value);
 
         if (note.getTitle().titleDescription.isEmpty()) {
-            title.setText("Untitled Note");
+            title.setText(UNTITLED_NOTE_STRING);
         } else {
             title.setText(note.getTitle().titleDescription);
         }

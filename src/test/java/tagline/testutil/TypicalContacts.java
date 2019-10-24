@@ -48,6 +48,14 @@ public class TypicalContacts {
             .withEmail("stefan@example.com").withAddress("little india").withId(8).build();
     public static final Contact IDA = new ContactBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").withId(9).build();
+    public static final Contact BENSON_WITH_DESCRIPTION = new ContactBuilder().withName("Benson Meier")
+            .withAddress("311, Clementi Ave 2, #02-25")
+            .withEmail("johnd@example.com").withPhone("98765432")
+            .withId(2).withDescription("Best Benson")
+            .build();
+    public static final Contact BENSON_WITH_MISSING_FIELDS = new ContactBuilder().withName("Benson Meier")
+            .withAddress("311, Clementi Ave 2, #02-25").withEmail("").withPhone("")
+            .withId(2).withDescription("").build();
 
     // Manually added - Contact's details found in {@code CommandTestUtil}
     public static final Contact AMY = new ContactBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
