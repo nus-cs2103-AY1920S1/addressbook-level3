@@ -40,7 +40,7 @@ public class GetStatisticsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.filterQuizResult(quizResultFilter);
-        CommandResult c = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(STATS);
         return c;
     }

@@ -54,7 +54,8 @@ public class QuizResult {
     }
 
     public boolean isWithinDate(Date start, Date end) { //can either pass it in as a string or as a date
-        return !(quizTime.before(start) || quizTime.after(end));
+        //return !(quizTime.before(start) || quizTime.after(end));
+        return true;
     }
 
     @Override
@@ -74,5 +75,10 @@ public class QuizResult {
     @Override
     public int hashCode() {
         return Objects.hash(answer, questionBody, subject, difficulty, quizTime, result);
+    }
+
+    @Override
+    public String toString() {
+        return (questionBody.toString()); //temporary method for debugging
     }
 }

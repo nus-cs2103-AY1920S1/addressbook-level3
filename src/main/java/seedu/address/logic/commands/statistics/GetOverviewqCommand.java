@@ -43,7 +43,7 @@ public class GetOverviewqCommand extends Command {
         requireNonNull(model);
         //model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
         //model.setStatistics(); overload set statistics method? or use list of strings for all commands
-        CommandResult c = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(OVERVIEW);
         return c;
     }

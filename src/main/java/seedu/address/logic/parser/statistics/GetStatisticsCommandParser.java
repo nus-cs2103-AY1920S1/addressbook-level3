@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.logic.commands.statistics.GetStatisticsCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -28,6 +29,8 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
      * @throws ParseException if the user input does not conform to the expected format
      */
     public GetStatisticsCommand parse(String args) throws ParseException {
+        Difficulty difficulty;
+        QuizResultFilter quizResultFilter;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_SUBJECT, PREFIX_DIFFICULTY);
 
@@ -36,9 +39,14 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
             subjects.add(ParserUtil.parseSubject(subject));
         }
 
-        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+        Optional<String> d = argMultimap.getValue(PREFIX_DIFFICULTY);
 
-        QuizResultFilter quizResultFilter = new QuizResultFilter(subjects, difficulty);
+        if (d.isPresent()) {
+            difficulty = ParserUtil.parseDifficulty(d.get());
+            quizResultFilter = new QuizResultFilter(subjects, difficulty);
+        } else {
+            quizResultFilter = new QuizResultFilter(subjects);
+        }
 
         return new GetStatisticsCommand(quizResultFilter);
     }

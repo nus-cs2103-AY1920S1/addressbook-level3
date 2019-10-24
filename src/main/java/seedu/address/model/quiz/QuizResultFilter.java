@@ -2,13 +2,12 @@ package seedu.address.model.quiz;
 
 import static seedu.address.model.quiz.FilterType.DATE;
 import static seedu.address.model.quiz.FilterType.DIFFICULTY;
+import static seedu.address.model.quiz.FilterType.NONE;
 import static seedu.address.model.quiz.FilterType.SUBJECT;
-import static seedu.address.model.quiz.FilterType.SUBJECT_AND_DIFFICULTY;
-import static seedu.address.model.quiz.FilterType.SUBJECT_AND_CORRECT_QUESTION;
-import static seedu.address.model.quiz.FilterType.SUBJECT_AND_WRONG_QUESTION;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
@@ -20,25 +19,30 @@ public class QuizResultFilter {
     private Date startDate;
     private Date endDate;
     private boolean isCorrectQns;
-    private FilterType filterType;
+    //private FilterType filterType;
+    private Stack<FilterType> operations = new Stack<>();
 
     public QuizResultFilter(List<Subject> subjects) {
         this.subjects = subjects;
-        filterType = SUBJECT;
+        if (subjects.isEmpty()) {
+            operations.push(NONE);
+        } else {
+            operations.push(SUBJECT);
+        }
     }
 
     public QuizResultFilter(Difficulty difficulty) {
         this.difficulty = difficulty;
-        filterType = DIFFICULTY;
+        operations.push(DIFFICULTY);
     }
 
     public QuizResultFilter(Date startDate, Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
-        filterType = DATE;
+        operations.push(DATE);
     }
 
-    public QuizResultFilter(List<Subject> subjects, boolean isCorrectQns) {
+    /*public QuizResultFilter(List<Subject> subjects, boolean isCorrectQns) {
         this.subjects = subjects;
         this.isCorrectQns = isCorrectQns;
         if (isCorrectQns) {
@@ -47,12 +51,15 @@ public class QuizResultFilter {
             filterType = SUBJECT_AND_WRONG_QUESTION;
         }
 
-    }
+    }*/
 
     public QuizResultFilter(List<Subject> subjects, Difficulty difficulty) {
         this.subjects = subjects;
         this.difficulty = difficulty;
-        filterType = SUBJECT_AND_DIFFICULTY;
+        if (!subjects.isEmpty()) {
+            operations.push(SUBJECT);
+        }
+        operations.push(DIFFICULTY);
     }
 
     public List<Subject> getSubjects() {
@@ -71,11 +78,11 @@ public class QuizResultFilter {
         return endDate;
     }
 
-    public boolean isCorrectQns() {
-        return isCorrectQns;
-    }
-
-    public FilterType getFilterType() {
+    /*public FilterType getFilterType() {
         return filterType;
+    }*/
+
+    public Stack<FilterType> getOperations() {
+        return operations;
     }
 }

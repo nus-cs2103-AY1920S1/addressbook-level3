@@ -88,6 +88,7 @@ public class AppData implements ReadOnlyAppData {
 
         setNotes(newData.getNoteList());
         setQuestions(newData.getQuestionList());
+        setQuizResults(newData.getQuizResultList());
         setTasks(newData.getTaskList());
     }
 
@@ -232,9 +233,8 @@ public class AppData implements ReadOnlyAppData {
     }
 
     // Quiz Result operations
-    @Override
-    public ObservableList<QuizResult> getQuizResultList() {
-        return quizResults.asUnmodifiableObservableList();
+    public void setQuizResults(List<QuizResult> quizResults) {
+        this.quizResults.setQuizResults(quizResults);
     }
 
     public void addQuizResult(QuizResult quizResult) {
@@ -246,19 +246,7 @@ public class AppData implements ReadOnlyAppData {
     }
 
     public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter) {
-        return quizResults.filterQuizResults(quizResultFilter);
-    }
-
-    public int getTotalQuestionsDone() {
-        return quizResults.getTotalQuestionsDone();
-    }
-
-    public int getTotalQuestionsCorrect() {
-        return quizResults.getTotalQuestionsCorrect();
-    }
-
-    public int getTotalQuestionsIncorrect() {
-        return quizResults.getTotalQuestionsIncorrect();
+        return quizResults.filterQuizResult(quizResultFilter);
     }
 
     public ObservableList<TempStatsQnsModel> getCorrectQns() {
@@ -291,6 +279,11 @@ public class AppData implements ReadOnlyAppData {
     @Override
     public ObservableList<Question> getQuizQuestionList() {
         return quiz.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<QuizResult> getQuizResultList() {
+        return quizResults.asUnmodifiableObservableList();
     }
 
     @Override

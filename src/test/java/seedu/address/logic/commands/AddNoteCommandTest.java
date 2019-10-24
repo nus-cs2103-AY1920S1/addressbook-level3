@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.note.AddNoteCommand;
@@ -28,6 +29,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.NoteBuilder;
@@ -183,11 +185,6 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public ObservableList<PieChart.Data> getStatsChartData() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -268,6 +265,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void filterQuizResult(QuizResultFilter quizResultFilter) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Answer showQuizAnswer(int index) {
             throw new AssertionError("This method should not be called.");
         }
@@ -308,8 +310,18 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public ObservableList<PieChart.Data> getStatsPieChartData() {
+            return null;
+        }
+
+        @Override
         public ObservableList<TempStatsQnsModel> getStatsQnsList() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<XYChart.Data> getStackBarChartData() {
+            return null;
         }
     }
 

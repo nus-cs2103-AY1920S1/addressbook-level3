@@ -224,16 +224,6 @@ public interface Model {
     int getTotalQuestionsDone();
 
     /**
-     * Returns the total number of questions answered correctly.
-     */
-    int getTotalQuestionsCorrect();
-
-    /**
-     * Returns the total number of questions answered incorrectly.
-     */
-    int getTotalQuestionsIncorrect();
-
-    /**
      * Returns an unmodifiable view of a list correct questions.
      */
     void setCorrectQnsList();

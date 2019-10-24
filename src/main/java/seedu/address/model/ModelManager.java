@@ -37,6 +37,7 @@ public class ModelManager implements Model {
     private final FilteredList<Question> filteredQuizQuestions;
     private final FilteredList<QuizResult> filteredQuizResults;
     private final FilteredList<Task> filteredTasks;
+    private ObservableList<QuizResult> quizResults;
     private ObservableList<TempStatsQnsModel> statsQnsList;
 
     /**
@@ -210,7 +211,7 @@ public class ModelManager implements Model {
 
     @Override
     public void filterQuizResult(QuizResultFilter quizResultFilter) {
-        appData.filterQuizResult(quizResultFilter);
+        quizResults = appData.filterQuizResult(quizResultFilter);
     }
 
     //=========== Filtered Note List Accessors =============================================================
@@ -331,11 +332,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Statistics ===============================================================================
-    /*@Override
-    public void setStatistics() {
-        filteredQuizResults = new FilteredList<>(this.appData.getQuizResultList());
-    }*/
-
     @Override
     public ObservableList<TempStatsQnsModel> getStatsQnsList() {
         return statsQnsList;
@@ -343,17 +339,27 @@ public class ModelManager implements Model {
 
     @Override
     public int getTotalQuestionsDone() {
-        return appData.getTotalQuestionsDone();
+        return quizResults.size();
     }
 
-    @Override
     public int getTotalQuestionsCorrect() {
-        return appData.getTotalQuestionsCorrect();
+        int totalCorrectQns = 0;
+        for (QuizResult q : quizResults) {
+            if (q.getResult()) {
+                totalCorrectQns++;
+            }
+        }
+        return totalCorrectQns;
     }
 
-    @Override
     public int getTotalQuestionsIncorrect() {
-        return appData.getTotalQuestionsIncorrect();
+        int totalIncorrectQns = 0;
+        for (QuizResult q : quizResults) {
+            if (!q.getResult()) {
+                totalIncorrectQns++;
+            }
+        }
+        return totalIncorrectQns;
     }
 
     @Override
@@ -378,8 +384,8 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<XYChart.Data> getStackBarChartData() {
         ObservableList<XYChart.Data> barChartData = FXCollections.observableArrayList();
-        barChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
-        barChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
+        //barChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
+        //barChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
         return barChartData;
     }
 }
