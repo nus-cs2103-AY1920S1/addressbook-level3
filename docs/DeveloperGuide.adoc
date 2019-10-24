@@ -360,7 +360,7 @@ If no valid search restriction is provided by the user, `FindCommandParser` will
 Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search restrictions.
 
 .Sequence Diagram for the Execution of `find` Command
-image::find/FindCommandSequenceDiagram.png[]
+image::find/FindCommandSequenceDiagram.png[width="70%"]
 
 ==== Design Considerations
 
