@@ -342,6 +342,7 @@ the borrower brings the physical book forward to reserve it as he/she does not w
 This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
 just after a book is loaned out can be seen below.
 
+.Loan object diagram after a new Loan is created
 image::LoanObjectDiagram.png[width="880"]
 {nbsp} +
 
@@ -361,6 +362,7 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 
 The following activity diagram summarizes what happens when a user enters a loan command:
 
+.Activity diagram when a loan command is entered
 image::LoaningActivityDiagram.png[width="650"]
 {nbsp} +
 
@@ -383,6 +385,7 @@ Similarly, the new book object also replaces the old book object in the `Catalog
 
 The following activity diagram summarizes what happens when a user enters a return command:
 
+.Activity diagram when a book is being returned.
 image::ReturningActivityDiagram.png[width="820"]
 {nbsp} +
 
