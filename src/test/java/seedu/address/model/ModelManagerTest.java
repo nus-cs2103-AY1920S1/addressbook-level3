@@ -38,6 +38,7 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.CatalogBuilder;
+import seedu.address.testutil.LoanBuilder;
 
 public class ModelManagerTest {
 
@@ -246,7 +247,10 @@ public class ModelManagerTest {
 
         modelManager.setServingBorrower(ALICE);
         modelManager.servingBorrowerNewLoan(LOAN_1);
-        modelManager.servingBorrowerReturnLoan(LOAN_1);
+
+        Loan returnedLoan1 = new LoanBuilder(LOAN_1).withReturnDate("2019-10-20").build();
+
+        modelManager.servingBorrowerReturnLoan(LOAN_1, returnedLoan1);
         assertFalse(modelManager.getServingBorrower().hasCurrentLoan(LOAN_1));
     }
 
@@ -254,8 +258,10 @@ public class ModelManagerTest {
     public void servingBorrowerReturnLoan_notInServeMode_throwsNotInServeModeException() {
         Model modelManager = new ModelManager();
 
+        Loan returnedLoan1 = new LoanBuilder(LOAN_1).withReturnDate("2019-10-20").build();
+
         assertThrows(NotInServeModeException.class, () ->
-                modelManager.servingBorrowerReturnLoan(LOAN_1));
+                modelManager.servingBorrowerReturnLoan(LOAN_1, returnedLoan1));
     }
 
     @Test

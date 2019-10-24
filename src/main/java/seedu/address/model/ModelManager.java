@@ -319,6 +319,11 @@ public class ModelManager implements Model {
         this.servingBorrower = Optional.of(borrower);
     }
 
+    /**
+     * Adds a new {@code Loan} object to a new copy of servingBorrower and its currentLoanList.
+     *
+     * @param newLoan New {@code Loan} object to be added.
+     */
     @Override
     public void servingBorrowerNewLoan(Loan newLoan) {
         if (!isServeMode()) {
@@ -333,6 +338,12 @@ public class ModelManager implements Model {
         setServingBorrower(loanAddedBorrower);
     }
 
+    /**
+     * Moves
+     *
+     * @param returningLoan {@code Loan} object in servingBorrower's currentLoanList.
+     * @param returnedLoan Updated {@code Loan} object to be added to servingBorrower's returnedLoanList.
+     */
     @Override
     public void servingBorrowerReturnLoan(Loan returningLoan, Loan returnedLoan) {
         if (!isServeMode()) {

@@ -18,6 +18,7 @@ import static seedu.address.testutil.TypicalLoans.LOAN_7;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.FineUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -27,6 +28,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.model.borrower.BorrowerId;
+import seedu.address.testutil.BookBuilder;
 
 class ReturnCommandTest {
 
@@ -52,8 +54,9 @@ class ReturnCommandTest {
 
         ReturnCommand returnCommand = new ReturnCommand(INDEX_FIRST_BOOK);
 
-        Book returnedBook = new Book(BOOK_7.getTitle(), BOOK_7.getSerialNumber(),
-                BOOK_7.getAuthor(), null, BOOK_7.getGenres());
+        //        Book returnedBook = new Book(BOOK_7.getTitle(), BOOK_7.getSerialNumber(),
+        //                BOOK_7.getAuthor(), null, BOOK_7.getGenres());
+        Book returnedBook = new BookBuilder(BOOK_7).withLoan(null).build();
 
         String actualMessage;
         try {
@@ -61,7 +64,8 @@ class ReturnCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         }
-        String expectedMessage = String.format(ReturnCommand.MESSAGE_SUCCESS, returnedBook, IDA);
+        String expectedMessage = String.format(ReturnCommand.MESSAGE_SUCCESS, returnedBook, IDA,
+                FineUtil.centsToDollarString(0));
         assertEquals(actualMessage, expectedMessage);
     }
 

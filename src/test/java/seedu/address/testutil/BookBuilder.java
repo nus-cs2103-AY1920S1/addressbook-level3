@@ -74,7 +74,7 @@ public class BookBuilder {
      * Sets the {@code Loan} of the {@code Book} that we are building.
      */
     public BookBuilder withLoan(Loan loan) {
-        this.loan = Optional.of(loan);
+        this.loan = Optional.ofNullable(loan);
         return this;
     }
 

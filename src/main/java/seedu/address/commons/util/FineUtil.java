@@ -1,6 +1,10 @@
 package seedu.address.commons.util;
 
+/**
+ * Helper functions for handling fines.
+ */
 public class FineUtil {
+
     /**
      * Get the String representation of the fine amount.
      *
