@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddCustomerCommandParser" as AddCustomerCommandParser LOGIC_COLOR
+participant "atc:AddCustomerCommand" as AddCustomerCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "ToAdd:Customer" as Customer LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CustomerManager" as CustomerManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends")
+activate AddressBookParser
+
+create AddCustomerCommandParser
+AddressBookParser -> AddCustomerCommandParser
+activate AddCustomerCommandParser
+
+AddCustomerCommandParser --> AddressBookParser
+deactivate AddCustomerCommandParser
+
+AddressBookParser -> AddCustomerCommandParser : parse("addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends")
+activate AddCustomerCommandParser
+
+create Customer
+AddCustomerCommandParser -> Customer : new Customer(John Doe, 98765432, johnd@example.com, 311 Clementi Ave 2 #02-25, friends)
+activate Customer
+
+Customer --> AddCustomerCommandParser : ToAdd
+deactivate Customer
+
+create AddCustomerCommand
+AddCustomerCommandParser -> AddCustomerCommand : new AddCustomerCommand(ToAdd)
+activate AddCustomerCommand
+
+AddCustomerCommand --> AddCustomerCommandParser
+deactivate AddCustomerCommand
+
+AddCustomerCommandParser --> AddressBookParser
+deactivate AddCustomerCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCustomerCommandParser -[hidden]-> AddressBookParser
+destroy AddCustomerCommandParser
+
+AddressBookParser --> LogicManager
+deactivate AddressBookParser
+
+LogicManager -> AddCustomerCommand : execute()
+activate AddCustomerCommand
+
+AddCustomerCommand -> Customer
+activate Customer
+
+Customer --> AddCustomerCommand
+deactivate Customer
+
+AddCustomerCommand -> Model : addCustomer(ToAdd)
+activate Model
+
+Model -> CustomerManager : addPerson(ToAdd)
+activate CustomerManager
+
+CustomerManager --> Model
+deactivate CustomerManager
+
+Model --> AddCustomerCommand
+deactivate Model
+
+create CommandResult
+AddCustomerCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCustomerCommand
+deactivate CommandResult
+
+AddCustomerCommand --> LogicManager : result
+deactivate AddCustomerCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

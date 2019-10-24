@@ -246,6 +246,32 @@ Deletes task (Task ID: 1) from the task manager.
 * `del d/2` +
 Deletes driver (Driver ID: 2) from the driver manager.
 
+=== Add a Customer `addC`
+
+Adds customer to the customer manager. +
+Format: `addC [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+
+=== Add a Driver `addD`
+
+Adds driver to the driver manager. +
+Format: `addD [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `addD n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+
 == Saving the data
 
 Deliveria data are saved in the hard disk automatically after any command that changes the data. +

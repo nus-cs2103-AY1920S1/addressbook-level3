@@ -1,0 +1,22 @@
+@startuml
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR_T3
+skinparam classBackgroundColor MODEL_COLOR
+show members
+
+class Person{
+    <color:#white>name : Name
+    <color:#white>phone : Phone
+    <color:#white>email : Email
+    <color:#white>address : Address
+    <color:#white>tags : Set<Tag>
+}
+Customer-->Person
+class Customer {
+    <color:#white>idCount : int
+    <color:#white>id : int
+}
+
+@enduml

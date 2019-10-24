@@ -334,14 +334,54 @@ image::AddTaskCommand.png[]
 [NOTE]
 The flow of how the task is being accessed and  managed as shown above is the same for other task related command such as Edit and Delete.
 
+=== Customer Feature (E.g. Add Customer)
+==== Implementation
+The *Add Customer* feature adds a new Customer into a Customer list. +
+It uses the `AddCustomerCommand`, which extends `Command`, to add a `Customer` into the `CustomerManager`.
+`AddCustomerCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
+'AddCustomerCommand' requires the following fields: `Customer`.
+The attributes of Task is as follows:
+
+.Class Diagram of Customer class.
+image::Customer.png[]
+
+As seen in the above class diagram, the `id` field is not required when adding a customer.
+The mandatory fields for users are: `name`, `phone`, `email`, `address`.
+A unique id will also be allocated to the Customer for differentiation.
+
+The following sequence diagram shows how the add customer operation works:
+
+.Sequence Diagram of adding a task.
+image::AddCustomerCommand.png[]
+
+=== Driver Feature (E.g. Add Driver)
+==== Implementation
+The *Add Driver* feature adds a new Driver into a Driver list. +
+It uses the `AddDriverCommand`, which extends `Command`, to add a `Driver` into the `DriverManager`.
+`AddDriverCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
+'AddDriverCommand' requires the following fields: `Driver`.
+The attributes of Driver is as follows:
+
+.Class Diagram of Driver class.
+image::Driver.png[]
+
+As seen in the above class diagram, the `id` field is not required when adding a driver.
+The mandatory fields for users are: `name`, `phone`, `email`, `address`.
+A unique id will also be allocated to the Driver for differentiation.
+
+The following sequence diagram shows how the add driver operation works:
+
+.Sequence Diagram of adding a task.
+image::AddDriverCommand.png[]
+
 ==== Design Considerations
 
 ===== Aspect: Usage of universal Command word
 
-* **Alternative 1 (current choice):** Have a individual command word for add task (`addT`)
+* **Alternative 1 (current choice):** Have a individual command word for add task (`addT`, `addC`, `addD`)
 ** Pros: Easy to implement and increases clarity for users.
 ** Cons: Increases the number of commands.
-* **Alternative 2:** Combine `AddTaskCommand` with other `add` commands
+* **Alternative 2:** Combine `AddCustomerCommand` with other `add` commands
 ** Pros: Will use only 1 universal `add` command for adding any entities. (Task, Customer and Driver)
 ** Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.
 

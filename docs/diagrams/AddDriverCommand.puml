@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddDriverCommandParser" as AddDriverCommandParser LOGIC_COLOR
+participant "atc:AddDriverCommand" as AddDriverCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "ToAdd:Driver" as Driver LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":DriverManager" as DriverManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends")
+activate AddressBookParser
+
+create AddDriverCommandParser
+AddressBookParser -> AddDriverCommandParser
+activate AddDriverCommandParser
+
+AddDriverCommandParser --> AddressBookParser
+deactivate AddDriverCommandParser
+
+AddressBookParser -> AddDriverCommandParser : parse("addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends")
+activate AddDriverCommandParser
+
+create Driver
+AddDriverCommandParser -> Driver : new Driver(John Doe, 98765432, johnd@example.com, 311 Clementi Ave 2 #02-25, friends)
+activate Driver
+
+Driver --> AddDriverCommandParser : ToAdd
+deactivate Driver
+
+create AddDriverCommand
+AddDriverCommandParser -> AddDriverCommand : new AddDriverCommand(ToAdd)
+activate AddDriverCommand
+
+AddDriverCommand --> AddDriverCommandParser
+deactivate AddDriverCommand
+
+AddDriverCommandParser --> AddressBookParser
+deactivate AddDriverCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddDriverCommandParser -[hidden]-> AddressBookParser
+destroy AddDriverCommandParser
+
+AddressBookParser --> LogicManager
+deactivate AddressBookParser
+
+LogicManager -> AddDriverCommand : execute()
+activate AddDriverCommand
+
+AddDriverCommand -> Driver
+activate Driver
+
+Driver --> AddDriverCommand
+deactivate Driver
+
+AddDriverCommand -> Model : addDriver(ToAdd)
+activate Model
+
+Model -> DriverManager : addPerson(ToAdd)
+activate DriverManager
+
+DriverManager --> Model
+deactivate DriverManager
+
+Model --> AddDriverCommand
+deactivate Model
+
+create CommandResult
+AddDriverCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddDriverCommand
+deactivate CommandResult
+
+AddDriverCommand --> LogicManager : result
+deactivate AddDriverCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
