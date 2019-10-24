@@ -482,17 +482,48 @@ However, with this removal, the default Windows functions such as the default OS
 
 // tag::statistics[]
 === Statistics feature
-==== Proposed Implementation
+==== Current Implementation
 
 The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
 
-The following activity sequence diagram shows how a user adding a new body enables the line chart to update dynamically:
+In `LineChartPanel`, four key operations that constructs the line chart and updates it dynamically are implemented, and they are executed in order:
+
+* `LineChartPanel#initialiseTreeMap()` -- Initialises a tree map that contains the dates as the keys and the number of bodies admitted as the frequency.
+* `LineChartPanel#initialiseLineChart()` -- Creates a Line Chart with Xaxis and Yaxis.
+* `LineChartPanel#updateSeries()` -- Adds data to the series of the line chart based on what is in the tree map.
+* `LineChartPanel#updateUponChanged()` -- If a body is added or removed, the tree map is changed accordingly depending on the date of admission of the body, and the series is updated again.
+
+The following sequence diagram shows how a user adding a new body enables the line chart to update dynamically:
 
 image::LineChartAddBodySequenceDiagram.png[]
 
 Similarly, the sequence diagram below shoes how a user deleting a body enables the line chart to update dynamically:
 
 image::LineChartDeleteBodySequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How data is stored and updated
+
+* **Alternative 1 (current choice):** Use a tree map to keep track of bodies and initialise the last 10 days.
+** Pros: Implementation is easy and ensures only the last 10 days is visible.
+** Cons: Series is regenerated for the whole 10 days whenever there is a change. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
+
+image::LineChartAddBodySequenceDiagram.png[]
+
+* **Alternative 2:** Store all data in a separate storage class.
+** Pros: Implementation allows user to see beyond 10 days.
+** Cons: Implementation requires a lot of storage which may not be tapped on most of the time.
+
+===== Aspect: How line chart appears to end user
+
+* **Alternative 1 (current choice):** Only the last 10 days is visible.
+** Pros: Implementation is easy and simple.
+** Cons: The statistics is limited in meaning if only the last 10 days is known.
+
+* **Alternative 2:** Users have the option to toggle between the last week, month, or year.
+** Pros: The statistics will have more meaning.
+** Cons: Implementation is difficult.
 
 //end::statistics[]
 
