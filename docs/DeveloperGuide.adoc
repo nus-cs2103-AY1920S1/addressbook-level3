@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/moneygowhere/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/moneygowhere/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +77,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/moneygowhere/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SpendingListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/moneygowhere/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,11 +96,11 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/moneygowhere/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SpendingBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a Spending).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -117,17 +117,17 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/moneygowhere/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Spending Book data.
+* exposes an unmodifiable `ObservableList<Spending>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Spending Book`, which `Spending` can reference. This would allow `Spending Book` to only require one `Tag` object per unique `Tag`, instead of each `Spending` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -137,17 +137,17 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/moneygowhere/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Spending Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.moneygowhere.commons` package.
 
 == Implementation
 
@@ -157,39 +157,39 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedSpendingBook`.
+It extends `SpendingBook` with an undo/redo history, stored internally as an `spendingBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedSpendingBook#commit()` -- Saves the current spending book state in its history.
+* `VersionedSpendingBook#undo()` -- Restores the previous spending book state from its history.
+* `VersionedSpendingBook#redo()` -- Restores a previously undone spending book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitSpendingBook()`, `Model#undoSpendingBook()` and `Model#redoSpendingBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSpendingBook` will be initialized with the initial spending book state, and the `currentStatePointer` pointing to that single spending book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th Spending in the spending book. The `delete` command calls `Model#commitSpendingBook()`, causing the modified state of the spending book after the `delete 5` command executes to be saved in the `spendingBookStateList`, and the `currentStatePointer` is shifted to the newly inserted spending book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new Spending. The `add` command also calls `Model#commitSpendingBook()`, causing another modified spending book state to be saved into the `spendingBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitSpendingBook()`, so the spending book state will not be saved into the `spendingBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the Spending was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#spendingBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous spending book state, and restores the spending book to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial spending book state, then there are no previous spending book states to restore. The `undo` command uses `Model#canUndoSpendingBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +197,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoSpendingBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the spending book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `spendingBookStateList.size() - 1`, pointing to the latest spending book state, then there are no undone spending book states to restore. The `redo` command uses `Model#canRedoSpendingBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the spending book, such as `list`, will usually not call `Model#commitSpendingBook()`, `Model#undoSpendingBook()` or `Model#redoSpendingBook()`. Thus, the `SpendingBookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSpendingBook()`. Since the `currentStatePointer` is not pointing at the end of the `SpendingBookStateList`, all spending book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -218,18 +218,18 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire spending book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the Spending being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of spending book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedSpendingBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -361,6 +361,112 @@ Pros: Able to test large sorting side effects +
 Cons: Large code structure changes
 
 |===
+
+// tag::reminder[]
+=== Reminder feature
+
+With this reminder feature, users can set the reminders of their tasks with deadlines and delete them when completed.
+
+==== Implementation
+
+A reminder is constructed with
+
+* Deadline `d/DATE`
+* Reminder Message `m/MESSAGE`
+
+The recorded reminders sorted with deadline in descending order, are displayed on the User Interface(UI) for notification.
+
+This feature is implemented with the following operations:
+
+* Adding a reminder `reminder d/DATE m/MESSAGE` +
+e.g. `reminder d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
+
+* Deleting a reminder `dreminder INDEX` +
+e.g. `dreminder 1` - delete the first reminder in the reminder list shown in UI.
+
+Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
+
+image::AddReminderActivityDiagram.png[]
+
+Figure 11. Activity diagram for adding a reminder
+
+[NOTE]
+In the above diagram, it can be seen that respective error messages will be shown for invalid inputs.
+
+Shown below is the sequence diagram containing the interactions between respective components in MoneyGoWHere when user inputs `AddReminderCommand`.
+
+image::AddReminderSequenceDiagram.png[]
+
+Figure 12. Sequence diagram while user attempts to add a new reminder
+
+[NOTE]
+The above sequence diagram demonstrates how a new reminder is constructed from valid user input.
+
+Following is the activity diagram including the series of actions performed by MoneyGoWhere when it receives `DeleteReminderCommand`
+
+image::DeleteReminderActivityDiagram.png[]
+
+Figure 13. Activity diagram for removing a reminder
+
+[NOTE]
+The negative index from user input will leads to invalid command format error.
+
+The below sequence diagram summarize the interactions between different components when user enter `DeleteReminderCommand`.
+
+image::DeleteReminderSequenceDiagram.png[]
+
+Figure 14. Sequence diagram while user attempt to remove a reminder
+
+[NOTE]
+The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
+
+=== Import Feature
+==== Implementation
+The Import feature allows our users to import data from a comma-separated values (`.csv`) files.
+It allows users who would like to add their spending in bulk.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the
+`execute("import p/validSpending.csv")`
+
+.Interactions Inside the Logic Component for the `import` Command
+image::importSequenceDiagram.png[]
+
+//When a user gives an `import` command, the application will start processing the request by calling the `LogicManager`.
+//It will then call the `SpendingBookParser`, which parses the command string.
+//It then creates and calls the respective command parser, which in this case is `ImportCommandParser`.
+//This parser will then strip the attributes given in the command string into a key-value map with the prefix, `p/` as the key and `validSpending.csv` as the value.
+
+The Import Feature has one main component, which is the `ImportCommand.java` file. This file contains the main logic behind the feature.
+The `ImportCommand#readSpendingFromCsv()` method utilises the `FasterXML/jackson` library to read in `.csv` files and convert it into maps of objects.
+The maps will then be processed and parsed into `Spending` objects which will be added into a `Spending` list.
+Those maps that do not pass the parse conditions will then be thrown as an exception and its message will be saved inside an error list.
+After all the maps are processed, the application will then go through the valid spending list and save them by calling the `Model#addSpending()` method.
+Following that, the application will then prints an output, showing the result of the command execution.
+
+The following activity diagram summarizes what happens when a user executes an import command:
+
+.Import Feature Activity Diagram
+image::importActivityDiagram.png[]
+
+When a user calls the `import` command and inputs a valid `.csv` file, the application will read and parses all the data inside the file and save them to the `SpendingBookList` and `moneygowhere.json`.
+
+==== CSV File Format and Constraints
+In order for data to be imported into MoneyGoWhere, it must be in a properly formatted CSV file.
+There should be 5 columns specified for `Name`, `Cost`, `Date`, `Tag` and `Remark`
+
+Header Constraints
+
+* The first row is considered a column header and is required.
+
+Cell Formatting
+
+* There should not be any leading and trailing spaces in a cell.
+* To specify a comma within a cell, the value of the cell should be inside double quotes. Eg:
+** "yummy, juicy"
+** "fresh, clean"
+* To specify double quotes within a cell, in addition to start and end double quotes, escape the double quote with another double quote. Eg:
+** """yummy"", ""juicy"""
+** """fresh"", ""clean"""
 
 == Documentation
 
@@ -598,7 +704,45 @@ Use case ends.
 
 '''
 [discrete]
-=== UC09 Import external data from a CSV file
+=== UC09 Add a reminder
+
+*MSS*
+
+1.  User enters a reminder.
+2.  MoneyGoWhere adds the specified reminder inside the list of reminders.
++
+Use case ends.
+[none]
+
+'''
+[discrete]
+=== UC10 Delete a reminder
+
+*MSS*
+
+1.  User requests to view the list of spending.
+2.  MoneyGoWhere shows a list of spending.
+3.  User requests to delete a specific spending from the list.
+4.  MoneyGoWhere deletes the reminder.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. MoneyGoWhere shows an error message.
++
+Use case resumes at step 2.
+
+'''
+[discrete]
+=== UC11 Import external data from a CSV file
 
 *MSS*
 
@@ -620,7 +764,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC10 Export data to a CSV file
+=== UC12 Export data to a CSV file
 
 *MSS*
 
@@ -642,7 +786,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC11 Undo a command
+=== UC13 Undo a command
 
 *MSS*
 
@@ -664,7 +808,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC12 Redo a command
+=== UC14 Redo a command
 
 *MSS*
 
@@ -686,7 +830,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC13 Graphing the data
+=== UC15 Graphing the data
 
 *MSS*
 
@@ -698,7 +842,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC14 Clear all spending
+=== UC16 Clear all spending
 
 *MSS*
 
@@ -759,15 +903,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Spending
 
-. Deleting a person while all persons are listed
+. Deleting a spending while all spending are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all Spending using the `list` command. Multiple spending in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No Spending is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
