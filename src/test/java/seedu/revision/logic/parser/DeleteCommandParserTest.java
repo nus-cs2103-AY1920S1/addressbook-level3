@@ -8,7 +8,8 @@ import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.index.Index;
-import seedu.revision.logic.commands.DeleteCommand;
+import seedu.revision.logic.commands.main.DeleteCommand;
+import seedu.revision.logic.parser.main.DeleteCommandParser;
 
 import java.util.ArrayList;
 

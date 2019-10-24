@@ -1,5 +1,8 @@
 package seedu.revision.ui;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -17,12 +20,35 @@ import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.category.Category;
+import seedu.revision.model.answerable.Difficulty;
+import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Question;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class StartQuizWindow extends UiPart<Stage> {
+
+    Answer correctAnswerStub = new Answer("CORRECT");
+    Set<Answer> correctAnswerSetStub = new HashSet<>(Arrays.asList(correctAnswerStub));
+    Answer wrongAnswerStub1 = new Answer("WRONG");
+    Answer wrongAnswerStub2 = new Answer("10");
+    Answer wrongAnswerStub3 = new Answer("100");
+
+    Set<Answer> wrongAnswerSetStub = new HashSet<>(Arrays.asList(wrongAnswerStub1, wrongAnswerStub2, wrongAnswerStub3));
+    Category categoryStub = new Category("math");
+    Set<Category> categoriesStub = new HashSet<>(Arrays.asList(categoryStub));
+
+    public MainWindow mainWindow;
+    private final Mcq DEFAULT_QUESTION =
+            new Mcq(new Question("what is 10 + 10?"), correctAnswerSetStub, wrongAnswerSetStub,
+                    new Difficulty("1"), categoriesStub);
+
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -31,12 +57,12 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private MainLogic mainLogic;
     private QuizLogic quizLogic;
-    private StartQuizWindow startQuizWindow;
 
     // Independent Ui parts residing in this Ui container
-    private AnswerableListPanel answerableListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private AnswersGridPane answersGridPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -53,7 +79,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
+
+
+    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -72,7 +100,6 @@ public class MainWindow extends UiPart<Stage> {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
@@ -112,10 +139,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        answerableListPanel = new AnswerableListPanel(mainLogic.getFilteredAnswerableList());
-        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
+
+        answersGridPane = new AnswersGridPane(DEFAULT_QUESTION);
+        answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         resultDisplay = new ResultDisplay();
+        resultDisplay.setFeedbackToUser(DEFAULT_QUESTION.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(mainLogic.getAddressBookFilePath());
@@ -149,14 +178,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    @FXML
-    public void handleStart() {
-        startQuizWindow = new StartQuizWindow(getPrimaryStage(), mainLogic, quizLogic);
-        startQuizWindow.show();
-        startQuizWindow.fillInnerParts();
-
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -166,15 +187,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        mainLogic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
-    }
-
-    public AnswerableListPanel getAnswerableListPanel() {
-        return answerableListPanel;
+        mainWindow = new MainWindow(getPrimaryStage(), mainLogic, quizLogic);
+        mainWindow.show();
+        mainWindow.fillInnerParts();
     }
 
     /**
@@ -182,11 +197,12 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see MainLogic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand (
+                String commandText, Answerable currentAnswerable) throws CommandException, ParseException {
 
 
         try {
-            CommandResult commandResult = mainLogic.execute(commandText);
+            CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -196,10 +212,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isStart()) {
-                handleStart();
             }
 
             return commandResult;

@@ -9,8 +9,8 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.Set;
 
-import seedu.revision.logic.commands.AddCommand;
-import seedu.revision.logic.commands.EditCommand;
+import seedu.revision.logic.commands.main.AddCommand;
+import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;

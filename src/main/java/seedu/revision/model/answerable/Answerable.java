@@ -6,8 +6,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 /**
  * Represents a Answerable in the Test Bank.
@@ -20,6 +21,7 @@ public abstract class Answerable {
 
     protected final Set<Answer> correctAnswerSet;
     protected final Set<Answer> wrongAnswerSet;
+    protected final Set<Answer> combinedAnswerSet;
     protected final Set<Category> categories = new HashSet<>();
 
     /**
@@ -31,6 +33,9 @@ public abstract class Answerable {
         this.question = question;
         this.correctAnswerSet = correctAnswerSet;
         this.wrongAnswerSet = wrongAnswerSet;
+        this.combinedAnswerSet = Stream.concat(
+                correctAnswerSet.stream(), wrongAnswerSet.stream())
+                .collect(Collectors.toSet());
         this.difficulty = difficulty;
         this.categories.addAll(categories);
     }
@@ -45,6 +50,10 @@ public abstract class Answerable {
 
     public Set<Answer> getWrongAnswerSet() {
         return wrongAnswerSet;
+    }
+
+    public Set<Answer> getCombinedAnswerSet() {
+        return combinedAnswerSet;
     }
 
     public Difficulty getDifficulty() {

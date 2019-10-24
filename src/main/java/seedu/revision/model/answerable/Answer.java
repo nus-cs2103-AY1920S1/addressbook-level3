@@ -54,7 +54,8 @@ public class Answer {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + answer + ']';
+        return answer;
     }
+
 
 }

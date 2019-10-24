@@ -18,7 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.Messages;
 import seedu.revision.commons.core.index.Index;
-import seedu.revision.logic.commands.EditCommand.EditAnswerableDescriptor;
+import seedu.revision.logic.commands.main.ClearCommand;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
