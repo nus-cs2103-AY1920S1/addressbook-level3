@@ -10,14 +10,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.TimeBookInvalidLocation;
-import seedu.address.stubs.GmapsApiStub;
 
 class SanitizeLocationTest {
     private SanitizeLocation sanitizeLocation;
 
     @BeforeEach
     void init() {
-        sanitizeLocation = new SanitizeLocation(new GmapsApiStub());
+        sanitizeLocation = new SanitizeLocation();
     }
 
     @Test

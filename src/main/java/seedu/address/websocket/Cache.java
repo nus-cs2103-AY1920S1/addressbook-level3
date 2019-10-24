@@ -6,7 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.net.ConnectException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -27,6 +29,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.ModuleList;
 import seedu.address.model.module.ModuleSummaryList;
+import seedu.address.websocket.util.UrlUtil;
 
 /**
  * Cache class handles whether to get external data from storage data or api.
@@ -34,7 +37,8 @@ import seedu.address.model.module.ModuleSummaryList;
 public class Cache {
     private static final Logger logger = LogsCenter.getLogger(Cache.class);
     private static NusModsApi api = new NusModsApi(AppSettings.DEFAULT_ACAD_YEAR);
-
+    private static Optional<Object> gmapsPlaces = load(CacheFileNames.GMAPS_PLACES_PATH);
+    private static Optional<Object> gmapsDistanceMatrix = load(CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
     /**
      * Save json to file in cache folder.
      * @param obj obj to save
@@ -297,5 +301,51 @@ public class Cache {
         }
 
         return venues;
+    }
+
+    /**
+     * This method is used to load the info of the place by Google Maps from the cache or Google Maps API
+     * @param locationName
+     * @return
+     */
+    public static JSONObject loadPlaces(String locationName) {
+        String fullUrl = UrlUtil.generateGmapsPlacesUrl(locationName);
+        String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
+        JSONObject placesJson = (JSONObject) gmapsPlaces.get();
+        JSONObject result = null;
+        if (placesJson.get(sanitizedUrl) != null) {
+            result = (JSONObject) placesJson.get(sanitizedUrl);
+        } else {
+            try {
+                result = GmapsApi.getLocation(locationName);
+            } catch (ConnectException e) {
+                logger.severe("Failed to get info for " + locationName + " from caching and API");
+            }
+        }
+        return result;
+    }
+
+    /**
+     * This method is used to load the info of the place by Google Maps from the cache or Google Maps API
+     * @param locationsRow
+     * @param locationsColumn
+     * @return
+     */
+    public static JSONObject loadDistanceMatrix(ArrayList<String> locationsRow, ArrayList<String> locationsColumn) {
+        String fullUrl = UrlUtil.generateGmapsDistanceMatrixUrl(locationsRow, locationsColumn);
+        String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
+        JSONObject distanceMatrixJson = (JSONObject) gmapsDistanceMatrix.get();
+        JSONObject result = null;
+        if (distanceMatrixJson.get(sanitizedUrl) != null) {
+            result = (JSONObject) distanceMatrixJson.get(sanitizedUrl);
+        } else {
+            try {
+                result = GmapsApi.getDistanceMatrix(locationsRow, locationsColumn);
+            } catch (ConnectException e) {
+                logger.severe("Failed to get info for row: " + locationsRow + " column: " + locationsColumn
+                        + " from caching and API");
+            }
+        }
+        return result;
     }
 }

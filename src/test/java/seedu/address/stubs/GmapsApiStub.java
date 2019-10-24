@@ -28,7 +28,7 @@ public class GmapsApiStub extends GmapsApi {
     }
 
     @Override
-    public JSONObject getLocation(String locationName) throws ConnectException {
+    public sta JSONObject getLocation(String locationName) throws ConnectException {
         if (validLocationList.contains(locationName)) {
             return okApiResponse;
         } else {
