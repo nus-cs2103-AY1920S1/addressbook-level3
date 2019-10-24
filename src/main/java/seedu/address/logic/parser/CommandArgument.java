@@ -11,7 +11,7 @@ public class CommandArgument extends PrefixPosition {
     private final String value;
 
     public CommandArgument(final Prefix prefix, final int startPosition, final String value) {
-        super(Objects.requireNonNull(prefix), Objects.requireNonNull(startPosition));
+        super(Objects.requireNonNull(prefix), startPosition);
         this.value = Objects.requireNonNull(value);
     }
 
@@ -30,6 +30,7 @@ public class CommandArgument extends PrefixPosition {
      * @return A copy of this object with the new object containing the new {@code value}.
      */
     public CommandArgument copyWithNewValue(final String value) {
+        Objects.requireNonNull(value);
         return new CommandArgument(getPrefix(), getStartPosition(), value);
     }
 
