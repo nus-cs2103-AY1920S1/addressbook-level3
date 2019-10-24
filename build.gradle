@@ -164,5 +164,4 @@ run {
 	standardInput = System.in
 
 }
-
 defaultTasks 'clean', 'coverage'
