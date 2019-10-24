@@ -11,7 +11,7 @@ import seedu.address.model.event.EventContainsKeyDatePredicate;
  * Keyword matching is case insensitive.
  */
 public class DisplayScheduleForDateCommand extends Command {
-    public static final String COMMAND_WORD = "display_schedule";
+    public static final String COMMAND_WORD = "view_schedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific date"
             + "Example: " + COMMAND_WORD + " on/02/12/2019";

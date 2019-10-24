@@ -32,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
-    private ListPanelForFetch listPanelForFetch;
+    //private ListPanelForFetch listPanelForFetch;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private FetchWindow fetchWindow;
@@ -164,6 +164,7 @@ public class MainWindow extends UiPart<Stage> {
         //fetchWindow.getRoot().setScene();
         fetchWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!fetchWindow.isShowing()) {
+            //fetchWindow.hide();
             fetchWindow.show();
         } else {
             fetchWindow.focus();

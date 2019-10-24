@@ -89,7 +89,7 @@ Employee Format: `list_em`
 
 Event Format: `list_ev`
 
-==== Adding: `add | addev`
+==== Adding: `add | add_ev`
 
 Employee: Adds an employee to the employee list
 
@@ -97,7 +97,7 @@ Event: Adds an event that the company is organizing or hosting to the company’
 
 Employee Format: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
 
-Event Format: `addev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
+Event Format: `add_ev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 
 [TIP]
 A employee can have any number of tags (including 0)
@@ -142,25 +142,6 @@ Edits the start date of the 1st event to be on the 16th September, 2019.
 * `edit_ev 2 n/Concert t/` +
 Edits the name of the 2nd event to be `Concert` and clears all existing tags.
 
-==== Fetch Full Details of Entity: `fetch_em | fetch_ev`
-
-Fetch the full details of a specific event/employee. Returns one employee/event only.
-
-Employee Format: `fetch_em INDEX`
-
-Event Format: `fetch_ev INDEX`
-
-****
-* `INDEX` must be a positive integer and exist within the displayed list.
-* If not found, an 'Employee/Event Not Found' will be displayed.
-****
-
-Examples:
-
-* `fetch_em 2` +
-Returns employee at index 2
-* `fetch_ev 3` +
-Returns event at index 3
 
 ==== Find: `find_em | find_ev`
 
@@ -234,63 +215,74 @@ Examples:
 
 === Event-Specific Management
 
-==== Mark Event as Done: `done`
-
-Record the completion/conclusion of an Event.
-
-Format: `done INDEX`
-
-****
-* `INDEX` must be a positive integer and exist within the displayed list.
-* If not found, an 'Event Not Found' will be displayed.
-****
-
-Examples:
-
-* `list_ev` +
-`done 2` +
-Marks the second event on the list as done.
-
-==== Allocate Employees to Events: `allocate`
+==== Automated allocation of Employees to Events: `allocate`
 
 Automatically chooses and allocates employees to events that meet the requirements.
 
-Format: `allocate EVENT_ID [f/TAGS]...`
+Format: `allocate EVENT_INDEX [n/NUMBER] [t/TAG] [t/TAG]...`
 
 [TIP]
-An event can have any number of requirements (including 0)
+Fields in [] are optional.
+Random selection of employee to allocate if supply exceeds demand of event.
 
 ****
-* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
-* Tags function as filters to determine if an employee is assigned to work for that particular event.
+* Allocates a `NUMBER` of employees to the event at the specified `EVENT_INDEX` filtered based on `TAG`.
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* The `NUMBER` refers to the number of employees to be allocated to the event.
+* Both `EVENT_INDEX` and `NUMBER` *must be a positive integer* 1, 2, 3, ...
+* If no `NUMBER` is specified, it is assumed to be the current manpower count required by the event.
 *
 ****
 
 Examples:
 
-* `list_ev` +
-`allocate 002 t/female` +
-Allocates to Event 002 all available employees who are tagged as 'female'
-* `allocate 004 t/music t/night-shift` +
-Allocates to Event 002 all available employees who have expertise in 'music' and are able to work night shifts.
+* `allocate 1` +
+Allocates available employees to the 1st event.
+* `allocate 2 n/3 t/female` +
+Allocates 3 employees who are tagged as 'female' to the 2nd event.
 
-==== Manually allocate Employees ot Events: `allocateM`
 
-Manually chooses and allocates employees to events that meet the requirements.
+==== Manually allocation of Employees to Events: `allocatem`
 
-Format: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...`
+Manually chooses and allocates employees to events.
+
+Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
 
 ****
-* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
-* EMPLOYEE_NUMBER is the number of the employee on the displayed list.
-* There should be at least one employee number stated.
+* Allocates an employee with `EMPLOYEE_INDEX` to the event at the specified `EVENT_INDEX`.
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
+* Both `EVENT_INDEX` and `EMPLOYEE_INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list_ev` +
-`allocateM 002 n/2 n/5 n/3` +
-Allocates to Event 002 employees numbered 2, 3, 5 on the list.
+* `allocatem 1 n/2` +
+Allocates the 2nd employee on the employee list to the 1st event on the event list.
+
+==== Fetch Full Details of an Event: `fetch_ev` (also a GUI feature)
+
+Fetches an event by displaying a pop-up window with full details of the event.
+
+Event Format: `fetch_ev EVENT_INDEX`
+
+****
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* The `EVENT_INDEX` *must be a positive integer* 1, 2, 3, ...
+****
+Examples:
+
+* `fetch_ev 2` +
+Returns the 2rd event from the event list
+
+Alternatively, simply double-click the event card in the list.
+
+image::BeforeFetch.png[width="790"]
+
+After double-clicking, a pop-up window should show:
+
+image::AfterFetch.png[width="790"]
+
 
 === Finance Management
 
@@ -327,64 +319,25 @@ Examples:
 * `contract n/005` +
 Generates the contract for Event_ID 005.
 
+=== Schedule
+==== View Schedule for a specific date
+Displays the events for the specific date
 
-=== Archive Management
-
-==== Record Past Event: `archive_ev`
-
-Archives a past event and its details, for future reference.
-
-Format: `archive_ev EVENT_ID`
-
-****
-* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
-****
+Format: `view_schedule on/DDMMYYYY`
 
 Examples:
-
-* `list_ev` +
-`archive_ev 002` +
-
-Archives a past Event with ID 002.
-
-==== Record Past Event: `list_archive_ev`
-
-Display List of all archived events. With an index and the Archive event Name and ID
-
-Format: `list_archive_ev`
-
-
-==== Search for Archive Event: `display_archive_ev`
-
-Displays an achieved event and its details.
-
-Format: `display_archive_ev INDEX`
+* `view_schedule on/02`
 
 ****
-* `INDEX` must be a positive integer and exist within the displayed list.
-* If not found, an 'Event Not Found' will be displayed.
+* on/ represents the date in DDMMYYYY that the user wants to display
 ****
 
-Examples:
+=== Display Entire Schedule
+Displays all the dates that has an event.
 
-* `list_archive_ev` +
-`display_archive_ev 2` +
-Displays the second event on the list and its details.
-
+Format: `display_schedule`
 
 === Miscellaneous
-
-==== View Schedule
-Displays the dates with events for the specific month
-
-Format: `view_schedule for/MM`
-
-Examples:
-* `view_schedule for/02`
-
-****
-* for/ represents the month in MM that the user wants to display
-****
 
 ==== Generate Statistics: `generate_stats`
 Displays a set of statistics, Number of events, Number of employee etc
@@ -447,14 +400,10 @@ e.g. `allocateM 002 n/2 n/5 n/3`
 e.g. `pay 2 f/20082019 t/20102019`
 * *Generate Event Contract*: `contract n/EVENT_ID` +
 e.g. `contract n/005`
-* *Archive Past Event*: `archive_ev EVENT_ID` +
-e.g. `archive_ev 005`
-* *List Archive Event*: `list_archive_ev` +
-e.g. `list_archive_ev`
-* *Display Archive Event*: `display_archive_ev INDEX` +
-e.g. `display_archive_ev 2`
-* *View Schedule*: `view_schedule for/MM` +
-e.g. `view_schedule for/02`
+* *View Schedule for specific date*: `view_schedule on/DDMMYYYY` +
+e.g. `view_schedule on/02/12/2019`
+* *Display Entire Schedule*: `display_schedule` +
+e.g. `display_schedule`
 * *Generate Statistics*: `generate_stats` +
 e.g. `generate_stats`
 * *Clear* : `clear`

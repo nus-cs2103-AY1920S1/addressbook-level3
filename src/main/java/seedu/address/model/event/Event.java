@@ -183,11 +183,15 @@ public class Event {
         final StringBuilder builder = new StringBuilder();
         builder.append("Event Name: ").append(getName());
         builder.append(" \nEvent Venue: ").append(getVenue());
-        builder.append(" \nEvent Manpower Count: ").append(getManpowerAllocatedList().getCurrentManpowerCount() + " / ")
+        builder.append(" \nEvent Manpower Count: ").append(getCurrentManpowerCount() + " / ")
                 .append(getManpowerNeeded());
         builder.append(" \nEvent Date: ").append(getStartDate()).append(" - " + getEndDate());
         builder.append(" \nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    public int getCurrentManpowerCount() {
+        return manpowerAllocatedList.getManpowerList().size();
     }
 }

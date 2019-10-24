@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main
 
 By: `Team DESCC`      Since: `Sep 2019`      Licence: `NUS`
 
@@ -25,7 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+._Architecture Diagram_
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
@@ -58,7 +58,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+._Class Diagram of the Logic Component_
 image::LogicClassDiagram.png[]
 
 [discrete]
@@ -66,7 +66,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+._Component interactions for `delete 1` command_
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -74,12 +74,13 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+._Structure of the UI Component_
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+There is also a `ScheduleBox` that is one of the tabs in the TabPane of `MainWindow`, the `ScheduleBox` which inherits from the abstract class `Tabs`. The abstract class `Tabs` also inherits from the abstract class `UiPart`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -92,13 +93,13 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+._Structure of the Logic Component_
 image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `AddMinParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding an employee or event).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -106,7 +107,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+._Interactions Inside the Logic Component for the `delete 1` Command_
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -114,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+._Structure of the Model Component_
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -122,19 +123,19 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Employee Book and Event Book data.
+* exposes an unmodifiable `ObservableList<Employee>` and an unmodifiable `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in both `Employee Book` and `Event Book`, which `Employee` can reference. This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+._Structure of the Storage Component_
 image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
@@ -142,20 +143,19 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the App data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.addmin.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::statistics[]
 === Statistics feature
-==== Proposed Implementation
+==== Implementation
 
 Given below is an example usage scenario and how the statistics mechanism behaves at each step.
 
@@ -176,94 +176,214 @@ through all the stored data and generate the statistics data whenever it is quer
 ** Cons: Requires managing the storage of the statistical data and possibly lead to lowered performance of other features such as the command which does CRUD to Employees/Events which will be slower with the need to generate the statistical data and store it in the JSON file storage.
 // end::statistics[]
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Auto allocation feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The `AutoAllocateCommand` has a auto-allocation mechanism which is facilitated by methods in `Event`.
+The `AutoAllocateCommand` takes in three arguments:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+1.  `eventIndex` - index of event in the displayed event list
+2. `ManpowerCountToAdd` - number of employees to allocate [optional]
+3. `tagList` - a set of tags to filter the employees [optional]
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Additionally, the `AutoAllocateCommand` uses the following operations:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* `Event#isAvailableForEvent()` -- Checks if an employee is available for the event.
+* `Event#allocateEmployee()` -- Checks if an employee is available for the event.
+* `AutoAllocateCommand#createAvailableEmployeeListForEvent()` -- Creates a list of employees available for the event,
+filtered by the tags specified by user.
+* `AutoAllocateCommand#getManpowerNeededByEvent()` -- Calculates the number of employees currently required
+by the event.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is an example usage scenario and how the auto allocation mechanism behaves at each step.
 
-image::UndoRedoState0.png[]
+._Program flow of the Auto Allocate Feature_
+image::AutoAllocateFlowChart.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th employee in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+**Step 1**. The user executes `allocate 1 n/2 t/female` with the intention to allocate 2 employees with tag [female]
+to the 1st event displayed in the event list.
 
-image::UndoRedoState1.png[]
+**Step 2**. The command checks if `eventIndex` is valid and if `ManpowerCountToAdd` is specified.
+[NOTE]
+If `ManpowerCountToAdd` is not specified, it is assumed to be the maximum number possible for the event.
+Validity of other command arguments e.g. if `ManpowerCountToAdd` is a positive integer is checked
+by `AutoAllocateCommandParser` and not within the command `AutoAllocateCommand`.
 
-Step 3. The user executes `add n/David ...` to add a new employee. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
-image::UndoRedoState2.png[]
+**Step 3**. The command calls its own method `AutoAllocateCommand#getManpowerNeededByEvent()` to get the number of employees
+required by the specified event.
+
+
+**Step 4**. The command calls its own method `AutoAllocateCommand#createAvailableEmployeeListForEvent()` to create a
+filtered list of employees based on the `tagList` and if employee satisfies `Event#isAvailableForEvent()`.
+
+**Step 5**. The command checks if supply (number of employees in filtered list in step 4) exceeds
+demand (number of employees required by event, generated in step 3).
+[NOTE]
+If supply < demand, throws exception to user. If supply > demand, employees will be randomly selected instead.
+
+**Step 6**. The command calls `Event#allocateEmployee()` to allocate the chosen employees to the event.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+For storage purposes, only the `Employee#EmployeeId` is allocated to the event.
 
-Step 4. The user now decides that adding the employee was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+**Step 7**. Done.
 
-image::UndoRedoState3.png[]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+The following sequence diagram shows how the auto allocation works:
 
-The following sequence diagram shows how the undo operation works:
+._Sequence Diagram of the AutoAllocate Command_
+image::AutoAllocateSequenceDiagram.png[]
 
-image::UndoSequenceDiagram.png[]
+NOTE: The lifeline for `AutoAllocateCommand` should end at the destroy marker (X) but due to a limitation of
+PlantUML, the lifeline reaches the end of diagram.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The following activity diagram summarizes what happens when a user successfully executes a `AutoAllocateCommand`:
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+._Activity Diagram of the AutoAllocate Command_
+image::AutoAllocateActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Storage of employees associated with event after successful command
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves only the `Employee#EmployeeId` associated with the event.
+** Pros: Easy to implement. Will use less memory.
+** Cons: Future accesses require more time.
+* **Alternative 2:** Saves all fields of `Employee` associated with the event..
+** Pros: Easy retrieval in the future.
+** Cons: Changes in `Employee` attributes have to be reflected in the event. This meant that `EditCommand` and
+`DeleteCommand` have to be heavily modified.
+
+===== Aspect: Allocation of manpower when demand exceeds supply.
+
+* **Alternative 1 (current choice):** Throws exception
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the employee being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons:
+* **Alternative 2:** Allocate the current available employees
+** Pros:
+** Cons: Testability issues.
+// end::allocate[]
 
-===== Aspect: Data structure to support the undo/redo commands
+// tag::test[]
+=== Setting Date & Time to Events
+==== Implementation
+The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects, which represents a single day by itself.
+Our implementation of `Event` does not assume that the event will be occurring consecutively from the start to the end date, and requires the user to manually assign each specific date with the time period that the Event is in process.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+To achieve this functionality, there exists an `EventDayTime` object that encapsulates the period of the day.
+It has two class attributes - both of which are `LocalTime` objects to represent the start and end time.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+Each Event contains an `EventDateTimeMap` object that maps an `EventDate` object to an `EventDayTime` object using a HashMap implementation.
+This mapping is added through the `EventAssignDate` command.
 
-_{Explain here how the data encryption feature will be implemented}_
+Given below is an example usage scenario of the program functionality when a user attempts to assign a Date & Time to an already existent Event.
 
-// end::dataencryption[]
+. The User executes the command `set_ev_dt 2 on/18/10/2019 time/0900-2000`, with the intention to assign the date of 18th October 2019, time period 9am-8pm to the second event currently displayed in the event list.
+. The parser checks if input format is correct, and attempts to create `Index`, `EventDate` and `EventDayTime` objects from it
+. The command checks if the index of the event stated exists on the displayed list, and if the stated date is within the start and end date of the Event. (Input Validation)
+. The command calls `Event#assignDateTime()` on the referenced Event object to add the EventDate-EventDayTime mapping into `EventDateTimeMap`.
+. Storage is updated.
+. Done.
+
+[NOTE]
+If the command execution fails, a `ParseException` (from Step 2) or a `CommandException` (from Step 3) will be thrown, specifiying the reason of the error.
+
+The following activity diagram shows how the Setting of Date&Time to Event work:
+
+._Activity Diagram of the SettingEventDate Command_
+image::SettingEventDateActivityDiagram.png[SettingEvent,295,607]
+
+==== Design Considerations
+===== Aspect: Storage of DateTimeMap
+
+* **Alternative 1 (current choice):** Stores the DateTimeMap in an array format that is saved in `eventbook.json`
+** Pros: Simplicity in implementation and easier reference as it is loaded and saved to the same JSON file.
+** Cons: Performance issues as it needs to update the entire event object although only one attribute is updated
+* **Alternative 2:** Store the DateTimeMap in a separate file e.g. `EventDateTimes.json` that will be referenced by EventBook during initialization.
+** Pros: Faster performance in saving and loading as it is kept separate from `eventbook.json` and hence will not
+** Cons: Requires a new storage unit, along with all its supporting functions which will require alot of repeated code.
+Instantiation of the `Event` object when the app is started will be more complicated as well due to the need to read from two separate files
+
+* **Decision:** Alternative 1
+** Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information.
+However, as we are constrained with not utilizing a DBMS, Alternative 1 is a logically simpler and more efficent solution from a software engineering standpoint.
+
+// tag::displayschedule[]
+=== [Proposed] Display Schedule feature
+==== Proposed Implementation
+
+The Display Schedule Feature is implemented to allow users to view all dates and the specific events for those dates listed.
+The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a new Object - `DistinctDate`, as well as
+an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
+
+It processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
+process through these events to create specific `DistinctDate` Objects which stores a list of events which occurs on the date
+they are representing. These DistinctDate Objects are then used to be represented on the GUI.
+
+Additionally, The DistinctDateProcessor contains the following operations:
+
+* `generateDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
+* `generateListOfEventForDate(LocalDate date, Model model)` -- Takes in a `LocalDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
+* `generateDateList(Model model)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
+
+
+Given below is an example usage scenario and how the display schedule mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `distinctDatesList` will be initialized based on the initial event book state.
+
+image::DisplayScheduleState0.png[]
+
+Step 2. The user executes `add_ev n/Free Cofee ...` to add a new event into the list. The distinctDatesList will be flushed.
+
+image::DisplayScheduleState1.png[]
+
+[NOTE]
+If a command that alters the eventBook will cause the distinctDatesList to be flushed. User will be required to input "display_schedule" command again to generate the new list of schedule.
+
+Step 3. The user executes `display_schedule` to see all dates and the respective events on those dates. The distinctDateList will be generated again based on the current list of events in the EventList.
+
+image::DisplayScheduleState2.png[]
+
+
+Step 4. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored, however the DistinctDateList would not.
+
+image::DisplayScheduleState3.png[]
+
+[NOTE]
+Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when it is called upon or when the application starts.
+
+The following sequence diagram shows how the undo operation works:
+
+._Sequence Diagram for DisplaySchedule Command_
+image::DisplayScheduleSequenceDiagram.png[]
+
+NOTE: The lifeline for `DisplayScheduleCommand` ends at the destroy marker (X).
+
+==== Design Considerations
+
+===== Aspect: How Display Schedule executes
+
+* **Alternative 1 (current choice):** Generates and Processes the DistinctDate Object upon start up and command call.
+** Pros: Easy to implement and requires less Storage Capacity.
+** Cons: May have performance issues in terms of speed and time Complexity. The program will have to iterate through the entire list of events, whenever display_schedule command is called.
+* **Alternative 2:** Creates and Stores the DistinctDate object whenever a new event is added.
+** Pros: Will require less processing, Do not have to create a new list of DistinctDate object everytime it is called
+** Cons: May have performance issues in terms of Storage needed, requires new storage unit to store a new entity which is not as important.
+Can cause speed and time complexity issues as well, Whenever edits are made to the existing eventList - add_ev, delete_ev etc
+the program is required to process through all DistinctDate Object to make the neccesary changes.
+
+* **Decision:** Alternative 1
+** Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
+Processing is only done when it is needed.
+// end::displayschedule[]
+
+=== Finance
+==== Implementation
+_WIP_
+
+==== Design Considerations
+_WIP_
 
 === Logging
 
@@ -302,13 +422,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* Has a need to help HR manage events and employees
-* Prefer desktop apps over other types
-* Can type fast
-* Prefers typing over mouse input
-* Is reasonably comfortable using CLI apps
+* Has a need to help Administrative staff to manage events and employees.
+* Prefer desktop apps over other types.
+* Can type fast.
+* Prefers typing over mouse input.
+* Is reasonably comfortable using CLI apps.
+* Someone who prefers a clean interface and dislike clutter.
 
 *Value proposition*: Manage events and employees easier than enterprise apps commonly used such as Microsoft Excel and Microsoft Word.
+Provides a clean and modern desktop application designed specifically to cater to their specific needs while improving user experience and efficiency.
 
 [appendix]
 == User Stories
@@ -320,7 +442,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |HR Admin |automate my manpower allocation process | improve work productivity
 
-|`* * *` |HR Admin |view upcoming events | remind the company staff to attend
+|`* * *` |HR Admin |view upcoming events and schedule of these events | remind the company staff to attend
 
 |`* * *` |HR Director |view the number of events | decide whether to have more or less of events
 
@@ -340,7 +462,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |view upcoming events | record them on my calendar
 
-|`* *` |Admin Staff|find upcoming events | plan on the logistics needed ahead of time
+|`* *` |Admin Staff|see all events on a specific date | plan on the logistics needed ahead of time
 
 |`* *` |Manager|tag my employees with comments/remarks | have better manpower allocation for events
 
@@ -359,7 +481,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 1.  User requests to list employees
 2.  AddMin+ shows a list of employees
-3.  User requests to delete a specific employee by stating the Employee ID
+3.  User requests to delete a specific employee by stating the index of the current displayed list.
 4.  AddMin+ deletes the employee
 +
 Use case ends.
@@ -367,7 +489,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 3a. The given Employee ID is invalid.
+* 3a. The given input index is invalid.
 +
 [none]
 ** 3a1. AddMin+ shows an error message.
@@ -380,15 +502,15 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to view the company’s current list of events.
-2.  AddMin+ shows a list of events, with each event containing a unique Event ID.
-3.  User specifies Event ID, and list the details of the event to edit
+2.  AddMin+ shows a list of events, with each event tagged to an index of the current displayed list.
+3.  User specifies the index of the event, and list the details of the event to edit
 4.  AddMin+ edits and saves the updated event details.
 +
 Use case ends.
 
 *Extensions*
 
-* 3a. Event ID given is invalid.
+* 3a. Input Index given is invalid.
 +
 [none]
 ** 3a1.AddMin+ shows an error message and refuses the edit.
@@ -424,21 +546,21 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Generate Employee PaySlip
+=== Use case: View Schedule on a specific date
 
 *MSS*
 
-1.  User requests to list employee
-2.  EmployeeBook shows a list of employees
-3.  User requests to generate a payslip document of a specific employee ID in the list by using a specific employee ID.
-4.  AddMin+ generates a document of the pay slip of the employee ID.
+1.  User requests to list events
+2.  EventBook shows a list of events
+3.  User requests see schedule on a specific date
+4.  AddMin+ display a list of events that is on that date
 
 +
 Use case ends.
 
 *Extensions*
 
-* 3.The employee ID given is invalid.
+* 3.The date format given is invalid.
 +
 [none]
 ** 3a.AddMin+ shows an error message.

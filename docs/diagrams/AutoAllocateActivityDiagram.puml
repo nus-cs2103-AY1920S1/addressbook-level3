@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if ()
+    : Employees allocated are
+     converted to their unique
+     EmployeeId;
+    :  Adds a list of EmployeeId to
+      the manpower list of event
+      for easy storage;
+    :Future references to the event's
+    allocated employee will be via
+    the EmployeeId;
+
+else ([else])
+
+endif
+stop
+@enduml
