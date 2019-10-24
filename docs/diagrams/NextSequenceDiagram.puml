@@ -5,6 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":NextCommandParser" as NextCommandParser LOGIC_COLOR
+participant "refId : ReferenceId" as ReferenceId LOGIC_COLOR
 participant "n:NextCommand" as NextCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -29,9 +30,22 @@ deactivate NextCommandParser
 AddressBookParser -> NextCommandParser : parse("1")
 activate NextCommandParser
 
+
+create ReferenceId
+NextCommandParser -> ReferenceId
+activate ReferenceId
+ReferenceId -> NextCommandParser
+deactivate ReferenceId
+
 create NextCommand
 NextCommandParser -> NextCommand
 activate NextCommand
+
+create ReferenceId
+NextCommandParser -> ReferenceId
+activate ReferenceId
+ReferenceId -> NextCommandParser
+deactivate ReferenceId
 
 NextCommand --> NextCommandParser : n
 deactivate NextCommand

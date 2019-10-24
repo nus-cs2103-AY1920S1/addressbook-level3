@@ -100,19 +100,23 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
+    * A `Command` object can be classified as one of two types, a reversible command and a Non-Actionable command.
+    * Reversible command refers to any action which modifies the data in the system's model.
+    * Conversely, a Non-Actionable command only reads data from the system's model without modifying it.
+
 .  The command execution can affect the `Model` (e.g. adding a person).
+    *  If the user intends to execute a reversible command, an ActionPair command is created and pushed into an undo stack.
+        The ActionPair command contains a pairing of of the action itself and its inverse.
+        (e.g. Pairing 'add person A' and 'delete person A' command).
+    *  If the user intends to execute a Non-Actionable command, the command will be directly executed.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `next 1` and `enqueue 001A` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-.Interactions inside the Logic Component for the `enqueue 001A` Command
+.Interactions inside the Logic Component for the `enqueue 001A` Command.
 image::EnqueueSequenceDiagram.png[]
+
 
 .Interactions inside the Logic Component for the `next 1` Command
 image::NextSequenceDiagram.png[]
@@ -122,49 +126,49 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `cancelappt 1` Command
 image::CancelAppointmentSequenceDiagram.png[]
 
-NOTE: The lifeline for `CancelAppCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteCommandParser` and `NextCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelOverviewClassDiagramV2.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
+==== Overall Model component
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* consists of 3 sub-components: Queue Manager, Address Book and Appointment Book.
+* stores the details of patients and staff in an Address Book.
+* stores the Appointment details of patients and staff in an Appointment Book.
+* improves code reusability, we can reuse the `Person` class to derive classes which can represent patients or staff doctors.
+* likewise, we can reuse the `Event` class to derive classes which can represent patient's appointments and staff duty shifts.
+* exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* stores a unique list of `Tags` in the `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
 
 The `QueueManager`,
 
 * stores a `QueueList` object that represents the queue.
-* stores a `UniqueElementList<Room>` which contains the list of rooms.
-* does not depend on any of the other three components.
-
-.Structure of the QueueManager Component
-image:QueueManagerClassDiagram.png[]
+* stores a `UniqueElementList<Room>` which represents a list of consultation rooms where staff doctors are stationed.
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagramV2.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save and read data of the Address Book in json format.
+* can save and read data of the Appointment Book data in json format.
+* able to reuse `JsonAddressBookStorage` to store the details of doctors and patients.
+* able to reuse `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
 
 [[Design-Commons]]
 === Common classes
