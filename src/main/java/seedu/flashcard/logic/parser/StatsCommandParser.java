@@ -27,7 +27,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
     public StatsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + StatsCommand.MESSAGE_USAGE));
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {

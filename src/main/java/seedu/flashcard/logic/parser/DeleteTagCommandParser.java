@@ -19,7 +19,7 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
     public DeleteTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCardByTagCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + ListCardByTagCommand.MESSAGE_USAGE));
         }
 
         Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());

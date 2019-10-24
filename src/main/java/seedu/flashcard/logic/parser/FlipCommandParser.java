@@ -17,7 +17,7 @@ public class FlipCommandParser implements Parser<FlipCommand> {
             Answer answer = ParserUtil.parseAnswer(args);
             return new FlipCommand(answer);
         } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + FlipCommand.MESSAGE_USAGE));
         }
     }
 }

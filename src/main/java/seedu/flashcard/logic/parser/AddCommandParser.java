@@ -41,7 +41,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!arePrefixesPresent(argMultimap,
             PREFIX_QUESTION, PREFIX_DEFINITION, PREFIX_ANSWER)
             || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + AddCommand.MESSAGE_USAGE));
         }
 
         Question question = ParserUtil.parseWord(argMultimap.getValue(PREFIX_QUESTION).get());

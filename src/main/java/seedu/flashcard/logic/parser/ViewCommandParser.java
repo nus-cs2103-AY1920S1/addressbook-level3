@@ -22,7 +22,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new ViewCommand(index);
         } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE), e);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + ViewCommand.MESSAGE_USAGE), e);
         }
     }
 }
