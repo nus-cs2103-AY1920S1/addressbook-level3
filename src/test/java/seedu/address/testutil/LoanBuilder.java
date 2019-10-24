@@ -81,11 +81,21 @@ public class LoanBuilder {
         return this;
     }
 
+    public LoanBuilder withStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
     /**
      * Sets the due date of the {@code Loan} we are building.
      */
     public LoanBuilder withDueDate(String dueDate) {
         this.dueDate = LocalDate.parse(dueDate);
+        return this;
+    }
+
+    public LoanBuilder withDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
         return this;
     }
 
