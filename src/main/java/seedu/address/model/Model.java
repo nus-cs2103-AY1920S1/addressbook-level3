@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
@@ -15,6 +16,10 @@ import seedu.address.model.student.Student;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
+    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+    Predicate<Lesson> PREDICATE_SHOW_ALL_LESSONS = unused -> true;
+    Predicate<Student> PREDICATE_SHOW_NO_STUDENTS = used -> false;
+    Predicate<Assignment> PREDICATE_SHOW_NO_ASSIGNMENTS = used -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -37,50 +42,53 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' classroom file path.
      */
-    Path getAddressBookFilePath();
+    Path getClassroomFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' classroom file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setClassroomFilePath(Path classroomFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces classroom data with the data in {@code classroom}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setClassroom(ReadOnlyClassroom classroom);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Classroom */
+    ReadOnlyClassroom getClassroom();
 
     /**
-     * Returns true if a student with the same identity as {@code student} exists in the address book.
+     * Returns true if a student with the same identity as {@code student} exists in the classroom.
      */
     boolean hasStudent(Student student);
-
+    boolean hasAssignment(Assignment assignment);
     /**
      * Deletes the given student.
-     * The student must exist in the address book.
+     * The student must exist in the classroom.
      */
     void deleteStudent(Student target);
-
+    void deleteAssignment(Assignment target);
     /**
      * Adds the given student.
-     * {@code student} must not already exist in the address book.
+     * {@code student} must not already exist in the classroom.
      */
     void addStudent(Student student);
-
+    void addAssignment(Assignment assignment);
     /**
      * Replaces the given student {@code target} with {@code editedStudent}.
-     * {@code target} must exist in the address book.
-     * The student identity of {@code editedStudent} must not be the same as another existing student in the address
-     * book.
+     * {@code target} must exist in the classroom.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the classroom.
      */
     void setStudent(Student target, Student editedStudent);
-
+    void setAssignment(Assignment target, Assignment editedAssignment);
     /** Returns an unmodifiable view of the filtered student list */
     ObservableList<Student> getFilteredStudentList();
+
+    /** Returns an unmodifiable view of the filtered assignment list */
+    ObservableList<Assignment> getFilteredAssignmentList();
+    ObservableList<Lesson> getFilteredLessonList();
 
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
@@ -89,19 +97,66 @@ public interface Model {
     void updateFilteredStudentList(Predicate<Student> predicate);
 
     /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    void updateFilteredLessonList(Predicate<Lesson> predicate);
+
+    ReadOnlyClassroom undo();
+
+    boolean canUndo();
+
+    ReadOnlyClassroom redo();
+
+    boolean canRedo();
+
+    void saveState();
+
+    /**
+     * Returns the boolean Classroom.isDisplayStudents to determine if students should be displayed.
+     */
+    boolean isDisplayStudents();
+
+    /**
+     * Sets the boolean Classroom.isDisplayStudents to true, to display student list.
+     */
+    void displayStudents();
+
+    /**
+     * Sets the boolean Classroom.isDisplayStudents to false, to display assignment list.
+     */
+    void displayAssignments();
+
+    /**
      * Adds the given lesson.
-     * @param lesson Lesson object.
+     * @param lesson lesson object.
      */
     void addLesson(Lesson lesson);
 
     /**
-     * Returns true if a Lesson with the same identity exists in the addressbook.
+     * Returns true if a Lesson with the same identity exists in the classroom.
      * @param lesson Lesson object.
      */
     boolean hasLesson(Lesson lesson);
 
     /**
-     * returns an unmodifiable view of the filtered
+     * Deletes the given lesson.
+     * The lesson must exist in the address book.
+     */
+    void deleteLesson(Lesson target);
+
+    /**
+     * Replaces the given lesson {@code target} with {@code editedLesson}.
+     * {@code target} must exist in the address book.
+     * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
+     * book.
+     */
+    void setLesson(Lesson target, Lesson editedLesson);
+
+    /**
+     * returns an unmodifiable view of the filtered reminder list.
      * @return Ob
      */
     ObservableList<Reminder> getFilteredReminderList();

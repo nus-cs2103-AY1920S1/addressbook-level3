@@ -10,11 +10,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.ClassroomParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.scheduler.Reminder;
+import seedu.address.model.ReadOnlyClassroom;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
 
@@ -27,12 +28,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final ClassroomParser classroomParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        classroomParser = new ClassroomParser();
     }
 
     @Override
@@ -40,11 +41,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = classroomParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveClassroom(model.getClassroom());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,8 +54,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyClassroom getClassroom() {
+        return model.getClassroom();
     }
 
     @Override
@@ -63,13 +64,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Reminder> getFilteredReminderList() {
-        return model.getFilteredReminderList();
+    public ObservableList<Lesson> getFilteredLessonList() {
+        return model.getFilteredLessonList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return model.getFilteredAssignmentList();
+    }
+
+    @Override
+    public Path getClassroomFilePath() {
+        return model.getClassroomFilePath();
     }
 
     @Override
@@ -80,5 +86,9 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    public boolean isDisplayStudents() {
+        return model.isDisplayStudents();
     }
 }
