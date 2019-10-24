@@ -121,15 +121,35 @@ link:{repoURL}/src/main/java/tagline/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+==== Contact Logic component
+.Structure of the Contact Logic Component
+image::ContactLogicClassDiagram.png[]
+
+. `Contact Logic` is a sub-component of `Logic`.
+. `TaglineParser` will pass a user input that can be classified as a contact command (i.e. has __"contact "__ prefix),
+to the `ContactCommandParser` without including the __"contact"__ keyword, e.g. `TaglineParser` will only pass
+__"create --n Bob"__ instead of __"contact create --n Bob"__.
+. `ContactCommandParser` identifies the type of contact command and passes the argument string to the respective command
+parser. For example, `ContactCommandParser` will pass __"--n Bob"__ to `CreateContactParser` if it receives
+__"create --n Bob"__ as an input.
+. This results in a `ContactCommand` object which is returned to the `LogicManager`.
+. The command execution can affect the `ContactModel`.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the
+`execute("contact create --n Bob")` API call.
+
+.Interactions Inside the Logic Component for the `contact create --n Bob` Command
+image::ContactCreateSequenceDiagram.png[]
+
 ==== Note Logic component
 
 [[fig-NoteLogicClassDiagram]]
 .Structure of the Note Logic Component
 image::NoteLogicClassDiagram.png[]
 
-.  `Note Logic` is a sub-component of `Logic`
+.  `Note Logic` is a sub-component of `Logic`.
 .  It obtains the user command parsed by `TaglineParser` through the `NoteCommandParser` class.
-.  The user command is passed to the respective command parser. E.g. __"note delete 1"__ will be passed to `DeleteNoteParser`
+.  The user command is passed to the respective command parser. E.g. __"note delete 1"__ will be passed to `DeleteNoteParser`.
 .  This results in a `NoteCommand` object which is returned to the `LogicManager`.
 .  The command execution can affect the `NoteModel` (e.g. adding a note).
 
