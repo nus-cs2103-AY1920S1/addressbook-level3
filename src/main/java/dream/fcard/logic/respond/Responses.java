@@ -1,30 +1,23 @@
 package dream.fcard.logic.respond;
 
-import dream.fcard.logic.storage.StorageManager;
+import java.util.ArrayList;
+
+import dream.fcard.logic.exam.ExamRunner;
+import dream.fcard.logic.respond.commands.CreateCommand;
+import dream.fcard.logic.respond.commands.EditCommand;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.exceptions.DeckAlreadyExistsException;
 import dream.fcard.model.exceptions.DeckNotFoundException;
-import dream.fcard.util.FileReadWrite;
+import dream.fcard.model.exceptions.IndexNotFoundException;
+import dream.fcard.model.exceptions.InvalidInputException;
 
 /**
  * Enum of regex and response function pairs used by Responder to evaluate input.
  */
 enum Responses {
     HELP("(?i)^(help)?(\\s)*(command/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
-        System.out.println("Current command is HELP");
-        /*Print out "Available commands are:\n" +
-                "Help [Command]\n" +
-                "Import FILEPATH\n" +
-                "Root DIRECTORY_PATH" +
-                "Export deck/ DECK_NAME path/ DIRECTORY_PATH\n" +
-                "Stats [deck/DECK_NAME]\n" +
-                "View [deck/DECK_NAME]\n" +
-                "Create deck/DECK_NAME\n" +
-                "Test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME\n" +
-                "Exit\n" +
-                "Edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT]" +
-                "[back/NEW_BACK_TEXT]\n";
-         */
+        // GUI.handleHelp();
         return true; // capture is valid, end checking other commands
     }),
     ROOT("(?i)^r(oot)?(\\s)+.+", (commandInput, programState) -> {
@@ -97,50 +90,80 @@ enum Responses {
         return true; // capture is valid, end checking other commands
     }),
     VIEW("(?i)^(view)?(\\s)*(deck/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
-        System.out.println("Current command is VIEW");
-        // ArrayList<Deck> allDecks = programState.getDecks();
-        //  String inputName = *name of deck to find*;
-        //  for (Deck curr : allDecks) {
-        //      if(curr.getName().equals(inputName) {
-        //          curr.viewDeck();
-        //      }
-        //  }
+        String[] commandsWithSpaces = commandInput.split(" ");
+        ArrayList<String> commands = new ArrayList<>();
+        for (String s : commandsWithSpaces) {
+            if (s.length() > 0) {
+                commands.add(s);
+            }
+        }
+        try {
+            if (commands.size() > 1) {
+                // View deck
+                String deckName = commands.get(1);
+                Deck deck = programState.getDeck(deckName);
 
+                // GUI.showDeck();
+            } else {
+                // View all decks
+                ArrayList<Deck> allDecks = programState.getAllDecks();
+                StringBuilder toPrint = new StringBuilder();
+                for (Deck deck : allDecks) {
+                    toPrint.append(deck.getName() + "\n");
+                }
+
+                // GUI.handleString or smt
+            }
+        } catch (DeckNotFoundException dnfExc) {
+            System.out.println(dnfExc.getMessage());
+        }
         return true; // capture is valid, end checking other commands
     }),
     CREATE("(?i)^(create)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(\\s)*", (commandInput, programState) -> {
-        System.out.println("Current command is CREATE");
-        // String inputName = *name of deck to find*;
-        // Deck newDeck = new Deck(inputName);
-        // programState.getDecks().add(newDeck);
-        return true; // capture is valid, end checking other commands
+        CreateCommand newCommand = new CreateCommand(commandInput, programState);
+        try {
+            return newCommand.funcCall();
+        } catch (DeckAlreadyExistsException deaExc) {
+            System.out.println(deaExc.getMessage());
+        }
+        return false;
     }),
     TEST("(?i)^(test)?(\\\\s)+(duration/[\\\\w\\\\p{Punct}]+)?(\\\\s)+(deck/[\\\\w\\\\p{Punct}]+){1}(\\\\s)*", (
             commandInput, programState) -> {
-        System.out.println("Current command is TEST");
-        // ArrayList<Deck> allDecks = programState.getDecks();
-        // String inputName = *name of deck to find*;
-        // Deck testDeck;
-        // for (Deck curr : allDecks) {
-        //      if(curr.getName().equals(inputName) {
-        //          testDeck = curr;
-        //      }
-        // }
-        // *Initiate test with Test Deck*
-        return true; // capture is valid, end checking other commands
+        // Requires implementation for timed tests.
+        String deckName = commandInput.split("deck/")[1].strip();
+        try {
+            Deck examDeck = programState.getDeck(deckName);
+            ExamRunner examRunner = new ExamRunner(examDeck);
+            examRunner.runExam();
+            return true; // capture is valid, end checking other commands
+        } catch (DeckNotFoundException dnfExc) {
+            System.out.println(dnfExc.getMessage());
+            return true; // capture is valid, end checking other commands
+        } catch (IndexNotFoundException infExc) {
+            System.out.println(infExc.getMessage());
+        }
+        return false;
     }),
     EXIT("(?i)^(exit)?.", (commandInput, programState) -> {
-        System.out.println("Current command is EXIT");
-        // Exit from application
+        // GUI.handleExit();
         return true; // capture is valid, end checking other commands
     }),
     EDIT("(?i)^(edit)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(\\s)+(action/[\\w\\p{Punct}]+){1}(\\s)*((\\s)+"
             + "(index/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+(front/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+"
             + "(back/[\\w\\p{Punct}]+))?(\\s)*", (
             commandInput, programState) -> {
-                System.out.println("Current command is EDIT");
-                // Will plan an implement soon (a bit busy now lol)
-                return true; // capture is valid, end checking other commands
+                EditCommand newCommand = new EditCommand(commandInput, programState);
+                try {
+                    return newCommand.funcCall(); // capture is valid, end checking other commands
+                } catch (InvalidInputException iiExc) {
+                    System.out.println(iiExc.getMessage());
+                } catch (IndexNotFoundException infExc) {
+                    System.out.println(infExc.getMessage());
+                } catch (DeckNotFoundException dnfExc) {
+                    System.out.println(dnfExc.getMessage());
+                }
+                return false;
             });
 
     private String regex;

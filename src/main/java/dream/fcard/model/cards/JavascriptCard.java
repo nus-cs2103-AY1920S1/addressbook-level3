@@ -1,7 +1,7 @@
 package dream.fcard.model.cards;
 
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
-
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -11,6 +11,12 @@ import javafx.scene.Node;
  * Card that evaluates input as javascript code whose output has to match back of card.
  */
 public class JavascriptCard extends FlashCard {
+public class JavascriptCard implements FlashCard {
+
+    protected String front;
+    protected String back;
+    protected Statistics stats;
+
 
     /**
      *
@@ -21,6 +27,8 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         priority = LOW_PRIORITY;
+        stats = new Statistics();
+
     }
 
     /**

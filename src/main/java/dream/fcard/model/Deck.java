@@ -6,6 +6,7 @@ import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 import java.util.ArrayList;
 import java.util.Random;
 
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -24,6 +25,7 @@ public class Deck implements JsonInterface {
     private ArrayList<FlashCard> cards;
     private ArrayList<FlashCard> highPriorityQueue;
     private ArrayList<FlashCard> lowPriorityQueue;
+    private Statistics stats;
 
     /**
      * Constructor to create a Deck with no name and cards.
@@ -34,6 +36,7 @@ public class Deck implements JsonInterface {
 
         highPriorityQueue = new ArrayList<>();
         lowPriorityQueue = new ArrayList<>();
+        stats = new Statistics();
     }
 
     /**
@@ -241,5 +244,9 @@ public class Deck implements JsonInterface {
         Random rand = new Random(System.currentTimeMillis());
         int chosenCardIndex = rand.nextInt(list.size());
         return list.get(chosenCardIndex);
+    }
+  
+    public int getNumCards() {
+        return cards.size();
     }
 }
