@@ -20,7 +20,7 @@ public class GuiSettings {
     private static final String APPLICATION_ICON = "/images/address_book_32.png";
 
     // default sizing
-    private static double padding = 10;
+    private static double padding = 20;
     private static double spacing = 10;
     private static double minHeight = 400;
     private static double minWidth = 400;
@@ -38,7 +38,7 @@ public class GuiSettings {
     private static Font flashCardTextStyle = Font.font("Montserrat", FontWeight.NORMAL,
         FontPosture.REGULAR, 18);
     private static Font commandTextStyle = Font.font("Montserrat", FontWeight.LIGHT,
-        FontPosture.REGULAR, 16);
+        FontPosture.REGULAR, 12);
     private static Font subtitleTextStyle = Font.font("Montserrat", FontWeight.LIGHT,
         FontPosture.REGULAR, 18);
     private static Font deckTitleTextStyle = Font.font("Montserrat", FontWeight.BOLD,

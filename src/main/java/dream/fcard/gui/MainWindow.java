@@ -130,6 +130,8 @@ public class MainWindow {
             }
         });
 
+        // todo: add some way to modify commandBox's appearance when command fails
+
         commandBoxPlaceholder.getChildren().add(commandTextField);
     }
 
