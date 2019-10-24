@@ -2,6 +2,7 @@ package organice.model.person;
 
 import static organice.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -15,6 +16,8 @@ public class Donor extends Person {
     private final TissueType tissueType;
     private final Organ organ;
     private final OrganExpiryDate organExpiryDate;
+    private ArrayList<String> processingTodoList;
+    private boolean hasProcessingList;
 
     /**
      * Every field must be present and not null.
@@ -28,6 +31,8 @@ public class Donor extends Person {
         this.tissueType = tissueType;
         this.organ = organ;
         this.organExpiryDate = organExpiryDate;
+        processingTodoList = new ArrayList<String>();
+        this.hasProcessingList = false;
     }
 
     public Age getAge() {
@@ -48,6 +53,21 @@ public class Donor extends Person {
 
     public OrganExpiryDate getOrganExpiryDate() {
         return organExpiryDate;
+    }
+
+    public ArrayList getProcessingList(Nric nric) {
+        if (!hasProcessingList) {
+            processingTodoList.add("To-Do list for " + nric.toString() + " and " + getNric().toString());
+            processingTodoList.add("Contact donor");
+            processingTodoList.add("Contact patient's family");
+            processingTodoList.add("Contact doctor in charge of patient");
+            processingTodoList.add("Schedule for cross-matching");
+            processingTodoList.add("Schedule for organ transplant surgery");
+            return processingTodoList;
+        } else {
+            hasProcessingList = true;
+            return processingTodoList;
+        }
     }
 
     /**

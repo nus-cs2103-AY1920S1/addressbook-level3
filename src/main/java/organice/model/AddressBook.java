@@ -5,9 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import organice.model.person.Donor;
 import organice.model.person.Nric;
+import organice.model.person.Patient;
 import organice.model.person.Person;
 import organice.model.person.UniquePersonList;
+import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -100,6 +103,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Retrieves the {@code Patient} with the specified {@code Nric}.
+     * {@code Nric} must exist in ORGANice.
+     */
+    public Patient getPatient(Nric patientNric) throws PersonNotFoundException {
+        return persons.getPatient(patientNric);
+    }
+
+    /**
+     * Retrieves the {@code Donor} with the specified {@code Nric}.
+     * {@code Nric} must exist in ORGANice.
+     */
+    public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
+        return persons.getDonor(donorNric);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The identity of {@code editedPerson} must not be the same as another existing {@code person}
@@ -143,4 +162,5 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return persons.hashCode();
     }
+
 }

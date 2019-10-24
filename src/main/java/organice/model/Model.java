@@ -5,8 +5,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import organice.commons.core.GuiSettings;
+import organice.model.person.Donor;
 import organice.model.person.Nric;
+import organice.model.person.Patient;
 import organice.model.person.Person;
+import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
  * The API of the Model component.
@@ -93,6 +96,10 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    Patient getPatient(Nric patientNric) throws PersonNotFoundException;
+
+    Donor getDonor(Nric donorNric) throws PersonNotFoundException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

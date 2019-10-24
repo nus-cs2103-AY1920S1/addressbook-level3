@@ -25,10 +25,9 @@ public class ProcessingCommandParser implements Parser<ProcessingCommand> {
         String firstNRIC = null;
         String secondNRIC = null;
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        if (nameKeywords[1].startsWith("icP/") && nameKeywords[2].startsWith("icD/")
-            || nameKeywords[1].startsWith("icD/") && nameKeywords[2].startsWith("icP/")) {
-            firstNRIC = nameKeywords[1];
-            secondNRIC = nameKeywords[2];
+        if (nameKeywords[0].startsWith("ic/") && nameKeywords[1].startsWith("ic/")) {
+            firstNRIC = nameKeywords[0].substring(3);
+            secondNRIC = nameKeywords[1].substring(3);
         } else if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));

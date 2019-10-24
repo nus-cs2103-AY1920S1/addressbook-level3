@@ -57,7 +57,36 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean containsDonor(Nric donor) {
         requireNonNull(donor);
-        return internalList.stream().anyMatch(n -> n.getType().isPatient() && n.getNric().equals(donor));
+        return internalList.stream().anyMatch(n -> n.getType().isDonor() && n.getNric().equals(donor));
+    }
+
+    /**
+     * Returns the {@code Patient} with the specified {@code Nric}.
+     */
+    public Patient getPatient(Nric patientNric) throws PersonNotFoundException {
+        requireNonNull(patientNric);
+        for (int i = 0; i < internalList.size(); i++) {
+            Person currentPerson = internalList.get(i);
+
+            if (currentPerson instanceof Patient && currentPerson.getNric().equals(patientNric)) {
+                return (Patient) currentPerson;
+            }
+        }
+        throw new PersonNotFoundException();
+    }
+
+    /**
+     * Returns the {@code Donor} with the specified {@code Nric}.
+     */
+    public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
+        requireNonNull(donorNric);
+        for (int i = 0; i < internalList.size(); i++) {
+            Person currentPerson = internalList.get(i);
+            if (currentPerson instanceof Donor && currentPerson.getNric().equals(donorNric)) {
+                return (Donor) currentPerson;
+            }
+        }
+        throw new PersonNotFoundException();
     }
 
     /**

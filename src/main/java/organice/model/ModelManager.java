@@ -11,8 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import organice.commons.core.GuiSettings;
 import organice.commons.core.LogsCenter;
+import organice.model.person.Donor;
 import organice.model.person.Nric;
+import organice.model.person.Patient;
 import organice.model.person.Person;
+import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -122,6 +125,18 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public Patient getPatient(Nric patientNric) throws PersonNotFoundException {
+        requireNonNull(patientNric);
+        return addressBook.getPatient(patientNric);
+    }
+
+    @Override
+    public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
+        requireNonNull(donorNric);
+        return addressBook.getDonor(donorNric);
     }
 
     @Override

@@ -6,8 +6,11 @@ import java.util.List;
 
 import organice.commons.core.Messages;
 import organice.model.Model;
+import organice.model.person.Donor;
 import organice.model.person.Nric;
+import organice.model.person.Patient;
 import organice.model.person.Person;
+import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Process a pair of donor and patient to provide a checklist to prepare for the organ transplant.
@@ -26,9 +29,11 @@ public class ProcessingCommand extends Command {
 
     private String firstNRICString;
     private String secondNRICString;
+    private Donor donor;
+    private Patient patient;
 
-    public ProcessingCommand(String firstNRIC, String secondNRIC) {
-        requireNonNull(firstNRIC, secondNRIC);
+    public ProcessingCommand(String firstNRICString, String secondNRICString) {
+        requireNonNull(firstNRICString, secondNRICString);
         this.firstNRICString = firstNRICString;
         this.secondNRICString = secondNRICString;
     }
@@ -50,14 +55,27 @@ public class ProcessingCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        Nric firstNRIC = new Nric(firstNRICString);
-        Nric secondNRIC = new Nric(secondNRICString);
+        Nric patientNRIC;
+        Nric donorNRIC;
+
+        if (model.hasDonor(new Nric(firstNRICString))) {
+            donorNRIC = new Nric(firstNRICString);
+            patientNRIC = new Nric(secondNRICString);
+        } else {
+            patientNRIC = new Nric(firstNRICString);
+            donorNRIC = new Nric(secondNRICString);
+        }
 
         try {
-            if (isValidDonorPatientPair(firstNRIC, secondNRIC, model)) {
-
-
+            if (isValidDonorPatientPair(patientNRIC, donorNRIC, model)) {
+                donor = model.getDonor(donorNRIC);
+                model.getFilteredPersonList();
+                return new CommandResult(donor.getProcessingList(patientNRIC).toString());
+            } else {
+                return new CommandResult("here");
             }
+        } catch (PersonNotFoundException pne) {
+            return new CommandResult(MESSAGE_NOT_PROCESSED);
         }
     }
 
