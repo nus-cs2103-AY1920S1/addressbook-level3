@@ -32,6 +32,7 @@ public class StartQuizWindow extends Window {
 
     // Independent Ui parts residing in this Ui container
     private AnswerableListPanel answerableListPanel;
+
     private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
     private CommandBox commandBox;
@@ -111,6 +112,7 @@ public class StartQuizWindow extends Window {
 
         Optional<ButtonType> result = alert.showAndWait();
 
+
         if (result.get() == tryAgainButton) {
             restartQuiz();
         } else if (result.get() == endButton) {
@@ -130,10 +132,13 @@ public class StartQuizWindow extends Window {
      */
     @FXML
     protected void handleExit() {
-        //TODO: Need to restore the list to normal state. List gets filtered when quiz starts.
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic, quizLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
+        mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions." +
+                "Type 'list' to view your full list of questions again.");
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
     }
 
     public AnswerableListPanel getAnswerableListPanel() {
@@ -146,11 +151,11 @@ public class StartQuizWindow extends Window {
      * @see QuizLogic#execute(String, Answerable)
      */
     @Override
-    protected CommandResult executeCommand ( String commandText) throws CommandException, ParseException {
+    protected CommandResult executeCommand (String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
-            if (commandResult.getFeedbackToUser() == "correct") {
+            if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
                 // TODO: KhiangLeon use the updateStatistics() method here or in McqInputCommand#execute.
                 //  Both has access to the answerable.
                 score++;
