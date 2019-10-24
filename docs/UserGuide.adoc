@@ -75,6 +75,12 @@ Format:
 
 === Manage contacts: `contact`
 
+Tagline can help people to manage their contacts easily. When you use contact commands, a view that displays a
+list of contacts will appear in the right pane. The left pane still displays a chat bot for user interaction.
+
+.An example of Contact View
+image::ContactListExample.png[]
+
 ==== Create a contact: `create`
 
 Creates a contact.
@@ -249,6 +255,12 @@ Example:
 Deletes a group with name '_CS2103-F12-3_'.
 
 === Manage your notes: `note`
+
+Tagline can help people to manage their notes easily. When you use note commands, a view that displays a
+list of notes will appear in the right pane. The left pane still displays a chat bot for user interaction.
+
+.An example of Note View
+image::NoteListExample.png[]
 
 ==== Creates a note: `create`
 
