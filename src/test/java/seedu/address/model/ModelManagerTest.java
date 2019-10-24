@@ -31,6 +31,7 @@ public class ModelManagerTest {
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
 
+    //@@author ambervoong
     @Test
     public void addExecutedCommand_validUndoableCommand_successfullyAdded() {
         UndoableCommand updateCommand = TYPICAL_UPDATE_COMMAND;
@@ -43,6 +44,23 @@ public class ModelManagerTest {
         UndoableCommand updateCommand = null;
         assertThrows(NullPointerException.class, () ->modelManager.addExecutedCommand(updateCommand));
     }
+
+    @Test
+    public void addUndoneCommand_validUndoableCommand_successfullyAdded() {
+        UndoableCommand updateCommand = TYPICAL_UPDATE_COMMAND;
+        updateCommand.setRedoable();
+        modelManager.addUndoneCommand(updateCommand);
+        assertEquals(modelManager.getUndoneCommand(), updateCommand);
+    }
+
+    @Test
+    void clear_deque_success() {
+        UndoableCommand command = TYPICAL_UPDATE_COMMAND;
+        modelManager.addExecutedCommand(command);
+        modelManager.clearUndoHistory();
+        assertEquals(modelManager.getUndoHistory().getSize(), 0);
+    }
+    //@@author
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {

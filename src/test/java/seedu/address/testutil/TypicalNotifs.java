@@ -9,6 +9,7 @@ import java.util.List;
 
 import seedu.address.model.notif.Notif;
 
+//@@author arjavibahety
 /**
  * A utility class containing a list of {@code notifs} objects to be used in tests.
  */
@@ -23,3 +24,4 @@ public class TypicalNotifs {
         return new ArrayList<>(Arrays.asList(ALICE_NOTIF, BOB_NOTIF));
     }
 }
+//@@author

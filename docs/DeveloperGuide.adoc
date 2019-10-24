@@ -153,62 +153,140 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag:uniqueIdentificationNumber[]
+=== Unique Identification Number
+
+* In Mortago, each entity is assigned a unique `IdentificationNumber`.
+* `IdentificationNumbers` in Mortago consist of two parts: the `String typeOfEntity` referring to whether it is a worker, body or fridge, and `Integer idNum` referring to its unique ID number.
+* Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
+* The generation of unique `IdentificationNumbers` allows the user to identify different entities solely based on their `IdentificationNumber`, without relying on attributes such
+as `name` which may have similar duplications within the system.
+
+==== Implementation
+
+The generation of unique `IdentificationNumbers` is facilitated by `UniqueIdentificationNumberMaps`.
+The class diagram below illustrates the relation between `IdentificationNumber` and `UniqueIdentificationNumberMaps`.
+
+.Unique `IdentificationNumber` Class Diagram
+image::UniqueIdentificationNumberClassDiagram.png[]
+
+===== Determining the next free number
+
+Note that in the diagram above, `UniqueIdentificationNumberMaps` keeps three `HashMap`, one for each entity.
+In each `HashMap`, the `Integer` ID number serves as the key, which maps to the entity it is assigned to.
+This keeps track of the numbers currently assigned to all entities and allows the next free `Integer` to be assigned to a newly added entity. +
+
+The code snippet below demonstrates how the next free number is determined.
+
+----
+    private static Integer putWorker(Worker worker) {
+        Set<Integer> keys = uniqueWorkerMap.keySet();
+        int numOfKeys = keys.size();
+        for (int id = 1; id <= numOfKeys; id++) {
+            if (uniqueWorkerMap.get(id) == null) {
+                uniqueWorkerMap.put(id, worker);
+                return id;
+            }
+        }
+        int newId = numOfKeys + 1;
+        uniqueWorkerMap.put(newId, worker);
+        return newId;
+    }
+----
+
+In the above `putWorker` method, the set of `keys` representing the existing ID numbers are generated and iterated through, based on the size of the `keySet`.
+This sequential iteration checks for any number that is not assigned to any worker due to the deletion of the latter, which removes the mapping of the ID number to the deleted worker.
+If there is an existing gap in the sequential iteration of numbers, this number is assigned to the newly added worker.
+If there is no gap available, the next highest number is assigned to the worker.
+
+===== Execution sequence of generating a unique `IdentificationNumber` for a worker:
+
+. The user executes `add -w /name Zach ...` to add a new worker to Mortago.
+. `AddCommandParser` parses the given input and calls the `Worker` constructor.
+. In the constructor, the worker's `IdentificationNumber` is created using `IdentificationNumber::generateNewWorkerId()`.
+. Consequently, `generateNewWorkerId()` creates a new `IdentificationNumber`, where the number is determined after the execution of `UniqueIdentificationNumberMaps::addEntity()`.
+. `UniqueIdentificationNumberMaps::addEntity()` subsequently calls `UniqueIdentificationNumberMaps::putWorker()`, which inserts the worker into the worker `HashMap` and returns an ID number that is currently not assigned to a worker.
+
+The figure below illustrates the sequence diagram of the aforementioned steps.
+
+.Generation of unique `IdentificationNumber` Sequence Diagram
+image::UniqueIdentificationNumberSequenceDiagram.png[]
+
+Note that the execution sequence is similar for the addition and generation of unique `IdentificationNumber` for fridges and bodies.
+
+==== Design Considerations
+
+*Aspect: Tracking of numbers and determination of next free number*
+
+* Alternative 1: Three counters that track the total number of each entity in the system.
+** Pros: Easy to implement.
+** Cons: Does not cater for deletion of entity as deletion creates a gap.
+* Alternative 2 (current choice): A `HashMap` keeping track of the ID numbers and their respective assigned entity.
+** Pros: Aside from tracking a unique `keySet` of ID numbers, `HashMap` caters for deletion of entities as the `keySet` can be iterated through to check for any gaps introduced during deletion.
+This also allows the assigned (mapped) entity to be accessible through the `HashMap` via the `IdentificationNumber#getMapping()` method.
+** Cons: Harder to implement, especially for unit testing since a unique `IdentificationNumber` cannot be duplicated usually.
+
+Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap` in terms of:
+
+* Tracking of unique keys
+* Catering for deletion of ID numbers and filling of the gap
+* Increasing the ease of accessibility of mapped entities
+
+The difficulty in testing can be circumvented by executing `UniqueIdentificationNumberMaps::clearAllEntries()`
+before each test to reset the `HashMaps`.
+// end::uniqueIdentificationNumber[]
+
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The core of undo/redo is placed in the undo/redo history of `ModelManager`. Its mechanism uses the Command design pattern,
+allowing each individual command to be undone/redone without knowing the specific command type.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+Firstly, there are two instances of `CommandHistory`, stored internally as `commandHistory` and `undoHistory` in `ModelManager`.
+The former instance stores previously executed commands while the latter stores previously undone commands.
+`CommandHistory` wraps a `Deque<UndoableCommand>`. Its functions imposes a `MAX_SIZE` which determines how many commands can be stored in the command history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+In `ModelManager`, four key operations regarding `CommandHistory` are implemented:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* `ModelManager#addExecutedCommand(UndoableCommand command)` -- Adds a command that was executed to the start of `commandHistory`.
+* `ModelManager#getExecutedCommand()` -- Removes the last command that was executed and added to `commandHistory` and returns it.
+* `ModelManager#addUndoneCommand(UndoableCommand command)` -- Adds a command that was undone to the start of `undoHistory`.
+* `ModelManager#getUndoneCommand()` -- Removes the last command that was undone and added to `undoHistory` and returns it.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+In the `Model` interface implemented by `ModelManager`, these four operations are respectively exposed as
+`Model#addExecutedCommand(UndoableCommand command)`, `Model#getExecutedCommand()`, `Model#addUndoneCommand(UndoableCommand command)`, and `Model#getUndoneCommand()`.
 
-image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Next, the `UndoableCommand` stored in the `Model` is actually a normal `Command` that changes program state.
+The `UndoableCommand` class is an abstract class that extends the abstract `Command` class. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
 
-image::UndoRedoState1.png[]
+A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
+``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
+When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of ModelManager` respectively.
+Therefore, an `UndoableCommand` should not be undone before it was executed or redone before it was undone.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+To defend against improper undoing or redoing, `UndoableCommand` contains an inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to `UNDOABLE`, `REDOABLE`, and `PRE_EXECUTION`.
+Before a command is undone or redone, the command's state is checked for validity.
+These states are only changed when a `Command#execute(Model model)` or `UndoableCommand#undo(Model model)` has successfully executed.
+Thus, this lowers the likelihood of bugs in undo/redo.
 
-image::UndoRedoState2.png[]
+Lastly, undo/redo is initiated when user input creates an `UndoCommand` or `RedoCommand`. When either of them are executed, they respectively get the last
+executed or undone command from the `CommandHistory` in `ModelManager`. As the retrieved command is an instance of `UndoableCommand`, an attempt will be made to execute `UndoableCommand#undo(Model model)` or `UndoableComman#redo(Model model)`.
+If it is successful, undo/redo is succesful. Otherwise, an error message is shown.
+
+This is the mechanism of undo/redo, from start to end. Below is an example of a usage scenario that illustrates how undo/redo works.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails to execute correctly, it will not call `Model#addExecutedCommand()` or `Model#addUndoneCommand()`, thus preventing the command from being undone or redone.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
+The sequence diagram below shows how an undo command works to undo a `ClearCommand`:
 
 image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
+After this is done, if a `redo` command was executed, the `ClearCommand` would simply be executed again.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -218,12 +296,14 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
+* **Alternative 1 (current choice):** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+
+* **Alternative 2:** Saves the entire program state.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -234,6 +314,92 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+=== Notification Feature
+A notification is a message that Mortago will display when the status of a body is automatically updated.
+If the next-of-kin of a body has not been uncontactable for 24 hours, Mortago will prompt the user to contact
+the police for a more thorough investigation and change the status of the body from `ARRIVED` to `CONTACT_POLICE`.
+
+==== Current Implementation
+Given below is the execution process of the `NotificationCommand`:
+
+1. The user executes `add -b /name John ...` to add a new body to Mortago.
+2. The add command also created a new new `Notif` using this body as the parameter.
+3. The add command instantiates a new`NotifCommand` with `Notif`, `period`, `unit` as parameters.
+`period` is a static final integer initialized for 10 seconds and `unit` is static final TimeUnit set at TimeUnit.SECONDS.
+4. `NotifCommand` creates a new static `ScheduledExecutorService` which is scheduled to update the `BodyStatus` to
+`CONTACT_POLICE` if there is no change in its status for the specified `period` using the `UpdateCommand`.
+5. After the `BodyStatus` is updated, a `NotifWindow` will be shown to alert the user of the automatic update in
+`BodyStatus`.
+
+.Notification Command Sequence Diagram
+image::NotifCommandSequenceDiagram.png[]
+
+.ChangeUI function Sequence Diagram
+image::ChangeUiFnSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to delay change in BodyStatus
+* **Alternative 1 (current choice):** Use `ScheduledExecutorService`.
+** Pros: Does not depend on thread synchronization and avoids the need to deal with threads directly.
+** Cons: May cause memory leaks if cache is not cleared.
+
+* **Alternative 2:** Use `Thread.sleep`
+** Pros: Straightforward way to delay a thread.
+** Cons: May quickly run into OutOfMemory error.
+
+==== Aspect: How to reflect change in BodyStatus on UI
+* **Alternative 1 (current choice):** Use `UpdateCommand`.
+** Pros: Easy to implement.
+** Cons: Increases `NotifCommand`'s dependency.
+
+* **Alternative 2: Directly make changes to the model.
+** Pros: Does not increase dependency .
+** Cons: Cause a lot of repetition of code.
+
+// tag::genpdf[]
+=== Generate PDF feature
+==== Implementation
+
+The generate PDF feature is facilitated by `ReportGenerator`.
+It extends `Mortago` with the ability to create a report, supported by iText external library.
+Additionally, it implements the following operations:
+
+* `ReportGenerator#generate(body)` -- Creates report in a PDF file for the specific body.
+* `ReportGenerator#generateAll()` -- Creates report in a PDF file for all bodies registered in Mortago.
+
+The following sequence diagram shows how the execute operation works:
+
+image::GenReportSequenceDiagram.png[]
+
+NOTE: The lifeline for `GenReportCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creates the document.
+
+The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID>` command:
+
+image::GenReportActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How generate report executes
+
+* **Alternative 1 (current choice):** Creates a PDF file.
+** Pros: Implementation is easy.
+** Cons: Implementation must ensure that each individual body attribute is correct.
+* **Alternative 2:** Creates a Word Document file.
+** Pros: Implementation allows user to edit the contents of the report.
+** Cons: Implementation defeats the purpose of being automated.
+
+===== Aspect: How report is formatted
+
+* **Alternative 1 (current choice):** Uses tables to organise related details in the report.
+** Pros: Implementation allows report to be organised, increases readability for user.
+** Cons: Implementation is tedious.
+* **Alternative 2:** Lists all attributes in the report without any formatting.
+** Pros: Implementation is easy.
+** Cons: Implementation decreases readability for user.
+// end::genpdf[]
 
 === Logging
 
@@ -255,6 +421,79 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== User Interface and Dashboard Enhancement
+
+The dashboard of Mortago plays a key part in presenting a sleek, organised, and concise overview to the entities in the system.
+Thus, designing an aesthetic and functional dashboard is a crucial aspect for Mortago.
+
+==== Surface Design and Coloring
+
+Mortago draws upon the guidelines specified in https://material.io/design/color/dark-theme.html#[Material.io] to design a dark theme
+that enhances visual ergonomics via the minimization of eye strain due to the bright luminance emitted by screens.
+
+*Visual Contrast Between Surfaces and Text*
+
+With reference to  Web Content Accessibility Guidelines’ (WCAG), the guidelines recommend that the contrast level
+between dark surfaces and white text to be at least 15:8:1 to ensure visual accessibility.
+Thus, the following color values are set within Mortago:
+
+
+|===
+|Aspect of Mortago |Color |Preview
+
+|Background
+|derive(#121212, 25%)
+a| image::Background Color.png[]
+
+|Surface
+|#121212
+a| image::Surface Color.png[]
+
+|Primary
+|#FF7597
+a| image::Primary Color.png[]
+|===
+
+
+The background color uses the `derive` function in `JavaFX`, which computes a color that is brighter or darker than the original,
+based on the brightness offset supplied. Here, notice that the background color is brighter than the surface color, as opposed to what Material.io dictates.
+This is because bulk of the screen space in the Mortago is taken up by surfaces to optimize the amount of information available to the user,
+hence by giving surfaces a darker brightness, this improves *overall* accessibility and visual ergonomics.
+In addition, this achieves elevation between surfaces and the background, which is aided by drop shadows by surfaces as well.
+
+The primary color is desaturated to reach a WCAG's AA standard of minimally 4:5:1.
+This facilitates a mild yet impressionable visual aspect to Mortago while minimizing eye strain, as saturated colors can cause optical vibrations against the dark surface and exacerbate eye strain.
+
+==== Replacing Windows Title Bar
+
+In spirit with producing a sleek design, the standard Windows platform title bar was removed. This exposes the user interface to become one that is self-contained, while providing extra space at the top.
+
+The following code snippet was placed in `MainApp#start()` to achieve this.
+
+----
+primaryStage.initStyle(StageStyle.TRANSPARENT);
+----
+
+Note that this has to be done before the stage is shown. Otherwise, the application will close automatically upon running.
+
+However, with this removal, the default Windows functions such as the default OS close button will be inevitably removed as well. Hence, these buttons will have to be rebaked into the application.
+
+
+
+// tag::statistics[]
+=== [Proposed] Statistics feature
+==== Proposed Implementation
+
+The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
+
+//end::statistics[]
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -290,61 +529,59 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |mortuary manager |keep track of all bodies and fridges in a single dashboard using the dashboard command |look out for any outstanding work and keep myself up to speed
 
-|`* * *` |mortuary manager |have a dynamically updated dashboard |reduce errors as compared to updating manually
+|`* * *` |mortuary manager |have a dynamically updated dashboard |reduce errors as compared to manually updating a whiteboard
 
-|`* * *` |mortuary manager |sort the bodies by certain characteristics using the `sort` command |view bodies of a speciic category and generate statistics easily
+|`* * *` |mortuary manager |key new bodies into the system |keep track of them
 
-|`* * *` |mortuary manager |filter the bodies by certain characteristics using `filter` command |view bodies of a certain category and generate statistics easily
+|`* * *` |mortuary manager |sort the bodies by certain characteristics |view bodies of a speciic category and generate statistics easily
 
-|`* * *` |mortuary manager |update the status of each and every worker, body and fridge with the `update <body/worker/fridge ID> <attribute>:<status>` command |know when (date & time) was each step of the process completed and the findings of each process (eg. cause of death)
+|`* * *` |mortuary manager |filter the bodies by certain characteristics |view bodies of a certain category and generate statistics easily
 
-|`* * *` |mortuary manager |delete a worker, body and fridge with the `delete <body/worker/fridge ID>` command |remove a worker when he quits, remove a wrong entry of the body, or remove a fridge
+|`* * *` |mortuary manager |update the status of each and every worker, body and fridge |know when (date & time) was each step of the process completed and the findings of each process (eg. cause of death)
 
-|`* * *` |mortuary manager |key new bodies into the system with the `add` command |keep track of them
+|`* * *` |mortuary manager |delete a worker, body and fridge |remove a worker when he quits, remove a wrong entry of the body, or remove a fridge
 
-|`* * *` |mortuary manager |switch between the dashboard and the detail views with the `tab __` command |view information in an appropriate format
+|`* * *` |mortuary manager |switch between the dashboard and the detail views |view information in an appropriate format
 
-|`* * *` |mortuary manager |view all free and vacant fridges with the `fridges` command |keep track of the overall vacancy of the morgue
+|`* * *` |mortuary manager |view all free and vacant fridges |keep track of the overall vacancy of the morgue
 
-|`* * *` |mortuary manager |view all registered bodies with the `bodies` command |view all bodies in the morgue
+|`* * *` |mortuary manager |view all registered bodies |view all bodies in the morgue
 
-|`* * *` |mortuary manager |view all registered body parts with the `bodyparts` command |view all body parts in the morgue
+|`* * *` |mortuary manager |view all registered body parts |view all body parts in the morgue
 
-|`* * *` |mortuary manager |view all the commands the app has with the `help` command |look at all the commands in one go
+|`* * *` |mortuary manager |view all the commands the app is capable of |look at all the commands in one go
 
-|`* * *` |mortuary manager |view emergency with the `hotlines` command |be efficient and respond quickly to emergencies
+|`* * *` |mortuary manager |view emergency hotlines |be efficient and respond quickly to emergencies
 
-|`* * *` |mortuary manager |read up on the use of a specific command of the app with the `help <CommandName>` command |understand a specific command which the app offers in more detail
+|`* * *` |mortuary manager |read up on the use of a specific command of the app |understand a specific command which the app offers in more detail
 
-|`* *` |mortuary manager |be alerted to bodies unclaimed after 24hours using the `alerts` command |know when to start the administrative process for donation to medical research
+|`* *` |mortuary manager |be alerted to bodies unclaimed after 24hours |know when to start the administrative process for donation to medical research
 
-|`* *` |mortuary manager |receive routine reports from the app automatically using the `genReport <body ID>` command |need not manually write in each and every single report
+|`* *` |mortuary manager |receive routine reports from the app automatically |need not manually write in each and every single report
 
-|`* *` |mortuary manager |view past reports with the command `reports` and individual reports with `report <body ID>` |easily obtain past reports for my own reference / authorities / other party
+|`* *` |mortuary manager |assign workers to tasks |know who was responsible for a task
 
-|`* *` |mortuary manager |assign workers to tasks using the `tagw` command |know who was responsible for a task
+|`* *` |mortuary manager |can undo my previous tasks |conveniently undo any wrong commands
 
-|`* *` |mortuary manager |can undo my previous tasks with the `undo` command |conveniently undo any wrong commands
+|`* *` |mortuary manager |redo my previous tasks |conveniently redo any undone commands
 
-|`* *` |mortuary manager |redo my previous tasks with the `redo` command |conveniently redo any undone commands
+|`* *` |mortuary manager |add new or existing workers |keep track of all the workers in the mortuary
 
-|`* *` |mortuary manager |add new or existing workers into the system with the flag -w (eg. `add -w`) command |keep track of all the workers in the mortuary
-
-|`* *` |mortuary manager |add new or existing fridge into the system with the flag -f (eg. `add -f`) command |keep track of all the fridges in the mortuary
+|`* *` |mortuary manager |add new or existing fridge |keep track of all the fridges in the mortuary
 
 |`* *` |mortuary manager |be able to see a history of changes |know if anything was inputted wrongly in the past
 
-|`* *` |mortuary manager |create mortuary bills with the app automatically using the `genBill` command |need not manually write in each and every single bill
+|`* *` |mortuary manager |create mortuary bills with the app automatically |need not manually write in each and every single bill
 
-|`* *` |mortuary manager |view past reports with the command `bills` and individual reports with `bill [body ID]` |easily obtain past bills for my own reference / authorities / third party
+|`* *` |mortuary manager |view bills for past reports and individual reports |easily obtain past bills for my own reference / authorities / third party
 
-|`* *` |mortuary manager |archive processed cases on a regular interval with command `archive` |review past cases when such a need arises
+|`* *` |mortuary manager |archive processed cases on a regular interval |review past cases when such a need arises
 
-|`* *` |mortuary manager |add comments and feedback to workplace processes with the `feedback` command |review these feedback and improve on them
+|`* *` |mortuary manager |add comments and feedback to workplace processes |review these feedback and improve on them
 
-|`*` |mortuary manager |feel happy when I see a beautifully designed dashboard |keep my mood up throughout the day
+|`* *` |mortuary manager |feel happy when I see a beautifully designed dashboard |keep my mood up throughout the day
 
-|`*` |mortuary manager |make sure that everything is organised and in order |be praised by my higher ups
+|`* *` |mortuary manager |make sure that everything is organised and in order |be praised by my higher ups
 |=======================================================================
 
 _{More to be added}_

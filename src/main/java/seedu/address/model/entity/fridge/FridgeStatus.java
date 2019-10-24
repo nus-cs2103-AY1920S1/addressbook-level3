@@ -8,3 +8,4 @@ public enum FridgeStatus {
     UNOCCUPIED, OCCUPIED
 
 }
+//@@author
