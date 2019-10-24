@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.appcommands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.switches.HomeCommand;
+import seedu.address.logic.commands.switches.OpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -69,12 +69,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
+        String bankBypass = "bank 123";
+        logic.execute(bankBypass);
         String homeCommand = HomeCommand.COMMAND_WORD;
-        String listCommand = ListCommand.COMMAND_WORD;
+        String openCommand = OpenCommand.COMMAND_WORD;
         CommandResult homeResult = logic.execute(homeCommand);
         assertEquals(HomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
-        CommandResult listResult = logic.execute(listCommand);
-        assertEquals(ListCommand.MESSAGE_SUCCESS, listResult.getFeedbackToUser());
+        CommandResult openResult = logic.execute(openCommand);
+        assertEquals(OpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
         assertEquals(model, model);
     }
 
@@ -154,7 +156,6 @@ public class LogicManagerTest {
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
      *
-     * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, Model expectedModel) {

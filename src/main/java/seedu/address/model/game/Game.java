@@ -4,7 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.card.Card;
@@ -19,6 +21,7 @@ public class Game {
 
     private DifficultyEnum currentGameDifficulty;
     private boolean isOver = false;
+    private final Logger logger = LogsCenter.getLogger(Game.class);
 
     // Shuffled Deck of Cards using cards from ReadOnlyWordBank
     private final List<Card> shuffledDeckOfCards;
@@ -32,10 +35,13 @@ public class Game {
      * @param wordBank WordBank that current Game session will run on.
      */
     public Game(ReadOnlyWordBank wordBank, CardShuffler cardShuffler, DifficultyEnum difficulty) {
-        requireAllNonNull(wordBank, cardShuffler);
+        requireAllNonNull(wordBank, cardShuffler, difficulty);
         this.cardIndex = Index.fromZeroBased(0);
         this.shuffledDeckOfCards = setShuffledDeckOfCards(wordBank, cardShuffler);
         this.currentGameDifficulty = difficulty;
+
+        logger.info("----------------[GAME STARTED][Constructor]");
+        logger.info("Game session started with WordBank: " + wordBank);
     }
 
     public DifficultyEnum getCurrentGameDifficulty() {

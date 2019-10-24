@@ -43,15 +43,16 @@ public class UpdateUi {
 
     public void setTheme(ThemeEnum theme, Scene scene) {
         if (theme.equals(ThemeEnum.DARK)) {
-            scene.getStylesheets().remove(ThemeEnum.LIGHT.getThemeUrl());
-            scene.getStylesheets().remove(ThemeEnum.LIGHT.getExtensionUrl());
+            scene.getStylesheets().clear();
             scene.getStylesheets().add(theme.getThemeUrl());
             scene.getStylesheets().add(theme.getExtensionUrl());
         } else {
-            scene.getStylesheets().remove(ThemeEnum.DARK.getThemeUrl());
-            scene.getStylesheets().remove(ThemeEnum.DARK.getExtensionUrl());
+            scene.getStylesheets().clear();
             scene.getStylesheets().add(theme.getThemeUrl());
             scene.getStylesheets().add(theme.getExtensionUrl());
+        }
+        for (String url: scene.getStylesheets()) {
+            System.out.println(url + "<--------------------------");
         }
     }
 

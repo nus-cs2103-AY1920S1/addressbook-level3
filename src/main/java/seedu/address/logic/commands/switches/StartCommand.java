@@ -53,9 +53,6 @@ public class StartCommand extends SwitchCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        System.out.println(model.getWordBank().getName() + "current thread is" + Thread.currentThread().getName());
-        System.out.println(model.gameIsOver() + "<-------- is game over??");
-        System.out.println((model.getGame() == null) + "<-------- GAME IS NULL ????");
 
         if (model.getWordBank() == null) {
             throw new CommandException("You have not loaded a wordBank!");
@@ -66,7 +63,6 @@ public class StartCommand extends SwitchCommand {
                     + "\n" + model.getGame().getCurrQuestion());
         }
 
-        System.out.println(model.getWordBank());
 
         String wordBankName = model.getWordBank().getName();
         WordBankList wbList = model.getWordBankList();

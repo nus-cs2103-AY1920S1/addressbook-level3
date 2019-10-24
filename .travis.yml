@@ -5,6 +5,8 @@ matrix:
 services:
   - xvfb
 
+install: true
+
 before_script:
   - export DISPLAY=:99.0
 
