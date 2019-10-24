@@ -3,7 +3,7 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
@@ -13,8 +13,10 @@ public class ResultDisplay extends UiPart<Region> {
 
     private static final String FXML = "ResultDisplay.fxml";
 
+    private static final String NEW_LINE_CHAR = "\n";
+
     @FXML
-    private TextArea resultDisplay;
+    private Label resultDisplay;
 
     public ResultDisplay() {
         super(FXML);
@@ -23,6 +25,32 @@ public class ResultDisplay extends UiPart<Region> {
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         resultDisplay.setText(feedbackToUser);
+    }
+
+    /**
+     * Concatenates the given String to the end of this feedback.
+     * @param feedbackToUser String to be concantenated to the end of this feedback
+     */
+    public void appendFeedbackToUser(String feedbackToUser) {
+        requireNonNull(feedbackToUser);
+        setFeedbackToUser(getFeedbackToUser().concat(feedbackToUser));
+    }
+
+    /**
+     * Adds a new line to this feedback.
+     */
+    public void appendNewLineInFeedBackToUser() {
+        appendFeedbackToUser(NEW_LINE_CHAR);
+    }
+
+    /**
+     * Adds a given number new lines to this feedback;
+     * @param n Integer number representing number of lines to be appended.
+     */
+    public void appendNewLineInFeedBackToUser(int n) {
+        for (int i = 0; i < n; i++) {
+            appendNewLineInFeedBackToUser();
+        }
     }
 
     public String getFeedbackToUser() {

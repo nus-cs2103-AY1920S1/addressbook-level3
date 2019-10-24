@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
@@ -144,39 +145,39 @@ public interface Model {
 
     //==================RECORD====================
     /**
-     * Replaces food list data with the data in {@code newFoodList}.
+     * Replaces record list data with the data in {@code newRecordList}.
      */
     void setRecordList(UniqueRecordList newRecordList);
 
     boolean hasRecord(Record record);
 
     /**
-     * Deletes the given food. The food must exist in the recommendations.
+     * Deletes the given record. The record must exist in the recommendations.
      */
     void deleteRecord(Record record);
 
     /**
-     * Adds the given food. {@code food} must not already exist in the recommendations.
+     * Adds the given record. {@code record} must not already exist in the record list.
      */
     void addRecord(Record record);
 
     /**
-     * Returns the {@code UniqueFoodList} object.
+     * Returns the {@code UniqueRecordList} object.
      */
     UniqueRecordList getUniqueRecordListObject();
 
     /**
-     * Returns the a list of foods.
+     * Returns the a list of records.
      */
     ObservableList<Record> getRecordList();
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered record list
      */
     ObservableList<Record> getFilterRecordList();
 
     /**
-     * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered record list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -324,13 +325,23 @@ public interface Model {
     //=========== Aesthetics =============================================================
 
     /**
+     * Returns the font colour to be set for this app.
+     */
+    Colour getFontColour();
+
+    /**
      * Sets the font colour of this application and saves it to the user preferences file.
      */
     void setFontColour(Colour fontColour);
 
     /**
-     * Returns the font colour to be set for this app.
+     * Returns the background to be set for this app.
      */
-    Colour getFontColour();
+    Background getBackground();
+
+    /**
+     * Sets the background of this application and saves it to the user preferences file.
+     */
+    void setBackground(Background background);
 
 }

@@ -12,5 +12,6 @@ public enum DisplayPaneType {
     AVERAGE,
     LIST,
     DELETE,
-    COLOUR;
+    COLOUR,
+    BACKGROUND;
 }

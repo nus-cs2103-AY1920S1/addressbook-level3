@@ -13,6 +13,7 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
@@ -317,6 +318,16 @@ public class ModelManager implements Model {
     @Override
     public void setFontColour(Colour fontColour) {
         userPrefs.setFontColour(fontColour);
+    }
+
+    @Override
+    public Background getBackground() {
+        return userPrefs.getBackground();
+    }
+
+    @Override
+    public void setBackground(Background background) {
+        userPrefs.setBackground(background);
     }
 
     //=========== Food Map =============================================================

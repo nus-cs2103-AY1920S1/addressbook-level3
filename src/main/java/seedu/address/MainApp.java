@@ -1,8 +1,11 @@
 package seedu.address;
 
+import static seedu.sgm.model.food.TypicalFoods.FOODS;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -21,12 +24,14 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
+import seedu.address.model.ReadOnlyData;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleFoodDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -51,6 +56,11 @@ public class MainApp extends Application {
     public static final Version VERSION = new Version(0, 6, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+
+    private static final String LABEL_BIO_DATA_TYPE = "bio";
+    private static final String LABEL_CALENDAR_DATA_TYPE = "calendar";
+    private static final String LABEL_FOOD_DATA_TYPE = "food list";
+    private static final String LABEL_RECORD_DATA_TYPE = "record list";
 
     protected Ui ui;
     protected Logic logic;
@@ -79,7 +89,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        Model model = initModelManager(storage, userPrefs);
+        Model model = initModelManager(userPrefs);
         this.model = model;
         logic = new LogicManager(this.model, storage);
 
@@ -91,86 +101,78 @@ public class MainApp extends Application {
      * data from the sample address book will be used instead if {@code storage}'s address book is not found, or an
      * empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
+    private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
         ReadOnlyAddressBook initialData;
-
-        Optional<ReadOnlyUserList> userListOptional;
         ReadOnlyUserList initialUserData;
-
-        Optional<UniqueFoodList> foodListOptional;
-        UniqueFoodList initialFoodListData;
-
-        Optional<UniqueRecordList> recordListOptional;
+        UniqueFoodList foodList = new UniqueFoodList();
+        foodList.setFoods(FOODS);
         UniqueRecordList initialRecordListData;
-
-        Optional<ReadOnlyCalendar> calendarOptional;
         ReadOnlyCalendar initialCalendar;
 
-        //TODO: Following can eventually be abstracted in later versions if there's time.
-        try {
-            addressBookOptional = storage.readAddressBook();
-            recordListOptional = storage.readRecordList();
-            calendarOptional = storage.readCalendar();
+        initialData = (ReadOnlyAddressBook) getInitialData("Address Book",
+                SampleDataUtil::getSampleAddressBook, AddressBook::new);
+        initialUserData = (ReadOnlyUserList) getInitialData(LABEL_BIO_DATA_TYPE,
+                SampleUserDataUtil::getSampleUserList, UserList::new);
+        foodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
+                SampleFoodDataUtil::getSampleFoodList, UniqueFoodList::new);
+        initialRecordListData = (UniqueRecordList) getInitialData(LABEL_RECORD_DATA_TYPE,
+                SampleDataUtil::getSampleRecordList, UniqueRecordList::new);
+        initialCalendar = (ReadOnlyCalendar) getInitialData(LABEL_CALENDAR_DATA_TYPE,
+                SampleDataUtil::getSampleCalendar, Calendar::new);
 
-            if (addressBookOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            if (recordListOptional.isEmpty()) {
-                logger.info("Record list data file not found. Will be starting with a sample Recordlist");
-            }
-            if (calendarOptional.isEmpty()) {
-                logger.info("Calendar data file not found. Will be starting with a sample Calendar");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            initialRecordListData = recordListOptional.orElseGet(SampleDataUtil::getSampleRecordList);
-            initialCalendar = calendarOptional.orElseGet(SampleDataUtil::getSampleCalendar);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-            initialRecordListData = new UniqueRecordList();
-            initialCalendar = new Calendar();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-            initialRecordListData = new UniqueRecordList();
-            initialCalendar = new Calendar();
-        }
-
-        try {
-            userListOptional = storage.readUserList();
-            if (!userListOptional.isPresent()) {
-                logger.info("Bio Data file not found. Will be starting a sample user list containing bio data");
-            }
-            initialUserData = userListOptional.orElseGet(SampleUserDataUtil::getSampleUserList);
-        } catch (DataConversionException e) {
-            logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
-                + "user list containing no bio data");
-            initialUserData = new UserList();
-        } catch (IOException e) {
-            logger.warning("Bio Data file not in the correct format. Will be starting with an empty "
-                + "user list containing no bio data");
-            initialUserData = new UserList();
-        }
-
-        try {
-            foodListOptional = storage.readFoodList();
-            if (!foodListOptional.isPresent()) {
-                logger.info("Food list data file not found. Will be starting a sample food list");
-            }
-            initialFoodListData = foodListOptional.orElseGet(SampleDataUtil::getSampleFoodList);
-        } catch (DataConversionException e) {
-            logger.warning("Food list data file is not in the correct format. Will be starting with an empty "
-                + "food list");
-            initialFoodListData = new UniqueFoodList();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty food list");
-            initialFoodListData = new UniqueFoodList();
-        }
-
-        return new ModelManager(initialData, userPrefs, initialUserData, initialFoodListData, initialRecordListData,
-            initialCalendar);
+        return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData,
+                initialCalendar);
     }
+
+    /**
+     * Returns an optional containing read-only data types.
+     * @param dataType String label of data type for which optional data is to be obtained.
+     * @return Optional containing read-only data types.
+     * @throws IOException
+     * @throws DataConversionException
+     */
+    private Optional<? extends ReadOnlyData> getOptionalData(String dataType) throws IOException,
+            DataConversionException {
+        switch (dataType) {
+        case LABEL_BIO_DATA_TYPE: return storage.readUserList();
+        case LABEL_FOOD_DATA_TYPE: return storage.readFoodList();
+        case LABEL_RECORD_DATA_TYPE: return storage.readRecordList();
+        case LABEL_CALENDAR_DATA_TYPE: return storage.readCalendar();
+        default: return storage.readAddressBook();
+        }
+    }
+
+    /**
+     * Returns an object representing data of the given data type.
+     * @param dataType String representing the type of initial data to be retrieved
+     * @param sampleDataSupplier Supplier that creates a new sample data file upon execution.
+     * @param dataObjectSupplier Supplier that creates a new data file upon execution.
+     * @return Object representing data of the given data type.
+     */
+    private Object getInitialData(String dataType, Supplier<? extends Object> sampleDataSupplier,
+                                        Supplier<? extends Object> dataObjectSupplier) {
+        Object initialData;
+        try {
+            Optional<? extends ReadOnlyData> dataOptional = getOptionalData(dataType);
+            if (!dataOptional.isPresent()) {
+                logger.info(capitaliseFirstLetter(dataType) + " data file not found. Will be starting a sample "
+                        + dataType + " data file");
+                initialData = sampleDataSupplier.get();
+            } else {
+                initialData = dataOptional.get();
+            }
+        } catch (DataConversionException | IOException e) {
+            logger.warning(dataType + "data file not in the correct format. Will be starting with an empty "
+                    + dataType + " data file");
+            initialData = dataObjectSupplier.get();
+        }
+        return initialData;
+    }
+
+    private String capitaliseFirstLetter(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
