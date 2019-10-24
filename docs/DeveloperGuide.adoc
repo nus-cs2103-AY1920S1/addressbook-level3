@@ -350,6 +350,33 @@ If the user executes `deletevisit 1` instead, the index value will be set to `-1
 ** Cons: Need to handle index out of bound errors.
 // end::visitationreport[]
 
+//tag::GUI redesign
+=== [Proposed] GUI Redesign
+The GUI Redesign is done to include the new features made for the VISIT application, as well as improve the overall
+user experience with a easily readable interface that displays every important information in a glance.
+
+==== Current Implementation
+The current redesign of the GUI includes the addition of:
+
+* the `ReminderPanel` to display upcoming appointments
+* the `VisitRecordWindow` form for the user to enter the required information (as mentioned in Visitation Report feature)
+* the `ProfileWindow` to display the full profile information of a patient.
+
+In addition to these, VISIT's CSS theme is updated to fit current standards of GUI design,
+with a more pronounced color palette and a clearer font.
+
+The following is the updated class diagram of the Ui Component from these changes:
+
+image::UiRedesignClassDiagram.png[]
+
+1. The MainWindow has been updated to include the ReminderPanel
+2. Two new Windows, VisitRecordWindow and ProfileWindow, are in use in addition to the MainWindow
+
+==== Future Implementation
+
+<to be added>
+
+//end::GUI redesign
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
