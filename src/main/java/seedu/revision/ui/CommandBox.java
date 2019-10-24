@@ -8,6 +8,7 @@ import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.answerable.Answerable;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -60,6 +61,10 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    public TextField getCommandTextField() {
+        return commandTextField;
     }
 
     /**

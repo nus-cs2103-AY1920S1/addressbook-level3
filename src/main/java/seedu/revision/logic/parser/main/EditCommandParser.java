@@ -52,10 +52,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         //TODO: Implement Answerable
         if (argMultimap.getValue(PREFIX_CORRECT).isPresent()) {
-            editAnswerableDescriptor.setCorrectAnswerSet(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
+            editAnswerableDescriptor.setCorrectAnswerList(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
         }
         if (argMultimap.getValue(PREFIX_WRONG).isPresent()) {
-            editAnswerableDescriptor.setWrongAnswerSet(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
+            editAnswerableDescriptor.setWrongAnswerList(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
         }
         if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
             editAnswerableDescriptor.setDifficulty(ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));

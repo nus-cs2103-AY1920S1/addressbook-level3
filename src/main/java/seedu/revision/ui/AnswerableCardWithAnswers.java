@@ -78,7 +78,7 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
 //                .forEach(wrongAnswer -> wrongAnswers.getChildren().add(new Label(wrongAnswer.answer)));
 
         //To set the individual answers to the answer flowPane
-        answerable.getCombinedAnswerSet().stream()
+        answerable.getCombinedAnswerList().stream()
                 .sorted(Comparator.comparing(answer -> answer.answer))
                 .forEach(answer -> this.answer.getChildren().add(new Label(answer.answer)));
 

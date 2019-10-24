@@ -35,7 +35,7 @@ public class AnswerableUtil {
         StringBuilder sb = new StringBuilder();
         if (answerable instanceof Mcq) {
             sb.append(PREFIX_QUESTION_TYPE + "mcq" + " ");
-            answerable.getWrongAnswerSet().stream().forEach(
+            answerable.getWrongAnswerList().stream().forEach(
                     s -> sb.append(PREFIX_WRONG + s.answer + " ")
             );
         } else {
@@ -43,7 +43,7 @@ public class AnswerableUtil {
         }
         sb.append(PREFIX_QUESTION + answerable.getQuestion().fullQuestion + " ");
         sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().value + " ");
-        answerable.getCorrectAnswerSet().stream().forEach(
+        answerable.getCorrectAnswerList().stream().forEach(
             s -> sb.append(PREFIX_CORRECT + s.answer + " ")
         );
         answerable.getCategories().stream().forEach(
@@ -67,16 +67,16 @@ public class AnswerableUtil {
                 tags.forEach(s -> sb.append(PREFIX_CATEGORY).append(s.categoryName).append(" "));
             }
         }
-        if (descriptor.getCorrectAnswerSet().isPresent()) {
-            Set<Answer> correctAnswerSet = descriptor.getCorrectAnswerSet().get();
+        if (descriptor.getCorrectAnswerList().isPresent()) {
+            Set<Answer> correctAnswerSet = descriptor.getCorrectAnswerList().get();
             if (correctAnswerSet.isEmpty()) {
                 sb.append(PREFIX_CORRECT + " ");
             } else {
                 correctAnswerSet.forEach( s -> sb.append(PREFIX_CORRECT + s.answer + " "));
             }
         }
-        if (descriptor.getWrongAnswerSet().isPresent()) {
-            Set<Answer> wrongAnswerSet = descriptor.getWrongAnswerSet().get();
+        if (descriptor.getWrongAnswerList().isPresent()) {
+            Set<Answer> wrongAnswerSet = descriptor.getWrongAnswerList().get();
             if (wrongAnswerSet.isEmpty()) {
                 sb.append(PREFIX_WRONG + " ");
             } else {

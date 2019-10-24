@@ -59,7 +59,7 @@ class JsonAdaptedAnswerable {
     public JsonAdaptedAnswerable(Answerable source) {
         if (source instanceof Mcq) {
             questionType = "mcq";
-            wrongAnswerSet.addAll(source.getWrongAnswerSet().stream()
+            wrongAnswerSet.addAll(source.getWrongAnswerList().stream()
                     .map(JsonAdaptedAnswer::new)
                     .collect(Collectors.toList()));
         } else {
@@ -68,7 +68,7 @@ class JsonAdaptedAnswerable {
 
         question = source.getQuestion().fullQuestion;
         difficulty = source.getDifficulty().value;
-        correctAnswerSet.addAll(source.getCorrectAnswerSet().stream()
+        correctAnswerSet.addAll(source.getCorrectAnswerList().stream()
                 .map(JsonAdaptedAnswer::new)
                 .collect(Collectors.toList()));
         categories.addAll(source.getCategories().stream()
@@ -104,9 +104,9 @@ class JsonAdaptedAnswerable {
 
         final Question modelQuestion = new Question(question);
 
-        final Set<Answer> modelCorrectAnswerSet = new HashSet<>(correctAnswers);
+        final ArrayList<Answer> modelCorrectAnswerSet = new ArrayList<>(correctAnswers);
 
-        final Set<Answer> modelWrongAnswerSet = new HashSet<>(wrongAnswers);
+        final ArrayList<Answer> modelWrongAnswerSet = new ArrayList<>(wrongAnswers);
 
         if (difficulty == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

@@ -34,8 +34,8 @@ public class EditAnswerableDescriptorBuilder {
     public EditAnswerableDescriptorBuilder(Answerable answerable) {
         descriptor = new EditCommand.EditAnswerableDescriptor();
         descriptor.setQuestion(answerable.getQuestion());
-        descriptor.setCorrectAnswerSet(answerable.getCorrectAnswerSet());
-        descriptor.setWrongAnswerSet(answerable.getWrongAnswerSet());
+        descriptor.setCorrectAnswerList(answerable.getCorrectAnswerList());
+        descriptor.setWrongAnswerList(answerable.getWrongAnswerList());
         descriptor.setDifficulty(answerable.getDifficulty());
         descriptor.setCategories(answerable.getCategories());
     }
@@ -51,7 +51,7 @@ public class EditAnswerableDescriptorBuilder {
      * Sets the Correct Answer Set of the {@code EditAnswerableDescriptor} that we are building.
      */
     public EditAnswerableDescriptorBuilder withCorrectAnswerSet(Set<Answer> correctAnswerSet) {
-        descriptor.setCorrectAnswerSet(correctAnswerSet);
+        descriptor.setCorrectAnswerList(correctAnswerSet);
         return this;
     }
 
@@ -59,7 +59,7 @@ public class EditAnswerableDescriptorBuilder {
      * Sets the Wrong Answer Set of the {@code EditAnswerableDescriptor} that we are building.
      */
     public EditAnswerableDescriptorBuilder withWrongAnswerSet(Set<Answer> wrongAnswerSet) {
-        descriptor.setWrongAnswerSet(wrongAnswerSet);
+        descriptor.setWrongAnswerList(wrongAnswerSet);
         return this;
     }
 
