@@ -197,6 +197,7 @@ prefixes like `q>`, `a>`, `r>` and `c>`
 ** cons: Harder to implement.
 // end::addflashcard[]
 
+<<<<<<< HEAD
 
 //@@author: dalsontws
 // tag::deadline[]
@@ -246,6 +247,9 @@ prefixes like `t>` and `d>`
 // end::deadline[]
 
 //@@ author LeowWB
+=======
+//@@author LeowWB
+>>>>>>> Fix LeowWB author tag in dg
 // tag::flashcardexport[]
 === Exporting of FlashCards
 ==== Implementation
