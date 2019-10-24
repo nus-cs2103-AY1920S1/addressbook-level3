@@ -78,6 +78,14 @@ public class StorageManager {
     }
 
     /**
+     * Returns value of current root.
+     * @return  root directory
+     */
+    public static String getRoot() {
+        return root;
+    }
+
+    /**
      * Write a deck into decks storage.
      * @param deck  deck object to write
      */
@@ -94,7 +102,7 @@ public class StorageManager {
     public static ArrayList<Deck> loadDecks() {
         resolveRoot();
         String path = FileReadWrite.resolve(root, decksSubDir);
-        System.out.println(path);
+
         if (!FileReadWrite.fileExists(path)) {
             return new ArrayList<>();
         }

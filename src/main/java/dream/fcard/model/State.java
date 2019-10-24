@@ -69,6 +69,14 @@ public class State {
     }
 
     /**
+     * Replace all decks with a new set of decks. Used by `root` command.
+     * @param newDecks  new decks
+     */
+    public void reloadAllDecks(ArrayList<Deck> newDecks) {
+        decks = newDecks;
+    }
+
+    /**
      * Returns the index of a deck given the deck name, if a deck with matching name exists.
      * Else, return -1 if no deck with matching name is found.
      *

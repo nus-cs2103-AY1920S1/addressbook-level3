@@ -15,6 +15,7 @@ enum Responses {
         /*Print out "Available commands are:\n" +
                 "Help [Command]\n" +
                 "Import FILEPATH\n" +
+                "Root DIRECTORY_PATH" +
                 "Export deck/ DECK_NAME path/ DIRECTORY_PATH\n" +
                 "Stats [deck/DECK_NAME]\n" +
                 "View [deck/DECK_NAME]\n" +
@@ -25,6 +26,21 @@ enum Responses {
                 "[back/NEW_BACK_TEXT]\n";
          */
         return true; // capture is valid, end checking other commands
+    }),
+    ROOT("(?i)^r(oot)?(\\s)+.+", (commandInput, programState) -> {
+        String path = FileReadWrite.normalizePath(commandInput.split(" ")[1].trim());
+        if (FileReadWrite.pathValidDirectory(path)) {
+            StorageManager.provideRoot(path);
+            programState.reloadAllDecks(StorageManager.loadDecks());
+            System.out.println("Successfully changed root");
+        }else {
+            System.out.println("argument is not a valid directory");
+        }
+        return true;
+    }),
+    ROOT_NO_PATH("(?i)^r(oot)?(\\s)*", (commandInput, programState) -> {
+        System.out.println("No directory specified, e.g. root ~/Desktop");
+        return true;
     }),
     IMPORT("(?i)^i(mport)?(\\s)+.+", (commandInput, programState) -> {
         System.out.println("Current command is IMPORT");

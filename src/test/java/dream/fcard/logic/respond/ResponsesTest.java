@@ -16,6 +16,18 @@ import dream.fcard.util.FileReadWrite;
 
 public class ResponsesTest {
     @Test
+    void rootTest() {
+        String path = FileReadWrite.normalizePath("~/Desktop");
+        Responses.ROOT.call("root " + path, new State());
+        assertEquals(path, StorageManager.getRoot());
+    }
+
+    @Test
+    void rootNoPathTest() {
+        assertEquals(true, Responses.ROOT_NO_PATH.call("root", new State()));
+    }
+
+    @Test
     void importTest() {
         String deckName = "test123";
         String path = FileReadWrite.normalizePath("~/" + deckName + ".json");
