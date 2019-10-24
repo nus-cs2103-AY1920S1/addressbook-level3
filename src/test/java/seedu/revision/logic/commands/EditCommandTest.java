@@ -4,15 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.DESC_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.revision.logic.commands.CommandTestUtil.showAnswerableAtIndex;
+import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_SECOND_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,13 +21,14 @@ import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.main.ClearCommand;
 import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -37,7 +38,7 @@ public class EditCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedUnfilteredList_success() throws ParseException {
         Answerable editedAnswerable = new AnswerableBuilder().build();
         EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder(editedAnswerable).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE, descriptor);
@@ -51,12 +52,13 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredList_success() throws ParseException {
         Index indexLastAnswerable = Index.fromOneBased(model.getFilteredAnswerableList().size());
         Answerable lastAnswerable = model.getFilteredAnswerableList().get(indexLastAnswerable.getZeroBased());
 
         AnswerableBuilder answerableInList = new AnswerableBuilder(lastAnswerable);
-        Answerable editedAnswerable = answerableInList.withQuestion(VALID_QUESTION_BETA).withDifficulty(VALID_DIFFICULTY_BETA)
+        Answerable editedAnswerable = answerableInList.withQuestion(VALID_QUESTION_BETA)
+                .withDifficulty(VALID_DIFFICULTY_BETA)
                 .withCategories(VALID_CATEGORY_GREENFIELD).build();
 
         EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA)
@@ -72,7 +74,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_success() throws ParseException {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE, new EditAnswerableDescriptor());
         Answerable editedAnswerable = model.getFilteredAnswerableList().get(INDEX_FIRST_ANSWERABLE.getZeroBased());
 
@@ -84,11 +86,13 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredList_success() throws ParseException {
         showAnswerableAtIndex(model, INDEX_FIRST_ANSWERABLE);
 
-        Answerable answerableInFilteredList = model.getFilteredAnswerableList().get(INDEX_FIRST_ANSWERABLE.getZeroBased());
-        Answerable editedAnswerable = new AnswerableBuilder(answerableInFilteredList).withQuestion(VALID_QUESTION_BETA).build();
+        Answerable answerableInFilteredList = model.getFilteredAnswerableList()
+                .get(INDEX_FIRST_ANSWERABLE.getZeroBased());
+        Answerable editedAnswerable = new AnswerableBuilder(answerableInFilteredList)
+                .withQuestion(VALID_QUESTION_BETA).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE,
                 new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA).build());
 
@@ -114,7 +118,8 @@ public class EditCommandTest {
         showAnswerableAtIndex(model, INDEX_FIRST_ANSWERABLE);
 
         // edit answerable in filtered list into a duplicate in revision tool
-        Answerable answerableInList = model.getAddressBook().getAnswerableList().get(INDEX_SECOND_ANSWERABLE.getZeroBased());
+        Answerable answerableInList = model.getAddressBook().getAnswerableList()
+                .get(INDEX_SECOND_ANSWERABLE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE,
                 new EditAnswerableDescriptorBuilder(answerableInList).build());
 
@@ -124,7 +129,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidAnswerableIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAnswerableList().size() + 1);
-        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA).build();
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder()
+                .withQuestion(VALID_QUESTION_BETA).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ANSWERABLE_DISPLAYED_INDEX);

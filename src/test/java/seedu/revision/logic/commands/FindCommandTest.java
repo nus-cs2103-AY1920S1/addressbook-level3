@@ -16,6 +16,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.main.FindCommand;
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
@@ -56,7 +57,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noAnswerableFound() {
+    public void execute_zeroKeywords_noAnswerableFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_ANSWERABLES_LISTED_OVERVIEW, 0);
         QuestionContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
@@ -66,7 +67,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleAnswerablesFound() {
+    public void execute_multipleKeywords_multipleAnswerablesFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_ANSWERABLES_LISTED_OVERVIEW, 3);
         QuestionContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);

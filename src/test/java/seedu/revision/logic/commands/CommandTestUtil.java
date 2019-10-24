@@ -4,17 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 import static seedu.revision.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.exceptions.CommandException;
@@ -24,8 +22,8 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answer;
-import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
 /**
@@ -54,9 +52,12 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_UML = " " + PREFIX_CATEGORY + VALID_CATEGORY_UML;
     public static final String CATEGORY_DESC_GREENFIELD = " " + PREFIX_CATEGORY + VALID_CATEGORY_GREENFIELD;
 
-    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + ""; // empty string not allowed for questions
-    public static final String INVALID_DIFFICULTY_DESC = " " + PREFIX_DIFFICULTY + "911a"; // 'a' not allowed in difficulty
-    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + ""; // category cannot just be whitespace
+    // empty string not allowed for questions
+    public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + "";
+    // 'a' not allowed in difficulty
+    public static final String INVALID_DIFFICULTY_DESC = " " + PREFIX_DIFFICULTY + "911a";
+    // category cannot just be whitespace
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -65,17 +66,18 @@ public class CommandTestUtil {
     public static final EditCommand.EditAnswerableDescriptor DESC_BETA;
 
     private static final Answer correctAnswer = new Answer("CORRECT");
-    private static final Set<Answer> defaultCorrectAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
+    private static final ArrayList<Answer> defaultCorrectAnswerList = new ArrayList<>(Arrays.asList(correctAnswer));
     private static final Answer wrongAnswer = new Answer("WRONG");
-    private static final Set<Answer> defaultWrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
+    private static final ArrayList<Answer> defaultWrongAnswerList = new ArrayList<>(Arrays.asList(wrongAnswer));
 
     static {
         DESC_ALPHA = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_ALPHA)
-                .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet)
+                .withCorrectAnswerList(defaultCorrectAnswerList).withWrongAnswerList(defaultWrongAnswerList)
                 .withDifficulty(VALID_DIFFICULTY_ALPHA).withCategories(VALID_CATEGORY_UML).build();
         DESC_BETA = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA)
-                .withCorrectAnswerSet(defaultCorrectAnswerSet).withWrongAnswerSet(defaultWrongAnswerSet)
-                .withDifficulty(VALID_DIFFICULTY_BETA).withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();
+                .withCorrectAnswerList(defaultCorrectAnswerList).withWrongAnswerList(defaultWrongAnswerList)
+                .withDifficulty(VALID_DIFFICULTY_BETA)
+                .withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();
     }
 
     /**

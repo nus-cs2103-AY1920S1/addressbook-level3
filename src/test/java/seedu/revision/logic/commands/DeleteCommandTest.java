@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import seedu.revision.commons.core.Messages;
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.main.DeleteCommand;
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
@@ -29,7 +30,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredList_success() throws ParseException {
         ArrayList<Answerable> answerablesToDelete = new ArrayList<>();
         answerablesToDelete.add(model.getFilteredAnswerableList().get(INDEX_FIRST_ANSWERABLE.getZeroBased()));
         ArrayList<Index> indexToDelete = new ArrayList<>();

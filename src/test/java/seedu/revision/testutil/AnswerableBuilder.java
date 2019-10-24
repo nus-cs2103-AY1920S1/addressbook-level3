@@ -1,15 +1,16 @@
 package seedu.revision.testutil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.category.Category;
 import seedu.revision.model.util.SampleDataUtil;
 
 /**
@@ -24,8 +25,8 @@ public class AnswerableBuilder {
     private static final Answer defaultWrongAnswerSet = new Answer("WRONG");
 
     private Question question;
-    private Set<Answer> correctAnswerSet;
-    private Set<Answer> wrongAnswerSet;
+    private ArrayList<Answer> correctAnswerList;
+    private ArrayList<Answer> wrongAnswerList;
     private Difficulty difficulty;
     private Set<Category> categories;
 
@@ -33,11 +34,11 @@ public class AnswerableBuilder {
         question = new Question(DEFAULT_QUESTION);
         //TODO: Implement Answerable
         difficulty = new Difficulty(DEFAULT_DIFFICULTY);
-        correctAnswerSet = new HashSet<>(Arrays.asList(defaultCorrectAnswerSet));
-        wrongAnswerSet = new HashSet<>();
-        wrongAnswerSet.add(new Answer("Wrong answer A"));
-        wrongAnswerSet.add(new Answer("Wrong answer B"));
-        wrongAnswerSet.add(new Answer("Wrong answer C"));
+        correctAnswerList = new ArrayList<>(Arrays.asList(defaultCorrectAnswerSet));
+        wrongAnswerList = new ArrayList<>();
+        wrongAnswerList.add(new Answer("Wrong answer A"));
+        wrongAnswerList.add(new Answer("Wrong answer B"));
+        wrongAnswerList.add(new Answer("Wrong answer C"));
         categories = new HashSet<>();
         categories.add(new Category(DEFAULT_CATEGORY));
     }
@@ -48,8 +49,8 @@ public class AnswerableBuilder {
     public AnswerableBuilder(Answerable answerableToCopy) {
         question = answerableToCopy.getQuestion();
         //TODO: Implement Answerable
-        correctAnswerSet = new HashSet<>(answerableToCopy.getCorrectAnswerList());
-        wrongAnswerSet = new HashSet<>(answerableToCopy.getWrongAnswerList());
+        correctAnswerList = new ArrayList<>(answerableToCopy.getCorrectAnswerList());
+        wrongAnswerList = new ArrayList<>(answerableToCopy.getWrongAnswerList());
         difficulty = answerableToCopy.getDifficulty();
         categories = new HashSet<>(answerableToCopy.getCategories());
     }
@@ -66,8 +67,8 @@ public class AnswerableBuilder {
      * Sets the Correct Answer Set of the {@code Answerable} that we are building.
      */
     //TODO: Implement Answerable
-    public AnswerableBuilder withCorrectAnswerSet(Set<Answer> correctAnswerSet) {
-        this.correctAnswerSet = correctAnswerSet;
+    public AnswerableBuilder withCorrectAnswerList(ArrayList<Answer> correctAnswerList) {
+        this.correctAnswerList = correctAnswerList;
         return this;
     }
 
@@ -75,13 +76,14 @@ public class AnswerableBuilder {
      * Sets the Wrong Answer Set of the {@code Answerable} that we are building.
      */
     //TODO: Implement Answerable
-    public AnswerableBuilder withWrongAnswerSet(Set<Answer> wrongAnswerSet) {
-        this.wrongAnswerSet = wrongAnswerSet;
+    public AnswerableBuilder withWrongAnswerList(ArrayList<Answer> wrongAnswerList) {
+        this.wrongAnswerList = wrongAnswerList;
         return this;
     }
 
     /**
-     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code Answerable} that we are building.
+     * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code Answerable}
+     * that we are building.
      */
     public AnswerableBuilder withCategories(String ... categories) {
         this.categories = SampleDataUtil.getCategorySet(categories);
@@ -96,9 +98,13 @@ public class AnswerableBuilder {
         return this;
     }
 
+    /**
+     * Returns an answerable.
+     * @return the answerable.
+     */
     public Answerable build() {
         //TODO: Implement Answerable
-        return new Mcq(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
+        return new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
 
 }

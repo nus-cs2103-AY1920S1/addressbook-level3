@@ -14,9 +14,9 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.category.Category;
 
 public class ParserUtilTest {
     private static final String INVALID_QUESTION = "";
@@ -126,7 +126,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseCategories_collectionWithInvalidCategories_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseCategories(Arrays.asList(VALID_CATEGORY_1, INVALID_CATEGORY)));
+        assertThrows(ParseException.class, () -> ParserUtil
+                .parseCategories(Arrays.asList(VALID_CATEGORY_1, INVALID_CATEGORY)));
     }
 
     @Test
@@ -137,8 +138,8 @@ public class ParserUtilTest {
     @Test
     public void parseCategories_collectionWithValidCategoriess_returnsCategorySet() throws Exception {
         Set<Category> actualCategorySet = ParserUtil.parseCategories(Arrays.asList(VALID_CATEGORY_1, VALID_CATEGORY_2));
-        Set<Category> expectedCategorySet = new HashSet<Category>
-                (Arrays.asList(new Category(VALID_CATEGORY_1), new Category(VALID_CATEGORY_2)));
+        Set<Category> expectedCategorySet = new HashSet<Category>(
+            Arrays.asList(new Category(VALID_CATEGORY_1), new Category(VALID_CATEGORY_2)));
 
         assertEquals(expectedCategorySet, actualCategorySet);
     }

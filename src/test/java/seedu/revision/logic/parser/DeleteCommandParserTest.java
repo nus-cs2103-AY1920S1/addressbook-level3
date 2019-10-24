@@ -5,13 +5,13 @@ import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseFailu
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.main.DeleteCommand;
 import seedu.revision.logic.parser.main.DeleteCommandParser;
-
-import java.util.ArrayList;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

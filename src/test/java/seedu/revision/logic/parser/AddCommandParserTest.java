@@ -1,23 +1,23 @@
 package seedu.revision.logic.parser;
 
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_GREENFIELD;
+import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_UML;
 import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
-import static seedu.revision.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
-import static seedu.revision.logic.commands.CommandTestUtil.INVALID_DIFFICULTY_DESC;
-import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_BETA;
+import static seedu.revision.logic.commands.CommandTestUtil.INVALID_DIFFICULTY_DESC;
+import static seedu.revision.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
+import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DESC;
 import static seedu.revision.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.revision.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
+import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
-import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_UML;
-import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_GREENFIELD;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_UML;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
-import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DESC;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_UML;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.revision.testutil.TypicalAnswerables.BETA;
@@ -47,20 +47,20 @@ public class AddCommandParserTest {
 
         // multiple names - last name accepted
         assertParseSuccess(parser, QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + QUESTION_DESC_BETA
-                + DIFFICULTY_DESC_BETA + CORRECT_ANSWER_DESC + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_UML
-                , new AddCommand(expectedAnswerable));
+                + DIFFICULTY_DESC_BETA + CORRECT_ANSWER_DESC + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_UML,
+                new AddCommand(expectedAnswerable));
 
         // multiple difficulty - last difficulty accepted
         assertParseSuccess(parser, QUESTION_TYPE_MCQ + QUESTION_DESC_BETA + DIFFICULTY_DESC_ALPHA
-                + DIFFICULTY_DESC_BETA + CORRECT_ANSWER_DESC + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_UML
-                , new AddCommand(expectedAnswerable));
+                + DIFFICULTY_DESC_BETA + CORRECT_ANSWER_DESC + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_UML,
+                new AddCommand(expectedAnswerable));
 
         // multiple categories - all accepted
-        Answerable expectedAnswerableMultipleTags = new AnswerableBuilder(BETA).withCategories(VALID_CATEGORY_UML
-                , VALID_CATEGORY_GREENFIELD).build();
+        Answerable expectedAnswerableMultipleTags = new AnswerableBuilder(BETA).withCategories(VALID_CATEGORY_UML,
+                VALID_CATEGORY_GREENFIELD).build();
         assertParseSuccess(parser, QUESTION_TYPE_MCQ + QUESTION_DESC_BETA + DIFFICULTY_DESC_BETA
-                + CORRECT_ANSWER_DESC + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_GREENFIELD + CATEGORY_DESC_UML
-                , new AddCommand(expectedAnswerableMultipleTags));
+                + CORRECT_ANSWER_DESC + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_GREENFIELD + CATEGORY_DESC_UML,
+                new AddCommand(expectedAnswerableMultipleTags));
     }
 
 
@@ -82,8 +82,8 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, QUESTION_TYPE_MCQ + INVALID_QUESTION_DESC + CORRECT_ANSWER_DESC
-                + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_BETA + CATEGORY_DESC_GREENFIELD + CATEGORY_DESC_UML
-                , Question.MESSAGE_CONSTRAINTS);
+                + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_BETA + CATEGORY_DESC_GREENFIELD + CATEGORY_DESC_UML,
+                Question.MESSAGE_CONSTRAINTS);
 
         // invalid difficulty
         assertParseFailure(parser, QUESTION_TYPE_MCQ + QUESTION_DESC_BETA + CORRECT_ANSWER_DESC
