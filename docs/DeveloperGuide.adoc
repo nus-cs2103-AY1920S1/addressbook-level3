@@ -548,12 +548,24 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Tracking expenditure
+=== Use case: Save money into a savings account
 
 *MSS*
 
-1. User requests to track expenditure.
-2. $aveNUS shows a list of past purchases as expenses in a visual format.
+1. User requests to add savings to Savings Account.
+2. $aveNUS adds the list of savings in the Savings History display tab.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The wallet is empty.
++
+[none]
+** 1a1. $aveNUS shows an error message to tell the user to topup the wallet.
+** 1a2. $aveNUS displays Savings History display tab.
+** 1a3. $aveNUS displays an empty command box.
 +
 Use case ends.
 
@@ -640,9 +652,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Food Item
 
-. Deleting a person while all persons are listed
+. Deleting a Food Item
 
 .. Prerequisites: There has to be a food item in the menu for the user to delete.
 .. Test case: `delete 1` +
