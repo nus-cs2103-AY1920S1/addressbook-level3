@@ -18,7 +18,7 @@ public class GraphGenerator {
 
     public Optional<Graph> getGraph(String name) {
         return graphs.stream()
-                .filter(graph -> graph.getName().equals(name))
+                .filter(graph -> graph.getCommandWord().equals(name))
                 .findFirst();
     }
 

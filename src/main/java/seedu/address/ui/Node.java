@@ -1,36 +1,55 @@
 package seedu.address.ui;
 
-import java.util.Arrays;
+import seedu.address.logic.parser.Prefix;
+
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.function.Supplier;
 
 /**
  * Represents a node in {@link Graph}.
  */
-public class Node {
+public abstract class Node {
 
-    private final Map<String, Node> edges;
+    private final Map<Prefix, Node> edges;
     private final SortedSet<String> values;
 
-    public Node(Supplier<Map<String, Node>> supplier, String... values) {
-        this.edges = supplier.get();
+    public Node() {
+        this.edges = new HashMap<>();
         this.values = new TreeSet<>();
-        this.values.addAll(Arrays.asList(values));
+    }
+
+    public Node(Map<Prefix, Node> edges, SortedSet<String> values) {
+        this.edges = edges;
+        this.values = values;
     }
 
     public SortedSet<String> getValues() {
         return values;
     }
 
-    public Map<String, Node> getEdges() {
+    public Map<Prefix, Node> getEdges() {
         return edges;
     }
 
-    public Optional<Node> traverse(String prefix) {
+    public Set<Prefix> getPrefixes() {
+        return edges.keySet();
+    }
+
+    public Collection<Node> getNeighbours() {
+        return edges.values();
+    }
+
+    public Optional<Node> traverse(Prefix prefix) {
         return Optional.ofNullable(edges.get(prefix));
+    }
+
+    public boolean isEnd() {
+        return getNeighbours().isEmpty();
     }
 
 }

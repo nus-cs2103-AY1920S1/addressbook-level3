@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import seedu.address.logic.parser.Prefix;
+
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,18 +11,19 @@ import java.util.regex.Pattern;
  */
 public abstract class Graph {
 
-    private final String name;
+    private final String commandWord;
     private final Node startNode;
+    private final Pattern prefixPattern = Pattern.compile(" [a-z]/");
 
     public String lastMatchEnd;
 
-    public Graph(String name, Node startNode) {
-        this.name = name;
+    public Graph(String commandWord, Node startNode) {
+        this.commandWord = commandWord;
         this.startNode = startNode;
     }
 
-    public String getName() {
-        return name;
+    public String getCommandWord() {
+        return commandWord;
     }
 
     public Node getStartNode() {
@@ -29,13 +32,12 @@ public abstract class Graph {
 
     public Node process(String input) {
         lastMatchEnd = "";
-        Pattern prefixPattern = Pattern.compile(" [a-z]/");
         Matcher matcher = prefixPattern.matcher(input);
         Node currentNode = startNode;
         while (matcher.find()) {
-            String prefix = matcher.group();
-            Optional<Node> nextNode = currentNode.traverse(prefix.substring(1));
-            if (nextNode.isEmpty() || nextNode.get().getValues().isEmpty()) {
+            String prefix = matcher.group().trim();
+            Optional<Node> nextNode = currentNode.traverse(new Prefix(prefix));
+            if (nextNode.isEmpty() || nextNode.get().isEnd()) {
                 break;
             } else {
                 currentNode = nextNode.get();
@@ -47,7 +49,7 @@ public abstract class Graph {
 
     @Override
     public String toString() {
-        return "Graph: " + this.name;
+        return "Graph: " + this.commandWord;
     }
 
 }

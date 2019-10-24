@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import seedu.address.logic.parser.Prefix;
 
 //@@author uberSaiyan-reused
 //StackOverflow answer on writing an autocomplete text field from
@@ -58,7 +59,7 @@ public class AutoCompleteTextField extends TextField {
                         Node graphNode = graph.get().process(remaining);
                         if (remaining.endsWith(" ")) {
                             entries.clear();
-                            entries.addAll(graphNode.getEdges().keySet());
+                            entries.addAll(graphNode.getPrefixes().stream().map(Prefix::toString).collect(Collectors.toList()));
                             stringToCompare = "";
                         } else {
                             entries.clear();
