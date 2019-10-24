@@ -216,6 +216,10 @@ image::ItineraryEdit4.png[]
 
 Upon completion of the edit, the user is returned to the `TripPage/DaysPage/EventsPage` depending on where the user entered the edit page from.
 
+Below is an sequence diagram illustrating the execution of the command "edit ds/10/10/2019":
+
+image::ItineraryEditSequenceDiagram.png[]
+
 === [Itinerary] Delete Trip/Day/Event
 ==== Implementation
 Deletion of `Trip/Day/Event` is facilitated by `PageStatus`. `PageStatus` stores the current state of execution of the user program.
