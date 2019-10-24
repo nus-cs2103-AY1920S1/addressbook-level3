@@ -1,14 +1,12 @@
 package seedu.address.ui;
 
 import java.util.LinkedList;
-import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.Region;
 import seedu.address.autocomplete.AutoCompleteListFilter;
 import seedu.address.autocomplete.AutoCompleteListUpdater;
@@ -16,7 +14,6 @@ import seedu.address.autocomplete.AutoCompleteWord;
 import seedu.address.autocomplete.AutoCompleteWordStorage;
 import seedu.address.autocomplete.CommandWord;
 import seedu.address.autocomplete.UserinputParserUtil;
-import seedu.address.commons.core.LogsCenter;
 
 /**
  * Panel containing the list of suggested words cards.
@@ -57,7 +54,7 @@ public class AutoCompletePanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new AutoCompleteCard(autoCompleteWord).getRoot());
+                setGraphic(new AutoCompleteCard(autoCompleteWord.getSuggestedWord()).getRoot());
             }
         }
     }
