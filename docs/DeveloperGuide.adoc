@@ -483,7 +483,6 @@ Cell Formatting
 ** """yummy"", ""juicy"""
 ** """fresh"", ""clean"""
 
-
 === Statistics feature
 ==== Current Implementation
 For the current `statistics` feature, there are 2 main commands that the user can execute.
@@ -554,7 +553,6 @@ Cons: Not in alignment with architecture. Need to consider application startup w
 Alternative 1 was chosen due to the ease of implementation.
 As the current statistics feature does not require a large amount of data, the number of method calls is not too large.
 Alternative 2 requires a change in the architecture which may result in higher complexity.
-
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
