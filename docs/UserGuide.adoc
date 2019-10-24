@@ -129,7 +129,7 @@ Format: `findperson -n NAME`
 * Shows the groups that this person is in.
 ****
 
-=== Locating persons by name: `findgroup`
+=== Locating group by name: `findgroup`
 
 Finds the group whose name contains the given keyword. +
 Format: `findgroup -g GROUP_NAME`
