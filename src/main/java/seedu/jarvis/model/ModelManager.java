@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.core.index.Index;
@@ -46,7 +46,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final CoursePlanner coursePlanner;
     private final CcaTracker ccaTracker;
-    private final FilteredList<Person> filteredPersons;
     private final Planner planner;
 
 
@@ -65,7 +64,6 @@ public class ModelManager implements Model {
         this.historyManager = new HistoryManager(historyManager);
         this.addressBook = new AddressBook(addressBook);
         this.financeTracker = new FinanceTracker(financeTracker);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
         this.coursePlanner = new CoursePlanner(coursePlanner);
@@ -121,6 +119,26 @@ public class ModelManager implements Model {
     @Override
     public void setHistoryManager(HistoryManager historyManager) {
         this.historyManager.resetData(historyManager);
+    }
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    @Override
+    public ObservableList<Command> getExecutedCommandsList() {
+        return historyManager.getExecutedCommandsList();
+    }
+
+    /**
+     * Gets a {@code ObservableList} of {@code Command} objects that are inversely executed.
+     *
+     * @return {@code ObservableList} of {@code Command} objects.
+     */
+    @Override
+    public ObservableList<Command> getInverselyExecutedCommandsList() {
+        return historyManager.getInverselyExecutedCommandsList();
     }
 
     /**
@@ -483,6 +501,16 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Adds a {@code Task} at a given {@code Index}
+     *
+     * @param zeroBasedIndex Zero-based index to add {@code Task} to
+     * @param task {@code Task} to be added
+     */
+    public void addTask(int zeroBasedIndex, Task task) {
+        planner.addTask(zeroBasedIndex, task);
+    }
+
+    /**
      * Determines whether the planner contains the given task
      * @param t the task in question
      * @return true if the planner already contains the task, false if
@@ -528,6 +556,15 @@ public class ModelManager implements Model {
     @Override
     public void deleteTask(Index index) {
         planner.deleteTask(index);
+    }
+
+    /**
+     * Deletes the specified task in the planner
+     * @param t the task to be deleted
+     */
+    @Override
+    public void deleteTask(Task t) {
+        planner.deleteTask(t);
     }
 
     /**

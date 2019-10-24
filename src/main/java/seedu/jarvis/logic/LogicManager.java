@@ -41,16 +41,10 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = jarvisParser.parseCommand(commandText);
         commandResult = command.execute(model);
-
-        try {
-            storage.saveAddressBook(model.getAddressBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        // updates model on the latest commands if necessary.
+        // updates model after a successful command execution.
         updateModel(command);
-        saveHistory();
+        // saves the model to local storage.
+        saveModel();
 
         return commandResult;
     }
@@ -70,12 +64,14 @@ public class LogicManager implements Logic {
     }
 
     /**
+     * Saves the address book to local storage.
      * Saves the history manager to local storage.
      *
-     * @throws CommandException If there was an {@code IOException} when saving the history manager.
+     * @throws CommandException If there was an {@code IOException} when saving a component to local storage.
      */
-    private void saveHistory() throws CommandException {
+    private void saveModel() throws CommandException {
         try {
+            storage.saveAddressBook(model.getAddressBook());
             storage.saveHistoryManager(model.getHistoryManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

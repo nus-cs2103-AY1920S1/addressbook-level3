@@ -17,4 +17,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_CCA_DISPLAYED_INDEX = "The cca index provided is invalid";
     public static final String MESSAGE_CCAS_LISTED_OVERVIEW = "%1$d Ccas listed!";
 
+    public static final String MESSAGE_INVALID_COURSE_DISPLAYED_INDEX = "The course index provided is invalid";
 }
