@@ -58,6 +58,7 @@ public class AddParticipantCommand extends AddCommand {
 
         try {
             model.addParticipant(this.participant);
+            model.resetFilteredLists();
             model.updateHistory(this);
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PARTICIPANT);

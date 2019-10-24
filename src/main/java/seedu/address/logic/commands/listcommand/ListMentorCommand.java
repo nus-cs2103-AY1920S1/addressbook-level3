@@ -21,7 +21,7 @@ public class ListMentorCommand extends ListCommand {
         requireNonNull(model);
 
         this.displayMentors(model);
-
+        model.resetFilteredLists();
         model.updateHistory(this);
         return new CommandResult(MESSAGE_SUCCESS, PrefixType.M);
     }
