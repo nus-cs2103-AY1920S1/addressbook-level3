@@ -1,4 +1,4 @@
-= $aveNUS - Developer Guide
+= *$aveNUS - Developer Guide*
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -275,9 +275,11 @@ more accurately.
 
 ==== Classes for recommendation feature in Model
 
-With the recommendation feature, a new set of classes were added. A singleton class `RecommendationSystem` encapsulates
-the methods and classes related to this feature. This `RecommendationSystem` class implements the interface `Recommender`
-which specifies the behaviour of the system, which include the ability to generate recommendation values.
+With the recommendation feature, a new set of classes were added.
+
+A singleton class `RecommendationSystem` encapsulates the methods and classes related to this feature.
+This `RecommendationSystem` class implements the interface `Recommender` which specifies the behaviour of the system,
+and include the ability to generate recommendation values.
 
 Additionally, the `RecommendationSystem` class also contains a class `UserRecommendations`, which include the likes and
 dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
@@ -325,24 +327,29 @@ A similar execution sequence is performed for a dislike command by replacing ins
 ==== Displaying recommendations
 
 After customizing the user's likes and dislikes, users can obtain a personalized list of recommendations
-using the `recommend` command. Each food is passed to the recommendation system and it calculates the
-recommendation value based on the table below:
+using the `recommend` command.
+
+Each food is passed to the recommendation system and it calculates the recommendation value based on the tables below:
 
 include::UserGuide.adoc[tag=recommendationbonus]
 
+{empty} +
+
 include::UserGuide.adoc[tag=recommendationpenalty]
 
-The sequence diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
+The activity diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
 recommendation value:
 
-.Sequence diagram for `calculateRecommendation`
-image::RecValueSequenceDiagram.png[width=400]
+.Activity diagram for `calculateRecommendation`
+image::RecValueActivityDiagram.png[width=600]
 
 The calculated recommendation values are used to sort the food items when the `recommend` command
 is executed. Food with similar recommendation values are sorted based on their price.
 
 ===== Design Considerations
+Detailed below are the design considerations taken into account when engineering the `calculateRecommendation()` function.
 
+.Design considerations of the calculateRecommendation() function
 [cols="20,40,40"]
 |===
 |Aspect |Alternative 1 |Alternative 2
