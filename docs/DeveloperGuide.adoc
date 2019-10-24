@@ -177,6 +177,7 @@ When an add/edit/delete command for any of the subclasses of Entry (Expense, Inc
 
 Pros: Easy to implement.
 
+
 Cons: Might not be as OOP as other designs.
 == Documentation
 
