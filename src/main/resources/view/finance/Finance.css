@@ -20,7 +20,7 @@
     -fx-background-color: rgba(236, 95, 11, 0.61);
 }
 .list-cell:filled:selected #spendCardPane {
-    -fx-background-color: rgba(255, 161, 42, 0.61);
+    -fx-background-color: rgba(255, 103, 11, 0.61);
 }
 
 .list-cell:filled #incomeCardPane {

@@ -20,7 +20,7 @@
       <stylesheets>
         <URL value="@../DarkTheme.css" />
         <URL value="@../Extensions.css" />
-        <URL value="@../finance/Finance.css" />
+        <URL value="@Finance.css" />
       </stylesheets>
 
       <VBox>
