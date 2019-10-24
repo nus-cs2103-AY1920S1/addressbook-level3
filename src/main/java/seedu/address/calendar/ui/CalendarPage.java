@@ -32,8 +32,6 @@ public class CalendarPage extends UiPart<Scene> implements Page {
 
     private ResultDisplay resultDisplay;
 
-    private Calendar calendar;
-    private CalendarStorage calendarStorage;
     private CalendarLogic calendarLogic;
 
     @FXML
@@ -49,8 +47,8 @@ public class CalendarPage extends UiPart<Scene> implements Page {
 
     public CalendarPage() {
         super(FXML);
-        calendar = new Calendar();
-        calendarStorage = new JsonCalendarStorage(Paths.get("data" , "calendar.json"));
+        Calendar calendar = new Calendar();
+        CalendarStorage calendarStorage = new JsonCalendarStorage(Paths.get("data" , "calendar.json"));
 
         try {
             Optional<ReadOnlyCalendar> calendarOptional = calendarStorage.readCalendar();
@@ -79,7 +77,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      * Sets up calendar page by laying out nodes.
      */
     private void fillInnerParts() {
-        Month currentMonth = calendar.getMonth();
+        Month currentMonth = calendarLogic.getVisibleMonth();
         MonthOfYear monthOfYear = currentMonth.getMonthOfYear();
         MonthHeader monthHeader = new MonthHeader(monthOfYear);
         monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
