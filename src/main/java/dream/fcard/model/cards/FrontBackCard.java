@@ -28,6 +28,13 @@ public class FrontBackCard extends FlashCard {
         priority = LOW_PRIORITY;
     }
 
+    /**
+     * Constructor to create a FrontBackCard with front and back string, and integer priority levle.
+     *
+     * @param frontString   String of front text.
+     * @param backString    String of back text.
+     * @param priorityLevel Integer of priority level.
+     */
     public FrontBackCard(String frontString, String backString, int priorityLevel) {
         back = backString;
         front = frontString;
@@ -37,9 +44,9 @@ public class FrontBackCard extends FlashCard {
     }
 
     /**
+     * Returns JsonValue of flashcard.
      *
-     *
-     * @return
+     * @return JsonValue of flashcard.
      */
     @Override
     public JsonValue toJson() {
@@ -51,9 +58,9 @@ public class FrontBackCard extends FlashCard {
     }
 
     /**
-     *
-     * @param in input
-     * @return
+     * @param in String input by user.
+     * @return Boolean value, if correct return true, else return false.
+
      * @throws IndexNotFoundException
      */
     public Boolean evaluate(String in) throws IndexNotFoundException {
@@ -61,33 +68,36 @@ public class FrontBackCard extends FlashCard {
     }
 
     /**
+     * Edits the front text of card.
      *
-     * @param newText
+     * @param newText String of front text to replace the front.
      */
     public void editFront(String newText) {
         front = newText;
     }
 
     /**
+     * Edits the back text of card.
      *
-     *
-     * @param newText
+     * @param newText String of new text to replace the back text.
      */
     public void editBack(String newText) {
         back = newText;
     }
 
     /**
+     * Returns front string of card.
      *
-     * @return
+     * @return String of front text.
      */
     public String getFront() {
         return front;
     }
 
     /**
+     * Returns back string of card.
      *
-     * @return
+     * @return String of back text.
      */
     public String getBack() {
         return back;

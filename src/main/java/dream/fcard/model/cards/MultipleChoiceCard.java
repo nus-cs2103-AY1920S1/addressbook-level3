@@ -22,7 +22,11 @@ import javafx.scene.Node;
 public class MultipleChoiceCard extends FrontBackCard {
     private ArrayList<String> choices;
     private ArrayList<String> displayChoices;
+
+    // Answer index is 1-based
     private int displayChoicesAnswerIndex;
+
+    // Answer index is 1-based
     private int answerIndex;
 
     /**
@@ -46,6 +50,8 @@ public class MultipleChoiceCard extends FrontBackCard {
 
         choices = choicesArg;
 
+
+        // Answer index is 1-based.
         try {
             answerIndex = Integer.parseInt(back);
         } catch (NumberFormatException f) {
@@ -57,10 +63,12 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     * @param frontString
-     * @param backString
-     * @param choicesArg
-     * @throws DuplicateInChoicesException
+     * Constructor of MCQ card, with front, back string, choices and priority level.
+     *
+     * @param frontString String of front text of card.
+     * @param backString  String of back text of card.
+     * @param choicesArg  Choices available for user to choose.
+     * @throws DuplicateInChoicesException Throw exception when duplicates exist in choices.
      */
     //@@author huiminlim
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg, int priorityLevel)
@@ -87,7 +95,9 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     * @return
+     * Returns JsonValue of flashcard.
+     *
+     * @return JsonValue of flashcard.
      */
     @Override
     public JsonValue toJson() {
@@ -108,7 +118,9 @@ public class MultipleChoiceCard extends FrontBackCard {
     }
 
     /**
-     * @return
+     * Render the front of card to GUI node.
+     *
+     * @return Node of front of card.
      */
     //@@author huiminlim
     @Override
@@ -121,9 +133,11 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author
 
     /**
-     * @param in input
-     * @return
-     * @throws IndexNotFoundException
+     * Evaluates if user input answer is correct.
+     *
+     * @param in String input provided by user.
+     * @return Boolean, if correct return true, else return false.
+     * @throws IndexNotFoundException Throw exception when input provided by user is not a valid choice.
      */
     //@@author huiminlim
     @Override
@@ -131,6 +145,7 @@ public class MultipleChoiceCard extends FrontBackCard {
 
         int userAnswer = -1;
 
+        // User answer is 1-based indexing
         try {
             userAnswer = Integer.parseInt(in);
 
@@ -140,10 +155,10 @@ public class MultipleChoiceCard extends FrontBackCard {
 
         // Assume options must be a non-negative integer
         if (isNotValidChoice(answerIndex)) {
-            throw new IndexNotFoundException("Choice provided is not valid - " + userAnswer);
+            throw new IndexNotFoundException("Choice provided is invalid - " + userAnswer);
         }
 
-        return userAnswer == answerIndex;
+        return userAnswer == displayChoicesAnswerIndex;
     }
     //@author
 
@@ -198,30 +213,34 @@ public class MultipleChoiceCard extends FrontBackCard {
     /**
      * Edits one of string in choices, given new text and index.
      *
-     * @param index     Integer index of targeted choice to edit.
-     * @param newChoice String text of new choice option to replace current choice.
+     * @param indexProvided Integer index of targeted choice to edit.
+     * @param newChoice     String text of new choice option to replace current choice.
      * @throws IndexNotFoundException If index >= number of choices or < 0.
      */
     //@author huiminlim
-    public void editChoice(int index, String newChoice) throws IndexNotFoundException {
-        if (isNotValidChoice(index)) {
-            throw new IndexNotFoundException("Choice index provided is invalid - " + index);
+    public void editChoice(int indexProvided, String newChoice) throws IndexNotFoundException {
+        if (isNotValidChoice(indexProvided)) {
+            throw new IndexNotFoundException("Choice index provided is invalid - " + indexProvided);
         }
-        choices.add(index, newChoice);
-        choices.remove(index + 1);
+
+        // choice index is the index that works with the Arraylist
+        int choiceIndex = indexProvided - 1;
+        choices.add(choiceIndex, newChoice);
+        choices.remove(choiceIndex + 1);
     }
     //@author
 
     /**
-     * Checks if the given choice arrayList index is valid.
-     * Valid choice index include >= 1 or less than choice size + 1.
+     * Checks if the given choice index provided by the user is correct.
+     * Note: the user provided index is 1-based indexing.
+     * Valid indexes include 1, 2, 3, ..., choices.
      *
      * @param choiceIndex
      * @return boolean true if not in valid range, false if in valid range.
      */
     //@author huiminlim
     private boolean isNotValidChoice(int choiceIndex) {
-        return choiceIndex < 1 || choiceIndex > choices.size() + 1;
+        return choiceIndex >= 1 && choiceIndex <= choices.size();
     }
     //@author
 
@@ -246,7 +265,7 @@ public class MultipleChoiceCard extends FrontBackCard {
             boolean isCurrentChoiceEqualAnswer = correctAnswer.equals(currentChoice);
 
             if (isCurrentChoiceEqualAnswer) {
-                displayChoicesAnswerIndex = i;
+                displayChoicesAnswerIndex = i + 1;
                 break;
             }
         }
@@ -270,16 +289,20 @@ public class MultipleChoiceCard extends FrontBackCard {
     /**
      * Get the String text of choice given the index of the choice.
      *
-     * @param index Integer index of targeted choice to obtain.
+     * @param indexProvided Integer index of targeted choice to obtain.
      * @return String of text of targeted option.
      * @throws IndexNotFoundException If index >= number of choices or < 0.
      */
     //@author huiminlim
-    public String getChoice(int index) throws IndexNotFoundException {
-        if (isNotValidChoice(index)) {
-            throw new IndexNotFoundException("Choice index provided is invalid - " + index);
+    public String getChoice(int indexProvided) throws IndexNotFoundException {
+        if (isNotValidChoice(indexProvided)) {
+            throw new IndexNotFoundException("Choice index provided is invalid - " + indexProvided);
         }
-        return choices.get(index);
+
+        // Use chocies indexing - 0-based indexing
+        // choice index is the index that works with the Arraylist
+        int choiceIndex = indexProvided - 1;
+        return choices.get(choiceIndex);
     }
     //@author
 
