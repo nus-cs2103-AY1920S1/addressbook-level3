@@ -1,5 +1,6 @@
 package seedu.address.model.borrower;
 
+import java.util.TreeSet;
 import java.util.stream.IntStream;
 
 import seedu.address.model.BorrowerRecords;
@@ -17,7 +18,6 @@ public class BorrowerIdGenerator {
 
     public static void setBorrowers(BorrowerRecords borrowers) {
         BorrowerIdGenerator.borrowers = borrowers;
-        currentBorrowerIdIndex = borrowers.getSize();
     }
 
     /**
@@ -28,10 +28,10 @@ public class BorrowerIdGenerator {
         int paddingLength = getPaddingLength();
         String padding = getPadding(paddingLength);
         BorrowerId id = new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
-        /*while (borrowers.checkIfBorrowerIdExists(id)) {
+        while (borrowers.checkIfBorrowerIdExists(id)) {
             currentBorrowerIdIndex++;
             id = new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
-        }*/
+        }
         return new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
     }
 
