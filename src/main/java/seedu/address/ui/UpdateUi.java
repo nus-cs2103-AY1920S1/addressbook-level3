@@ -27,17 +27,17 @@ public class UpdateUi {
      */
     public void updateModularDisplay(ModeEnum modeEnum, StackPane modularDisplayPlaceholder) {
         switch (modeEnum) {
-            case OPEN:
-                modularDisplay.swapToBankDisplay(modularDisplayPlaceholder);
-                break;
-            case HOME:
-                modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
-                break;
-            case SETTINGS:
-                modularDisplay.swapToSettings(modularDisplayPlaceholder);
-                break;
-            default:
-                break;
+        case OPEN:
+            modularDisplay.swapToBankDisplay(modularDisplayPlaceholder);
+            break;
+        case HOME:
+            modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
+            break;
+        case SETTINGS:
+            modularDisplay.swapToSettings(modularDisplayPlaceholder);
+            break;
+        default:
+            break;
         }
     }
 

@@ -281,7 +281,7 @@ image::CommitActivityDiagram.png[]
 * `theme [DARK/LIGHT]` to change the theme of the app. Currently only supporting dark and light themes.
 
 This feature provides the user an interface to make their own changes to the state of the machine. The settings set by the user will also be saved to a `.json` file under `data/appsettings.json`.
-
+// end::settings[]
 
 
 // end::settings[]
