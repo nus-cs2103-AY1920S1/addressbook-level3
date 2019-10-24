@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelArchitecture_alternative_.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -392,6 +392,10 @@ Step 2. For each deliveryman on the list, their delivery record will be analyzed
 * Delivery rate: The number of orders completed over the time in database will be the delivery rate.
 
 Step 3. If the delivery rate exceeds a certain threshold, the deliveryman will be added to the pay list.
+
+The following sequence diagram summarizes what happens when a user types in letters into the user input command box:
+
+image::PayRiseSequenceDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: Tracking the record of every deliveryman
