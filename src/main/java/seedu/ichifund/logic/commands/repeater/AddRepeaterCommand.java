@@ -16,8 +16,13 @@ import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
+import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.date.Day;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Adds a repeater to IchiFund.
@@ -70,18 +75,57 @@ public class AddRepeaterCommand extends Command {
         RepeaterUniqueId repeaterUniqueId = model.getCurrentRepeaterUniqueId();
 
         // Add associated transactions.
-        /*
-        boolean isStartMonth = true;
-        boolean isEndMonth = false;
         int currentMonth = toAdd.getStartDate().getMonth().monthNumber;
         int currentYear = toAdd.getStartDate().getYear().yearNumber;
         int endMonth = toAdd.getEndDate().getMonth().monthNumber;
         int endYear = toAdd.getEndDate().getYear().yearNumber;
 
         while (currentYear <= endYear && currentMonth <= endMonth) {
+            if (!toAdd.getMonthStartOffset().isEmpty()) {
+                Transaction transaction = new Transaction(
+                        toAdd.getDescription(),
+                        toAdd.getAmount(),
+                        toAdd.getCategory(),
+                        new Date(
+                            new Day(toAdd.getMonthStartOffset().toString()),
+                            new Month(String.valueOf(currentMonth)),
+                            new Year(String.valueOf(currentYear))),
+                        toAdd.getTransactionType(),
+                        repeaterUniqueId);
+                model.addTransaction(transaction);
+            }
 
+            if (!toAdd.getMonthEndOffset().isEmpty()) {
+                int daysInMonth;
+                if ((new Month(String.valueOf(currentMonth))).has30Days()) {
+                    daysInMonth = 30;
+                } else if ((new Month(String.valueOf(currentMonth))).has31Days()) {
+                    daysInMonth = 31;
+                } else if ((new Year(String.valueOf(currentYear))).isLeapYear()) {
+                    daysInMonth = 29;
+                } else {
+                    daysInMonth = 28;
+                }
+
+                Transaction transaction = new Transaction(
+                        toAdd.getDescription(),
+                        toAdd.getAmount(),
+                        toAdd.getCategory(),
+                        new Date(
+                            new Day(String.valueOf(daysInMonth - (toAdd.getMonthStartOffset().value - 1))),
+                            new Month(String.valueOf(currentMonth)),
+                            new Year(String.valueOf(currentYear))),
+                        toAdd.getTransactionType(),
+                        repeaterUniqueId);
+                model.addTransaction(transaction);
+            }
+
+            currentMonth++;
+            if (currentMonth == 12) {
+                currentMonth = 1;
+                currentYear++;
+            }
         }
-        */
 
 
         // Add repeater.

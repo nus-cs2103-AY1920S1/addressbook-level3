@@ -32,6 +32,10 @@ public class MonthOffset {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public boolean isEmpty() {
+        return value == null;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
