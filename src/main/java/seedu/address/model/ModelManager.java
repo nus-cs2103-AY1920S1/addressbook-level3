@@ -60,12 +60,12 @@ public class ModelManager implements Model {
 
         stagedPersons = FXCollections.observableArrayList();
         filteredPersons = new FilteredList<>(FXCollections.unmodifiableObservableList(stagedPersons));
-        refreshStagedPersons();
 
         //Initializing ongoingVisitList here instead of in AddressBook as it is a wrapper of the data
         ongoingVisitList = FXCollections.observableArrayList();
         Optional<Visit> ongoingVisit = this.stagedAddressBook.getOngoingVisit();
         ongoingVisit.ifPresent(ongoingVisitList::add);
+        refreshStagedData();
     }
 
     public ModelManager() {
@@ -112,7 +112,7 @@ public class ModelManager implements Model {
     @Override
     public void setStagedAddressBook(ReadOnlyAddressBook addressBook) {
         this.stagedAddressBook.resetData(addressBook);
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
     @Override
@@ -122,7 +122,7 @@ public class ModelManager implements Model {
             newBook.addPerson(person);
         }
         setStagedAddressBook(newBook);
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
     @Override
@@ -203,14 +203,14 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         stagedAddressBook.removePerson(target);
-        refreshStagedPersons();
+        refreshStagedData();
         refreshFilteredPersonList();
     }
 
     @Override
     public void addPerson(Person person) {
         stagedAddressBook.addPerson(person);
-        refreshStagedPersons();
+        refreshStagedData();
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -243,7 +243,7 @@ public class ModelManager implements Model {
     @Override
     public void discardStagedChanges() {
         stagedAddressBook = baseAddressBook.deepCopy();
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
     @Override
@@ -261,11 +261,15 @@ public class ModelManager implements Model {
     private void changeBaseTo(AddressBook addressBook) {
         baseAddressBook = addressBook;
         stagedAddressBook = baseAddressBook.deepCopy();
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
-    private void refreshStagedPersons() {
+    /**
+     * Refresh staged data on changing data or undo/redo. Affects stagedPersons and ongoingVisitList.
+     */
+    private void refreshStagedData() {
         stagedPersons.setAll(stagedAddressBook.getPersonList());
+        updateOngoingVisitList();
     }
 
     //=========== Filtered Person List Accessors =============================================================
