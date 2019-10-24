@@ -116,7 +116,7 @@ public class AutoAllocateCommand extends Command {
             Employee employeeToAdd = availableEmployeeList.get(i);
             eventToAllocate.getManpowerAllocatedList().allocateEmployee(employeeToAdd);
         }
-        //model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.setEvent(eventToAllocate, eventToAllocate);
 
         return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, eventToAllocate.getName().eventName,
                 manpowerCountToAdd));
