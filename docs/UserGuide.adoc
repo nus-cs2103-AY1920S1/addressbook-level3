@@ -59,7 +59,7 @@ Format: `help`
 === Adding a person: `addperson`
 
 Adds a person to the timebook +
-Format: `add-person -n NAME -e EMAIL [-c NUS_MOD_LINK]`
+Format: `addperson -n NAME [-p PHONE] [-em EMAIL] [-a ADDRESS] [-r REMARK] [-tag TAG]... [-c NUS_MOD_LINK]`
 
 Examples:
 
