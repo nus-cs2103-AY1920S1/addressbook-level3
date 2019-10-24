@@ -11,9 +11,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
+import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.Show;
-
 
 /**
  * An UI component that displays information of a {@code Show}.
@@ -31,6 +33,7 @@ public class ShowCard extends UiPart<Region> {
      */
 
     public final Show show;
+    private int displayedIndex;
 
     @FXML
     private HBox cardPane;
@@ -52,10 +55,12 @@ public class ShowCard extends UiPart<Region> {
     private CheckBox watched;
     @FXML
     private ImageView poster;
+    private MainWindow mainWindow;
 
     public ShowCard(Show show, int displayedIndex) {
         super(FXML);
         this.show = show;
+        this.displayedIndex = displayedIndex;
         id.setText(displayedIndex + ". ");
         name.setText(show.getName().showName);
         type.setText(show.getType());
@@ -93,6 +98,10 @@ public class ShowCard extends UiPart<Region> {
                 && show.equals(card.show);
     }
 
+    public void setMainWindow(MainWindow mainWindow){
+        this.mainWindow = mainWindow;
+    }
+
     /**
      * This class prevents the user from marking the checkbox by clicking
      *
@@ -101,7 +110,11 @@ public class ShowCard extends UiPart<Region> {
     class NonChangeableCheckBox implements ChangeListener<Boolean> {
         @Override
         public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
-            watched.setSelected(show.isWatched().value);
+            try {
+                mainWindow.executeCommand("watch " + displayedIndex);
+            } catch (CommandException | ParseException | OnlineConnectionException e) {
+
+            }
         }
     }
 }

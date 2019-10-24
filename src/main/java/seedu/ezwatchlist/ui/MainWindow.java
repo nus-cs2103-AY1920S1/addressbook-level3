@@ -109,6 +109,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         showListPanel = new ShowListPanel(logic.getFilteredShowList());
+        showListPanel.setMainWindow(this);
         watchedPanel = new WatchedPanel(logic.getWatchedList());
         searchPanel = new SearchPanel(logic.getSearchResultList());
         statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
@@ -170,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText)
+    public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException {
         try {
             CommandResult commandResult = logic.execute(commandText);
@@ -231,4 +232,5 @@ public class MainWindow extends UiPart<Stage> {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
     }
+
 }
