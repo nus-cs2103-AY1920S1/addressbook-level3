@@ -87,6 +87,20 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if {@code s} represents an integer smaller than or equal to the given maximum value {@code max}.
+     * Returns false for any other non-null string input.
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static boolean isExceedingMaxValue(String s, int max) {
+        try {
+            int value = Integer.parseInt(s);
+            return value > max;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    /**
      * Converts string to sentence-case (first character upper-case, the rest lower-case).
      *
      * @param string String to be converted.

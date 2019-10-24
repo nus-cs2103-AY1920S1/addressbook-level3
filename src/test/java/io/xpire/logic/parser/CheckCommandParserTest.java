@@ -29,6 +29,8 @@ public class CheckCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE)); // non-positive integer
         assertParseFailure(parser, "1.5",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE)); // non-integer number
+        assertParseFailure(parser, (CheckCommandParser.MAX_VALUE + 1) + "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE)); // exceeding max number
     }
 
 }
