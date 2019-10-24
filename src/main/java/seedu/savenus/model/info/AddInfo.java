@@ -5,7 +5,7 @@ import seedu.savenus.logic.commands.AddCommand;
 /**
  * Contains information on Add command.
  */
-public class AddInfo implements Information {
+public class AddInfo {
 
     public static final String COMMAND_WORD = AddCommand.COMMAND_WORD;
 
@@ -25,9 +25,4 @@ public class AddInfo implements Information {
 
     public static final String OUTPUT =
             "Food with name Mala Xiang Guo and the specified description will be added to the food list.";
-
-    @Override
-    public void showInfo() {
-
-    }
 }
