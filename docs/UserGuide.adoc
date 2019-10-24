@@ -202,6 +202,8 @@ e.g.  `delete Math *`
 e.g.  `remind Math 04/10 1230`
 * List all flashcards under a specific category - `list [category]` +
 e.g.  `list Math`
+* Export all flashcards under a specific category, to a specific filepath - `export c>[category] p>[file_path]` +
+e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
 * Search specific flashcards - `search [keywords]` +
