@@ -310,7 +310,7 @@ Instantiation of the `Event` object when the app is started will be more complic
 However, as we are constrained with not utilizing a DBMS, Alternative 1 is a logically simpler and more efficent solution from a software engineering standpoint.
 
 // tag::displayschedule[]
-=== [Proposed] Display Schedule feature
+=== Display Schedule feature
 ==== Proposed Implementation
 
 The Display Schedule Feature is implemented to allow users to view all dates and the specific events for those dates listed.
@@ -327,33 +327,30 @@ Additionally, The DistinctDateProcessor contains the following operations:
 * `generateListOfEventForDate(LocalDate date, Model model)` -- Takes in a `LocalDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
 * `generateDateList(Model model)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
 
+The following class diagrams shows how the `DistinctDate` class and utility `DistinctDateProcessor` class is implemented:
+
+._Class Diagram for DistinctDate_
+image::DistinctDateClassDiagram.png[]
+._Class Diagram for DistinctDateProcessor_
+image::DistinctDateProcessorClassDiagram.png[]
 
 Given below is an example usage scenario and how the display schedule mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `distinctDatesList` will be initialized based on the initial event book state.
 
-image::DisplayScheduleState0.png[]
-
-Step 2. The user executes `add_ev n/Free Cofee ...` to add a new event into the list. The distinctDatesList will be flushed.
-
-image::DisplayScheduleState1.png[]
+Step 2. The user executes `add_ev n/Free Cofee ...` to add a new event into the Eventlist. The distinctDatesList will be reinitialised with an empty list (all its existing inputs will be flushed).
 
 [NOTE]
 If a command that alters the eventBook will cause the distinctDatesList to be flushed. User will be required to input "display_schedule" command again to generate the new list of schedule.
 
 Step 3. The user executes `display_schedule` to see all dates and the respective events on those dates. The distinctDateList will be generated again based on the current list of events in the EventList.
 
-image::DisplayScheduleState2.png[]
-
-
 Step 4. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored, however the DistinctDateList would not.
-
-image::DisplayScheduleState3.png[]
 
 [NOTE]
 Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when it is called upon or when the application starts.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the display operation works:
 
 ._Sequence Diagram for DisplaySchedule Command_
 image::DisplayScheduleSequenceDiagram.png[]
