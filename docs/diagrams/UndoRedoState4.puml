@@ -2,14 +2,13 @@
 !include style.puml
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
-skinparam ClassBackgroundColor LightSkyBlue
 
-title After command "history"
+title After command "list"
 
 package States <<rectangle>> {
-    class State1 as "__mp0:VersionedModulePlanner__"
-    class State2 as "__mp1:VersionedModulePlanner__"
-    class State3 as "__mp2:VersionedModulePlanner__"
+    class State1 as "__ab0:AddressBook__"
+    class State2 as "__ab1:AddressBook__"
+    class State3 as "__ab2:AddressBook__"
 }
 
 State1 -[hidden]right-> State2

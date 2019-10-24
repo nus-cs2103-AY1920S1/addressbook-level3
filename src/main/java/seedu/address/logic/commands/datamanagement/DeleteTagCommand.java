@@ -29,7 +29,6 @@ public class DeleteTagCommand extends Command {
 
     /**
      * Creates an {@code DeleteTagCommand} to delete the tag with the given name.
-     *
      * @param tagName
      */
     public DeleteTagCommand(String tagName) {
@@ -52,7 +51,6 @@ public class DeleteTagCommand extends Command {
         UserTag toDelete = (UserTag) model.getTagFromActiveSp(tagName);
 
         model.deleteTagFromActiveSp(toDelete);
-        model.addToHistory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));
     }

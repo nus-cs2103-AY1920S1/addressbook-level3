@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable
  */
 public class Name {
+
     public final String fullName;
 
     /**

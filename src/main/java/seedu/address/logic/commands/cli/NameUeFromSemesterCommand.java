@@ -42,8 +42,6 @@ public class NameUeFromSemesterCommand extends Command {
         }
 
         model.renameUeInSemester(sem, moduleCode);
-        model.addToHistory();
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode, sem));
     }
 

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -31,10 +32,11 @@ import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFo
  * Duplicates are not allowed (by .isSameStudyPlan comparison)
  */
 public class ModulePlanner implements ReadOnlyModulePlanner {
+
     private final UniqueStudyPlanList studyPlans;
+    private StudyPlan activeStudyPlan;
     private final ModulesInfo modulesInfo;
     private final VersionTrackingManager versionTrackingManager;
-    private StudyPlan activeStudyPlan;
     private SemesterName currentSemester;
 
     public ModulePlanner() {
@@ -55,6 +57,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     public ModulePlanner(ReadOnlyModulePlanner toBeCopied, ModulesInfo modulesInfo) {
         studyPlans = new UniqueStudyPlanList();
         resetData(toBeCopied);
+        activeStudyPlan = toBeCopied.getActiveStudyPlan();
         this.modulesInfo = modulesInfo;
         versionTrackingManager = toBeCopied.getVersionTrackingManager();
     }
@@ -62,10 +65,11 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     /**
      * Creates an ModulePlanner from JSON. This is used in {@code JsonSerializableModulePlanner}.
      */
-    public ModulePlanner(UniqueStudyPlanList uniqueStudyPlanList,
+    public ModulePlanner(UniqueStudyPlanList uniqueStudyPlanList, /*StudyPlan activeStudyPlan,*/
                          ModulesInfo modulesInfo,
                          VersionTrackingManager versionTrackingManager) {
         this.studyPlans = uniqueStudyPlanList;
+        // this.activeStudyPlan = activeStudyPlan;
         this.modulesInfo = modulesInfo;
         this.versionTrackingManager = versionTrackingManager;
     }
@@ -85,8 +89,8 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public void resetData(ReadOnlyModulePlanner newData) {
         requireNonNull(newData);
+
         setStudyPlans(newData.getStudyPlanList());
-        this.activeStudyPlan = this.studyPlans.getStudyPlanByIndex(newData.getActiveStudyPlan().getIndex());
     }
 
     //=========== Study Plan-level Operations ===============================================================
@@ -132,7 +136,9 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public StudyPlan activateStudyPlan(int index) throws StudyPlanNotFoundException {
         boolean foundStudyPlan = false;
-        for (StudyPlan studyPlan : studyPlans) {
+        Iterator<StudyPlan> iterator = studyPlans.iterator();
+        while (iterator.hasNext()) {
+            StudyPlan studyPlan = iterator.next();
             if (studyPlan.getIndex() == index) {
                 activeStudyPlan = studyPlan;
                 foundStudyPlan = true;
@@ -158,15 +164,21 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
             // adds default tags to each module
             UniqueTagList defaultTags = activeStudyPlan.assignDefaultTags(moduleInfo);
-            for (Tag defaultTag : defaultTags) {
-                module.getTags().addTag(defaultTag);
+            Iterator<Tag> tagIterator = defaultTags.iterator();
+            while (tagIterator.hasNext()) {
+                module.getTags().addTag(tagIterator.next());
             }
+
         }
 
         // replace skeletal modules under semesters with the actual reference to modules in mega list
-        for (Semester semester : activeStudyPlan.getSemesters()) {
+        Iterator<Semester> semesterIterator = activeStudyPlan.getSemesters().iterator();
+        while (semesterIterator.hasNext()) {
+            Semester semester = semesterIterator.next();
             UniqueModuleList uniqueModuleList = semester.getModules();
-            for (Module skeletalModule : uniqueModuleList) {
+            Iterator<Module> moduleIterator = uniqueModuleList.iterator();
+            while (moduleIterator.hasNext()) {
+                Module skeletalModule = moduleIterator.next();
                 Module actualModule = megaModuleHash.get(skeletalModule.getModuleCode().toString());
                 uniqueModuleList.setModule(skeletalModule, actualModule);
             }
@@ -179,6 +191,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         }
 
         activeStudyPlan.updatePrereqs();
+
         activeStudyPlan.setActivated(true);
 
         return activeStudyPlan;
@@ -218,8 +231,15 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
-     * =======
-     * >>>>>>> upstream/undoredo-fix
+     * Sets the current semester. The user cannot change any module before the current semester. But they can
+     * still change those in the current semester and after the current semester.
+     */
+    public void setCurrentSemester(SemesterName semesterName) {
+        currentSemester = semesterName;
+        activeStudyPlan.setCurrentSemester(semesterName);
+    }
+
+    /**
      * Returns the current semester. The user cannot change any module before the current semester. But they can
      * still change those in the current semester and after the current semester.
      *
@@ -227,16 +247,6 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public SemesterName getCurrentSemester() {
         return currentSemester;
-    }
-
-    /**
-     * <<<<<<< HEAD
-     * Sets the current semester. The user cannot change any module before the current semester. But they can
-     * still change those in the current semester and after the current semester.
-     */
-    public void setCurrentSemester(SemesterName semesterName) {
-        currentSemester = semesterName;
-        activeStudyPlan.setCurrentSemester(semesterName);
     }
 
     /**

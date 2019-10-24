@@ -105,7 +105,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     /**
      * Gets a specific tag that has the given tag name.
-     *
      * @param tagName Name of the tag
      * @return Tag
      */
@@ -198,12 +197,8 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     }
 
     @Override
-    public Object clone() {
-        UniqueTagList clone = new UniqueTagList();
-        for (Tag tag : this) {
-            clone.addTag(tag);
-        }
-        return clone;
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     private HashMap<String, Tag> getMapTags() {

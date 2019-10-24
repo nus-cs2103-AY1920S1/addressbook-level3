@@ -22,7 +22,7 @@ public class ViewModuleTagsCommand extends Command {
             + "Example: "
             + "viewtags CS3230";
 
-    public static final String MESSAGE_SUCCESS = "All tags for the module shown \n%1$s";
+    public static final String MESSAGE_SUCCESS = "All tags for the module shown";
     private final String moduleCode;
 
     /**
@@ -40,4 +40,5 @@ public class ViewModuleTagsCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS, ResultViewType.TAG, tags.asUnmodifiableObservableList());
     }
+
 }

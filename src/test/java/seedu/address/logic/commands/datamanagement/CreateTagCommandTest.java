@@ -215,31 +215,6 @@ public class CreateTagCommandTest {
         }
 
         @Override
-        public boolean canUndoModulePlanner() {
-            return false;
-        }
-
-        @Override
-        public boolean canRedoModulePlanner() {
-            return false;
-        }
-
-        @Override
-        public void undoModulePlanner() {
-            //TODO: implement this
-        }
-
-        @Override
-        public void redoModulePlanner() {
-            //TODO: implement this
-        }
-
-        @Override
-        public void addToHistory() {
-            //TODO: implement this
-        }
-
-        @Override
         public boolean semesterHasModule(String moduleCode, SemesterName semesterName) {
             throw new AssertionError("This method should not be called.");
         }
