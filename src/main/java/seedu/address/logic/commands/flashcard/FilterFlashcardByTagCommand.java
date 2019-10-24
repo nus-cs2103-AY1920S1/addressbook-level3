@@ -19,8 +19,8 @@ public class FilterFlashcardByTagCommand extends Command {
 
     public static final String COMMAND_WORD = FILTER;
 
-    public static final String MESSAGE_USAGE = "filter by tags. Find all " +
-            "related flashcards with the specified \n"
+    public static final String MESSAGE_USAGE = "filter by tags. Find all "
+            + "related flashcards with the specified \n"
             + "tags. Example : filter tag/hard tag/cs2101";
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter flashcards by tag(s) : ";

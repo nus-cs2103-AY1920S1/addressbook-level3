@@ -18,8 +18,8 @@ public class FilterCheatSheetByTagCommand extends Command {
 
     public static final String COMMAND_WORD = FILTER;
 
-    public static final String MESSAGE_USAGE = "filter by tags. Find all " +
-            "related cheatsheets with the specified \n"
+    public static final String MESSAGE_USAGE = "filter by tags. Find all "
+            + "related cheatsheets with the specified \n"
             + "tags. Example : filter tag/cheatsheet tag/cs2103t";
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter cheatsheets by tag(s) : ";
