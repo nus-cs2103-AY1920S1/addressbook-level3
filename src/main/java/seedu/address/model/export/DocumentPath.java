@@ -13,7 +13,7 @@ import java.nio.file.Paths;
  * Represents the full path to a document, including parent directories.
  * Guarantees: immutable; is valid as declared in {@link #isValidDocumentPath(String)}
  */
-public class DocumentPath {
+public class DocumentPath extends ExportPath {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Document path may only consist of alphanumeric characters, spaces, and the following characters:\n"
@@ -88,6 +88,7 @@ public class DocumentPath {
         );
     }
 
+    @Override
     public Path getPath() {
         Path dirPath = directoryPath.getPath();
         Path docFilePath = documentFilePath.getPath();
@@ -105,6 +106,7 @@ public class DocumentPath {
      *
      * @return String representing the absolute path of this DocumentPath
      */
+    @Override
     public String toAbsolutePathString() {
         return this
                 .getPath()
