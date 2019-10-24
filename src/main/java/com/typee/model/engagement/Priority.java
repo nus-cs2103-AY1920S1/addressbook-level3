@@ -27,7 +27,7 @@ public enum Priority {
             return Priority.HIGH;
         } else if (priority.equalsIgnoreCase(Priority.NONE.name())) {
             return Priority.NONE;
-        } else{
+        } else {
             throw new IllegalArgumentException();
         }
     }
