@@ -170,6 +170,52 @@ Examples:
 
 `top3 wc/100kg`
 
+=== Competition Handling
+This feature adds/edits/lists competitions which are available on the UI.
+
+==== Adds a new competition: `addComp`
+Adds a new competition to the existing list of competitions on the UI.
+User supplies competition name, start and end dates of competition to the command prompt.
+Dates should be in DD/MM/YYYY format. Eg: 19/01/2019 or 01/02/2020.
+
+Format: `addComp n/COMPETITION_NAME startDate/START_DATE_OF_COMPETITION endDate/END_DATE_OF_COMPETITION`
+
+Example:
+
+* `addComp n/IWF startDate/18/01/2019 endDate/19/01/2019`
+
+==== Edits a new competition: `editComp`
+Changes details of an existing competition listed on the UI to updated ones.
+INDEX here refers to the position of the existing competition in the list of competitions shown on the UI.
+Fields which come after INDEX refers to data fields which a user wish to change.
+Dates should be in DD/MM/YYYY format. Eg: 19/01/2019 or 01/02/2020.
+
+Format: `editComp INDEX n/NAME startDate/START_DATE_OF_COMPETITION endDate/END_DATE_OF_COMPETITION`
+
+Example:
+
+* `editComp 1 n/IWF startDate/18/01/2019 endDate/19/01/2019`
+
+==== Deletes a new competition: `deleteComp`
+Removes an existing competition from a list of competitions listed on the UI.
+INDEX here refers to the position of the existing competition in the list of competitions shown on the UI.
+
+Dates should be in DD/MM/YYYY format. Eg: 19/01/2019 or 01/02/2020.
+
+Format: `deleteComp INDEX`
+
+Example:
+
+* `deleteComp 1`
+
+==== Lists all competitions: `listComp`
+Displays all competitions available.
+
+Format: `listComp`
+
+Example:
+
+* `listComp`
 
 === Session Handling
 This feature handles the entire flow of each session during Meet Day. It allows event
