@@ -20,6 +20,7 @@ Class Item
 Class ExpiryDate
 Class Quantity
 Class Name
+Class ReminderThreshold
 Class SortedUniqueItemList
 }
 
@@ -45,6 +46,7 @@ Item *--> Name
 Item *--> ExpiryDate
 Item *--> Quantity
 Item *--> "*" Tag
+Item *--> ReminderThreshold
 
 Name -[hidden]right-> ExpiryDate
 ExpiryDate -[hidden]right-> Quantity
