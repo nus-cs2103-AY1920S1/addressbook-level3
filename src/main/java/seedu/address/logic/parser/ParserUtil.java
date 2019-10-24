@@ -2,7 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -140,7 +143,7 @@ public class ParserUtil {
     /**
      * Parses {@code reviewRating} to integer value corresponding to rating.
      *
-     * @return
+     * @throws ParseException if the given {@code reviewRating} is invalid.
      */
     public static int parseReviewRating(String reviewRating) throws ParseException {
         requireNonNull(reviewRating);
@@ -149,5 +152,15 @@ public class ParserUtil {
             throw new ParseException(Review.REVIEW_CONSTRAINTS);
         }
         return Integer.valueOf(trimmedRating);
+    }
+
+    /**
+     * Parses {@code reviewDate} to corresponding date.
+     */
+    public static Date parseReviewDate(String reviewDate) throws java.text.ParseException {
+        requireNonNull(reviewDate);
+        String trimmedDate = reviewDate.trim();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.parse(trimmedDate);
     }
 }

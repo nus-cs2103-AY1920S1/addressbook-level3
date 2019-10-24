@@ -3,6 +3,7 @@ package seedu.address.model.eatery;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -29,7 +30,7 @@ public class Review {
     private final String description;
     private final double cost;
     private final int rating;
-    private String date;
+    private final Date date;
 
     /**
      * Constructs a {@code Review}
@@ -38,12 +39,13 @@ public class Review {
      * @param cost Cost of the meal being reviewed.
      * @param rating Rating out of 5 for the meal being reviewed.
      */
-    public Review(String description, double cost, int rating) {
-        requireAllNonNull(description, cost, rating);
+    public Review(String description, double cost, int rating, Date date) {
+        requireAllNonNull(description, cost, rating, date);
         checkArgument(isValidReview(description, cost, rating), REVIEW_CONSTRAINTS);
         this.description = description;
         this.cost = cost;
         this.rating = rating;
+        this.date = date;
     }
 
     /**
@@ -75,15 +77,7 @@ public class Review {
         return test.matches(RATING_VALIDATION_INDEX);
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public boolean hasDate() {
-        return date != null;
-    }
-
-    public String getDate() {
+    public Date getDate() {
         return this.date;
     }
 
@@ -106,7 +100,9 @@ public class Review {
                 .append(" Price: ")
                 .append(getCost())
                 .append(" Rating: ")
-                .append(getRating());
+                .append(getRating())
+                .append(" Date: ")
+                .append(getDate().toString());
         return builder.toString();
     }
 
@@ -123,12 +119,13 @@ public class Review {
         Review otherReview = (Review) other;
         return otherReview.getDescription().equals(getDescription())
                 && otherReview.getCost() == getCost()
-                && otherReview.getRating() == getRating();
+                && otherReview.getRating() == getRating()
+                && otherReview.getDate().equals(getDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, cost, rating);
+        return Objects.hash(description, cost, rating, date);
     }
 
 }
