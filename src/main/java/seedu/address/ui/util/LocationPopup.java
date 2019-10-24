@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -20,7 +21,7 @@ public class LocationPopup {
         this.popupDetails = details;
         this.popupStage = new Stage();
         StackPane popupContainer = new StackPane();
-        popupContainer.getChildren().add(popupContainer);
+        popupContainer.getChildren().add(details);
         Scene layout = new Scene(popupContainer);
         layout.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
