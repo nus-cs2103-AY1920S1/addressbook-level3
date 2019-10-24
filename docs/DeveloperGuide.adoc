@@ -210,6 +210,50 @@ Step 8. The RefreshListenerManager will call the MainWindow to refresh the Sched
 
 Step 9. ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
 
+=== Import
+==== Implementation
+
+The import feature uses `CsvReader` in the Model to read the given .csv file and stores the data into the model.
+
+* `import interviewer <csv file>` stores the read data as a list of `Schedule` objects in the model.
+* `import interviewee <csv file>` stores the read data as a list of `Interviewee` objects in the model.
+* `CsvReader` makes use of `BufferedReader` to read data from the given file.
+
+image::ImportSequenceDiagram.png[]
+Given above is an example of a sequence diagram for importing interviewer's schedules. It applies to both importing interviewee's and interviewer's data.
+
+As seen in the above sequence diagram, the execution of the import feature consists of these steps:
+
+* Step 1: `LogicManager` will start executing the command by parsing it over to `AddressBookParser`.
+* Step 2: `AddressBookParser` will then look and initialise an `ImportCommand` instance and return it to `LogicManager`.
+* Step 3: `LogicManager` will then call execute() on the returned `ImportCommand`  object.
+* Step 4: During the execute() method, the method will initialise a `CsvReader` object to `read()` data from the the given .csv file.
+* Step 5: The read data will then be stored as either `scheduleList` or `intervieweeList` in the model.
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::ImportActivityDiagram.png[]
+
+
+=== [Coming soon in v1.3] Export
+==== Implementation [Proposed]
+The Export command gets the scheduled time slots from the Model and writes them in the specified .csv file.
+CsvWriter facilitates the writing to the specified file.
+
+* CsvWriter makes use of `BufferedWriter` to write data into the specified file.
+
+Below shows the sequence diagram of an example export command.
+
+image::ExportSequenceDiagram.png[]
+
+The implementation is very similar to the Import feature. The only differences are in the Model where CsvWriter gets
+the scheduled time slots from the Model and proceeds to write it into the specified file using a `BufferedWriter`.
+
+The Activity Diagram below summarises the execution of the export command.
+
+image::ExportActivityDiagram.png[]
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 =======
@@ -288,9 +332,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |secretary of NUS CCA |be informed if interview allocation of a certain interviewee has failed |manually fix conflicts or get the interviewee to give another available timeslot
 
-|`* * *` |secretary of NUS CCA |automate the process of scheduling interviews |lighten my workload
+|`* * *` |very busy secretary of NUS CCA |automate the process of scheduling interviews |lighten my workload
 
-|`* * *` |secretary of NUS CCA |mark an interviewee as 'completed interview' |track and manage uncompleted interviews
+|`* * *` |forgetful secretary of NUS CCA |mark an interviewee as 'completed interview' |track and manage uncompleted interviews
 
 |`* * *` |secretary of NUS CCA |add multiple tags to an interviewee in a single command |I can be efficient
 
@@ -306,7 +350,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |secretary of NUS CCA |schedule group interviews |I can use less manpower on days that I do not have enough interviewers
 
-|`* *` |secretary of NUS CCA |share the current scheduled timeslots with another secretary |give them access to help with the scheduling of interviews as well
+|`* *` |busy secretary of NUS CCA |share the current scheduled timeslots with another secretary |give them access to help with the scheduling of interviews as well
 
 |`* *` |secretary of NUS CCA |email the interview results to interviewees |inform them of the outcomes of the interview
 

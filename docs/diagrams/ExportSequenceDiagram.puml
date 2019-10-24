@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ExportCommandParser" as ExportCommandParser LOGIC_COLOR
+participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":CsvWriter" as CsvWriter MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("export <<csv filepath>>")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("export <<csv filepath>>")
+activate AddressBookParser
+
+create ExportCommandParser
+AddressBookParser -> ExportCommandParser
+activate ExportCommandParser
+
+ExportCommandParser --> AddressBookParser
+deactivate ExportCommandParser
+
+AddressBookParser -> ExportCommandParser : parse("<<csv filepath>>")
+activate ExportCommandParser
+
+create ExportCommand
+ExportCommandParser -> ExportCommand
+activate ExportCommand
+
+ExportCommand --> ExportCommandParser : e
+deactivate ExportCommand
+
+ExportCommandParser --> AddressBookParser : e
+deactivate ExportCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ExportCommandParser -[hidden]-> AddressBookParser
+destroy ExportCommandParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> ExportCommand : execute()
+activate ExportCommand
+
+create CsvWriter
+ExportCommand -> CsvWriter
+activate CsvWriter
+
+CsvWriter -> Model : getSchedules()
+activate Model
+
+Model --> CsvWriter : schedules
+deactivate Model
+
+CsvWriter --> ExportCommand
+deactivate CsvWriter
+
+create CommandResult
+ExportCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ExportCommand
+deactivate CommandResult
+
+ExportCommand --> LogicManager : result
+deactivate ExportCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
