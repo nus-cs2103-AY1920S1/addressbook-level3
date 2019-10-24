@@ -80,7 +80,7 @@ public class AddRepeaterCommand extends Command {
         int endMonth = toAdd.getEndDate().getMonth().monthNumber;
         int endYear = toAdd.getEndDate().getYear().yearNumber;
 
-        while (currentYear <= endYear && currentMonth <= endMonth) {
+        while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
             if (!toAdd.getMonthStartOffset().isEmpty()) {
                 Transaction transaction = new Transaction(
                         toAdd.getDescription(),
