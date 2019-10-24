@@ -117,21 +117,23 @@ The `UI` component:
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+The above diagram shows the general design of the Logic component within each package. Further details on the
+implementation of the Parser and Command can be found below in Section 3: Implementation.
 
-. `Logic` uses the `AddressBookParser` class to parse the user command.
+. `Logic` uses the `Parser` classes to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (e.g. adding a person).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 . In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is a general Sequence Diagram depicting interactions within the `Logic` component.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for a Command
+image::GeneralSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+Note that the diagram depicts only a general sequence of events within the `Logic` component.
+Specifics to how `Command` executes can be found within 3. Implementation, under the respective package.
+Any deviations from this general sequence diagram will also be covered there.
 
 [[Design-Model]]
 === Model component
