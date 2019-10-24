@@ -198,7 +198,65 @@ image::WatchSequenceDiagram.png[]
 * **Alternative 2:** Use `watch` and `unwatch` keywords.
 ** Pros: Logical keywords are being used.
 ** Cons: The same logic will be repeated twice, albeit different command names.
-// end::undoredo[]
+// end::markaswatched[]
+
+// tag::statistics[]
+=== [Proposed] Statistics feature
+==== Proposed Implementation
+
+The statistics feature is facilitated by `Statistics` object. It extends `Ezwatchlist` with a summary of the users' personal
+preferences and footprint including the most watched genre, shows that you might have forgotten to watch, and the
+recommendations generated for you. It is stored internally as an `Statistics` object containing a `ModelManager`.
+Additionally, it implements the following operations:
+
+* `Statistics#getFavouriteGenre()` -- Gives the genre that appears the most number of times in the list of watched shows.
+* `Statistics#getForgotten()` -- Gives the 3 shows that were added the earliest but have not been watched.
+* `Statistics#getRecommendation()` -- Gives 3 recommendations according to the watched shows.
+
+Given below is a usage scenario of a user checking his/her statistics page.
+
+Step 1. The user launches the application. The Statistics object will be initialized with ModelManager
+containing the current watchlist and watched list. Behind the scenes, the 3 statistics will be calculated and the
+statistics panel will be populated with the result.
+
+Step 2. The user clicks on the statistic button and sees the content.
+
+This is the sequence diagram of `getFavouriteGenre()`.
+
+image::getFavouriteGenre.png[]
+
+This is the sequence diagram of `getForgotten()`.
+
+image::getForgotten.png[]
+
+This is the sequence diagram of `getRecommendation()`.
+
+image::getRecommendation.png[]
+
+The following activity diagram summarizes the workflow of Statistics:
+
+image::activityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How Statistics stores the watchlist and watched list
+
+* **Alternative 1 (current choice):** Saves the whole ModelManager as a field.
+** Pros: Easy to implement and make use of.
+** Cons: More dependency on ModelManager.
+* **Alternative 2:** Saves the watchlist and watched list as fields respectively.
+** Pros: Less dependency on ModelManager.
+** Cons: Less potential functionality and the lists might not be up-to-date.
+
+===== Aspect: When the results are calculated
+
+* **Alternative 1 (current choice):** Calculate when the application starts and update when there are changes.
+** Pros: It appears more responsive in terms of navigating around the application.
+** Cons: Need to constantly recalculate and update the results.
+* **Alternative 2:** Calculate when the user navigate to Statistics panel.
+** Pros: Less calculation needed.
+** Cons: Appear less responsive.
+// end::statistics[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
