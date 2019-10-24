@@ -15,8 +15,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code CancelOngoingVisitCommand}. There is some overlap with BeginVisitCommandTest, so some of the tests are not here.
+ * Contains integration tests (interaction with the Model, Begin, Cancel, Finish command, Parser) and unit tests for
+ * {@code CancelOngoingVisitCommand}. There is some overlap with BeginVisitCommandTest, so some of the tests are not
+ * here.
  */
 public class FinishOngoingVisitCommandTest {
 
@@ -24,7 +25,6 @@ public class FinishOngoingVisitCommandTest {
 
     @Test
     public void execute_valid_success() {
-        Model expectedModel = new ModelManager(model.getStagedAddressBook(), new UserPrefs());
         Model initialModel = new ModelManager(model.getStagedAddressBook(), new UserPrefs());
 
         BeginVisitCommand beginCommand = new BeginVisitCommand(INDEX_FIRST_PERSON);

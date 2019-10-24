@@ -25,7 +25,7 @@ import seedu.address.model.visit.Remark;
 import seedu.address.model.visit.Visit;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model, Begin, Cancel, Finish command, Parser) and unit tests for
  * {@code BeginVisitCommand}.
  */
 public class BeginVisitCommandTest {

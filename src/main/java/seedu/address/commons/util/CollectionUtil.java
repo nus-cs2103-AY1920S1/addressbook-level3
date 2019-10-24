@@ -46,10 +46,8 @@ public class CollectionUtil {
                 return false;
             }
         }
-        if (itemBIterator.hasNext()) {
-            return false;
-        }
-        return true;
+        //If itemBIterator still has stuff, return false. Else true
+        return !itemBIterator.hasNext();
     }
 
     /**
