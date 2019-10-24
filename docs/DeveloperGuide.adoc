@@ -153,6 +153,89 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag:uniqueIdentificationNumber[]
+=== Unique Identification Number
+
+* In Mortago, each entity is assigned a unique `IdentificationNumber`.
+* `IdentificationNumbers` in Mortago consist of two parts: the `String typeOfEntity` referring to whether it is a worker, body or fridge, and `Integer idNum` referring to its unique ID number.
+* Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
+* The generation of unique `IdentificationNumbers` allows the user to identify different entities solely based on their `IdentificationNumber`, without relying on attributes such
+as `name` which may have similar duplications within the system.
+
+==== Implementation
+
+The generation of unique `IdentificationNumbers` is facilitated by `UniqueIdentificationNumberMaps`.
+The class diagram below illustrates the relation between `IdentificationNumber` and `UniqueIdentificationNumberMaps`.
+
+.Unique `IdentificationNumber` Class Diagram
+image::UniqueIdentificationNumberClassDiagram.png[]
+
+===== Determining the next free number
+
+Note that in the diagram above, `UniqueIdentificationNumberMaps` keeps three `HashMap`, one for each entity.
+In each `HashMap`, the `Integer` ID number serves as the key, which maps to the entity it is assigned to.
+This keeps track of the numbers currently assigned to all entities and allows the next free `Integer` to be assigned to a newly added entity. +
+
+The code snippet below demonstrates how the next free number is determined.
+
+----
+    private static Integer putWorker(Worker worker) {
+        Set<Integer> keys = uniqueWorkerMap.keySet();
+        int numOfKeys = keys.size();
+        for (int id = 1; id <= numOfKeys; id++) {
+            if (uniqueWorkerMap.get(id) == null) {
+                uniqueWorkerMap.put(id, worker);
+                return id;
+            }
+        }
+        int newId = numOfKeys + 1;
+        uniqueWorkerMap.put(newId, worker);
+        return newId;
+    }
+----
+
+In the above `putWorker` method, the set of `keys` representing the existing ID numbers are generated and iterated through, based on the size of the `keySet`.
+This sequential iteration checks for any number that is not assigned to any worker due to the deletion of the latter, which removes the mapping of the ID number to the deleted worker.
+If there is an existing gap in the sequential iteration of numbers, this number is assigned to the newly added worker.
+If there is no gap available, the next highest number is assigned to the worker.
+
+===== Execution sequence of generating a unique `IdentificationNumber` for a worker:
+
+. The user executes `add -w /name Zach ...` to add a new worker to Mortago.
+. `AddCommandParser` parses the given input and calls the `Worker` constructor.
+. In the constructor, the worker's `IdentificationNumber` is created using `IdentificationNumber::generateNewWorkerId()`.
+. Consequently, `generateNewWorkerId()` creates a new `IdentificationNumber`, where the number is determined after the execution of `UniqueIdentificationNumberMaps::addEntity()`.
+. `UniqueIdentificationNumberMaps::addEntity()` subsequently calls `UniqueIdentificationNumberMaps::putWorker()`, which inserts the worker into the worker `HashMap` and returns an ID number that is currently not assigned to a worker.
+
+The figure below illustrates the sequence diagram of the aforementioned steps.
+
+.Generation of unique `IdentificationNumber` Sequence Diagram
+image::UniqueIdentificationNumberSequenceDiagram.png[]
+
+Note that the execution sequence is similar for the addition and generation of unique `IdentificationNumber` for fridges and bodies.
+
+==== Design Considerations
+
+*Aspect: Tracking of numbers and determination of next free number*
+
+* Alternative 1: Three counters that track the total number of each entity in the system.
+** Pros: Easy to implement.
+** Cons: Does not cater for deletion of entity as deletion creates a gap.
+* Alternative 2 (current choice): A `HashMap` keeping track of the ID numbers and their respective assigned entity.
+** Pros: Aside from tracking a unique `keySet` of ID numbers, `HashMap` caters for deletion of entities as the `keySet` can be iterated through to check for any gaps introduced during deletion.
+This also allows the assigned (mapped) entity to be accessible through the `HashMap` via the `IdentificationNumber#getMapping()` method.
+** Cons: Harder to implement, especially for unit testing since a unique `IdentificationNumber` cannot be duplicated usually.
+
+Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap` in terms of:
+
+* Tracking of unique keys
+* Catering for deletion of ID numbers and filling of the gap
+* Increasing the ease of accessibility of mapped entities
+
+The difficulty in testing can be circumvented by executing `UniqueIdentificationNumberMaps::clearAllEntries()`
+before each test to reset the `HashMaps`.
+// end::uniqueIdentificationNumber[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Implementation
@@ -232,13 +315,6 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::statistics[]
-=== [Proposed] Statistics feature
-==== Proposed Implementation
-
-The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
-
-//end::statistics[]
 === Notification Feature
 A notification is a message that Mortago will display when the status of a body is automatically updated.
 If the next-of-kin of a body has not been uncontactable for 24 hours, Mortago will prompt the user to contact
@@ -280,13 +356,6 @@ image::ChangeUiFnSequenceDiagram.png[]
 * **Alternative 2: Directly make changes to the model.
 ** Pros: Does not increase dependency .
 ** Cons: Cause a lot of repetition of code.
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 // tag::genpdf[]
 === Generate PDF feature
@@ -332,71 +401,6 @@ image::GenReportActivityDiagram.png[]
 ** Cons: Implementation decreases readability for user.
 // end::genpdf[]
 
-=== Unique Identification Numbers
-
-In Mortago, each entity is assigned a unique `IdentificationNumber`.
-Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
-The generation of unique `IdentificationNumbers` allows the user to identify different entities solely based on their `IdentificationNumber`, without relying on attributes such
-as `name` which may be duplicated within the system.
-
-==== Implementation
-
-The generation of unique `IdentificationNumbers` is facilitated by `UniqueIdentificationNumberMaps`.
-
-===== Determing the next free number
-
-`UniqueIdentificationNumberMaps` keeps three `HashMap`, one for each entity. +
-In each `HashMap`, the `Integer` ID number serves as the key, which maps to the worker it is assigned to.
-This keeps track of the numbers currently assigned to all the workers, and allows the next free `Integer` to be assigned to a newly added worker. +
-
-The code block below demonstrates how the next free number is determined.
-
-----
-    private static Integer putWorker(Worker worker) {
-        Set<Integer> keys = uniqueWorkerMap.keySet();
-        int numOfKeys = keys.size();
-        for (int id = 1; id <= numOfKeys; id++) {
-            if (uniqueWorkerMap.get(id) == null) {
-                uniqueWorkerMap.put(id, worker);
-                return id;
-            }
-        }
-        int newId = numOfKeys + 1;
-        uniqueWorkerMap.put(newId, worker);
-        return newId;
-    }
-----
-
-In the above `putWorker` method, the set of `Keys` representing the existing ID numbers are generated and iterated through.
-This sequential iteration checks for any number that is not assigned to any worker due to the deletion of the latter, which removes the mapping of the ID number to the deleted worker.
-If there is an existing gap in the sequential iteration of numbers, this number is assigned to the newly added worker.
-If there is no gap available, the next highest number is assigned to the worker.
-
-===== The steps below detail the generation of a unique `IdentificationNumber`:
-
-. The user executes `add -w /name Zach ...` to add a new worker to Mortago.
-. `AddCommandParser` parses the given input and calls the `Worker` constructor.
-. In the constructor, the worker's `IdentificationNumber` is created using `IdentificationNumber#generateNewWorkerId()`.
-. Consequently, `generateNewWorkerId()` creates a new `IdentificationNumber`, where the number is determined after the execution of `addEntity()` in `UniqueIdentificationNumberMaps`.
-. `addEntity()` subsequently calls `putWorker()`, which inserts the worker into the worker `HashMap` and returns a number ID that is not currently assigned to a worker.
-
-The figure below illustrates the sequence diagram of the aforementioned steps.
-
-.Generation of unique `IdentificationNumber` Sequence Diagram
-image::UniqueIdentificationNumberSequenceDiagram.png[]
-
-==== Design Considerations
-
-*Aspect: Tracking of numbers and determination of next free number*
-
-* Alternative 1: Three counters that track the total number of each entity in the system.
-** Pros: Easy to implement.
-** Cons: Does not cater for deletion of entity as deletion creates a gap.
-* Alternative 2 (current choice): A `HashMap` keeping track of the ID numbers and their respective assigned entity.
-** Pros: Caters for deletion of entities as the `Keys` can be iterated through to check for any gaps introduced during deletion.
-This also allows the assigned (mapped) entity to be accessible through the `HashMap` via the `IdentificationNumber#getMapping()` method.
-** Cons: Harder to implement.
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -417,6 +421,79 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== User Interface and Dashboard Enhancement
+
+The dashboard of Mortago plays a key part in presenting a sleek, organised, and concise overview to the entities in the system.
+Thus, designing an aesthetic and functional dashboard is a crucial aspect for Mortago.
+
+==== Surface Design and Coloring
+
+Mortago draws upon the guidelines specified in https://material.io/design/color/dark-theme.html#[Material.io] to design a dark theme
+that enhances visual ergonomics via the minimization of eye strain due to the bright luminance emitted by screens.
+
+*Visual Contrast Between Surfaces and Text*
+
+With reference to  Web Content Accessibility Guidelines’ (WCAG), the guidelines recommend that the contrast level
+between dark surfaces and white text to be at least 15:8:1 to ensure visual accessibility.
+Thus, the following color values are set within Mortago:
+
+
+|===
+|Aspect of Mortago |Color |Preview
+
+|Background
+|derive(#121212, 25%)
+a| image::Background Color.png[]
+
+|Surface
+|#121212
+a| image::Surface Color.png[]
+
+|Primary
+|#FF7597
+a| image::Primary Color.png[]
+|===
+
+
+The background color uses the `derive` function in `JavaFX`, which computes a color that is brighter or darker than the original,
+based on the brightness offset supplied. Here, notice that the background color is brighter than the surface color, as opposed to what Material.io dictates.
+This is because bulk of the screen space in the Mortago is taken up by surfaces to optimize the amount of information available to the user,
+hence by giving surfaces a darker brightness, this improves *overall* accessibility and visual ergonomics.
+In addition, this achieves elevation between surfaces and the background, which is aided by drop shadows by surfaces as well.
+
+The primary color is desaturated to reach a WCAG's AA standard of minimally 4:5:1.
+This facilitates a mild yet impressionable visual aspect to Mortago while minimizing eye strain, as saturated colors can cause optical vibrations against the dark surface and exacerbate eye strain.
+
+==== Replacing Windows Title Bar
+
+In spirit with producing a sleek design, the standard Windows platform title bar was removed. This exposes the user interface to become one that is self-contained, while providing extra space at the top.
+
+The following code snippet was placed in `MainApp#start()` to achieve this.
+
+----
+primaryStage.initStyle(StageStyle.TRANSPARENT);
+----
+
+Note that this has to be done before the stage is shown. Otherwise, the application will close automatically upon running.
+
+However, with this removal, the default Windows functions such as the default OS close button will be inevitably removed as well. Hence, these buttons will have to be rebaked into the application.
+
+
+
+// tag::statistics[]
+=== [Proposed] Statistics feature
+==== Proposed Implementation
+
+The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
+
+//end::statistics[]
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
