@@ -12,9 +12,9 @@ public class SuggestionCommand extends Command {
 
     public static final String MESSAGE = "%1$s is not recognised.\nDid you mean: ";
 
-    private String originalCommand;
-    private String suggestedCommand;
-    private String arguments;
+    public String originalCommand;
+    public String suggestedCommand;
+    public String arguments;
 
     public SuggestionCommand(String originalCommand, String suggestedCommand, String arguments) {
         this.originalCommand = originalCommand;
@@ -40,5 +40,14 @@ public class SuggestionCommand extends Command {
         StringBuilder message = new StringBuilder();
         message.append(suggestedCommand + " " + arguments);
         return message.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SuggestionCommand // instanceof handles nulls
+                && originalCommand.equals(((SuggestionCommand) other).originalCommand)
+                && suggestedCommand.equals(((SuggestionCommand) other).suggestedCommand)
+                && arguments.equals(((SuggestionCommand) other).arguments)); // state check
     }
 }
