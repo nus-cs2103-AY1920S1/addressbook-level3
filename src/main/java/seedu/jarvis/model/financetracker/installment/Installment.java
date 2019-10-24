@@ -2,10 +2,15 @@ package seedu.jarvis.model.financetracker.installment;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.DecimalFormat;
+
 /**
  * Installment object stores a single recurring payment with its details such as description and the amount spent.
  */
 public class Installment {
+
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
+
     private InstallmentDescription description;
     private InstallmentMoneyPaid moneySpentOnInstallment;
 
@@ -47,7 +52,8 @@ public class Installment {
 
     @Override
     public String toString() {
-        return description + ", " + moneySpentOnInstallment;
+        return description.getInstallmentDescription()
+                + ", $" + df2.format(moneySpentOnInstallment.getInstallmentMoneyPaid());
     }
 
     @Override

@@ -2,6 +2,7 @@ package seedu.jarvis.model.financetracker.purchase;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +10,11 @@ import java.time.format.DateTimeFormatter;
  * Purchase object stores a single payment including its details such as the description and the money spent.
  */
 public class Purchase {
+
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
+
     private PurchaseDescription description;
     private PurchaseMoneySpent moneySpent;
     private LocalDate dateOfPurchase;
@@ -67,7 +72,9 @@ public class Purchase {
 
     @Override
     public String toString() {
-        return description + " (" + moneySpent + ") on: " + dateOfPurchase;
+        return description.getPurchaseDescription()
+                + " ($" + df2.format(moneySpent.getPurchaseAmount())
+                + ") on: " + dateOfPurchase;
     }
 
     @Override
