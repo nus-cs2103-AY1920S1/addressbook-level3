@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.commons.exceptions.DataConversionException;
-import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
+import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.UserPrefs;
 
 /**
- * Manages storage of MemeBook data in local storage.
+ * Manages storage of Weme data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ MemeBook methods ==============================
+    // ================ Weme methods ==============================
 
     @Override
-    public Path getMemeBookFilePath() {
-        return wemeStorage.getMemeBookFilePath();
+    public Path getWemeFilePath() {
+        return wemeStorage.getWemeFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyMemeBook> readWeme() throws DataConversionException, IOException {
-        return readWeme(wemeStorage.getMemeBookFilePath());
+    public Optional<ReadOnlyWeme> readWeme() throws DataConversionException, IOException {
+        return readWeme(wemeStorage.getWemeFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyMemeBook> readWeme(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyWeme> readWeme(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return wemeStorage.readWeme(filePath);
     }
 
     @Override
-    public void saveWeme(ReadOnlyMemeBook memeBook) throws IOException {
-        saveWeme(memeBook, wemeStorage.getMemeBookFilePath());
+    public void saveWeme(ReadOnlyWeme weme) throws IOException {
+        saveWeme(weme, wemeStorage.getWemeFilePath());
     }
 
     @Override
-    public void saveWeme(ReadOnlyMemeBook memeBook, Path filePath) throws IOException {
+    public void saveWeme(ReadOnlyWeme weme, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        wemeStorage.saveWeme(memeBook, filePath);
+        wemeStorage.saveWeme(weme, filePath);
     }
 
 }

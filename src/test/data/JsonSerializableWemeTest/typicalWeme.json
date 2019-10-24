@@ -1,5 +1,5 @@
 {
-  "_comment": "Meme book save file which contains the same Meme values as in TypicalMemes#getTypicalMemes() and same Template values as in TypicalTemplates#getTypicalTemplates()",
+  "_comment": "Weme save file which contains the same Meme values as in TypicalMemes#getTypicalMemes() and same Template values as in TypicalTemplates#getTypicalTemplates()",
   "memes" : [ {
     "filePath": "src/test/data/memes/charmander_meme.jpg",
     "tagged" : [ "charmander" ],

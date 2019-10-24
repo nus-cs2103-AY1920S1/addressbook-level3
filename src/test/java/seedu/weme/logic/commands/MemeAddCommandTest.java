@@ -18,11 +18,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
-import seedu.weme.model.MemeBook;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelContext;
-import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
+import seedu.weme.model.ReadOnlyWeme;
+import seedu.weme.model.Weme;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
@@ -138,12 +138,12 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void setMemeBook(ReadOnlyMemeBook newData) {
+        public void setWeme(ReadOnlyWeme newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyMemeBook getMemeBook() {
+        public ReadOnlyWeme getWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -193,27 +193,27 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public boolean canUndoMemeBook() {
+        public boolean canUndoWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoMemeBook() {
+        public boolean canRedoWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoMemeBook() {
+        public void undoWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoMemeBook() {
+        public void redoWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitMemeBook() {
+        public void commitWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -293,7 +293,7 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void commitMemeBook() {
+        public void commitWeme() {
             // called by {@code MemeAddCommand#execute()}
         }
 
@@ -302,8 +302,8 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public ReadOnlyMemeBook getMemeBook() {
-            return new MemeBook();
+        public ReadOnlyWeme getWeme() {
+            return new Weme();
         }
     }
 

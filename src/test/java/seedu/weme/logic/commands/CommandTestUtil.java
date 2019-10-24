@@ -13,8 +13,8 @@ import java.util.List;
 
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.exceptions.CommandException;
-import seedu.weme.model.MemeBook;
 import seedu.weme.model.Model;
+import seedu.weme.model.Weme;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.PathMatchesPathPredicate;
@@ -116,21 +116,21 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the meme book, filtered meme list and selected meme in {@code actualModel} remain unchanged
+     * - weme, filtered meme list and selected meme in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        MemeBook expectedMemeBook = new MemeBook(actualModel.getMemeBook());
+        Weme expectedWeme = new Weme(actualModel.getWeme());
         List<Meme> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMemeList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedMemeBook, actualModel.getMemeBook());
+        assertEquals(expectedWeme, actualModel.getWeme());
         assertEquals(expectedFilteredList, actualModel.getFilteredMemeList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the meme at the given {@code targetIndex} in the
-     * {@code model}'s meme book.
+     * {@code model}'s weme.
      */
     public static void showMemeAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredMemeList().size());
@@ -152,7 +152,7 @@ public class CommandTestUtil {
 
         Meme firstMeme = model.getFilteredMemeList().get(0);
         model.deleteMeme(firstMeme);
-        model.commitMemeBook();
+        model.commitWeme();
 
         assertTrue(initialSize - 1 == model.getFilteredMemeList().size());
     }

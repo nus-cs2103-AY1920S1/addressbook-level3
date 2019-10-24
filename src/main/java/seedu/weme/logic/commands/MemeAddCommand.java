@@ -13,7 +13,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.util.ImageUtil;
 
 /**
- * Adds a meme to the meme book.
+ * Adds a meme to weme.
  */
 public class MemeAddCommand extends Command {
 
@@ -61,7 +61,7 @@ public class MemeAddCommand extends Command {
         }
 
         model.addMeme(copiedMeme);
-        model.commitMemeBook();
+        model.commitWeme();
         return new CommandResult(String.format(MESSAGE_SUCCESS, copiedMeme));
     }
 

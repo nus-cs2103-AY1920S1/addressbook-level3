@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.weme.commons.exceptions.DataConversionException;
-import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
+import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.UserPrefs;
 
 /**
@@ -21,12 +21,12 @@ public interface Storage extends WemeStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getMemeBookFilePath();
+    Path getWemeFilePath();
 
     @Override
-    Optional<ReadOnlyMemeBook> readWeme() throws DataConversionException, IOException;
+    Optional<ReadOnlyWeme> readWeme() throws DataConversionException, IOException;
 
     @Override
-    void saveWeme(ReadOnlyMemeBook memeBook) throws IOException;
+    void saveWeme(ReadOnlyWeme weme) throws IOException;
 
 }

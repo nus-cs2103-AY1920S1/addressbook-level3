@@ -17,7 +17,7 @@ import seedu.weme.statistics.StatsManager;
  * An Immutable Stats that is serializable to JSON format.
  */
 @JsonRootName(value = "statsData")
-class JsonSerializableStatsData {
+class JsonSerializableStats {
 
     private final Map<String, Integer> likeMap = new HashMap<>();
 
@@ -25,21 +25,21 @@ class JsonSerializableStatsData {
      * Constructs a {@code JsonSerializableWeme} with the given memes.
      */
     @JsonCreator
-    public JsonSerializableStatsData(@JsonProperty("likeMap") Map<String, Integer> likeData) {
+    public JsonSerializableStats(@JsonProperty("likeMap") Map<String, Integer> likeData) {
         likeMap.putAll(likeData);
     }
 
     /**
-     * Converts a given {@code ReadOnlyMemeBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyWeme} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableWeme}.
      */
-    public JsonSerializableStatsData(Stats source) {
+    public JsonSerializableStats(Stats source) {
         likeMap.putAll(source.getLikeData().getInMap());
     }
 
     /**
-     * Converts this meme book into the model's {@code MemeBook} object.
+     * Converts this stats into the model's {@code Stats} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

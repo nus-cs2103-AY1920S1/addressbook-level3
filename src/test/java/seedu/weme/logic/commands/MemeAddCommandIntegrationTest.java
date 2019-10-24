@@ -1,7 +1,7 @@
 package seedu.weme.logic.commands;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertAddCommandSuccess;
-import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class MemeAddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMemeBook(), new UserPrefsBuilder().build());
+        model = new ModelManager(getTypicalWeme(), new UserPrefsBuilder().build());
         TestUtil.clearSandBoxFolder();
     }
 

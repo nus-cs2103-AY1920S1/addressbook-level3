@@ -12,10 +12,10 @@ import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.commons.util.FileUtil;
 import seedu.weme.commons.util.JsonUtil;
-import seedu.weme.model.ReadOnlyMemeBook;
+import seedu.weme.model.ReadOnlyWeme;
 
 /**
- * A class to access MemeBook data stored as a json file on the hard disk.
+ * A class to access Weme data stored as a json file on the hard disk.
  */
 public class JsonWemeStorage implements WemeStorage {
 
@@ -27,12 +27,12 @@ public class JsonWemeStorage implements WemeStorage {
         this.filePath = filePath;
     }
 
-    public Path getMemeBookFilePath() {
+    public Path getWemeFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyMemeBook> readWeme() throws DataConversionException {
+    public Optional<ReadOnlyWeme> readWeme() throws DataConversionException {
         return readWeme(filePath);
     }
 
@@ -42,7 +42,7 @@ public class JsonWemeStorage implements WemeStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyMemeBook> readWeme(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyWeme> readWeme(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableWeme> jsonWeme = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonWemeStorage implements WemeStorage {
     }
 
     @Override
-    public void saveWeme(ReadOnlyMemeBook weme) throws IOException {
+    public void saveWeme(ReadOnlyWeme weme) throws IOException {
         saveWeme(weme, filePath);
     }
 
     /**
-     * Similar to {@link #saveWeme(ReadOnlyMemeBook)}.
+     * Similar to {@link #saveWeme(ReadOnlyWeme)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveWeme(ReadOnlyMemeBook weme, Path filePath) throws IOException {
+    public void saveWeme(ReadOnlyWeme weme, Path filePath) throws IOException {
         requireNonNull(weme);
         requireNonNull(filePath);
 

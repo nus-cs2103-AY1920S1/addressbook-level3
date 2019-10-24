@@ -18,7 +18,7 @@ import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
-import seedu.weme.model.ReadOnlyMemeBook;
+import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.storage.JsonUserPrefsStorage;
 import seedu.weme.storage.JsonWemeStorage;
@@ -35,10 +35,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonWemeStorage memeBookStorage =
+        JsonWemeStorage wemeStorage =
                 new JsonWemeStorage(temporaryFolder.resolve("weme.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(memeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(wemeStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -123,7 +123,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getWeme(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -149,7 +149,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveWeme(ReadOnlyMemeBook weme, Path filePath) throws IOException {
+        public void saveWeme(ReadOnlyWeme weme, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

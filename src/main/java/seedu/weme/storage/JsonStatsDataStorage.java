@@ -45,8 +45,8 @@ public class JsonStatsDataStorage implements StatsDataStorage {
      */
     public Optional<Stats> readStatsData(Path statsDataPath) throws DataConversionException {
         requireNonNull(statsDataPath);
-        Optional<JsonSerializableStatsData> jsonStatsData =
-                JsonUtil.readJsonFile(statsDataPath, JsonSerializableStatsData.class);
+        Optional<JsonSerializableStats> jsonStatsData =
+                JsonUtil.readJsonFile(statsDataPath, JsonSerializableStats.class);
         if (!jsonStatsData.isPresent()) {
             return Optional.empty();
         }
@@ -73,7 +73,7 @@ public class JsonStatsDataStorage implements StatsDataStorage {
         requireNonNull(stats);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableStatsData(stats), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableStats(stats), filePath);
     }
 
 }

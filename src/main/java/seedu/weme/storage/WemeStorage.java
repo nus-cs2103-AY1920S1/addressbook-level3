@@ -5,42 +5,42 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.weme.commons.exceptions.DataConversionException;
-import seedu.weme.model.MemeBook;
-import seedu.weme.model.ReadOnlyMemeBook;
+import seedu.weme.model.ReadOnlyWeme;
+import seedu.weme.model.Weme;
 
 /**
- * Represents a storage for {@link MemeBook}.
+ * Represents a storage for {@link Weme}.
  */
 public interface WemeStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getMemeBookFilePath();
+    Path getWemeFilePath();
 
     /**
-     * Returns MemeBook data as a {@link ReadOnlyMemeBook}.
+     * Returns Weme data as a {@link ReadOnlyWeme}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyMemeBook> readWeme() throws DataConversionException, IOException;
+    Optional<ReadOnlyWeme> readWeme() throws DataConversionException, IOException;
 
     /**
-     * @see #getMemeBookFilePath()
+     * @see #getWemeFilePath()
      */
-    Optional<ReadOnlyMemeBook> readWeme(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyWeme> readWeme(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyMemeBook} to the storage.
+     * Saves the given {@link ReadOnlyWeme} to the storage.
      * @param weme cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveWeme(ReadOnlyMemeBook weme) throws IOException;
+    void saveWeme(ReadOnlyWeme weme) throws IOException;
 
     /**
-     * @see #saveWeme(ReadOnlyMemeBook)
+     * @see #saveWeme(ReadOnlyWeme)
      */
-    void saveWeme(ReadOnlyMemeBook weme, Path filePath) throws IOException;
+    void saveWeme(ReadOnlyWeme weme, Path filePath) throws IOException;
 
 }

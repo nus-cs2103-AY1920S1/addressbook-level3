@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.commons.util.JsonUtil;
-import seedu.weme.model.MemeBook;
-import seedu.weme.testutil.TypicalMemeBook;
+import seedu.weme.model.Weme;
+import seedu.weme.testutil.TypicalWeme;
 
 public class JsonSerializableWemeTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableWemeTest");
-    private static final Path TYPICAL_MEMEBOOK_FILE = TEST_DATA_FOLDER.resolve("typicalWeme.json");
+    private static final Path TYPICAL_WEME_FILE = TEST_DATA_FOLDER.resolve("typicalWeme.json");
     private static final Path INVALID_MEME_FILE = TEST_DATA_FOLDER.resolve("invalidMemeWeme.json");
     private static final Path DUPLICATE_MEME_FILE = TEST_DATA_FOLDER.resolve("duplicateMemeWeme.json");
     private static final Path INVALID_TEMPLATE_FILE = TEST_DATA_FOLDER.resolve("invalidTemplateWeme.json");
@@ -24,11 +24,11 @@ public class JsonSerializableWemeTest {
 
     @Test
     public void toModelType_typicalMemesFile_success() throws Exception {
-        JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(TYPICAL_MEMEBOOK_FILE,
+        JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(TYPICAL_WEME_FILE,
                 JsonSerializableWeme.class).get();
-        MemeBook memeBookFromFile = dataFromFile.toModelType();
-        MemeBook typicalMemeBook = TypicalMemeBook.getTypicalMemeBook();
-        assertEquals(memeBookFromFile, typicalMemeBook);
+        Weme wemeFromFile = dataFromFile.toModelType();
+        Weme typicalWeme = TypicalWeme.getTypicalWeme();
+        assertEquals(wemeFromFile, typicalWeme);
     }
 
     @Test

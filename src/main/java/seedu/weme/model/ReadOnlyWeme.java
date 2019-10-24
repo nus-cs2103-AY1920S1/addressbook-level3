@@ -6,9 +6,9 @@ import seedu.weme.model.template.Template;
 import seedu.weme.statistics.Stats;
 
 /**
- * Unmodifiable view of an meme book
+ * Unmodifiable view of an weme
  */
-public interface ReadOnlyMemeBook {
+public interface ReadOnlyWeme {
 
     /**
      * Returns an unmodifiable view of the memes list.

@@ -10,7 +10,7 @@ import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.ModelContext;
-import seedu.weme.model.ReadOnlyMemeBook;
+import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
@@ -29,11 +29,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the MemeBook.
+     * Returns weme.
      *
-     * @see seedu.weme.model.Model#getMemeBook()
+     * @see seedu.weme.model.Model#getWeme()
      */
-    ReadOnlyMemeBook getMemeBook();
+    ReadOnlyWeme getWeme();
 
     /** Returns an unmodifiable view of the filtered list of memes */
     ObservableList<Meme> getFilteredMemeList();
@@ -54,9 +54,9 @@ public interface Logic {
     void setContext(ModelContext context);
 
     /**
-     * Returns the user prefs' meme book file path.
+     * Returns the user prefs' weme file path.
      */
-    Path getMemeBookFilePath();
+    Path getWemeFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
