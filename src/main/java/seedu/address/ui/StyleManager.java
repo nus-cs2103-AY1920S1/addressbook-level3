@@ -35,7 +35,7 @@ public class StyleManager {
     private File myStyleSheet;
     private Background background;
 
-    private List<String> styleSheetURIPaths;
+    private List<String> styleSheetUriPaths;
 
     // Variables used for reading and writing css files
     private InputStream inputStream;
@@ -44,21 +44,21 @@ public class StyleManager {
     private FileWriter fileWriter;
     private File tempOutputCss;
     private String lineReadFromReader;
-    private String lineToWriteViaWriter;
+    private String linesToWriteViaWriter;
     private List<String> fieldsToIgnore = new ArrayList<>(List.of("#lineChart"));
 
     StyleManager(Scene scene, VBox mainWindowPlaceholder) {
         this.scene = scene;
         this.mainWindowPlaceholder = mainWindowPlaceholder;
-        this.styleSheetURIPaths = new ArrayList<>();
-        addToStyleSheetURIPaths(getSceneStylesheets().get(0));
+        this.styleSheetUriPaths = new ArrayList<>();
+        addToStyleSheetUriPaths(getSceneStylesheets().get(0));
     }
 
     /**
      * Resets the current styleSheets used and deletes the styleSheet folder
      */
     void resetStyleSheets() {
-        getSceneStylesheets().set(0, styleSheetURIPaths.get(0));
+        getSceneStylesheets().set(0, styleSheetUriPaths.get(0));
         File styleSheetDirectory = new File(STYLESHEET_DIRECTORY_PATH_NAME);
         if (styleSheetDirectory.exists()) {
             Arrays.asList(Objects.requireNonNull(styleSheetDirectory.listFiles())).forEach(File::delete);
@@ -130,8 +130,8 @@ public class StyleManager {
      * to allow users to save themes.
      * @param string String representation of a URI path referencing a CSS stylesheet.
      */
-    private void addToStyleSheetURIPaths(String string) {
-        styleSheetURIPaths.add(string);
+    private void addToStyleSheetUriPaths(String string) {
+        styleSheetUriPaths.add(string);
     }
 
     /**
@@ -154,7 +154,7 @@ public class StyleManager {
         bufferedReader = new BufferedReader(inputStreamReader);
 
         lineReadFromReader = "";
-        lineToWriteViaWriter = "";
+        linesToWriteViaWriter = "";
     }
 
     /**
@@ -163,7 +163,7 @@ public class StyleManager {
      */
     private void writeToOutput() throws IOException {
         fileWriter = new FileWriter(tempOutputCss);
-        fileWriter.write(lineToWriteViaWriter);
+        fileWriter.write(linesToWriteViaWriter);
     }
 
     /**
@@ -191,7 +191,7 @@ public class StyleManager {
             myStyleSheet.delete();
             myStyleSheet = getMyStyleSheet();
             String line = "";
-            while ((line= bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 fileWriter.write(line + "\n");
             }
             bufferedReader.close();
@@ -211,7 +211,7 @@ public class StyleManager {
             while ((lineReadFromReader = bufferedReader.readLine()) != null) {
                 ignoreTextToBeIgnored();
                 if (lineReadFromReader != null) {
-                    lineToWriteViaWriter += getLineAfterReplacement(lineReadFromReader, "fx-font-family",
+                    linesToWriteViaWriter += getLineAfterReplacement(lineReadFromReader, "fx-font-family",
                             fontFamily) + "\n";
                 }
             }
@@ -239,7 +239,7 @@ public class StyleManager {
                     String changedFill = getLineAfterReplacement(changedTextFill,
                             "fx-fill",
                             fontColour);
-                    lineToWriteViaWriter += changedFill + "\n";
+                    linesToWriteViaWriter += changedFill + "\n";
                 }
             }
             writeToOutput();
@@ -269,7 +269,7 @@ public class StyleManager {
      */
     public void setBackground(Background background) {
         try {
-           initialiseOutputCssAndStreams();
+            initialiseOutputCssAndStreams();
             String backgroundColourForImages = "transparent";
             String backgroundColour = background.isBackgroundColour()
                     ? background.toString()
@@ -282,7 +282,7 @@ public class StyleManager {
                     String changedBackgroundColourFields = getLineAfterReplacement(changedBackgroundFields,
                             "fx-background-color",
                             backgroundColour);
-                    lineToWriteViaWriter += changedBackgroundColourFields + "\n";
+                    linesToWriteViaWriter += changedBackgroundColourFields + "\n";
                 }
             }
 
@@ -366,7 +366,7 @@ public class StyleManager {
         boolean foundClosingCurlyBraces = lineReadFromReader.contains("}");
 
         while (!foundOpeningCurlyBraces && lineReadFromReader != null) {
-            lineToWriteViaWriter += lineReadFromReader + "\n";
+            linesToWriteViaWriter += lineReadFromReader + "\n";
             if (lineReadFromReader.contains("{")) {
                 foundOpeningCurlyBraces = true;
             }
@@ -374,7 +374,7 @@ public class StyleManager {
         }
 
         while (!foundClosingCurlyBraces && lineReadFromReader != null) {
-            lineToWriteViaWriter += lineReadFromReader + "\n";
+            linesToWriteViaWriter += lineReadFromReader + "\n";
             if (lineReadFromReader.contains("}")) {
                 foundClosingCurlyBraces = true;
             }
