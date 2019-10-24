@@ -28,7 +28,7 @@ def seq_rename_all_files(file_dir, index=0):
             index += 1
 
 
-# Driver Code 
+# Driver Code
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Usage: python shuffling_renamer.py <folder_name_containing_images>")
