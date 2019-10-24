@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":UI" as UserInterface LOGIC_COLOR
+participant ":CommandLogicManager" as CommandLogicManager LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
+participant "c:Command" as Command LOGIC_COLOR
+end box
+
+[-> UserInterface : "submit"
+activate UserInterface
+
+UserInterface -> CommandLogicManager : executeCommand(submit)
+activate CommandLogicManager
+
+CommandLogicManager -> CommandParser : parseCommandText(submit)
+activate CommandParser
+
+create Command
+CommandParser -> Command
+activate Command
+
+Command --> CommandParser
+deactivate Command
+
+CommandParser --> CommandLogicManager : c
+deactivate AddressBookParser
+
+CommandLogicManager -> Command : execute()
+activate Command
+
+Command --> CommandLogicManager : result
+deactivate Command
+Command -[hidden]-> CommandLogicManager : result
+destroy Command
+
+CommandLogicManager --> UserInterface
+deactivate CommandLogicManager
+
+[<-- UserInterface : display result
+deactivate UserInterface
+@enduml

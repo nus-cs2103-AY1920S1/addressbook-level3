@@ -258,12 +258,26 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::submit[]
+=== [Proposed] Submit feature
 
-_{Explain here how the data encryption feature will be implemented}_
+The submit mechanism is facilitated by `UserInterface`.
 
-// end::dataencryption[]
+The Sequence Diagram given below is an example of a scenario in which the submit command is executed when the user enters "submit" into the `CommandBox` terminal.
+
+image::submitSequenceDiagram.png[]
+
+Step 1. The user enters "submit" into the `CommandBox`.
+
+Step 2. The will call the `executeCommand()` method of the `CommandLogicManager` which will then call the `parseCommandText()` method of the `CommandParser`.
+
+Step 3. The CommandParser then calls the constructor of the Command class to create a new Command object, which is then returned to the `CommandLogicManager`.
+
+Step 4. CommandLogicManager then calls the `execute()` method of the newly created Command object.
+The UI will then retrieve the user-written code from within the `Editor` as a String to be passed onto the `ProgramSubmissionLogicManager` to be compiled as a .class file for execution.
+
+Step 5: After running the .class file, the output is then displayed to the user through the UI.
+// end::submit[]
 
 === Evaluation of user program submissions
 The evaluation of the user's programs is facilitated by the `solutions` package.
