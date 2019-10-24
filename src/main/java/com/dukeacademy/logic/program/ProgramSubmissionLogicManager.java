@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.logic.program.exceptions.EmptyProgramException;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.logic.program.exceptions.NoQuestionSetException;
 import com.dukeacademy.logic.program.exceptions.SubmissionChannelNotSetException;
@@ -111,6 +112,10 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     @Override
     public Optional<TestResult> submitUserProgram(UserProgram userProgram) {
         this.verifyNotClosed();
+
+        if (userProgram.getSourceCode().equals("")) {
+            throw new EmptyProgramException();
+        }
 
         try {
             List<TestCase> testCases = this.currentQuestionObservable.getValue()

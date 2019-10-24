@@ -3,8 +3,11 @@ package com.dukeacademy.observable;
 import java.util.HashSet;
 import java.util.Optional;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Standard implementation of the observable interface.
+ *
  * @param <T>
  */
 public class StandardObservable<T> implements Observable<T> {

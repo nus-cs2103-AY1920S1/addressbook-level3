@@ -18,6 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+import com.dukeacademy.logic.program.exceptions.EmptyProgramException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
@@ -288,6 +289,12 @@ class ProgramSubmissionLogicManagerTest {
         assertFalse(testResult.getCompileError().isPresent());
         assertEquals(5, testResult.getNumPassed());
         assertTrue(this.matchTestCaseAndResults(testCases, testResult.getResults()));
+    }
+
+    @Test
+    void testSubmitEmptyProgram() {
+        UserProgram emptyProgram = new UserProgram("Main", "");
+        assertThrows(EmptyProgramException.class, () -> this.programSubmissionLogicManager.submitUserProgram(emptyProgram));
     }
 
     @Test

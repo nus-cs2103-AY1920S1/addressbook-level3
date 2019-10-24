@@ -14,7 +14,7 @@ public class AttemptCommand implements Command {
     private int index;
 
     public AttemptCommand(int index, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
-        this.index = index;
+        this.index = index - 1;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
     }
@@ -29,7 +29,7 @@ public class AttemptCommand implements Command {
             // Set current attempting question
             this.programSubmissionLogic.setCurrentQuestion(questionToAttempt);
 
-            String feedback = "Attempting question " + index + " : " + questionToAttempt.getTitle();
+            String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
             return new CommandResult(feedback, false, false);
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("Index entered out of range for current list of questions.");

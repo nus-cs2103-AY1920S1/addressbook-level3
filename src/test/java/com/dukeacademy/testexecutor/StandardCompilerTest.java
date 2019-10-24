@@ -46,6 +46,8 @@ class StandardCompilerTest {
 
     private UserProgram invalidProgram = new UserProgram("InvalidTest", "FooBar");
 
+    private UserProgram emptyProgram = new UserProgram("Empty", "");
+
     @BeforeEach
     public void initializeTest() {
         standardCompiler = new StandardCompiler();
@@ -82,6 +84,11 @@ class StandardCompilerTest {
 
         assertFalse(invalidClassFilePath.toFile().exists());
 
+        JavaFile emptyJavaFile = this.createJavaFile(emptyProgram);
+        assertThrows(CompilerException.class, () -> standardCompiler.compileJavaFile(emptyJavaFile));
+        Path emptyClassFilePath = environmentPath.resolve(emptyProgram.getClassName() + ".class");
+
+        assertFalse(emptyClassFilePath.toFile().exists());
     }
 
     /**

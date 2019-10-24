@@ -59,7 +59,7 @@ public class StandardQuestionBank implements QuestionBank {
 
     @Override
     public void replaceQuestion(Question oldQuestion, Question newQuestion) {
-        int oldQuestionIndex = IntStream.range(0, questionList.size() - 1)
+        int oldQuestionIndex = IntStream.range(0, questionList.size())
                 .filter(i -> questionList.get(i).equals(oldQuestion))
                 .findFirst()
                 .orElseThrow(QuestionNotFoundException::new);

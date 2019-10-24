@@ -24,14 +24,18 @@ public class SubmitCommand implements Command {
     @Override
     public CommandResult execute() throws CommandException {
         Optional<Question> currentlyAttemptingQuestion = this.programSubmissionLogic.getCurrentQuestion();
+        UserProgram userProgram = programSubmissionLogic.getUserProgramFromSubmissionChannel();
 
         if (currentlyAttemptingQuestion.isEmpty()) {
             throw new CommandException("You have not attempted a question yet.");
         }
 
+        if (userProgram.getSourceCode().equals("")) {
+            throw new CommandException("You cannot submit an empty program.");
+        }
+
         // Save the user's program first
         Question question = currentlyAttemptingQuestion.get();
-        UserProgram userProgram = programSubmissionLogic.getUserProgramFromSubmissionChannel();
         Question questionWithNewProgram = question.withNewUserProgram(userProgram);
         this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
 
@@ -44,7 +48,8 @@ public class SubmitCommand implements Command {
         }
 
         // Update question with result status
-        boolean isSuccessful = resultsOptional.get().isSuccessful();
+        boolean isSuccessful = resultsOptional.get().getNumPassed() == questionWithNewProgram.getTestCases().size();
+
         if (isSuccessful) {
             Question successfulQuestion = questionWithNewProgram.withNewStatus(Status.PASSED);
             this.questionsLogic.replaceQuestion(questionWithNewProgram, successfulQuestion);
