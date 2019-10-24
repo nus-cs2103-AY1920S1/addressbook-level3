@@ -12,13 +12,10 @@ import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditEventCommand;
-<<<<<<< HEAD
 import seedu.address.logic.commands.ExportIcsCommand;
 import seedu.address.logic.commands.ImportIcsCommand;
-=======
 import seedu.address.logic.commands.NotificationOffCommand;
 import seedu.address.logic.commands.NotificationOnCommand;
->>>>>>> main-branch-notifications-week10
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.ModelManager;
@@ -37,13 +34,10 @@ public class MainApp extends Application {
     private static final String COMMAND_EDIT_EVENT = "edit_event";
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
-<<<<<<< HEAD
     private static final String COMMAND_IMPORT_ICS = "import";
     private static final String COMMAND_EXPORT_ICS = "export";
-=======
     private static final String COMMAND_NOTIFICATION_OFF = "notif_off";
     private static final String COMMAND_NOTIFICATION_ON = "notif_on";
->>>>>>> main-branch-notifications-week10
 
     private UiManager uiManager;
 
