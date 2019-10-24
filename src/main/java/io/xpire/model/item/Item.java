@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import io.xpire.commons.util.CollectionUtil;
-import io.xpire.commons.util.DateUtil;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -180,17 +179,13 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        builder.append(this.name.toString() + "\n")
+                .append("Expiry date: " + this.expiryDate.toStringWithCountdown() + "\n")
+                .append("Quantity: " + this.quantity.toString());
         if (!this.getTags().isEmpty()) {
-            builder.append(this.name).append("\n")
-                    .append(String.format("Expiry date: %s (%s)\n",
-                            this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())))
-                    .append("Tags: ");
-        } else {
-            builder.append(this.name).append("\n")
-                    .append(String.format("Expiry date: %s (%s)\n",
-                            this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())));
+            builder.append("\nTags: ");
+            this.getTags().forEach((builder::append));
         }
-        this.getTags().forEach(builder::append);
         return builder.toString();
     }
 }
