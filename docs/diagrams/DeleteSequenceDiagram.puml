@@ -3,10 +3,16 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CommandHistory" as CommandHistory LOGIC_COLOR
 participant ":BillboardParser" as BillboardParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":VersionedBillboard" as VersionedBillboard LOGIC_COLOR
+end box
+
+box VersionedBillboard MODEL_COLOR_T2
+participant ":VersionedBillboard" as VersionedBillboard MODEL_COLOR_T3
 end box
 
 box Model MODEL_COLOR_T1
@@ -15,6 +21,12 @@ end box
 
 [-> LogicManager : execute("delete 1")
 activate LogicManager
+
+LogicManager -> CommandHistory : addCmdHistory("delete 1")
+activate CommandHistory
+
+CommandHistory -> LogicManager
+deactivate CommandHistory
 
 LogicManager -> BillboardParser : parseCommand("delete 1")
 activate BillboardParser
@@ -63,6 +75,12 @@ deactivate CommandResult
 
 DeleteCommand --> LogicManager : result
 deactivate DeleteCommand
+
+LogicManager -> VersionedBillboard : commit(model)
+activate VersionedBillboard
+
+VersionedBillboard -> LogicManager
+deactivate VersionedBillboard
 
 [<--LogicManager
 deactivate LogicManager

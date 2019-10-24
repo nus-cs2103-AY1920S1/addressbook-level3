@@ -26,7 +26,7 @@ public class UndoCommand extends Command {
             throw new CommandException(EMPTY_UNDO_LIST);
         }
 
-        Model undoModel = VersionedBillboard.undo();
+        Model undoModel = VersionedBillboard.getUndoModel();
         String undoCmd = VersionedBillboard.getUndoCmd();
         model.setModel(undoModel);
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, undoCmd));

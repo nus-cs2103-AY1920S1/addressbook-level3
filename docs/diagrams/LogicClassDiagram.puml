@@ -35,7 +35,11 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" BillboardParser
+
+LogicManager .left.> CommandHistory : store >
+LogicManager ..> VersionedBillboard : store >
+CommandHistory -down[hidden]- VersionedBillboard
+LogicManager -down->"1" BillboardParser
 BillboardParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
@@ -51,7 +55,7 @@ ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
-LogicManager --> Model
+LogicManager -right-> Model
 Command .right.> Model
 note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
