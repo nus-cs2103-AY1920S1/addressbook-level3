@@ -19,7 +19,7 @@ import seedu.address.model.note.Note;
  * Globally searches for any StudyBuddyItem that has tags which matches the user input of keywords.
  */
 
-public class GlobalTagFilterCommand extends Command {
+public class FilterAllByTagCommand extends Command {
 
     public static final String COMMAND_WORD = FILTER_ALL;
 
@@ -37,7 +37,7 @@ public class GlobalTagFilterCommand extends Command {
      * @param predicate to test on an note object to see if it has the tag.
      * @param tagKeywords the tags provided by user input to test on the note.
      */
-    public GlobalTagFilterCommand(StudyBuddyItemContainsTagPredicate predicate, ArrayList<String> tagKeywords) {
+    public FilterAllByTagCommand(StudyBuddyItemContainsTagPredicate predicate, ArrayList<String> tagKeywords) {
         this.tagPredicate = predicate;
         this.tagKeywords = tagKeywords;
     }

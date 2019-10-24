@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,9 @@ public class GlobalTagFilterCommandParser implements Parser<GlobalTagFilterComma
         for (String s : tagKeywords) {
             tags.add(new Tag(s));
         }
-        return new GlobalTagFilterCommand(new StudyBuddyItemContainsTagPredicate(tags), tagKeywords);
+
+        //To fix!
+        return new GlobalTagFilterCommand(new StudyBuddyItemContainsTagPredicate(tags), new ArrayList<String>());
     }
 
 }
