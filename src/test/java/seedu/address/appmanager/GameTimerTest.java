@@ -40,7 +40,6 @@ public class GameTimerTest {
         // todo: create own implementation of clock that can support manual elapsing of time, to avoid using
         // Thread.sleep().
         try {
-            System.out.println(Thread.currentThread() + "<------------");
             Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();

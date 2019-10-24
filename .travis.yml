@@ -5,6 +5,11 @@ matrix:
 services:
   - xvfb
 
+before_install:
+  -sudo apt install at-spi2-core
+
+install: true
+
 before_script:
   - export DISPLAY=:99.0
 

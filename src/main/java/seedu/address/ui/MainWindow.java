@@ -240,7 +240,6 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             //Updates the Ui.
-            System.out.println(uiLogicHelper.getMode() + "<---------------MODE FROM MAINWINDOW");
             updateUi.updateModularDisplay(commandText, uiLogicHelper.getMode(), modularDisplayPlaceholder);
 
             updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);

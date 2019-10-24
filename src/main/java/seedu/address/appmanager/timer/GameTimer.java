@@ -103,7 +103,6 @@ public class GameTimer implements Runnable {
 
                     // When timeLeft has reached a timeStamp to request for more hints from AppManager.
                     if (nextTimeForHint != -100L && nextTimeForHint == timeLeft) {
-                        System.out.println(timeLeft + "<---------------------------- gameTimer hint");
                         callBackToUpdateHints();
                     }
 
