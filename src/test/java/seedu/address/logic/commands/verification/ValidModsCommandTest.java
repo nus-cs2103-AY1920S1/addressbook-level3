@@ -266,7 +266,7 @@ public class ValidModsCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
+        //@Override
         public void deleteAllModulesInSemester(SemesterName semesterName) {
             throw new AssertionError("This method should not be called.");
         }
