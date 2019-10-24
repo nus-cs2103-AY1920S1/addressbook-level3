@@ -77,6 +77,10 @@ Format: `main`
 
 Switches the current view to list all contacts or activities. +
 
+****
+* Argument values supplied with parameters are ignored for this command.
+****
+
 Format: `list c/` for contacts *OR* `list a/` for activities
 
 === View a contact or activity : `view`
@@ -110,17 +114,24 @@ Creates a new contact with name John Doe and mobile number 98765432.
 === Create new activity: `activity`
 
 Creates a new activity with a title, contacts (optional) and no expenses.
-
-The user creating the activity will be included automatically, and additional contacts can be specified - any contacts not found in the list of contacts will prompt the user to create them. Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
-
-Each activity will be assigned an activity ID automatically. +
+****
+* The user creating the activity will be included automatically.
+* Additional contacts to add to the activity can be specified by using `p/` prefix.
+** Keyword matching is used to find contacts to add to the activity. Refer to <<Finding contacts or activities: `find`>> for more details.
+** For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.
+* Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
+* Each activity will be assigned an activity ID automatically. +
+****
 
 Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
 
 Examples:
 
-* `activity n/Chalet p/John Doe` +
+* `activity t/Chalet p/John Doe` +
 Creates a new activity with title 'Chalet' and the user and John Doe as participants.
+
+* `activity t/Breakfast p/David Li p/Bernice Yu` +
+Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
 
 === Add contacts to an activity: `invite`
 
