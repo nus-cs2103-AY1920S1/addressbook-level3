@@ -7,8 +7,10 @@ import javafx.scene.layout.Region;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.statistics.TimelineGenerator;
-import seedu.billboard.model.statistics.StatisticsType;
+import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
+import seedu.billboard.model.statistics.generators.BreakdownGenerator;
+import seedu.billboard.model.statistics.generators.TimelineGenerator;
+import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.ui.UiPart;
 
 
@@ -26,21 +28,22 @@ public class ChartBox extends UiPart<Region> {
     private ObservableData<DateInterval> dateInterval;
     private ExpenseChart currentChart;
 
-    public ChartBox(ObservableData<StatisticsType> statsType, ObservableList<Expense> expenses) {
+    public ChartBox(ObservableList<Expense> expenses, ObservableData<StatisticsFormat> statsType,
+                    ObservableData<StatisticsFormatOptions> statsOptions) {
         super(FXML);
-
         this.expenses = expenses;
         this.dateInterval = new ObservableData<>();
         dateInterval.setValue(DateInterval.MONTH);
 
         statsType.observe(this::onStatsTypeChanged);
+        statsOptions.observe(options -> options.getNewDateInterval().ifPresent(dateInterval::setValue));
     }
 
     /**
      * Callback which is called when the observed statistics type changes.
      * @param type New statistic type to display.
      */
-    private void onStatsTypeChanged(StatisticsType type) {
+    private void onStatsTypeChanged(StatisticsFormat type) {
         if (currentChart != null) {
             chartContainer.getChildren().remove(currentChart.getRoot());
         }
@@ -48,6 +51,9 @@ public class ChartBox extends UiPart<Region> {
         switch (type) {
         case TIMELINE:
             currentChart = new ExpenseTimelineChart(expenses, dateInterval, new TimelineGenerator());
+            break;
+        case BREAKDOWN:
+            currentChart = new ExpenseBreakdownChart(expenses, new BreakdownGenerator());
             break;
         default:
             throw new UnsupportedOperationException("Chart not implemented for selected statistic");

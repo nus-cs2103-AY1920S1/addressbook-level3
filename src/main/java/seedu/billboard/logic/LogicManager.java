@@ -27,8 +27,9 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.formats.StatisticsFormat;
+import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.versionedbillboard.VersionedBillboard;
-import seedu.billboard.model.statistics.StatisticsType;
 import seedu.billboard.storage.Storage;
 
 /**
@@ -85,8 +86,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableData<StatisticsType> getStatisticsType() {
-        return model.getStatisticsType();
+    public ObservableData<StatisticsFormat> getStatisticsFormat() {
+        return model.getStatisticsFormat();
+    }
+
+    @Override
+    public ObservableData<StatisticsFormatOptions> getStatisticsFormatOptions() {
+        return model.getStatisticsFormatOptions();
     }
 
     @Override
