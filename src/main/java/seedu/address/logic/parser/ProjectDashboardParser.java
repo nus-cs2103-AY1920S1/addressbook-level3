@@ -35,8 +35,6 @@ import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
 import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.stub.DoneTaskCommandParserStub;
-import seedu.address.logic.parser.stub.SetDeadlineCommandParserStub;
 
 /**
  * Parses user input.
@@ -78,7 +76,7 @@ public class ProjectDashboardParser {
             return new SetDeadlineCommandParser().parse(arguments);
 
         case DoneTaskCommand.COMMAND_WORD:
-            return new DoneTaskCommandParserStub().parse(arguments);
+            return new DoneTaskCommandParser().parse(arguments);
 
         case AddMemberCommand.COMMAND_WORD:
             return new AddMemberCommandParser().parse(arguments);
