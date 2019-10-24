@@ -110,4 +110,13 @@ public class FileReadWrite {
         File file = new File(normalizePath(path));
         return file.exists();
     }
+
+    /**
+     * Given a path to a file, extract the file name.
+     * @param path  path to file
+     * @return      name of file
+     */
+    public static String getFileName(String path) {
+        return new File(normalizePath(path)).getName();
+    }
 }
