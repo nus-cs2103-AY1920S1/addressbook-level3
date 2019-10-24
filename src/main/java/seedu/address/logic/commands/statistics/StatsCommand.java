@@ -51,6 +51,8 @@ public class StatsCommand extends Command {
         requireNonNull(model);
     }
 
+
+    //Code Quality can be improved after all commands are implemented
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

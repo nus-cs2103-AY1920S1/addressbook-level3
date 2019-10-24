@@ -89,7 +89,7 @@ public class CommandResult {
      * and other fields set to their default value. Meant for Help and Bye commands.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic) {
-        this(feedbackToUser, showHelp, exit, statistic, false, null, null, null, null);
+        this(feedbackToUser, showHelp, exit, statistic, false, PanelName.CURRENT, null, null, null);
     }
 
     //idk if this works

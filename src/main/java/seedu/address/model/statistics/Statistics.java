@@ -41,6 +41,7 @@ public class Statistics {
      */
     private Statistics(ObservableList<Expense> expenses, List<Category> categories) {
         requireNonNull(categories);
+        requireNonNull(expenses);
         this.expenses = expenses;
         this.categories = categories;
     }
@@ -75,7 +76,7 @@ public class Statistics {
      */
     public static Statistics startStatistics(ObservableList<Expense> expenses) {
         requireNonNull(expenses);
-        List<Category> categories = collateTagNames(expenses);
+        List<Category> categories = collateCategoryNames(expenses);
         return new Statistics(expenses, categories);
     }
 
@@ -375,7 +376,7 @@ public class Statistics {
     private ArrayList<ArrayList<Expense>> extractRelevantExpenses(Timestamp startDate, Timestamp endDate) {
         ArrayList<ArrayList<Expense>> data = new ArrayList<>();
 
-        List<Category> categories = collateTagNames(expenses);
+        List<Category> categories = collateCategoryNames(expenses);
         for (int i = 0; i <= categories.size(); i++) {
             data.add(new ArrayList<>());
         }
@@ -391,10 +392,11 @@ public class Statistics {
         return data;
     }
 
+    //to be removed after custom categories are implemented
     /**
      * Returns a list of tags used among all expenses
      */
-    private static List<Category> collateTagNames(ObservableList<Expense> expenses) {
+    private static List<Category> collateCategoryNames(ObservableList<Expense> expenses) {
         Set<Category> categories = new HashSet<>();
         for (Expense expense: expenses) {
             categories.add(expense.getCategory());
