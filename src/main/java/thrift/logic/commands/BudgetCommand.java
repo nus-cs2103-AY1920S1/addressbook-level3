@@ -1,6 +1,7 @@
 package thrift.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
@@ -9,7 +10,7 @@ import thrift.model.transaction.Budget;
 /**
  * Sets the monthly budget.
  */
-public class BudgetCommand extends NonScrollingCommand {
+public class BudgetCommand extends NonScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "budget";
 
@@ -35,19 +36,36 @@ public class BudgetCommand extends NonScrollingCommand {
     public static final String MESSAGE_SUCCESS = "New budget: %1$s";
 
     private final Budget budget;
-
+    private Budget oldBudget;
     /**
      * Creates a BudgetCommand with the specified {@code Value}.
      */
     public BudgetCommand(Budget budget) {
         requireNonNull(budget);
         this.budget = budget;
+        this.oldBudget = null;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setBudget(budget);
+        oldBudget = model.setBudget(budget).orElse(null);
         return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
+    }
+
+    @Override
+    public void undo(Model model) {
+        requireAllNonNull(model, budget);
+        if (oldBudget == null) {
+            model.resetBudgetForThatMonth(budget);
+        } else {
+            model.setBudget(oldBudget);
+        }
+    }
+
+    @Override
+    public void redo(Model model) {
+        requireAllNonNull(model, budget);
+        model.setBudget(budget);
     }
 }

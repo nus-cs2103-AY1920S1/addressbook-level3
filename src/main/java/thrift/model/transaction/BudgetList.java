@@ -36,8 +36,11 @@ public class BudgetList implements Iterable<Budget> {
 
     /**
      * Adds or updates an existing {@code Budget} in the budget list with {@code toSet}.
+     *
+     * @param toSet budget to be replaced with.
+     * @return replaced budget wrapped in optional.
      */
-    public void setBudget(Budget toSet) {
+    public Optional<Budget> setBudget(Budget toSet) {
         requireNonNull(toSet);
         Optional<Budget> optBudget = getBudgetForMonthYear(toSet.getBudgetDate());
         if (optBudget.isPresent()) {
@@ -45,6 +48,17 @@ public class BudgetList implements Iterable<Budget> {
         } else {
             internalList.add(toSet);
         }
+        return optBudget;
+    }
+
+    /**
+     * Removes {@code budget} from the list.
+     *
+     * @param budget budget to be removed from the list.
+     */
+    public void removeBudget(Budget budget) {
+        requireNonNull(budget);
+        internalList.remove(budget);
     }
 
     /**

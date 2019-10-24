@@ -171,8 +171,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setBudget(Budget budget) {
-        thrift.setBudget(budget);
+    public Optional<Budget> setBudget(Budget budget) {
+        requireNonNull(budget);
+        return thrift.setBudget(budget);
+    }
+
+    @Override
+    public void resetBudgetForThatMonth(Budget budget) {
+        requireNonNull(budget);
+        thrift.removeBudget(budget);
     }
 
     @Override

@@ -204,7 +204,12 @@ public class AddIncomeCommandTest {
         }
 
         @Override
-        public void setBudget(Budget budget) {
+        public Optional<Budget> setBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetBudgetForThatMonth(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 

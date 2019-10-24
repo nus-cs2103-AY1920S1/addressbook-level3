@@ -109,8 +109,18 @@ public interface Model {
 
     /**
      * Sets the monthly budget to the specified budget.
+     *
+     * @param budget is the budget to be replaced.
+     * @return replaced budget wrapped in optional.
      */
-    void setBudget(Budget budget);
+    Optional<Budget> setBudget(Budget budget);
+
+    /**
+     * Resets the monthly budget to null.
+     *
+     * @param budget is the budget to be removed.
+     */
+    void resetBudgetForThatMonth(Budget budget);
 
     /**
      * Replaces the given transaction {@code target} with {@code updatedTransaction}.

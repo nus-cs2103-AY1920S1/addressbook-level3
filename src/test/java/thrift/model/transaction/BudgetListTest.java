@@ -1,6 +1,7 @@
 package thrift.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.testutil.Assert.assertThrows;
 
@@ -37,5 +38,15 @@ public class BudgetListTest {
         budgetList.setBudget(TypicalTransactions.OCT_BUDGET);
         Calendar now = Calendar.getInstance();
         assertTrue(budgetList.getBudgetForMonthYear(now).isPresent());
+    }
+
+    @Test
+    public void removeBudget_success() {
+        BudgetList expectedList = new BudgetList();
+        Calendar now = Calendar.getInstance();
+        Budget budget = new Budget(now, new BudgetValue("200"));
+        budgetList.setBudget(budget);
+        budgetList.removeBudget(budget);
+        assertEquals(budgetList, expectedList);
     }
 }
