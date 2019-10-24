@@ -3,7 +3,6 @@ package seedu.module.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import seedu.module.commons.exceptions.DataConversionException;
 import seedu.module.model.ModuleBook;
 import seedu.module.model.ReadOnlyModuleBook;
 
@@ -19,15 +18,12 @@ public interface ModuleBookStorage {
 
     /**
      * Returns ModuleBook data as a {@link ModuleBook}.
-     * Returns {@code Optional.empty()} if storage file is not found.
-     *
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException             if there was any problem when reading from the storage.
+     * Returns an empty ModuleBook if storage file is not found.
      */
     ReadOnlyModuleBook readModuleBook();
 
     /**
-     * @see #getModuleBookFilePath()
+     * @see #readModuleBook()
      */
     ReadOnlyModuleBook readModuleBook(Path filePath);
 

@@ -43,7 +43,6 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
      * Similar to {@link #readModuleBook()}.
      *
      * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
      */
     public ReadOnlyModuleBook readModuleBook(Path filePath) {
         requireNonNull(filePath);
