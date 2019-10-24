@@ -135,9 +135,9 @@ public class MultipleChoiceCard extends FrontBackCard {
     /**
      * Evaluates if user input answer is correct.
      *
-     * @param in input
-     * @return
-     * @throws IndexNotFoundException
+     * @param in String input provided by user.
+     * @return Boolean, if correct return true, else return false.
+     * @throws IndexNotFoundException Throw exception when input provided by user is not a valid choice.
      */
     //@@author huiminlim
     @Override
