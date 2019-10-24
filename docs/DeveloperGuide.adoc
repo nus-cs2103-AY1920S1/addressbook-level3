@@ -19,8 +19,13 @@ By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 == Introduction
 
 === LiBerry
+LiBerry is a desktop app for librarians to *quickly manage their community libraries!*
+LiBerry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the
+benefits of a Graphical User Interface (GUI).
+You can type quickly and serve your long line of borrowers in a short amount of time.
+LiBerry can manage all your books and borrowers efficiently and meticulously.
 
-=== Purpose
+=== Purpose of Developer Guide
 
 === Legend
 
