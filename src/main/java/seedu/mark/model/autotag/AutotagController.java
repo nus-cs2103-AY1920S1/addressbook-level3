@@ -30,8 +30,12 @@ public class AutotagController {
         this.taggers = taggers;
     }
 
-    private List<SelectiveBookmarkTagger> getTaggers() {
-        return this.taggers;
+    /**
+     * Returns a shallow copy of the {@code SelectiveBookmarkTagger} list
+     * used by this {@code AutotagController}.
+     */
+    public List<SelectiveBookmarkTagger> getTaggers() {
+        return new ArrayList<>(this.taggers);
     }
 
     /**
@@ -56,6 +60,13 @@ public class AutotagController {
     public void addTagger(SelectiveBookmarkTagger tagger) {
         requireNonNull(tagger);
         taggers.add(tagger);
+    }
+
+    /**
+     * Removes all taggers from this {@code AutotagController}.
+     */
+    public void removeAllTaggers() {
+        taggers.clear();
     }
 
     /**
