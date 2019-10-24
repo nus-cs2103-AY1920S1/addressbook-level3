@@ -464,9 +464,11 @@ In addition, this achieves elevation between surfaces and the background, which 
 The primary color is desaturated to reach a WCAG's AA standard of minimally 4:5:1.
 This facilitates a mild yet impressionable visual aspect to Mortago while minimizing eye strain, as saturated colors can cause optical vibrations against the dark surface and exacerbate eye strain.
 
-==== Replacing Windows Title Bar
+==== Replacing Window's Title Bar
 
 In spirit with producing a sleek design, the standard Windows platform title bar was removed. This exposes the user interface to become one that is self-contained, while providing extra space at the top.
+
+*Removing Window's Title Bar*
 
 The following code snippet was placed in `MainApp#start()` to achieve this.
 
@@ -476,7 +478,46 @@ primaryStage.initStyle(StageStyle.TRANSPARENT);
 
 Note that this has to be done before the stage is shown. Otherwise, the application will close automatically upon running.
 
-However, with this removal, the default Windows functions such as the default OS close button will be inevitably removed as well. Hence, these buttons will have to be rebaked into the application.
+However, with this removal, the default Windows functions such as the default OS close button will be inevitably removed as well. Hence, these buttons will have to be rebuilt into the application.
+
+*Rebuilding Window Functions*
+
+The following image illustrates the minimise, maximise and exit buttons rebuilt into the menu bar.
+
+(insert photo)
+
+Each button was assigned its respective handler method, based on different events.
+
+. Exit Button
+* The method for exiting the application has already been implemented in `handleExit()`. Thus, setting the handler for the exit button to this method within the `MainWindow.fxml` file is sufficient.
+
+. Minimise Button
+* Minimisation of the application is implemented such that when the user clicks on the  minimise button (`onMouseClicked` event), the following code is called which minimises the window.
+```
+primaryStage.setIconified(true)
+```
+
+[start = 3]
+. Maximise Button
+* Maximisation is implemented similarly to minimization. When the maximise button is clicked *initially*, it triggers a mouse click event, which is handled by the following code snippet.
+
+```
+maximiseButton.setOnMouseClicked(click -> {
+            primaryStage.setMaximized(true);
+            maximiseButton.setId("restoreButton");
+        });
+```
+
+* However, when the button is clicked for the second time, the window is restored to its pre-maximised size. In order to implement this, a handler for the `onMousePressed` event has to be set, as seen in the following code snippet.
+
+```
+maximiseButton.setOnMousePressed(click -> {
+            primaryStage.setMaximized(false);
+            maximiseButton.setId("maximisevButton");
+        });
+```
+
+Finally, the last functionality to rebuilt is the resizability of the Window. This implementation is adapted from a https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage[post] in StackOverFlow. Briefly,  `ResizableWindow::enableResizableWindow()` allows the Windows to be resizable by implementing a helper class `ResizeListener`. The helper class listens to mouse events and tracks the mouse's movements to pinpoint the coordinates of the mouse. This determines the change in size of the Window, which will then be resized accordingly.
 
 
 

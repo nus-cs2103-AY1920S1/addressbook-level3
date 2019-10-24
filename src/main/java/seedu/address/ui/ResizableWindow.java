@@ -23,35 +23,30 @@ public class ResizableWindow {
      * Registers an event handler for the Scene in the specified Stage (top-level UI container)
      * @param stage
      */
-    public static void enableResizableWindow(Stage stage,
-                                             double minWidth,
-                                             double minHeight,
-                                             double maxWidth,
-                                             double maxHeight) {
-        ResizeHandler resizeHandler = new ResizeHandler(stage);
-        stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resizeHandler);
-        stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, resizeHandler);
-        stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, resizeHandler);
-        stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED, resizeHandler);
-        stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, resizeHandler);
+    public static void enableResizableWindow(Stage stage, double minWidth, double minHeight, double maxWidth,
+            double maxHeight) {
+        ResizeListener resizeListener = new ResizeListener(stage);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resizeListener);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, resizeListener);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, resizeListener);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED, resizeListener);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, resizeListener);
 
-        resizeHandler.setMinWidth(minWidth);
-        resizeHandler.setMinHeight(minHeight);
-        resizeHandler.setMaxWidth(maxWidth);
-        resizeHandler.setMaxHeight(maxHeight);
+        resizeListener.setMinWidth(minWidth);
+        resizeListener.setMinHeight(minHeight);
+        resizeListener.setMaxWidth(maxWidth);
+        resizeListener.setMaxHeight(maxHeight);
 
         ObservableList<Node> children = stage.getScene().getRoot().getChildrenUnmodifiable();
         for (Node child : children) {
-            addHandlerToNodes(child, resizeHandler);
+            addListenerToNodes(child, resizeListener);
         }
     }
 
     /**
      * Registers an event handler for each UI node in the hierarchy
-     * @param node
-     * @param handler
      */
-    private static void addHandlerToNodes(Node node, EventHandler<MouseEvent> handler) {
+    private static void addListenerToNodes(Node node, EventHandler<MouseEvent> handler) {
         node.addEventHandler(MouseEvent.MOUSE_MOVED, handler);
         node.addEventHandler(MouseEvent.MOUSE_PRESSED, handler);
         node.addEventHandler(MouseEvent.MOUSE_DRAGGED, handler);
@@ -61,7 +56,7 @@ public class ResizableWindow {
             Parent parent = (Parent) node;
             ObservableList<Node> children = parent.getChildrenUnmodifiable();
             for (Node child : children) {
-                addHandlerToNodes(child, handler);
+                addListenerToNodes(child, handler);
             }
         }
     }
@@ -69,7 +64,7 @@ public class ResizableWindow {
     /**
      * Configures mouse event handler
      */
-    static class ResizeHandler implements EventHandler<MouseEvent> {
+    static class ResizeListener implements EventHandler<MouseEvent> {
         private Stage stage;
         private Cursor cursorEvent = Cursor.DEFAULT;
         private int border = 4;
@@ -82,7 +77,7 @@ public class ResizableWindow {
         private double minHeight;
         private double maxHeight;
 
-        public ResizeHandler(Stage stage) {
+        public ResizeListener(Stage stage) {
             this.stage = stage;
         }
 
