@@ -198,8 +198,9 @@ image::WatchSequenceDiagram.png[]
 * **Alternative 2:** Use `watch` and `unwatch` keywords.
 ** Pros: Logical keywords are being used.
 ** Cons: The same logic will be repeated twice, albeit different command names.
-// end::undoredo[]
+// end::markaswatched[]
 
+// tag::statistics[]
 === [Proposed] Statistics feature
 ==== Proposed Implementation
 
@@ -255,7 +256,7 @@ image::activityDiagram.png[]
 * **Alternative 2:** Calculate when the user navigate to Statistics panel.
 ** Pros: Less calculation needed.
 ** Cons: Appear less responsive.
-
+// end::statistics[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
