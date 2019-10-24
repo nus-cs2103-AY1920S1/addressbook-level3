@@ -3,8 +3,6 @@ package seedu.jarvis.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -22,7 +20,9 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.appstatus.PageType;
+import seedu.jarvis.ui.address.PersonListPage;
 import seedu.jarvis.ui.address.PersonListPanel;
+import seedu.jarvis.ui.homepage.HomePage;
 import seedu.jarvis.ui.template.Page;
 
 /**
@@ -45,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabbedDisplay tabbedDisplay;
+    private HomePage homePage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -132,6 +133,9 @@ public class MainWindow extends UiPart<Stage> {
 //        tabbedDisplay = new TabbedDisplay();
 //        tabbedDisplayPlaceholder.getChildren().add(tabbedDisplay.getRoot());
 
+        homePage = new HomePage();
+        contentPlaceholder.getChildren().add(homePage.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -167,6 +171,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+//        handleSwitch();
         primaryStage.show();
     }
 
@@ -229,13 +234,13 @@ public class MainWindow extends UiPart<Stage> {
         Page<? extends Node> newPage;
 
         switch (currentPageType) {
-            case TRIP_MANAGER:
-                newPage = new TripsPage(this, logic, model);
+            case LIST_ADDRESS:
+                newPage = new PersonListPage(this, logic, model);
                 break;
 
             default:
                 resultDisplay.setFeedbackToUser(
-                        String.format(MESSAGE_PAGE_NOT_IMPLEMENTED, currentPageType.toString()));
+                        String.format("MESSAGE_PAGE_NOT_IMPLEMENTED", currentPageType.toString()));
                 return;
         }
 

@@ -17,6 +17,8 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.appstatus.PageStatus;
+import seedu.jarvis.model.appstatus.PageType;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
@@ -47,6 +49,7 @@ public class ModelManager implements Model {
     private final CoursePlanner coursePlanner;
     private final CcaTracker ccaTracker;
     private final Planner planner;
+    private PageStatus pageStatus;
 
 
     /**
@@ -67,6 +70,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
         this.coursePlanner = new CoursePlanner(coursePlanner);
+        this.pageStatus = new PageStatus(PageType.HOME_PAGE);
     }
 
     public ModelManager() {
@@ -74,6 +78,15 @@ public class ModelManager implements Model {
                 new UserPrefs(), new Planner(), new CoursePlanner());
     }
 
+    //=========== PageStatus ==================================================================================
+
+    public PageStatus getPageStatus() {
+        return pageStatus;
+    }
+
+    public void setPageStatus(PageType pageType) {
+        pageStatus.setPageType(pageType);
+    }
 
     //=========== UserPrefs ==================================================================================
 
