@@ -9,6 +9,9 @@ public class ExitCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "exit";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Exit THRIFT application.\n"
+            + "Format: " + COMMAND_WORD;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exit THRIFT application.\n"
             + "Example: " + COMMAND_WORD;
 

@@ -14,7 +14,14 @@ public class FindCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transaction whose descriptions contain any "
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Finds all transactions whose descriptions contain any "
+            + "of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Format: " + COMMAND_WORD + " KEYWORD [MORE_KEYWORDS]...\n"
+            + "Possible usage of " + COMMAND_WORD + ": \n"
+            + "To find all transactions that contain the words 'alice', 'bob' and 'charlie': "
+            + COMMAND_WORD + " alice bob charlie";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transactions whose descriptions contain any "
             + "of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";

@@ -29,85 +29,84 @@ public class HelpCommandParserTest {
     @Test
     public void parse_addExpense_success() throws ParseException {
         assertParseSuccess(parser, AddExpenseCommand.COMMAND_WORD, new HelpCommand(
-                AddExpenseCommand.MESSAGE_USAGE));
+                AddExpenseCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_addIncome_success() throws ParseException {
         assertParseSuccess(parser, AddIncomeCommand.COMMAND_WORD, new HelpCommand(
-                AddIncomeCommand.MESSAGE_USAGE));
+                AddIncomeCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_budget_success() throws ParseException {
         assertParseSuccess(parser, BudgetCommand.COMMAND_WORD, new HelpCommand(
-                BudgetCommand.MESSAGE_USAGE));
+                BudgetCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_clone_success() throws ParseException {
         assertParseSuccess(parser, CloneCommand.COMMAND_WORD, new HelpCommand(
-                CloneCommand.MESSAGE_USAGE));
+                CloneCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_delete_success() throws ParseException {
         assertParseSuccess(parser, DeleteCommand.COMMAND_WORD, new HelpCommand(
-                DeleteCommand.MESSAGE_USAGE));
+                DeleteCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_exit_success() throws ParseException {
         assertParseSuccess(parser, ExitCommand.COMMAND_WORD, new HelpCommand(
-                ExitCommand.MESSAGE_USAGE));
+                ExitCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_find_success() throws ParseException {
         assertParseSuccess(parser, FindCommand.COMMAND_WORD, new HelpCommand(
-                FindCommand.MESSAGE_USAGE));
+                FindCommand.HELP_MESSAGE));
     }
 
     @Test
-    public void parse_help_throwParseException() throws ParseException {
-        assertParseFailure(parser, HelpCommand.COMMAND_WORD, String.format(
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE)));
+    public void parse_help_success() throws ParseException {
+        assertParseSuccess(parser, HelpCommand.COMMAND_WORD, new HelpCommand(HelpCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_list_success() throws ParseException {
         assertParseSuccess(parser, ListCommand.COMMAND_WORD, new HelpCommand(
-                ListCommand.MESSAGE_USAGE));
+                ListCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_redo_success() throws ParseException {
         assertParseSuccess(parser, RedoCommand.COMMAND_WORD, new HelpCommand(
-                RedoCommand.MESSAGE_USAGE));
+                RedoCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_tag_success() throws ParseException {
         assertParseSuccess(parser, TagCommand.COMMAND_WORD, new HelpCommand(
-                TagCommand.MESSAGE_USAGE));
+                TagCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_undo_success() throws ParseException {
         assertParseSuccess(parser, UndoCommand.COMMAND_WORD, new HelpCommand(
-                UndoCommand.MESSAGE_USAGE));
+                UndoCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_untag_success() throws ParseException {
         assertParseSuccess(parser, UntagCommand.COMMAND_WORD, new HelpCommand(
-                UntagCommand.MESSAGE_USAGE));
+                UntagCommand.HELP_MESSAGE));
     }
 
     @Test
     public void parse_update_success() throws ParseException {
         assertParseSuccess(parser, UpdateCommand.COMMAND_WORD, new HelpCommand(
-                UpdateCommand.MESSAGE_USAGE));
+                UpdateCommand.HELP_MESSAGE));
     }
 
     @Test

@@ -21,6 +21,14 @@ public class DeleteCommand extends NonScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "delete";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD
+            + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
+            + "Format: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer)\n"
+            + "Possible usages of " + COMMAND_WORD + ": \n"
+            + "To delete transaction at index 1 in the displayed transaction list: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 ";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
             + "Parameters: " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer)\n"

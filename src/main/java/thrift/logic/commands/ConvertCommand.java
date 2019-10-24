@@ -18,11 +18,12 @@ public class ConvertCommand extends NonScrollingCommand {
 
     public static final String DEFAULT_VALUE = "1.00";
     public static final String DEFAULT_CURRENCY = "SGD";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Converts amount "
             + "from the first specified currency to the rest of the specified currencies.\n"
             + "If no value is specified, it converts with a value of " + DEFAULT_VALUE + ".\n"
             + "If only one currency is specified, it converts from " + DEFAULT_CURRENCY + " to that currency.\n"
-            + "Parameters: [" + CliSyntax.PREFIX_VALUE + "amount] (must be a double) "
+            + "Parameters: [" + CliSyntax.PREFIX_VALUE + "AMOUNT] (up to 2 decimal places) "
             + CliSyntax.PREFIX_CURRENCY + "CURRENCIES...\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_VALUE + "1000 "
@@ -37,6 +38,23 @@ public class ConvertCommand extends NonScrollingCommand {
 
     public static final String MESSAGE_BASE_CURRENCY_FORMAT = "Converting from %1$S%2$s\n";
     public static final String MESSAGE_TARGET_CURRENCY_FORMAT = "To %1$S: %1$S%2$s\n";
+
+    public static final String HELP_MESSAGE = COMMAND_WORD
+            + ": Converts amount from the first specified currency to the rest of the specified currencies.\n"
+            + "If no value is specified, it converts with a value of " + DEFAULT_VALUE + ".\n"
+            + "If only one currency is specified, it converts from " + DEFAULT_CURRENCY + " to that currency.\n"
+            + "Format: "
+            + COMMAND_WORD + " " + "[" + CliSyntax.PREFIX_VALUE + "AMOUNT] (up to 2 decimal places) "
+            + CliSyntax.PREFIX_CURRENCY + "CURRENCIES...\n"
+            + "Possible usages of " + COMMAND_WORD + ": \n"
+            + "To convert 500 USD to MYR: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_VALUE + "500 "
+            + CliSyntax.PREFIX_CURRENCY + "USD " + CliSyntax.PREFIX_CURRENCY + "MYR\n"
+            + "To view the conversion rate from USD to MYR: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_CURRENCY + "USD " + CliSyntax.PREFIX_CURRENCY + "MYR\n"
+            + "To convert a value from " + DEFAULT_CURRENCY + " to USD: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_VALUE + "100 " + CliSyntax.PREFIX_CURRENCY + "USD"
+            + MESSAGE_CREDITS;
 
     private double amount;
     private List<String> currencies;

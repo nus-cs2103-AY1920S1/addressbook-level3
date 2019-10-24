@@ -37,6 +37,19 @@ public class TagCommand extends NonScrollingCommand implements Undoable {
             + CliSyntax.PREFIX_INDEX + "1 "
             + CliSyntax.PREFIX_TAG + "Food";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD
+            + ": Tags the transaction identified by the index number used in the displayed transaction list. "
+            + "New tags will be added to existing tags.\n"
+            + "Format: " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer) "
+            + CliSyntax.PREFIX_TAG + "TAG...\n"
+            + "Possible usages of " + COMMAND_WORD + ": \n"
+            + "To add a tag to the existing tag(s) of the transaction at index 1 in the displayed transaction list: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 " + CliSyntax.PREFIX_TAG + "Food\n"
+            + "To add multiple tags to the existing tag(s) of the transaction at index 1 in the displayed "
+            + "transaction list: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 " + CliSyntax.PREFIX_TAG + "Food "
+            + CliSyntax.PREFIX_TAG + "Japanese";
+
     public static final String MESSAGE_TAG_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
     public static final String MESSAGE_TAG_EXISTED = "\nTag(s) %1$s already exist and will be ignored.";
     public static final String MESSAGE_ORIGINAL_TRANSACTION = "\n\nOriginal: %1$s";

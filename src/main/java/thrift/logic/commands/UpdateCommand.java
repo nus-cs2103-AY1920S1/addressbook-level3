@@ -44,6 +44,25 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
             + CliSyntax.PREFIX_NAME + "Mee Siam "
             + CliSyntax.PREFIX_VALUE + "3.00";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD
+            + ": Updates the details of the transaction identified by the index number used in the displayed "
+            + "transaction list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Format: " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer) "
+            + "[" + CliSyntax.PREFIX_NAME + "NAME DESCRIPTION] "
+            + "[" + CliSyntax.PREFIX_VALUE + "VALUE] "
+            + "[" + CliSyntax.PREFIX_REMARK + "REMARK] "
+            + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
+            + "Possible usages of " + COMMAND_WORD + ": \n"
+            + "To update the name of the transaction at index 1 in the displayed transaction list: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 " + CliSyntax.PREFIX_NAME + "Chicken rice\n"
+            + "To update the value of the transaction at index 1 in the displayed transaction list: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 " + CliSyntax.PREFIX_VALUE + "3\n"
+            + "To update the remark of the transaction at index 1 in the displayed transaction list: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 " + CliSyntax.PREFIX_REMARK + "Best food ever\n"
+            + "To overwrite the existing tag(s) of the transaction at index 1 in the displayed transaction list: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 " + CliSyntax.PREFIX_TAG + "food";
+
     public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
     public static final String MESSAGE_ORIGINAL_TRANSACTION = "\n\nOriginal: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";

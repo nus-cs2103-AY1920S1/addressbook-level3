@@ -29,6 +29,14 @@ public class CloneCommand extends NonScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "clone";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD
+            + ": Clones the transaction specified by its index number used in the displayed transaction list.\n"
+            + "Format: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer)\n"
+            + "Possible usage of " + COMMAND_WORD + ": \n"
+            + "To clone the transaction at index 8 in the displayed transaction list: "
+            + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "8";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Clones the transaction specified by its index number used in the displayed transaction list.\n"
             + "Parameters: " + CliSyntax.PREFIX_INDEX + "INDEX (must be a positive integer)\n"

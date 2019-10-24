@@ -12,6 +12,10 @@ public class RedoCommand extends NonScrollingCommand {
 
     public static final String COMMAND_WORD = "redo";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Redo undone command.\n"
+            + "Undoable commands are: add_expense, add_income, budget, clone, delete, tag, untag, update.\n"
+            + "Format: " + COMMAND_WORD;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo undone command.\n"
             + "Example: " + COMMAND_WORD;
 

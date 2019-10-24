@@ -7,6 +7,7 @@ import thrift.logic.commands.AddExpenseCommand;
 import thrift.logic.commands.AddIncomeCommand;
 import thrift.logic.commands.BudgetCommand;
 import thrift.logic.commands.CloneCommand;
+import thrift.logic.commands.ConvertCommand;
 import thrift.logic.commands.DeleteCommand;
 import thrift.logic.commands.ExitCommand;
 import thrift.logic.commands.FindCommand;
@@ -31,31 +32,35 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         requireNonNull(userInput);
         switch (userInput.trim()) {
         case AddExpenseCommand.COMMAND_WORD:
-            return new HelpCommand(AddExpenseCommand.MESSAGE_USAGE);
+            return new HelpCommand(AddExpenseCommand.HELP_MESSAGE);
         case AddIncomeCommand.COMMAND_WORD:
-            return new HelpCommand(AddIncomeCommand.MESSAGE_USAGE);
+            return new HelpCommand(AddIncomeCommand.HELP_MESSAGE);
         case BudgetCommand.COMMAND_WORD:
-            return new HelpCommand(BudgetCommand.MESSAGE_USAGE);
+            return new HelpCommand(BudgetCommand.HELP_MESSAGE);
         case CloneCommand.COMMAND_WORD:
-            return new HelpCommand(CloneCommand.MESSAGE_USAGE);
+            return new HelpCommand(CloneCommand.HELP_MESSAGE);
+        case ConvertCommand.COMMAND_WORD:
+            return new HelpCommand(ConvertCommand.HELP_MESSAGE);
         case DeleteCommand.COMMAND_WORD:
-            return new HelpCommand(DeleteCommand.MESSAGE_USAGE);
+            return new HelpCommand(DeleteCommand.HELP_MESSAGE);
         case ExitCommand.COMMAND_WORD:
-            return new HelpCommand(ExitCommand.MESSAGE_USAGE);
+            return new HelpCommand(ExitCommand.HELP_MESSAGE);
         case FindCommand.COMMAND_WORD:
-            return new HelpCommand(FindCommand.MESSAGE_USAGE);
+            return new HelpCommand(FindCommand.HELP_MESSAGE);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand(HelpCommand.HELP_MESSAGE);
         case ListCommand.COMMAND_WORD:
-            return new HelpCommand(ListCommand.MESSAGE_USAGE);
+            return new HelpCommand(ListCommand.HELP_MESSAGE);
         case RedoCommand.COMMAND_WORD:
-            return new HelpCommand(RedoCommand.MESSAGE_USAGE);
+            return new HelpCommand(RedoCommand.HELP_MESSAGE);
         case TagCommand.COMMAND_WORD:
-            return new HelpCommand(TagCommand.MESSAGE_USAGE);
+            return new HelpCommand(TagCommand.HELP_MESSAGE);
         case UndoCommand.COMMAND_WORD:
-            return new HelpCommand(UndoCommand.MESSAGE_USAGE);
+            return new HelpCommand(UndoCommand.HELP_MESSAGE);
         case UntagCommand.COMMAND_WORD:
-            return new HelpCommand(UntagCommand.MESSAGE_USAGE);
+            return new HelpCommand(UntagCommand.HELP_MESSAGE);
         case UpdateCommand.COMMAND_WORD:
-            return new HelpCommand(UpdateCommand.MESSAGE_USAGE);
+            return new HelpCommand(UpdateCommand.HELP_MESSAGE);
         case EMPTY_STRING:
             return new HelpCommand(EMPTY_STRING);
         default:
