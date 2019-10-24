@@ -78,7 +78,7 @@ public class ModelManager implements Model {
         combinedExpenses.addAll(nonArchiveExpenses);
         combinedExpenses.addAll(archiveExpense);
 
-        Billboard billboard = new Billboard();
+        Billboard billboard = this.billboard.getClone();
         billboard.setExpenses(combinedExpenses);
 
         return billboard;
@@ -260,6 +260,7 @@ public class ModelManager implements Model {
     }
 
     //=========== StatisticsGenerator Chart Methods =============================================================
+
     public ObservableData<StatisticsType> getStatisticsType() {
         return statsType;
     }
@@ -268,6 +269,50 @@ public class ModelManager implements Model {
         statsType.setValue(type);
     }
 
+    //=========== Clone Methods =============================================================
+
+    /**
+     * Get a deep copy object of itself.
+     * @return Model a deep copy of itself.
+     */
+    @Override
+    public Model getClone() {
+        Billboard billboard = getCombinedBillboard();
+        return new ModelManager(billboard, userPrefs);
+    }
+
+    /**
+     * Set the model to new model.
+     *
+     * @param model a model.
+     */
+    @Override
+    public void setModel(Model model) {
+        this.billboard.setBillboard((Billboard) model.getBillboard());
+        this.archives.setArchives(model.getArchives());
+        this.statsType.setObservers(model.getStatsType().getObservers());
+        this.statsType.setValue(model.getStatsType().getValue());
+        this.filteredArchives.clear();
+        this.filteredArchives.putAll(model.getFilteredArchives());
+    }
+
+    /**
+     * Getter of statsType.
+     * @return ObservableData a model.
+     */
+    @Override
+    public ObservableData<StatisticsType> getStatsType() {
+        return statsType;
+    }
+
+    /**
+     * Getter of filteredArchives.
+     * @return HashMap the filteredArchives.
+     */
+    @Override
+    public HashMap<String, FilteredList<Expense>> getFilteredArchives() {
+        return filteredArchives;
+    }
 
     @Override
     public boolean equals(Object obj) {

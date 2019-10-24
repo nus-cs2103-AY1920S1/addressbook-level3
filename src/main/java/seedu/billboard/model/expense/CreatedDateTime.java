@@ -60,7 +60,7 @@ public class CreatedDateTime {
                     return ((LocalDate) accessor).atStartOfDay();
                 }
             } catch (DateTimeParseException e) {
-                e.printStackTrace();
+                    //e.printStackTrace();
             }
         }
 

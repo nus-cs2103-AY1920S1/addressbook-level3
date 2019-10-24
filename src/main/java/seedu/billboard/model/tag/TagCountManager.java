@@ -127,6 +127,12 @@ public class TagCountManager {
         return Collections.unmodifiableMap(count);
     }
 
+    public TagCountManager getClone() {
+        TagCountManager result = new TagCountManager();
+        result.setCountMap(getCountMap());
+        return result;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
