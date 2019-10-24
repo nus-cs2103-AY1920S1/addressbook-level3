@@ -434,6 +434,33 @@ amount of memory used.
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+[[Implementation]]
+=== [Feature] Search feature
+==== Implementation
+The `searchCommand` extends `Command` and uses `SearchCommandParser` to process the command entered by the user.
+
+Given below is an example usage scenario and how the search mechanism behaves at each step.
+
+Step 1. The user launches the application and executes `search n/Joker` command to search for a show with the name "Joker".
+
+Step 2. Entering the command calls SearchCommandParser#parse().
+
+Step 3. A new `SearchCommand` is created, with the list containing the name of the show to be searched as a field of `SearchCommand`.
+
+Step 4. The `SearchCommand#execute()` method is called, referencing the current model.
+
+[NOTE]
+If the user is not connected online, a new `OnlineConnectionException` is thrown.
+
+Step 5.
+
+The following sequence diagram shows how the search operation works:
+
+//image::SearchSequenceDiagram.png[]
+
+
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
