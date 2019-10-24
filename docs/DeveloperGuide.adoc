@@ -291,8 +291,8 @@ The rationale for the different types of arguments for the loan, return, renew a
 but it is actually very simple.
 
 * When borrowers come to the librarian (our user) to borrow a book, the book itself would have
-a serial number. Thus, the user just types in the serial number of the book to be loaned out, instead of using find to
-locate that book in LiBerry to use its index.
+a serial number. Thus, the user just types in the serial number of the book to be loaned out, instead of using the find
+command to locate that book in LiBerry to use its index.
 
 * Whereas, when a borrower comes to return a book, the librarian only sees a limited list of book that was loaned out by
 the borrower on the GUI. Hence, the librarian need not type the longer serial number to return that book, and instead, types
@@ -313,7 +313,8 @@ The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `Loa
 
 Both the `Book` and `Borrower` objects also have access to this `Loan` object.
 
-In each `Loan` object, the `BorrowerId`
+In each `Loan` object, only the `BorrowerId` of the `Borrower` and `SerialNumber` of the `Book` is stored to reduce
+circular dependency.
 
 The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
 
@@ -385,7 +386,7 @@ Similarly, the creation of new objects for replacement are also done to support 
 Inside the model, for each current loan (loans that are not returned yet), the `Book`, the `Borrower` and the `LoanRecords`
 point to the same the same `Loan` object. LiBerry's storage system is such that `Catalog` stores the books,
 `BorrowerRecords` stores the borrowers and `LoanRecords` stores the loans. Thus, a decision was made to decide how these
-oans are serialized and stored in the user's file system.
+loans are serialized and stored in the user's file system.
 
 * **Alternative 1:** Save the whole `Loan` object in each book in the `catalog.json` and save the the whole of every `Loan`
 object in each borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
