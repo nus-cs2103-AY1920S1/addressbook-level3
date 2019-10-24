@@ -16,13 +16,23 @@ endif::[]
 
 By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
 
+== Introduction
+
+Welcome to Mark. This developer guide aims to introduce potential developers to the structure and implementation of Mark,
+so that you can contribute too!
+
+The guide first covers the high-level design of Mark, and then discusses the implementation of key features and the
+rationale behind certain design decisions. Next, it provides links to guides for the tools used in Documentation, Testing,
+and DevOps. Finally, the appendices of this guide specify the product scope, requirements, a glossary, and instructions for
+manual testing.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
-This section shows the design of AddressBook Level 3, which Mark is adapted from. It will be updated in a future release.
+This section shows the design of Mark.
 
 [[Design-Architecture]]
 === Architecture
@@ -34,24 +44,21 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/mark/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/mark/MainApp.java[`MainApp`]. It is responsible for,
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* Initializes the components in the correct sequence, and connects them up with each other.
+* Shuts down the components and invokes cleanup method where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+For example, `LogsCenter` plays an important role at the architecture level as it is used by many classes to write log messages to the App's log file.
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+The rest of the App consists of the following four components:
 
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+. <<Design-Ui,*`UI`*>>: The UI of the App.
+. <<Design-Logic,*`Logic`*>>: The command executor.
+. <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+. <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
@@ -75,76 +82,109 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+The following diagram illustrates the structure of the UI component:
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The structure of the `TabView` is depicted here:
 
-The `UI` component,
+.Structure of the TabView Component, which is a part of the UI component
+image::UiTabViewClassDiagram.png[]
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/mark/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+
+The `UI` component does the following:
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
+The following class diagram illustrates the structure of the `Logic` component:
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/mark/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+`Logic` uses the `MarkParser` class to parse the user command.
+This results in a `Command` object which is executed by the `LogicManager`.
+The command execution can affect the `Model` (e.g. adding a bookmark) and/or `Storage` (e.g. import bookmarks).
+The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions,
+such as displaying help to the user, switching the tab view, or exiting the application.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+As an example of how the `Logic` component works, the following sequence diagram shows the interactions
+within the `Logic` component for the `execute("delete 1")` API call:
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+The `Logic` component does the following:
+
+* Parses and executes user commands
+* Modifies `Model` and/or `Storage` according to user commands
+* Instructs `Ui` through `CommandResult` objects
+
 [[Design-Model]]
 === Model component
+
+The `Model` component:
+
+* Stores the data of Mark.
+* Does not depend on any of the other three components.
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` consists of the following:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+1. `VersionedMark` - contains Mark data
+2. `UserPrefs` - represents the user's preferences
+3. `OfflineDocument` - represents the current document being displayed in the offline tab
+4. `Url` - represents the current URL being displayed in the offline tab
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+It also exposes an unmodifiable `ObservableList<Bookmark>` that
+can be 'observed', e.g. the UI can be bound to this list so that the UI automatically updates
+when the list data are changed.
+
+`VersionedMark` contains a list of `ReadOnlyMark` objects that represent past or future states of
+Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssociation` object, an
+`AutotagController`, and a `FolderStructure`.
+
+.Structure of the Annotation package
+image::AnnotationPackageClassDiagram.png[]
+
+The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
+An `OfflineDocument` consists of zero or more `Paragraph` objects. A `Paragraph` can be either a `PhantomParagraph`, which
+contains only an `AnnotationNote` and a `ParagraphIdentifier`, or a `TrueParagraph`, which contains `AnnotationNote`,
+`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `AnnotationNote` and `Highlight` are optional fields
+whenever they are used, i.e. in `PhantomParagraph` and/or `TrueParagraph`.
 
 [[Design-Storage]]
 === Storage component
+The following diagram illustrates the structure of the Storage component:
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component does the following:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* Saves `UserPref` objects in json format and reads them back.
+* Saves the Mark data in json format and reads it back.
 
 [[Design-Commons]]
 === Common classes
@@ -156,93 +196,326 @@ Classes used by multiple components are in the `seedu.mark.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedMark`.
+It extends `Mark` with an undo/redo history, stored internally as a list of `markStateRecord` and `currentPointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedMark#save()` -- Saves the current Mark state and the corresponding record to its history.
+* `VersionedMark#undo()` -- Restores the previous Mark state from its history and returns the record.
+* `VersionedMark#redo()` -- Restores a previously undone Mark state from its history and returns the record for that
+state.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#saveMark()`, `Model#undoMark()` and `Model#redoMark()`
+respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedMark` will be initialized with the initial
+Mark state and an empty record, and the `currentPointer` pointing to that single state record.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th bookmark in the Mark. The `delete` command calls
+`Model#saveMark()`, causing the modified state of the Mark and the record of the command after command execution to be
+saved in the `markStateRecords`, and the `currentPointer` is shifted to the newly inserted state record.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add u/www.google.com ...` to add a new bookmark. The `add` command also calls
+`Model#saveMark()`,
+causing another modified Mark state and the record to be saved into the `markStateRecords`, and the `currentPointer` is
+again shifted to the newly inserted state record..
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#saveMark()`, so the Mark state will not be saved into the
+`markStateRecords`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the bookmark was a mistake, and decides to undo that action by executing the
+`undo` command. The `undo` command will call `Model#undoMark()`, which will shift the `currentPointer` once to the left,
+pointing it to the previous state record, and restores the Mark to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentPointer` is at index 0, pointing to the initial Mark state, then there are no previous Mark states to
+restore.
+The `undo` command uses `Model#canUndoMark()` to check if this is the case. If so, it will return an error to the user
+rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoMark()`, which shifts the `currentPointer` once to the right,
+pointing to the previously undone state record, and restores the Mark to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentPointer` is at index `markStateRecords.size() - 1`, pointing to the latest address book state, then there
+are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is
+the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the Mark, such as `find`, will
+usually not call `Model#saveMark()`, `Model#undoMark()` or `Model#redoMark()`. Thus, the `markStateRecords` remains
+unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#saveMark()`. Since the `currentPointer` is not pointing at the end
+of the `markStateRecords`, all state records after the `currentPointer` will be purged.
+We designed it this way because it no longer makes sense to redo the `add u/www.google.com ...` command. This is the
+behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::SaveMarkActivityDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire Mark state.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the bookmark being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Use a list to store the history of Mark state records.
+** Pros: Undo/redo multiple commands can be achieved in O(1) time by just shifting the current pointer.
+** Cons: Clear state records after the current pointer can take O(n) time.
+* **Alternative 2:** Use two stacks, an undo stack and a redo stack to store the history of Mark state records.
+** Pros: Clear state records after the current pointer can be achieved in O(1) time by clearing the redo stack.
+** Cons: Undo/redo multiple commands can take O(n) time as each undo/redo action requires popping a state record from the
+undo stack and pushing it into the redo stack. There is no way to pop multiple state records efficiently at one time.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::autotag[]
+=== Autotag feature
+==== Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The autotag mechanism is facilitated by `AutotagController`. It stores and manages a list of `SelectiveBookmarkTaggers` which apply tags to
+bookmarks if they match specific criteria. It also implements the following operations:
 
-// end::dataencryption[]
+* `AutotagController#hasTagger(SelectiveBookmarkTagger)` -- Checks whether the controller contains the given tagger.
+* `AutotagController#addTagger(SelectiveBookmarkTagger)` -- Starts managing the given tagger.
+* `AutotagController#applyTaggersToList(List<Bookmark>)` -- Tags the bookmarks in the list using all relevant taggers.
+* `AutotagController#applyTaggers(Bookmark)` -- Tags the bookmark using all relevant taggers.
+
+The first three operations are exposed in the `Model` interface as `Model#hasTagger(SelectiveBookmarkTagger)`, `Model#addTagger(SelectiveBookmarkTagger)`,
+and `Model#applyAllTaggers()` respectively.
+
+Given below is an example usage scenario and how the autotag mechanism behaves at each step.
+
+Step 1. The user opens the application with an existing list of bookmarks and no autotags.
+
+image::AutotagState0.png[]
+
+Step 2. The user executes the command `autotag Help u/stackoverflow.com/questions` to add an autotag that tags all bookmarks
+from StackOverflow with the tag ProgrammingHelp. A `SelectiveBookmarkTagger` is created with a `UrlContainsKeywordsPredicate` and the tag
+`Help`. `b2`, which matches the `UrlContainsKeywordsPredicate`, is replaced by a copy of itself that also contains the tag
+`Help`.
+
+image::AutotagState1.png[]
+
+The following sequence diagram shows how the `autotag` command works.
+__(The sequence diagram will be improved in future versions of the Developer Guide.)__
+
+// TODO: improve sequence diagram
+image::AutotagSequenceDiagram.png[]
+
+NOTE: The lifeline for `AutotagCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, it reaches the end of this diagram.
+
+Now, autotags will be applied whenever a bookmark is added or modified.
+
+Step 3. The user then executes the command `add n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/` to bookmark
+a question on StackOverflow. This bookmark matches the conditions for the autotag `Help`, so it is tagged.
+
+image::AutotagState2.png[]
+
+The following activity diagram summarizes what happens when a user executes a `*autotag*` command:
+
+// TODO: make activity diagram
+.The activity diagram has not been created yet
+image::AutotagActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How autotags are applied
+
+* **Alternative 1 (current choice):** Iterate through each autotag and bookmark, then apply tags to all bookmarks that match.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of runtime, as bookmarks may be checked multiple times.
+* **Alternative 2:** Check for changes in the bookmark list then edit tags accordingly.
+** Pros: Will be faster if most bookmarks are unchanged.
+** Cons: More complicated to implement.
+
+===== Aspect: How to apply taggers to a bookmark list in Mark
+
+* **Alternative 1:** Modify individual bookmarks when adding tags.
+** Pros: Eliminates the need to reset Mark's bookmark list whenever taggers are applied.
+** Cons: Can cause unanticipated changes in other parts of the Model.
+* **Alternative 2 (current choice):** Replace the whole bookmark list with a new list of bookmarks, some of which have been tagged.
+** Pros: Simple to implement, ensures immutability of bookmarks.
+** Cons: Inefficient to construct a new list each time a single bookmark is tagged.
+* **Alternative 3:** Replace only those bookmarks that were tagged.
+** Pros: Minimises performance issues from creating a new bookmark list.
+** Cons: More complicated to implement.
+// end::autotag[]
+
+// tag::annotation[]
+=== Annotation feature
+==== Implementation
+The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
+Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. As each annotation is targeted to an entire paragraph,
+we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
+You can view the class structure of the annotation feature in the Figure above.
+//TODO: link to annotation class diagram
+
+
+There are three parts to the annotation feature:
+
+ * Add an annotation (executed by `AddAnnotationCommand#execute()`).
+ * Delete an annotation (executed by `DeleteAnnotationCommand#execute()`).
+ * Edit an annotation (executed by `EditAnnotationCommand#execute()`).
+
+These executions are triggered by `annotation` command inputs entered into the `CommandBox`, which calls the respective command parser to create the command.
+Subsequently, the appropriate `Paragraph`(s) is retrieved and the annotation is handled according to the command.
+
+The following sequence diagram illustrates how the adding annotation operation works:
+
+image::AddAnnotationSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+//TODO: after adding delete cmd, (highlight, note, both --> stray paragrph)
+For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.
+If the user requests to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
+If the user requests to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
+Otherwise, if the user requests to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
+
+NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. `PhantomParagraph` is a temporary holding place for a `stray note` and does not contain content from the `cache`.
+
+//TODO: edit -- add the other parts of the command (eg shift from one p to another); atm only edit note and highlight
+//TODO: <may not do> object diagram showing only paragraph and annotation for all three above?
+The edit operation can modify the content of the `AnnotationNote`, colour of `Highlight` and re-link a `stray note` to a `TrueParagraph`.
+The former two is simply done by changing the fields in `Annotation` of the `Paragraph` in query.
+To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
+
+The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
+//TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
+
+image::AnnotationActivityDiagram.png[]
+
+==== Design Considerations
+The following are a few design considerations made in deciding how to implement the annotation feature:
+
+===== Aspect: How to structure the offline components to store annotations
+Each annotation is tagged to a paragraph and an offline document is composed of multiple paragraphs.
+A cached copy has the original cache of the website.
+There are hence a few alternatives in which we can combine these elements and store them:
+
+* **Alternative 1 (current choice):** Let each `CachedCopy` have an `OfflineDocument` that consists of paragraphs with content parsed from the original cache. Each paragraph contains a annotation, if any.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage and overheads from layers of abstraction.
+
+* **Alternative 2**: Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
+** Pros: Will use less memory since the content of the website is not duplicated.
+** Cons: Not straightforward to implement. Stray notes will need a different implementation to order and store them. Objects not well abstracted.
+
+//TODO: need do? ===== Aspect: How to save the
+
+// end::annotation[]
+
+
+// tag::folders[]
+=== Folders feature
+==== Implementation
+
+A bookmark can be in a folder, and a folder can be nested within other folders for traditional directory organization.
+
+This mechanism is facilitated mainly by `Folder` and `FolderStructure`.
+
+`Folder` is simply another field in `Bookmark`, just like `Url` or `Name`, and has a single `String` property that contains the folder in which the bookmark is located.
+
+`FolderStructure` represents the hierarchy of folders, containing the folder it represents and its subfolders
+
+.Class Diagram of the Folders component
+image::FolderStructureClassDiagram.png[]
+
+
+Given below is an example usage scenario and how the folder structure behaves at each step.
+
+Step 1. The user launches the application for the first time. The root `FolderStructure` will be initialized with the initial hierarchy in the stored data.
+
+image::FolderStructureState0.png[]
+
+Step 2. The user enters a `folder GER1000 p/Work` command to create a new `FolderStructure` in the subfolders of `work`. Starting from the `root`, a depth first search will be performed to locate `work`. When found, `ger1000` will be added to its subfolders.
+
+image::FolderStructureState1.png[]
+
+[NOTE]
+If the parent folder is not provided, the parent folder will default to `root`.
+
+The following sequence diagram shows in more detail how the execution of `folder GER1000 p/Work` works:
+
+image::FolderSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Finally, the user sees his folder added successfully in the folder hierarchy.
+
+==== Design Considerations
+
+The following are a few design considerations made in deciding how to implement the folders feature:
+
+===== Aspect: How the folder hierarchy is saved into storage.
+
+* **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
+** Pros: Easy to implement
+** Cons: Easy for model to get into invalid state (e.g. bookmark has a folder that is not in the hierarchy)
+* **Alternative 2:** Change the bookmarks from being stored in a list to being stored as a hierarchy
+** Pros: Single source of truth, its folder is simply where it's located
+** Cons: The whole `BookmarkList` abstraction will have to be rewritten
+// end::folders[]
+
+// tag::reminder[]
+=== Reminder Feature
+==== Implementation
+A bookmark can have a reminder, and a reminder can be used to open the bookmark.
+This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
+
+`Reminder` contains a reminding time, the `Url` of the `Bookmark` and a `Note`.
+
+`ReminderAssociation` represents the association between `Reminder` and `Bookmark`, containing
+ the relation from `Reminder` to `Bookmark` and `Reminder` to `Bookmark`.
+
+.Structure of the Reminder
+image::ReminderAssociationDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to represent the relationship between reminder and bookmark
+* **Alternative 1 (current choice):** Use two hashmaps to store both the relationship from reminder to bookmark and bookmark to reminder.
+** Pros: More OOP and can easily find the relationship.
+** Cons: More complex when doing any operation to a reminder. Need to check two hashmaps.
+
+* **Alternative 2:** Reminder is a field of bookmark.
+** Pros: Easier to implement.
+//TODO: Change this description
+** Cons: Reminder is a field of bookmark, so using a reminder to open the bookmark violate the relationship.
+// end::reminder[]
+
 
 === Logging
 

@@ -79,7 +79,7 @@ public class CacheCommand extends Command {
 
         model.setBookmark(bookmarkToCache, cachedBookmark);
         model.updateCurrentDisplayedCache(cachedBookmark);
-        model.saveMark();
+        model.saveMark(MESSAGE_SUCCESS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
