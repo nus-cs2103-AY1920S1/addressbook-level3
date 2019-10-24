@@ -439,6 +439,75 @@ image::AddTagActivityDiagram.png[]
 
 // end::tagging[]
 
+// find:finding[]
+=== [Enhanced] Find
+==== Proposed Implementation
+The find feature supports the finding expenses by any combination of the following conditions:
+
+* Keywords
+* Lower/upper amount limit
+* Lower/upper creation date limit
+
+These actions are facilitated by the `MultiArgPredicate` class:
+
+* `MultiArgPredicate` implements the `Predicate` interface. It enables filtering of expenses by multiple attributes
+through keeping track of a set of predicates that can be applied when prompted by user input.
+
+Operations include:
+
+* `MultiArgPredicate#setKeywords(List<String>)` -- Set list of keywords to search by.
+* `MultiArgPredicate#setDateRange(CreatedDate, CreatedDate)` -- Set start date and end date limit to search by.
+* `MultiArgPredicate#setAmtRange(Amount, Amount)` -- Set upperLimit and lowerLimit of amount of expenses to search by.
+
+Given below is an example usage scenario and how the find mechanism behaves at each step.
+
+Step 1.
+The user launches the application. The `Model` is initialized with saved data. All expenses are loaded into `FilteredList`.
+
+Step 2.
+User enters the command `find d/keywords a/lowerAmtLimit al/upperAmtLimit sd/startDate ed/endDate` to find expenses that matches conditions set by user input. `BillboardParser` parses the command, creating a `FindCommandParser`.
+The `FindCommandParser` then parses `find d/keywords a/lowerAmtLimit al/upperAmtLimit sd/startDate ed/endDate` to create a `MultiArgPredicate` inputted with the different filter parameters.
+The `MultiArgPredicate` is then used to create the `FindCommand`.
+
+Step 3.
+`LogicManager` executes the `FindCommand`. During execution, `FindCommand` calls `Model#updateFilteredExpenses(Predicate<Expense>)` on the list consisting of `test1` and `test2` which returns a set of `Tag`.
+`Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The 1st `Expense` is edited and updated in the `Model` using `Model#setExpense(Expense, Expense)` and is then shown on the UI.
+
+[NOTE]
+If the user tries to input 2 conditions of the same prefix, only the last condition will be used.
+
+// The following sequence diagram shows how the enhanced find operation works.
+
+// image::AddTagSequenceDiagram.png[]
+
+// The following activity diagram summarizes what happens when a user enters a command to find expenses by certain conditions.
+
+// image::AddTagActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Data structure to support enhanced find command
+* **Alternative 1 (current choice):** Use a `MultiArgPredicate` to filter selected expense from the `FilteredList`.
+`MultiArgPredicate` holds and combines a set of predicates of various types into a single predicate.
+Set of predicates can but do not need to include `AllContainsKeywordsPredicate`, `AmountWithinRangePredicate` and `DateWithinRangePredicate`.
+** Pros:
+*** Only one variation of input command required.
+*** No need for different kinds of find commands to handle filtering by different attribute.
+*** No need for different kinds of find command parsers to handle parsing of different variations of input command.
+** Cons:
+*** Higher complexity of code in FindCommandParser.
+*** User need to use prefix to indicate type of conditions inputted.
+*** Additional predicate `MultiArgPredicate` required to handle filtering by more than one condition.
+
+* **Alternative 2 :** `FindCommandParser` maps input command to individual type of predicate that is used to create find command.
+** Pros:
+*** Commands are simpler and shorter.
+** Cons:
+*** Limited functionality - can only find by one condition.
+*** Use of different types of find commands.
+
+// end::finding[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
