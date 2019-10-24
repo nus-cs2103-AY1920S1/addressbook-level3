@@ -158,18 +158,17 @@ Deletes the person named `Benedict` from TimeBook.
 
 === Deleting a group : `deletegroup`
 
-Deletes the specified group from the timebook. +
+Deletes the specified group from the TimeBook. +
 Format: `deletegroup -g GROUP_NAME`
 
 ****
 * Deletes the group specified by 'GROUP_NAME'
-* Deletes all mappings of persons to this group.
 ****
 
 Examples:
 
 * `deletegroup -g CS2103` +
-Deletes the 'CS2103' in the timebook.
+Deletes the 'CS2103' group from the TimeBook.
 
 // end::delete[]
 === Clearing all entries : `clear`
