@@ -319,7 +319,7 @@ Use case ends.
 *MSS*
 
 1. User enters command to start test with a deck of card and supplies deck name.
-2. System obtains the deck of cards. 
+2. System obtains the deck of cards.
 3. System starts test session.
 4. System shows front of card to user, waits for answer.
 5. User enters the answer.
@@ -327,7 +327,7 @@ Use case ends.
 7. System reports the correctness of the answer.
 8. System moves to next card.
 +
-Step 4-8 repeated until there are no cards in the deck remaining. 
+Step 4-8 repeated until there are no cards in the deck remaining.
 +
 Use case ends.
 
@@ -362,7 +362,7 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Untimed Test with a deck of Multiple Choice Cards 
+=== Use case: Untimed Test with a deck of Multiple Choice Cards
 *MSS*
 
 1. User enters command to start test on a deck.
@@ -404,7 +404,7 @@ Use case ends.
 Steps 6a1-6a3 repeats until the User enters a valid choice.
 
 [discrete]
-=== Use case: Timed Test with a deck of Multiple Choice Cards 
+=== Use case: Timed Test with a deck of Multiple Choice Cards
 *MSS*
 
 1. User enters command to start test on a deck.
@@ -454,7 +454,7 @@ Steps 6a1-6a3 repeats 3 times.
 Use case ends.
 
 [discrete]
-=== Use case: Creating a Multiple Choice Card 
+=== Use case: Creating a Multiple Choice Card
 *MSS*
 
 1. User enters command to create a MCQ Card to a deck.
