@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.UniqueMemeList;
 import seedu.weme.model.template.Template;
 import seedu.weme.model.template.UniqueTemplateList;
+import seedu.weme.statistics.LikeData;
+import seedu.weme.statistics.Stats;
+import seedu.weme.statistics.StatsManager;
 
 /**
  * Wraps all data at the memebook level
@@ -20,6 +24,7 @@ public class MemeBook implements ReadOnlyMemeBook {
 
     private final UniqueMemeList memes;
     private final UniqueTemplateList templates;
+    private final Stats stats;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +36,7 @@ public class MemeBook implements ReadOnlyMemeBook {
     {
         memes = new UniqueMemeList();
         templates = new UniqueTemplateList();
+        stats = new StatsManager();
     }
 
     public MemeBook() {}
@@ -41,6 +47,15 @@ public class MemeBook implements ReadOnlyMemeBook {
     public MemeBook(ReadOnlyMemeBook toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    public MemeBook(ReadOnlyMemeBook memeBook, Stats stats) {
+        this(memeBook);
+        setStats(stats);
+    }
+
+    public void setStats(Stats replacement) {
+        stats.resetData(replacement);
     }
 
     //// list overwrite operations
@@ -161,6 +176,26 @@ public class MemeBook implements ReadOnlyMemeBook {
     @Override
     public ObservableList<Template> getTemplateList() {
         return templates.asUnmodifiableObservableList();
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public LikeData getLikeData() {
+        return stats.getLikeData();
+    }
+
+    public ObservableMap<String, Integer> getObservableLikeData() {
+        return stats.getObservableLikeData();
+    }
+
+    public void incrementMemeLikeCount(Meme meme) {
+        stats.incrementMemeLikeCount(meme);
+    }
+
+    public void clearMemeStats(Meme meme) {
+        stats.deleteLikesByMeme(meme);
     }
 
     @Override

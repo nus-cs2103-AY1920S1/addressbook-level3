@@ -1,12 +1,15 @@
 package seedu.weme.storage;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javafx.collections.FXCollections;
 import seedu.weme.commons.exceptions.IllegalValueException;
+import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
 
@@ -16,23 +19,23 @@ import seedu.weme.statistics.StatsManager;
 @JsonRootName(value = "statsData")
 class JsonSerializableStatsData {
 
-    private final JsonAdaptedLikeData jsonLikeData;
+    private final Map<String, Integer> likeMap = new HashMap<>();
 
     /**
-     * Constructs a {@code JsonSerializableMemeBook} with the given memes.
+     * Constructs a {@code JsonSerializableWeme} with the given memes.
      */
     @JsonCreator
-    public JsonSerializableStatsData(@JsonProperty("likes") Map<String, Integer> likeData) {
-        jsonLikeData = new JsonAdaptedLikeData(likeData);
+    public JsonSerializableStatsData(@JsonProperty("likeMap") Map<String, Integer> likeData) {
+        likeMap.putAll(likeData);
     }
 
     /**
      * Converts a given {@code ReadOnlyMemeBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableMemeBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableWeme}.
      */
     public JsonSerializableStatsData(Stats source) {
-        jsonLikeData = new JsonAdaptedLikeData(source.getLikeManager().getInMap());
+        likeMap.putAll(source.getLikeData().getInMap());
     }
 
     /**
@@ -42,7 +45,8 @@ class JsonSerializableStatsData {
      */
     public Stats toModelType() throws IllegalValueException {
         Stats stats = new StatsManager();
-        stats.setLikeManager(jsonLikeData.toModelType());
+        LikeData likeData = new LikeData(FXCollections.observableMap(likeMap));
+        stats.setLikeData(likeData);
         return stats;
     }
 

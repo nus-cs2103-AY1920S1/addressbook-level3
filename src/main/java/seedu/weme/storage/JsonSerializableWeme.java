@@ -18,32 +18,36 @@ import seedu.weme.model.template.Template;
  * An Immutable MemeBook that is serializable to JSON format.
  */
 @JsonRootName(value = "memebook")
-class JsonSerializableMemeBook {
+class JsonSerializableWeme {
 
     public static final String MESSAGE_DUPLICATE_MEME = "Memes list contains duplicate meme(s).";
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "Templates list contains duplicate meme(s).";
 
     private final List<JsonAdaptedMeme> memes = new ArrayList<>();
     private final List<JsonAdaptedTemplate> templates = new ArrayList<>();
+    private final JsonSerializableStatsData stats;
 
     /**
-     * Constructs a {@code JsonSerializableMemeBook} with the given memes and templates.
+     * Constructs a {@code JsonSerializableWeme} with the given memes and templates.
      */
     @JsonCreator
-    public JsonSerializableMemeBook(@JsonProperty("memes") List<JsonAdaptedMeme> memes,
-                                    @JsonProperty("templates") List<JsonAdaptedTemplate> templates) {
+    public JsonSerializableWeme(@JsonProperty("memes") List<JsonAdaptedMeme> memes,
+                                @JsonProperty("templates") List<JsonAdaptedTemplate> templates,
+                                @JsonProperty("stats") JsonSerializableStatsData stats) {
         this.memes.addAll(memes);
         this.templates.addAll(templates);
+        this.stats = stats;
     }
 
     /**
      * Converts a given {@code ReadOnlyMemeBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableMemeBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableWeme}.
      */
-    public JsonSerializableMemeBook(ReadOnlyMemeBook source) {
+    public JsonSerializableWeme(ReadOnlyMemeBook source) {
         memes.addAll(source.getMemeList().stream().map(JsonAdaptedMeme::new).collect(Collectors.toList()));
         templates.addAll(source.getTemplateList().stream().map(JsonAdaptedTemplate::new).collect(Collectors.toList()));
+        this.stats = new JsonSerializableStatsData(source.getStats());
     }
 
     /**
@@ -67,6 +71,7 @@ class JsonSerializableMemeBook {
             }
             memeBook.addTemplate(template);
         }
+        memeBook.setStats(stats.toModelType());
         return memeBook;
     }
 

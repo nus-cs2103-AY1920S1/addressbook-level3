@@ -22,6 +22,8 @@ import javafx.collections.ObservableList;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.exceptions.DuplicateMemeException;
 import seedu.weme.model.template.Template;
+import seedu.weme.statistics.Stats;
+import seedu.weme.statistics.StatsManager;
 import seedu.weme.testutil.MemeBuilder;
 
 public class MemeBookTest {
@@ -93,12 +95,18 @@ public class MemeBookTest {
     private static class MemeBookStub implements ReadOnlyMemeBook {
         private final ObservableList<Meme> memes = FXCollections.observableArrayList();
         private final ObservableList<Template> templates = FXCollections.observableArrayList();
+        private final Stats stats = new StatsManager();
 
         MemeBookStub() {
         }
 
         void setMemes(List<Meme> memes) {
             this.memes.setAll(memes);
+        }
+
+        @Override
+        public Stats getStats() {
+            return stats;
         }
 
         @Override

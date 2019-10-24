@@ -23,7 +23,6 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.statistics.StatsManager;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 import seedu.weme.testutil.MemeBuilder;
 
@@ -33,7 +32,7 @@ import seedu.weme.testutil.MemeBuilder;
  */
 public class MemeEditCommandTest {
 
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
 
 
     @Test
@@ -44,8 +43,7 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
-                new UserPrefs(), new StatsManager());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
         expectedModel.commitMemeBook();
 
@@ -82,8 +80,7 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs(),
-                new StatsManager());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.commitMemeBook();
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
@@ -100,8 +97,7 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
-                new UserPrefs(), new StatsManager());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
         expectedModel.commitMemeBook();
 

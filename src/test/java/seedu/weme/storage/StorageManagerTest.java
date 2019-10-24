@@ -24,10 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMemeBookStorage memeBookStorage = new JsonMemeBookStorage(getTempFilePath("ab"));
+        JsonWemeStorage memeBookStorage = new JsonWemeStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonStatsDataStorage likeDataStorage = new JsonStatsDataStorage(getTempFilePath("likes"));
-        storageManager = new StorageManager(memeBookStorage, userPrefsStorage, likeDataStorage);
+        storageManager = new StorageManager(memeBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -52,12 +51,12 @@ public class StorageManagerTest {
     public void memeBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonMemeBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonMemeBookStorageTest} class.
+         * {@link JsonWemeStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonWemeStorageTest} class.
          */
         MemeBook original = getTypicalMemeBook();
-        storageManager.saveMemeBook(original);
-        ReadOnlyMemeBook retrieved = storageManager.readMemeBook().get();
+        storageManager.saveWeme(original);
+        ReadOnlyMemeBook retrieved = storageManager.readWeme().get();
         assertEquals(original, new MemeBook(retrieved));
     }
 

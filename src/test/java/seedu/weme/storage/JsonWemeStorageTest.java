@@ -17,8 +17,8 @@ import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.model.MemeBook;
 import seedu.weme.model.ReadOnlyMemeBook;
 
-public class JsonMemeBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonMemeBookStorageTest");
+public class JsonWemeStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonWemeStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -29,7 +29,7 @@ public class JsonMemeBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyMemeBook> readMemeBook(String filePath) throws Exception {
-        return new JsonMemeBookStorage(Paths.get(filePath)).readMemeBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonWemeStorage(Paths.get(filePath)).readWeme(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -45,40 +45,40 @@ public class JsonMemeBookStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readMemeBook("notJsonFormatMemeBook.json"));
+        assertThrows(DataConversionException.class, () -> readMemeBook("notJsonFormatWeme.json"));
     }
 
     @Test
     public void readMemeBook_invalidMemeMemeBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readMemeBook("invalidMemeMemeBook.json"));
+        assertThrows(DataConversionException.class, () -> readMemeBook("invalidMemeWeme.json"));
     }
 
     @Test
     public void readMemeBook_invalidAndValidMemeMemeBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readMemeBook("invalidAndValidMemeMemeBook.json"));
+        assertThrows(DataConversionException.class, () -> readMemeBook("invalidAndValidMemeWeme.json"));
     }
 
     @Test
     public void readAndSaveMemeBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempMemeBook.json");
+        Path filePath = testFolder.resolve("TempWeme.json");
         MemeBook original = getTypicalMemeBook();
-        JsonMemeBookStorage jsonMemeBookStorage = new JsonMemeBookStorage(filePath);
+        JsonWemeStorage jsonMemeBookStorage = new JsonWemeStorage(filePath);
 
         // Save in new file and read back
-        jsonMemeBookStorage.saveMemeBook(original, filePath);
-        ReadOnlyMemeBook readBack = jsonMemeBookStorage.readMemeBook(filePath).get();
+        jsonMemeBookStorage.saveWeme(original, filePath);
+        ReadOnlyMemeBook readBack = jsonMemeBookStorage.readWeme(filePath).get();
         assertEquals(original, new MemeBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.removeMeme(DOGE);
-        jsonMemeBookStorage.saveMemeBook(original, filePath);
-        readBack = jsonMemeBookStorage.readMemeBook(filePath).get();
+        jsonMemeBookStorage.saveWeme(original, filePath);
+        readBack = jsonMemeBookStorage.readWeme(filePath).get();
         assertEquals(original, new MemeBook(readBack));
 
         // Save and read without specifying file path
         original.addMeme(DOGE);
-        jsonMemeBookStorage.saveMemeBook(original); // file path not specified
-        readBack = jsonMemeBookStorage.readMemeBook().get(); // file path not specified
+        jsonMemeBookStorage.saveWeme(original); // file path not specified
+        readBack = jsonMemeBookStorage.readWeme().get(); // file path not specified
         assertEquals(original, new MemeBook(readBack));
 
     }
@@ -93,8 +93,8 @@ public class JsonMemeBookStorageTest {
      */
     private void saveMemeBook(ReadOnlyMemeBook memeBook, String filePath) {
         try {
-            new JsonMemeBookStorage(Paths.get(filePath))
-                    .saveMemeBook(memeBook, addToTestDataPathIfNotNull(filePath));
+            new JsonWemeStorage(Paths.get(filePath))
+                    .saveWeme(memeBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

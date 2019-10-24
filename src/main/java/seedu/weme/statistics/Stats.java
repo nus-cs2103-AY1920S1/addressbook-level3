@@ -8,13 +8,15 @@ import seedu.weme.model.meme.Meme;
  */
 public interface Stats {
 
-    LikeData getLikeManager();
+    LikeData getLikeData();
 
-    void setLikeManager(LikeData likeManager);
+    void setLikeData(LikeData likeData);
 
     ObservableMap<String, Integer> getObservableLikeData();
 
     void incrementMemeLikeCount(Meme meme);
 
     void deleteLikesByMeme(Meme meme);
+
+    void resetData(Stats stats);
 }

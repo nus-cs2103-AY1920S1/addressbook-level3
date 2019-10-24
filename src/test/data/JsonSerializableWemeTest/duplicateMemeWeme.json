@@ -8,5 +8,9 @@
     "tagged": [ "charmander" ],
     "description": "A meme about Char and charmander."
   } ],
-  "templates": []
+  "templates": [],
+  "stats" : {
+    "likeMap" : {}
+  }
+
 }

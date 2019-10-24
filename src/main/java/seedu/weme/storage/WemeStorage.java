@@ -11,7 +11,7 @@ import seedu.weme.model.ReadOnlyMemeBook;
 /**
  * Represents a storage for {@link MemeBook}.
  */
-public interface MemeBookStorage {
+public interface WemeStorage {
 
     /**
      * Returns the file path of the data file.
@@ -24,23 +24,23 @@ public interface MemeBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyMemeBook> readMemeBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyMemeBook> readWeme() throws DataConversionException, IOException;
 
     /**
      * @see #getMemeBookFilePath()
      */
-    Optional<ReadOnlyMemeBook> readMemeBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyMemeBook> readWeme(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyMemeBook} to the storage.
-     * @param memeBook cannot be null.
+     * @param weme cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveMemeBook(ReadOnlyMemeBook memeBook) throws IOException;
+    void saveWeme(ReadOnlyMemeBook weme) throws IOException;
 
     /**
-     * @see #saveMemeBook(ReadOnlyMemeBook)
+     * @see #saveWeme(ReadOnlyMemeBook)
      */
-    void saveMemeBook(ReadOnlyMemeBook memeBook, Path filePath) throws IOException;
+    void saveWeme(ReadOnlyMemeBook weme, Path filePath) throws IOException;
 
 }

@@ -17,7 +17,6 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,7 +24,7 @@ import seedu.weme.statistics.StatsManager;
  */
 public class MemeDeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +33,7 @@ public class MemeDeleteCommandTest {
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new StatsManager());
+        ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
         expectedModel.commitMemeBook();
 
@@ -58,7 +57,7 @@ public class MemeDeleteCommandTest {
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new StatsManager());
+        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
         showNoMeme(expectedModel);
         expectedModel.commitMemeBook();

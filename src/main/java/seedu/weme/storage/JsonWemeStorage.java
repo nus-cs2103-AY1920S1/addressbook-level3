@@ -17,13 +17,13 @@ import seedu.weme.model.ReadOnlyMemeBook;
 /**
  * A class to access MemeBook data stored as a json file on the hard disk.
  */
-public class JsonMemeBookStorage implements MemeBookStorage {
+public class JsonWemeStorage implements WemeStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonMemeBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonWemeStorage.class);
 
     private Path filePath;
 
-    public JsonMemeBookStorage(Path filePath) {
+    public JsonWemeStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -32,27 +32,27 @@ public class JsonMemeBookStorage implements MemeBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyMemeBook> readMemeBook() throws DataConversionException {
-        return readMemeBook(filePath);
+    public Optional<ReadOnlyMemeBook> readWeme() throws DataConversionException {
+        return readWeme(filePath);
     }
 
     /**
-     * Similar to {@link #readMemeBook()}.
+     * Similar to {@link #readWeme()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyMemeBook> readMemeBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyMemeBook> readWeme(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableMemeBook> jsonMemeBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableMemeBook.class);
-        if (!jsonMemeBook.isPresent()) {
+        Optional<JsonSerializableWeme> jsonWeme = JsonUtil.readJsonFile(
+                filePath, JsonSerializableWeme.class);
+        if (!jsonWeme.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonMemeBook.get().toModelType());
+            return Optional.of(jsonWeme.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonMemeBookStorage implements MemeBookStorage {
     }
 
     @Override
-    public void saveMemeBook(ReadOnlyMemeBook memeBook) throws IOException {
-        saveMemeBook(memeBook, filePath);
+    public void saveWeme(ReadOnlyMemeBook weme) throws IOException {
+        saveWeme(weme, filePath);
     }
 
     /**
-     * Similar to {@link #saveMemeBook(ReadOnlyMemeBook)}.
+     * Similar to {@link #saveWeme(ReadOnlyMemeBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveMemeBook(ReadOnlyMemeBook memeBook, Path filePath) throws IOException {
-        requireNonNull(memeBook);
+    public void saveWeme(ReadOnlyMemeBook weme, Path filePath) throws IOException {
+        requireNonNull(weme);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableMemeBook(memeBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableWeme(weme), filePath);
     }
 
 }

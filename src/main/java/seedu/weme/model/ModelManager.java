@@ -24,7 +24,6 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
-import seedu.weme.statistics.StatsManager;
 
 /**
  * Represents the in-memory model of the meme book data.
@@ -36,7 +35,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
     private final FilteredList<Template> filteredTemplates;
-    private final Stats stats;
 
     // ModelContext determines which parser to use at any point of time.
     private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
@@ -44,7 +42,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs, Stats stats) {
+    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(memeBook, userPrefs);
 
@@ -54,11 +52,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(versionedMemeBook.getMemeList());
         filteredTemplates = new FilteredList<>(versionedMemeBook.getTemplateList());
-        this.stats = stats;
     }
 
     public ModelManager() {
-        this(new MemeBook(), new UserPrefs(), new StatsManager());
+        this(new MemeBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -221,27 +218,27 @@ public class ModelManager implements Model {
 
     @Override
     public Stats getStats() {
-        return stats;
+        return versionedMemeBook.getStats();
     }
 
     @Override
     public LikeData getLikeData() {
-        return stats.getLikeManager();
+        return versionedMemeBook.getLikeData();
     }
 
     @Override
     public ObservableMap<String, Integer> getObservableLikeData() {
-        return stats.getObservableLikeData();
+        return versionedMemeBook.getObservableLikeData();
     }
 
     @Override
     public void incrementMemeLikeCount(Meme meme) {
-        stats.incrementMemeLikeCount(meme);
+        versionedMemeBook.incrementMemeLikeCount(meme);
     }
 
     @Override
     public void clearMemeStats(Meme meme) {
-        stats.deleteLikesByMeme(meme);
+        versionedMemeBook.clearMemeStats(meme);
     }
 
     @Override

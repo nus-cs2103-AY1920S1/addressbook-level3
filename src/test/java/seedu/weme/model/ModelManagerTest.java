@@ -103,8 +103,8 @@ public class ModelManagerTest {
         Stats stats = new StatsManager();
 
         // same values -> returns true
-        modelManager = new ModelManager(memeBook, userPrefs, stats);
-        ModelManager modelManagerCopy = new ModelManager(memeBook, userPrefs, stats);
+        modelManager = new ModelManager(memeBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(memeBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different memeBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentMemeBook, userPrefs, stats)));
+        assertFalse(modelManager.equals(new ModelManager(differentMemeBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
@@ -125,11 +125,11 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         String[] keywords = JOKER.getFilePath().toString().split("\\s+");
         modelManager.updateFilteredMemeList(new TagContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(memeBook, userPrefs, stats)));
+        assertFalse(modelManager.equals(new ModelManager(memeBook, userPrefs)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setDataFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(memeBook, differentUserPrefs, stats)));
+        assertFalse(modelManager.equals(new ModelManager(memeBook, differentUserPrefs)));
     }
 }

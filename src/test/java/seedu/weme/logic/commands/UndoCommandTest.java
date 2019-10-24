@@ -10,11 +10,10 @@ import org.junit.jupiter.api.Test;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.statistics.StatsManager;
 
 public class UndoCommandTest {
-    private final Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
-    private final Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+    private final Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs());
 
     @Test
     public void execute() {

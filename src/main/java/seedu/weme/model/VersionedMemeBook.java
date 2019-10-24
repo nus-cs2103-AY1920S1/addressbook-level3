@@ -12,7 +12,7 @@ public class VersionedMemeBook extends MemeBook {
     private int stateIndex = 0;
 
     public VersionedMemeBook(ReadOnlyMemeBook initialState) {
-        super(initialState);
+        super(initialState, initialState.getStats());
 
         versionedMemeBookStates = new ArrayList<>();
         versionedMemeBookStates.add(new MemeBook(initialState));
