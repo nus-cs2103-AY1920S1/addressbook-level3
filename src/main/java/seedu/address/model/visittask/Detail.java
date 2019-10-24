@@ -47,7 +47,8 @@ public class Detail {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Detail // instanceof handles nulls
-                && detail.equals(((Detail) other).detail)); // state check
+                && detail.equals(((Detail) other).detail) // state check
+                && toString().equals(((Detail) other).toString())); // state check
     }
 
     @Override

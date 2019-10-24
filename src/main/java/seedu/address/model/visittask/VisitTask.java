@@ -1,5 +1,6 @@
 package seedu.address.model.visittask;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -43,26 +44,12 @@ public class VisitTask {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameVisitTask(VisitTask otherVisitTask) {
-        if (otherVisitTask == this) {
-            return true;
-        }
-
-        return otherVisitTask != null
-                && otherVisitTask.getDetail().equals(getDetail())
-                && (otherVisitTask.getVisitTodo().equals(getVisitTodo())
-                || otherVisitTask.getDetail().equals(getDetail()));
-    }
-
-    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
     @Override
     public boolean equals(Object other) {
+        requireNonNull(other);
         if (other == this) {
             return true;
         }

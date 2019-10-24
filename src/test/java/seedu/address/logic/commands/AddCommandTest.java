@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.HistoryRecord;
@@ -153,6 +155,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public Person getPersonByIndex(Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getPersonsByIndexes(Set<Index> indexes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public FilteredList<Person> getStagedPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -183,6 +195,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void cancelOngoingVisit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void unsetOngoingVisit() {
             throw new AssertionError("This method should not be called.");
         }
@@ -193,7 +210,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean patientHasOngoingVisit(Person personToDelete) {
+        public boolean patientHasOngoingVisit(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 

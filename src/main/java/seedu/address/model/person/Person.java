@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visit.exceptions.VisitNotFoundException;
@@ -128,8 +129,8 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getVisits().equals(getVisits())
-                && CollectionUtil.checkEqual(getVisitTodos(), otherPerson.getVisitTodos());
+                && CollectionUtil.checkEqual(getVisitTodos(), otherPerson.getVisitTodos())
+                && CollectionUtil.checkEqual(getVisits(), otherPerson.getVisits());
     }
 
     @Override
@@ -192,6 +193,37 @@ public class Person {
         } else {
             //This should not happen under normal circumstances (code error)
             throw new VisitNotFoundException();
+        }
+    }
+
+    /**
+     * Remove a visit object. Model is passed in to ensure visit is not ongoing.
+     * Throws IllegalArgumentException if index is not within visit range.
+     * Throws IllegalStateException if visit is ongoing.
+     */
+    public void removeVisit(Visit visitToRemove, Model model) {
+        requireAllNonNull(visitToRemove, model);
+        if (!visits.contains(visitToRemove)) {
+            throw new IllegalArgumentException();
+        }
+        //If visit is ongoing
+        boolean updateOngoingVisitAfterRemoval = false;
+        Optional<Visit> optionalVisit = model.getOngoingVisit();
+        if (optionalVisit.isPresent()) {
+            Visit ongoingVisit = optionalVisit.get();
+            //Unset before removal
+            model.unsetOngoingVisit();
+            //If it's another visit being deleted, ensure indexes are the same
+            if (!ongoingVisit.equals(visitToRemove)) {
+                updateOngoingVisitAfterRemoval = true;
+            }
+        }
+
+        visits.remove(visitToRemove);
+
+        //Update ongoing visit (if there is) if not removing ongoing visit
+        if (optionalVisit.isPresent() && updateOngoingVisitAfterRemoval) {
+            model.setNewOngoingVisit(optionalVisit.get());
         }
     }
 

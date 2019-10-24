@@ -4,11 +4,13 @@ import java.nio.file.Path;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
@@ -66,7 +68,7 @@ public interface Model {
     /**
      * Record a new ongoing visit of person in the model.
      * This will be saved until the visit is finished.
-     * Ongoing visit must be from a Patient unmodified for this to work without throwing an exception,
+     * Ongoing visit must be from a Patient unmodified or an IllegalArgumentException will be thrown,
      * so only use this to begin visits.
      */
     void setNewOngoingVisit(Visit visit);
@@ -77,6 +79,11 @@ public interface Model {
      * Use this to update an ongoing visit when there is already a visit.
      */
     void updateOngoingVisit(Visit updatedVisit);
+
+    /**
+     * Cancel the ongoing visit if there is an ongoing visit.
+     */
+    void cancelOngoingVisit();
 
     /**
      * Set the ongoing visit of person in the model to null.
@@ -93,7 +100,7 @@ public interface Model {
      * Note: The current implementation only checks if this person is the one being tracked using the
      * currentPersonAndVisit.
      */
-    boolean patientHasOngoingVisit(Person personToDelete);
+    boolean patientHasOngoingVisit(Person person);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -118,6 +125,12 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /** Returns the person at the specified index */
+    Person getPersonByIndex(Index index);
+
+    /** Returns a list of persons at the provided indexes */
+    ObservableList<Person> getPersonsByIndexes(Set<Index> indexes);
 
     /** Returns an unmodifiable view of the entire person list */
     ObservableList<Person> getStagedPersonList();
