@@ -672,7 +672,7 @@ Unfortunately you are unable to change the app’s language
 | `recommend`
 | <<Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`, `removedislike`>>
 | Remove dislikes from the user's specified dislikes or clears the dislikes list.
-| removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
+| `removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
 | <<Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`, `removelike`>>
 | Remove likes from the user's specified likes or clears the likes list.
 | `removelike c/Japanese t/Spicy t/Healthy l/The Tea Party`
