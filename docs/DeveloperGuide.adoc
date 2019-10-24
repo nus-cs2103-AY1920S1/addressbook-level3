@@ -12,9 +12,34 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main/tree/master
 
-By: `Team DESCC`      Since: `Sep 2019`      Licence: `NUS`
+By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
+
+== Introduction
+=== Purpose
+This Developer Guide specifies the software architecture, design, and major implementation features of our Desktop Application, AddMin+.
+
+=== Intended Audience
+The intended audience of this Developer Guide is for fellow developers looking to contribute to this open-source project and the graders of the CS2103T module.
+
+=== Software Description
+AddMin+ is an all in one administration desktop application, specifically for use by small companies with limited administrative staff and would benefit from automating their menial administrative tasks.
+
+The application primarily uses a Command Line Interface (CLI) and displays the results through a Graphical User Interface (GUI).
+
+=== Using this Developer Guide
+
+[TIP]
+*LightBulbs* indicate a _Tip_, somthing that is helpful to the reader
+
+[NOTE]
+*'I' Icon* indicate a _Note_ that supplements useful information
+
+Text in a link:[`blue font and grey`] background indicates a _hyperlink_
+
+Text with a `grey background` indicates _Code Logic_ such as class objects, OOP definitions or user-input.
+
 
 == Setting up
 
@@ -159,7 +184,7 @@ This section describes some noteworthy details on how certain features are imple
 
 Given below is an example usage scenario and how the statistics mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time and generates statistics via the "statistics /g" command.
+Step 1. The user launches the application for the first time and generates statistics via the `statistics /g` command.
 
 Step 2. Statistics are generated on-demand and displayed to the user based on the current data.
 
@@ -220,7 +245,7 @@ filtered list of employees based on the `tagList` and if employee satisfies `Eve
 **Step 5**. The command checks if supply (number of employees in filtered list in step 4) exceeds
 demand (number of employees required by event, generated in step 3).
 [NOTE]
-If supply < demand, throws exception to user. If supply > demand, employees will be randomly selected instead.
+If demand exceeds supply, an exception will be thrown to the user. If the supply exeeds demand, employees will be randomly selected instead.
 
 **Step 6**. The command calls `Event#allocateEmployee()` to allocate the chosen employees to the event.
 
@@ -310,7 +335,7 @@ Instantiation of the `Event` object when the app is started will be more complic
 However, as we are constrained with not utilizing a DBMS, Alternative 1 is a logically simpler and more efficent solution from a software engineering standpoint.
 
 // tag::displayschedule[]
-=== [Proposed] Display Schedule feature
+=== Display Schedule feature
 ==== Proposed Implementation
 
 The Display Schedule Feature is implemented to allow users to view all dates and the specific events for those dates listed.
@@ -327,33 +352,32 @@ Additionally, The DistinctDateProcessor contains the following operations:
 * `generateListOfEventForDate(LocalDate date, Model model)` -- Takes in a `LocalDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
 * `generateDateList(Model model)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
 
+The following class diagrams shows how the `DistinctDate` class and utility `DistinctDateProcessor` class is implemented:
+
+._Class Diagram for DistinctDate_
+image::DistinctDateClassDiagram.png[]
+._Class Diagram for DistinctDateProcessor_
+image::DistinctDateProcessorClassDiagram.png[]
+
 
 Given below is an example usage scenario and how the display schedule mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `distinctDatesList` will be initialized based on the initial event book state.
 
-image::DisplayScheduleState0.png[]
-
-Step 2. The user executes `add_ev n/Free Cofee ...` to add a new event into the list. The distinctDatesList will be flushed.
-
-image::DisplayScheduleState1.png[]
+Step 2. The user executes `add_ev n/Free Cofee ...` to add a new event into the Eventlist. The distinctDatesList will be reinitialised with an empty list (all its existing inputs will be flushed).
 
 [NOTE]
 If a command that alters the eventBook will cause the distinctDatesList to be flushed. User will be required to input "display_schedule" command again to generate the new list of schedule.
 
 Step 3. The user executes `display_schedule` to see all dates and the respective events on those dates. The distinctDateList will be generated again based on the current list of events in the EventList.
 
-image::DisplayScheduleState2.png[]
-
-
 Step 4. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored, however the DistinctDateList would not.
-
-image::DisplayScheduleState3.png[]
 
 [NOTE]
 Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when it is called upon or when the application starts.
 
-The following sequence diagram shows how the undo operation works:
+
+The following sequence diagram shows how the display operation works:
 
 ._Sequence Diagram for DisplaySchedule Command_
 image::DisplayScheduleSequenceDiagram.png[]

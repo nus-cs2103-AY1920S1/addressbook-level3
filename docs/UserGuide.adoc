@@ -18,8 +18,7 @@ By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 == Introduction
 
-*AddMin+* is an all in one administration desktop application, that is specially designed for *ABC Company*, a tech startup company with only 6 full-time employees. ABC Company is still a relatively small company and it could only afford to hire 1 full-time employee to deal with all administrative matters. *AddMin+* is specially designed to help ease the workload by offering a one-stop platform to help deal with the various administrative needs of the company. Addmin+ uses a Command Line Interface(CLI) and displays the results through a Graphical User Interface(GUI) to assist the employee in their specific needs.
-
+*AddMin+* is an all in one administration desktop application, that is specially designed for *ABC Company*, an events management start-up company with limited manpower and resources. This start-up has an admin who handles both the management of events and employees. *AddMin+* is specially designed to ease the workload of the admin and allow him/her to effectively handle the administrative tasks of the company by providing the following functions: event creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events and providing an overview of all the data via statistics. The purpose of this user guide is show the user how they can use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using our app.
 
 == Quick Start
 
@@ -107,8 +106,8 @@ Add Employee Examples:
 * `add n/Betsy Crowe t/Enthusiastic p/CFO e/betsycrowe@example.com a/Newgate Prison no/1234567 t/criminal`
 
 Add Event Examples:
-* `addev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music`
-* `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+* `add_ev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music`
+* `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
 
 ==== Editing details : `edit_em | edit_ev`
 
@@ -260,11 +259,29 @@ Examples:
 * `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
 
+==== Setting a Date&Time to an Event
+
+Sets a Date-Time mapping to an specific Event.
+
+Format: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME`
+
+****
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* The `EVENT_INDEX` *must be a positive integer* 1, 2, 3, ...
+* The `EVENT_DATE` *must be of the format* DD/MM/YYYY
+* THE `EVENT_DATE` *must be within the Event's Start and End Date*
+* The `EVENT_DAYTIME` *must be of the format* HHMM-HHMM
+****
+Examples:
+
+* `set_ev_dt 2 on/18/10/2019 time/1000-2000` +
+Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 18th October 2019.
+
 ==== Fetch Full Details of an Event: `fetch_ev` (also a GUI feature)
 
 Fetches an event by displaying a pop-up window with full details of the event.
 
-Event Format: `fetch_ev EVENT_INDEX`
+Format: `fetch_ev EVENT_INDEX`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
@@ -343,10 +360,10 @@ Format: `display_schedule`
 
 === Miscellaneous
 
-==== Generate Statistics: `generate_stats`
+==== Generate Statistics: `stats_g`
 Displays a set of statistics, Number of events, Number of employee etc
 
-Format: `generate_stats`
+Format: `stats_g`
 
 ==== Clearing all entries : `clear`
 
@@ -374,8 +391,8 @@ There is no need to save manually.
 * *List Events* : `list_ev`
 * *Add Employee*: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
-* *Add Event*: `addev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music` +
-e.g. `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+* *Add Event*: `add_ev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music` +
+e.g. `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
 * *Edit Employee*: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `edit_em 1 no/91234567 e/johndoe@example.com`
 * *Edit Event*: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...` +
@@ -390,12 +407,14 @@ e.g. `delete_em 2`
 e.g. `delete_ev 1`
 * *Log Working Hours*: `log INDEX DDMMYYYY HOURSWORKED` +
 e.g. `log 2 30092019 8`
-* *Fetch Event*: `fetch_em INDEX` +
-e.g. `fetch_ev 3`
-* *Allocate Employees (Auto)*: `allocate EVENT_INDEX [n/NUMBER] [t/TAGS]...` +
-e.g. `allocate 1 n/2 t/female`
-* *Allocate Employees (Manual)*: `allocatem EVENT_INDEX [n/EMPLOYEE_INDEX]...` +
-e.g. `allocatem 1 n/2 `
+* *Done Event*: `done INDEX` +
+e.g. `done 2`
+* *Allocate Employees (Auto)*: `allocate EVENT_ID [f/TAGS]...` +
+e.g. `allocate 002 t/female`
+* *Allocate Employees (Manual)*: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...` +
+e.g. `allocateM 002 n/2 n/5 n/3`
+* *Set DateTime to Event*: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME` +
+e.g. `set_ev_dt 2 on/18/10/2019 time/1000-2000`
 * *Generate Employee Payslip*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
 e.g. `pay 2 f/20082019 t/20102019`
 * *Generate Event Contract*: `contract n/EVENT_ID` +
@@ -404,7 +423,7 @@ e.g. `contract n/005`
 e.g. `view_schedule on/02/12/2019`
 * *Display Entire Schedule*: `display_schedule` +
 e.g. `display_schedule`
-* *Generate Statistics*: `generate_stats` +
-e.g. `generate_stats`
+* *Generate Statistics*: `stats_g` +
+e.g. `stats_g`
 * *Clear* : `clear`
 * *Exit* : `exit`
