@@ -125,11 +125,6 @@ public interface Model {
      */
     void changeActiveStudyPlanTitle(String title);
 
-    /**
-     * Deletes all the modules inside a semester of the current active study plan.
-     */
-    void deleteAllModulesInSemester(SemesterName semesterName);
-
     // ===================== VERSION TRACKING ==========================
 
     /**
