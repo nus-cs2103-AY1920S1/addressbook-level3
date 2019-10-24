@@ -5,19 +5,15 @@ import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
-import java.util.logging.Logger;
 
-import io.xpire.commons.core.LogsCenter;
 import io.xpire.model.item.ReminderDate;
 
 /**
  * Helper functions for handling dates.
  */
 public class DateUtil {
-    private static final Logger logger = LogsCenter.getLogger(DateUtil.class);
 
     /**
      * Converts a {@code LocalDate} object to its string representation.
@@ -33,12 +29,9 @@ public class DateUtil {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
             return date.format(formatter);
-        } catch (IllegalArgumentException e) {
-            logger.warning("Failed to recognise date format : " + StringUtil.getDetails(e));
-        } catch (DateTimeException e) {
-            logger.warning("Failed to parse date to string : " + StringUtil.getDetails(e));
+        } catch (IllegalArgumentException | DateTimeException e) {
+            return "";
         }
-        return "";
     }
 
     /**
@@ -56,12 +49,9 @@ public class DateUtil {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
             LocalDate date = LocalDate.parse(dateInString, formatter);
             return date;
-        } catch (DateTimeParseException e) {
-            logger.warning("Failed to parse string to date : " + StringUtil.getDetails(e));
-        } catch (IllegalArgumentException e) {
-            logger.warning("Failed to recognise date format : " + StringUtil.getDetails(e));
+        } catch (IllegalArgumentException | DateTimeException e) {
+            return null;
         }
-        return null;
     }
 
     /**
