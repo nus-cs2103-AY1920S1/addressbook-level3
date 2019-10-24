@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.StudyPlanBuilder;
 
 public class CommitTest {
-    Commit testCommit = new Commit(new StudyPlanBuilder().build(), "MESSAGE");
+    private Commit testCommit = new Commit(new StudyPlanBuilder().build(), "MESSAGE");
 
     @Test
     public void getCommitMessage() {
