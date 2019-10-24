@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.flashcard;
 
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 

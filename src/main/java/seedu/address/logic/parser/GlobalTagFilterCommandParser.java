@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.logic.commands.GlobalTagFilterCommand;
+import seedu.address.logic.commands.global.GlobalTagFilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
 import seedu.address.model.tag.Tag;

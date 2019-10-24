@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.note;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.logic.commands.note.DeleteNoteCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -33,11 +34,12 @@ public class DeleteNoteCommandTest {
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST_NOTE);
 
         String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
+        NoteCommandResult expectedCommandResult = new NoteCommandResult(expectedMessage);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
 
-        assertCommandSuccess(deleteNoteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteNoteCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -56,12 +58,13 @@ public class DeleteNoteCommandTest {
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST_NOTE);
 
         String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
+        NoteCommandResult expectedCommandResult = new NoteCommandResult(expectedMessage);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteNote(noteToDelete);
         showNoNote(expectedModel);
 
-        assertCommandSuccess(deleteNoteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteNoteCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

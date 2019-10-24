@@ -10,6 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
@@ -46,10 +47,9 @@ public class ViewNoteCommand extends Command {
 
         Note note = lastShownList.get(targetIndex.getZeroBased());
 
-        return new CommandResult(model.getFilteredNoteList().isEmpty()
+        return new NoteCommandResult(model.getFilteredNoteList().isEmpty()
                 ? Messages.MESSAGE_NO_MATCHING_NOTE_FOUND
-                : String.format(VIEW_NOTE_SUCCESS, note), false, false,
-                false, Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(note));
+                : String.format(VIEW_NOTE_SUCCESS, note), Optional.of(note));
     }
 
     @Override

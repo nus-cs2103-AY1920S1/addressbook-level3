@@ -11,12 +11,12 @@ import seedu.address.logic.LogicManager;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.GlobalTagFilterCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.global.ExitCommand;
+import seedu.address.logic.commands.global.GlobalTagFilterCommand;
+import seedu.address.logic.commands.global.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListTagCommand;
-import seedu.address.logic.commands.SwitchModeCommand;
+import seedu.address.logic.commands.global.ListTagCommand;
+import seedu.address.logic.commands.global.SwitchModeCommand;
 import seedu.address.logic.commands.cheatsheet.AddCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.DeleteCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;

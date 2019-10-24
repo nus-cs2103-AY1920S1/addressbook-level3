@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -45,8 +46,7 @@ public class ViewCheatSheetCommand extends Command {
 
         CheatSheet cheatSheet = lastShownList.get(targetIndex.getZeroBased());
 
-        return new CommandResult(String.format(VIEW_CHEATSHEET_SUCCESS, cheatSheet), false, false,
-                false, Optional.empty(), Optional.empty(), Optional.of(cheatSheet), Optional.empty());
+        return new CheatSheetCommandResult(String.format(VIEW_CHEATSHEET_SUCCESS, cheatSheet), Optional.of(cheatSheet));
     }
 
     @Override

@@ -3,6 +3,7 @@ package seedu.address.logic.commands.cheatsheet;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CHEATSHEETS;
 
+import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
@@ -20,6 +21,6 @@ public class ListCheatSheetCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCheatSheetList(PREDICATE_SHOW_ALL_CHEATSHEETS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CheatSheetCommandResult(MESSAGE_SUCCESS);
     }
 }

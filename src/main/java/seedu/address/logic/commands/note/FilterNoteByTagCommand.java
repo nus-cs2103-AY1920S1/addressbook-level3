@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.FilterByTagCommand;
+import seedu.address.logic.commands.global.FilterByTagCommand;
+import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
@@ -49,7 +50,7 @@ public class FilterNoteByTagCommand extends Command implements FilterByTagComman
             sb.append(n);
             sb.append("\n");
         }
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
+        return new NoteCommandResult(FILTER_TAG_MESSAGE_SUCCESS
                 + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
                 + "\n" + sb.toString());
     }
