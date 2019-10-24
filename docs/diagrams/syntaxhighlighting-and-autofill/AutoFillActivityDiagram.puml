@@ -1,0 +1,18 @@
+@startuml
+(*) --> "user attempts to \n change text in CLI" as st
+st --> "filter out \n '>' and '<' characters \n from change" as filt
+
+filt --> "check type of change" as check
+if "" then
+  --->[addition of text \n enters a command word] "check if command word \n is supported" as 1
+else
+ --->[change of text within \nplaceholder] "replace entire placeholder \n with change in text" as 2
+else
+ --> [other change] "change applied" as fin
+Endif
+2 ---> fin
+1 --> "auto fill prefixes with placeholder \n in place of arguments" as 1.1
+
+1.1 -> fin
+fin --> (*)
+@enduml

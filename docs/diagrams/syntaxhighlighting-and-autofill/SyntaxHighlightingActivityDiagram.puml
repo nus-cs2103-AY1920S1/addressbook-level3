@@ -1,0 +1,11 @@
+@startuml
+(*) --> "user modifies text"
+--> "is highlighting enabled"
+If "" then
+-->[Yes] "check that input has not been updated for x milliseconds" as sub
+else
+--> [No](*)
+sub --> [Yes] "update syntax highlighting" as up
+sub --> [No] sub
+up --> (*)
+@enduml
