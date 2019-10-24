@@ -1,6 +1,7 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import javafx.scene.Node;

@@ -1,6 +1,7 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import dream.fcard.gui.components.CommandTextField;
 import dream.fcard.logic.respond.Responder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -30,7 +31,7 @@ public class MainWindow {
 
     // ui components
     private Text title;
-    private TextField commandTextField;
+    private CommandTextField commandTextField;
     ListView<Deck> deckDisplay;
 
     public MainWindow() {
@@ -105,33 +106,7 @@ public class MainWindow {
     }
 
     private void setupCommandBox() {
-        // create text field
-        commandTextField = new TextField();
-
-        // add prompt text
-        commandTextField.setPromptText("Enter command here...");
-        // todo: find out why prompt text does not work
-
-        // setup styles of commandTextField
-        // todo: fix text field background colour :(
-//        commandTextField.setStyle("-fx-border-color:" + GuiSettings.getTertiaryUIColour() + ";");
-//        commandTextField.setStyle("-fx-control-inner-background:" + GuiSettings.getTertiaryUIColour() + ";");
-//        commandTextField.setStyle("-fx-text-fill:#FFFFFF;");
-        commandTextField.setStyle("-fx-text-fill:" + GuiSettings.getPrimaryTextColour() +";");
-        commandTextField.setFont(GuiSettings.getCommandTextStyle());
-
-        commandTextField.setOnAction((event) -> {
-            try {
-                Responder.takeInput(commandTextField.getText(), this.state);
-                // reset text field
-                commandTextField.setText("");
-            } catch (Exception e) {
-                // todo: temporary haxx, don't know what exceptions yet
-            }
-        });
-
-        // todo: add some way to modify commandBox's appearance when command fails
-
+        commandTextField = new CommandTextField(state);
         commandBoxPlaceholder.getChildren().add(commandTextField);
     }
 

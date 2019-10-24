@@ -1,13 +1,14 @@
 //@@author nattanyz
-package dream.fcard.gui;
+package dream.fcard.gui.components;
 
+import dream.fcard.gui.GuiSettings;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class FlashCardDisplay extends HBox {
+public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
     private Text flashCardText;
 
     public FlashCardDisplay(String text) {
