@@ -1,4 +1,4 @@
-= Liberry - User Guide
+= LiBerry - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,13 +18,13 @@ By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Liberry is a desktop app for librarians to *quickly manage their community libraries!* Liberry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). You can type quickly and serve your long line of borrowers in a short amount of time. Liberry can manage all your books and borrowers efficiently and meticulously. Jump to <<Quick Start>> to get started now! Enjoy!
+LiBerry is a desktop app for librarians to *quickly manage their community libraries!* LiBerry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). You can type quickly and serve your long line of borrowers in a short amount of time. LiBerry can manage all your books and borrowers efficiently and meticulously. Jump to <<Quick Start>> to get started now! Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `Liberry.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Liberry.
+.  Download the latest `LiBerry.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your LiBerry.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Using Normal Mode
 
-The Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. The Normal Mode also provides some utility commands to help the librarian use Liberry. Commands that are specific to Serve Mode cannot be used while in Normal Mode.
+The Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. The Normal Mode also provides some utility commands to help the librarian use LiBerry. Commands that are specific to Serve Mode cannot be used while in Normal Mode.
 
 ==== Viewing help : `help`
 
@@ -96,7 +96,7 @@ Format: `info INDEX`
 
 ==== Clearing all entries : `clear`
 
-Clears the most recent search +
+Clears the most recent search and displays all books +
 Format: `clear`
 
 ==== Adding a book: `add`
@@ -223,13 +223,14 @@ Edits the name of the borrower to be `Betsy Crower`
 ==== Loaning book(s): `loan`
 
 Loan book(s) by their serial number +
-Format: `loan sn/BOOK_SN...`
+Format: `loan sn/BOOK_SN` +
+Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` - Coming in v2.0
 
 Examples:
 
 * `loan sn/B00041` +
 Loans the book with serial number B00041
-* `loan sn/B00201 sn/B02929 sn/B00203` +
+* `loan sn/B00201 sn/B02929 sn/B00203` - Coming in v2.0 +
 Loans the books with serial numbers B00201, B02929 and B00203
 
 Upon loaning a book, a printable loan slip in pdf format will be generated.
@@ -280,22 +281,22 @@ Reserves the book with serial number `sn/B02422` for the currently served user
 
 === Saving the Data
 
-Liberry data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+LiBerry data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Liberry folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LiBerry folder.
 
 == Command Summary
 
 * *Help* : `help`
-* *Find a book* : `find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }` +
+* *Find a book* : `find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] } [NUMBER]` +
 e.g. `find t/Animal Farm a/George Orwell`, `find g/mystery g/children -available` +
 `[-rated] [-popular] [-new]` ** - Coming in v2.0**
 * *View book info* : `info INDEX`
 * *Clear results* : `clear`
-* *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]` +
+* *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]... ` +
 e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/B02010 g/children`
 * *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
 * *Register a borrower* : `register n/NAME p/PHONE_NUMBER e/EMAIL` +
@@ -303,9 +304,7 @@ e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Toggle night mode*: `toggleui`
-* *Set standard number of days for a loan* : `setLoanTime DAYS`
-* *Set standard number of days for a renewal* : `setRenewTime DAYS`
-* *Set fine* : `setFineAmt CENTS`
+* *Set user settings*: `set { [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] }`
 * *Exit* : `exit`
 * *Rate a book* : `rate INDEX r/RATING` ** - Coming in v2.0**
 
@@ -316,8 +315,8 @@ e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
 * *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
-* *Loan book(s)* : `loan sn/BOOK_SN...` +
-e.g. `loan sn/B00201 sn/B02929 sn/B00203`
+* *Loan book(s)* : `loan sn/BOOK_SN` +
+e.g. `loan sn/B00201`
 * *Renew book(s)* : `renew INDEX… [-all]`
 * *Return book(s)* : `return INDEX… [-all]`
 * *Pay fines* : `pay AMOUNT`
