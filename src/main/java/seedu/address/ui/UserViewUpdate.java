@@ -63,10 +63,6 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadMembers());
             break;
 
-        case "home":
-            paneToRender.getChildren().add(userViewMain.loadDashboard());
-            break;
-
         case "delete-inv":
 
         case "edit-inv":
@@ -77,13 +73,28 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadInventories());
             break;
 
+        case "assign-member":
+
+        case "fire-member":
+
         case "get-member-stats":
            paneToRender.getChildren().add(userViewMain.loadMemberStats());
            break;
 
+        case "assign-task":
+
+        case "fire-task":
+
         case "get-task-stats":
             paneToRender.getChildren().add(userViewMain.loadTaskStats());
             break;
+
+        case "clear":
+
+        case "home":
+            paneToRender.getChildren().add(userViewMain.loadDashboard());
+            break;
+
         default:
             // show nothing (only exit has no case)
         }
