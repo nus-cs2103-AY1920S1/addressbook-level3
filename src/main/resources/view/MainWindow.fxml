@@ -131,20 +131,13 @@
                                                                        <Font name="Franklin Gothic Demi Cond" size="40.0" />
                                                                    </font>
                                                                </Text>
-                                                   <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308">
+                                                   <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                                                       <children>
-                                                         <VBox maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                                                            <padding>
-                                                               <Insets bottom="10" left="10" right="10" top="10" />
-                                                            </padding>
-                                                            <children>
-                                                               <StackPane fx:id="purchaseListPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                                                                  <VBox.margin>
-                                                                     <Insets />
-                                                                  </VBox.margin>
-                                                               </StackPane>
-                                                            </children>
-                                                         </VBox>
+                                                         <StackPane fx:id="purchaseListPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                                            <VBox.margin>
+                                                               <Insets />
+                                                            </VBox.margin>
+                                                         </StackPane>
                                                       </children>
                                                    </VBox>
                                                 </children>
@@ -156,22 +149,22 @@
                                      </Tab>
                                      <Tab closable="false" text="Savings">
                                           <content>
-                                                        <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308">
+                                                        <VBox maxHeight="1.7976931348623157E308" spacing="10.0">
                                                 <Text fill="white" styleClass="purchase-history-text" text="Savings History" textAlignment="CENTER" wrappingWidth="630.0">
                                                    <font>
                                                       <Font name="Franklin Gothic Demi Cond" size="40.0" />
                                                    </font>
                                                 </Text>
                                                             <VBox maxHeight="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                                                                <padding>
-                                                                    <Insets bottom="10" left="10" right="10" top="10" />
-                                                                </padding>
                                                                 <StackPane fx:id="savingsHistoryPanelPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                                                     <VBox.margin>
                                                                         <Insets />
                                                                     </VBox.margin>
                                                                 </StackPane>
                                                             </VBox>
+                                                <padding>
+                                                   <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                                                </padding>
                                                         </VBox>
                                           </content>
                                      </Tab>
