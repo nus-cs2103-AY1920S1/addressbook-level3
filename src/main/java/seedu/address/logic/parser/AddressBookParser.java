@@ -30,6 +30,7 @@ import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.commands.calendar.DeleteTaskCommand;
 import seedu.address.logic.commands.calendar.EditTaskCommand;
 import seedu.address.logic.commands.calendar.FindTaskCommand;
+import seedu.address.logic.commands.calendar.ListTasksBasedOnDateCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
@@ -86,6 +87,9 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(DeleteTaskCommand.COMMAND_WORD, DeleteTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ListTasksBasedOnDateCommand.COMMAND_WORD, ListTasksBasedOnDateCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
     }
 
     /**
@@ -177,6 +181,9 @@ public class AddressBookParser {
 
             case FindEarningsCommand.COMMAND_WORD:
                 return new FindEarningsCommandParser().parse(arguments);
+
+            case ListTasksBasedOnDateCommand.COMMAND_WORD:
+                return new ListTasksBasedOnDateCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
