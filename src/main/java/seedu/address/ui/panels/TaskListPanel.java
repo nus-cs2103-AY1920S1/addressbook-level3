@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.panels;
 
 import java.util.logging.Logger;
 
@@ -13,7 +13,7 @@ import seedu.address.model.task.Task;
 /**
  * Panel containing the list of revision tasks.
  */
-public class TaskListPanel extends UiPart<Region> {
+public class TaskListPanel extends PanelComponent<Region> {
     private static final String FXML = "TaskListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(NoteListPanel.class);
 

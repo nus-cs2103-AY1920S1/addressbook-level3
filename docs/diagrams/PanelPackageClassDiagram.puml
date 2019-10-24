@@ -1,0 +1,54 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package Panels <<Rectangle>> {
+Class "{abstract}\nPanelComponent" as PanelComponent
+Class NoteListPanel
+Class NoteCard
+Class QuestionListPanel
+Class QuestionListCard
+Class QuizQuestionListPanel
+Class QuizQuestionListCard
+Class TaskListPanel
+Class TaskListCard
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+NoteListPanel -[hidden]left- QuestionListPanel
+QuestionListPanel -[hidden]left- QuizQuestionListPanel
+QuizQuestionListPanel -[hidden]left- TaskListPanel
+
+
+
+NoteListPanel -down-> NoteCard
+QuestionListPanel -down-> QuestionListCard
+QuizQuestionListPanel -down-> QuizQuestionListCard
+TaskListPanel -down-> TaskListCard
+
+MainWindow *-down-> NoteListPanel
+MainWindow *-down-> QuestionListPanel
+MainWindow *-down-> QuizQuestionListPanel
+MainWindow *-down-> TaskListPanel
+
+NoteListPanel ---|> PanelComponent
+QuestionListPanel ---|> PanelComponent
+QuizQuestionListPanel ---|> PanelComponent
+TaskListPanel ---|> PanelComponent
+
+NoteCard ----|> PanelComponent
+QuestionListCard ----|> PanelComponent
+QuizQuestionListCard ----|> PanelComponent
+TaskListCard ----|> PanelComponent
+
+NoteCard ....> Model
+QuestionListCard ....> Model
+QuizQuestionListCard ....> Model
+TaskListCard ....> Model
+
+@enduml

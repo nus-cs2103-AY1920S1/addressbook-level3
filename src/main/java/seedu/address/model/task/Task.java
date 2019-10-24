@@ -103,4 +103,8 @@ public class Task {
         this.isDone = true;
         return this;
     }
+
+    public boolean getStatus() {
+        return isDone;
+    }
 }

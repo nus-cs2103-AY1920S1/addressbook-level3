@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.panels;
 
 import java.util.logging.Logger;
 
@@ -13,7 +13,7 @@ import seedu.address.model.note.Note;
 /**
  * Panel containing the list of lecture notes.
  */
-public class NoteListPanel extends UiPart<Region> {
+public class NoteListPanel extends PanelComponent<Region> {
     private static final String FXML = "NoteListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(NoteListPanel.class);
 
