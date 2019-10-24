@@ -9,7 +9,7 @@ import seedu.billboard.model.versionedbillboard.VersionedBillboard;
  */
 public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "getRedoModel";
+    public static final String COMMAND_WORD = "redo";
     public static final String EMPTY_UNDO_LIST = "There is no command to be redone.";
     public static final String MESSAGE_REDO_SUCCESS = COMMAND_WORD + ": %s";
 
