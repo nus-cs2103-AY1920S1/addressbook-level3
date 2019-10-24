@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.module.Module;
@@ -11,6 +12,7 @@ import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -27,7 +29,6 @@ public class StudyPlanBuilder {
     public static final String DEFAULT_CURRENT_SEMESTER = "Y1S1";
     public static final boolean DEFAULT_ACTIVATED_STATUS = true;
     public static final HashMap<String, Module> DEFAULT_MODULES = TypicalModuleHashMap.getTypicalModuleHashMap();
-    public static final UniqueTagList DEFAULT_TAGS = new UniqueTagList();
 
     // member fields
     private UniqueSemesterList semesters;
@@ -56,7 +57,7 @@ public class StudyPlanBuilder {
         currentSemester = SemesterName.valueOf(DEFAULT_CURRENT_SEMESTER);
         isActivated = DEFAULT_ACTIVATED_STATUS;
         modules = DEFAULT_MODULES;
-        tags = DEFAULT_TAGS;
+        tags = new UniqueTagList();
         tags.initDefaultTags();
     }
 
@@ -127,7 +128,10 @@ public class StudyPlanBuilder {
      * Parses the {@code tags} into a {@code List<Tag>} and set it to the {@code StudyPlan} that we are building.
      */
     public StudyPlanBuilder withTags(String... tags) {
-        this.tags.setTags(SampleDataUtil.getTagList(tags));
+        List<Tag> tagList = SampleDataUtil.getTagList(tags);
+        for (Tag tag : tagList) {
+            this.tags.addTag(tag);
+        }
         return this;
     }
 

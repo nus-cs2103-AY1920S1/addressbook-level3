@@ -47,8 +47,6 @@ public class DefaultStudyPlanUtil {
 
         // Y3S1
         defaultStudyPlan.addModuleToSemester(new ModuleCode("CS3203"), SemesterName.Y3S1);
-        // defaultStudyPlan.addModuleToSemester(new ModuleCode("CS3203"), SemesterName.Y3S1);
-        // TODO: what happens for modules that span two semesters?
 
         return defaultStudyPlan;
     }
