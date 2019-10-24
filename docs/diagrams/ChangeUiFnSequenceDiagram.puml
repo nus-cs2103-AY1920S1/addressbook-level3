@@ -1,11 +1,14 @@
 @startuml
 !include style.puml
 
-box ChangeUI LOGIC_COLOR_T1
-participant "ubd:UpdateBodyDescriptor" as UpdateBodyDescriptor LOGIC_COLOR
+mainframe <b>sd</b> Runnable changeUI
+box NotifCommand LOGIC_COLOR_T1
+participant "updateBodyDescriptor:UpdateBodyDescriptor" as UpdateBodyDescriptor LOGIC_COLOR
 participant "up:UpdateCommand" as UpdateCommand LOGIC_COLOR
 participant "notifWindow:NotifWindow" as NotifWindow LOGIC_COLOR
 end box
+
+participant "ses:ScheduledExecutorService" as ScheduledExecutorService LOGIC_COLOR
 
 box Model MODEL_COLOR_T1
 participant "model:Model" as Model MODEL_COLOR
@@ -62,5 +65,10 @@ activate NotifWindow
 <-- NotifWindow
 deactivate NotifWindow
 
+-> ScheduledExecutorService :shutdown()
+create ScheduledExecutorService
+activate ScheduledExecutorService
+
+destroy ScheduledExecutorService
 
 @enduml
