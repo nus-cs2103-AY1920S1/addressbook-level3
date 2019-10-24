@@ -16,8 +16,13 @@ import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 public class DeleteFindRuleCommand extends Command {
 
     public static final String COMMAND_WORD = "deletefindrule";
-    // TODO: write message usage for delete find rule command
-    public static final String MESSAGE_USAGE = "to be finished";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes the find rule identified by the index number "
+            + "used in the displayed Find Rules list.\n"
+            + "Parameters:\n"
+            + "INDEX (must be a positive integer)\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1\n";
     public static final String MESSAGE_SUCCESS = "Deleted Find Rule: %1$s";
 
     private final Index targetIndex;

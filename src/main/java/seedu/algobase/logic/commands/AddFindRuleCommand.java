@@ -1,6 +1,12 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
@@ -13,8 +19,20 @@ public class AddFindRuleCommand extends Command {
 
     public static final String COMMAND_WORD = "addfindrule";
 
-    // TODO: Add usage string for this command.
-    public static final String MESSAGE_USAGE = "placeholder";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a find rule to the algobase.\n"
+            + "Parameters:\n"
+            + "RULE_NAME "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_AUTHOR + "AUTHOR] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_SOURCE + "SOURCE] "
+            + "[" + PREFIX_DIFFICULTY + "LOWER_BOUND-UPPER_BOUND] "
+            + "[" + PREFIX_TAG + "TAG]\n"
+            + "Example:\n"
+            + COMMAND_WORD
+            + " MediumDifficulty"
+            + " " + PREFIX_DIFFICULTY + "2.5-3.5\n";
     public static final String MESSAGE_SUCCESS = "New find rule added: %1$s";
     public static final String MESSAGE_DUPLICATE_FIND_RULE = "This find rule already exists in AlgoBase.";
     public static final String MESSAGE_NO_CONSTRAINTS =

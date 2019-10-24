@@ -18,8 +18,13 @@ import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 public class ApplyCommand extends Command {
 
     public static final String COMMAND_WORD = "apply";
-    // TODO: write message usage string for apply command
-    public static final String MESSAGE_USAGE = "apply usage";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Applies the find rule identified by the index number "
+        + "used in the displayed Find Rules list.\n"
+        + "Parameters:\n"
+        + "INDEX (must be a positive integer)\n"
+        + "Example:\n"
+        + COMMAND_WORD + " 1\n";
     public static final String MESSAGE_SUCCESS = "Applied find rule [%1$s].";
 
     private final Index targetIndex;
