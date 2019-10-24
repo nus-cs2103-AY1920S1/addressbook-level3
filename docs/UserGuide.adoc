@@ -27,6 +27,7 @@ By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.Startup Screen Shot of Horo
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -97,6 +98,9 @@ The  following commands are related to Events and Tasks which revolves around a 
 
 ==== Adding Events
 
+.Add Event Command
+image::AddEventCommandScreenShot.png[]
+
 Adds an event to the event list.
 {empty} +
 
@@ -111,6 +115,9 @@ Examples: +
 `add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00” --tag Birthday Rori` +
 
 ==== Deleting Events
+
+.Delete Event Command
+image::DeleteEventCommandScreenShot.png[]
 
 Deletes event(s) from the event list.
 1. Delete by event indexes
@@ -128,6 +135,9 @@ Examples: +
 `delete_event 1 2 3 --tag Birthday`
 
 ==== Editing Events
+
+.Edit Event Command
+image::EditEventCommandScreenShot.png[]
 
 Edits existing event(s) from the event list. +
 Edit by event indexes.
@@ -280,7 +290,10 @@ Example: +
 
 === UI
 
-==== Changing Screen View to Calendar View: `calendar`
+==== Changing Screen View to Calendar View: `calendar [DATE]`
+
+.Calendar View Command for Calendar
+image::Ui.png[]
 
 This will switch the UI screen view to the Calendar View, which displays a calendar of a particular month and year, as well as a timeline of a particular day, week or month.
 {empty} +
@@ -300,6 +313,9 @@ Example: +
 
 ==== Changing Timeline to a given day: `day [DATE]`
 
+.Day View Command for the Timeline
+image::DayViewCommandScreenShot.png[]
+
 This will switch the UI screen view to the Calendar View, and sets the Timeline to be of the given day.
 {empty} +
 
@@ -312,6 +328,9 @@ Example: +
 {empty} +
 
 ==== Changing Timeline to a given week: `week [WEEK_NUMBER] [MONTH_YEAR]`
+
+.Week View Command for the Timeline
+image::WeekViewCommandScreenShot.png[]
 
 This will switch the UI screen view to the Calendar View, and sets the Timeline to be of the given week of a month.
 {empty} +
@@ -326,6 +345,9 @@ Example: +
 
 ==== Changing Timeline to a given month: `month [MONTH_YEAR]`
 
+.Month View Command for the Timeline
+image::MonthViewCommandScreenShot.png[]
+
 This will switch the UI screen view to the Calendar View, and sets the Timeline to be of the given month.
 {empty} +
 
@@ -337,7 +359,10 @@ Example: +
 `month 11/2019`
 {empty} +
 
-==== Changing Screen View to List View: `list`
+==== Changing Screen View to List View: `list` **`[coming in v1.3]`**
+
+.List View Command
+image::ListCommandScreenShot.png[]
 
 This will switch the UI screen view to the List View, which displays a list of events on the left side and a list on the right side.
 {empty} +
@@ -347,6 +372,9 @@ Format and Example: +
 
 ==== Changing Screen View to Log View: `log`
 
+.Log View Command
+image::LogCommandScreenShot.png[]
+
 This will switch the UI screen view to the Log View, which displays all of the pop up box like a chat box.
 {empty} +
 
@@ -355,7 +383,10 @@ Format and Example: +
 
 === Undo Redo
 
-==== Undo **`[coming in v2.0]`**
+==== Undo
+
+.Undo Command
+image::UndoCommandScreenShot.png[]
 
 Undoes the previous command. +
 Commands can be undone up to the starting up of the program
@@ -364,7 +395,10 @@ Commands can be undone up to the starting up of the program
 Format: +
 `undo`
 
-==== Redo **`[coming in v2.0]`**
+==== Redo
+
+.Redo Command
+image::RedoCommandScreenShot.png[]
 
 Redoes the previously undone command
 {empty} +
@@ -381,18 +415,21 @@ Horo will post notifications to your system tray to remind you that an event is 
 
 Take note that Horo can only post reminders as long as the app is open. To tell if Horo is running, check that the appropriate icon appears in the system tray
 
-(picture: H icon)
+.Horo Tray Icon
+image::HoroIconScreenShot.png[]
 
 Also take note that notifications are switched on by default. There is no need to switch notifications on if you're launching the app for the first time. However, because Horo remembers your preferences, you may have to switch them on again if they were previously switched off.
 
 You can tell if notifications are switched on by mousing over the icon in the system tray.
 
-(picture: H icon mouseover)
+.Horo Tray Icon Mouse Over
+image::IconMouseOverScreenShot.png[]
 
 ==== Notification Popups
 When Horo posts a notification, it should appear at the bottom-right side of the screen, where the system tray should be.
 
-(picture: popup)
+.Notification Pop Up
+image::PopUpScreenShot.png[]
 
 ==== Switch notifications on
 Format: +
@@ -400,9 +437,13 @@ Format: +
 {empty} +
 
 1. If you would like to switch notifications on, type the command *`notif_on`* into the command box and press kbd:[Enter] to execute it. +
-(picture: notif_on in command box)
+
+.Notification On in Command Box
+image::NotificationOnCommandBoxScreenShot.png[]
+
 2. An in-app popup should appear, displaying “Notifications switched on”. The log view should also record this action. +
-(picture: notif on feedback)
+.Notification On FeedBack
+image::NotificationOnFeedbackScreenShot.png[]
 
 ==== Switch notifications off
 Format: +
@@ -410,12 +451,59 @@ Format: +
 {empty} +
 
 1. If you would like to switch notifications off, type the command *`notif_off`* into the command box and press kbd:[Enter] to execute it. +
-(picture: notif_off in command box)
+
+.Notification Off in Command Box
+image::NotificationOffCommandBoxScreenShot.png[]
+
 2. An in-app popup should appear, displaying “Notifications switched off”. The log view should also record this action. +
-(picture: notif off feedback)
 
+.Notification Off FeedBack
+image::NotificationOffFeedbackScreenShot.png[]
 
-=== Exiting the program : `exit`
+=== .ics Integration System
+
+Allows you to export and import from other calendar application that uses .ics format as well.
+{empty} +
+
+==== Export current calendar : `export --directory ["DIRECTORY"]`
+
+.Export Command
+image::ExportCommandScreenShot.png[]
+
+.Exported File
+image::ExportFileScreenShot.png[]
+
+Exports your current calendar into .ics format to the given directory, or to the root folder of the application itself.
+{empty} +
+
+Format: +
+`export` +
+`export --directory ["DIRECTORY"]`
+{empty} +
+
+Example: +
+`export --directory "C:\Users\USER_NAME\Desktop\Horo"`
+{empty} +
+
+==== Import other calendar : `import ["FILE_PATH"]`
+
+.Import Command
+image::ImportCommandScreenShot.png[]
+
+.Imported File
+image::ImportFileScreenShot.png[]
+
+Imports an .ics format file from the indicated file path.
+
+Format: +
+`import ["DIRECTORY"]`
+{empty} +
+
+Example: +
+`import "C:\Users\USER_NAME\Desktop\OtherCalendars\Others.ics"`
+{empty} +
+
+=== Exiting the program : `exit` **`[coming in v2.0]`**
 
 Exits the program.
 {empty} +
@@ -447,10 +535,18 @@ E.g. `tag 1 2 3 --tag Birthday`
 E.g. `remove_tag 1 2 3 --tag Birthday`
 * *Find* : `find [--tag TAG] KEYWORD...` +
 E.g. `find --tag homework cs2100`
+* *Calendar View* : `calendar [MONTH_YEAR]`
+* *Day View for Timeline* : `day [DATE]`
+* *Week View for Timeline* : `week [WEEK_NUMBER] [MONTH_YEAR]`
+* *Month View for Timeline* : `month [MONTH_YEAR]`
+* *List View* : `list`
+* *Log View* : `log`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Switch notifications on* : `notif_on`
 * *Switch notifications off* : `notif_off`
+* *Export .ics File* : `export --directory ["DIRECTORY"]`
+* *Import .ics File* : `import ["FILE_PATH"]`
 * *Exiting the Program* : `exit`
 
 
