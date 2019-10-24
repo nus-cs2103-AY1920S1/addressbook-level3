@@ -5,4 +5,13 @@ package seedu.address.commons.core.item;
  */
 public enum Priority {
     HIGH, MEDIUM, LOW;
+    /**
+     * Creates a Priority object from a string.
+     * @param priorityString the string that represents the Priority
+     * @return the Priority object that is created
+     */
+    public static Priority fromJson(String priorityString) {
+
+        return valueOf(priorityString);
+    }
 }
