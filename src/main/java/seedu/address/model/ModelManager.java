@@ -19,6 +19,7 @@ import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 
 //import seedu.address.model.task.NameContainsKeywordsPredicate;
@@ -39,6 +40,7 @@ public class ModelManager implements Model {
     private final FilteredList<Member> filteredMembers;
     private final FilteredList<Mapping> filteredMappings;
     private final FilteredList<Inventory> filteredInventories;
+    private Statistics stats;
 
 
     /**
@@ -61,6 +63,8 @@ public class ModelManager implements Model {
         filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
         filteredInventories = new FilteredList<>(this.projectDashboard.getInventoryList());
         filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
+        stats = new Statistics(filteredMembers, filteredTasks, filteredMappings);
+        stats.doCalculations();
     }
 
     public ModelManager() {
@@ -176,9 +180,6 @@ public class ModelManager implements Model {
     public void updateFilteredTasksList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
-        filteredTasksNotStarted.setPredicate(predicate);
-        filteredTasksDoing.setPredicate(predicate);
-        filteredTasksDone.setPredicate(predicate);
     }
 
     public int getTasksLength() {
@@ -361,5 +362,16 @@ public class ModelManager implements Model {
     public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
         requireNonNull(predicate);
         filteredMappings.setPredicate(predicate);
+    }
+
+    // ========= Statistics =================================================================================
+    @Override
+    public Statistics getStatistics() {
+        return this.stats;
+    }
+
+    @Override
+    public void setStatistics(Statistics newStats) {
+        this.stats = newStats;
     }
 }

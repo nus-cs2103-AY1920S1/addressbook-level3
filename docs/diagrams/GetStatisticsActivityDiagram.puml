@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([model does not contain same Statistic object])
+    :Set model's statistic object
+    to the one newly created;
+    :Do calculations for
+    new statistics object;
+else ([else])
+endif
+
+:Retrieve relevant statistics
+from model's statistic object;
+stop
+@enduml

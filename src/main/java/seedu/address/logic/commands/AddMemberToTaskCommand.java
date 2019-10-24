@@ -29,6 +29,7 @@ public class AddMemberToTaskCommand extends Command {
             + PREFIX_MEMBER_ID + " JD";
 
     public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
+    public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
 
     private final Index taskId;
     private final MemberId memberId;
@@ -59,7 +60,7 @@ public class AddMemberToTaskCommand extends Command {
         Integer memberIndex = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
-            if (lastShownMemberList.get(i).getId() == memberId) {
+            if (lastShownMemberList.get(i).getId().equals(memberId)) {
                 contains = true;
                 memberToAdd = lastShownMemberList.get(i);
                 memberIndex = i;
@@ -73,6 +74,9 @@ public class AddMemberToTaskCommand extends Command {
 
         Task involvedTask = lastShownTaskList.get(taskId.getZeroBased());
         TasMemMapping mappingToAdd = createMapping(taskId.getZeroBased(), memberIndex);
+        if(model.hasMapping(mappingToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MAPPING);
+        }
         model.addMapping(mappingToAdd);
         return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedTask));
     }

@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
@@ -224,4 +225,7 @@ public interface Model {
 
     void updateFilteredMappingsList(Predicate<Mapping> predicate);
 
+    Statistics getStatistics();
+
+    void setStatistics(Statistics newStats);
 }
