@@ -1,5 +1,6 @@
 package dream.fcard.gui;
 
+import dream.fcard.model.State;
 import java.util.logging.Logger;
 
 import dream.fcard.MainApp;
@@ -23,6 +24,11 @@ public class UiManager {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private MainWindow mainWindow;
+    private State state;
+
+    public UiManager(State state) {
+        this.state = state;
+    }
 
     /**
      * Shows an alert dialog on {@code owner} with the given parameters.
@@ -47,11 +53,11 @@ public class UiManager {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
 
-        //Set the application icon.
+        // set the application icon
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage);
+            mainWindow = new MainWindow(primaryStage, state);
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

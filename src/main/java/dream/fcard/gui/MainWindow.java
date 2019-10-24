@@ -3,6 +3,7 @@ package dream.fcard.gui;
 
 import dream.fcard.logic.respond.Responder;
 import dream.fcard.model.Deck;
+import dream.fcard.model.State;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -31,9 +32,10 @@ public class MainWindow {
     private TextField commandTextField;
     ListView<Deck> deckDisplay;
 
-    public MainWindow(Stage primaryStage) {
+    public MainWindow(Stage primaryStage, State state) {
+        // todo: refactor linkages between MainWindow, Gui and UiManager
         this.primaryStage = primaryStage;
-        this.gui = new Gui(this);
+        this.gui = new Gui(this, state);
         onStartup();
         testUiComponents();
     }

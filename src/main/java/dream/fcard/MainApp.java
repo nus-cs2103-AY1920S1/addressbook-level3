@@ -1,5 +1,7 @@
 package dream.fcard;
 
+import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.model.State;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -38,8 +40,12 @@ public class MainApp extends Application {
 
         initLogging(config);
 
+        // initialise the State of the application
+        State state = new State(StorageManager.loadDecks());
 
-        ui = new UiManager();
+        // initialise UI of application
+        ui = new UiManager(state);
+        // return UI instance somewhere?
     }
 
 

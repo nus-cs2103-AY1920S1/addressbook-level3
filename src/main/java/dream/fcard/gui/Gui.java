@@ -1,6 +1,7 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -9,9 +10,11 @@ public class Gui {
     // the instance of the main window of the application, containing all UI components
     final MainWindow mainWindow;
     // todo: store windowContents here instead of mainWindow?
+    private State state; // todo: check if can be static
 
-    public Gui(MainWindow mainWindow) {
+    public Gui(MainWindow mainWindow, State state) {
         this.mainWindow = mainWindow;
+        this.state = state;
     }
 
     MainWindow getMainWindow() {
