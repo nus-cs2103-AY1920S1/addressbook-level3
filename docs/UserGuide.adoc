@@ -18,12 +18,13 @@ By: `CS2103T-T12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Athletick is a team management app for team captains or coaches. The app supports storing of team members'
-*personal details, attendance tracking and performance recording*.
-More importantly, Athletick is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still
-having the benefits of a Graphical User Interface (GUI). If you can type fast, Athletick can get your team
-management
-tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Athletick is a team management app for team captains or coaches.
+The app supports storing of team members' *personal details, attendance tracking and performance recording*.
+More importantly, Athletick is *optimized for those who prefer to work with a Command Line Interface* (CLI),
+while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, Athletick can get your team management tasks done faster than traditional GUI apps.
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == About
 
@@ -194,7 +195,7 @@ IMPORTANT: The event has to be created first. Otherwise, Athletick will prompt y
 
 // insert picture
 
-If successfully recorded, the performance details will be displayed in the result box.
+The performance details will be displayed in the result box.
 
 === Training
 
@@ -241,13 +242,15 @@ This command shows you details of a specific athlete.
 Type in the command in the following format.
 
 Format : `select INDEX`
-Example: `select 1`
+
+Example : `select 1`
 
 *What you should see*
 
 // insert picture
 
-The result box will display a message “person selected!” to indicate that you have selected the person.
+The message “person selected!” will be displayed in the result box to indicate that you have selected the
+person.
 
 In the feature box, all the information of the athlete will be displayed as shown.
 
@@ -259,7 +262,7 @@ This command displays calendar which indicates days with training or performance
 
 Type in the following command and press enter.
 
-Format: `view calendar`
+Format : `view calendar`
 
 *What you should see*
 
@@ -283,7 +286,9 @@ This command sorts your athletes alphabetically by their name.
 
 Type in the following command and press enter.
 
-Format: `sort`
+Format : `sort`
+
+IMPORTANT: This command will change your athletes’ index numbers.
 
 *What you should see*
 
@@ -291,91 +296,163 @@ Format: `sort`
 
 The athlete list in the left sidebar should be alphabetically listed now.
 
-Take note that this command will change your athletes’ index numbers.
+==== Filtering athletes by their tags : `filter`
 
+This command filters your athletes based on their tags.
 
-==== Viewing attendance : `attendance -v`
-Viewing overall attendance
+*What you should do*
 
-Format by percentage : `attendance -v -p`
+Type in the filter command, followed by the tag that you want to filter by.
 
-Format by date : `attendance -v -t [dd/mm/yy]`
+Format : `filter TAG`
 
-=== Tracking performance : `performance`
-Keying in performance of player in event. +
-Format: `performance INDEX EVENT TIMING`
+Example: `filter butterfly`
 
-Examples :
-//to include examples
+IMPORTANT: This command will change your athletes’ index numbers.
 
-=== Clearing the data : `clear`
-Clears the entire data in the program. +
-Format: `clear`
+IMPORTANT: This command is case-insensitive, so filtering by `captain` and `Captain` will give the same result.
 
-=== Filtering members : `filter`
-Filters the members based on the gender or position.
+*What you should see*
 
-.. Format by gender: `filter GENDER`
-+
-Examples : +
-`filter male` +
-`filter female`
+// insert picture
 
-// Format by position:
-//on hold. To include or exclude?
+The athlete list in the left sidebar should only display athletes that contain the specified tag.
 
-=== Finding a certain player : `find`
-Finds a player by name.
+==== Finding athletes by their name : `find`
 
-Format : `find n/NAME`
+This command find athletes whose name contains any of the given keywords.
 
-Example :
-`find n/James Ho`
+*What you should do*
 
-=== Selecting a player : `select`
-Selects a member which will display their details.
+Type in the find command, followed by the keywords you want to find.
 
-Format : `select INDEX`
+Format : `find KEYWORD [MORE_KEYWORDS]`
 
-Example:
-//to include examples
+Example : `find irfan`
 
-=== Viewing help : `help`
+IMPORTANT: This command will change your athletes’ index numbers.
 
-Format : `help`
+IMPORTANT: This command is case-insensitive, so finding by `Irfan` and `irfan` will give the same result.
 
-=== Viewing history :
-Displays the history of the command previously entered.
+*What you should see*
 
-Format : `history`
+// insert picture
 
-=== Undoing a command : `undo`
+The athlete list in the left sidebar should only display athletes whose names contain the given keywords.
+
+=== Miscellaneous
+
+==== Clear all data : `clear`
+
+This command clears all the existing data in Athletick.
+
+It deletes all players, trainings, attendance, events and performances.
+
+*What you should do*
+
+Type the clear command.
+
+Format : `clear`
+
+*What you should see*
+
+// insert picture
+
+The following prompt will show if data was successfully cleared.
+
+==== Get help on how to use Athletick: `help`
+
+This command provides a user guide for Athletick.
+
+*What you should do*
+
+Type the help command.
+
+Format: `help`
+
+*What you should see*
+
+// insert picture
+
+A pop up box will appear, with a link to the user guide on Athletick.
+
+==== Undoing a previous command : `undo`
+
+This command restores Athletick to the state before the previous command was executed.
+
+Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
+
+Instead of having to re-enter Mohamad Ali’s contact information all over again,
+you can easily restore all of Mohamad Ali’s details by `undo`-ing the `delete` command that you have just entered.
+
+*What you should do*
+
+Type undo into the command box, and press Enter to execute it.
+
 Format : `undo`
 
-=== Redoing a command : `redo`
+*What you should see*
+
+The result box will display the message “Undo Command Success!” and you can check that Mohamad Ali’s
+contact information is visible in the list again!
+
+IMPORTANT: Take note that the undo feature only applies to undoable commands.
+Undoable commands include: `add`, `delete`, `edit`, `clear`, `attendance` and `training`.
+
+IMPORTANT: The `undo` command will not be able to undo commands that cannot be undone.
+Let’s say you have executed a list command to list out all the athletes information in Athletick.
+If you were to execute the `undo` command now, the `undo` command will fail because list is not an undoable command,
+and that no doable commands were executed before this.
+
+IMPORTANT: The `undo` command reverses previous commands in reverse chronological order.
+Let’s say you have executed the `edit` command, followed by the `delete` command.
+Executing `undo` now will first reverse the `delete` command.
+Executing `undo` again will reverse the `edit` command.
+
+IMPORTANT: The `undo` command will reverse the latest command that can be undone.
+Let’s say you have executed the `delete` command, followed by the `list` command.
+Since `list` command is not an undoable command, executing `undo` now will thus reverse the `delete` command.
+
+==== Redoing an `undo` command : `redo`
+
+This command reverses the most recent `undo` command.
+
+Let’s say you have executed the `delete` command to delete Mohamad Ali from your list.
+You may undo this action and restore Mohamad Ali’s information by executing the `undo` command. (See Undoing a previous command.)
+
+Then, if you decide that you want the contact to remain deleted after all,
+you may very quickly do so by executing the `redo` command to reverse the `undo` command that you had just executed.
+
+*What you should do*
+
+Type redo into the command box, and press Enter to execute it.
+
 Format : `redo`
 
-=== Importing data : `import`
-Format: `import FILEPATH`
+*What you should see*
 
-=== Exporting data : `export`
-Format: `export FILEPATH`
+The result box will display the message “Redo success!” and Mohamad Ali is once again gone from the list!
 
-=== Sorting list of players by names or performance : `sort`
-.. Format by name: `sort n`
-.. Format by performance: `sort p`
+IMPORTANT: The `redo` command can only reverses the `undo` command.
+Let’s say that you have executed the `delete` command to delete an athlete in your list.
+Executing the `redo` command now will fail because no `undo` command was executed before this.
 
-=== Tagging a player : `tag`
-Format: `tag n/NAME t/NAME_OF_TAG`
+IMPORTANT: The `redo` command reverses previous `undo` commands in reverse chronological order.
+Let’s say that you have executed the `clear` command, followed by the `add` command.
+Executing the `undo` command now will reverse the `add` command.
+Executing the `undo` command again will reverse the `clear` command as well.
+Following this, executing the `redo` command will reverse the last `undo` command and reapply the `clear` command.
+Executing the `redo` command again will reverse the second-last `undo` command and reapply the `add` command.
 
-Example: +
-`tag n/James Ho t/captain`
+=== Upcoming features
 
-=== Team roster [coming in v2.0]
-//need to include description
+==== Team roster [coming in v2.0]
 
-=== Performance tracker [coming in v2.0]
-//need to include description
+==== Performance tracker [coming in v2.0]
+
+==== Importing data : `import` [coming in v2.0]
+
+==== Exporting data : `export` [coming in v2.0]
 
 === Saving the data
 
@@ -383,50 +460,28 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need to save manually.
 
 == FAQ
-//need to come up with some FAQs?
+
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
-* *Add event* `event NAME_OF_EVENT`
-* *Add player* `add n/NAME p/PHONE_NUMBER e/EMAIL g/GENDER` +
-e.g. `add n/James Ho p/91234567 e/jamesho@gmail.com g/M`
 
-* Take attendance by _members present_
-** *By Name* `attendance -tn n/NAME [n/NAME] [n/NAME] ...` +
-e.g. `attendance -tn n/Erwin n/Jun Hup n/Shawn n/Dom n/Jeun Hoe`
-** *By index* `attendance -ti INDEX [INDEX] [INDEX ] ...`
-* Take attendance by _members absent_
-** *By name* `attendance -tn -a n/NAME [n/NAME] [n/NAME] ...`
-** *By index* `attendance -ti -a INDEX [INDEX] [INDEX ] ...`
-* View Attendance
-** *By percentage* `attendance -v -p`
-** *By date* `attendance -v -t [dd/mm/yy]`
-* *Add performance* `performance -a INDEX EVENT TIMING`
-* *View performance* `performance -v e/EVENT`
-* *Clear* : `clear`
-* Delete
-** *By index* `delete INDEX` +
-e.g. `delete 2`
-** *By name* `delete n/NAME` +
-e.g. `delete n/james ho`
-* Filter
-** *By gender* `filter GENDER` +
-e.g. `filter male`
-//** *By positions*
-* *Find* `find  n/NAME` +
-e.g. `find n/James Ho`
-* *Select* `select INDEX`
-* *Help* `help`
-* *History* `history`
-* *Undo* `undo`
-* *Redo* `redo`
-* *Import* `import FILEPATH`
-* *Export* `export FILEPATH`
-* *List* `list`
-* Sort
-** *By name* `sort n`
-** *By performance* `sort p`
-* *Tags* `tag n/NAME t/NAME_OF_TAG` +
-e.g. `tag n/James Ho t/captain`
+[horizontal]
+Add athlete:: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
+Delete athlete:: `delete INDEX`
+Edit athlete:: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Add event:: `event EVENT_NAME`
+Record performance:: `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
+Take attendance (by present):: `attendance INDEX [INDEX]...`
+Take attendance (by absent):: `attendance -a INDEX [INDEX]...`
+View athlete details:: `select INDEX`
+View calendar:: `view calendar`
+Sort athletes:: `sort`
+Filter athletes:: `filter TAG`
+Find athletes:: `find KEYWORD [MORE_KEYWORDS]`
+Clear data:: `clear`
+Get help:: `help`
+Undo:: `undo`
+Redo:: `redo`
+
 
