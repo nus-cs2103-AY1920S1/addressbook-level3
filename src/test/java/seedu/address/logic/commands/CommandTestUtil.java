@@ -27,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
 import seedu.address.testutil.EditBookDescriptorBuilder;
+import seedu.address.testutil.EditBorrowerDescriptorBuilder;
 import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 
 /**
@@ -129,6 +130,18 @@ public class CommandTestUtil {
                 .withRenewPeriod(VALID_RENEW_PERIOD_2)
                 .withFineIncrement(VALID_FINE_INCREMENT_2)
                 .build();
+    }
+
+    public static final EditBorrowerCommand.EditBorrowerDescriptor DESC_AMY;
+    public static final EditBorrowerCommand.EditBorrowerDescriptor DESC_BOB;
+
+    static {
+        DESC_AMY = new EditBorrowerDescriptorBuilder().withName(VALID_NAME_AMY)
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+                .withBorrowerId(VALID_ID_AMY).build();
+        DESC_BOB = new EditBorrowerDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                .withBorrowerId(VALID_ID_BOB).build();
     }
 
     /**

@@ -292,6 +292,21 @@ public class AddCommandTest {
         public List<Book> getBorrowerBooks() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Borrower getBorrowerFromId(BorrowerId borrowerId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBorrower(Borrower borrowerToEdit, Borrower editedBorrower) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDuplicatedBorrower(Borrower editedBorrower) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
