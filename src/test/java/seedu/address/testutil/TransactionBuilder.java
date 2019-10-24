@@ -9,7 +9,6 @@ import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -42,9 +41,9 @@ public class TransactionBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the TransactionBuilder with the data of {@code transactionToCopy}.
      */
-    public TransactionBuilder(Transaction transactionToCopy) {
+    public TransactionBuilder(BankAccountOperation transactionToCopy) {
         amount = transactionToCopy.getAmount();
         date = transactionToCopy.getDate();
         description = transactionToCopy.getDescription();

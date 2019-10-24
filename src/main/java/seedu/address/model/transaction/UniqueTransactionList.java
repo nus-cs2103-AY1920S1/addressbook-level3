@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
+import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 
 /**
  * A list of transactions that enforces uniqueness between its elements and does not allow nulls.
@@ -45,6 +45,9 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
      */
     public void add(BankAccountOperation toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateTransactionException();
+        }
         internalList.add(toAdd);
     }
 
@@ -59,12 +62,11 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
 
         int index = internalList.indexOf(transactionTarget);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new TransactionNotFoundException();
         }
 
         if (!transactionTarget.equals(transactionEdit) && contains(transactionEdit)) {
-            // TODO: throw correct exception
-            throw new DuplicatePersonException();
+            throw new DuplicateTransactionException();
         }
 
         internalList.set(index, transactionEdit);
@@ -77,7 +79,7 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
     public void remove(BankAccountOperation toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new TransactionNotFoundException();
         }
     }
 
@@ -88,7 +90,7 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
     public void setTransactions(List<BankAccountOperation> transactions) {
         requireAllNonNull(transactions);
         if (!transactionsAreUnique(transactions)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateTransactionException();
         }
 
         internalList.setAll(transactions);
