@@ -11,6 +11,11 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getPlannerFilePath();
+    Path getAccommodationFilePath();
 
+    Path getActivityFilePath();
+
+    Path getContactFilePath();
+
+    Path getItineraryFilePath();
 }

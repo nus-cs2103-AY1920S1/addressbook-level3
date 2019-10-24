@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.Planner;
+import seedu.address.model.ContactManager;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -62,12 +62,12 @@ public class TypicalContacts {
     /**
      * Returns an {@code Planner} with all the typical persons.
      */
-    public static Planner getTypicalPlanner() {
-        Planner ab = new Planner();
+    public static ContactManager getTypicalPlanner() {
+        ContactManager cm = new ContactManager();
         for (Contact contact : getTypicalContacts()) {
-            ab.addContact(contact);
+            cm.addContact(contact);
         }
-        return ab;
+        return cm;
     }
 
     public static List<Contact> getTypicalContacts() {

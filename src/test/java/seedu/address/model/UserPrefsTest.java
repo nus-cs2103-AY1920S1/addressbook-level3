@@ -1,3 +1,4 @@
+/*
 package seedu.address.model;
 
 import static seedu.address.testutil.Assert.assertThrows;
@@ -19,3 +20,5 @@ public class UserPrefsTest {
     }
 
 }
+
+ */
