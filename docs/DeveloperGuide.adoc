@@ -509,7 +509,7 @@ image::LineChartDeleteBodySequenceDiagram.png[]
 ** Pros: Implementation is easy and ensures only the last 10 days is visible.
 ** Cons: Series is regenerated for the whole 10 days whenever there is a change. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
 
-image::LineChartAddBodySequenceDiagram.png[]
+image::LineChartActivityDiagram.png[]
 
 * **Alternative 2:** Store all data in a separate storage class.
 ** Pros: Implementation allows user to see beyond 10 days.
