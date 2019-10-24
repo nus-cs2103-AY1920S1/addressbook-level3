@@ -3,7 +3,7 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -97,6 +97,36 @@ public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
         internalList.setAll(mappings);
     }
 
+    public void updateTaskRemoved(int index) {
+        ListIterator<InvTasMapping> iterator = iterator();
+        while (iterator.hasNext()) {
+            InvTasMapping mapping = iterator.next();
+            int mappingIndex = mapping.getTaskIndex();
+            if (mappingIndex == index) {
+                iterator.remove();
+            } else if (mappingIndex > index) {
+                InvTasMapping updatedMapping = new InvTasMapping(mapping.getInventoryIndex(), mappingIndex - 1);
+                iterator.remove();
+                iterator.add(updatedMapping);
+            }
+        }
+    }
+
+    public void updateInventoryRemoved(int index) {
+        ListIterator<InvTasMapping> iterator = iterator();
+        while (iterator.hasNext()) {
+            InvTasMapping mapping = iterator.next();
+            int mappingIndex = mapping.getInventoryIndex();
+            if (mappingIndex == index) {
+                iterator.remove();
+            } else if (mappingIndex > index) {
+                InvTasMapping updatedMapping = new InvTasMapping(mappingIndex - 1, mapping.getTaskIndex());
+                iterator.remove();
+                iterator.add(updatedMapping);
+            }
+        }
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
@@ -105,8 +135,8 @@ public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
     }
 
     @Override
-    public Iterator<InvTasMapping> iterator() {
-        return internalList.iterator();
+    public ListIterator<InvTasMapping> iterator() {
+        return internalList.listIterator();
     }
 
     @Override

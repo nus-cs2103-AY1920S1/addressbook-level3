@@ -9,7 +9,9 @@ import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 
 /**
  * The API of the Model component.
@@ -24,6 +26,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Inventory> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Inventory> PREDICATE_SHOW_ALL_MAPPINGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -197,18 +201,26 @@ public interface Model {
      */
     void setInventory(Inventory target, Inventory editedInventory);
 
-    void addMapping(Mapping mapping);
+    void addMapping(InvMemMapping mapping);
 
-    void deleteMapping(Mapping mapping);
+    void addMapping(InvTasMapping mapping);
 
-    boolean hasMapping(Mapping mapping);
+    void addMapping(TasMemMapping mapping);
+
+    void deleteMapping(InvMemMapping mapping);
+
+    void deleteMapping(InvTasMapping mapping);
+
+    void deleteMapping(TasMemMapping mapping);
+
+    boolean hasMapping(InvMemMapping mapping);
+
+    boolean hasMapping(InvTasMapping mapping);
+
+    boolean hasMapping(TasMemMapping mapping);
 
     ObservableList<Mapping> getFilteredMappingsList();
 
     void updateFilteredMappingsList(Predicate<Mapping> predicate);
-
-    void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember);
-
-    void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask);
 
 }

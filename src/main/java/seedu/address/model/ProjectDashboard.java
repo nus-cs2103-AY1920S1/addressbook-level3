@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.HashMap;
 
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
@@ -142,7 +143,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      * {@code key} must exist in the address book.
      */
     public void removeTask(Task key) {
+        int index = tasks.getIndexOf(key);
         tasks.remove(key);
+        mappings.updateTaskRemoved(index);
     }
 
     //// inventory-level operations
@@ -167,7 +170,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      * {@code key} must exist in the dashboard.
      */
     public void removeInventory(Inventory target) {
+        int index = inventories.getIndexOf(target);
         inventories.remove(target);
+        mappings.updateInventoryRemoved(index);
     }
 
     //// util methods TODO add them to the another util class, this breaks SRP
@@ -342,7 +347,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         return tasksDone.asUnmodifiableObservableList();
     }
 
-
     public ObservableList<Task> getTasksByDeadline() {
         return tasksByDeadline.asUnmodifiableObservableList();
     }
@@ -403,7 +407,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      * {@code key} must exist in the address book.
      */
     public void removeMember(Member key) {
+        int index = members.getIndexOf(key);
         members.remove(key);
+        mappings.updateMemberRemoved(index);
     }
 
     //// util methods
@@ -426,6 +432,18 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     @Override
     public HashMap<Task, ObservableList<Member>> listMemberByTask() {
-        return mappings.listMemberByTask();
+        HashMap<Integer, ObservableList<Integer>> indexedListMemberByTask = mappings.listMemberByTask();
+        HashMap<Task, ObservableList<Member>> result = new HashMap<>();
+        ObservableList<Task> tasksObservableList = tasks.asUnmodifiableObservableList();
+        ObservableList<Member> membersObservableList = members.asUnmodifiableObservableList();
+        for (int taskIndex : indexedListMemberByTask.keySet()) {
+            Task currentTask = tasksObservableList.get(taskIndex);
+            ObservableList<Member> mappedMembers = FXCollections.observableArrayList();
+            result.put(currentTask, mappedMembers);
+            for (int memberIndex : indexedListMemberByTask.get(taskIndex)) {
+                mappedMembers.add(membersObservableList.get(memberIndex));
+            }
+        }
+        return result;
     }
 }

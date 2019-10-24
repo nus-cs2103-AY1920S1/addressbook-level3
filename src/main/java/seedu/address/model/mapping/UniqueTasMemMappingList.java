@@ -3,7 +3,7 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.List;
 import java.util.HashMap;
 
@@ -107,7 +107,7 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
             throw new DuplicateMappingException();
         }
 
-        internalList.set(index, editedMapwping);
+        internalList.set(index, editedMapping);
     }
 
     public void setMappings(UniqueTasMemMappingList replacement) {
@@ -128,6 +128,36 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
         internalList.setAll(mappings);
     }
 
+    public void updateTaskRemoved(int index) {
+        ListIterator<TasMemMapping> iterator = iterator();
+        while (iterator.hasNext()) {
+            TasMemMapping mapping = iterator.next();
+            int mappingIndex = mapping.getTaskIndex();
+            if (mappingIndex == index) {
+                iterator.remove();
+            } else if (mappingIndex > index) {
+                TasMemMapping updatedMapping = new TasMemMapping(mappingIndex - 1, mapping.getMemberIndex());
+                iterator.remove();
+                iterator.add(updatedMapping);
+            }
+        }
+    }
+
+    public void updateMemberRemoved(int index) {
+        ListIterator<TasMemMapping> iterator = iterator();
+        while (iterator.hasNext()) {
+            TasMemMapping mapping = iterator.next();
+            int mappingIndex = mapping.getMemberIndex();
+            if (mappingIndex == index) {
+                iterator.remove();
+            } else if (mappingIndex > index) {
+                TasMemMapping updatedMapping = new TasMemMapping(mapping.getTaskIndex(), mappingIndex - 1);
+                iterator.remove();
+                iterator.add(updatedMapping);
+            }
+        }
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
@@ -136,8 +166,8 @@ public class UniqueTasMemMappingList implements Iterable<TasMemMapping> {
     }
 
     @Override
-    public Iterator<TasMemMapping> iterator() {
-        return internalList.iterator();
+    public ListIterator<TasMemMapping> iterator() {
+        return internalList.listIterator();
     }
 
     @Override

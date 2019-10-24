@@ -55,7 +55,7 @@ public class UniqueMappingManager {
 
     public void setMapping(InvMemMapping target, InvMemMapping editedMapping) {
         requireAllNonNull(target, editedMapping);
-        invMemMappingList.setMapping(index, editedMapping);
+        invMemMappingList.setMapping(target, editedMapping);
     }
 
     public void setMappings(UniqueInvMemMappingList replacement) {
@@ -67,7 +67,7 @@ public class UniqueMappingManager {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<InvMemMapping> getUnmodifiableObservableInvMemList() {
-        return invMemMappingList.getUnmodifiableObserableList();
+        return invMemMappingList.asUnmodifiableObservableList();
     }
 
     // ================ InvTas methods ==============================
@@ -79,7 +79,7 @@ public class UniqueMappingManager {
 
     public void remove(InvTasMapping toRemove) {
         requireNonNull(toRemove);
-        InvTasMappingList.remove(toRemove);
+        invTasMappingList.remove(toRemove);
     }
 
     public boolean contains(InvTasMapping toCheck) {
@@ -89,7 +89,7 @@ public class UniqueMappingManager {
 
     public void setMapping(InvTasMapping target, InvTasMapping editedMapping) {
         requireAllNonNull(target, editedMapping);
-        invTasMappingList.setMapping(index, editedMapping);
+        invTasMappingList.setMapping(target, editedMapping);
     }
 
     public void setMappings(UniqueInvTasMappingList replacement) {
@@ -101,7 +101,7 @@ public class UniqueMappingManager {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<InvTasMapping> getUnmodifiableObservableInvTasList() {
-        return invTasMappingList.getUnmodifiableObserableList();
+        return invTasMappingList.asUnmodifiableObservableList();
     }
 
 
@@ -140,7 +140,7 @@ public class UniqueMappingManager {
 
     public void setMapping(TasMemMapping target, TasMemMapping editedMapping) {
         requireAllNonNull(target, editedMapping);
-        tasMemMappingList.setMapping(index, editedMapping);
+        tasMemMappingList.setMapping(target, editedMapping);
     }
 
     public void setMappings(UniqueTasMemMappingList replacement) {
@@ -167,7 +167,7 @@ public class UniqueMappingManager {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<TasMemMapping> getUnmodifiableObservableTasMemList() {
-        return tasMemMappingList.getUnmodifiableObserableList();
+        return tasMemMappingList.asUnmodifiableObservableList();
     }
 
     // ==============================================
@@ -178,5 +178,20 @@ public class UniqueMappingManager {
         result.addAll(invTasMappingList.asUnmodifiableObservableList());
         result.addAll(tasMemMappingList.asUnmodifiableObservableList());
         return result;
+    }
+
+    public void updateTaskRemoved(int index) {
+        invTasMappingList.updateTaskRemoved(index);
+        tasMemMappingList.updateTaskRemoved(index);
+    }
+
+    public void updateMemberRemoved(int index) {
+        invMemMappingList.updateMemberRemoved(index);
+        tasMemMappingList.updateMemberRemoved(index);
+    }
+
+    public void updateInventoryRemoved(int index) {
+        invMemMappingList.updateInventoryRemoved(index);
+        invTasMappingList.updateInventoryRemoved(index);
     }
 }
