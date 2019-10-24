@@ -109,7 +109,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nAlias table : " + aliasTable);
-        sb.append("\nAlias table : " + reminders);
+        sb.append("\nReminders table : " + reminders);
         return sb.toString();
     }
 
@@ -127,5 +127,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public void addReminder(int type, String description, int days) {
         reminders.addReminder(type, description, days);
+    }
+
+    public String outputReminders() {
+        return reminders.outputReminders();
     }
 }

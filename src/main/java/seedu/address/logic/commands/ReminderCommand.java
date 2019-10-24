@@ -41,7 +41,7 @@ public class ReminderCommand extends Command {
         requireNonNull(model);
 
         model.addReminder(0, description, days);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, description));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, description, days));
     }
 
     @Override

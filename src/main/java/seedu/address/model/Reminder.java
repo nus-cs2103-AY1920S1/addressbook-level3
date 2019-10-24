@@ -37,12 +37,15 @@ public class Reminder {
         if (type == 0) {
             reminders.put(description, days);
         } else {
-            reminders.put(description, days);
+            followup.put(description, days);
         }
         return this;
     }
 
-    public String getReminders() {
+    /**
+     * Outputs the Reminders and Follow-Up to readable String
+     */
+    public String outputReminders() {
         StringBuilder sb = new StringBuilder();
         sb.append("Reminders:\n");
         if (reminders.size() < 1) {

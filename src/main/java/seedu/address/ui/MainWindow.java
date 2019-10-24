@@ -153,7 +153,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleMotd() {
-        motdWindow = new MotdWindow();
+        motdWindow = new MotdWindow(logic);
         if (!motdWindow.isShowing()) {
             motdWindow.show();
         } else {

@@ -26,7 +26,7 @@ public class FollowUpCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DAYS + "7";
 
-    public static final String MESSAGE_ADD_FOLLOWUP_SUCCESS = "Added followup to Person: %s - %d day(s)";
+    public static final String MESSAGE_ADD_FOLLOWUP_SUCCESS = "Added follow-up to Person: %s - %d day(s)";
 
     private final Index index;
     private final int days;
@@ -53,7 +53,7 @@ public class FollowUpCommand extends Command {
         Person person = lastShownList.get(index.getZeroBased());
         model.addReminder(1, person.getName().toString(), days);
 
-        return new CommandResult(String.format(MESSAGE_ADD_FOLLOWUP_SUCCESS, person.getName().toString()), days);
+        return new CommandResult(String.format(MESSAGE_ADD_FOLLOWUP_SUCCESS, person.getName().toString(), days));
     }
 
 
