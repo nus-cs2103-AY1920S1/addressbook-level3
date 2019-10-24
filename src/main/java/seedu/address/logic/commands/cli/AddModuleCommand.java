@@ -12,7 +12,7 @@ import seedu.address.model.semester.SemesterName;
  * Adds module to a semester
  */
 public class AddModuleCommand extends Command {
-    public static final String COMMAND_WORD = "addmodule";
+    public static final String COMMAND_WORD = "addmod";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Assigns the specified module to a given semester of the current study plan.\n. "
             + "Parameters: "
@@ -46,6 +46,7 @@ public class AddModuleCommand extends Command {
         }
 
         model.addModule(moduleCode, sem);
+        model.addToHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode, sem));
     }
 

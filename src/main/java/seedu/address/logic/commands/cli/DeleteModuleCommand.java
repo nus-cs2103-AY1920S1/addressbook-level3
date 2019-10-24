@@ -12,7 +12,7 @@ import seedu.address.model.semester.SemesterName;
  * Removes a module from a semester
  */
 public class DeleteModuleCommand extends Command {
-    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_WORD = "removemod";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ":Removes the specified module to a given semester of the current study plan.\n. "
             + "Parameters: "
@@ -41,6 +41,8 @@ public class DeleteModuleCommand extends Command {
         }
 
         model.removeModule(moduleCode, sem);
+        model.addToHistory();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode, sem));
     }
 

@@ -22,7 +22,7 @@ public class RemoveTagFromAllCommand extends Command {
             + "Example: "
             + "removeall exchange";
 
-    public static final String MESSAGE_SUCCESS = "Tag %1$s hass been removed from all modules";
+    public static final String MESSAGE_SUCCESS = "Tag %1$s has been removed from all modules";
     public static final String MESSAGE_TAG_CANNOT_BE_FOUND = "There is no [%1$s] tag in this study plan";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be removed";
 
@@ -53,8 +53,8 @@ public class RemoveTagFromAllCommand extends Command {
         UserTag toRemove = (UserTag) model.getTagFromActiveSp(tagName);
 
         model.removeTagFromAllModulesInActiveSp(toRemove);
+        model.addToHistory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }
-
 }

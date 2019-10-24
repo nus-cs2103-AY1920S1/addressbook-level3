@@ -63,6 +63,7 @@ public class RenameTagCommand extends Command {
         UserTag toRename = (UserTag) targetTag;
 
         toRename.rename(newTagName);
+        model.addToHistory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, originalTagName, toRename));
     }

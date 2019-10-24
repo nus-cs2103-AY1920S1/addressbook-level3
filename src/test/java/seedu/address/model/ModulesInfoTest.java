@@ -36,7 +36,7 @@ public class ModulesInfoTest {
     @Test
     public void getModuleCodeStrings_returnsModuleCodeStrings() {
         List<String> moduleCodeStrings = modulesInfo.getModuleCodeStrings();
-        List<String> expected = Arrays.asList(new String[] { "CS1101S", "CS2040S", "CS4248" });
+        List<String> expected = Arrays.asList("CS1101S", "CS2040S", "CS4248");
         assertEquals(moduleCodeStrings, expected);
     }
 }

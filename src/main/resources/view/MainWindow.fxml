@@ -2,68 +2,68 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-
-<fx:root minHeight="600" minWidth="900" onCloseRequest="#handleExit" title="CS modbuddy" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="CS modbuddy" minWidth="900" minHeight="600" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/logo.png" />
+        <Image url="@/images/logo.png"/>
     </icons>
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@LightTheme.css" />
-                <URL value="@Extensions.css" />
+                <URL value="@LightTheme.css"/>
+                <URL value="@Extensions.css"/>
             </stylesheets>
 
             <VBox styleClass="background">
 
-                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
                     <padding>
-                        <Insets bottom="0" left="5" right="5" top="5" />
+                        <Insets top="5" right="5" bottom="0" left="5"/>
                     </padding>
                 </StackPane>
 
                 <GridPane VBox.vgrow="ALWAYS">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="45.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="55.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="45.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="55.0"/>
                     </columnConstraints>
-                    <StackPane fx:id="resultDisplayPlaceholder" minHeight="100" styleClass="pane-with-border" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                    <StackPane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.vgrow="ALWAYS"
+                               HBox.hgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                               minHeight="100">
                         <padding>
-                            <Insets bottom="5" left="5" top="5" />
+                            <Insets top="5" bottom="5" left="5"/>
                         </padding>
                     </StackPane>
 
-                    <VBox GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                    <VBox GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.vgrow="ALWAYS"
+                          GridPane.hgrow="ALWAYS">
                         <padding>
-                            <Insets bottom="5" left="5" right="5" top="5" />
+                            <Insets top="5" right="5" bottom="5" left="5"/>
                         </padding>
                         <VBox fx:id="studyPlan" VBox.vgrow="ALWAYS">
-                            <Label fx:id="title" styleClass="cell_big_label" text="\$first">
+                            <Label fx:id="title" text="\$first" styleClass="cell_big_label">
                                 <padding>
-                                    <Insets left="5" />
+                                    <Insets left="5"/>
                                 </padding>
                             </Label>
-                            <VBox fx:id="semesterList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="semesterList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                                  VBox.vgrow="ALWAYS">
                                 <padding>
-                                    <Insets bottom="5" left="5" right="5" top="5" />
+                                    <Insets top="5" right="5" bottom="5" left="5"/>
                                 </padding>
-                                <StackPane fx:id="semesterListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                <StackPane fx:id="semesterListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                             </VBox>
                         </VBox>
                     </VBox>
-               <rowConstraints>
-                  <RowConstraints />
-               </rowConstraints>
                 </GridPane>
             </VBox>
         </Scene>

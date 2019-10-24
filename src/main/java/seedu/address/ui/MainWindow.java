@@ -17,8 +17,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
-//import seedu.address.model.versiontracking.Commit;
 import seedu.address.ui.exceptions.InvalidResultViewTypeException;
+
+//import seedu.address.model.versiontracking.Commit;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -185,7 +186,7 @@ public class MainWindow extends UiPart<Stage> {
         case TEXT:
             TextArea textArea = new TextArea();
             ObservableList<String> textContent = (ObservableList<String>) resultContent;
-            for (String text: textContent) {
+            for (String text : textContent) {
                 textArea.setText(text);
             }
             resultDisplayPlaceholder.getChildren().add(textArea);

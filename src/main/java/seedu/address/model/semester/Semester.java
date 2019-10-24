@@ -1,5 +1,8 @@
 package seedu.address.model.semester;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 
 import seedu.address.model.module.Module;
@@ -9,7 +12,7 @@ import seedu.address.model.module.UniqueModuleList;
  * Represents a semester of university for CS Undergraduate Students.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Semester {
+public class Semester implements Cloneable {
     // Identity fields
     private SemesterName semesterName; // removed final keyword for the clone() method below
 
@@ -23,6 +26,7 @@ public class Semester {
      * SemesterName field must be present and not null.
      */
     public Semester(SemesterName semesterName) {
+        requireNonNull(semesterName);
         this.semesterName = semesterName;
         isBlocked = false;
     }
@@ -32,12 +36,22 @@ public class Semester {
      */
     public Semester(SemesterName semesterName, boolean isBlocked,
                     String reasonForBlocked, List<Module> modules) {
+        requireAllNonNull(semesterName, isBlocked, reasonForBlocked, modules);
         this.semesterName = semesterName;
         this.isBlocked = isBlocked;
         this.reasonForBlocked = reasonForBlocked;
         for (Module module : modules) {
             this.modules.add(module);
         }
+    }
+
+    @Override
+    protected Semester clone() throws CloneNotSupportedException {
+        Semester clone = (Semester) super.clone();
+        clone.isBlocked = this.isBlocked;
+        clone.reasonForBlocked = this.reasonForBlocked;
+        clone.modules = this.modules.clone();
+        return clone;
     }
 
     public SemesterName getSemesterName() {
@@ -100,4 +114,18 @@ public class Semester {
         return result.toString();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Semester) {
+            Semester other = (Semester) obj;
+            return this.modules.equals(other.getModules())
+                    && this.isBlocked == other.isBlocked
+                    && this.reasonForBlocked.equals(other.reasonForBlocked)
+                    && this.isExpanded == other.isExpanded
+                    && this.semesterName == other.getSemesterName();
+        }
+        return false;
+    }
 }

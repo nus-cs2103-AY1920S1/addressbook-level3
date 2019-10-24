@@ -65,6 +65,7 @@ public class DeleteCommand extends Command {
                         true, false);
             }
         }
+        model.addToHistory();
 
         // delete the corresponding study plan commit manager
         model.deleteStudyPlanCommitManagerByIndex(studyPlanToDelete.getIndex());

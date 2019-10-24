@@ -33,6 +33,7 @@ public class TypicalModuleHashMap {
 
     /**
      * Converts {@code ModuleInfo} from the class {@link TypicalModulesInfo} into a {@code Module} object.
+     *
      * @param moduleInfo ModuleInfo for a module.
      * @return The Module that the input ModuleInfo represents.
      */

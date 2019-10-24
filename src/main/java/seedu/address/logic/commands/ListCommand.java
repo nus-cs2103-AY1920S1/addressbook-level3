@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDYPLANS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDY_PLANS;
 
 import seedu.address.model.Model;
 
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDYPLANS);
+        model.updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

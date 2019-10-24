@@ -265,6 +265,31 @@ public class ValidModsCommandTest {
         public HashMap<String, Module> getModulesFromActiveSp() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean canUndoModulePlanner() {
+            return false;
+        }
+
+        @Override
+        public boolean canRedoModulePlanner() {
+            return false;
+        }
+
+        @Override
+        public void undoModulePlanner() {
+
+        }
+
+        @Override
+        public void redoModulePlanner() {
+
+        }
+
+        @Override
+        public void addToHistory() {
+
+        }
     }
 
     @Test

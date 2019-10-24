@@ -4,13 +4,13 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
 <VBox fx:id="resultHolder" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <padding>
-      <Insets bottom="5" left="5" right="5" top="5" />
-   </padding>
-   <children>
-      <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" wrapText="true" VBox.vgrow="ALWAYS" />
-      <StackPane fx:id="resultView" VBox.vgrow="ALWAYS" />
-   </children>
+    <padding>
+        <Insets bottom="5" left="5" right="5" top="5"/>
+    </padding>
+    <children>
+        <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" wrapText="true"
+                  VBox.vgrow="ALWAYS"/>
+        <StackPane fx:id="resultView" VBox.vgrow="ALWAYS"/>
+    </children>
 </VBox>

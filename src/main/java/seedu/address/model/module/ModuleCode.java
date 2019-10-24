@@ -8,7 +8,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidCode(String)}
  */
 public class ModuleCode {
-
     public static final String MESSAGE_CONSTRAINTS = "Each module of study has a unique module code"
             + " consisting of a two- or three-letter prefix that denotes the discipline, and four digits,"
             + " the first of which indicates the level of the module (e.g., 1000 indicates a Level 1 module"
@@ -33,6 +32,7 @@ public class ModuleCode {
      * Returns true if a given string is a valid module code.
      */
     public static boolean isValidCode(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 

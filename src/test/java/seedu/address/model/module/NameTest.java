@@ -1,23 +1,32 @@
 package seedu.address.model.module;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalModulesInfo.CS1101S;
-import static seedu.address.testutil.TypicalModulesInfo.CS2040S;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-/**
- * A test class for {@code Name}.
- */
 public class NameTest {
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Name(null));
+    }
 
     @Test
-    public void equals() {
-        // same module -> true
-        assertTrue(CS1101S.getName().equals(CS1101S.getName()));
+    public void equals_valid_success() {
+        assertEquals(new Name("Probability and Statistics"), new Name("Probability and Statistics"));
+        assertNotSame(new Name("Probability and Statistics"), new Name("Software Engineering"));
+    }
 
-        // different modules -> false
-        assertFalse(CS1101S.getName().equals(CS2040S.getName()));
+    @Test
+    public void toString_valid_success() {
+        assertEquals(new Name("Probability and Statistics").toString(), "Probability and Statistics");
+        assertNotSame(new Name("Probability and Statistics").toString(), "Software Engineering");
+    }
+
+    @Test
+    public void hashCode_valid_success() {
+        assertEquals(new Name("Software Engineering").hashCode(), new Name("Software Engineering").hashCode());
+        assertNotSame(new Name("Software Engineering").hashCode(), new Name("Probability and Statistics").hashCode());
     }
 }

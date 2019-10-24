@@ -28,7 +28,7 @@ public class ModulesInfo {
 
     public List<String> getModuleCodeStrings() {
         ArrayList<String> result = new ArrayList<>();
-        for (String moduleCode: mapModulesInfo.keySet()) {
+        for (String moduleCode : mapModulesInfo.keySet()) {
             result.add(moduleCode);
         }
         Collections.sort(result);

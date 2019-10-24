@@ -479,6 +479,11 @@ public class StudyPlan implements Cloneable {
         for (Module module : modules.values()) {
             clone.modules.put(module.getModuleCode().toString(), module.clone());
         }
+        for (Semester semester : clone.semesters) {
+            for (Module module : semester.getModules()) {
+                semester.getModules().replace(module, clone.modules.get(module.getModuleCode().toString()));
+            }
+        }
 
         clone.tags = (UniqueTagList) tags.clone();
 
