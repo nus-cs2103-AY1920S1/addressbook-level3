@@ -1,25 +1,18 @@
-package seedu.address.ui;
+package seedu.address.ui.card;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+
 import seedu.address.model.events.EventSource;
+import seedu.address.ui.UiParser;
 
 /**
  * An UI component that displays information of a {@code Event}.
  */
-public class EventCard extends UiPart<Region> {
+public class EventCard extends Card {
 
     private static final String FXML = "EventCard.fxml";
-
-    private UiParser uiParser;
-    private EventSource event;
-    private String eventName;
-    private String eventDate;
-
-    @FXML
-    private StackPane eventCardBase;
 
     @FXML
     private Label eventCardName;
@@ -33,16 +26,10 @@ public class EventCard extends UiPart<Region> {
      * @param event The given event.
      * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
      */
-
     public EventCard(EventSource event, UiParser uiParser) {
         super(FXML);
-        this.uiParser = uiParser;
-        this.event = event;
-        this.eventName = event.getDescription();
-        this.eventDate = uiParser.getTime(event.getStartDateTime().toInstant());
-
-        eventCardName.setText(this.eventName);
-        eventCardDate.setText(this.eventDate);
+        eventCardName.setText(event.getDescription());
+        eventCardDate.setText(uiParser.getFullEnglishDateTime(event.getStartDateTime().toInstant()));
+        eventCardName.setMinHeight(Region.USE_PREF_SIZE);
     }
-
 }

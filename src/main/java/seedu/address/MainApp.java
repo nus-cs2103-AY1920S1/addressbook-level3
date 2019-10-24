@@ -7,18 +7,19 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.logic.CommandManager;
+import seedu.address.logic.NotificationManager;
 import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.ExportIcsCommand;
+import seedu.address.logic.commands.ImportIcsCommand;
+import seedu.address.logic.commands.NotificationOffCommand;
+import seedu.address.logic.commands.NotificationOnCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.notification.NotificationChecker;
-import seedu.address.logic.notification.NotificationCheckingThread;
 import seedu.address.model.ModelManager;
 import seedu.address.model.undo.UndoRedoManager;
-import seedu.address.ui.systemtray.PopupListener;
-import seedu.address.ui.systemtray.SystemTrayCommunicator;
 
 /**
  * Runs the application.
@@ -33,6 +34,10 @@ public class MainApp extends Application {
     private static final String COMMAND_EDIT_EVENT = "edit_event";
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
+    private static final String COMMAND_IMPORT_ICS = "import";
+    private static final String COMMAND_EXPORT_ICS = "export";
+    private static final String COMMAND_NOTIFICATION_OFF = "notif_off";
+    private static final String COMMAND_NOTIFICATION_ON = "notif_on";
 
     private UiManager uiManager;
 
@@ -43,6 +48,7 @@ public class MainApp extends Application {
 
         CommandManager commandManager = new CommandManager();
         ModelManager modelManager = new ModelManager();
+        NotificationManager notificationManager = new NotificationManager(modelManager);
         uiManager = new UiManager();
         UndoRedoManager undoRedoManager = new UndoRedoManager();
 
@@ -52,6 +58,11 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_UNDO, () -> UndoCommand.newBuilder(undoRedoManager));
         commandManager.addCommand(COMMAND_REDO, () -> RedoCommand.newBuilder(undoRedoManager));
+        commandManager.addCommand(COMMAND_IMPORT_ICS, () -> ImportIcsCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_EXPORT_ICS, () -> ExportIcsCommand.newBuilder(modelManager));
+        commandManager
+            .addCommand(COMMAND_NOTIFICATION_OFF, () -> NotificationOffCommand.newBuilder(notificationManager));
+        commandManager.addCommand(COMMAND_NOTIFICATION_ON, () -> NotificationOnCommand.newBuilder(notificationManager));
 
         // Add Listeners
         commandManager.addUserOutputListener(uiManager);
@@ -62,12 +73,6 @@ public class MainApp extends Application {
         uiManager.addCommandInputListener(commandManager);
 
         undoRedoManager.addUndoRedoListener(modelManager);
-
-        NotificationCheckingThread notificationCheckingThread =
-            new NotificationCheckingThread(new NotificationChecker(modelManager));
-        notificationCheckingThread.addPopupListener(new PopupListener(new SystemTrayCommunicator()));
-        notificationCheckingThread.setDaemon(true);
-        notificationCheckingThread.start();
     }
 
     @Override

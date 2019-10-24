@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+'==== Packages ====
+package UI <<Rectangle>> {
+'Class "{abstract}\nUiPart" as UiPart
+Class MainWindow
+Interface UserOutputListener <<Interface>>
+    package Calendar <<Rectangle>> {
+        Class LogPanel
+        Class LogBox
+    }
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MainWindow
+
+'==== MainWindow ====
+MainWindow *-down--> LogPanel
+MainWindow .left..|> UserOutputListener
+'MainWindow -down--|> UiPart
+
+'==== LogPanel ====
+'LogPanel -down--|> UiPart
+LogPanel *-right--> LogBox
+
+'==== LogBox ====
+'LogBox -down--|> UiPart
+
+
+@enduml
