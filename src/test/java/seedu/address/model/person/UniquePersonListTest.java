@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -222,5 +223,15 @@ public class UniquePersonListTest {
         assertEquals(it.next(), DANIEL);
         assertEquals(it.next(), BOB);
         assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void personNotFoundException() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(CARL);
+        assertDoesNotThrow(() -> uniquePersonList.setPerson(ALICE, BOB));
+        assertDoesNotThrow(() -> uniquePersonList.remove(CARL));
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.remove(ALICE));
     }
 }

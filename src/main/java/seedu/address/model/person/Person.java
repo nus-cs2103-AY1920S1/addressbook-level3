@@ -201,17 +201,30 @@ public class Person {
      * Throws IllegalArgumentException if index is not within visit range.
      * Throws IllegalStateException if visit is ongoing.
      */
-    public void removeVisit(Visit visit, Model model) {
-        requireAllNonNull(visit, model);
-        if (!visits.contains(visit)) {
+    public void removeVisit(Visit visitToRemove, Model model) {
+        requireAllNonNull(visitToRemove, model);
+        if (!visits.contains(visitToRemove)) {
             throw new IllegalArgumentException();
         }
-        //Verify Visit is not ongoing
+        //If visit is ongoing
+        boolean updateOngoingVisitAfterRemoval = false;
         Optional<Visit> optionalVisit = model.getOngoingVisit();
-        if (optionalVisit.isPresent() && optionalVisit.get().equals(visit)) {
+        if (optionalVisit.isPresent()) {
+            Visit ongoingVisit = optionalVisit.get();
+            //Unset before removal
             model.unsetOngoingVisit();
+            //If it's another visit being deleted, ensure indexes are the same
+            if (!ongoingVisit.equals(visitToRemove)) {
+                updateOngoingVisitAfterRemoval = true;
+            }
         }
-        visits.remove(visit);
+
+        visits.remove(visitToRemove);
+
+        //Update ongoing visit (if there is) if not removing ongoing visit
+        if (optionalVisit.isPresent() && updateOngoingVisitAfterRemoval) {
+            model.setNewOngoingVisit(optionalVisit.get());
+        }
     }
 
     /**

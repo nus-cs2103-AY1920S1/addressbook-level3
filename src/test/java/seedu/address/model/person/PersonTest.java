@@ -1,18 +1,32 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.model.datetime.EndDateTimeTest.VALID_END_DATE_TIME;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.visit.BeginVisitCommand;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.visit.Visit;
+import seedu.address.model.visit.exceptions.VisitNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -91,5 +105,23 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+    }
+
+    @Test
+    public void visitIntegration() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Person visitedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertEquals(Optional.empty(), visitedPerson.getVisitByIndex(-1));
+        assertNotEquals(Optional.empty(), visitedPerson.getVisitByIndex(0));
+        assertEquals(Optional.empty(), visitedPerson.getVisitByIndex(5));
+        BeginVisitCommand beginVisitCommand = new BeginVisitCommand(INDEX_FIRST_PERSON);
+        assertDoesNotThrow(() -> beginVisitCommand.execute(model));
+        assertDoesNotThrow(() -> visitedPerson.removeVisit(visitedPerson.getVisitByIndex(0).get(), model));
+        Visit visit = visitedPerson.getVisitByIndex(1).get();
+        Visit visitNotInData = new Visit(visit.getRemark(), visit.getStartDateTime(), VALID_END_DATE_TIME,
+                visit.getVisitTasks(), visit.getPatient());
+        assertDoesNotThrow(() -> visitedPerson.removeVisit(visit, model));
+        assertThrows(IllegalArgumentException.class, () -> visitedPerson.removeVisit(visitNotInData, model));
+        assertThrows(VisitNotFoundException.class, () -> visitedPerson.updateVisit(visitNotInData, visit));
     }
 }
