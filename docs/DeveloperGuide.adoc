@@ -164,6 +164,8 @@ This enables the user to search for a list of expired items by searching for the
 With this, the user is able to view the list of expired items and decide which items to add to the replenish list.
 On the other hand, when an item has run out, the user is prompted to replenish the item using the replenish command.
 
+image::ItemManagerClassDiagram.png[]
+
 //Given below is an example usage scenario and how the mechanism behaves at each step.
 
 //The following sequence diagram shows how the operation works:
