@@ -74,8 +74,6 @@ public class WatchListParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case SyncCommand.COMMAND_WORD:
-            return new SyncCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
