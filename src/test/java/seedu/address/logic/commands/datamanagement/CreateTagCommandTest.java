@@ -285,7 +285,7 @@ public class CreateTagCommandTest {
         }
 
         @Override
-        public void updatePrereqs() {
+        public void refresh() {
             throw new AssertionError("This method should not be called.");
         }
     }

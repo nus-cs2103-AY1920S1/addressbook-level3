@@ -17,7 +17,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
-//import seedu.address.model.versiontracking.Commit;
 import seedu.address.ui.exceptions.InvalidResultViewTypeException;
 
 /**
@@ -41,6 +40,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Label title;
+
+    @FXML
+    private Label mcCount;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -83,11 +85,13 @@ public class MainWindow extends UiPart<Stage> {
             NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
             semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
             title.setText(NO_ACTIVE_STUDY_PLAN);
+            mcCount.setText("");
         } else {
             ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
             semesterListPanel = new SemesterListPanel(semesters);
             semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
             title.setText(sp.getTitle().toString());
+            mcCount.setText(sp.getMcCountString());
         }
 
         resultDisplay = new ResultDisplay();
@@ -141,8 +145,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.removeResultView();
             semesterListPanel.refresh();
 
+            StudyPlan sp = logic.getActiveStudyPlan();
+            mcCount.setText(sp == null ? "" : sp.getMcCountString());
+
             if (commandResult.isChangesActiveStudyPlan()) {
-                StudyPlan sp = logic.getActiveStudyPlan();
                 if (sp == null) {
                     NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
                     semesterListPanelPlaceholder.getChildren().remove(0);

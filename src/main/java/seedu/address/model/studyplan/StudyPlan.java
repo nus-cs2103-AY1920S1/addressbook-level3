@@ -155,6 +155,28 @@ public class StudyPlan implements Cloneable {
         StudyPlan.totalNumberOfStudyPlans = totalNumberOfStudyPlans;
     }
 
+    public int getTotalMcCount() {
+        int totalMcCount = 0;
+        for (Semester sem : semesters) {
+            totalMcCount += sem.getMcCount();
+        }
+        return totalMcCount;
+    }
+
+    public int getCompletedMcCount() {
+        int completedMcCount = 0;
+        for (Semester sem : semesters) {
+            if (sem.getSemesterName().compareTo(currentSemester) < 0) {
+                completedMcCount += sem.getMcCount();
+            }
+        }
+        return completedMcCount;
+    }
+
+    public String getMcCountString() {
+        return "(" + getCompletedMcCount() + "/" + getTotalMcCount() + ")";
+    }
+
     /**
      * Populates the unique semester list with the 8 semesters in the normal 4-year candidature. These
      * semesters will be empty initially.
