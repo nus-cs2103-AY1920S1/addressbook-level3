@@ -40,23 +40,26 @@ Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+
 The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of six components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Logic,*`Logic`*>>: Includes 3 types of executors: the Command Executor, the Program Submission Executor, and the Question Builder Executor,.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Observable, *`Observable`*>>:
+* <<Design-TextExecutor, *`TextExecutor`*>>: Compile the user program and run it against test cases. Output result.
 
-Each of the four components
+Each of the six components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `QuestionLogic` component (see the class diagram given below) defines it's API in the `QuestionLogic.java` interface and exposes its functionality using the `QuestionLogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -66,7 +69,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `view 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -137,17 +140,37 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/difficulty/storage/Storage.java[`Storage.java`]
+*API* :
+
+For Questions, link:{repoURL}/src/main/java/com/dukeacademy/storage/question/QuestionBankStorage.java[`QuestionBankStorage.java`]
+
+For Profile, link: {repoURL}/src/main/java/com/dukeacademy/storage/profile/ProfileStorage.java[`ProfileStorage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Duke Academy data in json format and read it back.
+* can save the Duke Academy question bank in json format and read it back.
+* can save the user information in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `com.dukeacademy.commons` package.
+
+**Core**:
+
+**Exceptions**:
+
+`DataConversionException`: occurs when loading files with incorrect data format.
+
+`IllegalValueException`: occurs when user inputs a invalid command.
+
+**Util**:
+
+`FileUtil`: for loading and saving of files.
+`JsonUtil`: for serializing and deserializing json files.
+
+...TBA
 
 == Implementation
 
