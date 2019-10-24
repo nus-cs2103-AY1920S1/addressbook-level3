@@ -168,16 +168,22 @@ Cons: Might not be as OOP as other designs.
 
 The Reminder mechanism is facilitated by the Reminder class. Each Reminder object consists of a Condition class object which represents a set of conditions to be met. When all conditions are met, the reminder is activated and its message is displayed under the Reminder Pannel. The following class diagram helps to show how the classes are related.
 
-When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed, the ConditionList object is updated to see if any conditions have been met. 
+image::ReminderClassDiagram.png[]
 
+Different types of conditions are represented by subclassess which extend the Condition class.
+To create a reminder, the user calls the method createReminder(int... indexes)
+where indexes are the indexes of conditions in the condition list.
+
+When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed,
+the ConditionList object is updated to see if any conditions have been met.
+
+image::ReminderSequenceDiagram.png[]
 
 ==== Design Considerations
 
-*Current method:* Toggle the panels from within MainWindow class.
+*Current method:* Instance specific reminders are made known to the instance object, and the object is made known to the reminder. (i.e Such reminders trigger conditions are entirely based on a single Entry class object)
 
-Pros: Easy to implement.
-
-
+Pros: Allows fast method of keeping track of instance specific reminders when object is edited/deleted and loaded form storage.
 Cons: Might not be as OOP as other designs.
 == Documentation
 
@@ -315,11 +321,11 @@ Use Case: user adds an expense
 . The user types listAutoExpenditure.
 . GuiltTrip lists all the current automatically recurring expenditures.
 
-=== Use Case 09: Set TrackerReminder
+=== Use Case 09: Set GeneralReminder
 
 ==== MSS
 
-. User adds a TrackerReminder, indicates the quota which if exceeded will activate the reminder, and the tags nad keywords that entries should have to be tracked;
+. User adds a GeneralReminder, indicates the quota which if exceeded will activate the reminder, and the tags/ keywords that entries should have to be tracked;
 . guiltTrip() notifies user that Reminder has been added.
 
 Use case ends.
@@ -329,11 +335,11 @@ Use case ends.
 . 1a. user does not indicate if he wants to track entries with keywords or tags.
 Reminder tracks all entries.
 
-=== Use Case 10: Set DateReminder
+=== Use Case 10: Set TargetedReminder
 
 ==== MSS
 
-. User adds a DateReminder, indicate the index of the entry to track and the period before the event date to activate reminder.
+. User adds a TargetedReminder, indicate the index of the entry to target and the period before the entry date to activate reminder.
 . guiltTrip() notifies user that Reminder has been added.
 
 Use case ends.
