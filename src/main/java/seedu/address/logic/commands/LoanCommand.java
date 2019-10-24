@@ -78,7 +78,7 @@ public class LoanCommand extends Command {
         model.servingBorrowerNewLoan(loan); // add Loan object to Borrower's currentLoanList
 
         try {
-            LoanSlipUtil.mountLoanSlip(loan, loanedOutBook, servingBorrower);
+            LoanSlipUtil.mountLoan(loan, loanedOutBook, servingBorrower);
         } catch (LoanSlipException e) {
             e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
         }

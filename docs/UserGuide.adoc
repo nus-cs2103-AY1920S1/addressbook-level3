@@ -102,7 +102,7 @@ Format: `clear`
 ==== Adding a book: `add`
 
 Adds a new book to library records. +
-Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
+Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]`
 
 [TIP]
 A book can have any number of genres (including 0)
@@ -224,7 +224,7 @@ Edits the name of the borrower to be `Betsy Crower`
 
 Loan book(s) by their serial number +
 Format: `loan sn/BOOK_SN` +
-Format: `loan sn/BOOK_SN...` - Coming in v2.0
+Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` - Coming in v2.0
 
 Examples:
 
@@ -232,6 +232,11 @@ Examples:
 Loans the book with serial number B00041
 * `loan sn/B00201 sn/B02929 sn/B00203` - Coming in v2.0 +
 Loans the books with serial numbers B00201, B02929 and B00203
+
+Upon loaning a book, a printable loan slip in pdf format will be generated.
+
+.Printable PDF version of a Loan Slip
+image::LoanSlip.png[width=250, align=center]
 
 ==== Renewing book(s): `renew`
 

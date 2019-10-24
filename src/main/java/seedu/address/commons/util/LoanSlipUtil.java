@@ -45,9 +45,9 @@ public class LoanSlipUtil {
      * @param book Book associated to current loan.
      * @param borrower Borrower associated to current loan.
      */
-    public static void mountLoanSlip(Loan loan, Book book, Borrower borrower) throws LoanSlipException {
+    public static void mountLoan(Loan loan, Book book, Borrower borrower) throws LoanSlipException {
         if (isMounted) {
-            unmountLoanSlip();
+            unmountLoan();
         }
         if (!loan.getBorrowerId().equals(borrower.getBorrowerId())) {
             throw new LoanSlipException("Borrower and Loan do not match!");
@@ -65,7 +65,7 @@ public class LoanSlipUtil {
     /**
      * Unmounts a Loan slip after creating a pdf of it.
      */
-    public static void unmountLoanSlip() {
+    public static void unmountLoan() {
         if (isMounted) {
             currentLoan = null;
             currentBook = null;
@@ -184,7 +184,7 @@ public class LoanSlipUtil {
      * Opens loan slip pdf to allow ease of printing loan slip.
      * (Cannot be tested autonomously)
      */
-    public static void openLoanSlip() throws LoanSlipException {
+    public static void openGeneratedLoanSlip() throws LoanSlipException {
         if (!isMounted || !isGenerated) {
             throw new LoanSlipException("Loan slip is not generated");
         }
