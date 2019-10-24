@@ -28,4 +28,7 @@ public class Messages {
     public static final String MESSAGE_EXPORT_ICS_SUCCESS = "Horo has successfully been exported at the filepath: %s";
 
     public static final String MESSAGE_DAY_VIEW_SUCCESS = "Changed Day to: %s";
+
+    public static final String MESSAGE_NOTIFICATION_OFF = "Notifications have been turned off.";
+    public static final String MESSAGE_NOTIFICATION_ON = "Notifications have been turned on.";
 }
