@@ -4,9 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
+
 
 import seedu.ezwatchlist.api.ApiMain;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;

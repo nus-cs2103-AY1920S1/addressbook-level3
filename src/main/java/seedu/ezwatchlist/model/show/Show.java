@@ -98,11 +98,16 @@ public class Show {
                 && (otherShow.getDateOfRelease().equals(getDateOfRelease()) || otherShow.isWatched() == (isWatched()));
     }
 
-    public boolean hasNameWithWord(Show otherShow) {
-        if (isSameName(otherShow)) {
+    /**
+     * Return true if the other show has name similar to the current show.
+     * @param showToBeSearched Show to be compare to this show.
+     * @return True if the other show has name similar to the current show.
+     */
+    public boolean hasNameWithWord(Show showToBeSearched) {
+        if (isSameName(showToBeSearched)) {
             return true;
         } else {
-            return this.getName().getName().toLowerCase().contains(otherShow.getName().getName().toLowerCase());
+            return this.getName().getName().toLowerCase().contains(showToBeSearched.getName().getName().toLowerCase());
         }
     }
 
@@ -118,6 +123,11 @@ public class Show {
         return otherShow != null && otherShow.getName().equals(getName());
     }
 
+    /**
+     * Return true if the other show has actor similar to the current show.
+     * @param showToBeSearched Show to be compare to this show.
+     * @return True if the other show has name similar to the current show.
+     */
     public boolean hasActorWithName(Show showToBeSearched) {
         Set<Actor> actorSearchedSet = showToBeSearched.getActors();
         for (Actor actorSearched : actorSearchedSet) {
