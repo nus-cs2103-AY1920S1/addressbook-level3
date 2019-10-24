@@ -14,12 +14,19 @@ public class JsonAdaptedCcaMilestone {
 
     /**
      * Converts a given {@code CcaMilestone} into this class for Jackson use.
+     *
+     * @param fullName Name of {@code CcaMilestone}.
      */
     @JsonCreator
     public JsonAdaptedCcaMilestone(String fullName) {
         this.fullName = fullName;
     }
 
+    /**
+     * Converts a given {@code CcaMilestone} into this class for Jackson use.
+     *
+     * @param ccaMilestone {@code CcaMilestone} to be converted to {@code JsonAdaptedCcaMilestone}.
+     */
     public JsonAdaptedCcaMilestone(CcaMilestone ccaMilestone) {
         fullName = ccaMilestone.fullName;
     }

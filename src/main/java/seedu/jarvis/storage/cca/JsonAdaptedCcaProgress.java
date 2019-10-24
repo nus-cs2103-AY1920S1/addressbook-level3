@@ -18,6 +18,12 @@ public class JsonAdaptedCcaProgress {
     private final List<JsonAdaptedCcaMilestone> ccaProgressList = new ArrayList<>();
     private final JsonAdaptedCcaCurrentProgress ccaCurrentProgress;
 
+    /**
+     * Constructs a {@code JsonAdaptedCcaProgress} with the given cca progress details.
+     *
+     * @param ccaProgressList {@code List} of {@code JsonAdaptedCcaMilestone} objects.
+     * @param ccaCurrentProgress {@code CcaCurrentProgress} in json format.
+     */
     @JsonCreator
     public JsonAdaptedCcaProgress(@JsonProperty("ccaProgressList") List<JsonAdaptedCcaMilestone> ccaProgressList,
                                   @JsonProperty("ccaCurrentProgress") JsonAdaptedCcaCurrentProgress
@@ -28,6 +34,11 @@ public class JsonAdaptedCcaProgress {
         this.ccaCurrentProgress = ccaCurrentProgress;
     }
 
+    /**
+     * Converts a given {@code CcaProgress} into this class for Jackson use.
+     *
+     * @param ccaProgress {@code CcaProgress} to be used to construct the {@code JsonAdaptedCcaProgress}.
+     */
     public JsonAdaptedCcaProgress(CcaProgress ccaProgress) {
         ccaProgressList.addAll(ccaProgress.getCcaProgressList()
                 .asUnmodifiableObservableList()

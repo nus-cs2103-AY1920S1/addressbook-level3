@@ -20,7 +20,7 @@ public class Event extends Task {
      * Retrieves the start date of the event
      * @return the LocalDate object that represents the start date
      */
-    protected LocalDate getStartDate() {
+    public LocalDate getStartDate() {
         return start;
     }
 
@@ -28,7 +28,7 @@ public class Event extends Task {
      * Retrieves the end date of the event
      * @return the LocalDate object that represents the end date
      */
-    protected LocalDate getEndDate() {
+    public LocalDate getEndDate() {
         return end;
     }
 

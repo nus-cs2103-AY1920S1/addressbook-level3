@@ -30,7 +30,16 @@ public class JsonAdaptedCourse {
     private final String fulfillRequirements;
 
     /**
-     * Constructs a {@code JsonAdaptedCourse} with the given {@code Course}.
+     * Constructs a {@code JsonAdaptedCourse} with the given course details.
+     *
+     * @param title {@code Title} of the course.
+     * @param faculty {@code Faculty} of the course.
+     * @param description {@code Description} of the course.
+     * @param courseCode {@code CourseCode} of the course.
+     * @param courseCredit {@code CourseCredit} of the course.
+     * @param prereqTree {@code PrereqTree} of the course, can be null.
+     * @param preclusion {@code Preclusion} of the course, can be null.
+     * @param fulfillRequirements {@code Fulfullrequirements} of the course, can be null.
      */
     @JsonCreator
     public JsonAdaptedCourse(@JsonProperty("title") String title, @JsonProperty("faculty") String faculty,
@@ -50,6 +59,11 @@ public class JsonAdaptedCourse {
         this.fulfillRequirements = fulfillRequirements;
     }
 
+    /**
+     * Converts a given {@code Course} into this class for Jackson use.
+     *
+     * @param course {@code Course} to be used to construct the {@code JsonAdaptedCourse}.
+     */
     public JsonAdaptedCourse(Course course) {
         title = course.getTitle().title;
         faculty = course.getFaculty().faculty;

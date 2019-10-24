@@ -15,12 +15,19 @@ public class JsonAdaptedEquipment {
 
     /**
      * Constructs a {@code JsonAdaptedEquipment} with the given {@code Equipment}.
+     *
+     * @param equipmentName Name of the equipment.
      */
     @JsonCreator
     public JsonAdaptedEquipment(String equipmentName) {
         this.equipmentName = equipmentName;
     }
 
+    /**
+     * Converts a given {@code Equipment} into this class for Jackson use.
+     *
+     * @param equipment {@code Equipment} to be converted to {@code JsonAdaptedEquipment}.
+     */
     public JsonAdaptedEquipment(Equipment equipment) {
         equipmentName = equipment.equipmentName;
     }
