@@ -18,7 +18,14 @@ By: `CS2103T-T12-4`      Since: `Aug 2019`      Licence: `-`
 
 == Introduction
 
-KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study using flashcards. More importantly, KFC is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, KFC can get your flash card management tasks faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study using flashcards. 
+More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, KFC
+can help you manage your flashcards much more efficiently than traditional GUI apps. 
+
+Interested? You should be! KFC is perfect for NUS Computing students. We even have additional
+features not available with most flashcard managers that we're sure you'll love. 
+Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
@@ -35,9 +42,9 @@ image::annotatedUi.png[width="790"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add >QUESTION`, `QUESTION` is a parameter which can be used as `add q>1+1`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add >QUESTION`, `QUESTION` is a parameter. The command format would thus be as such: `add q>1+1`.
 * Items in square brackets are optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
+* Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
 * Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
 ====
 
@@ -64,7 +71,7 @@ Edit the flashcard with index corresponding to the display list with 1 or multip
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing categories, the existing categories of the person will be removed i.e adding of categories is not cumulative.
-* You can remove all the person's categories by typing `t/` without specifying any categories after it.
+* You can remove all the person's categories by typing `t>` without specifying any categories after it.
 ****
 
 
@@ -87,12 +94,12 @@ Starts the flashcard test from any specific category
 `remind Math 04/11 1030`
 
 
-=== Add general deadlines reminders: `deadline t/[TASK] d[DUE DATE]`
+=== Add general deadlines reminders: `deadline t>[TASK] d[DUE DATE]`
 
 Adds a general deadline into the deadline list. The list will be display on the right-side pane.
 Note: [DUE DATE] has to be in dd/MM/yyyy format.
 
-`deadline t/CS2103 Exam d/10/11/2019`
+`deadline t>CS2103 Exam d>10/11/2019`
 
 === Remove deadline from list: `remove [index]`
 
@@ -110,8 +117,21 @@ Shows the calendar filled with all dealines in the month. The calendar will be s
 
 `calendar`
 
-=== Get the full list of commands: `help`
+=== Export flashcards to a document file: `export c>CATEGORY p>FILE_PATH`
 
+Exports all flashcards in the supplied category to an external document (`.docx`) file. 
+Each flashcard will be represented as a question-and-answer pair. 
+The document file will be created at the supplied file path.
+
+TIP: Use this to export your flashcards into an easily-printable cheat sheet! Use them for your assessments or
+self-learning.
+
+WARNING: The given file path is required to end with `.docx` - this is because we currently only support
+exporting to document files. 
+
+`export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
+
+=== Get the full list of commands: `help`
 
 `help`
 
@@ -192,6 +212,8 @@ e.g.  `delete Math *`
 e.g.  `remind Math 04/10 1230`
 * List all flashcards under a specific category - `list [category]` +
 e.g.  `list Math`
+* Export all flashcards under a specific category, to a specific filepath - `export c>CATEGORY p>FILE_PATH` +
+e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
 * Search specific flashcards - `search [keywords]` +

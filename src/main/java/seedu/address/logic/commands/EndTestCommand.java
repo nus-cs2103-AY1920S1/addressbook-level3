@@ -20,7 +20,7 @@ public class EndTestCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         // TODO: integrate statistics
-        keyboardFlashCardsParser.endTest();
+        keyboardFlashCardsParser.endTestMode();
         return new CommandResult("Test ended");
     }
 }

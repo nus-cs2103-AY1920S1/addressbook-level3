@@ -10,7 +10,7 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 box Commons COMMONS_COLOR_T1
-participant "<<class>>\nExportUtil" as ExportUtil COMMONS_COLOR
+participant "<<class>>\n:ExportUtil" as ExportUtil COMMONS_COLOR
 end box
 
 box org.apache.poi.xwpf.usermodel EXTERNAL_LIBRARY_COLOR_T1

@@ -47,6 +47,7 @@ public class KeyboardFlashCardsParser {
 
     private boolean isAwaitingAnswer = false;
 
+    //@@author
     /**
      * Parses user input into command for execution.
      *
@@ -65,11 +66,12 @@ public class KeyboardFlashCardsParser {
         return parseNormalCommand(matcher);
     }
 
-    public void startTest() {
+    //@@author keiteo
+    public void startTestMode() {
         isRunningFlashcardTest = true;
     }
 
-    public void endTest() {
+    public void endTestMode() {
         isRunningFlashcardTest = false;
     }
 

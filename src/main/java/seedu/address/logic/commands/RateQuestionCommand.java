@@ -28,7 +28,7 @@ public class RateQuestionCommand extends Command {
         // TODO: implement stats here
 
         if (!model.hasTestFlashCard()) {
-            keyboardFlashCardsParser.endTest();
+            keyboardFlashCardsParser.endTestMode();
             return new CommandResult(MESSAGE_SUCCESS_END_OF_TEST);
         }
 
