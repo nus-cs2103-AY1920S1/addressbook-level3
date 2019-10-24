@@ -1,6 +1,7 @@
 package seedu.address.logic.internal.gmaps;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -21,18 +22,22 @@ class SanitizeLocationTest {
 
     @Test
     void getValidLocationList() throws TimeBookInvalidLocation, ConnectException {
-        sanitizeLocation.sanitize("FOO");
-        sanitizeLocation.sanitize("FOO-12345");
-        sanitizeLocation.sanitize("BAR");
+        try {
+            sanitizeLocation.sanitize("LT17");
+            sanitizeLocation.sanitize("AS5-1234556");
+            sanitizeLocation.sanitize("blah");
+        } catch (TimeBookInvalidLocation e) {
+            System.out.println(e.getMessage());
+        }
         ArrayList<String> expectedValidLocationList =
-                new ArrayList<String>(Arrays.asList("NUS_FOO", "NUS_BAR"));
+                new ArrayList<String>(Arrays.asList("NUS_LT17", "NUS_AS5"));
         assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
     }
 
     @Test
-    void sanitize() throws TimeBookInvalidLocation, ConnectException {
-        assertEquals(sanitizeLocation.sanitize("FOO"), "NUS_FOO");
-        assertEquals(sanitizeLocation.sanitize("FOO-12345"), "NUS_FOO");
-        assertEquals(sanitizeLocation.sanitize("BAR"), "NUS_BAR");
+    void sanitize() throws TimeBookInvalidLocation {
+        assertEquals(sanitizeLocation.sanitize("LT17"), "NUS_LT17");
+        assertEquals(sanitizeLocation.sanitize("AS5-1234556"), "NUS_AS5");
+        assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("jcdhsajkfebadbs"));
     }
 }

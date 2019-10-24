@@ -312,12 +312,15 @@ public class Cache {
         String fullUrl = UrlUtil.generateGmapsPlacesUrl(locationName);
         String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
         JSONObject placesJson = (JSONObject) gmapsPlaces.get();
-        JSONObject result = null;
+        JSONObject result = new JSONObject();
+        System.out.println(placesJson.get(sanitizedUrl));
         if (placesJson.get(sanitizedUrl) != null) {
             result = (JSONObject) placesJson.get(sanitizedUrl);
         } else {
             try {
+                System.out.print("in api");
                 result = GmapsApi.getLocation(locationName);
+                saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_PLACES_PATH);
             } catch (ConnectException e) {
                 logger.severe("Failed to get info for " + locationName + " from caching and API");
             }
@@ -335,12 +338,13 @@ public class Cache {
         String fullUrl = UrlUtil.generateGmapsDistanceMatrixUrl(locationsRow, locationsColumn);
         String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
         JSONObject distanceMatrixJson = (JSONObject) gmapsDistanceMatrix.get();
-        JSONObject result = null;
+        JSONObject result = new JSONObject();;
         if (distanceMatrixJson.get(sanitizedUrl) != null) {
             result = (JSONObject) distanceMatrixJson.get(sanitizedUrl);
         } else {
             try {
                 result = GmapsApi.getDistanceMatrix(locationsRow, locationsColumn);
+                saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
             } catch (ConnectException e) {
                 logger.severe("Failed to get info for row: " + locationsRow + " column: " + locationsColumn
                         + " from caching and API");
