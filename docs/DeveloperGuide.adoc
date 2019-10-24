@@ -233,6 +233,12 @@ The sequence diagram for interactions between the Logic, Model and Storage compo
 .Sequence diagram for sample save command
 image::SaveSequenceDiagram.png[]
 
+The following activity diagram below summarizes how the save command works
+
+.Activity diagram for a sample save command
+image::SaveActivityDiagram.png[]
+
+
 === Recommendation feature
 
 The recommendation feature allows users to generate a list of personalized recommendations using the `recommend` command.
