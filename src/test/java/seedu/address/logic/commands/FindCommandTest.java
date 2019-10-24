@@ -1,3 +1,4 @@
+/*
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +23,7 @@ import seedu.address.model.field.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
- */
+ *
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalPlanner(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalPlanner(), new UserPrefs());
@@ -76,8 +77,9 @@ public class FindCommandTest {
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     */
+     *
     private NameContainsKeywordsPredicate preparePredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
+*/

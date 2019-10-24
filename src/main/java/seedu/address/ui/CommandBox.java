@@ -13,7 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommandBox extends UiPart<Region> {
 
-    public static final String ERROR_STYLE_CLASS = "error";
+    public static final String ERROR_STYLE_CLASS = "errorCommandBox";
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
@@ -25,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        // commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
     /**
@@ -36,6 +36,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
+            setStyleToDefault();
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }

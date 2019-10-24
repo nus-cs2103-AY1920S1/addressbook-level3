@@ -12,8 +12,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.PlannerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyPlanner;
+import seedu.address.model.ReadOnlyAccommodation;
+import seedu.address.model.ReadOnlyActivity;
+import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.ReadOnlyItinerary;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.day.Day;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
@@ -46,7 +50,10 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.savePlanner(model.getPlanner());
+            storage.saveAccommodation(model.getAccommodations());
+            storage.saveActivity(model.getActivities());
+            storage.saveContact(model.getContacts());
+            storage.saveItinerary(model.getItinerary());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -55,8 +62,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyPlanner getPlanner() {
-        return model.getPlanner();
+    public ReadOnlyAccommodation getAccommodations() {
+        return model.getAccommodations();
+    }
+
+    @Override
+    public ReadOnlyActivity getActivities() {
+        return model.getActivities();
+    }
+
+    @Override
+    public ReadOnlyContact getContacts() {
+        return model.getContacts();
+    }
+
+    @Override
+    public ReadOnlyItinerary getItinerary() {
+        return model.getItinerary();
     }
 
     @Override
@@ -80,8 +102,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getPlannerFilePath() {
-        return model.getPlannerFilePath();
+    public Path getAccommodationFilePath() {
+        return model.getAccommodationFilePath();
+    }
+
+    @Override
+    public Path getActivityFilePath() {
+        return model.getActivityFilePath();
+    }
+
+    @Override
+    public Path getContactFilePath() {
+        return model.getContactFilePath();
+    }
+
+    @Override
+    public Path getItineraryFilePath() {
+        return model.getItineraryFilePath();
     }
 
     @Override

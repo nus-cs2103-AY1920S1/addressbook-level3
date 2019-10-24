@@ -5,25 +5,48 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyPlanner <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Planner
+Class ReadOnlyPlanner
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
+Package Field\n {
 Class Address
-Class Email
+Class H1 #FFFFFF
 Class Name
-Class Phone
-Class UniquePersonList
 }
 
+Package ItineraryItem {
+    Abstract Class ItineraryItem
+    Package Activity {
+    Class Activity
+    Class UniqueActivityList
+    }
+
+    Package Accommodation {
+    Class Accommodation
+    Class UniqueAccommodationList
+    }
+}
+
+Package Day {
+Class ActivityWithTime
+Class Day
+Class Timetable
+Class Itinerary
+}
+
+Package Contact {
+Class Contact
+Class Email
+Class Phone
+Class UniqueContactList
+}
 Package Tag {
 Class Tag
 }
@@ -32,25 +55,54 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Planner .up.|> ReadOnlyPlanner
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Planner
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Planner *--> UniqueAccommodationList
+Planner *--> UniqueContactList
+Planner *--> UniqueActivityList
+Planner *--> Itinerary
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+ItineraryItem *-->  Name
+ItineraryItem *-[hidden]-> Name
+ItineraryItem *-[hidden]-> Name
+ItineraryItem *--> Address
+ItineraryItem *--> "0..1  \n" Contact
+ItineraryItem *-[hidden]-> Contact
+ItineraryItem *-up-> "\n        *" Tag
+ItineraryItem <|-- Accommodation
+ItineraryItem <|-[hidden]- Accommodation
 
-ModelManager -->"1" Person : filtered list
+ItineraryItem <|-- Activity
+
+UniqueActivityList o--> "         *" Activity
+UniqueAccommodationList o--> "        *" Accommodation
+
+UniqueContactList o--> "*" Contact
+
+Contact *-->  Name
+Contact *-[hidden]->  Phone
+Contact *-[hidden]->  Phone
+Contact *-->  Phone
+Contact *-[hidden]-> "0..1" Email
+Contact *-[hidden]-> "0..1" Email
+Contact *--> "0..1" Email
+Contact *-[hidden]-> "0..1" Address
+Contact *-[hidden]-> "0..1" Address
+Contact *--> "0..1" Address
+
+Contact *-up-> "*" Tag
+
+
+Itinerary o--> " *" Day
+Day *--> Timetable
+Timetable o--> " *" ActivityWithTime
+
+Name -[hidden]right-> H1
+
 @enduml

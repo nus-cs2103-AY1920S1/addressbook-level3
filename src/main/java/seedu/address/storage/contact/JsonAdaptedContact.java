@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.contact;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,11 +16,12 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Contact}.
  */
-class JsonAdaptedContact {
+public class JsonAdaptedContact {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Contact's %s field is missing!";
 
@@ -31,7 +32,7 @@ class JsonAdaptedContact {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given contacts details.
+     * Constructs a {@code JsonAdaptedContact} with the given contacts details.
      */
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,

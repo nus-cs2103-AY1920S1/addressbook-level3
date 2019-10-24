@@ -1,4 +1,6 @@
+/*
 package seedu.address.logic.commands;
+
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,7 +23,7 @@ import seedu.address.model.contact.Contact;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
- */
+ *
 public class DeleteContactCommandTest {
 
     private Model model = new ModelManager(getTypicalPlanner(), new UserPrefs());
@@ -100,10 +102,12 @@ public class DeleteContactCommandTest {
 
     /**
      * Updates {@code model}'s filtered list to show no one.
-     */
+     *
     private void showNoContact(Model model) {
         model.updateFilteredContactList(p -> false);
 
         assertTrue(model.getFilteredContactList().isEmpty());
     }
 }
+
+*/
