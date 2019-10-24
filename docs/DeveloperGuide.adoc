@@ -195,6 +195,7 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
 
+
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
@@ -356,6 +357,56 @@ Below are a few design considerations of the autocomplete commands feature.
 ** Cons: Inefficient and slow searching, because of the need to iterate through the entire list of commands, while calling ‘.substring()’ and ‘.contains()’ methods.
 
 // end::autocomplete commands[]
+
+// tag::deliverymen statistics
+=== [Proposed] Deliverymen salary adjustment feature
+
+This is a feature which allows the user to keep track of the deliverymen who have met the requirements for a salary increment
+based on their delivery rate and duration of service. It extends DeliveryMANS with a delivery record for every deliveryman as well as relevant analysis of the record.
+
+==== Proposed Implementation
+
+The salary adjustment feature is primarily monitored by the 'Analyzer', which has access to the delivery record of every deliveryman in the database. From the record, the Analyzer computes two data:
+
+* Delivery rate
+** This is the number of orders per day.
+
+* Time in database
+** This is the time difference between the time when the deliveryman was added to the database and the current time when command is executed.
+
+With these structure, it implements the following operations:
+
+* `DeliverymenDatabase#getHistoryOf(Deliveryman index)` -- Enters the delivery record of a specified deliveryman.
+
+* `DeliverymenDatabase#suggestPayList()` -- Obtains a list of deliverymen who are eligible for pay rise.
+
+Given below is an example usage scenario and how the `suggestPayList` function works.
+
+Step 1. Hooray! It's the time of the month for the restaurant to adjust the workers' pay. The restaurant admin, who is in charge of managing the deliverymen, types in the `paylist` command.
+The command will access the `UniqueDeliverymenList` in order to obtain the list of deliverymen.
+
+Step 2. For each deliveryman on the list, their delivery record will be analyzed.
+
+* Time in data base: The current time will be obtained and the difference between the current time and the time of joining the database will be taken.
+
+* Delivery rate: The number of orders completed over the time in database will be the delivery rate.
+
+Step 3. If the delivery rate exceeds a certain threshold, the deliveryman will be added to the pay list.
+
+==== Design Considerations
+===== Aspect: Tracking the record of every deliveryman
+
+This feature necessitates the tracking of the orders each deliveryman has completed.
+
+* Alternative 1(current choice): Saves the number of completed orders for each deliveryman and write to hard disk.
+** Pros: Easy to implement and takes up less memory.
+** Cons: The details of the order cannot be tracked, even though they might be a potential criteria for pay rise.
+
+* Alternative 2: Saves the specific completed orders (including the content of order) and write to hard disk.
+** Pros: Allows for a thorough and more accurate analysis for suggesting pay rise
+** Cons: Takes up significant amount of memory
+
+// end::deliverymen statistics
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
