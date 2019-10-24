@@ -22,6 +22,8 @@ import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.UserPrefs;
 import tagline.model.contact.AddressBook;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.group.GroupBook;
+import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.NoteBook;
 import tagline.model.note.ReadOnlyNoteBook;
 import tagline.model.util.SampleDataUtil;
@@ -31,6 +33,8 @@ import tagline.storage.StorageManager;
 import tagline.storage.UserPrefsStorage;
 import tagline.storage.contact.AddressBookStorage;
 import tagline.storage.contact.JsonAddressBookStorage;
+import tagline.storage.group.GroupBookStorage;
+import tagline.storage.group.JsonGroupBookStorage;
 import tagline.storage.note.JsonNoteBookStorage;
 import tagline.storage.note.NoteBookStorage;
 import tagline.ui.Ui;
@@ -63,7 +67,9 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         NoteBookStorage noteBookStorage = new JsonNoteBookStorage(userPrefs.getNoteBookFilePath());
-        storage = new StorageManager(addressBookStorage, noteBookStorage, userPrefsStorage);
+        GroupBookStorage groupBookStorage = new JsonGroupBookStorage(userPrefs.getGroupBookFilePath());
+        storage = new StorageManager(addressBookStorage, noteBookStorage,
+            groupBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -123,6 +129,30 @@ public class MainApp extends Application {
     }
 
     /**
+     * Gets and returns a {@code ReadOnlyGroupBook} from {@code storage}.
+     */
+    private ReadOnlyGroupBook getGroupBookFromStorage(Storage storage) {
+        Optional<ReadOnlyGroupBook> groupBookOptional = Optional.empty();
+        ReadOnlyGroupBook initialGroupBookData;
+
+        try {
+            groupBookOptional = storage.readGroupBook();
+            if (!groupBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample group book");
+            }
+            initialGroupBookData = groupBookOptional.orElseGet(SampleDataUtil::getSampleGroupBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty group book");
+            initialGroupBookData = new GroupBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty group book");
+            initialGroupBookData = new GroupBook();
+        }
+
+        return initialGroupBookData;
+    }
+
+    /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book, note book and
      * {@code userPrefs}. <br>
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
@@ -132,7 +162,9 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         ReadOnlyAddressBook initialAddressBookData = getAddressBookFromStorage(storage);
         ReadOnlyNoteBook initialNoteBookData = getNoteBookFromStorage(storage);
-        return new ModelManager(initialAddressBookData, initialNoteBookData, userPrefs);
+        ReadOnlyGroupBook initialGroupBookData = getGroupBookFromStorage(storage);
+        return new ModelManager(initialAddressBookData, initialNoteBookData,
+            initialGroupBookData, userPrefs);
     }
 
     private void initLogging(Config config) {

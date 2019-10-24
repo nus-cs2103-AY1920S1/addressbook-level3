@@ -12,6 +12,8 @@ import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.group.Group;
+import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.ReadOnlyNoteBook;
 
@@ -21,12 +23,14 @@ import tagline.model.note.ReadOnlyNoteBook;
 public class LogicStub implements Logic {
     private Path addressBookFilePath;
     private Path noteBookFilePath;
+    private Path groupBookFilePath;
     private CommandResult commandResult;
     private String exceptionString = null;
 
     public LogicStub(Path addressBookFilePath, Path noteBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
         this.noteBookFilePath = noteBookFilePath;
+        this.groupBookFilePath = groupBookFilePath;
     }
 
     /**
@@ -79,6 +83,18 @@ public class LogicStub implements Logic {
 
     public Path getNoteBookFilePath() { //test folder
         return noteBookFilePath;
+    }
+
+    public ReadOnlyGroupBook getGroupBook() {
+        return TypicalGroups.getTypicalGroupBook();
+    }
+
+    public ObservableList<Group> getFilteredGroupList() {
+        return new FilteredList<>(TypicalGroups.getTypicalGroupBook().getGroupList());
+    }
+
+    public Path getGroupBookFilePath() { //test folder
+        return groupBookFilePath;
     }
 
     public GuiSettings getGuiSettings() {

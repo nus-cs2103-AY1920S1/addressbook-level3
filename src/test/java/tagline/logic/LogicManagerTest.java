@@ -32,6 +32,7 @@ import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.storage.JsonUserPrefsStorage;
 import tagline.storage.StorageManager;
 import tagline.storage.contact.JsonAddressBookStorage;
+import tagline.storage.group.JsonGroupBookStorage;
 import tagline.storage.note.JsonNoteBookStorage;
 
 public class LogicManagerTest {
@@ -49,8 +50,11 @@ public class LogicManagerTest {
             new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonNoteBookStorage noteBookStorage =
             new JsonNoteBookStorage(temporaryFolder.resolve("noteBook.json"));
+        JsonGroupBookStorage groupBookStorage =
+            new JsonGroupBookStorage(temporaryFolder.resolve("groupBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, noteBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, noteBookStorage,
+            groupBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -79,9 +83,12 @@ public class LogicManagerTest {
             new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonNoteBookStorage noteBookStorage =
             new JsonNoteBookStorage(temporaryFolder.resolve("ioExceptionNoteBook.json"));
+        JsonGroupBookStorage groupBookStorage =
+            new JsonGroupBookStorage(temporaryFolder.resolve("ioExceptionGroupBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, noteBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, noteBookStorage,
+            groupBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -102,6 +109,12 @@ public class LogicManagerTest {
     @Test
     public void getFilteredNoteList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredNoteList().remove(0));
+    }
+
+
+    @Test
+    public void getFilteredGroupList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredGroupList().remove(0));
     }
 
     /**
@@ -144,7 +157,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getNoteBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getNoteBook(),
+            model.getGroupBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

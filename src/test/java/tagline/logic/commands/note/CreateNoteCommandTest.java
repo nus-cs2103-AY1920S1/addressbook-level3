@@ -23,6 +23,8 @@ import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.group.Group;
+import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.NoteModel;
@@ -245,6 +247,16 @@ class CreateNoteCommandTest {
         }
 
         @Override
+        public Path getGroupBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGroupBookFilePath(Path groupBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
@@ -256,6 +268,16 @@ class CreateNoteCommandTest {
 
         @Override
         public ReadOnlyNoteBook getNoteBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGroupBook(ReadOnlyGroupBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyGroupBook getGroupBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -331,6 +353,36 @@ class CreateNoteCommandTest {
 
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasGroup(Group note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addGroup(Group note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteGroup(Group target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGroup(Group target, Group editedGroup) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Group> getFilteredGroupList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredGroupList(Predicate<Group> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

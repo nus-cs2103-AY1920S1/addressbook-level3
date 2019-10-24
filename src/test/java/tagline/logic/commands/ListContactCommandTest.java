@@ -13,6 +13,7 @@ import tagline.logic.commands.contact.ListContactCommand;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
+import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
 
 /**
@@ -26,8 +27,10 @@ public class ListContactCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new NoteBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
+            new GroupBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
+            new GroupBook(), new UserPrefs());
     }
 
     @Test

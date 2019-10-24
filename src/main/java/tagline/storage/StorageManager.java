@@ -10,8 +10,10 @@ import tagline.commons.exceptions.DataConversionException;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.UserPrefs;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.ReadOnlyNoteBook;
 import tagline.storage.contact.AddressBookStorage;
+import tagline.storage.group.GroupBookStorage;
 import tagline.storage.note.NoteBookStorage;
 
 /**
@@ -22,14 +24,16 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private NoteBookStorage noteBookStorage;
+    private GroupBookStorage groupBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, NoteBookStorage noteBookStorage,
-                          UserPrefsStorage userPrefsStorage) {
+                          GroupBookStorage groupBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.noteBookStorage = noteBookStorage;
+        this.groupBookStorage = groupBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -106,5 +110,34 @@ public class StorageManager implements Storage {
     public void saveNoteBook(ReadOnlyNoteBook noteBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         noteBookStorage.saveNoteBook(noteBook, filePath);
+    }
+
+    // ================ GroupBook methods ==============================
+
+    @Override
+    public Path getGroupBookFilePath() {
+        return groupBookStorage.getGroupBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyGroupBook> readGroupBook() throws DataConversionException, IOException {
+        return readGroupBook(groupBookStorage.getGroupBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyGroupBook> readGroupBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return groupBookStorage.readGroupBook(filePath);
+    }
+
+    @Override
+    public void saveGroupBook(ReadOnlyGroupBook groupBook) throws IOException {
+        saveGroupBook(groupBook, groupBookStorage.getGroupBookFilePath());
+    }
+
+    @Override
+    public void saveGroupBook(ReadOnlyGroupBook groupBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        groupBookStorage.saveGroupBook(groupBook, filePath);
     }
 }

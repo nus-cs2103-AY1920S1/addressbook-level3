@@ -26,6 +26,7 @@ import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 import tagline.model.contact.ContactId;
+import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
 import tagline.testutil.EditContactDescriptorBuilder;
 
@@ -36,7 +37,8 @@ import tagline.testutil.EditContactDescriptorBuilder;
 public class EditContactCommandTest {
 
     private static final ViewType EDIT_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
-    private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
+        new GroupBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecified_success() {
@@ -49,7 +51,7 @@ public class EditContactCommandTest {
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new NoteBook(), new UserPrefs());
+                new NoteBook(), new GroupBook(), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
@@ -72,7 +74,7 @@ public class EditContactCommandTest {
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new NoteBook(), new UserPrefs());
+                new NoteBook(), new GroupBook(), new UserPrefs());
         expectedModel.setContact(lastContact, editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
@@ -87,7 +89,7 @@ public class EditContactCommandTest {
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new NoteBook(),
-                new UserPrefs());
+                new GroupBook(), new UserPrefs());
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }

@@ -9,6 +9,8 @@ import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.group.Group;
+import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.ReadOnlyNoteBook;
 
@@ -58,6 +60,20 @@ public interface Logic {
      */
     Path getNoteBookFilePath();
 
+    /**
+     * Returns the note book.
+     *
+     * @see tagline.model.Model#getGroupBook()
+     */
+    ReadOnlyGroupBook getGroupBook();
+
+    /** Returns an unmodifiable view of the filtered list of groups */
+    ObservableList<Group> getFilteredGroupList();
+
+    /**
+     * Returns the user prefs' group book file path.
+     */
+    Path getGroupBookFilePath();
     /**
      * Returns the user prefs' GUI settings.
      */

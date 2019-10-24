@@ -7,6 +7,8 @@ import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalContacts.ALICE;
 import static tagline.testutil.TypicalContacts.BENSON;
+import static tagline.testutil.TypicalGroups.ASGARDIAN;
+import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
 import static tagline.testutil.TypicalNotes.EARTH;
 import static tagline.testutil.TypicalNotes.TOKYO;
 
@@ -19,8 +21,10 @@ import org.junit.jupiter.api.Test;
 import tagline.commons.core.GuiSettings;
 import tagline.model.contact.AddressBook;
 import tagline.model.contact.NameContainsKeywordsPredicate;
+import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
 import tagline.testutil.AddressBookBuilder;
+import tagline.testutil.GroupBookBuilder;
 import tagline.testutil.NoteBookBuilder;
 
 public class ModelManagerTest {
@@ -91,6 +95,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setGroupBookFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setGroupBookFilePath(null));
+    }
+
+    @Test
+    public void setGroupBookFilePath_validPath_setsGroupBookFilePath() {
+        Path path = Paths.get("group/book/file/path");
+        modelManager.setGroupBookFilePath(path);
+        assertEquals(path, modelManager.getGroupBookFilePath());
+    }
+
+    @Test
     public void hasContact_nullContact_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasContact(null));
     }
@@ -128,16 +144,34 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasGroup_groupNotInGroupBook_returnsFalse() {
+        assertFalse(modelManager.hasGroup(MYSTIC_ARTS));
+    }
+
+    @Test
+    public void hasGroup_groupInGroupBook_returnsTrue() {
+        modelManager.addGroup(MYSTIC_ARTS);
+        assertTrue(modelManager.hasGroup(MYSTIC_ARTS));
+    }
+
+    @Test
+    public void getFilteredGroupList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredGroupList().remove(0));
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withContact(ALICE).withContact(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         NoteBook noteBook = new NoteBookBuilder().withNote(TOKYO).withNote(EARTH).build();
         NoteBook differentNoteBook = new NoteBook();
+        GroupBook groupBook = new GroupBookBuilder().withGroup(ASGARDIAN).withGroup(MYSTIC_ARTS).build();
+        GroupBook differentGroupBook = new GroupBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, noteBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, noteBook, userPrefs);
+        modelManager = new ModelManager(addressBook, noteBook, groupBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, noteBook, groupBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -150,15 +184,21 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, noteBook, userPrefs)));
+        assertFalse(modelManager.equals(
+            new ModelManager(differentAddressBook, noteBook, groupBook, userPrefs)));
 
         // different noteBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentNoteBook, userPrefs)));
+        assertFalse(modelManager.equals(
+            new ModelManager(addressBook, differentNoteBook, groupBook, userPrefs)));
+
+        // different groupBook -> returns false
+        assertFalse(modelManager.equals(
+                new ModelManager(addressBook, noteBook, differentGroupBook, userPrefs)));
 
         // different filteredContactList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, noteBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, noteBook, groupBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
@@ -166,6 +206,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, noteBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, noteBook, groupBook, differentUserPrefs)));
     }
 }

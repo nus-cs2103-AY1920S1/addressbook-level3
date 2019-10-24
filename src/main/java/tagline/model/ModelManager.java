@@ -16,6 +16,10 @@ import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.ContactManager;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.group.Group;
+import tagline.model.group.GroupBook;
+import tagline.model.group.GroupManager;
+import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteBook;
 import tagline.model.note.NoteId;
@@ -30,33 +34,37 @@ public class ModelManager implements Model {
 
     private final ContactManager contactManager;
     private final NoteManager noteManager;
+    private final GroupManager groupManager;
     private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyNoteBook noteBook,
+        ReadOnlyGroupBook groupBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook
-                + ", note book: " + noteBook + " and user prefs " + userPrefs);
+                + ", note book: " + noteBook + ", group book" + groupBook
+                + " and user prefs " + userPrefs);
 
         contactManager = new ContactManager(addressBook);
         noteManager = new NoteManager(noteBook);
+        groupManager = new GroupManager(groupBook);
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this(addressBook, new NoteBook(), userPrefs);
+        this(addressBook, new NoteBook(), new GroupBook(), userPrefs);
     }
 
     public ModelManager(ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
-        this(new AddressBook(), noteBook, userPrefs);
+        this(new AddressBook(), noteBook, new GroupBook(), userPrefs);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new NoteBook(), new UserPrefs());
+        this(new AddressBook(), new NoteBook(), new GroupBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -103,6 +111,17 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public void setGroupBookFilePath(Path groupBookFilePath) {
+        requireNonNull(groupBookFilePath);
+        userPrefs.setGroupBookFilePath(groupBookFilePath);
+    }
+
+    @Override
+    public Path getGroupBookFilePath() {
+        return userPrefs.getGroupBookFilePath();
     }
 
     //=========== AddressBook ================================================================================
@@ -212,6 +231,59 @@ public class ModelManager implements Model {
         noteManager.updateFilteredNoteList(predicate);
     }
 
+
+    //=========== GroupBook ================================================================================
+
+    @Override
+    public void setGroupBook(ReadOnlyGroupBook groupBook) {
+        groupManager.setGroupBook(groupBook);
+    }
+
+    @Override
+    public ReadOnlyGroupBook getGroupBook() {
+        return groupManager.getGroupBook();
+    }
+
+    @Override
+    public boolean hasGroup(Group group) {
+        requireNonNull(group);
+        return groupManager.hasGroup(group);
+    }
+
+    @Override
+    public void addGroup(Group group) {
+        groupManager.addGroup(group);
+    }
+
+    @Override
+    public void setGroup(Group target, Group editedGroup) {
+        groupManager.setGroup(target, editedGroup);
+    }
+
+    @Override
+    public void deleteGroup(Group target) {
+        groupManager.deleteGroup(target);
+    }
+
+    //=========== Filtered Group List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Group} backed by the internal list of
+     * {@code versionedGroupBook}
+     */
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return groupManager.getFilteredGroupList();
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
+        groupManager.updateFilteredGroupList(predicate);
+    }
+
+
+    //========================================================================================================
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -228,6 +300,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return contactManager.equals(other.contactManager)
                 && noteManager.equals(other.noteManager)
+                && groupManager.equals(other.groupManager)
                 && userPrefs.equals(other.userPrefs);
     }
 

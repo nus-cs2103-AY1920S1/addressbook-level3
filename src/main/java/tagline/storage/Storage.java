@@ -8,14 +8,17 @@ import tagline.commons.exceptions.DataConversionException;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.UserPrefs;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.ReadOnlyNoteBook;
 import tagline.storage.contact.AddressBookStorage;
+import tagline.storage.group.GroupBookStorage;
 import tagline.storage.note.NoteBookStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, NoteBookStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, NoteBookStorage,
+    GroupBookStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -40,4 +43,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, NoteBookS
 
     @Override
     void saveNoteBook(ReadOnlyNoteBook noteBook) throws IOException;
+
+    @Override
+    Path getGroupBookFilePath();
+
+    @Override
+    Optional<ReadOnlyGroupBook> readGroupBook() throws DataConversionException, IOException;
+
+    @Override
+    void saveGroupBook(ReadOnlyGroupBook groupBook) throws IOException;
 }

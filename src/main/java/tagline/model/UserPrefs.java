@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path noteBookFilePath = Paths.get("data", "notebook.json");
+    private Path groupBookFilePath = Paths.get("data", "groupbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -37,6 +38,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setNoteBookFilePath(newUserPrefs.getNoteBookFilePath());
+        setGroupBookFilePath(newUserPrefs.getGroupBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -66,6 +69,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.noteBookFilePath = noteBookFilePath;
     }
 
+    public Path getGroupBookFilePath() {
+        return groupBookFilePath;
+    }
+
+    public void setGroupBookFilePath(Path groupBookFilePath) {
+        requireNonNull(groupBookFilePath);
+        this.groupBookFilePath = groupBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -78,19 +90,23 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && noteBookFilePath.equals(o.noteBookFilePath)
+                && groupBookFilePath.equals(o.groupBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, noteBookFilePath, groupBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data addressbook file location : " + addressBookFilePath);
+        sb.append("\nLocal data notebook file location : " + noteBookFilePath);
+        sb.append("\nLocal data groupbook file location : " + groupBookFilePath);
         return sb.toString();
     }
 
