@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.Test;
 
 import dream.fcard.logic.storage.StorageManager;
@@ -37,7 +38,7 @@ public class ResponsesTest {
         try {
             assertEquals(deckName, s.getDeck(deckName).getName());
             assertEquals(d.toJson().toString(), s.getDeck(deckName).toJson().toString());
-        } catch(DeckNotFoundException e) {
+        } catch (DeckNotFoundException e) {
             fail();
         }
         // check deck valid
