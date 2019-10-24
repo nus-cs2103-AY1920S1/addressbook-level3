@@ -37,7 +37,6 @@ import static seedu.savenus.model.recommend.RecommendationSystem.LIKED_TAG_WEIGH
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,6 +76,13 @@ public class RecommendationSystemTest {
         RecommendationSystem.getInstance().updatePurchaseHistory(FXCollections.observableArrayList());
     }
 
+    /**
+     * Helper function to initialize the RecommendationSystem's user recommendations and purchase history,
+     * as well as calculate the recommendation value given a Food object.
+     *
+     * @param rec The RecommendationBuilder object.
+     * @return The recommendation value of the Food object in the RecommendationBuilder.
+     */
     private double initializeAndGetValue(RecommendationBuilder rec) {
         RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
         RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
@@ -383,7 +389,8 @@ class RecommendationBuilder {
         purchaseHistory = new PurchaseHistory();
         for (int i = 0; i < builder.purchaseHistoryNum; i++) {
             if (builder.mostRecentPurchaseTime.equals(RecommendationSystemTest.JUST_PURCHASED)) {
-                purchaseHistory.addPurchase(new Purchase(food, new TimeOfPurchase(String.valueOf(System.currentTimeMillis()))));
+                purchaseHistory.addPurchase(new Purchase(food,
+                        new TimeOfPurchase(String.valueOf(System.currentTimeMillis()))));
             } else {
                 purchaseHistory.addPurchase(new Purchase(food, new TimeOfPurchase(builder.mostRecentPurchaseTime)));
             }
