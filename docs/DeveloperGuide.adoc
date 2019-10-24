@@ -156,7 +156,7 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
-==== Proposed Implementation
+==== Implementation
 
 The undo/redo mechanism is facilitated by `VersionedBillboard`.
 It store the state history into a `stateList` and maintain a state pointer `currentStatePointer`.
@@ -172,14 +172,17 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedBillboard` will be initialized with the initial billboard state, and the `currentStatePointer` pointing to that single billboard state.
 
+.Initial state of VersionedBillboard
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th expense in the billboard. The `delete` command calls `VersionedBillboard#commit()`, causing the modified state of the billboard after the `delete 5` command executes to be saved in the `stateList`, and the `statePointer` is shifted to the newly inserted billboard state.
 
+.State of VersionedBillboard after "delete 5" command
 image::UndoRedoState1.png[]
 
 Step 3. The user executes `add n/buy ...` to add a new person. The `add` command also calls `Model#commit()`, causing another modified billboard state to be saved into the `stateList`.
 
+.State of VersionedBillboard after "add n/buy..." command
 image::UndoRedoState2.png[]
 
 [NOTE]
@@ -187,6 +190,7 @@ If a command fails its execution, it will not call `VersionedBillboard#commit()`
 
 Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `VersionedBillboard#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous billboard state, and restores the billboard to that state.
 
+.State of VersionedBillboard after "undo" command
 image::UndoRedoState3.png[]
 
 [NOTE]
@@ -194,6 +198,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial billboard st
 
 The following sequence diagram shows how the undo operation works:
 
+.Interactions Inside the Logic Component for the `undo` Command
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -205,14 +210,17 @@ If the `currentStatePointer` is at index `stateList.size() - 1`, pointing to the
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the billboard, such as `list`, will usually not call `VersionedBillboard#commit()`, `VersionedBillboard#undo()` or `VersionedBillboard#redo()`. Thus, the `stateList` remains unchanged.
 
+.State of VersionedBillboard after "list" command
 image::UndoRedoState4.png[]
 
 Step 6. The user executes `clear`, which calls `VersionedBillboard#commit()`. Since the `currentStatePointer` is not pointing at the end of the `stateList`, all billboard states after the `statePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/buy ...` command. This is the behavior that most modern desktop applications follow.
 
+.State of VersionedBillboard after "clear" command
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Activity Diagram of state commit
 image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
@@ -438,6 +446,69 @@ image::AddTagActivityDiagram.png[]
 *** Since implementation of Billboard objects are immutable, there is a constant need to update the `Expense` by replacing it with the updated `Expense` even after executing non-tag related commands.
 
 // end::tagging[]
+
+// tag::history[]
+=== History feature
+==== Implementation
+
+The history function will enable user to view previous actions.
+
+Billboard will store all the command entered even the command is never executed.
+
+This function is facilitated by the `CommandHistory` class.
+
+All the histories will be store in a static list `cmdList` in `CommandHistory`.
+
+Additionally, a state pointer that initially point to the end of cmdList will be maintain for Up(`&uarr;`)/Down(`&darr;`) key feature(See <<Up-Down-Feature>>)
+
+The following sequence diagram shows how the storing operation works:
+
+.Interactions Inside the Logic Component for the `delete` Command
+image::DeleteSequenceDiagram.png[]
+
+The LogicManager will store the command to CommandHistory before parsing it to ensure all commands are saved.
+
+==== Design Considerations
+
+===== Aspect: How command histories are stored
+
+* **Alternative 1 (current choice):** Initial a CommandHistory class to store them.
+** Pros: Easy to implement.
+** Cons: None.
+* **Alternative 2:** Maintain a list in Model and store them.
+** Pros: None.
+** Cons: Duplicate list will be saved while saving billboards to VersionedBillboard. Also, restoring billboard will need to update the history list.
+// end::history[]
+
+// tag::up/down key[]
+[[Up-Down-Feature]]
+=== Up/Down key feature
+==== Implementation
+
+Pressing Up(`&uarr;`)/Down(`&darr;`) key in `TextFiled` can navigate through the command history.
+
+This feature makes use of the command history and state pointer stored while executing the previous command.
+
+When initializing the fxml object `TextFiled` in `CommandBox` class,
+an action listener will be set to monitor the keyboard activity.
+Whenever a Up(`&uarr;`)/Down(`&darr;`) key is pressed, it will retrieve the previous/next command from the `CommandHistory` .
+
+Given below is an example usage scenario and how the Up(`&uarr;`)/Down(`&darr;`) mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+The CommandHistory will be initialized with no command state,
+and the statePointer is not pointing to any command state.
+
+.Initial state of CommandHistory
+image::UpDownKeyState0.png[]
+
+Step 2. The user then execute the
+
+.Interactions Inside the Logic Component for the `delete` Command
+image::DeleteSequenceDiagram.png[]
+
+The LogicManager will store the command to CommandHistory before parsing it to ensure all commands are saved.
+// end::history[]
 
 === Logging
 
