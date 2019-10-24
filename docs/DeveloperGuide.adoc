@@ -613,8 +613,9 @@ Use case resumes at step 2.
 
 1.  User adds a book by specifying its details
 2.  LiBerry shows a success message
-+
+
 Use case ends.
+
 * 1a. The arguments provided are invalid.
 +
 [none]
