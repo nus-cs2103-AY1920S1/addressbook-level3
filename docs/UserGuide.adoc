@@ -18,7 +18,18 @@ By: `SecureIT`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
 
-SecureIT is for those who *prefer a secure password manager that stores your password locally*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to SecureIT!
+
+Tired of having to keep track of all your confidential information? Look no further!
+SecureIT is specifically designed to help manage your confidential information all in one application. More importantly,
+it *stores your information locally,*  and does not use any form of online storage!
+
+
+SecureIT is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+For those of you who are type fast, SecureIT can get can manage your confidential information faster than traditional GUI apps.
+
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -101,9 +112,15 @@ Example: `find Gmail`
 
 ==== Generating a new password: `generate`
 
-Generates a new random password based on user preference input and copies generated password into user clipboard.
+Lazy to think of a strong password?
+Simply enter `generate` into the command box to generate a new random password and have it copied onto your clipboard!
 
-Format: `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`
+Additionally, you can also opt to add in custom preferences for the password:
+
+* `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`
+
+For instance, if you wish to generate a password without special characters,
+do: `generate lower/true upper/true num/true special/fasle`
 
 
 ==== Analysing all password: `analyse`
