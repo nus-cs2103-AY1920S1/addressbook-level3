@@ -126,4 +126,15 @@ class EventTest {
 
     }
 
+    @Test
+    void getTaskDes_success() {
+        LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
+        LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
+        Event testEvent = new Event("borrow book", start, end);
+
+        String expected = "borrow book";
+
+        assertEquals(expected, testEvent.getTaskDes());
+    }
+
 }

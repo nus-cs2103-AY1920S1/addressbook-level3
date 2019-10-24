@@ -80,4 +80,12 @@ class TodoTest {
 
         assertEquals(expected, t.toString());
     }
+
+    @Test
+    void getTaskDes_success() {
+        Todo t = new Todo("homework");
+        String expected = "homework";
+
+        assertEquals(expected, t.getTaskDes());
+    }
 }
