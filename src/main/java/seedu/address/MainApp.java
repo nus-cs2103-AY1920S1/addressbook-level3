@@ -56,7 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        KeyboardFlashCardsStorage keyboardFlashCardsStorage = new JsonKeyboardFlashCardsStorage(userPrefs.getKeyboardFlashCardsFilePath());
+        KeyboardFlashCardsStorage keyboardFlashCardsStorage =
+                new JsonKeyboardFlashCardsStorage(userPrefs.getKeyboardFlashCardsFilePath());
         storage = new StorageManager(keyboardFlashCardsStorage, userPrefsStorage);
 
         initLogging(config);

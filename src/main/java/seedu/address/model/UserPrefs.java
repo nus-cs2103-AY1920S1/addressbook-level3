@@ -51,9 +51,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return keyboardFlashCardsFilePath;
     }
 
-    public void setKeyboardFlashCardsFilePath(Path KeyboardFlashCardsFilePath) {
-        requireNonNull(KeyboardFlashCardsFilePath);
-        this.keyboardFlashCardsFilePath = KeyboardFlashCardsFilePath;
+    public void setKeyboardFlashCardsFilePath(Path keyboardFlashCardsFilePath) {
+        requireNonNull(keyboardFlashCardsFilePath);
+        this.keyboardFlashCardsFilePath = keyboardFlashCardsFilePath;
     }
 
     @Override

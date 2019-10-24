@@ -71,7 +71,8 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonKeyboardFlashCardsIoExceptionThrowingStub
         JsonKeyboardFlashCardsStorage addressBookStorage =
-                new JsonKeyboardFlashCardsIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionKeyboardFlashCards.json"));
+                new JsonKeyboardFlashCardsIoExceptionThrowingStub(
+                        temporaryFolder.resolve("ioExceptionKeyboardFlashCards.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);

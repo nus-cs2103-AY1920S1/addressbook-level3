@@ -31,7 +31,8 @@ public class JsonKeyboardFlashCardsStorageTest {
     }
 
     private java.util.Optional<ReadOnlyKeyboardFlashCards> readKeyboardFlashCards (String filePath) throws Exception {
-        return new JsonKeyboardFlashCardsStorage(Paths.get(filePath)).readKeyboardFlashCards(addToTestDataPathIfNotNull(filePath));
+        return new JsonKeyboardFlashCardsStorage(
+                Paths.get(filePath)).readKeyboardFlashCards(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,17 +48,21 @@ public class JsonKeyboardFlashCardsStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readKeyboardFlashCards("notJsonFormatKeyboardFlashCards.json"));
+        assertThrows(
+                DataConversionException.class, () -> readKeyboardFlashCards("notJsonFormatKeyboardFlashCards.json"));
     }
 
     @Test
     public void readAddressBook_invalidFlashCardAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readKeyboardFlashCards("invalidFlashCardKeyboardFlashCards.json"));
+        assertThrows(
+                DataConversionException.class, () -> readKeyboardFlashCards("invalidFlashCardKeyboardFlashCards.json"));
     }
 
     @Test
     public void readKeyboardFlashCards_invalidAndValidKeyboardFlashCards_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readKeyboardFlashCards("invalidAndValidFlashCardKeyboardFlashCards.json"));
+        assertThrows(
+                DataConversionException.class, () -> readKeyboardFlashCards(
+                        "invalidAndValidFlashCardKeyboardFlashCards.json"));
     }
 
     @Test

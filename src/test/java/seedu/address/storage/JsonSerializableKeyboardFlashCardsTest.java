@@ -15,12 +15,18 @@ import seedu.address.testutil.TypicalFlashCards;
 
 public class JsonSerializableKeyboardFlashCardsTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableKeyboardFlashCardsTest");
-    private static final Path TYPICAL_FLASHCARD_FILE = TEST_DATA_FOLDER.resolve("typicalFlashCardKeyboardFlashCards.json");
-    private static final Path INVALID_FLASHCARD_FILE = TEST_DATA_FOLDER.resolve("invalidFlashCardKeyboardFlashCards.json");
-    private static final Path DUPLICATE_FLASHCARD_FILE = TEST_DATA_FOLDER.resolve("duplicateFlashCardKeyboardFlashCards.json");
-    private static final Path INVALID_DEADLINE_FILE = TEST_DATA_FOLDER.resolve("invalidDeadlineKeyboardFlashCards.json");
-    private static final Path DUPLICATE_DEADLINE_FILE = TEST_DATA_FOLDER.resolve("duplicateDeadlineKeyboardFlashCards.json");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonSerializableKeyboardFlashCardsTest");
+    private static final Path TYPICAL_FLASHCARD_FILE =
+            TEST_DATA_FOLDER.resolve("typicalFlashCardKeyboardFlashCards.json");
+    private static final Path INVALID_FLASHCARD_FILE =
+            TEST_DATA_FOLDER.resolve("invalidFlashCardKeyboardFlashCards.json");
+    private static final Path DUPLICATE_FLASHCARD_FILE =
+            TEST_DATA_FOLDER.resolve("duplicateFlashCardKeyboardFlashCards.json");
+    private static final Path INVALID_DEADLINE_FILE =
+            TEST_DATA_FOLDER.resolve("invalidDeadlineKeyboardFlashCards.json");
+    private static final Path DUPLICATE_DEADLINE_FILE =
+            TEST_DATA_FOLDER.resolve("duplicateDeadlineKeyboardFlashCards.json");
 
     @Test
     public void toModelType_typicalFlashCardFile_success() throws Exception {

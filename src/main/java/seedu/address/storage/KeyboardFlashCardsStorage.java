@@ -29,7 +29,8 @@ public interface KeyboardFlashCardsStorage {
     /**
      * @see #getKeyboardFlashCardsFilePath()
      */
-    Optional<ReadOnlyKeyboardFlashCards> readKeyboardFlashCards(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyKeyboardFlashCards> readKeyboardFlashCards(Path filePath)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyKeyboardFlashCards} to the storage.
